@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAACon////c\u003d",
+        "filename": "v4/java/android/support/v4/app/FragmentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1010199
+      },
+      "writtenOn": "2012-02-05T19:57:27Z",
+      "side": 1,
+      "message": "These two ifs can be condensed to a single one",
+      "revId": "330ea7c6baf52291bf878615353e2b0558de05f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
