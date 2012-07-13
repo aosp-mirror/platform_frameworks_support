@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAHOn///70\u003d",
+        "filename": "v4/java/android/support/v4/app/ActivityOptionsCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001146
+      },
+      "writtenOn": "2012-07-13T18:24:42Z",
+      "side": 1,
+      "message": "This file is missing the copyright/license header",
+      "revId": "78f6f77416f75a4824eafd611d8cde026c5ef40d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAHOn///7g\u003d",
+        "filename": "v4/java/android/support/v4/app/ActivityOptionsCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001146
+      },
+      "writtenOn": "2012-07-13T18:24:42Z",
+      "side": 1,
+      "message": "API level 4?",
+      "revId": "78f6f77416f75a4824eafd611d8cde026c5ef40d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAHOn///7k\u003d",
+        "filename": "v4/java/android/support/v4/app/ActivityOptionsCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001146
+      },
+      "writtenOn": "2012-07-13T18:24:42Z",
+      "side": 1,
+      "message": "This line is too long, the max length is 100 columns",
+      "revId": "78f6f77416f75a4824eafd611d8cde026c5ef40d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAHOn///7w\u003d",
+        "filename": "v4/jellybean/android/support/v4/app/ActivityCompatJB.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001146
+      },
+      "writtenOn": "2012-07-13T18:24:42Z",
+      "side": 1,
+      "message": "This file is missing the copyright/license header",
+      "revId": "78f6f77416f75a4824eafd611d8cde026c5ef40d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAHOn///7s\u003d",
+        "filename": "v4/jellybean/android/support/v4/app/ActivityOptionsCompatJB.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001146
+      },
+      "writtenOn": "2012-07-13T18:24:42Z",
+      "side": 1,
+      "message": "This file is missing the copyright/license header",
+      "revId": "78f6f77416f75a4824eafd611d8cde026c5ef40d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAHOn///7c\u003d",
+        "filename": "v4/jellybean/android/support/v4/app/ActivityOptionsCompatJB.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001146
+      },
+      "writtenOn": "2012-07-13T18:24:42Z",
+      "side": 1,
+      "message": "Fields should be defined at the beginning of the file",
+      "revId": "78f6f77416f75a4824eafd611d8cde026c5ef40d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAHOn///7o\u003d",
+        "filename": "v4/jellybean/android/support/v4/app/ActivityOptionsCompatJB.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001146
+      },
+      "writtenOn": "2012-07-13T18:24:42Z",
+      "side": 1,
+      "message": "The null check is unnecessary, instanceof always fails with null",
+      "revId": "78f6f77416f75a4824eafd611d8cde026c5ef40d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
