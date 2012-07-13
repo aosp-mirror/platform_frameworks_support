@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAHOn///7U\u003d",
+        "filename": "v4/ics/android/support/v4/app/NotificationCompatICS.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001146
+      },
+      "writtenOn": "2012-07-13T18:27:23Z",
+      "side": 1,
+      "message": "Missing copyright/license header",
+      "revId": "0ceb489369f01432ad5782968330ade3513a9497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAHOn///7Q\u003d",
+        "filename": "v4/jellybean/android/support/v4/app/NotificationCompatJB.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001146
+      },
+      "writtenOn": "2012-07-13T18:27:23Z",
+      "side": 1,
+      "message": "Missing copyright/license header",
+      "revId": "0ceb489369f01432ad5782968330ade3513a9497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAHOn///7I\u003d",
+        "filename": "v4/jellybean/android/support/v4/app/NotificationCompatJB.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001146
+      },
+      "writtenOn": "2012-07-13T18:27:23Z",
+      "side": 1,
+      "message": "The enclosing class is not public, these methods don\u0027t need to be public either",
+      "revId": "0ceb489369f01432ad5782968330ade3513a9497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
