@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAHVX///9E\u003d",
+        "filename": "v4/java/android/support/v4/app/ActivityOptionsCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1003263
+      },
+      "writtenOn": "2012-07-16T19:31:23Z",
+      "side": 1,
+      "message": "This could be package scope",
+      "revId": "fa4c8ff331aba728f10a69d19d0e5e0ce9ca5f1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAHVX///9A\u003d",
+        "filename": "v4/java/android/support/v4/app/ActivityOptionsCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1003263
+      },
+      "writtenOn": "2012-07-16T19:31:23Z",
+      "side": 1,
+      "message": "Would \"getBundle\" be more appropriate given the ownership semantics here?",
+      "revId": "fa4c8ff331aba728f10a69d19d0e5e0ce9ca5f1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
