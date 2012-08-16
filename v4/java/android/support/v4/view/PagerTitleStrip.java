@@ -448,7 +448,11 @@ public class PagerTitleStrip extends ViewGroup implements ViewPager.Decor {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         if (mPager != null) {
             final float offset = mLastKnownPositionOffset >= 0 ? mLastKnownPositionOffset : 0;
-            updateTextPositions(mPager.getCurrentItem(), offset, true);
+            if (offset == 0) {
+                // Don't update the text when the page is offset, we might not be centered
+                // over the currentItem anymore.
+                updateTextPositions(mPager.getCurrentItem(), offset, true);
+            }
         }
     }
 
