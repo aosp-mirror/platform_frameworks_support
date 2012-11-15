@@ -63,7 +63,7 @@ static inline short4 convert_short4(uchar4 i) {
 }
 
 static inline float4 convert_float4(uchar4 i) {
-    float4 f4 = {i.x, i.y, i.z, i.w};
+    float4 f4 = {static_cast<float>(i.x), static_cast<float>(i.y), static_cast<float>(i.z), static_cast<float>(i.w)};
     return f4;
 }
 

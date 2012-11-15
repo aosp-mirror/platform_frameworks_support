@@ -66,7 +66,7 @@ static uchar4 rsYuvToRGBA_uchar4(uchar y, uchar u, uchar v) {
         p.b = 255;
     }
 
-    return (uchar4){p.r, p.g, p.b, p.a};
+    return (uchar4){static_cast<uchar>(p.r), static_cast<uchar>(p.g), static_cast<uchar>(p.b), static_cast<uchar>(p.a)};
 }
 
 
