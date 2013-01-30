@@ -404,12 +404,13 @@ public class PagerTitleStrip extends ViewGroup implements ViewPager.Decor {
         mCurrText.layout(currLeft, currTop, currRight,
                 currTop + mCurrText.getMeasuredHeight());
 
-        final int prevLeft = Math.min(paddingLeft, currLeft - mScaledTextSpacing - prevWidth);
+        final int prevLeft = mPager.isRtl() ? Math.max(stripWidth - paddingRight - prevWidth, currRight + mScaledTextSpacing):
+            Math.min(paddingLeft, currLeft - mScaledTextSpacing - prevWidth);
         mPrevText.layout(prevLeft, prevTop, prevLeft + prevWidth,
                 prevTop + mPrevText.getMeasuredHeight());
 
-        final int nextLeft = Math.max(stripWidth - paddingRight - nextWidth,
-                currRight + mScaledTextSpacing);
+        final int nextLeft = mPager.isRtl() ? Math.min(paddingLeft, currLeft - mScaledTextSpacing - nextWidth):
+            Math.max(stripWidth - paddingRight - nextWidth, currRight + mScaledTextSpacing);
         mNextText.layout(nextLeft, nextTop, nextLeft + nextWidth,
                 nextTop + mNextText.getMeasuredHeight());
 
@@ -475,7 +476,12 @@ public class PagerTitleStrip extends ViewGroup implements ViewPager.Decor {
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             if (positionOffset > 0.5f) {
                 // Consider ourselves to be on the next page when we're 50% of the way there.
-                position++;
+                if(mPager.isRtl()){
+                    position--;
+                }
+                else{
+                    position++;
+                }
             }
             updateTextPositions(position, positionOffset, false);
         }
