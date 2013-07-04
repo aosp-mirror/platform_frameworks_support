@@ -108,10 +108,10 @@ final class BackStackState implements Parcelable {
             } else {
                 op.fragment = null;
             }
-            op.enterAnim = mOps[pos++];
-            op.exitAnim = mOps[pos++];
-            op.popEnterAnim = mOps[pos++];
-            op.popExitAnim = mOps[pos++];
+            bse.mEnterAnim = mOps[pos++];
+            bse.mExitAnim = mOps[pos++];
+            bse.mPopEnterAnim = mOps[pos++];
+            bse.mPopExitAnim = mOps[pos++];
             final int N = mOps[pos++];
             if (N > 0) {
                 op.removed = new ArrayList<Fragment>(N);
