@@ -19,6 +19,7 @@ package android.support.v7.app;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.WindowCompat;
@@ -44,7 +45,11 @@ class ActionBarActivityDelegateICS extends ActionBarActivityDelegate {
 
     @Override
     public ActionBar createSupportActionBar() {
-        return new ActionBarImplICS(mActivity, mActivity);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            return new ActionBarImplJB(mActivity, mActivity);
+        } else {
+            return new ActionBarImplICS(mActivity, mActivity);
+        }
     }
 
     @Override

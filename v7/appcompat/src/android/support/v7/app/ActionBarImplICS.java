@@ -40,6 +40,15 @@ class ActionBarImplICS extends ActionBar {
         mActivity = activity;
         mCallback = callback;
         mActionBar = activity.getActionBar();
+
+        // This was initially read from the action bar style
+        final int current = getDisplayOptions();
+        final boolean homeAsUp = (current & android.app.ActionBar.DISPLAY_HOME_AS_UP) != 0;
+        if (homeAsUp) {
+            // Make certain that that action bar state matches the display options
+            setDisplayOptions(current);
+            setHomeButtonEnabled(true);
+        }
     }
 
     private OnMenuVisibilityListenerWrapper findAndRemoveMenuVisWrapper(
@@ -169,6 +178,11 @@ class ActionBarImplICS extends ActionBar {
     @Override
     public void setDisplayShowCustomEnabled(boolean showCustom) {
         mActionBar.setDisplayShowCustomEnabled(showCustom);
+    }
+
+    @Override
+    public void setHomeButtonEnabled(boolean enable) {
+        mActionBar.setHomeButtonEnabled(enable);
     }
 
     @Override
