@@ -121,7 +121,6 @@ public class ListFragment extends Fragment {
         
         ListView lv = new ListView(getActivity());
         lv.setId(android.R.id.list);
-        lv.setDrawSelectorOnTop(false);
         lframe.addView(lv, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
 
