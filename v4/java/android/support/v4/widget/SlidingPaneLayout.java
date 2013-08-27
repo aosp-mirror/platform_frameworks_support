@@ -626,8 +626,13 @@ public class SlidingPaneLayout extends ViewGroup {
             }
         }
 
-        setMeasuredDimension(widthSize, layoutHeight);
+        int measuredWidth = Math.max(widthSize, getSuggestedMinimumWidth());
+        int measuredHeight = layoutHeight + getPaddingTop() + getPaddingBottom();
+        measuredHeight = Math.max(measuredHeight, getSuggestedMinimumHeight());
+
+        setMeasuredDimension(measuredWidth, measuredHeight);
         mCanSlide = canSlide;
+
         if (mDragHelper.getViewDragState() != ViewDragHelper.STATE_IDLE && !canSlide) {
             // Cancel scrolling in progress, it's no longer relevant.
             mDragHelper.abort();
