@@ -25,6 +25,7 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
 import android.widget.RemoteViews;
+
 import java.util.ArrayList;
 
 /**
@@ -85,12 +86,19 @@ public class NotificationCompat {
     static class NotificationCompatImplBase implements NotificationCompatImpl {
         public Notification build(Builder b) {
             Notification result = (Notification) b.mNotification;
-            result.setLatestEventInfo(b.mContext, b.mContentTitle,
-                    b.mContentText, b.mContentIntent);
+            if (result.contentView == null) {
+                result.setLatestEventInfo(b.mContext, b.mContentTitle,
+                        b.mContentText, b.mContentIntent);
+            } else {
+                // we are keeping the contentView developer has provided and copying the contentIntent
+                result.contentIntent = b.mContentIntent;
+            }
             // translate high priority requests into legacy flag
             if (b.mPriority > PRIORITY_DEFAULT) {
                 result.flags |= FLAG_HIGH_PRIORITY;
             }
+
+            result.number = b.mNumber;
             return result;
         }
     }
