@@ -65,6 +65,10 @@ public abstract class BaseMenuPresenter implements MenuPresenter {
         mContext = context;
         mInflater = LayoutInflater.from(mContext);
         mMenu = menu;
+        if (mMenuView != null) {
+            mMenuView.initialize(mMenu);
+            updateMenuView(true);
+        }
     }
 
     public MenuView getMenuView(ViewGroup root) {
