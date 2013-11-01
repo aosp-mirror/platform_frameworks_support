@@ -883,6 +883,13 @@ public class ViewPager extends ViewGroup {
                     newCurrItem = newPos;
                 }
 
+	            if (!isUpdating) {
+		            mAdapter.startUpdate(this);
+		            isUpdating = true;
+	            }
+
+	            mAdapter.moveItem(this, ii.position, newPos, ii.object);
+
                 ii.position = newPos;
                 needPopulate = true;
             }

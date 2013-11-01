@@ -108,6 +108,30 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
     }
 
     @Override
+    public void moveItem(ViewGroup container, int sourcePosition, int destinationPosition, Object object) {
+        if (mCurTransaction == null) {
+            mCurTransaction = mFragmentManager.beginTransaction();
+        }
+
+        final Fragment fragment = (Fragment) object;
+        final long sourceItemId = getItemId(sourcePosition);
+
+        if (DEBUG) Log.v(TAG, "Removing item #" + sourceItemId + ": f=" + fragment
+            + " v=" + ((Fragment)object).getView() + "so it can be added at #" + destinationPosition);
+        mCurTransaction.remove((Fragment)object);
+        mCurTransaction.commitAllowingStateLoss();
+        mFragmentManager.executePendingTransactions();
+
+        mCurTransaction = mFragmentManager.beginTransaction();
+
+        final long destinationItemId = getItemId(destinationPosition);
+
+        if (DEBUG) Log.v(TAG, "Adding item #" + destinationItemId + ": f=" + fragment);
+        mCurTransaction.add(container.getId(), fragment,
+            makeFragmentName(container.getId(), destinationItemId));
+    }
+
+    @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         if (mCurTransaction == null) {
             mCurTransaction = mFragmentManager.beginTransaction();

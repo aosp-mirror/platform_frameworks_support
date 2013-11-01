@@ -111,6 +111,21 @@ public abstract class PagerAdapter {
     }
 
     /**
+     * Move a page from the source position to the destination position.  The
+     * adapter is responsible for safely moving the view and updating any
+     * associated state, although it only must ensure this is done by the time
+     * it returns from {@link #finishUpdate(ViewGroup)}.
+     *
+     * @param container The containing View from which the page will be removed.
+     * @param position The current position of the page.
+     * @param position The new position for the page.
+     * @param object The same object that was returned by
+     * {@link #instantiateItem(View, int)}.
+     */
+    public void moveItem(ViewGroup container, int sourcePosition, int destinationPosition, Object object) {
+    }
+
+    /**
      * Remove a page for the given position.  The adapter is responsible
      * for removing the view from its container, although it only must ensure
      * this is done by the time it returns from {@link #finishUpdate(ViewGroup)}.
