@@ -22,6 +22,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  * Implementation of {@link android.support.v4.view.PagerAdapter} that
  * represents each page as a {@link Fragment} that is persistently
@@ -63,11 +66,13 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
     private static final boolean DEBUG = false;
 
     private final FragmentManager mFragmentManager;
+    private final ArrayList<Fragment> mFragments;
     private FragmentTransaction mCurTransaction = null;
     private Fragment mCurrentPrimaryItem = null;
 
     public FragmentPagerAdapter(FragmentManager fm) {
         mFragmentManager = fm;
+        mFragments = new ArrayList<Fragment>();
     }
 
     /**
@@ -104,17 +109,49 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
             fragment.setUserVisibleHint(false);
         }
 
+        mFragments.add(fragment);
+
         return fragment;
     }
 
     @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        if (mCurTransaction == null) {
-            mCurTransaction = mFragmentManager.beginTransaction();
+    public void notifyDataSetChanged() {
+        Iterator<Fragment> fragmentIt = mFragments.iterator();
+
+        FragmentTransaction removeOldItemsTransaction = null;
+
+        while (fragmentIt.hasNext()) {
+            Fragment fragment = fragmentIt.next();
+            if (getItemPosition(fragment) == POSITION_NONE) {
+                if (removeOldItemsTransaction == null) {
+                    removeOldItemsTransaction = mFragmentManager.beginTransaction();
+                }
+
+                if (DEBUG) Log.v(TAG, "Removing fragment for item no longer in data set: f="
+                        + fragment + " v=" + fragment.getView());
+                removeOldItemsTransaction.remove(fragment);
+                fragmentIt.remove();
+            }
         }
-        if (DEBUG) Log.v(TAG, "Detaching item #" + getItemId(position) + ": f=" + object
-                + " v=" + ((Fragment)object).getView());
-        mCurTransaction.detach((Fragment)object);
+
+        if (removeOldItemsTransaction != null) {
+            removeOldItemsTransaction.commitAllowingStateLoss();
+            mFragmentManager.executePendingTransactions();
+        }
+
+        super.notifyDataSetChanged();
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        if (((Fragment)object).getFragmentManager() == mFragmentManager) {
+            if (mCurTransaction == null) {
+                mCurTransaction = mFragmentManager.beginTransaction();
+            }
+            if (DEBUG) Log.v(TAG, "Detaching item #" + getItemId(position) + ": f=" + object
+                    + " v=" + ((Fragment)object).getView());
+            mCurTransaction.detach((Fragment)object);
+        }
     }
 
     @Override
