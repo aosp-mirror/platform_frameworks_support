@@ -149,8 +149,47 @@ public class NotificationCompat {
         }
     }
 
+    static class NotificationCompatImplJellybeanMr1 implements NotificationCompatImpl {
+        public Notification build(Builder b) {
+            NotificationCompatJellybeanMr1 jbBuilder = new NotificationCompatJellybeanMr1(
+                    b.mContext, b.mNotification, b.mContentTitle, b.mContentText, b.mContentInfo,
+                    b.mTickerView, b.mNumber, b.mContentIntent, b.mFullScreenIntent, b.mLargeIcon,
+                    b.mProgressMax, b.mProgress, b.mProgressIndeterminate,
+                    b.mUseChronometer, b.mPriority, b.mSubText, b.mShowWhen);
+            for (Action action: b.mActions) {
+                jbBuilder.addAction(action.icon, action.title, action.actionIntent);
+            }
+            if (b.mStyle != null) {
+                if (b.mStyle instanceof BigTextStyle) {
+                    BigTextStyle style = (BigTextStyle) b.mStyle;
+                    jbBuilder.addBigTextStyle(style.mBigContentTitle,
+                            style.mSummaryTextSet,
+                            style.mSummaryText,
+                            style.mBigText);
+                } else if (b.mStyle instanceof InboxStyle) {
+                    InboxStyle style = (InboxStyle) b.mStyle;
+                    jbBuilder.addInboxStyle(style.mBigContentTitle,
+                            style.mSummaryTextSet,
+                            style.mSummaryText,
+                            style.mTexts);
+                } else if (b.mStyle instanceof BigPictureStyle) {
+                    BigPictureStyle style = (BigPictureStyle) b.mStyle;
+                    jbBuilder.addBigPictureStyle(style.mBigContentTitle,
+                            style.mSummaryTextSet,
+                            style.mSummaryText,
+                            style.mPicture,
+                            style.mBigLargeIcon,
+                            style.mBigLargeIconSet);
+                }
+            }
+            return(jbBuilder.build());
+        }
+    }
+
     static {
-        if (Build.VERSION.SDK_INT >= 16) {
+        if (Build.VERSION.SDK_INT >= 17) {
+            IMPL = new NotificationCompatImplJellybeanMr1();
+        } else if (Build.VERSION.SDK_INT >= 16) {
             IMPL = new NotificationCompatImplJellybean();
         } else if (Build.VERSION.SDK_INT >= 14) {
             IMPL = new NotificationCompatImplIceCreamSandwich();
@@ -200,6 +239,7 @@ public class NotificationCompat {
         int mProgress;
         boolean mProgressIndeterminate;
         ArrayList<Action> mActions = new ArrayList<Action>();
+        boolean mShowWhen = true;
 
         Notification mNotification = new Notification();
 
@@ -229,6 +269,14 @@ public class NotificationCompat {
          */
         public Builder setWhen(long when) {
             mNotification.when = when;
+            return this;
+        }
+
+        /**
+         * Control whether the timestamp set with {@link #setWhen} is shown in the content view.
+         */
+        public Builder setShowWhen(boolean showWhen) {
+            mShowWhen = showWhen;
             return this;
         }
 
