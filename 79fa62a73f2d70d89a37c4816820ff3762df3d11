@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1eca41de_06711a27",
+        "filename": "v4/java/android/support/v4/app/NotificationCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1010199
+      },
+      "writtenOn": "2013-11-21T19:34:42Z",
+      "side": 1,
+      "message": "Exact copy of NotifiactionCompatImplJellybean save for the last argument passed to the constructor here.",
+      "revId": "79fa62a73f2d70d89a37c4816820ff3762df3d11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1eca41de_26741617",
+        "filename": "v4/jellybean-mr1/android/support/v4/app/NotificationCompatJellybeanMr1.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1010199
+      },
+      "writtenOn": "2013-11-21T19:34:42Z",
+      "side": 1,
+      "message": "This file is an exact copy of NotificationCompatJellybean except for this line and associated constructor parameter.",
+      "revId": "79fa62a73f2d70d89a37c4816820ff3762df3d11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
