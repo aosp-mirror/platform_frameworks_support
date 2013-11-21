@@ -24,7 +24,7 @@ import android.widget.RemoteViews;
 import java.util.ArrayList;
 
 class NotificationCompatJellybean {
-    private Notification.Builder b;
+    protected Notification.Builder b;
     public NotificationCompatJellybean(Context context, Notification n,
             CharSequence contentTitle, CharSequence contentText, CharSequence contentInfo,
             RemoteViews tickerView, int number,
