@@ -850,6 +850,9 @@ public class DrawerLayout extends ViewGroup {
     }
 
     boolean isContentView(View child) {
+        if (child == null) {
+            return true;
+        }
         return ((LayoutParams) child.getLayoutParams()).gravity == Gravity.NO_GRAVITY;
     }
 
