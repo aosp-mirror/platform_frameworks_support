@@ -1470,14 +1470,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     void performCreate(Bundle savedInstanceState) {
+        boolean childDispatch = false;
         if (mChildFragmentManager != null) {
             mChildFragmentManager.noteStateNotSaved();
-        }
-        mCalled = false;
-        onCreate(savedInstanceState);
-        if (!mCalled) {
-            throw new SuperNotCalledException("Fragment " + this
-                    + " did not call through to super.onCreate()");
         }
         if (savedInstanceState != null) {
             Parcelable p = savedInstanceState.getParcelable(
@@ -1487,8 +1482,17 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
                     instantiateChildFragmentManager();
                 }
                 mChildFragmentManager.restoreAllState(p, null);
-                mChildFragmentManager.dispatchCreate();
+                childDispatch = true;
             }
+        }
+        mCalled = false;
+        onCreate(savedInstanceState);
+        if (!mCalled) {
+            throw new SuperNotCalledException("Fragment " + this
+                    + " did not call through to super.onCreate()");
+        }
+        if (childDispatch) {
+            mChildFragmentManager.dispatchCreate();
         }
     }
 
