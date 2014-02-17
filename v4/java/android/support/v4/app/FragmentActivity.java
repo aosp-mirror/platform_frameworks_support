@@ -76,7 +76,8 @@ public class FragmentActivity extends Activity {
     private static final String TAG = "FragmentActivity";
     
     static final String FRAGMENTS_TAG = "android:support:fragments";
-    
+    static final String FRAGMENT_IDS_TAG = "android:support:fragment_ids";
+
     // This is the SDK API version of Honeycomb (3.0).
     private static final int HONEYCOMB = 11;
 
@@ -123,6 +124,8 @@ public class FragmentActivity extends Activity {
     SimpleArrayMap<String, LoaderManagerImpl> mAllLoaderManagers;
     LoaderManagerImpl mLoaderManager;
 
+    BitflagIdStore mFragmentIdStore;
+
     static final class NonConfigurationInstances {
         Object activity;
         Object custom;
@@ -150,24 +153,25 @@ public class FragmentActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         mFragments.noteStateNotSaved();
-        int index = requestCode>>16;
+
+        int packedFragmentIndex = requestCode >> 16;
+
+        int index = packedFragmentIndex & 0xff;
+        int activityIndex = packedFragmentIndex >> 8;
+
         if (index != 0) {
             index--;
-            if (mFragments.mActive == null || index < 0 || index >= mFragments.mActive.size()) {
-                Log.w(TAG, "Activity result fragment index out of range: 0x"
-                        + Integer.toHexString(requestCode));
-                return;
-            }
-            Fragment frag = mFragments.mActive.get(index);
+
+            Fragment frag = mFragments.findFragment(index, activityIndex);
+
             if (frag == null) {
                 Log.w(TAG, "Activity result no fragment exists for index: 0x"
                         + Integer.toHexString(requestCode));
             } else {
                 frag.onActivityResult(requestCode&0xffff, resultCode, data);
             }
-            return;
         }
-        
+
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -211,7 +215,12 @@ public class FragmentActivity extends Activity {
         if (savedInstanceState != null) {
             Parcelable p = savedInstanceState.getParcelable(FRAGMENTS_TAG);
             mFragments.restoreAllState(p, nc != null ? nc.fragments : null);
+
+            mFragmentIdStore = savedInstanceState.getParcelable(FRAGMENT_IDS_TAG);
+        } else {
+            mFragmentIdStore = new BitflagIdStore();
         }
+
         mFragments.dispatchCreate();
     }
 
@@ -547,6 +556,7 @@ public class FragmentActivity extends Activity {
         if (p != null) {
             outState.putParcelable(FRAGMENTS_TAG, p);
         }
+        outState.putParcelable(FRAGMENT_IDS_TAG, mFragmentIdStore);
     }
 
     /**
@@ -851,7 +861,10 @@ public class FragmentActivity extends Activity {
         if ((requestCode&0xffff0000) != 0) {
             throw new IllegalArgumentException("Can only use lower 16 bits for requestCode");
         }
-        super.startActivityForResult(intent, ((fragment.mIndex+1)<<16) + (requestCode&0xffff));
+
+        int packedFragmentIndex = (fragment.mActivityIndex) << 8 | (fragment.mIndex + 1);
+
+        super.startActivityForResult(intent, (packedFragmentIndex<<16) + (requestCode&0xffff));
     }
     
     void invalidateSupportFragment(String who) {
@@ -863,6 +876,22 @@ public class FragmentActivity extends Activity {
                 mAllLoaderManagers.remove(who);
             }
         }
+    }
+
+    int getNewFragmentIndex() {
+        Integer index = mFragmentIdStore.getNextFreeId();
+
+        if (index == null) {
+            throw new android.support.v4.app.Fragment.InstantiationException("Unable to instantiate more fragments for activity", null);
+        }
+
+        mFragmentIdStore.add(index);
+
+        return index;
+    }
+
+    void releaseFragmentIndex(int index) {
+        mFragmentIdStore.remove(index);
     }
     
     // ------------------------------------------------------------------------
