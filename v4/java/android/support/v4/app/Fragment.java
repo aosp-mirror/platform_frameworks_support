@@ -48,6 +48,7 @@ import java.io.PrintWriter;
 final class FragmentState implements Parcelable {
     final String mClassName;
     final int mIndex;
+    final int mActivityIndex;
     final boolean mFromLayout;
     final int mFragmentId;
     final int mContainerId;
@@ -63,6 +64,7 @@ final class FragmentState implements Parcelable {
     public FragmentState(Fragment frag) {
         mClassName = frag.getClass().getName();
         mIndex = frag.mIndex;
+        mActivityIndex = frag.mActivityIndex;
         mFromLayout = frag.mFromLayout;
         mFragmentId = frag.mFragmentId;
         mContainerId = frag.mContainerId;
@@ -75,6 +77,7 @@ final class FragmentState implements Parcelable {
     public FragmentState(Parcel in) {
         mClassName = in.readString();
         mIndex = in.readInt();
+        mActivityIndex = in.readInt();
         mFromLayout = in.readInt() != 0;
         mFragmentId = in.readInt();
         mContainerId = in.readInt();
@@ -100,7 +103,7 @@ final class FragmentState implements Parcelable {
             mSavedFragmentState.setClassLoader(activity.getClassLoader());
             mInstance.mSavedFragmentState = mSavedFragmentState;
         }
-        mInstance.setIndex(mIndex, parent);
+        mInstance.setIndex(mIndex, mActivityIndex, parent);
         mInstance.mFromLayout = mFromLayout;
         mInstance.mRestored = true;
         mInstance.mFragmentId = mFragmentId;
@@ -123,6 +126,7 @@ final class FragmentState implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mClassName);
         dest.writeInt(mIndex);
+        dest.writeInt(mActivityIndex);
         dest.writeInt(mFromLayout ? 1 : 0);
         dest.writeInt(mFragmentId);
         dest.writeInt(mContainerId);
@@ -188,6 +192,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     
     // Index into active fragment array.
     int mIndex = -1;
+
+    // Conceptual index in enclosing activity.
+    int mActivityIndex = -1;
     
     // Internal unique name for this fragment;
     String mWho;
@@ -455,8 +462,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         }
     }
 
-    final void setIndex(int index, Fragment parent) {
+    final void setIndex(int index, int activityIndex, Fragment parent) {
         mIndex = index;
+        mActivityIndex = activityIndex;
         if (parent != null) {
             mWho = parent.mWho + ":" + mIndex;
         } else {
