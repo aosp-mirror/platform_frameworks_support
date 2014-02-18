@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ef293d20_4997b1ea",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/FieldPacker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2014-02-18T22:49:50Z",
+      "side": 1,
+      "message": "The issue is that the original (non-compatibility) FieldPacker did not require you to have already constructed a RenderScript context. We can do a better job here (requiring that at least 1 RenderScript object has been initialized (with appropriate access to the package details, etc.).",
+      "parentUuid": "ef293d20_09269946",
+      "revId": "df4468310f813618263bd831d75c4f9290f47f0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f8b8d70_253f04c8",
         "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
         "patchSetId": 3
