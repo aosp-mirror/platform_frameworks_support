@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf26394f_88786398",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1003957
+      },
+      "writtenOn": "2014-02-18T22:45:07Z",
+      "side": 0,
+      "message": "Why did you delete this?\n\nAt worst if you don\u0027t want lazy initialization behavior you could use:\n\n  if (sThunk \u003c 0) throw ...\n  return sThunk !\u003d 0;",
+      "revId": "56f564ae4714a365522b09f2ef84dcfc35d3ed1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef293d20_09269946",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/FieldPacker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1003957
+      },
+      "writtenOn": "2014-02-18T22:45:07Z",
+      "side": 1,
+      "message": "I really don\u0027t understand why you changed this to go directly read a field thereby violating the encapsulation of the RenderScript class.\n\nYou should just continue calling RenderScript.shouldThunk().",
+      "revId": "df4468310f813618263bd831d75c4f9290f47f0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f8b8d70_253f04c8",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1003957
+      },
+      "writtenOn": "2014-02-18T22:45:07Z",
+      "side": 1,
+      "message": "This should stay private.  It\u0027s better for encapsulation.",
+      "revId": "df4468310f813618263bd831d75c4f9290f47f0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf26394f_28758f9e",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1003957
+      },
+      "writtenOn": "2014-02-18T22:45:07Z",
+      "side": 1,
+      "message": "line length",
+      "revId": "df4468310f813618263bd831d75c4f9290f47f0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ef293d20_0953f9ad",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1003957
+      },
+      "writtenOn": "2014-02-18T22:45:07Z",
+      "side": 1,
+      "message": "Best not to catch Exception.  Are there specific errors you care about?\n\nMost runtime exceptions should legitimately cause the app too crash.",
+      "revId": "df4468310f813618263bd831d75c4f9290f47f0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf26394f_28ca6f89",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1003957
+      },
+      "writtenOn": "2014-02-18T22:45:07Z",
+      "side": 1,
+      "message": "Do you really really need reflection here?\n\nWe try to avoid this in support libraries.  The method you\u0027re calling isn\u0027t part of the API so it isn\u0027t guaranteed to even exist.\n\nThe only \"safe\" way to do this is to actually add the method to the API so at least going forward you can assume it\u0027s there.\n\nIs there no other way to get the information you need?",
+      "revId": "df4468310f813618263bd831d75c4f9290f47f0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ef293d20_6962ad71",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1003957
+      },
+      "writtenOn": "2014-02-18T22:45:07Z",
+      "side": 1,
+      "message": "line length",
+      "revId": "df4468310f813618263bd831d75c4f9290f47f0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf26394f_08d1b343",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1003957
+      },
+      "writtenOn": "2014-02-18T22:45:07Z",
+      "side": 1,
+      "message": "don\u0027t catch exception",
+      "revId": "df4468310f813618263bd831d75c4f9290f47f0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
