@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ff0510e_a03f549a",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2014-02-19T09:12:30Z",
+      "side": 1,
+      "message": "Stale comment",
+      "revId": "930b11db28314b3abf22c2bea9f813053a6f7dc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cff9d9ff_7bae9f11",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2014-02-19T09:12:30Z",
+      "side": 1,
+      "message": "This seems wrong (as a message), although I understand why it works for the cases we have.",
+      "revId": "930b11db28314b3abf22c2bea9f813053a6f7dc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
