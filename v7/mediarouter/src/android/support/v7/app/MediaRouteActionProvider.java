@@ -17,12 +17,13 @@
 package android.support.v7.app;
 
 import android.content.Context;
-import android.support.v4.view.ActionProvider;
 import android.support.v7.media.MediaRouter;
 import android.support.v7.media.MediaRouteSelector;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.actionbarsherlock.view.ActionProvider;
 
 import java.lang.ref.WeakReference;
 
@@ -133,6 +134,8 @@ public class MediaRouteActionProvider extends ActionProvider {
     private MediaRouteDialogFactory mDialogFactory = MediaRouteDialogFactory.getDefault();
     private MediaRouteButton mButton;
 
+    private Context mContext;
+
     /**
      * Creates the action provider.
      *
@@ -141,6 +144,7 @@ public class MediaRouteActionProvider extends ActionProvider {
     public MediaRouteActionProvider(Context context) {
         super(context);
 
+        mContext = context;
         mRouter = MediaRouter.getInstance(context);
         mCallback = new MediaRouterCallback(this);
     }
@@ -236,6 +240,10 @@ public class MediaRouteActionProvider extends ActionProvider {
         return new MediaRouteButton(getContext());
     }
 
+    private Context getContext() {
+        return mContext;
+    }
+
     @Override
     @SuppressWarnings("deprecation")
     public View onCreateActionView() {
@@ -263,12 +271,10 @@ public class MediaRouteActionProvider extends ActionProvider {
         return false;
     }
 
-    @Override
     public boolean overridesItemVisibility() {
         return true;
     }
 
-    @Override
     public boolean isVisible() {
         return mRouter.isRouteAvailable(mSelector,
                 MediaRouter.AVAILABILITY_FLAG_IGNORE_DEFAULT_ROUTE);
@@ -276,6 +282,12 @@ public class MediaRouteActionProvider extends ActionProvider {
 
     private void refreshRoute() {
         refreshVisibility();
+    }
+
+    private void refreshVisibility() {
+        if (mButton != null) {
+            mButton.setVisibility(isVisible() ? View.VISIBLE : View.GONE);
+        }
     }
 
     private static final class MediaRouterCallback extends MediaRouter.Callback {
