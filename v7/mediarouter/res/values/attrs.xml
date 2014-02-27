@@ -30,4 +30,8 @@
     <attr name="mediaRouteOffDrawable" format="reference" />
     <attr name="mediaRouteConnectingDrawable" format="reference" />
     <attr name="mediaRouteOnDrawable" format="reference" />
+
+    <attr name="buttonBarButtonStyle" format="reference" />
+    <attr name="buttonBarStyle" format="reference" />
+    <attr name="isLightTheme" format="reference" />
 </resources>
