@@ -122,6 +122,7 @@ public class FragmentActivity extends Activity {
     boolean mLoadersStarted;
     SimpleArrayMap<String, LoaderManagerImpl> mAllLoaderManagers;
     LoaderManagerImpl mLoaderManager;
+    ArrayList<String> mActiveFragmentRequests;
 
     static final class NonConfigurationInstances {
         Object activity;
@@ -129,6 +130,7 @@ public class FragmentActivity extends Activity {
         SimpleArrayMap<String, Object> children;
         ArrayList<Fragment> fragments;
         SimpleArrayMap<String, LoaderManagerImpl> loaders;
+        ArrayList<String> activeRequests;
     }
     
     static class FragmentTag {
@@ -153,14 +155,14 @@ public class FragmentActivity extends Activity {
         int index = requestCode>>16;
         if (index != 0) {
             index--;
-            if (mFragments.mActive == null || index < 0 || index >= mFragments.mActive.size()) {
-                Log.w(TAG, "Activity result fragment index out of range: 0x"
+            if (mActiveFragmentRequests == null || index < 0) {
+                Log.w(TAG, "Activity result fragment id invalid: 0x"
                         + Integer.toHexString(requestCode));
                 return;
             }
-            Fragment frag = mFragments.mActive.get(index);
+            Fragment frag = getFragmentByRequestIndex(index);
             if (frag == null) {
-                Log.w(TAG, "Activity result no fragment exists for index: 0x"
+                Log.w(TAG, "Activity result no fragment exists for id: 0x"
                         + Integer.toHexString(requestCode));
             } else {
                 frag.onActivityResult(requestCode&0xffff, resultCode, data);
@@ -207,6 +209,7 @@ public class FragmentActivity extends Activity {
                 getLastNonConfigurationInstance();
         if (nc != null) {
             mAllLoaderManagers = nc.loaders;
+            mActiveFragmentRequests = nc.activeRequests;
         }
         if (savedInstanceState != null) {
             Parcelable p = savedInstanceState.getParcelable(FRAGMENTS_TAG);
@@ -524,16 +527,21 @@ public class FragmentActivity extends Activity {
                 }
             }
         }
-        if (fragments == null && !retainLoaders && custom == null) {
+        ArrayList<String> activeRequests = null;
+        if (mActiveFragmentRequests != null) {
+            activeRequests = (ArrayList<String>) mActiveFragmentRequests.clone();
+        }
+        if (fragments == null && !retainLoaders && custom == null && activeRequests == null) {
             return null;
         }
-        
+
         NonConfigurationInstances nci = new NonConfigurationInstances();
         nci.activity = null;
         nci.custom = custom;
         nci.children = null;
         nci.fragments = fragments;
         nci.loaders = mAllLoaderManagers;
+        nci.activeRequests = activeRequests;
         return nci;
     }
 
@@ -851,9 +859,44 @@ public class FragmentActivity extends Activity {
         if ((requestCode&0xffff0000) != 0) {
             throw new IllegalArgumentException("Can only use lower 16 bits for requestCode");
         }
-        super.startActivityForResult(intent, ((fragment.mIndex+1)<<16) + (requestCode&0xffff));
+        int id = addToRequestStack(fragment);
+        super.startActivityForResult(intent, ((id+1)<<16) + (requestCode&0xffff));
     }
-    
+
+    int addToRequestStack(Fragment fragment) {
+        if (mActiveFragmentRequests == null) {
+            mActiveFragmentRequests = new ArrayList<String>();
+        }
+        int index = mActiveFragmentRequests.indexOf(fragment.mWho);
+        if (index == -1) {
+            index = mActiveFragmentRequests.indexOf(null);
+            if (index == -1) {
+                index = 0;
+            } else if (index > 0x7fff) {
+                throw new IllegalStateException("We do not handle more than 32767 fragments.");
+            }
+        }
+        mActiveFragmentRequests.add(index, fragment.mWho);
+        return index;
+    }
+
+    Fragment getFragmentByRequestIndex(int index) {
+        if (mFragments == null || mActiveFragmentRequests == null || mActiveFragmentRequests.size() == 0) {
+            return null;
+        }
+        String who = mActiveFragmentRequests.get(index);
+        return mFragments.findFragmentByWho(who);
+    }
+
+    void invalidateFragmentRequestIndex(String who) {
+        if (mActiveFragmentRequests != null) {
+            int index = mActiveFragmentRequests.indexOf(who);
+            if (index > 0) {
+                mActiveFragmentRequests.set(index, null);
+            }
+        }
+    }
+
     void invalidateSupportFragment(String who) {
         //Log.v(TAG, "invalidateSupportFragment: who=" + who);
         if (mAllLoaderManagers != null) {
@@ -863,6 +906,7 @@ public class FragmentActivity extends Activity {
                 mAllLoaderManagers.remove(who);
             }
         }
+        invalidateFragmentRequestIndex(who);
     }
     
     // ------------------------------------------------------------------------
