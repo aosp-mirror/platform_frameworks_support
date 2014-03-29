@@ -97,12 +97,15 @@ public class LocalBroadcastManager {
     private static LocalBroadcastManager mInstance;
 
     public static LocalBroadcastManager getInstance(Context context) {
-        synchronized (mLock) {
-            if (mInstance == null) {
-                mInstance = new LocalBroadcastManager(context.getApplicationContext());
+        // Avoid the lock if the instance is already created.
+        if (mInstance == null) {
+            synchronized (mLock) {
+                if (mInstance == null) {
+                    mInstance = new LocalBroadcastManager(context.getApplicationContext());
+                }
             }
-            return mInstance;
         }
+        return mInstance;
     }
 
     private LocalBroadcastManager(Context context) {
