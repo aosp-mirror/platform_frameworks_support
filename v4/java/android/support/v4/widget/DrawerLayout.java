@@ -876,8 +876,9 @@ public class DrawerLayout extends ViewGroup {
                 final float y = ev.getY();
                 mInitialMotionX = x;
                 mInitialMotionY = y;
-                if (mScrimOpacity > 0 &&
-                        isContentView(mLeftDragger.findTopChildUnder((int) x, (int) y))) {
+                final View touchedView = mLeftDragger.findTopChildUnder((int) x, (int) y);
+                if (touchedView != null && mScrimOpacity > 0 &&
+                        isContentView(touchedView)) {
                     interceptForTap = true;
                 }
                 mDisallowInterceptRequested = false;
