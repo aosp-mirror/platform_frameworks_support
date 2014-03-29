@@ -376,16 +376,22 @@ final class BackStackRecord extends FragmentTransaction implements
     }
 
     public FragmentTransaction add(Fragment fragment, String tag) {
+        if (fragment == null)
+            throw new IllegalArgumentException("Adding a null Fragment " + tag);
         doAddOp(0, fragment, tag, OP_ADD);
         return this;
     }
 
     public FragmentTransaction add(int containerViewId, Fragment fragment) {
+        if (fragment == null)
+            throw new IllegalArgumentException("Adding a null Fragment");
         doAddOp(containerViewId, fragment, null, OP_ADD);
         return this;
     }
 
     public FragmentTransaction add(int containerViewId, Fragment fragment, String tag) {
+        if (fragment == null)
+            throw new IllegalArgumentException("Adding a null Fragment " + tag);
         doAddOp(containerViewId, fragment, tag, OP_ADD);
         return this;
     }
@@ -431,6 +437,8 @@ final class BackStackRecord extends FragmentTransaction implements
     }
 
     public FragmentTransaction remove(Fragment fragment) {
+        if (fragment == null)
+            throw new IllegalArgumentException("Removing a null Fragment");
         Op op = new Op();
         op.cmd = OP_REMOVE;
         op.fragment = fragment;
@@ -440,6 +448,8 @@ final class BackStackRecord extends FragmentTransaction implements
     }
 
     public FragmentTransaction hide(Fragment fragment) {
+        if (fragment == null)
+            throw new IllegalArgumentException("Hiding a null Fragment");
         Op op = new Op();
         op.cmd = OP_HIDE;
         op.fragment = fragment;
@@ -449,6 +459,8 @@ final class BackStackRecord extends FragmentTransaction implements
     }
 
     public FragmentTransaction show(Fragment fragment) {
+        if (fragment == null)
+            throw new IllegalArgumentException("Showing a null Fragment");
         Op op = new Op();
         op.cmd = OP_SHOW;
         op.fragment = fragment;
@@ -458,6 +470,8 @@ final class BackStackRecord extends FragmentTransaction implements
     }
 
     public FragmentTransaction detach(Fragment fragment) {
+        if (fragment == null)
+            throw new IllegalArgumentException("Detaching a null Fragment");
         Op op = new Op();
         op.cmd = OP_DETACH;
         op.fragment = fragment;
@@ -467,6 +481,8 @@ final class BackStackRecord extends FragmentTransaction implements
     }
 
     public FragmentTransaction attach(Fragment fragment) {
+        if (fragment == null)
+            throw new IllegalArgumentException("Attaching a null Fragment");
         Op op = new Op();
         op.cmd = OP_ATTACH;
         op.fragment = fragment;
