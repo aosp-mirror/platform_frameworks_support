@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "652bb3c3_8960f989",
+        "filename": "v7/appcompat/res/values-v14/themes_base.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2014-05-01T13:19:22Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 8
+      },
+      "revId": "6ebbe133b2822e4d601cd7a33166a97b6c424ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5f76b98_eb09b1b9",
+        "filename": "v7/appcompat/res/values-v14/themes_base.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2014-05-01T13:19:22Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 8
+      },
+      "revId": "6ebbe133b2822e4d601cd7a33166a97b6c424ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a442856_cfe47db8",
+        "filename": "v7/appcompat/res/values-v14/themes_base.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2014-05-01T13:19:22Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 8
+      },
+      "revId": "6ebbe133b2822e4d601cd7a33166a97b6c424ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
