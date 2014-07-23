@@ -148,7 +148,7 @@ LOCAL_NDK_STL_VARIANT := stlport_static
 LOCAL_C_INCLUDES += frameworks/compile/libbcc/include
 
 
-LOCAL_CFLAGS += $(rs_base_CFLAGS)
+LOCAL_CFLAGS += $(rs_base_CFLAGS) -std=c++11
 
 LOCAL_MODULE:= libRSSupport
 LOCAL_MODULE_TAGS := optional
