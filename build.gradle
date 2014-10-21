@@ -118,6 +118,13 @@ subprojects {
         repositories {
             mavenDeployer {
                 repository(url: uri("$rootProject.ext.supportRepoOut"))
+                pom.whenConfigured { pom ->
+                    pom.dependencies.findAll { dependency ->
+                        dependency.artifactId != 'support-annotations'
+                    } each { dependency ->
+                        dependency.type = 'aar'
+                    }
+                }
             }
         }
     }
