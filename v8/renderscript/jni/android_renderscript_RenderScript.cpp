@@ -23,9 +23,8 @@
 #include <math.h>
 #include <android/bitmap.h>
 #include <android/log.h>
-#include "jni.h"
-#include <rsEnv.h>
 
+#include <rsEnv.h>
 #include "rsDispatch.h"
 #include <dlfcn.h>
 
@@ -92,6 +91,7 @@ private:
 
 // ---------------------------------------------------------------------------
 static dispatchTable dispatchTab;
+static bool mUseNative = false;
 
 static jboolean nLoadSO(JNIEnv *_env, jobject _this, jboolean useNative) {
     void* handle = NULL;
@@ -110,9 +110,24 @@ static jboolean nLoadSO(JNIEnv *_env, jobject _this, jboolean useNative) {
         return false;
     }
     LOG_API("Successfully loaded %s", filename);
+    mUseNative = useNative;
     return true;
 }
 
+static ioSuppDT ioDispatch;
+static jboolean nLoadIOSO(JNIEnv *_env, jobject _this) {
+    void* handleIO = NULL;
+    handleIO = dlopen("libRSSupportIO.so", RTLD_LAZY | RTLD_LOCAL);
+    if (handleIO == NULL) {
+        LOG_API("Couldn't load libRSSupportIO.so");
+        return false;
+    }
+    if (loadIOSuppSyms(handleIO, ioDispatch) == false) {
+        LOG_API("libRSSupportIO init failed!");
+        return false;
+    }
+    return true;
+}
 // ---------------------------------------------------------------------------
 
 static void
@@ -355,6 +370,18 @@ nAllocationSyncAll(JNIEnv *_env, jobject _this, RsContext con, jint a, jint bits
 {
     LOG_API("nAllocationSyncAll, con(%p), a(%p), bits(0x%08x)", con, (RsAllocation)a, bits);
     dispatchTab.AllocationSyncAll(con, (RsAllocation)a, (RsAllocationUsageType)bits);
+}
+
+static void
+nAllocationSetSurface(JNIEnv *_env, jobject _this, RsContext con, jint alloc, jobject sur)
+{
+    ioDispatch.sAllocationSetSurface(_env, _this, con, (RsAllocation)alloc, sur, mUseNative, dispatchTab);
+}
+
+static void
+nAllocationIoSend(JNIEnv *_env, jobject _this, RsContext con, jint alloc)
+{
+    ioDispatch.sAllocationIoSend(con, (RsAllocation)alloc, mUseNative, dispatchTab);
 }
 
 static void
@@ -1016,7 +1043,8 @@ nSamplerCreate(JNIEnv *_env, jobject _this, RsContext con, jint magFilter, jint 
 static const char *classPathName = "android/support/v8/renderscript/RenderScript";
 
 static JNINativeMethod methods[] = {
-{"nLoadSO",                        "(Z)Z",                                    (bool*)nLoadSO },
+{"nLoadSO",                        "(Z)Z",                                   (bool*)nLoadSO },
+{"nLoadIOSO",                      "()Z",                                     (bool*)nLoadIOSO },
 {"nDeviceCreate",                  "()I",                                     (void*)nDeviceCreate },
 {"nDeviceDestroy",                 "(I)V",                                    (void*)nDeviceDestroy },
 {"nDeviceSetConfig",               "(III)V",                                  (void*)nDeviceSetConfig },
@@ -1052,6 +1080,8 @@ static JNINativeMethod methods[] = {
 {"rsnAllocationCopyToBitmap",        "(IILandroid/graphics/Bitmap;)V",        (void*)nAllocationCopyToBitmap },
 
 {"rsnAllocationSyncAll",             "(III)V",                                (void*)nAllocationSyncAll },
+{"rsnAllocationSetSurface",          "(IILandroid/view/Surface;)V",           (void*)nAllocationSetSurface },
+{"rsnAllocationIoSend",              "(II)V",                                 (void*)nAllocationIoSend },
 {"rsnAllocationData1D",              "(IIIII[II)V",                           (void*)nAllocationData1D_i },
 {"rsnAllocationData1D",              "(IIIII[SI)V",                           (void*)nAllocationData1D_s },
 {"rsnAllocationData1D",              "(IIIII[BI)V",                           (void*)nAllocationData1D_b },
