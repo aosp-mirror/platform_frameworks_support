@@ -1366,6 +1366,20 @@ public class Allocation extends BaseObj {
     }
 
     /**
+     * Associate a {@link android.view.Surface} with this Allocation. This
+     * operation is only valid for Allocations with {@link #USAGE_IO_OUTPUT}.
+     *
+     * @param sur Surface to associate with allocation
+     */
+    public void setSurface(Surface sur) {
+        mRS.validate();
+        if ((mUsage & USAGE_IO_OUTPUT) == 0) {
+            throw new RSInvalidStateException("Allocation is not USAGE_IO_OUTPUT.");
+        }
+        mRS.nAllocationSetSurface(getID(mRS), sur);
+    }
+
+    /**
      * Creates an Allocation from a {@link android.graphics.Bitmap}.
      *
      * <p>This Allocation will be created with {@link #USAGE_SHARED}, and

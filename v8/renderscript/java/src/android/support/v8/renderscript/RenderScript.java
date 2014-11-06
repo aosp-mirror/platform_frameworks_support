@@ -64,7 +64,7 @@ public class RenderScript {
     static Object lock = new Object();
 
     // Non-threadsafe functions.
-    native boolean nLoadSO(boolean useNative);
+    native boolean nLoadSO(boolean useNative, boolean useIO);
     native int  nDeviceCreate();
     native void nDeviceDestroy(int dev);
     native void nDeviceSetConfig(int dev, int param, int value);
@@ -336,6 +336,13 @@ public class RenderScript {
         validate();
         rsnAllocationSyncAll(mContext, alloc, src);
     }
+
+    native void rsnAllocationSetSurface(int con, int alloc, Surface sur);
+    synchronized void nAllocationSetSurface(int alloc, Surface sur) {
+        validate();
+        rsnAllocationSetSurface(mContext, alloc, sur);
+    }
+
     native void rsnAllocationIoSend(int con, int alloc);
     synchronized void nAllocationIoSend(int alloc) {
         validate();
@@ -998,11 +1005,16 @@ public class RenderScript {
         } else {
             android.util.Log.v(LOG_TAG, "RS compat mode");
         }
-        if (!rs.nLoadSO(useNative)) {
+        
+        boolean useIOlib = false;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            useIOlib = true;
+        }
+        if (!rs.nLoadSO(useNative, useIOlib)) {
             if (useNative) {
                 android.util.Log.v(LOG_TAG, "Unable to load libRS.so, falling back to compat mode");
             }
-            if (!useNative || !rs.nLoadSO(false)) {
+            if (!useNative || !rs.nLoadSO(false, useIOlib)) {
                 throw new RSRuntimeException("Error loading libRSSupport library");
             }
         }
