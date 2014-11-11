@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a6bafdc_b7442812",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1050418
+      },
+      "writtenOn": "2014-11-11T03:45:53Z",
+      "side": 1,
+      "message": "why not move loadSymbols into rsDispatch.h and get ridof rsDispatchCpp.h?\nIt only contains a single declaration.",
+      "revId": "203f40ca64bd15989b34e796d348af10394532e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
