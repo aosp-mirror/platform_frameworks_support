@@ -259,7 +259,7 @@ abstract class ActionBarActivityDelegate {
         return context;
     }
 
-    abstract View createView(String name, @NonNull AttributeSet attrs);
+    abstract View createView(String name, @NonNull Context context, @NonNull AttributeSet attrs);
 
 
     private class ActionBarDrawableToggleImpl implements
