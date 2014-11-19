@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5af0570f_fd0e2726",
+        "filename": "v7/appcompat/src/android/support/v7/widget/SwitchCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2014-11-19T08:12:42Z",
+      "side": 1,
+      "message": "Line length. Needs wrapping.",
+      "revId": "8b737ebcc424d6c83a70ca2e6e1b98bf01d5a8f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
