@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bae9532d_60bc32ac",
+        "filename": "v7/appcompat/src/android/support/v7/widget/SwitchCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2014-11-19T09:37:50Z",
+      "side": 1,
+      "message": "Trailing whitespace",
+      "range": {
+        "startLine": 571,
+        "startChar": 37,
+        "endLine": 571,
+        "endChar": 38
+      },
+      "revId": "2efd697dba2c0449ef1af777fba9a158f86cd8e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
