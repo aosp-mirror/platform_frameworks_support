@@ -985,6 +985,7 @@ public class RenderScript {
                     sUseGCHooks = false;
                 }
                 try {
+                    System.loadLibrary("RSSupport");
                     System.loadLibrary("rsjni");
                     sInitialized = true;
                 } catch (UnsatisfiedLinkError e) {
