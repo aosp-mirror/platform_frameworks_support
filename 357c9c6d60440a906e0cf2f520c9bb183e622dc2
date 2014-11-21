@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff101d40_7a041909",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/Allocation.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1376,
+      "author": {
+        "id": 1004537
+      },
+      "writtenOn": "2014-11-21T02:44:33Z",
+      "side": 1,
+      "message": "Looking at this, we should probably have a check at creation that IO_IN/IO_OUT are supportable.",
+      "range": {
+        "startLine": 1376,
+        "startChar": 22,
+        "endLine": 1376,
+        "endChar": 37
+      },
+      "revId": "357c9c6d60440a906e0cf2f520c9bb183e622dc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
