@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fa1d55e_50811cd4",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/Allocation.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 1050418
+      },
+      "writtenOn": "2014-11-22T01:12:28Z",
+      "side": 1,
+      "message": "this if statement and the one below can be combined with an \"\u0026\u0026\"",
+      "revId": "939b9589ff3fe2f568534ba6ee7e8689ae8644ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
