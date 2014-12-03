@@ -130,7 +130,7 @@ public class TintManager {
     }
 
     public Drawable getDrawable(int resId) {
-        Drawable drawable = ContextCompat.getDrawable(mContext, resId);
+        Drawable drawable = ContextCompat.getDrawable(mContext, resId).mutate();
 
         if (drawable != null) {
             if (arrayContains(TINT_COLOR_CONTROL_STATE_LIST, resId)) {
