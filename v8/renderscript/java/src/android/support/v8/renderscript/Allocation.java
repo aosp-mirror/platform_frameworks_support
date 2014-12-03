@@ -159,7 +159,7 @@ public class Allocation extends BaseObj {
     }
 
 
-    private int getIDSafe() {
+    private long getIDSafe() {
         if (mAdaptedAllocation != null) {
             return mAdaptedAllocation.getID(mRS);
         }
@@ -218,7 +218,7 @@ public class Allocation extends BaseObj {
         mBitmap = b;
     }
 
-    Allocation(int id, RenderScript rs, Type t, int usage) {
+    Allocation(long id, RenderScript rs, Type t, int usage) {
         super(id, rs);
         if ((usage & ~(USAGE_SCRIPT |
                        USAGE_GRAPHICS_TEXTURE |
@@ -387,11 +387,20 @@ public class Allocation extends BaseObj {
             throw new RSIllegalArgumentException("Array size mismatch, allocation sizeX = " +
                                                  mCurrentCount + ", array length = " + d.length);
         }
-        int i[] = new int[d.length];
-        for (int ct=0; ct < d.length; ct++) {
-            i[ct] = d[ct].getID(mRS);
+
+        if (RenderScript.sPointerSize == 8) {
+            long i[] = new long[d.length * 4];
+            for (int ct=0; ct < d.length; ct++) {
+                i[ct * 4] = d[ct].getID(mRS);
+            }
+            copy1DRangeFromUnchecked(0, mCurrentCount, i);
+        } else {
+            int i[] = new int[d.length];
+            for (int ct=0; ct < d.length; ct++) {
+                i[ct] = (int)d[ct].getID(mRS);
+            }
+            copy1DRangeFromUnchecked(0, mCurrentCount, i);
         }
-        copy1DRangeFromUnchecked(0, mCurrentCount, i);
     }
 
     private void validateBitmapFormat(Bitmap b) {
@@ -715,6 +724,19 @@ public class Allocation extends BaseObj {
         mRS.nAllocationGenerateMipmaps(getID(mRS));
     }
 
+    /**
+     * Copy an array into part of this Allocation.  This method does not
+     * guarantee that the Allocation is compatible with the input buffer.
+     *
+     * @param off The offset of the first element to be copied.
+     * @param count The number of elements to be copied.
+     * @param d the source data array
+     */
+    public void copy1DRangeFromUnchecked(int off, int count, long[] d) {
+        int dataSize = mType.mElement.getBytesSize() * count;
+        data1DChecks(off, count, d.length * 8, dataSize);
+        mRS.nAllocationData1D(getIDSafe(), off, mSelectedLOD, count, d, dataSize);
+    }
     /**
      * Copy an array into part of this Allocation.  This method does not
      * guarantee that the Allocation is compatible with the input buffer.
@@ -1211,7 +1233,7 @@ public class Allocation extends BaseObj {
         if (type.getID(rs) == 0) {
             throw new RSInvalidStateException("Bad Type");
         }
-        int id = rs.nAllocationCreateTyped(type.getID(rs), mips.mID, usage, 0);
+        long id = rs.nAllocationCreateTyped(type.getID(rs), mips.mID, usage, 0);
         if (id == 0) {
             throw new RSRuntimeException("Allocation creation failed.");
         }
@@ -1264,7 +1286,7 @@ public class Allocation extends BaseObj {
         b.setX(count);
         Type t = b.create();
 
-        int id = rs.nAllocationCreateTyped(t.getID(rs), MipmapControl.MIPMAP_NONE.mID, usage, 0);
+        long id = rs.nAllocationCreateTyped(t.getID(rs), MipmapControl.MIPMAP_NONE.mID, usage, 0);
         if (id == 0) {
             throw new RSRuntimeException("Allocation creation failed.");
         }
@@ -1346,7 +1368,7 @@ public class Allocation extends BaseObj {
         if (mips == MipmapControl.MIPMAP_NONE &&
             t.getElement().isCompatible(Element.RGBA_8888(rs)) &&
             usage == (USAGE_SHARED | USAGE_SCRIPT | USAGE_GRAPHICS_TEXTURE)) {
-            int id = rs.nAllocationCreateBitmapBackedAllocation(t.getID(rs), mips.mID, b, usage);
+            long id = rs.nAllocationCreateBitmapBackedAllocation(t.getID(rs), mips.mID, b, usage);
             if (id == 0) {
                 throw new RSRuntimeException("Load failed.");
             }
@@ -1358,7 +1380,7 @@ public class Allocation extends BaseObj {
         }
 
 
-        int id = rs.nAllocationCreateFromBitmap(t.getID(rs), mips.mID, b, usage);
+        long id = rs.nAllocationCreateFromBitmap(t.getID(rs), mips.mID, b, usage);
         if (id == 0) {
             throw new RSRuntimeException("Load failed.");
         }
@@ -1424,7 +1446,7 @@ public class Allocation extends BaseObj {
         tb.setMipmaps(mips == MipmapControl.MIPMAP_FULL);
         Type t = tb.create();
 
-        int id = rs.nAllocationCubeCreateFromBitmap(t.getID(rs), mips.mID, b, usage);
+        long id = rs.nAllocationCubeCreateFromBitmap(t.getID(rs), mips.mID, b, usage);
         if(id == 0) {
             throw new RSRuntimeException("Load failed for bitmap " + b + " element " + e);
         }
