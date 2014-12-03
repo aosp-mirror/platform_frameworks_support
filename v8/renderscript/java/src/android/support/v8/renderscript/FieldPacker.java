@@ -147,9 +147,24 @@ public class FieldPacker {
 
     public void addObj(BaseObj obj) {
         if (obj != null) {
-            addI32(obj.getID(null));
+            if (RenderScript.sPointerSize == 8) {
+                addI64(obj.getID(null));
+                addI64(0);
+                addI64(0);
+                addI64(0);
+            }
+            else {
+                addI32((int)obj.getID(null));
+            }
         } else {
-            addI32(0);
+            if (RenderScript.sPointerSize == 8) {
+                addI64(0);
+                addI64(0);
+                addI64(0);
+                addI64(0);
+            } else {
+                addI32(0);
+            }
         }
     }
 
