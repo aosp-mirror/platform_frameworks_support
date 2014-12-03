@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fd68940_d6c01a0e",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1017430
+      },
+      "writtenOn": "2014-12-03T18:49:35Z",
+      "side": 1,
+      "message": "this should definitely not be public",
+      "revId": "8f49ba5d84ae9b0a6d5e2b00164ffab8ede2beae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf0865ac_ae442397",
+        "filename": "v8/renderscript/jni/Android.mk",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1017430
+      },
+      "writtenOn": "2014-12-03T18:49:35Z",
+      "side": 1,
+      "message": "why LDFLAGS vs LDLIBS here?",
+      "revId": "8f49ba5d84ae9b0a6d5e2b00164ffab8ede2beae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ff971d6_23604a2a",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1017430
+      },
+      "writtenOn": "2014-12-03T18:49:35Z",
+      "side": 1,
+      "message": "can\u0027t you move these into the dispatch table? we\u0027ll want to do something similar for the C++ API eventually.",
+      "range": {
+        "startLine": 94,
+        "startChar": 33,
+        "endLine": 98,
+        "endChar": 57
+      },
+      "revId": "8f49ba5d84ae9b0a6d5e2b00164ffab8ede2beae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
