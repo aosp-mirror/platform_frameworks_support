@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff1c9dfc_a38c68c6",
+        "filename": "v8/renderscript/jni/Android.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1017430
+      },
+      "writtenOn": "2014-12-04T04:40:46Z",
+      "side": 0,
+      "message": "you still want the local required modules line, as it ensures that libRSSupport will be built at all",
+      "revId": "2f25af8d09aa3ce5db53ef99793bb859322e467c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
