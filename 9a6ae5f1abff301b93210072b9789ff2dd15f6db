@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf5ea5fb_fb764bc7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2014-12-05T19:18:36Z",
+      "side": 1,
+      "message": "Please clarify which library you are referring to in commit messages, as frameworks/support contains several.",
+      "range": {
+        "startLine": 7,
+        "startChar": 6,
+        "endLine": 7,
+        "endChar": 25
+      },
+      "revId": "9a6ae5f1abff301b93210072b9789ff2dd15f6db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
