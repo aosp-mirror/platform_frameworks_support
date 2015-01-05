@@ -122,6 +122,44 @@ nContextFinish(JNIEnv *_env, jobject _this, RsContext con)
     dispatchTab.ContextFinish(con);
 }
 
+static jlong
+nClosureCreate(JNIEnv *_env, jobject _this, jlong con, jlong kernelID,
+               jlong returnValue, jlongArray fieldIDArray,
+               jlongArray valueArray, jintArray sizeArray,
+               jlongArray depClosureArray, jlongArray depFieldIDArray) {
+  // TODO(yangni): Implement this.
+  return 0;
+}
+
+static void
+nClosureEval(JNIEnv *_env, jobject _this, jlong con, jlong closureID) {
+  // TODO(yangni): Implement or remove this.
+}
+
+static void
+nClosureSetArg(JNIEnv *_env, jobject _this, jlong con, jlong closureID,
+               jint index, jlong value, jint size) {
+  // TODO(yangni): Implement or remove this.
+}
+
+static void
+nClosureSetGlobal(JNIEnv *_env, jobject _this, jlong con, jlong closureID,
+                  jlong fieldID, jlong value, jint size) {
+  // TODO(yangni): Implement or remove this.
+}
+
+static long
+nScriptGroup2Create(JNIEnv *_env, jobject _this, jlong con,
+                    jlongArray closureArray) {
+  // TODO(yangni): Implement this.
+  return 0;
+}
+
+static void
+nScriptGroup2Execute(JNIEnv *_env, jobject _this, jlong con, jlong groupID) {
+  // TODO(yangni): Implement this.
+}
+
 static void
 nObjDestroy(JNIEnv *_env, jobject _this, RsContext con, jint obj)
 {
@@ -1035,6 +1073,10 @@ static JNINativeMethod methods[] = {
 {"rsnContextDestroy",                "(I)V",                                  (void*)nContextDestroy },
 {"rsnContextDump",                   "(II)V",                                 (void*)nContextDump },
 {"rsnContextSendMessage",            "(II[I)V",                               (void*)nContextSendMessage },
+{"rsnClosureCreate",                 "(JJJ[J[J[I[J[J)J",                      (void*)nClosureCreate },
+{"rsnClosureEval",                   "(JJ)V",                                 (void*)nClosureEval },
+{"rsnClosureSetArg",                 "(JJIJI)V",                              (void*)nClosureSetArg },
+{"rsnClosureSetGlobal",              "(JJJJI)V",                              (void*)nClosureSetGlobal },
 {"rsnObjDestroy",                    "(II)V",                                 (void*)nObjDestroy },
 
 {"rsnElementCreate",                 "(IIIZI)I",                              (void*)nElementCreate },
@@ -1096,9 +1138,11 @@ static JNINativeMethod methods[] = {
 {"rsnScriptKernelIDCreate",          "(IIII)I",                               (void*)nScriptKernelIDCreate },
 {"rsnScriptFieldIDCreate",           "(III)I",                                (void*)nScriptFieldIDCreate },
 {"rsnScriptGroupCreate",             "(I[I[I[I[I[I)I",                        (void*)nScriptGroupCreate },
+{"rsnScriptGroup2Create",            "(J[J)J",                                (void*)nScriptGroup2Create },
 {"rsnScriptGroupSetInput",           "(IIII)V",                               (void*)nScriptGroupSetInput },
 {"rsnScriptGroupSetOutput",          "(IIII)V",                               (void*)nScriptGroupSetOutput },
 {"rsnScriptGroupExecute",            "(II)V",                                 (void*)nScriptGroupExecute },
+{"rsnScriptGroup2Execute",           "(JJ)V",                                 (void*)nScriptGroup2Execute },
 
 {"rsnSamplerCreate",                 "(IIIIIIF)I",                            (void*)nSamplerCreate },
 
