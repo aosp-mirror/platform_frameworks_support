@@ -49,6 +49,7 @@ public class RenderScript {
     static final boolean LOG_ENABLED = false;
 
     private Context mApplicationContext;
+    private String mNativeLibDir;
 
     /*
      * We use a class initializer to allow the native code to cache some
@@ -981,6 +982,7 @@ public class RenderScript {
     RenderScript(Context ctx) {
         if (ctx != null) {
             mApplicationContext = ctx.getApplicationContext();
+            mNativeLibDir = mApplicationContext.getApplicationInfo().nativeLibraryDir;
         }
         mRWLock = new ReentrantReadWriteLock();
     }
@@ -1040,6 +1042,7 @@ public class RenderScript {
                 }
             }
         }
+
         if (useNative) {
             android.util.Log.v(LOG_TAG, "RS native mode");
         } else {
@@ -1075,6 +1078,7 @@ public class RenderScript {
                 useIOlib = false;
             }
         }
+
         rs.mDev = rs.nDeviceCreate();
         rs.mContext = rs.nContextCreate(rs.mDev, 0, sdkVersion, ct.mID);
         if (rs.mContext == 0) {
