@@ -64,6 +64,7 @@ public class RenderScript {
     static Object lock = new Object();
 
     // Non-threadsafe functions.
+    native void nSetNativeLibDir(String nativeLibDir);
     native boolean nLoadSO(boolean useNative);
     native boolean nLoadIOSO();
     native long nDeviceCreate();
@@ -1034,6 +1035,9 @@ public class RenderScript {
                 }
             }
         }
+        // store the Native lib dir to JNI and then to RS Context.
+        rs.nSetNativeLibDir(rs.getApplicationContext().getApplicationInfo().nativeLibraryDir);
+
         if (useNative) {
             android.util.Log.v(LOG_TAG, "RS native mode");
         } else {

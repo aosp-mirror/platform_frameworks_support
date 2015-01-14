@@ -27,6 +27,7 @@
 #include <rsEnv.h>
 #include "rsDispatch.h"
 #include <dlfcn.h>
+#include <string.h>
 
 //#define LOG_API ALOG
 #define LOG_API(...)
@@ -223,6 +224,15 @@ nObjDestroy(JNIEnv *_env, jobject _this, jlong con, jlong obj)
 }
 
 // ---------------------------------------------------------------------------
+static char nativeLibraryDir[PATH_MAX+1] = "";
+
+static void
+nSetNativeLibDir(JNIEnv *_env, jobject _this, jstring nativeLibDir)
+{
+    AutoJavaStringToUTF8 nativeLibDirUTF(_env, nativeLibDir);
+    strcpy (nativeLibraryDir, nativeLibDirUTF.c_str());
+    nativeLibraryDir[nativeLibDirUTF.length()] = 0;
+}
 
 static jlong
 nDeviceCreate(JNIEnv *_env, jobject _this)
@@ -249,7 +259,11 @@ static jlong
 nContextCreate(JNIEnv *_env, jobject _this, jlong dev, jint ver, jint sdkVer, jint ct)
 {
     LOG_API("nContextCreate");
-    return (jlong)(uintptr_t)dispatchTab.ContextCreate((RsDevice)dev, ver, sdkVer, (RsContextType)ct, 0);
+    jlong id = (jlong)(uintptr_t)dispatchTab.ContextCreate((RsDevice)dev, ver, sdkVer, (RsContextType)ct, 0);
+    if (dispatchTab.SetNativeLibDir) {
+        dispatchTab.SetNativeLibDir((RsContext)id, nativeLibraryDir);
+    }
+    return id;
 }
 
 
@@ -1299,6 +1313,7 @@ nSystemGetPointerSize(JNIEnv *_env, jobject _this) {
 static const char *classPathName = "android/support/v8/renderscript/RenderScript";
 
 static JNINativeMethod methods[] = {
+{"nSetNativeLibDir",               "(Ljava/lang/String;)V",                   (void*)nSetNativeLibDir },
 {"nLoadSO",                        "(Z)Z",                                    (bool*)nLoadSO },
 {"nLoadIOSO",                      "()Z",                                     (bool*)nLoadIOSO },
 {"nDeviceCreate",                  "()J",                                     (void*)nDeviceCreate },
