@@ -27,6 +27,7 @@
 #include <rsEnv.h>
 #include "rsDispatch.h"
 #include <dlfcn.h>
+#include <string.h>
 
 //#define LOG_API ALOG
 #define LOG_API(...)
@@ -126,6 +127,7 @@ static jboolean nLoadIOSO(JNIEnv *_env, jobject _this) {
     }
     return true;
 }
+
 // ---------------------------------------------------------------------------
 
 static void
@@ -223,7 +225,6 @@ nObjDestroy(JNIEnv *_env, jobject _this, jlong con, jlong obj)
 }
 
 // ---------------------------------------------------------------------------
-
 static jlong
 nDeviceCreate(JNIEnv *_env, jobject _this)
 {
@@ -249,7 +250,20 @@ static jlong
 nContextCreate(JNIEnv *_env, jobject _this, jlong dev, jint ver, jint sdkVer, jint ct)
 {
     LOG_API("nContextCreate");
-    return (jlong)(uintptr_t)dispatchTab.ContextCreate((RsDevice)dev, ver, sdkVer, (RsContextType)ct, 0);
+
+    // Access the NativeLibDir in the Java Context.
+    jclass _class = _env->GetObjectClass(_this);
+    jfieldID _fieldId = _env->GetFieldID(_class, "mNativeLibDir", "Ljava/lang/String;");
+    jstring nativeLibDirJava = (jstring)_env->GetObjectField(_this, _fieldId);
+    const char * nativeLibDir = _env->GetStringUTFChars(nativeLibDirJava, JNI_FALSE);
+
+    jlong id = (jlong)(uintptr_t)dispatchTab.ContextCreate((RsDevice)dev, ver, sdkVer, (RsContextType)ct, 0);
+    if (dispatchTab.SetNativeLibDir) {
+        dispatchTab.SetNativeLibDir((RsContext)id, nativeLibDir);
+    }
+
+    _env->ReleaseStringUTFChars(nativeLibDirJava, nativeLibDir);
+    return id;
 }
 
 
