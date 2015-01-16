@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2bcfdb48_95eea691",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-01-16T02:41:13Z",
+      "side": 1,
+      "message": "Alternately, can we keep a reference to the Java string version of the nativelibdir here (inside of RenderScript)?",
+      "revId": "a888b24fc43697404e03470a9a233b88dfb89578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2bcfdb48_b5708274",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1039,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-01-16T02:41:13Z",
+      "side": 1,
+      "message": "I think this needs to move up into the synchronized lock section above (assuming that we only have 1 valid ApplicationContext ever). If you don\u0027t, then there is a race condition against your static string in the JNI implementation. Alternatively, the JNI portion of the code, can keep its own copy of the path in a per-RSContext manner.",
+      "revId": "a888b24fc43697404e03470a9a233b88dfb89578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6bc55323_d73c36b4",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-01-16T02:41:13Z",
+      "side": 1,
+      "message": "This is racy and not how we should do it. The value needs to be attached to the context, so that it doesn\u0027t have the possibility of being read in a corrupt state.",
+      "revId": "a888b24fc43697404e03470a9a233b88dfb89578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
