@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "abdbcb04_44a64ec8",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/ScriptC.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-01-16T03:41:43Z",
+      "side": 1,
+      "message": "Where did this come from? Neither AOSP, nor lmp marked this @hide.",
+      "revId": "7ad355252c51c95c41996a673135983d2272e365",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2bcfdb48_40d71e55",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-01-16T03:41:43Z",
+      "side": 1,
+      "message": "We should probably just delete this pair of lines.",
+      "revId": "7ad355252c51c95c41996a673135983d2272e365",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
