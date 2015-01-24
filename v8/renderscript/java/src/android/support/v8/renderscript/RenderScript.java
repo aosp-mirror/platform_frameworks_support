@@ -621,6 +621,12 @@ public class RenderScript {
         return rsnScriptKernelIDCreate(mContext, sid, slot, sig);
     }
 
+    native int  rsnScriptInvokeIDCreate(int con, int sid, int slot);
+    synchronized int nScriptInvokeIDCreate(int sid, int slot) {
+        validate();
+        return rsnScriptInvokeIDCreate(mContext, sid, slot);
+    }
+
     native int  rsnScriptFieldIDCreate(int con, int sid, int slot);
     synchronized int nScriptFieldIDCreate(int sid, int slot) {
         validate();

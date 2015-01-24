@@ -1038,6 +1038,14 @@ nScriptKernelIDCreate(JNIEnv *_env, jobject _this, RsContext con, jint sid, jint
 }
 
 static jint
+nScriptInvokeIDCreate(JNIEnv *_env, jobject _this, RsContext con, jint sid, jint slot)
+{
+    LOG_API("nScriptInvokeIDCreate, con(%p) script(%p), slot(%i), sig(%i)", con,
+            (void *)sid, slot);
+    return (jlong)dispatchTab.ScriptInvokeIDCreate(con, (RsScript)sid, slot);
+}
+
+static jint
 nScriptFieldIDCreate(JNIEnv *_env, jobject _this, RsContext con, jint sid, jint slot)
 {
     LOG_API("nScriptFieldIDCreate, con(%p) script(%p), slot(%i)", con, (void *)sid, slot);
@@ -1205,6 +1213,7 @@ static JNINativeMethod methods[] = {
 {"rsnScriptCCreate",                 "(ILjava/lang/String;Ljava/lang/String;[BI)I",  (void*)nScriptCCreate },
 {"rsnScriptIntrinsicCreate",         "(III)I",                                (void*)nScriptIntrinsicCreate },
 {"rsnScriptKernelIDCreate",          "(IIII)I",                               (void*)nScriptKernelIDCreate },
+{"rsnScriptInvokeIDCreate",          "(III)J",                                (void*)nScriptInvokeIDCreate },
 {"rsnScriptFieldIDCreate",           "(III)I",                                (void*)nScriptFieldIDCreate },
 {"rsnScriptGroupCreate",             "(I[I[I[I[I[I)I",                        (void*)nScriptGroupCreate },
 //{"rsnScriptGroup2Create",            "(J[J)J",                                (void*)nScriptGroup2Create },
