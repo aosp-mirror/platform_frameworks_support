@@ -1178,8 +1178,16 @@ nScriptKernelIDCreate(JNIEnv *_env, jobject _this, jlong con, jlong sid, jint sl
                                                                      slot, sig);
 }
 
+static jint
+nScriptInvokeIDCreate(JNIEnv *_env, jobject _this, RsContext con, jint sid, jint slot)
+{
+    LOG_API("nScriptInvokeIDCreate, con(%p) script(%p), slot(%i), sig(%i)", con,
+            (void *)sid, slot);
+    return (jlong)dispatchTab.ScriptInvokeIDCreate(con, (RsScript)sid, slot);
+}
+
 static jlong
-nScriptFieldIDCreate(JNIEnv *_env, jobject _this, jlong con, jlong sid, jint slot)
+nScriptFieldIDCreate(JNIEnv *_env, jobject _this, jlong con, jint sid, jint slot)
 {
     LOG_API("nScriptFieldIDCreate, con(%p) script(%p), slot(%i)", (RsContext)con, (void *)sid, slot);
     return (jlong)(uintptr_t)dispatchTab.ScriptFieldIDCreate((RsContext)con, (RsScript)sid, slot);
@@ -1385,6 +1393,7 @@ static JNINativeMethod methods[] = {
 {"rsnScriptCCreate",                 "(JLjava/lang/String;Ljava/lang/String;[BI)J",  (void*)nScriptCCreate },
 {"rsnScriptIntrinsicCreate",         "(JIJ)J",                                (void*)nScriptIntrinsicCreate },
 {"rsnScriptKernelIDCreate",          "(JJII)J",                               (void*)nScriptKernelIDCreate },
+{"rsnScriptInvokeIDCreate",          "(III)J",                                (void*)nScriptInvokeIDCreate },
 {"rsnScriptFieldIDCreate",           "(JJI)J",                                (void*)nScriptFieldIDCreate },
 {"rsnScriptGroupCreate",             "(J[J[J[J[J[J)J",                        (void*)nScriptGroupCreate },
 //{"rsnScriptGroup2Create",            "(J[J)J",                                (void*)nScriptGroup2Create },
