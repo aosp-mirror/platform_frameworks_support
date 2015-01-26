@@ -31,7 +31,10 @@ public class ScriptIntrinsicConvolve3x3 extends ScriptIntrinsic {
     }
 
     /**
-     * Supported elements types are {@link Element#U8_4}
+     * Supported elements types are {@link Element#U8}, {@link
+     * Element#U8_2}, {@link Element#U8_3}, {@link Element#U8_4},
+     * {@link Element#F32}, {@link Element#F32_2}, {@link
+     * Element#F32_3}, and {@link Element#F32_4}
      *
      * The default coefficients are.
      *
@@ -48,11 +51,25 @@ public class ScriptIntrinsicConvolve3x3 extends ScriptIntrinsic {
      */
     public static ScriptIntrinsicConvolve3x3 create(RenderScript rs, Element e) {
         float f[] = { 0, 0, 0, 0, 1, 0, 0, 0, 0};
-        if (!e.isCompatible(Element.U8_4(rs))) {
+        if (!e.isCompatible(Element.U8(rs)) &&
+            !e.isCompatible(Element.U8_2(rs)) &&
+            !e.isCompatible(Element.U8_3(rs)) &&
+            !e.isCompatible(Element.U8_4(rs)) &&
+            !e.isCompatible(Element.F32(rs)) &&
+            !e.isCompatible(Element.F32_2(rs)) &&
+            !e.isCompatible(Element.F32_3(rs)) &&
+            !e.isCompatible(Element.F32_4(rs))) {
             throw new RSIllegalArgumentException("Unsuported element type.");
         }
-        long id = rs.nScriptIntrinsicCreate(1, e.getID(rs));
+        long id;
+        boolean mUseIncSupp = false;
+        if (true || rs.isUseNative() && android.os.Build.VERSION.SDK_INT < 21) {
+            mUseIncSupp = true;
+        }
+        id = rs.nScriptIntrinsicCreate(1, e.getID(rs), mUseIncSupp);
+
         ScriptIntrinsicConvolve3x3 si = new ScriptIntrinsicConvolve3x3(id, rs);
+        si.setIncSupp(mUseIncSupp);
         si.setCoefficients(f);
         return si;
     }
@@ -98,6 +115,18 @@ public class ScriptIntrinsicConvolve3x3 extends ScriptIntrinsic {
      */
     public void forEach(Allocation aout) {
         forEach(0, null, aout, null);
+    }
+
+    /**
+     * Apply the filter to the input and save to the specified
+     * allocation.
+     *
+     * @param aout Output allocation. Must match creation element
+     *             type.
+     * @param opt LaunchOptions for clipping
+     */
+    public void forEach(Allocation aout, Script.LaunchOptions opt) {
+        forEach(0, (Allocation) null, aout, null, opt);
     }
 
     /**
