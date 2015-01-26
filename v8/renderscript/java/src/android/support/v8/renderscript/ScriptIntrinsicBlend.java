@@ -36,8 +36,16 @@ public class ScriptIntrinsicBlend extends ScriptIntrinsic {
      */
     public static ScriptIntrinsicBlend create(RenderScript rs, Element e) {
         // 7 comes from RS_SCRIPT_INTRINSIC_ID_BLEND in rsDefines.h
-        long id = rs.nScriptIntrinsicCreate(7, e.getID(rs));
-        return new ScriptIntrinsicBlend(id, rs);
+        long id;
+        boolean mUseIncSupp = false;
+        if (true || rs.isUseNative() && android.os.Build.VERSION.SDK_INT < 21) {
+            mUseIncSupp = true;
+        }
+        id = rs.nScriptIntrinsicCreate(7, e.getID(rs), mUseIncSupp);
+
+        ScriptIntrinsicBlend si = new ScriptIntrinsicBlend(id, rs);
+        si.setIncSupp(mUseIncSupp);
+        return si;
 
     }
 
