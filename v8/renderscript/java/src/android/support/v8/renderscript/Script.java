@@ -24,6 +24,35 @@ import android.util.SparseArray;
  **/
 public class Script extends BaseObj {
     /**
+     * Determine if Incremental Intrinsic Support is needed
+     *
+     */
+    private boolean mUseIncSupp;
+    protected void setIncSupp(boolean useInc) {
+        mUseIncSupp = useInc;
+    }
+    protected boolean isIncSupp() {
+        return mUseIncSupp;
+    }
+    /**
+     * An allocation for the compat context will be created when needed
+     * e.g. foreach(ain, aout), setVar(ain);
+     *
+     */
+    private long getDummyAlloc(Allocation ain) {
+        long dInElement = 0;
+        long dInType = 0;
+        long dummyAlloc = 0;
+        if (ain != null) {
+            dInElement = ain.getType().getElement().getDummyElement(mRS);
+            dInType = ain.getType().getDummyType(mRS, dInElement);
+            dummyAlloc = mRS.nIncAllocationCreateTyped(ain.getID(mRS), dInType);
+            ain.setIncAllocID(dummyAlloc);
+        }
+
+        return dummyAlloc;
+    }
+    /**
      * KernelID is an identifier for a Script + root function pair. It is used
      * as an identifier for ScriptGroup creation.
      *
@@ -61,7 +90,8 @@ public class Script extends BaseObj {
         if (k != null) {
             return k;
         }
-        long id = mRS.nScriptKernelIDCreate(getID(mRS), slot, sig);
+
+        long id = mRS.nScriptKernelIDCreate(getID(mRS), slot, sig, mUseIncSupp);
         if (id == 0) {
             throw new RSDriverException("Failed to create KernelID");
         }
@@ -106,7 +136,7 @@ public class Script extends BaseObj {
             return f;
         }
 
-        long id = mRS.nScriptFieldIDCreate(getID(mRS), slot);
+        long id = mRS.nScriptFieldIDCreate(getID(mRS), slot, mUseIncSupp);
         if (id == 0) {
             throw new RSDriverException("Failed to create FieldID");
         }
@@ -116,14 +146,13 @@ public class Script extends BaseObj {
         return f;
     }
 
-
     /**
      * Only intended for use by generated reflected code.
      *
      * @param slot
      */
     protected void invoke(int slot) {
-        mRS.nScriptInvoke(getID(mRS), slot);
+        mRS.nScriptInvoke(getID(mRS), slot, mUseIncSupp);
     }
 
     /**
@@ -134,9 +163,9 @@ public class Script extends BaseObj {
      */
     protected void invoke(int slot, FieldPacker v) {
         if (v != null) {
-            mRS.nScriptInvokeV(getID(mRS), slot, v.getData());
+            mRS.nScriptInvokeV(getID(mRS), slot, v.getData(), mUseIncSupp);
         } else {
-            mRS.nScriptInvoke(getID(mRS), slot);
+            mRS.nScriptInvoke(getID(mRS), slot, mUseIncSupp);
         }
     }
 
@@ -149,16 +178,16 @@ public class Script extends BaseObj {
     public void bindAllocation(Allocation va, int slot) {
         mRS.validate();
         if (va != null) {
-            mRS.nScriptBindAllocation(getID(mRS), va.getID(mRS), slot);
+            mRS.nScriptBindAllocation(getID(mRS), va.getID(mRS), slot, mUseIncSupp);
         } else {
-            mRS.nScriptBindAllocation(getID(mRS), 0, slot);
+            mRS.nScriptBindAllocation(getID(mRS), 0, slot, mUseIncSupp);
         }
     }
 
     public void setTimeZone(String timeZone) {
         mRS.validate();
         try {
-            mRS.nScriptSetTimeZone(getID(mRS), timeZone.getBytes("UTF-8"));
+            mRS.nScriptSetTimeZone(getID(mRS), timeZone.getBytes("UTF-8"), mUseIncSupp);
         } catch (java.io.UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
@@ -179,18 +208,26 @@ public class Script extends BaseObj {
                 "At least one of ain or aout is required to be non-null.");
         }
         long in_id = 0;
+        long out_id = 0;
         if (ain != null) {
             in_id = ain.getID(mRS);
         }
-        long out_id = 0;
         if (aout != null) {
             out_id = aout.getID(mRS);
         }
+
         byte[] params = null;
         if (v != null) {
             params = v.getData();
         }
-        mRS.nScriptForEach(getID(mRS), slot, in_id, out_id, params);
+
+        if (mUseIncSupp) {
+            long ainInc = getDummyAlloc(ain);
+            long aoutInc = getDummyAlloc(aout);
+            mRS.nScriptForEach(getID(mRS), slot, ainInc, aoutInc, params, mUseIncSupp);
+        } else {
+            mRS.nScriptForEach(getID(mRS), slot, in_id, out_id, params, mUseIncSupp);
+        }
     }
 
     /**
@@ -213,22 +250,30 @@ public class Script extends BaseObj {
             return;
         }
         long in_id = 0;
+        long out_id = 0;
         if (ain != null) {
             in_id = ain.getID(mRS);
         }
-        long out_id = 0;
         if (aout != null) {
             out_id = aout.getID(mRS);
         }
+
         byte[] params = null;
         if (v != null) {
             params = v.getData();
         }
-        mRS.nScriptForEachClipped(getID(mRS), slot, in_id, out_id, params, sc.xstart, sc.xend, sc.ystart, sc.yend, sc.zstart, sc.zend);
+        if (mUseIncSupp) {
+            long ainInc = getDummyAlloc(ain);
+            long aoutInc = getDummyAlloc(aout);
+            mRS.nScriptForEachClipped(getID(mRS), slot, ainInc, aoutInc, params, sc.xstart, sc.xend, sc.ystart, sc.yend, sc.zstart, sc.zend, mUseIncSupp);        
+        } else {
+            mRS.nScriptForEachClipped(getID(mRS), slot, in_id, out_id, params, sc.xstart, sc.xend, sc.ystart, sc.yend, sc.zstart, sc.zend, mUseIncSupp);
+        }
     }
 
     Script(long id, RenderScript rs) {
         super(id, rs);
+        mUseIncSupp = false;
     }
 
     /**
@@ -238,7 +283,7 @@ public class Script extends BaseObj {
      * @param v
      */
     public void setVar(int index, float v) {
-        mRS.nScriptSetVarF(getID(mRS), index, v);
+        mRS.nScriptSetVarF(getID(mRS), index, v, mUseIncSupp);
     }
 
     /**
@@ -248,7 +293,7 @@ public class Script extends BaseObj {
      * @param v
      */
     public void setVar(int index, double v) {
-        mRS.nScriptSetVarD(getID(mRS), index, v);
+        mRS.nScriptSetVarD(getID(mRS), index, v, mUseIncSupp);
     }
 
     /**
@@ -258,7 +303,7 @@ public class Script extends BaseObj {
      * @param v
      */
     public void setVar(int index, int v) {
-        mRS.nScriptSetVarI(getID(mRS), index, v);
+        mRS.nScriptSetVarI(getID(mRS), index, v, mUseIncSupp);
     }
 
     /**
@@ -268,7 +313,7 @@ public class Script extends BaseObj {
      * @param v
      */
     public void setVar(int index, long v) {
-        mRS.nScriptSetVarJ(getID(mRS), index, v);
+        mRS.nScriptSetVarD(getID(mRS), index, v, mUseIncSupp);
     }
 
     /**
@@ -278,7 +323,7 @@ public class Script extends BaseObj {
      * @param v
      */
     public void setVar(int index, boolean v) {
-        mRS.nScriptSetVarI(getID(mRS), index, v ? 1 : 0);
+        mRS.nScriptSetVarI(getID(mRS), index, v ? 1 : 0, mUseIncSupp);
     }
 
     /**
@@ -288,7 +333,12 @@ public class Script extends BaseObj {
      * @param o
      */
     public void setVar(int index, BaseObj o) {
-        mRS.nScriptSetVarObj(getID(mRS), index, (o == null) ? 0 : o.getID(mRS));
+        if (mUseIncSupp) {
+            long oInc = getDummyAlloc((Allocation)o);
+            mRS.nScriptSetVarObj(getID(mRS), index, (o == null) ? 0 : oInc, mUseIncSupp);            
+        } else {
+            mRS.nScriptSetVarObj(getID(mRS), index, (o == null) ? 0 : o.getID(mRS), mUseIncSupp);
+        }
     }
 
     /**
@@ -298,7 +348,7 @@ public class Script extends BaseObj {
      * @param v
      */
     public void setVar(int index, FieldPacker v) {
-        mRS.nScriptSetVarV(getID(mRS), index, v.getData());
+        mRS.nScriptSetVarV(getID(mRS), index, v.getData(), mUseIncSupp);
     }
 
     /**
@@ -310,7 +360,12 @@ public class Script extends BaseObj {
      * @param dims
      */
     public void setVar(int index, FieldPacker v, Element e, int[] dims) {
-        mRS.nScriptSetVarVE(getID(mRS), index, v.getData(), e.getID(mRS), dims);
+        if (mUseIncSupp) {
+            long dElement = e.getDummyElement(mRS);
+            mRS.nScriptSetVarVE(getID(mRS), index, v.getData(), dElement, dims, mUseIncSupp);
+        } else {
+            mRS.nScriptSetVarVE(getID(mRS), index, v.getData(), e.getID(mRS), dims, mUseIncSupp);
+        }
     }
 
     /**

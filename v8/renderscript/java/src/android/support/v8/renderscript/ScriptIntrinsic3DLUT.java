@@ -47,13 +47,19 @@ public class ScriptIntrinsic3DLUT extends ScriptIntrinsic {
      * @return ScriptIntrinsic3DLUT
      */
     public static ScriptIntrinsic3DLUT create(RenderScript rs, Element e) {
-        long id = rs.nScriptIntrinsicCreate(8, e.getID(rs));
-
         if (!e.isCompatible(Element.U8_4(rs))) {
             throw new RSIllegalArgumentException("Element must be compatible with uchar4.");
         }
+        long id;
+        boolean mUseIncSupp = false;
+        if (true || rs.isUseNative() && android.os.Build.VERSION.SDK_INT < 21) {
+            mUseIncSupp = true;
+        }
+        id = rs.nScriptIntrinsicCreate(8, e.getID(rs), mUseIncSupp);
 
-        return new ScriptIntrinsic3DLUT(id, rs, e);
+        ScriptIntrinsic3DLUT si = new ScriptIntrinsic3DLUT(id, rs, e);
+        si.setIncSupp(mUseIncSupp);
+        return si;
     }
 
     /**
