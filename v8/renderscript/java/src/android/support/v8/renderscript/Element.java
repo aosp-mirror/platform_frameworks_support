@@ -754,6 +754,9 @@ public class Element extends BaseObj {
         super(id, rs);
     }
 
+    public long getDummyElement(RenderScript mRS) {
+        return mRS.nIncElementCreate(mType.mID, mKind.mID, mNormalized, mVectorSize);
+    }
     /**
      * Create a custom Element of the specified DataType.  The DataKind will be
      * set to USER and the vector size to 1 indicating non-vector.

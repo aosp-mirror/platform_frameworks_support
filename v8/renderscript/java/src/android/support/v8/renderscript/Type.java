@@ -191,6 +191,10 @@ public class Type extends BaseObj {
         super(id, rs);
     }
 
+    public long getDummyType(RenderScript mRS, long eid) {
+        return mRS.nIncTypeCreate(eid, mDimX, mDimY, mDimZ, mDimMipmaps, mDimFaces, mDimYuv);
+    }
+
     /**
      * Builder class for Type.
      *
