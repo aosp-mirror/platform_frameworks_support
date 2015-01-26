@@ -45,9 +45,19 @@ public class ScriptIntrinsicLUT extends ScriptIntrinsic {
      * @return ScriptIntrinsicLUT
      */
     public static ScriptIntrinsicLUT create(RenderScript rs, Element e) {
-        long id = rs.nScriptIntrinsicCreate(3, e.getID(rs));
+        long id;
+        boolean mUseIncSupp = false;
+        if (true || rs.isUseNative() && android.os.Build.VERSION.SDK_INT < 21) {
+            android.util.Log.v("Inc RS Test", "Creating Intrinsic");
+            mUseIncSupp = true;
+            id = rs.nIncScriptIntrinsicCreate(3, e.getID(rs));
+            android.util.Log.v("Inc RS Test", "Creatie Intrinsic Completed");
+        } else {
+            id = rs.nScriptIntrinsicCreate(3, e.getID(rs));
+        }
 
         ScriptIntrinsicLUT si = new ScriptIntrinsicLUT(id, rs);
+        si.setIncSupp(mUseIncSupp);
         si.mTables = Allocation.createSized(rs, Element.U8(rs), 1024);
         for (int ct=0; ct < 256; ct++) {
             si.mCache[ct] = (byte)ct;

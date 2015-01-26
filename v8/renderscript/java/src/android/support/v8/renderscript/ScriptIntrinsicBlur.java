@@ -49,10 +49,21 @@ public class ScriptIntrinsicBlur extends ScriptIntrinsic {
         if ((!e.isCompatible(Element.U8_4(rs))) && (!e.isCompatible(Element.U8(rs)))) {
             throw new RSIllegalArgumentException("Unsuported element type.");
         }
-        long id = rs.nScriptIntrinsicCreate(5, e.getID(rs));
-        ScriptIntrinsicBlur sib = new ScriptIntrinsicBlur(id, rs);
-        sib.setRadius(5.f);
-        return sib;
+        long id;
+        boolean mUseIncSupp = false;
+        if (true || rs.isUseNative() && android.os.Build.VERSION.SDK_INT < 21) {
+            android.util.Log.v("Inc RS Test", "Creating Intrinsic");
+            mUseIncSupp = true;
+            id = rs.nIncScriptIntrinsicCreate(5, e.getID(rs));
+            android.util.Log.v("Inc RS Test", "Creatie Intrinsic Completed");
+        } else {
+            id = rs.nScriptIntrinsicCreate(5, e.getID(rs));
+        }
+        ScriptIntrinsicBlur si = new ScriptIntrinsicBlur(id, rs);
+        si.setIncSupp(mUseIncSupp);
+        si.setRadius(5.f);
+
+        return si;
     }
 
     /**

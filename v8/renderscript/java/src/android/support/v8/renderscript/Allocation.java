@@ -61,6 +61,7 @@ public class Allocation extends BaseObj {
     Bitmap mBitmap;
     int mUsage;
     Allocation mAdaptedAllocation;
+    long mIncCompatAllocation;
     int mSize;
 
     boolean mConstrainedLOD;
@@ -158,6 +159,12 @@ public class Allocation extends BaseObj {
         }
     }
 
+    public long getIncAllocID() {
+        return mIncCompatAllocation;
+    }
+    public void setIncAllocID(long id) {
+        mIncCompatAllocation = id;
+    }
 
     private long getIDSafe() {
         if (mAdaptedAllocation != null) {
@@ -241,6 +248,7 @@ public class Allocation extends BaseObj {
         mType = t;
         mUsage = usage;
         mSize = mType.getCount() * mType.getElement().getBytesSize();
+        mIncCompatAllocation = 0;
 
         if (t != null) {
             updateCacheInfo(t);
@@ -1744,5 +1752,20 @@ public class Allocation extends BaseObj {
             throw new RSRuntimeException("Could not convert string to utf-8.");
         }
     }
+    /**
+     * Frees any native resources associated with this object.  The
+     * primary use is to force immediate cleanup of resources when it is
+     * believed the GC will not respond quickly enough.
+     */
+    @Override
+    public void destroy() {
+        if (mIncCompatAllocation != 0) {
+            //May need to be carefull about, adding a lock!
+            //mRS.nObjDestroy(mIncCompatAllocation);
+            //mIncCompatAllocation = 0;
+        }
+        super.destroy();
+    }
+
 }
 

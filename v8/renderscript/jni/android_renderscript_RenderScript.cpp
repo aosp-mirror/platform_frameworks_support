@@ -126,6 +126,13 @@ static jboolean nLoadIOSO(JNIEnv *_env, jobject _this) {
     }
     return true;
 }
+
+// Incremental Support lib
+static dispatchTable dispatchTabInc;
+static RsContext incCon = NULL;
+static RsDevice incDev = NULL;
+static bool incLoaded = false;
+
 // ---------------------------------------------------------------------------
 
 static void
@@ -235,6 +242,10 @@ static void
 nDeviceDestroy(JNIEnv *_env, jobject _this, jlong dev)
 {
     LOG_API("nDeviceDestroy");
+    if (incDev != NULL) {
+        dispatchTabInc.DeviceDestroy(incDev);
+        incDev = NULL;
+    }
     return dispatchTab.DeviceDestroy((RsDevice)dev);
 }
 
@@ -266,6 +277,10 @@ static void
 nContextDestroy(JNIEnv *_env, jobject _this, jlong con)
 {
     LOG_API("nContextDestroy, con(%p)", (RsContext)con);
+    if (incCon != NULL) {
+        dispatchTabInc.ContextDestroy(incCon);
+        incCon = NULL;
+    }
     dispatchTab.ContextDestroy((RsContext)con);
 }
 
@@ -1294,6 +1309,334 @@ nSystemGetPointerSize(JNIEnv *_env, jobject _this) {
 
 // ---------------------------------------------------------------------------
 
+static bool nIncLoadSO() {
+    void* handle = NULL;
+    handle = dlopen("libRSSupport.so", RTLD_LAZY | RTLD_LOCAL);
+    if (handle == NULL) {
+        LOG_API("couldn't dlopen %s, %s", filename, dlerror());
+        __android_log_print(ANDROID_LOG_INFO, "Inc RS TEST JNI", "couldn't dlopen %s", dlerror());
+        return false;
+    }
+
+    if (loadSymbols(handle, dispatchTabInc) == false) {
+        LOG_API("%s init failed!", filename);
+        __android_log_print(ANDROID_LOG_INFO, "Inc RS TEST JNI", "init failed!");
+        return false;
+    }
+    LOG_API("Successfully loaded %s", filename);
+    __android_log_print(ANDROID_LOG_INFO, "Inc RS TEST JNI", "Successfully loaded");
+    return true;
+}
+
+static void
+nIncScriptBindAllocation(JNIEnv *_env, jobject _this, jlong con, jlong script, jlong alloc, jint slot)
+{
+    LOG_API("nScriptBindAllocation, con(%p), script(%p), alloc(%p), slot(%i)",
+            (RsContext)con, (RsScript)script, (RsAllocation)alloc, slot);
+    dispatchTabInc.ScriptBindAllocation(incCon, (RsScript)script, (RsAllocation)alloc, slot);
+}
+
+static void
+nIncScriptSetVarI(JNIEnv *_env, jobject _this, jlong con, jlong script, jint slot, jint val)
+{
+    LOG_API("nScriptSetVarI, con(%p), s(%p), slot(%i), val(%i)", incCon,
+            (void *)script, slot, val);
+    dispatchTabInc.ScriptSetVarI(incCon, (RsScript)script, slot, val);
+}
+
+static void
+nIncScriptSetVarObj(JNIEnv *_env, jobject _this, jlong con, jlong script, jint slot, jlong val)
+{
+    LOG_API("nScriptSetVarObj, con(%p), s(%p), slot(%i), val(%i)", (RsContext)con,
+            (void *)script, slot, val);
+    __android_log_print(ANDROID_LOG_INFO, "Inc RS TEST JNI", "Start to set Allocation");
+    dispatchTabInc.ScriptSetVarObj(incCon, (RsScript)script, slot, (RsObjectBase)val);
+}
+
+static void
+nIncScriptSetVarJ(JNIEnv *_env, jobject _this, jlong con, jlong script, jint slot, jlong val)
+{
+    LOG_API("nScriptSetVarJ, con(%p), s(%p), slot(%i), val(%lli)", incCon,
+            (void *)script, slot, val);
+    dispatchTabInc.ScriptSetVarJ(incCon, (RsScript)script, slot, val);
+}
+
+static void
+nIncScriptSetVarF(JNIEnv *_env, jobject _this, jlong con, jlong script, jint slot, float val)
+{
+    LOG_API("nScriptSetVarF, con(%p), s(%p), slot(%i), val(%f)", incCon,
+            (void *)script, slot, val);
+    dispatchTabInc.ScriptSetVarF(incCon, (RsScript)script, slot, val);
+}
+
+static void
+nIncScriptSetVarD(JNIEnv *_env, jobject _this, jlong con, jlong script, jint slot, double val)
+{
+    LOG_API("nScriptSetVarD, con(%p), s(%p), slot(%i), val(%lf)", incCon,
+            (void *)script, slot, val);
+    dispatchTabInc.ScriptSetVarD(incCon, (RsScript)script, slot, val);
+}
+
+static void
+nIncScriptSetVarV(JNIEnv *_env, jobject _this, jlong con, jlong script, jint slot, jbyteArray data)
+{
+    LOG_API("nScriptSetVarV, con(%p), s(%p), slot(%i)", incCon, (void *)script, slot);
+    jint len = _env->GetArrayLength(data);
+    jbyte *ptr = _env->GetByteArrayElements(data, NULL);
+    dispatchTabInc.ScriptSetVarV(incCon, (RsScript)script, slot, ptr, len);
+    _env->ReleaseByteArrayElements(data, ptr, JNI_ABORT);
+}
+
+static void
+nIncScriptSetVarVE(JNIEnv *_env, jobject _this, jlong con, jlong script, jint slot, jbyteArray data,
+                jlong elem, jintArray dims)
+{
+    LOG_API("nScriptSetVarVE, con(%p), s(%p), slot(%i)", incCon, (void *)script, slot);
+    jint len = _env->GetArrayLength(data);
+    jbyte *ptr = _env->GetByteArrayElements(data, NULL);
+    jint dimsLen = _env->GetArrayLength(dims) * sizeof(int);
+    jint *dimsPtr = _env->GetIntArrayElements(dims, NULL);
+    dispatchTabInc.ScriptSetVarVE(incCon, (RsScript)script, slot, ptr, len, (RsElement)elem,
+                     (const uint32_t *)dimsPtr, dimsLen);
+    _env->ReleaseByteArrayElements(data, ptr, JNI_ABORT);
+    _env->ReleaseIntArrayElements(dims, dimsPtr, JNI_ABORT);
+}
+
+
+static void
+nIncScriptSetTimeZone(JNIEnv *_env, jobject _this, jlong con, jlong script, jbyteArray timeZone)
+{
+    LOG_API("nScriptCSetTimeZone, con(%p), s(%p), timeZone(%s)", incCon,
+            (void *)script, (const char *)timeZone);
+
+    jint length = _env->GetArrayLength(timeZone);
+    jbyte* timeZone_ptr;
+    timeZone_ptr = (jbyte *) _env->GetPrimitiveArrayCritical(timeZone, (jboolean *)0);
+
+    dispatchTabInc.ScriptSetTimeZone(incCon, (RsScript)script, (const char *)timeZone_ptr, length);
+
+    if (timeZone_ptr) {
+        _env->ReleasePrimitiveArrayCritical(timeZone, timeZone_ptr, 0);
+    }
+}
+
+static void
+nIncScriptInvoke(JNIEnv *_env, jobject _this, jlong con, jlong obj, jint slot)
+{
+    LOG_API("nScriptInvoke, con(%p), script(%p)", incCon, (void *)obj);
+    dispatchTabInc.ScriptInvoke(incCon, (RsScript)obj, slot);
+}
+
+static void
+nIncScriptInvokeV(JNIEnv *_env, jobject _this, jlong con, jlong script, jint slot, jbyteArray data)
+{
+    LOG_API("nScriptInvokeV, con(%p), s(%p), slot(%i)", incCon, (void *)script, slot);
+    jint len = _env->GetArrayLength(data);
+    jbyte *ptr = _env->GetByteArrayElements(data, NULL);
+    dispatchTabInc.ScriptInvokeV(incCon, (RsScript)script, slot, ptr, len);
+    _env->ReleaseByteArrayElements(data, ptr, JNI_ABORT);
+}
+
+static void
+nIncScriptForEach(JNIEnv *_env, jobject _this, jlong con,
+               jlong script, jint slot, jlong ain, jlong aout)
+{
+    LOG_API("nScriptForEach, con(%p), s(%p), slot(%i)", incCon, (void *)script, slot);
+    // First Create the ain and aout allocation
+    dispatchTab.ContextFinish((RsContext)con);
+    dispatchTabInc.ScriptForEach(incCon, (RsScript)script, slot,
+                              (RsAllocation)ain, (RsAllocation)aout,
+                              NULL, 0, NULL, 0);
+    dispatchTabInc.ContextFinish(incCon);
+}
+static void
+nIncScriptForEachV(JNIEnv *_env, jobject _this, jlong con,
+                jlong script, jint slot, jlong ain, jlong aout, jbyteArray params)
+{
+    LOG_API("nScriptForEach, con(%p), s(%p), slot(%i)", incCon, (void *)script, slot);
+    jint len = _env->GetArrayLength(params);
+    jbyte *ptr = _env->GetByteArrayElements(params, NULL);
+    dispatchTab.ContextFinish((RsContext)con);
+    dispatchTabInc.ScriptForEach(incCon, (RsScript)script, slot,
+                              (RsAllocation)ain, (RsAllocation)aout,
+                              ptr, len, NULL, 0);
+    dispatchTabInc.ContextFinish(incCon);
+    _env->ReleaseByteArrayElements(params, ptr, JNI_ABORT);
+}
+
+static void
+nIncScriptForEachClipped(JNIEnv *_env, jobject _this, jlong con,
+                      jlong script, jint slot, jlong ain, jlong aout,
+                      jint xstart, jint xend,
+                      jint ystart, jint yend, jint zstart, jint zend)
+{
+    LOG_API("nScriptForEachClipped, con(%p), s(%p), slot(%i)", incCon, (void *)script, slot);
+    RsScriptCall sc;
+    sc.xStart = xstart;
+    sc.xEnd = xend;
+    sc.yStart = ystart;
+    sc.yEnd = yend;
+    sc.zStart = zstart;
+    sc.zEnd = zend;
+    sc.strategy = RS_FOR_EACH_STRATEGY_DONT_CARE;
+    sc.arrayStart = 0;
+    sc.arrayEnd = 0;
+
+    dispatchTab.ContextFinish((RsContext)con);
+    dispatchTabInc.ScriptForEach(incCon, (RsScript)script, slot,
+                              (RsAllocation)ain, (RsAllocation)aout,
+                              NULL, 0, &sc, sizeof(sc));
+    dispatchTabInc.ContextFinish(incCon);
+}
+
+static void
+nIncScriptForEachClippedV(JNIEnv *_env, jobject _this, jlong con,
+                       jlong script, jint slot, jlong ain, jlong aout,
+                       jbyteArray params, jint xstart, jint xend,
+                       jint ystart, jint yend, jint zstart, jint zend)
+{
+    LOG_API("nScriptForEachClipped, con(%p), s(%p), slot(%i)", incCon, (void *)script, slot);
+    jint len = _env->GetArrayLength(params);
+    jbyte *ptr = _env->GetByteArrayElements(params, NULL);
+    RsScriptCall sc;
+    sc.xStart = xstart;
+    sc.xEnd = xend;
+    sc.yStart = ystart;
+    sc.yEnd = yend;
+    sc.zStart = zstart;
+    sc.zEnd = zend;
+    sc.strategy = RS_FOR_EACH_STRATEGY_DONT_CARE;
+    sc.arrayStart = 0;
+    sc.arrayEnd = 0;
+
+    dispatchTab.ContextFinish((RsContext)con);
+    dispatchTabInc.ScriptForEach(incCon, (RsScript)script, slot,
+                              (RsAllocation)ain, (RsAllocation)aout,
+                              ptr, len, &sc, sizeof(sc));
+    dispatchTabInc.ContextFinish(incCon);
+    _env->ReleaseByteArrayElements(params, ptr, JNI_ABORT);
+}
+
+// -----------------------------------
+// To create a dummy context
+static void
+nIncObjDestroy(JNIEnv *_env, jobject _this, jlong con, jlong obj)
+{
+    LOG_API("nObjDestroy, con(%p) obj(%p)", incCon, (void *)obj);
+    if (incCon != NULL) {
+        dispatchTabInc.ObjDestroy(incCon, (void *)obj);
+    }
+}
+
+
+static jlong
+nIncDeviceCreate(JNIEnv *_env, jobject _this)
+{
+    LOG_API("nDeviceCreate");
+    return (jlong)(uintptr_t)dispatchTabInc.DeviceCreate();
+}
+
+static void
+nIncDeviceDestroy(JNIEnv *_env, jobject _this, jlong dev)
+{
+    LOG_API("nDeviceDestroy");
+    return dispatchTabInc.DeviceDestroy(incDev);
+}
+
+static jlong
+nIncContextCreate(JNIEnv *_env, jobject _this, jlong dev, jint ver, jint sdkVer, jint ct)
+{
+    LOG_API("nContextCreate");
+    return (jlong)(uintptr_t)dispatchTabInc.ContextCreate((RsDevice)dev, ver, sdkVer, (RsContextType)ct, 0);
+}
+
+static void
+nIncContextDestroy(JNIEnv *_env, jobject _this, jlong con)
+{
+    LOG_API("nContextDestroy, con(%p)", incCon);
+    dispatchTabInc.ContextDestroy(incCon);
+}
+
+// -----------------------------------
+static jlong
+nIncElementCreate(JNIEnv *_env, jobject _this, jlong con, jlong type, jint kind, jboolean norm, jint size)
+{
+    LOG_API("nElementCreate, con(%p), type(%i), kind(%i), norm(%i), size(%i)", incCon,
+            type, kind, norm, size);
+    return (jlong)(uintptr_t)dispatchTabInc.ElementCreate(incCon, (RsDataType)type, (RsDataKind)kind,
+                                                       norm, size);
+}
+// -----------------------------------
+
+static jlong
+nIncTypeCreate(JNIEnv *_env, jobject _this, jlong con, jlong eid,
+            jint dimx, jint dimy, jint dimz, jboolean mips, jboolean faces, jint yuv)
+{
+    LOG_API("nTypeCreate, con(%p) eid(%p), x(%i), y(%i), z(%i), mips(%i), faces(%i), yuv(%i)",
+            incCon, eid, dimx, dimy, dimz, mips, faces, yuv);
+
+    return (jlong)(uintptr_t)dispatchTabInc.TypeCreate(incCon, (RsElement)eid, dimx, dimy,
+                                                    dimz, mips, faces, yuv);
+}
+
+// -----------------------------------
+// Create Allocation from pointer
+static jlong
+nIncAllocationCreateTyped(JNIEnv *_env, jobject _this, jlong con, jlong alloc, jlong type)
+{
+    LOG_API("nAllocationCreateTyped, con(%p), type(%p), mip(%i), usage(%i), ptr(%p)",
+            incCon, (RsElement)type, mips, usage, (void *)pointer);
+    size_t strideIn;
+    void* pIn = NULL;
+    RsAllocation ainI = NULL;
+    if (alloc != 0) {
+        pIn = dispatchTab.AllocationGetPointer((RsContext)con, (RsAllocation)alloc, 0, (RsAllocationCubemapFace)0, 0, 0, &strideIn);
+        ainI = dispatchTabInc.AllocationCreateTyped(incCon, (RsType)type,
+                                         (RsAllocationMipmapControl)1,
+                                         0x0081, (uintptr_t)pIn);
+    }
+    return (jlong)(uintptr_t) ainI;
+}
+
+// -----------------------------------
+static jlong
+nIncScriptIntrinsicCreate(JNIEnv *_env, jobject _this, jlong con, jint id, jlong eid)
+{
+    __android_log_print(ANDROID_LOG_INFO, "Inc RS TEST JNI", "LOAD SO STARTED!");
+    if (!incLoaded) {
+        if (nIncLoadSO()) {
+            incLoaded = true;
+            __android_log_print(ANDROID_LOG_INFO, "Inc RS TEST JNI", "LOAD SO SUCCEEDed!");
+        }
+    }
+    if (incDev == NULL) {
+        incDev = dispatchTabInc.DeviceCreate();
+    }
+    if (incCon == NULL) {
+        incCon = dispatchTabInc.ContextCreate(incDev, 0, 21, (RsContextType)0, 0);
+    }
+    __android_log_print(ANDROID_LOG_INFO, "Inc RS TEST JNI", "Created Intrinsic");
+    LOG_API("nScriptIntrinsicCreate, con(%p) id(%i) element(%p)", incCon, id, (void *)eid);
+    return (jlong)(uintptr_t)dispatchTabInc.ScriptIntrinsicCreate(incCon, id, (RsElement)eid);
+}
+
+static jlong
+nIncScriptKernelIDCreate(JNIEnv *_env, jobject _this, jlong con, jlong sid, jint slot, jint sig)
+{
+    LOG_API("nScriptKernelIDCreate, con(%p) script(%p), slot(%i), sig(%i)", incCon,
+            (void *)sid, slot, sig);
+    return (jlong)(uintptr_t)dispatchTabInc.ScriptKernelIDCreate(incCon, (RsScript)sid,
+                                                                     slot, sig);
+}
+
+static jlong
+nIncScriptFieldIDCreate(JNIEnv *_env, jobject _this, jlong con, jlong sid, jint slot)
+{
+    LOG_API("nScriptFieldIDCreate, con(%p) script(%p), slot(%i)", incCon, (void *)sid, slot);
+    return (jlong)(uintptr_t)dispatchTabInc.ScriptFieldIDCreate(incCon, (RsScript)sid, slot);
+}
+// ---------------------------------------------------------------------------
+
 
 
 static const char *classPathName = "android/support/v8/renderscript/RenderScript";
@@ -1395,6 +1738,30 @@ static JNINativeMethod methods[] = {
 {"rsnSamplerCreate",                 "(JIIIIIF)J",                            (void*)nSamplerCreate },
 
 {"rsnSystemGetPointerSize",          "()I",                                   (void*)nSystemGetPointerSize },
+
+// Entry points for Inc libRSSupport
+{"rsnIncObjDestroy",                    "(JJ)V",                              (void*)nIncObjDestroy },
+{"rsnIncElementCreate",                 "(JJIZI)J",                           (void*)nIncElementCreate },
+{"rsnIncTypeCreate",                    "(JJIIIZZI)J",                        (void*)nIncTypeCreate },
+{"rsnIncAllocationCreateTyped",         "(JJJ)J",                             (void*)nIncAllocationCreateTyped },
+{"rsnIncScriptBindAllocation",          "(JJJI)V",                            (void*)nIncScriptBindAllocation },
+{"rsnIncScriptSetTimeZone",             "(JJ[B)V",                            (void*)nIncScriptSetTimeZone },
+{"rsnIncScriptInvoke",                  "(JJI)V",                             (void*)nIncScriptInvoke },
+{"rsnIncScriptInvokeV",                 "(JJI[B)V",                           (void*)nIncScriptInvokeV },
+{"rsnIncScriptForEach",                 "(JJIJJ)V",                         (void*)nIncScriptForEach },
+{"rsnIncScriptForEach",                 "(JJIJJ[B)V",                       (void*)nIncScriptForEachV },
+{"rsnIncScriptForEachClipped",          "(JJIJJIIIIII)V",                   (void*)nIncScriptForEachClipped },
+{"rsnIncScriptForEachClipped",          "(JJIJJ[BIIIIII)V",                 (void*)nIncScriptForEachClippedV },
+{"rsnIncScriptSetVarI",                 "(JJII)V",                            (void*)nIncScriptSetVarI },
+{"rsnIncScriptSetVarJ",                 "(JJIJ)V",                            (void*)nIncScriptSetVarJ },
+{"rsnIncScriptSetVarF",                 "(JJIF)V",                            (void*)nIncScriptSetVarF },
+{"rsnIncScriptSetVarD",                 "(JJID)V",                            (void*)nIncScriptSetVarD },
+{"rsnIncScriptSetVarV",                 "(JJI[B)V",                           (void*)nIncScriptSetVarV },
+{"rsnIncScriptSetVarVE",                "(JJI[BJ[I)V",                        (void*)nIncScriptSetVarVE },
+{"rsnIncScriptSetVarObj",               "(JJIJ)V",                           (void*)nIncScriptSetVarObj },
+{"rsnIncScriptIntrinsicCreate",         "(JIJ)J",                             (void*)nIncScriptIntrinsicCreate },
+{"rsnIncScriptKernelIDCreate",          "(JJII)J",                            (void*)nIncScriptKernelIDCreate },
+{"rsnIncScriptFieldIDCreate",           "(JJI)J",                             (void*)nIncScriptFieldIDCreate },
 };
 
 // ---------------------------------------------------------------------------

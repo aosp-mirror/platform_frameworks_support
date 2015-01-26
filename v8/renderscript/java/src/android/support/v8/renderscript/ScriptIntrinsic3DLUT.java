@@ -47,13 +47,22 @@ public class ScriptIntrinsic3DLUT extends ScriptIntrinsic {
      * @return ScriptIntrinsic3DLUT
      */
     public static ScriptIntrinsic3DLUT create(RenderScript rs, Element e) {
-        long id = rs.nScriptIntrinsicCreate(8, e.getID(rs));
-
         if (!e.isCompatible(Element.U8_4(rs))) {
             throw new RSIllegalArgumentException("Element must be compatible with uchar4.");
         }
-
-        return new ScriptIntrinsic3DLUT(id, rs, e);
+        long id;
+        boolean mUseIncSupp = false;
+        if (true || rs.isUseNative() && android.os.Build.VERSION.SDK_INT < 21) {
+            android.util.Log.v("Inc RS Test", "Creating Intrinsic");
+            mUseIncSupp = true;
+            id = rs.nIncScriptIntrinsicCreate(8, e.getID(rs));
+            android.util.Log.v("Inc RS Test", "Creatie Intrinsic Completed");
+        } else {
+            id = rs.nScriptIntrinsicCreate(8, e.getID(rs));
+        }
+        ScriptIntrinsic3DLUT si = new ScriptIntrinsic3DLUT(id, rs, e);
+        si.setIncSupp(mUseIncSupp);
+        return si;
     }
 
     /**
@@ -77,7 +86,18 @@ public class ScriptIntrinsic3DLUT extends ScriptIntrinsic {
         }
 
         mLUT = lut;
+        android.util.Log.v("Inc RS Test", "Seting 3d LUT");
         setVar(0, mLUT);
+        android.util.Log.v("Inc RS Test", "Seting 3d LUT Completed");
+        /*
+        if (mUseInc) {
+            android.util.Log.v("Inc RS Test", "Seting 3d LUT");
+            setVar(0, mLUT);
+            android.util.Log.v("Inc RS Test", "Seting 3d LUT Completed");
+        } else {
+            setVar(0, mLUT);
+        }
+        */
     }
 
 
@@ -89,7 +109,20 @@ public class ScriptIntrinsic3DLUT extends ScriptIntrinsic {
      * @param aout Output allocation
      */
     public void forEach(Allocation ain, Allocation aout) {
+        android.util.Log.v("Inc RS Test", "Invoking For Each");
         forEach(0, ain, aout, null);
+        android.util.Log.v("Inc RS Test", "Invoking For Each Completed");
+        /*
+        if (mUseInc) {
+            //Type tin = ain.getType();
+            //Type tout = aout.getType();
+            android.util.Log.v("Inc RS Test", "Invoking For Each");
+            forEach(0, ain, aout, null);
+            android.util.Log.v("Inc RS Test", "Invoking For Each Completed");
+        } else {
+            forEach(0, ain, aout, null);
+        }
+        */
     }
 
     /**
@@ -98,7 +131,16 @@ public class ScriptIntrinsic3DLUT extends ScriptIntrinsic {
      * @return Script.KernelID The KernelID object.
      */
     public Script.KernelID getKernelID() {
+        android.util.Log.v("Inc RS Test", "Getting Kernel ID");
         return createKernelID(0, 3, null, null);
+        /*
+        if (mUseInc) {
+            android.util.Log.v("Inc RS Test", "Getting Kernel ID");
+            return createKernelID(0, 3, null, null);
+        } else {
+            return createKernelID(0, 3, null, null);
+        }
+        */
     }
 }
 

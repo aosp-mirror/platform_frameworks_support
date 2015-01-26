@@ -43,8 +43,18 @@ public class ScriptIntrinsicYuvToRGB extends ScriptIntrinsic {
      */
     public static ScriptIntrinsicYuvToRGB create(RenderScript rs, Element e) {
         // 6 comes from RS_SCRIPT_INTRINSIC_YUV_TO_RGB in rsDefines.h
-        long id = rs.nScriptIntrinsicCreate(6, e.getID(rs));
+        long id;
+        boolean mUseIncSupp = false;
+        if (true || rs.isUseNative() && android.os.Build.VERSION.SDK_INT < 21) {
+            android.util.Log.v("Inc RS Test", "Creating Intrinsic");
+            mUseIncSupp = true;
+            id = rs.nIncScriptIntrinsicCreate(6, e.getID(rs));
+            android.util.Log.v("Inc RS Test", "Creatie Intrinsic Completed");
+        } else {
+            id = rs.nScriptIntrinsicCreate(6, e.getID(rs));
+        }
         ScriptIntrinsicYuvToRGB si = new ScriptIntrinsicYuvToRGB(id, rs);
+        si.setIncSupp(mUseIncSupp);
         return si;
     }
 

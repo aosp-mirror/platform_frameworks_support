@@ -78,7 +78,11 @@ public class RenderScript {
     static private int sNative = -1;
     static private int sSdkVersion = -1;
     static private boolean useIOlib = false;
+    static private boolean useNative;
 
+    boolean isUseNative() {
+        return useNative;
+    }
     /*
      * Detect the bitness of the VM to allow FieldPacker to do the right thing.
      */
@@ -685,8 +689,140 @@ public class RenderScript {
         return rsnSamplerCreate(mContext, magFilter, minFilter, wrapS, wrapT, wrapR, aniso);
     }
 
+// For inc libRSSupport
+    // nObjDestroy is explicitly _not_ synchronous to prevent crashes in finalizers
+    native void rsnIncObjDestroy(long con, long id);
+    void nIncObjDestroy(long id) {
+        // There is a race condition here.  The calling code may be run
+        // by the gc while teardown is occuring.  This protects againts
+        // deleting dead objects.
+        if (mContext != 0) {
+            rsnIncObjDestroy(mContext, id);
+        }
+    }
+    native long  rsnIncElementCreate(long con, long type, int kind, boolean norm, int vecSize);
+    synchronized long nIncElementCreate(long type, int kind, boolean norm, int vecSize) {
+        validate();
+        return rsnIncElementCreate(mContext, type, kind, norm, vecSize);
+    }
+    native long rsnIncTypeCreate(long con, long eid, int x, int y, int z, boolean mips, boolean faces, int yuv);
+    synchronized long nIncTypeCreate(long eid, int x, int y, int z, boolean mips, boolean faces, int yuv) {
+        validate();
+        return rsnIncTypeCreate(mContext, eid, x, y, z, mips, faces, yuv);
+    }    
+    native long  rsnIncAllocationCreateTyped(long con, long alloc, long type);
+    synchronized long nIncAllocationCreateTyped(long alloc, long type) {
+        validate();
+        return rsnIncAllocationCreateTyped(mContext, alloc, type);
+    }
 
+    native void rsnIncScriptBindAllocation(long con, long script, long alloc, int slot);
+    synchronized void nIncScriptBindAllocation(long script, long alloc, int slot) {
+        validate();
+        rsnIncScriptBindAllocation(mContext, script, alloc, slot);
+    }
+    native void rsnIncScriptSetTimeZone(long con, long script, byte[] timeZone);
+    synchronized void nIncScriptSetTimeZone(long script, byte[] timeZone) {
+        validate();
+        rsnIncScriptSetTimeZone(mContext, script, timeZone);
+    }
+    native void rsnIncScriptInvoke(long con, long id, int slot);
+    synchronized void nIncScriptInvoke(long id, int slot) {
+        validate();
+        rsnIncScriptInvoke(mContext, id, slot);
+    }
+    native void rsnIncScriptForEach(long con, long id, int slot, long ain, long aout, byte[] params);
+    native void rsnIncScriptForEach(long con, long id, int slot, long ain, long aout);
+    native void rsnIncScriptForEachClipped(long con, long id, int slot, long ain, long aout, byte[] params,
+                                        int xstart, int xend, int ystart, int yend, int zstart, int zend);
+    native void rsnIncScriptForEachClipped(long con, long id, int slot, long ain, long aout,
+                                        int xstart, int xend, int ystart, int yend, int zstart, int zend);
+    synchronized void nIncScriptForEach(long id, int slot, long ain, long aout, byte[] params) {
+        validate();
+        if (params == null) {
+            rsnIncScriptForEach(mContext, id, slot, ain, aout);
+        } else {
+            rsnIncScriptForEach(mContext, id, slot, ain, aout, params);
+        }
+    }
 
+    synchronized void nIncScriptForEachClipped(long id, int slot, long ain, long aout, byte[] params,
+                                            int xstart, int xend, int ystart, int yend, int zstart, int zend) {
+        validate();
+        if (params == null) {
+            rsnIncScriptForEachClipped(mContext, id, slot, ain, aout, xstart, xend, ystart, yend, zstart, zend);
+        } else {
+            rsnIncScriptForEachClipped(mContext, id, slot, ain, aout, params, xstart, xend, ystart, yend, zstart, zend);
+        }
+    }
+
+    native void rsnIncScriptInvokeV(long con, long id, int slot, byte[] params);
+    synchronized void nIncScriptInvokeV(long id, int slot, byte[] params) {
+        validate();
+        rsnIncScriptInvokeV(mContext, id, slot, params);
+    }
+    native void rsnIncScriptSetVarI(long con, long id, int slot, int val);
+    synchronized void nIncScriptSetVarI(long id, int slot, int val) {
+        validate();
+        rsnIncScriptSetVarI(mContext, id, slot, val);
+    }
+    native void rsnIncScriptSetVarJ(long con, long id, int slot, long val);
+    synchronized void nIncScriptSetVarJ(long id, int slot, long val) {
+        validate();
+        rsnIncScriptSetVarJ(mContext, id, slot, val);
+    }
+    native void rsnIncScriptSetVarF(long con, long id, int slot, float val);
+    synchronized void nIncScriptSetVarF(long id, int slot, float val) {
+        validate();
+        rsnIncScriptSetVarF(mContext, id, slot, val);
+    }
+    native void rsnIncScriptSetVarD(long con, long id, int slot, double val);
+    synchronized void nIncScriptSetVarD(long id, int slot, double val) {
+        validate();
+        rsnIncScriptSetVarD(mContext, id, slot, val);
+    }
+    native void rsnIncScriptSetVarV(long con, long id, int slot, byte[] val);
+    synchronized void nIncScriptSetVarV(long id, int slot, byte[] val) {
+        validate();
+        rsnIncScriptSetVarV(mContext, id, slot, val);
+    }
+    native void rsnIncScriptSetVarVE(long con, long id, int slot, byte[] val,
+                                  long e, int[] dims);
+    synchronized void nIncScriptSetVarVE(long id, int slot, byte[] val,
+                                      long e, int[] dims) {
+        validate();
+        rsnIncScriptSetVarVE(mContext, id, slot, val, e, dims);
+    }
+    native void rsnIncScriptSetVarObj(long con, long id, int slot, long val);
+    synchronized void nIncScriptSetVarObj(long id, int slot, long val) {
+        validate();
+        rsnIncScriptSetVarObj(mContext, id, slot, val);
+    }
+
+    native long  rsnIncScriptCCreate(long con, String resName, String cacheDir,
+                                 byte[] script, int length);
+    synchronized long nIncScriptCCreate(String resName, String cacheDir, byte[] script, int length) {
+        validate();
+        return rsnIncScriptCCreate(mContext, resName, cacheDir, script, length);
+    }
+
+    native long  rsnIncScriptIntrinsicCreate(long con, int id, long eid);
+    synchronized long nIncScriptIntrinsicCreate(int id, long eid) {
+        validate();
+        return rsnIncScriptIntrinsicCreate(mContext, id, eid);
+    }
+
+    native long  rsnIncScriptKernelIDCreate(long con, long sid, int slot, int sig);
+    synchronized long nIncScriptKernelIDCreate(long sid, int slot, int sig) {
+        validate();
+        return rsnIncScriptKernelIDCreate(mContext, sid, slot, sig);
+    }
+
+    native long  rsnIncScriptFieldIDCreate(long con, long sid, int slot);
+    synchronized long nIncScriptFieldIDCreate(long sid, int slot) {
+        validate();
+        return rsnIncScriptFieldIDCreate(mContext, sid, slot);
+    }
 
     long     mDev;
     long     mContext;
@@ -1010,7 +1146,7 @@ public class RenderScript {
         } else if (sSdkVersion != sdkVersion) {
             throw new RSRuntimeException("Can't have two contexts with different SDK versions in support lib");
         }
-        boolean useNative = setupNative(sSdkVersion, ctx);
+        useNative = setupNative(sSdkVersion, ctx);
         synchronized(lock) {
             if (sInitialized == false) {
                 try {
@@ -1046,6 +1182,7 @@ public class RenderScript {
         if (!rs.nLoadSO(useNative)) {
             if (useNative) {
                 android.util.Log.v(LOG_TAG, "Unable to load libRS.so, falling back to compat mode");
+                useNative = false;
             }
             try {
                 System.loadLibrary("RSSupport");

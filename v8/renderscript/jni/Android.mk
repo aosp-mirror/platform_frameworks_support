@@ -52,6 +52,6 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_REQUIRED_MODULES := libRSSupport
 #LOCAL_32_BIT_ONLY := true
 
-LOCAL_LDFLAGS += -ldl
+LOCAL_LDFLAGS += -ldl -llog
 
 include $(BUILD_SHARED_LIBRARY)
