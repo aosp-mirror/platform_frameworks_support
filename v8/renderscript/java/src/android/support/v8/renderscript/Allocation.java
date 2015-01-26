@@ -18,6 +18,7 @@ package android.support.v8.renderscript;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import android.content.res.Resources;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -78,7 +79,12 @@ public class Allocation extends BaseObj {
     int mCurrentDimY;
     int mCurrentDimZ;
     int mCurrentCount;
-
+    /*
+     * Hold reference to the shared allocation in compat context
+     * for Incremental Support Lib.
+     */
+    long mIncCompatAllocation;
+    boolean mIncAllocDestroyed;
     /**
      * The usage of the Allocation.  These signal to RenderScript where to place
      * the Allocation in memory.
@@ -158,6 +164,16 @@ public class Allocation extends BaseObj {
         }
     }
 
+    /**
+     * Getter & Setter for the dummy allocation for Inc Support Lib.
+     *
+     */
+    public long getIncAllocID() {
+        return mIncCompatAllocation;
+    }
+    public void setIncAllocID(long id) {
+        mIncCompatAllocation = id;
+    }
 
     private long getIDSafe() {
         if (mAdaptedAllocation != null) {
@@ -241,6 +257,8 @@ public class Allocation extends BaseObj {
         mType = t;
         mUsage = usage;
         mSize = mType.getCount() * mType.getElement().getBytesSize();
+        mIncCompatAllocation = 0;
+        mIncAllocDestroyed = false;
 
         if (t != null) {
             updateCacheInfo(t);
@@ -1746,15 +1764,41 @@ public class Allocation extends BaseObj {
     }
 
     /**
+     * Frees any native resources associated with this object.  The
+     * primary use is to force immediate cleanup of resources when it is
+     * believed the GC will not respond quickly enough.
      * For USAGE_IO_OUTPUT, destroy() implies setSurface(null).
-     *
      */
     @Override
     public void destroy() {
-        if((mUsage & USAGE_IO_OUTPUT) != 0) {
+        if (mIncCompatAllocation != 0) {
+            //May need to be carefull about, adding a lock!
+            //mRS.nObjDestroy(mIncCompatAllocation);
+            //mIncCompatAllocation = 0;
+            boolean shouldDestroy = false;
+            synchronized(this) {
+                if (!mIncAllocDestroyed) {
+                    shouldDestroy = true;
+                    mIncAllocDestroyed = true;
+                }
+            }
+
+            if (shouldDestroy) {
+                // must include nObjDestroy in the critical section
+                ReentrantReadWriteLock.ReadLock rlock = mRS.mRWLock.readLock();
+                rlock.lock();
+                if(mRS.isAlive()) {
+                    mRS.nIncObjDestroy(mIncCompatAllocation);
+                }
+                rlock.unlock();
+                mIncCompatAllocation = 0;
+            }
+        }
+        if ((mUsage & (USAGE_IO_INPUT | USAGE_IO_OUTPUT)) != 0) {
             setSurface(null);
         }
         super.destroy();
     }
+
 }
 
