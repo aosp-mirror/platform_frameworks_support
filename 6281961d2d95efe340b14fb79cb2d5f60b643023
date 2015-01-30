@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "b79c1385_6174f6b6",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/Script.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1004537
+      },
+      "writtenOn": "2015-01-30T01:42:10Z",
+      "side": 1,
+      "message": "@hide",
+      "revId": "6281961d2d95efe340b14fb79cb2d5f60b643023",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b79c1385_e1f246f7",
         "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
         "patchSetId": 2
