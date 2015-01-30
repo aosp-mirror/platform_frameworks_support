@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d797c75c_c5e74c33",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1190,
+      "author": {
+        "id": 1004537
+      },
+      "writtenOn": "2015-01-30T01:30:58Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure this needs to be a long due to 64 bit.",
+      "range": {
+        "startLine": 1190,
+        "startChar": 61,
+        "endLine": 1190,
+        "endChar": 65
+      },
+      "revId": "6281961d2d95efe340b14fb79cb2d5f60b643023",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
