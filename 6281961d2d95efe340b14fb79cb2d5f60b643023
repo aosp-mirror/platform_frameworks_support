@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "b79c1385_e1f246f7",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1181,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2015-01-30T01:38:51Z",
+      "side": 1,
+      "message": "jlong",
+      "range": {
+        "startLine": 1181,
+        "startChar": 7,
+        "endLine": 1181,
+        "endChar": 11
+      },
+      "revId": "6281961d2d95efe340b14fb79cb2d5f60b643023",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57767713_c98f758c",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1182,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2015-01-30T01:38:51Z",
+      "side": 1,
+      "message": "Yeah, sid should be jlong.",
+      "range": {
+        "startLine": 1182,
+        "startChar": 66,
+        "endLine": 1182,
+        "endChar": 70
+      },
+      "revId": "6281961d2d95efe340b14fb79cb2d5f60b643023",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d797c75c_45afbca9",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1182,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2015-01-30T01:38:51Z",
+      "side": 1,
+      "message": "jlong",
+      "range": {
+        "startLine": 1182,
+        "startChar": 51,
+        "endLine": 1182,
+        "endChar": 60
+      },
+      "revId": "6281961d2d95efe340b14fb79cb2d5f60b643023",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57767713_895c9d6e",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1186,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2015-01-30T01:38:51Z",
+      "side": 1,
+      "message": "(RsContext)con",
+      "range": {
+        "startLine": 1186,
+        "startChar": 51,
+        "endLine": 1186,
+        "endChar": 54
+      },
+      "revId": "6281961d2d95efe340b14fb79cb2d5f60b643023",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d797c75c_c5e74c33",
         "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
         "patchSetId": 2
@@ -18,6 +110,29 @@
         "startChar": 61,
         "endLine": 1190,
         "endChar": 65
+      },
+      "revId": "6281961d2d95efe340b14fb79cb2d5f60b643023",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d797c75c_2555d804",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1396,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2015-01-30T01:38:51Z",
+      "side": 1,
+      "message": "JJI",
+      "range": {
+        "startLine": 1396,
+        "startChar": 39,
+        "endLine": 1396,
+        "endChar": 42
       },
       "revId": "6281961d2d95efe340b14fb79cb2d5f60b643023",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
