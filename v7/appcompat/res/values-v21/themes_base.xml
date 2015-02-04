@@ -82,6 +82,7 @@
         <item name="android:colorControlNormal">?attr/colorControlNormal</item>
         <item name="android:colorControlActivated">?attr/colorControlActivated</item>
         <item name="android:colorControlHighlight">?attr/colorControlHighlight</item>
+        <item name="android:colorSwitchThumbNormal">?attr/colorSwitchThumbNormal</item>
     </style>
 
     <style name="Base.V21.Theme.AppCompat.Light" parent="Base.V7.Theme.AppCompat.Light">
@@ -119,6 +120,7 @@
         <item name="android:colorControlNormal">?attr/colorControlNormal</item>
         <item name="android:colorControlActivated">?attr/colorControlActivated</item>
         <item name="android:colorControlHighlight">?attr/colorControlHighlight</item>
+        <item name="android:colorSwitchThumbNormal">?attr/colorSwitchThumbNormal</item>
     </style>
 
     <style name="Base.V21.Theme.AppCompat.Dialog" parent="Base.V11.Theme.AppCompat.Dialog">
@@ -156,6 +158,7 @@
         <item name="android:colorControlNormal">?attr/colorControlNormal</item>
         <item name="android:colorControlActivated">?attr/colorControlActivated</item>
         <item name="android:colorControlHighlight">?attr/colorControlHighlight</item>
+        <item name="android:colorSwitchThumbNormal">?attr/colorSwitchThumbNormal</item>
     </style>
 
     <style name="Base.V21.Theme.AppCompat.Light.Dialog" parent="Base.V11.Theme.AppCompat.Light.Dialog">
@@ -193,6 +196,7 @@
         <item name="android:colorControlNormal">?attr/colorControlNormal</item>
         <item name="android:colorControlActivated">?attr/colorControlActivated</item>
         <item name="android:colorControlHighlight">?attr/colorControlHighlight</item>
+        <item name="android:colorSwitchThumbNormal">?attr/colorSwitchThumbNormal</item>
     </style>
 
     <style name="Base.Theme.AppCompat.Dialog" parent="Base.V21.Theme.AppCompat.Dialog" />
