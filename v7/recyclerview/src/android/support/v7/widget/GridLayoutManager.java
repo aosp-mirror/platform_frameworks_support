@@ -24,6 +24,7 @@ import android.util.SparseIntArray;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.lang.Math;
 import java.util.Arrays;
 
 /**
@@ -47,7 +48,7 @@ public class GridLayoutManager extends LinearLayoutManager {
     /**
      * The size of each span
      */
-    int mSizePerSpan;
+    float mSizePerSpan;
     /**
      * Temporary array to keep views in layoutChunk method
      */
@@ -246,7 +247,7 @@ public class GridLayoutManager extends LinearLayoutManager {
         } else {
             totalSpace = getHeight() - getPaddingBottom() - getPaddingTop();
         }
-        mSizePerSpan = totalSpace / mSpanCount;
+        mSizePerSpan = (float) totalSpace / mSpanCount;
     }
 
     @Override
@@ -388,7 +389,7 @@ public class GridLayoutManager extends LinearLayoutManager {
             }
 
             int spanSize = getSpanSize(recycler, state, getPosition(view));
-            final int spec = View.MeasureSpec.makeMeasureSpec(mSizePerSpan * spanSize,
+            final int spec = View.MeasureSpec.makeMeasureSpec(Math.round(mSizePerSpan * spanSize),
                     View.MeasureSpec.EXACTLY);
             final LayoutParams lp = (LayoutParams) view.getLayoutParams();
             if (mOrientation == VERTICAL) {
@@ -408,7 +409,7 @@ public class GridLayoutManager extends LinearLayoutManager {
             final View view = mSet[i];
             if (mOrientationHelper.getDecoratedMeasurement(view) != maxSize) {
                 int spanSize = getSpanSize(recycler, state, getPosition(view));
-                final int spec = View.MeasureSpec.makeMeasureSpec(mSizePerSpan * spanSize,
+                final int spec = View.MeasureSpec.makeMeasureSpec(Math.round(mSizePerSpan * spanSize),
                         View.MeasureSpec.EXACTLY);
                 if (mOrientation == VERTICAL) {
                     measureChildWithDecorationsAndMargin(view, spec, maxMeasureSpec);
@@ -442,10 +443,10 @@ public class GridLayoutManager extends LinearLayoutManager {
             View view = mSet[i];
             LayoutParams params = (LayoutParams) view.getLayoutParams();
             if (mOrientation == VERTICAL) {
-                left = getPaddingLeft() + mSizePerSpan * params.mSpanIndex;
+                left = getPaddingLeft() + Math.round(mSizePerSpan * params.mSpanIndex);
                 right = left + mOrientationHelper.getDecoratedMeasurementInOther(view);
             } else {
-                top = getPaddingTop() + mSizePerSpan * params.mSpanIndex;
+                top = getPaddingTop() + Math.round(mSizePerSpan * params.mSpanIndex);
                 bottom = top + mOrientationHelper.getDecoratedMeasurementInOther(view);
             }
             // We calculate everything with View's bounding box (which includes decor and margins)
