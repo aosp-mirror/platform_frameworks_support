@@ -49,6 +49,10 @@ public class GridLayoutManager extends LinearLayoutManager {
      */
     int mSizePerSpan;
     /**
+     * Saved reminder if {@link #mSpanCount} is not a divider of totalSpace
+     */
+    int mSizePerSpanRemainder;
+    /**
      * Temporary array to keep views in layoutChunk method
      */
     View[] mSet;
@@ -247,6 +251,7 @@ public class GridLayoutManager extends LinearLayoutManager {
             totalSpace = getHeight() - getPaddingBottom() - getPaddingTop();
         }
         mSizePerSpan = totalSpace / mSpanCount;
+        mSizePerSpanRemainder = totalSpace % mSpanCount;
     }
 
     @Override
@@ -328,6 +333,16 @@ public class GridLayoutManager extends LinearLayoutManager {
         return mSpanSizeLookup.getSpanSize(adapterPosition);
     }
 
+    private int calculateItemBorder(int consumedSpans) {
+        int itemBorder = mSizePerSpan * consumedSpans;
+        int additionalSize = mSizePerSpanRemainder * consumedSpans;
+        itemBorder += additionalSize / mSpanCount;
+        if ((mSpanCount - additionalSize % mSpanCount) < mSizePerSpanRemainder) {
+            itemBorder += 1;
+        }
+        return itemBorder;
+    }
+
     @Override
     void layoutChunk(RecyclerView.Recycler recycler, RecyclerView.State state,
             LayoutState layoutState, LayoutChunkResult result) {
@@ -336,6 +351,7 @@ public class GridLayoutManager extends LinearLayoutManager {
         int count = 0;
         int consumedSpanCount = 0;
         int remainingSpan = mSpanCount;
+        int [] cachedBorders = new int[mSet.length + 1];
         if (!layingOutInPrimaryDirection) {
             int itemSpanIndex = getSpanIndex(recycler, state, layoutState.mCurrentPosition);
             int itemSpanSize = getSpanSize(recycler, state, layoutState.mCurrentPosition);
@@ -358,6 +374,7 @@ public class GridLayoutManager extends LinearLayoutManager {
                 break;
             }
             consumedSpanCount += spanSize;
+            cachedBorders[count + 1] = calculateItemBorder(consumedSpanCount);
             mSet[count] = view;
             count++;
         }
@@ -388,7 +405,7 @@ public class GridLayoutManager extends LinearLayoutManager {
             }
 
             int spanSize = getSpanSize(recycler, state, getPosition(view));
-            final int spec = View.MeasureSpec.makeMeasureSpec(mSizePerSpan * spanSize,
+            final int spec = View.MeasureSpec.makeMeasureSpec(cachedBorders[i+1] - cachedBorders[i],
                     View.MeasureSpec.EXACTLY);
             final LayoutParams lp = (LayoutParams) view.getLayoutParams();
             if (mOrientation == VERTICAL) {
@@ -407,8 +424,7 @@ public class GridLayoutManager extends LinearLayoutManager {
         for (int i = 0; i < count; i ++) {
             final View view = mSet[i];
             if (mOrientationHelper.getDecoratedMeasurement(view) != maxSize) {
-                int spanSize = getSpanSize(recycler, state, getPosition(view));
-                final int spec = View.MeasureSpec.makeMeasureSpec(mSizePerSpan * spanSize,
+                final int spec = View.MeasureSpec.makeMeasureSpec(cachedBorders[i+1] - cachedBorders[i],
                         View.MeasureSpec.EXACTLY);
                 if (mOrientation == VERTICAL) {
                     measureChildWithDecorationsAndMargin(view, spec, maxMeasureSpec);
@@ -442,10 +458,10 @@ public class GridLayoutManager extends LinearLayoutManager {
             View view = mSet[i];
             LayoutParams params = (LayoutParams) view.getLayoutParams();
             if (mOrientation == VERTICAL) {
-                left = getPaddingLeft() + mSizePerSpan * params.mSpanIndex;
+                left = getPaddingLeft() + cachedBorders[i];
                 right = left + mOrientationHelper.getDecoratedMeasurementInOther(view);
             } else {
-                top = getPaddingTop() + mSizePerSpan * params.mSpanIndex;
+                top = getPaddingTop() + cachedBorders[i];
                 bottom = top + mOrientationHelper.getDecoratedMeasurementInOther(view);
             }
             // We calculate everything with View's bounding box (which includes decor and margins)
