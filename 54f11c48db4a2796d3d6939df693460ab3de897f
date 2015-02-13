@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2bab6058_054e12b2",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1004537
+      },
+      "writtenOn": "2015-02-13T23:03:53Z",
+      "side": 1,
+      "message": "Does this need to be public?\n\nIf so we need to update current.txt\n\nIf not I think the function below can just read the var.",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 37
+      },
+      "revId": "54f11c48db4a2796d3d6939df693460ab3de897f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
