@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cbe72493_22c2ee0b",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/ScriptIntrinsic.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1050418
+      },
+      "writtenOn": "2015-02-14T00:29:26Z",
+      "side": 1,
+      "message": "Unnecessary blank line.",
+      "revId": "cccbc199a591d21861f23b1bca616b562d3e04f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b4dbcae_5cb4fd7c",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/ScriptIntrinsicHistogram.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1050418
+      },
+      "writtenOn": "2015-02-14T00:29:26Z",
+      "side": 1,
+      "message": "kind of optional. just assign the above condition to mUseIncSupp. No need for an if statement.",
+      "revId": "cccbc199a591d21861f23b1bca616b562d3e04f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b4dbcae_bcf42155",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/ScriptIntrinsicResize.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1050418
+      },
+      "writtenOn": "2015-02-14T00:29:26Z",
+      "side": 1,
+      "message": "you could directly assign the condition above to mUseIncSupp",
+      "revId": "cccbc199a591d21861f23b1bca616b562d3e04f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b4dbcae_fc2fc9fb",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 1050418
+      },
+      "writtenOn": "2015-02-14T00:29:26Z",
+      "side": 1,
+      "message": "dispatchTabInc?",
+      "range": {
+        "startLine": 1283,
+        "startChar": 33,
+        "endLine": 1283,
+        "endChar": 44
+      },
+      "revId": "cccbc199a591d21861f23b1bca616b562d3e04f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
