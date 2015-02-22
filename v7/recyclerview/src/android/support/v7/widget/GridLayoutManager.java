@@ -329,6 +329,16 @@ public class GridLayoutManager extends LinearLayoutManager {
         return mSpanSizeLookup.getSpanSize(adapterPosition);
     }
 
+    private int calculateRightBorder(int consumedSpans) {
+        double fraction = mSizePerSpan - Math.floor(mSizePerSpan);
+        float rightBorder = mSizePerSpan * consumedSpans;
+        if (Math.ceil(rightBorder) - rightBorder < fraction) {
+            return (int)rightBorder + 1;
+        } else {
+            return (int)rightBorder;
+        }
+    }
+
     @Override
     void layoutChunk(RecyclerView.Recycler recycler, RecyclerView.State state,
             LayoutState layoutState, LayoutChunkResult result) {
@@ -342,6 +352,8 @@ public class GridLayoutManager extends LinearLayoutManager {
             int itemSpanSize = getSpanSize(recycler, state, layoutState.mCurrentPosition);
             remainingSpan = itemSpanIndex + itemSpanSize;
         }
+        int [] cachedBorders = new int[mSet.length + 1];
+        cachedBorders[0] = 0;
         while (count < mSpanCount && layoutState.hasMore(state) && remainingSpan > 0) {
             int pos = layoutState.mCurrentPosition;
             final int spanSize = getSpanSize(recycler, state, pos);
@@ -359,6 +371,7 @@ public class GridLayoutManager extends LinearLayoutManager {
                 break;
             }
             consumedSpanCount += spanSize;
+            cachedBorders[count + 1] = calculateRightBorder(consumedSpanCount);
             mSet[count] = view;
             count++;
         }
@@ -389,7 +402,7 @@ public class GridLayoutManager extends LinearLayoutManager {
             }
 
             int spanSize = getSpanSize(recycler, state, getPosition(view));
-            final int spec = View.MeasureSpec.makeMeasureSpec(Math.round(mSizePerSpan * spanSize),
+            final int spec = View.MeasureSpec.makeMeasureSpec(cachedBorders[i+1] - cachedBorders[i],
                     View.MeasureSpec.EXACTLY);
             final LayoutParams lp = (LayoutParams) view.getLayoutParams();
             if (mOrientation == VERTICAL) {
@@ -409,7 +422,7 @@ public class GridLayoutManager extends LinearLayoutManager {
             final View view = mSet[i];
             if (mOrientationHelper.getDecoratedMeasurement(view) != maxSize) {
                 int spanSize = getSpanSize(recycler, state, getPosition(view));
-                final int spec = View.MeasureSpec.makeMeasureSpec(Math.round(mSizePerSpan * spanSize),
+                final int spec = View.MeasureSpec.makeMeasureSpec(cachedBorders[i+1] - cachedBorders[i],
                         View.MeasureSpec.EXACTLY);
                 if (mOrientation == VERTICAL) {
                     measureChildWithDecorationsAndMargin(view, spec, maxMeasureSpec);
@@ -443,10 +456,10 @@ public class GridLayoutManager extends LinearLayoutManager {
             View view = mSet[i];
             LayoutParams params = (LayoutParams) view.getLayoutParams();
             if (mOrientation == VERTICAL) {
-                left = getPaddingLeft() + Math.round(mSizePerSpan * params.mSpanIndex);
+                left = getPaddingLeft() + cachedBorders[i];
                 right = left + mOrientationHelper.getDecoratedMeasurementInOther(view);
             } else {
-                top = getPaddingTop() + Math.round(mSizePerSpan * params.mSpanIndex);
+                top = getPaddingTop() + cachedBorders[i];
                 bottom = top + mOrientationHelper.getDecoratedMeasurementInOther(view);
             }
             // We calculate everything with View's bounding box (which includes decor and margins)
