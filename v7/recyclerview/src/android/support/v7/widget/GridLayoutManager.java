@@ -24,7 +24,6 @@ import android.util.SparseIntArray;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.lang.Math;
 import java.util.Arrays;
 
 /**
@@ -48,7 +47,11 @@ public class GridLayoutManager extends LinearLayoutManager {
     /**
      * The size of each span
      */
-    float mSizePerSpan;
+    int mSizePerSpan;
+    /**
+     * Saved reminder if {@link #mSpanCount} is not a divider of totalSpace
+     */
+    int mSizePerSpanRemainder;
     /**
      * Temporary array to keep views in layoutChunk method
      */
@@ -247,7 +250,8 @@ public class GridLayoutManager extends LinearLayoutManager {
         } else {
             totalSpace = getHeight() - getPaddingBottom() - getPaddingTop();
         }
-        mSizePerSpan = (float) totalSpace / mSpanCount;
+        mSizePerSpan = totalSpace / mSpanCount;
+        mSizePerSpanRemainder = totalSpace % mSpanCount;
     }
 
     @Override
@@ -329,14 +333,14 @@ public class GridLayoutManager extends LinearLayoutManager {
         return mSpanSizeLookup.getSpanSize(adapterPosition);
     }
 
-    private int calculateRightBorder(int consumedSpans) {
-        double fraction = mSizePerSpan - Math.floor(mSizePerSpan);
-        float rightBorder = mSizePerSpan * consumedSpans;
-        if (Math.ceil(rightBorder) - rightBorder < fraction) {
-            return (int)rightBorder + 1;
-        } else {
-            return (int)rightBorder;
+    private int calculateItemBorder(int consumedSpans) {
+        int itemBorder = mSizePerSpan * consumedSpans;
+        int additionalSize = mSizePerSpanRemainder * consumedSpans;
+        itemBorder += additionalSize / mSpanCount;
+        if ((mSpanCount - additionalSize % mSpanCount) < mSizePerSpanRemainder) {
+            itemBorder += 1;
         }
+        return itemBorder;
     }
 
     @Override
@@ -347,13 +351,12 @@ public class GridLayoutManager extends LinearLayoutManager {
         int count = 0;
         int consumedSpanCount = 0;
         int remainingSpan = mSpanCount;
+        int [] cachedBorders = new int[mSet.length + 1];
         if (!layingOutInPrimaryDirection) {
             int itemSpanIndex = getSpanIndex(recycler, state, layoutState.mCurrentPosition);
             int itemSpanSize = getSpanSize(recycler, state, layoutState.mCurrentPosition);
             remainingSpan = itemSpanIndex + itemSpanSize;
         }
-        int [] cachedBorders = new int[mSet.length + 1];
-        cachedBorders[0] = 0;
         while (count < mSpanCount && layoutState.hasMore(state) && remainingSpan > 0) {
             int pos = layoutState.mCurrentPosition;
             final int spanSize = getSpanSize(recycler, state, pos);
@@ -371,7 +374,7 @@ public class GridLayoutManager extends LinearLayoutManager {
                 break;
             }
             consumedSpanCount += spanSize;
-            cachedBorders[count + 1] = calculateRightBorder(consumedSpanCount);
+            cachedBorders[count + 1] = calculateItemBorder(consumedSpanCount);
             mSet[count] = view;
             count++;
         }
