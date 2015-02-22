@@ -424,7 +424,6 @@ public class GridLayoutManager extends LinearLayoutManager {
         for (int i = 0; i < count; i ++) {
             final View view = mSet[i];
             if (mOrientationHelper.getDecoratedMeasurement(view) != maxSize) {
-                int spanSize = getSpanSize(recycler, state, getPosition(view));
                 final int spec = View.MeasureSpec.makeMeasureSpec(cachedBorders[i+1] - cachedBorders[i],
                         View.MeasureSpec.EXACTLY);
                 if (mOrientation == VERTICAL) {
