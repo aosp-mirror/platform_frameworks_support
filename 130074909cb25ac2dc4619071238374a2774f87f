@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c87baa5e_c253622b",
+        "filename": "v7/recyclerview/src/android/support/v7/widget/GridLayoutManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2015-02-23T17:25:17Z",
+      "side": 1,
+      "message": "layout chunk is called many times during a layout so it is best if we don\u0027t allocate here.\nInstead, create a field and re-use that one.",
+      "revId": "130074909cb25ac2dc4619071238374a2774f87f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a80d96eb_998bbb89",
+        "filename": "v7/recyclerview/src/android/support/v7/widget/GridLayoutManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2015-02-23T17:25:17Z",
+      "side": 1,
+      "message": "I\"m a bit confused here. Why are we calculating these borders based on items?  Why not have a simple method that iterates from 0 to spanCount (inclusive) and fills in `mCachedBorders`.We can call it from  updateMeasurements.\n\nAm I missing something ? \n\nAlso, you would not need `mSizePerSpanRemainder`. We can probably get rid of `mSizePerSpan` too.",
+      "revId": "130074909cb25ac2dc4619071238374a2774f87f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
