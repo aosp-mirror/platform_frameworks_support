@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05cf6d48_8c10e778",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1004537
+      },
+      "writtenOn": "2015-02-24T01:43:34Z",
+      "side": 1,
+      "message": "delete in favor of rsnAllocationElementData",
+      "range": {
+        "startLine": 386,
+        "startChar": 3,
+        "endLine": 390,
+        "endChar": 5
+      },
+      "revId": "cf8826d92d13b203c0ff07d04fd223c4d6dbd2d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5ece17a_41e5f2e0",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1004537
+      },
+      "writtenOn": "2015-02-24T01:43:34Z",
+      "side": 1,
+      "message": "I\u0027d delete this and just call the generic Data func.",
+      "range": {
+        "startLine": 695,
+        "startChar": 0,
+        "endLine": 707,
+        "endChar": 1
+      },
+      "revId": "cf8826d92d13b203c0ff07d04fd223c4d6dbd2d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
