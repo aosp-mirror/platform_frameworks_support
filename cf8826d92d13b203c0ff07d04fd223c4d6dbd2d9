@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "85a19dbc_60f992d1",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2015-02-24T19:30:39Z",
+      "side": 1,
+      "message": "Will do it in the fw/base/rs/ part of the java API. For support lib, we need to keep this old entry point.",
+      "parentUuid": "05cf6d48_8c10e778",
+      "range": {
+        "startLine": 386,
+        "startChar": 3,
+        "endLine": 390,
+        "endChar": 5
+      },
+      "revId": "cf8826d92d13b203c0ff07d04fd223c4d6dbd2d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5ece17a_41e5f2e0",
         "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
         "patchSetId": 4
