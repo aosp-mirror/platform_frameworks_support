@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5d06110_616f76e4",
+        "filename": "v7/recyclerview/src/android/support/v7/widget/GridLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2015-02-24T17:16:02Z",
+      "side": 1,
+      "message": "line too long, truncate to 80",
+      "revId": "af15d55662a2dee1c4cc06b1f7c76ba6f730a852",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65dae934_5f1deb93",
+        "filename": "v7/recyclerview/src/android/support/v7/widget/GridLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2015-02-24T17:16:02Z",
+      "side": 1,
+      "message": "line too long, truncate to 80",
+      "revId": "af15d55662a2dee1c4cc06b1f7c76ba6f730a852",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
