@@ -69,6 +69,29 @@
       "revId": "cf8826d92d13b203c0ff07d04fd223c4d6dbd2d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a263f7f0_09560949",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 1004537
+      },
+      "writtenOn": "2015-02-25T21:43:14Z",
+      "side": 1,
+      "message": "How will this work on older devices?",
+      "range": {
+        "startLine": 840,
+        "startChar": 0,
+        "endLine": 852,
+        "endChar": 1
+      },
+      "revId": "cf8826d92d13b203c0ff07d04fd223c4d6dbd2d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
