@@ -2,6 +2,80 @@
   "comments": [
     {
       "key": {
+        "uuid": "a238575d_01698ade",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/Allocation.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1777,
+      "author": {
+        "id": 1017430
+      },
+      "writtenOn": "2015-02-26T21:35:45Z",
+      "side": 1,
+      "message": "dead code?",
+      "range": {
+        "startLine": 1776,
+        "startChar": 0,
+        "endLine": 1777,
+        "endChar": 39
+      },
+      "revId": "cccbc199a591d21861f23b1bca616b562d3e04f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a238575d_01174a77",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1017430
+      },
+      "writtenOn": "2015-02-26T21:35:45Z",
+      "side": 1,
+      "message": "whitespace",
+      "revId": "cccbc199a591d21861f23b1bca616b562d3e04f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2f88fd4_4390e661",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 1017430
+      },
+      "writtenOn": "2015-02-26T21:35:45Z",
+      "side": 1,
+      "message": "whitespace",
+      "revId": "cccbc199a591d21861f23b1bca616b562d3e04f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2213733_19826b34",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/ScriptGroup.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1017430
+      },
+      "writtenOn": "2015-02-26T21:35:45Z",
+      "side": 1,
+      "message": "whitespace",
+      "revId": "cccbc199a591d21861f23b1bca616b562d3e04f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cbe72493_22c2ee0b",
         "filename": "v8/renderscript/java/src/android/support/v8/renderscript/ScriptIntrinsic.java",
         "patchSetId": 6
@@ -13,6 +87,23 @@
       "writtenOn": "2015-02-14T00:29:26Z",
       "side": 1,
       "message": "Unnecessary blank line.",
+      "revId": "cccbc199a591d21861f23b1bca616b562d3e04f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2213733_195b4b3e",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/ScriptIntrinsic3DLUT.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1017430
+      },
+      "writtenOn": "2015-02-26T21:35:45Z",
+      "side": 1,
+      "message": "does this get bumped every time the intrinsic is modified at all? for example, we\u0027ve modified some intrinsics after their introduction to take more element types.",
       "revId": "cccbc199a591d21861f23b1bca616b562d3e04f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -47,6 +138,23 @@
       "writtenOn": "2015-02-14T00:29:26Z",
       "side": 1,
       "message": "you could directly assign the condition above to mUseIncSupp",
+      "revId": "cccbc199a591d21861f23b1bca616b562d3e04f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2213733_19b4abf7",
+        "filename": "v8/renderscript/jni/Android.mk",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1017430
+      },
+      "writtenOn": "2015-02-26T21:35:45Z",
+      "side": 1,
+      "message": "do we actually need this?",
       "revId": "cccbc199a591d21861f23b1bca616b562d3e04f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
