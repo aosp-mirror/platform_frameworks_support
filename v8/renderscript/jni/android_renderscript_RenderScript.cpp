@@ -819,13 +819,17 @@ nAllocationRead1D(JNIEnv *_env, jobject _this, jlong con, jlong _alloc, jint off
 static void
 nAllocationElementRead(JNIEnv *_env, jobject _this, jlong con, jlong _alloc,
                        jint xoff, jint yoff, jint zoff,
-                       jint lod, jint compIdx, jobject data, jint sizeBytes, int dataType)
+                       jint lod, jint compIdx, jobject data, jint sizeBytes)
 {
-    RsAllocation *alloc = (RsAllocation *)_alloc;
-    LOG_API("nAllocationElementRead, con(%p), alloc(%p), xoff(%i), yoff(%i), zoff(%i), comp(%i), "
-            "sizeBytes(%i)", (RsContext)con, alloc, xoff, yoff, zoff, compIdx, sizeBytes);
-    PER_ARRAY_TYPE(0, dispatchTab.AllocationElementRead, false, (RsContext)con, alloc, 
-                   xoff, yoff, zoff, lod, ptr, sizeBytes, compIdx);
+    jint len = _env->GetArrayLength(data);
+    LOG_API("nAllocationElementRead, con(%p), alloc(%p), xoff(%i), yoff(%i), zoff(%i), comp(%i), len(%i), "
+            "sizeBytes(%i)", (RsContext)con, (RsAllocation)alloc, xoff, yoff, zoff, compIdx, len,
+            sizeBytes);
+    jbyte *ptr = _env->GetByteArrayElements(data, nullptr);
+    dispatchTab.AllocationElementRead((RsContext)con, (RsAllocation)alloc,
+                                      xoff, yoff, zoff,
+                                      lod, ptr, sizeBytes, compIdx);
+    _env->ReleaseByteArrayElements(data, ptr, JNI_ABORT);
 }
 */
 
@@ -1297,7 +1301,7 @@ static JNINativeMethod methods[] = {
 {"rsnAllocationData3D",              "(JJIIIIIIIJIIII)V",                     (void*)nAllocationData3D_alloc },
 {"rsnAllocationRead",                "(JJLjava/lang/Object;I)V",              (void*)nAllocationRead },
 {"rsnAllocationRead1D",              "(JJIIILjava/lang/Object;II)V",          (void*)nAllocationRead1D },
-//{"rsnAllocationElementRead",         "(JJIIIIILjava/lang/Object;II)V",        (void*)nAllocationElementRead },
+//{"rsnAllocationElementRead",         "(JJIIIII[BI)V",                         (void*)nAllocationElementRead },
 {"rsnAllocationRead2D",              "(JJIIIIIILjava/lang/Object;II)V",       (void*)nAllocationRead2D },
 //{"rsnAllocationRead3D",              "(JJIIIIIIILjava/lang/Object;II)V",      (void*)nAllocationRead3D },
 {"rsnAllocationGetType",             "(JJ)J",                                 (void*)nAllocationGetType},
