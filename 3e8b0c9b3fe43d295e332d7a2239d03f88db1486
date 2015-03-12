@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e105f2c3_b746880f",
+        "filename": "v7/recyclerview/src/android/support/v7/widget/GridLayoutManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2015-03-12T16:02:36Z",
+      "side": 1,
+      "message": "replace this with a \u003cp\u003e in the next line (u don\u0027t need to close the p)",
+      "range": {
+        "startLine": 48,
+        "startChar": 35,
+        "endLine": 48,
+        "endChar": 40
+      },
+      "revId": "3e8b0c9b3fe43d295e332d7a2239d03f88db1486",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e105f2c3_b71de81b",
+        "filename": "v7/recyclerview/tests/src/android/support/v7/widget/GridLayoutManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2015-03-12T16:02:36Z",
+      "side": 1,
+      "message": "extra spaces",
+      "revId": "3e8b0c9b3fe43d295e332d7a2239d03f88db1486",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
