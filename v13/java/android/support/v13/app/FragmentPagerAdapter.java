@@ -103,7 +103,9 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
             mCurTransaction.add(container.getId(), fragment,
                     makeFragmentName(container.getId(), itemId));
         }
-        if (fragment != mCurrentPrimaryItem) {
+        // only set visibility during initial setup, or when adding items to an adapter which already has
+        // a primary item set, *not* when restoring fragments which already have the correct visibility
+        if (fragment != mCurrentPrimaryItem && (!fragment.isResumed() || mCurrentPrimaryItem != null)) {
             FragmentCompat.setMenuVisibility(fragment, false);
             FragmentCompat.setUserVisibleHint(fragment, false);
         }
