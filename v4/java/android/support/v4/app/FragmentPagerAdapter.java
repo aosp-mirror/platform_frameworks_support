@@ -99,7 +99,7 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
             mCurTransaction.add(container.getId(), fragment,
                     makeFragmentName(container.getId(), itemId));
         }
-        if (fragment != mCurrentPrimaryItem) {
+        if (mCurrentPrimaryItem != null && fragment != mCurrentPrimaryItem) {
             fragment.setMenuVisibility(false);
             fragment.setUserVisibleHint(false);
         }
@@ -124,6 +124,17 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
             if (mCurrentPrimaryItem != null) {
                 mCurrentPrimaryItem.setMenuVisibility(false);
                 mCurrentPrimaryItem.setUserVisibleHint(false);
+            } else {
+                // now that the primary item is known, set up the visibility of the other items
+                for (int i = 0; i < getCount(); i++) {
+                    long itemId = getItemId(position);
+                    String name = makeFragmentName(container.getId(), itemId);
+                    Fragment otherFragment = mFragmentManager.findFragmentByTag(name);
+                    if (otherFragment != null && otherFragment != fragment) {
+                        otherFragment.setMenuVisibility(false);
+                        otherFragment.setUserVisibleHint(false);
+                    }
+                }
             }
             if (fragment != null) {
                 fragment.setMenuVisibility(true);
