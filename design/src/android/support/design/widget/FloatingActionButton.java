@@ -117,6 +117,8 @@ public class FloatingActionButton extends ImageView {
                 mBackgroundTintMode, mRippleColor);
         mImpl.setElevation(elevation);
         mImpl.setPressedTranslationZ(pressedTranslationZ);
+
+        setClickable(true);
     }
 
     @Override
@@ -196,12 +198,17 @@ public class FloatingActionButton extends ImageView {
      *                 {@code null} to clear tint
      */
     public void setBackgroundTintMode(@Nullable PorterDuff.Mode tintMode) {
-        mImpl.setBackgroundTintMode(tintMode);
+        if (mImpl != null) {
+            mImpl.setBackgroundTintMode(tintMode);
+        }
     }
 
     @Override
     public void setBackgroundDrawable(Drawable background) {
-        mImpl.setBackgroundDrawable(background, mBackgroundTint, mBackgroundTintMode, mRippleColor);
+        if (mImpl != null) {
+            mImpl.setBackgroundDrawable(
+                background, mBackgroundTint, mBackgroundTintMode, mRippleColor);
+        }
     }
 
     final int getSizeDimension() {
