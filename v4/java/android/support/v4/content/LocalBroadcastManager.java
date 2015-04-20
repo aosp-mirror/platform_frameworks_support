@@ -229,7 +229,7 @@ public class LocalBroadcastManager {
                     }
 
                     int match = receiver.filter.match(action, type, scheme, data,
-                            categories, "LocalBroadcastManager");
+                            categories, TAG);
                     if (match >= 0) {
                         if (debug) Log.v(TAG, "  Filter matched!  match=0x" +
                                 Integer.toHexString(match));
