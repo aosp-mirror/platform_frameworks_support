@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0f19ea3_ee253fa7",
+        "filename": "design/src/android/support/design/widget/TabLayout.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2015-04-21T08:12:37Z",
+      "side": 1,
+      "message": "Replace with \u003e",
+      "range": {
+        "startLine": 1051,
+        "startChar": 29,
+        "endLine": 1051,
+        "endChar": 31
+      },
+      "revId": "7c71281dc4879e7889c65283aabaeed68521fb14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
