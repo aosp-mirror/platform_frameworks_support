@@ -52,10 +52,9 @@ GEN := $(addprefix $(generated_sources_dir)/, \
             rsgApiFuncDecl.h \
         )
 
-$(GEN) : PRIVATE_PATH := $(LOCAL_PATH)
-$(GEN) : PRIVATE_CUSTOM_TOOL = $(RSG_GENERATOR_SUPPORT) $< $@ <$(PRIVATE_PATH)/rs.spec
-$(GEN) : $(RSG_GENERATOR_SUPPORT) $(LOCAL_PATH)/rs.spec
-$(GEN): $(generated_sources_dir)/%.h : $(LOCAL_PATH)/%.h.rsg
+$(GEN): PRIVATE_PATH := $(LOCAL_PATH)
+$(GEN): PRIVATE_CUSTOM_TOOL = $(RSG_GENERATOR_SUPPORT) $@ <$(PRIVATE_PATH)/rs.spec
+$(GEN): $(RSG_GENERATOR_SUPPORT) $(LOCAL_PATH)/rs.spec
 	$(transform-generated-source)
 
 # used in jni/Android.mk
@@ -69,10 +68,9 @@ GEN := $(addprefix $(generated_sources_dir)/, \
             rsgApiReplay.cpp \
         )
 
-$(GEN) : PRIVATE_PATH := $(LOCAL_PATH)
-$(GEN) : PRIVATE_CUSTOM_TOOL = $(RSG_GENERATOR_SUPPORT) $< $@ <$(PRIVATE_PATH)/rs.spec
-$(GEN) : $(RSG_GENERATOR_SUPPORT) $(LOCAL_PATH)/rs.spec
-$(GEN): $(generated_sources_dir)/%.cpp : $(LOCAL_PATH)/%.cpp.rsg
+$(GEN): PRIVATE_PATH := $(LOCAL_PATH)
+$(GEN): PRIVATE_CUSTOM_TOOL = $(RSG_GENERATOR_SUPPORT) $@ <$(PRIVATE_PATH)/rs.spec
+$(GEN): $(RSG_GENERATOR_SUPPORT) $(LOCAL_PATH)/rs.spec
 	$(transform-generated-source)
 
 # used in jni/Android.mk
