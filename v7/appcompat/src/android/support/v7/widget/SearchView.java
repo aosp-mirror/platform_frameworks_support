@@ -53,6 +53,7 @@ import android.text.TextWatcher;
 import android.text.style.ImageSpan;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -594,6 +595,14 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
         if (submit && !TextUtils.isEmpty(query)) {
             onSubmitQuery();
         }
+    }
+
+    public ActionMode.Callback getCustomSelectionActionModeCallback() {
+        return mSearchSrcTextView.getCustomSelectionActionModeCallback();
+    }
+
+    public void setCustomSelectionActionModeCallback(ActionMode.Callback callback) {
+        mSearchSrcTextView.setCustomSelectionActionModeCallback(callback);
     }
 
     /**
