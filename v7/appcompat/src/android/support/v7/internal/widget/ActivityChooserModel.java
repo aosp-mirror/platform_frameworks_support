@@ -972,7 +972,7 @@ public class ActivityChooserModel extends DataSetObservable {
         }
         try {
             XmlPullParser parser = Xml.newPullParser();
-            parser.setInput(fis, null);
+            parser.setInput(fis, "utf-8");
 
             int type = XmlPullParser.START_DOCUMENT;
             while (type != XmlPullParser.END_DOCUMENT && type != XmlPullParser.START_TAG) {
@@ -1055,7 +1055,7 @@ public class ActivityChooserModel extends DataSetObservable {
 
             try {
                 serializer.setOutput(fos, null);
-                serializer.startDocument("UTF-8", true);
+                serializer.startDocument("utf-8", true);
                 serializer.startTag(null, TAG_HISTORICAL_RECORDS);
 
                 final int recordCount = historicalRecords.size();
