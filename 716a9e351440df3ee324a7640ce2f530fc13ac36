@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2db1c157_31a290aa",
+        "filename": "v7/appcompat/src/android/support/v7/internal/widget/ActivityChooserModel.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-05-22T08:56:39Z",
+      "side": 1,
+      "message": "when was StandardCharsets introduced ? i believe it\u0027s fairly recent. isn\u0027t this support code meant to run all the way back to API-7 ? will it work there ?",
+      "revId": "716a9e351440df3ee324a7640ce2f530fc13ac36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
