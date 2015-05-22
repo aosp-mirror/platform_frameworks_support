@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0db87d3c_302d6890",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-05-22T09:42:02Z",
+      "side": 1,
+      "message": "remove this ? this is no longer a cherry-pick now :)",
+      "revId": "ea5d179346ef4467224df00dc6abc57c0bfe653f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
