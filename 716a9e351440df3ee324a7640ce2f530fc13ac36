@@ -16,6 +16,24 @@
       "revId": "716a9e351440df3ee324a7640ce2f530fc13ac36",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0db87d3c_10014408",
+        "filename": "v7/appcompat/src/android/support/v7/internal/widget/ActivityChooserModel.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 1067043
+      },
+      "writtenOn": "2015-05-22T09:44:38Z",
+      "side": 1,
+      "message": "In API 19. You are right, I think it won\u0027t work. Changed to \"UTF-8\".",
+      "parentUuid": "2db1c157_31a290aa",
+      "revId": "716a9e351440df3ee324a7640ce2f530fc13ac36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
