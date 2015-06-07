@@ -714,7 +714,7 @@ public class WindowDecorActionBar extends ActionBar implements
     public void setHideOnContentScrollEnabled(boolean hideOnContentScroll) {
         if (hideOnContentScroll && !mOverlayLayout.isInOverlayMode()) {
             throw new IllegalStateException("Action bar must be in overlay mode " +
-                    "(Window.FEATURE_OVERLAY_ACTION_BAR) to enable hide on content scroll");
+                    "(Window.FEATURE_ACTION_BAR_OVERLAY) to enable hide on content scroll");
         }
         mHideOnContentScroll = hideOnContentScroll;
         mOverlayLayout.setHideOnContentScrollEnabled(hideOnContentScroll);
@@ -734,7 +734,7 @@ public class WindowDecorActionBar extends ActionBar implements
     public void setHideOffset(int offset) {
         if (offset != 0 && !mOverlayLayout.isInOverlayMode()) {
             throw new IllegalStateException("Action bar must be in overlay mode " +
-                    "(Window.FEATURE_OVERLAY_ACTION_BAR) to set a non-zero hide offset");
+                    "(Window.FEATURE_ACTION_BAR_OVERLAY) to set a non-zero hide offset");
         }
         mOverlayLayout.setActionBarHideOffset(offset);
     }
