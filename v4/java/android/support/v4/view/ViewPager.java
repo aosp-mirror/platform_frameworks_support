@@ -537,7 +537,7 @@ public class ViewPager extends ViewGroup {
                 mItems.get(i).scrolling = true;
             }
         }
-        final boolean dispatchSelected = mCurItem != item || mFirstLayout;
+        final boolean dispatchSelected = mCurItem != item;
 
         if (mFirstLayout) {
             // We don't have any idea how big we are yet and shouldn't have any pages either.
@@ -1601,7 +1601,7 @@ public class ViewPager extends ViewGroup {
         mDecorChildCount = decorCount;
 
         if (mFirstLayout) {
-            scrollToItem(mCurItem, false, 0, false);
+            scrollToItem(mCurItem, false, 0, true);
         }
         mFirstLayout = false;
     }
