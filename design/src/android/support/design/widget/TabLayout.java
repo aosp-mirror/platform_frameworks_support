@@ -1339,16 +1339,36 @@ public class TabLayout extends HorizontalScrollView {
                 if (position < mSelectedPosition) {
                     // We're going end-to-start
                     if (isRtl) {
-                        startLeft = startRight = targetLeft - offset;
+                        if (mIndicatorRight > targetLeft) {
+                            //don't interupt pending animation
+                            return;
+                        } else {
+                            startLeft = startRight = targetLeft - offset;
+                        }
                     } else {
-                        startLeft = startRight = targetRight + offset;
+                        if (mIndicatorLeft < targetRight) {
+                            //don't interupt pending animation
+                            return;
+                        } else {
+                            startLeft = startRight = targetRight + offset;
+                        }
                     }
                 } else {
                     // We're going start-to-end
                     if (isRtl) {
-                        startLeft = startRight = targetRight + offset;
+                        if (mIndicatorLeft < targetRight) {
+                            //don't interupt pending animation
+                            return;
+                        } else {
+                            startLeft = startRight = targetRight + offset;
+                        }
                     } else {
-                        startLeft = startRight = targetLeft - offset;
+                        if (mIndicatorRight > targetLeft) {
+                            //don't interupt pending animation
+                            return;
+                        } else {
+                            startLeft = startRight = targetLeft - offset;
+                        }
                     }
                 }
             }
