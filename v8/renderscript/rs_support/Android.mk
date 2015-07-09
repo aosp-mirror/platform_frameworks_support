@@ -151,11 +151,13 @@ LOCAL_SRC_FILES_arm := \
 endif
 
 LOCAL_SHARED_LIBRARIES += libblas
+LOCAL_STATIC_LIBRARIES := libbnnmlowpv8
 LOCAL_LDFLAGS += -llog -ldl
 LOCAL_NDK_STL_VARIANT := stlport_static
 
 LOCAL_C_INCLUDES += frameworks/compile/libbcc/include
 LOCAL_C_INCLUDES += external/cblas/include
+LOCAL_C_INCLUDES += external/gemmlowp/eight_bit_int_gemm
 
 LOCAL_CFLAGS += $(rs_base_CFLAGS)
 
