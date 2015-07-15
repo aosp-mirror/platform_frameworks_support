@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58987a8f_1c534de9",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-07-15T01:41:45Z",
+      "side": 1,
+      "message": "Your other patches are now using \"V8\". In the interest of consistency, can we change this one to be libbnnmlowpV8 as well?",
+      "range": {
+        "startLine": 154,
+        "startChar": 37,
+        "endLine": 154,
+        "endChar": 39
+      },
+      "revId": "81294907b3cd368cad2f2b01ff22101a29927717",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
