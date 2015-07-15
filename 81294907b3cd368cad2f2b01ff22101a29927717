@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78b0de09_eab69779",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-07-15T00:32:04Z",
+      "side": 0,
+      "message": "Shouldn\u0027t this have libblasV8? Where is the build rule that includes that or do you have to manually specify it per application Android.mk?",
+      "revId": "81294907b3cd368cad2f2b01ff22101a29927717",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
