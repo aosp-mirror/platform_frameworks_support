@@ -16,6 +16,24 @@
       "revId": "d20e9fb2e1aa6c8a01f528365dc422a419e49dcd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d8754a3f_c2d2b2c8",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2015-07-17T18:34:35Z",
+      "side": 1,
+      "message": "the dlopen bug was that dlopen() won\u0027t recognize the flags passed, so it will not look for the libs in the app\u0027s lib dir.\n\nWe did the same workaround for \"RSSupportIO\" and \"RSSupport\".\nhttps://b.corp.google.com/u/0/issues/18398362#comment9",
+      "parentUuid": "d8754a3f_a27a066b",
+      "revId": "d20e9fb2e1aa6c8a01f528365dc422a419e49dcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
