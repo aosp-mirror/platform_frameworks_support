@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "987f5221_1551d658",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1359,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2015-07-17T19:03:38Z",
+      "side": 1,
+      "message": "Added the target API in comments to make it easier to understand. ;-)",
+      "range": {
+        "startLine": 1359,
+        "startChar": 15,
+        "endLine": 1359,
+        "endChar": 21
+      },
+      "revId": "a2f577b065e1a177a07694aa19ffd253db07a6a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
