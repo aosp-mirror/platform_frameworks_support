@@ -1389,6 +1389,15 @@ public class RenderScript {
             }
         }
 
+        // For old APIs with dlopen bug, need to load blas lib in Java first.
+        if (dispatchAPI >= 23) {
+            try {
+                System.loadLibrary("blasV8");
+            } catch (UnsatisfiedLinkError e) {
+                Log.v(LOG_TAG, "Unable to load BLAS lib, ONLY BNNM will be supported: " + e);
+            }
+        }
+
         rs.mDev = rs.nDeviceCreate();
         rs.mContext = rs.nContextCreate(rs.mDev, 0, sdkVersion, ct.mID, rs.mNativeLibDir);
         rs.mContextType = ct;
