@@ -34,6 +34,24 @@
       "revId": "d20e9fb2e1aa6c8a01f528365dc422a419e49dcd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8709650_617f3e8b",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-07-17T18:50:16Z",
+      "side": 1,
+      "message": "I misread this as the platform API level, and not the targeted level (i.e. I need blas, but I am running on Gingerbread). I was confused because the dlopen issue you refer to is resolved at this point, so any thing \"incremental\" wouldn\u0027t need that.",
+      "parentUuid": "d8754a3f_c2d2b2c8",
+      "revId": "d20e9fb2e1aa6c8a01f528365dc422a419e49dcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
