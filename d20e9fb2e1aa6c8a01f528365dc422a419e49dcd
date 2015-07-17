@@ -52,6 +52,24 @@
       "revId": "d20e9fb2e1aa6c8a01f528365dc422a419e49dcd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "987f5221_354e52ba",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2015-07-17T19:03:38Z",
+      "side": 1,
+      "message": "Right, the \"Incremental\" things work on L+, and that bug was fixed between KK and L, IIRC.",
+      "parentUuid": "b8709650_617f3e8b",
+      "revId": "d20e9fb2e1aa6c8a01f528365dc422a419e49dcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
