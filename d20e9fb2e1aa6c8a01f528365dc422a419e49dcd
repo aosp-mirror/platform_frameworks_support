@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8754a3f_a27a066b",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-07-17T18:16:02Z",
+      "side": 1,
+      "message": "Wait. What dlopen bug? I guess I am confused about what dispatchAPI implies here as well (perhaps some comments are warranted along with this CL).",
+      "revId": "d20e9fb2e1aa6c8a01f528365dc422a419e49dcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
