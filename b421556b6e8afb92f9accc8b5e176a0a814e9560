@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f88e8e7f_1be25e19",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/Script.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-07-18T02:57:19Z",
+      "side": 1,
+      "message": "Does this really want to be @hide? We enabled this in slang for AOSP already too.",
+      "revId": "b421556b6e8afb92f9accc8b5e176a0a814e9560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58823a52_4c44b369",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1646,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-07-18T02:57:19Z",
+      "side": 1,
+      "message": "Oh wow. I didn\u0027t realize this was still even in the original code.",
+      "revId": "b421556b6e8afb92f9accc8b5e176a0a814e9560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f88e8e7f_dbc2967a",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1680,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-07-18T02:57:19Z",
+      "side": 1,
+      "message": "Matt is helping look at a potential bug here. It looks like sc_size is never actually set, but we are unclear why this still sort-of works.",
+      "revId": "b421556b6e8afb92f9accc8b5e176a0a814e9560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58823a52_0ca78bc9",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1689,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-07-18T02:57:19Z",
+      "side": 1,
+      "message": "This code is slightly different from the native API. Can you add a comment why?",
+      "revId": "b421556b6e8afb92f9accc8b5e176a0a814e9560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58823a52_2c47ef70",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1690,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-07-18T02:57:19Z",
+      "side": 1,
+      "message": "LaunchOptions",
+      "range": {
+        "startLine": 1690,
+        "startChar": 21,
+        "endLine": 1690,
+        "endChar": 33
+      },
+      "revId": "b421556b6e8afb92f9accc8b5e176a0a814e9560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
