@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "185fe2fa_38936964",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1680,
+      "author": {
+        "id": 1074808
+      },
+      "writtenOn": "2015-07-20T17:43:01Z",
+      "side": 1,
+      "message": "sc_size gives the size of the buffer that sc points to.\n\nRight now, any value can be passed as sc_size with no effect.\n\nHowever, as far as I can tell, sc_size has two potential uses: (a) by the FIFO layer, if the caller and the driver are not in the same process and the struct RsScriptCall needs to be copied over in the buffer. The second potential use is (b) by the driver layer, which is passed sc_size presumably so it can know the size of the buffer.\n\nWe don\u0027t support (a) since the caller and driver are always in the same process. Also, situation (b) never occurs, since the driver statically knows the expected size of the buffer and never queries for it.",
+      "parentUuid": "d8754a3f_ce23b8b1",
+      "revId": "b421556b6e8afb92f9accc8b5e176a0a814e9560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58823a52_0ca78bc9",
         "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
         "patchSetId": 1
