@@ -37,6 +37,23 @@
     },
     {
       "key": {
+        "uuid": "cd4d8a87_cbea29e6",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1623,
+      "author": {
+        "id": 1074808
+      },
+      "writtenOn": "2015-07-21T18:31:10Z",
+      "side": 1,
+      "message": "We might want to remove this RS API entry in the future, in favor of using ScriptForEachMulti. It\u0027s no longer used in frameworks/base.",
+      "revId": "b421556b6e8afb92f9accc8b5e176a0a814e9560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58823a52_4c44b369",
         "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
         "patchSetId": 1
@@ -177,6 +194,23 @@
         "endLine": 1690,
         "endChar": 33
       },
+      "revId": "b421556b6e8afb92f9accc8b5e176a0a814e9560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78429e31_e5593a5d",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2113,
+      "author": {
+        "id": 1074808
+      },
+      "writtenOn": "2015-07-21T18:31:10Z",
+      "side": 1,
+      "message": "Is there a reason why all the ScriptForEach JNI variants can\u0027t go through ScriptForEachMulti?",
       "revId": "b421556b6e8afb92f9accc8b5e176a0a814e9560",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
