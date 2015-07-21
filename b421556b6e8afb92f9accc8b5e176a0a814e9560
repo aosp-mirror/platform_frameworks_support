@@ -213,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "f8568eec_430766d0",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1689,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-07-21T20:48:14Z",
+      "side": 1,
+      "message": "This code seems wrong compared to what was in the native version. In that version, the limit_len is asserted to be 6.",
+      "parentUuid": "586b1a6a_dffb5f89",
+      "revId": "b421556b6e8afb92f9accc8b5e176a0a814e9560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58823a52_2c47ef70",
         "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
         "patchSetId": 1
