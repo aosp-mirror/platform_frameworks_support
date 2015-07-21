@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "cd4d8a87_6ba575b9",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1623,
+      "author": {
+        "id": 1074808
+      },
+      "writtenOn": "2015-07-21T18:40:26Z",
+      "side": 1,
+      "message": "Ah, ok. That makes sense.",
+      "parentUuid": "ed97ae00_5e7db5db",
+      "revId": "b421556b6e8afb92f9accc8b5e176a0a814e9560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58823a52_4c44b369",
         "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
         "patchSetId": 1
