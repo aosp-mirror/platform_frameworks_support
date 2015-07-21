@@ -250,6 +250,24 @@
       "revId": "b421556b6e8afb92f9accc8b5e176a0a814e9560",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed97ae00_c1a004ed",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2113,
+      "author": {
+        "id": 1050418
+      },
+      "writtenOn": "2015-07-21T19:35:30Z",
+      "side": 1,
+      "message": "To keep the common case fast.",
+      "parentUuid": "78429e31_e5593a5d",
+      "revId": "b421556b6e8afb92f9accc8b5e176a0a814e9560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
