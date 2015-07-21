@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "ed97ae00_5e7db5db",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1623,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2015-07-21T18:39:05Z",
+      "side": 1,
+      "message": "Well, we may be able to do it in the future when K is no longer a significant portion of the market share. But now, the support lib jni interface also need to be able to work with old native RS runtime on KK which does not support ScriptForEachMulti. \nSo we still need to keep the old entries, until we are able to or have to force using compat mode runtime on K.",
+      "parentUuid": "cd4d8a87_cbea29e6",
+      "revId": "b421556b6e8afb92f9accc8b5e176a0a814e9560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58823a52_4c44b369",
         "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
         "patchSetId": 1
