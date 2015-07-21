@@ -231,6 +231,24 @@
     },
     {
       "key": {
+        "uuid": "b83896b1_07d3aacd",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1689,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2015-07-21T20:54:43Z",
+      "side": 1,
+      "message": "Ah yeah, that is my typo, a really bad one! Thanks for catching this!",
+      "parentUuid": "f8568eec_430766d0",
+      "revId": "b421556b6e8afb92f9accc8b5e176a0a814e9560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58823a52_2c47ef70",
         "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
         "patchSetId": 1
@@ -242,6 +260,30 @@
       "writtenOn": "2015-07-18T02:57:19Z",
       "side": 1,
       "message": "LaunchOptions",
+      "range": {
+        "startLine": 1690,
+        "startChar": 21,
+        "endLine": 1690,
+        "endChar": 33
+      },
+      "revId": "b421556b6e8afb92f9accc8b5e176a0a814e9560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d9c722b_dbf31313",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1690,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2015-07-21T20:54:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58823a52_2c47ef70",
       "range": {
         "startLine": 1690,
         "startChar": 21,
