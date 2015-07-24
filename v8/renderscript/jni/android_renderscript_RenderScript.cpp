@@ -1945,6 +1945,11 @@ static jboolean nIncLoadSO(JNIEnv *_env, jobject _this, jint deviceApi) {
         LOG_API("%s init failed!", filename);
         return false;
     }
+    dispatchTabInc.AllocationCreateStrided = (AllocationCreateStridedFnPtr)dlsym(handle, "rsAllocationCreateStrided");
+    if (dispatchTabInc.AllocationCreateStrided == NULL) {
+        LOG_API("Couldn't initialize dispatchTabInc.AllocationCreateStrided");
+        return false;
+    }
     LOG_API("Successfully loaded %s", filename);
     return true;
 }
@@ -2034,10 +2039,14 @@ nIncAllocationCreateTyped(JNIEnv *_env, jobject _this, jlong con, jlong incCon, 
         pIn = dispatchTab.AllocationGetPointer((RsContext)con, (RsAllocation)alloc, 0,
                                                RS_ALLOCATION_CUBEMAP_FACE_POSITIVE_X, 0, 0,
                                                &strideIn, sizeof(size_t));
-        ainI = dispatchTabInc.AllocationCreateTyped((RsContext)incCon, (RsType)type,
-                                                    RS_ALLOCATION_MIPMAP_NONE,
-                                                    RS_ALLOCATION_USAGE_SCRIPT | RS_ALLOCATION_USAGE_SHARED,
-                                                    (uintptr_t)pIn);
+        size_t byteAligned = 16;
+        while ((strideIn & byteAligned) == 0) {
+            byteAligned <<= 1;
+        }
+        ainI = dispatchTabInc.AllocationCreateStrided((RsContext)incCon, (RsType)type,
+                                                      RS_ALLOCATION_MIPMAP_NONE,
+                                                      RS_ALLOCATION_USAGE_INCREMENTAL_SUPPORT | RS_ALLOCATION_USAGE_SHARED,
+                                                      (uintptr_t)pIn, byteAligned);
     }
     return (jlong)(uintptr_t) ainI;
 }
