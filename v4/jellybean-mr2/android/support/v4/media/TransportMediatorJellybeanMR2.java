@@ -28,9 +28,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
-class TransportMediatorJellybeanMR2
-        implements RemoteControlClient.OnGetPlaybackPositionListener,
-        RemoteControlClient.OnPlaybackPositionUpdateListener {
+class TransportMediatorJellybeanMR2 {
     final Context mContext;
     final AudioManager mAudioManager;
     final View mTargetView;
@@ -75,7 +73,20 @@ class TransportMediatorJellybeanMR2
             mTransportCallback.handleAudioFocusChange(focusChange);
         }
     };
-
+    final RemoteControlClient.OnGetPlaybackPositionListener mGetPlaybackPositionListener
+            = new RemoteControlClient.OnGetPlaybackPositionListener() {
+                @Override
+                public long onGetPlaybackPosition() {
+                    return TransportMediatorJellybeanMR2.this.onGetPlaybackPosition();
+                }
+            };
+    final RemoteControlClient.OnPlaybackPositionUpdateListener mPlaybackPositionUpdateListener
+            = new RemoteControlClient.OnPlaybackPositionUpdateListener() {
+                public void onPlaybackPositionUpdate(long newPositionMs) {
+                    TransportMediatorJellybeanMR2.this.onPlaybackPositionUpdate(newPositionMs);
+                }
+            };
+ 
     PendingIntent mPendingIntent;
     RemoteControlClient mRemoteControl;
     boolean mFocused;
@@ -112,8 +123,8 @@ class TransportMediatorJellybeanMR2
         mPendingIntent = PendingIntent.getBroadcast(mContext, 0, mIntent,
                 PendingIntent.FLAG_CANCEL_CURRENT);
         mRemoteControl = new RemoteControlClient(mPendingIntent);
-        mRemoteControl.setOnGetPlaybackPositionListener(this);
-        mRemoteControl.setPlaybackPositionUpdateListener(this);
+        mRemoteControl.setOnGetPlaybackPositionListener(mGetPlaybackPositionListener);
+        mRemoteControl.setPlaybackPositionUpdateListener(mPlaybackPositionUpdateListener);
     }
 
     void gainFocus() {
@@ -145,12 +156,10 @@ class TransportMediatorJellybeanMR2
         }
     }
 
-    @Override
     public long onGetPlaybackPosition() {
         return mTransportCallback.getPlaybackPosition();
     }
 
-    @Override
     public void onPlaybackPositionUpdate(long newPositionMs) {
         mTransportCallback.playbackPositionUpdate(newPositionMs);
     }
