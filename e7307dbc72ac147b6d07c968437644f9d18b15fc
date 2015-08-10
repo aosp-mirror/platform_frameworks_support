@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "271727da_b8381989",
+        "filename": "v4/jellybean-mr2/android/support/v4/media/TransportMediatorJellybeanMR2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2015-08-10T15:42:11Z",
+      "side": 1,
+      "message": "I didn\u0027t check if these are called by others. Perhaps this and the one below could just be inlined into the listeners and removed?",
+      "range": {
+        "startLine": 159,
+        "startChar": 16,
+        "endLine": 159,
+        "endChar": 37
+      },
+      "revId": "e7307dbc72ac147b6d07c968437644f9d18b15fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
