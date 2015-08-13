@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e4aeed64_493d05e9",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2015-08-13T22:12:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4434d7f_6184b0ea",
+      "revId": "28f9bf221df46ab2402a1f23f62754aad08e61a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04b861a5_aa890fae",
         "filename": "v8/renderscript/rs_support/Android.mk",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "64591d73_bd61cbb6",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2015-08-13T22:12:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04b861a5_aa890fae",
+      "revId": "28f9bf221df46ab2402a1f23f62754aad08e61a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4a9e95f_087f075a",
         "filename": "v8/renderscript/rs_support/Android.mk",
         "patchSetId": 3
@@ -47,6 +83,24 @@
       "writtenOn": "2015-08-13T21:57:01Z",
       "side": 1,
       "message": "Is there a bug tracking this? Why doesn\u0027t clang\u0027s assembler work here? We control this code completely, so we should understand it better, and then fix it.",
+      "revId": "28f9bf221df46ab2402a1f23f62754aad08e61a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c43e49ec_a064f414",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2015-08-13T22:12:34Z",
+      "side": 1,
+      "message": "Good point. Actually I think the comment is no longer true. I  was just copying from the fw/rs/cpu_ref/Android.mk.\nAfter add the advsimd_3DLUT.S, the build works fine. let me also update the native RS mk file.",
+      "parentUuid": "c4a9e95f_087f075a",
       "revId": "28f9bf221df46ab2402a1f23f62754aad08e61a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
