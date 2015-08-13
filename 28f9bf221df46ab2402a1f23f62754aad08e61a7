@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4434d7f_6184b0ea",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-08-13T21:57:01Z",
+      "side": 1,
+      "message": "There should be nothing A53-related in the support library Makefiles. We must keep the workarounds enabled for all arm64 builds.",
+      "revId": "28f9bf221df46ab2402a1f23f62754aad08e61a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04b861a5_aa890fae",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-08-13T21:57:01Z",
+      "side": 1,
+      "message": "Don\u0027t keep commented out lines like this.",
+      "revId": "28f9bf221df46ab2402a1f23f62754aad08e61a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4a9e95f_087f075a",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-08-13T21:57:01Z",
+      "side": 1,
+      "message": "Is there a bug tracking this? Why doesn\u0027t clang\u0027s assembler work here? We control this code completely, so we should understand it better, and then fix it.",
+      "revId": "28f9bf221df46ab2402a1f23f62754aad08e61a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
