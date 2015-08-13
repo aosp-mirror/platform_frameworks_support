@@ -135,19 +135,39 @@ LOCAL_SRC_FILES:= \
 	cpu_ref/rsCpuIntrinsicYuvToRGB.cpp \
 	cpu_ref/rsCpuRuntimeMathFuncs.cpp
 
+
+LOCAL_CFLAGS_arm64 += -DARCH_ARM_USE_INTRINSICS -DARCH_ARM64_USE_INTRINSICS -DARCH_ARM64_HAVE_NEON
+
+ifeq ($(RS_DISABLE_A53_WORKAROUND),true)
+LOCAL_CFLAGS_arm64 += -DDISABLE_A53_WORKAROUND
+endif
+
+LOCAL_SRC_FILES_arm64 += \
+    cpu_ref/rsCpuIntrinsics_advsimd_3DLUT.S \
+    cpu_ref/rsCpuIntrinsics_advsimd_Convolve.S \
+    cpu_ref/rsCpuIntrinsics_advsimd_Blur.S \
+    cpu_ref/rsCpuIntrinsics_advsimd_ColorMatrix.S \
+    cpu_ref/rsCpuIntrinsics_advsimd_Resize.S \
+    cpu_ref/rsCpuIntrinsics_advsimd_YuvToRGB.S
+#    cpu_ref/rsCpuIntrinsics_advsimd_Blend.S \
+
+# Clang does not compile rsCpuIntrinsics_advsimd_3DLUT.S.
+LOCAL_CLANG_ASFLAGS_arm64 += -no-integrated-as
+
+
 ifeq ($(ARCH_ARM_HAVE_ARMV7A),true)
 LOCAL_CFLAGS_arm := -DARCH_ARM_HAVE_VFP -DARCH_ARM_USE_INTRINSICS
 LOCAL_ASFLAGS_arm := -mfpu=neon
 # frameworks/rs/cpu_ref/rsCpuIntrinsics_neon_3DLUT.S does not compile.
 LOCAL_CLANG_ASFLAGS_arm += -no-integrated-as
 LOCAL_SRC_FILES_arm := \
-        cpu_ref/rsCpuIntrinsics_neon_3DLUT.S \
+    cpu_ref/rsCpuIntrinsics_neon_3DLUT.S \
 	cpu_ref/rsCpuIntrinsics_neon_ColorMatrix.S \
-        cpu_ref/rsCpuIntrinsics_neon_Blend.S \
-        cpu_ref/rsCpuIntrinsics_neon_Blur.S \
+    cpu_ref/rsCpuIntrinsics_neon_Blend.S \
+    cpu_ref/rsCpuIntrinsics_neon_Blur.S \
 	cpu_ref/rsCpuIntrinsics_neon_Convolve.S \
 	cpu_ref/rsCpuIntrinsics_neon_Resize.S \
-        cpu_ref/rsCpuIntrinsics_neon_YuvToRGB.S
+    cpu_ref/rsCpuIntrinsics_neon_YuvToRGB.S
 endif
 
 LOCAL_REQUIRED_MODULES := libblasV8
