@@ -1,7 +1,7 @@
 
 LOCAL_PATH:=frameworks/rs
 rs_base_CFLAGS := -Werror -Wall -Wno-unused-parameter -Wno-unused-variable \
-		  -Wno-overloaded-virtual -DRS_COMPATIBILITY_LIB -std=c++11
+          -Wno-overloaded-virtual -DRS_COMPATIBILITY_LIB -std=c++11
 
 ifeq ($(ARCH_ARM_HAVE_NEON),true)
 rs_base_CFLAGS += -DARCH_ARM_HAVE_NEON
@@ -56,7 +56,7 @@ $(GEN) : PRIVATE_PATH := $(LOCAL_PATH)
 $(GEN) : PRIVATE_CUSTOM_TOOL = cat $(PRIVATE_PATH)/rs.spec $(PRIVATE_PATH)/rs_compat.spec | $(RSG_GENERATOR_SUPPORT) $< $@
 $(GEN) : $(RSG_GENERATOR_SUPPORT) $(LOCAL_PATH)/rs.spec $(LOCAL_PATH)/rs_compat.spec
 $(GEN): $(generated_sources_dir)/%.h : $(LOCAL_PATH)/%.h.rsg
-	$(transform-generated-source)
+    $(transform-generated-source)
 
 # used in jni/Android.mk
 rs_generated_source += $(GEN)
@@ -73,7 +73,7 @@ $(GEN) : PRIVATE_PATH := $(LOCAL_PATH)
 $(GEN) : PRIVATE_CUSTOM_TOOL = cat $(PRIVATE_PATH)/rs.spec $(PRIVATE_PATH)/rs_compat.spec | $(RSG_GENERATOR_SUPPORT) $< $@
 $(GEN) : $(RSG_GENERATOR_SUPPORT) $(LOCAL_PATH)/rs.spec $(LOCAL_PATH)/rs_compat.spec
 $(GEN): $(generated_sources_dir)/%.cpp : $(LOCAL_PATH)/%.cpp.rsg
-	$(transform-generated-source)
+    $(transform-generated-source)
 
 # used in jni/Android.mk
 rs_generated_source += $(GEN)
@@ -81,73 +81,88 @@ rs_generated_source += $(GEN)
 LOCAL_GENERATED_SOURCES += $(GEN)
 
 LOCAL_SRC_FILES:= \
-	rsAllocation.cpp \
-	rsClosure.cpp \
-	rsCompatibilityLib.cpp \
-	rsComponent.cpp \
-	rsContext.cpp \
-	rsCppUtils.cpp \
-	rsDevice.cpp \
-	rsDriverLoader.cpp \
-	rsElement.cpp \
-	rsFifoSocket.cpp \
-	rsObjectBase.cpp \
-	rsMatrix2x2.cpp \
-	rsMatrix3x3.cpp \
-	rsMatrix4x4.cpp \
-	rsMutex.cpp \
-	rsSampler.cpp \
-	rsScript.cpp \
-	rsScriptC.cpp \
-	rsScriptC_Lib.cpp \
-	rsScriptGroup.cpp \
-	rsScriptGroup2.cpp \
-	rsScriptIntrinsic.cpp \
-	rsSignal.cpp \
-	rsStream.cpp \
-	rsThreadIO.cpp \
-	rsType.cpp \
-	driver/rsdAllocation.cpp \
-	driver/rsdBcc.cpp \
-	driver/rsdCore.cpp \
-	driver/rsdElement.cpp \
-	driver/rsdRuntimeStubs.cpp \
-	driver/rsdSampler.cpp \
-	driver/rsdScriptGroup.cpp \
-	driver/rsdType.cpp \
-	cpu_ref/rsCpuCore.cpp \
-	cpu_ref/rsCpuExecutable.cpp \
-	cpu_ref/rsCpuScript.cpp \
-	cpu_ref/rsCpuRuntimeMath.cpp \
-	cpu_ref/rsCpuScriptGroup.cpp \
-	cpu_ref/rsCpuScriptGroup2.cpp \
-	cpu_ref/rsCpuIntrinsic.cpp \
-	cpu_ref/rsCpuIntrinsic3DLUT.cpp \
-	cpu_ref/rsCpuIntrinsicBlend.cpp \
-	cpu_ref/rsCpuIntrinsicBlur.cpp \
-	cpu_ref/rsCpuIntrinsicBLAS.cpp \
-	cpu_ref/rsCpuIntrinsicColorMatrix.cpp \
-	cpu_ref/rsCpuIntrinsicConvolve3x3.cpp \
-	cpu_ref/rsCpuIntrinsicConvolve5x5.cpp \
-	cpu_ref/rsCpuIntrinsicHistogram.cpp \
-	cpu_ref/rsCpuIntrinsicLUT.cpp \
-	cpu_ref/rsCpuIntrinsicResize.cpp \
-	cpu_ref/rsCpuIntrinsicYuvToRGB.cpp \
-	cpu_ref/rsCpuRuntimeMathFuncs.cpp
+    rsAllocation.cpp \
+    rsClosure.cpp \
+    rsCompatibilityLib.cpp \
+    rsComponent.cpp \
+    rsContext.cpp \
+    rsCppUtils.cpp \
+    rsDevice.cpp \
+    rsDriverLoader.cpp \
+    rsElement.cpp \
+    rsFifoSocket.cpp \
+    rsObjectBase.cpp \
+    rsMatrix2x2.cpp \
+    rsMatrix3x3.cpp \
+    rsMatrix4x4.cpp \
+    rsMutex.cpp \
+    rsSampler.cpp \
+    rsScript.cpp \
+    rsScriptC.cpp \
+    rsScriptC_Lib.cpp \
+    rsScriptGroup.cpp \
+    rsScriptGroup2.cpp \
+    rsScriptIntrinsic.cpp \
+    rsSignal.cpp \
+    rsStream.cpp \
+    rsThreadIO.cpp \
+    rsType.cpp \
+    driver/rsdAllocation.cpp \
+    driver/rsdBcc.cpp \
+    driver/rsdCore.cpp \
+    driver/rsdElement.cpp \
+    driver/rsdRuntimeStubs.cpp \
+    driver/rsdSampler.cpp \
+    driver/rsdScriptGroup.cpp \
+    driver/rsdType.cpp \
+    cpu_ref/rsCpuCore.cpp \
+    cpu_ref/rsCpuExecutable.cpp \
+    cpu_ref/rsCpuScript.cpp \
+    cpu_ref/rsCpuRuntimeMath.cpp \
+    cpu_ref/rsCpuScriptGroup.cpp \
+    cpu_ref/rsCpuScriptGroup2.cpp \
+    cpu_ref/rsCpuIntrinsic.cpp \
+    cpu_ref/rsCpuIntrinsic3DLUT.cpp \
+    cpu_ref/rsCpuIntrinsicBlend.cpp \
+    cpu_ref/rsCpuIntrinsicBlur.cpp \
+    cpu_ref/rsCpuIntrinsicBLAS.cpp \
+    cpu_ref/rsCpuIntrinsicColorMatrix.cpp \
+    cpu_ref/rsCpuIntrinsicConvolve3x3.cpp \
+    cpu_ref/rsCpuIntrinsicConvolve5x5.cpp \
+    cpu_ref/rsCpuIntrinsicHistogram.cpp \
+    cpu_ref/rsCpuIntrinsicLUT.cpp \
+    cpu_ref/rsCpuIntrinsicResize.cpp \
+    cpu_ref/rsCpuIntrinsicYuvToRGB.cpp \
+    cpu_ref/rsCpuRuntimeMathFuncs.cpp
+
+
+LOCAL_CFLAGS_arm64 += -DARCH_ARM_USE_INTRINSICS -DARCH_ARM64_USE_INTRINSICS -DARCH_ARM64_HAVE_NEON
+# Clang does not compile advsimd_3DLUT.S, advsimd_Resize.S and advsimd_Blend.S
+# Bug: 23217766
+LOCAL_CLANG_ASFLAGS_arm64 += -no-integrated-as
+LOCAL_SRC_FILES_arm64 += \
+    cpu_ref/rsCpuIntrinsics_advsimd_3DLUT.S \
+    cpu_ref/rsCpuIntrinsics_advsimd_Convolve.S \
+    cpu_ref/rsCpuIntrinsics_advsimd_Blur.S \
+    cpu_ref/rsCpuIntrinsics_advsimd_ColorMatrix.S \
+    cpu_ref/rsCpuIntrinsics_advsimd_Resize.S \
+    cpu_ref/rsCpuIntrinsics_advsimd_YuvToRGB.S \
+    cpu_ref/rsCpuIntrinsics_advsimd_Blend.S
 
 ifeq ($(ARCH_ARM_HAVE_ARMV7A),true)
 LOCAL_CFLAGS_arm := -DARCH_ARM_HAVE_VFP -DARCH_ARM_USE_INTRINSICS
 LOCAL_ASFLAGS_arm := -mfpu=neon
-# frameworks/rs/cpu_ref/rsCpuIntrinsics_neon_3DLUT.S does not compile.
+# Clang does not compile neon_3DLUT.S and neon_Resize.S
+# Bug: 23217766
 LOCAL_CLANG_ASFLAGS_arm += -no-integrated-as
 LOCAL_SRC_FILES_arm := \
-        cpu_ref/rsCpuIntrinsics_neon_3DLUT.S \
-	cpu_ref/rsCpuIntrinsics_neon_ColorMatrix.S \
-        cpu_ref/rsCpuIntrinsics_neon_Blend.S \
-        cpu_ref/rsCpuIntrinsics_neon_Blur.S \
-	cpu_ref/rsCpuIntrinsics_neon_Convolve.S \
-	cpu_ref/rsCpuIntrinsics_neon_Resize.S \
-        cpu_ref/rsCpuIntrinsics_neon_YuvToRGB.S
+    cpu_ref/rsCpuIntrinsics_neon_3DLUT.S \
+    cpu_ref/rsCpuIntrinsics_neon_ColorMatrix.S \
+    cpu_ref/rsCpuIntrinsics_neon_Blend.S \
+    cpu_ref/rsCpuIntrinsics_neon_Blur.S \
+    cpu_ref/rsCpuIntrinsics_neon_Convolve.S \
+    cpu_ref/rsCpuIntrinsics_neon_Resize.S \
+    cpu_ref/rsCpuIntrinsics_neon_YuvToRGB.S
 endif
 
 LOCAL_REQUIRED_MODULES := libblasV8
