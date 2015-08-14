@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c43e49ec_c3614ab6",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 5
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-08-14T03:05:28Z",
+      "side": 1,
+      "message": "This just moved the -no-integrated-as flag. It still is happening, so I would really like to understand if this is required or something we no longer need. If we still need it, let\u0027s fix it.",
+      "revId": "4aa2225993ae30c7deb0aec6a0b058f18e941a0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
