@@ -269,12 +269,20 @@ static dispatchTable dispatchTab;
 // Incremental Support lib
 static dispatchTable dispatchTabInc;
 
-static jboolean nLoadSO(JNIEnv *_env, jobject _this, jboolean useNative, jint targetApi) {
+static jboolean nLoadSO(JNIEnv *_env, jobject _this, jboolean useNative, jint targetApi, jstring libPath) {
     void* handle = NULL;
+
     if (useNative) {
-        handle = dlopen("libRS.so", RTLD_LAZY | RTLD_LOCAL);
+        handle = dlopen("libRS.so", RTLD_NOW | RTLD_LOCAL);
     } else {
-        handle = dlopen("libRSSupport.so", RTLD_LAZY | RTLD_LOCAL);
+        size_t libPathJniLen = _env->GetStringUTFLength(libPath);
+        if (libPathJniLen > 1) {
+            const char * libPathJni = _env->GetStringUTFChars(libPath, JNI_FALSE);
+            handle = dlopen(libPathJni, RTLD_NOW | RTLD_LOCAL);
+            _env->ReleaseStringUTFChars(libPath, libPathJni);
+        } else {
+            handle = dlopen("libRSSupport.so", RTLD_NOW | RTLD_LOCAL);
+        }
     }
     if (handle == NULL) {
         LOG_API("couldn't dlopen %s, %s", filename, dlerror());
@@ -283,6 +291,7 @@ static jboolean nLoadSO(JNIEnv *_env, jobject _this, jboolean useNative, jint ta
 
     if (loadSymbols(handle, dispatchTab, targetApi) == false) {
         LOG_API("%s init failed!", filename);
+        dlclose(handle);
         return false;
     }
     LOG_API("Successfully loaded %s", filename);
@@ -290,15 +299,24 @@ static jboolean nLoadSO(JNIEnv *_env, jobject _this, jboolean useNative, jint ta
 }
 
 static ioSuppDT ioDispatch;
-static jboolean nLoadIOSO(JNIEnv *_env, jobject _this) {
+static jboolean nLoadIOSO(JNIEnv *_env, jobject _this, jstring libPath) {
     void* handleIO = NULL;
-    handleIO = dlopen("libRSSupportIO.so", RTLD_LAZY | RTLD_LOCAL);
+    size_t libPathJniLen = _env->GetStringUTFLength(libPath);
+    if (libPathJniLen > 1) {
+        const char * libPathJni = _env->GetStringUTFChars(libPath, JNI_FALSE);
+        handleIO = dlopen(libPathJni, RTLD_NOW | RTLD_LOCAL);
+        _env->ReleaseStringUTFChars(libPath, libPathJni);
+    } else {
+        handleIO = dlopen("libRSSupportIO.so", RTLD_NOW | RTLD_LOCAL);
+    }
+
     if (handleIO == NULL) {
         LOG_API("Couldn't load libRSSupportIO.so");
         return false;
     }
     if (loadIOSuppSyms(handleIO, ioDispatch) == false) {
         LOG_API("libRSSupportIO init failed!");
+        dlclose(handleIO);
         return false;
     }
     return true;
@@ -1991,9 +2009,17 @@ nSystemGetPointerSize(JNIEnv *_env, jobject _this) {
 
 // ---------------------------------------------------------------------------
 // For Incremental Intrinsic Support
-static jboolean nIncLoadSO(JNIEnv *_env, jobject _this, jint deviceApi) {
+static jboolean nIncLoadSO(JNIEnv *_env, jobject _this, jint deviceApi, jstring libPath) {
     void* handle = NULL;
-    handle = dlopen("libRSSupport.so", RTLD_LAZY | RTLD_LOCAL);
+    size_t libPathJniLen = _env->GetStringUTFLength(libPath);
+    if (libPathJniLen > 1) {
+        const char * libPathJni = _env->GetStringUTFChars(libPath, JNI_FALSE);
+        handle = dlopen(libPathJni, RTLD_LAZY | RTLD_LOCAL);
+        _env->ReleaseStringUTFChars(libPath, libPathJni);
+    } else {
+        handle = dlopen("libRSSupport.so", RTLD_LAZY | RTLD_LOCAL);
+    }
+
     if (handle == NULL) {
         LOG_API("couldn't dlopen %s, %s", filename, dlerror());
         return false;
@@ -2001,6 +2027,7 @@ static jboolean nIncLoadSO(JNIEnv *_env, jobject _this, jint deviceApi) {
 
     if (loadSymbols(handle, dispatchTabInc, deviceApi) == false) {
         LOG_API("%s init failed!", filename);
+        dlclose(handle);
         return false;
     }
     dispatchTabInc.AllocationCreateStrided = (AllocationCreateStridedFnPtr)dlsym(handle, "rsAllocationCreateStrided");
@@ -2127,8 +2154,8 @@ nIncAllocationCreateTyped(JNIEnv *_env, jobject _this, jlong con, jlong incCon, 
 static const char *classPathName = "android/support/v8/renderscript/RenderScript";
 
 static JNINativeMethod methods[] = {
-{"nLoadSO",                        "(ZI)Z",                                   (bool*)nLoadSO },
-{"nLoadIOSO",                      "()Z",                                     (bool*)nLoadIOSO },
+{"nLoadSO",                        "(ZILjava/lang/String;)Z",                 (bool*)nLoadSO },
+{"nLoadIOSO",                      "(Ljava/lang/String;)Z",                   (bool*)nLoadIOSO },
 {"nDeviceCreate",                  "()J",                                     (void*)nDeviceCreate },
 {"nDeviceDestroy",                 "(J)V",                                    (void*)nDeviceDestroy },
 {"nDeviceSetConfig",               "(JII)V",                                  (void*)nDeviceSetConfig },
@@ -2227,7 +2254,7 @@ static JNINativeMethod methods[] = {
 {"rsnSystemGetPointerSize",          "()I",                                   (void*)nSystemGetPointerSize },
 
 // Entry points for Inc libRSSupport
-{"nIncLoadSO",                       "(I)Z",                                  (bool*)nIncLoadSO },
+{"nIncLoadSO",                       "(ILjava/lang/String;)Z",                (bool*)nIncLoadSO },
 {"nIncDeviceCreate",                 "()J",                                   (void*)nIncDeviceCreate },
 {"nIncDeviceDestroy",                "(J)V",                                  (void*)nIncDeviceDestroy },
 {"rsnIncContextCreate",              "(JIII)J",                               (void*)nIncContextCreate },

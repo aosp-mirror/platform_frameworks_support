@@ -16,7 +16,19 @@
 
 package android.support.v8.renderscript;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.security.MessageDigest;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.Enumeration;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -28,6 +40,7 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Process;
+import android.os.Build;
 import android.util.Log;
 import android.view.Surface;
 import java.util.ArrayList;
@@ -100,8 +113,8 @@ public class RenderScript {
     static Object lock = new Object();
 
     // Non-threadsafe functions.
-    native boolean nLoadSO(boolean useNative, int deviceApi);
-    native boolean nLoadIOSO();
+    native boolean nLoadSO(boolean useNative, int deviceApi, String libPath);
+    native boolean nLoadIOSO(String libPath);
     native long nDeviceCreate();
     native void nDeviceDestroy(long dev);
     native void nDeviceSetConfig(long dev, int param, int value);
@@ -131,6 +144,278 @@ public class RenderScript {
      */
     static native int rsnSystemGetPointerSize();
     static int sPointerSize;
+
+    /**
+     * Try to load a native library using a workaround of
+     *   http://b/25226912.
+     *
+     * Workaround for b/25226912 was adapted from code in
+     * https://codereview.chromium.org/217283005
+     *
+     * More details about http://b/25226912:
+     *   libRSSupport fails to load on select devices running Jellybean.
+     * and http://b/13216167:
+     *   PackageManager may fail to update shared library.
+     *
+     * Native library directory in an updated package is a symbolic link
+     * to a directory in /data/app-lib/<package name>, for example:
+     * /data/data/com.android.rstest/lib -> /data/app-lib/com.android.rstest[-1].
+     * When updating the application, the PackageManager create a new directory,
+     * e.g., /data/app-lib/com.android.rstest-2, and remove the old symlink and
+     * recreate one to the new directory. However, on some devices (e.g. Sony Xperia),
+     * the symlink was updated, but fails to extract new native libraries from
+     * the new apk.
+     *
+     * We make the following changes to alleviate the issue:
+     *  1) calculate the checksum after update RenderScript shared libraries,
+     *     and store the checksum as a String.
+     *  2) when running on device, compute the checksum of the lib installed on device,
+     *     if it match with our reference, load it; if not, extract the lib from
+     *     the APK and try load it again.
+     *  3) cache the result of the check, so that the checksum compute will only affect
+     *     the first time user run their apps after Update/Install.
+     *  4) loadRSLibraries will return a null string if it failed, and return a empty
+     *     string "" if no workaround is needed. Full path of the lib will be returned
+     *     if the workaround is needed.
+     *
+     * This function doesn't throw UnsatisfiedLinkError, the caller needs to
+     * check the return value.
+     */
+    private static final String RSJNI_MD5       = "40dd2154451dc97e247c80422b534f61";
+    private static final String RSSUPPORT_MD5   = "08af968084ac52d635b1a0a72cb311e6";
+    private static final String RSSUPPORTIO_MD5 = "194614890998c284815ad84d7bfec094";
+    private static final String BLASV8_MD5      = "c060c05402f24053b051537e300bc1bc";
+
+    private static class LibraryLoader {
+        private static final String LIB_DIR = "libWAR";
+
+        private static void deleteFileSync(File file) {
+            try {
+                if (file.exists() && !file.delete()) {
+                    Log.e(LOG_TAG, "Failed to remove " + file.getAbsolutePath());
+                }
+            } catch (Exception e) {
+                Log.e(LOG_TAG, "Failed to remove old libs, ", e);
+            }
+        }
+
+        private static boolean loadRSLibWorkAround(Context context, String library) {
+            assert context != null;
+            String libName = System.mapLibraryName(library);
+            File libDir = context.getDir(LIB_DIR, Context.MODE_PRIVATE);
+            Log.v(LOG_TAG, "Extracting native libraries into " + libName + " " + libDir);
+
+            File libFile = new File(libDir, libName);
+            String libNameInApk = "lib/" + Build.CPU_ABI + "/" + libName;
+            try {
+                ApplicationInfo appInfo = context.getApplicationInfo();
+                ZipFile file = new ZipFile(new File(appInfo.sourceDir), ZipFile.OPEN_READ);
+                Enumeration<? extends ZipEntry> entries = file.entries();
+                while (entries.hasMoreElements()) {
+                    ZipEntry entry = file.getEntry(libNameInApk);
+
+                    if (entry == null) {
+                        // If cannot find the lib in CPU_ABI try CPU_ABI2
+                        libNameInApk = "lib/" + Build.CPU_ABI2 + "/" + libName;
+                        entry = file.getEntry(libNameInApk);
+                        if (entry == null) {
+                            Log.e(LOG_TAG, appInfo.sourceDir + " doesn't have file " + libNameInApk);
+                            file.close();
+                            return false;
+                        }
+                    }
+                    if (!entry.getName().equals(libNameInApk)) {
+                        continue;
+                    }
+
+                    File outputFile = libFile;
+                    assert !outputFile.exists();
+                    if (outputFile.length() == entry.getSize()) {
+                        break;
+                    }
+                    try {
+                        if (!outputFile.createNewFile()) {
+                            throw new IOException();
+                        }
+                        InputStream is = null;
+                        FileOutputStream os = null;
+                        try {
+                            is = file.getInputStream(entry);
+                            os = new FileOutputStream(outputFile);
+                            int count = 0;
+                            byte[] buffer = new byte[16 * 1024];
+                            while ((count = is.read(buffer)) > 0) {
+                                os.write(buffer, 0, count);
+                            }
+                        } finally {
+                            try {
+                                if (is != null) is.close();
+                            } finally {
+                                if (os != null) os.close();
+                            }
+                        }
+                        // Change permission to rwxr-xr-x
+                        outputFile.setReadable(true, false);
+                        outputFile.setExecutable(true, false);
+                        outputFile.setWritable(true);
+                    } catch (IOException e) {
+                        if (outputFile.exists()) {
+                            if (!outputFile.delete()) {
+                                Log.e(LOG_TAG, "Failed to delete " + outputFile.getAbsolutePath());
+                            }
+                        }
+                        file.close();
+                        throw e;
+                    }
+                }
+                file.close();
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Failed to unpack native libraries", e);
+                deleteFileSync(libFile);
+                return false;
+            }
+            return true;
+        }
+
+        private static String getMD5Checksum(String filename) {
+            Log.v(LOG_TAG, filename);
+            InputStream fis = null;
+            MessageDigest complete = null;
+            String result = "";
+            try {
+                byte[] buffer = new byte[1024];
+                fis = new FileInputStream(filename);
+                complete = MessageDigest.getInstance("MD5");
+                int numRead;
+
+                do {
+                    numRead = fis.read(buffer);
+                    if (numRead > 0) {
+                        complete.update(buffer, 0, numRead);
+                    }
+                } while (numRead != -1);
+                fis.close();
+            } catch (Exception e) {
+                Log.e(LOG_TAG, "Error computing MD5 checksum: " + e);
+                return result;
+            }
+            byte[] digest = complete.digest();
+            for (int i = 0; i < digest.length; i++) {
+                result += Integer.toString((digest[i] & 0xff) + 0x100, 16).substring(1);
+            }
+            Log.v(LOG_TAG, result);
+            return result;
+        }
+
+        private static boolean checkIfWorkaroundApplied(File filename) {
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(filename));
+                String line = br.readLine();
+                br.close();
+                if (line != null && line.equals("true")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Error reading rs_patch: " + e);
+                return false;
+            }
+        }
+
+        private static boolean updateWorkaroundStatus(File filename, String isWorkaroundNeeded) {
+            try {
+                FileOutputStream fos = new FileOutputStream(filename);
+                fos.write(isWorkaroundNeeded.getBytes());
+                fos.close();
+                return true;
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Error writing rs_patch: " + e);
+                return false;
+            }
+        }
+
+        private static String loadRSLibraries(Context context, String library, String libChecksum) {
+            File libWARDir = context.getDir(LIB_DIR, Context.MODE_PRIVATE);
+            String libWARDirPath = libWARDir.getAbsolutePath();
+
+            File apk = new File(context.getApplicationInfo().sourceDir);
+            long apkTime = apk.lastModified();
+
+            String resultLibLocation = null;
+            String rsLibName = System.mapLibraryName(library);
+            String workaroundLibName = libWARDirPath + "/" + rsLibName;
+            File workAroundMarker = new File(libWARDir, "rs_patch_" + library);
+
+            if (workAroundMarker.exists() && workAroundMarker.lastModified() > apkTime) {
+                boolean workAroundApplied = checkIfWorkaroundApplied(workAroundMarker);
+                if (workAroundApplied) {
+                    try {
+                        resultLibLocation = workaroundLibName;
+                        System.load(resultLibLocation);
+                    } catch (UnsatisfiedLinkError e) {
+                        Log.e(LOG_TAG, "Error loading RS Compat library: " + e);
+                        return null;
+                    }
+                } else {
+                    try {
+                        resultLibLocation = "";
+                        System.loadLibrary(library);
+                    } catch (UnsatisfiedLinkError e) {
+                        Log.e(LOG_TAG, "Error loading RS library: " + e);
+                        return null;
+                    }
+                }
+                return resultLibLocation;
+            }
+
+            // If workaround is out of date, or a fresh install,
+            // cleanup the workaround dir and check if WAR is needed.
+            deleteFileSync(new File(libWARDir, rsLibName));
+            deleteFileSync(workAroundMarker);
+
+            boolean isWorkaroundNeeded = false;
+            String nativeLibDir = context.getApplicationInfo().nativeLibraryDir;
+            String nativeLibName = nativeLibDir + "/" + rsLibName;
+            if (false && libChecksum.equals(getMD5Checksum(nativeLibName))) {
+                // If the checksum is correct for the extracted libs, load it
+                try {
+                    resultLibLocation = "";
+                    System.loadLibrary(library);
+                } catch (UnsatisfiedLinkError e) {
+                    Log.e(LOG_TAG, "Error loading RS library: " + e);
+                    return null;
+                }
+            } else {
+                isWorkaroundNeeded = true;
+                // If the checksum does not match, extract the lib from the APK
+                if (loadRSLibWorkAround(context, library)) {
+                    if (libChecksum.equals(getMD5Checksum(workaroundLibName))) {
+                        try {
+                            resultLibLocation = workaroundLibName;
+                            System.load(workaroundLibName);
+                        } catch (UnsatisfiedLinkError e) {
+                            Log.e(LOG_TAG, "Error loading RS library: " + e);
+                            return null;
+                        }
+                    }
+                } else {
+                    return null;
+                }
+            }
+            // Update the workaround marker.
+            try {
+                workAroundMarker.createNewFile();
+                if (!updateWorkaroundStatus(workAroundMarker, "" + isWorkaroundNeeded)){
+                    return null;
+                }
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Error writing rs_patch: " + e);
+                return null;
+            }
+            return resultLibLocation;
+        }
+    }
 
     /**
      * Determines whether or not we should be thunking into the native
@@ -764,13 +1049,12 @@ public class RenderScript {
             }
 
             if (!mIncLoaded) {
-                try {
-                    System.loadLibrary("RSSupport");
-                } catch (UnsatisfiedLinkError e) {
-                    Log.e(LOG_TAG, "Error loading RS Compat library for Incremental Intrinsic Support: " + e);
-                    throw new RSRuntimeException("Error loading RS Compat library for Incremental Intrinsic Support: " + e);
+                String libRSSupportPath = LibraryLoader.loadRSLibraries(mApplicationContext, "RSSupport", RSSUPPORT_MD5);
+                if (libRSSupportPath == null) {
+                    Log.e(LOG_TAG, "Error loading RS Compat library for Incremental Intrinsic Support");
+                    throw new RSRuntimeException("Error loading RS Compat library for Incremental Intrinsic Support");
                 }
-                if (!nIncLoadSO(SUPPORT_LIB_API)) {
+                if (!nIncLoadSO(SUPPORT_LIB_API, libRSSupportPath)) {
                     throw new RSRuntimeException("Error loading libRSSupport library for Incremental Intrinsic Support");
                 }
                 mIncLoaded = true;
@@ -966,7 +1250,7 @@ public class RenderScript {
 
 // Additional Entry points For inc libRSSupport
 
-    native boolean nIncLoadSO(int deviceApi);
+    native boolean nIncLoadSO(int deviceApi, String libPath);
     native long nIncDeviceCreate();
     native void nIncDeviceDestroy(long dev);
     // Methods below are wrapped to protect the non-threadsafe
@@ -1368,7 +1652,9 @@ public class RenderScript {
                     sUseGCHooks = false;
                 }
                 try {
-                    System.loadLibrary("rsjni");
+                    if (LibraryLoader.loadRSLibraries(ctx, "rsjni", RSJNI_MD5) == null) {
+                        throw new UnsatisfiedLinkError("Cannot load librsjni.so, workaround failed");
+                    }
                     sInitialized = true;
                     sPointerSize = rsnSystemGetPointerSize();
                 } catch (UnsatisfiedLinkError e) {
@@ -1395,29 +1681,28 @@ public class RenderScript {
             dispatchAPI = android.os.Build.VERSION.SDK_INT;
         }
 
-        if (!rs.nLoadSO(useNative, dispatchAPI)) {
+        // If use compat mode, or fail to load native runtime, load compat runtime.
+        if (!useNative || !rs.nLoadSO(true, dispatchAPI, null)) {
             if (useNative) {
                 android.util.Log.v(LOG_TAG, "Unable to load libRS.so, falling back to compat mode");
                 useNative = false;
             }
-            try {
-                System.loadLibrary("RSSupport");
-            } catch (UnsatisfiedLinkError e) {
-                Log.e(LOG_TAG, "Error loading RS Compat library: " + e);
-                throw new RSRuntimeException("Error loading RS Compat library: " + e);
+            String libRSSupportPath = LibraryLoader.loadRSLibraries(ctx, "RSSupport", RSSUPPORT_MD5);
+            if (libRSSupportPath == null) {
+                Log.e(LOG_TAG, "Error loading RS Compat library");
+                throw new RSRuntimeException("Error loading RS Compat library");
             }
-            if (!rs.nLoadSO(false, dispatchAPI)) {
+            if (!rs.nLoadSO(false, dispatchAPI, libRSSupportPath)) {
                 throw new RSRuntimeException("Error loading libRSSupport library");
             }
         }
 
         if (useIOlib) {
-            try {
-                System.loadLibrary("RSSupportIO");
-            } catch (UnsatisfiedLinkError e) {
+            String libRSSupportIOPath = LibraryLoader.loadRSLibraries(ctx, "RSSupportIO", RSSUPPORTIO_MD5);
+            if (libRSSupportIOPath == null) {
                 useIOlib = false;
             }
-            if (!useIOlib || !rs.nLoadIOSO()) {
+            if (!useIOlib || !rs.nLoadIOSO(libRSSupportIOPath)) {
                 android.util.Log.v(LOG_TAG, "Unable to load libRSSupportIO.so, USAGE_IO not supported");
                 useIOlib = false;
             }
@@ -1428,10 +1713,8 @@ public class RenderScript {
         if (dispatchAPI >= 23) {
             // Enable multi-input kernels only when diapatchAPI is M+.
             rs.mEnableMultiInput = true;
-            try {
-                System.loadLibrary("blasV8");
-            } catch (UnsatisfiedLinkError e) {
-                Log.v(LOG_TAG, "Unable to load BLAS lib, ONLY BNNM will be supported: " + e);
+            if (LibraryLoader.loadRSLibraries(ctx, "blasV8", BLASV8_MD5) == null) {
+                Log.v(LOG_TAG, "Unable to load BLAS lib, ONLY BNNM will be supported");
             }
         }
 
