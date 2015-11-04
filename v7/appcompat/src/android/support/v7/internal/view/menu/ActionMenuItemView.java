@@ -251,13 +251,24 @@ public class ActionMenuItemView extends AppCompatTextView
         if (midy < displayFrame.height()) {
             // Show along the top; follow action buttons
             cheatSheet.setGravity(Gravity.TOP | GravityCompat.END, referenceX,
-                    screenPos[1] + height - displayFrame.top);
+                    height - getStatusBarHeight() + screenPos[1]);
         } else {
             // Show along the bottom center
             cheatSheet.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, height);
         }
         cheatSheet.show();
         return true;
+    }
+
+    private int getStatusBarHeight()
+    {
+        int result = 0;
+	int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+	if (resourceId > 0)
+	{
+		result = getResources().getDimensionPixelSize(resourceId);
+	}
+	return result;
     }
 
     @Override
