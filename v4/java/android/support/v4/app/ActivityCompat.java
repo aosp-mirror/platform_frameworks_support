@@ -300,6 +300,12 @@ public class ActivityCompat extends ContextCompat {
      * When checking whether you have a permission you should use {@link
      * #checkSelfPermission(android.content.Context, String)}.
      * </p>
+     * <p>
+     * You cannot request a permission if your activity sets {@link
+     * android.R.styleable#AndroidManifestActivity_noHistory noHistory} to
+     * <code>true</code> because in this case the activity would not receive
+     * result callbacks including {@link android.app.Activity#onRequestPermissionsResult(int, String[], int[])}.
+     * </p>
      *
      * @param activity The target activity.
      * @param permissions The requested permissions.
