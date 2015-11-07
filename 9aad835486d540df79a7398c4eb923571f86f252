@@ -102,6 +102,24 @@
     },
     {
       "key": {
+        "uuid": "1698aa84_a4a968a2",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1413,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2015-11-07T00:51:25Z",
+      "side": 1,
+      "message": "yes, acutually rssupportPath is null only when mNativeLibDir is null. nLoadSO will just try to see if the input path is null or now.",
+      "parentUuid": "d683721b_d4ff011b",
+      "revId": "9aad835486d540df79a7398c4eb923571f86f252",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b69d1e72_f02fb9c7",
         "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
         "patchSetId": 1
