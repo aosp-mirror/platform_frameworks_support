@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "d683721b_d4ff011b",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1413,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-11-07T00:46:36Z",
+      "side": 1,
+      "message": "But the next line will use a null rssupportPath. Is that going to work at all?",
+      "parentUuid": "b686fe2b_e631b7e7",
+      "revId": "9aad835486d540df79a7398c4eb923571f86f252",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b69d1e72_f02fb9c7",
         "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
         "patchSetId": 1
