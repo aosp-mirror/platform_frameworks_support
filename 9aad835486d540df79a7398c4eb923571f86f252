@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "568ea242_9cf9273d",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-11-07T00:29:41Z",
+      "side": 1,
+      "message": "I don\u0027t think you can keep the \u0027/\u0027 in the second part of this if mNativeLibDir is empty (on API 8).",
+      "range": {
+        "startLine": 774,
+        "startChar": 64,
+        "endLine": 774,
+        "endChar": 83
+      },
+      "revId": "9aad835486d540df79a7398c4eb923571f86f252",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1698aa84_c104a6a5",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1413,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-11-07T00:29:41Z",
+      "side": 1,
+      "message": "Missing else clause for API 8.",
+      "revId": "9aad835486d540df79a7398c4eb923571f86f252",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b69d1e72_f02fb9c7",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1426,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-11-07T00:29:41Z",
+      "side": 1,
+      "message": "Add version to log message here too.",
+      "revId": "9aad835486d540df79a7398c4eb923571f86f252",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1698aa84_8121be32",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/RenderScript.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2015-11-07T00:29:41Z",
+      "side": 1,
+      "message": "Let\u0027s add a log message here as well.",
+      "revId": "9aad835486d540df79a7398c4eb923571f86f252",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
