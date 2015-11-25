@@ -2123,6 +2123,26 @@ nIncAllocationCreateTyped(JNIEnv *_env, jobject _this, jlong con, jlong incCon, 
     return (jlong)(uintptr_t) ainI;
 }
 
+static jobject
+nAllocationGetByteBuffer(JNIEnv *_env, jobject _this, jlong con, jlong alloc, jint dimY)
+{
+    LOG_API("nAllocationGetByteBuffer, con(%p), alloc(%p)", (RsContext)con, (RsAllocation)alloc);
+    size_t strideIn;
+    void* ptr = NULL;
+    if (alloc != 0 && dispatchTab.AllocationGetPointer != nullptr) {
+        ptr = dispatchTab.AllocationGetPointer((RsContext)con, (RsAllocation)alloc, 0,
+                                               RS_ALLOCATION_CUBEMAP_FACE_POSITIVE_X, 0, 0,
+                                               &strideIn, sizeof(size_t));
+    }
+    if (ptr != NULL) {
+        jobject byteBuffer = _env->NewDirectByteBuffer(ptr, (jlong) strideIn * dimY);
+        return byteBuffer;
+    } else {
+        return NULL;
+    }
+}
+
+
 // ---------------------------------------------------------------------------
 
 
@@ -2239,6 +2259,7 @@ static JNINativeMethod methods[] = {
 {"rsnIncElementCreate",              "(JJIZI)J",                              (void*)nIncElementCreate },
 {"rsnIncTypeCreate",                 "(JJIIIZZI)J",                           (void*)nIncTypeCreate },
 {"rsnIncAllocationCreateTyped",      "(JJJJI)J",                              (void*)nIncAllocationCreateTyped },
+{"rsnAllocationGetByteBuffer",       "(JJI)Ljava/nio/ByteBuffer;",            (void*)nAllocationGetByteBuffer },
 };
 
 // ---------------------------------------------------------------------------

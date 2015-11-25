@@ -20,6 +20,8 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.ArrayList;
+import java.nio.ByteBuffer;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -30,7 +32,6 @@ import android.graphics.BitmapFactory;
 import android.os.Process;
 import android.util.Log;
 import android.view.Surface;
-import java.util.ArrayList;
 
 /**
  * This class provides access to a RenderScript context, which controls RenderScript
@@ -432,7 +433,11 @@ public class RenderScript {
         validate();
         rsnAllocationIoReceive(mContext, alloc);
     }
-
+    native ByteBuffer rsnAllocationGetByteBuffer(long con, long alloc, int dimY);
+    synchronized ByteBuffer nAllocationGetByteBuffer(long alloc, int dimY) {
+        validate();
+        return rsnAllocationGetByteBuffer(mContext, alloc, dimY);
+    }
 
     native void rsnAllocationGenerateMipmaps(long con, long alloc);
     synchronized void nAllocationGenerateMipmaps(long alloc) {
