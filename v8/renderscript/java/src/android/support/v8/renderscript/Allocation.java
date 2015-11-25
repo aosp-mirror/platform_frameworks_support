@@ -19,6 +19,8 @@ package android.support.v8.renderscript;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.nio.ByteBuffer;
+
 import android.content.res.Resources;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -61,8 +63,9 @@ public class Allocation extends BaseObj {
     Type mType;
     Bitmap mBitmap;
     int mUsage;
-    Allocation mAdaptedAllocation;
     int mSize;
+    Allocation mAdaptedAllocation;
+    ByteBuffer mByteBuffer;
 
     boolean mConstrainedLOD;
     boolean mConstrainedFace;
@@ -465,6 +468,17 @@ public class Allocation extends BaseObj {
      */
     public void ioSendOutput() {
         ioSend();
+    }
+
+    /**
+     * @hide
+     * Get the ByteBuffer pointing to the raw data associated with Allocation.
+     * Note: Will return null if TargetAPI of the app is below 21.
+     */
+    public ByteBuffer getByteBuffer() {
+        int xBytesSize = mType.getX() * mType.getElement().getBytesSize();
+        mByteBuffer = mRS.nAllocationGetByteBuffer(getID(mRS), xBytesSize, mType.getY(), mType.getZ());
+        return mByteBuffer;
     }
 
     /**
