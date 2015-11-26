@@ -34,6 +34,7 @@ import android.support.v7.internal.view.menu.MenuPresenter;
 import android.support.v7.internal.view.menu.MenuView;
 import android.support.v7.internal.view.menu.SubMenuBuilder;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -445,10 +446,14 @@ public class NavigationMenuPresenter implements MenuPresenter {
                 if (item.hasSubMenu()) {
                     SubMenu subMenu = item.getSubMenu();
                     if (subMenu.hasVisibleItems()) {
+                        boolean isSubMenuTitleEmpty = TextUtils.isEmpty(item.getTitle());
                         if (i != 0) {
-                            mItems.add(new NavigationMenuSeparatorItem(mPaddingSeparator, 0));
+                            mItems.add(new NavigationMenuSeparatorItem(
+                                mPaddingSeparator, isSubMenuTitleEmpty ? mPaddingSeparator : 0));
                         }
-                        mItems.add(new NavigationMenuTextItem(item));
+                        if (!isSubMenuTitleEmpty) {
+                            mItems.add(new NavigationMenuTextItem(item));
+                        }
                         boolean subMenuHasIcon = false;
                         int subMenuStart = mItems.size();
                         for (int j = 0, size = subMenu.size(); j < size; j++) {
