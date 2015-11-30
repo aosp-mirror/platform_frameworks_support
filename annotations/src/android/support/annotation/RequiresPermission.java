@@ -28,27 +28,27 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
  * Denotes that the annotated element requires (or may require) one or more permissions.
  * <p/>
  * Example of requiring a single permission:
- * <pre>{@code
+ * <pre><code>
  *   &#64;RequiresPermission(Manifest.permission.SET_WALLPAPER)
  *   public abstract void setWallpaper(Bitmap bitmap) throws IOException;
  *
  *   &#64;RequiresPermission(ACCESS_COARSE_LOCATION)
  *   public abstract Location getLastKnownLocation(String provider);
- * }</pre>
+ * </code></pre>
  * Example of requiring at least one permission from a set:
- * <pre>{@code
+ * <pre><code>
  *   &#64;RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
  *   public abstract Location getLastKnownLocation(String provider);
- * }</pre>
+ * </code></pre>
  * Example of requiring multiple permissions:
- * <pre>{@code
+ * <pre><code>
  *   &#64;RequiresPermission(allOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
  *   public abstract Location getLastKnownLocation(String provider);
- * }</pre>
+ * </code></pre>
  * Example of requiring separate read and write permissions for a content provider:
- * <pre>{@code
- *   &#64;RequiresPermission.Read(&#64;RequiresPermission(READ_HISTORY_BOOKMARKS))
- *   &#64;RequiresPermission.Write(&#64;RequiresPermission(WRITE_HISTORY_BOOKMARKS))
+ * <pre><code>
+ *   &#64;RequiresPermission.Read(@RequiresPermission(READ_HISTORY_BOOKMARKS))
+ *   &#64;RequiresPermission.Write(@RequiresPermission(WRITE_HISTORY_BOOKMARKS))
  *   public static final Uri BOOKMARKS_URI = Uri.parse("content://browser/bookmarks");
  * }</pre>
  *
@@ -87,7 +87,16 @@ public @interface RequiresPermission {
     boolean conditional() default false;
 
     /**
+<<<<<<< HEAD
      * Specifies that the given permission is required for read operations
+=======
+     * Specifies that the given permission is required for read operations.
+     * <p>
+     * When specified on a parameter, the annotation indicates that the method requires
+     * a permission which depends on the value of the parameter (and typically
+     * the corresponding field passed in will be one of a set of constants which have
+     * been annotated with a {@code @RequiresPermission} annotation.)
+>>>>>>> 385cccb... Fix @code escapes
      */
     @Target(FIELD)
     @interface Read {
@@ -95,7 +104,16 @@ public @interface RequiresPermission {
     }
 
     /**
+<<<<<<< HEAD
      * Specifies that the given permission is required for write operations
+=======
+     * Specifies that the given permission is required for write operations.
+     * <p>
+     * When specified on a parameter, the annotation indicates that the method requires
+     * a permission which depends on the value of the parameter (and typically
+     * the corresponding field passed in will be one of a set of constants which have
+     * been annotated with a {@code @RequiresPermission} annotation.)
+>>>>>>> 385cccb... Fix @code escapes
      */
     @Target(FIELD)
     @interface Write {
