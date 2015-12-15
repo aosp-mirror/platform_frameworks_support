@@ -22,6 +22,30 @@
       "revId": "33bdc08168839ee38003b2dc3a5285b3ad0d22f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c501fa3e_71001893",
+        "filename": "v8/renderscript/java/src/android/support/v8/renderscript/Allocation.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2015-12-15T00:02:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25157684_8d8009b1",
+      "range": {
+        "startLine": 511,
+        "startChar": 7,
+        "endLine": 511,
+        "endChar": 61
+      },
+      "revId": "33bdc08168839ee38003b2dc3a5285b3ad0d22f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
