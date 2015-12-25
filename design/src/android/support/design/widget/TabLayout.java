@@ -641,7 +641,11 @@ public class TabLayout extends HorizontalScrollView {
     public void setTabsFromPagerAdapter(@NonNull PagerAdapter adapter) {
         removeAllTabs();
         for (int i = 0, count = adapter.getCount(); i < count; i++) {
-            addTab(newTab().setText(adapter.getPageTitle(i)));
+            if (adapter.getTab() != null){
+                addTab(newTab().setCustomView(adapter.getTab(i)));
+            } else {
+                addTab(newTab().setText(adapter.getPageTitle(i)));
+            }
         }
     }
 
