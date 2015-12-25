@@ -306,6 +306,20 @@ public abstract class PagerAdapter {
     public CharSequence getPageTitle(int position) {
         return null;
     }
+    
+    /**
+     * This method may be called by the ViewPager to obtain a custom View 
+     * to describe the specified page. This method may return null
+     * indicating no custom view for this page. The caller should then 
+     * check to see if a title has been provided.
+     * The default implementation returns null.
+     *
+     * @param position The position of the title requested
+     * @return A View to be used as a title for the page.
+     */
+    public View getTab(int position) {
+        return null;
+    }
 
     /**
      * Returns the proportional width of a given page as a percentage of the
