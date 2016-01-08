@@ -380,11 +380,11 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * and later retrieved by the Fragment with {@link #getArguments}.
      * 
      * <p>Applications should generally not implement a constructor.  The
-     * first place application code an run where the fragment is ready to
+     * first place application code can run where the fragment is ready to
      * be used is in {@link #onAttach(Activity)}, the point where the fragment
      * is actually associated with its activity.  Some applications may also
      * want to implement {@link #onInflate} to retrieve attributes from a
-     * layout resource, though should take care here because this happens for
+     * layout resource, though should take care here because this happens before
      * the fragment is attached to its activity.
      */
     public Fragment() {
