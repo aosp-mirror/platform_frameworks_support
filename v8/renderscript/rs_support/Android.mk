@@ -134,6 +134,17 @@ LOCAL_SRC_FILES:= \
     cpu_ref/rsCpuIntrinsicResize.cpp \
     cpu_ref/rsCpuIntrinsicYuvToRGB.cpp
 
+LOCAL_CFLAGS_arm64 += -DARCH_ARM_USE_INTRINSICS -DARCH_ARM64_USE_INTRINSICS -DARCH_ARM64_HAVE_NEON
+LOCAL_SRC_FILES_arm64 += \
+    cpu_ref/rsCpuIntrinsics_advsimd_3DLUT.S \
+    cpu_ref/rsCpuIntrinsics_advsimd_Convolve.S \
+    cpu_ref/rsCpuIntrinsics_advsimd_Blur.S \
+    cpu_ref/rsCpuIntrinsics_advsimd_ColorMatrix.S \
+    cpu_ref/rsCpuIntrinsics_advsimd_Resize.S \
+    cpu_ref/rsCpuIntrinsics_advsimd_YuvToRGB.S
+# Bug: b/27153652, unable to compile advsimd_Blend in CLANG.
+#    cpu_ref/rsCpuIntrinsics_advsimd_Blend.S
+
 ifeq ($(ARCH_ARM_HAVE_ARMV7A),true)
     LOCAL_CFLAGS_arm := -DARCH_ARM_HAVE_VFP -DARCH_ARM_USE_INTRINSICS
     LOCAL_ASFLAGS_arm := -mfpu=neon
