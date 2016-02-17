@@ -32,6 +32,7 @@ import android.support.design.widget.FloatingActionButtonImpl.InternalVisibility
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -91,6 +92,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton {
     private int mRippleColor;
     private int mSize;
     private int mImagePadding;
+    private Rect mTouchArea;
 
     private final Rect mShadowPadding;
 
@@ -421,6 +423,25 @@ public class FloatingActionButton extends VisibilityAwareImageButton {
             default:
                 return defaultMode;
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev)
+    {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            if(!getContentRect(mTouchArea)) {
+                throw new RuntimeException("could not get content rect");
+            }
+
+            if(ev.getX() >= mTouchArea.left && ev.getX() <= mTouchArea.right
+                    && ev.getY() >= mTouchArea.top && ev.getY() <= mTouchArea.bottom) {
+                return super.onTouchEvent(ev);
+            }
+
+            return false;
+        }
+        else
+            return super.onTouchEvent(ev);
     }
 
     /**
