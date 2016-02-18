@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d9d30d4_8d1ec1a6",
+        "filename": "design/src/android/support/design/widget/FloatingActionButton.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2016-02-18T09:58:39Z",
+      "side": 1,
+      "message": "You don\u0027t initialize this anywhere",
+      "range": {
+        "startLine": 95,
+        "startChar": 17,
+        "endLine": 95,
+        "endChar": 27
+      },
+      "revId": "8a9c3b0aa5b8971c416baad872b7152b3e3a0bc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7dd1cc8b_08fda783",
+        "filename": "design/src/android/support/design/widget/FloatingActionButton.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2016-02-18T09:58:39Z",
+      "side": 1,
+      "message": "code style. Opening bracket needs to be the opening line",
+      "range": {
+        "startLine": 430,
+        "startChar": 4,
+        "endLine": 430,
+        "endChar": 5
+      },
+      "revId": "8a9c3b0aa5b8971c416baad872b7152b3e3a0bc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d9d30d4_ad19fdc2",
+        "filename": "design/src/android/support/design/widget/FloatingActionButton.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2016-02-18T09:58:39Z",
+      "side": 1,
+      "message": "Remove the SDK_INT check, getContentRect() handles this",
+      "range": {
+        "startLine": 431,
+        "startChar": 8,
+        "endLine": 431,
+        "endChar": 66
+      },
+      "revId": "8a9c3b0aa5b8971c416baad872b7152b3e3a0bc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fdc4dcd3_64e3aaed",
+        "filename": "design/src/android/support/design/widget/FloatingActionButton.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2016-02-18T09:58:39Z",
+      "side": 1,
+      "message": "Don\u0027t throw an exception, just let it pass to super",
+      "range": {
+        "startLine": 432,
+        "startChar": 12,
+        "endLine": 434,
+        "endChar": 13
+      },
+      "revId": "8a9c3b0aa5b8971c416baad872b7152b3e3a0bc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7dd1cc8b_48f79fa1",
+        "filename": "design/src/android/support/design/widget/FloatingActionButton.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2016-02-18T09:58:39Z",
+      "side": 1,
+      "message": "Use Rect.contains()",
+      "range": {
+        "startLine": 436,
+        "startChar": 15,
+        "endLine": 437,
+        "endChar": 84
+      },
+      "revId": "8a9c3b0aa5b8971c416baad872b7152b3e3a0bc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
