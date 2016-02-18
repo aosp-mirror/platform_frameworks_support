@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "625cc936_a7b3aa16",
+        "filename": "design/src/android/support/design/widget/FloatingActionButton.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2016-02-18T16:27:01Z",
+      "side": 1,
+      "message": "!mTouchArea.contains",
+      "range": {
+        "startLine": 431,
+        "startChar": 46,
+        "endLine": 431,
+        "endChar": 65
+      },
+      "revId": "380127a0674daf03404db3900424f09e8f591dcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e247d965_03a5cecb",
+        "filename": "design/src/android/support/design/widget/FloatingActionButton.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2016-02-18T16:27:01Z",
+      "side": 1,
+      "message": "Also just use an if, it\u0027s clearer",
+      "range": {
+        "startLine": 432,
+        "startChar": 16,
+        "endLine": 432,
+        "endChar": 49
+      },
+      "revId": "380127a0674daf03404db3900424f09e8f591dcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
