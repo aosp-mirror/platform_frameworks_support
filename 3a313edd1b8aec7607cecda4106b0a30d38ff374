@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02e4ed24_38bf37da",
+        "filename": "v7/preference/src/android/support/v7/preference/CheckBoxPreference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1043718
+      },
+      "writtenOn": "2016-02-25T21:42:27Z",
+      "side": 1,
+      "message": "You can use CompoundButton here instead of CheckBox.",
+      "range": {
+        "startLine": 123,
+        "startChar": 28,
+        "endLine": 123,
+        "endChar": 36
+      },
+      "revId": "3a313edd1b8aec7607cecda4106b0a30d38ff374",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
