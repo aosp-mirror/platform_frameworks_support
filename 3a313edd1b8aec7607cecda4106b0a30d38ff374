@@ -22,6 +22,30 @@
       "revId": "3a313edd1b8aec7607cecda4106b0a30d38ff374",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2271f153_c7f4023c",
+        "filename": "v7/preference/src/android/support/v7/preference/CheckBoxPreference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1002534
+      },
+      "writtenOn": "2016-02-26T17:14:56Z",
+      "side": 1,
+      "message": "Done.  SwitchPreferenceCompat could probably use the same thing then.  In fact, these classes share a lot of code, and could probably use a common parent.",
+      "parentUuid": "02e4ed24_38bf37da",
+      "range": {
+        "startLine": 123,
+        "startChar": 28,
+        "endLine": 123,
+        "endChar": 36
+      },
+      "revId": "3a313edd1b8aec7607cecda4106b0a30d38ff374",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
