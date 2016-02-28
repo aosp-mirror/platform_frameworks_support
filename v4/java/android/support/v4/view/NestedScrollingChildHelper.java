@@ -279,4 +279,13 @@ public class NestedScrollingChildHelper {
     public void onStopNestedScroll(View child) {
         ViewCompat.stopNestedScroll(mView);
     }
+
+    public boolean dispatchNestedRestVelocity(int axes, float velocityY) {
+        if (startNestedScroll(axes)) {
+            boolean consumed = ViewParentCompat.onNestedRestFling(mNestedScrollingParent, mView, 0, velocityY);
+            stopNestedScroll();
+            return consumed;
+        }
+        return false;
+    }
 }

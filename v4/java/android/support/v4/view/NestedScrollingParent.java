@@ -180,6 +180,8 @@ public interface NestedScrollingParent {
      */
     public boolean onNestedPreFling(View target, float velocityX, float velocityY);
 
+    boolean onNestedRestVelocity(View child, float velocityX, float velocityY);
+
     /**
      * Return the current axes of nested scrolling for this NestedScrollingParent.
      *

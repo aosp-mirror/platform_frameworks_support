@@ -794,6 +794,12 @@ public class AppBarLayout extends LinearLayout {
             return flung;
         }
 
+        @Override
+        public boolean onNestedRestVelocity(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, float velocityX, float velocityY) {
+            mWasFlung = fling(coordinatorLayout, child, -child.getTotalScrollRange(), 0, -velocityY);
+            return mWasFlung;
+        }
+
         /**
          * Set a callback to control any {@link AppBarLayout} dragging.
          *

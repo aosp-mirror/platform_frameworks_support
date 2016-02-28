@@ -1571,6 +1571,41 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
         return handled;
     }
 
+    public boolean onNestedRestVelocity(View child, float velocityX, float velocityY) {
+        boolean handled = false;
+
+        final int childCount = getChildCount();
+        if (velocityY > 0) {
+
+            for (int i = childCount -1; i >= 0; i--) {
+                final View view = getChildAt(i);
+                final LayoutParams lp = (LayoutParams) view.getLayoutParams();
+                if (!lp.isNestedScrollAccepted()) {
+                    continue;
+                }
+
+                final Behavior viewBehavior = lp.getBehavior();
+                if (viewBehavior != null) {
+                    handled |= viewBehavior.onNestedRestVelocity(this, view, child, velocityX, velocityY);
+                }
+            }
+        } else {
+            for (int i = 0; i < childCount; i++) {
+                final View view = getChildAt(i);
+                final LayoutParams lp = (LayoutParams) view.getLayoutParams();
+                if (!lp.isNestedScrollAccepted()) {
+                    continue;
+                }
+
+                final Behavior viewBehavior = lp.getBehavior();
+                if (viewBehavior != null) {
+                    handled |= viewBehavior.onNestedRestVelocity(this, view, child, velocityX, velocityY);
+                }
+            }
+        }
+        return handled;
+    }
+
     public int getNestedScrollAxes() {
         return mNestedScrollingParentHelper.getNestedScrollAxes();
     }
@@ -2101,6 +2136,12 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
          */
         public boolean onNestedPreFling(CoordinatorLayout coordinatorLayout, V child, View target,
                 float velocityX, float velocityY) {
+            return false;
+        }
+
+
+        public boolean onNestedRestVelocity(CoordinatorLayout coordinatorLayout, V child, View target,
+                                            float velocityX, float velocityY) {
             return false;
         }
 

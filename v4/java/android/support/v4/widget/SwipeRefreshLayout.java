@@ -878,6 +878,11 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
         return mNestedScrollingChildHelper.dispatchNestedPreFling(velocityX, velocityY);
     }
 
+    @Override
+    public boolean onNestedRestVelocity(View child, float velocityX, float velocityY) {
+        return false;
+    }
+
     private boolean isAnimationRunning(Animation animation) {
         return animation != null && animation.hasStarted() && !animation.hasEnded();
     }

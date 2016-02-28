@@ -3848,7 +3848,8 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
 
                     if (ViewCompat.getOverScrollMode(RecyclerView.this) !=
                             ViewCompat.OVER_SCROLL_NEVER) {
-                        absorbGlows(velX, velY);
+                        if (velY == 0 || !mScrollingChildHelper.dispatchNestedRestVelocity(ViewCompat.SCROLL_AXIS_VERTICAL, velY))
+                            absorbGlows(velX, velY);
                     }
                     if ((velX != 0 || overscrollX == x || scroller.getFinalX() == 0) &&
                             (velY != 0 || overscrollY == y || scroller.getFinalY() == 0)) {

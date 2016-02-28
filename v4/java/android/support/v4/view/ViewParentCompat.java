@@ -48,6 +48,7 @@ public class ViewParentCompat {
         boolean onNestedPreFling(ViewParent parent, View target, float velocityX, float velocityY);
         void notifySubtreeAccessibilityStateChanged(ViewParent parent, View child,
                 View source, int changeType);
+        boolean onNestedRestVelocity(ViewParent parent, View child, float velocityX, float velocityY);
     }
 
     static class ViewParentCompatStubImpl implements ViewParentCompatImpl {
@@ -123,6 +124,14 @@ public class ViewParentCompat {
             if (parent instanceof NestedScrollingParent) {
                 return ((NestedScrollingParent) parent).onNestedPreFling(target, velocityX,
                         velocityY);
+            }
+            return false;
+        }
+
+        @Override
+        public boolean onNestedRestVelocity(ViewParent parent, View child, float velocityX, float velocityY) {
+            if (parent instanceof NestedScrollingParent) {
+                return ((NestedScrollingParent) parent).onNestedRestVelocity(child, velocityX, velocityY);
             }
             return false;
         }
@@ -402,6 +411,11 @@ public class ViewParentCompat {
     public static boolean onNestedPreFling(ViewParent parent, View target, float velocityX,
             float velocityY) {
         return IMPL.onNestedPreFling(parent, target, velocityX, velocityY);
+    }
+
+
+    public static boolean onNestedRestFling(ViewParent parent, View child, float velocityX, float velocityY) {
+        return IMPL.onNestedRestVelocity(parent, child, velocityX, velocityY);
     }
 
     /**

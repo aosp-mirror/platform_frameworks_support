@@ -519,6 +519,11 @@ public class ActionBarOverlayLayout extends ViewGroup implements DecorContentPar
     }
 
     @Override
+    public boolean onNestedRestVelocity(View child, float velocityX, float velocityY) {
+        return false;
+    }
+
+    @Override
     public int getNestedScrollAxes() {
         return mParentHelper.getNestedScrollAxes();
     }

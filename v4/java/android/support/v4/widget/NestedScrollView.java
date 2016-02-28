@@ -304,6 +304,15 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
     }
 
     @Override
+    public boolean onNestedRestVelocity(View child, float velocityX, float velocityY) {
+        final int scrollRange = getScrollRange();
+        if (velocityY > 0 && getScrollY() < scrollRange) {
+            flingWithNestedDispatch((int)velocityY);
+        }
+        return false;
+    }
+
+    @Override
     public int getNestedScrollAxes() {
         return mParentHelper.getNestedScrollAxes();
     }
@@ -1434,9 +1443,11 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
                 if (canOverscroll) {
                     ensureGlows();
                     if (y <= 0 && oldY > 0) {
-                        mEdgeGlowTop.onAbsorb((int) mScroller.getCurrVelocity());
+                        if (!mChildHelper.dispatchNestedRestVelocity(ViewCompat.SCROLL_AXIS_VERTICAL, -mScroller.getCurrVelocity()))
+                            mEdgeGlowTop.onAbsorb((int) mScroller.getCurrVelocity());
                     } else if (y >= range && oldY < range) {
-                        mEdgeGlowBottom.onAbsorb((int) mScroller.getCurrVelocity());
+                        if (!mChildHelper.dispatchNestedRestVelocity(ViewCompat.SCROLL_AXIS_VERTICAL, mScroller.getCurrVelocity()))
+                            mEdgeGlowBottom.onAbsorb((int) mScroller.getCurrVelocity());
                     }
                 }
             }
