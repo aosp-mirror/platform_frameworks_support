@@ -924,7 +924,7 @@ nElementCreate(JNIEnv *_env, jobject _this, jlong con, jlong type, jint kind,
     return (jlong)(uintptr_t)dispatchTab.ElementCreate((RsContext)con,
                                                        (RsDataType)type,
                                                        (RsDataKind)kind,
-                                                       norm, size);
+                                                       norm, size, true);
 }
 
 static jlong
@@ -953,7 +953,8 @@ nElementCreate2(JNIEnv *_env, jobject _this, jlong con,
     jlong id = (jlong)(uintptr_t)dispatchTab.ElementCreate2((RsContext)con, (RsElement *)ids,
                                                             fieldCount, nameArray,
                                                             fieldCount * sizeof(size_t),  sizeArray,
-                                                            (const uint32_t *)arraySizes, fieldCount);
+                                                            (const uint32_t *)arraySizes, fieldCount,
+                                                            true);
 
     free(ids);
     free(arraySizes);
@@ -1004,7 +1005,7 @@ nTypeCreate(JNIEnv *_env, jobject _this, jlong con, jlong eid,
             (RsContext)con, eid, dimx, dimy, dimz, mips, faces, yuv);
 
     return (jlong)(uintptr_t)dispatchTab.TypeCreate((RsContext)con, (RsElement)eid, dimx, dimy,
-                                                    dimz, mips, faces, yuv);
+                                                    dimz, mips, faces, yuv, true);
 }
 
 // -----------------------------------
@@ -1017,7 +1018,8 @@ nAllocationCreateTyped(JNIEnv *_env, jobject _this, jlong con, jlong type, jint 
             (RsContext)con, (RsElement)type, mips, usage, (void *)pointer);
     return (jlong)(uintptr_t) dispatchTab.AllocationCreateTyped((RsContext)con, (RsType)type,
                                                                 (RsAllocationMipmapControl)mips,
-                                                                (uint32_t)usage, (uintptr_t)pointer);
+                                                                (uint32_t)usage, (uintptr_t)pointer,
+                                                                true);
 }
 
 static void
@@ -1073,7 +1075,8 @@ nAllocationCreateFromBitmap(JNIEnv *_env, jobject _this, jlong con, jlong type, 
                                                                       (RsAllocationMipmapControl)mip,
                                                                       pixels,
                                                                       GetBitmapSize(_env, jbitmap),
-                                                                      usage);
+                                                                      usage,
+                                                                      true);
         AndroidBitmap_unlockPixels(_env, jbitmap);
     }
     return id;
@@ -1092,7 +1095,8 @@ nAllocationCreateBitmapBackedAllocation(JNIEnv *_env, jobject _this, jlong con, 
                                                                  (RsType)type,
                                                                  (RsAllocationMipmapControl)mip,
                                                                  (uint32_t)usage,
-                                                                 (uintptr_t)pixels);
+                                                                 (uintptr_t)pixels,
+                                                                 true);
         AndroidBitmap_unlockPixels(_env, jbitmap);
     }
     return id;
@@ -1112,7 +1116,8 @@ nAllocationCubeCreateFromBitmap(JNIEnv *_env, jobject _this, jlong con, jlong ty
                                                                           (RsAllocationMipmapControl)mip,
                                                                           pixels,
                                                                           GetBitmapSize(_env, jbitmap),
-                                                                          usage);
+                                                                          usage,
+                                                                          true);
         AndroidBitmap_unlockPixels(_env, jbitmap);
     }
     return id;
@@ -2214,7 +2219,7 @@ nIncElementCreate(JNIEnv *_env, jobject _this, jlong con, jlong type, jint kind,
     LOG_API("nElementCreate, con(%p), type(%i), kind(%i), norm(%i), size(%i)", (RsContext)con,
             type, kind, norm, size);
     return (jlong)(uintptr_t)dispatchTabInc.ElementCreate((RsContext)con, (RsDataType)type,
-                                                          (RsDataKind)kind, norm, size);
+                                                          (RsDataKind)kind, norm, size, true);
 }
 // -----------------------------------
 // Create dummy Type
@@ -2226,7 +2231,7 @@ nIncTypeCreate(JNIEnv *_env, jobject _this, jlong con, jlong eid,
             incCon, eid, dimx, dimy, dimz, mips, faces, yuv);
 
     return (jlong)(uintptr_t)dispatchTabInc.TypeCreate((RsContext)con, (RsElement)eid, dimx, dimy,
-                                                       dimz, mips, faces, yuv);
+                                                       dimz, mips, faces, yuv, true);
 }
 
 // -----------------------------------
