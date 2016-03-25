@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71d9fd3d_e27388b0",
+        "filename": "v8/renderscript/jni/android_renderscript_RenderScript.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2016-03-25T23:48:00Z",
+      "side": 1,
+      "message": "Seems cleaner if we initialize fieldIDs, depClosures, depFieldIDs to be nullptr in line 374 ~ 376?",
+      "range": {
+        "startLine": 410,
+        "startChar": 6,
+        "endLine": 410,
+        "endChar": 14
+      },
+      "revId": "332389209b74d7927bfe0cf4f05375c718c9011a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
