@@ -132,11 +132,29 @@ public class DialogFragment extends Fragment
      * {@link FragmentTransaction#add(Fragment, String) FragmentTransaction.add}.
      */
     public void show(FragmentManager manager, String tag) {
+        showInternal(manager, tag, false);
+    }
+
+    /**
+     * Version of {@link #show(FragmentManager, String)} that uses
+     * {@link FragmentTransaction#commitAllowingStateLoss()
+     * FragmentTransaction.commitAllowingStateLoss()}. See linked
+     * documentation for further details.
+     */
+    public void showAllowingStateLoss(FragmentManager manager, String tag) {
+        showInternal(manager, tag, true);
+    }
+
+    private void showInternal(FragmentManager manager, String tag, boolean allowStateLoss) {
         mDismissed = false;
         mShownByMe = true;
         FragmentTransaction ft = manager.beginTransaction();
         ft.add(this, tag);
-        ft.commit();
+        if (allowStateLoss) {
+            ft.commitAllowingStateLoss();
+        } else {
+            ft.commit();
+        }
     }
 
     /**
@@ -149,11 +167,29 @@ public class DialogFragment extends Fragment
      * {@link FragmentTransaction#commit() FragmentTransaction.commit()}.
      */
     public int show(FragmentTransaction transaction, String tag) {
+        return showInternal(transaction, tag, false);
+    }
+
+    /**
+     * Version of {@link #show(FragmentTransaction, String)} that uses
+     * {@link FragmentTransaction#commitAllowingStateLoss()
+     * FragmentTransaction.commitAllowingStateLoss()}. See linked
+     * documentation for further details.
+     */
+    public int showAllowingStateLoss(FragmentTransaction transaction, String tag) {
+        return showInternal(transaction, tag, true);
+    }
+
+    private int showInternal(FragmentTransaction transaction, String tag, boolean allowStateLoss) {
         mDismissed = false;
         mShownByMe = true;
         transaction.add(this, tag);
         mViewDestroyed = false;
-        mBackStackId = transaction.commit();
+        if (allowStateLoss) {
+            mBackStackId = transaction.commitAllowingStateLoss();
+        } else {
+            mBackStackId = transaction.commit();
+        }
         return mBackStackId;
     }
 

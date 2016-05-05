@@ -40,6 +40,119 @@ public class DialogTestCase extends BaseInstrumentationTestCase<WindowDecorActio
         assertTrue("Dialog was not being shown", fragment.getDialog().isShowing());
     }
 
+    @Test
+    public void testDialogFragmentShowAfterStop() {
+        stopActivity();
+        TestDialogFragment fragment = new TestDialogFragment();
+        try {
+            fragment.show(getActivity().getSupportFragmentManager(), null);
+            fail("epecting exception");
+        } catch (IllegalStateException e) {
+            assertEquals("Can not perform this action after onSaveInstanceState", e.getMessage());
+        }
+        startActivity();
+    }
+
+    @Test
+    public void testDialogFragmentShowsWithTransaction() {
+        getInstrumentation().waitForIdleSync();
+
+        TestDialogFragment fragment = new TestDialogFragment();
+        fragment.show(getActivity().getSupportFragmentManager().beginTransaction(), null);
+
+        getInstrumentation().waitForIdleSync();
+
+        assertNotNull("Dialog was null", fragment.getDialog());
+        assertTrue("Dialog was not being shown", fragment.getDialog().isShowing());
+    }
+
+    @Test
+    public void testDialogFragmentShowsWithTransactionAfterStop() {
+        stopActivity();
+        TestDialogFragment fragment = new TestDialogFragment();
+        try {
+            fragment.show(getActivity().getSupportFragmentManager().beginTransaction(), null);
+            fail("epecting exception");
+        } catch (IllegalStateException e) {
+            assertEquals("Can not perform this action after onSaveInstanceState", e.getMessage());
+        }
+        startActivity();
+    }
+
+    @Test
+    public void testDialogFragmentShowsAllowingStateLoss() {
+        getInstrumentation().waitForIdleSync();
+
+        TestDialogFragment fragment = new TestDialogFragment();
+        fragment.showAllowingStateLoss(getActivity().getSupportFragmentManager(), null);
+
+        getInstrumentation().waitForIdleSync();
+
+        assertNotNull("Dialog was null", fragment.getDialog());
+        assertTrue("Dialog was not being shown", fragment.getDialog().isShowing());
+    }
+
+    @Test
+    public void testDialogFragmentShowsAllowingStateLossAfterStop() {
+        stopActivity();
+
+        TestDialogFragment fragment = new TestDialogFragment();
+        fragment.showAllowingStateLoss(getActivity().getSupportFragmentManager(), null);
+
+        startActivity();
+
+        assertNotNull("Dialog was null", fragment.getDialog());
+        assertTrue("Dialog was not being shown", fragment.getDialog().isShowing());
+    }
+
+    @Test
+    public void testDialogFragmentShowsTransactionAllowingStateLoss() {
+        getInstrumentation().waitForIdleSync();
+
+        TestDialogFragment fragment = new TestDialogFragment();
+        fragment.showAllowingStateLoss(getActivity().getSupportFragmentManager().beginTransaction(), null);
+
+        getInstrumentation().waitForIdleSync();
+
+        assertNotNull("Dialog was null", fragment.getDialog());
+        assertTrue("Dialog was not being shown", fragment.getDialog().isShowing());
+    }
+
+    @Test
+    public void testDialogFragmentShowsWithTransactionAllowingStateLossAfterStop() {
+        stopActivity();
+
+        TestDialogFragment fragment = new TestDialogFragment();
+        fragment.showAllowingStateLoss(getActivity().getSupportFragmentManager().beginTransaction(), null);
+
+        startActivity();
+
+        assertNotNull("Dialog was null", fragment.getDialog());
+        assertTrue("Dialog was not being shown", fragment.getDialog().isShowing());
+    }
+
+    private void stopActivity(){
+        getInstrumentation().runOnMainSync(new Runnable(){
+            @Override
+            public void run(){
+                final WindowDecorActionBarActivity a = getActivity();
+                getInstrumentation().callActivityOnStop(a);
+            }
+        });
+        getInstrumentation().waitForIdleSync();
+    }
+
+    private void startActivity(){
+        getInstrumentation().runOnMainSync(new Runnable(){
+            @Override
+            public void run(){
+                final WindowDecorActionBarActivity a = getActivity();
+                getInstrumentation().callActivityOnStart(a);
+            }
+        });
+        getInstrumentation().waitForIdleSync();
+    }
+
     public static class TestDialogFragment extends AppCompatDialogFragment {
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
