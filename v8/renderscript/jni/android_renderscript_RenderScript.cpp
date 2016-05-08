@@ -290,7 +290,7 @@ static jboolean nLoadSO(JNIEnv *_env, jobject _this, jboolean useNative, jint ta
         return false;
     }
 
-    if (loadSymbols(handle, dispatchTab, targetApi) == false) {
+    if (loadSymbols(handle, dispatchTab, useNative, targetApi) == false) {
         LOG_ERR("Dispatch table init failed! librsjni version: %d", RS_JNI_VERSION);
         dlclose(handle);
         return false;
@@ -2156,7 +2156,7 @@ static jboolean nIncLoadSO(JNIEnv *_env, jobject _this, jint deviceApi, jstring 
         return false;
     }
 
-    if (loadSymbols(handle, dispatchTabInc, deviceApi) == false) {
+    if (loadSymbols(handle, dispatchTabInc, true, deviceApi) == false) {
         LOG_ERR("Dispatch Table init failed! librsjni version: %d", RS_JNI_VERSION);
         dlclose(handle);
         return false;
