@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "92e3d849_2af5defb",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2016-05-10T23:41:52Z",
+      "side": 1,
+      "message": "No, arm64 will have ASMID support by default.",
+      "parentUuid": "92e3d849_0a9c5a6a",
+      "revId": "0f3621e459c935a9ce520fc040deb76d3f32278d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92e3d849_eab3f6f8",
         "filename": "v8/renderscript/rs_support/Android.mk",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2016-05-10T23:09:19Z",
       "side": 1,
       "message": "I would order all these files alphabetically and do the same above.",
+      "range": {
+        "startLine": 158,
+        "startChar": 12,
+        "endLine": 158,
+        "endChar": 44
+      },
+      "revId": "0f3621e459c935a9ce520fc040deb76d3f32278d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92e3d849_0afa9aec",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2016-05-10T23:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92e3d849_eab3f6f8",
       "range": {
         "startLine": 158,
         "startChar": 12,
@@ -76,6 +118,48 @@
         "endLine": 167,
         "endChar": 15
       },
+      "revId": "0f3621e459c935a9ce520fc040deb76d3f32278d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92e3d849_2a3f9e76",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2016-05-10T23:41:52Z",
+      "side": 1,
+      "message": "LOCAL_SRC_FILES_ABINAME is used to specify source files for specific ABI.\n\nWe could also use LOCAL_SRC_FILES_x86 and LOCAL_SRC_FILES_x86_64 here. We are using SSE versions for both x86 and x86_64, so here we just use a ifeq in line 165 and LOCAL_SRC_FILES, just as fw/rs/cpu_ref/Android.mk.",
+      "parentUuid": "92e3d849_6ad36613",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 15
+      },
+      "revId": "0f3621e459c935a9ce520fc040deb76d3f32278d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92e3d849_6adfe677",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2016-05-10T23:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92e3d849_2aae7e93",
       "revId": "0f3621e459c935a9ce520fc040deb76d3f32278d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
