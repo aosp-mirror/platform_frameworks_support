@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92e3d849_0a9c5a6a",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1038790
+      },
+      "writtenOn": "2016-05-10T23:09:19Z",
+      "side": 1,
+      "message": "Is there a need for a \"ifeq\" like at line 142?",
+      "revId": "0f3621e459c935a9ce520fc040deb76d3f32278d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92e3d849_eab3f6f8",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1038790
+      },
+      "writtenOn": "2016-05-10T23:09:19Z",
+      "side": 1,
+      "message": "I would order all these files alphabetically and do the same above.",
+      "range": {
+        "startLine": 158,
+        "startChar": 12,
+        "endLine": 158,
+        "endChar": 44
+      },
+      "revId": "0f3621e459c935a9ce520fc040deb76d3f32278d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92e3d849_2aae7e93",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1038790
+      },
+      "writtenOn": "2016-05-10T23:09:19Z",
+      "side": 1,
+      "message": "Space before the +",
+      "revId": "0f3621e459c935a9ce520fc040deb76d3f32278d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92e3d849_6ad36613",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1038790
+      },
+      "writtenOn": "2016-05-10T23:09:19Z",
+      "side": 1,
+      "message": "Why for x86 we modify LOCAL_SRC_FILES directly and for ARM64, we have a LOCAL_SRC_FILES_arm64?",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 15
+      },
+      "revId": "0f3621e459c935a9ce520fc040deb76d3f32278d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
