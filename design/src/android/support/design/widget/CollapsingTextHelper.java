@@ -25,7 +25,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Build;
-import android.support.design.R;
+import android.support.v7.appcompat.R;
 import android.support.v4.text.TextDirectionHeuristicsCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewCompat;
