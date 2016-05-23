@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dca1e75f_968b1c82",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2016-05-23T21:58:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dca1e75f_b623b8ef",
+      "revId": "793d51b99fff072b122ab17de6ba9d48fb105437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dca1e75f_b6517857",
         "filename": "v8/renderscript/rs_support/Android.mk",
         "patchSetId": 5
@@ -53,6 +71,30 @@
       "writtenOn": "2016-05-23T21:52:19Z",
       "side": 1,
       "message": "According to build/core/combo/arch/x86/x86.mk, the default for this flag is false. Every other x86-related target defines it to true.",
+      "parentUuid": "dca1e75f_b6517857",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 34
+      },
+      "revId": "793d51b99fff072b122ab17de6ba9d48fb105437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dca1e75f_b6ead813",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 5
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1057232
+      },
+      "writtenOn": "2016-05-23T21:58:54Z",
+      "side": 1,
+      "message": "Good suggestion. I think we should have SIMD path be default. And it is safe to do so since, we have a runtime detection to whether it should be enabled or not.",
       "parentUuid": "dca1e75f_b6517857",
       "range": {
         "startLine": 165,
