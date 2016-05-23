@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dca1e75f_b623b8ef",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1058860
+      },
+      "writtenOn": "2016-05-23T21:40:21Z",
+      "side": 1,
+      "message": "Can you wrap this line so it isn\u0027t too long?",
+      "revId": "793d51b99fff072b122ab17de6ba9d48fb105437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dca1e75f_b6517857",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 5
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1058860
+      },
+      "writtenOn": "2016-05-23T21:40:21Z",
+      "side": 1,
+      "message": "Why hide SSSE3 behind a flag?  Don\u0027t we want to unconditionally enable it on x86 and x86_64 support lib?",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 34
+      },
+      "revId": "793d51b99fff072b122ab17de6ba9d48fb105437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
