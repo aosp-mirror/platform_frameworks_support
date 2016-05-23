@@ -39,6 +39,30 @@
       "revId": "793d51b99fff072b122ab17de6ba9d48fb105437",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dca1e75f_b62f3875",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 5
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2016-05-23T21:52:19Z",
+      "side": 1,
+      "message": "According to build/core/combo/arch/x86/x86.mk, the default for this flag is false. Every other x86-related target defines it to true.",
+      "parentUuid": "dca1e75f_b6517857",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 34
+      },
+      "revId": "793d51b99fff072b122ab17de6ba9d48fb105437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
