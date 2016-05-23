@@ -105,6 +105,30 @@
       "revId": "793d51b99fff072b122ab17de6ba9d48fb105437",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dca1e75f_3686c829",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 5
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1058860
+      },
+      "writtenOn": "2016-05-23T22:16:33Z",
+      "side": 1,
+      "message": "I remember seeing some comment of the form \"all x86 phones have SSSE3 enabled\".  Is that true?  That\u0027d match the fact that the aforementioned flag is enabled for all x86-related targets (besides sdk).  If so, deleting the non-SSSE3 implementations of the intrinsics from the support library should trim the size of RenderScript support-library apps.",
+      "parentUuid": "dca1e75f_b6ead813",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 34
+      },
+      "revId": "793d51b99fff072b122ab17de6ba9d48fb105437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
