@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dca1e75f_4b4df18a",
+        "filename": "v8/renderscript/rs_support/Android.mk",
+        "patchSetId": 4
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1038790
+      },
+      "writtenOn": "2016-05-23T21:13:06Z",
+      "side": 1,
+      "message": "Indent this line or put it on the same line as #168.  Same for #170",
+      "range": {
+        "startLine": 168,
+        "startChar": 4,
+        "endLine": 168,
+        "endChar": 23
+      },
+      "revId": "b3b75b790bac1b99aaccb9db9e3d92dc48c99dc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
