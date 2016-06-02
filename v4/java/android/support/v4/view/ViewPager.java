@@ -1777,13 +1777,14 @@ public class ViewPager extends ViewGroup {
         if (mPageTransformer != null) {
             final int scrollX = getScrollX();
             final int childCount = getChildCount();
+            final int paddingLeft = getPaddingLeft();
             for (int i = 0; i < childCount; i++) {
                 final View child = getChildAt(i);
                 final LayoutParams lp = (LayoutParams) child.getLayoutParams();
 
                 if (lp.isDecor) continue;
 
-                final float transformPos = (float) (child.getLeft() - scrollX) / getClientWidth();
+                final float transformPos = (float) (child.getLeft() - scrollX - paddingLeft) / getClientWidth();
                 mPageTransformer.transformPage(child, transformPos);
             }
         }
