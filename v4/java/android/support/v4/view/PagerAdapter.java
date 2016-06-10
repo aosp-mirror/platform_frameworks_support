@@ -19,6 +19,7 @@ package android.support.v4.view;
 import android.database.DataSetObservable;
 import android.database.DataSetObserver;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -315,6 +316,7 @@ public abstract class PagerAdapter {
      * @param position The position of the title requested
      * @return A title for the requested page
      */
+    @Nullable
     public CharSequence getPageTitle(int position) {
         return null;
     }
