@@ -115,4 +115,9 @@ class WindowInsetsCompatApi21 extends WindowInsetsCompat {
     WindowInsets unwrap() {
         return mSource;
     }
+
+    @Override
+    public String toString() {
+        return mSource.toString();
+    }
 }

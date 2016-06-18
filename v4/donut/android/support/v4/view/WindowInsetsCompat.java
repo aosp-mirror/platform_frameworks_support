@@ -256,4 +256,12 @@ public class WindowInsetsCompat {
         return this;
     }
 
+    @Override
+    public String toString() {
+        return "WindowInsets{"
+                + "systemWindowInsets=Rect(0, 0 - 0, 0) "
+                + "windowDecorInsets=Rect(0, 0 - 0, 0) "
+                + "stableInsets=Rect(0, 0 - 0, 0)"
+                + "}";
+    }
 }
