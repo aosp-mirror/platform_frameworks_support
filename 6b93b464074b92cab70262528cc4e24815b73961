@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ed50a2a_76ca7052",
+        "filename": "v4/java/android/support/v4/content/FileProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2016-06-22T19:55:32Z",
+      "side": 1,
+      "message": "error 101: Unresolved link/see tag \"Context#getExternalCacheDir(String) Context.getExternalCacheDir(null)\" in android.support.v4.content.FileProvider",
+      "range": {
+        "startLine": 175,
+        "startChar": 7,
+        "endLine": 175,
+        "endChar": 84
+      },
+      "revId": "6b93b464074b92cab70262528cc4e24815b73961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
