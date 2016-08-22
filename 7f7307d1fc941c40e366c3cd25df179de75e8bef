@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c89e9321_51e59e2f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1043718
+      },
+      "writtenOn": "2016-08-22T15:56:14Z",
+      "side": 1,
+      "message": "This CL description is a bit long. Can you open a bug with the description of the issue and repro information, and then reference it here? The CL description should just describe what the change itself does.",
+      "revId": "7f7307d1fc941c40e366c3cd25df179de75e8bef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
