@@ -16,7 +16,6 @@
 
 package android.support.customtabs;
 
-import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -236,10 +235,10 @@ public final class CustomTabsIntent {
 
     /**
      * Convenience method to launch a Custom Tabs Activity.
-     * @param context The source Activity.
+     * @param context The source Context.
      * @param url The URL to load in the Custom Tab.
      */
-    public void launchUrl(Activity context, Uri url) {
+    public void launchUrl(Context context, Uri url) {
         intent.setData(url);
         ActivityCompat.startActivity(context, intent, startAnimationBundle);
     }

@@ -121,7 +121,7 @@ public class ActivityCompat extends ContextCompat {
      * available. When run on versions of the platform where this feature does
      * not exist the activity will be launched normally.</p>
      *
-     * @param activity Context to launch activity from.
+     * @param context Context to launch activity from.
      * @param intent The description of the activity to start.
      * @param options Additional options for how the Activity should be started.
      *                May be null if there are no options. See
@@ -129,11 +129,11 @@ public class ActivityCompat extends ContextCompat {
      *                supplied here; there are no supported definitions for
      *                building it manually.
      */
-    public static void startActivity(Activity activity, Intent intent, @Nullable Bundle options) {
+    public static void startActivity(Context context, Intent intent, @Nullable Bundle options) {
         if (Build.VERSION.SDK_INT >= 16) {
-            ActivityCompatJB.startActivity(activity, intent, options);
+            ActivityCompatJB.startActivity(context, intent, options);
         } else {
-            activity.startActivity(intent);
+            context.startActivity(intent);
         }
     }
 
