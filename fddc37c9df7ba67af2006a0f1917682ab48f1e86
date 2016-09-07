@@ -22,6 +22,30 @@
       "revId": "fddc37c9df7ba67af2006a0f1917682ab48f1e86",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "360b17ab_2a301f5a",
+        "filename": "v4/java/android/support/v4/app/ActivityCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1002534
+      },
+      "writtenOn": "2016-09-07T18:50:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16c7f32d_519ff654",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 5
+      },
+      "revId": "fddc37c9df7ba67af2006a0f1917682ab48f1e86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
