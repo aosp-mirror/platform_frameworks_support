@@ -130,8 +130,9 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
                 mCurrentPrimaryItem.setUserVisibleHint(false);
             }
             if (fragment != null) {
-                fragment.setMenuVisibility(true);
-                fragment.setUserVisibleHint(true);
+                Fragment parent = fragment.getParentFragment();
+                fragment.setMenuVisibility(parent == null || parent.mMenuVisible);
+                fragment.setUserVisibleHint(parent == null || parent.getUserVisibleHint());
             }
             mCurrentPrimaryItem = fragment;
         }
