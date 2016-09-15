@@ -35,6 +35,8 @@ public class FragmentCompat {
     interface FragmentCompatImpl {
         void setMenuVisibility(Fragment f, boolean visible);
         void setUserVisibleHint(Fragment f, boolean deferStart);
+        boolean getUserVisibleHint(Fragment f);
+        Fragment getParentFragment(Fragment f);
         void requestPermissions(Fragment fragment, String[] permissions, int requestCode);
         boolean shouldShowRequestPermissionRationale(Fragment fragment, String permission);
     }
@@ -45,6 +47,14 @@ public class FragmentCompat {
         }
         @Override
         public void setUserVisibleHint(Fragment f, boolean deferStart) {
+        }
+        @Override
+        public boolean getUserVisibleHint(Fragment f) {
+            return true;
+        }
+        @Override
+        public Fragment getParentFragment(Fragment f) {
+            return null;
         }
         @Override
         public void requestPermissions(final Fragment fragment, final String[] permissions,
@@ -92,9 +102,21 @@ public class FragmentCompat {
         public void setUserVisibleHint(Fragment f, boolean deferStart) {
             FragmentCompatICSMR1.setUserVisibleHint(f, deferStart);
         }
+
+        @Override
+        public boolean getUserVisibleHint(Fragment f) {
+            return FragmentCompatICSMR1.getUserVisibleHint(f);
+        }
     }
 
-    static class MncFragmentCompatImpl extends ICSMR1FragmentCompatImpl {
+    static class JBMR1FragmentCompatImpl extends ICSMR1FragmentCompatImpl {
+        @Override
+        public Fragment getParentFragment(Fragment f) {
+            return FragmentCompat17.getParentFragment(f);
+        }
+    }
+
+    static class MncFragmentCompatImpl extends JBMR1FragmentCompatImpl {
         @Override
         public void requestPermissions(Fragment fragment, String[] permissions, int requestCode) {
             FragmentCompat23.requestPermissions(fragment, permissions, requestCode);
@@ -119,6 +141,8 @@ public class FragmentCompat {
             IMPL = new NFragmentCompatImpl();
         } else if (Build.VERSION.SDK_INT >= 23) {
             IMPL = new MncFragmentCompatImpl();
+        } else if (Build.VERSION.SDK_INT >= 17) {
+            IMPL = new JBMR1FragmentCompatImpl();
         } else if (android.os.Build.VERSION.SDK_INT >= 15) {
             IMPL = new ICSMR1FragmentCompatImpl();
         } else if (android.os.Build.VERSION.SDK_INT >= 14) {
@@ -165,6 +189,30 @@ public class FragmentCompat {
      */
     public static void setUserVisibleHint(Fragment f, boolean deferStart) {
         IMPL.setUserVisibleHint(f, deferStart);
+    }
+
+    /**
+     * Call {@link Fragment#getUserVisibleHint()}
+     * if running on an appropriate version of the platform.
+     *
+     * @param f The target Fragment.
+     * @return The current value of the user-visible hint on this fragment.
+     * @see #setUserVisibleHint(Fragment, boolean)
+     */
+    public static boolean getUserVisibleHint(Fragment f) {
+        return IMPL.getUserVisibleHint(f);
+    }
+
+    /**
+     * Call {@link Fragment#getParentFragment()}
+     * if running on an appropriate version of the platform.
+     *
+     * @param f The target Fragment.
+     * @return The parent Fragment containing the target Fragment, or null if attached
+     * directly to the Activity or not supported by platform.
+     */
+    public static Fragment getParentFragment(Fragment f) {
+        return IMPL.getParentFragment(f);
     }
 
     /**

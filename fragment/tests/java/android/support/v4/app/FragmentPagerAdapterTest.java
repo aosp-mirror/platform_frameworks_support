@@ -16,14 +16,18 @@
 
 package android.support.v4.app;
 
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.fragment.test.R;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.app.test.FragmentTestActivity;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import org.junit.Rule;
@@ -143,6 +147,65 @@ public class FragmentPagerAdapterTest {
         assertFalse("first item is restored visible", firstItem.getUserVisibleHint());
     }
 
+    @Test
+    public void setPrimaryItemVisibility() throws Throwable {
+        final FragmentTestActivity activity = mActivityRule.getActivity();
+        final FragmentManager parentFragmentManager = activity.getSupportFragmentManager();
+        final Fragment parent = new TestFragment();
+        final ViewPager childViewPager = new ViewPager(InstrumentationRegistry.getContext());
+        childViewPager.setId(R.id.pager);
+
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                parentFragmentManager.beginTransaction()
+                        .add(R.id.content, parent)
+                        .commit();
+
+                parentFragmentManager.executePendingTransactions();
+                ((ViewGroup) parent.getView()).addView(childViewPager);
+            }
+        });
+
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        final FragmentManager childFragmentManager = parent.getChildFragmentManager();
+        final TestFragmentPagerAdapter childAdapter = new TestFragmentPagerAdapter(childFragmentManager);
+
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                childViewPager.setAdapter(childAdapter);
+                childFragmentManager.executePendingTransactions();
+            }
+        });
+
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        assertTrue("Parent is not visible", parent.getUserVisibleHint());
+        assertTrue("First item is not currently selected", childViewPager.getCurrentItem() == 0);
+        assertTrue("Current item is not visible", childAdapter.firstItem.getUserVisibleHint());
+        assertFalse("Second item is visible", childAdapter.secondItem.getUserVisibleHint());
+
+        // test switching pages with the parent not visible
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                parent.setUserVisibleHint(false);
+                childViewPager.setCurrentItem(1);
+            }
+        });
+
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        assertFalse("Parent is visible", parent.getUserVisibleHint());
+        assertTrue("Second item is not current selected", childViewPager.getCurrentItem() == 1);
+        assertNotNull("Current item has no parent", childAdapter.secondItem.getParentFragment());
+        assertFalse("Current item's parent is visible", childAdapter.secondItem.getParentFragment().getUserVisibleHint());
+        assertFalse("Current item is visible", childAdapter.secondItem.getUserVisibleHint());
+        assertFalse("First item is visible", childAdapter.firstItem.getUserVisibleHint());
+    }
+
     static class TestFragmentPagerAdapter extends FragmentPagerAdapter {
 
         TestFragment firstItem;
@@ -185,6 +248,12 @@ public class FragmentPagerAdapterTest {
         private boolean shouldCaptureVisibilityToggle;
 
         public boolean wasVisibilityToggled;
+
+        @Nullable
+        @Override
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            return inflater.inflate(R.layout.activity_content, container, false);
+        }
 
         @Override
         public void setUserVisibleHint(boolean isVisibleToUser) {
