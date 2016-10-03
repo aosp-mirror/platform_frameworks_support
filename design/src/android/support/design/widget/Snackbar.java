@@ -122,7 +122,7 @@ public final class Snackbar {
      * @hide
      */
     @IntDef({LENGTH_INDEFINITE, LENGTH_SHORT, LENGTH_LONG})
-    @IntRange(from = 1)
+    @IntRange(from = LENGTH_INDEFINITE)
     @Retention(RetentionPolicy.SOURCE)
     public @interface Duration {}
 
