@@ -236,12 +236,26 @@ abstract class MapCollections<K, V> {
 
         @Override
         public Object[] toArray() {
-            throw new UnsupportedOperationException();
+            return toArray(new Object[colGetSize()]);
         }
 
         @Override
         public <T> T[] toArray(T[] array) {
-            throw new UnsupportedOperationException();
+            final int N  = colGetSize();
+            if (array.length < N) {
+                @SuppressWarnings("unchecked") T[] newArray
+                    = (T[]) Array.newInstance(array.getClass().getComponentType(), N);
+                array = newArray;
+            }
+            for (int i=0; i<N; i++) {
+                array[i] = (T) new AbstractMap.SimpleEntry<>(colGetEntry(i, 0), colGetEntry(i, 1));
+            }
+
+            if (array.length > N) {
+                array[N] = null;
+            }
+
+            return array;
         }
 
         @Override
