@@ -20,6 +20,7 @@ import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.AbstractMap;
 import java.util.Set;
 
 /**
@@ -236,12 +237,26 @@ abstract class MapCollections<K, V> {
 
         @Override
         public Object[] toArray() {
-            throw new UnsupportedOperationException();
+            return toArray(new Object[colGetSize()]);
         }
 
         @Override
         public <T> T[] toArray(T[] array) {
-            throw new UnsupportedOperationException();
+            final int N = colGetSize();
+            if (array.length < N) {
+                @SuppressWarnings("unchecked")
+                T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), N);
+                array = newArray;
+            }
+            for (int i=0; i < N; i++) {
+                array[i] = (T) new SimpleEntry<>(colGetEntry(i, 0), colGetEntry(i, 1));
+            }
+
+            if (array.length > N) {
+                array[N] = null;
+            }
+
+            return array;
         }
 
         @Override
@@ -450,6 +465,52 @@ abstract class MapCollections<K, V> {
             return toArrayHelper(array, 1);
         }
     };
+
+    final static class SimpleEntry<K, V> implements Map.Entry<K, V> {
+        private final K key;
+        private final V value;
+
+        public SimpleEntry(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        @Override
+        public K getKey() {
+            return key;
+        }
+
+        @Override
+        public V getValue() {
+            return value;
+        }
+
+        @Override
+        public V setValue(V value) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public int hashCode() {
+            return (key == null ? 0 : key.hashCode()) ^
+                   (value == null ? 0 : value.hashCode());
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof Map.Entry)) {
+                return false;
+            }
+            Map.Entry<?,?> e = (Map.Entry<?,?>)o;
+            return ((key == null ? e.getKey() == null : key.equals(e.getKey())) &&
+                    (value == null ? e.getValue() == null : value.equals(e.getValue())));
+        }
+
+        @Override
+        public String toString() {
+            return key + "=" + value;
+        }
+    }
 
     public static <K, V> boolean containsAllHelper(Map<K, V> map, Collection<?> collection) {
         Iterator<?> it = collection.iterator();
