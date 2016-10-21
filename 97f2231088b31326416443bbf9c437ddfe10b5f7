@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c0657a0_8b0151b5",
+        "filename": "v4/java/android/support/v4/util/MapCollections.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2016-10-21T12:55:40Z",
+      "side": 1,
+      "message": "NL after the annotation.",
+      "revId": "97f2231088b31326416443bbf9c437ddfe10b5f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c0657a0_4b0479c0",
+        "filename": "v4/java/android/support/v4/util/MapCollections.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2016-10-21T12:55:40Z",
+      "side": 1,
+      "message": "Spaces.",
+      "range": {
+        "startLine": 251,
+        "startChar": 27,
+        "endLine": 251,
+        "endChar": 28
+      },
+      "revId": "97f2231088b31326416443bbf9c437ddfe10b5f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c0657a0_ebd9ed41",
+        "filename": "v4/java/android/support/v4/util/MapCollections.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2016-10-21T12:55:40Z",
+      "side": 1,
+      "message": "Wow. Unclear how \u003c\u003e works when it can\u0027t infer type from the lvalue. No changes requested: just surprised.",
+      "range": {
+        "startLine": 252,
+        "startChar": 46,
+        "endLine": 252,
+        "endChar": 49
+      },
+      "revId": "97f2231088b31326416443bbf9c437ddfe10b5f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c0657a0_2b114502",
+        "filename": "v4/java/android/support/v4/util/MapCollections.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2016-10-21T12:55:40Z",
+      "side": 1,
+      "message": "Whitespacing between methods\n@Override\netc.",
+      "range": {
+        "startLine": 477,
+        "startChar": 8,
+        "endLine": 477,
+        "endChar": 14
+      },
+      "revId": "97f2231088b31326416443bbf9c437ddfe10b5f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c0657a0_0b0e81e0",
+        "filename": "v4/java/android/support/v4/util/MapCollections.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2016-10-21T12:55:40Z",
+      "side": 1,
+      "message": "braces",
+      "range": {
+        "startLine": 492,
+        "startChar": 22,
+        "endLine": 492,
+        "endChar": 23
+      },
+      "revId": "97f2231088b31326416443bbf9c437ddfe10b5f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
