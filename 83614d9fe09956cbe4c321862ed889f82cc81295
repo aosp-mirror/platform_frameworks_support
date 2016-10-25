@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e191c062_ebb6f1bd",
+        "filename": "v4/java/android/support/v4/util/MapCollections.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2016-10-25T09:53:01Z",
+      "side": 1,
+      "message": "Just noticed: Extra WS here (and in copy in other code).",
+      "range": {
+        "startLine": 245,
+        "startChar": 23,
+        "endLine": 245,
+        "endChar": 24
+      },
+      "revId": "83614d9fe09956cbe4c321862ed889f82cc81295",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
