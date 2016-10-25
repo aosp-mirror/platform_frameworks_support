@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fce08714_4fe13114",
+        "filename": "v4/java/android/support/v4/util/MapCollections.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1015680
+      },
+      "writtenOn": "2016-10-25T08:35:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c0657a0_8b0151b5",
+      "revId": "97f2231088b31326416443bbf9c437ddfe10b5f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c0657a0_4b0479c0",
         "filename": "v4/java/android/support/v4/util/MapCollections.java",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2016-10-21T12:55:40Z",
       "side": 1,
       "message": "Spaces.",
+      "range": {
+        "startLine": 251,
+        "startChar": 27,
+        "endLine": 251,
+        "endChar": 28
+      },
+      "revId": "97f2231088b31326416443bbf9c437ddfe10b5f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "411c4caf_e6d27ee6",
+        "filename": "v4/java/android/support/v4/util/MapCollections.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1015680
+      },
+      "writtenOn": "2016-10-25T08:35:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c0657a0_4b0479c0",
       "range": {
         "startLine": 251,
         "startChar": 27,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "813d64bf_90fd744b",
+        "filename": "v4/java/android/support/v4/util/MapCollections.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1015680
+      },
+      "writtenOn": "2016-10-25T08:35:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c0657a0_ebd9ed41",
+      "range": {
+        "startLine": 252,
+        "startChar": 46,
+        "endLine": 252,
+        "endChar": 49
+      },
+      "revId": "97f2231088b31326416443bbf9c437ddfe10b5f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c0657a0_2b114502",
         "filename": "v4/java/android/support/v4/util/MapCollections.java",
         "patchSetId": 2
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "7c0657a0_ee29fbbb",
+        "filename": "v4/java/android/support/v4/util/MapCollections.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1015680
+      },
+      "writtenOn": "2016-10-25T08:35:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c0657a0_2b114502",
+      "range": {
+        "startLine": 477,
+        "startChar": 8,
+        "endLine": 477,
+        "endChar": 14
+      },
+      "revId": "97f2231088b31326416443bbf9c437ddfe10b5f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c0657a0_0b0e81e0",
         "filename": "v4/java/android/support/v4/util/MapCollections.java",
         "patchSetId": 2
@@ -99,6 +189,30 @@
       "writtenOn": "2016-10-21T12:55:40Z",
       "side": 1,
       "message": "braces",
+      "range": {
+        "startLine": 492,
+        "startChar": 22,
+        "endLine": 492,
+        "endChar": 23
+      },
+      "revId": "97f2231088b31326416443bbf9c437ddfe10b5f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf663e5_06d9dcd9",
+        "filename": "v4/java/android/support/v4/util/MapCollections.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1015680
+      },
+      "writtenOn": "2016-10-25T08:35:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c0657a0_0b0e81e0",
       "range": {
         "startLine": 492,
         "startChar": 22,
