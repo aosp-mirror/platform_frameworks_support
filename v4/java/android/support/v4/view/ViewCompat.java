@@ -85,7 +85,7 @@ public class ViewCompat {
      * Allow a user to over-scroll this view only if the content is large
      * enough to meaningfully scroll, provided it is a view that can scroll.
      */
-    public static final int OVER_SCROLL_IF_CONTENT_SCROLLS = 1;
+    public static final int OVER_SCROLL_IF_CONTENT_SCROLLS=1;
 
     /**
      * Never allow a user to over-scroll this view.
