@@ -21,6 +21,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 import android.support.v7.appcompat.R;
@@ -38,11 +39,11 @@ public class AppCompatDialog extends Dialog implements AppCompatCallback {
 
     private AppCompatDelegate mDelegate;
 
-    public AppCompatDialog(Context context) {
+    public AppCompatDialog(@NonNull Context context) {
         this(context, 0);
     }
 
-    public AppCompatDialog(Context context, int theme) {
+    public AppCompatDialog(@NonNull Context context, int theme) {
         super(context, getThemeResId(context, theme));
 
         // This is a bit weird, but Dialog's are typically created and setup before being shown,
@@ -55,8 +56,8 @@ public class AppCompatDialog extends Dialog implements AppCompatCallback {
         getDelegate().applyDayNight();
     }
 
-    protected AppCompatDialog(Context context, boolean cancelable,
-            OnCancelListener cancelListener) {
+    protected AppCompatDialog(@NonNull Context context, boolean cancelable,
+            @Nullable OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
     }
 
@@ -100,7 +101,7 @@ public class AppCompatDialog extends Dialog implements AppCompatCallback {
     }
 
     @Override
-    public void setTitle(CharSequence title) {
+    public void setTitle(@Nullable CharSequence title) {
         super.setTitle(title);
         getDelegate().setTitle(title);
     }

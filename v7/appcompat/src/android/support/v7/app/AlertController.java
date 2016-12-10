@@ -225,7 +225,7 @@ class AlertController {
         return mAlertDialogLayout;
     }
 
-    public void setTitle(CharSequence title) {
+    public void setTitle(@Nullable CharSequence title) {
         mTitle = title;
         if (mTitleView != null) {
             mTitleView.setText(title);
@@ -235,11 +235,11 @@ class AlertController {
     /**
      * @see AlertDialog.Builder#setCustomTitle(View)
      */
-    public void setCustomTitle(View customTitleView) {
+    public void setCustomTitle(@Nullable View customTitleView) {
         mCustomTitleView = customTitleView;
     }
 
-    public void setMessage(CharSequence message) {
+    public void setMessage(@Nullable CharSequence message) {
         mMessage = message;
         if (mMessageView != null) {
             mMessageView.setText(message);
@@ -258,7 +258,7 @@ class AlertController {
     /**
      * Set the view to display in the dialog.
      */
-    public void setView(View view) {
+    public void setView(@Nullable View view) {
         mView = view;
         mViewLayoutResId = 0;
         mViewSpacingSpecified = false;
@@ -267,8 +267,8 @@ class AlertController {
     /**
      * Set the view to display in the dialog along with the spacing around that view
      */
-    public void setView(View view, int viewSpacingLeft, int viewSpacingTop, int viewSpacingRight,
-            int viewSpacingBottom) {
+    public void setView(@Nullable View view, int viewSpacingLeft, int viewSpacingTop,
+            int viewSpacingRight, int viewSpacingBottom) {
         mView = view;
         mViewLayoutResId = 0;
         mViewSpacingSpecified = true;
@@ -351,7 +351,7 @@ class AlertController {
      *
      * @param icon the drawable to use as the icon or null for no icon
      */
-    public void setIcon(Drawable icon) {
+    public void setIcon(@Nullable Drawable icon) {
         mIcon = icon;
         mIconId = 0;
 

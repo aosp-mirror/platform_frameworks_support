@@ -140,7 +140,7 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
     }
 
     @Override
-    public void setTitle(CharSequence title) {
+    public void setTitle(@Nullable CharSequence title) {
         super.setTitle(title);
         mAlert.setTitle(title);
     }
@@ -150,7 +150,7 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
      *
      * This method has no effect if called after {@link #show()}.
      */
-    public void setCustomTitle(View customTitleView) {
+    public void setCustomTitle(@Nullable View customTitleView) {
         mAlert.setCustomTitle(customTitleView);
     }
 
@@ -159,7 +159,7 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
      *
      * @param message The message to display in the dialog.
      */
-    public void setMessage(CharSequence message) {
+    public void setMessage(@Nullable CharSequence message) {
         mAlert.setMessage(message);
     }
 
@@ -167,7 +167,7 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
      * Set the view to display in the dialog. This method has no effect if called
      * after {@link #show()}.
      */
-    public void setView(View view) {
+    public void setView(@Nullable View view) {
         mAlert.setView(view);
     }
 
@@ -181,8 +181,8 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
      * @param viewSpacingRight  Extra space to appear to the right of {@code view}
      * @param viewSpacingBottom Extra space to appear below {@code view}
      */
-    public void setView(View view, int viewSpacingLeft, int viewSpacingTop, int viewSpacingRight,
-            int viewSpacingBottom) {
+    public void setView(@Nullable View view, int viewSpacingLeft, int viewSpacingTop,
+            int viewSpacingRight, int viewSpacingBottom) {
         mAlert.setView(view, viewSpacingLeft, viewSpacingTop, viewSpacingRight, viewSpacingBottom);
     }
 
@@ -237,7 +237,7 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
      *
      * @param icon Drawable to use as the icon or null if you don't want an icon.
      */
-    public void setIcon(Drawable icon) {
+    public void setIcon(@Nullable Drawable icon) {
         mAlert.setIcon(icon);
     }
 
