@@ -519,7 +519,6 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
 
     int mCurState = Fragment.INITIALIZING;
     FragmentHostCallback mHost;
-    FragmentController mController;
     FragmentContainer mContainer;
     Fragment mParent;
 
