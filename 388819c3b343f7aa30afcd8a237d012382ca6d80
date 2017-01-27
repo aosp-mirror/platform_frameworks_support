@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a2bc7c9_5ac03a92",
+        "filename": "fragment/java/android/support/v4/app/FragmentPagerAdapter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2017-01-27T16:19:12Z",
+      "side": 1,
+      "message": "This isn\u0027t the right layer to be taking this into account. If the parent isn\u0027t visible by these rules, it shouldn\u0027t matter that the child fragment is setting these things. It looks like this is hiding another issue elsewhere.",
+      "revId": "388819c3b343f7aa30afcd8a237d012382ca6d80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
