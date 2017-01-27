@@ -16,6 +16,23 @@
       "revId": "388819c3b343f7aa30afcd8a237d012382ca6d80",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c56e5ea9_318795d1",
+        "filename": "fragment/java/android/support/v4/app/FragmentPagerAdapter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1056338
+      },
+      "writtenOn": "2017-01-27T16:46:18Z",
+      "side": 1,
+      "message": "I\u0027m not sure that I understand what you\u0027re saying in your second sentence. Currently, with a ViewPager inside a not-visible Fragment, the contents of that ViewPager cannot trust getUserVisibleHint() to be accurate. Is getUserVisibleHint only intended to mean visible relative to its parent Activity or Fragment, but not necessarily visible overall to the user?",
+      "revId": "388819c3b343f7aa30afcd8a237d012382ca6d80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
