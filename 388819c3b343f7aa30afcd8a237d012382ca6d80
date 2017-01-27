@@ -33,6 +33,23 @@
       "revId": "388819c3b343f7aa30afcd8a237d012382ca6d80",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79b261c3_66e6fa4c",
+        "filename": "fragment/java/android/support/v4/app/FragmentPagerAdapter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2017-01-27T17:45:16Z",
+      "side": 1,
+      "message": "It means, \"return the value set by setUserVisibleHint,\" so yes, it\u0027s highly localized to just that one fragment.\n\nWhat are you using it for?",
+      "revId": "388819c3b343f7aa30afcd8a237d012382ca6d80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
