@@ -50,6 +50,23 @@
       "revId": "388819c3b343f7aa30afcd8a237d012382ca6d80",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7549ca8c_758760ab",
+        "filename": "fragment/java/android/support/v4/app/FragmentPagerAdapter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1056338
+      },
+      "writtenOn": "2017-01-27T18:53:18Z",
+      "side": 1,
+      "message": "I have a ViewPager with FragmentPagerAdapter. The second, offscreen (Fragment) item of that ViewPager, has itself a ViewPager, with another FragmentPagerAdapter. When the top-level ViewPager is initialized, and that second item is offscreen, and not visible, it initializes its ViewPager and sets the first item as visible, even though it is not. I\u0027m using a combination of getUserVisibleHint() and isResumed() to determine refreshing content when a user returns to a page. This results in the nested ViewPager\u0027s first item refreshing when it\u0027s not visible.",
+      "revId": "388819c3b343f7aa30afcd8a237d012382ca6d80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
