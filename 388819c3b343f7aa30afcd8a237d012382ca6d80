@@ -67,6 +67,23 @@
       "revId": "388819c3b343f7aa30afcd8a237d012382ca6d80",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bb5eef56_debd6cf6",
+        "filename": "fragment/java/android/support/v4/app/FragmentPagerAdapter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1056338
+      },
+      "writtenOn": "2017-01-30T13:55:06Z",
+      "side": 1,
+      "message": "The FragmentPagerAdapter causes the following code in a Fragment implementation to behave unpredictably\n\n@Override\npublic void onResume() {\n    super.onResume();\n\n    if (getUserVisibleHint()) {\n        // show the user new content or animations\n    }\n}\n\n@Override\npublic void setUserVisibleHint(boolean isVisible) {\n    super.setUserVisibleHint(isVisible);\n\n    if (isResumed()) {\n        // show the user new content or animations\n    }\n}\n\nI suppose another way for this to be handled would be for Fragment to ignore calls to setUserVisibleHint(true) if it has a parent which is not visible. However, that would not prevent implementations overriding the method from receiving the spurious call. What do you think about that?",
+      "revId": "388819c3b343f7aa30afcd8a237d012382ca6d80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
