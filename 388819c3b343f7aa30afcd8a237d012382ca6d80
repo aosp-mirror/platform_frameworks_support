@@ -101,6 +101,23 @@
       "revId": "388819c3b343f7aa30afcd8a237d012382ca6d80",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f37f847_1b38e588",
+        "filename": "fragment/java/android/support/v4/app/FragmentPagerAdapter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1056338
+      },
+      "writtenOn": "2017-02-01T01:00:18Z",
+      "side": 1,
+      "message": "It occurs to me that this proposed change would only surface the issue that the parent later becoming visible would not propagate down to its children. And how could it properly? Keeping it hyperlocal makes the most sense at this point.",
+      "revId": "388819c3b343f7aa30afcd8a237d012382ca6d80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
