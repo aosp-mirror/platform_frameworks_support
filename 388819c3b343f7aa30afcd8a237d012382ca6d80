@@ -84,6 +84,23 @@
       "revId": "388819c3b343f7aa30afcd8a237d012382ca6d80",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "52c28e53_c73ab125",
+        "filename": "fragment/java/android/support/v4/app/FragmentPagerAdapter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2017-02-01T00:53:00Z",
+      "side": 1,
+      "message": "I think I regret not making setUserVisibleHint final from the beginning. :)\n\nI see the need for something like this, but I think fragments need a more encapsulated way to do it that doesn\u0027t leak across parent/child fragment boundaries. There\u0027s a need for fragments to find out about aggregate user visibility changes that take into account the parent chain, but I don\u0027t want each individual fragment to have to do this manually or to not be able to get the value they directly set on a fragment back out unchanged.",
+      "revId": "388819c3b343f7aa30afcd8a237d012382ca6d80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
