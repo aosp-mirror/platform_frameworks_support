@@ -1,0 +1,163 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bced720e_a5a3e723",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2017-02-03T00:55:55Z",
+      "side": 1,
+      "message": "Want to say we \"will not currently\"? Will not may come off a bit too strong.",
+      "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38c40fd4_ce075f0a",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2017-02-03T00:55:55Z",
+      "side": 1,
+      "message": "I\u0027d suggest telling them not to follow the entire guide in the first sentence - folks (at least speaking for myself :D) will often read thing, execute thing, read next thing.\n \n\nFollow the [“Downloading the Source guide”](https://source.android.com/source/downloading.html) to set up the`repo` tool, but instead of running the listed repo commands to initialize the repository and, run the following:\n\nrepo init ....\n\nNow your repository is set to pull only what you need for building and running the support lib. Download the code (and grab a coffee while you pull down 10GB):\n\nrepo sync -j8 -c",
+      "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45da270f_adc7c77a",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2017-02-03T00:55:55Z",
+      "side": 1,
+      "message": "the command line build is different since it builds the actual library, right? Maybe make it obvious that this is optional:\n\nTo build the full library from the command line, you can use:\n\n...",
+      "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d039bbe_7fc38697",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2017-02-03T00:55:55Z",
+      "side": 1,
+      "message": "checkout master seems wrong if they have ub-supportlib-master. remove this line?",
+      "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75a70048_3c209131",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2017-02-03T00:55:55Z",
+      "side": 1,
+      "message": "Put this above ## Building, since you reference it in the building section",
+      "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5254239_357e5d30",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2017-02-03T00:55:55Z",
+      "side": 1,
+      "message": "to",
+      "range": {
+        "startLine": 33,
+        "startChar": 60,
+        "endLine": 33,
+        "endChar": 71
+      },
+      "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d05c6e3e_955c5ab1",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2017-02-03T00:55:55Z",
+      "side": 1,
+      "message": "what are these here for? are they steps to follow?",
+      "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fd7b3722_981b88da",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2017-02-03T00:55:55Z",
+      "side": 1,
+      "message": "add a section:\n\nTo build and run demos or tests within Android Studio, simply right click on the Activity or test, and click run.",
+      "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2454455f_578a59d8",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2017-02-03T00:55:55Z",
+      "side": 1,
+      "message": "suggest \"repo upload --current-branch .\"",
+      "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
