@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "52ac350f_1e93cb0f",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2017-02-03T02:15:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bced720e_a5a3e723",
+      "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38c40fd4_ce075f0a",
         "filename": "README.md",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2017-02-03T00:55:55Z",
       "side": 1,
       "message": "I\u0027d suggest telling them not to follow the entire guide in the first sentence - folks (at least speaking for myself :D) will often read thing, execute thing, read next thing.\n \n\nFollow the [“Downloading the Source guide”](https://source.android.com/source/downloading.html) to set up the`repo` tool, but instead of running the listed repo commands to initialize the repository and, run the following:\n\nrepo init ....\n\nNow your repository is set to pull only what you need for building and running the support lib. Download the code (and grab a coffee while you pull down 10GB):\n\nrepo sync -j8 -c",
+      "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "474ea037_75f61876",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2017-02-03T02:15:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38c40fd4_ce075f0a",
       "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f7666165_fb6cf069",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2017-02-03T02:15:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45da270f_adc7c77a",
+      "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d039bbe_7fc38697",
         "filename": "README.md",
         "patchSetId": 2
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "390bbfff_e9919222",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2017-02-03T02:15:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d039bbe_7fc38697",
+      "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75a70048_3c209131",
         "filename": "README.md",
         "patchSetId": 2
@@ -81,6 +153,24 @@
       "writtenOn": "2017-02-03T00:55:55Z",
       "side": 1,
       "message": "Put this above ## Building, since you reference it in the building section",
+      "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6fe6b2b_78e6fb12",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2017-02-03T02:15:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75a70048_3c209131",
       "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -110,6 +200,30 @@
     },
     {
       "key": {
+        "uuid": "28673f14_0f474d44",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2017-02-03T02:15:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5254239_357e5d30",
+      "range": {
+        "startLine": 33,
+        "startChar": 60,
+        "endLine": 33,
+        "endChar": 71
+      },
+      "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d05c6e3e_955c5ab1",
         "filename": "README.md",
         "patchSetId": 2
@@ -121,6 +235,24 @@
       "writtenOn": "2017-02-03T00:55:55Z",
       "side": 1,
       "message": "what are these here for? are they steps to follow?",
+      "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "322c0e17_8f79d5e9",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2017-02-03T02:15:39Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "d05c6e3e_955c5ab1",
       "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -144,6 +276,24 @@
     },
     {
       "key": {
+        "uuid": "13e65bed_cf108ba5",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2017-02-03T02:15:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd7b3722_981b88da",
+      "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2454455f_578a59d8",
         "filename": "README.md",
         "patchSetId": 2
@@ -155,6 +305,24 @@
       "writtenOn": "2017-02-03T00:55:55Z",
       "side": 1,
       "message": "suggest \"repo upload --current-branch .\"",
+      "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6935f04c_8807ccde",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2017-02-03T02:15:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2454455f_578a59d8",
       "revId": "285b599550f4c488ef59cbb271975121e0567aa9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
