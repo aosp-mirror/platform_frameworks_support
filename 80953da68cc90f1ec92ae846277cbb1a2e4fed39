@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b396b1e7_16ae0484",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2017-02-03T19:10:03Z",
+      "side": 1,
+      "message": "period at the end.",
+      "range": {
+        "startLine": 9,
+        "startChar": 80,
+        "endLine": 9,
+        "endChar": 81
+      },
+      "revId": "80953da68cc90f1ec92ae846277cbb1a2e4fed39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "031330ca_ee7ef859",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2017-02-03T19:10:03Z",
+      "side": 1,
+      "message": "**are not** currently",
+      "range": {
+        "startLine": 9,
+        "startChar": 3,
+        "endLine": 9,
+        "endChar": 28
+      },
+      "revId": "80953da68cc90f1ec92ae846277cbb1a2e4fed39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aa05d55_15f791e3",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2017-02-03T19:10:03Z",
+      "side": 1,
+      "message": "(missing peroid). Now you\u0027re ready edit, run, and test!",
+      "range": {
+        "startLine": 24,
+        "startChar": 55,
+        "endLine": 24,
+        "endChar": 61
+      },
+      "revId": "80953da68cc90f1ec92ae846277cbb1a2e4fed39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e5b891b_fa4019a0",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2017-02-03T19:10:03Z",
+      "side": 1,
+      "message": "Optional - Full Build",
+      "revId": "80953da68cc90f1ec92ae846277cbb1a2e4fed39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "767298ff_c84a622b",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2017-02-03T19:10:03Z",
+      "side": 1,
+      "message": "you can also",
+      "range": {
+        "startLine": 31,
+        "startChar": 57,
+        "endLine": 31,
+        "endChar": 89
+      },
+      "revId": "80953da68cc90f1ec92ae846277cbb1a2e4fed39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa6ccf4a_f8318a32",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2017-02-03T19:10:03Z",
+      "side": 1,
+      "message": "\"Single test class or method\"",
+      "range": {
+        "startLine": 38,
+        "startChar": 5,
+        "endLine": 38,
+        "endChar": 43
+      },
+      "revId": "80953da68cc90f1ec92ae846277cbb1a2e4fed39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "940f2e08_63f937d7",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2017-02-03T19:10:03Z",
+      "side": 1,
+      "message": "a test class or @Test method name",
+      "range": {
+        "startLine": 40,
+        "startChar": 18,
+        "endLine": 40,
+        "endChar": 45
+      },
+      "revId": "80953da68cc90f1ec92ae846277cbb1a2e4fed39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76c5c91e_19c6e23e",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2017-02-03T19:10:03Z",
+      "side": 1,
+      "message": "\"Full test package\"",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 45
+      },
+      "revId": "80953da68cc90f1ec92ae846277cbb1a2e4fed39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e18e5e04_0fd4759c",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2017-02-03T19:10:03Z",
+      "side": 1,
+      "message": "suggest removing this, since up top we say no new features, so very few external contributions are going to come with apis.\n\nInstead, suggest: \"want to debug a real running application, or reproduce a problem interactively, before writing test code.\"",
+      "range": {
+        "startLine": 48,
+        "startChar": 127,
+        "endLine": 48,
+        "endChar": 207
+      },
+      "revId": "80953da68cc90f1ec92ae846277cbb1a2e4fed39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "615e3428_e1c6698a",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2017-02-03T19:10:03Z",
+      "side": 1,
+      "message": "If you see the following prompt, choose `always`:",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 47
+      },
+      "revId": "80953da68cc90f1ec92ae846277cbb1a2e4fed39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
