@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ce4893d_20efd3b5",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2017-02-10T17:57:33Z",
+      "side": 1,
+      "message": "source.android.com says this as:\n\n\"You will need to use Linux or Mac OS. Building under Windows is not currently supported.\"\n\nI\u0027d prefer that phrasing or similar over \u0027you can only\u0027.",
+      "range": {
+        "startLine": 12,
+        "startChar": 7,
+        "endLine": 12,
+        "endChar": 73
+      },
+      "revId": "9b7bb23e6844aaa80bdd411dd5a6803edb25e786",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
