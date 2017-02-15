@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1cd7d44_e2e6fb12",
+        "filename": "fragment/java/android/support/v4/app/FragmentHostCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2017-02-15T18:09:45Z",
+      "side": 1,
+      "message": "Should this call to updateHostController be removed since we\u0027re now doing it eagerly in restore below?",
+      "revId": "6cfc0957c64d27c80d5d7e13dd4eed4a9f5582c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
