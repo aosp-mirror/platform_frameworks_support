@@ -699,7 +699,7 @@ public class GuidedStepFragment extends Fragment implements GuidedActionAdapter.
         if (mButtonActions != null) {
             for (int i = 0; i < mButtonActions.size(); i++) {
                 GuidedAction action = mButtonActions.get(i);
-                if (mButtonActions.get(i).getId() == id) {
+                if (action.getId() == id) {
                     return i;
                 }
             }
