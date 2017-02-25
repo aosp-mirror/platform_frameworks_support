@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "510dc1e1_821a13e5",
+        "filename": "v17/leanback/src/android/support/v17/leanback/app/GuidedStepFragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2017-02-25T00:35:53Z",
+      "side": 1,
+      "message": "Please update GuidedStepSupportFragment#findButtonActionPositionById the same way.\n\nhttps://android.googlesource.com/platform/frameworks/support/+/master/v17/leanback/src/android/support/v17/leanback/app/GuidedStepSupportFragment.java#705",
+      "revId": "b21067c5da964d731a7e9d761058fb706c84dba7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
