@@ -44,13 +44,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 
-import org.hamcrest.Description;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatcher;
 import org.mockito.InOrder;
+import org.mockito.compat.ArgumentMatcher;
 
 @RequiresApi(13)
 @TargetApi(13)
@@ -149,12 +148,12 @@ public class DragStartHelperTest {
             this(anchor.getWidth() / 2 + x, anchor.getHeight() / 2 + y);
         }
 
-        public boolean matches(Object actual) {
+        public boolean matchesObject(Object actual) {
             return mExpectedPosition.equals(actual);
         }
 
-        public void describeTo(Description description) {
-            description.appendText("TouchPositionMatcher: " + mExpectedPosition);
+        public String toString() {
+            return "TouchPositionMatcher: " + mExpectedPosition;
         }
     }
 
