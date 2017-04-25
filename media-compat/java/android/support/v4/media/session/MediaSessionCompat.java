@@ -712,6 +712,39 @@ public class MediaSessionCompat {
         return null;
     }
 
+    private static PlaybackStateCompat getStateWithUpdatedPosition(
+            PlaybackStateCompat state, MediaMetadataCompat metadata) {
+        if (state == null || state.getPosition() == PlaybackStateCompat.PLAYBACK_POSITION_UNKNOWN) {
+            return state;
+        }
+
+        if (state.getState() == PlaybackStateCompat.STATE_PLAYING
+                || state.getState() == PlaybackStateCompat.STATE_FAST_FORWARDING
+                || state.getState() == PlaybackStateCompat.STATE_REWINDING) {
+            long updateTime = state.getLastPositionUpdateTime();
+            if (updateTime > 0) {
+                long currentTime = SystemClock.elapsedRealtime();
+                long position = (long) (state.getPlaybackSpeed() * (currentTime - updateTime))
+                        + state.getPosition();
+                long duration = -1;
+                if (metadata != null && metadata.containsKey(
+                        MediaMetadataCompat.METADATA_KEY_DURATION)) {
+                    duration = metadata.getLong(MediaMetadataCompat.METADATA_KEY_DURATION);
+                }
+
+                if (duration >= 0 && position > duration) {
+                    position = duration;
+                } else if (position < 0) {
+                    position = 0;
+                }
+                return new PlaybackStateCompat.Builder(state)
+                        .setState(state.getState(), position, state.getPlaybackSpeed(), currentTime)
+                        .build();
+            }
+        }
+        return state;
+    }
+
     /**
      * Receives transport controls, media buttons, and commands from controllers
      * and the system. The callback may be set using {@link #setCallback}.
@@ -1810,8 +1843,7 @@ public class MediaSessionCompat {
         @Override
         public void setMetadata(MediaMetadataCompat metadata) {
             if (metadata != null) {
-                // Clones the given {@link MediaMetadataCompat}, deep-copying bitmaps in the
-                // metadata if necessary. Bitmaps can be scaled down if they are large.
+                // Clones {@link MediaMetadataCompat} and scales down bitmaps if they are large.
                 metadata = new MediaMetadataCompat.Builder(metadata, sMaxBitmapSize).build();
             }
 
@@ -1835,10 +1867,18 @@ public class MediaSessionCompat {
             }
             if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_ART)) {
                 Bitmap art = metadata.getParcelable(MediaMetadataCompat.METADATA_KEY_ART);
+                if (art != null) {
+                    // Clone the bitmap to prevent it from being recycled by RCC.
+                    art = art.copy(art.getConfig(), false);
+                }
                 editor.putBitmap(RemoteControlClient.MetadataEditor.BITMAP_KEY_ARTWORK, art);
             } else if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_ALBUM_ART)) {
                 // Fall back to album art if the track art wasn't available
                 Bitmap art = metadata.getParcelable(MediaMetadataCompat.METADATA_KEY_ALBUM_ART);
+                if (art != null) {
+                    // Clone the bitmap to prevent it from being recycled by RCC.
+                    art = art.copy(art.getConfig(), false);
+                }
                 editor.putBitmap(RemoteControlClient.MetadataEditor.BITMAP_KEY_ARTWORK, art);
             }
             if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_ALBUM)) {
@@ -2044,43 +2084,6 @@ public class MediaSessionCompat {
             } else {
                 mAudioManager.setStreamVolume(mLocalStream, value, flags);
             }
-        }
-
-        PlaybackStateCompat getStateWithUpdatedPosition() {
-            PlaybackStateCompat state;
-            long duration = -1;
-            synchronized (mLock) {
-                state = mState;
-                if (mMetadata != null
-                        && mMetadata.containsKey(MediaMetadataCompat.METADATA_KEY_DURATION)) {
-                    duration = mMetadata.getLong(MediaMetadataCompat.METADATA_KEY_DURATION);
-                }
-            }
-
-            PlaybackStateCompat result = null;
-            if (state != null) {
-                if (state.getState() == PlaybackStateCompat.STATE_PLAYING
-                        || state.getState() == PlaybackStateCompat.STATE_FAST_FORWARDING
-                        || state.getState() == PlaybackStateCompat.STATE_REWINDING) {
-                    long updateTime = state.getLastPositionUpdateTime();
-                    long currentTime = SystemClock.elapsedRealtime();
-                    if (updateTime > 0) {
-                        long position = (long) (state.getPlaybackSpeed()
-                                * (currentTime - updateTime)) + state.getPosition();
-                        if (duration >= 0 && position > duration) {
-                            position = duration;
-                        } else if (position < 0) {
-                            position = 0;
-                        }
-                        PlaybackStateCompat.Builder builder = new PlaybackStateCompat.Builder(
-                                state);
-                        builder.setState(state.getState(), position, state.getPlaybackSpeed(),
-                                currentTime);
-                        result = builder.build();
-                    }
-                }
-            }
-            return result == null ? state : result;
         }
 
         void sendVolumeInfoChanged(ParcelableVolumeInfo info) {
@@ -2427,7 +2430,13 @@ public class MediaSessionCompat {
 
             @Override
             public PlaybackStateCompat getPlaybackState() {
-                return getStateWithUpdatedPosition();
+                PlaybackStateCompat state;
+                MediaMetadataCompat metadata;
+                synchronized (mLock) {
+                    state = mState;
+                    metadata = mMetadata;
+                }
+                return getStateWithUpdatedPosition(state, metadata);
             }
 
             @Override
@@ -2899,6 +2908,7 @@ public class MediaSessionCompat {
 
         private PlaybackStateCompat mPlaybackState;
         private List<QueueItem> mQueue;
+        private MediaMetadataCompat mMetadata;
         @RatingCompat.Style int mRatingType;
         boolean mCaptioningEnabled;
         @PlaybackStateCompat.RepeatMode int mRepeatMode;
@@ -2996,6 +3006,7 @@ public class MediaSessionCompat {
 
         @Override
         public void setMetadata(MediaMetadataCompat metadata) {
+            mMetadata = metadata;
             MediaSessionCompatApi21.setMetadata(mSessionObj,
                     metadata == null ? null : metadata.getMediaMetadata());
         }
@@ -3311,7 +3322,7 @@ public class MediaSessionCompat {
 
             @Override
             public PlaybackStateCompat getPlaybackState() {
-                return mPlaybackState;
+                return getStateWithUpdatedPosition(mPlaybackState, mMetadata);
             }
 
             @Override
