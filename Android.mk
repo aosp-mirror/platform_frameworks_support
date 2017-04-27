@@ -61,7 +61,7 @@ endef
 aidl_files := $(addprefix $(LOCAL_PATH)/, $(call all-subdir-named-files-exclude,*.aidl,I*.aidl))
 support-aidl := $(TARGET_OUT_COMMON_INTERMEDIATES)/support.aidl
 $(support-aidl): $(aidl_files) | $(AIDL)
-	$(AIDL) --preprocess $@ $(aidl_files)
+	$(AIDL_ASAN_OPTIONS) $(AIDL) --preprocess $@ $(aidl_files)
 
 # Build all support libraries
 include $(call all-makefiles-under,$(LOCAL_PATH))
