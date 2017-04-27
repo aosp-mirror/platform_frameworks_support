@@ -70,7 +70,7 @@ if (project.androidApiTxt != null) {
 
 // Generates online docs.
 task generateDocs(type: DoclavaTask, dependsOn: [configurations.doclava, generateSdkApi]) {
-    def offlineDocs = project.buildOfflineDocs
+    def offlineDocs = project.docs.offline
     group = JavaBasePlugin.DOCUMENTATION_GROUP
     description = 'Generates d.android.com-style documentation. To generate offline docs use ' +
             '\'-PofflineDocs=true\' parameter.'
@@ -124,8 +124,8 @@ task generateDocs(type: DoclavaTask, dependsOn: [configurations.doclava, generat
         if (!offlineDocs) {
             addStringOption "toroot", "/"
             addBooleanOption "devsite", true
-            addStringOption "dac_libraryroot", "android/support/"
-            addStringOption "dac_dataname", "SUPPORT_DATA"
+            addStringOption "dac_libraryroot", project.docs.dac.libraryroot
+            addStringOption "dac_dataname", project.docs.dac.dataname
         }
     }
 
@@ -209,8 +209,8 @@ CheckApiTask createCheckApiTask(String taskName, def checkApiConfig, File oldApi
 
         whitelistErrorsFile = whitelist
 
-        doLast {
-            logger.lifecycle "Verified ${newApi.name} against ${oldApi.name}..."
+        doFirst {
+            logger.lifecycle "Verifying ${newApi.name} against ${oldApi.name}..."
         }
     }
 }
@@ -262,9 +262,9 @@ File getApiFile(String refApi = supportVersion, boolean previous = false, boolea
     def lastMajor
     def lastMinor
 
-    // Only look at released versions, e.g. X.Y.0.txt.
-    apiDir.eachFileMatch FileType.FILES, ~/(\d+)\.(\d+)\.0\.txt/, { File file ->
-        def matcher = file.name =~ /(\d+)\.(\d+)\.0\.txt/
+    // Only look at released versions and snapshots thereof, ex. X.Y.0.txt or X.Y.0-SNAPSHOT.txt.
+    apiDir.eachFileMatch FileType.FILES, ~/(\d+)\.(\d+)\.0(-SNAPSHOT)?\.txt/, { File file ->
+        def matcher = file.name =~ /(\d+)\.(\d+)\.0(-SNAPSHOT)?\.txt/
         def major = matcher[0][1] as int
         def minor = matcher[0][2] as int
 
