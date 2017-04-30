@@ -40,7 +40,7 @@ package android.support.animation {
   }
 
   public final class FlingAnimation extends android.support.animation.DynamicAnimation {
-    ctor public FlingAnimation(android.support.animation.FloatPropertyCompat<K>);
+    ctor public FlingAnimation(android.support.animation.FloatValueHolder);
     ctor public FlingAnimation(K, android.support.animation.FloatPropertyCompat<K>);
     method public float getFriction();
     method public float getVelocityThreshold();
@@ -55,8 +55,15 @@ package android.support.animation {
     method public abstract void setValue(T, float);
   }
 
+  public final class FloatValueHolder {
+    ctor public FloatValueHolder();
+    ctor public FloatValueHolder(float);
+    method public float getValue();
+    method public void setValue(float);
+  }
+
   public final class SpringAnimation extends android.support.animation.DynamicAnimation {
-    ctor public SpringAnimation(android.support.animation.FloatPropertyCompat<K>);
+    ctor public SpringAnimation(android.support.animation.FloatValueHolder);
     ctor public SpringAnimation(K, android.support.animation.FloatPropertyCompat<K>);
     ctor public SpringAnimation(K, android.support.animation.FloatPropertyCompat<K>, float);
     ctor public deprecated SpringAnimation(android.view.View, android.support.animation.DynamicAnimation.ViewProperty);
@@ -1916,7 +1923,7 @@ package android.support.text.emoji {
   }
 
   public class FontRequestEmojiCompatConfig extends android.support.text.emoji.EmojiCompat.Config {
-    ctor public FontRequestEmojiCompatConfig(android.content.Context, android.support.v4.graphics.fonts.FontRequest);
+    ctor public FontRequestEmojiCompatConfig(android.content.Context, android.support.v4.provider.FontRequest);
   }
 
   public final class MetadataRepo {
@@ -6097,7 +6104,7 @@ package android.support.v4.app {
     method public abstract android.support.v4.app.FragmentTransaction remove(android.support.v4.app.Fragment);
     method public abstract android.support.v4.app.FragmentTransaction replace(int, android.support.v4.app.Fragment);
     method public abstract android.support.v4.app.FragmentTransaction replace(int, android.support.v4.app.Fragment, java.lang.String);
-    method public abstract android.support.v4.app.FragmentTransaction setAllowOptimization(boolean);
+    method public abstract deprecated android.support.v4.app.FragmentTransaction setAllowOptimization(boolean);
     method public abstract android.support.v4.app.FragmentTransaction setBreadCrumbShortTitle(int);
     method public abstract android.support.v4.app.FragmentTransaction setBreadCrumbShortTitle(java.lang.CharSequence);
     method public abstract android.support.v4.app.FragmentTransaction setBreadCrumbTitle(int);
@@ -6105,6 +6112,7 @@ package android.support.v4.app {
     method public abstract android.support.v4.app.FragmentTransaction setCustomAnimations(int, int);
     method public abstract android.support.v4.app.FragmentTransaction setCustomAnimations(int, int, int, int);
     method public abstract android.support.v4.app.FragmentTransaction setPrimaryNavigationFragment(android.support.v4.app.Fragment);
+    method public abstract android.support.v4.app.FragmentTransaction setReorderingAllowed(boolean);
     method public abstract android.support.v4.app.FragmentTransaction setTransition(int);
     method public abstract android.support.v4.app.FragmentTransaction setTransitionStyle(int);
     method public abstract android.support.v4.app.FragmentTransaction show(android.support.v4.app.Fragment);
@@ -7048,20 +7056,6 @@ package android.support.v4.graphics.drawable {
 
 }
 
-package android.support.v4.graphics.fonts {
-
-  public final class FontRequest {
-    ctor public FontRequest(java.lang.String, java.lang.String, java.lang.String, java.util.List<java.util.List<byte[]>>);
-    ctor public FontRequest(java.lang.String, java.lang.String, java.lang.String, int);
-    method public java.util.List<java.util.List<byte[]>> getCertificates();
-    method public int getCertificatesArrayResId();
-    method public java.lang.String getProviderAuthority();
-    method public java.lang.String getProviderPackage();
-    method public java.lang.String getQuery();
-  }
-
-}
-
 package android.support.v4.hardware.display {
 
   public abstract class DisplayManagerCompat {
@@ -7875,10 +7869,20 @@ package android.support.v4.provider {
     method public abstract boolean renameTo(java.lang.String);
   }
 
+  public final class FontRequest {
+    ctor public FontRequest(java.lang.String, java.lang.String, java.lang.String, java.util.List<java.util.List<byte[]>>);
+    ctor public FontRequest(java.lang.String, java.lang.String, java.lang.String, int);
+    method public java.util.List<java.util.List<byte[]>> getCertificates();
+    method public int getCertificatesArrayResId();
+    method public java.lang.String getProviderAuthority();
+    method public java.lang.String getProviderPackage();
+    method public java.lang.String getQuery();
+  }
+
   public class FontsContractCompat {
     method public static android.graphics.Typeface buildTypeface(android.content.Context, android.os.CancellationSignal, android.support.v4.provider.FontsContractCompat.FontInfo[]);
-    method public static android.support.v4.provider.FontsContractCompat.FontFamilyResult fetchFonts(android.content.Context, android.os.CancellationSignal, android.support.v4.graphics.fonts.FontRequest) throws android.content.pm.PackageManager.NameNotFoundException;
-    method public static void requestFont(android.content.Context, android.support.v4.graphics.fonts.FontRequest, android.support.v4.provider.FontsContractCompat.FontRequestCallback, android.os.Handler);
+    method public static android.support.v4.provider.FontsContractCompat.FontFamilyResult fetchFonts(android.content.Context, android.os.CancellationSignal, android.support.v4.provider.FontRequest) throws android.content.pm.PackageManager.NameNotFoundException;
+    method public static void requestFont(android.content.Context, android.support.v4.provider.FontRequest, android.support.v4.provider.FontsContractCompat.FontRequestCallback, android.os.Handler);
   }
 
   public static final class FontsContractCompat.Columns {
@@ -12770,7 +12774,7 @@ package android.support.v7.widget.util {
 
 }
 
-package android.support.wearable.widget {
+package android.support.wear.widget {
 
   public class BoxInsetLayout extends android.view.ViewGroup {
     ctor public BoxInsetLayout(android.content.Context);
@@ -12787,7 +12791,7 @@ package android.support.wearable.widget {
     ctor public BoxInsetLayout.LayoutParams(android.view.ViewGroup.LayoutParams);
     ctor public BoxInsetLayout.LayoutParams(android.view.ViewGroup.MarginLayoutParams);
     ctor public BoxInsetLayout.LayoutParams(android.widget.FrameLayout.LayoutParams);
-    ctor public BoxInsetLayout.LayoutParams(android.support.wearable.widget.BoxInsetLayout.LayoutParams);
+    ctor public BoxInsetLayout.LayoutParams(android.support.wear.widget.BoxInsetLayout.LayoutParams);
     field public static final int BOX_ALL = 15; // 0xf
     field public static final int BOX_BOTTOM = 8; // 0x8
     field public static final int BOX_LEFT = 1; // 0x1
@@ -12797,7 +12801,7 @@ package android.support.wearable.widget {
     field public int boxedEdges;
   }
 
-  public class CurvingLayoutCallback extends android.support.wearable.widget.WearableLinearLayoutManager.LayoutCallback {
+  public class CurvingLayoutCallback extends android.support.wear.widget.WearableLinearLayoutManager.LayoutCallback {
     ctor public CurvingLayoutCallback(android.content.Context);
     method public void adjustAnchorOffsetXY(android.view.View, float[]);
     method public void onLayoutFinished(android.view.View, android.support.v7.widget.RecyclerView);
@@ -12808,22 +12812,22 @@ package android.support.wearable.widget {
     ctor public SwipeDismissFrameLayout(android.content.Context, android.util.AttributeSet);
     ctor public SwipeDismissFrameLayout(android.content.Context, android.util.AttributeSet, int);
     ctor public SwipeDismissFrameLayout(android.content.Context, android.util.AttributeSet, int, int);
-    method public void addCallback(android.support.wearable.widget.SwipeDismissFrameLayout.Callback);
-    method public void removeCallback(android.support.wearable.widget.SwipeDismissFrameLayout.Callback);
+    method public void addCallback(android.support.wear.widget.SwipeDismissFrameLayout.Callback);
+    method public void removeCallback(android.support.wear.widget.SwipeDismissFrameLayout.Callback);
   }
 
   public static abstract class SwipeDismissFrameLayout.Callback {
     ctor public SwipeDismissFrameLayout.Callback();
-    method public void onDismissed(android.support.wearable.widget.SwipeDismissFrameLayout);
-    method public void onSwipeCanceled(android.support.wearable.widget.SwipeDismissFrameLayout);
-    method public void onSwipeStarted(android.support.wearable.widget.SwipeDismissFrameLayout);
+    method public void onDismissed(android.support.wear.widget.SwipeDismissFrameLayout);
+    method public void onSwipeCanceled(android.support.wear.widget.SwipeDismissFrameLayout);
+    method public void onSwipeStarted(android.support.wear.widget.SwipeDismissFrameLayout);
   }
 
   public class WearableLinearLayoutManager extends android.support.v7.widget.LinearLayoutManager {
-    ctor public WearableLinearLayoutManager(android.content.Context, android.support.wearable.widget.WearableLinearLayoutManager.LayoutCallback);
+    ctor public WearableLinearLayoutManager(android.content.Context, android.support.wear.widget.WearableLinearLayoutManager.LayoutCallback);
     ctor public WearableLinearLayoutManager(android.content.Context);
-    method public android.support.wearable.widget.WearableLinearLayoutManager.LayoutCallback getLayoutCallback();
-    method public void setLayoutCallback(android.support.wearable.widget.WearableLinearLayoutManager.LayoutCallback);
+    method public android.support.wear.widget.WearableLinearLayoutManager.LayoutCallback getLayoutCallback();
+    method public void setLayoutCallback(android.support.wear.widget.WearableLinearLayoutManager.LayoutCallback);
   }
 
   public static abstract class WearableLinearLayoutManager.LayoutCallback {

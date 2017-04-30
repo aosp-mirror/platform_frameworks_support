@@ -24,9 +24,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 import android.support.v4.graphics.TypefaceCompat;
 import android.support.v4.graphics.TypefaceCompat.FontRequestCallback;
-import android.support.v4.graphics.fonts.FontRequest;
 import android.support.v4.graphics.fonts.FontResult;
 import android.support.v4.os.ResultReceiver;
+import android.support.v4.provider.FontRequest;
 import android.support.v4.provider.FontsContractCompat;
 import android.support.v4.provider.FontsContractInternal;
 import android.support.v4.util.Preconditions;
@@ -154,7 +154,7 @@ public class FontRequestEmojiCompatConfig extends EmojiCompat.Config {
                 final ParcelFileDescriptor dupFd = mFontResult.getFileDescriptor().dup();
                 // this one will close fd that is in mFontResult
                 final Typeface typeface = TypefaceCompat.createTypeface(mContext,
-                        Arrays.asList(mFontResult));
+                        Arrays.asList(mFontResult)).getTypeface();
                 if (typeface == null) {
                     throwException(FontRequestCallback.FAIL_REASON_FONT_LOAD_ERROR);
                 }
