@@ -25,7 +25,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.support.test.filters.SmallTest;
@@ -33,8 +32,9 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.BaseInstrumentationTestCase;
 import android.support.v4.app.TestSupportActivity;
 import android.support.v4.graphics.TypefaceCompat.FontRequestCallback;
-import android.support.v4.graphics.fonts.FontRequest;
+import android.support.v4.graphics.TypefaceCompat.TypefaceHolder;
 import android.support.v4.graphics.fonts.FontResult;
+import android.support.v4.provider.FontRequest;
 import android.support.v4.provider.FontsContractCompat;
 import android.util.Base64;
 
@@ -56,7 +56,8 @@ import java.util.List;
 @SmallTest
 @RunWith(AndroidJUnit4.class)
 public class TypefaceCompatTest extends BaseInstrumentationTestCase<TestSupportActivity> {
-    private static final String TEST_FONT_FILE = "samplefont.ttf";
+    private static final String TEST_FONT_FILE = "fonts/samplefont1.ttf";
+    private static final String CACHE_FILE = "cachedfont.ttf";
     private static final String PROVIDER = "com.test.fontprovider.authority";
     private static final String QUERY_CACHED = "query_cached";
     private static final String QUERY = "query";
@@ -73,12 +74,9 @@ public class TypefaceCompatTest extends BaseInstrumentationTestCase<TestSupportA
 
     @Before
     public void setup() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            mCompat = new TypefaceCompatApi24Impl(mActivityTestRule.getActivity());
-        } else {
-            mCompat = new TypefaceCompatBaseImpl(mActivityTestRule.getActivity());
-        }
-        TypefaceCompatBaseImpl.putInCache(PROVIDER, QUERY_CACHED, Typeface.MONOSPACE);
+        mCompat = new TypefaceCompatBaseImpl(mActivityTestRule.getActivity());
+        TypefaceCompatBaseImpl.putInCache(PROVIDER, QUERY_CACHED,
+                new TypefaceHolder(Typeface.MONOSPACE, 400, false));
     }
 
     @Test
@@ -166,7 +164,7 @@ public class TypefaceCompatTest extends BaseInstrumentationTestCase<TestSupportA
     }
 
     private File loadFont() {
-        File cacheFile = new File(mActivityTestRule.getActivity().getCacheDir(), TEST_FONT_FILE);
+        File cacheFile = new File(mActivityTestRule.getActivity().getCacheDir(), CACHE_FILE);
         try {
             copyToCacheFile(TEST_FONT_FILE, cacheFile);
             return cacheFile;
@@ -205,9 +203,9 @@ public class TypefaceCompatTest extends BaseInstrumentationTestCase<TestSupportA
                 ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY);
         try {
             FontResult result = new FontResult(pfd, 0, null, 400, false /* italic */);
-            Typeface typeface = mCompat.createTypeface(Arrays.asList(result));
+            TypefaceHolder typeface = mCompat.createTypeface(Arrays.asList(result));
 
-            assertNotNull(typeface);
+            assertNotNull(typeface.getTypeface());
         } finally {
             if (file != null) {
                 file.delete();
