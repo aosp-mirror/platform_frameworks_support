@@ -21,12 +21,13 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.RestrictTo;
 import android.support.v4.graphics.TypefaceCompat;
 import android.support.v4.graphics.TypefaceCompat.FontRequestCallback;
-import android.support.v4.graphics.fonts.FontRequest;
 import android.support.v4.graphics.fonts.FontResult;
 import android.support.v4.os.ResultReceiver;
+import android.support.v4.provider.FontRequest;
 import android.support.v4.provider.FontsContractCompat;
 import android.support.v4.provider.FontsContractInternal;
 import android.support.v4.util.Preconditions;
@@ -89,6 +90,7 @@ public class FontRequestEmojiCompatConfig extends EmojiCompat.Config {
         }
 
         @Override
+        @RequiresApi(19)
         public void load(@NonNull final EmojiCompat.LoaderCallback loaderCallback) {
             Preconditions.checkNotNull(loaderCallback, "LoaderCallback cannot be null");
             final ResultReceiver receiver = new ResultReceiver(null) {
@@ -104,6 +106,7 @@ public class FontRequestEmojiCompatConfig extends EmojiCompat.Config {
             }
         }
 
+        @RequiresApi(19)
         private void receiveResult(final EmojiCompat.LoaderCallback loaderCallback,
                 final int resultCode, final Bundle resultData) {
             try {
@@ -135,6 +138,7 @@ public class FontRequestEmojiCompatConfig extends EmojiCompat.Config {
     /**
      * Runnable used to create the Typeface and MetadataRepo from a given FontResult.
      */
+    @RequiresApi(19)
     private static class InitRunnable implements Runnable {
         private final EmojiCompat.LoaderCallback mLoaderCallback;
         private final Context mContext;
@@ -154,7 +158,7 @@ public class FontRequestEmojiCompatConfig extends EmojiCompat.Config {
                 final ParcelFileDescriptor dupFd = mFontResult.getFileDescriptor().dup();
                 // this one will close fd that is in mFontResult
                 final Typeface typeface = TypefaceCompat.createTypeface(mContext,
-                        Arrays.asList(mFontResult));
+                        Arrays.asList(mFontResult)).getTypeface();
                 if (typeface == null) {
                     throwException(FontRequestCallback.FAIL_REASON_FONT_LOAD_ERROR);
                 }

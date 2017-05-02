@@ -1286,7 +1286,8 @@ public final class TvContractCompat {
         /**
          * The release date of this TV program.
          *
-         * <p>The value should be in the form of either "yyyy-MM-dd" or "yyyy".
+         * <p>The value should be in one of the following formats:
+         * "yyyy", "yyyy-MM-dd", and "yyyy-MM-ddTHH:mm:ssZ" (UTC in ISO 8601).
          *
          * <p>Type: TEXT
          */
@@ -1328,8 +1329,7 @@ public final class TvContractCompat {
         /**
          * The URI for the preview video.
          *
-         * <p>This is only relevant to {@link Channels#TYPE_PREVIEW}. The data in the column must be
-         * a URL, or a URI in one of the following formats:
+         * <p>The data in the column must be a URL, or a URI in one of the following formats:
          *
          * <ul>
          * <li>content ({@link android.content.ContentResolver#SCHEME_CONTENT})</li>
@@ -1345,9 +1345,8 @@ public final class TvContractCompat {
         String COLUMN_PREVIEW_VIDEO_URI = "preview_video_uri";
 
         /**
-         * The last playback position (in milliseconds) of the preview video.
-         *
-         * <p>This is only relevant to {@link Channels#TYPE_PREVIEW}.
+         * The last playback position (in milliseconds) of the original content of this preview
+         * program.
          *
          * <p>Can be empty.
          *
@@ -1357,9 +1356,7 @@ public final class TvContractCompat {
                 "last_playback_position_millis";
 
         /**
-         * The duration (in milliseconds) of the preview video.
-         *
-         * <p>This is only relevant to {@link Channels#TYPE_PREVIEW}.
+         * The duration (in milliseconds) of the original content of this preview program.
          *
          * <p>Can be empty.
          *
@@ -1461,7 +1458,12 @@ public final class TvContractCompat {
     /** Column definitions for the TV channels table. */
     public static final class Channels implements BaseTvColumns {
 
-        /** The content:// style URI for this table. */
+        /**
+         * The content:// style URI for this table.
+         *
+         * <p>SQL selection is not supported for {@link ContentResolver#query},
+         * {@link ContentResolver#update} and {@link ContentResolver#delete} operations.
+         */
         public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/"
                 + PATH_CHANNEL);
 
@@ -2273,7 +2275,12 @@ public final class TvContractCompat {
      */
     public static final class Programs implements BaseTvColumns, ProgramColumns {
 
-        /** The content:// style URI for this table. */
+        /**
+         * The content:// style URI for this table.
+         *
+         * <p>SQL selection is not supported for {@link ContentResolver#query},
+         * {@link ContentResolver#update} and {@link ContentResolver#delete} operations.
+         */
         public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/"
                 + PATH_PROGRAM);
 
@@ -2587,7 +2594,12 @@ public final class TvContractCompat {
      */
     public static final class RecordedPrograms implements BaseTvColumns, ProgramColumns {
 
-        /** The content:// style URI for this table. */
+        /**
+         * The content:// style URI for this table.
+         *
+         * <p>SQL selection is not supported for {@link ContentResolver#query},
+         * {@link ContentResolver#update} and {@link ContentResolver#delete} operations.
+         */
         public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/"
                 + PATH_RECORDED_PROGRAM);
 
@@ -2710,7 +2722,12 @@ public final class TvContractCompat {
     public static final class PreviewPrograms implements BaseTvColumns, ProgramColumns,
             PreviewProgramColumns {
 
-        /** The content:// style URI for this table. */
+        /**
+         * The content:// style URI for this table.
+         *
+         * <p>SQL selection is not supported for {@link ContentResolver#query},
+         * {@link ContentResolver#update} and {@link ContentResolver#delete} operations.
+         */
         public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/"
                 + PATH_PREVIEW_PROGRAM);
 
@@ -2754,7 +2771,12 @@ public final class TvContractCompat {
     public static final class WatchNextPrograms implements BaseTvColumns, ProgramColumns,
             PreviewProgramColumns {
 
-        /** The content:// style URI for this table. */
+        /**
+         * The content:// style URI for this table.
+         *
+         * <p>SQL selection is not supported for {@link ContentResolver#query},
+         * {@link ContentResolver#update} and {@link ContentResolver#delete} operations.
+         */
         public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/"
                 + PATH_WATCH_NEXT_PROGRAM);
 
