@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "892bcf3d_9bba6ac0",
+        "filename": "core-ui/java/android/support/v4/widget/NestedScrollView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2017-05-04T15:29:51Z",
+      "side": 1,
+      "message": "Just use one array with both int (they have to be in ascending order)",
+      "range": {
+        "startLine": 178,
+        "startChar": 4,
+        "endLine": 179,
+        "endChar": 83
+      },
+      "revId": "56bf3cb583ed512449bb78b0aabb3f61ac2204a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
