@@ -100,6 +100,12 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
     private EdgeEffect mEdgeGlowBottom;
 
     /**
+     * Prior to L, there is no way to query this variable which is why we override the setter and
+     * track it here.
+     */
+    private boolean mClipToPadding;
+
+    /**
      * Position of the last motion event.
      */
     private int mLastMotionY;
@@ -171,6 +177,7 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
     private static final AccessibilityDelegate ACCESSIBILITY_DELEGATE = new AccessibilityDelegate();
 
     private static final int[] SCROLLVIEW_STYLEABLE = new int[] {
+            android.R.attr.clipToPadding,
             android.R.attr.fillViewport
     };
 
@@ -196,7 +203,8 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
         final TypedArray a = context.obtainStyledAttributes(
                 attrs, SCROLLVIEW_STYLEABLE, defStyleAttr, 0);
 
-        setFillViewport(a.getBoolean(0, false));
+        setClipToPadding(a.getBoolean(0, true));
+        setFillViewport(a.getBoolean(1, false));
 
         a.recycle();
 
@@ -340,6 +348,12 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
     }
 
     // ScrollView import
+
+    @Override
+    public void setClipToPadding(boolean clipToPadding) {
+        mClipToPadding = clipToPadding;
+        super.setClipToPadding(clipToPadding);
+    }
 
     @Override
     public boolean shouldDelayChildPressedState() {
@@ -1815,12 +1829,26 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
         super.draw(canvas);
         if (mEdgeGlowTop != null) {
             final int scrollY = getScrollY();
+            final boolean clipToPadding = mClipToPadding;
             if (!mEdgeGlowTop.isFinished()) {
                 final int restoreCount = canvas.save();
-                final int width = getWidth() - getPaddingLeft() - getPaddingRight();
-
-                canvas.translate(getPaddingLeft(), Math.min(0, scrollY));
-                mEdgeGlowTop.setSize(width, getHeight());
+                final int width;
+                final int height;
+                final float translateX;
+                final float translateY;
+                if (clipToPadding) {
+                    width = getWidth() - getPaddingLeft() - getPaddingRight();
+                    height = getHeight() - getPaddingTop() - getPaddingBottom();
+                    translateX = getPaddingLeft();
+                    translateY = getPaddingTop();
+                } else {
+                    width = getWidth();
+                    height = getHeight();
+                    translateX = 0;
+                    translateY = 0;
+                }
+                canvas.translate(translateX, Math.min(0, scrollY) + translateY);
+                mEdgeGlowTop.setSize(width, height);
                 if (mEdgeGlowTop.draw(canvas)) {
                     ViewCompat.postInvalidateOnAnimation(this);
                 }
@@ -1828,11 +1856,23 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
             }
             if (!mEdgeGlowBottom.isFinished()) {
                 final int restoreCount = canvas.save();
-                final int width = getWidth() - getPaddingLeft() - getPaddingRight();
-                final int height = getHeight();
-
-                canvas.translate(-width + getPaddingLeft(),
-                        Math.max(getScrollRange(), scrollY) + height);
+                final int width;
+                final int height;
+                final float translateX;
+                final float translateY;
+                if (clipToPadding) {
+                    width = getWidth() - getPaddingLeft() - getPaddingRight();
+                    height = getHeight() - getPaddingTop() - getPaddingBottom();
+                    translateX = getPaddingLeft();
+                    translateY = getPaddingTop();
+                } else {
+                    width = getWidth();
+                    height = getHeight();
+                    translateX = 0;
+                    translateY = 0;
+                }
+                canvas.translate(-width + translateX,
+                        Math.max(getScrollRange(), scrollY) + height + translateY);
                 canvas.rotate(180, width, 0);
                 mEdgeGlowBottom.setSize(width, height);
                 if (mEdgeGlowBottom.draw(canvas)) {
