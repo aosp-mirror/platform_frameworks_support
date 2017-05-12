@@ -83,11 +83,24 @@ public class AppCompatImageHelper {
     boolean hasOverlappingRendering() {
         final Drawable background = mView.getBackground();
         if (Build.VERSION.SDK_INT >= 21
-                && background instanceof android.graphics.drawable.RippleDrawable) {
+                && isRippleDrawable(background) {
             // RippleDrawable has an issue on L+ when used with an alpha animation.
             // This workaround should be disabled when the platform bug is fixed. See b/27715789
             return false;
         }
         return true;
+    }
+
+    /**
+     * Roughly equivalent to {@code object instanceof RippleDrawable} but doesn't try
+     * to load the RippleDrawable class.
+     */
+    private boolean isRippleDrawable(Object object) {
+        for (Class<?> clazz = object.getClass(); clazz != null; clazz = clazz.getSuperclass()) {
+            if ("android.graphics.drawable.RippleDrawable".equals(clazz.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
