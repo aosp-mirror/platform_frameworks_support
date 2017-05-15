@@ -31,6 +31,7 @@ import android.media.MediaMetadataRetriever;
 import android.media.Rating;
 import android.media.RemoteControlClient;
 import android.net.Uri;
+import android.os.BadParcelableException;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -143,8 +144,89 @@ public class MediaSessionCompat {
      *
      * @see Callback#onCustomAction
      */
-    public static final String ACTION_SKIP_AD =
-            "android.support.v4.media.session.action.SKIP_AD";
+    public static final String ACTION_SKIP_AD = "android.support.v4.media.session.action.SKIP_AD";
+
+    /**
+     * Predefined custom action to follow an artist, album, or playlist. The extra bundle must have
+     * {@link #ACTION_ARGUMENT_MEDIA_ATTRIBUTE} to indicate the type of the follow action. The
+     * bundle can also have an optional string argument,
+     * {@link #ACTION_ARGUMENT_MEDIA_ATTRIBUTE_VALUE}, to specify the target to follow (e.g., the
+     * name of the artist to follow). If this argument is omitted, the currently playing media will
+     * be the target of the action. Thus, the session must perform the follow action with the
+     * current metadata. If there's no specified attribute in the current metadata, the controller
+     * must not omit this argument.
+     *
+     * @see #ACTION_ARGUMENT_MEDIA_ATTRIBUTE
+     * @see #ACTION_ARGUMENT_MEDIA_ATTRIBUTE_VALUE
+     * @see Callback#onCustomAction
+     */
+    public static final String ACTION_FOLLOW = "android.support.v4.media.session.action.FOLLOW";
+
+    /**
+     * Predefined custom action to unfollow an artist, album, or playlist. The extra bundle must
+     * have {@link #ACTION_ARGUMENT_MEDIA_ATTRIBUTE} to indicate the type of the unfollow action.
+     * The bundle can also have an optional string argument,
+     * {@link #ACTION_ARGUMENT_MEDIA_ATTRIBUTE_VALUE}, to specify the target to unfollow (e.g., the
+     * name of the artist to unfollow). If this argument is omitted, the currently playing media
+     * will be the target of the action. Thus, the session must perform the unfollow action with the
+     * current metadata. If there's no specified attribute in the current metadata, the controller
+     * must not omit this argument.
+     *
+     * @see #ACTION_ARGUMENT_MEDIA_ATTRIBUTE
+     * @see #ACTION_ARGUMENT_MEDIA_ATTRIBUTE_VALUE
+     * @see Callback#onCustomAction
+     */
+    public static final String ACTION_UNFOLLOW = "android.support.v4.media.session.action.UNFOLLOW";
+
+    /**
+     * Argument for use with {@link #ACTION_FOLLOW} and {@link #ACTION_UNFOLLOW} indicating the
+     * media attribute of the follow/unfollow action. It should be one of the following:
+     * <ul>
+     * <li>{@link #MEDIA_ATTRIBUTE_ARTIST}</li>
+     * <li>{@link #MEDIA_ATTRIBUTE_PLAYLIST}</li>
+     * <li>{@link #MEDIA_ATTRIBUTE_ALBUM}</li>
+     * </ul>
+     *
+     * @see #ACTION_FOLLOW
+     * @see #ACTION_UNFOLLOW
+     */
+    public static final String ACTION_ARGUMENT_MEDIA_ATTRIBUTE =
+            "android.support.v4.media.session.action.ARGUMENT_MEDIA_ATTRIBUTE";
+
+    /**
+     * String argument for use with {@link #ACTION_FOLLOW} and {@link #ACTION_UNFOLLOW} indicating
+     * the value of the media attribute of the follow/unfollow action (e.g., the name of the artist
+     * to follow).
+     *
+     * @see #ACTION_FOLLOW
+     * @see #ACTION_UNFOLLOW
+     */
+    public static final String ACTION_ARGUMENT_MEDIA_ATTRIBUTE_VALUE =
+            "android.support.v4.media.session.action.ARGUMENT_MEDIA_ATTRIBUTE_VALUE";
+
+    /**
+     * The media attribute of the follow action which indicates that the target of the action is an
+     * artist.
+     *
+     * @see ACTION_ARGUMENT_MEDIA_ATTRIBUTE
+     */
+    public static final int MEDIA_ATTRIBUTE_ARTIST = 0;
+
+    /**
+     * The media attribute of the follow action which indicates that the target of the action is an
+     * album.
+     *
+     * @see ACTION_ARGUMENT_MEDIA_ATTRIBUTE
+     */
+    public static final int MEDIA_ATTRIBUTE_ALBUM = 1;
+
+    /**
+     * The media attribute of the follow action which indicates that the target of the action is a
+     * playlist.
+     *
+     * @see ACTION_ARGUMENT_MEDIA_ATTRIBUTE
+     */
+    public static final int MEDIA_ATTRIBUTE_PLAYLIST = 2;
 
     /**
      * Custom action to invoke playFromUri() for the forward compatibility.
@@ -1012,6 +1094,8 @@ public class MediaSessionCompat {
          *            {@link MediaControllerCompat}.
          * @see #ACTION_FLAG_AS_INAPPROPRIATE
          * @see #ACTION_SKIP_AD
+         * @see #ACTION_FOLLOW
+         * @see #ACTION_UNFOLLOW
          */
         public void onCustomAction(String action, Bundle extras) {
         }
@@ -1068,43 +1152,50 @@ public class MediaSessionCompat {
 
             @Override
             public void onCommand(String command, Bundle extras, ResultReceiver cb) {
-                if (command.equals(MediaControllerCompat.COMMAND_GET_EXTRA_BINDER)) {
-                    MediaSessionImplApi21 impl = (MediaSessionImplApi21) mSessionImpl.get();
-                    if (impl != null) {
-                        Bundle result = new Bundle();
-                        IMediaSession extraBinder = impl.getSessionToken().getExtraBinder();
-                        BundleCompat.putBinder(result, EXTRA_BINDER,
-                                extraBinder == null ? null : extraBinder.asBinder());
-                        cb.send(0, result);
-                    }
-                } else if (command.equals(MediaControllerCompat.COMMAND_ADD_QUEUE_ITEM)) {
-                    extras.setClassLoader(MediaDescriptionCompat.class.getClassLoader());
-                    Callback.this.onAddQueueItem(
-                            (MediaDescriptionCompat) extras.getParcelable(
-                                    MediaControllerCompat.COMMAND_ARGUMENT_MEDIA_DESCRIPTION));
-                } else if (command.equals(MediaControllerCompat.COMMAND_ADD_QUEUE_ITEM_AT)) {
-                    extras.setClassLoader(MediaDescriptionCompat.class.getClassLoader());
-                    Callback.this.onAddQueueItem(
-                            (MediaDescriptionCompat) extras.getParcelable(
-                                    MediaControllerCompat.COMMAND_ARGUMENT_MEDIA_DESCRIPTION),
-                            extras.getInt(MediaControllerCompat.COMMAND_ARGUMENT_INDEX));
-                } else if (command.equals(MediaControllerCompat.COMMAND_REMOVE_QUEUE_ITEM)) {
-                    extras.setClassLoader(MediaDescriptionCompat.class.getClassLoader());
-                    Callback.this.onRemoveQueueItem(
-                            (MediaDescriptionCompat) extras.getParcelable(
-                                    MediaControllerCompat.COMMAND_ARGUMENT_MEDIA_DESCRIPTION));
-                } else if (command.equals(MediaControllerCompat.COMMAND_REMOVE_QUEUE_ITEM_AT)) {
-                    MediaSessionImplApi21 impl = (MediaSessionImplApi21) mSessionImpl.get();
-                    if (impl != null && impl.mQueue != null) {
-                        int index = extras.getInt(MediaControllerCompat.COMMAND_ARGUMENT_INDEX, -1);
-                        QueueItem item = (index >= 0 && index < impl.mQueue.size())
-                                ? impl.mQueue.get(index) : null;
-                        if (item != null) {
-                            Callback.this.onRemoveQueueItem(item.getDescription());
+                try {
+                    if (command.equals(MediaControllerCompat.COMMAND_GET_EXTRA_BINDER)) {
+                        MediaSessionImplApi21 impl = (MediaSessionImplApi21) mSessionImpl.get();
+                        if (impl != null) {
+                            Bundle result = new Bundle();
+                            IMediaSession extraBinder = impl.getSessionToken().getExtraBinder();
+                            BundleCompat.putBinder(result, EXTRA_BINDER,
+                                    extraBinder == null ? null : extraBinder.asBinder());
+                            cb.send(0, result);
                         }
+                    } else if (command.equals(MediaControllerCompat.COMMAND_ADD_QUEUE_ITEM)) {
+                        extras.setClassLoader(MediaDescriptionCompat.class.getClassLoader());
+                        Callback.this.onAddQueueItem(
+                                (MediaDescriptionCompat) extras.getParcelable(
+                                        MediaControllerCompat.COMMAND_ARGUMENT_MEDIA_DESCRIPTION));
+                    } else if (command.equals(MediaControllerCompat.COMMAND_ADD_QUEUE_ITEM_AT)) {
+                        extras.setClassLoader(MediaDescriptionCompat.class.getClassLoader());
+                        Callback.this.onAddQueueItem(
+                                (MediaDescriptionCompat) extras.getParcelable(
+                                        MediaControllerCompat.COMMAND_ARGUMENT_MEDIA_DESCRIPTION),
+                                extras.getInt(MediaControllerCompat.COMMAND_ARGUMENT_INDEX));
+                    } else if (command.equals(MediaControllerCompat.COMMAND_REMOVE_QUEUE_ITEM)) {
+                        extras.setClassLoader(MediaDescriptionCompat.class.getClassLoader());
+                        Callback.this.onRemoveQueueItem(
+                                (MediaDescriptionCompat) extras.getParcelable(
+                                        MediaControllerCompat.COMMAND_ARGUMENT_MEDIA_DESCRIPTION));
+                    } else if (command.equals(MediaControllerCompat.COMMAND_REMOVE_QUEUE_ITEM_AT)) {
+                        MediaSessionImplApi21 impl = (MediaSessionImplApi21) mSessionImpl.get();
+                        if (impl != null && impl.mQueue != null) {
+                            int index =
+                                    extras.getInt(MediaControllerCompat.COMMAND_ARGUMENT_INDEX, -1);
+                            QueueItem item = (index >= 0 && index < impl.mQueue.size())
+                                    ? impl.mQueue.get(index) : null;
+                            if (item != null) {
+                                Callback.this.onRemoveQueueItem(item.getDescription());
+                            }
+                        }
+                    } else {
+                        Callback.this.onCommand(command, extras, cb);
                     }
-                } else {
-                    Callback.this.onCommand(command, extras, cb);
+                } catch (BadParcelableException e) {
+                    // Do not print the exception here, since it is already done by the Parcel
+                    // class.
+                    Log.e(TAG, "Could not unparcel the extra data.");
                 }
             }
 
