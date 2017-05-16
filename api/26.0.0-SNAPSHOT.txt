@@ -4001,6 +4001,8 @@ package android.support.v17.leanback.widget {
     method public final boolean isFocusSearchDisabled();
     method public boolean isItemAlignmentOffsetWithPadding();
     method public boolean isScrollEnabled();
+    method public boolean isWindowAlignmentPreferKeyLineOverHighEdge();
+    method public boolean isWindowAlignmentPreferKeyLineOverLowEdge();
     method public boolean onRequestFocusInDescendants(int, android.graphics.Rect);
     method public void removeOnChildViewHolderSelectedListener(android.support.v17.leanback.widget.OnChildViewHolderSelectedListener);
     method public void setAnimateChildLayout(boolean);
@@ -4040,6 +4042,8 @@ package android.support.v17.leanback.widget {
     method public void setWindowAlignment(int);
     method public void setWindowAlignmentOffset(int);
     method public void setWindowAlignmentOffsetPercent(float);
+    method public void setWindowAlignmentPreferKeyLineOverHighEdge(boolean);
+    method public void setWindowAlignmentPreferKeyLineOverLowEdge(boolean);
     field public static final float ITEM_ALIGN_OFFSET_PERCENT_DISABLED = -1.0f;
     field public static final int SAVE_ALL_CHILD = 3; // 0x3
     field public static final int SAVE_LIMITED_CHILD = 2; // 0x2
@@ -4939,8 +4943,10 @@ package android.support.v17.leanback.widget {
   public static class PlaybackControlsRow.ClosedCaptioningAction extends android.support.v17.leanback.widget.PlaybackControlsRow.MultiAction {
     ctor public PlaybackControlsRow.ClosedCaptioningAction(android.content.Context);
     ctor public PlaybackControlsRow.ClosedCaptioningAction(android.content.Context, int);
-    field public static int OFF;
-    field public static int ON;
+    field public static final int INDEX_OFF = 0; // 0x0
+    field public static final int INDEX_ON = 1; // 0x1
+    field public static deprecated int OFF;
+    field public static deprecated int ON;
   }
 
   public static class PlaybackControlsRow.FastForwardAction extends android.support.v17.leanback.widget.PlaybackControlsRow.MultiAction {
@@ -4951,8 +4957,10 @@ package android.support.v17.leanback.widget {
   public static class PlaybackControlsRow.HighQualityAction extends android.support.v17.leanback.widget.PlaybackControlsRow.MultiAction {
     ctor public PlaybackControlsRow.HighQualityAction(android.content.Context);
     ctor public PlaybackControlsRow.HighQualityAction(android.content.Context, int);
-    field public static int OFF;
-    field public static int ON;
+    field public static final int INDEX_OFF = 0; // 0x0
+    field public static final int INDEX_ON = 1; // 0x1
+    field public static deprecated int OFF;
+    field public static deprecated int ON;
   }
 
   public static class PlaybackControlsRow.MoreActions extends android.support.v17.leanback.widget.Action {
@@ -4986,17 +4994,22 @@ package android.support.v17.leanback.widget {
 
   public static class PlaybackControlsRow.PlayPauseAction extends android.support.v17.leanback.widget.PlaybackControlsRow.MultiAction {
     ctor public PlaybackControlsRow.PlayPauseAction(android.content.Context);
-    field public static int PAUSE;
-    field public static int PLAY;
+    field public static final int INDEX_PAUSE = 1; // 0x1
+    field public static final int INDEX_PLAY = 0; // 0x0
+    field public static deprecated int PAUSE;
+    field public static deprecated int PLAY;
   }
 
   public static class PlaybackControlsRow.RepeatAction extends android.support.v17.leanback.widget.PlaybackControlsRow.MultiAction {
     ctor public PlaybackControlsRow.RepeatAction(android.content.Context);
     ctor public PlaybackControlsRow.RepeatAction(android.content.Context, int);
     ctor public PlaybackControlsRow.RepeatAction(android.content.Context, int, int);
-    field public static int ALL;
-    field public static int NONE;
-    field public static int ONE;
+    field public static deprecated int ALL;
+    field public static final int INDEX_ALL = 1; // 0x1
+    field public static final int INDEX_NONE = 0; // 0x0
+    field public static final int INDEX_ONE = 2; // 0x2
+    field public static deprecated int NONE;
+    field public static deprecated int ONE;
   }
 
   public static class PlaybackControlsRow.RewindAction extends android.support.v17.leanback.widget.PlaybackControlsRow.MultiAction {
@@ -5007,8 +5020,10 @@ package android.support.v17.leanback.widget {
   public static class PlaybackControlsRow.ShuffleAction extends android.support.v17.leanback.widget.PlaybackControlsRow.MultiAction {
     ctor public PlaybackControlsRow.ShuffleAction(android.content.Context);
     ctor public PlaybackControlsRow.ShuffleAction(android.content.Context, int);
-    field public static int OFF;
-    field public static int ON;
+    field public static final int INDEX_OFF = 0; // 0x0
+    field public static final int INDEX_ON = 1; // 0x1
+    field public static deprecated int OFF;
+    field public static deprecated int ON;
   }
 
   public static class PlaybackControlsRow.SkipNextAction extends android.support.v17.leanback.widget.Action {
@@ -5021,8 +5036,10 @@ package android.support.v17.leanback.widget {
 
   public static abstract class PlaybackControlsRow.ThumbsAction extends android.support.v17.leanback.widget.PlaybackControlsRow.MultiAction {
     ctor public PlaybackControlsRow.ThumbsAction(int, android.content.Context, int, int);
-    field public static int OUTLINE;
-    field public static int SOLID;
+    field public static final int INDEX_OUTLINE = 1; // 0x1
+    field public static final int INDEX_SOLID = 0; // 0x0
+    field public static deprecated int OUTLINE;
+    field public static deprecated int SOLID;
   }
 
   public static class PlaybackControlsRow.ThumbsDownAction extends android.support.v17.leanback.widget.PlaybackControlsRow.ThumbsAction {
@@ -7218,6 +7235,10 @@ package android.support.v4.media {
     method public void subscribe(java.lang.String, android.os.Bundle, android.support.v4.media.MediaBrowserCompat.SubscriptionCallback);
     method public void unsubscribe(java.lang.String);
     method public void unsubscribe(java.lang.String, android.support.v4.media.MediaBrowserCompat.SubscriptionCallback);
+    field public static final java.lang.String CUSTOM_ACTION_DOWNLOAD = "android.support.v4.media.action.DOWNLOAD";
+    field public static final java.lang.String CUSTOM_ACTION_REMOVE_DOWNLOADED_FILE = "android.support.v4.media.action.REMOVE_DOWNLOADED_FILE";
+    field public static final java.lang.String EXTRA_DOWNLOAD_PROGRESS = "android.media.browse.extra.DOWNLOAD_PROGRESS";
+    field public static final java.lang.String EXTRA_MEDIA_ID = "android.media.browse.extra.MEDIA_ID";
     field public static final java.lang.String EXTRA_PAGE = "android.media.browse.extra.PAGE";
     field public static final java.lang.String EXTRA_PAGE_SIZE = "android.media.browse.extra.PAGE_SIZE";
   }
@@ -7329,6 +7350,10 @@ package android.support.v4.media {
     field public static final long BT_FOLDER_TYPE_YEARS = 6L; // 0x6L
     field public static final android.os.Parcelable.Creator<android.support.v4.media.MediaDescriptionCompat> CREATOR;
     field public static final java.lang.String EXTRA_BT_FOLDER_TYPE = "android.media.extra.BT_FOLDER_TYPE";
+    field public static final java.lang.String EXTRA_DOWNLOAD_STATUS = "android.media.extra.DOWNLOAD_STATUS";
+    field public static final long STATUS_DOWNLOADED = 2L; // 0x2L
+    field public static final long STATUS_DOWNLOADING = 1L; // 0x1L
+    field public static final long STATUS_NOT_DOWNLOADED = 0L; // 0x0L
   }
 
   public static final class MediaDescriptionCompat.Builder {
@@ -7379,6 +7404,7 @@ package android.support.v4.media {
     field public static final java.lang.String METADATA_KEY_DISPLAY_ICON_URI = "android.media.metadata.DISPLAY_ICON_URI";
     field public static final java.lang.String METADATA_KEY_DISPLAY_SUBTITLE = "android.media.metadata.DISPLAY_SUBTITLE";
     field public static final java.lang.String METADATA_KEY_DISPLAY_TITLE = "android.media.metadata.DISPLAY_TITLE";
+    field public static final java.lang.String METADATA_KEY_DOWNLOAD_STATUS = "android.media.metadata.DOWNLOAD_STATUS";
     field public static final java.lang.String METADATA_KEY_DURATION = "android.media.metadata.DURATION";
     field public static final java.lang.String METADATA_KEY_GENRE = "android.media.metadata.GENRE";
     field public static final java.lang.String METADATA_KEY_MEDIA_ID = "android.media.metadata.MEDIA_ID";
@@ -7482,9 +7508,10 @@ package android.support.v4.media.session {
     method public int getRepeatMode();
     method public android.app.PendingIntent getSessionActivity();
     method public android.support.v4.media.session.MediaSessionCompat.Token getSessionToken();
+    method public int getShuffleMode();
     method public android.support.v4.media.session.MediaControllerCompat.TransportControls getTransportControls();
     method public boolean isCaptioningEnabled();
-    method public boolean isShuffleModeEnabled();
+    method public deprecated boolean isShuffleModeEnabled();
     method public void registerCallback(android.support.v4.media.session.MediaControllerCompat.Callback);
     method public void registerCallback(android.support.v4.media.session.MediaControllerCompat.Callback, android.os.Handler);
     method public void removeQueueItem(android.support.v4.media.MediaDescriptionCompat);
@@ -7508,7 +7535,8 @@ package android.support.v4.media.session {
     method public void onRepeatModeChanged(int);
     method public void onSessionDestroyed();
     method public void onSessionEvent(java.lang.String, android.os.Bundle);
-    method public void onShuffleModeChanged(boolean);
+    method public deprecated void onShuffleModeChanged(boolean);
+    method public void onShuffleModeChanged(int);
   }
 
   public static final class MediaControllerCompat.PlaybackInfo {
@@ -7539,7 +7567,8 @@ package android.support.v4.media.session {
     method public abstract void setCaptioningEnabled(boolean);
     method public abstract void setRating(android.support.v4.media.RatingCompat);
     method public abstract void setRepeatMode(int);
-    method public abstract void setShuffleModeEnabled(boolean);
+    method public abstract void setShuffleMode(int);
+    method public abstract deprecated void setShuffleModeEnabled(boolean);
     method public abstract void skipToNext();
     method public abstract void skipToPrevious();
     method public abstract void skipToQueueItem(long);
@@ -7575,12 +7604,20 @@ package android.support.v4.media.session {
     method public void setRatingType(int);
     method public void setRepeatMode(int);
     method public void setSessionActivity(android.app.PendingIntent);
-    method public void setShuffleModeEnabled(boolean);
+    method public void setShuffleMode(int);
+    method public deprecated void setShuffleModeEnabled(boolean);
+    field public static final java.lang.String ACTION_ARGUMENT_MEDIA_ATTRIBUTE = "android.support.v4.media.session.action.ARGUMENT_MEDIA_ATTRIBUTE";
+    field public static final java.lang.String ACTION_ARGUMENT_MEDIA_ATTRIBUTE_VALUE = "android.support.v4.media.session.action.ARGUMENT_MEDIA_ATTRIBUTE_VALUE";
     field public static final java.lang.String ACTION_FLAG_AS_INAPPROPRIATE = "android.support.v4.media.session.action.FLAG_AS_INAPPROPRIATE";
+    field public static final java.lang.String ACTION_FOLLOW = "android.support.v4.media.session.action.FOLLOW";
     field public static final java.lang.String ACTION_SKIP_AD = "android.support.v4.media.session.action.SKIP_AD";
+    field public static final java.lang.String ACTION_UNFOLLOW = "android.support.v4.media.session.action.UNFOLLOW";
     field public static final int FLAG_HANDLES_MEDIA_BUTTONS = 1; // 0x1
     field public static final int FLAG_HANDLES_QUEUE_COMMANDS = 4; // 0x4
     field public static final int FLAG_HANDLES_TRANSPORT_CONTROLS = 2; // 0x2
+    field public static final int MEDIA_ATTRIBUTE_ALBUM = 1; // 0x1
+    field public static final int MEDIA_ATTRIBUTE_ARTIST = 0; // 0x0
+    field public static final int MEDIA_ATTRIBUTE_PLAYLIST = 2; // 0x2
   }
 
   public static abstract class MediaSessionCompat.Callback {
@@ -7607,7 +7644,8 @@ package android.support.v4.media.session {
     method public void onSetCaptioningEnabled(boolean);
     method public void onSetRating(android.support.v4.media.RatingCompat);
     method public void onSetRepeatMode(int);
-    method public void onSetShuffleModeEnabled(boolean);
+    method public void onSetShuffleMode(int);
+    method public deprecated void onSetShuffleModeEnabled(boolean);
     method public void onSkipToNext();
     method public void onSkipToPrevious();
     method public void onSkipToQueueItem(long);
@@ -7705,8 +7743,12 @@ package android.support.v4.media.session {
     field public static final int ERROR_CODE_UNKNOWN_ERROR = 0; // 0x0
     field public static final long PLAYBACK_POSITION_UNKNOWN = -1L; // 0xffffffffffffffffL
     field public static final int REPEAT_MODE_ALL = 2; // 0x2
+    field public static final int REPEAT_MODE_GROUP = 3; // 0x3
     field public static final int REPEAT_MODE_NONE = 0; // 0x0
     field public static final int REPEAT_MODE_ONE = 1; // 0x1
+    field public static final int SHUFFLE_MODE_ALL = 1; // 0x1
+    field public static final int SHUFFLE_MODE_GROUP = 2; // 0x2
+    field public static final int SHUFFLE_MODE_NONE = 0; // 0x0
     field public static final int STATE_BUFFERING = 6; // 0x6
     field public static final int STATE_CONNECTING = 8; // 0x8
     field public static final int STATE_ERROR = 7; // 0x7
@@ -7791,7 +7833,7 @@ package android.support.v4.os {
   public class BuildCompat {
     method public static deprecated boolean isAtLeastN();
     method public static deprecated boolean isAtLeastNMR1();
-    method public static boolean isAtLeastO();
+    method public static deprecated boolean isAtLeastO();
     method public static boolean isAtLeastOMR1();
     method public static boolean isAtLeastP();
   }

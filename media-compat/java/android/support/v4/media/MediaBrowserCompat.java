@@ -49,6 +49,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.BadParcelableException;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
@@ -118,6 +119,47 @@ public final class MediaBrowserCompat {
      * @see #EXTRA_PAGE
      */
     public static final String EXTRA_PAGE_SIZE = "android.media.browse.extra.PAGE_SIZE";
+
+    /**
+     * Used as a string extra field to denote the target {@link MediaItem}.
+     *
+     * @see #CUSTOM_ACTION_DOWNLOAD
+     * @see #CUSTOM_ACTION_REMOVE_DOWNLOADED_FILE
+     */
+    public static final String EXTRA_MEDIA_ID = "android.media.browse.extra.MEDIA_ID";
+
+    /**
+     * Used as a float extra field to denote the current progress during download. The value of this
+     * field must be a float number within [0.0, 1.0].
+     *
+     * @see #CUSTOM_ACTION_DOWNLOAD
+     * @see CustomActionCallback#onProgressUpdate
+     */
+    public static final String EXTRA_DOWNLOAD_PROGRESS =
+            "android.media.browse.extra.DOWNLOAD_PROGRESS";
+
+    /**
+     * Predefined custom action to ask the connected service to download a specific
+     * {@link MediaItem} for offline playback. The id of the media item must be passed in an extra
+     * bundle. The download progress might be delivered to the browser via
+     * {@link CustomActionCallback#onProgressUpdate}.
+     *
+     * @see #EXTRA_MEDIA_ID
+     * @see #EXTRA_DOWNLOAD_PROGRESS
+     * @see #CUSTOM_ACTION_REMOVE_DOWNLOADED_FILE
+     */
+    public static final String CUSTOM_ACTION_DOWNLOAD = "android.support.v4.media.action.DOWNLOAD";
+
+    /**
+     * Predefined custom action to ask the connected service to remove the downloaded file of
+     * {@link MediaItem} by the {@link #CUSTOM_ACTION_DOWNLOAD download} action. The id of the
+     * media item must be passed in an extra bundle.
+     *
+     * @see #EXTRA_MEDIA_ID
+     * @see #CUSTOM_ACTION_DOWNLOAD
+     */
+    public static final String CUSTOM_ACTION_REMOVE_DOWNLOADED_FILE =
+            "android.support.v4.media.action.REMOVE_DOWNLOADED_FILE";
 
     private final MediaBrowserImpl mImpl;
 
@@ -370,6 +412,8 @@ public final class MediaBrowserCompat {
      *            empty string.
      * @param extras The bundle of service-specific arguments to send to the media browser service.
      * @param callback The callback to receive the result of the custom action.
+     * @see #CUSTOM_ACTION_DOWNLOAD
+     * @see #CUSTOM_ACTION_REMOVE_DOWNLOADED_FILE
      */
     public void sendCustomAction(@NonNull String action, Bundle extras,
             @Nullable CustomActionCallback callback) {
@@ -1984,26 +2028,38 @@ public final class MediaBrowserCompat {
             }
             Bundle data = msg.getData();
             data.setClassLoader(MediaSessionCompat.class.getClassLoader());
-            switch (msg.what) {
-                case SERVICE_MSG_ON_CONNECT:
-                    mCallbackImplRef.get().onServiceConnected(mCallbacksMessengerRef.get(),
-                            data.getString(DATA_MEDIA_ITEM_ID),
-                            (MediaSessionCompat.Token) data.getParcelable(DATA_MEDIA_SESSION_TOKEN),
-                            data.getBundle(DATA_ROOT_HINTS));
-                    break;
-                case SERVICE_MSG_ON_CONNECT_FAILED:
-                    mCallbackImplRef.get().onConnectionFailed(mCallbacksMessengerRef.get());
-                    break;
-                case SERVICE_MSG_ON_LOAD_CHILDREN:
-                    mCallbackImplRef.get().onLoadChildren(mCallbacksMessengerRef.get(),
-                            data.getString(DATA_MEDIA_ITEM_ID),
-                            data.getParcelableArrayList(DATA_MEDIA_ITEM_LIST),
-                            data.getBundle(DATA_OPTIONS));
-                    break;
-                default:
-                    Log.w(TAG, "Unhandled message: " + msg
-                            + "\n  Client version: " + CLIENT_VERSION_CURRENT
-                            + "\n  Service version: " + msg.arg1);
+            MediaBrowserServiceCallbackImpl serviceCallback = mCallbackImplRef.get();
+            Messenger callbacksMessenger = mCallbacksMessengerRef.get();
+            try {
+                switch (msg.what) {
+                    case SERVICE_MSG_ON_CONNECT:
+                        serviceCallback.onServiceConnected(callbacksMessenger,
+                                data.getString(DATA_MEDIA_ITEM_ID),
+                                (MediaSessionCompat.Token) data.getParcelable(
+                                        DATA_MEDIA_SESSION_TOKEN),
+                                data.getBundle(DATA_ROOT_HINTS));
+                        break;
+                    case SERVICE_MSG_ON_CONNECT_FAILED:
+                        serviceCallback.onConnectionFailed(callbacksMessenger);
+                        break;
+                    case SERVICE_MSG_ON_LOAD_CHILDREN:
+                        serviceCallback.onLoadChildren(callbacksMessenger,
+                                data.getString(DATA_MEDIA_ITEM_ID),
+                                data.getParcelableArrayList(DATA_MEDIA_ITEM_LIST),
+                                data.getBundle(DATA_OPTIONS));
+                        break;
+                    default:
+                        Log.w(TAG, "Unhandled message: " + msg
+                                + "\n  Client version: " + CLIENT_VERSION_CURRENT
+                                + "\n  Service version: " + msg.arg1);
+                }
+            } catch (BadParcelableException e) {
+                // Do not print the exception here, since it is already done by the Parcel class.
+                Log.e(TAG, "Could not unparcel the data.");
+                // If an error happened while connecting, disconnect from the service.
+                if (msg.what == SERVICE_MSG_ON_CONNECT) {
+                    serviceCallback.onConnectionFailed(callbacksMessenger);
+                }
             }
         }
 
