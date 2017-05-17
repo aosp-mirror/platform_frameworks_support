@@ -49,6 +49,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.BadParcelableException;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
@@ -118,6 +119,47 @@ public final class MediaBrowserCompat {
      * @see #EXTRA_PAGE
      */
     public static final String EXTRA_PAGE_SIZE = "android.media.browse.extra.PAGE_SIZE";
+
+    /**
+     * Used as a string extra field to denote the target {@link MediaItem}.
+     *
+     * @see #CUSTOM_ACTION_DOWNLOAD
+     * @see #CUSTOM_ACTION_REMOVE_DOWNLOADED_FILE
+     */
+    public static final String EXTRA_MEDIA_ID = "android.media.browse.extra.MEDIA_ID";
+
+    /**
+     * Used as a float extra field to denote the current progress during download. The value of this
+     * field must be a float number within [0.0, 1.0].
+     *
+     * @see #CUSTOM_ACTION_DOWNLOAD
+     * @see CustomActionCallback#onProgressUpdate
+     */
+    public static final String EXTRA_DOWNLOAD_PROGRESS =
+            "android.media.browse.extra.DOWNLOAD_PROGRESS";
+
+    /**
+     * Predefined custom action to ask the connected service to download a specific
+     * {@link MediaItem} for offline playback. The id of the media item must be passed in an extra
+     * bundle. The download progress might be delivered to the browser via
+     * {@link CustomActionCallback#onProgressUpdate}.
+     *
+     * @see #EXTRA_MEDIA_ID
+     * @see #EXTRA_DOWNLOAD_PROGRESS
+     * @see #CUSTOM_ACTION_REMOVE_DOWNLOADED_FILE
+     */
+    public static final String CUSTOM_ACTION_DOWNLOAD = "android.support.v4.media.action.DOWNLOAD";
+
+    /**
+     * Predefined custom action to ask the connected service to remove the downloaded file of
+     * {@link MediaItem} by the {@link #CUSTOM_ACTION_DOWNLOAD download} action. The id of the
+     * media item must be passed in an extra bundle.
+     *
+     * @see #EXTRA_MEDIA_ID
+     * @see #CUSTOM_ACTION_DOWNLOAD
+     */
+    public static final String CUSTOM_ACTION_REMOVE_DOWNLOADED_FILE =
+            "android.support.v4.media.action.REMOVE_DOWNLOADED_FILE";
 
     private final MediaBrowserImpl mImpl;
 
@@ -370,6 +412,8 @@ public final class MediaBrowserCompat {
      *            empty string.
      * @param extras The bundle of service-specific arguments to send to the media browser service.
      * @param callback The callback to receive the result of the custom action.
+     * @see #CUSTOM_ACTION_DOWNLOAD
+     * @see #CUSTOM_ACTION_REMOVE_DOWNLOADED_FILE
      */
     public void sendCustomAction(@NonNull String action, Bundle extras,
             @Nullable CustomActionCallback callback) {
@@ -955,63 +999,60 @@ public final class MediaBrowserCompat {
 
         @Override
         public void connect() {
-            if (mState != CONNECT_STATE_DISCONNECTED) {
-                throw new IllegalStateException("connect() called while not disconnected (state="
-                        + getStateLabel(mState) + ")");
-            }
-            // TODO: remove this extra check.
-            if (DEBUG) {
-                if (mServiceConnection != null) {
-                    throw new RuntimeException("mServiceConnection should be null. Instead it is "
-                            + mServiceConnection);
-                }
-            }
-            if (mServiceBinderWrapper != null) {
-                throw new RuntimeException("mServiceBinderWrapper should be null. Instead it is "
-                        + mServiceBinderWrapper);
-            }
-            if (mCallbacksMessenger != null) {
-                throw new RuntimeException("mCallbacksMessenger should be null. Instead it is "
-                        + mCallbacksMessenger);
+            if (mState != CONNECT_STATE_DISCONNECTING && mState != CONNECT_STATE_DISCONNECTED) {
+                throw new IllegalStateException("connect() called while neigther disconnecting nor "
+                        + "disconnected (state=" + getStateLabel(mState) + ")");
             }
 
             mState = CONNECT_STATE_CONNECTING;
-
-            final Intent intent = new Intent(MediaBrowserServiceCompat.SERVICE_INTERFACE);
-            intent.setComponent(mServiceComponent);
-
-            final ServiceConnection thisConnection = mServiceConnection =
-                    new MediaServiceConnection();
-
-            boolean bound = false;
-            try {
-                bound = mContext.bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
-            } catch (Exception ex) {
-                Log.e(TAG, "Failed binding to service " + mServiceComponent);
-            }
-
-            if (!bound) {
-                // Tell them that it didn't work. We are already on the main thread,
-                // but we don't want to do callbacks inside of connect(). So post it,
-                // and then check that we are on the same ServiceConnection. We know
-                // we won't also get an onServiceConnected or onServiceDisconnected,
-                // so we won't be doing double callbacks.
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Ensure that nobody else came in or tried to connect again.
-                        if (thisConnection == mServiceConnection) {
-                            forceCloseConnection();
-                            mCallback.onConnectionFailed();
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    // mState could be changed by the Runnable of disconnect()
+                    if (mState == CONNECT_STATE_DISCONNECTING) {
+                        return;
+                    }
+                    mState = CONNECT_STATE_CONNECTING;
+                    // TODO: remove this extra check.
+                    if (DEBUG) {
+                        if (mServiceConnection != null) {
+                            throw new RuntimeException("mServiceConnection should be null. Instead "
+                                    + "it is " + mServiceConnection);
                         }
                     }
-                });
-            }
+                    if (mServiceBinderWrapper != null) {
+                        throw new RuntimeException("mServiceBinderWrapper should be null. Instead "
+                                + "it is " + mServiceBinderWrapper);
+                    }
+                    if (mCallbacksMessenger != null) {
+                        throw new RuntimeException("mCallbacksMessenger should be null. Instead "
+                                + "it is " + mCallbacksMessenger);
+                    }
 
-            if (DEBUG) {
-                Log.d(TAG, "connect...");
-                dump();
-            }
+                    final Intent intent = new Intent(MediaBrowserServiceCompat.SERVICE_INTERFACE);
+                    intent.setComponent(mServiceComponent);
+
+                    mServiceConnection = new MediaServiceConnection();
+                    boolean bound = false;
+                    try {
+                        bound = mContext.bindService(intent, mServiceConnection,
+                                Context.BIND_AUTO_CREATE);
+                    } catch (Exception ex) {
+                        Log.e(TAG, "Failed binding to service " + mServiceComponent);
+                    }
+
+                    if (!bound) {
+                        // Tell them that it didn't work.
+                        forceCloseConnection();
+                        mCallback.onConnectionFailed();
+                    }
+
+                    if (DEBUG) {
+                        Log.d(TAG, "connect...");
+                        dump();
+                    }
+                }
+            });
         }
 
         @Override
@@ -1023,6 +1064,7 @@ public final class MediaBrowserCompat {
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
+                    // connect() could be called before this. Then we will disconnect and reconnect.
                     if (mCallbacksMessenger != null) {
                         try {
                             mServiceBinderWrapper.disconnect(mCallbacksMessenger);
@@ -1032,7 +1074,13 @@ public final class MediaBrowserCompat {
                             Log.w(TAG, "RemoteException during connect for " + mServiceComponent);
                         }
                     }
+                    int state = mState;
                     forceCloseConnection();
+                    // If the state was not CONNECT_STATE_DISCONNECTING, keep the state so that
+                    // the operation came after disconnect() can be handled properly.
+                    if (state != CONNECT_STATE_DISCONNECTING) {
+                        mState = state;
+                    }
                     if (DEBUG) {
                         Log.d(TAG, "disconnect...");
                         dump();
@@ -1382,8 +1430,9 @@ public final class MediaBrowserCompat {
          */
         @SuppressWarnings("ReferenceEquality")
         private boolean isCurrent(Messenger callback, String funcName) {
-            if (mCallbacksMessenger != callback) {
-                if (mState != CONNECT_STATE_DISCONNECTED) {
+            if (mCallbacksMessenger != callback || mState == CONNECT_STATE_DISCONNECTING
+                    || mState == CONNECT_STATE_DISCONNECTED) {
+                if (mState != CONNECT_STATE_DISCONNECTING && mState != CONNECT_STATE_DISCONNECTED) {
                     Log.i(TAG, funcName + " for " + mServiceComponent + " with mCallbacksMessenger="
                             + mCallbacksMessenger + " this=" + this);
                 }
@@ -1507,8 +1556,10 @@ public final class MediaBrowserCompat {
              * Return true if this is the current ServiceConnection. Also logs if it's not.
              */
             boolean isCurrent(String funcName) {
-                if (mServiceConnection != this) {
-                    if (mState != CONNECT_STATE_DISCONNECTED) {
+                if (mServiceConnection != this || mState == CONNECT_STATE_DISCONNECTING
+                        || mState == CONNECT_STATE_DISCONNECTED) {
+                    if (mState != CONNECT_STATE_DISCONNECTING
+                            && mState != CONNECT_STATE_DISCONNECTED) {
                         // Check mState, because otherwise this log is noisy.
                         Log.i(TAG, funcName + " for " + mServiceComponent +
                                 " with mServiceConnection=" + mServiceConnection + " this=" + this);
@@ -1984,26 +2035,38 @@ public final class MediaBrowserCompat {
             }
             Bundle data = msg.getData();
             data.setClassLoader(MediaSessionCompat.class.getClassLoader());
-            switch (msg.what) {
-                case SERVICE_MSG_ON_CONNECT:
-                    mCallbackImplRef.get().onServiceConnected(mCallbacksMessengerRef.get(),
-                            data.getString(DATA_MEDIA_ITEM_ID),
-                            (MediaSessionCompat.Token) data.getParcelable(DATA_MEDIA_SESSION_TOKEN),
-                            data.getBundle(DATA_ROOT_HINTS));
-                    break;
-                case SERVICE_MSG_ON_CONNECT_FAILED:
-                    mCallbackImplRef.get().onConnectionFailed(mCallbacksMessengerRef.get());
-                    break;
-                case SERVICE_MSG_ON_LOAD_CHILDREN:
-                    mCallbackImplRef.get().onLoadChildren(mCallbacksMessengerRef.get(),
-                            data.getString(DATA_MEDIA_ITEM_ID),
-                            data.getParcelableArrayList(DATA_MEDIA_ITEM_LIST),
-                            data.getBundle(DATA_OPTIONS));
-                    break;
-                default:
-                    Log.w(TAG, "Unhandled message: " + msg
-                            + "\n  Client version: " + CLIENT_VERSION_CURRENT
-                            + "\n  Service version: " + msg.arg1);
+            MediaBrowserServiceCallbackImpl serviceCallback = mCallbackImplRef.get();
+            Messenger callbacksMessenger = mCallbacksMessengerRef.get();
+            try {
+                switch (msg.what) {
+                    case SERVICE_MSG_ON_CONNECT:
+                        serviceCallback.onServiceConnected(callbacksMessenger,
+                                data.getString(DATA_MEDIA_ITEM_ID),
+                                (MediaSessionCompat.Token) data.getParcelable(
+                                        DATA_MEDIA_SESSION_TOKEN),
+                                data.getBundle(DATA_ROOT_HINTS));
+                        break;
+                    case SERVICE_MSG_ON_CONNECT_FAILED:
+                        serviceCallback.onConnectionFailed(callbacksMessenger);
+                        break;
+                    case SERVICE_MSG_ON_LOAD_CHILDREN:
+                        serviceCallback.onLoadChildren(callbacksMessenger,
+                                data.getString(DATA_MEDIA_ITEM_ID),
+                                data.getParcelableArrayList(DATA_MEDIA_ITEM_LIST),
+                                data.getBundle(DATA_OPTIONS));
+                        break;
+                    default:
+                        Log.w(TAG, "Unhandled message: " + msg
+                                + "\n  Client version: " + CLIENT_VERSION_CURRENT
+                                + "\n  Service version: " + msg.arg1);
+                }
+            } catch (BadParcelableException e) {
+                // Do not print the exception here, since it is already done by the Parcel class.
+                Log.e(TAG, "Could not unparcel the data.");
+                // If an error happened while connecting, disconnect from the service.
+                if (msg.what == SERVICE_MSG_ON_CONNECT) {
+                    serviceCallback.onConnectionFailed(callbacksMessenger);
+                }
             }
         }
 

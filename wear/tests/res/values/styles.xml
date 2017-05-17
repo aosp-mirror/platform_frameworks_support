@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (C) 2017 The Android Open Source Project
   ~
@@ -17,5 +18,9 @@
 <resources>
     <style name="AppThemeNoSwipe" parent="@android:style/Theme.DeviceDefault.Light">
         <item name="android:windowSwipeToDismiss">false</item>
+    </style>
+    <style name="DrawerLayoutStyle" parent="@android:style/Theme.DeviceDefault">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 </resources>

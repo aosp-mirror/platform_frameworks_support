@@ -91,7 +91,10 @@ def setSdkInLocalPropertiesFile() {
 }
 
 def setupRepoOutAndBuildNumber() {
+    // common support repo folder which works well for prebuilts.
     ext.supportRepoOut = ''
+    // files in artifactoryRepoOut can be safely copied into a real artifactory.
+    ext.artifactoryRepoOut = ''
     ext.buildNumber = Integer.toString(ext.extraVersion)
 
     /*
@@ -121,6 +124,7 @@ def setupRepoOutAndBuildNumber() {
         project.buildDir = new File("$project.parent.buildDir/../$project.name/build")
     }
     ext.supportRepoOut = new File(buildDir, 'support_repo')
+    ext.artifactoryRepoOut =  new File(buildDir, 'artifactory_repo')
     ext.testApkDistOut = ext.distDir
     ext.testResultsDistDir = new File(distDir, "host-test-reports")
     ext.docsDir = new File(buildDir, 'javadoc')
@@ -130,8 +134,13 @@ def configureSubProjects() {
     // lint every library
     def lintTask = project.tasks.create("lint")
     subprojects {
+        repos.addMavenRepositories(repositories)
+
         // Only modify Android projects.
-        if (project.name.equals('doclava') || project.name.equals('jdiff')) {
+        if (project.name.equals('doclava')
+                || project.name.equals('jdiff')
+                || project.name.equals('support-testutils')
+                || project.name.equals('noto-emoji-compat')) {
             // disable tests and return
             project.tasks.whenTaskAdded { task ->
                 if (task instanceof org.gradle.api.tasks.testing.Test) {
@@ -148,7 +157,6 @@ def configureSubProjects() {
         version = rootProject.ext.supportVersion
         group = 'com.android.support'
 
-        repos.addMavenRepositories(repositories)
         project.plugins.whenPluginAdded { plugin ->
             def isAndroidLibrary = "com.android.build.gradle.LibraryPlugin"
                     .equals(plugin.class.name)
@@ -213,74 +221,58 @@ def configureSubProjects() {
                 // Add library to the aggregate dependency report.
                 task allDeps(type: DependencyReportTask) {}
 
-                // Create release and separate zip task for library.
-                task release(type: Upload) {
-                    configuration = configurations.archives
-                    repositories {
-                        mavenDeployer {
-                            repository(url: uri("$rootProject.ext.supportRepoOut"))
+                project.afterEvaluate {
+                    Upload uploadTask = (Upload) project.tasks.uploadArchives;
+                    uploadTask.repositories.mavenDeployer {
 
-                            // Disable unique names for SNAPSHOTS so they can be updated in place.
-                            setUniqueVersion(false)
-                            doLast {
-                                // Remove any invalid maven-metadata.xml files that may have been
-                                // created for SNAPSHOT versions that are *not* uniquely versioned.
-                                pom*.each { pom ->
-                                    if (pom.version.endsWith('-SNAPSHOT')) {
-                                        final File artifactDir = new File(
-                                                rootProject.ext.supportRepoOut,
-                                                pom.groupId.replace('.', '/')
-                                                        + '/' + pom.artifactId
-                                                        + '/' + pom.version)
-                                        delete fileTree(dir: artifactDir,
-                                                include: 'maven-metadata.xml*')
-                                    }
-                                }
+                        // Disable unique names for SNAPSHOTS so they can be updated in place.
+                        setUniqueVersion(false)
+                    }
+                    uploadTask.doLast {
+                        // Remove any invalid maven-metadata.xml files that may have been
+                        // created for SNAPSHOT versions that are *not* uniquely versioned.
+                        repositories.mavenDeployer.pom*.each { pom ->
+                            if (pom.version.endsWith('-SNAPSHOT')) {
+                                final File artifactDir = new File(
+                                        rootProject.ext.supportRepoOut,
+                                        pom.groupId.replace('.', '/')
+                                                + '/' + pom.artifactId
+                                                + '/' + pom.version)
+                                delete fileTree(dir: artifactDir,
+                                        include: 'maven-metadata.xml*')
                             }
                         }
                     }
+
+                    uploadTask.repositories.mavenDeployer.pom*.whenConfigured { pom ->
+                        pom.dependencies.findAll { dep ->
+                            dep.groupId == 'com.android.support' &&
+                                    dep.artifactId != 'support-annotations'
+                        }*.type = 'aar'
+                    }
+
+                    // create a release task that produces artifactory friends artifacts
+                    // a.k.a. unique versions for snapshots with their maven-metadata files.
+                    task artifactoryRelease(type : Upload) {
+                        configuration = uploadTask.configuration
+                        repositories {
+                            mavenDeployer {
+                                repository(url: uri("$rootProject.ext.artifactoryRepoOut"))
+                                setUniqueVersion(true)
+                            }
+                        }
+                    }
+
+                    // Before the upload, make sure the repo is ready.
+                    uploadTask.dependsOn rootProject.tasks.prepareRepo
+
+                    artifactoryRelease.dependsOn uploadTask
+
+                    // Make the mainupload depend on this one.
+                    mainUpload.dependsOn uploadTask
+                    mainUpload.dependsOn artifactoryRelease
                 }
 
-                def deployer = release.repositories.mavenDeployer
-                deployer.pom*.whenConfigured { pom ->
-                    pom.dependencies.findAll { dep ->
-                        dep.groupId == 'com.android.support' &&
-                                dep.artifactId != 'support-annotations'
-                    }*.type = 'aar'
-                }
-
-                ext.versionDir = {
-                    def groupDir = new File(rootProject.ext.supportRepoOut,
-                            project.group.replace('.', '/'))
-                    def artifactDir = new File(groupDir, archivesBaseName)
-                    return new File(artifactDir, version)
-                }
-
-                task generateSourceProps(dependsOn: createRepository)
-                generateSourceProps.doLast({
-                    def content = "Maven.GroupId=$deployer.pom.groupId\n" +
-                            "Maven.ArtifactId=$deployer.pom.artifactId\n" +
-                            "Maven.Version=$deployer.pom.version\n" +
-                            "Extra.VendorDisplay=Android\n" +
-                            "Extra.VendorId=android\n" +
-                            "Pkg.Desc=$project.name\n" +
-                            "Pkg.Revision=1\n" +
-                            "Maven.Dependencies=" +
-                            String.join(",", project.configurations.compile.allDependencies
-                                    .collect {
-                                def p = parent.findProject(it.name)
-                                return p ? "$p.group:$p.archivesBaseName:$p.version" : null
-                            }.grep()) +
-                            "\n"
-                    Files.write(content, new File(versionDir(), 'source.properties'),
-                            Charsets.UTF_8)
-                })
-
-                // Before the upload, make sure the repo is ready.
-                release.dependsOn rootProject.tasks.prepareRepo
-
-                // Make the mainupload depend on this one.
-                mainUpload.dependsOn release
             }
         }
 

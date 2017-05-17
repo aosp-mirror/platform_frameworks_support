@@ -44,7 +44,7 @@ class NotificationCompatApi26 {
                 String sortKey, CharSequence[] remoteInputHistory, RemoteViews contentView,
                 RemoteViews bigContentView, RemoteViews headsUpContentView,
                 String channelId, int badgeIcon, String shortcutId, long timeoutMs,
-                boolean colorized, boolean colorizedSet) {
+                boolean colorized, boolean colorizedSet, int groupAlertBehavior) {
             mB = new Notification.Builder(context, channelId)
                     .setWhen(n.when)
                     .setShowWhen(showWhen)
@@ -81,10 +81,11 @@ class NotificationCompatApi26 {
                     .setVisibility(visibility)
                     .setPublicVersion(publicVersion)
                     .setRemoteInputHistory(remoteInputHistory)
-                    .setChannel(channelId)
+                    .setChannelId(channelId)
                     .setBadgeIconType(badgeIcon)
                     .setShortcutId(shortcutId)
-                    .setTimeout(timeoutMs);
+                    .setTimeoutAfter(timeoutMs)
+                    .setGroupAlertBehavior(groupAlertBehavior);
             if (colorizedSet) {
                 mB.setColorized(colorized);
             }

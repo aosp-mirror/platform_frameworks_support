@@ -16,12 +16,10 @@ package android.support.v17.leanback.widget;
 import static android.support.v17.leanback.widget.ItemAlignmentFacet.ITEM_ALIGN_OFFSET_PERCENT_DISABLED;
 import static android.support.v7.widget.RecyclerView.HORIZONTAL;
 
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.v17.leanback.widget.GridLayoutManager.LayoutParams;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 /**
  * Helper class to handle ItemAlignmentFacet in a grid view.
@@ -45,31 +43,48 @@ class ItemAlignmentFacetHelper {
         }
         int alignPos = facet.mOffset;
         if (orientation == HORIZONTAL) {
-            if (facet.mOffset >= 0) {
+            if (itemView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+                alignPos = (view == itemView ? p.getOpticalWidth(view)
+                        : view.getWidth()) - alignPos;
                 if (facet.mOffsetWithPadding) {
-                    alignPos += view.getPaddingLeft();
+                    if (facet.mOffsetPercent == 0f) {
+                        alignPos -= view.getPaddingRight();
+                    } else if (facet.mOffsetPercent == 100f) {
+                        alignPos += view.getPaddingLeft();
+                    }
                 }
-            } else {
+                if (facet.mOffsetPercent != ITEM_ALIGN_OFFSET_PERCENT_DISABLED) {
+                    alignPos -= (int) (((view == itemView ? p.getOpticalWidth(view)
+                            : view.getWidth()) * facet.mOffsetPercent) / 100f);
+                }
+                if (itemView != view) {
+                    sRect.right = alignPos;
+                    ((ViewGroup) itemView).offsetDescendantRectToMyCoords(view, sRect);
+                    alignPos = sRect.right + p.getOpticalRightInset();
+                }
+            } else  {
                 if (facet.mOffsetWithPadding) {
-                    alignPos -= view.getPaddingRight();
+                    if (facet.mOffsetPercent == 0f) {
+                        alignPos += view.getPaddingLeft();
+                    } else if (facet.mOffsetPercent == 100f) {
+                        alignPos -= view.getPaddingRight();
+                    }
                 }
-            }
-            if (facet.mOffsetPercent != ITEM_ALIGN_OFFSET_PERCENT_DISABLED) {
-                alignPos += (int) (((view == itemView ? p.getOpticalWidth(view) : view.getWidth())
-                        * facet.mOffsetPercent) / 100f);
-            }
-            if (itemView != view) {
-                sRect.left = alignPos;
-                ((ViewGroup) itemView).offsetDescendantRectToMyCoords(view, sRect);
-                alignPos = sRect.left - p.getOpticalLeftInset();
+                if (facet.mOffsetPercent != ITEM_ALIGN_OFFSET_PERCENT_DISABLED) {
+                    alignPos += (int) (((view == itemView ? p.getOpticalWidth(view)
+                            : view.getWidth()) * facet.mOffsetPercent) / 100f);
+                }
+                if (itemView != view) {
+                    sRect.left = alignPos;
+                    ((ViewGroup) itemView).offsetDescendantRectToMyCoords(view, sRect);
+                    alignPos = sRect.left - p.getOpticalLeftInset();
+                }
             }
         } else {
-            if (facet.mOffset >= 0) {
-                if (facet.mOffsetWithPadding) {
+            if (facet.mOffsetWithPadding) {
+                if (facet.mOffsetPercent == 0f) {
                     alignPos += view.getPaddingTop();
-                }
-            } else {
-                if (facet.mOffsetWithPadding) {
+                } else if (facet.mOffsetPercent == 100f) {
                     alignPos -= view.getPaddingBottom();
                 }
             }
@@ -82,10 +97,8 @@ class ItemAlignmentFacetHelper {
                 ((ViewGroup) itemView).offsetDescendantRectToMyCoords(view, sRect);
                 alignPos = sRect.top - p.getOpticalTopInset();
             }
-            if (view instanceof TextView && facet.isAlignedToTextViewBaseLine()) {
-                Paint textPaint = ((TextView)view).getPaint();
-                int titleViewTextHeight = -textPaint.getFontMetricsInt().top;
-                alignPos += titleViewTextHeight;
+            if (facet.isAlignedToTextViewBaseLine()) {
+                alignPos += view.getBaseline();
             }
         }
         return alignPos;

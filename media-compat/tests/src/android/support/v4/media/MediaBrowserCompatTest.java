@@ -20,10 +20,10 @@ import static android.support.test.InstrumentationRegistry.getInstrumentation;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
-
-import static org.junit.Assert.fail;
+import static junit.framework.Assert.fail;
 
 import android.content.ComponentName;
 import android.os.Bundle;
@@ -32,6 +32,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.testutils.PollingCheck;
 import android.support.v4.media.MediaBrowserCompat.MediaItem;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -64,19 +65,24 @@ public class MediaBrowserCompatTest {
     private static final ComponentName TEST_REMOTE_BROWSER_SERVICE = new ComponentName(
             "android.support.mediacompat.test",
             "android.support.v4.media.StubRemoteMediaBrowserServiceCompat");
-
     private static final ComponentName TEST_INVALID_BROWSER_SERVICE = new ComponentName(
             "invalid.package", "invalid.ServiceClassName");
-    private final StubConnectionCallback mConnectionCallback = new StubConnectionCallback();
-    private final StubSubscriptionCallback mSubscriptionCallback = new StubSubscriptionCallback();
-    private final StubItemCallback mItemCallback = new StubItemCallback();
 
     private MediaBrowserCompat mMediaBrowser;
+    private StubConnectionCallback mConnectionCallback;
+    private StubSubscriptionCallback mSubscriptionCallback;
+    private StubItemCallback mItemCallback;
+
+    @Before
+    public void setUp() {
+        mConnectionCallback = new StubConnectionCallback();
+        mSubscriptionCallback = new StubSubscriptionCallback();
+        mItemCallback = new StubItemCallback();
+    }
 
     @Test
     @SmallTest
-    public void testMediaBrowser() {
-        resetCallbacks();
+    public void testMediaBrowser() throws Exception {
         createMediaBrowser(TEST_BROWSER_SERVICE);
         assertFalse(mMediaBrowser.isConnected());
 
@@ -97,13 +103,11 @@ public class MediaBrowserCompatTest {
                 return !mMediaBrowser.isConnected();
             }
         }.run();
-        assertFalse(mMediaBrowser.isConnected());
     }
 
     @Test
     @SmallTest
-    public void testMediaBrowserWithRemoteService() {
-        resetCallbacks();
+    public void testMediaBrowserWithRemoteService() throws Exception {
         createMediaBrowser(TEST_REMOTE_BROWSER_SERVICE);
         assertFalse(mMediaBrowser.isConnected());
 
@@ -123,13 +127,11 @@ public class MediaBrowserCompatTest {
                 return !mMediaBrowser.isConnected();
             }
         }.run();
-        assertFalse(mMediaBrowser.isConnected());
     }
 
     @Test
     @SmallTest
-    public void testConnectTwice() {
-        resetCallbacks();
+    public void testConnectTwice() throws Exception {
         createMediaBrowser(TEST_BROWSER_SERVICE);
         connectMediaBrowserService();
         try {
@@ -142,65 +144,86 @@ public class MediaBrowserCompatTest {
 
     @Test
     @SmallTest
-    public void testConnectionFailed() {
-        resetCallbacks();
+    public void testConnectionFailed() throws Exception {
         createMediaBrowser(TEST_INVALID_BROWSER_SERVICE);
 
-        mMediaBrowser.connect();
-        new PollingCheck(TIME_OUT_MS) {
-            @Override
-            protected boolean check() {
-                return mConnectionCallback.mConnectionFailedCount > 0
-                        && mConnectionCallback.mConnectedCount == 0
-                        && mConnectionCallback.mConnectionSuspendedCount == 0;
-            }
-        }.run();
+        synchronized (mConnectionCallback.mWaitLock) {
+            mMediaBrowser.connect();
+            mConnectionCallback.mWaitLock.wait(TIME_OUT_MS);
+        }
+        assertTrue(mConnectionCallback.mConnectionFailedCount > 0);
+        assertEquals(0, mConnectionCallback.mConnectedCount);
+        assertEquals(0, mConnectionCallback.mConnectionSuspendedCount);
     }
 
     @Test
     @SmallTest
-    public void testSecondConnection() {
-        resetCallbacks();
+    public void testReconnection() throws Exception {
         createMediaBrowser(TEST_BROWSER_SERVICE);
+
+        // Reconnect before the first connection was established.
+        mMediaBrowser.connect();
+        mMediaBrowser.disconnect();
+        resetCallbacks();
         connectMediaBrowserService();
 
+        synchronized (mSubscriptionCallback.mWaitLock) {
+            // Test subscribe.
+            resetCallbacks();
+            mMediaBrowser.subscribe(
+                    StubMediaBrowserServiceCompat.MEDIA_ID_ROOT, mSubscriptionCallback);
+            mSubscriptionCallback.mWaitLock.wait(TIME_OUT_MS);
+            assertTrue(mSubscriptionCallback.mChildrenLoadedCount > 0);
+            assertEquals(StubMediaBrowserServiceCompat.MEDIA_ID_ROOT,
+                    mSubscriptionCallback.mLastParentId);
+        }
+
+        synchronized (mItemCallback.mWaitLock) {
+            // Test getItem.
+            resetCallbacks();
+            mMediaBrowser.getItem(
+                    StubMediaBrowserServiceCompat.MEDIA_ID_CHILDREN[0], mItemCallback);
+            mItemCallback.mWaitLock.wait(TIME_OUT_MS);
+            assertEquals(StubMediaBrowserServiceCompat.MEDIA_ID_CHILDREN[0],
+                    mItemCallback.mLastMediaItem.getMediaId());
+        }
+
+        // Reconnect after connection was established.
         mMediaBrowser.disconnect();
-        // We need to sleep some time here, because the browser may not be ready to connect yet.
+        resetCallbacks();
+        connectMediaBrowserService();
+
+        synchronized (mItemCallback.mWaitLock) {
+            // Test getItem.
+            resetCallbacks();
+            mMediaBrowser.getItem(
+                    StubMediaBrowserServiceCompat.MEDIA_ID_CHILDREN[0], mItemCallback);
+            mItemCallback.mWaitLock.wait(TIME_OUT_MS);
+            assertEquals(StubMediaBrowserServiceCompat.MEDIA_ID_CHILDREN[0],
+                    mItemCallback.mLastMediaItem.getMediaId());
+        }
+    }
+
+    @Test
+    @SmallTest
+    public void testConnectionCallbackNotCalledAfterDisconnect() {
+        createMediaBrowser(TEST_BROWSER_SERVICE);
+        mMediaBrowser.connect();
+        mMediaBrowser.disconnect();
+        resetCallbacks();
         try {
             Thread.sleep(SLEEP_MS);
         } catch (InterruptedException e) {
             fail("Unexpected InterruptedException occurred.");
         }
-
-        // Connect to the service again.
-        resetCallbacks();
-        connectMediaBrowserService();
-
-        // Test subscribe.
-        resetCallbacks();
-        mMediaBrowser.subscribe(StubMediaBrowserServiceCompat.MEDIA_ID_ROOT, mSubscriptionCallback);
-        new PollingCheck(TIME_OUT_MS) {
-            @Override
-            protected boolean check() {
-                return mSubscriptionCallback.mChildrenLoadedCount > 0;
-            }
-        }.run();
-
-        // Test getItem.
-        resetCallbacks();
-        mMediaBrowser.getItem(StubMediaBrowserServiceCompat.MEDIA_ID_CHILDREN[0], mItemCallback);
-        new PollingCheck(TIME_OUT_MS) {
-            @Override
-            protected boolean check() {
-                return mItemCallback.mLastMediaItem != null;
-            }
-        }.run();
+        assertEquals(0, mConnectionCallback.mConnectedCount);
+        assertEquals(0, mConnectionCallback.mConnectionFailedCount);
+        assertEquals(0, mConnectionCallback.mConnectionSuspendedCount);
     }
 
     @Test
     @SmallTest
     public void testGetServiceComponentBeforeConnection() {
-        resetCallbacks();
         createMediaBrowser(TEST_BROWSER_SERVICE);
         try {
             ComponentName serviceComponent = mMediaBrowser.getServiceComponent();
@@ -212,25 +235,23 @@ public class MediaBrowserCompatTest {
 
     @Test
     @SmallTest
-    public void testSubscribe() {
-        resetCallbacks();
+    public void testSubscribe() throws Exception {
         createMediaBrowser(TEST_BROWSER_SERVICE);
         connectMediaBrowserService();
-        mMediaBrowser.subscribe(StubMediaBrowserServiceCompat.MEDIA_ID_ROOT, mSubscriptionCallback);
-        new PollingCheck(TIME_OUT_MS) {
-            @Override
-            protected boolean check() {
-                return mSubscriptionCallback.mChildrenLoadedCount > 0;
-            }
-        }.run();
 
-        assertEquals(StubMediaBrowserServiceCompat.MEDIA_ID_ROOT,
-                mSubscriptionCallback.mLastParentId);
-        assertEquals(StubMediaBrowserServiceCompat.MEDIA_ID_CHILDREN.length,
-                mSubscriptionCallback.mLastChildMediaItems.size());
-        for (int i = 0; i < StubMediaBrowserServiceCompat.MEDIA_ID_CHILDREN.length; ++i) {
-            assertEquals(StubMediaBrowserServiceCompat.MEDIA_ID_CHILDREN[i],
-                    mSubscriptionCallback.mLastChildMediaItems.get(i).getMediaId());
+        synchronized (mSubscriptionCallback.mWaitLock) {
+            mMediaBrowser.subscribe(
+                    StubMediaBrowserServiceCompat.MEDIA_ID_ROOT, mSubscriptionCallback);
+            mSubscriptionCallback.mWaitLock.wait(TIME_OUT_MS);
+            assertTrue(mSubscriptionCallback.mChildrenLoadedCount > 0);
+            assertEquals(StubMediaBrowserServiceCompat.MEDIA_ID_ROOT,
+                    mSubscriptionCallback.mLastParentId);
+            assertEquals(StubMediaBrowserServiceCompat.MEDIA_ID_CHILDREN.length,
+                    mSubscriptionCallback.mLastChildMediaItems.size());
+            for (int i = 0; i < StubMediaBrowserServiceCompat.MEDIA_ID_CHILDREN.length; ++i) {
+                assertEquals(StubMediaBrowserServiceCompat.MEDIA_ID_CHILDREN[i],
+                        mSubscriptionCallback.mLastChildMediaItems.get(i).getMediaId());
+            }
         }
 
         // Test unsubscribe.
@@ -252,7 +273,7 @@ public class MediaBrowserCompatTest {
 
     @Test
     @SmallTest
-    public void testSubscribeWithOptions() {
+    public void testSubscribeWithOptions() throws Exception {
         createMediaBrowser(TEST_BROWSER_SERVICE);
         connectMediaBrowserService();
         final int pageSize = 3;
@@ -260,30 +281,31 @@ public class MediaBrowserCompatTest {
                 (StubMediaBrowserServiceCompat.MEDIA_ID_CHILDREN.length - 1) / pageSize;
         Bundle options = new Bundle();
         options.putInt(MediaBrowserCompat.EXTRA_PAGE_SIZE, pageSize);
-        for (int page = 0; page <= lastPage; ++page) {
-            resetCallbacks();
-            options.putInt(MediaBrowserCompat.EXTRA_PAGE, page);
-            mMediaBrowser.subscribe(StubMediaBrowserServiceCompat.MEDIA_ID_ROOT, options,
-                    mSubscriptionCallback);
-            new PollingCheck(TIME_OUT_MS) {
-                @Override
-                protected boolean check() {
-                    return mSubscriptionCallback.mChildrenLoadedWithOptionCount > 0;
+
+        synchronized (mSubscriptionCallback.mWaitLock) {
+            for (int page = 0; page <= lastPage; ++page) {
+                resetCallbacks();
+                options.putInt(MediaBrowserCompat.EXTRA_PAGE, page);
+                mMediaBrowser.subscribe(StubMediaBrowserServiceCompat.MEDIA_ID_ROOT, options,
+                        mSubscriptionCallback);
+                mSubscriptionCallback.mWaitLock.wait(TIME_OUT_MS);
+                assertTrue(mSubscriptionCallback.mChildrenLoadedWithOptionCount > 0);
+                assertEquals(StubMediaBrowserServiceCompat.MEDIA_ID_ROOT,
+                        mSubscriptionCallback.mLastParentId);
+                if (page != lastPage) {
+                    assertEquals(pageSize, mSubscriptionCallback.mLastChildMediaItems.size());
+                } else {
+                    assertEquals(
+                            (StubMediaBrowserServiceCompat.MEDIA_ID_CHILDREN.length - 1) % pageSize
+                                    + 1,
+                            mSubscriptionCallback.mLastChildMediaItems.size());
                 }
-            }.run();
-            assertEquals(StubMediaBrowserServiceCompat.MEDIA_ID_ROOT,
-                    mSubscriptionCallback.mLastParentId);
-            if (page != lastPage) {
-                assertEquals(pageSize, mSubscriptionCallback.mLastChildMediaItems.size());
-            } else {
-                assertEquals(
-                        (StubMediaBrowserServiceCompat.MEDIA_ID_CHILDREN.length - 1) % pageSize + 1,
-                        mSubscriptionCallback.mLastChildMediaItems.size());
-            }
-            // Check whether all the items in the current page are loaded.
-            for (int i = 0; i < mSubscriptionCallback.mLastChildMediaItems.size(); ++i) {
-                assertEquals(StubMediaBrowserServiceCompat.MEDIA_ID_CHILDREN[page * pageSize + i],
-                        mSubscriptionCallback.mLastChildMediaItems.get(i).getMediaId());
+                // Check whether all the items in the current page are loaded.
+                for (int i = 0; i < mSubscriptionCallback.mLastChildMediaItems.size(); ++i) {
+                    assertEquals(
+                            StubMediaBrowserServiceCompat.MEDIA_ID_CHILDREN[page * pageSize + i],
+                            mSubscriptionCallback.mLastChildMediaItems.get(i).getMediaId());
+                }
             }
         }
 
@@ -307,27 +329,22 @@ public class MediaBrowserCompatTest {
 
     @Test
     @SmallTest
-    public void testSubscribeInvalidItem() {
-        resetCallbacks();
+    public void testSubscribeInvalidItem() throws Exception {
         createMediaBrowser(TEST_BROWSER_SERVICE);
         connectMediaBrowserService();
-        mMediaBrowser.subscribe(StubMediaBrowserServiceCompat.MEDIA_ID_INVALID,
-                mSubscriptionCallback);
-        new PollingCheck(TIME_OUT_MS) {
-            @Override
-            protected boolean check() {
-                return mSubscriptionCallback.mLastErrorId != null;
-            }
-        }.run();
 
-        assertEquals(StubMediaBrowserServiceCompat.MEDIA_ID_INVALID,
-                mSubscriptionCallback.mLastErrorId);
+        synchronized (mSubscriptionCallback.mWaitLock) {
+            mMediaBrowser.subscribe(StubMediaBrowserServiceCompat.MEDIA_ID_INVALID,
+                    mSubscriptionCallback);
+            mSubscriptionCallback.mWaitLock.wait(TIME_OUT_MS);
+            assertEquals(StubMediaBrowserServiceCompat.MEDIA_ID_INVALID,
+                    mSubscriptionCallback.mLastErrorId);
+        }
     }
 
     @Test
     @SmallTest
-    public void testSubscribeInvalidItemWithOptions() {
-        resetCallbacks();
+    public void testSubscribeInvalidItemWithOptions() throws Exception {
         createMediaBrowser(TEST_BROWSER_SERVICE);
         connectMediaBrowserService();
 
@@ -336,48 +353,45 @@ public class MediaBrowserCompatTest {
         Bundle options = new Bundle();
         options.putInt(MediaBrowserCompat.EXTRA_PAGE_SIZE, pageSize);
         options.putInt(MediaBrowserCompat.EXTRA_PAGE, page);
-        mMediaBrowser.subscribe(StubMediaBrowserServiceCompat.MEDIA_ID_INVALID, options,
-                mSubscriptionCallback);
-        new PollingCheck(TIME_OUT_MS) {
-            @Override
-            protected boolean check() {
-                return mSubscriptionCallback.mLastErrorId != null;
-            }
-        }.run();
 
-        assertEquals(StubMediaBrowserServiceCompat.MEDIA_ID_INVALID,
-                mSubscriptionCallback.mLastErrorId);
-        assertEquals(page,
-                mSubscriptionCallback.mLastOptions.getInt(MediaBrowserCompat.EXTRA_PAGE));
-        assertEquals(pageSize,
-                mSubscriptionCallback.mLastOptions.getInt(MediaBrowserCompat.EXTRA_PAGE_SIZE));
+        synchronized (mSubscriptionCallback.mWaitLock) {
+            mMediaBrowser.subscribe(StubMediaBrowserServiceCompat.MEDIA_ID_INVALID, options,
+                    mSubscriptionCallback);
+            mSubscriptionCallback.mWaitLock.wait(TIME_OUT_MS);
+            assertEquals(StubMediaBrowserServiceCompat.MEDIA_ID_INVALID,
+                    mSubscriptionCallback.mLastErrorId);
+            assertNotNull(mSubscriptionCallback.mLastOptions);
+            assertEquals(page,
+                    mSubscriptionCallback.mLastOptions.getInt(MediaBrowserCompat.EXTRA_PAGE));
+            assertEquals(pageSize,
+                    mSubscriptionCallback.mLastOptions.getInt(MediaBrowserCompat.EXTRA_PAGE_SIZE));
+        }
     }
 
     @Test
     @SmallTest
-    public void testUnsubscribeForMultipleSubscriptions() {
+    public void testUnsubscribeForMultipleSubscriptions() throws Exception {
         createMediaBrowser(TEST_BROWSER_SERVICE);
         connectMediaBrowserService();
         final List<StubSubscriptionCallback> subscriptionCallbacks = new ArrayList<>();
         final int pageSize = 1;
 
-        // Subscribe four pages, one item per page.
-        for (int page = 0; page < 4; page++) {
-            final StubSubscriptionCallback callback = new StubSubscriptionCallback();
-            subscriptionCallbacks.add(callback);
+        synchronized (mSubscriptionCallback.mWaitLock) {
+            // Subscribe four pages, one item per page.
+            for (int page = 0; page < 4; page++) {
+                final StubSubscriptionCallback callback = new StubSubscriptionCallback();
+                subscriptionCallbacks.add(callback);
 
-            Bundle options = new Bundle();
-            options.putInt(MediaBrowserCompat.EXTRA_PAGE, page);
-            options.putInt(MediaBrowserCompat.EXTRA_PAGE_SIZE, pageSize);
-            mMediaBrowser.subscribe(StubMediaBrowserServiceCompat.MEDIA_ID_ROOT, options, callback);
+                Bundle options = new Bundle();
+                options.putInt(MediaBrowserCompat.EXTRA_PAGE, page);
+                options.putInt(MediaBrowserCompat.EXTRA_PAGE_SIZE, pageSize);
+                mMediaBrowser.subscribe(StubMediaBrowserServiceCompat.MEDIA_ID_ROOT, options,
+                        callback);
+                mSubscriptionCallback.mWaitLock.wait(TIME_OUT_MS);
 
-            // Each onChildrenLoaded() must be called.
-            new PollingCheck(TIME_OUT_MS) {
-                @Override
-                protected boolean check() {
-                    return callback.mChildrenLoadedWithOptionCount == 1;
-                }
-            }.run();
+                // Each onChildrenLoaded() must be called.
+                assertEquals(1, callback.mChildrenLoadedWithOptionCount);
+            }
         }
 
         // Reset callbacks and unsubscribe.
@@ -404,29 +418,28 @@ public class MediaBrowserCompatTest {
 
     @Test
     @SmallTest
-    public void testUnsubscribeWithSubscriptionCallbackForMultipleSubscriptions() {
+    public void testUnsubscribeWithSubscriptionCallbackForMultipleSubscriptions() throws Exception {
         createMediaBrowser(TEST_BROWSER_SERVICE);
         connectMediaBrowserService();
         final List<StubSubscriptionCallback> subscriptionCallbacks = new ArrayList<>();
         final int pageSize = 1;
 
-        // Subscribe four pages, one item per page.
-        for (int page = 0; page < 4; page++) {
-            final StubSubscriptionCallback callback = new StubSubscriptionCallback();
-            subscriptionCallbacks.add(callback);
+        synchronized (mSubscriptionCallback.mWaitLock) {
+            // Subscribe four pages, one item per page.
+            for (int page = 0; page < 4; page++) {
+                final StubSubscriptionCallback callback = new StubSubscriptionCallback();
+                subscriptionCallbacks.add(callback);
 
-            Bundle options = new Bundle();
-            options.putInt(MediaBrowserCompat.EXTRA_PAGE, page);
-            options.putInt(MediaBrowserCompat.EXTRA_PAGE_SIZE, pageSize);
-            mMediaBrowser.subscribe(StubMediaBrowserServiceCompat.MEDIA_ID_ROOT, options, callback);
+                Bundle options = new Bundle();
+                options.putInt(MediaBrowserCompat.EXTRA_PAGE, page);
+                options.putInt(MediaBrowserCompat.EXTRA_PAGE_SIZE, pageSize);
+                mMediaBrowser.subscribe(StubMediaBrowserServiceCompat.MEDIA_ID_ROOT, options,
+                        callback);
+                mSubscriptionCallback.mWaitLock.wait(TIME_OUT_MS);
 
-            // Each onChildrenLoaded() must be called.
-            new PollingCheck(TIME_OUT_MS) {
-                @Override
-                protected boolean check() {
-                    return callback.mChildrenLoadedWithOptionCount == 1;
-                }
-            }.run();
+                // Each onChildrenLoaded() must be called.
+                assertEquals(1, callback.mChildrenLoadedWithOptionCount);
+            }
         }
 
         // Unsubscribe existing subscriptions one-by-one.
@@ -465,61 +478,49 @@ public class MediaBrowserCompatTest {
 
     @Test
     @SmallTest
-    public void testGetItem() {
-        resetCallbacks();
+    public void testGetItem() throws Exception {
         createMediaBrowser(TEST_BROWSER_SERVICE);
         connectMediaBrowserService();
-        mMediaBrowser.getItem(StubMediaBrowserServiceCompat.MEDIA_ID_CHILDREN[0], mItemCallback);
-        new PollingCheck(TIME_OUT_MS) {
-            @Override
-            protected boolean check() {
-                return mItemCallback.mLastMediaItem != null;
-            }
-        }.run();
 
-        assertEquals(StubMediaBrowserServiceCompat.MEDIA_ID_CHILDREN[0],
-                mItemCallback.mLastMediaItem.getMediaId());
+        synchronized (mItemCallback.mWaitLock) {
+            mMediaBrowser.getItem(StubMediaBrowserServiceCompat.MEDIA_ID_CHILDREN[0],
+                    mItemCallback);
+            mItemCallback.mWaitLock.wait(TIME_OUT_MS);
+            assertNotNull(mItemCallback.mLastMediaItem);
+            assertEquals(StubMediaBrowserServiceCompat.MEDIA_ID_CHILDREN[0],
+                    mItemCallback.mLastMediaItem.getMediaId());
+        }
     }
 
     @Test
     @SmallTest
-    public void testGetItemWhenOnLoadItemIsNotImplemented() {
-        resetCallbacks();
+    public void testGetItemWhenOnLoadItemIsNotImplemented() throws Exception {
         createMediaBrowser(TEST_BROWSER_SERVICE);
         connectMediaBrowserService();
-        mMediaBrowser.getItem(StubMediaBrowserServiceCompat.MEDIA_ID_ON_LOAD_ITEM_NOT_IMPLEMENTED,
-                mItemCallback);
-        new PollingCheck(TIME_OUT_MS) {
-            @Override
-            protected boolean check() {
-                return mItemCallback.mLastErrorId != null;
-            }
-        }.run();
-
-        assertEquals(StubMediaBrowserServiceCompat.MEDIA_ID_ON_LOAD_ITEM_NOT_IMPLEMENTED,
-                mItemCallback.mLastErrorId);
+        synchronized (mItemCallback.mWaitLock) {
+            mMediaBrowser.getItem(
+                    StubMediaBrowserServiceCompat.MEDIA_ID_ON_LOAD_ITEM_NOT_IMPLEMENTED,
+                    mItemCallback);
+            mItemCallback.mWaitLock.wait(TIME_OUT_MS);
+            assertEquals(StubMediaBrowserServiceCompat.MEDIA_ID_ON_LOAD_ITEM_NOT_IMPLEMENTED,
+                    mItemCallback.mLastErrorId);
+        }
     }
 
     @Test
     @SmallTest
-    public void testGetItemWhenMediaIdIsInvalid() {
-        resetCallbacks();
+    public void testGetItemWhenMediaIdIsInvalid() throws Exception {
         mItemCallback.mLastMediaItem = new MediaItem(new MediaDescriptionCompat.Builder()
                 .setMediaId("dummy_id").build(), MediaItem.FLAG_BROWSABLE);
 
         createMediaBrowser(TEST_BROWSER_SERVICE);
         connectMediaBrowserService();
-        mMediaBrowser.getItem(StubMediaBrowserServiceCompat.MEDIA_ID_INVALID, mItemCallback);
-        new PollingCheck(TIME_OUT_MS) {
-            @Override
-            protected boolean check() {
-                // MediaBrowserServiceCompat.onLoadItem implementations must send null result when
-                // the given media id is invalid.
-                return mItemCallback.mLastMediaItem == null;
-            }
-        }.run();
-
-        assertNull(mItemCallback.mLastErrorId);
+        synchronized (mItemCallback.mWaitLock) {
+            mMediaBrowser.getItem(StubMediaBrowserServiceCompat.MEDIA_ID_INVALID, mItemCallback);
+            mItemCallback.mWaitLock.wait(TIME_OUT_MS);
+            assertNull(mItemCallback.mLastMediaItem);
+            assertNull(mItemCallback.mLastErrorId);
+        }
     }
 
     private void createMediaBrowser(final ComponentName component) {
@@ -532,14 +533,11 @@ public class MediaBrowserCompatTest {
         });
     }
 
-    private void connectMediaBrowserService() {
-        mMediaBrowser.connect();
-        new PollingCheck(TIME_OUT_MS) {
-            @Override
-            protected boolean check() {
-                return mConnectionCallback.mConnectedCount > 0;
-            }
-        }.run();
+    private void connectMediaBrowserService() throws Exception {
+        synchronized (mConnectionCallback.mWaitLock) {
+            mMediaBrowser.connect();
+            mConnectionCallback.mWaitLock.wait(TIME_OUT_MS);
+        }
     }
 
     private void resetCallbacks() {
@@ -548,7 +546,8 @@ public class MediaBrowserCompatTest {
         mItemCallback.reset();
     }
 
-    private static class StubConnectionCallback extends MediaBrowserCompat.ConnectionCallback {
+    private class StubConnectionCallback extends MediaBrowserCompat.ConnectionCallback {
+        Object mWaitLock = new Object();
         volatile int mConnectedCount;
         volatile int mConnectionFailedCount;
         volatile int mConnectionSuspendedCount;
@@ -561,21 +560,31 @@ public class MediaBrowserCompatTest {
 
         @Override
         public void onConnected() {
-            mConnectedCount++;
+            synchronized (mWaitLock) {
+                mConnectedCount++;
+                mWaitLock.notify();
+            }
         }
 
         @Override
         public void onConnectionFailed() {
-            mConnectionFailedCount++;
+            synchronized (mWaitLock) {
+                mConnectionFailedCount++;
+                mWaitLock.notify();
+            }
         }
 
         @Override
         public void onConnectionSuspended() {
-            mConnectionSuspendedCount++;
+            synchronized (mWaitLock) {
+                mConnectionSuspendedCount++;
+                mWaitLock.notify();
+            }
         }
     }
 
-    private static class StubSubscriptionCallback extends MediaBrowserCompat.SubscriptionCallback {
+    private class StubSubscriptionCallback extends MediaBrowserCompat.SubscriptionCallback {
+        Object mWaitLock = new Object();
         private volatile int mChildrenLoadedCount;
         private volatile int mChildrenLoadedWithOptionCount;
         private volatile String mLastErrorId;
@@ -594,32 +603,45 @@ public class MediaBrowserCompatTest {
 
         @Override
         public void onChildrenLoaded(String parentId, List<MediaItem> children) {
-            mChildrenLoadedCount++;
-            mLastParentId = parentId;
-            mLastChildMediaItems = children;
+            synchronized (mWaitLock) {
+                mChildrenLoadedCount++;
+                mLastParentId = parentId;
+                mLastChildMediaItems = children;
+                mWaitLock.notify();
+            }
         }
 
         @Override
         public void onChildrenLoaded(String parentId, List<MediaItem> children, Bundle options) {
-            mChildrenLoadedWithOptionCount++;
-            mLastParentId = parentId;
-            mLastOptions = options;
-            mLastChildMediaItems = children;
+            synchronized (mWaitLock) {
+                mChildrenLoadedWithOptionCount++;
+                mLastParentId = parentId;
+                mLastOptions = options;
+                mLastChildMediaItems = children;
+                mWaitLock.notify();
+            }
         }
 
         @Override
         public void onError(String id) {
-            mLastErrorId = id;
+            synchronized (mWaitLock) {
+                mLastErrorId = id;
+                mWaitLock.notify();
+            }
         }
 
         @Override
         public void onError(String id, Bundle options) {
-            mLastErrorId = id;
-            mLastOptions = options;
+            synchronized (mWaitLock) {
+                mLastErrorId = id;
+                mLastOptions = options;
+                mWaitLock.notify();
+            }
         }
     }
 
-    private static class StubItemCallback extends MediaBrowserCompat.ItemCallback {
+    private class StubItemCallback extends MediaBrowserCompat.ItemCallback {
+        Object mWaitLock = new Object();
         private volatile MediaItem mLastMediaItem;
         private volatile String mLastErrorId;
 
@@ -630,12 +652,18 @@ public class MediaBrowserCompatTest {
 
         @Override
         public void onItemLoaded(MediaItem item) {
-            mLastMediaItem = item;
+            synchronized (mWaitLock) {
+                mLastMediaItem = item;
+                mWaitLock.notify();
+            }
         }
 
         @Override
         public void onError(String id) {
-            mLastErrorId = id;
+            synchronized (mWaitLock) {
+                mLastErrorId = id;
+                mWaitLock.notify();
+            }
         }
     }
 }

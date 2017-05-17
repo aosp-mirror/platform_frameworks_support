@@ -41,6 +41,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -61,10 +62,28 @@ public class FragmentTransactionTest {
             new ActivityTestRule<>(FragmentTestActivity.class);
 
     private FragmentTestActivity mActivity;
+    private int mOnBackStackChangedTimes;
+    private FragmentManager.OnBackStackChangedListener mOnBackStackChangedListener;
 
     @Before
     public void setUp() {
         mActivity = mActivityRule.getActivity();
+        mOnBackStackChangedTimes = 0;
+        mOnBackStackChangedListener = new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                mOnBackStackChangedTimes++;
+            }
+        };
+        mActivity.getSupportFragmentManager()
+                .addOnBackStackChangedListener(mOnBackStackChangedListener);
+    }
+
+    @After
+    public void tearDown() {
+        mActivity.getSupportFragmentManager()
+                .removeOnBackStackChangedListener(mOnBackStackChangedListener);
+        mOnBackStackChangedListener = null;
     }
 
     @Test
@@ -78,6 +97,7 @@ public class FragmentTransactionTest {
                         .addToBackStack(null)
                         .commit();
                 mActivity.getSupportFragmentManager().executePendingTransactions();
+                assertEquals(1, mOnBackStackChangedTimes);
             }
         });
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
@@ -97,6 +117,7 @@ public class FragmentTransactionTest {
                             .addToBackStack(null)
                             .commit();
                     mActivity.getSupportFragmentManager().executePendingTransactions();
+                    assertEquals(1, mOnBackStackChangedTimes);
                 } catch (IllegalStateException e) {
                     exceptionThrown = true;
                 } finally {
@@ -121,6 +142,7 @@ public class FragmentTransactionTest {
                             .addToBackStack(null)
                             .commit();
                     mActivity.getSupportFragmentManager().executePendingTransactions();
+                    assertEquals(1, mOnBackStackChangedTimes);
                 } catch (IllegalStateException e) {
                     exceptionThrown = true;
                 } finally {
@@ -145,6 +167,7 @@ public class FragmentTransactionTest {
                             .addToBackStack(null)
                             .commit();
                     mActivity.getSupportFragmentManager().executePendingTransactions();
+                    assertEquals(1, mOnBackStackChangedTimes);
                 } catch (IllegalStateException e) {
                     exceptionThrown = true;
                 } finally {
@@ -217,6 +240,7 @@ public class FragmentTransactionTest {
                             .addToBackStack(null)
                             .commit();
                     mActivity.getSupportFragmentManager().executePendingTransactions();
+                    assertEquals(1, mOnBackStackChangedTimes);
                 } catch (IllegalStateException e) {
                     exceptionThrown = true;
                 } finally {
@@ -235,7 +259,7 @@ public class FragmentTransactionTest {
             public void run() {
                 final boolean[] ran = new boolean[1];
                 FragmentManager fm = mActivityRule.getActivity().getSupportFragmentManager();
-                fm.beginTransaction().postOnCommit(new Runnable() {
+                fm.beginTransaction().runOnCommit(new Runnable() {
                     @Override
                     public void run() {
                         ran[0] = true;
@@ -243,13 +267,13 @@ public class FragmentTransactionTest {
                 }).commit();
                 fm.executePendingTransactions();
 
-                assertTrue("postOnCommit runnable never ran", ran[0]);
+                assertTrue("runOnCommit runnable never ran", ran[0]);
 
                 ran[0] = false;
 
                 boolean threw = false;
                 try {
-                    fm.beginTransaction().postOnCommit(new Runnable() {
+                    fm.beginTransaction().runOnCommit(new Runnable() {
                         @Override
                         public void run() {
                             ran[0] = true;
@@ -261,9 +285,9 @@ public class FragmentTransactionTest {
 
                 fm.executePendingTransactions();
 
-                assertTrue("postOnCommit was allowed to be called for back stack transaction",
+                assertTrue("runOnCommit was allowed to be called for back stack transaction",
                         threw);
-                assertFalse("postOnCommit runnable for back stack transaction was run", ran[0]);
+                assertFalse("runOnCommit runnable for back stack transaction was run", ran[0]);
             }
         });
     }

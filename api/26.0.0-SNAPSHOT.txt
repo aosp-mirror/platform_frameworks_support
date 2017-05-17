@@ -4,15 +4,21 @@ package android.support.animation {
     method public T addEndListener(android.support.animation.DynamicAnimation.OnAnimationEndListener);
     method public T addUpdateListener(android.support.animation.DynamicAnimation.OnAnimationUpdateListener);
     method public void cancel();
+    method public float getMinimumVisibleChange();
     method public boolean isRunning();
     method public void removeEndListener(android.support.animation.DynamicAnimation.OnAnimationEndListener);
     method public void removeUpdateListener(android.support.animation.DynamicAnimation.OnAnimationUpdateListener);
     method public T setMaxValue(float);
     method public T setMinValue(float);
+    method public T setMinimumVisibleChange(float);
     method public T setStartValue(float);
     method public T setStartVelocity(float);
     method public void start();
     field public static final android.support.animation.DynamicAnimation.ViewProperty ALPHA;
+    field public static final float MIN_VISIBLE_CHANGE_ALPHA = 0.00390625f;
+    field public static final float MIN_VISIBLE_CHANGE_PIXELS = 1.0f;
+    field public static final float MIN_VISIBLE_CHANGE_ROTATION_DEGREES = 0.1f;
+    field public static final float MIN_VISIBLE_CHANGE_SCALE = 0.002f;
     field public static final android.support.animation.DynamicAnimation.ViewProperty ROTATION;
     field public static final android.support.animation.DynamicAnimation.ViewProperty ROTATION_X;
     field public static final android.support.animation.DynamicAnimation.ViewProperty ROTATION_Y;
@@ -43,9 +49,7 @@ package android.support.animation {
     ctor public FlingAnimation(android.support.animation.FloatValueHolder);
     ctor public FlingAnimation(K, android.support.animation.FloatPropertyCompat<K>);
     method public float getFriction();
-    method public float getVelocityThreshold();
     method public android.support.animation.FlingAnimation setFriction(float);
-    method public android.support.animation.FlingAnimation setVelocityThreshold(float);
   }
 
   public abstract class FloatPropertyCompat<T> {
@@ -66,8 +70,6 @@ package android.support.animation {
     ctor public SpringAnimation(android.support.animation.FloatValueHolder);
     ctor public SpringAnimation(K, android.support.animation.FloatPropertyCompat<K>);
     ctor public SpringAnimation(K, android.support.animation.FloatPropertyCompat<K>, float);
-    ctor public deprecated SpringAnimation(android.view.View, android.support.animation.DynamicAnimation.ViewProperty);
-    ctor public deprecated SpringAnimation(android.view.View, android.support.animation.DynamicAnimation.ViewProperty, float);
     method public void animateToFinalPosition(float);
     method public boolean canSkipToEnd();
     method public android.support.animation.SpringForce getSpring();
@@ -389,13 +391,12 @@ package android.support.design.widget {
     ctor public AppBarLayout.Behavior(android.content.Context, android.util.AttributeSet);
     method public boolean onLayoutChild(android.support.design.widget.CoordinatorLayout, android.support.design.widget.AppBarLayout, int);
     method public boolean onMeasureChild(android.support.design.widget.CoordinatorLayout, android.support.design.widget.AppBarLayout, int, int, int, int);
-    method public boolean onNestedFling(android.support.design.widget.CoordinatorLayout, android.support.design.widget.AppBarLayout, android.view.View, float, float, boolean);
-    method public void onNestedPreScroll(android.support.design.widget.CoordinatorLayout, android.support.design.widget.AppBarLayout, android.view.View, int, int, int[]);
-    method public void onNestedScroll(android.support.design.widget.CoordinatorLayout, android.support.design.widget.AppBarLayout, android.view.View, int, int, int, int);
+    method public void onNestedPreScroll(android.support.design.widget.CoordinatorLayout, android.support.design.widget.AppBarLayout, android.view.View, int, int, int[], int);
+    method public void onNestedScroll(android.support.design.widget.CoordinatorLayout, android.support.design.widget.AppBarLayout, android.view.View, int, int, int, int, int);
     method public void onRestoreInstanceState(android.support.design.widget.CoordinatorLayout, android.support.design.widget.AppBarLayout, android.os.Parcelable);
     method public android.os.Parcelable onSaveInstanceState(android.support.design.widget.CoordinatorLayout, android.support.design.widget.AppBarLayout);
-    method public boolean onStartNestedScroll(android.support.design.widget.CoordinatorLayout, android.support.design.widget.AppBarLayout, android.view.View, android.view.View, int);
-    method public void onStopNestedScroll(android.support.design.widget.CoordinatorLayout, android.support.design.widget.AppBarLayout, android.view.View);
+    method public boolean onStartNestedScroll(android.support.design.widget.CoordinatorLayout, android.support.design.widget.AppBarLayout, android.view.View, android.view.View, int, int);
+    method public void onStopNestedScroll(android.support.design.widget.CoordinatorLayout, android.support.design.widget.AppBarLayout, android.view.View, int);
     method public void setDragCallback(android.support.design.widget.AppBarLayout.Behavior.DragCallback);
   }
 
@@ -608,7 +609,7 @@ package android.support.design.widget {
     field public static final int COLLAPSE_MODE_PIN = 1; // 0x1
   }
 
-  public class CoordinatorLayout extends android.view.ViewGroup implements android.support.v4.view.NestedScrollingParent {
+  public class CoordinatorLayout extends android.view.ViewGroup implements android.support.v4.view.NestedScrollingParent2 {
     ctor public CoordinatorLayout(android.content.Context);
     ctor public CoordinatorLayout(android.content.Context, android.util.AttributeSet);
     ctor public CoordinatorLayout(android.content.Context, android.util.AttributeSet, int);
@@ -624,6 +625,11 @@ package android.support.design.widget {
     method protected void onLayout(boolean, int, int, int, int);
     method public void onLayoutChild(android.view.View, int);
     method public void onMeasureChild(android.view.View, int, int, int, int);
+    method public void onNestedPreScroll(android.view.View, int, int, int[], int);
+    method public void onNestedScroll(android.view.View, int, int, int, int, int);
+    method public void onNestedScrollAccepted(android.view.View, android.view.View, int, int);
+    method public boolean onStartNestedScroll(android.view.View, android.view.View, int, int);
+    method public void onStopNestedScroll(android.view.View, int);
     method public void setStatusBarBackground(android.graphics.drawable.Drawable);
     method public void setStatusBarBackgroundColor(int);
     method public void setStatusBarBackgroundResource(int);
@@ -648,14 +654,19 @@ package android.support.design.widget {
     method public boolean onMeasureChild(android.support.design.widget.CoordinatorLayout, V, int, int, int, int);
     method public boolean onNestedFling(android.support.design.widget.CoordinatorLayout, V, android.view.View, float, float, boolean);
     method public boolean onNestedPreFling(android.support.design.widget.CoordinatorLayout, V, android.view.View, float, float);
-    method public void onNestedPreScroll(android.support.design.widget.CoordinatorLayout, V, android.view.View, int, int, int[]);
-    method public void onNestedScroll(android.support.design.widget.CoordinatorLayout, V, android.view.View, int, int, int, int);
-    method public void onNestedScrollAccepted(android.support.design.widget.CoordinatorLayout, V, android.view.View, android.view.View, int);
+    method public deprecated void onNestedPreScroll(android.support.design.widget.CoordinatorLayout, V, android.view.View, int, int, int[]);
+    method public void onNestedPreScroll(android.support.design.widget.CoordinatorLayout, V, android.view.View, int, int, int[], int);
+    method public deprecated void onNestedScroll(android.support.design.widget.CoordinatorLayout, V, android.view.View, int, int, int, int);
+    method public void onNestedScroll(android.support.design.widget.CoordinatorLayout, V, android.view.View, int, int, int, int, int);
+    method public deprecated void onNestedScrollAccepted(android.support.design.widget.CoordinatorLayout, V, android.view.View, android.view.View, int);
+    method public void onNestedScrollAccepted(android.support.design.widget.CoordinatorLayout, V, android.view.View, android.view.View, int, int);
     method public boolean onRequestChildRectangleOnScreen(android.support.design.widget.CoordinatorLayout, V, android.graphics.Rect, boolean);
     method public void onRestoreInstanceState(android.support.design.widget.CoordinatorLayout, V, android.os.Parcelable);
     method public android.os.Parcelable onSaveInstanceState(android.support.design.widget.CoordinatorLayout, V);
-    method public boolean onStartNestedScroll(android.support.design.widget.CoordinatorLayout, V, android.view.View, android.view.View, int);
-    method public void onStopNestedScroll(android.support.design.widget.CoordinatorLayout, V, android.view.View);
+    method public deprecated boolean onStartNestedScroll(android.support.design.widget.CoordinatorLayout, V, android.view.View, android.view.View, int);
+    method public boolean onStartNestedScroll(android.support.design.widget.CoordinatorLayout, V, android.view.View, android.view.View, int, int);
+    method public deprecated void onStopNestedScroll(android.support.design.widget.CoordinatorLayout, V, android.view.View);
+    method public void onStopNestedScroll(android.support.design.widget.CoordinatorLayout, V, android.view.View, int);
     method public boolean onTouchEvent(android.support.design.widget.CoordinatorLayout, V, android.view.MotionEvent);
     method public static void setTag(android.view.View, java.lang.Object);
   }
@@ -1954,6 +1965,8 @@ package android.support.text.emoji.widget {
     ctor public EmojiAppCompatEditText(android.content.Context);
     ctor public EmojiAppCompatEditText(android.content.Context, android.util.AttributeSet);
     ctor public EmojiAppCompatEditText(android.content.Context, android.util.AttributeSet, int);
+    method public int getMaxEmojiCount();
+    method public void setMaxEmojiCount(int);
   }
 
   public class EmojiAppCompatTextView extends android.support.v7.widget.AppCompatTextView {
@@ -1974,12 +1987,16 @@ package android.support.text.emoji.widget {
     ctor public EmojiEditText(android.content.Context, android.util.AttributeSet);
     ctor public EmojiEditText(android.content.Context, android.util.AttributeSet, int);
     ctor public EmojiEditText(android.content.Context, android.util.AttributeSet, int, int);
+    method public int getMaxEmojiCount();
+    method public void setMaxEmojiCount(int);
   }
 
   public final class EmojiEditTextHelper {
     ctor public EmojiEditTextHelper(android.widget.EditText);
     method public android.text.method.KeyListener getKeyListener(android.text.method.KeyListener);
+    method public int getMaxEmojiCount();
     method public android.view.inputmethod.InputConnection onCreateInputConnection(android.view.inputmethod.InputConnection, android.view.inputmethod.EditorInfo);
+    method public void setMaxEmojiCount(int);
   }
 
   public class EmojiTextView extends android.widget.TextView {
@@ -2923,6 +2940,7 @@ package android.support.v17.leanback.app {
     method protected void onProvideFragmentTransitions();
     method public int onProvideTheme();
     method public boolean onSubGuidedActionClicked(android.support.v17.leanback.widget.GuidedAction);
+    method public void openInEditMode(android.support.v17.leanback.widget.GuidedAction);
     method public void popBackStackToGuidedStepFragment(java.lang.Class, int);
     method public void setActions(java.util.List<android.support.v17.leanback.widget.GuidedAction>);
     method public void setButtonActions(java.util.List<android.support.v17.leanback.widget.GuidedAction>);
@@ -2983,6 +3001,7 @@ package android.support.v17.leanback.app {
     method protected void onProvideFragmentTransitions();
     method public int onProvideTheme();
     method public boolean onSubGuidedActionClicked(android.support.v17.leanback.widget.GuidedAction);
+    method public void openInEditMode(android.support.v17.leanback.widget.GuidedAction);
     method public void popBackStackToGuidedStepSupportFragment(java.lang.Class, int);
     method public void setActions(java.util.List<android.support.v17.leanback.widget.GuidedAction>);
     method public void setButtonActions(java.util.List<android.support.v17.leanback.widget.GuidedAction>);
@@ -3046,6 +3065,7 @@ package android.support.v17.leanback.app {
   public abstract class OnboardingFragment extends android.app.Fragment {
     ctor public OnboardingFragment();
     method public final int getArrowBackgroundColor();
+    method public final int getArrowColor();
     method protected final int getCurrentPageIndex();
     method public final int getDescriptionViewTextColor();
     method public final int getDotBackgroundColor();
@@ -3054,6 +3074,7 @@ package android.support.v17.leanback.app {
     method protected abstract int getPageCount();
     method protected abstract java.lang.CharSequence getPageDescription(int);
     method protected abstract java.lang.CharSequence getPageTitle(int);
+    method public final java.lang.CharSequence getStartButtonText();
     method public final int getTitleViewTextColor();
     method protected final boolean isLogoAnimationFinished();
     method protected void moveToNextPage();
@@ -3070,10 +3091,12 @@ package android.support.v17.leanback.app {
     method protected void onPageChanged(int, int);
     method public int onProvideTheme();
     method public void setArrowBackgroundColor(int);
+    method public void setArrowColor(int);
     method public void setDescriptionViewTextColor(int);
     method public void setDotBackgroundColor(int);
     method public final void setIconResouceId(int);
     method public final void setLogoResourceId(int);
+    method public void setStartButtonText(java.lang.CharSequence);
     method public void setTitleViewTextColor(int);
     method protected final void startEnterAnimation(boolean);
   }
@@ -3081,6 +3104,7 @@ package android.support.v17.leanback.app {
   public abstract class OnboardingSupportFragment extends android.support.v4.app.Fragment {
     ctor public OnboardingSupportFragment();
     method public final int getArrowBackgroundColor();
+    method public final int getArrowColor();
     method protected final int getCurrentPageIndex();
     method public final int getDescriptionViewTextColor();
     method public final int getDotBackgroundColor();
@@ -3089,6 +3113,7 @@ package android.support.v17.leanback.app {
     method protected abstract int getPageCount();
     method protected abstract java.lang.CharSequence getPageDescription(int);
     method protected abstract java.lang.CharSequence getPageTitle(int);
+    method public final java.lang.CharSequence getStartButtonText();
     method public final int getTitleViewTextColor();
     method protected final boolean isLogoAnimationFinished();
     method protected void moveToNextPage();
@@ -3105,10 +3130,12 @@ package android.support.v17.leanback.app {
     method protected void onPageChanged(int, int);
     method public int onProvideTheme();
     method public void setArrowBackgroundColor(int);
+    method public void setArrowColor(int);
     method public void setDescriptionViewTextColor(int);
     method public void setDotBackgroundColor(int);
     method public final void setIconResouceId(int);
     method public final void setLogoResourceId(int);
+    method public void setStartButtonText(java.lang.CharSequence);
     method public void setTitleViewTextColor(int);
     method protected final void startEnterAnimation(boolean);
   }
@@ -3974,6 +4001,8 @@ package android.support.v17.leanback.widget {
     method public final boolean isFocusSearchDisabled();
     method public boolean isItemAlignmentOffsetWithPadding();
     method public boolean isScrollEnabled();
+    method public boolean isWindowAlignmentPreferKeyLineOverHighEdge();
+    method public boolean isWindowAlignmentPreferKeyLineOverLowEdge();
     method public boolean onRequestFocusInDescendants(int, android.graphics.Rect);
     method public void removeOnChildViewHolderSelectedListener(android.support.v17.leanback.widget.OnChildViewHolderSelectedListener);
     method public void setAnimateChildLayout(boolean);
@@ -4013,6 +4042,8 @@ package android.support.v17.leanback.widget {
     method public void setWindowAlignment(int);
     method public void setWindowAlignmentOffset(int);
     method public void setWindowAlignmentOffsetPercent(float);
+    method public void setWindowAlignmentPreferKeyLineOverHighEdge(boolean);
+    method public void setWindowAlignmentPreferKeyLineOverLowEdge(boolean);
     field public static final float ITEM_ALIGN_OFFSET_PERCENT_DISABLED = -1.0f;
     field public static final int SAVE_ALL_CHILD = 3; // 0x3
     field public static final int SAVE_LIMITED_CHILD = 2; // 0x2
@@ -4432,6 +4463,7 @@ package android.support.v17.leanback.widget {
     method public int onProvideLayoutId();
     method public boolean onUpdateActivatorView(android.support.v17.leanback.widget.GuidedActionsStylist.ViewHolder, android.support.v17.leanback.widget.GuidedAction);
     method public void onUpdateExpandedViewHolder(android.support.v17.leanback.widget.GuidedActionsStylist.ViewHolder);
+    method public void openInEditMode(android.support.v17.leanback.widget.GuidedAction);
     method public void setAsButtonActions();
     method public final void setBackKeyToCollapseActivatorView(boolean);
     method public final void setBackKeyToCollapseSubActions(boolean);
@@ -4911,8 +4943,10 @@ package android.support.v17.leanback.widget {
   public static class PlaybackControlsRow.ClosedCaptioningAction extends android.support.v17.leanback.widget.PlaybackControlsRow.MultiAction {
     ctor public PlaybackControlsRow.ClosedCaptioningAction(android.content.Context);
     ctor public PlaybackControlsRow.ClosedCaptioningAction(android.content.Context, int);
-    field public static int OFF;
-    field public static int ON;
+    field public static final int INDEX_OFF = 0; // 0x0
+    field public static final int INDEX_ON = 1; // 0x1
+    field public static deprecated int OFF;
+    field public static deprecated int ON;
   }
 
   public static class PlaybackControlsRow.FastForwardAction extends android.support.v17.leanback.widget.PlaybackControlsRow.MultiAction {
@@ -4923,8 +4957,10 @@ package android.support.v17.leanback.widget {
   public static class PlaybackControlsRow.HighQualityAction extends android.support.v17.leanback.widget.PlaybackControlsRow.MultiAction {
     ctor public PlaybackControlsRow.HighQualityAction(android.content.Context);
     ctor public PlaybackControlsRow.HighQualityAction(android.content.Context, int);
-    field public static int OFF;
-    field public static int ON;
+    field public static final int INDEX_OFF = 0; // 0x0
+    field public static final int INDEX_ON = 1; // 0x1
+    field public static deprecated int OFF;
+    field public static deprecated int ON;
   }
 
   public static class PlaybackControlsRow.MoreActions extends android.support.v17.leanback.widget.Action {
@@ -4958,17 +4994,22 @@ package android.support.v17.leanback.widget {
 
   public static class PlaybackControlsRow.PlayPauseAction extends android.support.v17.leanback.widget.PlaybackControlsRow.MultiAction {
     ctor public PlaybackControlsRow.PlayPauseAction(android.content.Context);
-    field public static int PAUSE;
-    field public static int PLAY;
+    field public static final int INDEX_PAUSE = 1; // 0x1
+    field public static final int INDEX_PLAY = 0; // 0x0
+    field public static deprecated int PAUSE;
+    field public static deprecated int PLAY;
   }
 
   public static class PlaybackControlsRow.RepeatAction extends android.support.v17.leanback.widget.PlaybackControlsRow.MultiAction {
     ctor public PlaybackControlsRow.RepeatAction(android.content.Context);
     ctor public PlaybackControlsRow.RepeatAction(android.content.Context, int);
     ctor public PlaybackControlsRow.RepeatAction(android.content.Context, int, int);
-    field public static int ALL;
-    field public static int NONE;
-    field public static int ONE;
+    field public static deprecated int ALL;
+    field public static final int INDEX_ALL = 1; // 0x1
+    field public static final int INDEX_NONE = 0; // 0x0
+    field public static final int INDEX_ONE = 2; // 0x2
+    field public static deprecated int NONE;
+    field public static deprecated int ONE;
   }
 
   public static class PlaybackControlsRow.RewindAction extends android.support.v17.leanback.widget.PlaybackControlsRow.MultiAction {
@@ -4979,8 +5020,10 @@ package android.support.v17.leanback.widget {
   public static class PlaybackControlsRow.ShuffleAction extends android.support.v17.leanback.widget.PlaybackControlsRow.MultiAction {
     ctor public PlaybackControlsRow.ShuffleAction(android.content.Context);
     ctor public PlaybackControlsRow.ShuffleAction(android.content.Context, int);
-    field public static int OFF;
-    field public static int ON;
+    field public static final int INDEX_OFF = 0; // 0x0
+    field public static final int INDEX_ON = 1; // 0x1
+    field public static deprecated int OFF;
+    field public static deprecated int ON;
   }
 
   public static class PlaybackControlsRow.SkipNextAction extends android.support.v17.leanback.widget.Action {
@@ -4993,8 +5036,10 @@ package android.support.v17.leanback.widget {
 
   public static abstract class PlaybackControlsRow.ThumbsAction extends android.support.v17.leanback.widget.PlaybackControlsRow.MultiAction {
     ctor public PlaybackControlsRow.ThumbsAction(int, android.content.Context, int, int);
-    field public static int OUTLINE;
-    field public static int SOLID;
+    field public static final int INDEX_OUTLINE = 1; // 0x1
+    field public static final int INDEX_SOLID = 0; // 0x0
+    field public static deprecated int OUTLINE;
+    field public static deprecated int SOLID;
   }
 
   public static class PlaybackControlsRow.ThumbsDownAction extends android.support.v17.leanback.widget.PlaybackControlsRow.ThumbsAction {
@@ -6046,6 +6091,7 @@ package android.support.v4.app {
     method public void onFragmentDetached(android.support.v4.app.FragmentManager, android.support.v4.app.Fragment);
     method public void onFragmentPaused(android.support.v4.app.FragmentManager, android.support.v4.app.Fragment);
     method public void onFragmentPreAttached(android.support.v4.app.FragmentManager, android.support.v4.app.Fragment, android.content.Context);
+    method public void onFragmentPreCreated(android.support.v4.app.FragmentManager, android.support.v4.app.Fragment, android.os.Bundle);
     method public void onFragmentResumed(android.support.v4.app.FragmentManager, android.support.v4.app.Fragment);
     method public void onFragmentSaveInstanceState(android.support.v4.app.FragmentManager, android.support.v4.app.Fragment, android.os.Bundle);
     method public void onFragmentStarted(android.support.v4.app.FragmentManager, android.support.v4.app.Fragment);
@@ -6100,10 +6146,10 @@ package android.support.v4.app {
     method public abstract android.support.v4.app.FragmentTransaction hide(android.support.v4.app.Fragment);
     method public abstract boolean isAddToBackStackAllowed();
     method public abstract boolean isEmpty();
-    method public abstract android.support.v4.app.FragmentTransaction postOnCommit(java.lang.Runnable);
     method public abstract android.support.v4.app.FragmentTransaction remove(android.support.v4.app.Fragment);
     method public abstract android.support.v4.app.FragmentTransaction replace(int, android.support.v4.app.Fragment);
     method public abstract android.support.v4.app.FragmentTransaction replace(int, android.support.v4.app.Fragment, java.lang.String);
+    method public abstract android.support.v4.app.FragmentTransaction runOnCommit(java.lang.Runnable);
     method public abstract deprecated android.support.v4.app.FragmentTransaction setAllowOptimization(boolean);
     method public abstract android.support.v4.app.FragmentTransaction setBreadCrumbShortTitle(int);
     method public abstract android.support.v4.app.FragmentTransaction setBreadCrumbShortTitle(java.lang.CharSequence);
@@ -6152,6 +6198,14 @@ package android.support.v4.app {
     field public static final int SYNC_INDEX = 4; // 0x4
     field public static final int TOTAL_DURATION = 1; // 0x1
     field public static final int TOTAL_INDEX = 0; // 0x0
+  }
+
+  public abstract class JobIntentService extends android.app.Service {
+    ctor public JobIntentService();
+    method public static void enqueueWork(android.content.Context, java.lang.Class, int, android.content.Intent);
+    method public android.os.IBinder onBind(android.content.Intent);
+    method protected abstract void onHandleWork(android.content.Intent);
+    method public boolean onStopCurrentWork();
   }
 
   public class ListFragment extends android.support.v4.app.Fragment {
@@ -6203,13 +6257,16 @@ package android.support.v4.app {
     method public static int getActionCount(android.app.Notification);
     method public static int getBadgeIconType(android.app.Notification);
     method public static java.lang.String getCategory(android.app.Notification);
-    method public static java.lang.String getChannel(android.app.Notification);
+    method public static deprecated java.lang.String getChannel(android.app.Notification);
+    method public static java.lang.String getChannelId(android.app.Notification);
     method public static android.os.Bundle getExtras(android.app.Notification);
     method public static java.lang.String getGroup(android.app.Notification);
+    method public static int getGroupAlertBehavior(android.app.Notification);
     method public static boolean getLocalOnly(android.app.Notification);
     method public static java.lang.String getShortcutId(android.app.Notification);
     method public static java.lang.String getSortKey(android.app.Notification);
-    method public static long getTimeout(android.app.Notification);
+    method public static deprecated long getTimeout(android.app.Notification);
+    method public static long getTimeoutAfter(android.app.Notification);
     method public static boolean isGroupSummary(android.app.Notification);
     field public static final int BADGE_ICON_LARGE = 2; // 0x2
     field public static final int BADGE_ICON_NONE = 0; // 0x0
@@ -6271,6 +6328,9 @@ package android.support.v4.app {
     field public static final int FLAG_ONGOING_EVENT = 2; // 0x2
     field public static final int FLAG_ONLY_ALERT_ONCE = 8; // 0x8
     field public static final int FLAG_SHOW_LIGHTS = 1; // 0x1
+    field public static final int GROUP_ALERT_ALL = 0; // 0x0
+    field public static final int GROUP_ALERT_CHILDREN = 2; // 0x2
+    field public static final int GROUP_ALERT_SUMMARY = 1; // 0x1
     field public static final int PRIORITY_DEFAULT = 0; // 0x0
     field public static final int PRIORITY_HIGH = 1; // 0x1
     field public static final int PRIORITY_LOW = -1; // 0xffffffff
@@ -6362,7 +6422,8 @@ package android.support.v4.app {
     method public android.support.v4.app.NotificationCompat.Builder setAutoCancel(boolean);
     method public android.support.v4.app.NotificationCompat.Builder setBadgeIconType(int);
     method public android.support.v4.app.NotificationCompat.Builder setCategory(java.lang.String);
-    method public android.support.v4.app.NotificationCompat.Builder setChannel(java.lang.String);
+    method public deprecated android.support.v4.app.NotificationCompat.Builder setChannel(java.lang.String);
+    method public android.support.v4.app.NotificationCompat.Builder setChannelId(java.lang.String);
     method public android.support.v4.app.NotificationCompat.Builder setColor(int);
     method public android.support.v4.app.NotificationCompat.Builder setColorized(boolean);
     method public android.support.v4.app.NotificationCompat.Builder setContent(android.widget.RemoteViews);
@@ -6378,6 +6439,7 @@ package android.support.v4.app {
     method public android.support.v4.app.NotificationCompat.Builder setExtras(android.os.Bundle);
     method public android.support.v4.app.NotificationCompat.Builder setFullScreenIntent(android.app.PendingIntent, boolean);
     method public android.support.v4.app.NotificationCompat.Builder setGroup(java.lang.String);
+    method public android.support.v4.app.NotificationCompat.Builder setGroupAlertBehavior(int);
     method public android.support.v4.app.NotificationCompat.Builder setGroupSummary(boolean);
     method public android.support.v4.app.NotificationCompat.Builder setLargeIcon(android.graphics.Bitmap);
     method public android.support.v4.app.NotificationCompat.Builder setLights(int, int, int);
@@ -6400,7 +6462,8 @@ package android.support.v4.app {
     method public android.support.v4.app.NotificationCompat.Builder setSubText(java.lang.CharSequence);
     method public android.support.v4.app.NotificationCompat.Builder setTicker(java.lang.CharSequence);
     method public android.support.v4.app.NotificationCompat.Builder setTicker(java.lang.CharSequence, android.widget.RemoteViews);
-    method public android.support.v4.app.NotificationCompat.Builder setTimeout(long);
+    method public deprecated android.support.v4.app.NotificationCompat.Builder setTimeout(long);
+    method public android.support.v4.app.NotificationCompat.Builder setTimeoutAfter(long);
     method public android.support.v4.app.NotificationCompat.Builder setUsesChronometer(boolean);
     method public android.support.v4.app.NotificationCompat.Builder setVibrate(long[]);
     method public android.support.v4.app.NotificationCompat.Builder setVisibility(int);
@@ -7172,6 +7235,10 @@ package android.support.v4.media {
     method public void subscribe(java.lang.String, android.os.Bundle, android.support.v4.media.MediaBrowserCompat.SubscriptionCallback);
     method public void unsubscribe(java.lang.String);
     method public void unsubscribe(java.lang.String, android.support.v4.media.MediaBrowserCompat.SubscriptionCallback);
+    field public static final java.lang.String CUSTOM_ACTION_DOWNLOAD = "android.support.v4.media.action.DOWNLOAD";
+    field public static final java.lang.String CUSTOM_ACTION_REMOVE_DOWNLOADED_FILE = "android.support.v4.media.action.REMOVE_DOWNLOADED_FILE";
+    field public static final java.lang.String EXTRA_DOWNLOAD_PROGRESS = "android.media.browse.extra.DOWNLOAD_PROGRESS";
+    field public static final java.lang.String EXTRA_MEDIA_ID = "android.media.browse.extra.MEDIA_ID";
     field public static final java.lang.String EXTRA_PAGE = "android.media.browse.extra.PAGE";
     field public static final java.lang.String EXTRA_PAGE_SIZE = "android.media.browse.extra.PAGE_SIZE";
   }
@@ -7283,6 +7350,10 @@ package android.support.v4.media {
     field public static final long BT_FOLDER_TYPE_YEARS = 6L; // 0x6L
     field public static final android.os.Parcelable.Creator<android.support.v4.media.MediaDescriptionCompat> CREATOR;
     field public static final java.lang.String EXTRA_BT_FOLDER_TYPE = "android.media.extra.BT_FOLDER_TYPE";
+    field public static final java.lang.String EXTRA_DOWNLOAD_STATUS = "android.media.extra.DOWNLOAD_STATUS";
+    field public static final long STATUS_DOWNLOADED = 2L; // 0x2L
+    field public static final long STATUS_DOWNLOADING = 1L; // 0x1L
+    field public static final long STATUS_NOT_DOWNLOADED = 0L; // 0x0L
   }
 
   public static final class MediaDescriptionCompat.Builder {
@@ -7333,6 +7404,7 @@ package android.support.v4.media {
     field public static final java.lang.String METADATA_KEY_DISPLAY_ICON_URI = "android.media.metadata.DISPLAY_ICON_URI";
     field public static final java.lang.String METADATA_KEY_DISPLAY_SUBTITLE = "android.media.metadata.DISPLAY_SUBTITLE";
     field public static final java.lang.String METADATA_KEY_DISPLAY_TITLE = "android.media.metadata.DISPLAY_TITLE";
+    field public static final java.lang.String METADATA_KEY_DOWNLOAD_STATUS = "android.media.metadata.DOWNLOAD_STATUS";
     field public static final java.lang.String METADATA_KEY_DURATION = "android.media.metadata.DURATION";
     field public static final java.lang.String METADATA_KEY_GENRE = "android.media.metadata.GENRE";
     field public static final java.lang.String METADATA_KEY_MEDIA_ID = "android.media.metadata.MEDIA_ID";
@@ -7436,9 +7508,10 @@ package android.support.v4.media.session {
     method public int getRepeatMode();
     method public android.app.PendingIntent getSessionActivity();
     method public android.support.v4.media.session.MediaSessionCompat.Token getSessionToken();
+    method public int getShuffleMode();
     method public android.support.v4.media.session.MediaControllerCompat.TransportControls getTransportControls();
     method public boolean isCaptioningEnabled();
-    method public boolean isShuffleModeEnabled();
+    method public deprecated boolean isShuffleModeEnabled();
     method public void registerCallback(android.support.v4.media.session.MediaControllerCompat.Callback);
     method public void registerCallback(android.support.v4.media.session.MediaControllerCompat.Callback, android.os.Handler);
     method public void removeQueueItem(android.support.v4.media.MediaDescriptionCompat);
@@ -7462,7 +7535,8 @@ package android.support.v4.media.session {
     method public void onRepeatModeChanged(int);
     method public void onSessionDestroyed();
     method public void onSessionEvent(java.lang.String, android.os.Bundle);
-    method public void onShuffleModeChanged(boolean);
+    method public deprecated void onShuffleModeChanged(boolean);
+    method public void onShuffleModeChanged(int);
   }
 
   public static final class MediaControllerCompat.PlaybackInfo {
@@ -7493,7 +7567,8 @@ package android.support.v4.media.session {
     method public abstract void setCaptioningEnabled(boolean);
     method public abstract void setRating(android.support.v4.media.RatingCompat);
     method public abstract void setRepeatMode(int);
-    method public abstract void setShuffleModeEnabled(boolean);
+    method public abstract void setShuffleMode(int);
+    method public abstract deprecated void setShuffleModeEnabled(boolean);
     method public abstract void skipToNext();
     method public abstract void skipToPrevious();
     method public abstract void skipToQueueItem(long);
@@ -7529,12 +7604,20 @@ package android.support.v4.media.session {
     method public void setRatingType(int);
     method public void setRepeatMode(int);
     method public void setSessionActivity(android.app.PendingIntent);
-    method public void setShuffleModeEnabled(boolean);
+    method public void setShuffleMode(int);
+    method public deprecated void setShuffleModeEnabled(boolean);
+    field public static final java.lang.String ACTION_ARGUMENT_MEDIA_ATTRIBUTE = "android.support.v4.media.session.action.ARGUMENT_MEDIA_ATTRIBUTE";
+    field public static final java.lang.String ACTION_ARGUMENT_MEDIA_ATTRIBUTE_VALUE = "android.support.v4.media.session.action.ARGUMENT_MEDIA_ATTRIBUTE_VALUE";
     field public static final java.lang.String ACTION_FLAG_AS_INAPPROPRIATE = "android.support.v4.media.session.action.FLAG_AS_INAPPROPRIATE";
+    field public static final java.lang.String ACTION_FOLLOW = "android.support.v4.media.session.action.FOLLOW";
     field public static final java.lang.String ACTION_SKIP_AD = "android.support.v4.media.session.action.SKIP_AD";
+    field public static final java.lang.String ACTION_UNFOLLOW = "android.support.v4.media.session.action.UNFOLLOW";
     field public static final int FLAG_HANDLES_MEDIA_BUTTONS = 1; // 0x1
     field public static final int FLAG_HANDLES_QUEUE_COMMANDS = 4; // 0x4
     field public static final int FLAG_HANDLES_TRANSPORT_CONTROLS = 2; // 0x2
+    field public static final int MEDIA_ATTRIBUTE_ALBUM = 1; // 0x1
+    field public static final int MEDIA_ATTRIBUTE_ARTIST = 0; // 0x0
+    field public static final int MEDIA_ATTRIBUTE_PLAYLIST = 2; // 0x2
   }
 
   public static abstract class MediaSessionCompat.Callback {
@@ -7561,7 +7644,8 @@ package android.support.v4.media.session {
     method public void onSetCaptioningEnabled(boolean);
     method public void onSetRating(android.support.v4.media.RatingCompat);
     method public void onSetRepeatMode(int);
-    method public void onSetShuffleModeEnabled(boolean);
+    method public void onSetShuffleMode(int);
+    method public deprecated void onSetShuffleModeEnabled(boolean);
     method public void onSkipToNext();
     method public void onSkipToPrevious();
     method public void onSkipToQueueItem(long);
@@ -7659,8 +7743,12 @@ package android.support.v4.media.session {
     field public static final int ERROR_CODE_UNKNOWN_ERROR = 0; // 0x0
     field public static final long PLAYBACK_POSITION_UNKNOWN = -1L; // 0xffffffffffffffffL
     field public static final int REPEAT_MODE_ALL = 2; // 0x2
+    field public static final int REPEAT_MODE_GROUP = 3; // 0x3
     field public static final int REPEAT_MODE_NONE = 0; // 0x0
     field public static final int REPEAT_MODE_ONE = 1; // 0x1
+    field public static final int SHUFFLE_MODE_ALL = 1; // 0x1
+    field public static final int SHUFFLE_MODE_GROUP = 2; // 0x2
+    field public static final int SHUFFLE_MODE_NONE = 0; // 0x0
     field public static final int STATE_BUFFERING = 6; // 0x6
     field public static final int STATE_CONNECTING = 8; // 0x8
     field public static final int STATE_ERROR = 7; // 0x7
@@ -7745,7 +7833,7 @@ package android.support.v4.os {
   public class BuildCompat {
     method public static deprecated boolean isAtLeastN();
     method public static deprecated boolean isAtLeastNMR1();
-    method public static boolean isAtLeastO();
+    method public static deprecated boolean isAtLeastO();
     method public static boolean isAtLeastOMR1();
     method public static boolean isAtLeastP();
   }
@@ -8455,19 +8543,32 @@ package android.support.v4.view {
     method public abstract void stopNestedScroll();
   }
 
+  public abstract interface NestedScrollingChild2 implements android.support.v4.view.NestedScrollingChild {
+    method public abstract boolean dispatchNestedPreScroll(int, int, int[], int[], int);
+    method public abstract boolean dispatchNestedScroll(int, int, int, int, int[], int);
+    method public abstract boolean hasNestedScrollingParent(int);
+    method public abstract boolean startNestedScroll(int, int);
+    method public abstract void stopNestedScroll(int);
+  }
+
   public class NestedScrollingChildHelper {
     ctor public NestedScrollingChildHelper(android.view.View);
     method public boolean dispatchNestedFling(float, float, boolean);
     method public boolean dispatchNestedPreFling(float, float);
     method public boolean dispatchNestedPreScroll(int, int, int[], int[]);
+    method public boolean dispatchNestedPreScroll(int, int, int[], int[], int);
     method public boolean dispatchNestedScroll(int, int, int, int, int[]);
+    method public boolean dispatchNestedScroll(int, int, int, int, int[], int);
     method public boolean hasNestedScrollingParent();
+    method public boolean hasNestedScrollingParent(int);
     method public boolean isNestedScrollingEnabled();
     method public void onDetachedFromWindow();
     method public void onStopNestedScroll(android.view.View);
     method public void setNestedScrollingEnabled(boolean);
     method public boolean startNestedScroll(int);
+    method public boolean startNestedScroll(int, int);
     method public void stopNestedScroll();
+    method public void stopNestedScroll(int);
   }
 
   public abstract interface NestedScrollingParent {
@@ -8481,11 +8582,21 @@ package android.support.v4.view {
     method public abstract void onStopNestedScroll(android.view.View);
   }
 
+  public abstract interface NestedScrollingParent2 implements android.support.v4.view.NestedScrollingParent {
+    method public abstract void onNestedPreScroll(android.view.View, int, int, int[], int);
+    method public abstract void onNestedScroll(android.view.View, int, int, int, int, int);
+    method public abstract void onNestedScrollAccepted(android.view.View, android.view.View, int, int);
+    method public abstract boolean onStartNestedScroll(android.view.View, android.view.View, int, int);
+    method public abstract void onStopNestedScroll(android.view.View, int);
+  }
+
   public class NestedScrollingParentHelper {
     ctor public NestedScrollingParentHelper(android.view.ViewGroup);
     method public int getNestedScrollAxes();
     method public void onNestedScrollAccepted(android.view.View, android.view.View, int);
+    method public void onNestedScrollAccepted(android.view.View, android.view.View, int, int);
     method public void onStopNestedScroll(android.view.View);
+    method public void onStopNestedScroll(android.view.View, int);
   }
 
   public abstract interface OnApplyWindowInsetsListener {
@@ -8610,7 +8721,9 @@ package android.support.v4.view {
     method public static boolean dispatchNestedFling(android.view.View, float, float, boolean);
     method public static boolean dispatchNestedPreFling(android.view.View, float, float);
     method public static boolean dispatchNestedPreScroll(android.view.View, int, int, int[], int[]);
+    method public static boolean dispatchNestedPreScroll(android.view.View, int, int, int[], int[], int);
     method public static boolean dispatchNestedScroll(android.view.View, int, int, int, int, int[]);
+    method public static boolean dispatchNestedScroll(android.view.View, int, int, int, int, int[], int);
     method public static void dispatchStartTemporaryDetach(android.view.View);
     method public static int getAccessibilityLiveRegion(android.view.View);
     method public static android.support.v4.view.accessibility.AccessibilityNodeProviderCompat getAccessibilityNodeProvider(android.view.View);
@@ -8654,6 +8767,7 @@ package android.support.v4.view {
     method public static float getZ(android.view.View);
     method public static boolean hasAccessibilityDelegate(android.view.View);
     method public static boolean hasNestedScrollingParent(android.view.View);
+    method public static boolean hasNestedScrollingParent(android.view.View, int);
     method public static boolean hasOnClickListeners(android.view.View);
     method public static boolean hasOverlappingRendering(android.view.View);
     method public static boolean hasTransientState(android.view.View);
@@ -8728,7 +8842,9 @@ package android.support.v4.view {
     method public static void setZ(android.view.View, float);
     method public static boolean startDragAndDrop(android.view.View, android.content.ClipData, android.view.View.DragShadowBuilder, java.lang.Object, int);
     method public static boolean startNestedScroll(android.view.View, int);
+    method public static boolean startNestedScroll(android.view.View, int, int);
     method public static void stopNestedScroll(android.view.View);
+    method public static void stopNestedScroll(android.view.View, int);
     method public static void updateDragShadow(android.view.View, android.view.View.DragShadowBuilder);
     field public static final int ACCESSIBILITY_LIVE_REGION_ASSERTIVE = 2; // 0x2
     field public static final int ACCESSIBILITY_LIVE_REGION_NONE = 0; // 0x0
@@ -8760,6 +8876,8 @@ package android.support.v4.view {
     field public static final int SCROLL_INDICATOR_RIGHT = 8; // 0x8
     field public static final int SCROLL_INDICATOR_START = 16; // 0x10
     field public static final int SCROLL_INDICATOR_TOP = 1; // 0x1
+    field public static final int TYPE_NON_TOUCH = 1; // 0x1
+    field public static final int TYPE_TOUCH = 0; // 0x0
   }
 
   public final deprecated class ViewConfigurationCompat {
@@ -8860,10 +8978,15 @@ package android.support.v4.view {
     method public static boolean onNestedFling(android.view.ViewParent, android.view.View, float, float, boolean);
     method public static boolean onNestedPreFling(android.view.ViewParent, android.view.View, float, float);
     method public static void onNestedPreScroll(android.view.ViewParent, android.view.View, int, int, int[]);
+    method public static void onNestedPreScroll(android.view.ViewParent, android.view.View, int, int, int[], int);
     method public static void onNestedScroll(android.view.ViewParent, android.view.View, int, int, int, int);
+    method public static void onNestedScroll(android.view.ViewParent, android.view.View, int, int, int, int, int);
     method public static void onNestedScrollAccepted(android.view.ViewParent, android.view.View, android.view.View, int);
+    method public static void onNestedScrollAccepted(android.view.ViewParent, android.view.View, android.view.View, int, int);
     method public static boolean onStartNestedScroll(android.view.ViewParent, android.view.View, android.view.View, int);
+    method public static boolean onStartNestedScroll(android.view.ViewParent, android.view.View, android.view.View, int, int);
     method public static void onStopNestedScroll(android.view.ViewParent, android.view.View);
+    method public static void onStopNestedScroll(android.view.ViewParent, android.view.View, int);
     method public static deprecated boolean requestSendAccessibilityEvent(android.view.ViewParent, android.view.View, android.view.accessibility.AccessibilityEvent);
   }
 
@@ -9577,16 +9700,19 @@ package android.support.v4.widget {
     method public static void scrollListBy(android.widget.ListView, int);
   }
 
-  public class NestedScrollView extends android.widget.FrameLayout implements android.support.v4.view.NestedScrollingChild android.support.v4.view.NestedScrollingParent android.support.v4.view.ScrollingView {
+  public class NestedScrollView extends android.widget.FrameLayout implements android.support.v4.view.NestedScrollingChild2 android.support.v4.view.NestedScrollingParent android.support.v4.view.ScrollingView {
     ctor public NestedScrollView(android.content.Context);
     ctor public NestedScrollView(android.content.Context, android.util.AttributeSet);
     ctor public NestedScrollView(android.content.Context, android.util.AttributeSet, int);
     method public boolean arrowScroll(int);
     method protected int computeScrollDeltaToGetChildRectOnScreen(android.graphics.Rect);
+    method public boolean dispatchNestedPreScroll(int, int, int[], int[], int);
+    method public boolean dispatchNestedScroll(int, int, int, int, int[], int);
     method public boolean executeKeyEvent(android.view.KeyEvent);
     method public void fling(int);
     method public boolean fullScroll(int);
     method public int getMaxScrollAmount();
+    method public boolean hasNestedScrollingParent(int);
     method public boolean isFillViewport();
     method public boolean isSmoothScrollingEnabled();
     method public void onAttachedToWindow();
@@ -9596,6 +9722,8 @@ package android.support.v4.widget {
     method public void setSmoothScrollingEnabled(boolean);
     method public final void smoothScrollBy(int, int);
     method public final void smoothScrollTo(int, int);
+    method public boolean startNestedScroll(int, int);
+    method public void stopNestedScroll(int);
   }
 
   public static abstract interface NestedScrollView.OnScrollChangeListener {
@@ -11890,7 +12018,7 @@ package android.support.v7.widget {
     method public abstract boolean onMenuItemClick(android.view.MenuItem);
   }
 
-  public class RecyclerView extends android.view.ViewGroup implements android.support.v4.view.NestedScrollingChild android.support.v4.view.ScrollingView {
+  public class RecyclerView extends android.view.ViewGroup implements android.support.v4.view.NestedScrollingChild2 android.support.v4.view.ScrollingView {
     ctor public RecyclerView(android.content.Context);
     ctor public RecyclerView(android.content.Context, android.util.AttributeSet);
     ctor public RecyclerView(android.content.Context, android.util.AttributeSet, int);
@@ -11907,6 +12035,8 @@ package android.support.v7.widget {
     method public int computeVerticalScrollExtent();
     method public int computeVerticalScrollOffset();
     method public int computeVerticalScrollRange();
+    method public boolean dispatchNestedPreScroll(int, int, int[], int[], int);
+    method public boolean dispatchNestedScroll(int, int, int, int, int[], int);
     method public boolean drawChild(android.graphics.Canvas, android.view.View, long);
     method public android.view.View findChildViewUnder(float, float);
     method public android.view.View findContainingItemView(android.view.View);
@@ -11934,6 +12064,7 @@ package android.support.v7.widget {
     method public android.support.v7.widget.RecyclerView.RecycledViewPool getRecycledViewPool();
     method public int getScrollState();
     method public boolean hasFixedSize();
+    method public boolean hasNestedScrollingParent(int);
     method public boolean hasPendingAdapterUpdates();
     method public void invalidateItemDecorations();
     method public boolean isAnimating();
@@ -11970,6 +12101,8 @@ package android.support.v7.widget {
     method public void smoothScrollBy(int, int);
     method public void smoothScrollBy(int, int, android.view.animation.Interpolator);
     method public void smoothScrollToPosition(int);
+    method public boolean startNestedScroll(int, int);
+    method public void stopNestedScroll(int);
     method public void stopScroll();
     method public void swapAdapter(android.support.v7.widget.RecyclerView.Adapter, boolean);
     field public static final int HORIZONTAL = 0; // 0x0
@@ -12848,6 +12981,101 @@ package android.support.wear.widget {
     method public void setCircularScrollingGestureEnabled(boolean);
     method public void setEdgeItemsCenteringEnabled(boolean);
     method public void setScrollDegreesPerScreen(float);
+  }
+
+}
+
+package android.support.wear.widget.drawer {
+
+  public class WearableActionDrawerView extends android.support.wear.widget.drawer.WearableDrawerView {
+    ctor public WearableActionDrawerView(android.content.Context);
+    ctor public WearableActionDrawerView(android.content.Context, android.util.AttributeSet);
+    ctor public WearableActionDrawerView(android.content.Context, android.util.AttributeSet, int);
+    ctor public WearableActionDrawerView(android.content.Context, android.util.AttributeSet, int, int);
+    method public android.view.Menu getMenu();
+    method public void setOnMenuItemClickListener(android.view.MenuItem.OnMenuItemClickListener);
+    method public void setTitle(java.lang.CharSequence);
+  }
+
+  public class WearableDrawerController {
+    method public void closeDrawer();
+    method public void openDrawer();
+    method public void peekDrawer();
+  }
+
+  public class WearableDrawerLayout extends android.widget.FrameLayout implements android.support.v4.view.NestedScrollingParent android.view.View.OnLayoutChangeListener {
+    ctor public WearableDrawerLayout(android.content.Context);
+    ctor public WearableDrawerLayout(android.content.Context, android.util.AttributeSet);
+    ctor public WearableDrawerLayout(android.content.Context, android.util.AttributeSet, int);
+    ctor public WearableDrawerLayout(android.content.Context, android.util.AttributeSet, int, int);
+    method public void onFlingComplete(android.view.View);
+    method public void onLayoutChange(android.view.View, int, int, int, int, int, int, int, int);
+    method public void setDrawerStateCallback(android.support.wear.widget.drawer.WearableDrawerLayout.DrawerStateCallback);
+  }
+
+  public static class WearableDrawerLayout.DrawerStateCallback {
+    ctor public WearableDrawerLayout.DrawerStateCallback();
+    method public void onDrawerClosed(android.support.wear.widget.drawer.WearableDrawerLayout, android.support.wear.widget.drawer.WearableDrawerView);
+    method public void onDrawerOpened(android.support.wear.widget.drawer.WearableDrawerLayout, android.support.wear.widget.drawer.WearableDrawerView);
+    method public void onDrawerStateChanged(android.support.wear.widget.drawer.WearableDrawerLayout, int);
+  }
+
+  public class WearableDrawerView extends android.widget.FrameLayout {
+    ctor public WearableDrawerView(android.content.Context);
+    ctor public WearableDrawerView(android.content.Context, android.util.AttributeSet);
+    ctor public WearableDrawerView(android.content.Context, android.util.AttributeSet, int);
+    ctor public WearableDrawerView(android.content.Context, android.util.AttributeSet, int, int);
+    method public android.support.wear.widget.drawer.WearableDrawerController getController();
+    method public android.view.View getDrawerContent();
+    method public int getDrawerState();
+    method public boolean isAutoPeekEnabled();
+    method public boolean isClosed();
+    method public boolean isLocked();
+    method public boolean isLockedWhenClosed();
+    method public boolean isOpenOnlyAtTopEnabled();
+    method public boolean isOpened();
+    method public boolean isPeekOnScrollDownEnabled();
+    method public boolean isPeeking();
+    method public void onDrawerClosed();
+    method public void onDrawerOpened();
+    method public void onDrawerStateChanged(int);
+    method public void onPeekContainerClicked(android.view.View);
+    method public void setDrawerContent(android.view.View);
+    method public void setIsAutoPeekEnabled(boolean);
+    method public void setIsLocked(boolean);
+    method public void setLockedWhenClosed(boolean);
+    method public void setOpenOnlyAtTopEnabled(boolean);
+    method public void setPeekContent(android.view.View);
+    method public void setPeekOnScrollDownEnabled(boolean);
+    field public static final int STATE_DRAGGING = 1; // 0x1
+    field public static final int STATE_IDLE = 0; // 0x0
+    field public static final int STATE_SETTLING = 2; // 0x2
+  }
+
+  public class WearableNavigationDrawerView extends android.support.wear.widget.drawer.WearableDrawerView {
+    ctor public WearableNavigationDrawerView(android.content.Context);
+    ctor public WearableNavigationDrawerView(android.content.Context, android.util.AttributeSet);
+    ctor public WearableNavigationDrawerView(android.content.Context, android.util.AttributeSet, int);
+    ctor public WearableNavigationDrawerView(android.content.Context, android.util.AttributeSet, int, int);
+    method public void addOnItemSelectedListener(android.support.wear.widget.drawer.WearableNavigationDrawerView.OnItemSelectedListener);
+    method public int getNavigationStyle();
+    method public void removeOnItemSelectedListener(android.support.wear.widget.drawer.WearableNavigationDrawerView.OnItemSelectedListener);
+    method public void setAdapter(android.support.wear.widget.drawer.WearableNavigationDrawerView.WearableNavigationDrawerAdapter);
+    method public void setCurrentItem(int, boolean);
+    field public static final int MULTI_PAGE = 1; // 0x1
+    field public static final int SINGLE_PAGE = 0; // 0x0
+  }
+
+  public static abstract interface WearableNavigationDrawerView.OnItemSelectedListener {
+    method public abstract void onItemSelected(int);
+  }
+
+  public static abstract class WearableNavigationDrawerView.WearableNavigationDrawerAdapter {
+    ctor public WearableNavigationDrawerView.WearableNavigationDrawerAdapter();
+    method public abstract int getCount();
+    method public abstract android.graphics.drawable.Drawable getItemDrawable(int);
+    method public abstract java.lang.CharSequence getItemText(int);
+    method public void notifyDataSetChanged();
   }
 
 }

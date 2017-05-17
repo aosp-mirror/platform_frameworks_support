@@ -17,6 +17,8 @@
 
 package android.support.v4.view;
 
+import android.support.annotation.Nullable;
+import android.support.v4.view.ViewCompat.ScrollAxis;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -51,7 +53,7 @@ public interface NestedScrollingChild {
      *
      * @see #isNestedScrollingEnabled()
      */
-    public void setNestedScrollingEnabled(boolean enabled);
+    void setNestedScrollingEnabled(boolean enabled);
 
     /**
      * Returns true if nested scrolling is enabled for this view.
@@ -65,7 +67,7 @@ public interface NestedScrollingChild {
      *
      * @see #setNestedScrollingEnabled(boolean)
      */
-    public boolean isNestedScrollingEnabled();
+    boolean isNestedScrollingEnabled();
 
     /**
      * Begin a nestable scroll operation along the given axes.
@@ -105,7 +107,7 @@ public interface NestedScrollingChild {
      * @see #dispatchNestedPreScroll(int, int, int[], int[])
      * @see #dispatchNestedScroll(int, int, int, int, int[])
      */
-    public boolean startNestedScroll(int axes);
+    boolean startNestedScroll(@ScrollAxis int axes);
 
     /**
      * Stop a nested scroll in progress.
@@ -114,7 +116,7 @@ public interface NestedScrollingChild {
      *
      * @see #startNestedScroll(int)
      */
-    public void stopNestedScroll();
+    void stopNestedScroll();
 
     /**
      * Returns true if this view has a nested scrolling parent.
@@ -124,7 +126,7 @@ public interface NestedScrollingChild {
      *
      * @return whether this view has a nested scrolling parent
      */
-    public boolean hasNestedScrollingParent();
+    boolean hasNestedScrollingParent();
 
     /**
      * Dispatch one step of a nested scroll in progress.
@@ -149,8 +151,8 @@ public interface NestedScrollingChild {
      * @return true if the event was dispatched, false if it could not be dispatched.
      * @see #dispatchNestedPreScroll(int, int, int[], int[])
      */
-    public boolean dispatchNestedScroll(int dxConsumed, int dyConsumed,
-            int dxUnconsumed, int dyUnconsumed, int[] offsetInWindow);
+    boolean dispatchNestedScroll(int dxConsumed, int dyConsumed,
+            int dxUnconsumed, int dyUnconsumed, @Nullable int[] offsetInWindow);
 
     /**
      * Dispatch one step of a nested scroll in progress before this view consumes any portion of it.
@@ -171,7 +173,8 @@ public interface NestedScrollingChild {
      * @return true if the parent consumed some or all of the scroll delta
      * @see #dispatchNestedScroll(int, int, int, int, int[])
      */
-    public boolean dispatchNestedPreScroll(int dx, int dy, int[] consumed, int[] offsetInWindow);
+    boolean dispatchNestedPreScroll(int dx, int dy, @Nullable int[] consumed,
+            @Nullable int[] offsetInWindow);
 
     /**
      * Dispatch a fling to a nested scrolling parent.
@@ -191,7 +194,7 @@ public interface NestedScrollingChild {
      * @param consumed true if the child consumed the fling, false otherwise
      * @return true if the nested scrolling parent consumed or otherwise reacted to the fling
      */
-    public boolean dispatchNestedFling(float velocityX, float velocityY, boolean consumed);
+    boolean dispatchNestedFling(float velocityX, float velocityY, boolean consumed);
 
     /**
      * Dispatch a fling to a nested scrolling parent before it is processed by this view.
@@ -223,5 +226,5 @@ public interface NestedScrollingChild {
      * @param velocityY Vertical fling velocity in pixels per second
      * @return true if a nested scrolling parent consumed the fling
      */
-    public boolean dispatchNestedPreFling(float velocityX, float velocityY);
+    boolean dispatchNestedPreFling(float velocityX, float velocityY);
 }

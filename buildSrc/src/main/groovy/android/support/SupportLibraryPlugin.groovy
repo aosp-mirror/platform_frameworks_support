@@ -17,7 +17,6 @@
 package android.support
 
 import com.android.build.gradle.LibraryExtension
-import com.android.build.gradle.api.AndroidSourceSet
 import com.android.build.gradle.api.LibraryVariant
 import com.android.builder.core.BuilderConstants
 import com.google.common.collect.ImmutableMap
@@ -108,11 +107,6 @@ class SupportLibraryPlugin implements Plugin<Project> {
             targetCompatibility JavaVersion.VERSION_1_7
         }
 
-        if (project.rootProject.usingFullSdk) {
-            // Library projects don't run lint by default, so set up dependency.
-            project.tasks.release.dependsOn project.tasks.lint
-        }
-
         // Create sources jar for release builds
         library.getLibraryVariants().all(new Action<LibraryVariant>() {
             @Override
@@ -176,6 +170,11 @@ class SupportLibraryPlugin implements Plugin<Project> {
             });
         }
 
+        if (project.rootProject.usingFullSdk) {
+            // Library projects don't run lint by default, so set up dependency.
+            uploadTask.dependsOn project.tasks.lint
+        }
+
         final ErrorProneToolChain toolChain = ErrorProneToolChain.create(project);
         library.getBuildTypes().create("errorProne")
         library.getLibraryVariants().all(new Action<LibraryVariant>() {
@@ -184,12 +183,13 @@ class SupportLibraryPlugin implements Plugin<Project> {
                 if (libraryVariant.getBuildType().getName().equals("errorProne")) {
                     libraryVariant.getJavaCompile().setToolChain(toolChain);
 
-                    // TODO(aurimas): remove this once all these warnings are fixed.
                     libraryVariant.getJavaCompile().options.compilerArgs += [
-                            '-Xep:ArrayToString:WARN',
+                            // TODO(aurimas): remove this once all these warnings are fixed.
                             '-Xep:RectIntersectReturnValueIgnored:WARN',
-                            '-Xep:FallThrough:WARN',
-                            '-XDcompilePolicy=simple' // Workaround for b/36098770
+                            '-XDcompilePolicy=simple', // Workaround for b/36098770
+
+                            // Enforce the following checks.
+                            '-Xep:MissingOverride:ERROR',
                     ]
                 }
             }

@@ -17,6 +17,8 @@
 
 package android.support.v4.view;
 
+import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat.ScrollAxis;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -54,11 +56,11 @@ public interface NestedScrollingParent {
      *
      * @param child Direct child of this ViewParent containing target
      * @param target View that initiated the nested scroll
-     * @param nestedScrollAxes Flags consisting of {@link ViewCompat#SCROLL_AXIS_HORIZONTAL},
+     * @param axes Flags consisting of {@link ViewCompat#SCROLL_AXIS_HORIZONTAL},
      *                         {@link ViewCompat#SCROLL_AXIS_VERTICAL} or both
      * @return true if this ViewParent accepts the nested scroll operation
      */
-    public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes);
+    boolean onStartNestedScroll(@NonNull View child, @NonNull View target, @ScrollAxis int axes);
 
     /**
      * React to the successful claiming of a nested scroll operation.
@@ -71,12 +73,12 @@ public interface NestedScrollingParent {
      *
      * @param child Direct child of this ViewParent containing target
      * @param target View that initiated the nested scroll
-     * @param nestedScrollAxes Flags consisting of {@link ViewCompat#SCROLL_AXIS_HORIZONTAL},
+     * @param axes Flags consisting of {@link ViewCompat#SCROLL_AXIS_HORIZONTAL},
      *                         {@link ViewCompat#SCROLL_AXIS_VERTICAL} or both
      * @see #onStartNestedScroll(View, View, int)
      * @see #onStopNestedScroll(View)
      */
-    public void onNestedScrollAccepted(View child, View target, int nestedScrollAxes);
+    void onNestedScrollAccepted(@NonNull View child, @NonNull View target, @ScrollAxis int axes);
 
     /**
      * React to a nested scroll operation ending.
@@ -89,7 +91,7 @@ public interface NestedScrollingParent {
      *
      * @param target View that initiated the nested scroll
      */
-    public void onStopNestedScroll(View target);
+    void onStopNestedScroll(@NonNull View target);
 
     /**
      * React to a nested scroll in progress.
@@ -112,7 +114,7 @@ public interface NestedScrollingParent {
      * @param dxUnconsumed Horizontal scroll distance in pixels not consumed by target
      * @param dyUnconsumed Vertical scroll distance in pixels not consumed by target
      */
-    public void onNestedScroll(View target, int dxConsumed, int dyConsumed,
+    void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed,
             int dxUnconsumed, int dyUnconsumed);
 
     /**
@@ -135,7 +137,7 @@ public interface NestedScrollingParent {
      * @param dy Vertical scroll distance in pixels
      * @param consumed Output. The horizontal and vertical scroll distance consumed by this parent
      */
-    public void onNestedPreScroll(View target, int dx, int dy, int[] consumed);
+    void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed);
 
     /**
      * Request a fling from a nested scroll.
@@ -156,7 +158,7 @@ public interface NestedScrollingParent {
      * @param consumed true if the child consumed the fling, false otherwise
      * @return true if this parent consumed or otherwise reacted to the fling
      */
-    public boolean onNestedFling(View target, float velocityX, float velocityY, boolean consumed);
+    boolean onNestedFling(@NonNull View target, float velocityX, float velocityY, boolean consumed);
 
     /**
      * React to a nested fling before the target view consumes it.
@@ -178,7 +180,7 @@ public interface NestedScrollingParent {
      * @param velocityY Vertical velocity in pixels per second
      * @return true if this parent consumed the fling ahead of the target view
      */
-    public boolean onNestedPreFling(View target, float velocityX, float velocityY);
+    boolean onNestedPreFling(@NonNull View target, float velocityX, float velocityY);
 
     /**
      * Return the current axes of nested scrolling for this NestedScrollingParent.
@@ -192,5 +194,6 @@ public interface NestedScrollingParent {
      * @see ViewCompat#SCROLL_AXIS_VERTICAL
      * @see ViewCompat#SCROLL_AXIS_NONE
      */
-    public int getNestedScrollAxes();
+    @ScrollAxis
+    int getNestedScrollAxes();
 }

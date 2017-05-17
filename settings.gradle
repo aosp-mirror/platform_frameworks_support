@@ -147,6 +147,9 @@ project(':support-vector-drawable-demos').projectDir = new File(samplesRoot, 'Su
 include ':support-animation-demos'
 project(':support-animation-demos').projectDir = new File(samplesRoot, 'SupportAnimationDemos')
 
+include ':support-wear-demos'
+project(':support-wear-demos').projectDir = new File(samplesRoot, 'SupportWearDemos')
+
 include ':support-app-navigation'
 project(':support-app-navigation').projectDir = new File(samplesRoot, 'SupportAppNavigation')
 
@@ -172,6 +175,9 @@ project(':doclava').projectDir = new File(externalRoot, 'doclava')
 
 include ':jdiff'
 project(':jdiff').projectDir = new File(externalRoot, 'jdiff')
+
+include ':noto-emoji-compat'
+project(':noto-emoji-compat').projectDir = new File(externalRoot, 'noto-fonts/emoji-compat')
 
 ///// FLATFOOT START
 

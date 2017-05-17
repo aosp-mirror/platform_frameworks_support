@@ -27,10 +27,9 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.RestrictTo;
-import android.support.v4.graphics.TypefaceCompat.TypefaceHolder;
+import android.support.v4.os.BuildCompat;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.appcompat.R;
-import android.text.TextPaint;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -98,7 +97,7 @@ class AppCompatTextHelper {
         ColorStateList textColor = null;
         ColorStateList textColorHint = null;
         ColorStateList textColorLink = null;
-        TypefaceHolder fontTypeface = null;
+        Typeface fontTypeface = null;
         int style = Typeface.NORMAL;
 
         // First check TextAppearance's textAllCaps value
@@ -112,12 +111,20 @@ class AppCompatTextHelper {
                 style = a.getInt(R.styleable.TextAppearance_android_textStyle, Typeface.NORMAL);
 
                 // If we're running on < API 26, we need to load font resources manually.
-                if (a.hasValue(R.styleable.TextAppearance_android_fontFamily)) {
+                if (a.hasValue(R.styleable.TextAppearance_android_fontFamily)
+                        || a.hasValue(R.styleable.TextAppearance_fontFamily)) {
+                    int fontFamilyId = a.hasValue(R.styleable.TextAppearance_android_fontFamily)
+                            ? R.styleable.TextAppearance_android_fontFamily
+                            : R.styleable.TextAppearance_fontFamily;
                     try {
-                        fontTypeface = a.getFont(
-                                R.styleable.TextAppearance_android_fontFamily, style);
+                        fontTypeface = a.getFont(fontFamilyId, style);
                     } catch (UnsupportedOperationException | Resources.NotFoundException e) {
                         // Expected if it is not a font resource.
+                    }
+                    if (fontTypeface == null) {
+                        // Try with String. This is done by TextView JB+, but fails in ICS
+                        String fontFamilyName = a.getString(fontFamilyId);
+                        fontTypeface = Typeface.create(fontFamilyName, style);
                     }
                 }
             }
@@ -164,12 +171,21 @@ class AppCompatTextHelper {
 
         if (shouldLoadFonts) {
             // If we're running on < API 26, we need to load font resources manually.
-            if (a.hasValue(R.styleable.TextAppearance_android_fontFamily)) {
+            if (a.hasValue(R.styleable.TextAppearance_android_fontFamily)
+                    || a.hasValue(R.styleable.TextAppearance_fontFamily)) {
+                int fontFamilyId = a.hasValue(R.styleable.TextAppearance_android_fontFamily)
+                        ? R.styleable.TextAppearance_android_fontFamily
+                        : R.styleable.TextAppearance_fontFamily;
                 style = a.getInt(R.styleable.TextAppearance_android_textStyle, Typeface.NORMAL);
                 try {
-                    fontTypeface = a.getFont(R.styleable.TextAppearance_android_fontFamily, style);
+                    fontTypeface = a.getFont(fontFamilyId, style);
                 } catch (UnsupportedOperationException | Resources.NotFoundException e) {
                     // Expected if it is not a font resource.
+                }
+                if (fontTypeface == null) {
+                    // Try with String. This is done by TextView JB+, but fails in ICS
+                    String fontFamilyName = a.getString(fontFamilyId);
+                    fontTypeface = Typeface.create(fontFamilyName, style);
                 }
             }
         }
@@ -188,18 +204,12 @@ class AppCompatTextHelper {
             setAllCaps(allCaps);
         }
         if (fontTypeface != null) {
-            mView.setTypeface(fontTypeface.getTypeface());
-            TextPaint paint = mView.getPaint();
-            boolean needFakeBold =
-                    (style & Typeface.BOLD) != 0 && fontTypeface.getWeight() < 600;
-            paint.setFakeBoldText(needFakeBold);
-            boolean needFakeItalic = (style & Typeface.ITALIC) != 0 && !fontTypeface.isItalic();
-            paint.setTextSkewX(needFakeItalic ? -0.25f : 0);
+            mView.setTypeface(fontTypeface, style);
         }
 
         mAutoSizeTextHelper.loadFromAttributes(attrs, defStyleAttr);
 
-        if (Build.VERSION.SDK_INT >= 26) {
+        if (BuildCompat.isAtLeastO()) {
             // Delegate auto-size functionality to the framework implementation.
             if (mAutoSizeTextHelper.getAutoSizeTextType()
                     != TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE) {
@@ -288,7 +298,7 @@ class AppCompatTextHelper {
     @RestrictTo(LIBRARY_GROUP)
     void onLayout(boolean changed, int left, int top, int right, int bottom) {
         // Auto-size is supported by the framework starting from Android O.
-        if (Build.VERSION.SDK_INT < 26) {
+        if (!BuildCompat.isAtLeastO()) {
             if (isAutoSizeEnabled()) {
                 if (getNeedsAutoSizeText()) {
                     // Call auto-size after the width and height have been calculated.
@@ -304,12 +314,10 @@ class AppCompatTextHelper {
     /** @hide */
     @RestrictTo(LIBRARY_GROUP)
     void setTextSize(int unit, float size) {
-        if (Build.VERSION.SDK_INT < 26) {
+        if (!BuildCompat.isAtLeastO()) {
             if (!isAutoSizeEnabled()) {
                 setTextSizeInternal(unit, size);
             }
-        } else {
-            mView.setTextSize(unit, size);
         }
     }
 
