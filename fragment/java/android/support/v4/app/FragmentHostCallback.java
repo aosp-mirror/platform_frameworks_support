@@ -272,6 +272,8 @@ public abstract class FragmentHostCallback<E> extends FragmentContainer {
     }
 
     void doLoaderRetain() {
+        mRetainLoaders = true;
+
         if (mLoaderManager == null) {
             return;
         }
@@ -326,9 +328,6 @@ public abstract class FragmentHostCallback<E> extends FragmentContainer {
             for (int i=0; i<N; i++) {
                 LoaderManagerImpl lm = loaders[i];
                 if (!lm.mRetaining && doRetainLoaders) {
-                    if (!lm.mStarted) {
-                        lm.doStart();
-                    }
                     lm.doRetain();
                 }
                 if (lm.mRetaining) {
