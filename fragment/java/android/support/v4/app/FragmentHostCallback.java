@@ -272,6 +272,8 @@ public abstract class FragmentHostCallback<E> extends FragmentContainer {
     }
 
     void doLoaderRetain() {
+        mRetainLoaders = true;
+
         if (mLoaderManager == null) {
             return;
         }
@@ -315,8 +317,7 @@ public abstract class FragmentHostCallback<E> extends FragmentContainer {
     SimpleArrayMap<String, LoaderManager> retainLoaderNonConfig() {
         boolean retainLoaders = false;
         if (mAllLoaderManagers != null) {
-            // Restart any loader managers that were already stopped so that they
-            // will be ready to retain
+            // Retain any loader managers that were already stopped
             final int N = mAllLoaderManagers.size();
             LoaderManagerImpl loaders[] = new LoaderManagerImpl[N];
             for (int i=N-1; i>=0; i--) {
@@ -326,9 +327,6 @@ public abstract class FragmentHostCallback<E> extends FragmentContainer {
             for (int i=0; i<N; i++) {
                 LoaderManagerImpl lm = loaders[i];
                 if (!lm.mRetaining && doRetainLoaders) {
-                    if (!lm.mStarted) {
-                        lm.doStart();
-                    }
                     lm.doRetain();
                 }
                 if (lm.mRetaining) {
