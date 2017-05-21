@@ -788,12 +788,6 @@ class LoaderManagerImpl extends LoaderManager {
 
     void doRetain() {
         if (DEBUG) Log.v(TAG, "Retaining in " + this);
-        if (!mStarted) {
-            RuntimeException e = new RuntimeException("here");
-            e.fillInStackTrace();
-            Log.w(TAG, "Called doRetain when not started: " + this, e);
-            return;
-        }
 
         mRetaining = true;
         mStarted = false;
