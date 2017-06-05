@@ -14,16 +14,11 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
-<!-- Definitions of attributes to be exposed as public -->
-<resources>
-     <public type="attr" name="fontProviderAuthority"/>
-     <public type="attr" name="fontProviderPackage"/>
-     <public type="attr" name="fontProviderQuery"/>
-     <public type="attr" name="fontProviderCerts"/>
-     <public type="attr" name="fontProviderFetchStrategy"/>
-     <public type="attr" name="fontProviderFetchTimeout"/>
-     <public type="attr" name="fontStyle"/>
-     <public type="attr" name="font"/>
-     <public type="attr" name="fontWeight"/>
-</resources>
+<view
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    class="android.support.v7.widget.AppCompatTextViewAutoSizeTest$CustomTextViewWithTransformationMethod"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:maxLines="1"
+    app:autoSizeTextType="uniform"/>
