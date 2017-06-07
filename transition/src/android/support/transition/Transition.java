@@ -2087,7 +2087,7 @@ public abstract class Transition implements Cloneable {
      * @see PatternPathMotion
      * @see android.transition.PathMotion
      */
-    @Nullable
+    @NonNull
     public PathMotion getPathMotion() {
         return mPathMotion;
     }
@@ -2332,36 +2332,6 @@ public abstract class Transition implements Cloneable {
          * @param transition The transition which was resumed.
          */
         void onTransitionResume(@NonNull Transition transition);
-    }
-
-    /**
-     * Utility adapter class to avoid having to override all three methods
-     * whenever someone just wants to listen for a single event.
-     *
-     * @hide
-     */
-    @RestrictTo(LIBRARY_GROUP)
-    public static class TransitionListenerAdapter implements TransitionListener {
-
-        @Override
-        public void onTransitionStart(@NonNull Transition transition) {
-        }
-
-        @Override
-        public void onTransitionEnd(@NonNull Transition transition) {
-        }
-
-        @Override
-        public void onTransitionCancel(@NonNull Transition transition) {
-        }
-
-        @Override
-        public void onTransitionPause(@NonNull Transition transition) {
-        }
-
-        @Override
-        public void onTransitionResume(@NonNull Transition transition) {
-        }
     }
 
     /**
