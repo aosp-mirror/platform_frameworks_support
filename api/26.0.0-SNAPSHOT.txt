@@ -1900,9 +1900,11 @@ package android.support.text.emoji {
     method public void unregisterInitCallback(android.support.text.emoji.EmojiCompat.InitCallback);
     field public static final java.lang.String EDITOR_INFO_METAVERSION_KEY = "android.support.text.emoji.emojiCompat_metadataVersion";
     field public static final java.lang.String EDITOR_INFO_REPLACE_ALL_KEY = "android.support.text.emoji.emojiCompat_replaceAll";
-    field public static final int LOAD_STATE_FAILURE = 2; // 0x2
+    field public static final int LOAD_STATE_FAILED = 2; // 0x2
+    field public static final deprecated int LOAD_STATE_FAILURE = 2; // 0x2
     field public static final int LOAD_STATE_LOADING = 0; // 0x0
-    field public static final int LOAD_STATE_SUCCESS = 1; // 0x1
+    field public static final int LOAD_STATE_SUCCEEDED = 1; // 0x1
+    field public static final deprecated int LOAD_STATE_SUCCESS = 1; // 0x1
     field public static final int REPLACE_STRATEGY_ALL = 1; // 0x1
     field public static final int REPLACE_STRATEGY_DEFAULT = 0; // 0x0
     field public static final int REPLACE_STRATEGY_NON_EXISTENT = 2; // 0x2
@@ -2209,6 +2211,15 @@ package android.support.transition {
     method public static android.support.transition.TransitionInflater from(android.content.Context);
     method public android.support.transition.Transition inflateTransition(int);
     method public android.support.transition.TransitionManager inflateTransitionManager(int, android.view.ViewGroup);
+  }
+
+  public class TransitionListenerAdapter implements android.support.transition.Transition.TransitionListener {
+    ctor public TransitionListenerAdapter();
+    method public void onTransitionCancel(android.support.transition.Transition);
+    method public void onTransitionEnd(android.support.transition.Transition);
+    method public void onTransitionPause(android.support.transition.Transition);
+    method public void onTransitionResume(android.support.transition.Transition);
+    method public void onTransitionStart(android.support.transition.Transition);
   }
 
   public class TransitionManager {
