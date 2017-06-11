@@ -22,15 +22,18 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import android.app.Instrumentation;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.Nullable;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.MediumTest;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.TextViewCompat;
-import android.support.v7.app.BaseInstrumentationTestCase;
 import android.support.v7.appcompat.test.R;
 import android.text.TextUtils;
 import android.text.method.SingleLineTransformationMethod;
@@ -41,29 +44,123 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 @MediumTest
-public class AppCompatTextViewAutoSizeTest extends
-        BaseInstrumentationTestCase<AppCompatTextViewAutoSizeActivity> {
+@RunWith(AndroidJUnit4.class)
+public class AppCompatTextViewAutoSizeTest {
+    @Rule
+    public final ActivityTestRule<AppCompatTextViewAutoSizeActivity> mActivityTestRule;
+
+    private Instrumentation mInstrumentation;
+    private AppCompatTextViewAutoSizeActivity mActivity;
 
     public AppCompatTextViewAutoSizeTest() {
-        super(AppCompatTextViewAutoSizeActivity.class);
+        mActivityTestRule = new ActivityTestRule<>(AppCompatTextViewAutoSizeActivity.class);
+    }
+
+    @Before
+    public void setup() {
+        mInstrumentation = InstrumentationRegistry.getInstrumentation();
+        mActivity = mActivityTestRule.getActivity();
+    }
+
+    @Test
+    public void testAutoSizeCallers_setText() throws Throwable {
+        final AppCompatTextView autoSizeTextView = prepareAndRetrieveAutoSizeTestData(
+                R.id.textview_autosize_uniform, false);
+
+        // Configure layout params and auto-size both in pixels to dodge flakiness on different
+        // devices.
+        final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                500, 500);
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                autoSizeTextView.setLayoutParams(layoutParams);
+                autoSizeTextView.setAutoSizeTextTypeUniformWithConfiguration(
+                        1, 5000, 1, TypedValue.COMPLEX_UNIT_PX);
+            }
+        });
+        mInstrumentation.waitForIdleSync();
+
+        final String initialText = "13characters ";
+        final StringBuilder textToSet = new StringBuilder().append(initialText);
+        float initialSize = 0;
+
+        // As we add characters the text size shrinks.
+        for (int i = 0; i < 10; i++) {
+            mActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    autoSizeTextView.setText(textToSet.toString());
+                }
+            });
+
+            mInstrumentation.waitForIdleSync();
+            float expectedLargerSize = autoSizeTextView.getTextSize();
+            if (i == 0) {
+                initialSize = expectedLargerSize;
+            }
+
+            textToSet.append(initialText);
+            mActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    autoSizeTextView.setText(textToSet.toString());
+                }
+            });
+            mInstrumentation.waitForIdleSync();
+            assertTrue(expectedLargerSize >= autoSizeTextView.getTextSize());
+        }
+        assertTrue(initialSize > autoSizeTextView.getTextSize());
+
+        initialSize = 9999999;
+        // As we remove characters the text size expands.
+        for (int i = 9; i >= 0; i--) {
+            mActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    autoSizeTextView.setText(textToSet.toString());
+                }
+            });
+            mInstrumentation.waitForIdleSync();
+            float expectedSmallerSize = autoSizeTextView.getTextSize();
+            if (i == 0) {
+                initialSize = expectedSmallerSize;
+            }
+
+            textToSet.replace((textToSet.length() - initialText.length()),
+                    textToSet.length(), "");
+            mActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    autoSizeTextView.setText(textToSet.toString());
+                }
+            });
+            mInstrumentation.waitForIdleSync();
+
+            assertTrue(autoSizeTextView.getTextSize() >= expectedSmallerSize);
+        }
+        assertTrue(autoSizeTextView.getTextSize() > initialSize);
     }
 
     @Test
     public void testAutoSizeUniform_equivalentConfigurations() throws Throwable {
-        final DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
+        final DisplayMetrics dm = mActivity.getResources().getDisplayMetrics();
         final int minTextSize = 10;
         final int maxTextSize = 20;
         final int granularity = 2;
         final int unit = TypedValue.COMPLEX_UNIT_SP;
 
-        final AppCompatTextView granularityTextView = new AppCompatTextView(getActivity());
+        final AppCompatTextView granularityTextView = new AppCompatTextView(mActivity);
         granularityTextView.setAutoSizeTextTypeUniformWithConfiguration(
                 minTextSize, maxTextSize, granularity, unit);
 
-        final AppCompatTextView presetTextView = new AppCompatTextView(getActivity());
+        final AppCompatTextView presetTextView = new AppCompatTextView(mActivity);
         presetTextView.setAutoSizeTextTypeUniformWithPresetSizes(
                 new int[]{minTextSize, 12, 14, 16, 18, maxTextSize}, unit);
 
@@ -95,33 +192,32 @@ public class AppCompatTextViewAutoSizeTest extends
                 presetTextView.getAutoSizeTextAvailableSizes());
 
         final String someText = "This is a string";
-        final int widthHeight = 600;
+        final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                500, 500);
         // Configure identically and attach to layout.
         mActivityTestRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                LinearLayout ll = getActivity().findViewById(R.id.layout_textviewtest);
+                granularityTextView.setLayoutParams(layoutParams);
+                presetTextView.setLayoutParams(layoutParams);
+
+                LinearLayout ll = mActivity.findViewById(R.id.layout_textviewtest);
                 ll.removeAllViews();
                 ll.addView(granularityTextView);
                 ll.addView(presetTextView);
 
                 granularityTextView.setText(someText);
-                granularityTextView.setWidth(widthHeight);
-                granularityTextView.setHeight(widthHeight);
-
                 presetTextView.setText(someText);
-                presetTextView.setWidth(widthHeight);
-                presetTextView.setHeight(widthHeight);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
 
         assertEquals(granularityTextView.getTextSize(), presetTextView.getTextSize(), 0f);
     }
 
     @Test
     public void testAutoSize_notSupportedByEditText() throws Throwable {
-        final AppCompatEditText autoSizeEditText = (AppCompatEditText) getActivity().findViewById(
+        final AppCompatEditText autoSizeEditText = (AppCompatEditText) mActivity.findViewById(
                 R.id.edittext_autosize_uniform);
         // Do not force exact height only.
         final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -133,7 +229,7 @@ public class AppCompatTextViewAutoSizeTest extends
                 autoSizeEditText.setLayoutParams(layoutParams);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
         final float initialTextSize = autoSizeEditText.getTextSize();
         mActivityTestRule.runOnUiThread(new Runnable() {
             @Override
@@ -141,7 +237,7 @@ public class AppCompatTextViewAutoSizeTest extends
                 autoSizeEditText.setHeight(autoSizeEditText.getHeight() / 4);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
 
         assertEquals(initialTextSize, autoSizeEditText.getTextSize(), 0f);
     }
@@ -160,7 +256,7 @@ public class AppCompatTextViewAutoSizeTest extends
                 autoSizeTextView.setLayoutParams(layoutParams);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
         final float initialTextSize = autoSizeTextView.getTextSize();
         mActivityTestRule.runOnUiThread(new Runnable() {
             @Override
@@ -168,7 +264,7 @@ public class AppCompatTextViewAutoSizeTest extends
                 autoSizeTextView.setHeight(autoSizeTextView.getHeight() / 4);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
 
         assertTrue(autoSizeTextView.getTextSize() < initialTextSize);
     }
@@ -178,7 +274,7 @@ public class AppCompatTextViewAutoSizeTest extends
         final AppCompatTextView autoSizeTextView = prepareAndRetrieveAutoSizeTestData(
                 R.id.textview_autosize_uniform, false);
         final float initialTextSize = autoSizeTextView.getTextSize();
-        final Drawable drawable = ResourcesCompat.getDrawable(getActivity().getResources(),
+        final Drawable drawable = ResourcesCompat.getDrawable(mActivity.getResources(),
                 R.drawable.test_drawable_red, null);
         drawable.setBounds(0, 0, autoSizeTextView.getWidth() / 3, autoSizeTextView.getHeight() / 3);
         mActivityTestRule.runOnUiThread(new Runnable() {
@@ -187,7 +283,7 @@ public class AppCompatTextViewAutoSizeTest extends
                 autoSizeTextView.setCompoundDrawables(drawable, drawable, drawable, drawable);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
 
         assertTrue(autoSizeTextView.getTextSize() < initialTextSize);
     }
@@ -198,7 +294,7 @@ public class AppCompatTextViewAutoSizeTest extends
             final AppCompatTextView autoSizeTextView = prepareAndRetrieveAutoSizeTestData(
                     R.id.textview_autosize_uniform, false);
             final float initialTextSize = autoSizeTextView.getTextSize();
-            final Drawable drawable = ResourcesCompat.getDrawable(getActivity().getResources(),
+            final Drawable drawable = ResourcesCompat.getDrawable(mActivity.getResources(),
                     R.drawable.test_drawable_red, null);
             drawable.setBounds(0, 0, autoSizeTextView.getWidth() / 3,
                     autoSizeTextView.getHeight() / 3);
@@ -211,7 +307,7 @@ public class AppCompatTextViewAutoSizeTest extends
                     }
                 }
             });
-            getInstrumentation().waitForIdleSync();
+            mInstrumentation.waitForIdleSync();
 
             assertTrue(autoSizeTextView.getTextSize() < initialTextSize);
         }
@@ -229,10 +325,10 @@ public class AppCompatTextViewAutoSizeTest extends
                 autoSizeTextView.setHeight(autoSizeTextView.getHeight() * 2);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
         // Setup the drawables before setting their padding in order to modify the available
         // space and trigger a resize.
-        final Drawable drawable = ResourcesCompat.getDrawable(getActivity().getResources(),
+        final Drawable drawable = ResourcesCompat.getDrawable(mActivity.getResources(),
                 R.drawable.test_drawable_red, null);
         drawable.setBounds(0, 0, autoSizeTextView.getWidth() / 4, autoSizeTextView.getHeight() / 4);
         mActivityTestRule.runOnUiThread(new Runnable() {
@@ -242,7 +338,7 @@ public class AppCompatTextViewAutoSizeTest extends
                         drawable, drawable, drawable, drawable);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
         final float initialTextSize = autoSizeTextView.getTextSize();
         mActivityTestRule.runOnUiThread(new Runnable() {
             @Override
@@ -251,7 +347,7 @@ public class AppCompatTextViewAutoSizeTest extends
                         autoSizeTextView.getCompoundDrawablePadding() + 10);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
 
         assertTrue(autoSizeTextView.getTextSize() < initialTextSize);
     }
@@ -269,7 +365,7 @@ public class AppCompatTextViewAutoSizeTest extends
                         autoSizeTextView.getWidth() / 3, autoSizeTextView.getHeight() / 3);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
 
         assertTrue(autoSizeTextView.getTextSize() < initialTextSize);
     }
@@ -291,7 +387,7 @@ public class AppCompatTextViewAutoSizeTest extends
                     }
                 }
             });
-            getInstrumentation().waitForIdleSync();
+            mInstrumentation.waitForIdleSync();
 
             assertTrue(autoSizeTextView.getTextSize() < initialTextSize);
         }
@@ -312,7 +408,7 @@ public class AppCompatTextViewAutoSizeTest extends
                         + "sentence to make sure this test is not flaky. Not flaky at all.");
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
         final float initialTextSize = autoSizeTextView.getTextSize();
 
         mActivityTestRule.runOnUiThread(new Runnable() {
@@ -325,7 +421,7 @@ public class AppCompatTextViewAutoSizeTest extends
                 autoSizeTextView.setTypeface(differentTypeface);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
         final float changedTextSize = autoSizeTextView.getTextSize();
 
         // Don't really know if it is larger or smaller (depends on the typeface chosen above),
@@ -338,7 +434,7 @@ public class AppCompatTextViewAutoSizeTest extends
                 autoSizeTextView.setTypeface(autoSizeTextView.getTypeface());
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
 
         assertEquals(changedTextSize, autoSizeTextView.getTextSize(), 0f);
     }
@@ -359,7 +455,7 @@ public class AppCompatTextViewAutoSizeTest extends
                     }
                 }
             });
-            getInstrumentation().waitForIdleSync();
+            mInstrumentation.waitForIdleSync();
             final float changedTextSize = autoSizeTextView.getTextSize();
 
             assertTrue(changedTextSize < initialTextSize);
@@ -372,7 +468,7 @@ public class AppCompatTextViewAutoSizeTest extends
                     }
                 }
             });
-            getInstrumentation().waitForIdleSync();
+            mInstrumentation.waitForIdleSync();
 
             assertEquals(changedTextSize, autoSizeTextView.getTextSize(), 0f);
         }
@@ -392,7 +488,7 @@ public class AppCompatTextViewAutoSizeTest extends
                 autoSizeTextView.setLayoutParams(layoutParams);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
         final float initialTextSize = autoSizeTextView.getTextSize();
         mActivityTestRule.runOnUiThread(new Runnable() {
             @Override
@@ -401,7 +497,7 @@ public class AppCompatTextViewAutoSizeTest extends
                         autoSizeTextView.getHeight() / 4);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
 
         assertTrue(autoSizeTextView.getTextSize() < initialTextSize);
     }
@@ -420,7 +516,7 @@ public class AppCompatTextViewAutoSizeTest extends
                 autoSizeTextView.setLayoutParams(layoutParams);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
         final float initialTextSize = autoSizeTextView.getTextSize();
         mActivityTestRule.runOnUiThread(new Runnable() {
             @Override
@@ -429,7 +525,7 @@ public class AppCompatTextViewAutoSizeTest extends
                         autoSizeTextView.getWidth() / 4);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
 
         assertTrue(autoSizeTextView.getTextSize() != initialTextSize);
     }
@@ -448,7 +544,7 @@ public class AppCompatTextViewAutoSizeTest extends
                 autoSizeTextView.setLayoutParams(layoutParams);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
 
         final float initialTextSize = autoSizeTextView.getTextSize();
         mActivityTestRule.runOnUiThread(new Runnable() {
@@ -458,7 +554,7 @@ public class AppCompatTextViewAutoSizeTest extends
                         autoSizeTextView.getWidth() / 4);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
 
         assertTrue(autoSizeTextView.getTextSize() != initialTextSize);
     }
@@ -475,7 +571,7 @@ public class AppCompatTextViewAutoSizeTest extends
                 autoSizeTextView.setTextSize(initialTextSize + 123f);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
 
         assertEquals(initialTextSize, autoSizeTextView.getTextSize(), 0f);
     }
@@ -492,7 +588,7 @@ public class AppCompatTextViewAutoSizeTest extends
                 autoSizeTextView.setHorizontallyScrolling(true);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
         assertTrue(autoSizeTextView.getTextSize() > initialTextSize);
 
         mActivityTestRule.runOnUiThread(new Runnable() {
@@ -501,13 +597,13 @@ public class AppCompatTextViewAutoSizeTest extends
                 autoSizeTextView.setHorizontallyScrolling(false);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
         Assert.assertEquals(initialTextSize, autoSizeTextView.getTextSize(), 0f);
     }
 
     @Test
     public void testAutoSize_setEllipsize() throws Throwable {
-        final AppCompatTextView textView = (AppCompatTextView) getActivity().findViewById(
+        final AppCompatTextView textView = (AppCompatTextView) mActivity.findViewById(
                 R.id.textview_autosize_uniform_predef_sizes);
         final int initialAutoSizeType = textView.getAutoSizeTextType();
         final int initialMinTextSize = textView.getAutoSizeMinTextSize();
@@ -531,7 +627,7 @@ public class AppCompatTextViewAutoSizeTest extends
                 textView.setEllipsize(newEllipsizeValue);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
         Assert.assertEquals(newEllipsizeValue, textView.getEllipsize());
         // Beside the ellipsis no auto-size attribute has changed.
         Assert.assertEquals(initialAutoSizeType, textView.getAutoSizeTextType());
@@ -544,7 +640,7 @@ public class AppCompatTextViewAutoSizeTest extends
     @Test
     public void testEllipsize_setAutoSize() throws Throwable {
         final AppCompatTextView textView =
-                (AppCompatTextView) getActivity().findViewById(R.id.textview_text);
+                (AppCompatTextView) mActivity.findViewById(R.id.textview_text);
         final TextUtils.TruncateAt newEllipsizeValue = TextUtils.TruncateAt.END;
         mActivityTestRule.runOnUiThread(new Runnable() {
             @Override
@@ -552,7 +648,7 @@ public class AppCompatTextViewAutoSizeTest extends
                 textView.setEllipsize(newEllipsizeValue);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
         Assert.assertEquals(newEllipsizeValue, textView.getEllipsize());
         Assert.assertEquals(TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE,
                 textView.getAutoSizeTextType());
@@ -568,7 +664,7 @@ public class AppCompatTextViewAutoSizeTest extends
                         TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
         Assert.assertEquals(newEllipsizeValue, textView.getEllipsize());
         Assert.assertEquals(TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM,
                 textView.getAutoSizeTextType());
@@ -581,9 +677,9 @@ public class AppCompatTextViewAutoSizeTest extends
 
     @Test
     public void testAutoSizeUniform_obtainStyledAttributesUsingPredefinedSizes() {
-        DisplayMetrics m = getActivity().getResources().getDisplayMetrics();
+        DisplayMetrics m = mActivity.getResources().getDisplayMetrics();
         final AppCompatTextView autoSizeTextViewUniform =
-                (AppCompatTextView) getActivity().findViewById(
+                (AppCompatTextView) mActivity.findViewById(
                         R.id.textview_autosize_uniform_predef_sizes);
 
         // In arrays.xml predefined the step sizes as: 5px, 11dip, 19sp, 29pt, 43mm and 53in.
@@ -610,7 +706,7 @@ public class AppCompatTextViewAutoSizeTest extends
 
     @Test
     public void testAutoSizeUniform_obtainStyledAttributesPredefinedSizesFiltering() {
-        AppCompatTextView autoSizeTextViewUniform = (AppCompatTextView) getActivity().findViewById(
+        AppCompatTextView autoSizeTextViewUniform = (AppCompatTextView) mActivity.findViewById(
                 R.id.textview_autosize_uniform_predef_sizes_redundant_values);
 
         // In arrays.xml predefined the step sizes as: 40px, 10px, 10px, 10px, 0dp.
@@ -620,7 +716,7 @@ public class AppCompatTextViewAutoSizeTest extends
 
     @Test
     public void testAutoSizeUniform_predefinedSizesFilteringAndSorting() throws Throwable {
-        final AppCompatTextView textView = (AppCompatTextView) getActivity().findViewById(
+        final AppCompatTextView textView = (AppCompatTextView) mActivity.findViewById(
                 R.id.textview_text);
         Assert.assertEquals(TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE,
                 textView.getAutoSizeTextType());
@@ -633,13 +729,13 @@ public class AppCompatTextViewAutoSizeTest extends
                         predefinedSizes, TypedValue.COMPLEX_UNIT_PX);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
         assertArrayEquals(new int[] {10, 40, 400}, textView.getAutoSizeTextAvailableSizes());
     }
 
     @Test(expected = NullPointerException.class)
     public void testAutoSizeUniform_predefinedSizesNullArray() throws Throwable {
-        final AppCompatTextView textView = (AppCompatTextView) getActivity().findViewById(
+        final AppCompatTextView textView = (AppCompatTextView) mActivity.findViewById(
                 R.id.textview_text);
         Assert.assertEquals(TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE,
                 textView.getAutoSizeTextType());
@@ -652,12 +748,12 @@ public class AppCompatTextViewAutoSizeTest extends
                         predefinedSizes, TypedValue.COMPLEX_UNIT_PX);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
     }
 
     @Test
     public void testAutoSizeUniform_predefinedSizesEmptyArray() throws Throwable {
-        final AppCompatTextView textView = (AppCompatTextView) getActivity().findViewById(
+        final AppCompatTextView textView = (AppCompatTextView) mActivity.findViewById(
                 R.id.textview_text);
         Assert.assertEquals(TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE,
                 textView.getAutoSizeTextType());
@@ -669,7 +765,7 @@ public class AppCompatTextViewAutoSizeTest extends
                         TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
 
         final int[] defaultSizes = textView.getAutoSizeTextAvailableSizes();
         assertNotNull(defaultSizes);
@@ -683,7 +779,7 @@ public class AppCompatTextViewAutoSizeTest extends
                         predefinedSizes, TypedValue.COMPLEX_UNIT_PX);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
 
         final int[] newSizes = textView.getAutoSizeTextAvailableSizes();
         assertNotNull(defaultSizes);
@@ -693,7 +789,7 @@ public class AppCompatTextViewAutoSizeTest extends
     @Test
     public void testAutoSizeUniform_buildsSizes() throws Throwable {
         final AppCompatTextView autoSizeTextViewUniform =
-                (AppCompatTextView) getActivity().findViewById(
+                (AppCompatTextView) mActivity.findViewById(
                         R.id.textview_autosize_uniform);
 
         // Verify that the interval limits are both included.
@@ -705,7 +801,7 @@ public class AppCompatTextViewAutoSizeTest extends
                                 TypedValue.COMPLEX_UNIT_PX);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
         assertArrayEquals(
                 new int[] {10, 12, 14, 16, 18, 20},
                 autoSizeTextViewUniform.getAutoSizeTextAvailableSizes());
@@ -721,7 +817,7 @@ public class AppCompatTextViewAutoSizeTest extends
                                 TypedValue.COMPLEX_UNIT_PX);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
         assertArrayEquals(
                 new int[] {10, 12, 14, 16, 18},
                 autoSizeTextViewUniform.getAutoSizeTextAvailableSizes());
@@ -737,7 +833,7 @@ public class AppCompatTextViewAutoSizeTest extends
                                 TypedValue.COMPLEX_UNIT_PX);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
         assertArrayEquals(
                 new int[] {10, 12, 14, 16, 18, 20},
                 autoSizeTextViewUniform.getAutoSizeTextAvailableSizes());
@@ -745,7 +841,7 @@ public class AppCompatTextViewAutoSizeTest extends
 
     @Test
     public void testAutoSizeUniform_getSetAutoSizeTextDefaults() {
-        final AppCompatTextView textView = new AppCompatTextView(getActivity());
+        final AppCompatTextView textView = new AppCompatTextView(mActivity);
         Assert.assertEquals(TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE,
                 textView.getAutoSizeTextType());
         // Min/Max/Granularity values for auto-sizing are 0 because they are not used.
@@ -774,7 +870,7 @@ public class AppCompatTextViewAutoSizeTest extends
 
     @Test
     public void testAutoSizeUniform_getSetAutoSizeStepGranularity() {
-        final AppCompatTextView textView = new AppCompatTextView(getActivity());
+        final AppCompatTextView textView = new AppCompatTextView(mActivity);
         Assert.assertEquals(TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE,
                 textView.getAutoSizeTextType());
         final int initialValue = -1;
@@ -799,7 +895,7 @@ public class AppCompatTextViewAutoSizeTest extends
 
     @Test
     public void testAutoSizeUniform_getSetAutoSizeMinTextSize() {
-        final AppCompatTextView textView = new AppCompatTextView(getActivity());
+        final AppCompatTextView textView = new AppCompatTextView(mActivity);
         textView.setAutoSizeTextTypeWithDefaults(TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
         Assert.assertEquals(TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM,
                 textView.getAutoSizeTextType());
@@ -831,41 +927,41 @@ public class AppCompatTextViewAutoSizeTest extends
         // It does not matter which unit has been used to set the min size, the getter always
         // returns it in pixels.
         Assert.assertEquals(Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                newMinSize, getActivity().getResources().getDisplayMetrics())),
+                newMinSize, mActivity.getResources().getDisplayMetrics())),
                         textView.getAutoSizeMinTextSize());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testAutoSizeUniform_throwsException_whenMaxLessThanMin() {
-        final AppCompatTextView textView = new AppCompatTextView(getActivity());
+        final AppCompatTextView textView = new AppCompatTextView(mActivity);
         textView.setAutoSizeTextTypeUniformWithConfiguration(
                 10, 9, 1, TypedValue.COMPLEX_UNIT_SP);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testAutoSizeUniform_throwsException_minLessThanZero() {
-        final AppCompatTextView textView = new AppCompatTextView(getActivity());
+        final AppCompatTextView textView = new AppCompatTextView(mActivity);
         textView.setAutoSizeTextTypeUniformWithConfiguration(
                 -1, 9, 1, TypedValue.COMPLEX_UNIT_SP);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testAutoSizeUniform_throwsException_maxLessThanZero() {
-        final AppCompatTextView textView = new AppCompatTextView(getActivity());
+        final AppCompatTextView textView = new AppCompatTextView(mActivity);
         textView.setAutoSizeTextTypeUniformWithConfiguration(
                 10, -1, 1, TypedValue.COMPLEX_UNIT_SP);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testAutoSizeUniform_throwsException_granularityLessThanZero() {
-        final AppCompatTextView textView = new AppCompatTextView(getActivity());
+        final AppCompatTextView textView = new AppCompatTextView(mActivity);
         textView.setAutoSizeTextTypeUniformWithConfiguration(
                 10, 20, -1, TypedValue.COMPLEX_UNIT_SP);
     }
 
     @Test
     public void testAutoSizeUniform_getSetAutoSizeMaxTextSize() {
-        final AppCompatTextView textView = new AppCompatTextView(getActivity());
+        final AppCompatTextView textView = new AppCompatTextView(mActivity);
         textView.setAutoSizeTextTypeWithDefaults(TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
         Assert.assertEquals(TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM,
                 textView.getAutoSizeTextType());
@@ -892,13 +988,13 @@ public class AppCompatTextViewAutoSizeTest extends
         // It does not matter which unit has been used to set the max size, the getter always
         // returns it in pixels.
         Assert.assertEquals(Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                newMaxSize, getActivity().getResources().getDisplayMetrics())),
+                newMaxSize, mActivity.getResources().getDisplayMetrics())),
                         textView.getAutoSizeMaxTextSize());
     }
 
     @Test
     public void testAutoSizeUniform_autoSizeCalledWhenTypeChanged() throws Throwable {
-        final AppCompatTextView textView = (AppCompatTextView) getActivity().findViewById(
+        final AppCompatTextView textView = (AppCompatTextView) mActivity.findViewById(
                 R.id.textview_text);
         // Make sure we pick an already inflated non auto-sized text view.
         Assert.assertEquals(TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE,
@@ -911,7 +1007,7 @@ public class AppCompatTextViewAutoSizeTest extends
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, customTextSize);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
         Assert.assertEquals(customTextSize, textView.getTextSize(), 0f);
         mActivityTestRule.runOnUiThread(new Runnable() {
             @Override
@@ -920,7 +1016,7 @@ public class AppCompatTextViewAutoSizeTest extends
                         TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
         // The size of the text should have changed.
         assertNotEquals(customTextSize, textView.getTextSize(), 0f);
     }
@@ -936,7 +1032,7 @@ public class AppCompatTextViewAutoSizeTest extends
                 textView.setAutoSizeTextTypeWithDefaults(TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
         final float newTextSizeInPx = 123f;
         assertNotEquals(newTextSizeInPx, textView.getTextSize(), 0f);
 
@@ -946,7 +1042,7 @@ public class AppCompatTextViewAutoSizeTest extends
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, newTextSizeInPx);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
 
         assertEquals(newTextSizeInPx, textView.getTextSize(), 0f);
     }
@@ -966,17 +1062,17 @@ public class AppCompatTextViewAutoSizeTest extends
         mActivityTestRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                LinearLayout ll = (LinearLayout) getActivity().findViewById(
+                LinearLayout ll = (LinearLayout) mActivity.findViewById(
                         android.support.v7.appcompat.test.R.id.layout_textviewtest);
                 AppCompatTextView targetedTextView =
-                        (AppCompatTextView) getActivity().findViewById(viewId);
+                        (AppCompatTextView) mActivity.findViewById(viewId);
                 ll.removeAllViews();
                 ll.addView(targetedTextView);
             }
         });
-        getInstrumentation().waitForIdleSync();
+        mInstrumentation.waitForIdleSync();
 
-        final AppCompatTextView textView = getActivity().findViewById(viewId);
+        final AppCompatTextView textView = mActivity.findViewById(viewId);
         if (shouldWrapLayoutContent) {
             // Do not force exact width or height.
             final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -988,7 +1084,7 @@ public class AppCompatTextViewAutoSizeTest extends
                     textView.setLayoutParams(layoutParams);
                 }
             });
-            getInstrumentation().waitForIdleSync();
+            mInstrumentation.waitForIdleSync();
         }
 
         return textView;
@@ -997,7 +1093,7 @@ public class AppCompatTextViewAutoSizeTest extends
     @Test
     public void testAutoSizeWithMaxLines_shouldNotThrowException() throws Throwable {
         // the layout contains an instance of CustomTextViewWithTransformationMethod
-        final AppCompatTextView textView = (AppCompatTextView) mActivityTestRule.getActivity()
+        final AppCompatTextView textView = (AppCompatTextView) mActivity
                 .getLayoutInflater().inflate(R.layout.textview_autosize_maxlines, null);
         assertTrue(textView instanceof CustomTextViewWithTransformationMethod);
         // Method added in API 16.

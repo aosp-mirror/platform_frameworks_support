@@ -20,17 +20,14 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.RestrictTo;
-import android.support.v4.graphics.TypefaceCompat;
 import android.support.v4.provider.FontRequest;
 import android.support.v4.provider.FontsContractCompat;
 import android.support.v4.provider.FontsContractCompat.FontFamilyResult;
 import android.support.v4.provider.FontsContractCompat.FontInfo;
-import android.support.v4.util.ArrayMap;
 import android.support.v4.util.Preconditions;
 
 import java.io.FileInputStream;
@@ -64,10 +61,10 @@ public class FontRequestEmojiCompatConfig extends EmojiCompat.Config {
 
 
     /**
-     * MetadataLoader implementation that uses FontsContractCompat and TypefaceCompat to load a
+     * MetadataRepoLoader implementation that uses FontsContractCompat and TypefaceCompat to load a
      * given FontRequest.
      */
-    private static class FontRequestMetadataLoader implements EmojiCompat.MetadataLoader {
+    private static class FontRequestMetadataLoader implements EmojiCompat.MetadataRepoLoader {
         private final Context mContext;
         private final FontRequest mRequest;
         private final FontsContractDelegate mFontsContract;
@@ -83,7 +80,7 @@ public class FontRequestEmojiCompatConfig extends EmojiCompat.Config {
 
         @Override
         @RequiresApi(19)
-        public void load(@NonNull final EmojiCompat.LoaderCallback loaderCallback) {
+        public void load(@NonNull final EmojiCompat.MetadataRepoLoaderCallback loaderCallback) {
             Preconditions.checkNotNull(loaderCallback, "LoaderCallback cannot be null");
             final InitRunnable runnable =
                     new InitRunnable(mContext, mRequest, mFontsContract, loaderCallback);
@@ -98,7 +95,7 @@ public class FontRequestEmojiCompatConfig extends EmojiCompat.Config {
      */
     @RequiresApi(19)
     private static class InitRunnable implements Runnable {
-        private final EmojiCompat.LoaderCallback mLoaderCallback;
+        private final EmojiCompat.MetadataRepoLoaderCallback mLoaderCallback;
         private final Context mContext;
         private final FontsContractDelegate mFontsContract;
         private final FontRequest mFontRequest;
@@ -106,7 +103,7 @@ public class FontRequestEmojiCompatConfig extends EmojiCompat.Config {
         private InitRunnable(final Context context,
                 final FontRequest fontRequest,
                 final FontsContractDelegate fontsContract,
-                final EmojiCompat.LoaderCallback loaderCallback) {
+                final EmojiCompat.MetadataRepoLoaderCallback loaderCallback) {
             mContext = context;
             mFontRequest = fontRequest;
             mFontsContract = fontsContract;
@@ -145,12 +142,10 @@ public class FontRequestEmojiCompatConfig extends EmojiCompat.Config {
                     throwException("Unable to open file.");
                 }
 
-                // TypefaceCompat.buildTypeface opens file descriptor again, so bypass the
-                // FontsContract.prepareFontData and create FontInfo and ByteBuffer directly.
-                final ArrayMap<Uri, ByteBuffer> bufferMap = new ArrayMap<>();
-                bufferMap.put(font.getUri(), buffer.duplicate());
-                final Typeface typeface = TypefaceCompat.createTypeface(mContext,
-                        new FontInfo[] { font }, bufferMap);
+                // TODO(nona): Introduce public API to make Typeface from filedescriptor so that we
+                // can stop opening file descriptor twice.
+                final Typeface typeface = FontsContractCompat.buildTypeface(mContext,
+                        null /* cancellation signal */, fonts);
                 if (typeface == null) {
                     throwException("Failed to create Typeface.");
                 }
