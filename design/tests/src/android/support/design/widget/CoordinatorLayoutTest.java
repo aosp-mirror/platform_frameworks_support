@@ -19,6 +19,8 @@ package android.support.design.widget;
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.swipeUp;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -37,12 +39,18 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Instrumentation;
-import android.graphics.Rect;
+import android.graphics.RectF;
+import android.support.annotation.IdRes;
 import android.support.design.test.R;
 import android.support.design.testutils.CoordinatorLayoutUtils;
 import android.support.design.testutils.CoordinatorLayoutUtils.DependentBehavior;
 import android.support.design.widget.CoordinatorLayout.Behavior;
+import android.support.test.espresso.Espresso;
+import android.support.test.espresso.IdlingResource;
+import android.support.test.espresso.core.deps.guava.annotations.VisibleForTesting;
 import android.support.test.filters.MediumTest;
 import android.support.test.filters.SdkSuppress;
 import android.support.v4.view.GravityCompat;
@@ -430,7 +438,7 @@ public class CoordinatorLayoutTest extends BaseInstrumentationTestCase<Coordinat
         lpDodge.dodgeInsetEdges = Gravity.BOTTOM;
         lpDodge.setBehavior(new Behavior() {
             @Override
-            public boolean getInsetDodgeRect(CoordinatorLayout parent, View child, Rect rect) {
+            public boolean getInsetDodgeRect(CoordinatorLayout parent, View child, RectF rect) {
                 // Any non-empty rect is fine here.
                 rect.set(0, 0, 10, 10);
                 return true;
@@ -714,7 +722,73 @@ public class CoordinatorLayoutTest extends BaseInstrumentationTestCase<Coordinat
         // Verify that the Behavior of the view with empty bounds does not have its
         // getInsetDodgeRect() called
         verify(spyBehavior, never())
-                .getInsetDodgeRect(same(col), same(view), any(Rect.class));
+                .getInsetDodgeRect(same(col), same(view), any(RectF.class));
+    }
+
+    @Test
+    public void testDependentViewChangedForSmallChanges() throws Throwable {
+        final CoordinatorLayout col = mActivityTestRule.getActivity().mCoordinatorLayout;
+
+        final View view = new View(col.getContext());
+
+        @IdRes final int id = View.generateViewId();
+        final View dependency = new View(col.getContext());
+        dependency.setId(id);
+
+        final Behavior behavior = spy(new TranslateBehavior(id));
+
+        mActivityTestRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final CoordinatorLayout.LayoutParams lp = col.generateDefaultLayoutParams();
+                lp.gravity = Gravity.CENTER_HORIZONTAL | Gravity.TOP;
+                lp.height = 60;
+                lp.width = CoordinatorLayout.LayoutParams.MATCH_PARENT;
+                col.addView(dependency, lp);
+            }
+        });
+
+        mActivityTestRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final CoordinatorLayout.LayoutParams lp = col.generateDefaultLayoutParams();
+                lp.gravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
+                lp.height = 60;
+                lp.width = CoordinatorLayout.LayoutParams.MATCH_PARENT;
+                lp.setBehavior(behavior);
+
+                col.addView(view, lp);
+            }
+        });
+
+        final AnimationIdlingResource idlingResource = new AnimationIdlingResource();
+        Espresso.registerIdlingResources(idlingResource);
+
+        // Wait for a layout
+        mInstrumentation.waitForIdleSync();
+
+        mActivityTestRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                dependency.animate().translationYBy(20f).setListener(idlingResource).start();
+            }
+        });
+
+        // Wait for a layout
+        mInstrumentation.waitForIdleSync();
+
+        onView(withId(id)).check(matches(isDisplayed()));
+
+        verify(behavior, atLeastOnce())
+                .onDependentViewChanged(same(col), same(view), same(dependency));
+        assertTrue("Unexpected translation value: " + dependency.getTranslationY(),
+                dependency.getTranslationY() == 20f);
+        assertTrue("Dependent view not in final position. Actual position is "
+                        + view.getTranslationY(),
+                Float.compare(view.getTranslationY(), dependency.getTranslationY()
+                        * TranslateBehavior.TRANSLATION_MULTIPLIER * -1) == 0);
+
+        Espresso.unregisterIdlingResources(idlingResource);
     }
 
     public static class NestedScrollingBehavior extends CoordinatorLayout.Behavior<View> {
@@ -728,9 +802,75 @@ public class CoordinatorLayoutTest extends BaseInstrumentationTestCase<Coordinat
 
     public static class DodgeBoundsBehavior extends Behavior<View> {
         @Override
-        public boolean getInsetDodgeRect(CoordinatorLayout parent, View child, Rect rect) {
+        public boolean getInsetDodgeRect(CoordinatorLayout parent, View child, RectF rect) {
             rect.set(child.getLeft(), child.getTop(), child.getRight(), child.getBottom());
             return true;
+        }
+    }
+
+    @VisibleForTesting
+    public static class TranslateBehavior extends Behavior<View> {
+        static final int TRANSLATION_MULTIPLIER = 7;
+
+        private final int mDependencyId;
+
+        @VisibleForTesting
+        public TranslateBehavior(@IdRes final int dependencyId) {
+            super();
+
+            mDependencyId = dependencyId;
+        }
+
+        @Override
+        public boolean layoutDependsOn(CoordinatorLayout parent, View child, View dependency) {
+            return dependency.getId() == mDependencyId
+                    || super.layoutDependsOn(parent, child, dependency);
+        }
+
+        @Override
+        public boolean onDependentViewChanged(CoordinatorLayout parent, View child,
+                View dependency) {
+            child.setTranslationY(-dependency.getTranslationY() * TRANSLATION_MULTIPLIER);
+            return true;
+        }
+    }
+
+    static class AnimationIdlingResource extends AnimatorListenerAdapter implements IdlingResource {
+
+        private boolean mIsIdle = true;
+        private ResourceCallback mCallback;
+
+        @Override
+        public String getName() {
+            return "AnimationIdlingResource";
+        }
+
+        @Override
+        public boolean isIdleNow() {
+            return mIsIdle;
+        }
+
+        @Override
+        public void registerIdleTransitionCallback(ResourceCallback callback) {
+            mCallback = callback;
+        }
+
+        @Override
+        public void onAnimationStart(Animator animation) {
+            setIdle(false);
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            setIdle(true);
+        }
+
+        private void setIdle(boolean idle) {
+            boolean wasIdle = mIsIdle;
+            mIsIdle = idle;
+            if (mIsIdle && !wasIdle && mCallback != null) {
+                mCallback.onTransitionToIdle();
+            }
         }
     }
 }

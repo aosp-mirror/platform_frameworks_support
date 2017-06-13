@@ -25,6 +25,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
@@ -716,7 +717,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton {
 
         @Override
         public boolean getInsetDodgeRect(@NonNull CoordinatorLayout parent,
-                @NonNull FloatingActionButton child, @NonNull Rect rect) {
+                @NonNull FloatingActionButton child, @NonNull RectF rect) {
             // Since we offset so that any internal shadow padding isn't shown, we need to make
             // sure that the shadow isn't used for any dodge inset calculations
             final Rect shadowPadding = child.mShadowPadding;

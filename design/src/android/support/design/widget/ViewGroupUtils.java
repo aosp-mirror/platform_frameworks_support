@@ -16,37 +16,56 @@
 
 package android.support.design.widget;
 
+import android.annotation.TargetApi;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.view.ViewGroup;
 
 class ViewGroupUtils {
 
+    private static final ThreadLocal<RectF> sRectF = new ThreadLocal<>();
+
     private interface ViewGroupUtilsImpl {
-        void offsetDescendantRect(ViewGroup parent, View child, Rect rect);
+        void offsetDescendantRect(ViewGroup parent, View child, RectF rect);
     }
 
     private static class ViewGroupUtilsImplBase implements ViewGroupUtilsImpl {
+        private static final ThreadLocal<Rect> sRectRounded = new ThreadLocal<>();
+
         ViewGroupUtilsImplBase() {
         }
 
         @Override
-        public void offsetDescendantRect(ViewGroup parent, View child, Rect rect) {
-            parent.offsetDescendantRectToMyCoords(child, rect);
+        public void offsetDescendantRect(ViewGroup parent, View child, RectF rect) {
+            Rect roundedRect = sRectRounded.get();
+            if (roundedRect == null) {
+                roundedRect = new Rect();
+                sRectRounded.set(roundedRect);
+            }
+
+            rect.round(roundedRect);
+
+            parent.offsetDescendantRectToMyCoords(child, roundedRect);
             // View#offsetDescendantRectToMyCoords includes scroll offsets of the last child.
             // We need to reverse it here so that we get the rect of the view itself rather
             // than its content.
-            rect.offset(child.getScrollX(), child.getScrollY());
+            roundedRect.offset(child.getScrollX(), child.getScrollY());
+
+            rect.set(roundedRect);
         }
     }
 
+    @RequiresApi(11)
+    @TargetApi(11)
     private static class ViewGroupUtilsImplHoneycomb implements ViewGroupUtilsImpl {
         ViewGroupUtilsImplHoneycomb() {
         }
 
         @Override
-        public void offsetDescendantRect(ViewGroup parent, View child, Rect rect) {
+        public void offsetDescendantRect(ViewGroup parent, View child, RectF rect) {
             ViewGroupUtilsHoneycomb.offsetDescendantRect(parent, child, rect);
         }
     }
@@ -71,7 +90,7 @@ class ViewGroupUtils {
      * @param descendant view defining the original coordinate system of rect
      * @param rect (in/out) the rect to offset from descendant to this view's coordinate system
      */
-    static void offsetDescendantRect(ViewGroup parent, View descendant, Rect rect) {
+    static void offsetDescendantRect(ViewGroup parent, View descendant, RectF rect) {
         IMPL.offsetDescendantRect(parent, descendant, rect);
     }
 
@@ -82,9 +101,28 @@ class ViewGroupUtils {
      * @param descendant descendant view to reference
      * @param out rect to set to the bounds of the descendant view
      */
-    static void getDescendantRect(ViewGroup parent, View descendant, Rect out) {
+    static void getDescendantRect(ViewGroup parent, View descendant, RectF out) {
         out.set(0, 0, descendant.getWidth(), descendant.getHeight());
         offsetDescendantRect(parent, descendant, out);
+    }
+
+    /**
+     * Retrieve the transformed bounding rect of an arbitrary descendant view.
+     * This does not need to be a direct child.
+     *
+     * @param descendant descendant view to reference
+     * @param out rect to set to the bounds of the descendant view
+     */
+    static void getDescendantRect(ViewGroup parent, View descendant, Rect out) {
+        RectF rectF = sRectF.get();
+        if (rectF == null) {
+            rectF = new RectF();
+            sRectF.set(rectF);
+        }
+
+        rectF.set(0, 0, descendant.getWidth(), descendant.getHeight());
+        offsetDescendantRect(parent, descendant, rectF);
+        rectF.round(out);
     }
 
 }
