@@ -1431,6 +1431,7 @@ package android.support.media.tv {
     method public static boolean isChannelUriForPassthroughInput(android.net.Uri);
     method public static boolean isChannelUriForTunerInput(android.net.Uri);
     method public static boolean isProgramUri(android.net.Uri);
+    method public static boolean isRecordedProgramUri(android.net.Uri);
     method public static void requestChannelBrowsable(android.content.Context, long);
     field public static final java.lang.String ACTION_INITIALIZE_PROGRAMS = "android.media.tv.action.INITIALIZE_PROGRAMS";
     field public static final java.lang.String ACTION_PREVIEW_PROGRAM_ADDED_TO_WATCH_NEXT = "android.media.tv.action.PREVIEW_PROGRAM_ADDED_TO_WATCH_NEXT";
@@ -2014,6 +2015,14 @@ package android.support.text.emoji.widget {
     method public int getMaxEmojiCount();
     method public android.view.inputmethod.InputConnection onCreateInputConnection(android.view.inputmethod.InputConnection, android.view.inputmethod.EditorInfo);
     method public void setMaxEmojiCount(int);
+  }
+
+  public class EmojiExtractTextLayout extends android.widget.LinearLayout {
+    ctor public EmojiExtractTextLayout(android.content.Context);
+    ctor public EmojiExtractTextLayout(android.content.Context, android.util.AttributeSet);
+    ctor public EmojiExtractTextLayout(android.content.Context, android.util.AttributeSet, int);
+    ctor public EmojiExtractTextLayout(android.content.Context, android.util.AttributeSet, int, int);
+    method public void onUpdateExtractingViews(android.inputmethodservice.InputMethodService, android.view.inputmethod.EditorInfo);
   }
 
   public class EmojiTextView extends android.widget.TextView {
@@ -6273,9 +6282,11 @@ package android.support.v4.app {
   public abstract class JobIntentService extends android.app.Service {
     ctor public JobIntentService();
     method public static void enqueueWork(android.content.Context, java.lang.Class, int, android.content.Intent);
+    method public boolean isStopped();
     method public android.os.IBinder onBind(android.content.Intent);
     method protected abstract void onHandleWork(android.content.Intent);
     method public boolean onStopCurrentWork();
+    method public void setInterruptIfStopped(boolean);
   }
 
   public class ListFragment extends android.support.v4.app.Fragment {
@@ -7643,6 +7654,7 @@ package android.support.v4.media.session {
     method public abstract void skipToPrevious();
     method public abstract void skipToQueueItem(long);
     method public abstract void stop();
+    field public static final java.lang.String EXTRA_LEGACY_STREAM_TYPE = "android.media.session.extra.LEGACY_STREAM_TYPE";
   }
 
   public class MediaSessionCompat {
@@ -8844,6 +8856,7 @@ package android.support.v4.view {
     method public static deprecated float getY(android.view.View);
     method public static float getZ(android.view.View);
     method public static boolean hasAccessibilityDelegate(android.view.View);
+    method public static boolean hasExplicitFocusable(android.view.View);
     method public static boolean hasNestedScrollingParent(android.view.View);
     method public static boolean hasNestedScrollingParent(android.view.View, int);
     method public static boolean hasOnClickListeners(android.view.View);
@@ -9594,6 +9607,42 @@ package android.support.v4.widget {
     field public static final float NO_MAX = 3.4028235E38f;
     field public static final float NO_MIN = 0.0f;
     field public static final float RELATIVE_UNSPECIFIED = 0.0f;
+  }
+
+  public class CircularProgressDrawable extends android.graphics.drawable.Drawable {
+    ctor public CircularProgressDrawable(android.content.Context);
+    method public void draw(android.graphics.Canvas);
+    method public boolean getArrowEnabled();
+    method public float getArrowHeight();
+    method public float getArrowScale();
+    method public float getArrowWidth();
+    method public int getBackgroundColor();
+    method public float getCenterRadius();
+    method public int[] getColorSchemeColors();
+    method public float getEndTrim();
+    method public int getOpacity();
+    method public float getProgressRotation();
+    method public float getStartTrim();
+    method public android.graphics.Paint.Cap getStrokeCap();
+    method public float getStrokeWidth();
+    method public boolean isRunning();
+    method public void setAlpha(int);
+    method public void setArrowDimensions(float, float);
+    method public void setArrowEnabled(boolean);
+    method public void setArrowScale(float);
+    method public void setBackgroundColor(int);
+    method public void setCenterRadius(float);
+    method public void setColorFilter(android.graphics.ColorFilter);
+    method public void setColorSchemeColors(int...);
+    method public void setProgressRotation(float);
+    method public void setStartEndTrim(float, float);
+    method public void setStrokeCap(android.graphics.Paint.Cap);
+    method public void setStrokeWidth(float);
+    method public void setStyle(int);
+    method public void start();
+    method public void stop();
+    field public static final int DEFAULT = 1; // 0x1
+    field public static final int LARGE = 0; // 0x0
   }
 
   public final class CompoundButtonCompat {
