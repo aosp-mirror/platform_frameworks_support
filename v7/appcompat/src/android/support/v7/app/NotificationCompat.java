@@ -21,8 +21,6 @@ import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -32,20 +30,12 @@ import android.support.annotation.RestrictTo;
 import android.support.v4.app.BundleCompat;
 import android.support.v4.app.NotificationBuilderWithBuilderAccessor;
 import android.support.v4.media.session.MediaSessionCompat;
-import android.support.v4.text.BidiFormatter;
 import android.support.v7.appcompat.R;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.TextUtils;
-import android.text.style.TextAppearanceSpan;
 import android.widget.RemoteViews;
-
-import java.util.List;
 
 /**
  * An extension of {@link android.support.v4.app.NotificationCompat} which supports
- * {@link android.support.v7.app.NotificationCompat.MediaStyle},
- * {@link android.support.v7.app.NotificationCompat.DecoratedCustomViewStyle},
+ * {@link android.support.v7.app.NotificationCompat.MediaStyle}
  * and {@link android.support.v7.app.NotificationCompat.DecoratedMediaCustomViewStyle}.
  * You should start using this variant if you need support any of these styles.
  */
@@ -83,169 +73,6 @@ public class NotificationCompat extends android.support.v4.app.NotificationCompa
         return null;
     }
 
-    @RequiresApi(24)
-    private static void addStyleToBuilderApi24(NotificationBuilderWithBuilderAccessor builder,
-            android.support.v4.app.NotificationCompat.Builder b) {
-        if (b.mStyle instanceof DecoratedCustomViewStyle) {
-            NotificationCompatImpl24.addDecoratedCustomViewStyle(builder);
-        } else if (b.mStyle instanceof DecoratedMediaCustomViewStyle) {
-            NotificationCompatImpl24.addDecoratedMediaCustomViewStyle(builder);
-        } else if (!(b.mStyle instanceof MessagingStyle)) {
-            addStyleGetContentViewLollipop(builder, b);
-        }
-    }
-
-    @RequiresApi(21)
-    private static RemoteViews addStyleGetContentViewLollipop(
-            NotificationBuilderWithBuilderAccessor builder,
-            android.support.v4.app.NotificationCompat.Builder b) {
-        if (b.mStyle instanceof MediaStyle) {
-            MediaStyle mediaStyle = (MediaStyle) b.mStyle;
-            NotificationCompatImpl21.addMediaStyle(builder,
-                    mediaStyle.mActionsToShowInCompact,
-                    mediaStyle.mToken != null ? mediaStyle.mToken.getToken() : null);
-
-            boolean hasContentView = b.getContentView() != null;
-            // If we are on L/M the media notification will only be colored if the expanded version
-            // is of media style, so we have to create a custom view for the collapsed version as
-            // well in that case.
-            boolean isMorL = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-                    && Build.VERSION.SDK_INT <= Build.VERSION_CODES.M;
-            boolean createCustomContent = hasContentView
-                    || (isMorL && b.getBigContentView() != null);
-            if (b.mStyle instanceof DecoratedMediaCustomViewStyle && createCustomContent) {
-                RemoteViews contentViewMedia = NotificationCompatImplBase.overrideContentViewMedia(
-                        builder, b.mContext, b.mContentTitle, b.mContentText, b.mContentInfo,
-                        b.mNumber, b.mLargeIcon, b.mSubText, b.mUseChronometer,
-                        b.getWhenIfShowing(), b.getPriority(), b.mActions,
-                        mediaStyle.mActionsToShowInCompact, false /* no cancel button on L */,
-                        null /* cancelButtonIntent */, hasContentView /* isDecoratedCustomView */);
-                if (hasContentView) {
-                    NotificationCompatImplBase.buildIntoRemoteViews(b.mContext, contentViewMedia,
-                            b.getContentView());
-                }
-                setBackgroundColor(b.mContext, contentViewMedia, b.getColor());
-                return contentViewMedia;
-            }
-            return null;
-        } else if (b.mStyle instanceof DecoratedCustomViewStyle) {
-            return getDecoratedContentView(b);
-        }
-        return addStyleGetContentViewJellybean(builder, b);
-    }
-
-    @RequiresApi(16)
-    private static RemoteViews addStyleGetContentViewJellybean(
-            NotificationBuilderWithBuilderAccessor builder,
-            android.support.v4.app.NotificationCompat.Builder b) {
-        if (b.mStyle instanceof MessagingStyle) {
-            addMessagingFallBackStyle((MessagingStyle) b.mStyle, builder, b);
-        }
-        return addStyleGetContentViewIcs(builder, b);
-    }
-
-    private static MessagingStyle.Message findLatestIncomingMessage(MessagingStyle style) {
-        List<MessagingStyle.Message> messages = style.getMessages();
-        for (int i = messages.size() - 1; i >= 0; i--) {
-            MessagingStyle.Message m = messages.get(i);
-            // Incoming messages have a non-empty sender.
-            if (!TextUtils.isEmpty(m.getSender())) {
-                return m;
-            }
-        }
-        if (!messages.isEmpty()) {
-            // No incoming messages, fall back to outgoing message
-            return messages.get(messages.size() - 1);
-        }
-        return null;
-    }
-
-    private static CharSequence makeMessageLine(android.support.v4.app.NotificationCompat.Builder b,
-            MessagingStyle style,
-            MessagingStyle.Message m) {
-        BidiFormatter bidi = BidiFormatter.getInstance();
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        boolean afterLollipop = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
-        int color = afterLollipop || Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1
-                ? Color.BLACK : Color.WHITE;
-        CharSequence replyName = m.getSender();
-        if (TextUtils.isEmpty(m.getSender())) {
-            replyName = style.getUserDisplayName() == null
-                    ? "" : style.getUserDisplayName();
-            color = afterLollipop && b.getColor() != NotificationCompat.COLOR_DEFAULT
-                    ? b.getColor()
-                    : color;
-        }
-        CharSequence senderText = bidi.unicodeWrap(replyName);
-        sb.append(senderText);
-        sb.setSpan(makeFontColorSpan(color),
-                sb.length() - senderText.length(),
-                sb.length(),
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE /* flags */);
-        CharSequence text = m.getText() == null ? "" : m.getText();
-        sb.append("  ").append(bidi.unicodeWrap(text));
-        return sb;
-    }
-
-    private static TextAppearanceSpan makeFontColorSpan(int color) {
-        return new TextAppearanceSpan(null, 0, 0, ColorStateList.valueOf(color), null);
-    }
-
-    @RequiresApi(16)
-    private static void addMessagingFallBackStyle(MessagingStyle style,
-            NotificationBuilderWithBuilderAccessor builder,
-            android.support.v4.app.NotificationCompat.Builder b) {
-        SpannableStringBuilder completeMessage = new SpannableStringBuilder();
-        List<MessagingStyle.Message> messages = style.getMessages();
-        boolean showNames = style.getConversationTitle() != null
-                || hasMessagesWithoutSender(style.getMessages());
-        for (int i = messages.size() - 1; i >= 0; i--) {
-            MessagingStyle.Message m = messages.get(i);
-            CharSequence line;
-            line = showNames ? makeMessageLine(b, style, m) : m.getText();
-            if (i != messages.size() - 1) {
-                completeMessage.insert(0, "\n");
-            }
-            completeMessage.insert(0, line);
-        }
-        NotificationCompatImplJellybean.addBigTextStyle(builder, completeMessage);
-    }
-
-    private static boolean hasMessagesWithoutSender(
-            List<MessagingStyle.Message> messages) {
-        for (int i = messages.size() - 1; i >= 0; i--) {
-            MessagingStyle.Message m = messages.get(i);
-            if (m.getSender() == null) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @RequiresApi(14)
-    private static RemoteViews addStyleGetContentViewIcs(
-            NotificationBuilderWithBuilderAccessor builder,
-            android.support.v4.app.NotificationCompat.Builder b) {
-        if (b.mStyle instanceof MediaStyle) {
-            MediaStyle mediaStyle = (MediaStyle) b.mStyle;
-            boolean isDecorated = b.mStyle instanceof DecoratedMediaCustomViewStyle
-                    && b.getContentView() != null;
-            RemoteViews contentViewMedia = NotificationCompatImplBase.overrideContentViewMedia(
-                    builder, b.mContext, b.mContentTitle, b.mContentText, b.mContentInfo, b.mNumber,
-                    b.mLargeIcon, b.mSubText, b.mUseChronometer, b.getWhenIfShowing(),
-                    b.getPriority(), b.mActions, mediaStyle.mActionsToShowInCompact,
-                    mediaStyle.mShowCancelButton, mediaStyle.mCancelButtonIntent, isDecorated);
-            if (isDecorated) {
-                NotificationCompatImplBase.buildIntoRemoteViews(b.mContext, contentViewMedia,
-                        b.getContentView());
-                return contentViewMedia;
-            }
-        } else if (b.mStyle instanceof DecoratedCustomViewStyle) {
-            return getDecoratedContentView(b);
-        }
-        return null;
-    }
-
     @RequiresApi(16)
     private static void addBigStyleToBuilderJellybean(Notification n,
             android.support.v4.app.NotificationCompat.Builder b) {
@@ -265,61 +92,7 @@ public class NotificationCompat extends android.support.v4.app.NotificationCompa
                 NotificationCompatImplBase.buildIntoRemoteViews(b.mContext, n.bigContentView,
                         innerView);
             }
-        } else if (b.mStyle instanceof DecoratedCustomViewStyle) {
-            addDecoratedBigStyleToBuilderJellybean(n, b);
         }
-    }
-
-    private static RemoteViews getDecoratedContentView(
-            android.support.v4.app.NotificationCompat.Builder b) {
-        if (b.getContentView() == null) {
-            // No special content view
-            return null;
-        }
-        RemoteViews remoteViews = NotificationCompatImplBase.applyStandardTemplateWithActions(
-                b.mContext, b.mContentTitle, b.mContentText, b.mContentInfo, b.mNumber,
-                b.mNotification.icon, b.mLargeIcon, b.mSubText, b.mUseChronometer,
-                b.getWhenIfShowing(), b.getPriority(), b.getColor(),
-                R.layout.notification_template_custom_big, false /* fitIn1U */, null /* actions */);
-        NotificationCompatImplBase.buildIntoRemoteViews(b.mContext, remoteViews,
-                b.getContentView());
-        return remoteViews;
-    }
-
-    @RequiresApi(16)
-    private static void addDecoratedBigStyleToBuilderJellybean(Notification n,
-            android.support.v4.app.NotificationCompat.Builder b) {
-        RemoteViews bigContentView = b.getBigContentView();
-        RemoteViews innerView = bigContentView != null ? bigContentView : b.getContentView();
-        if (innerView == null) {
-            // No expandable notification
-            return;
-        }
-        RemoteViews remoteViews = NotificationCompatImplBase.applyStandardTemplateWithActions(
-                b.mContext, b.mContentTitle, b.mContentText, b.mContentInfo, b.mNumber,
-                n.icon ,b.mLargeIcon, b.mSubText, b.mUseChronometer, b.getWhenIfShowing(),
-                b.getPriority(), b.getColor(), R.layout.notification_template_custom_big,
-                false /* fitIn1U */, b.mActions);
-        NotificationCompatImplBase.buildIntoRemoteViews(b.mContext, remoteViews, innerView);
-        n.bigContentView = remoteViews;
-    }
-
-    @RequiresApi(21)
-    private static void addDecoratedHeadsUpToBuilderLollipop(Notification n,
-            android.support.v4.app.NotificationCompat.Builder b) {
-        RemoteViews headsUp = b.getHeadsUpContentView();
-        RemoteViews innerView = headsUp != null ? headsUp : b.getContentView();
-        if (headsUp == null) {
-            // No expandable notification
-            return;
-        }
-        RemoteViews remoteViews = NotificationCompatImplBase.applyStandardTemplateWithActions(
-                b.mContext, b.mContentTitle, b.mContentText, b.mContentInfo, b.mNumber, n.icon,
-                b.mLargeIcon, b.mSubText, b.mUseChronometer, b.getWhenIfShowing(), b.getPriority(),
-                b.getColor(), R.layout.notification_template_custom_big, false /* fitIn1U */,
-                b.mActions);
-        NotificationCompatImplBase.buildIntoRemoteViews(b.mContext, remoteViews, innerView);
-        n.headsUpContentView = remoteViews;
     }
 
     @RequiresApi(21)
@@ -337,8 +110,6 @@ public class NotificationCompat extends android.support.v4.app.NotificationCompa
                     NotificationCompatImplBase.buildIntoRemoteViews(b.mContext, n.bigContentView,
                             innerView);
             setBackgroundColor(b.mContext, n.bigContentView, b.getColor());
-        } else if (b.mStyle instanceof DecoratedCustomViewStyle) {
-            addDecoratedBigStyleToBuilderJellybean(n, b);
         }
     }
 
@@ -365,8 +136,6 @@ public class NotificationCompat extends android.support.v4.app.NotificationCompa
             NotificationCompatImplBase.buildIntoRemoteViews(b.mContext, n.headsUpContentView,
                     innerView);
             setBackgroundColor(b.mContext, n.headsUpContentView, b.getColor());
-        } else if (b.mStyle instanceof DecoratedCustomViewStyle) {
-            addDecoratedHeadsUpToBuilderLollipop(n, b);
         }
     }
 
@@ -384,83 +153,20 @@ public class NotificationCompat extends android.support.v4.app.NotificationCompa
         }
 
         /**
-         * @return the text of the notification
-         *
-         * @hide
-         */
-        @RestrictTo(LIBRARY_GROUP)
-        @Override
-        protected CharSequence resolveText() {
-            if (mStyle instanceof MessagingStyle) {
-                MessagingStyle style = (MessagingStyle) mStyle;
-                MessagingStyle.Message m = findLatestIncomingMessage(style);
-                CharSequence conversationTitle = style.getConversationTitle();
-                if (m != null) {
-                    return conversationTitle != null ? makeMessageLine(this, style, m)
-                            : m.getText();
-                }
-            }
-            return super.resolveText();
-        }
-
-        /**
-         * @return the title of the notification
-         *
-         * @hide
-         */
-        @RestrictTo(LIBRARY_GROUP)
-        @Override
-        protected CharSequence resolveTitle() {
-            if (mStyle instanceof MessagingStyle) {
-                MessagingStyle style = (MessagingStyle) mStyle;
-                MessagingStyle.Message m = findLatestIncomingMessage(style);
-                CharSequence conversationTitle = style.getConversationTitle();
-                if (conversationTitle != null || m != null) {
-                    return conversationTitle != null ? conversationTitle : m.getSender();
-                }
-            }
-            return super.resolveTitle();
-        }
-
-        /**
          * @hide
          */
         @RestrictTo(LIBRARY_GROUP)
         @Override
         protected BuilderExtender getExtender() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                return new Api24Extender();
+                return super.getExtender();
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 return new LollipopExtender();
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 return new JellybeanExtender();
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                return new IceCreamSandwichExtender();
             } else {
                 return super.getExtender();
             }
-        }
-    }
-
-    @RequiresApi(14)
-    private static class IceCreamSandwichExtender extends BuilderExtender {
-
-        IceCreamSandwichExtender() {
-        }
-
-        @Override
-        public Notification build(android.support.v4.app.NotificationCompat.Builder b,
-                NotificationBuilderWithBuilderAccessor builder) {
-            RemoteViews contentView = addStyleGetContentViewIcs(builder, b);
-            Notification n = builder.build();
-            // The above call might override decorated content views again, let's make sure it
-            // sticks.
-            if (contentView != null) {
-                n.contentView = contentView;
-            } else if (b.getContentView() != null) {
-                n.contentView = b.getContentView();
-            }
-            return n;
         }
     }
 
@@ -473,13 +179,7 @@ public class NotificationCompat extends android.support.v4.app.NotificationCompa
         @Override
         public Notification build(android.support.v4.app.NotificationCompat.Builder b,
                 NotificationBuilderWithBuilderAccessor builder) {
-            RemoteViews contentView = addStyleGetContentViewJellybean(builder, b);
-            Notification n = builder.build();
-            // The above call might override decorated content views again, let's make sure it
-            // sticks.
-            if (contentView != null) {
-                n.contentView = contentView;
-            }
+            Notification n = super.build(b, builder);
             addBigStyleToBuilderJellybean(n, b);
             return n;
         }
@@ -494,27 +194,10 @@ public class NotificationCompat extends android.support.v4.app.NotificationCompa
         @Override
         public Notification build(android.support.v4.app.NotificationCompat.Builder b,
                 NotificationBuilderWithBuilderAccessor builder) {
-            RemoteViews contentView = addStyleGetContentViewLollipop(builder, b);
-            Notification n = builder.build();
-            // The above call might override decorated content views again, let's make sure it
-            // sticks.
-            if (contentView != null) {
-                n.contentView = contentView;
-            }
+            Notification n = super.build(b, builder);
             addBigStyleToBuilderLollipop(n, b);
             addHeadsUpToBuilderLollipop(n, b);
             return n;
-        }
-    }
-
-    @RequiresApi(24)
-    private static class Api24Extender extends BuilderExtender {
-
-        @Override
-        public Notification build(android.support.v4.app.NotificationCompat.Builder b,
-                NotificationBuilderWithBuilderAccessor builder) {
-            addStyleToBuilderApi24(builder, b);
-            return builder.build();
         }
     }
 
@@ -616,7 +299,9 @@ public class NotificationCompat extends android.support.v4.app.NotificationCompa
          * @param show whether to show a cancel button
          */
         public MediaStyle setShowCancelButton(boolean show) {
-            mShowCancelButton = show;
+            if (Build.VERSION.SDK_INT < 21) {
+                mShowCancelButton = show;
+            }
             return this;
         }
 
@@ -629,6 +314,43 @@ public class NotificationCompat extends android.support.v4.app.NotificationCompa
         public MediaStyle setCancelButtonIntent(PendingIntent pendingIntent) {
             mCancelButtonIntent = pendingIntent;
             return this;
+        }
+
+        /**
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        @Override
+        public void apply(NotificationBuilderWithBuilderAccessor builder) {
+            if (Build.VERSION.SDK_INT >= 21) {
+                NotificationCompatImpl21.addMediaStyle(builder,
+                        mActionsToShowInCompact,
+                        mToken != null ? mToken.getToken() : null);
+            }
+        }
+
+        /**
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        @Override
+        public RemoteViews makeContentView(NotificationBuilderWithBuilderAccessor builder) {
+            if (Build.VERSION.SDK_INT >= 21) {
+                // No custom content view required
+                return null;
+            }
+            overrideContentView(builder, false);
+            return null;
+        }
+
+        RemoteViews overrideContentView(
+                NotificationBuilderWithBuilderAccessor builder, boolean isDecorated) {
+            return NotificationCompatImplBase.overrideContentViewMedia(
+                    builder, mBuilder.mContext, mBuilder.mContentTitle, mBuilder.mContentText,
+                    mBuilder.mContentInfo, mBuilder.mNumber, mBuilder.mLargeIcon,
+                    mBuilder.mSubText, mBuilder.mUseChronometer, mBuilder.getWhenIfShowing(),
+                    mBuilder.getPriority(), mBuilder.mActions, mActionsToShowInCompact,
+                    mShowCancelButton, mCancelButtonIntent, isDecorated);
         }
     }
 
@@ -664,6 +386,87 @@ public class NotificationCompat extends android.support.v4.app.NotificationCompa
     public static class DecoratedCustomViewStyle extends Style {
 
         public DecoratedCustomViewStyle() {
+        }
+
+        /**
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        @Override
+        public void apply(NotificationBuilderWithBuilderAccessor builder) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                NotificationCompatImpl24.addDecoratedCustomViewStyle(builder);
+            }
+        }
+
+        /**
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        @Override
+        public RemoteViews makeContentView(NotificationBuilderWithBuilderAccessor builder) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                // No custom content view required
+                return null;
+            }
+            if (mBuilder.getContentView() == null) {
+                // No special content view
+                return null;
+            }
+            return createRemoteViews(mBuilder.getContentView(), false);
+        }
+
+        /**
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        @Override
+        public RemoteViews makeBigContentView(NotificationBuilderWithBuilderAccessor builder) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                // No custom big content view required
+                return null;
+            }
+            RemoteViews bigContentView = mBuilder.getBigContentView();
+            RemoteViews innerView = bigContentView != null
+                    ? bigContentView
+                    : mBuilder.getContentView();
+            if (innerView == null) {
+                // No expandable notification
+                return null;
+            }
+            return createRemoteViews(innerView, true);
+        }
+
+        /**
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        @Override
+        public RemoteViews makeHeadsUpContentView(NotificationBuilderWithBuilderAccessor builder) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                // No custom heads up content view required
+                return null;
+            }
+            RemoteViews headsUp = mBuilder.getHeadsUpContentView();
+            RemoteViews innerView = headsUp != null ? headsUp : mBuilder.getContentView();
+            if (headsUp == null) {
+                // No expandable notification
+                return null;
+            }
+            return createRemoteViews(innerView, true);
+        }
+
+        private RemoteViews createRemoteViews(RemoteViews innerView, boolean showActions) {
+            RemoteViews remoteViews = NotificationCompatImplBase.applyStandardTemplateWithActions(
+                    mBuilder.mContext, mBuilder.mContentTitle, mBuilder.mContentText,
+                    mBuilder.mContentInfo, mBuilder.mNumber, mBuilder.mNotification.icon,
+                    mBuilder.mLargeIcon, mBuilder.mSubText, mBuilder.mUseChronometer,
+                    mBuilder.getWhenIfShowing(), mBuilder.getPriority(), mBuilder.getColor(),
+                    R.layout.notification_template_custom_big,
+                    false /* fitIn1U */, showActions ? mBuilder.mActions : null);
+            NotificationCompatImplBase.buildIntoRemoteViews(mBuilder.mContext,
+                    remoteViews, innerView);
+            return remoteViews;
         }
     }
 
@@ -703,6 +506,60 @@ public class NotificationCompat extends android.support.v4.app.NotificationCompa
     public static class DecoratedMediaCustomViewStyle extends MediaStyle {
 
         public DecoratedMediaCustomViewStyle() {
+        }
+
+        /**
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        @Override
+        public void apply(NotificationBuilderWithBuilderAccessor builder) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                NotificationCompatImpl24.addDecoratedMediaCustomViewStyle(builder,
+                        mActionsToShowInCompact,
+                        mToken != null ? mToken.getToken() : null);
+            } else {
+                super.apply(builder);
+            }
+        }
+
+        /**
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        @Override
+        public RemoteViews makeContentView(NotificationBuilderWithBuilderAccessor builder) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                // No custom content view required
+                return null;
+            }
+            boolean hasContentView = mBuilder.getContentView() != null;
+            if (Build.VERSION.SDK_INT >= 21) {
+                // If we are on L/M the media notification will only be colored if the expanded
+                // version is of media style, so we have to create a custom view for the collapsed
+                // version as well in that case.
+                boolean createCustomContent = hasContentView
+                        || mBuilder.getBigContentView() != null;
+                if (createCustomContent) {
+                    RemoteViews contentView = overrideContentView(builder, hasContentView);
+                    if (hasContentView) {
+                        NotificationCompatImplBase.buildIntoRemoteViews(mBuilder.mContext,
+                                contentView,
+                                mBuilder.getContentView());
+                    }
+                    setBackgroundColor(mBuilder.mContext, contentView, mBuilder.getColor());
+                    return contentView;
+                }
+            } else {
+                RemoteViews contentViewMedia = overrideContentView(builder, hasContentView);
+                if (hasContentView) {
+                    NotificationCompatImplBase.buildIntoRemoteViews(mBuilder.mContext,
+                            contentViewMedia,
+                            mBuilder.getContentView());
+                    return contentViewMedia;
+                }
+            }
+            return null;
         }
     }
 }

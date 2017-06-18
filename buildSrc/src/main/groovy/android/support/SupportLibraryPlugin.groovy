@@ -90,7 +90,7 @@ class SupportLibraryPlugin implements Plugin<Project> {
             textOutput 'stderr'
             textReport true
             htmlReport false
-            xmlReport false
+            //xmlReport false
 
             // Format output for convenience.
             explainIssues true
@@ -99,7 +99,19 @@ class SupportLibraryPlugin implements Plugin<Project> {
 
             // Always fail on NewApi.
             error 'NewApi'
+
+            // TODO(aurimas): figure out the issue with missing translation check
+            disable 'MissingTranslation' 
         }
+
+        // Set baseline file for all legacy lint warnings.
+        if (System.getenv("GRADLE_PLUGIN_VERSION") != null) {
+            library.lintOptions.baseline new File(project.projectDir, "/lint-baseline-custom.xml")
+        } else {
+            library.lintOptions.baseline new File(project.projectDir, "/lint-baseline.xml")
+
+        }
+
 
         // Java 8 is only fully supported on API 24+ and not all Java 8 features are binary
         // compatible with API < 24, so use Java 7 for both source AND target.
@@ -189,7 +201,9 @@ class SupportLibraryPlugin implements Plugin<Project> {
 
                             // Enforce the following checks.
                             '-Xep:MissingOverride:ERROR',
+                            '-Xep:NarrowingCompoundAssignment:ERROR',
                             '-Xep:ClassNewInstance:ERROR',
+                            '-Xep:ClassCanBeStatic:ERROR',
                             '-Xep:SynchronizeOnNonFinalField:ERROR'
                     ]
                 }

@@ -523,10 +523,12 @@ public class CircularProgressDrawable extends Drawable implements Animatable {
     /**
      * Update the ring start and end trim according to current time of the animation.
      */
-    private void applyTransformation(float interpolatedTime, Ring ring) {
+    private void applyTransformation(float interpolatedTime, Ring ring, boolean lastFrame) {
         if (mFinishing) {
             applyFinishTranslation(interpolatedTime, ring);
-        } else {
+            // Below condition is to work around a ValueAnimator issue where onAnimationRepeat is
+            // called before last frame (1f).
+        } else if (interpolatedTime != 1f || lastFrame) {
             final float startingRotation = ring.getStartingRotation();
             float startTrim, endTrim;
 
@@ -561,7 +563,7 @@ public class CircularProgressDrawable extends Drawable implements Animatable {
             public void onAnimationUpdate(ValueAnimator animation) {
                 float interpolatedTime = (float) animation.getAnimatedValue();
                 updateRingColor(interpolatedTime, ring);
-                applyTransformation(interpolatedTime, ring);
+                applyTransformation(interpolatedTime, ring, false);
                 invalidateSelf();
             }
         });
@@ -587,7 +589,7 @@ public class CircularProgressDrawable extends Drawable implements Animatable {
 
             @Override
             public void onAnimationRepeat(Animator animator) {
-                applyTransformation(1f, ring); // Set ring to last frame
+                applyTransformation(1f, ring, true);
                 ring.storeOriginals();
                 ring.goToNextColor();
                 if (mFinishing) {
@@ -610,7 +612,7 @@ public class CircularProgressDrawable extends Drawable implements Animatable {
      * A private class to do all the drawing of CircularProgressDrawable, which includes background,
      * progress spinner and the arrow. This class is to separate drawing from animation.
      */
-    private class Ring {
+    private static class Ring {
         final RectF mTempBounds = new RectF();
         final Paint mPaint = new Paint();
         final Paint mArrowPaint = new Paint();
