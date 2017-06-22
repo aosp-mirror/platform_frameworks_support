@@ -46,8 +46,8 @@ public class BottomNavigationPresenter implements MenuPresenter {
 
     @Override
     public void initForMenu(Context context, MenuBuilder menu) {
-        mMenuView.initialize(mMenu);
         mMenu = menu;
+        mMenuView.initialize(mMenu);
     }
 
     @Override
