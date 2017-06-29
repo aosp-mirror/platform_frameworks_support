@@ -37,8 +37,10 @@ import android.os.Build;
 import android.support.test.filters.LargeTest;
 import android.support.test.filters.SdkSuppress;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.testutils.PollingCheck;
 import android.support.v4.view.AccessibilityDelegateCompat;
 import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
+import android.support.v7.util.ImeCleanUpTestRule;
 import android.support.v7.util.TouchUtils;
 import android.test.UiThreadTest;
 import android.util.SparseIntArray;
@@ -48,6 +50,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.hamcrest.CoreMatchers;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -60,6 +63,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class GridLayoutManagerTest extends BaseGridLayoutManagerTest {
+
+    @Rule
+    public final ImeCleanUpTestRule imeCleanUp = new ImeCleanUpTestRule();
 
     @Test
     public void focusSearchFailureUp() throws Throwable {
@@ -178,6 +184,7 @@ public class GridLayoutManagerTest extends BaseGridLayoutManagerTest {
         final int spanCount = 3;
         final int itemCount = 100;
 
+        imeCleanUp.setContainerView(getActivity().getContainer());
         RecyclerView recyclerView = new WrappedRecyclerView(getActivity());
         GridEditTextAdapter editTextAdapter = new GridEditTextAdapter(itemCount) {
             @Override
@@ -219,22 +226,33 @@ public class GridLayoutManagerTest extends BaseGridLayoutManagerTest {
         toFocus = mRecyclerView.findViewHolderForAdapterPosition(focusIndex).itemView;
         assertTrue(focusIndex >= 1 && focusIndex < itemCount);
 
-        mGlm.expectLayout(1);
+        final int heightBeforeImeOpen = mRecyclerView.getHeight();
         TouchUtils.tapView(getInstrumentation(), mRecyclerView, toFocus);
-        mGlm.waitForLayout(5);
         getInstrumentation().waitForIdleSync();
-        waitForIdleScroll(mRecyclerView);
+        // Wait for IME to pop up.
+        PollingCheck.waitFor(new PollingCheck.PollingCheckCondition() {
+            @Override
+            public boolean canProceed() {
+                return mRecyclerView.getHeight() < heightBeforeImeOpen;
+            }
+        });
+
         assertThat("Child at position " + focusIndex + " should be focused",
                 toFocus.hasFocus(), is(true));
         assertTrue("Child view at adapter pos " + focusIndex + " should be fully visible.",
                 isViewPartiallyInBound(mRecyclerView, toFocus));
 
-        // Close soft input
-        mGlm.expectLayout(1);
+        // Close IME
+        final int heightBeforeImeClose = mRecyclerView.getHeight();
         getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
-        mGlm.waitForLayout(5);
         getInstrumentation().waitForIdleSync();
-        waitForIdleScroll(mRecyclerView);
+        // Wait for IME to close
+        PollingCheck.waitFor(new PollingCheck.PollingCheckCondition() {
+            @Override
+            public boolean canProceed() {
+                return mRecyclerView.getHeight() > heightBeforeImeClose;
+            }
+        });
         assertTrue("Child view at adapter pos " + focusIndex + " should be fully visible.",
                 isViewPartiallyInBound(mRecyclerView, toFocus));
 
@@ -243,11 +261,16 @@ public class GridLayoutManagerTest extends BaseGridLayoutManagerTest {
         focusIndex = mRecyclerView.getChildAdapterPosition(toFocus);
         focusIndex = (focusIndex / spanCount) * spanCount + (spanCount - 1);
         toFocus = mRecyclerView.findViewHolderForAdapterPosition(focusIndex).itemView;
-        mGlm.expectLayout(1);
+        final int heightBeforeImeOpen2 = mRecyclerView.getHeight();
         TouchUtils.tapView(getInstrumentation(), mRecyclerView, toFocus);
-        mGlm.waitForLayout(5);
         getInstrumentation().waitForIdleSync();
-        waitForIdleScroll(mRecyclerView);
+        // Wait for IME to pop up
+        PollingCheck.waitFor(new PollingCheck.PollingCheckCondition() {
+            @Override
+            public boolean canProceed() {
+                return mRecyclerView.getHeight() < heightBeforeImeOpen2;
+            }
+        });
         assertTrue("Child view at adapter pos " + focusIndex + " should be fully visible.",
                 isViewPartiallyInBound(mRecyclerView, toFocus));
     }

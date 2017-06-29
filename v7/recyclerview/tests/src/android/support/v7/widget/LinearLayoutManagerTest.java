@@ -37,7 +37,9 @@ import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.support.test.filters.LargeTest;
 import android.support.test.filters.SdkSuppress;
+import android.support.testutils.PollingCheck;
 import android.support.v4.view.AccessibilityDelegateCompat;
+import android.support.v7.util.ImeCleanUpTestRule;
 import android.support.v7.util.TouchUtils;
 import android.util.Log;
 import android.util.StateSet;
@@ -47,6 +49,7 @@ import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.LinearLayout;
 
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -66,6 +69,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 @LargeTest
 public class LinearLayoutManagerTest extends BaseLinearLayoutManagerTest {
 
+    @Rule
+    public final ImeCleanUpTestRule imeCleanUp = new ImeCleanUpTestRule();
+
     @Test
     public void editTextVisibility() throws Throwable {
 
@@ -76,6 +82,7 @@ public class LinearLayoutManagerTest extends BaseLinearLayoutManagerTest {
         // The condition for this test is setting RV's height to a non-exact height, so that measure
         // is called twice (once with the larger height and another time with smaller height when
         // the keyboard shows up). To ensure this resizing of RV, SOFT_INPUT_ADJUST_RESIZE is set.
+        imeCleanUp.setContainerView(getActivity().getContainer());
         final LinearLayout container = new LinearLayout(getActivity());
         container.setOrientation(LinearLayout.VERTICAL);
         container.setLayoutParams(
@@ -114,11 +121,17 @@ public class LinearLayoutManagerTest extends BaseLinearLayoutManagerTest {
         View toFocus = findLastFullyVisibleChild(mRecyclerView);
         int focusIndex = mRecyclerView.getChildAdapterPosition(toFocus);
 
-        mLayoutManager.expectLayouts(1);
+        final int heightBeforeImeOpen = mRecyclerView.getHeight();
         TouchUtils.tapView(getInstrumentation(), mRecyclerView, toFocus);
-        mLayoutManager.waitForLayout(5);
         getInstrumentation().waitForIdleSync();
-        waitForIdleScroll(mRecyclerView);
+       // Wait for IME to pop up.
+        PollingCheck.waitFor(new PollingCheck.PollingCheckCondition() {
+            @Override
+            public boolean canProceed() {
+                return mRecyclerView.getHeight() < heightBeforeImeOpen;
+            }
+        });
+
         assertThat("Child at position " + focusIndex + " should be focused",
                 toFocus.hasFocus(), is(true));
         // Testing for partial visibility instead of full visibility since TextView calls
@@ -128,23 +141,35 @@ public class LinearLayoutManagerTest extends BaseLinearLayoutManagerTest {
         assertTrue("Child view at adapter pos " + focusIndex + " should be fully visible.",
                 isViewPartiallyInBound(mRecyclerView, toFocus));
 
-        // Close soft input
-        mLayoutManager.expectLayouts(1);
+        // Close IME
+        final int heightBeforeImeClose = mRecyclerView.getHeight();
         getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
-        mLayoutManager.waitForLayout(5);
         getInstrumentation().waitForIdleSync();
-        waitForIdleScroll(mRecyclerView);
+        // Wait for IME to close
+        PollingCheck.waitFor(new PollingCheck.PollingCheckCondition() {
+            @Override
+            public boolean canProceed() {
+                return mRecyclerView.getHeight() > heightBeforeImeClose;
+            }
+        });
+        assertThat("Child at position " + focusIndex + " should be focused",
+                toFocus.hasFocus(), is(true));
         assertTrue("Child view at adapter pos " + focusIndex + " should be fully visible.",
                 isViewPartiallyInBound(mRecyclerView, toFocus));
 
         // Now focus on the first fully visible EditText.
         toFocus = findFirstFullyVisibleChild(mRecyclerView);
         focusIndex = mRecyclerView.getChildAdapterPosition(toFocus);
-        mLayoutManager.expectLayouts(1);
+        final int heightBeforeImeOpen2 = mRecyclerView.getHeight();
         TouchUtils.tapView(getInstrumentation(), mRecyclerView, toFocus);
-        mLayoutManager.waitForLayout(5);
         getInstrumentation().waitForIdleSync();
-        waitForIdleScroll(mRecyclerView);
+        // Wait for IME to pop up
+        PollingCheck.waitFor(new PollingCheck.PollingCheckCondition() {
+            @Override
+            public boolean canProceed() {
+                return mRecyclerView.getHeight() < heightBeforeImeOpen2;
+            }
+        });
         assertTrue("Child view at adapter pos " + focusIndex + " should be fully visible.",
                 isViewPartiallyInBound(mRecyclerView, toFocus));
     }
