@@ -100,14 +100,6 @@ public class AppCompatImageButton extends ImageButton implements TintableBackgro
     }
 
     @Override
-    public void setImageIcon(@Nullable Icon icon) {
-        super.setImageIcon(icon);
-        if (mImageHelper != null) {
-            mImageHelper.applySupportImageTint();
-        }
-    }
-
-    @Override
     public void setImageURI(@Nullable Uri uri) {
         super.setImageURI(uri);
         if (mImageHelper != null) {
