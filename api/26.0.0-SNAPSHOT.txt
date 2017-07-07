@@ -1044,6 +1044,8 @@ package android.support.media {
   public class ExifInterface {
     ctor public ExifInterface(java.lang.String) throws java.io.IOException;
     ctor public ExifInterface(java.io.InputStream) throws java.io.IOException;
+    method public void flipHorizontally();
+    method public void flipVertically();
     method public double getAltitude(double);
     method public java.lang.String getAttribute(java.lang.String);
     method public double getAttributeDouble(java.lang.String, double);
@@ -1056,6 +1058,8 @@ package android.support.media {
     method public long[] getThumbnailRange();
     method public boolean hasThumbnail();
     method public boolean isThumbnailCompressed();
+    method public void resetOrientation();
+    method public void rotate(int);
     method public void saveAttributes() throws java.io.IOException;
     method public void setAltitude(double);
     method public void setAttribute(java.lang.String, java.lang.String);
@@ -1811,6 +1815,7 @@ package android.support.text.emoji {
 
   public class EmojiCompat {
     method public static android.support.text.emoji.EmojiCompat get();
+    method public java.lang.String getAssetSignature();
     method public int getLoadState();
     method public static boolean handleDeleteSurroundingText(android.view.inputmethod.InputConnection, android.text.Editable, int, int, boolean);
     method public static boolean handleOnKeyDown(android.text.Editable, int, android.view.KeyEvent);
@@ -7595,6 +7600,7 @@ package android.support.v4.media.session {
     method public abstract void sendCustomAction(java.lang.String, android.os.Bundle);
     method public abstract void setCaptioningEnabled(boolean);
     method public abstract void setRating(android.support.v4.media.RatingCompat);
+    method public abstract void setRating(android.support.v4.media.RatingCompat, android.os.Bundle);
     method public abstract void setRepeatMode(int);
     method public abstract void setShuffleMode(int);
     method public abstract deprecated void setShuffleModeEnabled(boolean);
@@ -7636,12 +7642,12 @@ package android.support.v4.media.session {
     method public void setSessionActivity(android.app.PendingIntent);
     method public void setShuffleMode(int);
     method public deprecated void setShuffleModeEnabled(boolean);
-    field public static final java.lang.String ACTION_ARGUMENT_MEDIA_ATTRIBUTE = "android.support.v4.media.session.action.ARGUMENT_MEDIA_ATTRIBUTE";
-    field public static final java.lang.String ACTION_ARGUMENT_MEDIA_ATTRIBUTE_VALUE = "android.support.v4.media.session.action.ARGUMENT_MEDIA_ATTRIBUTE_VALUE";
     field public static final java.lang.String ACTION_FLAG_AS_INAPPROPRIATE = "android.support.v4.media.session.action.FLAG_AS_INAPPROPRIATE";
     field public static final java.lang.String ACTION_FOLLOW = "android.support.v4.media.session.action.FOLLOW";
     field public static final java.lang.String ACTION_SKIP_AD = "android.support.v4.media.session.action.SKIP_AD";
     field public static final java.lang.String ACTION_UNFOLLOW = "android.support.v4.media.session.action.UNFOLLOW";
+    field public static final java.lang.String ARGUMENT_MEDIA_ATTRIBUTE = "android.support.v4.media.session.ARGUMENT_MEDIA_ATTRIBUTE";
+    field public static final java.lang.String ARGUMENT_MEDIA_ATTRIBUTE_VALUE = "android.support.v4.media.session.ARGUMENT_MEDIA_ATTRIBUTE_VALUE";
     field public static final int FLAG_HANDLES_MEDIA_BUTTONS = 1; // 0x1
     field public static final int FLAG_HANDLES_QUEUE_COMMANDS = 4; // 0x4
     field public static final int FLAG_HANDLES_TRANSPORT_CONTROLS = 2; // 0x2
@@ -7673,6 +7679,7 @@ package android.support.v4.media.session {
     method public void onSeekTo(long);
     method public void onSetCaptioningEnabled(boolean);
     method public void onSetRating(android.support.v4.media.RatingCompat);
+    method public void onSetRating(android.support.v4.media.RatingCompat, android.os.Bundle);
     method public void onSetRepeatMode(int);
     method public void onSetShuffleMode(int);
     method public deprecated void onSetShuffleModeEnabled(boolean);
@@ -12092,6 +12099,7 @@ package android.support.v7.widget {
   public class PagerSnapHelper extends android.support.v7.widget.SnapHelper {
     ctor public PagerSnapHelper();
     method public int[] calculateDistanceToFinalSnap(android.support.v7.widget.RecyclerView.LayoutManager, android.view.View);
+    method protected android.support.v7.widget.LinearSmoothScroller createSnapScroller(android.support.v7.widget.RecyclerView.LayoutManager);
     method public android.view.View findSnapView(android.support.v7.widget.RecyclerView.LayoutManager);
     method public int findTargetSnapPosition(android.support.v7.widget.RecyclerView.LayoutManager, int, int);
   }
@@ -13077,6 +13085,22 @@ package android.support.wear.widget {
     ctor public CurvingLayoutCallback(android.content.Context);
     method public void adjustAnchorOffsetXY(android.view.View, float[]);
     method public void onLayoutFinished(android.view.View, android.support.v7.widget.RecyclerView);
+  }
+
+  public class RoundedDrawable extends android.graphics.drawable.Drawable {
+    ctor public RoundedDrawable();
+    method public void draw(android.graphics.Canvas);
+    method public int getBackgroundColor();
+    method public android.graphics.drawable.Drawable getDrawable();
+    method public int getOpacity();
+    method public int getRadius();
+    method public boolean isClipEnabled();
+    method public void setAlpha(int);
+    method public void setBackgroundColor(int);
+    method public void setClipEnabled(boolean);
+    method public void setColorFilter(android.graphics.ColorFilter);
+    method public void setDrawable(android.graphics.drawable.Drawable);
+    method public void setRadius(int);
   }
 
   public class SwipeDismissFrameLayout extends android.widget.FrameLayout {
