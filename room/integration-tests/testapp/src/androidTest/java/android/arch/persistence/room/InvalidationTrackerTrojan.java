@@ -13,23 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package android.support.v4.utils;
+
+package android.arch.persistence.room;
 
 /**
- * This class consists of static utility methods for operating on objects.
+ * Trojan class to be able to assert internal state.
  */
-public class ObjectUtils {
-    /**
-     * Returns true if the arguments are equal to each other and false otherwise.
-     * @param a an object
-     * @param b an object to be compared with <code>a</code> for equality
-     * @return <code>true</code> if the arguments are equal to each other and
-     *         <code>false</code> otherwise.
-     */
-    public static boolean objectEquals(Object a, Object b) {
-        return (a == b) || (a != null && a.equals(b));
-    }
-
-    private ObjectUtils() {
+public class InvalidationTrackerTrojan {
+    public static int countObservers(InvalidationTracker tracker) {
+        return tracker.mObserverMap.size();
     }
 }
