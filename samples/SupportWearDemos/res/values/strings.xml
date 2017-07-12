@@ -15,8 +15,8 @@
   ~ limitations under the License.
   -->
 
-<!-- Definitions of attributes to be exposed as public -->
 <resources>
-    <public type="attr" name="maxEmojiCount"/>
-    <public type="attr" name="emojiReplaceStrategy"/>
+    <string name="cpl_click_me">Click me!</string>
+    <string name="cpl_clicked">Clicked!</string>
+    <string name="cpl_finished">Finished!</string>
 </resources>
