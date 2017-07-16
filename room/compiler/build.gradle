@@ -36,7 +36,9 @@ dependencies {
     compile libs.antlr
     compile libs.xerial
     compile libs.apache.commons.codec
+    compile project(":paging:common")
     testCompile libs.google_compile_testing
+    testCompile project(":paging:common")
     testCompile libs.junit
     testCompile libs.ij_annotations
     testCompile libs.mockito_core
@@ -48,8 +50,6 @@ dependencies {
             include : "*.jar")
     testCompile files(org.gradle.internal.jvm.Jvm.current().getToolsJar())
 }
-
-archivesBaseName = "compiler"
 
 def generateAntlrTask = task('generateAntlrGrammar', type: JavaExec) {
     def outFolder = file(antlrOut)

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import com.android.builder.core.BuilderConstants
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
 
@@ -51,10 +50,14 @@ android {
 }
 
 dependencies {
-    compile project(":room:common")
-    compile project(":room:db")
-    compile project(":room:db-impl")
-    compile project(":arch:runtime")
+    api project(":room:common")
+    api project(":room:db")
+    api project(":room:db-impl")
+    api project(":arch:runtime")
+    api project(":paging:common")
+
+    provided project(":lifecycle:runtime")
+    provided project(":lifecycle:extensions")
     compile libs.support.core_utils
 
 
@@ -71,8 +74,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 }
-
-archivesBaseName = "runtime"
 
 createAndroidCheckstyle(project)
 

@@ -101,7 +101,7 @@ class SupportLibraryPlugin implements Plugin<Project> {
             error 'NewApi'
 
             // TODO(aurimas): figure out the issue with missing translation check
-            disable 'MissingTranslation'
+            disable 'MissingTranslation', 'ExtraTranslation'
         }
 
         // Set baseline file for all legacy lint warnings.
@@ -204,7 +204,8 @@ class SupportLibraryPlugin implements Plugin<Project> {
                             '-Xep:NarrowingCompoundAssignment:ERROR',
                             '-Xep:ClassNewInstance:ERROR',
                             '-Xep:ClassCanBeStatic:ERROR',
-                            '-Xep:SynchronizeOnNonFinalField:ERROR'
+                            '-Xep:SynchronizeOnNonFinalField:ERROR',
+                            '-Xep:OperatorPrecedence:ERROR'
                     ]
                 }
             }

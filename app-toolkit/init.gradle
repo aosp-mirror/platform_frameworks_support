@@ -16,7 +16,6 @@
 import org.gradle.internal.os.OperatingSystem
 
 def root = ext.supportRootFolder
-ext.usePrebuilts = "true" // for doclava
 ext.inAppToolkitProject = rootProject.name == "app-toolkit"
 
 if (ext.inAppToolkitProject) {
@@ -83,8 +82,9 @@ if (ext.inAppToolkitProject) {
     init.setupRepoOutAndBuildNumber()
     init.configureSubProjects()
     init.setupRelease()
-    init.enableDoclavaAndJDiff(this)
-    rootProject.tasks["generateDocs"].exclude '**/R.java'
+//   TODO: fix apptoolkit docs
+//    init.enableDoclavaAndJDiff(this)
+//    rootProject.tasks["generateDocs"].exclude '**/R.java'
 }
 
 
@@ -96,12 +96,15 @@ def zipFlatfootDocsTask = rootProject.tasks.create(name : "createFlatfootDocsArc
 }
 
 buildServerAnchorTask.dependsOn zipFlatfootDocsTask
-zipFlatfootDocsTask.dependsOn rootProject.tasks["generateDocs"]
 
+//TODO: fix apptoolkit docs
+// zipFlatfootDocsTask.dependsOn rootProject.tasks["generateDocs"]
+
+// TODO: fix apptoolkit
 // Disable API checks for now.
-checkApiRelease.enabled = false
-checkApi.enabled = false
-generateApi.enabled = false
+//checkApiRelease.enabled = false
+//checkApi.enabled = false
+//generateApi.enabled = false
 
 buildServerAnchorTask.dependsOn createArchive
 
@@ -109,6 +112,7 @@ rootProject.ext.flatfootProjectGroups = [
         "room" : "android.arch.persistence.room",
         "lifecycle" : "android.arch.lifecycle",
         "arch" : "android.arch.core",
+        "paging" : "android.arch.paging",
         "navigation" : "android.arch.navigation"]
 
 subprojects {
@@ -129,6 +133,7 @@ subprojects {
 
     def mavenGroup = project.getPath().split(":")[1]
     def finalGroup = rootProject.flatfootProjectGroups[mavenGroup]
+
     if (finalGroup == null) {
         return
     }
