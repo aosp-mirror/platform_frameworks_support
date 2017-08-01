@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 The Android Open Source Project
+ * Copyright (C) 2017 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,27 +14,24 @@
  * limitations under the License.
  */
 
-package android.support.v4.content;
-
-import android.os.AsyncTask;
-
-import java.util.concurrent.Executor;
+package android.support;
 
 /**
- * Helper for accessing a shared parallel Executor instance.
- *
- * @deprecated Use {@link AsyncTask} directly.
+ * The list of versions codes of all the libraries in this project.
  */
-@Deprecated
-public final class ParallelExecutorCompat {
+public class LibraryVersions {
+    /**
+     * Version code of the support library components.
+     */
+    public static final Version SUPPORT_LIBRARY = new Version("26.1.0-SNAPSHOT");
 
     /**
-     * @deprecated Use {@link AsyncTask#THREAD_POOL_EXECUTOR} directly.
+     * Version code of the flatfoot libraries.
      */
-    @Deprecated
-    public static Executor getParallelExecutor() {
-        return AsyncTask.THREAD_POOL_EXECUTOR;
-    }
+    public static final Version FLATFOOT = new Version("1.0.0-alpha7");
 
-    private ParallelExecutorCompat() {}
+    /**
+     * Version code of the lifecycles library.
+     */
+    public static final Version LIFECYCLES = new Version("1.0.0-SNAPSHOT");
 }

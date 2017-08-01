@@ -14,26 +14,22 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.application'
+package com.example.android.support.wear.app.drawers;
 
-dependencies {
-    implementation project(':design')
-    implementation project(':appcompat-v7')
-    implementation project(':support-content')
-}
+import android.app.Fragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-android {
-    compileSdkVersion project.ext.currentSdk
+import com.example.android.support.wear.R;
 
-    defaultConfig {
-        applicationId "com.example.android.support.content.demos"
-        minSdkVersion 14
-        targetSdkVersion project.ext.currentSdk
-    }
+/** {@link Fragment} which contains a {@link android.widget.FrameLayout} */
+public class FrameLayoutFragment extends Fragment {
 
-    lintOptions {
-        abortOnError true
-        disable "SetTextI18n", "AppCompatResource", "WrongConstant", "AllowBackup",
-                "GoogleAppIndexingWarning", "AlwaysShowAction"
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.wearable_drawers_frame_layout_demo, container, false);
     }
 }

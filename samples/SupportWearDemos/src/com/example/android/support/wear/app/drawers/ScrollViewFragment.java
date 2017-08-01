@@ -14,6 +14,22 @@
  * limitations under the License.
  */
 
-// Version code of the support library components.
-ext.supportVersion = "26.1.0-SNAPSHOT"
+package com.example.android.support.wear.app.drawers;
 
+import android.app.Fragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.example.android.support.wear.R;
+
+/** {@link Fragment} which contains a {@link android.widget.ScrollView} */
+public class ScrollViewFragment extends Fragment {
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.wearable_drawers_scroll_view_demo, container, false);
+    }
+}

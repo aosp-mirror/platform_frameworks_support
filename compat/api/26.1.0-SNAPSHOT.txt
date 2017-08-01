@@ -655,10 +655,6 @@ package android.support.v4.content {
     field public static final deprecated int FLAG_ACTIVITY_TASK_ON_HOME = 16384; // 0x4000
   }
 
-  public final deprecated class ParallelExecutorCompat {
-    method public static deprecated java.util.concurrent.Executor getParallelExecutor();
-  }
-
   public final class SharedPreferencesCompat {
   }
 
@@ -711,9 +707,6 @@ package android.support.v4.content.res {
 
   public final class ConfigurationHelper {
     method public static int getDensityDpi(android.content.res.Resources);
-    method public static deprecated int getScreenHeightDp(android.content.res.Resources);
-    method public static deprecated int getScreenWidthDp(android.content.res.Resources);
-    method public static deprecated int getSmallestScreenWidthDp(android.content.res.Resources);
   }
 
   public final class ResourcesCompat {
@@ -1042,7 +1035,6 @@ package android.support.v4.text {
   public final class TextUtilsCompat {
     method public static int getLayoutDirectionFromLocale(java.util.Locale);
     method public static java.lang.String htmlEncode(java.lang.String);
-    field public static final deprecated java.util.Locale ROOT;
   }
 
 }
