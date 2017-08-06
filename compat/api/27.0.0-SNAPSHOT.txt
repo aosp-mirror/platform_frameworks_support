@@ -4,18 +4,12 @@ package android.support.v4.accessibilityservice {
     method public static java.lang.String capabilityToString(int);
     method public static java.lang.String feedbackTypeToString(int);
     method public static java.lang.String flagToString(int);
-    method public static deprecated boolean getCanRetrieveWindowContent(android.accessibilityservice.AccessibilityServiceInfo);
     method public static int getCapabilities(android.accessibilityservice.AccessibilityServiceInfo);
-    method public static deprecated java.lang.String getDescription(android.accessibilityservice.AccessibilityServiceInfo);
-    method public static deprecated java.lang.String getId(android.accessibilityservice.AccessibilityServiceInfo);
-    method public static deprecated android.content.pm.ResolveInfo getResolveInfo(android.accessibilityservice.AccessibilityServiceInfo);
-    method public static deprecated java.lang.String getSettingsActivityName(android.accessibilityservice.AccessibilityServiceInfo);
     method public static java.lang.String loadDescription(android.accessibilityservice.AccessibilityServiceInfo, android.content.pm.PackageManager);
     field public static final int CAPABILITY_CAN_FILTER_KEY_EVENTS = 8; // 0x8
     field public static final int CAPABILITY_CAN_REQUEST_ENHANCED_WEB_ACCESSIBILITY = 4; // 0x4
     field public static final int CAPABILITY_CAN_REQUEST_TOUCH_EXPLORATION = 2; // 0x2
     field public static final int CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT = 1; // 0x1
-    field public static final deprecated int DEFAULT = 1; // 0x1
     field public static final int FEEDBACK_ALL_MASK = -1; // 0xffffffff
     field public static final int FEEDBACK_BRAILLE = 32; // 0x20
     field public static final int FLAG_INCLUDE_NOT_IMPORTANT_VIEWS = 2; // 0x2
@@ -667,8 +661,8 @@ package android.support.v4.content {
 
 package android.support.v4.content.pm {
 
-  public final class ActivityInfoCompat {
-    field public static final int CONFIG_UI_MODE = 512; // 0x200
+  public final deprecated class ActivityInfoCompat {
+    field public static final deprecated int CONFIG_UI_MODE = 512; // 0x200
   }
 
   public class ShortcutInfoCompat {
@@ -721,9 +715,9 @@ package android.support.v4.content.res {
 
 package android.support.v4.database {
 
-  public final class DatabaseUtilsCompat {
-    method public static java.lang.String[] appendSelectionArgs(java.lang.String[], java.lang.String[]);
-    method public static java.lang.String concatenateWhere(java.lang.String, java.lang.String);
+  public final deprecated class DatabaseUtilsCompat {
+    method public static deprecated java.lang.String[] appendSelectionArgs(java.lang.String[], java.lang.String[]);
+    method public static deprecated java.lang.String concatenateWhere(java.lang.String, java.lang.String);
   }
 
 }
@@ -753,7 +747,7 @@ package android.support.v4.graphics.drawable {
     method public static int getLayoutDirection(android.graphics.drawable.Drawable);
     method public static void inflate(android.graphics.drawable.Drawable, android.content.res.Resources, org.xmlpull.v1.XmlPullParser, android.util.AttributeSet, android.content.res.Resources.Theme) throws java.io.IOException, org.xmlpull.v1.XmlPullParserException;
     method public static boolean isAutoMirrored(android.graphics.drawable.Drawable);
-    method public static void jumpToCurrentState(android.graphics.drawable.Drawable);
+    method public static deprecated void jumpToCurrentState(android.graphics.drawable.Drawable);
     method public static void setAutoMirrored(android.graphics.drawable.Drawable, boolean);
     method public static void setHotspot(android.graphics.drawable.Drawable, float, float);
     method public static void setHotspotBounds(android.graphics.drawable.Drawable, int, int, int, int);
@@ -1336,19 +1330,6 @@ package android.support.v4.view {
     field public static final int SOURCE_TOUCH_NAVIGATION = 2097152; // 0x200000
     field public static final int SOURCE_TRACKBALL = 65540; // 0x10004
     field public static final int SOURCE_UNKNOWN = 0; // 0x0
-  }
-
-  public final deprecated class KeyEventCompat {
-    method public static deprecated boolean dispatch(android.view.KeyEvent, android.view.KeyEvent.Callback, java.lang.Object, java.lang.Object);
-    method public static deprecated java.lang.Object getKeyDispatcherState(android.view.View);
-    method public static deprecated boolean hasModifiers(android.view.KeyEvent, int);
-    method public static deprecated boolean hasNoModifiers(android.view.KeyEvent);
-    method public static deprecated boolean isCtrlPressed(android.view.KeyEvent);
-    method public static deprecated boolean isTracking(android.view.KeyEvent);
-    method public static deprecated boolean metaStateHasModifiers(int, int);
-    method public static deprecated boolean metaStateHasNoModifiers(int);
-    method public static deprecated int normalizeMetaState(int);
-    method public static deprecated void startTracking(android.view.KeyEvent);
   }
 
   public final class LayoutInflaterCompat {
