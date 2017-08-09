@@ -21,7 +21,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.util.SparseArray;
@@ -59,13 +58,13 @@ class NotificationCompatJellybean {
     private static Field sActionIntentField;
     private static boolean sActionsAccessFailed;
 
-    public static class Builder implements NotificationBuilderWithBuilderAccessor,
-            NotificationBuilderWithActions {
-        private Notification.Builder b;
+    public static class Builder extends NotificationCompat.NotificationCompatBaseImpl.BuilderBase
+            implements NotificationBuilderWithActions {
+        protected RemoteViews mContentView;
+        protected RemoteViews mBigContentView;
+        protected List<Bundle> mActionExtrasList = new ArrayList<>();
+
         private final Bundle mExtras;
-        private List<Bundle> mActionExtrasList = new ArrayList<Bundle>();
-        private RemoteViews mContentView;
-        private RemoteViews mBigContentView;
 
         public Builder(Context context, Notification n,
                 CharSequence contentTitle, CharSequence contentText, CharSequence contentInfo,
@@ -74,32 +73,13 @@ class NotificationCompatJellybean {
                 int progressMax, int progress, boolean progressIndeterminate,
                 boolean useChronometer, int priority, CharSequence subText, boolean localOnly,
                 Bundle extras, String groupKey, boolean groupSummary, String sortKey,
-                RemoteViews contentView, RemoteViews bigContentView) {
-            b = new Notification.Builder(context)
-                .setWhen(n.when)
-                .setSmallIcon(n.icon, n.iconLevel)
-                .setContent(n.contentView)
-                .setTicker(n.tickerText, tickerView)
-                .setSound(n.sound, n.audioStreamType)
-                .setVibrate(n.vibrate)
-                .setLights(n.ledARGB, n.ledOnMS, n.ledOffMS)
-                .setOngoing((n.flags & Notification.FLAG_ONGOING_EVENT) != 0)
-                .setOnlyAlertOnce((n.flags & Notification.FLAG_ONLY_ALERT_ONCE) != 0)
-                .setAutoCancel((n.flags & Notification.FLAG_AUTO_CANCEL) != 0)
-                .setDefaults(n.defaults)
-                .setContentTitle(contentTitle)
-                .setContentText(contentText)
-                .setSubText(subText)
-                .setContentInfo(contentInfo)
-                .setContentIntent(contentIntent)
-                .setDeleteIntent(n.deleteIntent)
-                .setFullScreenIntent(fullScreenIntent,
-                        (n.flags & Notification.FLAG_HIGH_PRIORITY) != 0)
-                .setLargeIcon(largeIcon)
-                .setNumber(number)
+                RemoteViews contentView, RemoteViews bigContentView, String channelId) {
+            super(context, n, contentTitle, contentText, contentInfo, tickerView, number,
+                    contentIntent, fullScreenIntent, largeIcon, progressMax, progress,
+                    progressIndeterminate, channelId);
+            mBuilder.setSubText(subText)
                 .setUsesChronometer(useChronometer)
-                .setPriority(priority)
-                .setProgress(progressMax, progress, progressIndeterminate);
+                .setPriority(priority);
             mExtras = new Bundle();
             if (extras != null) {
                 mExtras.putAll(extras);
@@ -124,17 +104,12 @@ class NotificationCompatJellybean {
 
         @Override
         public void addAction(NotificationCompatBase.Action action) {
-            mActionExtrasList.add(writeActionAndGetExtras(b, action));
-        }
-
-        @Override
-        public Notification.Builder getBuilder() {
-            return b;
+            mActionExtrasList.add(writeActionAndGetExtras(mBuilder, action));
         }
 
         @Override
         public Notification build() {
-            Notification notif = b.build();
+            Notification notif = mBuilder.build();
             // Merge in developer provided extras, but let the values already set
             // for keys take precedence.
             Bundle extras = getExtras(notif);
@@ -366,22 +341,7 @@ class NotificationCompatJellybean {
         return !sActionsAccessFailed;
     }
 
-    public static NotificationCompatBase.Action[] getActionsFromParcelableArrayList(
-            ArrayList<Parcelable> parcelables,
-            NotificationCompatBase.Action.Factory actionFactory,
-            RemoteInputCompatBase.RemoteInput.Factory remoteInputFactory) {
-        if (parcelables == null) {
-            return null;
-        }
-        NotificationCompatBase.Action[] actions = actionFactory.newArray(parcelables.size());
-        for (int i = 0; i < actions.length; i++) {
-            actions[i] = getActionFromBundle((Bundle) parcelables.get(i),
-                    actionFactory, remoteInputFactory);
-        }
-        return actions;
-    }
-
-    private static NotificationCompatBase.Action getActionFromBundle(Bundle bundle,
+    static NotificationCompatBase.Action getActionFromBundle(Bundle bundle,
             NotificationCompatBase.Action.Factory actionFactory,
             RemoteInputCompatBase.RemoteInput.Factory remoteInputFactory) {
         Bundle extras = bundle.getBundle(KEY_EXTRAS);
@@ -403,19 +363,7 @@ class NotificationCompatJellybean {
                 allowGeneratedReplies);
     }
 
-    public static ArrayList<Parcelable> getParcelableArrayListForActions(
-            NotificationCompatBase.Action[] actions) {
-        if (actions == null) {
-            return null;
-        }
-        ArrayList<Parcelable> parcelables = new ArrayList<Parcelable>(actions.length);
-        for (NotificationCompatBase.Action action : actions) {
-            parcelables.add(getBundleForAction(action));
-        }
-        return parcelables;
-    }
-
-    private static Bundle getBundleForAction(NotificationCompatBase.Action action) {
+    static Bundle getBundleForAction(NotificationCompatBase.Action action) {
         Bundle bundle = new Bundle();
         bundle.putInt(KEY_ICON, action.getIcon());
         bundle.putCharSequence(KEY_TITLE, action.getTitle());
