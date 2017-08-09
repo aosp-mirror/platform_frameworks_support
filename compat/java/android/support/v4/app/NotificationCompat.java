@@ -598,8 +598,6 @@ public class NotificationCompat {
     interface NotificationCompatImpl {
         Notification build(Builder b, BuilderExtender extender);
         Action getAction(Notification n, int actionIndex);
-        Action[] getActionsFromParcelableArrayList(ArrayList<Parcelable> parcelables);
-        ArrayList<Parcelable> getParcelableArrayListForActions(Action[] actions);
         Bundle getBundleForUnreadConversation(NotificationCompatBase.UnreadConversation uc);
         NotificationCompatBase.UnreadConversation getUnreadConversationFromBundle(
                 Bundle b, NotificationCompatBase.UnreadConversation.Factory factory,
@@ -642,15 +640,14 @@ public class NotificationCompat {
     static class NotificationCompatBaseImpl implements NotificationCompatImpl {
 
         public static class BuilderBase implements NotificationBuilderWithBuilderAccessor {
-
-            private Notification.Builder mBuilder;
+            protected Notification.Builder mBuilder;
 
             BuilderBase(Context context, Notification n, CharSequence contentTitle,
                     CharSequence contentText, CharSequence contentInfo, RemoteViews tickerView,
                     int number, PendingIntent contentIntent, PendingIntent fullScreenIntent,
                     Bitmap largeIcon, int progressMax, int progress,
-                    boolean progressIndeterminate) {
-                mBuilder = new Notification.Builder(context)
+                    boolean progressIndeterminate, String channelId) {
+                mBuilder = newBuilder(context, channelId)
                         .setWhen(n.when)
                         .setSmallIcon(n.icon, n.iconLevel)
                         .setContent(n.contentView)
@@ -683,6 +680,10 @@ public class NotificationCompat {
             public Notification build() {
                 return mBuilder.getNotification();
             }
+
+            protected Notification.Builder newBuilder(Context context, String channelId) {
+                return new Notification.Builder(context);
+            }
         }
 
         @Override
@@ -691,22 +692,12 @@ public class NotificationCompat {
                     new BuilderBase(b.mContext, b.mNotification,
                             b.mContentTitle, b.mContentText, b.mContentInfo, b.mTickerView,
                             b.mNumber, b.mContentIntent, b.mFullScreenIntent, b.mLargeIcon,
-                            b.mProgressMax, b.mProgress, b.mProgressIndeterminate);
+                            b.mProgressMax, b.mProgress, b.mProgressIndeterminate, null);
             return extender.build(b, builder);
         }
 
         @Override
         public Action getAction(Notification n, int actionIndex) {
-            return null;
-        }
-
-        @Override
-        public Action[] getActionsFromParcelableArrayList(ArrayList<Parcelable> parcelables) {
-            return null;
-        }
-
-        @Override
-        public ArrayList<Parcelable> getParcelableArrayListForActions(Action[] actions) {
             return null;
         }
 
@@ -732,7 +723,8 @@ public class NotificationCompat {
                     b.mTickerView, b.mNumber, b.mContentIntent, b.mFullScreenIntent, b.mLargeIcon,
                     b.mProgressMax, b.mProgress, b.mProgressIndeterminate,
                     b.mUseChronometer, b.mPriority, b.mSubText, b.mLocalOnly, b.mExtras,
-                    b.mGroupKey, b.mGroupSummary, b.mSortKey, b.mContentView, b.mBigContentView);
+                    b.mGroupKey, b.mGroupSummary, b.mSortKey, b.mContentView, b.mBigContentView,
+                    null);
             addActionsToBuilder(builder, b.mActions);
             if (b.mStyle != null) {
                 b.mStyle.apply(builder);
@@ -752,19 +744,6 @@ public class NotificationCompat {
             return (Action) NotificationCompatJellybean.getAction(n, actionIndex, Action.FACTORY,
                     RemoteInput.FACTORY);
         }
-
-        @Override
-        public Action[] getActionsFromParcelableArrayList(
-                ArrayList<Parcelable> parcelables) {
-            return (Action[]) NotificationCompatJellybean.getActionsFromParcelableArrayList(
-                    parcelables, Action.FACTORY, RemoteInput.FACTORY);
-        }
-
-        @Override
-        public ArrayList<Parcelable> getParcelableArrayListForActions(
-                Action[] actions) {
-            return NotificationCompatJellybean.getParcelableArrayListForActions(actions);
-        }
     }
 
     @RequiresApi(19)
@@ -777,7 +756,7 @@ public class NotificationCompat {
                     b.mProgressMax, b.mProgress, b.mProgressIndeterminate, b.mShowWhen,
                     b.mUseChronometer, b.mPriority, b.mSubText, b.mLocalOnly,
                     b.mPeople, b.mExtras, b.mGroupKey, b.mGroupSummary, b.mSortKey,
-                    b.mContentView, b.mBigContentView);
+                    b.mContentView, b.mBigContentView, null);
             addActionsToBuilder(builder, b.mActions);
             if (b.mStyle != null) {
                 b.mStyle.apply(builder);
@@ -802,7 +781,7 @@ public class NotificationCompat {
                     b.mProgressMax, b.mProgress, b.mProgressIndeterminate, b.mShowWhen,
                     b.mUseChronometer, b.mPriority, b.mSubText, b.mLocalOnly, b.mPeople, b.mExtras,
                     b.mGroupKey, b.mGroupSummary, b.mSortKey, b.mContentView, b.mBigContentView,
-                    b.mGroupAlertBehavior);
+                    b.mGroupAlertBehavior, null);
             addActionsToBuilder(builder, b.mActions);
             if (b.mStyle != null) {
                 b.mStyle.apply(builder);
@@ -819,19 +798,6 @@ public class NotificationCompat {
             return (Action) NotificationCompatApi20.getAction(n, actionIndex, Action.FACTORY,
                     RemoteInput.FACTORY);
         }
-
-        @Override
-        public Action[] getActionsFromParcelableArrayList(
-                ArrayList<Parcelable> parcelables) {
-            return (Action[]) NotificationCompatApi20.getActionsFromParcelableArrayList(
-                    parcelables, Action.FACTORY, RemoteInput.FACTORY);
-        }
-
-        @Override
-        public ArrayList<Parcelable> getParcelableArrayListForActions(
-                Action[] actions) {
-            return NotificationCompatApi20.getParcelableArrayListForActions(actions);
-        }
     }
 
     @RequiresApi(21)
@@ -845,7 +811,7 @@ public class NotificationCompat {
                     b.mUseChronometer, b.mPriority, b.mSubText, b.mLocalOnly, b.mCategory,
                     b.mPeople, b.mExtras, b.mColor, b.mVisibility, b.mPublicVersion,
                     b.mGroupKey, b.mGroupSummary, b.mSortKey, b.mContentView, b.mBigContentView,
-                    b.mHeadsUpContentView, b.mGroupAlertBehavior);
+                    b.mHeadsUpContentView, b.mGroupAlertBehavior, null);
             addActionsToBuilder(builder, b.mActions);
             if (b.mStyle != null) {
                 b.mStyle.apply(builder);
@@ -883,7 +849,7 @@ public class NotificationCompat {
                     b.mUseChronometer, b.mPriority, b.mSubText, b.mLocalOnly, b.mCategory,
                     b.mPeople, b.mExtras, b.mColor, b.mVisibility, b.mPublicVersion,
                     b.mGroupKey, b.mGroupSummary, b.mSortKey, b.mRemoteInputHistory, b.mContentView,
-                    b.mBigContentView, b.mHeadsUpContentView, b.mGroupAlertBehavior);
+                    b.mBigContentView, b.mHeadsUpContentView, b.mGroupAlertBehavior, null);
             addActionsToBuilder(builder, b.mActions);
             if (b.mStyle != null) {
                 b.mStyle.apply(builder);
@@ -899,19 +865,6 @@ public class NotificationCompat {
         public Action getAction(Notification n, int actionIndex) {
             return (Action) NotificationCompatApi24.getAction(n, actionIndex, Action.FACTORY,
                     RemoteInput.FACTORY);
-        }
-
-        @Override
-        public Action[] getActionsFromParcelableArrayList(
-                ArrayList<Parcelable> parcelables) {
-            return (Action[]) NotificationCompatApi24.getActionsFromParcelableArrayList(
-                    parcelables, Action.FACTORY, RemoteInput.FACTORY);
-        }
-
-        @Override
-        public ArrayList<Parcelable> getParcelableArrayListForActions(
-                Action[] actions) {
-            return NotificationCompatApi24.getParcelableArrayListForActions(actions);
         }
     }
 
@@ -2558,22 +2511,21 @@ public class NotificationCompat {
         @Override
         public void apply(NotificationBuilderWithBuilderAccessor builder) {
             if (Build.VERSION.SDK_INT >= 24) {
-                List<CharSequence> texts = new ArrayList<>();
-                List<Long> timestamps = new ArrayList<>();
-                List<CharSequence> senders = new ArrayList<>();
-                List<String> dataMimeTypes = new ArrayList<>();
-                List<Uri> dataUris = new ArrayList<>();
-
+                Notification.MessagingStyle style =
+                        new Notification.MessagingStyle(mUserDisplayName)
+                                .setConversationTitle(mConversationTitle);
                 for (MessagingStyle.Message message : mMessages) {
-                    texts.add(message.getText());
-                    timestamps.add(message.getTimestamp());
-                    senders.add(message.getSender());
-                    dataMimeTypes.add(message.getDataMimeType());
-                    dataUris.add(message.getDataUri());
+                    Notification.MessagingStyle.Message frameworkMessage =
+                            new Notification.MessagingStyle.Message(
+                                    message.getText(),
+                                    message.getTimestamp(),
+                                    message.getSender());
+                    if (message.getDataMimeType() != null) {
+                        frameworkMessage.setData(message.getDataMimeType(), message.getDataUri());
+                    }
+                    style.addMessage(frameworkMessage);
                 }
-                NotificationCompatApi24.addMessagingStyle(builder, mUserDisplayName,
-                        mConversationTitle, texts, timestamps, senders,
-                        dataMimeTypes, dataUris);
+                style.setBuilder(builder.getBuilder());
             } else {
                 MessagingStyle.Message latestIncomingMessage = findLatestIncomingMessage();
                 // Set the title
@@ -3795,10 +3747,30 @@ public class NotificationCompat {
             Bundle wearableBundle = extras != null ? extras.getBundle(EXTRA_WEARABLE_EXTENSIONS)
                     : null;
             if (wearableBundle != null) {
-                Action[] actions = IMPL.getActionsFromParcelableArrayList(
-                        wearableBundle.getParcelableArrayList(KEY_ACTIONS));
-                if (actions != null) {
-                    Collections.addAll(mActions, actions);
+                final ArrayList<Parcelable> parcelables =
+                        wearableBundle.getParcelableArrayList(KEY_ACTIONS);
+                if (Build.VERSION.SDK_INT >= 16 && parcelables != null) {
+                    NotificationCompatBase.Action[] actions =
+                            Action.FACTORY.newArray(parcelables.size());
+                    for (int i = 0; i < actions.length; i++) {
+                        if (Build.VERSION.SDK_INT >= 24) {
+                            actions[i] = NotificationCompatApi24.getActionCompatFromAction(
+                                    (Notification.Action) parcelables.get(i),
+                                    Action.FACTORY,
+                                    RemoteInput.FACTORY);
+                        } else if (Build.VERSION.SDK_INT >= 20) {
+                            actions[i] = NotificationCompatApi20.getActionCompatFromAction(
+                                    (Notification.Action) parcelables.get(i),
+                                    Action.FACTORY,
+                                    RemoteInput.FACTORY);
+                        } else if (Build.VERSION.SDK_INT >= 16) {
+                            actions[i] = NotificationCompatJellybean.getActionFromBundle(
+                                    (Bundle) parcelables.get(i),
+                                    Action.FACTORY,
+                                    RemoteInput.FACTORY);
+                        }
+                    }
+                    Collections.addAll(mActions, (Action[]) actions);
                 }
 
                 mFlags = wearableBundle.getInt(KEY_FLAGS, DEFAULT_FLAGS);
@@ -3836,9 +3808,23 @@ public class NotificationCompat {
             Bundle wearableBundle = new Bundle();
 
             if (!mActions.isEmpty()) {
-                wearableBundle.putParcelableArrayList(KEY_ACTIONS,
-                        IMPL.getParcelableArrayListForActions(mActions.toArray(
-                                new Action[mActions.size()])));
+                if (Build.VERSION.SDK_INT >= 16) {
+                    ArrayList<Parcelable> parcelables = new ArrayList<>(mActions.size());
+                    for (NotificationCompatBase.Action action : mActions) {
+                        if (Build.VERSION.SDK_INT >= 24) {
+                            parcelables.add(
+                                    NotificationCompatApi24.getActionFromActionCompat(action));
+                        } else if (Build.VERSION.SDK_INT >= 20) {
+                            parcelables.add(
+                                    NotificationCompatApi20.getActionFromActionCompat(action));
+                        } else if (Build.VERSION.SDK_INT >= 16) {
+                            parcelables.add(NotificationCompatJellybean.getBundleForAction(action));
+                        }
+                    }
+                    wearableBundle.putParcelableArrayList(KEY_ACTIONS, parcelables);
+                } else {
+                    wearableBundle.putParcelableArrayList(KEY_ACTIONS, null);
+                }
             }
             if (mFlags != DEFAULT_FLAGS) {
                 wearableBundle.putInt(KEY_FLAGS, mFlags);
