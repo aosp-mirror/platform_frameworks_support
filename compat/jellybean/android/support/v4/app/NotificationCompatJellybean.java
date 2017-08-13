@@ -18,16 +18,12 @@ package android.support.v4.app;
 
 import android.app.Notification;
 import android.app.PendingIntent;
-import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.util.SparseArray;
-import android.widget.RemoteViews;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiresApi(16)
@@ -57,123 +53,6 @@ class NotificationCompatJellybean {
     private static Field sActionTitleField;
     private static Field sActionIntentField;
     private static boolean sActionsAccessFailed;
-
-    public static class Builder extends NotificationCompat.NotificationCompatBaseImpl.BuilderBase
-            implements NotificationBuilderWithActions {
-        protected RemoteViews mContentView;
-        protected RemoteViews mBigContentView;
-        protected List<Bundle> mActionExtrasList = new ArrayList<>();
-
-        private final Bundle mExtras;
-
-        public Builder(Context context, Notification n,
-                CharSequence contentTitle, CharSequence contentText, CharSequence contentInfo,
-                RemoteViews tickerView, int number,
-                PendingIntent contentIntent, PendingIntent fullScreenIntent, Bitmap largeIcon,
-                int progressMax, int progress, boolean progressIndeterminate,
-                boolean useChronometer, int priority, CharSequence subText, boolean localOnly,
-                Bundle extras, String groupKey, boolean groupSummary, String sortKey,
-                RemoteViews contentView, RemoteViews bigContentView, String channelId) {
-            super(context, n, contentTitle, contentText, contentInfo, tickerView, number,
-                    contentIntent, fullScreenIntent, largeIcon, progressMax, progress,
-                    progressIndeterminate, channelId);
-            mBuilder.setSubText(subText)
-                .setUsesChronometer(useChronometer)
-                .setPriority(priority);
-            mExtras = new Bundle();
-            if (extras != null) {
-                mExtras.putAll(extras);
-            }
-            if (localOnly) {
-                mExtras.putBoolean(NotificationCompatExtras.EXTRA_LOCAL_ONLY, true);
-            }
-            if (groupKey != null) {
-                mExtras.putString(NotificationCompatExtras.EXTRA_GROUP_KEY, groupKey);
-                if (groupSummary) {
-                    mExtras.putBoolean(NotificationCompatExtras.EXTRA_GROUP_SUMMARY, true);
-                } else {
-                    mExtras.putBoolean(NotificationManagerCompat.EXTRA_USE_SIDE_CHANNEL, true);
-                }
-            }
-            if (sortKey != null) {
-                mExtras.putString(NotificationCompatExtras.EXTRA_SORT_KEY, sortKey);
-            }
-            mContentView = contentView;
-            mBigContentView = bigContentView;
-        }
-
-        @Override
-        public void addAction(NotificationCompatBase.Action action) {
-            mActionExtrasList.add(writeActionAndGetExtras(mBuilder, action));
-        }
-
-        @Override
-        public Notification build() {
-            Notification notif = mBuilder.build();
-            // Merge in developer provided extras, but let the values already set
-            // for keys take precedence.
-            Bundle extras = getExtras(notif);
-            Bundle mergeBundle = new Bundle(mExtras);
-            for (String key : mExtras.keySet()) {
-                if (extras.containsKey(key)) {
-                    mergeBundle.remove(key);
-                }
-            }
-            extras.putAll(mergeBundle);
-            SparseArray<Bundle> actionExtrasMap = buildActionExtrasMap(mActionExtrasList);
-            if (actionExtrasMap != null) {
-                // Add the action extras sparse array if any action was added with extras.
-                getExtras(notif).putSparseParcelableArray(
-                        NotificationCompatExtras.EXTRA_ACTION_EXTRAS, actionExtrasMap);
-            }
-            if (mContentView != null) {
-                notif.contentView = mContentView;
-            }
-            if (mBigContentView != null) {
-                notif.bigContentView = mBigContentView;
-            }
-            return notif;
-        }
-    }
-
-    public static void addBigTextStyle(NotificationBuilderWithBuilderAccessor b,
-            CharSequence bigContentTitle, boolean useSummary,
-            CharSequence summaryText, CharSequence bigText) {
-        Notification.BigTextStyle style = new Notification.BigTextStyle(b.getBuilder())
-            .setBigContentTitle(bigContentTitle)
-            .bigText(bigText);
-        if (useSummary) {
-            style.setSummaryText(summaryText);
-        }
-    }
-
-    public static void addBigPictureStyle(NotificationBuilderWithBuilderAccessor b,
-            CharSequence bigContentTitle, boolean useSummary,
-            CharSequence summaryText, Bitmap bigPicture, Bitmap bigLargeIcon,
-            boolean bigLargeIconSet) {
-        Notification.BigPictureStyle style = new Notification.BigPictureStyle(b.getBuilder())
-            .setBigContentTitle(bigContentTitle)
-            .bigPicture(bigPicture);
-        if (bigLargeIconSet) {
-            style.bigLargeIcon(bigLargeIcon);
-        }
-        if (useSummary) {
-            style.setSummaryText(summaryText);
-        }
-    }
-
-    public static void addInboxStyle(NotificationBuilderWithBuilderAccessor b,
-            CharSequence bigContentTitle, boolean useSummary,
-            CharSequence summaryText, ArrayList<CharSequence> texts) {
-        Notification.InboxStyle style = new Notification.InboxStyle(b.getBuilder())
-            .setBigContentTitle(bigContentTitle);
-        if (useSummary) {
-            style.setSummaryText(summaryText);
-        }
-        for (CharSequence text: texts) {
-            style.addLine(text);
-        }
-    }
 
     /** Return an SparseArray for action extras or null if none was needed. */
     public static SparseArray<Bundle> buildActionExtrasMap(List<Bundle> actionExtrasList) {
