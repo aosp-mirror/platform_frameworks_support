@@ -3489,12 +3489,9 @@ public class NotificationCompat {
                 if (Build.VERSION.SDK_INT >= 16) {
                     ArrayList<Parcelable> parcelables = new ArrayList<>(mActions.size());
                     for (NotificationCompatBase.Action action : mActions) {
-                        if (Build.VERSION.SDK_INT >= 24) {
+                        if (Build.VERSION.SDK_INT >= 20) {
                             parcelables.add(
-                                    NotificationCompatApi24.getActionFromActionCompat(action));
-                        } else if (Build.VERSION.SDK_INT >= 20) {
-                            parcelables.add(
-                                    NotificationCompatApi20.getActionFromActionCompat(action));
+                                    WearableExtender.getActionFromActionCompat(action));
                         } else if (Build.VERSION.SDK_INT >= 16) {
                             parcelables.add(NotificationCompatJellybean.getBundleForAction(action));
                         }
@@ -3550,13 +3547,41 @@ public class NotificationCompat {
             return builder;
         }
 
+        @RequiresApi(20)
+        private static Notification.Action getActionFromActionCompat(
+                NotificationCompatBase.Action actionCompat) {
+            Notification.Action.Builder actionBuilder = new Notification.Action.Builder(
+                    actionCompat.getIcon(), actionCompat.getTitle(),
+                    actionCompat.getActionIntent());
+            Bundle actionExtras;
+            if (actionCompat.getExtras() != null) {
+                actionExtras = new Bundle(actionCompat.getExtras());
+            } else {
+                actionExtras = new Bundle();
+            }
+            actionExtras.putBoolean(NotificationCompatJellybean.EXTRA_ALLOW_GENERATED_REPLIES,
+                    actionCompat.getAllowGeneratedReplies());
+            if (Build.VERSION.SDK_INT >= 24) {
+                actionBuilder.setAllowGeneratedReplies(actionCompat.getAllowGeneratedReplies());
+            }
+            actionBuilder.addExtras(actionExtras);
+            RemoteInputCompatBase.RemoteInput[] remoteInputCompats = actionCompat.getRemoteInputs();
+            if (remoteInputCompats != null) {
+                android.app.RemoteInput[] remoteInputs = RemoteInput.fromCompat(remoteInputCompats);
+                for (android.app.RemoteInput remoteInput : remoteInputs) {
+                    actionBuilder.addRemoteInput(remoteInput);
+                }
+            }
+            return actionBuilder.build();
+        }
+
         @Override
         public WearableExtender clone() {
             WearableExtender that = new WearableExtender();
-            that.mActions = new ArrayList<Action>(this.mActions);
+            that.mActions = new ArrayList<>(this.mActions);
             that.mFlags = this.mFlags;
             that.mDisplayIntent = this.mDisplayIntent;
-            that.mPages = new ArrayList<Notification>(this.mPages);
+            that.mPages = new ArrayList<>(this.mPages);
             that.mBackground = this.mBackground;
             that.mContentIcon = this.mContentIcon;
             that.mContentIconGravity = this.mContentIconGravity;
@@ -4632,8 +4657,19 @@ public class NotificationCompat {
     static Action getActionCompatFromAction(Notification.Action action,
             NotificationCompatBase.Action.Factory actionFactory,
             RemoteInputCompatBase.RemoteInput.Factory remoteInputFactory) {
-        RemoteInputCompatBase.RemoteInput[] remoteInputs = RemoteInputCompatApi20.toCompat(
-                action.getRemoteInputs(), remoteInputFactory);
+        final RemoteInputCompatBase.RemoteInput[] remoteInputs;
+        final android.app.RemoteInput[] srcArray = action.getRemoteInputs();
+        if (srcArray == null) {
+            remoteInputs = null;
+        } else {
+            remoteInputs = remoteInputFactory.newArray(srcArray.length);
+            for (int i = 0; i < srcArray.length; i++) {
+                android.app.RemoteInput src = srcArray[i];
+                remoteInputs[i] = remoteInputFactory.build(src.getResultKey(), src.getLabel(),
+                        src.getChoices(), src.getAllowFreeFormInput(), src.getExtras(), null);
+            }
+        }
+
         final boolean allowGeneratedReplies;
         if (Build.VERSION.SDK_INT >= 24) {
             allowGeneratedReplies = action.getExtras().getBoolean(
