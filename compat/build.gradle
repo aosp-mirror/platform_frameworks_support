@@ -16,11 +16,7 @@ android {
     }
 
     sourceSets {
-        main.java.srcDirs = [
-                'ics',
-                'api23',
-                'java'
-        ]
+        main.java.srcDirs = ['java']
         main.aidl.srcDirs = ['java']
         main.res.srcDirs 'res', 'res-public'
     }
