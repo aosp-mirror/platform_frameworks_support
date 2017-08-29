@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2017 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-buildscript {
-    ext.supportRootFolder = new File(project.projectDir, "../")
-    apply from: 'buildSrc/repos.gradle'
-    apply from: 'init.gradle'
-    repos.addMavenRepositories(repositories)
-    dependencies {
-        classpath libs.jacoco
-        classpath libs.gradle
-        classpath libs.kotlin.gradle_plugin
-    }
+package android.support.mediacompat.testlib;
+
+/**
+ * Constants used for sending intent between client and service apks.
+ */
+public class IntentConstants {
+    public static final String ACTION_CALL_MEDIA_BROWSER_SERVICE_METHOD =
+            "android.support.mediacompat.service.action.CALL_MEDIA_BROWSER_SERVICE_METHOD";
+    public static final String KEY_METHOD_ID = "method_id";
+    public static final String KEY_ARGUMENT = "argument";
 }
