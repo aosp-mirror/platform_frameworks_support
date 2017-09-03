@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.arch.util.paging;
+package android.arch.paging;
 
 abstract public class LivePagedListProvider<K, T> {
 }
