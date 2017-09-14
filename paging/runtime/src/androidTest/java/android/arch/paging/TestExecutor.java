@@ -14,13 +14,28 @@
  * limitations under the License.
  */
 
-package android.arch.lifecycle;
+package android.arch.paging;
 
-import android.support.v4.app.FragmentActivity;
+import android.support.annotation.NonNull;
 
-/**
- * @deprecated Use {@code android.support.v7.app.AppCompatActivity} instead of this class.
- */
-@Deprecated
-public class LifecycleActivity extends FragmentActivity {
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.concurrent.Executor;
+
+public class TestExecutor implements Executor {
+    private Queue<Runnable> mTasks = new LinkedList<>();
+
+    @Override
+    public void execute(@NonNull Runnable command) {
+        mTasks.add(command);
+    }
+
+    public boolean executeAll() {
+        boolean consumed = !mTasks.isEmpty();
+        Runnable task;
+        while ((task = mTasks.poll()) != null) {
+            task.run();
+        }
+        return consumed;
+    }
 }

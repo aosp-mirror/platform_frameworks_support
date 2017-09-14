@@ -14,13 +14,25 @@
  * limitations under the License.
  */
 
-package android.arch.lifecycle;
+package android.arch.paging;
 
-import android.support.v4.app.FragmentActivity;
+import java.util.List;
 
-/**
- * @deprecated Use {@code android.support.v7.app.AppCompatActivity} instead of this class.
- */
-@Deprecated
-public class LifecycleActivity extends FragmentActivity {
+public class ListDataSource<T> extends TiledDataSource<T> {
+    private List<T> mList;
+
+    ListDataSource(List<T> data) {
+        mList = data;
+    }
+
+    @Override
+    public int countItems() {
+        return mList.size();
+    }
+
+    @Override
+    public List<T> loadRange(int startPosition, int count) {
+        int endExclusive = Math.min(mList.size(), startPosition + count);
+        return mList.subList(startPosition, endExclusive);
+    }
 }
