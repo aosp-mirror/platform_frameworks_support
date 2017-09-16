@@ -44,7 +44,7 @@ import android.support.v7.widget.RecyclerView;
  * {@literal @}Dao
  * interface UserDao {
  *     {@literal @}Query("SELECT * FROM user ORDER BY lastName ASC")
- *     public abstract LivePagedListProvider&lt;User> usersByLastName();
+ *     public abstract LivePagedListProvider&lt;Integer, User> usersByLastName();
  * }
  *
  * class MyViewModel extends ViewModel {
@@ -58,7 +58,7 @@ import android.support.v7.widget.RecyclerView;
  *     }
  * }
  *
- * class MyActivity extends Activity implements LifecycleRegistryOwner {
+ * class MyActivity extends AppCompatActivity {
  *     {@literal @}Override
  *     public void onCreate(Bundle savedState) {
  *         super.onCreate(savedState);
