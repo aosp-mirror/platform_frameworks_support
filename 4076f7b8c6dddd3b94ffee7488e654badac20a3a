@@ -1,0 +1,10 @@
+Code-Review+1: kirillg <kirillg@google.com>
+Code-Review+2: Aurimas Liutikas <aurimas@google.com>
+Autosubmit+1: Aurimas Liutikas <aurimas@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Verified+1: kirillg <kirillg@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Wed, 20 Sep 2017 15:29:51 +0000
+Reviewed-on: https://android-review.googlesource.com/474819
+Project: platform/frameworks/support
+Branch: refs/heads/master
