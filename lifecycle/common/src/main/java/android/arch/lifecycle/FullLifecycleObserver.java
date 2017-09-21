@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2017 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,19 @@
  * limitations under the License.
  */
 
-package foo.bar;
-import android.support.annotation.NonNull;
-import android.arch.persistence.room.*;
-@Entity(primaryKeys = {"name", "lastName"})
-public class MultiPKeyEntity {
-    @NonNull
-    String name;
-    @NonNull
-    String lastName;
+package android.arch.lifecycle;
+
+interface FullLifecycleObserver extends LifecycleObserver {
+
+    void onCreate(LifecycleOwner owner);
+
+    void onStart(LifecycleOwner owner);
+
+    void onResume(LifecycleOwner owner);
+
+    void onPause(LifecycleOwner owner);
+
+    void onStop(LifecycleOwner owner);
+
+    void onDestroy(LifecycleOwner owner);
 }
