@@ -19,6 +19,8 @@ package android.arch.paging;
 import android.arch.core.executor.AppToolkitTaskExecutor;
 import android.arch.lifecycle.ComputableLiveData;
 import android.arch.lifecycle.LiveData;
+import android.support.annotation.AnyThread;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
@@ -28,11 +30,20 @@ import android.support.annotation.WorkerThread;
  * Return type for data-loading system of an application or library to produce a
  * {@code LiveData<PagedList>}, while leaving the details of the paging mechanism up to the
  * consumer.
+ * <p>
+ * If you're using Room, it can generate a LivePagedListProvider from a query:
+ * <pre>
+ * {@literal @}Dao
+ * interface UserDao {
+ *     {@literal @}Query("SELECT * FROM user ORDER BY lastName ASC")
+ *     public abstract LivePagedListProvider&lt;Integer, User> usersByLastName();
+ * }</pre>
  *
- * @param <Key> Tyep of input valued used to load data from the DataSource. Must be integer if
+ * @param <Key> Type of input valued used to load data from the DataSource. Must be integer if
  *             you're using TiledDataSource.
  * @param <Value> Data type produced by the DataSource, and held by the PagedLists.
  *
+ * @see PagedListAdapter
  * @see DataSource
  * @see PagedList
  */
@@ -59,6 +70,8 @@ public abstract class LivePagedListProvider<Key, Value> {
      *
      * @return The LiveData of PagedLists.
      */
+    @AnyThread
+    @NonNull
     public LiveData<PagedList<Value>> create(@Nullable Key initialLoadKey, int pageSize) {
         return create(initialLoadKey,
                 new PagedList.Config.Builder()
@@ -78,6 +91,8 @@ public abstract class LivePagedListProvider<Key, Value> {
      *
      * @return The LiveData of PagedLists.
      */
+    @AnyThread
+    @NonNull
     public LiveData<PagedList<Value>> create(@Nullable final Key initialLoadKey,
             final PagedList.Config config) {
         return new ComputableLiveData<PagedList<Value>>() {
@@ -96,19 +111,10 @@ public abstract class LivePagedListProvider<Key, Value> {
 
             @Override
             protected PagedList<Value> compute() {
-                @Nullable Key initializeKey;
-                if (mList == null || mDataSource == null) {
-                    initializeKey = initialLoadKey;
-                } else if (mList.size() == 0) {
-                    initializeKey = null;
-                } else {
-                    if (mDataSource.isContiguous() && mDataSource instanceof KeyedDataSource) {
-                        KeyedDataSource<Key, Value> keyedDataSource =
-                                (KeyedDataSource<Key, Value>) mDataSource;
-                        initializeKey = keyedDataSource.getKey(mList.getLastItem());
-                    } else {
-                        initializeKey = (Key) ((Integer) mList.getLastLoad());
-                    }
+                @Nullable Key initializeKey = initialLoadKey;
+                if (mList != null) {
+                    //noinspection unchecked
+                    initializeKey = (Key) mList.getLastKey();
                 }
 
                 do {

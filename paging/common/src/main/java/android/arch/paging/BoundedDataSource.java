@@ -18,6 +18,7 @@ package android.arch.paging;
 
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
+import android.support.annotation.WorkerThread;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,46 +28,12 @@ import java.util.List;
  * Simplest data source form that provides all of its data through a single loadRange() method.
  * <p>
  * Requires that your data resides in positions <code>0</code> through <code>N</code>, where
- * <code>N</code> is the value returned from {@link #loadCount()}. You must return the exact number
+ * <code>N</code> is the value returned from {@link #countItems()}. You must return the exact number
  * requested, so that the data as returned can be safely prepended/appended to what has already
  * been loaded.
  * <p>
  * For more flexibility in how many items to load, or to avoid counting your data source, override
  * {@link PositionalDataSource} directly.
- * <p>
- * A compute usage pattern with Room limit/offset SQL queries would look like this (though note,
- * this is just for illustration - Room can generate this for you):
- * <pre>
- * {@literal @}Dao
- * interface UserDao {
- *     {@literal @}Query("SELECT COUNT(*) from user")
- *     public abstract Integer getUserCount();
- *
- *     {@literal @}Query("SELECT * from user ORDER BY mName DESC LIMIT :limit OFFSET :offset")
- *     public abstract List&lt;User> userNameLimitOffset(int limit, int offset);
- * }
- *
- * public class OffsetUserQueryDataSource extends BoundedDataSource&lt;User> {
- *     {@literal @}Override
- *     public int loadCount() {
- *         return mUserDao.getUserCount();
- *     }
- *
- *     {@literal @}Nullable
- *     {@literal @}Override
- *     public List&lt;User> loadRange(int startPosition, int loadCount) {
- *         return mUserDao.userNameLimitOffset(loadCount, startPosition);
- *     }
- * }</pre>
- *
- * Room can generate this DataSource for you:
- *
- * <pre>
- * {@literal @}Dao
- * interface UserDao {
- *     {@literal @}Query("SELECT * FROM user ORDER BY mAge DESC")
- *     public abstract DataSource&lt;User> loadUsersByAgeDesc();
- * }</pre>
  *
  * @param <Value> Value type returned by the data source.
  *
@@ -83,15 +50,18 @@ public abstract class BoundedDataSource<Value> extends PositionalDataSource<Valu
      * @return List of loaded items. Null if the BoundedDataSource is no longer valid, and should
      *         not be queried again.
      */
+    @WorkerThread
     @Nullable
     public abstract List<Value> loadRange(int startPosition, int loadCount);
 
+    @WorkerThread
     @Nullable
     @Override
     public List<Value> loadAfter(int startIndex, int pageSize) {
         return loadRange(startIndex, pageSize);
     }
 
+    @WorkerThread
     @Nullable
     @Override
     public List<Value> loadBefore(int startIndex, int pageSize) {

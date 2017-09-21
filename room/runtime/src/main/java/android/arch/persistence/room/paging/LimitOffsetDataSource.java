@@ -16,7 +16,7 @@
 
 package android.arch.persistence.room.paging;
 
-import android.arch.paging.BoundedDataSource;
+import android.arch.paging.TiledDataSource;
 import android.arch.persistence.room.InvalidationTracker;
 import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.RoomSQLiteQuery;
@@ -42,7 +42,7 @@ import java.util.Set;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public abstract class LimitOffsetDataSource<T> extends BoundedDataSource<T> {
+public abstract class LimitOffsetDataSource<T> extends TiledDataSource<T> {
     private final RoomSQLiteQuery mSourceQuery;
     private final String mCountQuery;
     private final String mLimitOffsetQuery;
@@ -65,7 +65,7 @@ public abstract class LimitOffsetDataSource<T> extends BoundedDataSource<T> {
     }
 
     @Override
-    public int loadCount() {
+    public int countItems() {
         final RoomSQLiteQuery sqLiteQuery = RoomSQLiteQuery.acquire(mCountQuery,
                 mSourceQuery.getArgCount());
         sqLiteQuery.copyArgumentsFrom(mSourceQuery);
@@ -87,12 +87,17 @@ public abstract class LimitOffsetDataSource<T> extends BoundedDataSource<T> {
         return super.isInvalid();
     }
 
-    private List<T> queryRange(int offset, int limit) {
+    @SuppressWarnings("WeakerAccess")
+    protected abstract List<T> convertRows(Cursor cursor);
+
+    @Nullable
+    @Override
+    public List<T> loadRange(int startPosition, int loadCount) {
         final RoomSQLiteQuery sqLiteQuery = RoomSQLiteQuery.acquire(mLimitOffsetQuery,
                 mSourceQuery.getArgCount() + 2);
         sqLiteQuery.copyArgumentsFrom(mSourceQuery);
-        sqLiteQuery.bindLong(sqLiteQuery.getArgCount() - 1, limit);
-        sqLiteQuery.bindLong(sqLiteQuery.getArgCount(), offset);
+        sqLiteQuery.bindLong(sqLiteQuery.getArgCount() - 1, loadCount);
+        sqLiteQuery.bindLong(sqLiteQuery.getArgCount(), startPosition);
         Cursor cursor = mDb.query(sqLiteQuery);
 
         try {
@@ -101,21 +106,5 @@ public abstract class LimitOffsetDataSource<T> extends BoundedDataSource<T> {
             cursor.close();
             sqLiteQuery.release();
         }
-    }
-
-    @SuppressWarnings("WeakerAccess")
-    protected abstract List<T> convertRows(Cursor cursor);
-
-    @Nullable
-    @Override
-    public List<T> loadRange(int startPosition, int loadCount) {
-        if (isInvalid()) {
-            return null;
-        }
-        List<T> result = queryRange(startPosition, loadCount);
-        if (isInvalid()) {
-            return null;
-        }
-        return result;
     }
 }

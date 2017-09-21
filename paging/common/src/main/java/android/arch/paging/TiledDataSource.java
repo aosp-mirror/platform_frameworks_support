@@ -17,11 +17,70 @@
 package android.arch.paging;
 
 import android.support.annotation.Nullable;
+import android.support.annotation.WorkerThread;
 
 import java.util.List;
 
 /**
- * Position-based data loader for fixed size, arbitrary-page access load.
+ * Position-based data loader for fixed size, arbitrary positioned loading.
+ * <p>
+ * Extend TiledDataSource if you want to load arbitrary pages based solely on position information,
+ * and can generate pages of a provided fixed size.
+ * <p>
+ * Room can generate a TiledDataSource for you:
+ * <pre>
+ * {@literal @}Dao
+ * interface UserDao {
+ *     {@literal @}Query("SELECT * FROM user ORDER BY mAge DESC")
+ *     public abstract TiledDataSource&lt;User> loadUsersByAgeDesc();
+ * }</pre>
+ *
+ * Under the hood, Room will generate code equivalent to the below, using a limit/offset SQL query:
+ * <pre>
+ * {@literal @}Dao
+ * interface UserDao {
+ *     {@literal @}Query("SELECT COUNT(*) from user")
+ *     public abstract Integer getUserCount();
+ *
+ *     {@literal @}Query("SELECT * from user ORDER BY mName DESC LIMIT :limit OFFSET :offset")
+ *     public abstract List&lt;User> userNameLimitOffset(int limit, int offset);
+ * }
+ *
+ * public class OffsetUserQueryDataSource extends TiledDataSource&lt;User> {
+ *     private MyDatabase mDb;
+ *     private final UserDao mUserDao;
+ *     {@literal @}SuppressWarnings("FieldCanBeLocal")
+ *     private final InvalidationTracker.Observer mObserver;
+ *
+ *     public OffsetUserQueryDataSource(MyDatabase db) {
+ *         mDb = db;
+ *         mUserDao = db.getUserDao();
+ *         mObserver = new InvalidationTracker.Observer("user") {
+ *             {@literal @}Override
+ *             public void onInvalidated({@literal @}NonNull Set&lt;String> tables) {
+ *                 // the user table has been invalidated, invalidate the DataSource
+ *                 invalidate();
+ *             }
+ *         };
+ *         db.getInvalidationTracker().addWeakObserver(mObserver);
+ *     }
+ *
+ *     {@literal @}Override
+ *     public boolean isInvalid() {
+ *         mDb.getInvalidationTracker().refreshVersionsSync();
+ *         return super.isInvalid();
+ *     }
+ *
+ *     {@literal @}Override
+ *     public int countItems() {
+ *         return mUserDao.getUserCount();
+ *     }
+ *
+ *     {@literal @}Override
+ *     public List&lt;User> loadRange(int startPosition, int loadCount) {
+ *         return mUserDao.userNameLimitOffset(loadCount, startPosition);
+ *     }
+ * }</pre>
  *
  * @param <Type> Type of items being loaded by the TiledDataSource.
  */
@@ -32,8 +91,9 @@ public abstract class TiledDataSource<Type> extends DataSource<Integer, Type> {
      *
      * @return Number of items this DataSource can provide. Must be <code>0</code> or greater.
      */
+    @WorkerThread
     @Override
-    public abstract int loadCount();
+    public abstract int countItems();
 
     @Override
     boolean isContiguous() {
@@ -49,8 +109,19 @@ public abstract class TiledDataSource<Type> extends DataSource<Integer, Type> {
      * @return List of loaded items. Null if the DataSource is no longer valid, and should
      *         not be queried again.
      */
-    @SuppressWarnings("WeakerAccess")
+    @WorkerThread
     public abstract List<Type> loadRange(int startPosition, int count);
+
+    final List<Type> loadRangeWrapper(int startPosition, int count) {
+        if (isInvalid()) {
+            return null;
+        }
+        List<Type> list = loadRange(startPosition, count);
+        if (isInvalid()) {
+            return null;
+        }
+        return list;
+    }
 
     ContiguousDataSource<Integer, Type> getAsContiguous() {
         return new TiledAsBoundedDataSource<>(this);
@@ -63,6 +134,7 @@ public abstract class TiledDataSource<Type> extends DataSource<Integer, Type> {
             mTiledDataSource = tiledDataSource;
         }
 
+        @WorkerThread
         @Nullable
         @Override
         public List<Value> loadRange(int startPosition, int loadCount) {
