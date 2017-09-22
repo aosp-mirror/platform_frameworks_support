@@ -19,6 +19,8 @@ package android.arch.paging;
 import android.arch.core.executor.AppToolkitTaskExecutor;
 import android.arch.lifecycle.ComputableLiveData;
 import android.arch.lifecycle.LiveData;
+import android.support.annotation.AnyThread;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
@@ -36,6 +38,13 @@ import android.support.annotation.WorkerThread;
  *     {@literal @}Query("SELECT * FROM user ORDER BY lastName ASC")
  *     public abstract LivePagedListProvider&lt;Integer, User> usersByLastName();
  * }</pre>
+ * In the above sample, {@code Integer} is used because it is the {@code Key} type of
+ * {@link TiledDataSource}. Currently, Room can only generate a {@code LIMIT}/{@code OFFSET},
+ * position based loader that uses TiledDataSource under the hood, and specifying {@code Integer}
+ * here lets you pass an initial loading position as an integer.
+ * <p>
+ * In the future, Room plans to offer other key types to support paging content with a
+ * {@link KeyedDataSource}.
  *
  * @param <Key> Type of input valued used to load data from the DataSource. Must be integer if
  *             you're using TiledDataSource.
@@ -68,6 +77,8 @@ public abstract class LivePagedListProvider<Key, Value> {
      *
      * @return The LiveData of PagedLists.
      */
+    @AnyThread
+    @NonNull
     public LiveData<PagedList<Value>> create(@Nullable Key initialLoadKey, int pageSize) {
         return create(initialLoadKey,
                 new PagedList.Config.Builder()
@@ -87,6 +98,8 @@ public abstract class LivePagedListProvider<Key, Value> {
      *
      * @return The LiveData of PagedLists.
      */
+    @AnyThread
+    @NonNull
     public LiveData<PagedList<Value>> create(@Nullable final Key initialLoadKey,
             final PagedList.Config config) {
         return new ComputableLiveData<PagedList<Value>>() {

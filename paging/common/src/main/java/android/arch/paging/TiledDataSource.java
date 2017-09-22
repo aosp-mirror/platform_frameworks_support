@@ -17,6 +17,7 @@
 package android.arch.paging;
 
 import android.support.annotation.Nullable;
+import android.support.annotation.WorkerThread;
 
 import java.util.List;
 
@@ -90,6 +91,7 @@ public abstract class TiledDataSource<Type> extends DataSource<Integer, Type> {
      *
      * @return Number of items this DataSource can provide. Must be <code>0</code> or greater.
      */
+    @WorkerThread
     @Override
     public abstract int countItems();
 
@@ -100,14 +102,20 @@ public abstract class TiledDataSource<Type> extends DataSource<Integer, Type> {
 
     /**
      * Called to load items at from the specified position range.
+     * <p>
+     * This method must return a list of requested size, unless at the end of list. Fixed size pages
+     * enable TiledDataSource to navigate tiles efficiently, and quickly accesss any position in the
+     * data set.
+     * <p>
+     * If a list of a different size is returned, but it is not the last list in the data set based
+     * on the return value from {@link #countItems()}, an exception will be thrown.
      *
      * @param startPosition Index of first item to load.
-     * @param count         Exact number of items to load. Returning a different number will cause
-     *                      an exception to be thrown.
-     * @return List of loaded items. Null if the DataSource is no longer valid, and should
-     *         not be queried again.
+     * @param count         Number of items to load.
+     * @return List of loaded items, of the requested length unless at end of list. Null if the
+     *         DataSource is no longer valid, and should not be queried again.
      */
-    @SuppressWarnings("WeakerAccess")
+    @WorkerThread
     public abstract List<Type> loadRange(int startPosition, int count);
 
     final List<Type> loadRangeWrapper(int startPosition, int count) {
@@ -132,6 +140,7 @@ public abstract class TiledDataSource<Type> extends DataSource<Integer, Type> {
             mTiledDataSource = tiledDataSource;
         }
 
+        @WorkerThread
         @Nullable
         @Override
         public List<Value> loadRange(int startPosition, int loadCount) {
