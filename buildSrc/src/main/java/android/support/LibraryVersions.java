@@ -28,7 +28,7 @@ public class LibraryVersions {
     /**
      * Version code for flatfoot 1.0 projects (room, lifecycles)
      */
-    private static final Version FLATFOOT_1_0_BATCH = new Version("1.0.0-alpha9-1");
+    private static final Version FLATFOOT_1_0_BATCH = new Version("1.0.0-beta1");
 
     /**
      * Version code for Room
@@ -43,12 +43,12 @@ public class LibraryVersions {
     /**
      * Version code for RecyclerView & Room paging
      */
-    public static final Version PAGING = new Version("1.0.0-alpha1");
+    public static final Version PAGING = new Version("1.0.0-alpha2");
 
     /**
      * Version code for Lifecycle libs that are required by the support library
      */
-    public static final Version LIFECYCLES_CORE = new Version("1.0.0");
+    public static final Version LIFECYCLES_CORE = new Version("1.0.1");
 
     /**
      * Version code for Lifecycle runtime libs that are required by the support library
