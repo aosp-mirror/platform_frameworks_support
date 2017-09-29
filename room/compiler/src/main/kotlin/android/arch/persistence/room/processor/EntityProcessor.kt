@@ -40,12 +40,15 @@ import com.google.auto.common.MoreElements
 import com.google.auto.common.MoreTypes
 import javax.lang.model.element.AnnotationMirror
 import javax.lang.model.element.AnnotationValue
+import javax.lang.model.element.Name
 import javax.lang.model.element.TypeElement
 import javax.lang.model.type.TypeKind
 import javax.lang.model.type.TypeMirror
 import javax.lang.model.util.SimpleAnnotationValueVisitor6
 
-class EntityProcessor(baseContext: Context, val element: TypeElement) {
+class EntityProcessor(baseContext: Context,
+                      val element: TypeElement,
+                      val referenceStack: LinkedHashSet<Name> = LinkedHashSet<Name>()) {
     val context = baseContext.fork(element)
 
     fun process(): Entity {
@@ -60,7 +63,8 @@ class EntityProcessor(baseContext: Context, val element: TypeElement) {
                 baseContext = context,
                 element = element,
                 bindingScope = FieldProcessor.BindingScope.TWO_WAY,
-                parent = null).process()
+                parent = null,
+                referenceStack = referenceStack).process()
         context.checker.check(pojo.relations.isEmpty(), element, RELATION_IN_ENTITY)
         val annotation = MoreElements.getAnnotationMirror(element,
                 android.arch.persistence.room.Entity::class.java).orNull()
@@ -112,7 +116,7 @@ class EntityProcessor(baseContext: Context, val element: TypeElement) {
         val indexInputs = entityIndices + fieldIndices + superIndices
         val indices = validateAndCreateIndices(indexInputs, pojo)
 
-        val primaryKey = findPrimaryKey(pojo.fields, pojo.embeddedFields)
+        val primaryKey = findAndValidatePrimaryKey(pojo.fields, pojo.embeddedFields)
         val affinity = primaryKey.fields.firstOrNull()?.affinity ?: SQLTypeAffinity.TEXT
         context.checker.check(
                 !primaryKey.autoGenerateId || affinity == SQLTypeAffinity.INTEGER,
@@ -226,7 +230,7 @@ class EntityProcessor(baseContext: Context, val element: TypeElement) {
         }.filterNotNull()
     }
 
-    private fun findPrimaryKey(fields: List<Field>, embeddedFields: List<EmbeddedField>)
+    private fun findAndValidatePrimaryKey(fields: List<Field>, embeddedFields: List<EmbeddedField>)
             : PrimaryKey {
         val candidates = collectPrimaryKeysFromEntityAnnotations(element, fields) +
                 collectPrimaryKeysFromPrimaryKeyAnnotations(fields) +
@@ -242,7 +246,15 @@ class EntityProcessor(baseContext: Context, val element: TypeElement) {
                 .map { candidate ->
                     candidate.fields.map { field ->
                         context.checker.check(field.nonNull, field.element,
-                                ProcessorErrors.PRIMARY_KEY_NULL)
+                                ProcessorErrors.primaryKeyNull(field.getPath()))
+                        // Validate parents for nullability
+                        var parent = field.parent
+                        while(parent != null) {
+                            val parentField = parent.field
+                            context.checker.check(parentField.nonNull, parentField.element,
+                                    ProcessorErrors.primaryKeyNull(parentField.getPath()))
+                            parent = parentField.parent
+                        }
                     }
                 }
 
