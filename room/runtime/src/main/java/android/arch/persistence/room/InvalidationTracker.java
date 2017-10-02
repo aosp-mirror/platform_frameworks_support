@@ -16,7 +16,7 @@
 
 package android.arch.persistence.room;
 
-import android.arch.core.executor.AppToolkitTaskExecutor;
+import android.arch.core.executor.ArchTaskExecutor;
 import android.arch.core.internal.SafeIterableMap;
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.db.SupportSQLiteStatement;
@@ -240,7 +240,7 @@ public class InvalidationTracker {
             currentObserver = mObserverMap.putIfAbsent(observer, wrapper);
         }
         if (currentObserver == null && mObservedTableTracker.onAdded(tableIds)) {
-            AppToolkitTaskExecutor.getInstance().executeOnDiskIO(mSyncTriggers);
+            ArchTaskExecutor.getInstance().executeOnDiskIO(mSyncTriggers);
         }
     }
 
@@ -271,7 +271,7 @@ public class InvalidationTracker {
             wrapper = mObserverMap.remove(observer);
         }
         if (wrapper != null && mObservedTableTracker.onRemoved(wrapper.mTableIds)) {
-            AppToolkitTaskExecutor.getInstance().executeOnDiskIO(mSyncTriggers);
+            ArchTaskExecutor.getInstance().executeOnDiskIO(mSyncTriggers);
         }
     }
 
@@ -352,11 +352,18 @@ public class InvalidationTracker {
                     return;
                 }
 
-                if (mDatabase.inTransaction()
-                        || !mPendingRefresh.compareAndSet(true, false)) {
+                if (!mPendingRefresh.compareAndSet(true, false)) {
                     // no pending refresh
                     return;
                 }
+
+                if (mDatabase.inTransaction()) {
+                    // current thread is in a transaction. when it ends, it will invoke
+                    // refreshRunnable again. mPendingRefresh is left as false on purpose
+                    // so that the last transaction can flip it on again.
+                    return;
+                }
+
                 mCleanupStatement.executeUpdateDelete();
                 mQueryArgs[0] = mMaxVersion;
                 Cursor cursor = mDatabase.query(SELECT_UPDATED_TABLES_SQL, mQueryArgs);
@@ -402,7 +409,7 @@ public class InvalidationTracker {
     public void refreshVersionsAsync() {
         // TODO we should consider doing this sync instead of async.
         if (mPendingRefresh.compareAndSet(false, true)) {
-            AppToolkitTaskExecutor.getInstance().executeOnDiskIO(mRefreshRunnable);
+            ArchTaskExecutor.getInstance().executeOnDiskIO(mRefreshRunnable);
         }
     }
 

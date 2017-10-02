@@ -16,7 +16,7 @@
 
 package android.arch.persistence.room;
 
-import android.arch.core.executor.AppToolkitTaskExecutor;
+import android.arch.core.executor.ArchTaskExecutor;
 import android.arch.persistence.db.SimpleSQLiteQuery;
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.db.SupportSQLiteOpenHelper;
@@ -158,7 +158,7 @@ public abstract class RoomDatabase {
         if (mAllowMainThreadQueries) {
             return;
         }
-        if (AppToolkitTaskExecutor.getInstance().isMainThread()) {
+        if (ArchTaskExecutor.getInstance().isMainThread()) {
             throw new IllegalStateException("Cannot access database on the main thread since"
                     + " it may potentially lock the UI for a long period of time.");
         }
@@ -216,7 +216,11 @@ public abstract class RoomDatabase {
      */
     public void endTransaction() {
         mOpenHelper.getWritableDatabase().endTransaction();
-        mInvalidationTracker.refreshVersionsAsync();
+        if (!inTransaction()) {
+            // enqueue refresh only if we are NOT in a transaction. Otherwise, wait for the last
+            // endTransaction call to do it.
+            mInvalidationTracker.refreshVersionsAsync();
+        }
     }
 
     /**
