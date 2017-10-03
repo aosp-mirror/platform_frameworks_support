@@ -1371,7 +1371,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * @param savedInstanceState If non-null, this fragment is being re-constructed
      * from a previous saved state as given here.
      */
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     }
 
     /**
@@ -1469,7 +1469,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      *
      * @param outState Bundle in which to place your saved state.
      */
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
     }
 
     /**
