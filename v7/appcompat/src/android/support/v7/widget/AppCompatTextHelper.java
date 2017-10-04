@@ -214,7 +214,7 @@ class AppCompatTextHelper {
                     : R.styleable.TextAppearance_fontFamily;
             if (!context.isRestricted()) {
                 try {
-                    mFontTypeface = a.getFont(fontFamilyId, mStyle, mView);
+                    mFontTypeface = a.getFont(fontFamilyId, mStyle);
                 } catch (UnsupportedOperationException | Resources.NotFoundException e) {
                     // Expected if it is not a font resource.
                 }
