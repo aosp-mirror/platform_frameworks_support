@@ -35,6 +35,8 @@ import org.gradle.api.tasks.bundling.Jar
 class SupportAndroidLibraryPlugin implements Plugin<Project> {
     private static final String INSTRUMENTATION_RUNNER =
             "android.support.test.runner.AndroidJUnitRunner";
+    private static final String VERSION_FILE_PATH =
+            "generatedResources/META-INF/%s_%s.version"
 
     @Override
     public void apply(Project project) {
@@ -49,8 +51,8 @@ class SupportAndroidLibraryPlugin implements Plugin<Project> {
             // compatible with API < 24, so use Java 7 for both source AND target.
             final JavaVersion javaVersion;
             if (supportLibraryExtension.java8Library) {
-                if (library.defaultConfig.minSdkVersion < 24) {
-                    throw IllegalArgumentException("Libraries can only support Java 8 if "
+                if (library.defaultConfig.minSdkVersion.apiLevel < 24) {
+                    throw new IllegalArgumentException("Libraries can only support Java 8 if "
                             + "minSdkVersion is 24 or higher");
                 }
                 javaVersion = JavaVersion.VERSION_1_8
@@ -61,6 +63,23 @@ class SupportAndroidLibraryPlugin implements Plugin<Project> {
             library.compileOptions {
                 sourceCompatibility javaVersion
                 targetCompatibility javaVersion
+            }
+
+            // Add a java resource file to the library jar for version tracking purposes.
+            String artifactName = String.format(VERSION_FILE_PATH, project.group, project.name)
+
+            def writeVersionFile =
+                    project.tasks.create("writeVersionFile", VersionFileWriterTask.class) {
+                        version project.version
+                        outputFile new File(project.buildDir,  artifactName)
+                    }
+
+            library.libraryVariants.all {
+                it.processJavaResources.dependsOn(writeVersionFile)
+            }
+
+            library.sourceSets.main.resources {
+                srcDir new File(project.buildDir, "generatedResources")
             }
         }
 
@@ -73,8 +92,7 @@ class SupportAndroidLibraryPlugin implements Plugin<Project> {
 
         library.defaultConfig {
             // Update the version meta-data in each Manifest.
-            addManifestPlaceholders(["support-version": LibraryVersions.SUPPORT_LIBRARY.toString(),
-                                     "target-sdk-version": project.currentSdk])
+            addManifestPlaceholders(["target-sdk-version": project.currentSdk])
 
             // Set test related options.
             testInstrumentationRunner INSTRUMENTATION_RUNNER
