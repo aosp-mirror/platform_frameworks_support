@@ -23,7 +23,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
@@ -31,7 +30,6 @@ import android.support.annotation.RestrictTo;
 import android.support.v4.view.TintableBackgroundView;
 import android.support.v4.widget.ImageViewCompat;
 import android.support.v4.widget.TintableImageSourceView;
-import android.support.v7.appcompat.R;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -106,14 +104,6 @@ public class AppCompatImageView extends ImageView implements TintableBackgroundV
     @Override
     public void setImageBitmap(Bitmap bm) {
         super.setImageBitmap(bm);
-        if (mImageHelper != null) {
-            mImageHelper.applySupportImageTint();
-        }
-    }
-
-    @Override
-    public void setImageIcon(@Nullable Icon icon) {
-        super.setImageIcon(icon);
         if (mImageHelper != null) {
             mImageHelper.applySupportImageTint();
         }
