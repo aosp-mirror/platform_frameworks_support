@@ -5,24 +5,25 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *       http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License.
+ * limitations under the License
  */
 
-package android.arch.lifecycle.testapp;
+package android.support.tools.jetifier.core.transform.bytecode
+
+import android.support.tools.jetifier.core.rules.JavaField
+import android.support.tools.jetifier.core.rules.JavaType
 
 /**
- * Interface for LifecycleOwners that track their own state internally for test purposes.
+ * High-level re-mapping interface to provide only the refactorings needed by jetifier.
  */
-public interface OnSaveInstanceStateObservable {
+interface CoreRemapper {
+    fun rewriteType(type: JavaType) : JavaType
 
-    /**
-     * Sets a OnSaveInstanceStateListener on the OnSaveInstanceStateObservable.
-     */
-    void setOnSaveInstanceStateListener(OnSaveInstanceStateListener onSaveInstanceStateListener);
+    fun rewriteField(field: JavaField) : JavaField
 }
