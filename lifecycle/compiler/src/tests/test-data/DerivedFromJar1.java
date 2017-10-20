@@ -14,11 +14,15 @@
  * limitations under the License.
  */
 
-package android.arch.lifecycle.model
+package foo;
 
-import javax.lang.model.element.TypeElement
+import static android.arch.lifecycle.Lifecycle.Event.ON_START;
 
-data class LifecycleObserverInfo(
-        val type: TypeElement,
-        val methods: List<EventMethod>,
-        val parents: List<LifecycleObserverInfo> = listOf())
+import android.arch.lifecycle.Lifecycle.Event;
+import android.arch.lifecycle.OnLifecycleEvent;
+
+public class DerivedFromJar1 extends test.library.PPObserverNoAdapter {
+    @OnLifecycleEvent(ON_START)
+    public void doAnother() {
+    }
+}

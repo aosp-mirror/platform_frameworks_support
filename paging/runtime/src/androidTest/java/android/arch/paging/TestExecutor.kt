@@ -14,19 +14,26 @@
  * limitations under the License.
  */
 
-package android.arch.paging;
+package android.arch.paging
 
-public class User {
-    public final String name;
-    public final String info;
+import java.util.LinkedList
+import java.util.concurrent.Executor
 
-    public User(String name, String info) {
-        this.name = name;
-        this.info = info;
+class TestExecutor : Executor {
+    private val mTasks = LinkedList<Runnable>()
+
+    override fun execute(command: Runnable) {
+        mTasks.add(command)
     }
 
-    @Override
-    public String toString() {
-        return name;
+    fun executeAll(): Boolean {
+        val consumed = !mTasks.isEmpty()
+
+        var task = mTasks.poll()
+        while (task != null) {
+            task.run()
+            task = mTasks.poll()
+        }
+        return consumed
     }
 }

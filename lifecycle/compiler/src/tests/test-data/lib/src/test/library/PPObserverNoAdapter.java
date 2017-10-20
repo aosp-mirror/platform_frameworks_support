@@ -14,28 +14,22 @@
  * limitations under the License.
  */
 
-package android.arch.paging;
+package test.library;
 
-import android.support.annotation.NonNull;
+import static android.arch.lifecycle.Lifecycle.Event.ON_START;
+import static android.arch.lifecycle.Lifecycle.Event.ON_STOP;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.concurrent.Executor;
+import android.arch.lifecycle.Lifecycle.Event;
+import android.arch.lifecycle.LifecycleObserver;
+import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.OnLifecycleEvent;
 
-public class TestExecutor implements Executor {
-    private Queue<Runnable> mTasks = new LinkedList<>();
-
-    @Override
-    public void execute(@NonNull Runnable command) {
-        mTasks.add(command);
+public class PPObserverNoAdapter implements LifecycleObserver {
+    @OnLifecycleEvent(ON_START)
+    protected void doOnStart() {
     }
 
-    boolean executeAll() {
-        boolean consumed = !mTasks.isEmpty();
-        Runnable task;
-        while ((task = mTasks.poll()) != null) {
-            task.run();
-        }
-        return consumed;
+    @OnLifecycleEvent(ON_STOP)
+    protected void doOnStop() {
     }
 }

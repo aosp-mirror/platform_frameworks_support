@@ -16,26 +16,33 @@
 
 package test.library;
 
-import android.arch.lifecycle.GenericLifecycleObserver;
+import android.arch.lifecycle.GeneratedAdapter;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.MethodCallsLogger;
 import java.lang.Override;
 import javax.annotation.Generated;
 
 @Generated("android.arch.lifecycle.LifecycleProcessor")
-public class LibraryBaseObserver_LifecycleAdapter implements GenericLifecycleObserver {
-    final LibraryBaseObserver mReceiver;
+public class ObserverNoAdapter_LifecycleAdapter implements GeneratedAdapter {
+    final ObserverNoAdapter mReceiver;
 
-    LibraryBaseObserver_LifecycleAdapter(LibraryBaseObserver receiver) {
+    ObserverNoAdapter_LifecycleAdapter(ObserverNoAdapter receiver) {
         this.mReceiver = receiver;
     }
 
     @Override
-    public void onStateChanged(LifecycleOwner owner, Lifecycle.Event event) {
-        // fake adapter
-    }
-
-    public static void __synthetic_doOnPause(LibraryBaseObserver receiver, LifecycleOwner owner) {
-        receiver.doOnPause(owner);
+    public void callMethods(LifecycleOwner owner, Lifecycle.Event event, boolean onAny,
+            MethodCallsLogger logger) {
+        boolean hasLogger = logger != null;
+        if (onAny) {
+            return;
+        }
+        if (event == Lifecycle.Event.ON_STOP) {
+            if (!hasLogger || logger.approveCall("doOnStop", 1)) {
+                mReceiver.doOnStop();
+            }
+            return;
+        }
     }
 }

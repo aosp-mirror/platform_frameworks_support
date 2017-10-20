@@ -14,25 +14,26 @@
  * limitations under the License.
  */
 
-package android.arch.paging;
+package android.arch.paging
 
-import java.util.List;
+import java.util.LinkedList
+import java.util.concurrent.Executor
 
-public class ListDataSource<T> extends TiledDataSource<T> {
-    private List<T> mList;
+class TestExecutor : Executor {
+    private val mTasks = LinkedList<Runnable>()
 
-    ListDataSource(List<T> data) {
-        mList = data;
+    override fun execute(command: Runnable) {
+        mTasks.add(command)
     }
 
-    @Override
-    public int countItems() {
-        return mList.size();
-    }
+    internal fun executeAll(): Boolean {
+        val consumed = !mTasks.isEmpty()
 
-    @Override
-    public List<T> loadRange(int startPosition, int count) {
-        int endExclusive = Math.min(mList.size(), startPosition + count);
-        return mList.subList(startPosition, endExclusive);
+        var task = mTasks.poll()
+        while (task != null) {
+            task.run()
+            task = mTasks.poll()
+        }
+        return consumed
     }
 }

@@ -14,11 +14,16 @@
  * limitations under the License.
  */
 
-package android.arch.lifecycle.model
+package android.arch.paging
 
-import javax.lang.model.element.TypeElement
+class ListDataSource<T> constructor(private val list: List<T>) : TiledDataSource<T>() {
 
-data class LifecycleObserverInfo(
-        val type: TypeElement,
-        val methods: List<EventMethod>,
-        val parents: List<LifecycleObserverInfo> = listOf())
+    override fun countItems(): Int {
+        return list.size
+    }
+
+    override fun loadRange(startPosition: Int, count: Int): List<T> {
+        val endExclusive = Math.min(list.size, startPosition + count)
+        return list.subList(startPosition, endExclusive)
+    }
+}
