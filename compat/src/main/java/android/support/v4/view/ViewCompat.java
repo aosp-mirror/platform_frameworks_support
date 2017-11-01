@@ -35,6 +35,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.ReplaceWith;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.RestrictTo;
 import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
@@ -97,6 +98,8 @@ public class ViewCompat {
      * a future release.
      */
     @Deprecated
+    @android.support.annotation.Deprecated(message = "Use View#OVER_SCROLL_ALWAYS directly",
+            replaceWith = @ReplaceWith(expression = "View.OVER_SCROLL_ALWAYS", imports = {""}))
     public static final int OVER_SCROLL_ALWAYS = 0;
 
     /**
