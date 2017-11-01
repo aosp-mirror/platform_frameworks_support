@@ -1,5 +1,3 @@
-/* This file is auto-generated from BaseFragment.java.  DO NOT MODIFY. */
-
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *
@@ -15,33 +13,40 @@
  */
 package android.support.v17.leanback.app;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.v17.leanback.R;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v17.leanback.transition.TransitionHelper;
 import android.support.v17.leanback.transition.TransitionListener;
+import android.support.v17.leanback.util.StateMachine;
+import android.support.v17.leanback.util.StateMachine.Condition;
+import android.support.v17.leanback.util.StateMachine.Event;
+import android.support.v17.leanback.util.StateMachine.State;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
-import android.support.v17.leanback.util.StateMachine;
-import android.support.v17.leanback.util.StateMachine.State;
-
-import static android.support.v17.leanback.util.StateMachine.*;
-
 /**
- * @hide
+ * Base class for leanback Fragments. This class is not intended to be subclassed by apps.
  */
-class BaseSupportFragment extends BrandedSupportFragment {
+@SuppressWarnings("FragmentNotInstantiable")
+public class BaseSupportFragment extends BrandedSupportFragment {
 
     /**
-     * Condition: {@link TransitionHelper#systemSupportsEntranceTransitions()} is true
-     * Action: none
+     * The start state for all
      */
-    private final State STATE_ALLOWED = new State() {
-        @Override
-        public boolean canRun() {
-            return TransitionHelper.systemSupportsEntranceTransitions();
-        }
+    final State STATE_START = new State("START", true, false);
 
+    /**
+     * Initial State for ENTRNACE transition.
+     */
+    final State STATE_ENTRANCE_INIT = new State("ENTRANCE_INIT");
+
+    /**
+     * prepareEntranceTransition is just called, but view not ready yet. We can enable the
+     * busy spinner.
+     */
+    final State STATE_ENTRANCE_ON_PREPARED = new State("ENTRANCE_ON_PREPARED", true, false) {
         @Override
         public void run() {
             mProgressBarManager.show();
@@ -49,15 +54,13 @@ class BaseSupportFragment extends BrandedSupportFragment {
     };
 
     /**
-     * Condition: {@link #isReadyForPrepareEntranceTransition()} is true
-     * Action: {@link #onEntranceTransitionPrepare()} }
+     * prepareEntranceTransition is called and main content view to slide in was created, so we can
+     * call {@link #onEntranceTransitionPrepare}. Note that we dont set initial content to invisible
+     * in this State, the process is very different in subclass, e.g. BrowseSupportFragment hide header
+     * views and hide main fragment view in two steps.
      */
-    private final State STATE_PREPARE = new State() {
-        @Override
-        public boolean canRun() {
-            return isReadyForPrepareEntranceTransition();
-        }
-
+    final State STATE_ENTRANCE_ON_PREPARED_ON_CREATEVIEW = new State(
+            "ENTRANCE_ON_PREPARED_ON_CREATEVIEW") {
         @Override
         public void run() {
             onEntranceTransitionPrepare();
@@ -65,15 +68,9 @@ class BaseSupportFragment extends BrandedSupportFragment {
     };
 
     /**
-     * Condition: {@link #isReadyForStartEntranceTransition()} is true
-     * Action: {@link #onExecuteEntranceTransition()} }
+     * execute the entrance transition.
      */
-    private final State STATE_START = new State() {
-        @Override
-        public boolean canRun() {
-            return isReadyForStartEntranceTransition();
-        }
-
+    final State STATE_ENTRANCE_PERFORM = new State("STATE_ENTRANCE_PERFORM") {
         @Override
         public void run() {
             mProgressBarManager.hide();
@@ -81,26 +78,110 @@ class BaseSupportFragment extends BrandedSupportFragment {
         }
     };
 
-    final StateMachine mEnterTransitionStates;
+    /**
+     * execute onEntranceTransitionEnd.
+     */
+    final State STATE_ENTRANCE_ON_ENDED = new State("ENTRANCE_ON_ENDED") {
+        @Override
+        public void run() {
+            onEntranceTransitionEnd();
+        }
+    };
+
+    /**
+     * either entrance transition completed or skipped
+     */
+    final State STATE_ENTRANCE_COMPLETE = new State("ENTRANCE_COMPLETE", true, false);
+
+    /**
+     * Event fragment.onCreate()
+     */
+    final Event EVT_ON_CREATE = new Event("onCreate");
+
+    /**
+     * Event fragment.onViewCreated()
+     */
+    final Event EVT_ON_CREATEVIEW = new Event("onCreateView");
+
+    /**
+     * Event for {@link #prepareEntranceTransition()} is called.
+     */
+    final Event EVT_PREPARE_ENTRANCE = new Event("prepareEntranceTransition");
+
+    /**
+     * Event for {@link #startEntranceTransition()} is called.
+     */
+    final Event EVT_START_ENTRANCE = new Event("startEntranceTransition");
+
+    /**
+     * Event for entrance transition is ended through Transition listener.
+     */
+    final Event EVT_ENTRANCE_END = new Event("onEntranceTransitionEnd");
+
+    /**
+     * Event for skipping entrance transition if not supported.
+     */
+    final Condition COND_TRANSITION_NOT_SUPPORTED = new Condition("EntranceTransitionNotSupport") {
+        @Override
+        public boolean canProceed() {
+            return !TransitionHelper.systemSupportsEntranceTransitions();
+        }
+    };
+
+    final StateMachine mStateMachine = new StateMachine();
 
     Object mEntranceTransition;
     final ProgressBarManager mProgressBarManager = new ProgressBarManager();
 
+    @SuppressLint("ValidFragment")
     BaseSupportFragment() {
-        mEnterTransitionStates = new StateMachine();
-        mEnterTransitionStates.addState(STATE_ALLOWED);
-        mEnterTransitionStates.addState(STATE_PREPARE);
-        mEnterTransitionStates.addState(STATE_START);
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        performPendingStates();
+    public void onCreate(Bundle savedInstanceState) {
+        createStateMachineStates();
+        createStateMachineTransitions();
+        mStateMachine.start();
+        super.onCreate(savedInstanceState);
+        mStateMachine.fireEvent(EVT_ON_CREATE);
     }
 
-    final void performPendingStates() {
-        mEnterTransitionStates.runPendingStates();
+    void createStateMachineStates() {
+        mStateMachine.addState(STATE_START);
+        mStateMachine.addState(STATE_ENTRANCE_INIT);
+        mStateMachine.addState(STATE_ENTRANCE_ON_PREPARED);
+        mStateMachine.addState(STATE_ENTRANCE_ON_PREPARED_ON_CREATEVIEW);
+        mStateMachine.addState(STATE_ENTRANCE_PERFORM);
+        mStateMachine.addState(STATE_ENTRANCE_ON_ENDED);
+        mStateMachine.addState(STATE_ENTRANCE_COMPLETE);
+    }
+
+    void createStateMachineTransitions() {
+        mStateMachine.addTransition(STATE_START, STATE_ENTRANCE_INIT, EVT_ON_CREATE);
+        mStateMachine.addTransition(STATE_ENTRANCE_INIT, STATE_ENTRANCE_COMPLETE,
+                COND_TRANSITION_NOT_SUPPORTED);
+        mStateMachine.addTransition(STATE_ENTRANCE_INIT, STATE_ENTRANCE_COMPLETE,
+                EVT_ON_CREATEVIEW);
+        mStateMachine.addTransition(STATE_ENTRANCE_INIT, STATE_ENTRANCE_ON_PREPARED,
+                EVT_PREPARE_ENTRANCE);
+        mStateMachine.addTransition(STATE_ENTRANCE_ON_PREPARED,
+                STATE_ENTRANCE_ON_PREPARED_ON_CREATEVIEW,
+                EVT_ON_CREATEVIEW);
+        mStateMachine.addTransition(STATE_ENTRANCE_ON_PREPARED,
+                STATE_ENTRANCE_PERFORM,
+                EVT_START_ENTRANCE);
+        mStateMachine.addTransition(STATE_ENTRANCE_ON_PREPARED_ON_CREATEVIEW,
+                STATE_ENTRANCE_PERFORM);
+        mStateMachine.addTransition(STATE_ENTRANCE_PERFORM,
+                STATE_ENTRANCE_ON_ENDED,
+                EVT_ENTRANCE_END);
+        mStateMachine.addTransition(STATE_ENTRANCE_ON_ENDED, STATE_ENTRANCE_COMPLETE);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mStateMachine.fireEvent(EVT_ON_CREATEVIEW);
     }
 
     /**
@@ -130,18 +211,7 @@ class BaseSupportFragment extends BrandedSupportFragment {
      * override the default transition that browse and details provides.
      */
     public void prepareEntranceTransition() {
-        mEnterTransitionStates.runState(STATE_ALLOWED);
-        mEnterTransitionStates.runState(STATE_PREPARE);
-    }
-
-    /**
-     * Return true if entrance transition is enabled and not started yet.
-     * Entrance transition can only be executed once and isEntranceTransitionEnabled()
-     * is reset to false after entrance transition is started.
-     */
-    boolean isEntranceTransitionEnabled() {
-        // Enabled when passed STATE_ALLOWED in prepareEntranceTransition call.
-        return STATE_ALLOWED.getStatus() == STATUS_EXECUTED;
+        mStateMachine.fireEvent(EVT_PREPARE_ENTRANCE);
     }
 
     /**
@@ -182,26 +252,6 @@ class BaseSupportFragment extends BrandedSupportFragment {
     }
 
     /**
-     * Returns true if it is ready to perform {@link #prepareEntranceTransition()}, false otherwise.
-     * Subclass may override and add additional conditions.
-     * @return True if it is ready to perform {@link #prepareEntranceTransition()}, false otherwise.
-     * Subclass may override and add additional conditions.
-     */
-    boolean isReadyForPrepareEntranceTransition() {
-        return getView() != null;
-    }
-
-    /**
-     * Returns true if it is ready to perform {@link #startEntranceTransition()}, false otherwise.
-     * Subclass may override and add additional conditions.
-     * @return True if it is ready to perform {@link #startEntranceTransition()}, false otherwise.
-     * Subclass may override and add additional conditions.
-     */
-    boolean isReadyForStartEntranceTransition() {
-        return getView() != null;
-    }
-
-    /**
      * When fragment finishes loading data, it should call startEntranceTransition()
      * to execute the entrance transition.
      * startEntranceTransition() will start transition only if both two conditions
@@ -213,21 +263,30 @@ class BaseSupportFragment extends BrandedSupportFragment {
      * and executed when view is created.
      */
     public void startEntranceTransition() {
-        mEnterTransitionStates.runState(STATE_START);
+        mStateMachine.fireEvent(EVT_START_ENTRANCE);
     }
 
     void onExecuteEntranceTransition() {
         // wait till views get their initial position before start transition
         final View view = getView();
-        view.getViewTreeObserver().addOnPreDrawListener(
-                new ViewTreeObserver.OnPreDrawListener() {
+        if (view == null) {
+            // fragment view destroyed, transition not needed
+            return;
+        }
+        view.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
                 view.getViewTreeObserver().removeOnPreDrawListener(this);
+                if (getContext() == null || getView() == null) {
+                    // bail out if fragment is destroyed immediately after startEntranceTransition
+                    return true;
+                }
                 internalCreateEntranceTransition();
+                onEntranceTransitionStart();
                 if (mEntranceTransition != null) {
-                    onEntranceTransitionStart();
                     runEntranceTransition(mEntranceTransition);
+                } else {
+                    mStateMachine.fireEvent(EVT_ENTRANCE_END);
                 }
                 return false;
             }
@@ -244,14 +303,14 @@ class BaseSupportFragment extends BrandedSupportFragment {
             @Override
             public void onTransitionEnd(Object transition) {
                 mEntranceTransition = null;
-                onEntranceTransitionEnd();
-                mEnterTransitionStates.resetStatus();
+                mStateMachine.fireEvent(EVT_ENTRANCE_END);
             }
         });
     }
 
     /**
      * Returns the {@link ProgressBarManager}.
+     * @return The {@link ProgressBarManager}.
      */
     public final ProgressBarManager getProgressBarManager() {
         return mProgressBarManager;

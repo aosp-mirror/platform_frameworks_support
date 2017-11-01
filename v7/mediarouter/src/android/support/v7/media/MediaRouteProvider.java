@@ -16,6 +16,8 @@
 
 package android.support.v7.media;
 
+import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -24,9 +26,8 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
+import android.support.v4.util.ObjectsCompat;
 import android.support.v7.media.MediaRouter.ControlRequestCallback;
-
-import static android.support.annotation.RestrictTo.Scope.GROUP_ID;
 
 /**
  * Media route providers are used to publish additional media routes for
@@ -150,8 +151,7 @@ public abstract class MediaRouteProvider {
     public final void setDiscoveryRequest(MediaRouteDiscoveryRequest request) {
         MediaRouter.checkCallingThread();
 
-        if (mDiscoveryRequest == request
-                || (mDiscoveryRequest != null && mDiscoveryRequest.equals(request))) {
+        if (ObjectsCompat.equals(mDiscoveryRequest, request)) {
             return;
         }
 
@@ -274,7 +274,7 @@ public abstract class MediaRouteProvider {
      * cannot be controlled using the route controller interface.
      * @hide
      */
-    @RestrictTo(GROUP_ID)
+    @RestrictTo(LIBRARY_GROUP)
     @Nullable
     public RouteController onCreateRouteController(@NonNull String routeId,
             @NonNull String routeGroupId) {

@@ -13,18 +13,23 @@
  */
 package android.support.v17.leanback.widget;
 
-import android.support.v17.leanback.R;
-import android.support.v17.leanback.graphics.ColorOverlayDimmer;
-import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Interpolator;
-import android.animation.TimeAnimator;
-import android.content.res.Resources;
+import static android.support.v17.leanback.widget.FocusHighlight.ZOOM_FACTOR_LARGE;
+import static android.support.v17.leanback.widget.FocusHighlight.ZOOM_FACTOR_MEDIUM;
 import static android.support.v17.leanback.widget.FocusHighlight.ZOOM_FACTOR_NONE;
 import static android.support.v17.leanback.widget.FocusHighlight.ZOOM_FACTOR_SMALL;
 import static android.support.v17.leanback.widget.FocusHighlight.ZOOM_FACTOR_XSMALL;
-import static android.support.v17.leanback.widget.FocusHighlight.ZOOM_FACTOR_MEDIUM;
-import static android.support.v17.leanback.widget.FocusHighlight.ZOOM_FACTOR_LARGE;
+
+import android.animation.TimeAnimator;
+import android.content.res.Resources;
+import android.support.v17.leanback.R;
+import android.support.v17.leanback.app.HeadersFragment;
+import android.support.v17.leanback.graphics.ColorOverlayDimmer;
+import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
+import android.view.View;
+import android.view.ViewParent;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Interpolator;
 
 /**
  * Sets up the highlighting behavior when an item gains focus.
@@ -180,7 +185,9 @@ public class FocusHighlightHelper {
     }
 
     /**
-     * Sets up the focus highlight behavior of a focused item in browse list row.
+     * Sets up the focus highlight behavior of a focused item in browse list row. App usually does
+     * not call this method, it uses {@link ListRowPresenter#ListRowPresenter(int, boolean)}.
+     *
      * @param zoomIndex One of {@link FocusHighlight#ZOOM_FACTOR_SMALL}
      * {@link FocusHighlight#ZOOM_FACTOR_XSMALL}
      * {@link FocusHighlight#ZOOM_FACTOR_MEDIUM}
@@ -195,43 +202,107 @@ public class FocusHighlightHelper {
     }
 
     /**
-     * Sets up the focus highlight behavior of a focused item in header list.
-     * @param gridView  the header list.
+     * Sets up default focus highlight behavior of a focused item in header list. It would scale
+     * the focused item and update
+     * {@link RowHeaderPresenter#onSelectLevelChanged(RowHeaderPresenter.ViewHolder)}.
+     * Equivalent to call setupHeaderItemFocusHighlight(gridView, true).
+     *
+     * @param gridView  The header list.
+     * @deprecated Use {@link #setupHeaderItemFocusHighlight(ItemBridgeAdapter)}
      */
+    @Deprecated
     public static void setupHeaderItemFocusHighlight(VerticalGridView gridView) {
-        if (gridView.getAdapter() instanceof ItemBridgeAdapter) {
+        setupHeaderItemFocusHighlight(gridView, true);
+    }
+
+    /**
+     * Sets up the focus highlight behavior of a focused item in header list.
+     *
+     * @param gridView  The header list.
+     * @param scaleEnabled True if scale the item when focused, false otherwise. Note that
+     * {@link RowHeaderPresenter#onSelectLevelChanged(RowHeaderPresenter.ViewHolder)}
+     * will always be called regardless value of scaleEnabled.
+     * @deprecated Use {@link #setupHeaderItemFocusHighlight(ItemBridgeAdapter, boolean)}
+     */
+    @Deprecated
+    public static void setupHeaderItemFocusHighlight(VerticalGridView gridView,
+                                                     boolean scaleEnabled) {
+        if (gridView != null && gridView.getAdapter() instanceof ItemBridgeAdapter) {
             ((ItemBridgeAdapter) gridView.getAdapter())
-                    .setFocusHighlight(new HeaderItemFocusHighlight(gridView));
+                    .setFocusHighlight(new HeaderItemFocusHighlight(scaleEnabled));
         }
     }
 
-    static class HeaderItemFocusHighlight implements FocusHighlightHandler {
-        private static boolean sInitialized;
-        private static float sSelectScale;
-        private static int sDuration;
-        BaseGridView mGridView;
+    /**
+     * Sets up default focus highlight behavior of a focused item in header list. It would scale
+     * the focused item and update
+     * {@link RowHeaderPresenter#onSelectLevelChanged(RowHeaderPresenter.ViewHolder)}.
+     * Equivalent to call setupHeaderItemFocusHighlight(itemBridgeAdapter, true).
+     *
+     * @param adapter  The adapter of HeadersFragment.
+     * @see {@link HeadersFragment#getBridgeAdapter()}
+     */
+    public static void setupHeaderItemFocusHighlight(ItemBridgeAdapter adapter) {
+        setupHeaderItemFocusHighlight(adapter, true);
+    }
 
-        HeaderItemFocusHighlight(BaseGridView gridView) {
-            mGridView = gridView;
-            lazyInit(gridView.getContext().getResources());
+    /**
+     * Sets up the focus highlight behavior of a focused item in header list.
+     *
+     * @param adapter  The adapter of HeadersFragment.
+     * @param scaleEnabled True if scale the item when focused, false otherwise. Note that
+     * {@link RowHeaderPresenter#onSelectLevelChanged(RowHeaderPresenter.ViewHolder)}
+     * will always be called regardless value of scaleEnabled.
+     * @see {@link HeadersFragment#getBridgeAdapter()}
+     */
+    public static void setupHeaderItemFocusHighlight(ItemBridgeAdapter adapter,
+            boolean scaleEnabled) {
+        adapter.setFocusHighlight(new HeaderItemFocusHighlight(scaleEnabled));
+    }
+
+    static class HeaderItemFocusHighlight implements FocusHighlightHandler {
+        private boolean mInitialized;
+        private float mSelectScale;
+        private int mDuration;
+        boolean mScaleEnabled;
+
+        HeaderItemFocusHighlight(boolean scaleEnabled) {
+            mScaleEnabled = scaleEnabled;
         }
 
-        private static void lazyInit(Resources res) {
-            if (!sInitialized) {
-                sSelectScale =
-                        Float.parseFloat(res.getString(R.dimen.lb_browse_header_select_scale));
-                sDuration =
-                        Integer.parseInt(res.getString(R.dimen.lb_browse_header_select_duration));
-                sInitialized = true;
+        void lazyInit(View view) {
+            if (!mInitialized) {
+                Resources res = view.getResources();
+                TypedValue value = new TypedValue();
+                if (mScaleEnabled) {
+                    res.getValue(R.dimen.lb_browse_header_select_scale, value, true);
+                    mSelectScale = value.getFloat();
+                } else {
+                    mSelectScale = 1f;
+                }
+                res.getValue(R.dimen.lb_browse_header_select_duration, value, true);
+                mDuration = value.data;
+                mInitialized = true;
             }
         }
 
-        class HeaderFocusAnimator extends FocusAnimator {
+        static class HeaderFocusAnimator extends FocusAnimator {
 
             ItemBridgeAdapter.ViewHolder mViewHolder;
             HeaderFocusAnimator(View view, float scale, int duration) {
                 super(view, scale, false, duration);
-                mViewHolder = (ItemBridgeAdapter.ViewHolder) mGridView.getChildViewHolder(view);
+
+                ViewParent parent = view.getParent();
+                while (parent != null) {
+                    if (parent instanceof RecyclerView) {
+                        break;
+                    }
+                    parent = parent.getParent();
+                }
+                if (parent != null) {
+                    mViewHolder = (ItemBridgeAdapter.ViewHolder) ((RecyclerView) parent)
+                            .getChildViewHolder(view);
+                }
             }
 
             @Override
@@ -247,10 +318,11 @@ public class FocusHighlightHelper {
         }
 
         private void viewFocused(View view, boolean hasFocus) {
+            lazyInit(view);
             view.setSelected(hasFocus);
             FocusAnimator animator = (FocusAnimator) view.getTag(R.id.lb_focus_animator);
             if (animator == null) {
-                animator = new HeaderFocusAnimator(view, sSelectScale, sDuration);
+                animator = new HeaderFocusAnimator(view, mSelectScale, mDuration);
                 view.setTag(R.id.lb_focus_animator, animator);
             }
             animator.animateFocus(hasFocus, false);

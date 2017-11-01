@@ -54,7 +54,7 @@ import android.view.ViewGroup;
  * </ul>
  *
  * <h3>Activated status</h3>
- * The activated status of a row is applied to the row view and it's children via
+ * The activated status of a row is applied to the row view and its children via
  * {@link View#setActivated(boolean)}.
  * The activated status is typically used to control {@link BaseCardView} info region visibility.
  * The row's activated status can be controlled by selected status and/or expanded status.
@@ -290,6 +290,21 @@ public abstract class RowPresenter extends Presenter {
         public final BaseOnItemViewClickedListener getOnItemViewClickedListener() {
             return mOnItemViewClickedListener;
         }
+        /**
+         * Return {@link ViewHolder} of currently selected item inside a row ViewHolder.
+         * @return The selected item's ViewHolder.
+         */
+        public Presenter.ViewHolder getSelectedItemViewHolder() {
+            return null;
+        }
+
+        /**
+         * Return currently selected item inside a row ViewHolder.
+         * @return The selected item.
+         */
+        public Object getSelectedItem() {
+            return null;
+        }
     }
 
     private RowHeaderPresenter mHeaderPresenter = new RowHeaderPresenter();
@@ -337,7 +352,7 @@ public abstract class RowPresenter extends Presenter {
     protected abstract ViewHolder createRowViewHolder(ViewGroup parent);
 
     /**
-     * Returns true if the Row view should clip it's children.  The clipChildren
+     * Returns true if the Row view should clip its children.  The clipChildren
      * flag is set on view in {@link #initializeRowViewHolder(ViewHolder)}.  Note that
      * Slide transition or explode transition need turn off clipChildren.
      * Default value is false.
@@ -663,10 +678,10 @@ public abstract class RowPresenter extends Presenter {
      *                       should be set to visible, false otherwise.
      */
     public void setEntranceTransitionState(ViewHolder holder, boolean afterEntrance) {
-        if (holder.mHeaderViewHolder != null &&
-                holder.mHeaderViewHolder.view.getVisibility() != View.GONE) {
-            holder.mHeaderViewHolder.view.setVisibility(afterEntrance ?
-                    View.VISIBLE : View.INVISIBLE);
+        if (holder.mHeaderViewHolder != null
+                && holder.mHeaderViewHolder.view.getVisibility() != View.GONE) {
+            holder.mHeaderViewHolder.view.setVisibility(afterEntrance
+                    ? View.VISIBLE : View.INVISIBLE);
         }
     }
 }

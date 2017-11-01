@@ -20,9 +20,11 @@ import android.graphics.Bitmap;
 import android.media.MediaMetadata;
 import android.media.Rating;
 import android.os.Parcel;
+import android.support.annotation.RequiresApi;
 
 import java.util.Set;
 
+@RequiresApi(21)
 class MediaMetadataCompatApi21 {
     public static Set<String> keySet(Object metadataObj) {
         return ((MediaMetadata)metadataObj).keySet();

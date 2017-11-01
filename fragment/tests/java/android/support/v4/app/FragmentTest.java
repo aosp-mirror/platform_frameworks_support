@@ -15,38 +15,52 @@
  */
 package android.support.v4.app;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import android.app.Instrumentation;
 import android.os.Bundle;
 import android.support.fragment.test.R;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.annotation.UiThreadTest;
+import android.support.test.filters.LargeTest;
+import android.support.test.filters.MediumTest;
+import android.support.test.filters.SmallTest;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.app.test.FragmentTestActivity;
-import android.test.ActivityInstrumentationTestCase2;
-import android.test.UiThreadTest;
-import android.test.suitebuilder.annotation.MediumTest;
-import android.test.suitebuilder.annotation.SmallTest;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Miscellaneous tests for fragments that aren't big enough to belong to their own classes.
  */
-public class FragmentTest extends
-        ActivityInstrumentationTestCase2<FragmentTestActivity> {
+@RunWith(AndroidJUnit4.class)
+public class FragmentTest {
+    @Rule
+    public ActivityTestRule<FragmentTestActivity> mActivityRule =
+            new ActivityTestRule<FragmentTestActivity>(FragmentTestActivity.class);
+
     private FragmentTestActivity mActivity;
+    private Instrumentation mInstrumentation;
 
-    public FragmentTest() {
-        super(FragmentTestActivity.class);
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        mActivity = getActivity();
+    @Before
+    public void setup() {
+        mActivity = mActivityRule.getActivity();
+        mInstrumentation = InstrumentationRegistry.getInstrumentation();
     }
 
     @SmallTest
     @UiThreadTest
+    @Test
     public void testOnCreateOrder() throws Throwable {
         OrderFragment fragment1 = new OrderFragment();
         OrderFragment fragment2 = new OrderFragment();
@@ -59,11 +73,12 @@ public class FragmentTest extends
         assertEquals(1, fragment2.createOrder);
     }
 
-    @SmallTest
+    @LargeTest
+    @Test
     public void testChildFragmentManagerGone() throws Throwable {
         final FragmentA fragmentA = new FragmentA();
         final FragmentB fragmentB = new FragmentB();
-        runTestOnUiThread(new Runnable() {
+        mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mActivity.getSupportFragmentManager().beginTransaction()
@@ -71,8 +86,8 @@ public class FragmentTest extends
                         .commitNow();
             }
         });
-        getInstrumentation().waitForIdleSync();
-        runTestOnUiThread(new Runnable() {
+        mInstrumentation.waitForIdleSync();
+        mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mActivity.getSupportFragmentManager().beginTransaction()
@@ -85,7 +100,7 @@ public class FragmentTest extends
         });
         // Wait for the middle of the animation
         Thread.sleep(150);
-        runTestOnUiThread(new Runnable() {
+        mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mActivity.getSupportFragmentManager().beginTransaction()
@@ -98,8 +113,8 @@ public class FragmentTest extends
         });
         // Wait for the middle of the animation
         Thread.sleep(150);
-        getInstrumentation().waitForIdleSync();
-        runTestOnUiThread(new Runnable() {
+        mInstrumentation.waitForIdleSync();
+        mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mActivity.getSupportFragmentManager().popBackStack();
@@ -107,8 +122,8 @@ public class FragmentTest extends
         });
         // Wait for the middle of the animation
         Thread.sleep(150);
-        getInstrumentation().waitForIdleSync();
-        runTestOnUiThread(new Runnable() {
+        mInstrumentation.waitForIdleSync();
+        mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mActivity.getSupportFragmentManager().popBackStack();
@@ -118,6 +133,7 @@ public class FragmentTest extends
 
     @MediumTest
     @UiThreadTest
+    @Test
     public void testViewOrder() throws Throwable {
         FragmentA fragmentA = new FragmentA();
         FragmentB fragmentB = new FragmentB();

@@ -19,7 +19,6 @@ package android.support.v7.util;
 import android.app.Instrumentation;
 import android.os.SystemClock;
 import android.support.v7.widget.RecyclerView;
-import android.test.InstrumentationTestCase;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -140,13 +139,6 @@ public class TouchUtils {
 
         MotionEvent event = MotionEvent.obtain(downTime, eventTime,
                 MotionEvent.ACTION_DOWN, x, y, 0);
-        inst.sendPointerSync(event);
-        inst.waitForIdleSync();
-
-        eventTime = SystemClock.uptimeMillis();
-        final int touchSlop = ViewConfiguration.get(v.getContext()).getScaledTouchSlop();
-        event = MotionEvent.obtain(downTime, eventTime, MotionEvent.ACTION_MOVE,
-                x + touchSlop / 2, y + touchSlop / 2, 0);
         inst.sendPointerSync(event);
         inst.waitForIdleSync();
 

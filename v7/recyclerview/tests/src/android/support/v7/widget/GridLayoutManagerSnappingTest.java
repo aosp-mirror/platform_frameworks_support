@@ -16,9 +16,15 @@
 
 package android.support.v7.widget;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotSame;
+import static junit.framework.Assert.assertSame;
+import static junit.framework.Assert.assertTrue;
+
 import android.support.annotation.Nullable;
-import android.test.suitebuilder.annotation.MediumTest;
+import android.support.test.filters.LargeTest;
 import android.view.View;
+import android.widget.TextView;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,11 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotSame;
-import static junit.framework.Assert.assertSame;
-import static junit.framework.Assert.assertTrue;
-
+@LargeTest
 @RunWith(Parameterized.class)
 public class GridLayoutManagerSnappingTest extends BaseGridLayoutManagerTest {
 
@@ -44,7 +46,7 @@ public class GridLayoutManagerSnappingTest extends BaseGridLayoutManagerTest {
         mReverseScroll = reverseScroll;
     }
 
-    @Parameterized.Parameters(name = "config:{0}, reverseScroll:{1}")
+    @Parameterized.Parameters(name = "config:{0},reverseScroll:{1}")
     public static List<Object[]> getParams() {
         List<Object[]> result = new ArrayList<>();
         List<Config> configs = createBaseVariations();
@@ -56,7 +58,6 @@ public class GridLayoutManagerSnappingTest extends BaseGridLayoutManagerTest {
         return result;
     }
 
-    @MediumTest
     @Test
     public void snapOnScrollSameView() throws Throwable {
         final Config config = (Config) mConfig.clone();
@@ -102,7 +103,6 @@ public class GridLayoutManagerSnappingTest extends BaseGridLayoutManagerTest {
         assertCenterAligned(viewAfterScroll);
     }
 
-    @MediumTest
     @Test
     public void snapOnFlingSameView() throws Throwable {
         final Config config = (Config) mConfig.clone();
@@ -129,8 +129,6 @@ public class GridLayoutManagerSnappingTest extends BaseGridLayoutManagerTest {
         assertCenterAligned(viewAfterFling);
     }
 
-
-    @MediumTest
     @Test
     public void snapOnFlingNextView() throws Throwable {
         final Config config = (Config) mConfig.clone();
@@ -143,7 +141,7 @@ public class GridLayoutManagerSnappingTest extends BaseGridLayoutManagerTest {
         assertCenterAligned(view);
 
         // Velocity high enough to scroll beyond the current view.
-        int velocity = (int) (0.2 * mRecyclerView.getMaxFlingVelocity());
+        int velocity = (int) (0.25 * mRecyclerView.getMaxFlingVelocity());
         int velocityDir = mReverseScroll ? -velocity : velocity;
 
         mGlm.expectIdleState(1);
@@ -153,7 +151,8 @@ public class GridLayoutManagerSnappingTest extends BaseGridLayoutManagerTest {
 
         View viewAfterFling = findCenterView(mGlm);
 
-        assertNotSame("The view should have scrolled", view, viewAfterFling);
+        assertNotSame("The view should have scrolled!",
+                ((TextView) view).getText(),((TextView) viewAfterFling).getText());
         assertCenterAligned(viewAfterFling);
     }
 
@@ -203,12 +202,12 @@ public class GridLayoutManagerSnappingTest extends BaseGridLayoutManagerTest {
             assertEquals("The child should align with the center of the parent",
                     mRecyclerView.getWidth() / 2,
                     mGlm.getDecoratedLeft(view) +
-                            mGlm.getDecoratedMeasuredWidth(view) / 2);
+                            mGlm.getDecoratedMeasuredWidth(view) / 2, 1);
         } else {
             assertEquals("The child should align with the center of the parent",
                     mRecyclerView.getHeight() / 2,
                     mGlm.getDecoratedTop(view) +
-                            mGlm.getDecoratedMeasuredHeight(view) / 2);
+                            mGlm.getDecoratedMeasuredHeight(view) / 2, 1);
         }
     }
 
@@ -223,7 +222,7 @@ public class GridLayoutManagerSnappingTest extends BaseGridLayoutManagerTest {
     private boolean fling(final int velocityX, final int velocityY)
             throws Throwable {
         final AtomicBoolean didStart = new AtomicBoolean(false);
-        runTestOnUiThread(new Runnable() {
+        mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 boolean result = mRecyclerView.fling(velocityX, velocityY);

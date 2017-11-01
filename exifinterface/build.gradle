@@ -1,0 +1,20 @@
+apply plugin: android.support.SupportAndroidLibraryPlugin
+
+dependencies {
+    api project(':support-annotations')
+
+    androidTestImplementation libs.test_runner,   { exclude module: 'support-annotations' }
+}
+
+android {
+    defaultConfig {
+        minSdkVersion 14
+    }
+}
+
+supportLibrary {
+    name 'Android Support ExifInterface'
+    publish true
+    inceptionYear '2016'
+    description 'Android Support ExifInterface'
+}

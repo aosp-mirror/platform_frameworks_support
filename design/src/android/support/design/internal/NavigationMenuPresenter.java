@@ -16,6 +16,8 @@
 
 package android.support.design.internal;
 
+import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -47,16 +49,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import static android.support.annotation.RestrictTo.Scope.GROUP_ID;
-
 /**
  * @hide
  */
-@RestrictTo(GROUP_ID)
+@RestrictTo(LIBRARY_GROUP)
 public class NavigationMenuPresenter implements MenuPresenter {
 
     private static final String STATE_HIERARCHY = "android:menu:list";
     private static final String STATE_ADAPTER = "android:menu:adapter";
+    private static final String STATE_HEADER = "android:menu:header";
 
     private NavigationMenuView mMenuView;
     LinearLayout mHeaderLayout;
@@ -173,6 +174,11 @@ public class NavigationMenuPresenter implements MenuPresenter {
             if (mAdapter != null) {
                 state.putBundle(STATE_ADAPTER, mAdapter.createInstanceState());
             }
+            if (mHeaderLayout != null) {
+                SparseArray<Parcelable> header = new SparseArray<>();
+                mHeaderLayout.saveHierarchyState(header);
+                state.putSparseParcelableArray(STATE_HEADER, header);
+            }
             return state;
         }
         return null;
@@ -189,6 +195,10 @@ public class NavigationMenuPresenter implements MenuPresenter {
             Bundle adapterState = state.getBundle(STATE_ADAPTER);
             if (adapterState != null) {
                 mAdapter.restoreInstanceState(adapterState);
+            }
+            SparseArray<Parcelable> header = state.getSparseParcelableArray(STATE_HEADER);
+            if (header != null) {
+                mHeaderLayout.restoreHierarchyState(header);
             }
         }
     }
@@ -550,7 +560,8 @@ public class NavigationMenuPresenter implements MenuPresenter {
             }
             // Store the states of the action views.
             SparseArray<ParcelableSparseArray> actionViewStates = new SparseArray<>();
-            for (NavigationMenuItem navigationMenuItem : mItems) {
+            for (int i = 0, size = mItems.size(); i < size; i++) {
+                NavigationMenuItem navigationMenuItem = mItems.get(i);
                 if (navigationMenuItem instanceof NavigationMenuTextItem) {
                     MenuItemImpl item = ((NavigationMenuTextItem) navigationMenuItem).getMenuItem();
                     View actionView = item != null ? item.getActionView() : null;
@@ -569,7 +580,8 @@ public class NavigationMenuPresenter implements MenuPresenter {
             int checkedItem = state.getInt(STATE_CHECKED_ITEM, 0);
             if (checkedItem != 0) {
                 mUpdateSuspended = true;
-                for (NavigationMenuItem item : mItems) {
+                for (int i = 0, size = mItems.size(); i < size; i++) {
+                    NavigationMenuItem item = mItems.get(i);
                     if (item instanceof NavigationMenuTextItem) {
                         MenuItemImpl menuItem = ((NavigationMenuTextItem) item).getMenuItem();
                         if (menuItem != null && menuItem.getItemId() == checkedItem) {
@@ -584,13 +596,25 @@ public class NavigationMenuPresenter implements MenuPresenter {
             // Restore the states of the action views.
             SparseArray<ParcelableSparseArray> actionViewStates = state
                     .getSparseParcelableArray(STATE_ACTION_VIEWS);
-            for (NavigationMenuItem navigationMenuItem : mItems) {
-                if (navigationMenuItem instanceof NavigationMenuTextItem) {
-                    MenuItemImpl item = ((NavigationMenuTextItem) navigationMenuItem).getMenuItem();
-                    View actionView = item != null ? item.getActionView() : null;
-                    if (actionView != null) {
-                        actionView.restoreHierarchyState(actionViewStates.get(item.getItemId()));
+            if (actionViewStates != null) {
+                for (int i = 0, size = mItems.size(); i < size; i++) {
+                    NavigationMenuItem navigationMenuItem = mItems.get(i);
+                    if (!(navigationMenuItem instanceof NavigationMenuTextItem)) {
+                        continue;
                     }
+                    MenuItemImpl item = ((NavigationMenuTextItem) navigationMenuItem).getMenuItem();
+                    if (item == null) {
+                        continue;
+                    }
+                    View actionView = item.getActionView();
+                    if (actionView == null) {
+                        continue;
+                    }
+                    ParcelableSparseArray container = actionViewStates.get(item.getItemId());
+                    if (container == null) {
+                        continue;
+                    }
+                    actionView.restoreHierarchyState(container);
                 }
             }
         }

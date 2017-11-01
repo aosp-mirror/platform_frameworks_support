@@ -17,8 +17,6 @@ import android.support.v4.util.CircularArray;
 import android.support.v4.util.CircularIntArray;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A dynamic data structure that caches staggered grid position information
@@ -69,8 +67,6 @@ abstract class StaggeredGrid extends Grid {
     //    <= mFirstIndex + mLocations.size() - 1
     protected int mFirstIndex = -1;
 
-    private Object[] mTmpItem = new Object[1];
-
     protected Object mPendingItem;
     protected int mPendingItemSize;
 
@@ -99,10 +95,11 @@ abstract class StaggeredGrid extends Grid {
 
     @Override
     public final Location getLocation(int index) {
-        if (mLocations.size() == 0) {
+        final int indexInArray = index - mFirstIndex;
+        if (indexInArray < 0 || indexInArray >= mLocations.size()) {
             return null;
         }
-        return mLocations.get(index - mFirstIndex);
+        return mLocations.get(indexInArray);
     }
 
     @Override
@@ -142,8 +139,6 @@ abstract class StaggeredGrid extends Grid {
         if (mLocations.size() == 0) {
             return false;
         }
-        final int count = mProvider.getCount();
-        final int firstIndex = getFirstIndex();
         int itemIndex;
         int edge;
         int offset;
@@ -166,10 +161,11 @@ abstract class StaggeredGrid extends Grid {
                 return false;
             }
         }
-        for (; itemIndex >= mFirstIndex; itemIndex--) {
+        int firstIndex = Math.max(mProvider.getMinIndex(), mFirstIndex);
+        for (; itemIndex >= firstIndex; itemIndex--) {
             Location loc = getLocation(itemIndex);
             int rowIndex = loc.row;
-            int size = mProvider.createItem(itemIndex, false, mTmpItem);
+            int size = mProvider.createItem(itemIndex, false, mTmpItem, false);
             if (size != loc.size) {
                 mLocations.removeFromStart(itemIndex + 1 - mFirstIndex);
                 mFirstIndex = mFirstVisibleIndex;
@@ -218,9 +214,9 @@ abstract class StaggeredGrid extends Grid {
         }
         // Assuming the cachedIndex is next to item on the same row, so the
         // sum of offset of [cachedIndex + 1, itemIndex] should be size of the
-        // cached item plus margin.
-        int offset = isReversedFlow() ?  -getLocation(cachedIndex).size - mMargin:
-                getLocation(cachedIndex).size + mMargin;
+        // cached item plus spacing.
+        int offset = isReversedFlow() ?  -getLocation(cachedIndex).size - mSpacing:
+                getLocation(cachedIndex).size + mSpacing;
         for (int i = cachedIndex + 1; i <= getLastIndex(); i++) {
             offset -= getLocation(i).offset;
         }
@@ -256,7 +252,7 @@ abstract class StaggeredGrid extends Grid {
             item = mPendingItem;
             mPendingItem = null;
         } else {
-            loc.size = mProvider.createItem(itemIndex, false, mTmpItem);
+            loc.size = mProvider.createItem(itemIndex, false, mTmpItem, false);
             item = mTmpItem[0];
         }
         mFirstIndex = mFirstVisibleIndex = itemIndex;
@@ -326,7 +322,7 @@ abstract class StaggeredGrid extends Grid {
                 edge = edge + loc.offset;
             }
             int rowIndex = loc.row;
-            int size = mProvider.createItem(itemIndex, true, mTmpItem);
+            int size = mProvider.createItem(itemIndex, true, mTmpItem, false);
             if (size != loc.size) {
                 loc.size = size;
                 mLocations.removeFromEnd(lastIndex - itemIndex);
@@ -390,7 +386,7 @@ abstract class StaggeredGrid extends Grid {
             item = mPendingItem;
             mPendingItem = null;
         } else {
-            loc.size = mProvider.createItem(itemIndex, true, mTmpItem);
+            loc.size = mProvider.createItem(itemIndex, true, mTmpItem, false);
             item = mTmpItem[0];
         }
         if (mLocations.size() == 1) {

@@ -15,27 +15,38 @@
  */
 package android.support.v7.app;
 
-import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.appcompat.test.R;
-import android.support.v7.custom.CustomDrawerLayout;
-import android.test.suitebuilder.annotation.SmallTest;
-import android.view.View;
-import org.junit.Before;
-import org.junit.Test;
-
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.v7.testutils.DrawerLayoutActions.closeDrawer;
 import static android.support.v7.testutils.DrawerLayoutActions.openDrawer;
 import static android.support.v7.testutils.DrawerLayoutActions.setDrawerLockMode;
 import static android.support.v7.testutils.TestUtilsActions.setLayoutDirection;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class DrawerLayoutDoubleTest
-        extends BaseInstrumentationTestCase<DrawerLayoutDoubleActivity> {
+import android.support.test.filters.LargeTest;
+import android.support.test.filters.SmallTest;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.appcompat.test.R;
+import android.support.v7.custom.CustomDrawerLayout;
+import android.view.View;
+
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+@RunWith(AndroidJUnit4.class)
+public class DrawerLayoutDoubleTest {
+    @Rule
+    public final ActivityTestRule<DrawerLayoutDoubleActivity> mActivityTestRule =
+            new ActivityTestRule<>(DrawerLayoutDoubleActivity.class);
+
     private CustomDrawerLayout mDrawerLayout;
 
     private View mStartDrawer;
@@ -43,10 +54,6 @@ public class DrawerLayoutDoubleTest
     private View mEndDrawer;
 
     private View mContentView;
-
-    public DrawerLayoutDoubleTest() {
-        super(DrawerLayoutDoubleActivity.class);
-    }
 
     @Before
     public void setUp() {
@@ -150,7 +157,7 @@ public class DrawerLayoutDoubleTest
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testDrawerOpenCloseLtr() {
         onView(withId(R.id.drawer_layout)).perform(
                 setLayoutDirection(ViewCompat.LAYOUT_DIRECTION_LTR));
@@ -159,7 +166,7 @@ public class DrawerLayoutDoubleTest
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testDrawerOpenCloseRtl() {
         onView(withId(R.id.drawer_layout)).perform(
                 setLayoutDirection(ViewCompat.LAYOUT_DIRECTION_RTL));
@@ -213,7 +220,7 @@ public class DrawerLayoutDoubleTest
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testDrawerLockUnlockLtr() {
         onView(withId(R.id.drawer_layout)).perform(
                 setLayoutDirection(ViewCompat.LAYOUT_DIRECTION_LTR));
@@ -222,7 +229,7 @@ public class DrawerLayoutDoubleTest
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testDrawerLockUnlockRtl() {
         onView(withId(R.id.drawer_layout)).perform(
                 setLayoutDirection(ViewCompat.LAYOUT_DIRECTION_RTL));

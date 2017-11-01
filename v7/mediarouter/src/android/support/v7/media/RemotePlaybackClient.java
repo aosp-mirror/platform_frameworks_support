@@ -22,9 +22,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.util.ObjectsCompat;
 import android.util.Log;
-
-import java.util.Iterator;
 
 /**
  * A helper class for playing media on remote routes using the remote playback protocol
@@ -204,8 +203,7 @@ public class RemotePlaybackClient {
      * @param sessionId The new session id, or null if none.
      */
     public void setSessionId(String sessionId) {
-        if (mSessionId != sessionId
-                && (mSessionId == null || !mSessionId.equals(sessionId))) {
+        if (!ObjectsCompat.equals(mSessionId, sessionId)) {
             if (DEBUG) {
                 Log.d(TAG, "Session id is now: " + sessionId);
             }

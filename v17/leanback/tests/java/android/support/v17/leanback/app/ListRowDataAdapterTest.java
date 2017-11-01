@@ -1,6 +1,28 @@
+/*
+ * Copyright (C) 2016 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package android.support.v17.leanback.app;
 
-import android.support.test.runner.AndroidJUnitRunner;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import android.support.test.filters.MediumTest;
+import android.support.test.filters.SmallTest;
+import android.support.test.runner.AndroidJUnit4;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.DividerRow;
 import android.support.v17.leanback.widget.HeaderItem;
@@ -8,12 +30,10 @@ import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ObjectAdapter;
 import android.support.v17.leanback.widget.PresenterSelector;
 import android.support.v17.leanback.widget.SectionRow;
-import android.test.suitebuilder.annotation.SmallTest;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -21,24 +41,10 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
-
-import android.support.test.runner.AndroidJUnit4;
-
 /**
  * Unit test for {@link ListRowDataAdapter} class.
  */
 @RunWith(AndroidJUnit4.class)
-@SmallTest
 public class ListRowDataAdapterTest {
     @Mock
     private PresenterSelector presenterSelector;
@@ -50,6 +56,7 @@ public class ListRowDataAdapterTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    @SmallTest
     @Test
     public void itemRangeChangedTest() {
         int itemCount = 4;
@@ -69,6 +76,7 @@ public class ListRowDataAdapterTest {
         assertEquals(5, listRowDataAdapter.size());
     }
 
+    @SmallTest
     @Test
     public void adapterSize_nonVisibleRowPresent() {
         int itemCount = 4;
@@ -90,6 +98,7 @@ public class ListRowDataAdapterTest {
         assertEquals(5, listRowDataAdapter.size());
     }
 
+    @SmallTest
     @Test
     public void adapterSize_visibleRowInserted() {
         int itemCount = 4;
@@ -113,6 +122,7 @@ public class ListRowDataAdapterTest {
         assertEquals(8, listRowDataAdapter.size());
     }
 
+    @SmallTest
     @Test
     public void adapterSize_nonVisibleRowInserted() {
         int itemCount = 4;
@@ -144,6 +154,7 @@ public class ListRowDataAdapterTest {
         assertEquals(9, listRowDataAdapter.size());
     }
 
+    @SmallTest
     @Test
     public void adapterSize_visibleRowRemoved() {
         int itemCount = 4;
@@ -165,6 +176,7 @@ public class ListRowDataAdapterTest {
         assertEquals(3, listRowDataAdapter.size());
     }
 
+    @MediumTest
     @Test
     public void adapterSize_nonVisibleRowRemoved() {
         int itemCount = 4;
@@ -190,6 +202,51 @@ public class ListRowDataAdapterTest {
         assertEquals(4, listRowDataAdapter.size());
     }
 
+    @SmallTest
+    @Test
+    public void adapterSize_rowsRemoveAll() {
+        ArrayObjectAdapter adapter = new ArrayObjectAdapter(presenterSelector);
+        adapter.add(new SectionRow("section 1"));
+        for (int i = 0; i < 4; i++) {
+            HeaderItem headerItem = new HeaderItem(i, "header "+i);
+            adapter.add(new ListRow(headerItem, createListRowAdapter()));
+        }
+
+        ListRowDataAdapter listRowDataAdapter = new ListRowDataAdapter(adapter);
+        assertEquals(5, listRowDataAdapter.size());
+
+        adapter.clear();
+        assertEquals(0, listRowDataAdapter.size());
+
+        HeaderItem headerItem = new HeaderItem(10, "header "+10);
+        adapter.add(new ListRow(headerItem, createListRowAdapter()));
+        assertEquals(1, listRowDataAdapter.size());
+    }
+
+    @SmallTest
+    @Test
+    public void changeRemove_revealInvisibleItems() {
+        ArrayObjectAdapter adapter = new ArrayObjectAdapter(presenterSelector);
+        for (int i = 0; i < 4; i++) {
+            HeaderItem headerItem = new HeaderItem(i, "header "+i);
+            adapter.add(new ListRow(headerItem, createListRowAdapter()));
+        }
+        adapter.add(new SectionRow("section"));
+        for (int i = 4; i < 8; i++) {
+            HeaderItem headerItem = new HeaderItem(i, "header "+i);
+            adapter.add(new ListRow(headerItem, createListRowAdapter()));
+        }
+
+        ListRowDataAdapter listRowDataAdapter = new ListRowDataAdapter(adapter);
+        assertEquals(9, listRowDataAdapter.size());
+
+        listRowDataAdapter.registerObserver(dataObserver);
+        adapter.removeItems(5, 4);
+        verify(dataObserver, times(1)).onItemRangeRemoved(4, 5);
+        assertEquals(4, listRowDataAdapter.size());
+    }
+
+    @SmallTest
     @Test
     public void adapterSize_rowsRemoved() {
         int itemCount = 4;
@@ -212,6 +269,7 @@ public class ListRowDataAdapterTest {
         assertEquals(3, listRowDataAdapter.size());
     }
 
+    @SmallTest
     @Test
     public void customObjectAdapterTest() {
         int itemCount = 4;

@@ -18,10 +18,11 @@ package android.support.v4.media.session;
 
 import android.media.session.PlaybackState;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 
-import java.util.ArrayList;
 import java.util.List;
 
+@RequiresApi(22)
 class PlaybackStateCompatApi22 {
     public static Bundle getExtras(Object stateObj) {
         return ((PlaybackState)stateObj).getExtras();

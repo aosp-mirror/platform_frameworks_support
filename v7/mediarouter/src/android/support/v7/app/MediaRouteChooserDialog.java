@@ -69,6 +69,7 @@ public class MediaRouteChooserDialog extends AppCompatDialog {
     private final MediaRouter mRouter;
     private final MediaRouterCallback mCallback;
 
+    private TextView mTitleView;
     private MediaRouteSelector mSelector = MediaRouteSelector.EMPTY;
     private ArrayList<MediaRouter.RouteInfo> mRoutes;
     private RouteAdapter mAdapter;
@@ -91,7 +92,10 @@ public class MediaRouteChooserDialog extends AppCompatDialog {
     }
 
     public MediaRouteChooserDialog(Context context, int theme) {
-        super(MediaRouterThemeHelper.createThemedContext(context, theme), theme);
+        // If we pass theme ID of 0 to AppCompatDialog, it will apply dialogTheme on the context,
+        // which may override our style settings. Passes our uppermost theme ID to prevent this.
+        super(MediaRouterThemeHelper.createThemedContext(context, theme),
+                theme == 0 ? MediaRouterThemeHelper.createThemeForDialog(context, theme) : theme);
         context = getContext();
 
         mRouter = MediaRouter.getInstance(context);
@@ -165,11 +169,20 @@ public class MediaRouteChooserDialog extends AppCompatDialog {
     }
 
     @Override
+    public void setTitle(CharSequence title) {
+        mTitleView.setText(title);
+    }
+
+    @Override
+    public void setTitle(int titleId) {
+        mTitleView.setText(titleId);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.mr_chooser_dialog);
-        setTitle(R.string.mr_chooser_title);
 
         mRoutes = new ArrayList<>();
         mAdapter = new RouteAdapter(getContext(), mRoutes);
@@ -177,6 +190,7 @@ public class MediaRouteChooserDialog extends AppCompatDialog {
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(mAdapter);
         mListView.setEmptyView(findViewById(android.R.id.empty));
+        mTitleView = findViewById(R.id.mr_chooser_title);
 
         updateLayout();
     }
@@ -367,12 +381,12 @@ public class MediaRouteChooserDialog extends AppCompatDialog {
         }
     }
 
-    private static final class RouteComparator implements Comparator<MediaRouter.RouteInfo> {
+    static final class RouteComparator implements Comparator<MediaRouter.RouteInfo> {
         public static final RouteComparator sInstance = new RouteComparator();
 
         @Override
         public int compare(MediaRouter.RouteInfo lhs, MediaRouter.RouteInfo rhs) {
-            return lhs.getName().compareTo(rhs.getName());
+            return lhs.getName().compareToIgnoreCase(rhs.getName());
         }
     }
 }

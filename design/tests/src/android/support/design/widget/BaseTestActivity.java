@@ -17,10 +17,11 @@
 package android.support.design.widget;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.LayoutRes;
+import android.support.design.testutils.RecreatedAppCompatActivity;
 import android.view.WindowManager;
 
-abstract class BaseTestActivity extends AppCompatActivity {
+abstract class BaseTestActivity extends RecreatedAppCompatActivity {
 
     private boolean mDestroyed;
 
@@ -44,6 +45,7 @@ abstract class BaseTestActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
     }
 
+    @LayoutRes
     protected abstract int getContentViewLayoutResId();
 
     protected void onContentViewSet() {}

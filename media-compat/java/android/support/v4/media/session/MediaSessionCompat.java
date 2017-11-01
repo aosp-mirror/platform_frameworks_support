@@ -1,4 +1,3 @@
-
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *
@@ -17,6 +16,8 @@
 
 package android.support.v4.media.session;
 
+import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -25,7 +26,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
+import android.media.MediaMetadataEditor;
+import android.media.MediaMetadataRetriever;
+import android.media.Rating;
+import android.media.RemoteControlClient;
 import android.net.Uri;
+import android.os.BadParcelableException;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,7 +45,9 @@ import android.os.RemoteException;
 import android.os.ResultReceiver;
 import android.os.SystemClock;
 import android.support.annotation.IntDef;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.RestrictTo;
+import android.support.v4.app.BundleCompat;
 import android.support.v4.media.MediaDescriptionCompat;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.RatingCompat;
@@ -48,13 +56,13 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
+import android.view.ViewConfiguration;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.support.annotation.RestrictTo.Scope.GROUP_ID;
 
 /**
  * Allows interaction with media controllers, volume keys, media buttons, and
@@ -81,6 +89,12 @@ import static android.support.annotation.RestrictTo.Scope.GROUP_ID;
  * This is a helper for accessing features in
  * {@link android.media.session.MediaSession} introduced after API level 4 in a
  * backwards compatible fashion.
+ *
+ * <div class="special reference">
+ * <h3>Developer Guides</h3>
+ * <p>For information about building your media application, read the
+ * <a href="{@docRoot}guide/topics/media-apps/index.html">Media Apps</a> developer guide.</p>
+ * </div>
  */
 public class MediaSessionCompat {
     static final String TAG = "MediaSessionCompat";
@@ -92,22 +106,116 @@ public class MediaSessionCompat {
     /**
      * @hide
      */
-    @RestrictTo(GROUP_ID)
-    @IntDef(flag=true, value={FLAG_HANDLES_MEDIA_BUTTONS, FLAG_HANDLES_TRANSPORT_CONTROLS})
+    @RestrictTo(LIBRARY_GROUP)
+    @IntDef(flag=true, value={
+            FLAG_HANDLES_MEDIA_BUTTONS,
+            FLAG_HANDLES_TRANSPORT_CONTROLS,
+            FLAG_HANDLES_QUEUE_COMMANDS })
     @Retention(RetentionPolicy.SOURCE)
     public @interface SessionFlags {}
 
     /**
-     * Set this flag on the session to indicate that it can handle media button
+     * Sets this flag on the session to indicate that it can handle media button
      * events.
      */
     public static final int FLAG_HANDLES_MEDIA_BUTTONS = 1 << 0;
 
     /**
-     * Set this flag on the session to indicate that it handles transport
+     * Sets this flag on the session to indicate that it handles transport
      * control commands through its {@link Callback}.
      */
     public static final int FLAG_HANDLES_TRANSPORT_CONTROLS = 1 << 1;
+
+    /**
+     * Sets this flag on the session to indicate that it handles queue
+     * management commands through its {@link Callback}.
+     */
+    public static final int FLAG_HANDLES_QUEUE_COMMANDS = 1 << 2;
+
+    /**
+     * Predefined custom action to flag the media that is currently playing as inappropriate.
+     *
+     * @see Callback#onCustomAction
+     */
+    public static final String ACTION_FLAG_AS_INAPPROPRIATE =
+            "android.support.v4.media.session.action.FLAG_AS_INAPPROPRIATE";
+
+    /**
+     * Predefined custom action to skip the advertisement that is currently playing.
+     *
+     * @see Callback#onCustomAction
+     */
+    public static final String ACTION_SKIP_AD = "android.support.v4.media.session.action.SKIP_AD";
+
+    /**
+     * Predefined custom action to follow an artist, album, or playlist. The extra bundle must have
+     * {@link #ARGUMENT_MEDIA_ATTRIBUTE} to indicate the type of the follow action. The
+     * bundle can also have an optional string argument,
+     * {@link #ARGUMENT_MEDIA_ATTRIBUTE_VALUE}, to specify the target to follow (e.g., the
+     * name of the artist to follow). If this argument is omitted, the currently playing media will
+     * be the target of the action. Thus, the session must perform the follow action with the
+     * current metadata. If there's no specified attribute in the current metadata, the controller
+     * must not omit this argument.
+     *
+     * @see #ARGUMENT_MEDIA_ATTRIBUTE
+     * @see #ARGUMENT_MEDIA_ATTRIBUTE_VALUE
+     * @see Callback#onCustomAction
+     */
+    public static final String ACTION_FOLLOW = "android.support.v4.media.session.action.FOLLOW";
+
+    /**
+     * Predefined custom action to unfollow an artist, album, or playlist. The extra bundle must
+     * have {@link #ARGUMENT_MEDIA_ATTRIBUTE} to indicate the type of the unfollow action.
+     * The bundle can also have an optional string argument,
+     * {@link #ARGUMENT_MEDIA_ATTRIBUTE_VALUE}, to specify the target to unfollow (e.g., the
+     * name of the artist to unfollow). If this argument is omitted, the currently playing media
+     * will be the target of the action. Thus, the session must perform the unfollow action with the
+     * current metadata. If there's no specified attribute in the current metadata, the controller
+     * must not omit this argument.
+     *
+     * @see #ARGUMENT_MEDIA_ATTRIBUTE
+     * @see #ARGUMENT_MEDIA_ATTRIBUTE_VALUE
+     * @see Callback#onCustomAction
+     */
+    public static final String ACTION_UNFOLLOW = "android.support.v4.media.session.action.UNFOLLOW";
+
+    /**
+     * Argument to indicate the media attribute. It should be one of the following:
+     * <ul>
+     * <li>{@link #MEDIA_ATTRIBUTE_ARTIST}</li>
+     * <li>{@link #MEDIA_ATTRIBUTE_PLAYLIST}</li>
+     * <li>{@link #MEDIA_ATTRIBUTE_ALBUM}</li>
+     * </ul>
+     */
+    public static final String ARGUMENT_MEDIA_ATTRIBUTE =
+            "android.support.v4.media.session.ARGUMENT_MEDIA_ATTRIBUTE";
+
+    /**
+     * String argument to indicate the value of the media attribute (e.g., the name of the artist).
+     */
+    public static final String ARGUMENT_MEDIA_ATTRIBUTE_VALUE =
+            "android.support.v4.media.session.ARGUMENT_MEDIA_ATTRIBUTE_VALUE";
+
+    /**
+     * The value of {@link #ARGUMENT_MEDIA_ATTRIBUTE} indicating the artist.
+     *
+     * @see #ARGUMENT_MEDIA_ATTRIBUTE
+     */
+    public static final int MEDIA_ATTRIBUTE_ARTIST = 0;
+
+    /**
+     * The value of {@link #ARGUMENT_MEDIA_ATTRIBUTE} indicating the album.
+     *
+     * @see #ARGUMENT_MEDIA_ATTRIBUTE
+     */
+    public static final int MEDIA_ATTRIBUTE_ALBUM = 1;
+
+    /**
+     * The value of {@link #ARGUMENT_MEDIA_ATTRIBUTE} indicating the playlist.
+     *
+     * @see #ARGUMENT_MEDIA_ATTRIBUTE
+     */
+    public static final int MEDIA_ATTRIBUTE_PLAYLIST = 2;
 
     /**
      * Custom action to invoke playFromUri() for the forward compatibility.
@@ -139,6 +247,30 @@ public class MediaSessionCompat {
             "android.support.v4.media.session.action.PREPARE_FROM_URI";
 
     /**
+     * Custom action to invoke setCaptioningEnabled() for the forward compatibility.
+     */
+    static final String ACTION_SET_CAPTIONING_ENABLED =
+            "android.support.v4.media.session.action.SET_CAPTIONING_ENABLED";
+
+    /**
+     * Custom action to invoke setRepeatMode() for the forward compatibility.
+     */
+    static final String ACTION_SET_REPEAT_MODE =
+            "android.support.v4.media.session.action.SET_REPEAT_MODE";
+
+    /**
+     * Custom action to invoke setShuffleMode() for the forward compatibility.
+     */
+    static final String ACTION_SET_SHUFFLE_MODE =
+            "android.support.v4.media.session.action.SET_SHUFFLE_MODE";
+
+    /**
+     * Custom action to invoke setRating() with extra fields.
+     */
+    static final String ACTION_SET_RATING =
+            "android.support.v4.media.session.action.SET_RATING";
+
+    /**
      * Argument for use with {@link #ACTION_PREPARE_FROM_MEDIA_ID} indicating media id to play.
      */
     static final String ACTION_ARGUMENT_MEDIA_ID =
@@ -158,10 +290,37 @@ public class MediaSessionCompat {
             "android.support.v4.media.session.action.ARGUMENT_URI";
 
     /**
+     * Argument for use with {@link #ACTION_SET_RATING} indicating the rate to be set.
+     */
+    static final String ACTION_ARGUMENT_RATING =
+            "android.support.v4.media.session.action.ARGUMENT_RATING";
+
+    /**
      * Argument for use with various actions indicating extra bundle.
      */
     static final String ACTION_ARGUMENT_EXTRAS =
             "android.support.v4.media.session.action.ARGUMENT_EXTRAS";
+
+    /**
+     * Argument for use with {@link #ACTION_SET_CAPTIONING_ENABLED} indicating whether captioning is
+     * enabled.
+     */
+    static final String ACTION_ARGUMENT_CAPTIONING_ENABLED =
+            "android.support.v4.media.session.action.ARGUMENT_CAPTIONING_ENABLED";
+
+    /**
+     * Argument for use with {@link #ACTION_SET_REPEAT_MODE} indicating repeat mode.
+     */
+    static final String ACTION_ARGUMENT_REPEAT_MODE =
+            "android.support.v4.media.session.action.ARGUMENT_REPEAT_MODE";
+
+    /**
+     * Argument for use with {@link #ACTION_SET_SHUFFLE_MODE} indicating shuffle mode.
+     */
+    static final String ACTION_ARGUMENT_SHUFFLE_MODE =
+            "android.support.v4.media.session.action.ARGUMENT_SHUFFLE_MODE";
+
+    static final String EXTRA_BINDER = "android.support.v4.media.session.EXTRA_BINDER";
 
     // Maximum size of the bitmap in dp.
     private static final int MAX_BITMAP_SIZE_IN_DP = 320;
@@ -192,14 +351,12 @@ public class MediaSessionCompat {
      * a pending intent). You must call {@link #release()} when finished with the session.
      * <p>
      * The session will automatically be registered with the system but will not be published
-     * until {@link #setActive(boolean) setActive(true)} is called. Note that {@code mbrComponent}
-     * and {@code mrbIntent} are only used for API 20 or earlier. If you  want to set a media button
-     * receiver in API 21 or later, call {@link #setMediaButtonReceiver}.
+     * until {@link #setActive(boolean) setActive(true)} is called.
      * </p><p>
-     * For API 20 or earlier, the new session will use the given {@code mbrComponent}.
-     * If null, this will attempt to find an appropriate {@link BroadcastReceiver} that handles
-     * {@link Intent#ACTION_MEDIA_BUTTON} from your manifest. See {@link MediaButtonReceiver} for
-     * more details.
+     * For API 20 or earlier, note that a media button receiver is required for handling
+     * {@link Intent#ACTION_MEDIA_BUTTON}. This constructor will attempt to find an appropriate
+     * {@link BroadcastReceiver} from your manifest if it's not specified. See
+     * {@link MediaButtonReceiver} for more details.
      * </p>
      * @param context The context to use to create the session.
      * @param tag A short name for debugging purposes.
@@ -219,8 +376,30 @@ public class MediaSessionCompat {
             throw new IllegalArgumentException("tag must not be null or empty");
         }
 
+        if (mbrComponent == null) {
+            mbrComponent = MediaButtonReceiver.getMediaButtonReceiverComponent(context);
+            if (mbrComponent == null) {
+                Log.w(TAG, "Couldn't find a unique registered media button receiver in the "
+                        + "given context.");
+            }
+        }
+        if (mbrComponent != null && mbrIntent == null) {
+            // construct a PendingIntent for the media button
+            Intent mediaButtonIntent = new Intent(Intent.ACTION_MEDIA_BUTTON);
+            // the associated intent will be handled by the component being registered
+            mediaButtonIntent.setComponent(mbrComponent);
+            mbrIntent = PendingIntent.getBroadcast(context,
+                    0/* requestCode, ignored */, mediaButtonIntent, 0/* flags */);
+        }
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             mImpl = new MediaSessionImplApi21(context, tag);
+            // Set default callback to respond to controllers' extra binder requests.
+            setCallback(new Callback() {});
+            mImpl.setMediaButtonReceiver(mbrIntent);
+        } else if (android.os.Build.VERSION.SDK_INT >= 19) {
+            mImpl = new MediaSessionImplApi19(context, tag, mbrComponent, mbrIntent);
+        } else if (android.os.Build.VERSION.SDK_INT >= 18) {
+            mImpl = new MediaSessionImplApi18(context, tag, mbrComponent, mbrIntent);
         } else {
             mImpl = new MediaSessionImplBase(context, tag, mbrComponent, mbrIntent);
         }
@@ -234,11 +413,16 @@ public class MediaSessionCompat {
 
     private MediaSessionCompat(Context context, MediaSessionImpl impl) {
         mImpl = impl;
+        if (android.os.Build.VERSION.SDK_INT >= 21
+                && !MediaSessionCompatApi21.hasCallback(impl.getMediaSession())) {
+            // Set default callback to respond to controllers' extra binder requests.
+            setCallback(new Callback() {});
+        }
         mController = new MediaControllerCompat(context, this);
     }
 
     /**
-     * Add a callback to receive updates on for the MediaSession. This includes
+     * Adds a callback to receive updates on for the MediaSession. This includes
      * media button and volume events. The caller's thread will be used to post
      * events.
      *
@@ -249,7 +433,7 @@ public class MediaSessionCompat {
     }
 
     /**
-     * Set the callback to receive updates for the MediaSession. This includes
+     * Sets the callback to receive updates for the MediaSession. This includes
      * media button and volume events. Set the callback to null to stop
      * receiving events.
      *
@@ -261,7 +445,7 @@ public class MediaSessionCompat {
     }
 
     /**
-     * Set an intent for launching UI for this Session. This can be used as a
+     * Sets an intent for launching UI for this Session. This can be used as a
      * quick link to an ongoing media screen. The intent should be for an
      * activity that may be started using
      * {@link Activity#startActivity(Intent)}.
@@ -273,7 +457,7 @@ public class MediaSessionCompat {
     }
 
     /**
-     * Set a pending intent for your media button receiver to allow restarting
+     * Sets a pending intent for your media button receiver to allow restarting
      * playback after the session has been stopped. If your app is started in
      * this way an {@link Intent#ACTION_MEDIA_BUTTON} intent will be sent via
      * the pending intent.
@@ -290,7 +474,7 @@ public class MediaSessionCompat {
     }
 
     /**
-     * Set any flags for the session.
+     * Sets any flags for the session.
      *
      * @param flags The flags to set for this session.
      */
@@ -299,7 +483,7 @@ public class MediaSessionCompat {
     }
 
     /**
-     * Set the stream this session is playing on. This will affect the system's
+     * Sets the stream this session is playing on. This will affect the system's
      * volume handling for this session. If {@link #setPlaybackToRemote} was
      * previously called it will stop receiving volume commands and the system
      * will begin sending volume changes to the appropriate stream.
@@ -313,7 +497,7 @@ public class MediaSessionCompat {
     }
 
     /**
-     * Configure this session to use remote volume handling. This must be called
+     * Configures this session to use remote volume handling. This must be called
      * to receive volume button events, otherwise the system will adjust the
      * current stream volume for this session. If {@link #setPlaybackToLocal}
      * was previously called that stream will stop receiving volume changes for
@@ -335,7 +519,7 @@ public class MediaSessionCompat {
     }
 
     /**
-     * Set if this session is currently active and ready to receive commands. If
+     * Sets if this session is currently active and ready to receive commands. If
      * set to false your session's controller may not be discoverable. You must
      * set the session to active before it can start receiving media button
      * events or transport commands.
@@ -355,7 +539,7 @@ public class MediaSessionCompat {
     }
 
     /**
-     * Get the current active state of this session.
+     * Gets the current active state of this session.
      *
      * @return True if the session is active, false otherwise.
      */
@@ -364,7 +548,7 @@ public class MediaSessionCompat {
     }
 
     /**
-     * Send a proprietary event to all MediaControllers listening to this
+     * Sends a proprietary event to all MediaControllers listening to this
      * Session. It's up to the Controller/Session owner to determine the meaning
      * of any events.
      *
@@ -388,7 +572,7 @@ public class MediaSessionCompat {
     }
 
     /**
-     * Retrieve a token object that can be used by apps to create a
+     * Retrieves a token object that can be used by apps to create a
      * {@link MediaControllerCompat} for interacting with this session. The
      * owner of the session is responsible for deciding how to distribute these
      * tokens.
@@ -406,7 +590,7 @@ public class MediaSessionCompat {
     }
 
     /**
-     * Get a controller for this session. This is a convenience method to avoid
+     * Gets a controller for this session. This is a convenience method to avoid
      * having to cache your own controller in process.
      *
      * @return A controller for this session.
@@ -416,7 +600,7 @@ public class MediaSessionCompat {
     }
 
     /**
-     * Update the current playback state.
+     * Updates the current playback state.
      *
      * @param state The current state of playback
      */
@@ -425,7 +609,7 @@ public class MediaSessionCompat {
     }
 
     /**
-     * Update the current metadata. New metadata can be created using
+     * Updates the current metadata. New metadata can be created using
      * {@link android.support.v4.media.MediaMetadataCompat.Builder}. This operation may take time
      * proportional to the size of the bitmap to replace large bitmaps with a scaled down copy.
      *
@@ -437,7 +621,7 @@ public class MediaSessionCompat {
     }
 
     /**
-     * Update the list of items in the play queue. It is an ordered list and
+     * Updates the list of items in the play queue. It is an ordered list and
      * should contain the current item, and previous or upcoming items if they
      * exist. Specify null if there is no current play queue.
      * <p>
@@ -452,7 +636,7 @@ public class MediaSessionCompat {
     }
 
     /**
-     * Set the title of the play queue. The UI should display this title along
+     * Sets the title of the play queue. The UI should display this title along
      * with the play queue itself. e.g. "Play Queue", "Now Playing", or an album
      * name.
      *
@@ -463,7 +647,7 @@ public class MediaSessionCompat {
     }
 
     /**
-     * Set the style of rating used by this session. Apps trying to set the
+     * Sets the style of rating used by this session. Apps trying to set the
      * rating should use this style. Must be one of the following:
      * <ul>
      * <li>{@link RatingCompat#RATING_NONE}</li>
@@ -480,7 +664,47 @@ public class MediaSessionCompat {
     }
 
     /**
-     * Set some extras that can be associated with the
+     * Enables/disables captioning for this session.
+     *
+     * @param enabled {@code true} to enable captioning, {@code false} to disable.
+     */
+    public void setCaptioningEnabled(boolean enabled) {
+        mImpl.setCaptioningEnabled(enabled);
+    }
+
+    /**
+     * Sets the repeat mode for this session.
+     * <p>
+     * Note that if this method is not called before, {@link MediaControllerCompat#getRepeatMode}
+     * will return {@link PlaybackStateCompat#REPEAT_MODE_NONE}.
+     *
+     * @param repeatMode The repeat mode. Must be one of the followings:
+     *            {@link PlaybackStateCompat#REPEAT_MODE_NONE},
+     *            {@link PlaybackStateCompat#REPEAT_MODE_ONE},
+     *            {@link PlaybackStateCompat#REPEAT_MODE_ALL},
+     *            {@link PlaybackStateCompat#REPEAT_MODE_GROUP}
+     */
+    public void setRepeatMode(@PlaybackStateCompat.RepeatMode int repeatMode) {
+        mImpl.setRepeatMode(repeatMode);
+    }
+
+    /**
+     * Sets the shuffle mode for this session.
+     * <p>
+     * Note that if this method is not called before, {@link MediaControllerCompat#getShuffleMode}
+     * will return {@link PlaybackStateCompat#SHUFFLE_MODE_NONE}.
+     *
+     * @param shuffleMode The shuffle mode. Must be one of the followings:
+     *                    {@link PlaybackStateCompat#SHUFFLE_MODE_NONE},
+     *                    {@link PlaybackStateCompat#SHUFFLE_MODE_ALL},
+     *                    {@link PlaybackStateCompat#SHUFFLE_MODE_GROUP}
+     */
+    public void setShuffleMode(@PlaybackStateCompat.ShuffleMode int shuffleMode) {
+        mImpl.setShuffleMode(shuffleMode);
+    }
+
+    /**
+     * Sets some extras that can be associated with the
      * {@link MediaSessionCompat}. No assumptions should be made as to how a
      * {@link MediaControllerCompat} will handle these extras. Keys should be
      * fully qualified (e.g. com.example.MY_EXTRA) to avoid conflicts.
@@ -526,7 +750,7 @@ public class MediaSessionCompat {
      *
      * @hide
      */
-    @RestrictTo(GROUP_ID)
+    @RestrictTo(LIBRARY_GROUP)
     public String getCallingPackage() {
         return mImpl.getCallingPackage();
     }
@@ -567,28 +791,45 @@ public class MediaSessionCompat {
      * @param context The context to use to create the session.
      * @param mediaSession A {@link android.media.session.MediaSession} object.
      * @return An equivalent {@link MediaSessionCompat} object, or null if none.
-     * @deprecated Use {@link #fromMediaSession(Context, Object)} instead.
-     */
-    @Deprecated
-    public static MediaSessionCompat obtain(Context context, Object mediaSession) {
-        return fromMediaSession(context, mediaSession);
-    }
-
-    /**
-     * Creates an instance from a framework {@link android.media.session.MediaSession} object.
-     * <p>
-     * This method is only supported on API 21+. On API 20 and below, it returns null.
-     * </p>
-     *
-     * @param context The context to use to create the session.
-     * @param mediaSession A {@link android.media.session.MediaSession} object.
-     * @return An equivalent {@link MediaSessionCompat} object, or null if none.
      */
     public static MediaSessionCompat fromMediaSession(Context context, Object mediaSession) {
-        if (context == null || mediaSession == null || Build.VERSION.SDK_INT < 21) {
-            return null;
+        if (context != null && mediaSession != null && Build.VERSION.SDK_INT >= 21) {
+            return new MediaSessionCompat(context, new MediaSessionImplApi21(mediaSession));
         }
-        return new MediaSessionCompat(context, new MediaSessionImplApi21(mediaSession));
+        return null;
+    }
+
+    private static PlaybackStateCompat getStateWithUpdatedPosition(
+            PlaybackStateCompat state, MediaMetadataCompat metadata) {
+        if (state == null || state.getPosition() == PlaybackStateCompat.PLAYBACK_POSITION_UNKNOWN) {
+            return state;
+        }
+
+        if (state.getState() == PlaybackStateCompat.STATE_PLAYING
+                || state.getState() == PlaybackStateCompat.STATE_FAST_FORWARDING
+                || state.getState() == PlaybackStateCompat.STATE_REWINDING) {
+            long updateTime = state.getLastPositionUpdateTime();
+            if (updateTime > 0) {
+                long currentTime = SystemClock.elapsedRealtime();
+                long position = (long) (state.getPlaybackSpeed() * (currentTime - updateTime))
+                        + state.getPosition();
+                long duration = -1;
+                if (metadata != null && metadata.containsKey(
+                        MediaMetadataCompat.METADATA_KEY_DURATION)) {
+                    duration = metadata.getLong(MediaMetadataCompat.METADATA_KEY_DURATION);
+                }
+
+                if (duration >= 0 && position > duration) {
+                    position = duration;
+                } else if (position < 0) {
+                    position = 0;
+                }
+                return new PlaybackStateCompat.Builder(state)
+                        .setState(state.getState(), position, state.getPlaybackSpeed(), currentTime)
+                        .build();
+            }
+        }
+        return state;
     }
 
     /**
@@ -597,6 +838,9 @@ public class MediaSessionCompat {
      */
     public abstract static class Callback {
         final Object mCallbackObj;
+        private WeakReference<MediaSessionImpl> mSessionImpl;
+        private CallbackHandler mCallbackHandler = null;
+        private boolean mMediaPlayPauseKeyPending;
 
         public Callback() {
             if (android.os.Build.VERSION.SDK_INT >= 24) {
@@ -608,6 +852,14 @@ public class MediaSessionCompat {
             } else {
                 mCallbackObj = null;
             }
+        }
+
+        private void setSessionImpl(MediaSessionImpl impl, Handler handler) {
+            mSessionImpl = new WeakReference<MediaSessionImpl>(impl);
+            if (mCallbackHandler != null) {
+                mCallbackHandler.removeCallbacksAndMessages(null);
+            }
+            mCallbackHandler = new CallbackHandler(handler.getLooper());
         }
 
         /**
@@ -624,30 +876,92 @@ public class MediaSessionCompat {
 
         /**
          * Override to handle media button events.
+         * <p>
+         * The double tap of {@link KeyEvent#KEYCODE_MEDIA_PLAY_PAUSE} or {@link
+         * KeyEvent#KEYCODE_HEADSETHOOK} will call the {@link #onSkipToNext} by default.
          *
          * @param mediaButtonEvent The media button event intent.
          * @return True if the event was handled, false otherwise.
          */
         public boolean onMediaButtonEvent(Intent mediaButtonEvent) {
+            MediaSessionImpl impl = mSessionImpl.get();
+            if (impl == null || mCallbackHandler == null) {
+                return false;
+            }
+            KeyEvent keyEvent = mediaButtonEvent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
+            if (keyEvent == null || keyEvent.getAction() != KeyEvent.ACTION_DOWN) {
+                return false;
+            }
+            int keyCode = keyEvent.getKeyCode();
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
+                case KeyEvent.KEYCODE_HEADSETHOOK:
+                    if (keyEvent.getRepeatCount() > 0) {
+                        // Consider long-press as a single tap.
+                        handleMediaPlayPauseKeySingleTapIfPending();
+                    } else if (mMediaPlayPauseKeyPending) {
+                        mCallbackHandler.removeMessages(
+                                CallbackHandler.MSG_MEDIA_PLAY_PAUSE_KEY_DOUBLE_TAP_TIMEOUT);
+                        mMediaPlayPauseKeyPending = false;
+                        PlaybackStateCompat state = impl.getPlaybackState();
+                        long validActions = state == null ? 0 : state.getActions();
+                        // Consider double tap as the next.
+                        if ((validActions & PlaybackStateCompat.ACTION_SKIP_TO_NEXT) != 0) {
+                            onSkipToNext();
+                        }
+                    } else {
+                        mMediaPlayPauseKeyPending = true;
+                        mCallbackHandler.sendEmptyMessageDelayed(
+                                CallbackHandler.MSG_MEDIA_PLAY_PAUSE_KEY_DOUBLE_TAP_TIMEOUT,
+                                ViewConfiguration.getDoubleTapTimeout());
+                    }
+                    return true;
+                default:
+                    // If another key is pressed within double tap timeout, consider the pending
+                    // pending play/pause as a single tap to handle media keys in order.
+                    handleMediaPlayPauseKeySingleTapIfPending();
+                    break;
+            }
             return false;
         }
 
+        private void handleMediaPlayPauseKeySingleTapIfPending() {
+            if (!mMediaPlayPauseKeyPending) {
+                return;
+            }
+            mMediaPlayPauseKeyPending = false;
+            mCallbackHandler.removeMessages(
+                    CallbackHandler.MSG_MEDIA_PLAY_PAUSE_KEY_DOUBLE_TAP_TIMEOUT);
+            MediaSessionImpl impl = mSessionImpl.get();
+            if (impl == null) {
+                return;
+            }
+            PlaybackStateCompat state = impl.getPlaybackState();
+            long validActions = state == null ? 0 : state.getActions();
+            boolean isPlaying = state != null
+                    && state.getState() == PlaybackStateCompat.STATE_PLAYING;
+            boolean canPlay = (validActions & (PlaybackStateCompat.ACTION_PLAY_PAUSE
+                        | PlaybackStateCompat.ACTION_PLAY)) != 0;
+            boolean canPause = (validActions & (PlaybackStateCompat.ACTION_PLAY_PAUSE
+                        | PlaybackStateCompat.ACTION_PAUSE)) != 0;
+            if (isPlaying && canPause) {
+                onPause();
+            } else if (!isPlaying && canPlay) {
+                onPlay();
+            }
+        }
+
         /**
-         * Override to handle requests to prepare playback. During the preparation, a session
-         * should not hold audio focus in order to allow other session play seamlessly.
-         * The state of playback should be updated to {@link PlaybackStateCompat#STATE_PAUSED}
-         * after the preparation is done.
+         * Override to handle requests to prepare playback. Override {@link #onPlay} to handle
+         * requests for starting playback.
          */
         public void onPrepare() {
         }
 
         /**
          * Override to handle requests to prepare for playing a specific mediaId that was provided
-         * by your app. During the preparation, a session should not hold audio focus in order to
-         * allow other session play seamlessly. The state of playback should be updated to
-         * {@link PlaybackStateCompat#STATE_PAUSED} after the preparation is done. The playback
-         * of the prepared content should start in the implementation of {@link #onPlay}. Override
-         * {@link #onPlayFromMediaId} to handle requests for starting playback without preparation.
+         * by your app. Override {@link #onPlayFromMediaId} to handle requests for starting
+         * playback.
          */
         public void onPrepareFromMediaId(String mediaId, Bundle extras) {
         }
@@ -655,24 +969,17 @@ public class MediaSessionCompat {
         /**
          * Override to handle requests to prepare playback from a search query. An
          * empty query indicates that the app may prepare any music. The
-         * implementation should attempt to make a smart choice about what to
-         * play. During the preparation, a session should not hold audio focus in order to allow
-         * other session play seamlessly. The state of playback should be updated to
-         * {@link PlaybackStateCompat#STATE_PAUSED} after the preparation is done.
-         * The playback of the prepared content should start in the implementation of
-         * {@link #onPlay}. Override {@link #onPlayFromSearch} to handle requests for
-         * starting playback without preparation.
+         * implementation should attempt to make a smart choice about what to play.
+         * Override {@link #onPlayFromSearch} to handle requests
+         * for starting playback.
          */
         public void onPrepareFromSearch(String query, Bundle extras) {
         }
 
         /**
          * Override to handle requests to prepare a specific media item represented by a URI.
-         * During the preparation, a session should not hold audio focus in order to allow other
-         * session play seamlessly. The state of playback should be updated to
-         * {@link PlaybackStateCompat#STATE_PAUSED} after the preparation is done. The playback of
-         * the prepared content should start in the implementation of {@link #onPlay}. Override
-         * {@link #onPlayFromUri} to handle requests for starting playback without preparation.
+         * Override {@link #onPlayFromUri} to handle requests
+         * for starting playback.
          */
         public void onPrepareFromUri(Uri uri, Bundle extras) {
         }
@@ -759,9 +1066,57 @@ public class MediaSessionCompat {
         /**
          * Override to handle the item being rated.
          *
-         * @param rating
+         * @param rating The rating being set.
          */
         public void onSetRating(RatingCompat rating) {
+        }
+
+        /**
+         * Override to handle the item being rated.
+         *
+         * @param rating The rating being set.
+         * @param extras The extras can include information about the media item being rated.
+         */
+        public void onSetRating(RatingCompat rating, Bundle extras) {
+        }
+
+        /**
+         * Override to handle requests to enable/disable captioning.
+         *
+         * @param enabled {@code true} to enable captioning, {@code false} to disable.
+         */
+        public void onSetCaptioningEnabled(boolean enabled) {
+        }
+
+        /**
+         * Override to handle the setting of the repeat mode.
+         * <p>
+         * You should call {@link #setRepeatMode} before end of this method in order to notify
+         * the change to the {@link MediaControllerCompat}, or
+         * {@link MediaControllerCompat#getRepeatMode} could return an invalid value.
+         *
+         * @param repeatMode The repeat mode which is one of followings:
+         *            {@link PlaybackStateCompat#REPEAT_MODE_NONE},
+         *            {@link PlaybackStateCompat#REPEAT_MODE_ONE},
+         *            {@link PlaybackStateCompat#REPEAT_MODE_ALL},
+         *            {@link PlaybackStateCompat#REPEAT_MODE_GROUP}
+         */
+        public void onSetRepeatMode(@PlaybackStateCompat.RepeatMode int repeatMode) {
+        }
+
+        /**
+         * Override to handle the setting of the shuffle mode.
+         * <p>
+         * You should call {@link #setShuffleMode} before the end of this method in order to
+         * notify the change to the {@link MediaControllerCompat}, or
+         * {@link MediaControllerCompat#getShuffleMode} could return an invalid value.
+         *
+         * @param shuffleMode The shuffle mode which is one of followings:
+         *                    {@link PlaybackStateCompat#SHUFFLE_MODE_NONE},
+         *                    {@link PlaybackStateCompat#SHUFFLE_MODE_ALL},
+         *                    {@link PlaybackStateCompat#SHUFFLE_MODE_GROUP}
+         */
+        public void onSetShuffleMode(@PlaybackStateCompat.ShuffleMode int shuffleMode) {
         }
 
         /**
@@ -772,10 +1127,74 @@ public class MediaSessionCompat {
          *            {@link PlaybackStateCompat.CustomAction}.
          * @param extras Optional extras specified by the
          *            {@link MediaControllerCompat}.
+         * @see #ACTION_FLAG_AS_INAPPROPRIATE
+         * @see #ACTION_SKIP_AD
+         * @see #ACTION_FOLLOW
+         * @see #ACTION_UNFOLLOW
          */
         public void onCustomAction(String action, Bundle extras) {
         }
 
+        /**
+         * Called when a {@link MediaControllerCompat} wants to add a {@link QueueItem}
+         * with the given {@link MediaDescriptionCompat description} at the end of the play queue.
+         *
+         * @param description The {@link MediaDescriptionCompat} for creating the {@link QueueItem}
+         *            to be inserted.
+         */
+        public void onAddQueueItem(MediaDescriptionCompat description) {
+        }
+
+        /**
+         * Called when a {@link MediaControllerCompat} wants to add a {@link QueueItem}
+         * with the given {@link MediaDescriptionCompat description} at the specified position
+         * in the play queue.
+         *
+         * @param description The {@link MediaDescriptionCompat} for creating the {@link QueueItem}
+         *            to be inserted.
+         * @param index The index at which the created {@link QueueItem} is to be inserted.
+         */
+        public void onAddQueueItem(MediaDescriptionCompat description, int index) {
+        }
+
+        /**
+         * Called when a {@link MediaControllerCompat} wants to remove the first occurrence of the
+         * specified {@link QueueItem} with the given {@link MediaDescriptionCompat description}
+         * in the play queue.
+         *
+         * @param description The {@link MediaDescriptionCompat} for denoting the {@link QueueItem}
+         *            to be removed.
+         */
+        public void onRemoveQueueItem(MediaDescriptionCompat description) {
+        }
+
+        /**
+         * Called when a {@link MediaControllerCompat} wants to remove a {@link QueueItem} at the
+         * specified position in the play queue.
+         *
+         * @param index The index of the element to be removed.
+         * @deprecated {@link #onRemoveQueueItem} will be called instead.
+         */
+        @Deprecated
+        public void onRemoveQueueItemAt(int index) {
+        }
+
+        private class CallbackHandler extends Handler {
+            private static final int MSG_MEDIA_PLAY_PAUSE_KEY_DOUBLE_TAP_TIMEOUT = 1;
+
+            CallbackHandler(Looper looper) {
+                super(looper);
+            }
+
+            @Override
+            public void handleMessage(Message msg) {
+                if (msg.what == MSG_MEDIA_PLAY_PAUSE_KEY_DOUBLE_TAP_TIMEOUT) {
+                    handleMediaPlayPauseKeySingleTapIfPending();
+                }
+            }
+        }
+
+        @RequiresApi(21)
         private class StubApi21 implements MediaSessionCompatApi21.Callback {
 
             StubApi21() {
@@ -783,7 +1202,51 @@ public class MediaSessionCompat {
 
             @Override
             public void onCommand(String command, Bundle extras, ResultReceiver cb) {
-                Callback.this.onCommand(command, extras, cb);
+                try {
+                    if (command.equals(MediaControllerCompat.COMMAND_GET_EXTRA_BINDER)) {
+                        MediaSessionImplApi21 impl = (MediaSessionImplApi21) mSessionImpl.get();
+                        if (impl != null) {
+                            Bundle result = new Bundle();
+                            IMediaSession extraBinder = impl.getSessionToken().getExtraBinder();
+                            BundleCompat.putBinder(result, EXTRA_BINDER,
+                                    extraBinder == null ? null : extraBinder.asBinder());
+                            cb.send(0, result);
+                        }
+                    } else if (command.equals(MediaControllerCompat.COMMAND_ADD_QUEUE_ITEM)) {
+                        extras.setClassLoader(MediaDescriptionCompat.class.getClassLoader());
+                        Callback.this.onAddQueueItem(
+                                (MediaDescriptionCompat) extras.getParcelable(
+                                        MediaControllerCompat.COMMAND_ARGUMENT_MEDIA_DESCRIPTION));
+                    } else if (command.equals(MediaControllerCompat.COMMAND_ADD_QUEUE_ITEM_AT)) {
+                        extras.setClassLoader(MediaDescriptionCompat.class.getClassLoader());
+                        Callback.this.onAddQueueItem(
+                                (MediaDescriptionCompat) extras.getParcelable(
+                                        MediaControllerCompat.COMMAND_ARGUMENT_MEDIA_DESCRIPTION),
+                                extras.getInt(MediaControllerCompat.COMMAND_ARGUMENT_INDEX));
+                    } else if (command.equals(MediaControllerCompat.COMMAND_REMOVE_QUEUE_ITEM)) {
+                        extras.setClassLoader(MediaDescriptionCompat.class.getClassLoader());
+                        Callback.this.onRemoveQueueItem(
+                                (MediaDescriptionCompat) extras.getParcelable(
+                                        MediaControllerCompat.COMMAND_ARGUMENT_MEDIA_DESCRIPTION));
+                    } else if (command.equals(MediaControllerCompat.COMMAND_REMOVE_QUEUE_ITEM_AT)) {
+                        MediaSessionImplApi21 impl = (MediaSessionImplApi21) mSessionImpl.get();
+                        if (impl != null && impl.mQueue != null) {
+                            int index =
+                                    extras.getInt(MediaControllerCompat.COMMAND_ARGUMENT_INDEX, -1);
+                            QueueItem item = (index >= 0 && index < impl.mQueue.size())
+                                    ? impl.mQueue.get(index) : null;
+                            if (item != null) {
+                                Callback.this.onRemoveQueueItem(item.getDescription());
+                            }
+                        }
+                    } else {
+                        Callback.this.onCommand(command, extras, cb);
+                    }
+                } catch (BadParcelableException e) {
+                    // Do not print the exception here, since it is already done by the Parcel
+                    // class.
+                    Log.e(TAG, "Could not unparcel the extra data.");
+                }
             }
 
             @Override
@@ -852,6 +1315,11 @@ public class MediaSessionCompat {
             }
 
             @Override
+            public void onSetRating(Object ratingObj, Bundle extras) {
+                Callback.this.onSetRating(RatingCompat.fromRating(ratingObj), extras);
+            }
+
+            @Override
             public void onCustomAction(String action, Bundle extras) {
                 if (action.equals(ACTION_PLAY_FROM_URI)) {
                     Uri uri = extras.getParcelable(ACTION_ARGUMENT_URI);
@@ -871,12 +1339,27 @@ public class MediaSessionCompat {
                     Uri uri = extras.getParcelable(ACTION_ARGUMENT_URI);
                     Bundle bundle = extras.getBundle(ACTION_ARGUMENT_EXTRAS);
                     Callback.this.onPrepareFromUri(uri, bundle);
+                } else if (action.equals(ACTION_SET_CAPTIONING_ENABLED)) {
+                    boolean enabled = extras.getBoolean(ACTION_ARGUMENT_CAPTIONING_ENABLED);
+                    Callback.this.onSetCaptioningEnabled(enabled);
+                } else if (action.equals(ACTION_SET_REPEAT_MODE)) {
+                    int repeatMode = extras.getInt(ACTION_ARGUMENT_REPEAT_MODE);
+                    Callback.this.onSetRepeatMode(repeatMode);
+                } else if (action.equals(ACTION_SET_SHUFFLE_MODE)) {
+                    int shuffleMode = extras.getInt(ACTION_ARGUMENT_SHUFFLE_MODE);
+                    Callback.this.onSetShuffleMode(shuffleMode);
+                } else if (action.equals(ACTION_SET_RATING)) {
+                    extras.setClassLoader(RatingCompat.class.getClassLoader());
+                    RatingCompat rating = extras.getParcelable(ACTION_ARGUMENT_RATING);
+                    Bundle bundle = extras.getBundle(ACTION_ARGUMENT_EXTRAS);
+                    Callback.this.onSetRating(rating, bundle);
                 } else {
                     Callback.this.onCustomAction(action, extras);
                 }
             }
         }
 
+        @RequiresApi(23)
         private class StubApi23 extends StubApi21 implements MediaSessionCompatApi23.Callback {
 
             StubApi23() {
@@ -888,6 +1371,7 @@ public class MediaSessionCompat {
             }
         }
 
+        @RequiresApi(24)
         private class StubApi24 extends StubApi23 implements MediaSessionCompatApi24.Callback {
 
             StubApi24() {
@@ -922,9 +1406,15 @@ public class MediaSessionCompat {
      */
     public static final class Token implements Parcelable {
         private final Object mInner;
+        private final IMediaSession mExtraBinder;
 
         Token(Object inner) {
+            this(inner, null);
+        }
+
+        Token(Object inner, IMediaSession extraBinder) {
             mInner = inner;
+            mExtraBinder = extraBinder;
         }
 
         /**
@@ -939,10 +1429,28 @@ public class MediaSessionCompat {
          * @return A compat Token for use with {@link MediaControllerCompat}.
          */
         public static Token fromToken(Object token) {
-            if (token == null || android.os.Build.VERSION.SDK_INT < 21) {
-                return null;
+            return fromToken(token, null);
+        }
+
+        /**
+         * Creates a compat Token from a framework
+         * {@link android.media.session.MediaSession.Token} object, and the extra binder.
+         * <p>
+         * This method is only supported on
+         * {@link android.os.Build.VERSION_CODES#LOLLIPOP} and later.
+         * </p>
+         *
+         * @param token The framework token object.
+         * @param extraBinder The extra binder.
+         * @return A compat Token for use with {@link MediaControllerCompat}.
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public static Token fromToken(Object token, IMediaSession extraBinder) {
+            if (token != null && android.os.Build.VERSION.SDK_INT >= 21) {
+                return new Token(MediaSessionCompatApi21.verifyToken(token), extraBinder);
             }
-            return new Token(MediaSessionCompatApi21.verifyToken(token));
+            return null;
         }
 
         @Override
@@ -999,23 +1507,31 @@ public class MediaSessionCompat {
             return mInner;
         }
 
+        /**
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public IMediaSession getExtraBinder() {
+            return mExtraBinder;
+        }
+
         public static final Parcelable.Creator<Token> CREATOR
                 = new Parcelable.Creator<Token>() {
-            @Override
-            public Token createFromParcel(Parcel in) {
-                Object inner;
-                if (android.os.Build.VERSION.SDK_INT >= 21) {
-                    inner = in.readParcelable(null);
-                } else {
-                    inner = in.readStrongBinder();
-                }
-                return new Token(inner);
-            }
+                    @Override
+                    public Token createFromParcel(Parcel in) {
+                        Object inner;
+                        if (android.os.Build.VERSION.SDK_INT >= 21) {
+                            inner = in.readParcelable(null);
+                        } else {
+                            inner = in.readStrongBinder();
+                        }
+                        return new Token(inner);
+                    }
 
-            @Override
-            public Token[] newArray(int size) {
-                return new Token[size];
-            }
+                    @Override
+                    public Token[] newArray(int size) {
+                        return new Token[size];
+                    }
         };
     }
 
@@ -1035,7 +1551,7 @@ public class MediaSessionCompat {
         private Object mItem;
 
         /**
-         * Create a new {@link MediaSessionCompat.QueueItem}.
+         * Creates a new {@link MediaSessionCompat.QueueItem}.
          *
          * @param description The {@link MediaDescriptionCompat} for this item.
          * @param id An identifier for this item. It must be unique within the
@@ -1063,14 +1579,14 @@ public class MediaSessionCompat {
         }
 
         /**
-         * Get the description for this item.
+         * Gets the description for this item.
          */
         public MediaDescriptionCompat getDescription() {
             return mDescription;
         }
 
         /**
-         * Get the queue id for this item.
+         * Gets the queue id for this item.
          */
         public long getQueueId() {
             return mId;
@@ -1088,7 +1604,7 @@ public class MediaSessionCompat {
         }
 
         /**
-         * Get the underlying
+         * Gets the underlying
          * {@link android.media.session.MediaSession.QueueItem}.
          * <p>
          * On builds before {@link android.os.Build.VERSION_CODES#LOLLIPOP} null
@@ -1104,22 +1620,6 @@ public class MediaSessionCompat {
             mItem = MediaSessionCompatApi21.QueueItem.createItem(mDescription.getMediaDescription(),
                     mId);
             return mItem;
-        }
-
-        /**
-         * Creates an instance from a framework {@link android.media.session.MediaSession.QueueItem}
-         * object.
-         * <p>
-         * This method is only supported on API 21+. On API 20 and below, it returns null.
-         * </p>
-         *
-         * @param queueItem A {@link android.media.session.MediaSession.QueueItem} object.
-         * @return An equivalent {@link QueueItem} object, or null if none.
-         * @deprecated Use {@link #fromQueueItem(Object)} instead.
-         */
-        @Deprecated
-        public static QueueItem obtain(Object queueItem) {
-            return fromQueueItem(queueItem);
         }
 
         /**
@@ -1241,6 +1741,7 @@ public class MediaSessionCompat {
         void release();
         Token getSessionToken();
         void setPlaybackState(PlaybackStateCompat state);
+        PlaybackStateCompat getPlaybackState();
         void setMetadata(MediaMetadataCompat metadata);
 
         void setSessionActivity(PendingIntent pi);
@@ -1250,6 +1751,9 @@ public class MediaSessionCompat {
         void setQueueTitle(CharSequence title);
 
         void setRatingType(@RatingCompat.Style int type);
+        void setCaptioningEnabled(boolean enabled);
+        void setRepeatMode(@PlaybackStateCompat.RepeatMode int repeatMode);
+        void setShuffleMode(@PlaybackStateCompat.ShuffleMode int shuffleMode);
         void setExtras(Bundle extras);
 
         Object getMediaSession();
@@ -1260,15 +1764,18 @@ public class MediaSessionCompat {
     }
 
     static class MediaSessionImplBase implements MediaSessionImpl {
+        /***** RemoteControlClient States, we only need none as the others were public *******/
+        static final int RCC_PLAYSTATE_NONE = 0;
+
         private final Context mContext;
         private final ComponentName mMediaButtonReceiverComponentName;
         private final PendingIntent mMediaButtonReceiverIntent;
-        private final Object mRccObj;
         private final MediaSessionStub mStub;
         private final Token mToken;
         final String mPackageName;
         final String mTag;
         final AudioManager mAudioManager;
+        final RemoteControlClient mRcc;
 
         final Object mLock = new Object();
         final RemoteCallbackList<IMediaControllerCallback> mControllerCallbacks
@@ -1276,9 +1783,9 @@ public class MediaSessionCompat {
 
         private MessageHandler mHandler;
         boolean mDestroyed = false;
-        private boolean mIsActive = false;
-        private boolean mIsRccRegistered = false;
+        boolean mIsActive = false;
         private boolean mIsMbrRegistered = false;
+        private boolean mIsRccRegistered = false;
         volatile Callback mCallback;
 
         @SessionFlags int mFlags;
@@ -1289,6 +1796,9 @@ public class MediaSessionCompat {
         List<QueueItem> mQueue;
         CharSequence mQueueTitle;
         @RatingCompat.Style int mRatingType;
+        boolean mCaptioningEnabled;
+        @PlaybackStateCompat.RepeatMode int mRepeatMode;
+        @PlaybackStateCompat.ShuffleMode int mShuffleMode;
         Bundle mExtras;
 
         int mVolumeType;
@@ -1312,21 +1822,6 @@ public class MediaSessionCompat {
         public MediaSessionImplBase(Context context, String tag, ComponentName mbrComponent,
                 PendingIntent mbrIntent) {
             if (mbrComponent == null) {
-                mbrComponent = MediaButtonReceiver.getMediaButtonReceiverComponent(context);
-                if (mbrComponent == null) {
-                    Log.w(TAG, "Couldn't find a unique registered media button receiver in the "
-                            + "given context.");
-                }
-            }
-            if (mbrComponent != null && mbrIntent == null) {
-                // construct a PendingIntent for the media button
-                Intent mediaButtonIntent = new Intent(Intent.ACTION_MEDIA_BUTTON);
-                // the associated intent will be handled by the component being registered
-                mediaButtonIntent.setComponent(mbrComponent);
-                mbrIntent = PendingIntent.getBroadcast(context,
-                        0/* requestCode, ignored */, mediaButtonIntent, 0/* flags */);
-            }
-            if (mbrComponent == null) {
                 throw new IllegalArgumentException(
                         "MediaButtonReceiver component may not be null.");
             }
@@ -1342,55 +1837,22 @@ public class MediaSessionCompat {
             mRatingType = RatingCompat.RATING_NONE;
             mVolumeType = MediaControllerCompat.PlaybackInfo.PLAYBACK_TYPE_LOCAL;
             mLocalStream = AudioManager.STREAM_MUSIC;
-            if (android.os.Build.VERSION.SDK_INT >= 14) {
-                mRccObj = MediaSessionCompatApi14.createRemoteControlClient(mbrIntent);
-            } else {
-                mRccObj = null;
-            }
+            mRcc = new RemoteControlClient(mbrIntent);
         }
 
         @Override
         public void setCallback(Callback callback, Handler handler) {
             mCallback = callback;
-            if (callback == null) {
-                // There's nothing to unregister on API < 18 since media buttons
-                // all go through the media button receiver
-                if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    MediaSessionCompatApi18.setOnPlaybackPositionUpdateListener(mRccObj, null);
-                }
-                if (android.os.Build.VERSION.SDK_INT >= 19) {
-                    MediaSessionCompatApi19.setOnMetadataUpdateListener(mRccObj, null);
-                }
-            } else {
+            if (callback != null) {
                 if (handler == null) {
                     handler = new Handler();
                 }
                 synchronized (mLock) {
+                    if (mHandler != null) {
+                        mHandler.removeCallbacksAndMessages(null);
+                    }
                     mHandler = new MessageHandler(handler.getLooper());
-                }
-                MediaSessionCompatApi19.Callback cb19 = new MediaSessionCompatApi19.Callback() {
-                    @Override
-                    public void onSetRating(Object ratingObj) {
-                        postToHandler(MessageHandler.MSG_RATE,
-                                RatingCompat.fromRating(ratingObj));
-                    }
-
-                    @Override
-                    public void onSeekTo(long pos) {
-                        postToHandler(MessageHandler.MSG_SEEK_TO, pos);
-                    }
-                };
-                if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    Object onPositionUpdateObj = MediaSessionCompatApi18
-                            .createPlaybackPositionUpdateListener(cb19);
-                    MediaSessionCompatApi18.setOnPlaybackPositionUpdateListener(mRccObj,
-                            onPositionUpdateObj);
-                }
-                if (android.os.Build.VERSION.SDK_INT >= 19) {
-                    Object onMetadataUpdateObj = MediaSessionCompatApi19
-                            .createMetadataUpdateListener(cb19);
-                    MediaSessionCompatApi19.setOnMetadataUpdateListener(mRccObj,
-                            onMetadataUpdateObj);
+                    mCallback.setSessionImpl(this, handler);
                 }
             }
         }
@@ -1399,8 +1861,20 @@ public class MediaSessionCompat {
             postToHandler(what, null);
         }
 
+        void postToHandler(int what, int arg1) {
+            postToHandler(what, null, arg1);
+        }
+
         void postToHandler(int what, Object obj) {
             postToHandler(what, obj, null);
+        }
+
+        void postToHandler(int what, Object obj, int arg1) {
+            synchronized (mLock) {
+                if (mHandler != null) {
+                    mHandler.post(what, obj, arg1);
+                }
+            }
         }
 
         void postToHandler(int what, Object obj, Bundle extras) {
@@ -1496,35 +1970,91 @@ public class MediaSessionCompat {
                 return;
             }
             if (state == null) {
-                if (android.os.Build.VERSION.SDK_INT >= 14) {
-                    MediaSessionCompatApi14.setState(mRccObj, PlaybackStateCompat.STATE_NONE);
-                    MediaSessionCompatApi14.setTransportControlFlags(mRccObj, 0);
-                }
+                mRcc.setPlaybackState(0);
+                mRcc.setTransportControlFlags(0);
             } else {
                 // Set state
-                if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    MediaSessionCompatApi18.setState(mRccObj, state.getState(), state.getPosition(),
-                            state.getPlaybackSpeed(), state.getLastPositionUpdateTime());
-                } else if (android.os.Build.VERSION.SDK_INT >= 14) {
-                    MediaSessionCompatApi14.setState(mRccObj, state.getState());
-                }
+                setRccState(state);
 
                 // Set transport control flags
-                if (android.os.Build.VERSION.SDK_INT >= 19) {
-                    MediaSessionCompatApi19.setTransportControlFlags(mRccObj, state.getActions());
-                } else if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    MediaSessionCompatApi18.setTransportControlFlags(mRccObj, state.getActions());
-                } else if (android.os.Build.VERSION.SDK_INT >= 14) {
-                    MediaSessionCompatApi14.setTransportControlFlags(mRccObj, state.getActions());
-                }
+                mRcc.setTransportControlFlags(
+                        getRccTransportControlFlagsFromActions(state.getActions()));
             }
+        }
+
+        @Override
+        public PlaybackStateCompat getPlaybackState() {
+            synchronized (mLock) {
+                return mState;
+            }
+        }
+
+        void setRccState(PlaybackStateCompat state) {
+            mRcc.setPlaybackState(getRccStateFromState(state.getState()));
+        }
+
+        int getRccStateFromState(int state) {
+            switch (state) {
+                case PlaybackStateCompat.STATE_CONNECTING:
+                case PlaybackStateCompat.STATE_BUFFERING:
+                    return RemoteControlClient.PLAYSTATE_BUFFERING;
+                case PlaybackStateCompat.STATE_ERROR:
+                    return RemoteControlClient.PLAYSTATE_ERROR;
+                case PlaybackStateCompat.STATE_FAST_FORWARDING:
+                    return RemoteControlClient.PLAYSTATE_FAST_FORWARDING;
+                case PlaybackStateCompat.STATE_NONE:
+                    return RCC_PLAYSTATE_NONE;
+                case PlaybackStateCompat.STATE_PAUSED:
+                    return RemoteControlClient.PLAYSTATE_PAUSED;
+                case PlaybackStateCompat.STATE_PLAYING:
+                    return RemoteControlClient.PLAYSTATE_PLAYING;
+                case PlaybackStateCompat.STATE_REWINDING:
+                    return RemoteControlClient.PLAYSTATE_REWINDING;
+                case PlaybackStateCompat.STATE_SKIPPING_TO_PREVIOUS:
+                    return RemoteControlClient.PLAYSTATE_SKIPPING_BACKWARDS;
+                case PlaybackStateCompat.STATE_SKIPPING_TO_NEXT:
+                case PlaybackStateCompat.STATE_SKIPPING_TO_QUEUE_ITEM:
+                    return RemoteControlClient.PLAYSTATE_SKIPPING_FORWARDS;
+                case PlaybackStateCompat.STATE_STOPPED:
+                    return RemoteControlClient.PLAYSTATE_STOPPED;
+                default:
+                    return -1;
+            }
+        }
+
+        int getRccTransportControlFlagsFromActions(long actions) {
+            int transportControlFlags = 0;
+            if ((actions & PlaybackStateCompat.ACTION_STOP) != 0) {
+                transportControlFlags |= RemoteControlClient.FLAG_KEY_MEDIA_STOP;
+            }
+            if ((actions & PlaybackStateCompat.ACTION_PAUSE) != 0) {
+                transportControlFlags |= RemoteControlClient.FLAG_KEY_MEDIA_PAUSE;
+            }
+            if ((actions & PlaybackStateCompat.ACTION_PLAY) != 0) {
+                transportControlFlags |= RemoteControlClient.FLAG_KEY_MEDIA_PLAY;
+            }
+            if ((actions & PlaybackStateCompat.ACTION_REWIND) != 0) {
+                transportControlFlags |= RemoteControlClient.FLAG_KEY_MEDIA_REWIND;
+            }
+            if ((actions & PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS) != 0) {
+                transportControlFlags |= RemoteControlClient.FLAG_KEY_MEDIA_PREVIOUS;
+            }
+            if ((actions & PlaybackStateCompat.ACTION_SKIP_TO_NEXT) != 0) {
+                transportControlFlags |= RemoteControlClient.FLAG_KEY_MEDIA_NEXT;
+            }
+            if ((actions & PlaybackStateCompat.ACTION_FAST_FORWARD) != 0) {
+                transportControlFlags |= RemoteControlClient.FLAG_KEY_MEDIA_FAST_FORWARD;
+            }
+            if ((actions & PlaybackStateCompat.ACTION_PLAY_PAUSE) != 0) {
+                transportControlFlags |= RemoteControlClient.FLAG_KEY_MEDIA_PLAY_PAUSE;
+            }
+            return transportControlFlags;
         }
 
         @Override
         public void setMetadata(MediaMetadataCompat metadata) {
             if (metadata != null) {
-                // Clones the given {@link MediaMetadataCompat}, deep-copying bitmaps in the
-                // metadata if necessary. Bitmaps can be scaled down if they are large.
+                // Clones {@link MediaMetadataCompat} and scales down bitmaps if they are large.
                 metadata = new MediaMetadataCompat.Builder(metadata, sMaxBitmapSize).build();
             }
 
@@ -1536,14 +2066,85 @@ public class MediaSessionCompat {
                 // Don't set metadata until after the rcc has been registered
                 return;
             }
-            if (android.os.Build.VERSION.SDK_INT >= 19) {
-                MediaSessionCompatApi19.setMetadata(mRccObj,
-                        metadata == null ? null : metadata.getBundle(),
-                        mState == null ? 0 : mState.getActions());
-            } else if (android.os.Build.VERSION.SDK_INT >= 14) {
-                MediaSessionCompatApi14.setMetadata(mRccObj,
-                        metadata == null ? null : metadata.getBundle());
+            RemoteControlClient.MetadataEditor editor = buildRccMetadata(
+                    metadata == null ? null : metadata.getBundle());
+            editor.apply();
+        }
+
+        RemoteControlClient.MetadataEditor buildRccMetadata(Bundle metadata) {
+            RemoteControlClient.MetadataEditor editor = mRcc.editMetadata(true);
+            if (metadata == null) {
+                return editor;
             }
+            if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_ART)) {
+                Bitmap art = metadata.getParcelable(MediaMetadataCompat.METADATA_KEY_ART);
+                if (art != null) {
+                    // Clone the bitmap to prevent it from being recycled by RCC.
+                    art = art.copy(art.getConfig(), false);
+                }
+                editor.putBitmap(RemoteControlClient.MetadataEditor.BITMAP_KEY_ARTWORK, art);
+            } else if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_ALBUM_ART)) {
+                // Fall back to album art if the track art wasn't available
+                Bitmap art = metadata.getParcelable(MediaMetadataCompat.METADATA_KEY_ALBUM_ART);
+                if (art != null) {
+                    // Clone the bitmap to prevent it from being recycled by RCC.
+                    art = art.copy(art.getConfig(), false);
+                }
+                editor.putBitmap(RemoteControlClient.MetadataEditor.BITMAP_KEY_ARTWORK, art);
+            }
+            if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_ALBUM)) {
+                editor.putString(MediaMetadataRetriever.METADATA_KEY_ALBUM,
+                        metadata.getString(MediaMetadataCompat.METADATA_KEY_ALBUM));
+            }
+            if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_ALBUM_ARTIST)) {
+                editor.putString(MediaMetadataRetriever.METADATA_KEY_ALBUMARTIST,
+                        metadata.getString(MediaMetadataCompat.METADATA_KEY_ALBUM_ARTIST));
+            }
+            if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_ARTIST)) {
+                editor.putString(MediaMetadataRetriever.METADATA_KEY_ARTIST,
+                        metadata.getString(MediaMetadataCompat.METADATA_KEY_ARTIST));
+            }
+            if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_AUTHOR)) {
+                editor.putString(MediaMetadataRetriever.METADATA_KEY_AUTHOR,
+                        metadata.getString(MediaMetadataCompat.METADATA_KEY_AUTHOR));
+            }
+            if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_COMPILATION)) {
+                editor.putString(MediaMetadataRetriever.METADATA_KEY_COMPILATION,
+                        metadata.getString(MediaMetadataCompat.METADATA_KEY_COMPILATION));
+            }
+            if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_COMPOSER)) {
+                editor.putString(MediaMetadataRetriever.METADATA_KEY_COMPOSER,
+                        metadata.getString(MediaMetadataCompat.METADATA_KEY_COMPOSER));
+            }
+            if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_DATE)) {
+                editor.putString(MediaMetadataRetriever.METADATA_KEY_DATE,
+                        metadata.getString(MediaMetadataCompat.METADATA_KEY_DATE));
+            }
+            if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_DISC_NUMBER)) {
+                editor.putLong(MediaMetadataRetriever.METADATA_KEY_DISC_NUMBER,
+                        metadata.getLong(MediaMetadataCompat.METADATA_KEY_DISC_NUMBER));
+            }
+            if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_DURATION)) {
+                editor.putLong(MediaMetadataRetriever.METADATA_KEY_DURATION,
+                        metadata.getLong(MediaMetadataCompat.METADATA_KEY_DURATION));
+            }
+            if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_GENRE)) {
+                editor.putString(MediaMetadataRetriever.METADATA_KEY_GENRE,
+                        metadata.getString(MediaMetadataCompat.METADATA_KEY_GENRE));
+            }
+            if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_TITLE)) {
+                editor.putString(MediaMetadataRetriever.METADATA_KEY_TITLE,
+                        metadata.getString(MediaMetadataCompat.METADATA_KEY_TITLE));
+            }
+            if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_TRACK_NUMBER)) {
+                editor.putLong(MediaMetadataRetriever.METADATA_KEY_CD_TRACK_NUMBER,
+                        metadata.getLong(MediaMetadataCompat.METADATA_KEY_TRACK_NUMBER));
+            }
+            if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_WRITER)) {
+                editor.putString(MediaMetadataRetriever.METADATA_KEY_WRITER,
+                        metadata.getString(MediaMetadataCompat.METADATA_KEY_WRITER));
+            }
+            return editor;
         }
 
         @Override
@@ -1577,7 +2178,7 @@ public class MediaSessionCompat {
 
         @Override
         public Object getRemoteControlClient() {
-            return mRccObj;
+            return null;
         }
 
         @Override
@@ -1591,80 +2192,89 @@ public class MediaSessionCompat {
         }
 
         @Override
+        public void setCaptioningEnabled(boolean enabled) {
+            if (mCaptioningEnabled != enabled) {
+                mCaptioningEnabled = enabled;
+                sendCaptioningEnabled(enabled);
+            }
+        }
+
+        @Override
+        public void setRepeatMode(@PlaybackStateCompat.RepeatMode int repeatMode) {
+            if (mRepeatMode != repeatMode) {
+                mRepeatMode = repeatMode;
+                sendRepeatMode(repeatMode);
+            }
+        }
+
+        @Override
+        public void setShuffleMode(@PlaybackStateCompat.ShuffleMode int shuffleMode) {
+            if (mShuffleMode != shuffleMode) {
+                mShuffleMode = shuffleMode;
+                sendShuffleMode(shuffleMode);
+            }
+        }
+
+        @Override
         public void setExtras(Bundle extras) {
             mExtras = extras;
             sendExtras(extras);
         }
 
-        // Registers/unregisters the RCC and MediaButtonEventReceiver as needed.
-        private boolean update() {
+        // Registers/unregisters components as needed.
+        boolean update() {
             boolean registeredRcc = false;
             if (mIsActive) {
-                // Register a MBR if it's supported, unregister it
-                // if support was removed.
+                // Register a MBR if it's supported, unregister it if support was removed.
                 if (!mIsMbrRegistered && (mFlags & FLAG_HANDLES_MEDIA_BUTTONS) != 0) {
-                    if (android.os.Build.VERSION.SDK_INT >= 18) {
-                        MediaSessionCompatApi18.registerMediaButtonEventReceiver(mContext,
-                                mMediaButtonReceiverIntent,
-                                mMediaButtonReceiverComponentName);
-                    } else {
-                        AudioManager am = (AudioManager) mContext.getSystemService(
-                                Context.AUDIO_SERVICE);
-                        am.registerMediaButtonEventReceiver(mMediaButtonReceiverComponentName);
-                    }
+                    registerMediaButtonEventReceiver(mMediaButtonReceiverIntent,
+                            mMediaButtonReceiverComponentName);
                     mIsMbrRegistered = true;
                 } else if (mIsMbrRegistered && (mFlags & FLAG_HANDLES_MEDIA_BUTTONS) == 0) {
-                    if (android.os.Build.VERSION.SDK_INT >= 18) {
-                        MediaSessionCompatApi18.unregisterMediaButtonEventReceiver(mContext,
-                                mMediaButtonReceiverIntent,
-                                mMediaButtonReceiverComponentName);
-                    } else {
-                        AudioManager am = (AudioManager) mContext.getSystemService(
-                                Context.AUDIO_SERVICE);
-                        am.unregisterMediaButtonEventReceiver(mMediaButtonReceiverComponentName);
-                    }
+                    unregisterMediaButtonEventReceiver(mMediaButtonReceiverIntent,
+                            mMediaButtonReceiverComponentName);
                     mIsMbrRegistered = false;
                 }
-                // On API 14+ register a RCC if it's supported, unregister it if
-                // not.
-                if (android.os.Build.VERSION.SDK_INT >= 14) {
-                    if (!mIsRccRegistered && (mFlags & FLAG_HANDLES_TRANSPORT_CONTROLS) != 0) {
-                        MediaSessionCompatApi14.registerRemoteControlClient(mContext, mRccObj);
-                        mIsRccRegistered = true;
-                        registeredRcc = true;
-                    } else if (mIsRccRegistered
-                            && (mFlags & FLAG_HANDLES_TRANSPORT_CONTROLS) == 0) {
-                        // RCC keeps the state while the system resets its state internally when
-                        // we register RCC. Reset the state so that the states in RCC and the system
-                        // are in sync when we re-register the RCC.
-                        MediaSessionCompatApi14.setState(mRccObj, PlaybackStateCompat.STATE_NONE);
-                        MediaSessionCompatApi14.unregisterRemoteControlClient(mContext, mRccObj);
-                        mIsRccRegistered = false;
-                    }
+                // Register a RCC if it's supported, unregister it if support was removed.
+                if (!mIsRccRegistered && (mFlags & FLAG_HANDLES_TRANSPORT_CONTROLS) != 0) {
+                    mAudioManager.registerRemoteControlClient(mRcc);
+                    mIsRccRegistered = true;
+                    registeredRcc = true;
+                } else if (mIsRccRegistered
+                        && (mFlags & FLAG_HANDLES_TRANSPORT_CONTROLS) == 0) {
+                    // RCC keeps the state while the system resets its state internally when
+                    // we register RCC. Reset the state so that the states in RCC and the system
+                    // are in sync when we re-register the RCC.
+                    mRcc.setPlaybackState(0);
+                    mAudioManager.unregisterRemoteControlClient(mRcc);
+                    mIsRccRegistered = false;
                 }
             } else {
                 // When inactive remove any registered components.
                 if (mIsMbrRegistered) {
-                    if (android.os.Build.VERSION.SDK_INT >= 18) {
-                        MediaSessionCompatApi18.unregisterMediaButtonEventReceiver(mContext,
-                                mMediaButtonReceiverIntent, mMediaButtonReceiverComponentName);
-                    } else {
-                        AudioManager am = (AudioManager) mContext.getSystemService(
-                                Context.AUDIO_SERVICE);
-                        am.unregisterMediaButtonEventReceiver(mMediaButtonReceiverComponentName);
-                    }
+                    unregisterMediaButtonEventReceiver(mMediaButtonReceiverIntent,
+                            mMediaButtonReceiverComponentName);
                     mIsMbrRegistered = false;
                 }
                 if (mIsRccRegistered) {
                     // RCC keeps the state while the system resets its state internally when
                     // we register RCC. Reset the state so that the states in RCC and the system
                     // are in sync when we re-register the RCC.
-                    MediaSessionCompatApi14.setState(mRccObj, PlaybackStateCompat.STATE_NONE);
-                    MediaSessionCompatApi14.unregisterRemoteControlClient(mContext, mRccObj);
+                    mRcc.setPlaybackState(0);
+                    mAudioManager.unregisterRemoteControlClient(mRcc);
                     mIsRccRegistered = false;
                 }
             }
             return registeredRcc;
+        }
+
+        void registerMediaButtonEventReceiver(PendingIntent mbrIntent, ComponentName mbrComponent) {
+            mAudioManager.registerMediaButtonEventReceiver(mbrComponent);
+        }
+
+        void unregisterMediaButtonEventReceiver(PendingIntent mbrIntent,
+                ComponentName mbrComponent) {
+            mAudioManager.unregisterMediaButtonEventReceiver(mbrComponent);
         }
 
         void adjustVolume(int direction, int flags) {
@@ -1685,43 +2295,6 @@ public class MediaSessionCompat {
             } else {
                 mAudioManager.setStreamVolume(mLocalStream, value, flags);
             }
-        }
-
-        PlaybackStateCompat getStateWithUpdatedPosition() {
-            PlaybackStateCompat state;
-            long duration = -1;
-            synchronized (mLock) {
-                state = mState;
-                if (mMetadata != null
-                        && mMetadata.containsKey(MediaMetadataCompat.METADATA_KEY_DURATION)) {
-                    duration = mMetadata.getLong(MediaMetadataCompat.METADATA_KEY_DURATION);
-                }
-            }
-
-            PlaybackStateCompat result = null;
-            if (state != null) {
-                if (state.getState() == PlaybackStateCompat.STATE_PLAYING
-                        || state.getState() == PlaybackStateCompat.STATE_FAST_FORWARDING
-                        || state.getState() == PlaybackStateCompat.STATE_REWINDING) {
-                    long updateTime = state.getLastPositionUpdateTime();
-                    long currentTime = SystemClock.elapsedRealtime();
-                    if (updateTime > 0) {
-                        long position = (long) (state.getPlaybackSpeed()
-                                * (currentTime - updateTime)) + state.getPosition();
-                        if (duration >= 0 && position > duration) {
-                            position = duration;
-                        } else if (position < 0) {
-                            position = 0;
-                        }
-                        PlaybackStateCompat.Builder builder = new PlaybackStateCompat.Builder(
-                                state);
-                        builder.setState(state.getState(), position, state.getPlaybackSpeed(),
-                                currentTime);
-                        result = builder.build();
-                    }
-                }
-            }
-            return result == null ? state : result;
         }
 
         void sendVolumeInfoChanged(ParcelableVolumeInfo info) {
@@ -1803,6 +2376,42 @@ public class MediaSessionCompat {
                 IMediaControllerCallback cb = mControllerCallbacks.getBroadcastItem(i);
                 try {
                     cb.onQueueTitleChanged(queueTitle);
+                } catch (RemoteException e) {
+                }
+            }
+            mControllerCallbacks.finishBroadcast();
+        }
+
+        private void sendCaptioningEnabled(boolean enabled) {
+            int size = mControllerCallbacks.beginBroadcast();
+            for (int i = size - 1; i >= 0; i--) {
+                IMediaControllerCallback cb = mControllerCallbacks.getBroadcastItem(i);
+                try {
+                    cb.onCaptioningEnabledChanged(enabled);
+                } catch (RemoteException e) {
+                }
+            }
+            mControllerCallbacks.finishBroadcast();
+        }
+
+        private void sendRepeatMode(int repeatMode) {
+            int size = mControllerCallbacks.beginBroadcast();
+            for (int i = size - 1; i >= 0; i--) {
+                IMediaControllerCallback cb = mControllerCallbacks.getBroadcastItem(i);
+                try {
+                    cb.onRepeatModeChanged(repeatMode);
+                } catch (RemoteException e) {
+                }
+            }
+            mControllerCallbacks.finishBroadcast();
+        }
+
+        private void sendShuffleMode(int shuffleMode) {
+            int size = mControllerCallbacks.beginBroadcast();
+            for (int i = size - 1; i >= 0; i--) {
+                IMediaControllerCallback cb = mControllerCallbacks.getBroadcastItem(i);
+                try {
+                    cb.onShuffleModeChanged(shuffleMode);
                 } catch (RemoteException e) {
                 }
             }
@@ -2005,6 +2614,31 @@ public class MediaSessionCompat {
             }
 
             @Override
+            public void rateWithExtras(RatingCompat rating, Bundle extras) throws RemoteException {
+                postToHandler(MessageHandler.MSG_RATE_EXTRA, rating, extras);
+            }
+
+            @Override
+            public void setCaptioningEnabled(boolean enabled) throws RemoteException {
+                postToHandler(MessageHandler.MSG_SET_CAPTIONING_ENABLED, enabled);
+            }
+
+            @Override
+            public void setRepeatMode(int repeatMode) throws RemoteException {
+                postToHandler(MessageHandler.MSG_SET_REPEAT_MODE, repeatMode);
+            }
+
+            @Override
+            public void setShuffleModeEnabledRemoved(boolean enabled) throws RemoteException {
+                // Do nothing.
+            }
+
+            @Override
+            public void setShuffleMode(int shuffleMode) throws RemoteException {
+                postToHandler(MessageHandler.MSG_SET_SHUFFLE_MODE, shuffleMode);
+            }
+
+            @Override
             public void sendCustomAction(String action, Bundle args)
                     throws RemoteException {
                 postToHandler(MessageHandler.MSG_CUSTOM_ACTION, action, args);
@@ -2017,7 +2651,13 @@ public class MediaSessionCompat {
 
             @Override
             public PlaybackStateCompat getPlaybackState() {
-                return getStateWithUpdatedPosition();
+                PlaybackStateCompat state;
+                MediaMetadataCompat metadata;
+                synchronized (mLock) {
+                    state = mState;
+                    metadata = mMetadata;
+                }
+                return getStateWithUpdatedPosition(state, metadata);
             }
 
             @Override
@@ -2025,6 +2665,26 @@ public class MediaSessionCompat {
                 synchronized (mLock) {
                     return mQueue;
                 }
+            }
+
+            @Override
+            public void addQueueItem(MediaDescriptionCompat description) {
+                postToHandler(MessageHandler.MSG_ADD_QUEUE_ITEM, description);
+            }
+
+            @Override
+            public void addQueueItemAt(MediaDescriptionCompat description, int index) {
+                postToHandler(MessageHandler.MSG_ADD_QUEUE_ITEM_AT, description, index);
+            }
+
+            @Override
+            public void removeQueueItem(MediaDescriptionCompat description) {
+                postToHandler(MessageHandler.MSG_REMOVE_QUEUE_ITEM, description);
+            }
+
+            @Override
+            public void removeQueueItemAt(int index) {
+                postToHandler(MessageHandler.MSG_REMOVE_QUEUE_ITEM_AT, index);
             }
 
             @Override
@@ -2046,6 +2706,28 @@ public class MediaSessionCompat {
             }
 
             @Override
+            public boolean isCaptioningEnabled() {
+                return mCaptioningEnabled;
+            }
+
+            @Override
+            @PlaybackStateCompat.RepeatMode
+            public int getRepeatMode() {
+                return mRepeatMode;
+            }
+
+            @Override
+            public boolean isShuffleModeEnabledRemoved() {
+                return false;
+            }
+
+            @Override
+            @PlaybackStateCompat.ShuffleMode
+            public int getShuffleMode() {
+                return mShuffleMode;
+            }
+
+            @Override
             public boolean isTransportControlEnabled() {
                 return (mFlags & FLAG_HANDLES_TRANSPORT_CONTROLS) != 0;
             }
@@ -2063,7 +2745,7 @@ public class MediaSessionCompat {
             }
         }
 
-        private class MessageHandler extends Handler {
+        class MessageHandler extends Handler {
 
             private static final int MSG_COMMAND = 1;
             private static final int MSG_ADJUST_VOLUME = 2;
@@ -2084,9 +2766,17 @@ public class MediaSessionCompat {
             private static final int MSG_REWIND = 17;
             private static final int MSG_SEEK_TO = 18;
             private static final int MSG_RATE = 19;
+            private static final int MSG_RATE_EXTRA = 31;
             private static final int MSG_CUSTOM_ACTION = 20;
             private static final int MSG_MEDIA_BUTTON = 21;
             private static final int MSG_SET_VOLUME = 22;
+            private static final int MSG_SET_REPEAT_MODE = 23;
+            private static final int MSG_ADD_QUEUE_ITEM = 25;
+            private static final int MSG_ADD_QUEUE_ITEM_AT = 26;
+            private static final int MSG_REMOVE_QUEUE_ITEM = 27;
+            private static final int MSG_REMOVE_QUEUE_ITEM_AT = 28;
+            private static final int MSG_SET_CAPTIONING_ENABLED = 29;
+            private static final int MSG_SET_SHUFFLE_MODE = 30;
 
             // KeyEvent constants only available on API 11+
             private static final int KEYCODE_MEDIA_PAUSE = 127;
@@ -2185,14 +2875,44 @@ public class MediaSessionCompat {
                     case MSG_RATE:
                         cb.onSetRating((RatingCompat) msg.obj);
                         break;
+                    case MSG_RATE_EXTRA:
+                        cb.onSetRating((RatingCompat) msg.obj, msg.getData());
+                        break;
                     case MSG_CUSTOM_ACTION:
                         cb.onCustomAction((String) msg.obj, msg.getData());
                         break;
+                    case MSG_ADD_QUEUE_ITEM:
+                        cb.onAddQueueItem((MediaDescriptionCompat) msg.obj);
+                        break;
+                    case MSG_ADD_QUEUE_ITEM_AT:
+                        cb.onAddQueueItem((MediaDescriptionCompat) msg.obj, msg.arg1);
+                        break;
+                    case MSG_REMOVE_QUEUE_ITEM:
+                        cb.onRemoveQueueItem((MediaDescriptionCompat) msg.obj);
+                        break;
+                    case MSG_REMOVE_QUEUE_ITEM_AT:
+                        if (mQueue != null) {
+                            QueueItem item = (msg.arg1 >= 0 && msg.arg1 < mQueue.size())
+                                    ? mQueue.get(msg.arg1) : null;
+                            if (item != null) {
+                                cb.onRemoveQueueItem(item.getDescription());
+                            }
+                        }
+                        break;
                     case MSG_ADJUST_VOLUME:
-                        adjustVolume((int) msg.obj, 0);
+                        adjustVolume(msg.arg1, 0);
                         break;
                     case MSG_SET_VOLUME:
-                        setVolumeTo((int) msg.obj, 0);
+                        setVolumeTo(msg.arg1, 0);
+                        break;
+                    case MSG_SET_CAPTIONING_ENABLED:
+                        cb.onSetCaptioningEnabled((boolean) msg.obj);
+                        break;
+                    case MSG_SET_REPEAT_MODE:
+                        cb.onSetRepeatMode(msg.arg1);
+                        break;
+                    case MSG_SET_SHUFFLE_MODE:
+                        cb.onSetShuffleMode(msg.arg1);
                         break;
                 }
             }
@@ -2242,43 +2962,201 @@ public class MediaSessionCompat {
                         break;
                     case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
                     case KeyEvent.KEYCODE_HEADSETHOOK:
-                        boolean isPlaying = mState != null
-                                && mState.getState() == PlaybackStateCompat.STATE_PLAYING;
-                        boolean canPlay = (validActions & (PlaybackStateCompat.ACTION_PLAY_PAUSE
-                                | PlaybackStateCompat.ACTION_PLAY)) != 0;
-                        boolean canPause = (validActions & (PlaybackStateCompat.ACTION_PLAY_PAUSE
-                                | PlaybackStateCompat.ACTION_PAUSE)) != 0;
-                        if (isPlaying && canPause) {
-                            cb.onPause();
-                        } else if (!isPlaying && canPlay) {
-                            cb.onPlay();
-                        }
+                        Log.w(TAG, "KEYCODE_MEDIA_PLAY_PAUSE and KEYCODE_HEADSETHOOK are handled"
+                                + " already");
                         break;
                 }
             }
         }
     }
 
+    @RequiresApi(18)
+    static class MediaSessionImplApi18 extends MediaSessionImplBase {
+        private static boolean sIsMbrPendingIntentSupported = true;
+
+        MediaSessionImplApi18(Context context, String tag, ComponentName mbrComponent,
+                PendingIntent mbrIntent) {
+            super(context, tag, mbrComponent, mbrIntent);
+        }
+
+        @Override
+        public void setCallback(Callback callback, Handler handler) {
+            super.setCallback(callback, handler);
+            if (callback == null) {
+                mRcc.setPlaybackPositionUpdateListener(null);
+            } else {
+                RemoteControlClient.OnPlaybackPositionUpdateListener listener =
+                        new RemoteControlClient.OnPlaybackPositionUpdateListener() {
+                            @Override
+                            public void onPlaybackPositionUpdate(long newPositionMs) {
+                                postToHandler(MessageHandler.MSG_SEEK_TO, newPositionMs);
+                            }
+                        };
+                mRcc.setPlaybackPositionUpdateListener(listener);
+            }
+        }
+
+        @Override
+        void setRccState(PlaybackStateCompat state) {
+            long position = state.getPosition();
+            float speed = state.getPlaybackSpeed();
+            long updateTime = state.getLastPositionUpdateTime();
+            long currTime = SystemClock.elapsedRealtime();
+            if (state.getState() == PlaybackStateCompat.STATE_PLAYING && position > 0) {
+                long diff = 0;
+                if (updateTime > 0) {
+                    diff = currTime - updateTime;
+                    if (speed > 0 && speed != 1f) {
+                        diff = (long) (diff * speed);
+                    }
+                }
+                position += diff;
+            }
+            mRcc.setPlaybackState(getRccStateFromState(state.getState()), position, speed);
+        }
+
+        @Override
+        int getRccTransportControlFlagsFromActions(long actions) {
+            int transportControlFlags = super.getRccTransportControlFlagsFromActions(actions);
+            if ((actions & PlaybackStateCompat.ACTION_SEEK_TO) != 0) {
+                transportControlFlags |= RemoteControlClient.FLAG_KEY_MEDIA_POSITION_UPDATE;
+            }
+            return transportControlFlags;
+        }
+
+        @Override
+        void registerMediaButtonEventReceiver(PendingIntent mbrIntent, ComponentName mbrComponent) {
+            // Some Android implementations are not able to register a media button event receiver
+            // using a PendingIntent but need a ComponentName instead. These will raise a
+            // NullPointerException.
+            if (sIsMbrPendingIntentSupported) {
+                try {
+                    mAudioManager.registerMediaButtonEventReceiver(mbrIntent);
+                } catch (NullPointerException e) {
+                    Log.w(TAG, "Unable to register media button event receiver with "
+                            + "PendingIntent, falling back to ComponentName.");
+                    sIsMbrPendingIntentSupported = false;
+                }
+            }
+
+            if (!sIsMbrPendingIntentSupported) {
+                super.registerMediaButtonEventReceiver(mbrIntent, mbrComponent);
+            }
+        }
+
+        @Override
+        void unregisterMediaButtonEventReceiver(PendingIntent mbrIntent,
+                ComponentName mbrComponent) {
+            if (sIsMbrPendingIntentSupported) {
+                mAudioManager.unregisterMediaButtonEventReceiver(mbrIntent);
+            } else {
+                super.unregisterMediaButtonEventReceiver(mbrIntent, mbrComponent);
+            }
+        }
+    }
+
+    @RequiresApi(19)
+    static class MediaSessionImplApi19 extends MediaSessionImplApi18 {
+        MediaSessionImplApi19(Context context, String tag, ComponentName mbrComponent,
+                PendingIntent mbrIntent) {
+            super(context, tag, mbrComponent, mbrIntent);
+        }
+
+        @Override
+        public void setCallback(Callback callback, Handler handler) {
+            super.setCallback(callback, handler);
+            if (callback == null) {
+                mRcc.setMetadataUpdateListener(null);
+            } else {
+                RemoteControlClient.OnMetadataUpdateListener listener =
+                        new RemoteControlClient.OnMetadataUpdateListener() {
+                            @Override
+                            public void onMetadataUpdate(int key, Object newValue) {
+                                if (key == MediaMetadataEditor.RATING_KEY_BY_USER
+                                        && newValue instanceof Rating) {
+                                    postToHandler(MessageHandler.MSG_RATE,
+                                            RatingCompat.fromRating(newValue));
+                                }
+                            }
+                        };
+                mRcc.setMetadataUpdateListener(listener);
+            }
+        }
+
+        @Override
+        int getRccTransportControlFlagsFromActions(long actions) {
+            int transportControlFlags = super.getRccTransportControlFlagsFromActions(actions);
+            if ((actions & PlaybackStateCompat.ACTION_SET_RATING) != 0) {
+                transportControlFlags |= RemoteControlClient.FLAG_KEY_MEDIA_RATING;
+            }
+            return transportControlFlags;
+        }
+
+        @Override
+        RemoteControlClient.MetadataEditor buildRccMetadata(Bundle metadata) {
+            RemoteControlClient.MetadataEditor editor = super.buildRccMetadata(metadata);
+            long actions = mState == null ? 0 : mState.getActions();
+            if ((actions & PlaybackStateCompat.ACTION_SET_RATING) != 0) {
+                editor.addEditableKey(RemoteControlClient.MetadataEditor.RATING_KEY_BY_USER);
+            }
+
+            if (metadata == null) {
+                return editor;
+            }
+            if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_YEAR)) {
+                editor.putLong(MediaMetadataRetriever.METADATA_KEY_YEAR,
+                        metadata.getLong(MediaMetadataCompat.METADATA_KEY_YEAR));
+            }
+            if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_RATING)) {
+                // Do not remove casting here. Without this, a crash will happen in API 19.
+                ((MediaMetadataEditor) editor).putObject(MediaMetadataEditor.RATING_KEY_BY_OTHERS,
+                        metadata.getParcelable(MediaMetadataCompat.METADATA_KEY_RATING));
+            }
+            if (metadata.containsKey(MediaMetadataCompat.METADATA_KEY_USER_RATING)) {
+                // Do not remove casting here. Without this, a crash will happen in API 19.
+                ((MediaMetadataEditor) editor).putObject(MediaMetadataEditor.RATING_KEY_BY_USER,
+                        metadata.getParcelable(MediaMetadataCompat.METADATA_KEY_USER_RATING));
+            }
+            return editor;
+        }
+    }
+
+    @RequiresApi(21)
     static class MediaSessionImplApi21 implements MediaSessionImpl {
         private final Object mSessionObj;
         private final Token mToken;
 
-        private PendingIntent mMediaButtonIntent;
+        private boolean mDestroyed = false;
+        private final RemoteCallbackList<IMediaControllerCallback> mExtraControllerCallbacks =
+                new RemoteCallbackList<>();
+
+        private PlaybackStateCompat mPlaybackState;
+        private List<QueueItem> mQueue;
+        private MediaMetadataCompat mMetadata;
+        @RatingCompat.Style int mRatingType;
+        boolean mCaptioningEnabled;
+        @PlaybackStateCompat.RepeatMode int mRepeatMode;
+        @PlaybackStateCompat.ShuffleMode int mShuffleMode;
 
         public MediaSessionImplApi21(Context context, String tag) {
             mSessionObj = MediaSessionCompatApi21.createSession(context, tag);
-            mToken = new Token(MediaSessionCompatApi21.getSessionToken(mSessionObj));
+            mToken = new Token(MediaSessionCompatApi21.getSessionToken(mSessionObj),
+                    new ExtraSession());
         }
 
         public MediaSessionImplApi21(Object mediaSession) {
             mSessionObj = MediaSessionCompatApi21.verifySession(mediaSession);
-            mToken = new Token(MediaSessionCompatApi21.getSessionToken(mSessionObj));
+            mToken = new Token(MediaSessionCompatApi21.getSessionToken(mSessionObj),
+                    new ExtraSession());
         }
 
         @Override
         public void setCallback(Callback callback, Handler handler) {
             MediaSessionCompatApi21.setCallback(mSessionObj,
                     callback == null ? null : callback.mCallbackObj, handler);
+            if (callback != null) {
+                callback.setSessionImpl(this, handler);
+            }
         }
 
         @Override
@@ -2309,11 +3187,23 @@ public class MediaSessionCompat {
 
         @Override
         public void sendSessionEvent(String event, Bundle extras) {
+            if (android.os.Build.VERSION.SDK_INT < 23) {
+                int size = mExtraControllerCallbacks.beginBroadcast();
+                for (int i = size - 1; i >= 0; i--) {
+                    IMediaControllerCallback cb = mExtraControllerCallbacks.getBroadcastItem(i);
+                    try {
+                        cb.onEvent(event, extras);
+                    } catch (RemoteException e) {
+                    }
+                }
+                mExtraControllerCallbacks.finishBroadcast();
+            }
             MediaSessionCompatApi21.sendSessionEvent(mSessionObj, event, extras);
         }
 
         @Override
         public void release() {
+            mDestroyed = true;
             MediaSessionCompatApi21.release(mSessionObj);
         }
 
@@ -2324,12 +3214,28 @@ public class MediaSessionCompat {
 
         @Override
         public void setPlaybackState(PlaybackStateCompat state) {
+            mPlaybackState = state;
+            int size = mExtraControllerCallbacks.beginBroadcast();
+            for (int i = size - 1; i >= 0; i--) {
+                IMediaControllerCallback cb = mExtraControllerCallbacks.getBroadcastItem(i);
+                try {
+                    cb.onPlaybackStateChanged(state);
+                } catch (RemoteException e) {
+                }
+            }
+            mExtraControllerCallbacks.finishBroadcast();
             MediaSessionCompatApi21.setPlaybackState(mSessionObj,
                     state == null ? null : state.getPlaybackState());
         }
 
         @Override
+        public PlaybackStateCompat getPlaybackState() {
+            return mPlaybackState;
+        }
+
+        @Override
         public void setMetadata(MediaMetadataCompat metadata) {
+            mMetadata = metadata;
             MediaSessionCompatApi21.setMetadata(mSessionObj,
                     metadata == null ? null : metadata.getMediaMetadata());
         }
@@ -2341,12 +3247,12 @@ public class MediaSessionCompat {
 
         @Override
         public void setMediaButtonReceiver(PendingIntent mbr) {
-            mMediaButtonIntent = mbr;
             MediaSessionCompatApi21.setMediaButtonReceiver(mSessionObj, mbr);
         }
 
         @Override
         public void setQueue(List<QueueItem> queue) {
+            mQueue = queue;
             List<Object> queueObjs = null;
             if (queue != null) {
                 queueObjs = new ArrayList<>();
@@ -2365,9 +3271,57 @@ public class MediaSessionCompat {
         @Override
         public void setRatingType(@RatingCompat.Style int type) {
             if (android.os.Build.VERSION.SDK_INT < 22) {
-                // TODO figure out 21 implementation
+                mRatingType = type;
             } else {
                 MediaSessionCompatApi22.setRatingType(mSessionObj, type);
+            }
+        }
+
+        @Override
+        public void setCaptioningEnabled(boolean enabled) {
+            if (mCaptioningEnabled != enabled) {
+                mCaptioningEnabled = enabled;
+                int size = mExtraControllerCallbacks.beginBroadcast();
+                for (int i = size - 1; i >= 0; i--) {
+                    IMediaControllerCallback cb = mExtraControllerCallbacks.getBroadcastItem(i);
+                    try {
+                        cb.onCaptioningEnabledChanged(enabled);
+                    } catch (RemoteException e) {
+                    }
+                }
+                mExtraControllerCallbacks.finishBroadcast();
+            }
+        }
+
+        @Override
+        public void setRepeatMode(@PlaybackStateCompat.RepeatMode int repeatMode) {
+            if (mRepeatMode != repeatMode) {
+                mRepeatMode = repeatMode;
+                int size = mExtraControllerCallbacks.beginBroadcast();
+                for (int i = size - 1; i >= 0; i--) {
+                    IMediaControllerCallback cb = mExtraControllerCallbacks.getBroadcastItem(i);
+                    try {
+                        cb.onRepeatModeChanged(repeatMode);
+                    } catch (RemoteException e) {
+                    }
+                }
+                mExtraControllerCallbacks.finishBroadcast();
+            }
+        }
+
+        @Override
+        public void setShuffleMode(@PlaybackStateCompat.ShuffleMode int shuffleMode) {
+            if (mShuffleMode != shuffleMode) {
+                mShuffleMode = shuffleMode;
+                int size = mExtraControllerCallbacks.beginBroadcast();
+                for (int i = size - 1; i >= 0; i--) {
+                    IMediaControllerCallback cb = mExtraControllerCallbacks.getBroadcastItem(i);
+                    try {
+                        cb.onShuffleModeChanged(shuffleMode);
+                    } catch (RemoteException e) {
+                    }
+                }
+                mExtraControllerCallbacks.finishBroadcast();
             }
         }
 
@@ -2392,6 +3346,299 @@ public class MediaSessionCompat {
                 return null;
             } else {
                 return MediaSessionCompatApi24.getCallingPackage(mSessionObj);
+            }
+        }
+
+        class ExtraSession extends IMediaSession.Stub {
+            @Override
+            public void sendCommand(String command, Bundle args, ResultReceiverWrapper cb) {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public boolean sendMediaButton(KeyEvent mediaButton) {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void registerCallbackListener(IMediaControllerCallback cb) {
+                if (!mDestroyed) {
+                    mExtraControllerCallbacks.register(cb);
+                }
+            }
+
+            @Override
+            public void unregisterCallbackListener(IMediaControllerCallback cb) {
+                mExtraControllerCallbacks.unregister(cb);
+            }
+
+            @Override
+            public String getPackageName() {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public String getTag() {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public PendingIntent getLaunchPendingIntent() {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            @SessionFlags
+            public long getFlags() {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public ParcelableVolumeInfo getVolumeAttributes() {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void adjustVolume(int direction, int flags, String packageName) {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void setVolumeTo(int value, int flags, String packageName) {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void prepare() throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void prepareFromMediaId(String mediaId, Bundle extras) throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void prepareFromSearch(String query, Bundle extras) throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void prepareFromUri(Uri uri, Bundle extras) throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void play() throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void playFromMediaId(String mediaId, Bundle extras) throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void playFromSearch(String query, Bundle extras) throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void playFromUri(Uri uri, Bundle extras) throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void skipToQueueItem(long id) {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void pause() throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void stop() throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void next() throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void previous() throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void fastForward() throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void rewind() throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void seekTo(long pos) throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void rate(RatingCompat rating) throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void rateWithExtras(RatingCompat rating, Bundle extras) throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void setCaptioningEnabled(boolean enabled) throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void setRepeatMode(int repeatMode) throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void setShuffleModeEnabledRemoved(boolean enabled) throws RemoteException {
+                // Do nothing.
+            }
+
+            @Override
+            public void setShuffleMode(int shuffleMode) throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void sendCustomAction(String action, Bundle args) throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public MediaMetadataCompat getMetadata() {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public PlaybackStateCompat getPlaybackState() {
+                return getStateWithUpdatedPosition(mPlaybackState, mMetadata);
+            }
+
+            @Override
+            public List<QueueItem> getQueue() {
+                // Will not be called.
+                return null;
+            }
+
+            @Override
+            public void addQueueItem(MediaDescriptionCompat descriptionCompat) {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void addQueueItemAt(MediaDescriptionCompat descriptionCompat, int index) {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void removeQueueItem(MediaDescriptionCompat description) {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void removeQueueItemAt(int index) {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public CharSequence getQueueTitle() {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public Bundle getExtras() {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            @RatingCompat.Style
+            public int getRatingType() {
+                return mRatingType;
+            }
+
+            @Override
+            public boolean isCaptioningEnabled() {
+                return mCaptioningEnabled;
+            }
+
+            @Override
+            @PlaybackStateCompat.RepeatMode
+            public int getRepeatMode() {
+                return mRepeatMode;
+            }
+
+            @Override
+            public boolean isShuffleModeEnabledRemoved() {
+                return false;
+            }
+
+            @Override
+            @PlaybackStateCompat.ShuffleMode
+            public int getShuffleMode() {
+                return mShuffleMode;
+            }
+
+            @Override
+            public boolean isTransportControlEnabled() {
+                // Will not be called.
+                throw new AssertionError();
             }
         }
     }

@@ -280,9 +280,10 @@
 
         <!-- The preferred TextAppearance for the primary text of list items. -->
         <attr name="textAppearanceListItem" format="reference"/>
+        <!-- The preferred TextAppearance for the secondary text of list items. -->
+        <attr name="textAppearanceListItemSecondary" format="reference" />
         <!-- The preferred TextAppearance for the primary text of small list items. -->
         <attr name="textAppearanceListItemSmall" format="reference"/>
-
 
         <!-- ============ -->
         <!-- Panel styles -->
@@ -392,6 +393,20 @@
 
         <!-- Default menu-style ListView style. -->
         <attr name="listMenuViewStyle" format="reference" />
+
+        <!-- ===================== -->
+        <!-- Tooltip styles -->
+        <!-- ===================== -->
+        <eat-comment />
+
+        <!-- Background to use for tooltips -->
+        <attr name="tooltipFrameBackground" format="reference" />
+        <!-- Foreground color to use for tooltips -->
+        <attr name="tooltipForegroundColor" format="reference|color" />
+
+        <!-- Color used for error states and things that need to be drawn to
+             the user's attention. -->
+        <attr name="colorError" format="reference|color" />
     </declare-styleable>
 
 
@@ -553,6 +568,9 @@
             <enum name="multiply" value="14" />
             <!-- [Sa + Da - Sa * Da, Sc + Dc - Sc * Dc] -->
             <enum name="screen" value="15" />
+            <!-- Combines the tint and icon color and alpha channels, clamping the
+                 result to valid color values. Saturate(S + D) -->
+            <enum name="add" value="16" />
         </attr>
     </declare-styleable>
 
@@ -634,9 +652,31 @@
              with alphabetic keys. -->
         <attr name="android:alphabeticShortcut" />
 
+        <!-- The alphabetic modifier key. This is the modifier when using a keyboard
+            with alphabetic keys. The values should be kept in sync with KeyEvent -->
+        <attr name="alphabeticModifiers">
+            <flag name="META" value="0x10000" />
+            <flag name="CTRL" value="0x1000" />
+            <flag name="ALT" value="0x02" />
+            <flag name="SHIFT" value="0x1" />
+            <flag name="SYM" value="0x4" />
+            <flag name="FUNCTION" value="0x8" />
+        </attr>
+
         <!-- The numeric shortcut key.  This is the shortcut when using a numeric (e.g., 12-key)
              keyboard. -->
         <attr name="android:numericShortcut" />
+
+        <!-- The numeric modifier key. This is the modifier when using a numeric (e.g., 12-key)
+            keyboard. The values should be kept in sync with KeyEvent -->
+        <attr name="numericModifiers">
+            <flag name="META" value="0x10000" />
+            <flag name="CTRL" value="0x1000" />
+            <flag name="ALT" value="0x02" />
+            <flag name="SHIFT" value="0x1" />
+            <flag name="SYM" value="0x4" />
+            <flag name="FUNCTION" value="0x8" />
+        </attr>
 
         <!-- Whether the item is capable of displaying a check mark. -->
         <attr name="android:checkable" />
@@ -693,6 +733,36 @@
              See {@link android.view.MenuItem#setActionProvider(android.view.ActionProvider)}
              for more info. -->
         <attr name="actionProviderClass" format="string" />
+
+        <!-- The content description associated with the item. -->
+        <attr name="contentDescription" format="string"/>
+
+        <!-- The tooltip text associated with the item. -->
+        <attr name="tooltipText" format="string"/>
+
+        <!-- Tint to apply to the icon. -->
+        <attr name="iconTint" format="color" />
+
+        <!-- Blending mode used to apply the icon tint. -->
+        <attr name="iconTintMode">
+            <!-- The tint is drawn on top of the icon.
+                 [Sa + (1 - Sa)*Da, Rc = Sc + (1 - Sa)*Dc] -->
+            <enum name="src_over" value="3" />
+            <!-- The tint is masked by the alpha channel of the icon. The icon’s
+                 color channels are thrown out. [Sa * Da, Sc * Da] -->
+            <enum name="src_in" value="5" />
+            <!-- The tint is drawn above the icon, but with the icon’s alpha
+                 channel masking the result. [Da, Sc * Da + (1 - Sa) * Dc] -->
+            <enum name="src_atop" value="9" />
+            <!-- Multiplies the color and alpha channels of the icon with those of
+                 the tint. [Sa * Da, Sc * Dc] -->
+            <enum name="multiply" value="14" />
+            <!-- [Sa + Da - Sa * Da, Sc + Dc - Sc * Dc] -->
+            <enum name="screen" value="15" />
+            <!-- Combines the tint and icon color and alpha channels, clamping the
+                 result to valid color values. Saturate(S + D) -->
+            <enum name="add" value="16" />
+        </attr>
 
     </declare-styleable>
 
@@ -764,6 +834,29 @@
         <!-- Present the text in ALL CAPS. This may use a small-caps form when available. -->
         <attr name="textAllCaps" format="reference|boolean" />
         <attr name="android:textAppearance" />
+        <!-- Specify the type of auto-size. Note that this feature is not supported by EditText,
+        works only for TextView. -->
+        <attr name="autoSizeTextType" format="enum">
+            <!-- No auto-sizing (default). -->
+            <enum name="none" value="0" />
+            <!-- Uniform horizontal and vertical text size scaling to fit within the
+            container. -->
+            <enum name="uniform" value="1" />
+        </attr>
+        <!-- Specify the auto-size step size if <code>autoSizeTextType</code> is set to
+        <code>uniform</code>. The default is 1px. Overwrites
+        <code>autoSizePresetSizes</code> if set. -->
+        <attr name="autoSizeStepGranularity" format="dimension" />
+        <!-- Resource array of dimensions to be used in conjunction with
+        <code>autoSizeTextType</code> set to <code>uniform</code>. Overrides
+        <code>autoSizeStepGranularity</code> if set. -->
+        <attr name="autoSizePresetSizes" format="reference"/>
+        <!-- The minimum text size constraint to be used when auto-sizing text. -->
+        <attr name="autoSizeMinTextSize" format="dimension" />
+        <!-- The maximum text size constraint to be used when auto-sizing text. -->
+        <attr name="autoSizeMaxTextSize" format="dimension" />
+        <!-- The attribute for the font family. -->
+        <attr name="fontFamily" format="string" />
     </declare-styleable>
 
     <declare-styleable name="LinearLayoutCompat">
@@ -947,6 +1040,9 @@
             <enum name="multiply" value="14" />
             <!-- [Sa + Da - Sa * Da, Sc + Dc - Sc * Dc] -->
             <enum name="screen" value="15" />
+            <!-- Combines the tint and icon color and alpha channels, clamping the
+                 result to valid color values. Saturate(S + D) -->
+            <enum name="add" value="16" />
         </attr>
     </declare-styleable>
 
@@ -1021,8 +1117,11 @@
         <attr name="android:textSize" />
         <attr name="android:textColor" />
         <attr name="android:textColorHint"/>
+        <attr name="android:textColorLink"/>
         <attr name="android:textStyle" />
         <attr name="android:typeface" />
+        <attr name="android:fontFamily" />
+        <attr name="fontFamily" />
         <attr name="textAllCaps" />
         <attr name="android:shadowColor"/>
         <attr name="android:shadowDy"/>
@@ -1038,6 +1137,7 @@
         <attr name="multiChoiceItemLayout" format="reference" />
         <attr name="singleChoiceItemLayout" format="reference" />
         <attr name="listItemLayout" format="reference" />
+        <attr name="showTitle" format="boolean" />
     </declare-styleable>
 
     <!-- @hide -->
@@ -1061,6 +1161,30 @@
         <!-- Sets a drawable as the content of this ImageView. Allows the use of vector drawable
              when running on older versions of the platform. -->
         <attr name="srcCompat" format="reference" />
+
+        <!-- Tint to apply to the image source. -->
+        <attr name="tint" format="color" />
+
+        <!-- Blending mode used to apply the image source tint. -->
+        <attr name="tintMode">
+            <!-- The tint is drawn on top of the drawable.
+                 [Sa + (1 - Sa)*Da, Rc = Sc + (1 - Sa)*Dc] -->
+            <enum name="src_over" value="3" />
+            <!-- The tint is masked by the alpha channel of the drawable. The drawable’s
+                 color channels are thrown out. [Sa * Da, Sc * Da] -->
+            <enum name="src_in" value="5" />
+            <!-- The tint is drawn above the drawable, but with the drawable’s alpha
+                 channel masking the result. [Da, Sc * Da + (1 - Sa) * Dc] -->
+            <enum name="src_atop" value="9" />
+            <!-- Multiplies the color and alpha channels of the drawable with those of
+                 the tint. [Sa * Da, Sc * Dc] -->
+            <enum name="multiply" value="14" />
+            <!-- [Sa + Da - Sa * Da, Sc + Dc - Sc * Dc] -->
+            <enum name="screen" value="15" />
+            <!-- Combines the tint and icon color and alpha channels, clamping the
+                 result to valid color values. Saturate(S + D) -->
+            <enum name="add" value="16" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="AppCompatSeekBar">
@@ -1099,6 +1223,13 @@
         <attr name="android:drawableStart" />
         <attr name="android:drawableEnd" />
         <attr name="android:textAppearance" />
+    </declare-styleable>
+
+    <declare-styleable name="RecycleListView">
+        <!-- Bottom padding to use when no buttons are present. -->
+        <attr name="paddingBottomNoButtons" format="dimension" />
+        <!-- Top padding to use when no title is present. -->
+        <attr name="paddingTopNoTitle" format="dimension" />
     </declare-styleable>
 
 </resources>

@@ -29,11 +29,11 @@
     </style>
 
     <style name="Theme.Design" parent="Theme.AppCompat">
-        <item name="textColorError">@color/design_textinput_error_color_dark</item>
+        <item name="textColorError">?attr/colorError</item>
     </style>
 
     <style name="Theme.Design.Light" parent="Theme.AppCompat.Light">
-        <item name="textColorError">@color/design_textinput_error_color_light</item>
+        <item name="textColorError">?attr/colorError</item>
     </style>
 
     <style name="Theme.Design.NoActionBar">

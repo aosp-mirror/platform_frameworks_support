@@ -20,6 +20,7 @@ import static android.support.design.testutils.DrawerLayoutActions.openDrawer;
 import static android.support.design.testutils.NavigationViewActions.addHeaderView;
 import static android.support.design.testutils.NavigationViewActions.inflateHeaderView;
 import static android.support.design.testutils.NavigationViewActions.removeHeaderView;
+import static android.support.design.testutils.NavigationViewActions.removeMenuItem;
 import static android.support.design.testutils.NavigationViewActions.setCheckedItem;
 import static android.support.design.testutils.NavigationViewActions.setIconForMenuItem;
 import static android.support.design.testutils.NavigationViewActions.setItemBackground;
@@ -27,6 +28,9 @@ import static android.support.design.testutils.NavigationViewActions.setItemBack
 import static android.support.design.testutils.NavigationViewActions.setItemIconTintList;
 import static android.support.design.testutils.NavigationViewActions.setItemTextAppearance;
 import static android.support.design.testutils.NavigationViewActions.setItemTextColor;
+import static android.support.design.testutils.TestUtilsActions.reinflateMenu;
+import static android.support.design.testutils.TestUtilsActions.restoreHierarchyState;
+import static android.support.design.testutils.TestUtilsMatchers.isActionViewOf;
 import static android.support.design.testutils.TestUtilsMatchers.isChildOfA;
 import static android.support.design.testutils.TestUtilsMatchers.withBackgroundFill;
 import static android.support.design.testutils.TestUtilsMatchers.withStartDrawableFilledWith;
@@ -38,9 +42,11 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.Visibility;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
+import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isNotChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -55,18 +61,22 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
+import android.annotation.TargetApi;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.Parcelable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IdRes;
 import android.support.design.test.R;
 import android.support.design.testutils.TestDrawable;
+import android.support.test.filters.LargeTest;
+import android.support.test.filters.SdkSuppress;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
-import android.test.suitebuilder.annotation.SmallTest;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -80,6 +90,7 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+@LargeTest
 public class NavigationViewTest
         extends BaseInstrumentationTestCase<NavigationViewActivity> {
     private static final int[] MENU_CONTENT_ITEM_IDS = { R.id.destination_home,
@@ -88,7 +99,7 @@ public class NavigationViewTest
 
     private DrawerLayout mDrawerLayout;
 
-    private NavigationView mNavigationView;
+    private NavigationTestView mNavigationView;
 
     public NavigationViewTest() {
         super(NavigationViewActivity.class);
@@ -98,7 +109,7 @@ public class NavigationViewTest
     public void setUp() throws Exception {
         final NavigationViewActivity activity = mActivityTestRule.getActivity();
         mDrawerLayout = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
-        mNavigationView = (NavigationView) mDrawerLayout.findViewById(R.id.start_drawer);
+        mNavigationView = (NavigationTestView) mDrawerLayout.findViewById(R.id.start_drawer);
 
         // Close the drawer to reset the state for the next test
         onView(withId(R.id.drawer_layout)).perform(closeDrawer(GravityCompat.START));
@@ -113,7 +124,6 @@ public class NavigationViewTest
     }
 
     @Test
-    @SmallTest
     public void testBasics() {
         // Open our drawer
         onView(withId(R.id.drawer_layout)).perform(openDrawer(GravityCompat.START));
@@ -136,20 +146,22 @@ public class NavigationViewTest
     }
 
     @Test
-    @SmallTest
     public void testWillNotDraw() {
         // Open our drawer
         onView(withId(R.id.drawer_layout)).perform(openDrawer(GravityCompat.START));
 
         if (Build.VERSION.SDK_INT >= 21) {
-            assertFalse(mNavigationView.willNotDraw());
+            if (mNavigationView.hasSystemWindowInsets()) {
+                assertFalse(mNavigationView.willNotDraw());
+            } else {
+                assertTrue(mNavigationView.willNotDraw());
+            }
         } else {
             assertTrue(mNavigationView.willNotDraw());
         }
     }
 
     @Test
-    @SmallTest
     public void testTextAppearance() {
         // Open our drawer
         onView(withId(R.id.drawer_layout)).perform(openDrawer(GravityCompat.START));
@@ -177,7 +189,6 @@ public class NavigationViewTest
     }
 
     @Test
-    @SmallTest
     public void testTextColor() {
         // Open our drawer
         onView(withId(R.id.drawer_layout)).perform(openDrawer(GravityCompat.START));
@@ -208,7 +219,6 @@ public class NavigationViewTest
     }
 
     @Test
-    @SmallTest
     public void testBackground() {
         // Open our drawer
         onView(withId(R.id.drawer_layout)).perform(openDrawer(GravityCompat.START));
@@ -266,7 +276,6 @@ public class NavigationViewTest
     }
 
     @Test
-    @SmallTest
     public void testIconTinting() {
         // Open our drawer
         onView(withId(R.id.drawer_layout)).perform(openDrawer(GravityCompat.START));
@@ -361,7 +370,6 @@ public class NavigationViewTest
     }
 
     @Test
-    @SmallTest
     public void testHeaders() {
         // Open our drawer
         onView(withId(R.id.drawer_layout)).perform(openDrawer(GravityCompat.START));
@@ -398,8 +406,80 @@ public class NavigationViewTest
         verifyHeaders(R.id.header2, R.id.header3, R.id.header3);
     }
 
+    @SdkSuppress(minSdkVersion = 11)
+    @TargetApi(11)
     @Test
-    @SmallTest
+    public void testHeaderState() {
+        // Open our drawer
+        onView(withId(R.id.drawer_layout)).perform(openDrawer(GravityCompat.START));
+
+        // Inflate a header with a toggle switch and check that it's there in the navigation view
+        onView(withId(R.id.start_drawer)).perform(
+                inflateHeaderView(R.layout.design_navigation_view_header_switch));
+        verifyHeaders(R.id.header_frame);
+
+        onView(withId(R.id.header_toggle))
+                .check(matches(isNotChecked()))
+                .perform(click())
+                .check(matches(isChecked()));
+
+        // Save the current state
+        SparseArray<Parcelable> container = new SparseArray<>();
+        mNavigationView.saveHierarchyState(container);
+
+        // Remove the header
+        final View header = mNavigationView.findViewById(R.id.header_frame);
+        onView(withId(R.id.start_drawer)).perform(removeHeaderView(header));
+        verifyHeaders();
+
+        // Inflate the header again
+        onView(withId(R.id.start_drawer)).perform(
+                inflateHeaderView(R.layout.design_navigation_view_header_switch));
+        verifyHeaders(R.id.header_frame);
+
+        // Restore the saved state
+        onView(withId(R.id.start_drawer)).perform(
+                restoreHierarchyState(container));
+
+        // Confirm that the state was restored
+        onView(withId(R.id.header_toggle))
+                .check(matches(isChecked()));
+    }
+
+    @SdkSuppress(minSdkVersion = 11)
+    @TargetApi(11)
+    @Test
+    public void testActionViewState() {
+        // Open our drawer
+        onView(withId(R.id.drawer_layout)).perform(openDrawer(GravityCompat.START));
+
+        final Menu menu = mNavigationView.getMenu();
+        onView(isActionViewOf(menu, R.id.destination_people))
+                .check(matches(isNotChecked())) // Not checked by default
+                .perform(click())               // Check it
+                .check(matches(isChecked()));
+
+        // Remove the other action view to simulate the case where it is not yet inflated
+        onView(isActionViewOf(menu, R.id.destination_custom))
+                .check(matches(isDisplayed()));
+        onView(withId(R.id.start_drawer))
+                .perform(removeMenuItem(R.id.destination_custom));
+
+        // Save the current state
+        SparseArray<Parcelable> container = new SparseArray<>();
+        mNavigationView.saveHierarchyState(container);
+
+        // Restore the saved state
+        onView(withId(R.id.start_drawer))
+                .perform(reinflateMenu(R.menu.navigation_view_content))
+                .perform(restoreHierarchyState(container));
+
+        // Checked state should be restored
+        onView(isActionViewOf(menu, R.id.destination_people))
+                .check(matches(isChecked()));
+    }
+
+    @Test
     public void testNavigationSelectionListener() {
         // Open our drawer
         onView(withId(R.id.drawer_layout)).perform(openDrawer(GravityCompat.START));
@@ -467,7 +547,6 @@ public class NavigationViewTest
     }
 
     @Test
-    @SmallTest
     public void testCheckedAppearance() {
         // Open our drawer
         onView(withId(R.id.drawer_layout)).perform(openDrawer(GravityCompat.START));
@@ -538,7 +617,6 @@ public class NavigationViewTest
     }
 
     @Test
-    @SmallTest
     public void testActionLayout() {
         // Open our drawer
         onView(withId(R.id.drawer_layout)).perform(openDrawer(GravityCompat.START));

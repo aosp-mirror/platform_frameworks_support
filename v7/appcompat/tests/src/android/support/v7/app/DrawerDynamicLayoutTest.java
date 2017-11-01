@@ -15,51 +15,52 @@
  */
 package android.support.v7.app;
 
-import android.support.test.InstrumentationRegistry;
-import android.support.v4.widget.DrawerLayout;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
-import org.junit.After;
-import org.junit.Test;
-
-import android.support.annotation.LayoutRes;
-import android.support.test.espresso.UiController;
-import android.support.test.espresso.ViewAction;
-import android.support.v7.appcompat.test.R;
-import android.test.suitebuilder.annotation.SmallTest;
-import android.view.View;
-import android.view.ViewStub;
-
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static org.hamcrest.core.AllOf.allOf;
+
+import static org.hamcrest.CoreMatchers.allOf;
 import static org.mockito.Mockito.mock;
+
+import android.support.annotation.LayoutRes;
+import android.support.test.annotation.UiThreadTest;
+import android.support.test.espresso.UiController;
+import android.support.test.espresso.ViewAction;
+import android.support.test.filters.SmallTest;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.appcompat.test.R;
+import android.view.View;
+import android.view.ViewStub;
+
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
+import org.junit.After;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * Test cases to verify that <code>DrawerLayout</code> only supports configurations
  * with at most one drawer child along each vertical (left / right) edge.
  */
 @SmallTest
-public class DrawerDynamicLayoutTest
-        extends BaseInstrumentationTestCase<DrawerDynamicLayoutActivity> {
-    public DrawerDynamicLayoutTest() {
-        super(DrawerDynamicLayoutActivity.class);
-    }
+@RunWith(AndroidJUnit4.class)
+public class DrawerDynamicLayoutTest {
+    @Rule
+    public final ActivityTestRule<DrawerDynamicLayoutActivity> mActivityTestRule =
+            new ActivityTestRule<>(DrawerDynamicLayoutActivity.class);
 
+    @UiThreadTest
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         // Now that the test is done, replace the activity content view with ViewStub so
         // that it's ready to be replaced for the next test.
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
-            @Override
-            public void run() {
-                final DrawerDynamicLayoutActivity activity = mActivityTestRule.getActivity();
-                activity.setContentView(R.layout.drawer_dynamic_layout);
-            }
-        });
+        final DrawerDynamicLayoutActivity activity = mActivityTestRule.getActivity();
+        activity.setContentView(R.layout.drawer_dynamic_layout);
     }
 
     /**

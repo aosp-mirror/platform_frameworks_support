@@ -48,9 +48,15 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Root;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
-import android.support.v7.app.BaseInstrumentationTestCase;
+import android.support.test.filters.FlakyTest;
+import android.support.test.filters.LargeTest;
+import android.support.test.filters.MediumTest;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
+import android.support.testutils.PollingCheck;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.appcompat.test.R;
-import android.test.suitebuilder.annotation.SmallTest;
+import android.text.TextUtils;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -63,10 +69,18 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class PopupMenuTest extends BaseInstrumentationTestCase<PopupTestActivity> {
+@RunWith(AndroidJUnit4.class)
+public class PopupMenuTest {
+    @Rule
+    public final ActivityTestRule<PopupTestActivity> mActivityTestRule =
+            new ActivityTestRule<>(PopupTestActivity.class);
+
     // Since PopupMenu doesn't expose any access to the underlying
     // implementation (like ListPopupWindow.getListView), we're relying on the
     // class name of the list view from MenuPopupWindow that is being used
@@ -84,27 +98,55 @@ public class PopupMenuTest extends BaseInstrumentationTestCase<PopupTestActivity
 
     private View mMainDecorView;
 
-    public PopupMenuTest() {
-        super(PopupTestActivity.class);
-    }
-
     @Before
     public void setUp() throws Exception {
         final PopupTestActivity activity = mActivityTestRule.getActivity();
-        mContainer = (FrameLayout) activity.findViewById(R.id.container);
-        mButton = (Button) mContainer.findViewById(R.id.test_button);
+        mContainer = activity.findViewById(R.id.container);
+        mButton = mContainer.findViewById(R.id.test_button);
         mResources = mActivityTestRule.getActivity().getResources();
         mMainDecorView = mActivityTestRule.getActivity().getWindow().getDecorView();
     }
 
+    @After
+    public void tearDown() {
+        if (mPopupMenu != null) {
+            InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+                @Override
+                public void run() {
+                    mPopupMenu.dismiss();
+                }
+            });
+        }
+    }
+
     @Test
-    @SmallTest
-    public void testBasicContent() {
+    @MediumTest
+    public void testBasicContent() throws Throwable {
         final Builder menuBuilder = new Builder();
         menuBuilder.wireToActionButton();
 
         onView(withId(R.id.test_button)).perform(click());
         assertNotNull("Popup menu created", mPopupMenu);
+
+        final MenuItem hightlightItem = mPopupMenu.getMenu().findItem(R.id.action_highlight);
+        assertEquals(mResources.getString(R.string.popup_menu_highlight_description),
+                MenuItemCompat.getContentDescription(hightlightItem));
+        assertEquals(mResources.getString(R.string.popup_menu_highlight_tooltip),
+                MenuItemCompat.getTooltipText(hightlightItem));
+
+        final MenuItem editItem = mPopupMenu.getMenu().findItem(R.id.action_edit);
+        assertNotNull(MenuItemCompat.getContentDescription(hightlightItem));
+        assertNotNull(MenuItemCompat.getTooltipText(hightlightItem));
+        mActivityTestRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                MenuItemCompat.setContentDescription(editItem,
+                        mResources.getString(R.string.popup_menu_edit_description));
+                MenuItemCompat.setTooltipText(editItem,
+                        mResources.getString(R.string.popup_menu_edit_tooltip));
+            }
+        });
+
         // Unlike ListPopupWindow, PopupMenu doesn't have an API to check whether it is showing.
         // Use a custom matcher to check the visibility of the drop down list view instead.
         onView(withClassName(Matchers.is(DROP_DOWN_CLASS_NAME)))
@@ -118,11 +160,15 @@ public class PopupMenuTest extends BaseInstrumentationTestCase<PopupTestActivity
         onData(anything()).atPosition(0).check(matches(isDisplayed()));
         onView(withText(mResources.getString(R.string.popup_menu_highlight)))
                 .inRoot(withDecorView(not(is(mMainDecorView))))
-                .check(matches(isDisplayed()));
+                .check(matches(isDisplayed()))
+                .check(matches(selfOrParentWithContentDescription(
+                        mResources.getString(R.string.popup_menu_highlight_description))));
         onData(anything()).atPosition(1).check(matches(isDisplayed()));
         onView(withText(mResources.getString(R.string.popup_menu_edit)))
                 .inRoot(withDecorView(not(is(mMainDecorView))))
-                .check(matches(isDisplayed()));
+                .check(matches(isDisplayed()))
+                .check(matches(selfOrParentWithContentDescription(
+                        mResources.getString(R.string.popup_menu_edit_description))));
         onData(anything()).atPosition(2).check(matches(isDisplayed()));
         onView(withText(mResources.getString(R.string.popup_menu_delete)))
                 .inRoot(withDecorView(not(is(mMainDecorView))))
@@ -260,8 +306,9 @@ public class PopupMenuTest extends BaseInstrumentationTestCase<PopupTestActivity
         };
     }
 
+    @FlakyTest(bugId = 33669575)
     @Test
-    @SmallTest
+    @LargeTest
     public void testAnchoring() {
         Builder menuBuilder = new Builder();
         menuBuilder.wireToActionButton();
@@ -276,6 +323,17 @@ public class PopupMenuTest extends BaseInstrumentationTestCase<PopupTestActivity
         mButton.getLocationOnScreen(anchorOnScreenXY);
 
         // Allow for off-by-one mismatch in anchoring
+
+        // See if Anchoring Y gets animated to the expected value.
+        PollingCheck.waitFor(1000, new PollingCheck.PollingCheckCondition() {
+            @Override
+            public boolean canProceed() {
+                final int y = anchorOnScreenXY[1] + popupInWindowXY[1] + mButton.getHeight()
+                        - popupPadding.top;
+                return Math.abs(y - popupOnScreenXY[1]) <= 1;
+            }
+        });
+
         assertEquals("Anchoring X", anchorOnScreenXY[0] + popupInWindowXY[0],
                 popupOnScreenXY[0], 1);
         assertEquals("Anchoring Y",
@@ -284,8 +342,8 @@ public class PopupMenuTest extends BaseInstrumentationTestCase<PopupTestActivity
     }
 
     @Test
-    @SmallTest
-    public void testDismissalViaAPI() {
+    @MediumTest
+    public void testDismissalViaAPI() throws Throwable {
         Builder menuBuilder = new Builder().withDismissListener();
         menuBuilder.wireToActionButton();
 
@@ -293,7 +351,7 @@ public class PopupMenuTest extends BaseInstrumentationTestCase<PopupTestActivity
 
         // Since PopupMenu is not a View, we can't use Espresso's view actions to invoke
         // the dismiss() API
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+        mActivityTestRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mPopupMenu.dismiss();
@@ -308,7 +366,7 @@ public class PopupMenuTest extends BaseInstrumentationTestCase<PopupTestActivity
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testDismissalViaTouch() throws Throwable {
         Builder menuBuilder = new Builder().withDismissListener();
         menuBuilder.wireToActionButton();
@@ -364,7 +422,7 @@ public class PopupMenuTest extends BaseInstrumentationTestCase<PopupTestActivity
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testSimpleMenuItemClickViaEvent() {
         Builder menuBuilder = new Builder().withMenuItemClickListener();
         menuBuilder.wireToActionButton();
@@ -387,8 +445,8 @@ public class PopupMenuTest extends BaseInstrumentationTestCase<PopupTestActivity
     }
 
     @Test
-    @SmallTest
-    public void testSimpleMenuItemClickViaAPI() {
+    @MediumTest
+    public void testSimpleMenuItemClickViaAPI() throws Throwable {
         Builder menuBuilder = new Builder().withMenuItemClickListener();
         menuBuilder.wireToActionButton();
 
@@ -397,7 +455,7 @@ public class PopupMenuTest extends BaseInstrumentationTestCase<PopupTestActivity
         // Verify that our menu item click listener hasn't been called yet
         verify(menuBuilder.mOnMenuItemClickListener, never()).onMenuItemClick(any(MenuItem.class));
 
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+        mActivityTestRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mPopupMenu.getMenu().performIdentifierAction(R.id.action_highlight, 0);
@@ -413,7 +471,7 @@ public class PopupMenuTest extends BaseInstrumentationTestCase<PopupTestActivity
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testSubMenuClicksViaEvent() throws Throwable {
         Builder menuBuilder = new Builder().withMenuItemClickListener();
         menuBuilder.wireToActionButton();
@@ -475,7 +533,7 @@ public class PopupMenuTest extends BaseInstrumentationTestCase<PopupTestActivity
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testSubMenuClicksViaAPI() throws Throwable {
         Builder menuBuilder = new Builder().withMenuItemClickListener();
         menuBuilder.wireToActionButton();
@@ -485,7 +543,7 @@ public class PopupMenuTest extends BaseInstrumentationTestCase<PopupTestActivity
         // Verify that our menu item click listener hasn't been called yet
         verify(menuBuilder.mOnMenuItemClickListener, never()).onMenuItemClick(any(MenuItem.class));
 
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+        mActivityTestRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mPopupMenu.getMenu().performIdentifierAction(R.id.action_share, 0);
@@ -527,7 +585,7 @@ public class PopupMenuTest extends BaseInstrumentationTestCase<PopupTestActivity
                 .check(matches(isDisplayed()));
 
         // Now ask the share submenu to perform an action on its specific menu item
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+        mActivityTestRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mPopupMenu.getMenu().findItem(R.id.action_share).getSubMenu().
@@ -597,5 +655,34 @@ public class PopupMenuTest extends BaseInstrumentationTestCase<PopupTestActivity
                 }
             });
         }
+    }
+
+    private static Matcher<View> selfOrParentWithContentDescription(final CharSequence expected) {
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("self of parent has content description: " + expected);
+            }
+
+            @Override
+            public boolean matchesSafely(View view) {
+                return TextUtils.equals(expected, getSelfOrParentContentDescription(view));
+            }
+
+            private CharSequence getSelfOrParentContentDescription(View view) {
+                while (view != null) {
+                    final CharSequence contentDescription = view.getContentDescription();
+                    if (contentDescription != null) {
+                        return contentDescription;
+                    }
+                    final ViewParent parent = view.getParent();
+                    if (!(parent instanceof View)) {
+                        break;
+                    }
+                    view = (View) parent;
+                }
+                return null;
+            }
+        };
     }
 }

@@ -16,6 +16,7 @@ package android.support.v17.leanback.widget;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -43,6 +44,8 @@ public class BrowseFrameLayout extends FrameLayout {
         /**
          * See {@link android.view.ViewGroup#onRequestFocusInDescendants(
          * int, android.graphics.Rect)}.
+         * @return True if handled by listener, otherwise returns {@link
+         * android.view.ViewGroup#onRequestFocusInDescendants(int, android.graphics.Rect)}.
          */
         boolean onRequestFocusInDescendants(int direction,
                 Rect previouslyFocusedRect);
@@ -67,6 +70,7 @@ public class BrowseFrameLayout extends FrameLayout {
 
     private OnFocusSearchListener mListener;
     private OnChildFocusListener mOnChildFocusListener;
+    private OnKeyListener mOnDispatchKeyListener;
 
     /**
      * Sets a {@link OnFocusSearchListener}.
@@ -100,8 +104,10 @@ public class BrowseFrameLayout extends FrameLayout {
     protected boolean onRequestFocusInDescendants(int direction,
             Rect previouslyFocusedRect) {
         if (mOnChildFocusListener != null) {
-            return mOnChildFocusListener.onRequestFocusInDescendants(direction,
-                    previouslyFocusedRect);
+            if (mOnChildFocusListener.onRequestFocusInDescendants(direction,
+                    previouslyFocusedRect)) {
+                return true;
+            }
         }
         return super.onRequestFocusInDescendants(direction, previouslyFocusedRect);
     }
@@ -119,9 +125,30 @@ public class BrowseFrameLayout extends FrameLayout {
 
     @Override
     public void requestChildFocus(View child, View focused) {
-        super.requestChildFocus(child, focused);
         if (mOnChildFocusListener != null) {
             mOnChildFocusListener.onRequestChildFocus(child, focused);
         }
+        super.requestChildFocus(child, focused);
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        boolean consumed = super.dispatchKeyEvent(event);
+        if (mOnDispatchKeyListener != null) {
+            if (!consumed) {
+                return mOnDispatchKeyListener.onKey(getRootView(), event.getKeyCode(), event);
+            }
+        }
+        return consumed;
+    }
+
+    /**
+     * Sets the {@link android.view.View.OnKeyListener} on this view. This listener would fire
+     * only for unhandled {@link KeyEvent}s. We need to provide an external key listener to handle
+     * back button clicks when we are in full screen video mode because
+     * {@link View#setOnKeyListener(OnKeyListener)} doesn't fire as the focus is not on this view.
+     */
+    public void setOnDispatchKeyListener(OnKeyListener listener) {
+        this.mOnDispatchKeyListener = listener;
     }
 }

@@ -16,45 +16,46 @@
 
 package android.support.v7.widget;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-
-import android.support.v4.view.AccessibilityDelegateCompat;
-import android.support.v4.view.accessibility.AccessibilityEventCompat;
-import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
-import android.support.v4.view.accessibility.AccessibilityRecordCompat;
-import android.test.suitebuilder.annotation.MediumTest;
-import android.view.View;
-import android.view.accessibility.AccessibilityEvent;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import android.os.Build;
+import android.support.test.filters.MediumTest;
+import android.support.v4.view.AccessibilityDelegateCompat;
+import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
+import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 @MediumTest
 @RunWith(Parameterized.class)
 public class RecyclerViewAccessibilityTest extends BaseRecyclerViewInstrumentationTest {
-
-    final boolean verticalScrollBefore, horizontalScrollBefore, verticalScrollAfter,
-            horizontalScrollAfter;
+    private static final boolean SUPPORTS_COLLECTION_INFO =
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+    private final boolean mVerticalScrollBefore;
+    private final boolean mHorizontalScrollBefore;
+    private final boolean mVerticalScrollAfter;
+    private final boolean mHorizontalScrollAfter;
 
     public RecyclerViewAccessibilityTest(boolean verticalScrollBefore,
             boolean horizontalScrollBefore, boolean verticalScrollAfter,
             boolean horizontalScrollAfter) {
-        this.verticalScrollBefore = verticalScrollBefore;
-        this.horizontalScrollBefore = horizontalScrollBefore;
-        this.verticalScrollAfter = verticalScrollAfter;
-        this.horizontalScrollAfter = horizontalScrollAfter;
+        mVerticalScrollBefore = verticalScrollBefore;
+        mHorizontalScrollBefore = horizontalScrollBefore;
+        mVerticalScrollAfter = verticalScrollAfter;
+        mHorizontalScrollAfter = horizontalScrollAfter;
     }
 
-    @Parameterized.Parameters(name = "vBefore={0} vAfter={1} hBefore={2} hAfter={3}")
+    @Parameterized.Parameters(name = "vBefore={0},vAfter={1},hBefore={2},hAfter={3}")
     public static List<Object[]> getParams() {
         List<Object[]> params = new ArrayList<>();
         for (boolean vBefore : new boolean[]{true, false}) {
@@ -72,16 +73,16 @@ public class RecyclerViewAccessibilityTest extends BaseRecyclerViewInstrumentati
     @Test
     public void onInitializeAccessibilityNodeInfoTest() throws Throwable {
         final RecyclerView recyclerView = new RecyclerView(getActivity()) {
-            //@Override
+            @Override
             public boolean canScrollHorizontally(int direction) {
-                return direction < 0 && horizontalScrollBefore ||
-                        direction > 0 && horizontalScrollAfter;
+                return direction < 0 && mHorizontalScrollBefore ||
+                        direction > 0 && mHorizontalScrollAfter;
             }
 
-            //@Override
+            @Override
             public boolean canScrollVertically(int direction) {
-                return direction < 0 && verticalScrollBefore ||
-                        direction > 0 && verticalScrollAfter;
+                return direction < 0 && mVerticalScrollBefore ||
+                        direction > 0 && mVerticalScrollAfter;
             }
         };
         final TestAdapter adapter = new TestAdapter(10);
@@ -104,7 +105,7 @@ public class RecyclerViewAccessibilityTest extends BaseRecyclerViewInstrumentati
 
             @Override
             public boolean canScrollVertically() {
-                return verticalScrollAfter || verticalScrollBefore;
+                return mVerticalScrollAfter || mVerticalScrollBefore;
             }
 
             @Override
@@ -131,76 +132,78 @@ public class RecyclerViewAccessibilityTest extends BaseRecyclerViewInstrumentati
 
             @Override
             public boolean canScrollHorizontally() {
-                return horizontalScrollAfter || horizontalScrollBefore;
+                return mHorizontalScrollAfter || mHorizontalScrollBefore;
             }
         });
         setRecyclerView(recyclerView);
         final RecyclerViewAccessibilityDelegate delegateCompat = recyclerView
                 .getCompatAccessibilityDelegate();
         final AccessibilityNodeInfoCompat info = AccessibilityNodeInfoCompat.obtain();
-        runTestOnUiThread(new Runnable() {
+        mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 delegateCompat.onInitializeAccessibilityNodeInfo(recyclerView, info);
             }
         });
-        assertEquals(horizontalScrollAfter || horizontalScrollBefore
-                || verticalScrollAfter || verticalScrollBefore, info.isScrollable());
-        assertEquals(horizontalScrollBefore || verticalScrollBefore,
+        assertEquals(mHorizontalScrollAfter || mHorizontalScrollBefore
+                || mVerticalScrollAfter || mVerticalScrollBefore, info.isScrollable());
+        assertEquals(mHorizontalScrollBefore || mVerticalScrollBefore,
                 (info.getActions() & AccessibilityNodeInfoCompat.ACTION_SCROLL_BACKWARD) != 0);
-        assertEquals(horizontalScrollAfter || verticalScrollAfter,
+        assertEquals(mHorizontalScrollAfter || mVerticalScrollAfter,
                 (info.getActions() & AccessibilityNodeInfoCompat.ACTION_SCROLL_FORWARD) != 0);
-        final AccessibilityNodeInfoCompat.CollectionInfoCompat collectionInfo = info
-                .getCollectionInfo();
-        assertNotNull(collectionInfo);
-        if (recyclerView.getLayoutManager().canScrollVertically()) {
-            assertEquals(adapter.getItemCount(), collectionInfo.getRowCount());
-        }
-        if (recyclerView.getLayoutManager().canScrollHorizontally()) {
-            assertEquals(adapter.getItemCount(), collectionInfo.getColumnCount());
+        if (SUPPORTS_COLLECTION_INFO) {
+            final AccessibilityNodeInfoCompat.CollectionInfoCompat collectionInfo = info
+                    .getCollectionInfo();
+            assertNotNull(collectionInfo);
+            if (recyclerView.getLayoutManager().canScrollVertically()) {
+                assertEquals(adapter.getItemCount(), collectionInfo.getRowCount());
+            }
+            if (recyclerView.getLayoutManager().canScrollHorizontally()) {
+                assertEquals(adapter.getItemCount(), collectionInfo.getColumnCount());
+            }
         }
 
         final AccessibilityEvent event = AccessibilityEvent.obtain();
-        runTestOnUiThread(new Runnable() {
+        mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 delegateCompat.onInitializeAccessibilityEvent(recyclerView, event);
             }
         });
-        final AccessibilityRecordCompat record = AccessibilityEventCompat
-                .asRecord(event);
-        assertEquals(record.isScrollable(), verticalScrollAfter || horizontalScrollAfter ||
-                verticalScrollBefore || horizontalScrollBefore);
-        assertEquals(record.getItemCount(), adapter.getItemCount());
+        assertEquals(event.isScrollable(), mVerticalScrollAfter || mHorizontalScrollAfter
+                || mVerticalScrollBefore || mHorizontalScrollBefore);
+        assertEquals(event.getItemCount(), adapter.getItemCount());
 
         getInstrumentation().waitForIdleSync();
-        for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
-            final View view = mRecyclerView.getChildAt(i);
-            final AccessibilityNodeInfoCompat childInfo = AccessibilityNodeInfoCompat.obtain();
-            runTestOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    delegateCompat.getItemDelegate().
-                            onInitializeAccessibilityNodeInfo(view, childInfo);
+        if (SUPPORTS_COLLECTION_INFO) {
+            for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
+                final View view = mRecyclerView.getChildAt(i);
+                final AccessibilityNodeInfoCompat childInfo = AccessibilityNodeInfoCompat.obtain();
+                mActivityRule.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        delegateCompat.getItemDelegate().
+                                onInitializeAccessibilityNodeInfo(view, childInfo);
+                    }
+                });
+                final AccessibilityNodeInfoCompat.CollectionItemInfoCompat collectionItemInfo
+                        = childInfo.getCollectionItemInfo();
+                assertNotNull(collectionItemInfo);
+                if (recyclerView.getLayoutManager().canScrollHorizontally()) {
+                    assertEquals(i, collectionItemInfo.getColumnIndex());
+                } else {
+                    assertEquals(0, collectionItemInfo.getColumnIndex());
                 }
-            });
-            final AccessibilityNodeInfoCompat.CollectionItemInfoCompat collectionItemInfo
-                    = childInfo.getCollectionItemInfo();
-            assertNotNull(collectionItemInfo);
-            if (recyclerView.getLayoutManager().canScrollHorizontally()) {
-                assertEquals(i, collectionItemInfo.getColumnIndex());
-            } else {
-                assertEquals(0, collectionItemInfo.getColumnIndex());
-            }
 
-            if (recyclerView.getLayoutManager().canScrollVertically()) {
-                assertEquals(i, collectionItemInfo.getRowIndex());
-            } else {
-                assertEquals(0, collectionItemInfo.getRowIndex());
+                if (recyclerView.getLayoutManager().canScrollVertically()) {
+                    assertEquals(i, collectionItemInfo.getRowIndex());
+                } else {
+                    assertEquals(0, collectionItemInfo.getRowIndex());
+                }
             }
         }
 
-        runTestOnUiThread(new Runnable() {
+        mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
 
@@ -212,8 +215,8 @@ public class RecyclerViewAccessibilityTest extends BaseRecyclerViewInstrumentati
         vScrolledBack.set(false);
         performAccessibilityAction(delegateCompat, recyclerView,
                 AccessibilityNodeInfoCompat.ACTION_SCROLL_BACKWARD);
-        assertEquals(horizontalScrollBefore, hScrolledBack.get());
-        assertEquals(verticalScrollBefore, vScrolledBack.get());
+        assertEquals(mHorizontalScrollBefore, hScrolledBack.get());
+        assertEquals(mVerticalScrollBefore, vScrolledBack.get());
         assertEquals(false, hScrolledFwd.get());
         assertEquals(false, vScrolledFwd.get());
 
@@ -225,19 +228,21 @@ public class RecyclerViewAccessibilityTest extends BaseRecyclerViewInstrumentati
                 AccessibilityNodeInfoCompat.ACTION_SCROLL_FORWARD);
         assertEquals(false, hScrolledBack.get());
         assertEquals(false, vScrolledBack.get());
-        assertEquals(horizontalScrollAfter, hScrolledFwd.get());
-        assertEquals(verticalScrollAfter, vScrolledFwd.get());
+        assertEquals(mHorizontalScrollAfter, hScrolledFwd.get());
+        assertEquals(mVerticalScrollAfter, vScrolledFwd.get());
     }
 
     @Test
     public void ignoreAccessibilityIfAdapterHasChanged() throws Throwable {
         final RecyclerView recyclerView = new RecyclerView(getActivity()) {
             //@Override
+            @Override
             public boolean canScrollHorizontally(int direction) {
                 return true;
             }
 
             //@Override
+            @Override
             public boolean canScrollVertically(int direction) {
                 return true;
             }
@@ -253,7 +258,7 @@ public class RecyclerViewAccessibilityTest extends BaseRecyclerViewInstrumentati
         final RecyclerViewAccessibilityDelegate delegateCompat = recyclerView
                 .getCompatAccessibilityDelegate();
         final AccessibilityNodeInfoCompat info = AccessibilityNodeInfoCompat.obtain();
-        runTestOnUiThread(new Runnable() {
+        mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 delegateCompat.onInitializeAccessibilityNodeInfo(recyclerView, info);
@@ -261,7 +266,7 @@ public class RecyclerViewAccessibilityTest extends BaseRecyclerViewInstrumentati
         });
         assertTrue("test sanity", info.isScrollable());
         final AccessibilityNodeInfoCompat info2 = AccessibilityNodeInfoCompat.obtain();
-        runTestOnUiThread(new Runnable() {
+        mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -280,7 +285,7 @@ public class RecyclerViewAccessibilityTest extends BaseRecyclerViewInstrumentati
     boolean performAccessibilityAction(final AccessibilityDelegateCompat delegate,
             final RecyclerView recyclerView, final int action) throws Throwable {
         final boolean[] result = new boolean[1];
-        runTestOnUiThread(new Runnable() {
+        mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 result[0] = delegate.performAccessibilityAction(recyclerView, action, null);

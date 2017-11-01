@@ -1,5 +1,3 @@
-/* This file is auto-generated from GuidedStepFragment.java.  DO NOT MODIFY. */
-
 /*
  * Copyright (C) 2015 The Android Open Source Project
  *
@@ -15,18 +13,15 @@
  */
 package android.support.v17.leanback.app;
 
+import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.animation.Animator;
 import android.animation.AnimatorSet;
-import android.support.annotation.RestrictTo;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentManager.BackStackEntry;
-import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RestrictTo;
 import android.support.v17.leanback.R;
 import android.support.v17.leanback.transition.TransitionHelper;
 import android.support.v17.leanback.widget.GuidanceStylist;
@@ -35,8 +30,13 @@ import android.support.v17.leanback.widget.GuidedAction;
 import android.support.v17.leanback.widget.GuidedActionAdapter;
 import android.support.v17.leanback.widget.GuidedActionAdapterGroup;
 import android.support.v17.leanback.widget.GuidedActionsStylist;
-import android.support.v17.leanback.widget.ViewHolderTask;
+import android.support.v17.leanback.widget.NonOverlappingLinearLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentManager.BackStackEntry;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
@@ -50,8 +50,6 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.support.annotation.RestrictTo.Scope.GROUP_ID;
 
 /**
  * A GuidedStepSupportFragment is used to guide the user through a decision or series of decisions.
@@ -143,7 +141,6 @@ import static android.support.annotation.RestrictTo.Scope.GROUP_ID;
 public class GuidedStepSupportFragment extends Fragment implements GuidedActionAdapter.FocusListener {
 
     private static final String TAG_LEAN_BACK_ACTIONS_FRAGMENT = "leanBackGuidedStepSupportFragment";
-    private static final String EXTRA_ACTION_SELECTED_INDEX = "selectedIndex";
     private static final String EXTRA_ACTION_PREFIX = "action_";
     private static final String EXTRA_BUTTON_ACTION_PREFIX = "buttonaction_";
 
@@ -227,23 +224,23 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
      * Animation to slide the contents from the side (left/right).
      * @hide
      */
-    @RestrictTo(GROUP_ID)
+    @RestrictTo(LIBRARY_GROUP)
     public static final int SLIDE_FROM_SIDE = 0;
 
     /**
      * Animation to slide the contents from the bottom.
      * @hide
      */
-    @RestrictTo(GROUP_ID)
+    @RestrictTo(LIBRARY_GROUP)
     public static final int SLIDE_FROM_BOTTOM = 1;
 
-    private static final String TAG = "GuidedStepSupportFragment";
+    private static final String TAG = "GuidedStepF";
     private static final boolean DEBUG = false;
 
     /**
      * @hide
      */
-    @RestrictTo(GROUP_ID)
+    @RestrictTo(LIBRARY_GROUP)
     public static class DummyFragment extends Fragment {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -264,8 +261,6 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
     private GuidedActionAdapterGroup mAdapterGroup;
     private List<GuidedAction> mActions = new ArrayList<GuidedAction>();
     private List<GuidedAction> mButtonActions = new ArrayList<GuidedAction>();
-    private int mSelectedIndex = -1;
-    private int mButtonSelectedIndex = -1;
     private int entranceTransitionType = SLIDE_FROM_SIDE;
 
     public GuidedStepSupportFragment() {
@@ -365,6 +360,14 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
     }
 
     /**
+     * @return True if is current expanded including subactions list or
+     * action with {@link GuidedAction#hasEditableActivatorView()} is true.
+     */
+    public boolean isExpanded() {
+        return mActionsStylist.isExpanded();
+    }
+
+    /**
      * @return True if the sub actions list is expanded, false otherwise.
      */
     public boolean isSubActionsExpanded() {
@@ -374,21 +377,25 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
     /**
      * Expand a given action's sub actions list.
      * @param action GuidedAction to expand.
-     * @see GuidedAction#getSubActions()
+     * @see #expandAction(GuidedAction, boolean)
      */
     public void expandSubActions(GuidedAction action) {
-        final int actionPosition = mActions.indexOf(action);
-        if (actionPosition < 0) {
+        if (!action.hasSubActions()) {
             return;
         }
-        mActionsStylist.getActionsGridView().setSelectedPositionSmooth(actionPosition,
-                new ViewHolderTask() {
-            @Override
-            public void run(RecyclerView.ViewHolder vh) {
-                GuidedActionsStylist.ViewHolder avh = (GuidedActionsStylist.ViewHolder) vh;
-                mActionsStylist.setExpandedViewHolder(avh);
-            }
-        });
+        expandAction(action, true);
+    }
+
+    /**
+     * Expand a given action with sub actions list or
+     * {@link GuidedAction#hasEditableActivatorView()} is true. The method must be called after
+     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} creates fragment view.
+     *
+     * @param action GuidedAction to expand.
+     * @param withTransition True to run transition animation, false otherwise.
+     */
+    public void expandAction(GuidedAction action, boolean withTransition) {
+        mActionsStylist.expandAction(action, withTransition);
     }
 
     /**
@@ -396,7 +403,19 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
      * @see GuidedAction#getSubActions()
      */
     public void collapseSubActions() {
-        mActionsStylist.setExpandedViewHolder(null);
+        collapseAction(true);
+    }
+
+    /**
+     * Collapse action which either has a sub actions list or action with
+     * {@link GuidedAction#hasEditableActivatorView()} is true.
+     *
+     * @param withTransition True to run transition animation, false otherwise.
+     */
+    public void collapseAction(boolean withTransition) {
+        if (mActionsStylist != null && mActionsStylist.getActionsGridView() != null) {
+            mActionsStylist.collapseAction(withTransition);
+        }
     }
 
     /**
@@ -545,7 +564,7 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
      * @return BackStackEntry name for the GuidedStepSupportFragment or empty String if no entry is
      * associated.
      */
-    String generateStackEntryName() {
+    final String generateStackEntryName() {
         return generateStackEntryName(getUiStyle(), getClass());
     }
 
@@ -557,9 +576,6 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
      * associated.
      */
     static String generateStackEntryName(int uiStyle, Class guidedStepFragmentClass) {
-        if (!GuidedStepSupportFragment.class.isAssignableFrom(guidedStepFragmentClass)) {
-            return "";
-        }
         switch (uiStyle) {
         case UI_STYLE_REPLACE:
             return ENTRY_NAME_REPLACE + guidedStepFragmentClass.getName();
@@ -620,8 +636,8 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
         activity.getWindow().getDecorView();
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         if (fragmentManager.findFragmentByTag(TAG_LEAN_BACK_ACTIONS_FRAGMENT) != null) {
-            Log.w(TAG, "Fragment is already exists, likely calling " +
-                    "addAsRoot() when savedInstanceState is not null in Activity.onCreate().");
+            Log.w(TAG, "Fragment is already exists, likely calling "
+                    + "addAsRoot() when savedInstanceState is not null in Activity.onCreate().");
             return -1;
         }
         FragmentTransaction ft = fragmentManager.beginTransaction();
@@ -867,8 +883,8 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
                         true);
                 TransitionHelper.setEnterTransition(this, enterTransition);
 
-                Object fade = TransitionHelper.createFadeTransition(TransitionHelper.FADE_IN |
-                        TransitionHelper.FADE_OUT);
+                Object fade = TransitionHelper.createFadeTransition(
+                        TransitionHelper.FADE_IN | TransitionHelper.FADE_OUT);
                 TransitionHelper.include(fade, R.id.guidedactions_sub_list_background);
                 Object changeBounds = TransitionHelper.createChangeBounds(false);
                 Object sharedElementTransition = TransitionHelper.createTransitionSet(false);
@@ -877,11 +893,11 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
                 TransitionHelper.setSharedElementEnterTransition(this, sharedElementTransition);
             } else if (uiStyle == UI_STYLE_ENTRANCE) {
                 if (entranceTransitionType == SLIDE_FROM_SIDE) {
-                    Object fade = TransitionHelper.createFadeTransition(TransitionHelper.FADE_IN |
-                            TransitionHelper.FADE_OUT);
+                    Object fade = TransitionHelper.createFadeTransition(
+                            TransitionHelper.FADE_IN | TransitionHelper.FADE_OUT);
                     TransitionHelper.include(fade, R.id.guidedstep_background);
-                    Object slideFromSide = TransitionHelper.createFadeAndShortSlide(Gravity.END |
-                            Gravity.START);
+                    Object slideFromSide = TransitionHelper.createFadeAndShortSlide(
+                            Gravity.END | Gravity.START);
                     TransitionHelper.include(slideFromSide, R.id.content_fragment);
                     TransitionHelper.include(slideFromSide, R.id.action_fragment_root);
                     Object enterTransition = TransitionHelper.createTransitionSet(false);
@@ -981,12 +997,7 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
         if (DEBUG) Log.v(TAG, "onCreate");
         // Set correct transition from saved arguments.
         onProvideFragmentTransitions();
-        Bundle state = (savedInstanceState != null) ? savedInstanceState : getArguments();
-        if (state != null) {
-            if (mSelectedIndex == -1) {
-                mSelectedIndex = state.getInt(EXTRA_ACTION_SELECTED_INDEX, -1);
-            }
-        }
+
         ArrayList<GuidedAction> actions = new ArrayList<GuidedAction>();
         onCreateActions(actions, savedInstanceState);
         if (savedInstanceState != null) {
@@ -1035,6 +1046,7 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
 
         ViewGroup guidanceContainer = (ViewGroup) root.findViewById(R.id.content_fragment);
         ViewGroup actionContainer = (ViewGroup) root.findViewById(R.id.action_fragment);
+        ((NonOverlappingLinearLayout) actionContainer).setFocusableViewAvailableFixEnabled(true);
 
         Guidance guidance = onCreateGuidance(savedInstanceState);
         View guidanceView = mGuidanceStylist.onCreateView(inflater, guidanceContainer, guidance);
@@ -1073,10 +1085,10 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
             @Override
             public void onGuidedActionClicked(GuidedAction action) {
                 GuidedStepSupportFragment.this.onGuidedActionClicked(action);
-                if (isSubActionsExpanded()) {
-                    collapseSubActions();
-                } else if (action.hasSubActions()) {
-                    expandSubActions(action);
+                if (isExpanded()) {
+                    collapseAction(true);
+                } else if (action.hasSubActions() || action.hasEditableActivatorView()) {
+                    expandAction(action, true);
                 }
             }
         }, this, mActionsStylist, false);
@@ -1119,7 +1131,7 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
         } else {
             // when there are two actions panel, we need adjust the weight of action to
             // guidedActionContentWidthWeightTwoPanels.
-            Context ctx = mThemeWrapper != null ? mThemeWrapper : getActivity();
+            Context ctx = mThemeWrapper != null ? mThemeWrapper : getContext();
             TypedValue typedValue = new TypedValue();
             if (ctx.getTheme().resolveAttribute(R.attr.guidedActionContentWidthWeightTwoPanels,
                     typedValue, true)) {
@@ -1132,12 +1144,6 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
             }
         }
 
-        int pos = (mSelectedIndex >= 0 && mSelectedIndex < mActions.size()) ?
-                mSelectedIndex : getFirstCheckedAction();
-        setSelectedActionPosition(pos);
-
-        setSelectedButtonActionPosition(0);
-
         // Add the background view.
         View backgroundView = onCreateBackgroundView(inflater, root, savedInstanceState);
         if (backgroundView != null) {
@@ -1145,6 +1151,7 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
                 R.id.guidedstep_background_view_root);
             backgroundViewRoot.addView(backgroundView, 0);
         }
+
         return root;
     }
 
@@ -1220,9 +1227,6 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
         super.onSaveInstanceState(outState);
         onSaveActions(mActions, outState);
         onSaveButtonActions(mButtonActions, outState);
-        outState.putInt(EXTRA_ACTION_SELECTED_INDEX,
-                (mActionsStylist.getActionsGridView() != null) ?
-                        getSelectedActionPosition() : mSelectedIndex);
     }
 
     private static boolean isGuidedStepTheme(Context context) {
@@ -1251,7 +1255,7 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
                     if (top != null) {
                         top.setUiStyle(UI_STYLE_ENTRANCE);
                     }
-                    fragmentManager.popBackStack(entry.getId(),
+                    fragmentManager.popBackStackImmediate(entry.getId(),
                             FragmentManager.POP_BACK_STACK_INCLUSIVE);
                     return;
                 }
@@ -1277,7 +1281,7 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
                 BackStackEntry entry = fragmentManager.getBackStackEntryAt(i);
                 String entryClassName = getGuidedStepSupportFragmentClassName(entry.getName());
                 if (className.equals(entryClassName)) {
-                    fragmentManager.popBackStack(entry.getId(), flags);
+                    fragmentManager.popBackStackImmediate(entry.getId(), flags);
                     return;
                 }
             }
@@ -1317,25 +1321,35 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
      * For now clients(subclasses) can call this method inside the constructor.
      * @hide
      */
+    @RestrictTo(LIBRARY_GROUP)
     public void setEntranceTransitionType(int transitionType) {
       this.entranceTransitionType = transitionType;
+    }
+
+    /**
+     * Opens the provided action in edit mode and raises ime. This can be
+     * used to programmatically skip the extra click required to go into edit mode. This method
+     * can be invoked in {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     */
+    public void openInEditMode(GuidedAction action) {
+        mActionsStylist.openInEditMode(action);
     }
 
     private void resolveTheme() {
         // Look up the guidedStepTheme in the currently specified theme.  If it exists,
         // replace the theme with its value.
-        FragmentActivity activity = getActivity();
+        Context context = getContext();
         int theme = onProvideTheme();
-        if (theme == -1 && !isGuidedStepTheme(activity)) {
+        if (theme == -1 && !isGuidedStepTheme(context)) {
             // Look up the guidedStepTheme in the activity's currently specified theme.  If it
             // exists, replace the theme with its value.
             int resId = R.attr.guidedStepTheme;
             TypedValue typedValue = new TypedValue();
-            boolean found = activity.getTheme().resolveAttribute(resId, typedValue, true);
+            boolean found = context.getTheme().resolveAttribute(resId, typedValue, true);
             if (DEBUG) Log.v(TAG, "Found guided step theme reference? " + found);
             if (found) {
                 ContextThemeWrapper themeWrapper =
-                        new ContextThemeWrapper(activity, typedValue.resourceId);
+                        new ContextThemeWrapper(context, typedValue.resourceId);
                 if (isGuidedStepTheme(themeWrapper)) {
                     mThemeWrapper = themeWrapper;
                 } else {
@@ -1347,7 +1361,7 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
                 Log.e(TAG, "GuidedStepSupportFragment does not have an appropriate theme set.");
             }
         } else if (theme != -1) {
-            mThemeWrapper = new ContextThemeWrapper(activity, theme);
+            mThemeWrapper = new ContextThemeWrapper(context, theme);
         }
     }
 
@@ -1383,5 +1397,4 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
         set.playTogether(animators);
         set.start();
     }
-
 }

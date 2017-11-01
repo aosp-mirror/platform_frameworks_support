@@ -16,6 +16,35 @@
 
 package android.support.v7.media;
 
+import static android.support.v7.media.MediaRouteProviderProtocol.CLIENT_DATA_ROUTE_ID;
+import static android.support.v7.media.MediaRouteProviderProtocol.CLIENT_DATA_ROUTE_LIBRARY_GROUP;
+import static android.support.v7.media.MediaRouteProviderProtocol.CLIENT_DATA_UNSELECT_REASON;
+import static android.support.v7.media.MediaRouteProviderProtocol.CLIENT_DATA_VOLUME;
+import static android.support.v7.media.MediaRouteProviderProtocol
+        .CLIENT_MSG_CREATE_ROUTE_CONTROLLER;
+import static android.support.v7.media.MediaRouteProviderProtocol.CLIENT_MSG_REGISTER;
+import static android.support.v7.media.MediaRouteProviderProtocol
+        .CLIENT_MSG_RELEASE_ROUTE_CONTROLLER;
+import static android.support.v7.media.MediaRouteProviderProtocol.CLIENT_MSG_ROUTE_CONTROL_REQUEST;
+import static android.support.v7.media.MediaRouteProviderProtocol.CLIENT_MSG_SELECT_ROUTE;
+import static android.support.v7.media.MediaRouteProviderProtocol.CLIENT_MSG_SET_DISCOVERY_REQUEST;
+import static android.support.v7.media.MediaRouteProviderProtocol.CLIENT_MSG_SET_ROUTE_VOLUME;
+import static android.support.v7.media.MediaRouteProviderProtocol.CLIENT_MSG_UNREGISTER;
+import static android.support.v7.media.MediaRouteProviderProtocol.CLIENT_MSG_UNSELECT_ROUTE;
+import static android.support.v7.media.MediaRouteProviderProtocol.CLIENT_MSG_UPDATE_ROUTE_VOLUME;
+import static android.support.v7.media.MediaRouteProviderProtocol.CLIENT_VERSION_1;
+import static android.support.v7.media.MediaRouteProviderProtocol.SERVICE_DATA_ERROR;
+import static android.support.v7.media.MediaRouteProviderProtocol
+        .SERVICE_MSG_CONTROL_REQUEST_FAILED;
+import static android.support.v7.media.MediaRouteProviderProtocol
+        .SERVICE_MSG_CONTROL_REQUEST_SUCCEEDED;
+import static android.support.v7.media.MediaRouteProviderProtocol.SERVICE_MSG_DESCRIPTOR_CHANGED;
+import static android.support.v7.media.MediaRouteProviderProtocol.SERVICE_MSG_GENERIC_FAILURE;
+import static android.support.v7.media.MediaRouteProviderProtocol.SERVICE_MSG_GENERIC_SUCCESS;
+import static android.support.v7.media.MediaRouteProviderProtocol.SERVICE_MSG_REGISTERED;
+import static android.support.v7.media.MediaRouteProviderProtocol.SERVICE_VERSION_CURRENT;
+import static android.support.v7.media.MediaRouteProviderProtocol.isValidRemoteMessenger;
+
 import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,14 +55,13 @@ import android.os.IBinder.DeathRecipient;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
+import android.support.annotation.VisibleForTesting;
+import android.support.v4.util.ObjectsCompat;
 import android.util.Log;
 import android.util.SparseArray;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.List;
-
-import static android.support.v7.media.MediaRouteProviderProtocol.*;
 
 /**
  * Base class for media route provider services.
@@ -164,7 +192,8 @@ public abstract class MediaRouteProviderService extends Service {
                         MediaRouteProviderDescriptor descriptor = mProvider.getDescriptor();
                         sendReply(messenger, SERVICE_MSG_REGISTERED,
                                 requestId, SERVICE_VERSION_CURRENT,
-                                createDescriptorBundleForClient(descriptor, client), null);
+                                createDescriptorBundleForClientVersion(descriptor,
+                                        client.mVersion), null);
                     }
                     return true;
                 }
@@ -385,32 +414,29 @@ public abstract class MediaRouteProviderService extends Service {
         for (int i = 0; i < count; i++) {
             ClientRecord client = mClients.get(i);
             sendReply(client.mMessenger, SERVICE_MSG_DESCRIPTOR_CHANGED, 0, 0,
-                    createDescriptorBundleForClient(descriptor, client), null);
+                    createDescriptorBundleForClientVersion(descriptor, client.mVersion), null);
             if (DEBUG) {
                 Log.d(TAG, client + ": Sent descriptor change event, descriptor=" + descriptor);
             }
         }
     }
 
-    private Bundle createDescriptorBundleForClient(MediaRouteProviderDescriptor descriptor,
-            ClientRecord client) {
+    @VisibleForTesting
+    static Bundle createDescriptorBundleForClientVersion(MediaRouteProviderDescriptor descriptor,
+            int clientVersion) {
         if (descriptor == null) {
             return null;
         }
-        List<MediaRouteDescriptor> routes = descriptor.getRoutes();
-        for (int i = routes.size() - 1; i >= 0; i--) {
-            if (client.mVersion < routes.get(i).getMinClientVersion()
-                    || client.mVersion > routes.get(i).getMaxClientVersion()) {
-                routes.remove(i);
+        MediaRouteProviderDescriptor.Builder builder =
+                new MediaRouteProviderDescriptor.Builder(descriptor);
+        builder.setRoutes(null);
+        for (MediaRouteDescriptor route : descriptor.getRoutes()) {
+            if (clientVersion >= route.getMinClientVersion()
+                    && clientVersion <= route.getMaxClientVersion()) {
+                builder.addRoute(route);
             }
         }
-
-        // Keep the values of the bundle from descriptor excepts routes values.
-        Bundle bundle = descriptor.asBundle();
-        bundle.remove(MediaRouteProviderDescriptor.KEY_ROUTES);
-        return new MediaRouteProviderDescriptor.Builder(
-                MediaRouteProviderDescriptor.fromBundle(bundle))
-                .addRoutes(routes).build().asBundle();
+        return builder.build().asBundle();
     }
 
     boolean updateCompositeDiscoveryRequest() {
@@ -436,9 +462,7 @@ public abstract class MediaRouteProviderService extends Service {
         if (selectorBuilder != null) {
             composite = new MediaRouteDiscoveryRequest(selectorBuilder.build(), activeScan);
         }
-        if (mCompositeDiscoveryRequest != composite
-                && (mCompositeDiscoveryRequest == null
-                        || !mCompositeDiscoveryRequest.equals(composite))) {
+        if (!ObjectsCompat.equals(mCompositeDiscoveryRequest, composite)) {
             mCompositeDiscoveryRequest = composite;
             mProvider.setDiscoveryRequest(composite);
             return true;
@@ -588,8 +612,7 @@ public abstract class MediaRouteProviderService extends Service {
         }
 
         public boolean setDiscoveryRequest(MediaRouteDiscoveryRequest request) {
-            if (mDiscoveryRequest != request
-                    && (mDiscoveryRequest == null || !mDiscoveryRequest.equals(request))) {
+            if (!ObjectsCompat.equals(mDiscoveryRequest, request)) {
                 mDiscoveryRequest = request;
                 return updateCompositeDiscoveryRequest();
             }
@@ -663,7 +686,7 @@ public abstract class MediaRouteProviderService extends Service {
 
                     case CLIENT_MSG_CREATE_ROUTE_CONTROLLER: {
                         String routeId = data.getString(CLIENT_DATA_ROUTE_ID);
-                        String routeGroupId = data.getString(CLIENT_DATA_ROUTE_GROUP_ID);
+                        String routeGroupId = data.getString(CLIENT_DATA_ROUTE_LIBRARY_GROUP);
                         if (routeId != null) {
                             return service.onCreateRouteController(
                                     messenger, requestId, arg, routeId, routeGroupId);

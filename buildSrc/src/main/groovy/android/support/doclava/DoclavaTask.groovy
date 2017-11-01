@@ -1,16 +1,29 @@
-package android.support.doclava;
+/*
+ * Copyright (C) 2016 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import org.gradle.api.InvalidUserDataException
-import org.gradle.api.Nullable
+package android.support.doclava
+
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.javadoc.Javadoc
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.OutputFile
-import org.gradle.api.tasks.ParallelizableTask
+import org.gradle.external.javadoc.JavadocOptionFileOption
 
-@ParallelizableTask
 public class DoclavaTask extends Javadoc {
 
     // external/doclava/src/com/google/doclava/Errors.java
@@ -49,9 +62,8 @@ public class DoclavaTask extends Javadoc {
      * Packages names will be matched exactly; sub-packages are not automatically recognized.
      */
     @Optional
-    @Nullable
     @Input
-    Collection hiddenPackages = null
+    Collection hiddenPackages
 
     /**
      * If non-null and not-empty, the whitelist of packages that will be present in the generated
@@ -59,9 +71,8 @@ public class DoclavaTask extends Javadoc {
      * Wildcards are accepted.
      */
     @Optional
-    @Nullable
     @Input
-    Set<String> stubPackages = null
+    Set<String> stubPackages
 
     @Input
     boolean generateDocs = true
@@ -71,34 +82,30 @@ public class DoclavaTask extends Javadoc {
      * If this is non-null, then {@link #removedApiFile} must be non-null as well.
      */
     @Optional
-    @Nullable
     @OutputFile
-    File apiFile = null
+    File apiFile
 
     /**
      * If non-null, the location of where to place the generated removed api file.
      * If this is non-null, then {@link #apiFile} must be non-null as well.
      */
     @Optional
-    @Nullable
     @OutputFile
-    File removedApiFile = null
+    File removedApiFile
 
     /**
      * If non-null, the location of the generated keep list.
      */
     @Optional
-    @Nullable
     @OutputFile
-    File keepListFile = null
+    File keepListFile
 
     /**
      * If non-null, the location to put the generated stub sources.
      */
     @Optional
-    @Nullable
     @OutputDirectory
-    File stubsDir = null
+    File stubsDir
 
     public DoclavaTask() {
         failOnError = true
@@ -108,10 +115,10 @@ public class DoclavaTask extends Javadoc {
         // doclava doesn't understand '-doctitle'
         title = null
         maxMemory = "1280m"
-        // TODO(csyoung) Some way to override this?
-        // If none of generateDocs, apiFile, keepListFile, or stubJarsDir are true, then there is no work to do.
+        // If none of generateDocs, apiFile, keepListFile, or stubJarsDir are true, then there is
+        // no work to do.
         onlyIf( { getGenerateDocs() ||
-                (getApiFile() != null && getRemovedApiFile() != null) ||
+                getApiFile() != null ||
                 getKeepListFile() != null ||
                 getStubsDir() != null } )
     }
@@ -137,16 +144,19 @@ public class DoclavaTask extends Javadoc {
         options.docletpath = docletpath as List
     }
 
-    private static boolean verifyAndGetGenerateApiFiles(File apiFile, File removedApiFile) {
-        if (apiFile == null) {
-            if (removedApiFile == null) {
-                return false
-            } else {
-                throw new InvalidUserDataException('removedApiFile specified but not apiFile')
-            }
-        } else {
-            return true
-        }
+    public void setDoclavaErrors(Collection errors) {
+        // Make it serializable.
+        doclavaErrors = errors as int[]
+    }
+
+    public void setDoclavaWarnings(Collection warnings) {
+        // Make it serializable.
+        doclavaWarnings = warnings as int[]
+    }
+
+    public void setDoclavaHidden(Collection hidden) {
+        // Make it serializable.
+        doclavaHidden = hidden as int[]
     }
 
     /**
@@ -155,30 +165,39 @@ public class DoclavaTask extends Javadoc {
      */
     private configureDoclava() {
         options.docletpath = getDocletpath() as List
+
         // configure doclava error/warning/hide levels
-        options.addOption(new DoclavaMultilineJavadocOptionFileOption('hide'))
-                .setValue(getDoclavaHidden().collect({[it.toString()]}))
-        options.addOption(new DoclavaMultilineJavadocOptionFileOption('warning'))
-                .setValue(getDoclavaWarnings().collect({[it.toString()]}))
-        options.addOption(new DoclavaMultilineJavadocOptionFileOption('error'))
-                .setValue(getDoclavaErrors().collect({[it.toString()]}))
+        JavadocOptionFileOption hide = options.addMultilineMultiValueOption("hide")
+        hide.setValue(getDoclavaHidden().collect({ [it.toString()] }))
+
+        JavadocOptionFileOption warning = options.addMultilineMultiValueOption("warning")
+        warning.setValue(getDoclavaWarnings().collect({ [it.toString()] }))
+
+        JavadocOptionFileOption error = options.addMultilineMultiValueOption("error")
+        error.setValue(getDoclavaErrors().collect({ [it.toString()] }))
 
         Collection hiddenPackages = getHiddenPackages()
         if (hiddenPackages) {
-            options.addOption(new DoclavaMultilineJavadocOptionFileOption('hidePackage'))
-                    .setValue(hiddenPackages.collect({[it.toString()]}))
+            JavadocOptionFileOption hidePackage =
+                    options.addMultilineMultiValueOption("hidePackage")
+            hidePackage.setValue(hiddenPackages.collect({ [it.toString()] }))
         }
 
         if (!getGenerateDocs()) {
             options.addOption(new DoclavaJavadocOptionFileOption('nodocs'))
         }
-        // If requested, generate the api files.
+
+        // If requested, generate the API files.
         File apiFile = getApiFile()
-        File removedApiFile = getRemovedApiFile()
-        if (verifyAndGetGenerateApiFiles(apiFile, removedApiFile)) {
+        if (apiFile != null) {
             options.addStringOption('api', apiFile.absolutePath)
-            options.addStringOption('removedApi', removedApiFile.absolutePath)
+
+            File removedApiFile = getRemovedApiFile()
+            if (removedApiFile != null) {
+                options.addStringOption('removedApi', removedApiFile.absolutePath)
+            }
         }
+
         // If requested, generate the keep list.
         File keepListFile = getKeepListFile()
         if (keepListFile != null) {
@@ -193,11 +212,13 @@ public class DoclavaTask extends Javadoc {
                 options.addStringOption('stubpackages', stubPackages.join(':'))
             }
         }
+        // Always treat this as an Android docs task.
+        options.addOption(new DoclavaJavadocOptionFileOption('android'))
     }
 
     @Override
     public void generate() {
-        configureDoclava();
-        super.generate();
+        configureDoclava()
+        super.generate()
     }
 }

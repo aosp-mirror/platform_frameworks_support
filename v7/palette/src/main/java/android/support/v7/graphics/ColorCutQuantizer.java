@@ -289,7 +289,7 @@ final class ColorCutQuantizer {
         }
 
         /**
-         * Split this color box at the mid-point along it's longest dimension
+         * Split this color box at the mid-point along its longest dimension
          *
          * @return the new ColorBox
          */
@@ -343,7 +343,7 @@ final class ColorCutQuantizer {
 
             // We need to sort the colors in this box based on the longest color dimension.
             // As we can't use a Comparator to define the sort logic, we modify each color so that
-            // it's most significant is the desired dimension
+            // its most significant is the desired dimension
             modifySignificantOctet(colors, longestDimension, mLowerIndex, mUpperIndex);
 
             // Now sort... Arrays.sort uses a exclusive toIndex so we need to add 1
@@ -356,7 +356,9 @@ final class ColorCutQuantizer {
             for (int i = mLowerIndex, count = 0; i <= mUpperIndex; i++)  {
                 count += hist[colors[i]];
                 if (count >= midPoint) {
-                    return i;
+                    // we never want to split on the upperIndex, as this will result in the same
+                    // box
+                    return Math.min(mUpperIndex - 1, i);
                 }
             }
 
@@ -503,9 +505,8 @@ final class ColorCutQuantizer {
     private static int modifyWordWidth(int value, int currentWidth, int targetWidth) {
         final int newValue;
         if (targetWidth > currentWidth) {
-            // If we're approximating up in word width, we'll use scaling to approximate the
-            // new value
-            newValue = value * ((1 << targetWidth) - 1) / ((1 << currentWidth) - 1);
+            // If we're approximating up in word width, we'll shift up
+            newValue = value << (targetWidth - currentWidth);
         } else {
             // Else, we will just shift and keep the MSB
             newValue = value >> (currentWidth - targetWidth);

@@ -25,10 +25,9 @@ import android.support.v4.view.TintableBackgroundView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
-import junit.framework.Assert;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -81,6 +80,14 @@ public class TestUtilsMatchers {
      * with the specific color.
      */
     public static Matcher isBackground(@ColorInt final int color) {
+        return isBackground(color, false);
+    }
+
+    /**
+     * Returns a matcher that matches <code>View</code>s which have background flat-filled
+     * with the specific color.
+     */
+    public static Matcher isBackground(@ColorInt final int color, final boolean onlyTestCenter) {
         return new BoundedMatcher<View, View>(View.class) {
             private String failedComparisonDescription;
 
@@ -97,10 +104,14 @@ public class TestUtilsMatchers {
                 if (drawable == null) {
                     return false;
                 }
-
                 try {
-                    TestUtils.assertAllPixelsOfColor("", drawable, view.getWidth(),
-                            view.getHeight(), false, color, 0, true);
+                    if (onlyTestCenter) {
+                        TestUtils.assertCenterPixelOfColor("", drawable, view.getWidth(),
+                                view.getHeight(), false, color, 0, true);
+                    } else {
+                        TestUtils.assertAllPixelsOfColor("", drawable, view.getWidth(),
+                                view.getHeight(), false, color, 0, true);
+                    }
                     // If we are here, the color comparison has passed.
                     failedComparisonDescription = null;
                     return true;

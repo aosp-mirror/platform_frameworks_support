@@ -284,6 +284,8 @@
         <!-- The initial expanded state for the AppBarLayout. This only takes effect when this
              view is a direct child of a CoordinatorLayout. -->
         <attr name="expanded" format="boolean" />
+        <attr name="android:keyboardNavigationCluster" />
+        <attr name="android:touchscreenBlocksFocus" />
     </declare-styleable>
 
     <declare-styleable name="AppBarLayoutStates">
@@ -460,7 +462,8 @@
         <attr name="bottomSheetStyle" format="reference" />
 
         <!-- Text color used to indicate an error has occurred. -->
-        <attr name="textColorError" format="color" />
+        <!-- {@deprecated Use colorError} -->
+        <attr name="textColorError" format="reference|color" />
     </declare-styleable>
 
     <declare-styleable name="BottomNavigationView">
@@ -469,6 +472,7 @@
         <attr name="itemIconTint"/>
         <attr name="itemTextColor"/>
         <attr name="itemBackground"/>
+        <attr name="elevation"/>
     </declare-styleable>
 
 </resources>

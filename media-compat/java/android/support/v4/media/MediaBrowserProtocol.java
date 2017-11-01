@@ -29,10 +29,15 @@ class MediaBrowserProtocol {
     public static final String DATA_PACKAGE_NAME = "data_package_name";
     public static final String DATA_RESULT_RECEIVER = "data_result_receiver";
     public static final String DATA_ROOT_HINTS = "data_root_hints";
+    public static final String DATA_SEARCH_EXTRAS = "data_search_extras";
+    public static final String DATA_SEARCH_QUERY = "data_search_query";
+    public static final String DATA_CUSTOM_ACTION = "data_custom_action";
+    public static final String DATA_CUSTOM_ACTION_EXTRAS = "data_custom_action_extras";
 
     public static final String EXTRA_CLIENT_VERSION = "extra_client_version";
     public static final String EXTRA_SERVICE_VERSION = "extra_service_version";
     public static final String EXTRA_MESSENGER_BINDER = "extra_messenger";
+    public static final String EXTRA_SESSION_BINDER = "extra_session_binder";
 
     /**
      * MediaBrowserCompat will check the version of the connected MediaBrowserServiceCompat,
@@ -156,4 +161,28 @@ class MediaBrowserProtocol {
      * - replyTo : Callback messenger
      */
     public static final int CLIENT_MSG_UNREGISTER_CALLBACK_MESSENGER = 7;
+
+    /** (client v1)
+     * Sent to retrieve a specific media item from the connected service.
+     * - arg1 : The client version
+     * - data
+     *     DATA_SEARCH_QUERY : A string for search query that contains keywords separated by space.
+     *     DATA_SEARCH_EXTRAS : A bundle of service-specific arguments to send to the media browser
+     *                          service.
+     *     DATA_RESULT_RECEIVER : Result receiver to get the result.
+     * - replyTo : Callback messenger
+     */
+    public static final int CLIENT_MSG_SEARCH = 8;
+
+    /** (client v1)
+     * Sent to request a custom action from the media browser.
+     * - arg1 : The client version
+     * - data
+     *     DATA_CUSTOM_ACTION : A string for the custom action.
+     *     DATA_CUSTOM_ACTION_EXTRAS : A bundle of service-specific arguments to send to the media
+     *                                 browser service.
+     *     DATA_RESULT_RECEIVER : Result receiver to get the result.
+     * - replyTo : Callback messenger
+     */
+    public static final int CLIENT_MSG_SEND_CUSTOM_ACTION = 9;
 }

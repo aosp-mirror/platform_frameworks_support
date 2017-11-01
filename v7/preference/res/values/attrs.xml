@@ -80,6 +80,8 @@
         <attr name="android:divider" />
         <!-- List separator height -->
         <attr name="android:dividerHeight" />
+        <!-- Whether a divider is allowed to draw after the last item -->
+        <attr name="allowDividerAfterLastItem" format="boolean" />
     </declare-styleable>
 
     <!-- Base attributes available to PreferenceGroup. -->
@@ -145,6 +147,26 @@
              this Preference is disabled. -->
         <attr name="shouldDisableView" format="boolean" />
         <attr name="android:shouldDisableView" />
+
+        <!-- Whether the preference allows displaying divider on top -->
+        <attr name="allowDividerAbove" format="boolean" />
+
+        <!-- Whether the preference allows displaying divider below it -->
+        <attr name="allowDividerBelow" format="boolean" />
+
+        <!-- Whether to use single line for the preference title text. By default, preference title
+             will be constrained to one line, so the default value of this attribute is true. -->
+        <attr name="singleLineTitle" format="boolean" />
+        <attr name="android:singleLineTitle" />
+
+        <!-- Whether the space for the preference icon view will be reserved. If set to true, the
+             preference will be offset as if it would have the icon and thus aligned with other
+             preferences having icons. By default, preference icon view visibility will be set to
+             GONE when there is no icon provided, so the default value of this attribute is false.
+             -->
+        <attr name="iconSpaceReserved" format="boolean" />
+        <attr name="android:iconSpaceReserved" />
+
     </declare-styleable>
 
     <!-- Base attributes available to CheckBoxPreference. -->
@@ -253,5 +275,24 @@
         <!-- Need a non-android: attr here so that gradle doesn't remove it -->
         <attr name="selectableItemBackground" />
     </declare-styleable>
+
+    <declare-styleable name="SeekBarPreference">
+        <attr name="min" format="integer"/>
+        <attr name="android:max"/>
+        <attr name="android:layout" />
+        <!--Attribute controlling the amount to increment or decrement the seekbar when the user
+        presses the arrow keys-->
+        <attr name="seekBarIncrement" format="integer" />
+        <!-- Attribute indicating whether the slider within this preference can be adjusted, that is
+        pressing left/right keys when this preference is focused will move the slider accordingly
+        (e.g. inline adjustable preferences). False, if the slider within the preference is
+        read-only and cannot be adjusted. By default, the seekbar is adjustable. -->
+        <attr name="adjustable" format="boolean" />
+        <!-- Flag indicating whether the TextView next to the seekbar that shows the current seekbar
+        value will be displayed. If true, the view is VISIBLE; if false, the view will be GONE.
+        By default, this view is VISIBLE. -->
+        <attr name="showSeekBarValue" format="boolean" />
+    </declare-styleable>
+
 
 </resources>

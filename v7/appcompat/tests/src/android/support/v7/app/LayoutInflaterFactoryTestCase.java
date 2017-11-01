@@ -16,12 +16,18 @@
 
 package android.support.v7.app;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.test.annotation.UiThreadTest;
+import android.support.test.filters.SdkSuppress;
+import android.support.test.filters.SmallTest;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.appcompat.test.R;
 import android.support.v7.custom.ContextWrapperFrameLayout;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
@@ -33,22 +39,23 @@ import android.support.v7.widget.AppCompatMultiAutoCompleteTextView;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.AppCompatSpinner;
-import android.test.suitebuilder.annotation.SmallTest;
 import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class LayoutInflaterFactoryTestCase
-        extends BaseInstrumentationTestCase<LayoutInflaterFactoryTestActivity> {
-
-    public LayoutInflaterFactoryTestCase() {
-        super(LayoutInflaterFactoryTestActivity.class);
-    }
+@RunWith(AndroidJUnit4.class)
+public class LayoutInflaterFactoryTestCase {
+    @Rule
+    public final ActivityTestRule<LayoutInflaterFactoryTestActivity> mActivityTestRule =
+            new ActivityTestRule<>(LayoutInflaterFactoryTestActivity.class);
 
     @Before
     public void setup() {
@@ -56,153 +63,156 @@ public class LayoutInflaterFactoryTestCase
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
+    @UiThreadTest
     @Test
     @SmallTest
-    public void testAndroidThemeInflation() throws Throwable {
-        runTestOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                final LayoutInflater inflater = LayoutInflater.from(getActivity());
-                assertThemedContext(inflater.inflate(R.layout.layout_android_theme, null));
-            }
-        });
+    public void testAndroidThemeInflation() {
+        final LayoutInflater inflater = LayoutInflater.from(mActivityTestRule.getActivity());
+        assertThemedContext(inflater.inflate(R.layout.layout_android_theme, null));
     }
 
+    @UiThreadTest
     @Test
     @SmallTest
-    public void testAppThemeInflation() throws Throwable {
-        runTestOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                final LayoutInflater inflater = LayoutInflater.from(getActivity());
-                assertThemedContext(inflater.inflate(R.layout.layout_app_theme, null));
-            }
-        });
+    public void testAppThemeInflation() {
+        final LayoutInflater inflater = LayoutInflater.from(mActivityTestRule.getActivity());
+        assertThemedContext(inflater.inflate(R.layout.layout_app_theme, null));
     }
 
+    // Propagation of themed context to children only works on API 11+.
+    @SdkSuppress(minSdkVersion = 11)
+    @RequiresApi(11)
+    @UiThreadTest
     @Test
     @SmallTest
-    public void testAndroidThemeWithChildrenInflation() throws Throwable {
-        if (Build.VERSION.SDK_INT < 11) {
-            // Propagation of themed context to children only works on API 11+. Ignoring test.
-            return;
-        }
-        runTestOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                LayoutInflater inflater = LayoutInflater.from(getActivity());
-                final ViewGroup root = (ViewGroup) inflater.inflate(
-                        R.layout.layout_android_theme_children, null);
-
-                assertThemedContext(root);
-
-                for (int i = 0; i < root.getChildCount(); i++) {
-                    final View child = root.getChildAt(i);
-                    assertThemedContext(child);
-                }
-            }
-        });
+    public void testAndroidThemeWithChildrenInflation() {
+        LayoutInflater inflater = LayoutInflater.from(mActivityTestRule.getActivity());
+        final ViewGroup root = (ViewGroup) inflater.inflate(
+                R.layout.layout_android_theme_children, null);
+        assertThemedContext(root);
     }
 
+    @UiThreadTest
     @Test
     @SmallTest
-    public void testSpinnerInflation() throws Throwable {
-        testAppCompatWidgetInflation(R.layout.layout_spinner, AppCompatSpinner.class);
+    public void testThemedInflationWithUnattachedParent() {
+        final Context activity = mActivityTestRule.getActivity();
+
+        // Create a parent but not attached
+        final LinearLayout parent = new LinearLayout(activity);
+
+        // Now create a LayoutInflater with a themed context
+        LayoutInflater inflater = LayoutInflater.from(activity)
+                .cloneInContext(new ContextThemeWrapper(activity, R.style.MagentaThemeOverlay));
+
+        // Now inflate a layout with children
+        final ViewGroup root = (ViewGroup) inflater.inflate(
+                R.layout.layout_children, parent, false);
+
+        // And assert that the layout is themed correctly
+        assertThemedContext(root);
     }
 
+    @UiThreadTest
     @Test
     @SmallTest
-    public void testEditTextInflation() throws Throwable {
-        testAppCompatWidgetInflation(R.layout.layout_edittext, AppCompatEditText.class);
+    public void testSpinnerInflation() {
+        verifyAppCompatWidgetInflation(R.layout.layout_spinner, AppCompatSpinner.class);
     }
 
+    @UiThreadTest
     @Test
     @SmallTest
-    public void testButtonInflation() throws Throwable {
-        testAppCompatWidgetInflation(R.layout.layout_button, AppCompatButton.class);
+    public void testEditTextInflation() {
+        verifyAppCompatWidgetInflation(R.layout.layout_edittext, AppCompatEditText.class);
     }
 
+    @UiThreadTest
     @Test
     @SmallTest
-    public void testRadioButtonInflation() throws Throwable {
-        testAppCompatWidgetInflation(R.layout.layout_radiobutton, AppCompatRadioButton.class);
+    public void testButtonInflation() {
+        verifyAppCompatWidgetInflation(R.layout.layout_button, AppCompatButton.class);
     }
 
+    @UiThreadTest
     @Test
     @SmallTest
-    public void testRadioButtonInflationWithVectorButton() throws Throwable {
-        testAppCompatWidgetInflation(R.layout.layout_radiobutton_vector,
+    public void testRadioButtonInflation() {
+        verifyAppCompatWidgetInflation(R.layout.layout_radiobutton, AppCompatRadioButton.class);
+    }
+
+    @UiThreadTest
+    @Test
+    @SmallTest
+    public void testRadioButtonInflationWithVectorButton() {
+        verifyAppCompatWidgetInflation(R.layout.layout_radiobutton_vector,
                 AppCompatRadioButton.class);
     }
 
+    @UiThreadTest
     @Test
     @SmallTest
-    public void testImageViewInflationWithVectorSrc() throws Throwable {
-        testAppCompatWidgetInflation(R.layout.layout_imageview_vector,
+    public void testImageViewInflationWithVectorSrc() {
+        verifyAppCompatWidgetInflation(R.layout.layout_imageview_vector,
                 AppCompatImageView.class);
     }
 
+    @UiThreadTest
     @Test
     @SmallTest
-    public void testContextWrapperParentImageViewInflationWithVectorSrc() throws Throwable {
-        testAppCompatWidgetInflation(R.layout.layout_contextwrapperparent_imageview_vector,
+    public void testContextWrapperParentImageViewInflationWithVectorSrc() {
+        verifyAppCompatWidgetInflation(R.layout.layout_contextwrapperparent_imageview_vector,
                 ContextWrapperFrameLayout.class);
     }
 
+    @UiThreadTest
     @Test
     @SmallTest
-    public void testCheckBoxInflation() throws Throwable {
-        testAppCompatWidgetInflation(R.layout.layout_checkbox, AppCompatCheckBox.class);
+    public void testCheckBoxInflation() {
+        verifyAppCompatWidgetInflation(R.layout.layout_checkbox, AppCompatCheckBox.class);
     }
 
+    @UiThreadTest
     @Test
     @SmallTest
-    public void testActvInflation() throws Throwable {
-        testAppCompatWidgetInflation(R.layout.layout_actv, AppCompatAutoCompleteTextView.class);
+    public void testActvInflation() {
+        verifyAppCompatWidgetInflation(R.layout.layout_actv, AppCompatAutoCompleteTextView.class);
     }
 
+    @UiThreadTest
     @Test
     @SmallTest
-    public void testMactvInflation() throws Throwable {
-        testAppCompatWidgetInflation(R.layout.layout_mactv,
+    public void testMactvInflation() {
+        verifyAppCompatWidgetInflation(R.layout.layout_mactv,
                 AppCompatMultiAutoCompleteTextView.class);
     }
 
+    @UiThreadTest
     @Test
     @SmallTest
-    public void testRatingBarInflation() throws Throwable {
-        testAppCompatWidgetInflation(R.layout.layout_ratingbar, AppCompatRatingBar.class);
+    public void testRatingBarInflation() {
+        verifyAppCompatWidgetInflation(R.layout.layout_ratingbar, AppCompatRatingBar.class);
     }
 
+    @UiThreadTest
     @Test
     @SmallTest
-    public void testDeclarativeOnClickWithContextWrapper() throws Throwable {
-        runTestOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                LayoutInflater inflater = LayoutInflater.from(getActivity());
-                View view = inflater.inflate(R.layout.layout_button_themed_onclick, null);
+    public void testDeclarativeOnClickWithContextWrapper() {
+        LayoutInflater inflater = LayoutInflater.from(mActivityTestRule.getActivity());
+        View view = inflater.inflate(R.layout.layout_button_themed_onclick, null);
 
-                assertTrue(view.performClick());
-                assertTrue(getActivity().wasDeclarativeOnClickCalled());
-            }
-        });
+        assertTrue(view.performClick());
+        assertTrue(mActivityTestRule.getActivity().wasDeclarativeOnClickCalled());
     }
 
-    private void testAppCompatWidgetInflation(final int layout, final Class<?> expectedClass)
-            throws Throwable {
-        runTestOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                LayoutInflater inflater = LayoutInflater.from(getActivity());
-                View view = inflater.inflate(layout, null);
-                assertSame("View is " + expectedClass.getSimpleName(), expectedClass,
-                        view.getClass());
-            }
-        });
+    private void verifyAppCompatWidgetInflation(final int layout, final Class<?> expectedClass) {
+        LayoutInflater inflater = LayoutInflater.from(mActivityTestRule.getActivity());
+        View view = inflater.inflate(layout, null);
+        assertSame("View is " + expectedClass.getSimpleName(), expectedClass,
+                view.getClass());
     }
 
-    private static void assertThemedContext(View view) {
+    private static void assertThemedContext(final View view) {
         final Context viewContext = view.getContext();
         final int expectedColor = view.getResources().getColor(R.color.test_magenta);
 
@@ -211,6 +221,14 @@ public class LayoutInflaterFactoryTestCase
                 && colorAccentValue.type <= TypedValue.TYPE_LAST_COLOR_INT);
         assertEquals("View does not have ContextThemeWrapper context",
                 expectedColor, colorAccentValue.data);
+
+        if (view instanceof ViewGroup) {
+            ViewGroup vg = (ViewGroup) view;
+            for (int i = 0; i < vg.getChildCount(); i++) {
+                final View child = vg.getChildAt(i);
+                assertThemedContext(child);
+            }
+        }
     }
 
     private static TypedValue getColorAccentValue(final Resources.Theme theme) {

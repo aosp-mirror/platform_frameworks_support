@@ -16,22 +16,23 @@
 
 package android.support.v7.widget;
 
+import static android.support.v7.widget.StaggeredGridLayoutManager.GAP_HANDLING_NONE;
+
+import static org.junit.Assert.assertNull;
+
+import android.graphics.Rect;
+import android.support.test.filters.LargeTest;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
-import android.graphics.Rect;
-import android.test.suitebuilder.annotation.MediumTest;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static android.support.v7.widget.StaggeredGridLayoutManager.GAP_HANDLING_NONE;
-import static org.junit.Assert.assertNull;
-
 @RunWith(Parameterized.class)
-@MediumTest
+@LargeTest
 public class StaggeredGridLayoutManagerGapTest extends BaseStaggeredGridLayoutManagerTest {
     private final Config mConfig;
     private final int mDeletePosition;
@@ -43,7 +44,7 @@ public class StaggeredGridLayoutManagerGapTest extends BaseStaggeredGridLayoutMa
         mDeleteCount = deleteCount;
     }
 
-    @Parameterized.Parameters(name = "config={0} deletePos={1} deleteCount={2}")
+    @Parameterized.Parameters(name = "config={0},deletePos={1},deleteCount={2}")
     public static List<Object[]> getParams() throws CloneNotSupportedException {
         List<Config> variations = createBaseVariations();
         List<Object[]> params = new ArrayList<>();
