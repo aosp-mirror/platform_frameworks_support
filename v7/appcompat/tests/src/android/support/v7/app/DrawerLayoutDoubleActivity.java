@@ -16,15 +16,12 @@
 
 package android.support.v7.app;
 
-import android.content.res.Configuration;
-import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.appcompat.test.R;
 import android.support.v7.testutils.BaseTestActivity;
 import android.support.v7.testutils.Shakespeare;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -52,10 +49,10 @@ public class DrawerLayoutDoubleActivity extends BaseTestActivity {
     protected void onContentViewSet() {
         super.onContentViewSet();
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mStartDrawer = (ListView) findViewById(R.id.start_drawer);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mStartDrawer = findViewById(R.id.start_drawer);
         mEndDrawer = findViewById(R.id.end_drawer);
-        mContent = (TextView) findViewById(R.id.content_text);
+        mContent = findViewById(R.id.content_text);
 
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
@@ -70,7 +67,7 @@ public class DrawerLayoutDoubleActivity extends BaseTestActivity {
 
         // Find the toolbar in our layout and set it as the support action bar on the activity.
         // This is required to have the drawer slide "over" the toolbar.
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = findViewById(R.id.toolbar);
         mToolbar.setTitle(R.string.drawer_title);
         setSupportActionBar(mToolbar);
 

@@ -15,19 +15,19 @@
  */
 package android.support.percent;
 
-import android.os.Build;
-import android.support.percent.test.R;
-import android.support.v4.view.ViewCompat;
-import android.test.UiThreadTest;
-import android.test.suitebuilder.annotation.SmallTest;
-import android.view.View;
-import org.junit.Before;
-import org.junit.Test;
-
 import static android.support.percent.LayoutDirectionActions.setLayoutDirection;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static org.junit.Assume.*;
+
+import android.os.Build;
+import android.support.percent.test.R;
+import android.support.test.filters.SmallTest;
+import android.support.v4.view.ViewCompat;
+import android.view.View;
+
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * The arrangement of child views in the layout class in the default LTR (left-to-right) direction
  * is as follows:
@@ -106,8 +106,6 @@ public class PercentRelativeRtlTest extends BaseInstrumentationTestCase<TestRela
 
     @Before
     public void setUp() throws Exception {
-        assumeTrue(Build.VERSION.SDK_INT != 17);
-
         final TestRelativeRtlActivity activity = mActivityTestRule.getActivity();
         mPercentRelativeLayout = (PercentRelativeLayout) activity.findViewById(R.id.container);
         mContainerWidth = mPercentRelativeLayout.getWidth();
@@ -130,6 +128,9 @@ public class PercentRelativeRtlTest extends BaseInstrumentationTestCase<TestRela
 
     @Test
     public void testTopChild() {
+        if (Build.VERSION.SDK_INT == 17) {
+            return;
+        }
         final View childToTest = mPercentRelativeLayout.findViewById(R.id.child_top);
 
         if (Build.VERSION.SDK_INT >= 17) {
@@ -159,6 +160,9 @@ public class PercentRelativeRtlTest extends BaseInstrumentationTestCase<TestRela
 
     @Test
     public void testStartChild() {
+        if (Build.VERSION.SDK_INT == 17) {
+            return;
+        }
         final View childToTest = mPercentRelativeLayout.findViewById(R.id.child_start);
 
         if (Build.VERSION.SDK_INT >= 17) {
@@ -189,6 +193,9 @@ public class PercentRelativeRtlTest extends BaseInstrumentationTestCase<TestRela
 
     @Test
     public void testBottomChild() {
+        if (Build.VERSION.SDK_INT == 17) {
+            return;
+        }
         final View childToTest = mPercentRelativeLayout.findViewById(R.id.child_bottom);
 
         if (Build.VERSION.SDK_INT >= 17) {
@@ -220,6 +227,9 @@ public class PercentRelativeRtlTest extends BaseInstrumentationTestCase<TestRela
 
     @Test
     public void testEndChild() {
+        if (Build.VERSION.SDK_INT == 17) {
+            return;
+        }
         final View childToTest = mPercentRelativeLayout.findViewById(R.id.child_end);
 
         if (Build.VERSION.SDK_INT >= 17) {
@@ -250,6 +260,9 @@ public class PercentRelativeRtlTest extends BaseInstrumentationTestCase<TestRela
 
     @Test
     public void testCenterChild() {
+        if (Build.VERSION.SDK_INT == 17) {
+            return;
+        }
         final View childToTest = mPercentRelativeLayout.findViewById(R.id.child_center);
 
         boolean supportsRtl = Build.VERSION.SDK_INT >= 17;

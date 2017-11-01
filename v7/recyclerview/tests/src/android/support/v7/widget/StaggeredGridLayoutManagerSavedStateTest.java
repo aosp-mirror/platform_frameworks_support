@@ -16,22 +16,22 @@
 
 package android.support.v7.widget;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import static org.junit.Assert.assertEquals;
 
 import android.graphics.Rect;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.test.suitebuilder.annotation.LargeTest;
+import android.support.test.filters.LargeTest;
 import android.util.Log;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
-import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 @LargeTest
@@ -53,8 +53,8 @@ public class StaggeredGridLayoutManagerSavedStateTest extends BaseStaggeredGridL
         }
     }
 
-    @Parameterized.Parameters(name = "config={0} waitForLayout={1} loadDataAfterRestore={2}"
-            + " postLayoutRunnable={3}")
+    @Parameterized.Parameters(name = "config={0},waitForLayout={1},loadDataAfterRestore={2}"
+            + ",postLayoutRunnable={3}")
     public static List<Object[]> getParams() throws CloneNotSupportedException {
         List<Config> variations = createBaseVariations();
 
@@ -67,7 +67,7 @@ public class StaggeredGridLayoutManagerSavedStateTest extends BaseStaggeredGridL
 
                     @Override
                     public String describe() {
-                        return "doing nothing";
+                        return "doing_nothing";
                     }
                 },
                 new PostLayoutRunnable() {
@@ -80,7 +80,7 @@ public class StaggeredGridLayoutManagerSavedStateTest extends BaseStaggeredGridL
 
                     @Override
                     public String describe() {
-                        return "scroll to position item count * 3 / 4";
+                        return "scroll_to_position_item_count*3/4";
                     }
                 },
                 new PostLayoutRunnable() {
@@ -94,7 +94,7 @@ public class StaggeredGridLayoutManagerSavedStateTest extends BaseStaggeredGridL
 
                     @Override
                     public String describe() {
-                        return "scroll to position item count / 3 with positive offset";
+                        return "scroll_to_position_item_count/3_with_positive_offset";
                     }
                 },
                 new PostLayoutRunnable() {
@@ -108,7 +108,7 @@ public class StaggeredGridLayoutManagerSavedStateTest extends BaseStaggeredGridL
 
                     @Override
                     public String describe() {
-                        return "scroll to position with negative offset";
+                        return "scroll_to_position_with_negative_offset";
                     }
                 }
         };
@@ -153,6 +153,7 @@ public class StaggeredGridLayoutManagerSavedStateTest extends BaseStaggeredGridL
                 void onBoundItem(TestViewHolder vh, int position) {
                 }
 
+                @Override
                 boolean assignRandomSize() {
                     return false;
                 }

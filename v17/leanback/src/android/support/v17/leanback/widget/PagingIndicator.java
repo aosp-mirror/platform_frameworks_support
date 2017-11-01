@@ -16,6 +16,8 @@
 
 package android.support.v17.leanback.widget;
 
+import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -29,6 +31,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
 import android.support.annotation.ColorInt;
 import android.support.annotation.RestrictTo;
@@ -39,21 +43,19 @@ import android.util.Property;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
-import static android.support.annotation.RestrictTo.Scope.GROUP_ID;
-
 /**
  * A page indicator with dots.
  * @hide
  */
-@RestrictTo(GROUP_ID)
+@RestrictTo(LIBRARY_GROUP)
 public class PagingIndicator extends View {
     private static final long DURATION_ALPHA = 167;
     private static final long DURATION_DIAMETER = 417;
     private static final long DURATION_TRANSLATION_X = DURATION_DIAMETER;
     private static final TimeInterpolator DECELERATE_INTERPOLATOR = new DecelerateInterpolator();
 
-    private static final Property<Dot, Float> DOT_ALPHA
-            = new Property<Dot, Float>(Float.class, "alpha") {
+    private static final Property<Dot, Float> DOT_ALPHA =
+            new Property<Dot, Float>(Float.class, "alpha") {
         @Override
         public Float get(Dot dot) {
             return dot.getAlpha();
@@ -65,8 +67,8 @@ public class PagingIndicator extends View {
         }
     };
 
-    private static final Property<Dot, Float> DOT_DIAMETER
-            = new Property<Dot, Float>(Float.class, "diameter") {
+    private static final Property<Dot, Float> DOT_DIAMETER =
+            new Property<Dot, Float>(Float.class, "diameter") {
         @Override
         public Float get(Dot dot) {
             return dot.getDiameter();
@@ -78,8 +80,8 @@ public class PagingIndicator extends View {
         }
     };
 
-    private static final Property<Dot, Float> DOT_TRANSLATION_X
-            = new Property<Dot, Float>(Float.class, "translation_x") {
+    private static final Property<Dot, Float> DOT_TRANSLATION_X =
+            new Property<Dot, Float>(Float.class, "translation_x") {
         @Override
         public Float get(Dot dot) {
             return dot.getTranslationX();
@@ -116,13 +118,14 @@ public class PagingIndicator extends View {
 
     // drawing
     @ColorInt
-    final int mDotFgSelectColor;
+    int mDotFgSelectColor;
     final Paint mBgPaint;
     final Paint mFgPaint;
     private final AnimatorSet mShowAnimator;
     private final AnimatorSet mHideAnimator;
     private final AnimatorSet mAnimator = new AnimatorSet();
     Bitmap mArrow;
+    Paint mArrowPaint;
     final Rect mArrowRect;
     final float mArrowToBgRatio;
 
@@ -149,14 +152,19 @@ public class PagingIndicator extends View {
                 R.dimen.lb_page_indicator_dot_gap);
         mArrowGap = getDimensionFromTypedArray(typedArray,
                 R.styleable.PagingIndicator_dotToArrowGap, R.dimen.lb_page_indicator_arrow_gap);
-        int bgColor = getColorFromTypedArray(typedArray, R.styleable.PagingIndicator_dotBgColor,
+
+        int dotBgColor = getColorFromTypedArray(typedArray, R.styleable.PagingIndicator_dotBgColor,
                 R.color.lb_page_indicator_dot);
         mBgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mBgPaint.setColor(bgColor);
+        mBgPaint.setColor(dotBgColor);
         mDotFgSelectColor = getColorFromTypedArray(typedArray,
                 R.styleable.PagingIndicator_arrowBgColor,
                 R.color.lb_page_indicator_arrow_background);
+        if (mArrowPaint == null && typedArray.hasValue(R.styleable.PagingIndicator_arrowColor)) {
+            setArrowColor(typedArray.getColor(R.styleable.PagingIndicator_arrowColor, 0));
+        }
         typedArray.recycle();
+
         mIsLtr = res.getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_LTR;
         int shadowColor = res.getColor(R.color.lb_page_indicator_arrow_shadow);
         mShadowRadius = res.getDimensionPixelSize(R.dimen.lb_page_indicator_arrow_shadow_radius);
@@ -199,6 +207,40 @@ public class PagingIndicator extends View {
             return Bitmap.createBitmap(arrow, 0, 0, arrow.getWidth(), arrow.getHeight(), matrix,
                     false);
         }
+    }
+
+    /**
+     * Sets the color of the arrow. This color will take over the value set through the
+     * theme attribute {@link R.styleable#PagingIndicator_arrowColor} if provided.
+     *
+     * @param color the color of the arrow
+     */
+    public void setArrowColor(@ColorInt int color) {
+        if (mArrowPaint == null) {
+            mArrowPaint = new Paint();
+        }
+        mArrowPaint.setColorFilter(new PorterDuffColorFilter(color,
+                PorterDuff.Mode.SRC_IN));
+    }
+
+    /**
+     * Set the background color of the dot. This color will take over the value set through the
+     * theme attribute.
+     *
+     * @param color the background color of the dot
+     */
+    public void setDotBackgroundColor(@ColorInt int color) {
+        mBgPaint.setColor(color);
+    }
+
+    /**
+     * Sets the background color of the arrow. This color will take over the value set through the
+     * theme attribute.
+     *
+     * @param color the background color of the arrow
+     */
+    public void setArrowBackgroundColor(@ColorInt int color) {
+        mDotFgSelectColor = color;
     }
 
     private Animator createDotAlphaAnimator(float from, float to) {
@@ -499,7 +541,7 @@ public class PagingIndicator extends View {
                 canvas.drawBitmap(mArrow, mArrowRect, new Rect((int) (centerX - mArrowImageRadius),
                         (int) (mDotCenterY - mArrowImageRadius),
                         (int) (centerX + mArrowImageRadius),
-                        (int) (mDotCenterY + mArrowImageRadius)), null);
+                        (int) (mDotCenterY + mArrowImageRadius)), mArrowPaint);
             }
         }
 

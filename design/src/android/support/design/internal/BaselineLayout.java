@@ -17,14 +17,13 @@
 package android.support.design.internal;
 
 import android.content.Context;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.ViewUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * A simple ViewGroup that aligns all the views inside on a baseline.
+ * A simple ViewGroup that aligns all the views inside on a baseline. Note: bottom padding for this
+ * view will be measured starting from the baseline.
  *
  * @hide
  */
@@ -43,6 +42,7 @@ public class BaselineLayout extends ViewGroup {
         super(context, attrs, defStyleAttr);
     }
 
+    @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         final int count = getChildCount();
         int maxWidth = 0;
@@ -65,18 +65,18 @@ public class BaselineLayout extends ViewGroup {
             }
             maxWidth = Math.max(maxWidth, child.getMeasuredWidth());
             maxHeight = Math.max(maxHeight, child.getMeasuredHeight());
-            childState = ViewUtils.combineMeasuredStates(childState,
-                    ViewCompat.getMeasuredState(child));
+            childState = View.combineMeasuredStates(childState, child.getMeasuredState());
         }
         if (maxChildBaseline != -1) {
+            maxChildDescent = Math.max(maxChildDescent, getPaddingBottom());
             maxHeight = Math.max(maxHeight, maxChildBaseline + maxChildDescent);
             mBaseline = maxChildBaseline;
         }
         maxHeight = Math.max(maxHeight, getSuggestedMinimumHeight());
         maxWidth = Math.max(maxWidth, getSuggestedMinimumWidth());
         setMeasuredDimension(
-                ViewCompat.resolveSizeAndState(maxWidth, widthMeasureSpec, childState),
-                ViewCompat.resolveSizeAndState(maxHeight, heightMeasureSpec,
+                View.resolveSizeAndState(maxWidth, widthMeasureSpec, childState),
+                View.resolveSizeAndState(maxHeight, heightMeasureSpec,
                         childState << MEASURED_HEIGHT_STATE_SHIFT));
     }
 

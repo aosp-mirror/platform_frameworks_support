@@ -16,19 +16,17 @@
 
 package android.support.design.internal;
 
+import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.RestrictTo;
-import android.support.v4.os.ParcelableCompat;
-import android.support.v4.os.ParcelableCompatCreatorCallbacks;
 import android.util.SparseArray;
-
-import static android.support.annotation.RestrictTo.Scope.GROUP_ID;
 
 /**
  * @hide
  */
-@RestrictTo(GROUP_ID)
+@RestrictTo(LIBRARY_GROUP)
 public class ParcelableSparseArray extends SparseArray<Parcelable> implements Parcelable {
 
     public ParcelableSparseArray() {
@@ -65,18 +63,21 @@ public class ParcelableSparseArray extends SparseArray<Parcelable> implements Pa
         parcel.writeParcelableArray(values, flags);
     }
 
-    public static final Parcelable.Creator<ParcelableSparseArray> CREATOR =
-            ParcelableCompat
-                    .newCreator(new ParcelableCompatCreatorCallbacks<ParcelableSparseArray>() {
-                        @Override
-                        public ParcelableSparseArray createFromParcel(Parcel source,
-                                ClassLoader loader) {
-                            return new ParcelableSparseArray(source, loader);
-                        }
+    public static final Creator<ParcelableSparseArray> CREATOR =
+            new ClassLoaderCreator<ParcelableSparseArray>() {
+                @Override
+                public ParcelableSparseArray createFromParcel(Parcel source, ClassLoader loader) {
+                    return new ParcelableSparseArray(source, loader);
+                }
 
-                        @Override
-                        public ParcelableSparseArray[] newArray(int size) {
-                            return new ParcelableSparseArray[size];
-                        }
-                    });
+                @Override
+                public ParcelableSparseArray createFromParcel(Parcel source) {
+                    return new ParcelableSparseArray(source, null);
+                }
+
+                @Override
+                public ParcelableSparseArray[] newArray(int size) {
+                    return new ParcelableSparseArray[size];
+                }
+            };
 }

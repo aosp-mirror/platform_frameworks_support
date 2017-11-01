@@ -25,12 +25,12 @@ import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
-import android.support.test.InstrumentationRegistry;
 import android.support.v4.util.Pair;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.TintTypedArray;
+import android.view.InputDevice;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewParent;
 
 import junit.framework.Assert;
@@ -173,6 +173,36 @@ public class TestUtils {
     }
 
     /**
+     * Checks whether the center pixel in the specified drawable is of the same specified color.
+     *
+     * In case there is a color mismatch, the behavior of this method depends on the
+     * <code>throwExceptionIfFails</code> parameter. If it is <code>true</code>, this method will
+     * throw an <code>Exception</code> describing the mismatch. Otherwise this method will call
+     * <code>Assert.fail</code> with detailed description of the mismatch.
+     */
+    public static void assertCenterPixelOfColor(String failMessagePrefix, @NonNull Drawable drawable,
+            int drawableWidth, int drawableHeight, boolean callSetBounds, @ColorInt int color,
+            int allowedComponentVariance, boolean throwExceptionIfFails) {
+        // Create a bitmap
+        Bitmap bitmap = Bitmap.createBitmap(drawableWidth, drawableHeight, Bitmap.Config.ARGB_8888);
+        // Create a canvas that wraps the bitmap
+        Canvas canvas = new Canvas(bitmap);
+        if (callSetBounds) {
+            // Configure the drawable to have bounds that match the passed size
+            drawable.setBounds(0, 0, drawableWidth, drawableHeight);
+        }
+        // And ask the drawable to draw itself to the canvas / bitmap
+        drawable.draw(canvas);
+
+        try {
+            assertCenterPixelOfColor(failMessagePrefix, bitmap, color, allowedComponentVariance,
+                    throwExceptionIfFails);
+        } finally {
+            bitmap.recycle();
+        }
+    }
+
+    /**
      * Checks whether the center pixel in the specified bitmap is of the same specified color.
      *
      * In case there is a color mismatch, the behavior of this method depends on the
@@ -181,8 +211,7 @@ public class TestUtils {
      * <code>Assert.fail</code> with detailed description of the mismatch.
      */
     public static void assertCenterPixelOfColor(String failMessagePrefix, @NonNull Bitmap bitmap,
-            @ColorInt int color,
-            int allowedComponentVariance, boolean throwExceptionIfFails) {
+            @ColorInt int color, int allowedComponentVariance, boolean throwExceptionIfFails) {
         final int centerX = bitmap.getWidth() / 2;
         final int centerY = bitmap.getHeight() / 2;
         final @ColorInt int colorAtCenterPixel = bitmap.getPixel(centerX, centerY);
@@ -255,15 +284,60 @@ public class TestUtils {
         }
     }
 
-    public static void setLocalNightModeAndWaitForRecreate(final AppCompatActivity activity,
-            @AppCompatDelegate.NightMode final int nightMode) {
-        final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
-        instrumentation.runOnMainSync(new Runnable() {
-            @Override
-            public void run() {
-                activity.getDelegate().setLocalNightMode(nightMode);
-            }
-        });
+    /**
+     * Emulates a tap on a point relative to the top-left corner of the passed {@link View}. Offset
+     * parameters are used to compute the final screen coordinates of the tap point.
+     *
+     * @param instrumentation the instrumentation used to run the test
+     * @param anchorView the anchor view to determine the tap location on the screen
+     * @param offsetX extra X offset for the tap
+     * @param offsetY extra Y offset for the tap
+     */
+    public static void emulateTapOnView(Instrumentation instrumentation, View anchorView,
+            int offsetX, int offsetY) {
+        final int touchSlop = ViewConfiguration.get(anchorView.getContext()).getScaledTouchSlop();
+        // Get anchor coordinates on the screen
+        final int[] viewOnScreenXY = new int[2];
+        anchorView.getLocationOnScreen(viewOnScreenXY);
+        int xOnScreen = viewOnScreenXY[0] + offsetX;
+        int yOnScreen = viewOnScreenXY[1] + offsetY;
+        final long downTime = SystemClock.uptimeMillis();
+
+        injectDownEvent(instrumentation, downTime, xOnScreen, yOnScreen);
+        injectMoveEventForTap(instrumentation, downTime, touchSlop, xOnScreen, yOnScreen);
+        injectUpEvent(instrumentation, downTime, false, xOnScreen, yOnScreen);
+
+        // Wait for the system to process all events in the queue
         instrumentation.waitForIdleSync();
+    }
+
+    private static long injectDownEvent(Instrumentation instrumentation, long downTime,
+            int xOnScreen, int yOnScreen) {
+        MotionEvent eventDown = MotionEvent.obtain(
+                downTime, downTime, MotionEvent.ACTION_DOWN, xOnScreen, yOnScreen, 1);
+        eventDown.setSource(InputDevice.SOURCE_TOUCHSCREEN);
+        instrumentation.sendPointerSync(eventDown);
+        eventDown.recycle();
+        return downTime;
+    }
+
+    private static void injectMoveEventForTap(Instrumentation instrumentation, long downTime,
+            int touchSlop, int xOnScreen, int yOnScreen) {
+        MotionEvent eventMove = MotionEvent.obtain(downTime, downTime, MotionEvent.ACTION_MOVE,
+                xOnScreen + (touchSlop / 2.0f), yOnScreen + (touchSlop / 2.0f), 1);
+        eventMove.setSource(InputDevice.SOURCE_TOUCHSCREEN);
+        instrumentation.sendPointerSync(eventMove);
+        eventMove.recycle();
+    }
+
+
+    private static void injectUpEvent(Instrumentation instrumentation, long downTime,
+            boolean useCurrentEventTime, int xOnScreen, int yOnScreen) {
+        long eventTime = useCurrentEventTime ? SystemClock.uptimeMillis() : downTime;
+        MotionEvent eventUp = MotionEvent.obtain(
+                downTime, eventTime, MotionEvent.ACTION_UP, xOnScreen, yOnScreen, 1);
+        eventUp.setSource(InputDevice.SOURCE_TOUCHSCREEN);
+        instrumentation.sendPointerSync(eventUp);
+        eventUp.recycle();
     }
 }

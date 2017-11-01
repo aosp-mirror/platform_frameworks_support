@@ -14,13 +14,10 @@
 package android.support.v17.leanback.widget;
 
 import android.animation.Animator;
-import android.animation.AnimatorInflater;
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v17.leanback.R;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -184,11 +181,17 @@ public class GuidanceStylist implements FragmentAnimationProvider {
         if (mGuidanceContainer != null) {
             CharSequence contentDescription = mGuidanceContainer.getContentDescription();
             if (TextUtils.isEmpty(contentDescription)) {
-                mGuidanceContainer.setContentDescription(new StringBuilder()
-                        .append(guidance.getBreadcrumb()).append('\n')
-                        .append(guidance.getTitle()).append('\n')
-                        .append(guidance.getDescription())
-                        .toString());
+                StringBuilder builder = new StringBuilder();
+                if (!TextUtils.isEmpty(guidance.getBreadcrumb())) {
+                    builder.append(guidance.getBreadcrumb()).append('\n');
+                }
+                if (!TextUtils.isEmpty(guidance.getTitle())) {
+                    builder.append(guidance.getTitle()).append('\n');
+                }
+                if (!TextUtils.isEmpty(guidance.getDescription())) {
+                    builder.append(guidance.getDescription()).append('\n');
+                }
+                mGuidanceContainer.setContentDescription(builder);
             }
         }
 

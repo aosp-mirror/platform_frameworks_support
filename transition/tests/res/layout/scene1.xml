@@ -14,30 +14,29 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:id="@+id/container">
-
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/holder"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:transitionName="holder">
     <View
-        android:id="@+id/view0"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_gravity="end|top"
-        android:background="#f00"/>
-
+        android:id="@+id/redSquare"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:background="#F00"
+        android:transitionName="red"/>
     <View
-        android:id="@+id/view1"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_gravity="center"
-        android:background="#0f0"/>
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_gravity="end|bottom"
-        android:background="#00f"/>
-
-</FrameLayout>
+        android:id="@+id/greenSquare"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_below="@id/redSquare"
+        android:background="#0F0"
+        android:transitionName="green"/>
+    <TextView
+        android:id="@+id/hello"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello"
+        android:transitionName="hello"/>
+</RelativeLayout>

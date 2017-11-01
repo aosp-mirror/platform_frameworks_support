@@ -42,6 +42,11 @@
     <style name="TextAppearance.Leanback.Row.Header" parent="TextAppearance.Leanback.Header">
     </style>
 
+    <style name="TextAppearance.Leanback.Row.Header.Description" parent="TextAppearance.Leanback.Header">
+        <item name="android:textSize">@dimen/lb_browse_header_description_text_size</item>
+        <item name="android:textColor">@color/lb_browse_header_description_color</item>
+    </style>
+
     <style name="TextAppearance.Leanback.SearchTextEdit" parent="TextAppearance.Leanback">
         <item name="android:textSize">@dimen/lb_search_bar_text_size</item>
     </style>
@@ -211,7 +216,7 @@
         <item name="android:paddingStart">?attr/browsePaddingStart</item>
         <item name="focusOutFront">true</item>
         <item name="focusOutEnd">true</item>
-        <item name="verticalMargin">@dimen/lb_browse_headers_vertical_margin</item>
+        <item name="android:verticalSpacing">@dimen/lb_browse_headers_vertical_spacing</item>
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>
         <item name="android:contentDescription">@string/lb_navigation_menu_contentDescription</item>
@@ -245,10 +250,10 @@
         <item name="android:focusableInTouchMode">true</item>
         <item name="android:paddingStart">?attr/browsePaddingStart</item>
         <item name="android:paddingEnd">?attr/browsePaddingEnd</item>
-        <item name="android:paddingBottom">@dimen/lb_browse_item_vertical_margin</item>
-        <item name="android:paddingTop">@dimen/lb_browse_item_vertical_margin</item>
-        <item name="horizontalMargin">@dimen/lb_browse_item_horizontal_margin</item>
-        <item name="verticalMargin">@dimen/lb_browse_item_vertical_margin</item>
+        <item name="android:paddingBottom">@dimen/lb_browse_item_vertical_spacing</item>
+        <item name="android:paddingTop">@dimen/lb_browse_item_vertical_spacing</item>
+        <item name="android:horizontalSpacing">@dimen/lb_browse_item_horizontal_spacing</item>
+        <item name="android:verticalSpacing">@dimen/lb_browse_item_vertical_spacing</item>
         <item name="focusOutFront">true</item>
     </style>
 
@@ -260,13 +265,17 @@
         <item name="android:paddingBottom">@dimen/lb_vertical_grid_padding_bottom</item>
         <item name="android:paddingTop">?attr/browseRowsMarginTop</item>
         <item name="android:gravity">center_horizontal</item>
-        <item name="horizontalMargin">@dimen/lb_browse_item_horizontal_margin</item>
-        <item name="verticalMargin">@dimen/lb_browse_item_vertical_margin</item>
+        <item name="android:horizontalSpacing">@dimen/lb_browse_item_horizontal_spacing</item>
+        <item name="android:verticalSpacing">@dimen/lb_browse_item_vertical_spacing</item>
         <item name="focusOutFront">true</item>
     </style>
 
     <style name="Widget.Leanback.Row.Header" parent="Widget.Leanback.Header">
         <item name="android:textAppearance">@style/TextAppearance.Leanback.Row.Header</item>
+    </style>
+
+    <style name="Widget.Leanback.Row.Header.Description" parent="Widget.Leanback.Header">
+        <item name="android:textAppearance">@style/TextAppearance.Leanback.Row.Header.Description</item>
     </style>
 
     <style name="Widget.Leanback.Row.HeaderDock">
@@ -571,7 +580,7 @@
         <item name="android:focusableInTouchMode">false</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="verticalMargin">@dimen/lb_guidedactions_list_vertical_spacing</item>
+        <item name="android:verticalSpacing">@dimen/lb_guidedactions_list_vertical_spacing</item>
         <item name="android:paddingStart">@dimen/lb_guidedactions_list_padding_start</item>
         <item name="android:paddingEnd">@dimen/lb_guidedactions_list_padding_end</item>
         <item name="focusOutEnd">false</item>
@@ -580,6 +589,9 @@
 
     <!-- Style for the vertical grid of sub actions in a GuidedActionsStylist's default layout. -->
     <style name="Widget.Leanback.GuidedSubActionsListStyle" parent="Widget.Leanback.GuidedActionsListStyle">
+        <item name="android:paddingTop">@dimen/lb_guidedactions_sublist_padding_top</item>
+        <item name="android:paddingBottom">@dimen/lb_guidedactions_sublist_padding_bottom</item>
+        <item name="android:clipToPadding">false</item>
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>
         <item name="focusOutSideStart">false</item>
@@ -739,19 +751,20 @@
         <item name="arrowBgColor">@color/lb_page_indicator_arrow_background</item>
     </style>
 
+    <style name="Widget.Leanback.OnboardingStartButtonStyleBase">
+    </style>
+
     <!-- Style for the start button in OnboardingFragment. -->
-    <style name="Widget.Leanback.OnboardingStartButtonStyle">
+    <style name="Widget.Leanback.OnboardingStartButtonStyle" parent="Widget.Leanback.OnboardingStartButtonStyleBase">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">36dp</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:layout_marginBottom">4dp</item>
         <item name="android:background">@drawable/lb_onboarding_start_button_background</item>
-        <item name="android:elevation">1.5dp</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingEnd">24dp</item>
         <item name="android:paddingStart">24dp</item>
-        <item name="android:stateListAnimator">@null</item>
         <item name="android:text">@string/lb_onboarding_get_started</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">#014269</item>
@@ -764,6 +777,17 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerInParent">true</item>
         <item name="android:contentDescription">@null</item>
+    </style>
+
+    <!-- Styles for the main icon in OnboardingFragment. -->
+    <style name="Widget.Leanback.OnboardingMainIconStyle">
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_above">@id/page_container</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:contentDescription">@null</item>
+        <item name="android:visibility">gone</item>
     </style>
 
 </resources>

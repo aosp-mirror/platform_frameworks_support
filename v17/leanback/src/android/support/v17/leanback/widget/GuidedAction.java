@@ -13,15 +13,14 @@
  */
 package android.support.v17.leanback.widget;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v17.leanback.R;
 import android.support.v4.content.ContextCompat;
-
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.text.InputType;
 
 import java.util.List;
@@ -124,8 +123,10 @@ public class GuidedAction extends Action {
         private int mActionFlags;
 
         private int mEditable = EDITING_NONE;
-        private int mInputType = InputType.TYPE_CLASS_TEXT;
-        private int mDescriptionInputType = InputType.TYPE_CLASS_TEXT;
+        private int mInputType = InputType.TYPE_CLASS_TEXT
+                | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
+        private int mDescriptionInputType = InputType.TYPE_CLASS_TEXT
+                | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
         private int mEditInputType = InputType.TYPE_CLASS_TEXT;
         private int mDescriptionEditInputType = InputType.TYPE_CLASS_TEXT;
         private int mCheckSetId = NO_CHECK_SET;
@@ -201,10 +202,10 @@ public class GuidedAction extends Action {
                 mTitle = mContext.getString(R.string.lb_guidedaction_continue_title);
             } else if (id == ACTION_ID_YES) {
                 mId = ACTION_ID_YES;
-                mTitle = mContext.getString(android.R.string.yes);
+                mTitle = mContext.getString(android.R.string.ok);
             } else if (id == ACTION_ID_NO) {
                 mId = ACTION_ID_NO;
-                mTitle = mContext.getString(android.R.string.no);
+                mTitle = mContext.getString(android.R.string.cancel);
             }
             return (B) this;
         }

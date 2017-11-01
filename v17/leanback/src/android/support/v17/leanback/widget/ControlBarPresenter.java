@@ -19,7 +19,6 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 /**
  * A presenter that assumes a LinearLayout container for a series
@@ -83,6 +82,7 @@ class ControlBarPresenter extends Presenter {
             if (mControlBar == null) {
                 throw new IllegalStateException("Couldn't find control_bar");
             }
+            mControlBar.setDefaultFocusToMiddle(mDefaultFocusToMiddle);
             mControlBar.setOnChildFocusedListener(new ControlBar.OnChildFocusedListener() {
                 @Override
                 public void onChildFocusedListener(View child, View focused) {
@@ -127,8 +127,8 @@ class ControlBarPresenter extends Presenter {
             int adapterSize = adapter == null ? 0 : adapter.size();
             // Shrink the number of attached views
             View focusedView = mControlBar.getFocusedChild();
-            if (focusedView != null && adapterSize > 0 &&
-                    mControlBar.indexOfChild(focusedView) >= adapterSize) {
+            if (focusedView != null && adapterSize > 0
+                    && mControlBar.indexOfChild(focusedView) >= adapterSize) {
                 mControlBar.getChildAt(adapter.size() - 1).requestFocus();
             }
             for (int i = mControlBar.getChildCount() - 1; i >= adapterSize; i--) {
@@ -186,6 +186,7 @@ class ControlBarPresenter extends Presenter {
     private int mLayoutResourceId;
     private static int sChildMarginDefault;
     private static int sControlIconWidth;
+    boolean mDefaultFocusToMiddle = true;
 
     /**
      * Constructor for a ControlBarPresenter.
@@ -282,4 +283,12 @@ class ControlBarPresenter extends Presenter {
         }
         return sControlIconWidth;
     }
+
+    /**
+     * @param defaultFocusToMiddle True for middle item, false for 0.
+     */
+    void setDefaultFocusToMiddle(boolean defaultFocusToMiddle) {
+        mDefaultFocusToMiddle = defaultFocusToMiddle;
+    }
+
 }

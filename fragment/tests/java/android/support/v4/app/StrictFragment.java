@@ -51,6 +51,10 @@ public class StrictFragment extends Fragment {
         return "(unknown " + state + ")";
     }
 
+    public void onStateChanged(int fromState) {
+        checkGetActivity();
+    }
+
     public void checkGetActivity() {
         if (getActivity() == null) {
             throw new IllegalStateException("getActivity() returned null at unexpected time");
@@ -92,19 +96,19 @@ public class StrictFragment extends Fragment {
         mCalledOnAttach = true;
         checkState("onAttach", DETACHED);
         mState = ATTACHED;
-        checkGetActivity();
+        onStateChanged(DETACHED);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (mCalledOnCreate) {
-            throw new IllegalStateException("onCreate called more than once");
+        if (mCalledOnCreate && !mCalledOnDestroy) {
+            throw new IllegalStateException("onCreate called more than once with no onDestroy");
         }
         mCalledOnCreate = true;
         checkState("onCreate", ATTACHED);
         mState = CREATED;
-        checkGetActivity();
+        onStateChanged(ATTACHED);
     }
 
     @Override
@@ -112,8 +116,9 @@ public class StrictFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mCalledOnActivityCreated = true;
         checkState("onActivityCreated", ATTACHED, CREATED);
+        int fromState = mState;
         mState = ACTIVITY_CREATED;
-        checkGetActivity();
+        onStateChanged(fromState);
     }
 
     @Override
@@ -122,7 +127,7 @@ public class StrictFragment extends Fragment {
         mCalledOnStart = true;
         checkState("onStart", ACTIVITY_CREATED);
         mState = STARTED;
-        checkGetActivity();
+        onStateChanged(ACTIVITY_CREATED);
     }
 
     @Override
@@ -131,7 +136,7 @@ public class StrictFragment extends Fragment {
         mCalledOnResume = true;
         checkState("onResume", STARTED);
         mState = RESUMED;
-        checkGetActivity();
+        onStateChanged(STARTED);
     }
 
     @Override
@@ -139,7 +144,10 @@ public class StrictFragment extends Fragment {
         super.onSaveInstanceState(outState);
         mCalledOnSaveInstanceState = true;
         checkGetActivity();
-        checkStateAtLeast("onSaveInstanceState", STARTED);
+        // FIXME: We should not allow onSaveInstanceState except when STARTED or greater.
+        // But FragmentManager currently does it in saveAllState for fragments on the
+        // back stack, so fragments may be in the CREATED state.
+        checkStateAtLeast("onSaveInstanceState", CREATED);
     }
 
     @Override
@@ -148,7 +156,7 @@ public class StrictFragment extends Fragment {
         mCalledOnPause = true;
         checkState("onPause", RESUMED);
         mState = STARTED;
-        checkGetActivity();
+        onStateChanged(RESUMED);
     }
 
     @Override
@@ -157,7 +165,7 @@ public class StrictFragment extends Fragment {
         mCalledOnStop = true;
         checkState("onStop", STARTED);
         mState = CREATED;
-        checkGetActivity();
+        onStateChanged(STARTED);
     }
 
     @Override
@@ -166,7 +174,7 @@ public class StrictFragment extends Fragment {
         mCalledOnDestroy = true;
         checkState("onDestroy", CREATED);
         mState = ATTACHED;
-        checkGetActivity();
+        onStateChanged(CREATED);
     }
 
     @Override
@@ -174,7 +182,8 @@ public class StrictFragment extends Fragment {
         super.onDetach();
         mCalledOnDetach = true;
         checkState("onDestroy", CREATED, ATTACHED);
+        int fromState = mState;
         mState = DETACHED;
-        checkGetActivity();
+        onStateChanged(fromState);
     }
 }

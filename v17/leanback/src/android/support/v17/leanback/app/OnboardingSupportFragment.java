@@ -1,5 +1,3 @@
-/* This file is auto-generated from OnboardingFragment.java.  DO NOT MODIFY. */
-
 /*
  * Copyright (C) 2015 The Android Open Source Project
  *
@@ -24,12 +22,15 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.Fragment;
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v17.leanback.R;
 import android.support.v17.leanback.widget.PagingIndicator;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
@@ -43,6 +44,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -55,8 +57,8 @@ import java.util.List;
  * <p>
  * <h3>Building the screen</h3>
  * The view structure of onboarding screen is composed of the common parts and custom parts. The
- * common parts are composed of title, description and page navigator and the custom parts are
- * composed of background, contents and foreground.
+ * common parts are composed of icon, title, description and page navigator and the custom parts
+ * are composed of background, contents and foreground.
  * <p>
  * To build the screen views, the inherited class should override:
  * <ul>
@@ -104,8 +106,12 @@ import java.util.List;
  * If the inherited class provides neither the logo image nor the animation, the logo animation will
  * be omitted.
  * <h4>Page enter animation</h4>
- * After logo animation finishes, page enter animation starts. The application can provide the
- * animations of custom views by overriding {@link #onCreateEnterAnimation}.
+ * After logo animation finishes, page enter animation starts, which causes the header section -
+ * title and description views to fade and slide in. Users can override the default
+ * fade + slide animation by overriding {@link #onCreateTitleAnimator()} &
+ * {@link #onCreateDescriptionAnimator()}. By default we don't animate the custom views but users
+ * can provide animation by overriding {@link #onCreateEnterAnimation}.
+ *
  * <h4>Page change animation</h4>
  * When the page changes, the default animations of the title and description are played. The
  * inherited class can override {@link #onPageChanged} to start the custom animations.
@@ -147,12 +153,10 @@ import java.util.List;
  * @attr ref R.styleable#LeanbackOnboardingTheme_onboardingLogoStyle
  */
 abstract public class OnboardingSupportFragment extends Fragment {
-    private static final String TAG = "OnboardingSupportFragment";
+    private static final String TAG = "OnboardingF";
     private static final boolean DEBUG = false;
 
     private static final long LOGO_SPLASH_PAUSE_DURATION_MS = 1333;
-    private static final long START_DELAY_TITLE_MS = 33;
-    private static final long START_DELAY_DESCRIPTION_MS = 33;
 
     private static final long HEADER_ANIMATION_DURATION_MS = 417;
     private static final long DESCRIPTION_START_DELAY_MS = 33;
@@ -162,17 +166,25 @@ abstract public class OnboardingSupportFragment extends Fragment {
     private static int sSlideDistance;
 
     private static final TimeInterpolator HEADER_APPEAR_INTERPOLATOR = new DecelerateInterpolator();
-    private static final TimeInterpolator HEADER_DISAPPEAR_INTERPOLATOR
-            = new AccelerateInterpolator();
+    private static final TimeInterpolator HEADER_DISAPPEAR_INTERPOLATOR =
+            new AccelerateInterpolator();
 
     // Keys used to save and restore the states.
     private static final String KEY_CURRENT_PAGE_INDEX = "leanback.onboarding.current_page_index";
+    private static final String KEY_LOGO_ANIMATION_FINISHED =
+            "leanback.onboarding.logo_animation_finished";
+    private static final String KEY_ENTER_ANIMATION_FINISHED =
+            "leanback.onboarding.enter_animation_finished";
 
     private ContextThemeWrapper mThemeWrapper;
 
     PagingIndicator mPageIndicator;
     View mStartButton;
     private ImageView mLogoView;
+    // Optional icon that can be displayed on top of the header section.
+    private ImageView mMainIconView;
+    private int mIconResourceId;
+
     TextView mTitleView;
     TextView mDescriptionView;
 
@@ -181,15 +193,40 @@ abstract public class OnboardingSupportFragment extends Fragment {
     // No need to save/restore the logo resource ID, because the logo animation will not appear when
     // the fragment is restored.
     private int mLogoResourceId;
-    boolean mEnterTransitionFinished;
+    boolean mLogoAnimationFinished;
+    boolean mEnterAnimationFinished;
     int mCurrentPageIndex;
+
+    @ColorInt
+    private int mTitleViewTextColor = Color.TRANSPARENT;
+    private boolean mTitleViewTextColorSet;
+
+    @ColorInt
+    private int mDescriptionViewTextColor = Color.TRANSPARENT;
+    private boolean mDescriptionViewTextColorSet;
+
+    @ColorInt
+    private int mDotBackgroundColor = Color.TRANSPARENT;
+    private boolean mDotBackgroundColorSet;
+
+    @ColorInt
+    private int mArrowColor = Color.TRANSPARENT;
+    private boolean mArrowColorSet;
+
+    @ColorInt
+    private int mArrowBackgroundColor = Color.TRANSPARENT;
+    private boolean mArrowBackgroundColorSet;
+
+    private CharSequence mStartButtonText;
+    private boolean mStartButtonTextSet;
+
 
     private AnimatorSet mAnimator;
 
     private final OnClickListener mOnClickListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (!mEnterTransitionFinished) {
+            if (!mLogoAnimationFinished) {
                 // Do not change page until the enter transition finishes.
                 return;
             }
@@ -204,7 +241,7 @@ abstract public class OnboardingSupportFragment extends Fragment {
     private final OnKeyListener mOnKeyListener = new OnKeyListener() {
         @Override
         public boolean onKey(View v, int keyCode, KeyEvent event) {
-            if (!mEnterTransitionFinished) {
+            if (!mLogoAnimationFinished) {
                 // Ignore key event until the enter transition finishes.
                 return keyCode != KeyEvent.KEYCODE_BACK;
             }
@@ -237,13 +274,28 @@ abstract public class OnboardingSupportFragment extends Fragment {
         }
     };
 
-    void moveToPreviousPage() {
+    /**
+     * Navigates to the previous page.
+     */
+    protected void moveToPreviousPage() {
+        if (!mLogoAnimationFinished) {
+            // Ignore if the logo enter transition is in progress.
+            return;
+        }
         if (mCurrentPageIndex > 0) {
             --mCurrentPageIndex;
             onPageChangedInternal(mCurrentPageIndex + 1);
         }
     }
-    void moveToNextPage() {
+
+    /**
+     * Navigates to the next page.
+     */
+    protected void moveToNextPage() {
+        if (!mLogoAnimationFinished) {
+            // Ignore if the logo enter transition is in progress.
+            return;
+        }
         if (mCurrentPageIndex < getPageCount() - 1) {
             ++mCurrentPageIndex;
             onPageChangedInternal(mCurrentPageIndex - 1);
@@ -266,40 +318,213 @@ abstract public class OnboardingSupportFragment extends Fragment {
         mStartButton = view.findViewById(R.id.button_start);
         mStartButton.setOnClickListener(mOnClickListener);
         mStartButton.setOnKeyListener(mOnKeyListener);
+        mMainIconView = (ImageView) view.findViewById(R.id.main_icon);
         mLogoView = (ImageView) view.findViewById(R.id.logo);
         mTitleView = (TextView) view.findViewById(R.id.title);
         mDescriptionView = (TextView) view.findViewById(R.id.description);
-        if (sSlideDistance == 0) {
-            sSlideDistance = (int) (SLIDE_DISTANCE * getActivity().getResources()
-                    .getDisplayMetrics().scaledDensity);
+
+        if (mTitleViewTextColorSet) {
+            mTitleView.setTextColor(mTitleViewTextColor);
         }
-        if (savedInstanceState == null) {
-            mCurrentPageIndex = 0;
-            mEnterTransitionFinished = false;
-            mPageIndicator.onPageSelected(0, false);
-            view.getViewTreeObserver().addOnPreDrawListener(new OnPreDrawListener() {
-                @Override
-                public boolean onPreDraw() {
-                    view.getViewTreeObserver().removeOnPreDrawListener(this);
-                    if (!startLogoAnimation()) {
-                        startEnterAnimation();
-                    }
-                    return true;
-                }
-            });
-        } else {
-            mEnterTransitionFinished = true;
-            mCurrentPageIndex = savedInstanceState.getInt(KEY_CURRENT_PAGE_INDEX);
-            initializeViews(view);
+        if (mDescriptionViewTextColorSet) {
+            mDescriptionView.setTextColor(mDescriptionViewTextColor);
+        }
+        if (mDotBackgroundColorSet) {
+            mPageIndicator.setDotBackgroundColor(mDotBackgroundColor);
+        }
+        if (mArrowColorSet) {
+            mPageIndicator.setArrowColor(mArrowColor);
+        }
+        if (mArrowBackgroundColorSet) {
+            mPageIndicator.setDotBackgroundColor(mArrowBackgroundColor);
+        }
+        if (mStartButtonTextSet) {
+            ((Button) mStartButton).setText(mStartButtonText);
+        }
+        final Context context = getContext();
+        if (sSlideDistance == 0) {
+            sSlideDistance = (int) (SLIDE_DISTANCE * context.getResources()
+                    .getDisplayMetrics().scaledDensity);
         }
         view.requestFocus();
         return view;
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (savedInstanceState == null) {
+            mCurrentPageIndex = 0;
+            mLogoAnimationFinished = false;
+            mEnterAnimationFinished = false;
+            mPageIndicator.onPageSelected(0, false);
+            view.getViewTreeObserver().addOnPreDrawListener(new OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    getView().getViewTreeObserver().removeOnPreDrawListener(this);
+                    if (!startLogoAnimation()) {
+                        mLogoAnimationFinished = true;
+                        onLogoAnimationFinished();
+                    }
+                    return true;
+                }
+            });
+        } else {
+            mCurrentPageIndex = savedInstanceState.getInt(KEY_CURRENT_PAGE_INDEX);
+            mLogoAnimationFinished = savedInstanceState.getBoolean(KEY_LOGO_ANIMATION_FINISHED);
+            mEnterAnimationFinished = savedInstanceState.getBoolean(KEY_ENTER_ANIMATION_FINISHED);
+            if (!mLogoAnimationFinished) {
+                // logo animation wasn't started or was interrupted when the activity was destroyed;
+                // restart it againl
+                if (!startLogoAnimation()) {
+                    mLogoAnimationFinished = true;
+                    onLogoAnimationFinished();
+                }
+            } else {
+                onLogoAnimationFinished();
+            }
+        }
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_CURRENT_PAGE_INDEX, mCurrentPageIndex);
+        outState.putBoolean(KEY_LOGO_ANIMATION_FINISHED, mLogoAnimationFinished);
+        outState.putBoolean(KEY_ENTER_ANIMATION_FINISHED, mEnterAnimationFinished);
+    }
+
+    /**
+     * Sets the text color for TitleView. If not set, the default textColor set in style
+     * referenced by attr {@link R.attr#onboardingTitleStyle} will be used.
+     * @param color the color to use as the text color for TitleView
+     */
+    public void setTitleViewTextColor(@ColorInt int color) {
+        mTitleViewTextColor = color;
+        mTitleViewTextColorSet = true;
+        if (mTitleView != null) {
+            mTitleView.setTextColor(color);
+        }
+    }
+
+    /**
+     * Returns the text color of TitleView if it's set through
+     * {@link #setTitleViewTextColor(int)}. If no color was set, transparent is returned.
+     */
+    @ColorInt
+    public final int getTitleViewTextColor() {
+        return mTitleViewTextColor;
+    }
+
+    /**
+     * Sets the text color for DescriptionView. If not set, the default textColor set in style
+     * referenced by attr {@link R.attr#onboardingDescriptionStyle} will be used.
+     * @param color the color to use as the text color for DescriptionView
+     */
+    public void setDescriptionViewTextColor(@ColorInt int color) {
+        mDescriptionViewTextColor = color;
+        mDescriptionViewTextColorSet = true;
+        if (mDescriptionView != null) {
+            mDescriptionView.setTextColor(color);
+        }
+    }
+
+    /**
+     * Returns the text color of DescriptionView if it's set through
+     * {@link #setDescriptionViewTextColor(int)}. If no color was set, transparent is returned.
+     */
+    @ColorInt
+    public final int getDescriptionViewTextColor() {
+        return mDescriptionViewTextColor;
+    }
+    /**
+     * Sets the background color of the dots. If not set, the default color from attr
+     * {@link R.styleable#PagingIndicator_dotBgColor} in the theme will be used.
+     * @param color the color to use for dot backgrounds
+     */
+    public void setDotBackgroundColor(@ColorInt int color) {
+        mDotBackgroundColor = color;
+        mDotBackgroundColorSet = true;
+        if (mPageIndicator != null) {
+            mPageIndicator.setDotBackgroundColor(color);
+        }
+    }
+
+    /**
+     * Returns the background color of the dot if it's set through
+     * {@link #setDotBackgroundColor(int)}. If no color was set, transparent is returned.
+     */
+    @ColorInt
+    public final int getDotBackgroundColor() {
+        return mDotBackgroundColor;
+    }
+
+    /**
+     * Sets the color of the arrow. This color will supersede the color set in the theme attribute
+     * {@link R.styleable#PagingIndicator_arrowColor} if provided. If none of these two are set, the
+     * arrow will have its original bitmap color.
+     *
+     * @param color the color to use for arrow background
+     */
+    public void setArrowColor(@ColorInt int color) {
+        mArrowColor = color;
+        mArrowColorSet = true;
+        if (mPageIndicator != null) {
+            mPageIndicator.setArrowColor(color);
+        }
+    }
+
+    /**
+     * Returns the color of the arrow if it's set through
+     * {@link #setArrowColor(int)}. If no color was set, transparent is returned.
+     */
+    @ColorInt
+    public final int getArrowColor() {
+        return mArrowColor;
+    }
+
+    /**
+     * Sets the background color of the arrow. If not set, the default color from attr
+     * {@link R.styleable#PagingIndicator_arrowBgColor} in the theme will be used.
+     * @param color the color to use for arrow background
+     */
+    public void setArrowBackgroundColor(@ColorInt int color) {
+        mArrowBackgroundColor = color;
+        mArrowBackgroundColorSet = true;
+        if (mPageIndicator != null) {
+            mPageIndicator.setArrowBackgroundColor(color);
+        }
+    }
+
+    /**
+     * Returns the background color of the arrow if it's set through
+     * {@link #setArrowBackgroundColor(int)}. If no color was set, transparent is returned.
+     */
+    @ColorInt
+    public final int getArrowBackgroundColor() {
+        return mArrowBackgroundColor;
+    }
+
+    /**
+     * Returns the start button text if it's set through
+     * {@link #setStartButtonText(CharSequence)}}. If no string was set, null is returned.
+     */
+    public final CharSequence getStartButtonText() {
+        return mStartButtonText;
+    }
+
+    /**
+     * Sets the text on the start button text. If not set, the default text set in
+     * {@link R.styleable#LeanbackOnboardingTheme_onboardingStartButtonStyle} will be used.
+     *
+     * @param text the start button text
+     */
+    public void setStartButtonText(CharSequence text) {
+        mStartButtonText = text;
+        mStartButtonTextSet = true;
+        if (mStartButton != null) {
+            ((Button) mStartButton).setText(mStartButtonText);
+        }
     }
 
     /**
@@ -314,20 +539,20 @@ abstract public class OnboardingSupportFragment extends Fragment {
     }
 
     private void resolveTheme() {
-        FragmentActivity activity = getActivity();
+        final Context context = getContext();
         int theme = onProvideTheme();
         if (theme == -1) {
             // Look up the onboardingTheme in the activity's currently specified theme. If it
             // exists, wrap the theme with its value.
             int resId = R.attr.onboardingTheme;
             TypedValue typedValue = new TypedValue();
-            boolean found = activity.getTheme().resolveAttribute(resId, typedValue, true);
+            boolean found = context.getTheme().resolveAttribute(resId, typedValue, true);
             if (DEBUG) Log.v(TAG, "Found onboarding theme reference? " + found);
             if (found) {
-                mThemeWrapper = new ContextThemeWrapper(activity, typedValue.resourceId);
+                mThemeWrapper = new ContextThemeWrapper(context, typedValue.resourceId);
             }
         } else {
-            mThemeWrapper = new ContextThemeWrapper(activity, theme);
+            mThemeWrapper = new ContextThemeWrapper(context, theme);
         }
     }
 
@@ -368,13 +593,17 @@ abstract public class OnboardingSupportFragment extends Fragment {
     }
 
     boolean startLogoAnimation() {
+        final Context context = getContext();
+        if (context == null) {
+            return false;
+        }
         Animator animator = null;
         if (mLogoResourceId != 0) {
             mLogoView.setVisibility(View.VISIBLE);
             mLogoView.setImageResource(mLogoResourceId);
-            Animator inAnimator = AnimatorInflater.loadAnimator(getActivity(),
+            Animator inAnimator = AnimatorInflater.loadAnimator(context,
                     R.animator.lb_onboarding_logo_enter);
-            Animator outAnimator = AnimatorInflater.loadAnimator(getActivity(),
+            Animator outAnimator = AnimatorInflater.loadAnimator(context,
                     R.animator.lb_onboarding_logo_exit);
             outAnimator.setStartDelay(LOGO_SPLASH_PAUSE_DURATION_MS);
             AnimatorSet logoAnimator = new AnimatorSet();
@@ -388,8 +617,9 @@ abstract public class OnboardingSupportFragment extends Fragment {
             animator.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    if (getActivity() != null) {
-                        startEnterAnimation();
+                    if (context != null) {
+                        mLogoAnimationFinished = true;
+                        onLogoAnimationFinished();
                     }
                 }
             });
@@ -410,10 +640,23 @@ abstract public class OnboardingSupportFragment extends Fragment {
         return null;
     }
 
-    private void initializeViews(View container) {
+
+    /**
+     * Hides the logo view and makes other fragment views visible. Also initializes the texts for
+     * Title and Description views.
+     */
+    void hideLogoView() {
         mLogoView.setVisibility(View.GONE);
+
+        if (mIconResourceId != 0) {
+            mMainIconView.setImageResource(mIconResourceId);
+            mMainIconView.setVisibility(View.VISIBLE);
+        }
+
+        View container = getView();
         // Create custom views.
-        LayoutInflater inflater = getThemeInflater(LayoutInflater.from(getActivity()));
+        LayoutInflater inflater = getThemeInflater(LayoutInflater.from(
+                getContext()));
         ViewGroup backgroundContainer = (ViewGroup) container.findViewById(
                 R.id.background_container);
         View background = onCreateBackgroundView(inflater, backgroundContainer);
@@ -451,40 +694,105 @@ abstract public class OnboardingSupportFragment extends Fragment {
         mDescriptionView.setText(getPageDescription(mCurrentPageIndex));
     }
 
-    void startEnterAnimation() {
-        mEnterTransitionFinished = true;
-        initializeViews(getView());
+    /**
+     * Called immediately after the logo animation is complete or no logo animation is specified.
+     * This method can also be called when the activity is recreated, i.e. when no logo animation
+     * are performed.
+     * By default, this method will hide the logo view and start the entrance animation for this
+     * fragment.
+     * Overriding subclasses can provide their own data loading logic as to when the entrance
+     * animation should be executed.
+     */
+    protected void onLogoAnimationFinished() {
+        startEnterAnimation(false);
+    }
+
+    /**
+     * Called to start entrance transition. This can be called by subclasses when the logo animation
+     * and data loading is complete. If force flag is set to false, it will only start the animation
+     * if it's not already done yet. Otherwise, it will always start the enter animation. In both
+     * cases, the logo view will hide and the rest of fragment views become visible after this call.
+     *
+     * @param force {@code true} if enter animation has to be performed regardless of whether it's
+     *                          been done in the past, {@code false} otherwise
+     */
+    protected final void startEnterAnimation(boolean force) {
+        final Context context = getContext();
+        if (context == null) {
+            return;
+        }
+        hideLogoView();
+        if (mEnterAnimationFinished && !force) {
+            return;
+        }
         List<Animator> animators = new ArrayList<>();
-        Animator animator = AnimatorInflater.loadAnimator(getActivity(),
+        Animator animator = AnimatorInflater.loadAnimator(context,
                 R.animator.lb_onboarding_page_indicator_enter);
         animator.setTarget(getPageCount() <= 1 ? mStartButton : mPageIndicator);
         animators.add(animator);
-        // Header title
-        View view = getActivity().findViewById(R.id.title);
-        view.setAlpha(0);
-        animator = AnimatorInflater.loadAnimator(getActivity(),
-                R.animator.lb_onboarding_title_enter);
-        animator.setStartDelay(START_DELAY_TITLE_MS);
-        animator.setTarget(view);
-        animators.add(animator);
-        // Header description
-        view = getActivity().findViewById(R.id.description);
-        view.setAlpha(0);
-        animator = AnimatorInflater.loadAnimator(getActivity(),
-                R.animator.lb_onboarding_description_enter);
-        animator.setStartDelay(START_DELAY_DESCRIPTION_MS);
-        animator.setTarget(view);
-        animators.add(animator);
+
+        animator = onCreateTitleAnimator();
+        if (animator != null) {
+            // Header title.
+            animator.setTarget(mTitleView);
+            animators.add(animator);
+        }
+
+        animator = onCreateDescriptionAnimator();
+        if (animator != null) {
+            // Header description.
+            animator.setTarget(mDescriptionView);
+            animators.add(animator);
+        }
+
         // Customized animation by the inherited class.
         Animator customAnimator = onCreateEnterAnimation();
         if (customAnimator != null) {
             animators.add(customAnimator);
         }
+
+        // Return if we don't have any animations.
+        if (animators.isEmpty()) {
+            return;
+        }
         mAnimator = new AnimatorSet();
         mAnimator.playTogether(animators);
         mAnimator.start();
+        mAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mEnterAnimationFinished = true;
+            }
+        });
         // Search focus and give the focus to the appropriate child which has become visible.
         getView().requestFocus();
+    }
+
+    /**
+     * Provides the entry animation for description view. This allows users to override the
+     * default fade and slide animation. Returning null will disable the animation.
+     */
+    protected Animator onCreateDescriptionAnimator() {
+        return AnimatorInflater.loadAnimator(getContext(),
+                R.animator.lb_onboarding_description_enter);
+    }
+
+    /**
+     * Provides the entry animation for title view. This allows users to override the
+     * default fade and slide animation. Returning null will disable the animation.
+     */
+    protected Animator onCreateTitleAnimator() {
+        return AnimatorInflater.loadAnimator(getContext(),
+                R.animator.lb_onboarding_title_enter);
+    }
+
+    /**
+     * Returns whether the logo enter animation is finished.
+     *
+     * @return {@code true} if the logo enter transition is finished, {@code false} otherwise
+     */
+    protected final boolean isLogoAnimationFinished() {
+        return mLogoAnimationFinished;
     }
 
     /**
@@ -612,10 +920,11 @@ abstract public class OnboardingSupportFragment extends Fragment {
             }
         });
 
+        final Context context = getContext();
         // Animator for switching between page indicator and button.
         if (getCurrentPageIndex() == getPageCount() - 1) {
             mStartButton.setVisibility(View.VISIBLE);
-            Animator navigatorFadeOutAnimator = AnimatorInflater.loadAnimator(getActivity(),
+            Animator navigatorFadeOutAnimator = AnimatorInflater.loadAnimator(context,
                     R.animator.lb_onboarding_page_indicator_fade_out);
             navigatorFadeOutAnimator.setTarget(mPageIndicator);
             navigatorFadeOutAnimator.addListener(new AnimatorListenerAdapter() {
@@ -625,17 +934,17 @@ abstract public class OnboardingSupportFragment extends Fragment {
                 }
             });
             animators.add(navigatorFadeOutAnimator);
-            Animator buttonFadeInAnimator = AnimatorInflater.loadAnimator(getActivity(),
+            Animator buttonFadeInAnimator = AnimatorInflater.loadAnimator(context,
                     R.animator.lb_onboarding_start_button_fade_in);
             buttonFadeInAnimator.setTarget(mStartButton);
             animators.add(buttonFadeInAnimator);
         } else if (previousPage == getPageCount() - 1) {
             mPageIndicator.setVisibility(View.VISIBLE);
-            Animator navigatorFadeInAnimator = AnimatorInflater.loadAnimator(getActivity(),
+            Animator navigatorFadeInAnimator = AnimatorInflater.loadAnimator(context,
                     R.animator.lb_onboarding_page_indicator_fade_in);
             navigatorFadeInAnimator.setTarget(mPageIndicator);
             animators.add(navigatorFadeInAnimator);
-            Animator buttonFadeOutAnimator = AnimatorInflater.loadAnimator(getActivity(),
+            Animator buttonFadeOutAnimator = AnimatorInflater.loadAnimator(context,
                     R.animator.lb_onboarding_start_button_fade_out);
             buttonFadeOutAnimator.setTarget(mStartButton);
             buttonFadeOutAnimator.addListener(new AnimatorListenerAdapter() {
@@ -691,5 +1000,23 @@ abstract public class OnboardingSupportFragment extends Fragment {
             animator.setStartDelay(startDelay);
         }
         return animator;
+    }
+
+    /**
+     * Sets the resource id for the main icon.
+     */
+    public final void setIconResouceId(int resourceId) {
+        this.mIconResourceId = resourceId;
+        if (mMainIconView != null) {
+            mMainIconView.setImageResource(resourceId);
+            mMainIconView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * Returns the resource id of the main icon.
+     */
+    public final int getIconResourceId() {
+        return mIconResourceId;
     }
 }

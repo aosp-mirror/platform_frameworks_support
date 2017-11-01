@@ -16,6 +16,11 @@
 
 package android.support.graphics.drawable.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.Resources.Theme;
@@ -28,9 +33,10 @@ import android.graphics.drawable.Drawable;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.graphics.drawable.test.R;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.MediumTest;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.MediumTest;
 import android.util.Log;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,8 +45,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
-import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
 @MediumTest
@@ -74,6 +78,8 @@ public class VectorDrawableTest {
             R.drawable.vector_icon_share,
             R.drawable.vector_icon_wishlist,
             R.drawable.vector_icon_five_bars,
+            R.drawable.vector_icon_filltype_evenodd,
+            R.drawable.vector_icon_filltype_nonzero,
     };
 
     private static final int[] GOLDEN_IMAGES = new int[]{
@@ -103,6 +109,8 @@ public class VectorDrawableTest {
             R.drawable.vector_icon_share_golden,
             R.drawable.vector_icon_wishlist_golden,
             R.drawable.vector_icon_five_bars_golden,
+            R.drawable.vector_icon_filltype_evenodd_golden,
+            R.drawable.vector_icon_filltype_nonzero_golden,
     };
 
     private static final int TEST_ICON = R.drawable.vector_icon_create;
@@ -113,7 +121,7 @@ public class VectorDrawableTest {
     // exactly with the golden image.
     // We can increase the threshold if the Skia is drawing with some variance
     // on different devices. So far, the tests show they are matching correctly.
-    private static final float PIXEL_ERROR_THRESHOLD = 0.3f;
+    private static final float PIXEL_ERROR_THRESHOLD = 0.33f;
     private static final float PIXEL_DIFF_COUNT_THRESHOLD = 0.1f;
     private static final float PIXEL_DIFF_THRESHOLD = 0.025f;
 

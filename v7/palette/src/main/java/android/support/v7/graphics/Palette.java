@@ -24,7 +24,6 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.graphics.ColorUtils;
-import android.support.v4.os.AsyncTaskCompat;
 import android.support.v4.util.ArrayMap;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -81,10 +80,10 @@ public final class Palette {
         /**
          * Called when the {@link Palette} has been generated.
          */
-        void onGenerated(Palette palette);
+        void onGenerated(@NonNull Palette palette);
     }
 
-    static final int DEFAULT_RESIZE_BITMAP_AREA = 160 * 160;
+    static final int DEFAULT_RESIZE_BITMAP_AREA = 112 * 112;
     static final int DEFAULT_CALCULATE_NUMBER_COLORS = 16;
 
     static final float MIN_CONTRAST_TITLE_TEXT = 3.0f;
@@ -96,7 +95,8 @@ public final class Palette {
     /**
      * Start generating a {@link Palette} with the returned {@link Builder} instance.
      */
-    public static Builder from(Bitmap bitmap) {
+    @NonNull
+    public static Builder from(@NonNull Bitmap bitmap) {
         return new Builder(bitmap);
     }
 
@@ -105,7 +105,8 @@ public final class Palette {
      * This is useful for testing, or if you want to resurrect a {@link Palette} instance from a
      * list of swatches. Will return null if the {@code swatches} is null.
      */
-    public static Palette from(List<Swatch> swatches) {
+    @NonNull
+    public static Palette from(@NonNull List<Swatch> swatches) {
         return new Builder(swatches).generate();
     }
 
@@ -485,6 +486,7 @@ public final class Palette {
          *     hsv[1] is Saturation [0...1]
          *     hsv[2] is Lightness [0...1]
          */
+        @NonNull
         public float[] getHsl() {
             if (mHsl == null) {
                 mHsl = new float[3];
@@ -541,7 +543,7 @@ public final class Palette {
                 final int darkTitleAlpha = ColorUtils.calculateMinimumAlpha(
                         Color.BLACK, mRgb, MIN_CONTRAST_TITLE_TEXT);
 
-                if (darkBodyAlpha != -1 && darkBodyAlpha != -1) {
+                if (darkBodyAlpha != -1 && darkTitleAlpha != -1) {
                     // If we found valid dark values, use them and return
                     mBodyTextColor = ColorUtils.setAlphaComponent(Color.BLACK, darkBodyAlpha);
                     mTitleTextColor = ColorUtils.setAlphaComponent(Color.BLACK, darkTitleAlpha);
@@ -611,7 +613,7 @@ public final class Palette {
         /**
          * Construct a new {@link Builder} using a source {@link Bitmap}
          */
-        public Builder(Bitmap bitmap) {
+        public Builder(@NonNull Bitmap bitmap) {
             if (bitmap == null || bitmap.isRecycled()) {
                 throw new IllegalArgumentException("Bitmap is not valid");
             }
@@ -632,7 +634,7 @@ public final class Palette {
          * Construct a new {@link Builder} using a list of {@link Swatch} instances.
          * Typically only used for testing.
          */
-        public Builder(List<Swatch> swatches) {
+        public Builder(@NonNull List<Swatch> swatches) {
             if (swatches == null || swatches.isEmpty()) {
                 throw new IllegalArgumentException("List of Swatches is not valid");
             }
@@ -658,7 +660,7 @@ public final class Palette {
         /**
          * Set the resize value when using a {@link android.graphics.Bitmap} as the source.
          * If the bitmap's largest dimension is greater than the value specified, then the bitmap
-         * will be resized so that it's largest dimension matches {@code maxDimension}. If the
+         * will be resized so that its largest dimension matches {@code maxDimension}. If the
          * bitmap is smaller or equal, the original is used as-is.
          *
          * @deprecated Using {@link #resizeBitmapArea(int)} is preferred since it can handle
@@ -678,7 +680,7 @@ public final class Palette {
         /**
          * Set the resize value when using a {@link android.graphics.Bitmap} as the source.
          * If the bitmap's area is greater than the value specified, then the bitmap
-         * will be resized so that it's area matches {@code area}. If the
+         * will be resized so that its area matches {@code area}. If the
          * bitmap is smaller or equal, the original is used as-is.
          * <p>
          * This value has a large effect on the processing time. The larger the resized image is,
@@ -851,28 +853,28 @@ public final class Palette {
          * generated.
          */
         @NonNull
-        public AsyncTask<Bitmap, Void, Palette> generate(final PaletteAsyncListener listener) {
+        public AsyncTask<Bitmap, Void, Palette> generate(
+                @NonNull final PaletteAsyncListener listener) {
             if (listener == null) {
                 throw new IllegalArgumentException("listener can not be null");
             }
 
-            return AsyncTaskCompat.executeParallel(
-                    new AsyncTask<Bitmap, Void, Palette>() {
-                        @Override
-                        protected Palette doInBackground(Bitmap... params) {
-                            try {
-                                return generate();
-                            } catch (Exception e) {
-                                Log.e(LOG_TAG, "Exception thrown during async generate", e);
-                                return null;
-                            }
-                        }
+            return new AsyncTask<Bitmap, Void, Palette>() {
+                @Override
+                protected Palette doInBackground(Bitmap... params) {
+                    try {
+                        return generate();
+                    } catch (Exception e) {
+                        Log.e(LOG_TAG, "Exception thrown during async generate", e);
+                        return null;
+                    }
+                }
 
-                        @Override
-                        protected void onPostExecute(Palette colorExtractor) {
-                            listener.onGenerated(colorExtractor);
-                        }
-                    }, mBitmap);
+                @Override
+                protected void onPostExecute(Palette colorExtractor) {
+                    listener.onGenerated(colorExtractor);
+                }
+            }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mBitmap);
         }
 
         private int[] getPixelsFromBitmap(Bitmap bitmap) {
@@ -909,7 +911,7 @@ public final class Palette {
             if (mResizeArea > 0) {
                 final int bitmapArea = bitmap.getWidth() * bitmap.getHeight();
                 if (bitmapArea > mResizeArea) {
-                    scaleRatio = mResizeArea / (double) bitmapArea;
+                    scaleRatio = Math.sqrt(mResizeArea / (double) bitmapArea);
                 }
             } else if (mResizeMaxDimension > 0) {
                 final int maxDimension = Math.max(bitmap.getWidth(), bitmap.getHeight());
@@ -945,7 +947,7 @@ public final class Palette {
          *
          * @see Builder#addFilter(Filter)
          */
-        boolean isAllowed(int rgb, float[] hsl);
+        boolean isAllowed(@ColorInt int rgb, @NonNull float[] hsl);
     }
 
     /**

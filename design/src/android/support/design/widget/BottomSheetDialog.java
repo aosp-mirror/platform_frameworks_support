@@ -24,11 +24,16 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 import android.support.design.R;
+import android.support.v4.view.AccessibilityDelegateCompat;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.support.v7.app.AppCompatDialog;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 /**
@@ -68,8 +73,15 @@ public class BottomSheetDialog extends AppCompatDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setLayout(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        Window window = getWindow();
+        if (window != null) {
+            if (Build.VERSION.SDK_INT >= 21) {
+                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            }
+            window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT);
+        }
     }
 
     @Override
@@ -94,6 +106,14 @@ public class BottomSheetDialog extends AppCompatDialog {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        if (mBehavior != null) {
+            mBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
+    }
+
+    @Override
     public void setCanceledOnTouchOutside(boolean cancel) {
         super.setCanceledOnTouchOutside(cancel);
         if (cancel && !mCancelable) {
@@ -104,8 +124,10 @@ public class BottomSheetDialog extends AppCompatDialog {
     }
 
     private View wrapInBottomSheet(int layoutResId, View view, ViewGroup.LayoutParams params) {
-        final CoordinatorLayout coordinator = (CoordinatorLayout) View.inflate(getContext(),
+        final FrameLayout container = (FrameLayout) View.inflate(getContext(),
                 R.layout.design_bottom_sheet_dialog, null);
+        final CoordinatorLayout coordinator =
+                (CoordinatorLayout) container.findViewById(R.id.coordinator);
         if (layoutResId != 0 && view == null) {
             view = getLayoutInflater().inflate(layoutResId, coordinator, false);
         }
@@ -127,7 +149,37 @@ public class BottomSheetDialog extends AppCompatDialog {
                 }
             }
         });
-        return coordinator;
+        // Handle accessibility events
+        ViewCompat.setAccessibilityDelegate(bottomSheet, new AccessibilityDelegateCompat() {
+            @Override
+            public void onInitializeAccessibilityNodeInfo(View host,
+                    AccessibilityNodeInfoCompat info) {
+                super.onInitializeAccessibilityNodeInfo(host, info);
+                if (mCancelable) {
+                    info.addAction(AccessibilityNodeInfoCompat.ACTION_DISMISS);
+                    info.setDismissable(true);
+                } else {
+                    info.setDismissable(false);
+                }
+            }
+
+            @Override
+            public boolean performAccessibilityAction(View host, int action, Bundle args) {
+                if (action == AccessibilityNodeInfoCompat.ACTION_DISMISS && mCancelable) {
+                    cancel();
+                    return true;
+                }
+                return super.performAccessibilityAction(host, action, args);
+            }
+        });
+        bottomSheet.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                // Consume the event and prevent it from falling through
+                return true;
+            }
+        });
+        return container;
     }
 
     boolean shouldWindowCloseOnTouchOutside() {

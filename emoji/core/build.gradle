@@ -1,0 +1,62 @@
+apply plugin: android.support.SupportAndroidLibraryPlugin
+
+ext {
+    fontDir = project(':noto-emoji-compat').projectDir
+}
+
+configurations {
+    repackage
+}
+
+dependencies {
+    repackage project(path: ':noto-emoji-compat', configuration: "parser")
+    // Wrap the noto-emoji-compat dependency in a FileCollection so that the Android Gradle plugin
+    // treats this as local jar and package it inside the aar.
+    api files(configurations.repackage)
+
+    api project(':support-compat')
+
+    androidTestImplementation libs.test_runner,      { exclude module: 'support-annotations' }
+    androidTestImplementation libs.espresso_core,    { exclude module: 'support-annotations' }
+    androidTestImplementation libs.mockito_core,     { exclude group: 'net.bytebuddy' } // DexMaker has it"s own MockMaker
+    androidTestImplementation libs.dexmaker_mockito, { exclude group: 'net.bytebuddy' } // DexMaker has it"s own MockMaker
+    androidTestImplementation project(':support-testutils')
+}
+
+android {
+    defaultConfig {
+        minSdkVersion 14
+    }
+
+    sourceSets {
+        main.res.srcDirs += 'src/main/res-public'
+        main.resources {
+            srcDirs = [fontDir.getAbsolutePath()]
+            includes = ["LICENSE_UNICODE", "LICENSE_OFL"]
+        }
+
+        androidTest {
+            assets {
+                srcDirs = [new File(fontDir, "font").getAbsolutePath(),
+                           new File(fontDir, "supported-emojis").getAbsolutePath()]
+            }
+        }
+    }
+}
+
+supportLibrary {
+    name 'Android Emoji Compat'
+    publish true
+    inceptionYear '2017'
+    description 'Core library to enable emoji compatibility in Kitkat and newer devices to avoid the empty emoji characters.'
+
+    license {
+        name 'SIL Open Font License, Version 1.1'
+        url  'http://scripts.sil.org/cms/scripts/page.php?item_id=OFL_web'
+    }
+
+    license {
+        name 'Unicode, Inc. License'
+        url 'http://www.unicode.org/copyright.html#License'
+    }
+}

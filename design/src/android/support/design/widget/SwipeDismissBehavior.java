@@ -16,10 +16,11 @@
 
 package android.support.design.widget;
 
+import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
-import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ViewDragHelper;
 import android.view.MotionEvent;
@@ -29,8 +30,6 @@ import android.view.ViewParent;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-
-import static android.support.annotation.RestrictTo.Scope.GROUP_ID;
 
 /**
  * An interaction behavior plugin for child views of {@link CoordinatorLayout} to provide support
@@ -56,7 +55,7 @@ public class SwipeDismissBehavior<V extends View> extends CoordinatorLayout.Beha
     public static final int STATE_SETTLING = ViewDragHelper.STATE_SETTLING;
 
     /** @hide */
-    @RestrictTo(GROUP_ID)
+    @RestrictTo(LIBRARY_GROUP)
     @IntDef({SWIPE_DIRECTION_START_TO_END, SWIPE_DIRECTION_END_TO_START, SWIPE_DIRECTION_ANY})
     @Retention(RetentionPolicy.SOURCE)
     private @interface SwipeDirection {}
@@ -174,7 +173,7 @@ public class SwipeDismissBehavior<V extends View> extends CoordinatorLayout.Beha
     public boolean onInterceptTouchEvent(CoordinatorLayout parent, V child, MotionEvent event) {
         boolean dispatchEventToHelper = mInterceptingEvents;
 
-        switch (MotionEventCompat.getActionMasked(event)) {
+        switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 mInterceptingEvents = parent.isPointInChildBounds(child,
                         (int) event.getX(), (int) event.getY());
@@ -345,13 +344,13 @@ public class SwipeDismissBehavior<V extends View> extends CoordinatorLayout.Beha
                     + child.getWidth() * mAlphaEndSwipeDistance;
 
             if (left <= startAlphaDistance) {
-                ViewCompat.setAlpha(child, 1f);
+                child.setAlpha(1f);
             } else if (left >= endAlphaDistance) {
-                ViewCompat.setAlpha(child, 0f);
+                child.setAlpha(0f);
             } else {
                 // We're between the start and end distances
                 final float distance = fraction(startAlphaDistance, endAlphaDistance, left);
-                ViewCompat.setAlpha(child, clamp(0f, 1f - distance, 1f));
+                child.setAlpha(clamp(0f, 1f - distance, 1f));
             }
         }
     };

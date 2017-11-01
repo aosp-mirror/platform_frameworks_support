@@ -16,19 +16,27 @@
 
 package android.support.v7.widget.helper;
 
-import static android.support.v7.widget.helper.ItemTouchHelper.*;
+import static android.support.v7.widget.helper.ItemTouchHelper.END;
+import static android.support.v7.widget.helper.ItemTouchHelper.LEFT;
+import static android.support.v7.widget.helper.ItemTouchHelper.RIGHT;
+import static android.support.v7.widget.helper.ItemTouchHelper.START;
+import static android.support.v7.widget.helper.ItemTouchHelper.SimpleCallback;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import android.os.Build;
+import android.support.test.filters.LargeTest;
 import android.support.test.filters.SdkSuppress;
+import android.support.test.filters.Suppress;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.v4.view.ViewCompat;
+import android.support.testutils.PollingCheck;
+import android.support.v4.util.Pair;
 import android.support.v7.util.TouchUtils;
 import android.support.v7.widget.BaseRecyclerViewInstrumentationTest;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.WrappedRecyclerView;
-import android.test.suitebuilder.annotation.MediumTest;
 import android.view.Gravity;
 import android.view.View;
 
@@ -38,19 +46,19 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.List;
 
-@MediumTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class ItemTouchHelperTest extends BaseRecyclerViewInstrumentationTest {
 
-    TestAdapter mAdapter;
-
-    TestLayoutManager mLayoutManager;
+    private static class RecyclerViewState {
+        public TestAdapter mAdapter;
+        public TestLayoutManager mLayoutManager;
+        public WrappedRecyclerView mWrappedRecyclerView;
+    }
 
     private LoggingCalback mCalback;
 
     private LoggingItemTouchHelper mItemTouchHelper;
-
-    private WrappedRecyclerView mWrappedRecyclerView;
 
     private Boolean mSetupRTL;
 
@@ -58,10 +66,11 @@ public class ItemTouchHelperTest extends BaseRecyclerViewInstrumentationTest {
         super(false);
     }
 
-    private RecyclerView setup(int dragDirs, int swipeDirs) throws Throwable {
-        mWrappedRecyclerView = inflateWrappedRV();
-        mAdapter = new TestAdapter(10);
-        mLayoutManager = new TestLayoutManager() {
+    private RecyclerViewState setupRecyclerView() throws Throwable {
+        RecyclerViewState rvs = new RecyclerViewState();
+        rvs.mWrappedRecyclerView = inflateWrappedRV();
+        rvs.mAdapter = new TestAdapter(10);
+        rvs.mLayoutManager = new TestLayoutManager() {
             @Override
             public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
                 detachAndScrapAttachedViews(recycler);
@@ -79,19 +88,24 @@ public class ItemTouchHelperTest extends BaseRecyclerViewInstrumentationTest {
                 return false;
             }
         };
-        mWrappedRecyclerView.setFakeRTL(mSetupRTL);
-        mWrappedRecyclerView.setAdapter(mAdapter);
-        mWrappedRecyclerView.setLayoutManager(mLayoutManager);
+        rvs.mWrappedRecyclerView.setFakeRTL(mSetupRTL);
+        rvs.mWrappedRecyclerView.setAdapter(rvs.mAdapter);
+        rvs.mWrappedRecyclerView.setLayoutManager(rvs.mLayoutManager);
+        return rvs;
+    }
+
+    private RecyclerViewState setupItemTouchHelper(final RecyclerViewState rvs, int dragDirs,
+            int swipeDirs) throws Throwable {
         mCalback = new LoggingCalback(dragDirs, swipeDirs);
         mItemTouchHelper = new LoggingItemTouchHelper(mCalback);
-        runTestOnUiThread(new Runnable() {
+        mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mItemTouchHelper.attachToRecyclerView(mWrappedRecyclerView);
+                mItemTouchHelper.attachToRecyclerView(rvs.mWrappedRecyclerView);
             }
         });
 
-        return mWrappedRecyclerView;
+        return rvs;
     }
 
     @Test
@@ -114,6 +128,8 @@ public class ItemTouchHelperTest extends BaseRecyclerViewInstrumentationTest {
         basicSwipeTest(END, START | END, getActivity().getWindow().getDecorView().getWidth());
     }
 
+    // Test is disabled as it is flaky.
+    @Suppress
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Test
     public void swipeStartInRTL() throws Throwable {
@@ -128,34 +144,80 @@ public class ItemTouchHelperTest extends BaseRecyclerViewInstrumentationTest {
         basicSwipeTest(END, START | END, -getActivity().getWindow().getDecorView().getWidth());
     }
 
-    private void setLayoutDirection(final View view, final int layoutDir) throws Throwable {
-        runTestOnUiThread(new Runnable() {
+    @Test
+    public void attachToNullRecycleViewDuringLongPress() throws Throwable {
+        final RecyclerViewState rvs = setupItemTouchHelper(setupRecyclerView(), END, 0);
+        rvs.mLayoutManager.expectLayouts(1);
+        setRecyclerView(rvs.mWrappedRecyclerView);
+        rvs.mLayoutManager.waitForLayout(1);
+
+        final RecyclerView.ViewHolder target = mRecyclerView
+                .findViewHolderForAdapterPosition(1);
+        target.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void run() {
-                ViewCompat.setLayoutDirection(view, layoutDir);
+            public boolean onLongClick(View v) {
+                mItemTouchHelper.attachToRecyclerView(null);
+                return false;
             }
         });
+        TouchUtils.longClickView(getInstrumentation(), target.itemView);
+    }
+
+    @Test
+    public void attachToAnotherRecycleViewDuringLongPress() throws Throwable {
+        final RecyclerViewState rvs2 = setupRecyclerView();
+        rvs2.mLayoutManager.expectLayouts(1);
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                getActivity().getContainer().addView(rvs2.mWrappedRecyclerView);
+            }
+        });
+        rvs2.mLayoutManager.waitForLayout(1);
+
+        final RecyclerViewState rvs = setupItemTouchHelper(setupRecyclerView(), END, 0);
+        rvs.mLayoutManager.expectLayouts(1);
+        setRecyclerView(rvs.mWrappedRecyclerView);
+        rvs.mLayoutManager.waitForLayout(1);
+
+        final RecyclerView.ViewHolder target = mRecyclerView
+                .findViewHolderForAdapterPosition(1);
+        target.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                mItemTouchHelper.attachToRecyclerView(rvs2.mWrappedRecyclerView);
+                return false;
+            }
+        });
+        TouchUtils.longClickView(getInstrumentation(), target.itemView);
+        assertEquals(0, mCalback.mHasDragFlag.size());
     }
 
     public void basicSwipeTest(int dir, int swipeDirs, int targetX) throws Throwable {
-        final RecyclerView recyclerView = setup(0, swipeDirs);
-        mLayoutManager.expectLayouts(1);
-        setRecyclerView(recyclerView);
-        mLayoutManager.waitForLayout(1);
+        final RecyclerViewState rvs = setupItemTouchHelper(setupRecyclerView(), 0, swipeDirs);
+        rvs.mLayoutManager.expectLayouts(1);
+        setRecyclerView(rvs.mWrappedRecyclerView);
+        rvs.mLayoutManager.waitForLayout(1);
 
         final RecyclerView.ViewHolder target = mRecyclerView
                 .findViewHolderForAdapterPosition(1);
         TouchUtils.dragViewToX(getInstrumentation(), target.itemView, Gravity.CENTER, targetX);
-        Thread.sleep(100); //wait for animation end
+
+        PollingCheck.waitFor(1000, new PollingCheck.PollingCheckCondition() {
+            @Override
+            public boolean canProceed() {
+                return mCalback.getSwipe(target) != null;
+            }
+        });
         final SwipeRecord swipe = mCalback.getSwipe(target);
         assertNotNull(swipe);
         assertEquals(dir, swipe.dir);
         assertEquals(1, mItemTouchHelper.mRecoverAnimations.size());
         assertEquals(1, mItemTouchHelper.mPendingCleanup.size());
         // get rid of the view
-        mLayoutManager.expectLayouts(1);
-        mAdapter.deleteAndNotify(1, 1);
-        mLayoutManager.waitForLayout(1);
+        rvs.mLayoutManager.expectLayouts(1);
+        rvs.mAdapter.deleteAndNotify(1, 1);
+        rvs.mLayoutManager.waitForLayout(1);
         waitForAnimations();
         assertEquals(0, mItemTouchHelper.mRecoverAnimations.size());
         assertEquals(0, mItemTouchHelper.mPendingCleanup.size());
@@ -175,6 +237,8 @@ public class ItemTouchHelperTest extends BaseRecyclerViewInstrumentationTest {
         private List<SwipeRecord> mSwipeRecords = new ArrayList<SwipeRecord>();
 
         private List<RecyclerView.ViewHolder> mCleared = new ArrayList<RecyclerView.ViewHolder>();
+
+        public List<Pair<RecyclerView, RecyclerView.ViewHolder>> mHasDragFlag = new ArrayList<>();
 
         LoggingCalback(int dragDirs, int swipeDirs) {
             super(dragDirs, swipeDirs);
@@ -205,6 +269,12 @@ public class ItemTouchHelperTest extends BaseRecyclerViewInstrumentationTest {
         public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
             super.clearView(recyclerView, viewHolder);
             mCleared.add(viewHolder);
+        }
+
+        @Override
+        boolean hasDragFlag(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            mHasDragFlag.add(new Pair<>(recyclerView, viewHolder));
+            return super.hasDragFlag(recyclerView, viewHolder);
         }
 
         public SwipeRecord getSwipe(RecyclerView.ViewHolder vh) {

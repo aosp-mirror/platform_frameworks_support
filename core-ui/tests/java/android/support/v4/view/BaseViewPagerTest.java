@@ -16,6 +16,7 @@
 package android.support.v4.view;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.pressKey;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.assertion.PositionAssertions.isBelow;
@@ -46,6 +47,7 @@ import static android.support.v4.view.ViewPagerActions.wrap;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -61,14 +63,19 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.support.coreui.test.R;
 import android.support.test.espresso.ViewAction;
+import android.support.test.espresso.action.EspressoKey;
+import android.support.test.filters.FlakyTest;
+import android.support.test.filters.LargeTest;
+import android.support.test.filters.MediumTest;
 import android.support.v4.BaseInstrumentationTestCase;
 import android.support.v4.testutils.TestUtilsMatchers;
-import android.test.suitebuilder.annotation.MediumTest;
-import android.test.suitebuilder.annotation.SmallTest;
 import android.text.TextUtils;
 import android.util.Pair;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.junit.After;
@@ -97,7 +104,7 @@ public abstract class BaseViewPagerTest<T extends Activity> extends BaseInstrume
         protected ArrayList<Pair<String, Q>> mEntries = new ArrayList<>();
 
         public void add(String title, Q content) {
-            mEntries.add(new Pair(title, content));
+            mEntries.add(new Pair<>(title, content));
         }
 
         @Override
@@ -202,6 +209,43 @@ public abstract class BaseViewPagerTest<T extends Activity> extends BaseInstrume
         }
     }
 
+    protected static class ButtonPagerAdapter extends BasePagerAdapter<Integer> {
+        private ArrayList<Button[]> mButtons = new ArrayList<>();
+
+        @Override
+        public void add(String title, Integer content) {
+            super.add(title, content);
+            mButtons.add(new Button[3]);
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            final LinearLayout view = new LinearLayout(container.getContext());
+            view.setBackgroundColor(mEntries.get(position).second);
+            view.setOrientation(LinearLayout.HORIZONTAL);
+            configureInstantiatedItem(view, position);
+
+            for (int i = 0; i < 3; ++i) {
+                Button but = new Button(container.getContext());
+                but.setText("" + i);
+                but.setFocusableInTouchMode(true);
+                view.addView(but, ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                mButtons.get(position)[i] = but;
+            }
+
+            // Unlike ListView adapters, the ViewPager adapter is responsible
+            // for adding the view to the container.
+            container.addView(view);
+
+            return new ViewHolder(view, position);
+        }
+
+        public View getButton(int page, int idx) {
+            return mButtons.get(page)[idx];
+        }
+    }
+
     public BaseViewPagerTest(Class<T> activityClass) {
         super(activityClass);
     }
@@ -282,13 +326,13 @@ public abstract class BaseViewPagerTest<T extends Activity> extends BaseInstrume
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testPageSelectionsImmediate() {
         verifyPageSelections(false);
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testPageSelectionsSmooth() {
         verifyPageSelections(true);
     }
@@ -355,19 +399,19 @@ public abstract class BaseViewPagerTest<T extends Activity> extends BaseInstrume
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void testPageSwipes() {
         verifyPageChangeViewActions(wrap(swipeLeft()), wrap(swipeRight()));
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void testArrowPageChanges() {
         verifyPageChangeViewActions(arrowScroll(View.FOCUS_RIGHT), arrowScroll(View.FOCUS_LEFT));
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testPageSwipesComposite() {
         assertEquals("Initial state", 0, mViewPager.getCurrentItem());
 
@@ -425,13 +469,13 @@ public abstract class BaseViewPagerTest<T extends Activity> extends BaseInstrume
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testPageContentImmediate() {
         verifyPageContent(false);
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testPageContentSmooth() {
         verifyPageContent(true);
     }
@@ -504,13 +548,13 @@ public abstract class BaseViewPagerTest<T extends Activity> extends BaseInstrume
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testAdapterChangeImmediate() {
         verifyAdapterChange(false);
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testAdapterChangeSmooth() {
         verifyAdapterChange(true);
     }
@@ -603,13 +647,13 @@ public abstract class BaseViewPagerTest<T extends Activity> extends BaseInstrume
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testPagerStripImmediate() {
         verifyPagerStrip(false);
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testPagerStripSmooth() {
         verifyPagerStrip(true);
     }
@@ -660,7 +704,7 @@ public abstract class BaseViewPagerTest<T extends Activity> extends BaseInstrume
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testPageScrollStateChangedImmediate() {
         // Note that all the actions tested in this method are immediate (no scrolling) and
         // as such we test that we do not get any calls to onPageScrollStateChanged in any of them
@@ -680,7 +724,7 @@ public abstract class BaseViewPagerTest<T extends Activity> extends BaseInstrume
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void testPageScrollStateChangedSmooth() {
         // Note that all the actions tested in this method use smooth scrolling and as such we test
         // that we get the matching calls to onPageScrollStateChanged
@@ -703,7 +747,7 @@ public abstract class BaseViewPagerTest<T extends Activity> extends BaseInstrume
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void testPageScrollStateChangedSwipe() {
         // Note that all the actions tested in this method use swiping and as such we test
         // that we get the matching calls to onPageScrollStateChanged
@@ -984,7 +1028,7 @@ public abstract class BaseViewPagerTest<T extends Activity> extends BaseInstrume
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testPageScrollPositionChangesImmediate() {
         // Scroll one page to the right
         verifyScrollCallbacksToHigherPage(scrollRight(false), 1);
@@ -1002,7 +1046,7 @@ public abstract class BaseViewPagerTest<T extends Activity> extends BaseInstrume
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void testPageScrollPositionChangesSmooth() {
         // Scroll one page to the right
         verifyScrollCallbacksToHigherPage(scrollRight(true), 1);
@@ -1020,7 +1064,7 @@ public abstract class BaseViewPagerTest<T extends Activity> extends BaseInstrume
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void testPageScrollPositionChangesSwipe() {
         // Swipe one page to the left
         verifyScrollCallbacksToHigherPage(wrap(swipeLeft()), 1);
@@ -1030,5 +1074,35 @@ public abstract class BaseViewPagerTest<T extends Activity> extends BaseInstrume
         verifyScrollCallbacksToLowerPage(wrap(swipeRight()), 1);
         // Swipe one more page to the right
         verifyScrollCallbacksToLowerPage(wrap(swipeRight()), 0);
+    }
+
+    @FlakyTest(bugId = 38260187)
+    @Test
+    @LargeTest
+    public void testKeyboardNavigation() {
+        ButtonPagerAdapter adapter = new ButtonPagerAdapter();
+        adapter.add("Red", Color.RED);
+        adapter.add("Green", Color.GREEN);
+        adapter.add("Blue", Color.BLUE);
+        onView(withId(R.id.pager)).perform(setAdapter(adapter), scrollToPage(0, false));
+        View firstButton = adapter.getButton(0, 0);
+        firstButton.requestFocus();
+        assertTrue(firstButton.isFocused());
+        assertEquals(0, mViewPager.getCurrentItem());
+
+        // Normal arrows should traverse contents first
+        onView(is(firstButton)).perform(pressKey(KeyEvent.KEYCODE_DPAD_RIGHT));
+        assertEquals(0, mViewPager.getCurrentItem());
+        assertTrue(adapter.getButton(0, 1).isFocused());
+
+        // Alt arrows should change page even if there are more focusables in that direction
+        onView(is(adapter.getButton(0, 1))).perform(pressKey(new EspressoKey.Builder()
+                .withAltPressed(true).withKeyCode(KeyEvent.KEYCODE_DPAD_RIGHT).build()));
+        assertEquals(1, mViewPager.getCurrentItem());
+        assertTrue(adapter.getButton(1, 0).isFocused());
+
+        // Normal arrows should change page if there are no more focusables in that direction
+        onView(is(adapter.getButton(1, 0))).perform(pressKey(KeyEvent.KEYCODE_DPAD_LEFT));
+        assertEquals(0, mViewPager.getCurrentItem());
     }
 }

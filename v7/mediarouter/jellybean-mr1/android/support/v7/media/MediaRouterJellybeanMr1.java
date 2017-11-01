@@ -20,6 +20,7 @@ import android.content.Context;
 import android.hardware.display.DisplayManager;
 import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.Display;
 
@@ -27,6 +28,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+@RequiresApi(17)
 final class MediaRouterJellybeanMr1 {
     private static final String TAG = "MediaRouterJellybeanMr1";
 

@@ -21,11 +21,13 @@ import android.animation.ObjectAnimator;
 import android.animation.StateListAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.RequiresApi;
 import android.support.design.R;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 
+@RequiresApi(21)
 class ViewUtilsLollipop {
 
     private static final int[] STATE_LIST_ANIM_ATTRS = new int[] {android.R.attr.stateListAnimator};

@@ -1,58 +1,46 @@
-apply plugin: 'com.android.library'
-
-archivesBaseName = 'design'
+apply plugin: android.support.SupportAndroidLibraryPlugin
 
 dependencies {
-    compile project(':support-v4')
-    compile project(':support-appcompat-v7')
-    compile project(':support-recyclerview-v7')
-    compile project(':support-transition')
+    api project(':support-v4')
+    api project(':appcompat-v7')
+    api project(':recyclerview-v7')
+    api project(':transition')
 
-    androidTestCompile ("com.android.support.test:runner:${project.rootProject.ext.testRunnerVersion}") {
+    androidTestImplementation libs.test_runner,      { exclude module: 'support-annotations' }
+    androidTestImplementation libs.espresso_core,    { exclude module: 'support-annotations' }
+    androidTestImplementation libs.espresso_contrib, { exclude group: 'com.android.support' }
+    androidTestImplementation libs.mockito_core,     { exclude group: 'net.bytebuddy' } // DexMaker has it"s own MockMaker
+    androidTestImplementation libs.dexmaker_mockito, { exclude group: 'net.bytebuddy' } // DexMaker has it"s own MockMaker
+    androidTestImplementation project(':support-testutils')
+
+    testImplementation libs.junit
+    testImplementation (libs.test_runner) {
         exclude module: 'support-annotations'
     }
-    androidTestCompile ("com.android.support.test.espresso:espresso-core:${project.rootProject.ext.espressoVersion}") {
-        exclude module: 'support-annotations'
-    }
-    androidTestCompile 'org.mockito:mockito-core:1.9.5'
-    androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
-    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
-    testCompile 'junit:junit:4.12'
 }
 
 android {
-    compileSdkVersion project.ext.currentSdk
-
     defaultConfig {
-        minSdkVersion 9
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion 14
         // This disables the builds tools automatic vector -> PNG generation
         generatedDensities = []
     }
 
     sourceSets {
-        main.manifest.srcFile 'AndroidManifest.xml'
-        main.java.srcDirs = ['base', 'gingerbread', 'honeycomb', 'honeycomb-mr1', 'ics', 'lollipop', 'src']
-        main.res.srcDirs 'res', 'res-public'
-        main.assets.srcDir 'assets'
+        main.java.srcDirs = [
+                'base',
+                'gingerbread',
+                'ics',
+                'lollipop',
+                'src'
+        ]
+        main.res.srcDirs = [
+                'res',
+                'res-public'
+        ]
         main.resources.srcDir 'src'
 
-        androidTest.setRoot('tests')
-        androidTest.java.srcDir 'tests/src'
-        androidTest.res.srcDir 'tests/res'
-        androidTest.manifest.srcFile 'tests/AndroidManifest.xml'
-
         test.java.srcDir 'jvm-tests/src'
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
-
-    lintOptions {
-        // TODO: fix errors and reenable.
-        abortOnError false
     }
 
     buildTypes.all {
@@ -62,71 +50,17 @@ android {
     aaptOptions {
         additionalParameters "--no-version-vectors"
     }
-}
 
-android.libraryVariants.all { variant ->
-    def name = variant.buildType.name
-
-    if (name.equals(com.android.builder.core.BuilderConstants.DEBUG)) {
-        return; // Skip debug builds.
-    }
-    def suffix = name.capitalize()
-
-    def jarTask = project.tasks.create(name: "jar${suffix}", type: Jar){
-        dependsOn variant.javaCompile
-        from variant.javaCompile.destinationDir
-        from 'LICENSE.txt'
-    }
-    def javadocTask = project.tasks.create(name: "javadoc${suffix}", type: Javadoc) {
-        source android.sourceSets.main.java
-        classpath = files(variant.javaCompile.classpath.files) + files(
-                "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar")
-    }
-
-    def javadocJarTask = project.tasks.create(name: "javadocJar${suffix}", type: Jar) {
-        classifier = 'javadoc'
-        from 'build/docs/javadoc'
-    }
-
-    def sourcesJarTask = project.tasks.create(name: "sourceJar${suffix}", type: Jar) {
-        classifier = 'sources'
-        from android.sourceSets.main.java.srcDirs
-    }
-
-    artifacts.add('archives', javadocJarTask);
-    artifacts.add('archives', sourcesJarTask);
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: uri(rootProject.ext.supportRepoOut)) {
-            }
-
-            pom.project {
-                name 'Android Design Support Library'
-                description "The Support Library is a static library that you can add to your Android application in order to use APIs that are either not available for older platform versions or utility APIs that aren't a part of the framework APIs. Compatible on devices running API 4 or later."
-                url 'http://developer.android.com/tools/extras/support-library.html'
-                inceptionYear '2011'
-
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                        distribution 'repo'
-                    }
-                }
-
-                scm {
-                    url "http://source.android.com"
-                    connection "scm:git:https://android.googlesource.com/platform/frameworks/support"
-                }
-                developers {
-                    developer {
-                        name 'The Android Open Source Project'
-                    }
-                }
-            }
+    buildTypes {
+        debug {
+            pseudoLocalesEnabled true
         }
     }
+}
+
+supportLibrary {
+    name 'Android Design Support Library'
+    publish true
+    inceptionYear '2015'
+    description "The Support Library is a static library that you can add to your Android application in order to use APIs that are either not available for older platform versions or utility APIs that aren\'t a part of the framework APIs. Compatible on devices running API 14 or later."
 }

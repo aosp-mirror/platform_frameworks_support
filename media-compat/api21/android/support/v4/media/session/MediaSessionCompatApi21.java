@@ -30,11 +30,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.os.ResultReceiver;
+import android.support.annotation.RequiresApi;
+import android.util.Log;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiresApi(21)
 class MediaSessionCompatApi21 {
+    static final String TAG = "MediaSessionCompatApi21";
+
     public static Object createSession(Context context, String tag) {
         return new MediaSession(context, tag);
     }
@@ -132,20 +138,37 @@ class MediaSessionCompatApi21 {
         ((MediaSession) sessionObj).setExtras(extras);
     }
 
-    interface Callback extends MediaSessionCompatApi19.Callback {
-        public void onCommand(String command, Bundle extras, ResultReceiver cb);
-        public boolean onMediaButtonEvent(Intent mediaButtonIntent);
-        public void onPlay();
-        public void onPlayFromMediaId(String mediaId, Bundle extras);
-        public void onPlayFromSearch(String search, Bundle extras);
-        public void onSkipToQueueItem(long id);
-        public void onPause();
-        public void onSkipToNext();
-        public void onSkipToPrevious();
-        public void onFastForward();
-        public void onRewind();
-        public void onStop();
-        public void onCustomAction(String action, Bundle extras);
+    public static boolean hasCallback(Object sessionObj) {
+        Field callbackField = null;
+        try {
+            callbackField = sessionObj.getClass().getDeclaredField("mCallback");
+            if (callbackField != null) {
+                callbackField.setAccessible(true);
+                return callbackField.get(sessionObj) != null;
+            }
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            Log.w(TAG, "Failed to get mCallback object.");
+        }
+        return false;
+    }
+
+    interface Callback {
+        void onCommand(String command, Bundle extras, ResultReceiver cb);
+        boolean onMediaButtonEvent(Intent mediaButtonIntent);
+        void onPlay();
+        void onPlayFromMediaId(String mediaId, Bundle extras);
+        void onPlayFromSearch(String search, Bundle extras);
+        void onSkipToQueueItem(long id);
+        void onPause();
+        void onSkipToNext();
+        void onSkipToPrevious();
+        void onFastForward();
+        void onRewind();
+        void onStop();
+        void onSeekTo(long position);
+        void onSetRating(Object ratingObject);
+        void onSetRating(Object ratingObject, Bundle extras);
+        void onCustomAction(String action, Bundle extras);
     }
 
     static class CallbackProxy<T extends Callback> extends MediaSession.Callback {

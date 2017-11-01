@@ -23,8 +23,8 @@ import static android.view.View.MeasureSpec.makeMeasureSpec;
 
 import android.graphics.Rect;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.SmallTest;
 import android.test.AndroidTestCase;
-import android.test.suitebuilder.annotation.SmallTest;
 import android.view.View;
 
 import org.hamcrest.CoreMatchers;
@@ -152,6 +152,7 @@ public class DefaultMeasureSpecTest extends AndroidTestCase {
         runTest();
     }
 
+    @Override
     @Test
     public void runTest() {
         mRecyclerView.defaultOnMeasure(mWSpec, mHSpec);
