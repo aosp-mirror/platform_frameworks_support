@@ -16,7 +16,7 @@
 package android.support.v17.leanback.widget;
 
 import android.os.Build;
-import android.view.View;
+import android.support.annotation.RequiresApi;
 import android.view.ViewGroup;
 
 
@@ -65,6 +65,7 @@ final class StaticShadowHelper {
     /**
      * Implementation used on JBMR2 (and above).
      */
+    @RequiresApi(19)
     private static final class ShadowHelperJbmr2Impl implements ShadowHelperVersionImpl {
         ShadowHelperJbmr2Impl() {
         }

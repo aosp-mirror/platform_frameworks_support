@@ -18,11 +18,13 @@ package android.support.v7.widget;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import android.content.Context;
 import android.os.Build;
@@ -30,20 +32,24 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.SystemClock;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.filters.SdkSuppress;
+import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.SmallTest;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -53,7 +59,6 @@ import java.util.UUID;
 public class RecyclerViewBasicTest {
 
     RecyclerView mRecyclerView;
-
 
     @Before
     public void setUp() throws Exception {
@@ -349,19 +354,147 @@ public class RecyclerViewBasicTest {
                 loggingView.getOnSavedInstanceCnt());
     }
 
-    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.LOLLIPOP)
+    @Test
+    public void smoothScrollWithCustomInterpolator() {
+        mRecyclerView.setLayoutManager(new MockLayoutManager());
+        mRecyclerView.setAdapter(new MockAdapter(20));
+        Interpolator interpolator = new LinearInterpolator();
+        mRecyclerView.smoothScrollBy(0, 100, interpolator);
+        assertSame(interpolator, mRecyclerView.mViewFlinger.mInterpolator);
+
+        mRecyclerView.smoothScrollBy(0, -100);
+        assertSame(RecyclerView.sQuinticInterpolator, mRecyclerView.mViewFlinger.mInterpolator);
+    }
+
     @Test
     public void prefetchChangesCacheSize() {
+        mRecyclerView.setAdapter(new MockAdapter(20));
         MockLayoutManager mlm = new MockLayoutManager() {
             @Override
-            int getItemPrefetchCount() {
-                return 3;
+            public void collectAdjacentPrefetchPositions(int dx, int dy, RecyclerView.State state,
+                    RecyclerView.LayoutManager.LayoutPrefetchRegistry prefetchManager) {
+                prefetchManager.addPosition(0, 0);
+                prefetchManager.addPosition(1, 0);
+                prefetchManager.addPosition(2, 0);
             }
         };
+
         RecyclerView.Recycler recycler = mRecyclerView.mRecycler;
         assertEquals(RecyclerView.Recycler.DEFAULT_CACHE_SIZE, recycler.mViewCacheMax);
         mRecyclerView.setLayoutManager(mlm);
-        assertEquals(RecyclerView.Recycler.DEFAULT_CACHE_SIZE + 3, recycler.mViewCacheMax);
+        assertEquals(RecyclerView.Recycler.DEFAULT_CACHE_SIZE, recycler.mViewCacheMax);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // layout, so prefetches can occur
+            mRecyclerView.measure(View.MeasureSpec.EXACTLY | 100, View.MeasureSpec.EXACTLY | 100);
+            mRecyclerView.layout(0, 0, 100, 100);
+
+            // prefetch gets 3 items, so expands cache by 3
+            mRecyclerView.mPrefetchRegistry.collectPrefetchPositionsFromView(mRecyclerView, false);
+            assertEquals(3, mRecyclerView.mPrefetchRegistry.mCount);
+            assertEquals(RecyclerView.Recycler.DEFAULT_CACHE_SIZE + 3, recycler.mViewCacheMax);
+
+            // Reset to default by removing layout
+            mRecyclerView.setLayoutManager(null);
+            assertEquals(RecyclerView.Recycler.DEFAULT_CACHE_SIZE, recycler.mViewCacheMax);
+
+            // And restore by restoring layout
+            mRecyclerView.setLayoutManager(mlm);
+            assertEquals(RecyclerView.Recycler.DEFAULT_CACHE_SIZE + 3, recycler.mViewCacheMax);
+        }
+    }
+
+    @Test
+    public void getNanoTime() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // check that it looks vaguely time-ish
+            long time = mRecyclerView.getNanoTime();
+            assertNotEquals(0, time);
+            assertNotEquals(time, mRecyclerView.getNanoTime());
+        } else {
+            // expect to avoid cost of system.nanoTime on older platforms that don't do prefetch
+            assertEquals(0, mRecyclerView.getNanoTime());
+        }
+    }
+
+    @Test
+    public void findNestedRecyclerView() {
+        RecyclerView recyclerView = new RecyclerView(getContext());
+        assertEquals(recyclerView, RecyclerView.findNestedRecyclerView(recyclerView));
+
+        ViewGroup parent = new FrameLayout(getContext());
+        assertEquals(null, RecyclerView.findNestedRecyclerView(parent));
+        parent.addView(recyclerView);
+        assertEquals(recyclerView, RecyclerView.findNestedRecyclerView(parent));
+
+        ViewGroup grandParent = new FrameLayout(getContext());
+        assertEquals(null, RecyclerView.findNestedRecyclerView(grandParent));
+        grandParent.addView(parent);
+        assertEquals(recyclerView, RecyclerView.findNestedRecyclerView(grandParent));
+    }
+
+    @Test
+    public void clearNestedRecyclerViewIfNotNested() {
+        RecyclerView recyclerView = new RecyclerView(getContext());
+        ViewGroup parent = new FrameLayout(getContext());
+        parent.addView(recyclerView);
+        ViewGroup grandParent = new FrameLayout(getContext());
+        grandParent.addView(parent);
+
+        // verify trivial noop case
+        RecyclerView.ViewHolder holder = new RecyclerView.ViewHolder(recyclerView) {};
+        holder.mNestedRecyclerView = new WeakReference<>(recyclerView);
+        RecyclerView.clearNestedRecyclerViewIfNotNested(holder);
+        assertEquals(recyclerView, holder.mNestedRecyclerView.get());
+
+        // verify clear case
+        holder = new RecyclerView.ViewHolder(new View(getContext())) {};
+        holder.mNestedRecyclerView = new WeakReference<>(recyclerView);
+        RecyclerView.clearNestedRecyclerViewIfNotNested(holder);
+        assertNull(holder.mNestedRecyclerView);
+
+        // verify more deeply nested case
+        holder = new RecyclerView.ViewHolder(grandParent) {};
+        holder.mNestedRecyclerView = new WeakReference<>(recyclerView);
+        RecyclerView.clearNestedRecyclerViewIfNotNested(holder);
+        assertEquals(recyclerView, holder.mNestedRecyclerView.get());
+    }
+
+    @Test
+    public void exceptionContainsClasses() {
+        RecyclerView first = new RecyclerView(getContext());
+        first.setLayoutManager(new LinearLayoutManager(getContext()));
+        first.setAdapter(new MockAdapter(10));
+
+        RecyclerView second = new RecyclerView(getContext());
+        try {
+            second.setLayoutManager(first.getLayoutManager());
+            fail("exception expected");
+        } catch (IllegalArgumentException e) {
+            // Note: exception contains first RV
+            String m = e.getMessage();
+            assertTrue("must contain RV class", m.contains(RecyclerView.class.getName()));
+            assertTrue("must contain Adapter class", m.contains(MockAdapter.class.getName()));
+            assertTrue("must contain LM class", m.contains(LinearLayoutManager.class.getName()));
+            assertTrue("must contain ctx class", m.contains(getContext().getClass().getName()));
+
+        }
+    }
+
+    @Test
+    public void focusOrderTest() {
+        FocusOrderAdapter focusAdapter = new FocusOrderAdapter(getContext());
+        mRecyclerView.setAdapter(focusAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        measure();
+        layout();
+        assertSame(focusAdapter.mBottomLeft,
+                focusAdapter.mTopRight.focusSearch(View.FOCUS_FORWARD));
+        assertSame(focusAdapter.mBottomRight,
+                focusAdapter.mBottomLeft.focusSearch(View.FOCUS_FORWARD));
+        // we don't want looping within RecyclerView
+        assertNull(focusAdapter.mBottomRight.focusSearch(View.FOCUS_FORWARD));
+        assertNull(focusAdapter.mTopLeft.focusSearch(View.FOCUS_BACKWARD));
     }
 
     static class MockLayoutManager extends RecyclerView.LayoutManager {
@@ -547,6 +680,59 @@ public class RecyclerViewBasicTest {
 
         public int getOnSavedInstanceCnt() {
             return mOnSavedInstanceCnt;
+        }
+    }
+
+    static class FocusOrderAdapter extends RecyclerView.Adapter {
+        TextView mTopLeft;
+        TextView mTopRight;
+        TextView mBottomLeft;
+        TextView mBottomRight;
+
+        FocusOrderAdapter(Context context) {
+            mTopLeft = new TextView(context);
+            mTopRight = new TextView(context);
+            mBottomLeft = new TextView(context);
+            mBottomRight = new TextView(context);
+            for (TextView tv : new TextView[]{mTopLeft, mTopRight, mBottomLeft, mBottomRight}) {
+                tv.setFocusableInTouchMode(true);
+                tv.setLayoutParams(new LinearLayout.LayoutParams(100, 100));
+            }
+            // create a scenario where the "first" focusable is to the right of the last one
+            mTopLeft.setFocusable(false);
+            mTopRight.getLayoutParams().width = 101;
+            mTopLeft.getLayoutParams().width = 101;
+        }
+
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LinearLayout holder = new LinearLayout(parent.getContext());
+            holder.setOrientation(LinearLayout.HORIZONTAL);
+            return new MockViewHolder(holder);
+        }
+
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            LinearLayout l = (LinearLayout) holder.itemView;
+            l.removeAllViews();
+            if (position == 0) {
+                l.addView(mTopLeft);
+                l.addView(mTopRight);
+            } else {
+                l.addView(mBottomLeft);
+                l.addView(mBottomRight);
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return 2;
+        }
+
+        void removeItems(int start, int count) {
+        }
+
+        void addItems(int start, int count) {
         }
     }
 }

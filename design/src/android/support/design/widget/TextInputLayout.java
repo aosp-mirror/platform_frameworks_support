@@ -16,6 +16,9 @@
 
 package android.support.design.widget;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Canvas;
@@ -39,18 +42,16 @@ import android.support.annotation.VisibleForTesting;
 import android.support.design.R;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v4.os.ParcelableCompat;
-import android.support.v4.os.ParcelableCompatCreatorCallbacks;
 import android.support.v4.view.AbsSavedState;
 import android.support.v4.view.AccessibilityDelegateCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPropertyAnimatorListenerAdapter;
 import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.support.v4.widget.Space;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.AppCompatDrawableManager;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.TintTypedArray;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -58,10 +59,12 @@ import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStructure;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.EditText;
@@ -76,6 +79,16 @@ import android.widget.TextView;
  * <p>Also supports showing an error via {@link #setErrorEnabled(boolean)} and
  * {@link #setError(CharSequence)}, and a character counter via
  * {@link #setCounterEnabled(boolean)}.</p>
+ *
+ * <p>Password visibility toggling is also supported via the
+ * {@link #setPasswordVisibilityToggleEnabled(boolean)} API and related attribute.
+ * If enabled, a button is displayed to toggle between the password being displayed as plain-text
+ * or disguised, when your EditText is set to display a password.</p>
+ *
+ * <p><strong>Note:</strong> When using the password toggle functionality, the 'end' compound
+ * drawable of the EditText will be overridden while the toggle is enabled. To ensure that any
+ * existing drawables are restored correctly, you should set those compound drawables relatively
+ * (start/end), opposed to absolutely (left/right).</p>
  *
  * The {@link TextInputEditText} class is provided to be used as a child of this layout. Using
  * TextInputEditText allows TextInputLayout greater control over the visual aspects of any
@@ -109,6 +122,7 @@ public class TextInputLayout extends LinearLayout {
 
     private final FrameLayout mInputFrame;
     EditText mEditText;
+    private CharSequence mOriginalHint;
 
     private boolean mHintEnabled;
     private CharSequence mHint;
@@ -118,6 +132,8 @@ public class TextInputLayout extends LinearLayout {
 
     private LinearLayout mIndicatorArea;
     private int mIndicatorsAdded;
+
+    private Typeface mTypeface;
 
     private boolean mErrorEnabled;
     TextView mErrorView;
@@ -154,10 +170,12 @@ public class TextInputLayout extends LinearLayout {
     final CollapsingTextHelper mCollapsingTextHelper = new CollapsingTextHelper(this);
 
     private boolean mHintAnimationEnabled;
-    private ValueAnimatorCompat mAnimator;
+    private ValueAnimator mAnimator;
 
     private boolean mHasReconstructedEditTextBackground;
     private boolean mInDrawableStateChanged;
+
+    private boolean mRestoringSavedState;
 
     public TextInputLayout(Context context) {
         this(context, null);
@@ -184,8 +202,6 @@ public class TextInputLayout extends LinearLayout {
         mCollapsingTextHelper.setTextSizeInterpolator(AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
         mCollapsingTextHelper.setPositionInterpolator(new AccelerateInterpolator());
         mCollapsingTextHelper.setCollapsedTextGravity(Gravity.TOP | GravityCompat.START);
-
-        mHintExpanded = mCollapsingTextHelper.getExpansionFraction() == 1f;
 
         final TintTypedArray a = TintTypedArray.obtainStyledAttributes(context, attrs,
                 R.styleable.TextInputLayout, defStyleAttr, R.style.Widget_Design_TextInputLayout);
@@ -219,7 +235,7 @@ public class TextInputLayout extends LinearLayout {
                 R.styleable.TextInputLayout_counterOverflowTextAppearance, 0);
 
         mPasswordToggleEnabled = a.getBoolean(
-                R.styleable.TextInputLayout_passwordToggleEnabled, true);
+                R.styleable.TextInputLayout_passwordToggleEnabled, false);
         mPasswordToggleDrawable = a.getDrawable(R.styleable.TextInputLayout_passwordToggleDrawable);
         mPasswordToggleContentDesc = a.getText(
                 R.styleable.TextInputLayout_passwordToggleContentDescription);
@@ -253,7 +269,11 @@ public class TextInputLayout extends LinearLayout {
     @Override
     public void addView(View child, int index, final ViewGroup.LayoutParams params) {
         if (child instanceof EditText) {
-            mInputFrame.addView(child, new FrameLayout.LayoutParams(params));
+            // Make sure that the EditText is vertically at the bottom, so that it sits on the
+            // EditText's underline
+            FrameLayout.LayoutParams flp = new FrameLayout.LayoutParams(params);
+            flp.gravity = Gravity.CENTER_VERTICAL | (flp.gravity & ~Gravity.VERTICAL_GRAVITY_MASK);
+            mInputFrame.addView(child, flp);
 
             // Now use the EditText's LayoutParams as our own and update them to make enough space
             // for the label
@@ -268,21 +288,49 @@ public class TextInputLayout extends LinearLayout {
     }
 
     /**
-     * Set the typeface to use for both the expanded and floating hint.
+     * Set the typeface to use for the hint and any label views (such as counter and error views).
      *
      * @param typeface typeface to use, or {@code null} to use the default.
      */
     public void setTypeface(@Nullable Typeface typeface) {
-        mCollapsingTextHelper.setTypefaces(typeface);
+        if ((mTypeface != null && !mTypeface.equals(typeface))
+                || (mTypeface == null && typeface != null)) {
+            mTypeface = typeface;
+
+            mCollapsingTextHelper.setTypefaces(typeface);
+            if (mCounterView != null) {
+                mCounterView.setTypeface(typeface);
+            }
+            if (mErrorView != null) {
+                mErrorView.setTypeface(typeface);
+            }
+        }
     }
 
     /**
-     * Returns the typeface used for both the expanded and floating hint.
+     * Returns the typeface used for the hint and any label views (such as counter and error views).
      */
     @NonNull
     public Typeface getTypeface() {
-        // This could be either the collapsed or expanded
-        return mCollapsingTextHelper.getCollapsedTypeface();
+        return mTypeface;
+    }
+
+    @Override
+    public void dispatchProvideAutofillStructure(ViewStructure structure, int flags) {
+        if (mOriginalHint == null || mEditText == null) {
+            super.dispatchProvideAutofillStructure(structure, flags);
+            return;
+        }
+
+        // Temporarily sets child's hint to its original value so it is properly set in the
+        // child's ViewStructure.
+        final CharSequence hint = mEditText.getHint();
+        mEditText.setHint(mOriginalHint);
+        try {
+            super.dispatchProvideAutofillStructure(structure, flags);
+        } finally {
+            mEditText.setHint(hint);
+        }
     }
 
     private void setEditText(EditText editText) {
@@ -309,14 +357,14 @@ public class TextInputLayout extends LinearLayout {
 
         final int editTextGravity = mEditText.getGravity();
         mCollapsingTextHelper.setCollapsedTextGravity(
-                Gravity.TOP | (editTextGravity & GravityCompat.RELATIVE_HORIZONTAL_GRAVITY_MASK));
+                Gravity.TOP | (editTextGravity & ~Gravity.VERTICAL_GRAVITY_MASK));
         mCollapsingTextHelper.setExpandedTextGravity(editTextGravity);
 
         // Add a TextWatcher so that we know when the text input has changed
         mEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                updateLabelState(true);
+                updateLabelState(!mRestoringSavedState);
                 if (mCounterEnabled) {
                     updateCounter(s.length());
                 }
@@ -336,7 +384,9 @@ public class TextInputLayout extends LinearLayout {
 
         // If we do not have a valid hint, try and retrieve it from the EditText, if enabled
         if (mHintEnabled && TextUtils.isEmpty(mHint)) {
-            setHint(mEditText.getHint());
+            // Save the hint so it can be restored on dispatchProvideAutofillStructure();
+            mOriginalHint = mEditText.getHint();
+            setHint(mOriginalHint);
             // Clear the EditText's hint as we will display it ourselves
             mEditText.setHint(null);
         }
@@ -351,8 +401,8 @@ public class TextInputLayout extends LinearLayout {
 
         updatePasswordToggleView();
 
-        // Update the label visibility with no animation
-        updateLabelState(false);
+        // Update the label visibility with no animation, but force a state change
+        updateLabelState(false, true);
     }
 
     private void updateInputLayoutMargins() {
@@ -379,6 +429,10 @@ public class TextInputLayout extends LinearLayout {
     }
 
     void updateLabelState(boolean animate) {
+        updateLabelState(animate, false);
+    }
+
+    void updateLabelState(final boolean animate, final boolean force) {
         final boolean isEnabled = isEnabled();
         final boolean hasText = mEditText != null && !TextUtils.isEmpty(mEditText.getText());
         final boolean isFocused = arrayContains(getDrawableState(), android.R.attr.state_focused);
@@ -398,10 +452,14 @@ public class TextInputLayout extends LinearLayout {
 
         if (hasText || (isEnabled() && (isFocused || isErrorShowing))) {
             // We should be showing the label so do so if it isn't already
-            collapseHint(animate);
+            if (force || mHintExpanded) {
+                collapseHint(animate);
+            }
         } else {
             // We should not be showing the label so hide it
-            expandHint(animate);
+            if (force || !mHintExpanded) {
+                expandHint(animate);
+            }
         }
     }
 
@@ -560,11 +618,15 @@ public class TextInputLayout extends LinearLayout {
     public void setErrorEnabled(boolean enabled) {
         if (mErrorEnabled != enabled) {
             if (mErrorView != null) {
-                ViewCompat.animate(mErrorView).cancel();
+                mErrorView.animate().cancel();
             }
 
             if (enabled) {
-                mErrorView = new TextView(getContext());
+                mErrorView = new AppCompatTextView(getContext());
+                mErrorView.setId(R.id.textinput_error);
+                if (mTypeface != null) {
+                    mErrorView.setTypeface(mTypeface);
+                }
                 boolean useDefaultColor = false;
                 try {
                     TextViewCompat.setTextAppearance(mErrorView, mErrorTextAppearance);
@@ -586,8 +648,8 @@ public class TextInputLayout extends LinearLayout {
                     // we manually set something appropriate
                     TextViewCompat.setTextAppearance(mErrorView,
                             android.support.v7.appcompat.R.style.TextAppearance_AppCompat_Caption);
-                    mErrorView.setTextColor(ContextCompat.getColor(
-                            getContext(), R.color.design_textinput_error_color_light));
+                    mErrorView.setTextColor(ContextCompat.getColor(getContext(),
+                            android.support.v7.appcompat.R.color.error_color_material));
                 }
                 mErrorView.setVisibility(INVISIBLE);
                 ViewCompat.setAccessibilityLiveRegion(mErrorView,
@@ -600,6 +662,19 @@ public class TextInputLayout extends LinearLayout {
                 mErrorView = null;
             }
             mErrorEnabled = enabled;
+        }
+    }
+
+    /**
+     * Sets the text color and size for the error message from the specified
+     * TextAppearance resource.
+     *
+     * @attr ref android.support.design.R.styleable#TextInputLayout_errorTextAppearance
+     */
+    public void setErrorTextAppearance(@StyleRes int resId) {
+        mErrorTextAppearance = resId;
+        if (mErrorView != null) {
+            TextViewCompat.setTextAppearance(mErrorView, resId);
         }
     }
 
@@ -646,43 +721,43 @@ public class TextInputLayout extends LinearLayout {
         mErrorShown = !TextUtils.isEmpty(error);
 
         // Cancel any on-going animation
-        ViewCompat.animate(mErrorView).cancel();
+        mErrorView.animate().cancel();
 
         if (mErrorShown) {
             mErrorView.setText(error);
             mErrorView.setVisibility(VISIBLE);
 
             if (animate) {
-                if (ViewCompat.getAlpha(mErrorView) == 1f) {
+                if (mErrorView.getAlpha() == 1f) {
                     // If it's currently 100% show, we'll animate it from 0
-                    ViewCompat.setAlpha(mErrorView, 0f);
+                    mErrorView.setAlpha(0f);
                 }
-                ViewCompat.animate(mErrorView)
+                mErrorView.animate()
                         .alpha(1f)
                         .setDuration(ANIMATION_DURATION)
                         .setInterpolator(AnimationUtils.LINEAR_OUT_SLOW_IN_INTERPOLATOR)
-                        .setListener(new ViewPropertyAnimatorListenerAdapter() {
+                        .setListener(new AnimatorListenerAdapter() {
                             @Override
-                            public void onAnimationStart(View view) {
-                                view.setVisibility(VISIBLE);
+                            public void onAnimationStart(Animator animator) {
+                                mErrorView.setVisibility(VISIBLE);
                             }
                         }).start();
             } else {
                 // Set alpha to 1f, just in case
-                ViewCompat.setAlpha(mErrorView, 1f);
+                mErrorView.setAlpha(1f);
             }
         } else {
             if (mErrorView.getVisibility() == VISIBLE) {
                 if (animate) {
-                    ViewCompat.animate(mErrorView)
+                    mErrorView.animate()
                             .alpha(0f)
                             .setDuration(ANIMATION_DURATION)
                             .setInterpolator(AnimationUtils.FAST_OUT_LINEAR_IN_INTERPOLATOR)
-                            .setListener(new ViewPropertyAnimatorListenerAdapter() {
+                            .setListener(new AnimatorListenerAdapter() {
                                 @Override
-                                public void onAnimationEnd(View view) {
+                                public void onAnimationEnd(Animator animator) {
                                     mErrorView.setText(error);
-                                    view.setVisibility(INVISIBLE);
+                                    mErrorView.setVisibility(INVISIBLE);
                                 }
                             }).start();
                 } else {
@@ -704,7 +779,11 @@ public class TextInputLayout extends LinearLayout {
     public void setCounterEnabled(boolean enabled) {
         if (mCounterEnabled != enabled) {
             if (enabled) {
-                mCounterView = new TextView(getContext());
+                mCounterView = new AppCompatTextView(getContext());
+                mCounterView.setId(R.id.textinput_counter);
+                if (mTypeface != null) {
+                    mCounterView.setTypeface(mTypeface);
+                }
                 mCounterView.setMaxLines(1);
                 try {
                     TextViewCompat.setTextAppearance(mCounterView, mCounterTextAppearance);
@@ -713,8 +792,8 @@ public class TextInputLayout extends LinearLayout {
                     // we manually set something appropriate
                     TextViewCompat.setTextAppearance(mCounterView,
                             android.support.v7.appcompat.R.style.TextAppearance_AppCompat_Caption);
-                    mCounterView.setTextColor(ContextCompat.getColor(
-                            getContext(), R.color.design_textinput_error_color_light));
+                    mCounterView.setTextColor(ContextCompat.getColor(getContext(),
+                            android.support.v7.appcompat.R.color.error_color_material));
                 }
                 addIndicator(mCounterView, -1);
                 if (mEditText == null) {
@@ -797,8 +876,8 @@ public class TextInputLayout extends LinearLayout {
         } else {
             mCounterOverflowed = length > mCounterMaxLength;
             if (wasCounterOverflowed != mCounterOverflowed) {
-                TextViewCompat.setTextAppearance(mCounterView, mCounterOverflowed ?
-                        mCounterOverflowTextAppearance : mCounterTextAppearance);
+                TextViewCompat.setTextAppearance(mCounterView, mCounterOverflowed
+                        ? mCounterOverflowTextAppearance : mCounterTextAppearance);
             }
             mCounterView.setText(getContext().getString(R.string.character_counter_pattern,
                     length, mCounterMaxLength));
@@ -882,14 +961,16 @@ public class TextInputLayout extends LinearLayout {
 
     static class SavedState extends AbsSavedState {
         CharSequence error;
+        boolean isPasswordToggledVisible;
 
         SavedState(Parcelable superState) {
             super(superState);
         }
 
-        public SavedState(Parcel source, ClassLoader loader) {
+        SavedState(Parcel source, ClassLoader loader) {
             super(source, loader);
             error = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(source);
+            isPasswordToggledVisible = (source.readInt() == 1);
 
         }
 
@@ -897,6 +978,7 @@ public class TextInputLayout extends LinearLayout {
         public void writeToParcel(Parcel dest, int flags) {
             super.writeToParcel(dest, flags);
             TextUtils.writeToParcel(error, dest, flags);
+            dest.writeInt(isPasswordToggledVisible ? 1 : 0);
         }
 
         @Override
@@ -906,18 +988,22 @@ public class TextInputLayout extends LinearLayout {
                     + " error=" + error + "}";
         }
 
-        public static final Creator<SavedState> CREATOR = ParcelableCompat.newCreator(
-                new ParcelableCompatCreatorCallbacks<SavedState>() {
-                    @Override
-                    public SavedState createFromParcel(Parcel in, ClassLoader loader) {
-                        return new SavedState(in, loader);
-                    }
+        public static final Creator<SavedState> CREATOR = new ClassLoaderCreator<SavedState>() {
+            @Override
+            public SavedState createFromParcel(Parcel in, ClassLoader loader) {
+                return new SavedState(in, loader);
+            }
 
-                    @Override
-                    public SavedState[] newArray(int size) {
-                        return new SavedState[size];
-                    }
-                });
+            @Override
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in, null);
+            }
+
+            @Override
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
     }
 
     @Override
@@ -927,6 +1013,7 @@ public class TextInputLayout extends LinearLayout {
         if (mErrorShown) {
             ss.error = getError();
         }
+        ss.isPasswordToggledVisible = mPasswordToggledVisible;
         return ss;
     }
 
@@ -939,7 +1026,17 @@ public class TextInputLayout extends LinearLayout {
         SavedState ss = (SavedState) state;
         super.onRestoreInstanceState(ss.getSuperState());
         setError(ss.error);
+        if (ss.isPasswordToggledVisible) {
+            passwordVisibilityToggleRequested(true);
+        }
         requestLayout();
+    }
+
+    @Override
+    protected void dispatchRestoreInstanceState(SparseArray<Parcelable> container) {
+        mRestoringSavedState = true;
+        super.dispatchRestoreInstanceState(container);
+        mRestoringSavedState = false;
     }
 
     /**
@@ -1010,12 +1107,20 @@ public class TextInputLayout extends LinearLayout {
                 mPasswordToggleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        passwordVisibilityToggleRequested();
+                        passwordVisibilityToggleRequested(false);
                     }
                 });
             }
 
+            if (mEditText != null && ViewCompat.getMinimumHeight(mEditText) <= 0) {
+                // We should make sure that the EditText has the same min-height as the password
+                // toggle view. This ensure focus works properly, and there is no visual jump
+                // if the password toggle is enabled/disabled.
+                mEditText.setMinimumHeight(ViewCompat.getMinimumHeight(mPasswordToggleView));
+            }
+
             mPasswordToggleView.setVisibility(VISIBLE);
+            mPasswordToggleView.setChecked(mPasswordToggledVisible);
 
             // We need to add a dummy drawable as the end compound drawable so that the text is
             // indented and doesn't display below the toggle view
@@ -1041,11 +1146,15 @@ public class TextInputLayout extends LinearLayout {
                 mPasswordToggleView.setVisibility(View.GONE);
             }
 
-            // Make sure that we remove the dummy end compound drawable
-            final Drawable[] compounds = TextViewCompat.getCompoundDrawablesRelative(mEditText);
-            if (compounds[2] == mPasswordToggleDummyDrawable) {
-                TextViewCompat.setCompoundDrawablesRelative(mEditText, compounds[0], compounds[1],
-                        mOriginalEditTextEndDrawable, compounds[3]);
+            if (mPasswordToggleDummyDrawable != null) {
+                // Make sure that we remove the dummy end compound drawable if it exists, and then
+                // clear it
+                final Drawable[] compounds = TextViewCompat.getCompoundDrawablesRelative(mEditText);
+                if (compounds[2] == mPasswordToggleDummyDrawable) {
+                    TextViewCompat.setCompoundDrawablesRelative(mEditText, compounds[0],
+                            compounds[1], mOriginalEditTextEndDrawable, compounds[3]);
+                    mPasswordToggleDummyDrawable = null;
+                }
             }
         }
     }
@@ -1211,24 +1320,27 @@ public class TextInputLayout extends LinearLayout {
         applyPasswordToggleTint();
     }
 
-   void passwordVisibilityToggleRequested() {
-       if (mPasswordToggleEnabled) {
-           // Store the current cursor position
-           final int selection = mEditText.getSelectionEnd();
+    private void passwordVisibilityToggleRequested(boolean shouldSkipAnimations) {
+        if (mPasswordToggleEnabled) {
+            // Store the current cursor position
+            final int selection = mEditText.getSelectionEnd();
 
-           if (hasPasswordTransformation()) {
-               mEditText.setTransformationMethod(null);
-               mPasswordToggledVisible = true;
-           } else {
-               mEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-               mPasswordToggledVisible = false;
-           }
+            if (hasPasswordTransformation()) {
+                mEditText.setTransformationMethod(null);
+                mPasswordToggledVisible = true;
+            } else {
+                mEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                mPasswordToggledVisible = false;
+            }
 
-           mPasswordToggleView.setChecked(mPasswordToggledVisible);
+            mPasswordToggleView.setChecked(mPasswordToggledVisible);
+            if (shouldSkipAnimations) {
+                mPasswordToggleView.jumpDrawablesToCurrentState();
+            }
 
-           // And restore the cursor position
-           mEditText.setSelection(selection);
-       }
+            // And restore the cursor position
+            mEditText.setSelection(selection);
+        }
     }
 
     private boolean hasPasswordTransformation() {
@@ -1339,18 +1451,19 @@ public class TextInputLayout extends LinearLayout {
         mHintExpanded = true;
     }
 
-    private void animateToExpansionFraction(final float target) {
+    @VisibleForTesting
+    void animateToExpansionFraction(final float target) {
         if (mCollapsingTextHelper.getExpansionFraction() == target) {
             return;
         }
         if (mAnimator == null) {
-            mAnimator = ViewUtils.createAnimator();
+            mAnimator = new ValueAnimator();
             mAnimator.setInterpolator(AnimationUtils.LINEAR_INTERPOLATOR);
             mAnimator.setDuration(ANIMATION_DURATION);
-            mAnimator.addUpdateListener(new ValueAnimatorCompat.AnimatorUpdateListener() {
+            mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
-                public void onAnimationUpdate(ValueAnimatorCompat animator) {
-                    mCollapsingTextHelper.setExpansionFraction(animator.getAnimatedFloatValue());
+                public void onAnimationUpdate(ValueAnimator animator) {
+                    mCollapsingTextHelper.setExpansionFraction((float) animator.getAnimatedValue());
                 }
             });
         }

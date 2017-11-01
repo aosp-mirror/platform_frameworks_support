@@ -17,7 +17,6 @@ package android.support.v17.leanback.app;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v17.leanback.test.R;
@@ -29,32 +28,27 @@ public class BrowseFragmentTestActivity extends Activity {
     public static final String EXTRA_REPEAT_PER_ROW = "repeatPerRow";
     public static final String EXTRA_LOAD_DATA_DELAY = "loadDataDelay";
     public static final String EXTRA_TEST_ENTRANCE_TRANSITION = "testEntranceTransition";
-    public final static String EXTRA_SET_ADAPTER_AFTER_DATA_LOAD = "set_adapter_after_data_load";
+    public static final String EXTRA_SET_ADAPTER_AFTER_DATA_LOAD = "set_adapter_after_data_load";
+    public static final String EXTRA_HEADERS_STATE = "headers_state";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
 
-        BrowseTestFragment.NUM_ROWS = intent.getIntExtra(EXTRA_NUM_ROWS,
-                BrowseTestFragment.DEFAULT_NUM_ROWS);
-        BrowseTestFragment.REPEAT_PER_ROW = intent.getIntExtra(EXTRA_REPEAT_PER_ROW,
-                BrowseTestFragment.DEFAULT_REPEAT_PER_ROW);
-        BrowseTestFragment.LOAD_DATA_DELAY = intent.getLongExtra(EXTRA_LOAD_DATA_DELAY,
-                BrowseTestFragment.DEFAULT_LOAD_DATA_DELAY);
-        BrowseTestFragment.TEST_ENTRANCE_TRANSITION = intent.getBooleanExtra(
-                EXTRA_TEST_ENTRANCE_TRANSITION,
-                BrowseTestFragment.DEFAULT_TEST_ENTRANCE_TRANSITION);
-        BrowseTestFragment.SET_ADAPTER_AFTER_DATA_LOAD = intent.getBooleanExtra(
-                EXTRA_SET_ADAPTER_AFTER_DATA_LOAD,
-                BrowseTestFragment.DEFAULT_SET_ADAPTER_AFTER_DATA_LOAD);
         setContentView(R.layout.browse);
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.main_frame, new BrowseTestFragment());
-        if (intent.getBooleanExtra(EXTRA_ADD_TO_BACKSTACK, false)) {
-            ft.addToBackStack(null);
+        if (savedInstanceState == null) {
+            Bundle arguments = new Bundle();
+            arguments.putAll(intent.getExtras());
+            BrowseTestFragment fragment = new BrowseTestFragment();
+            fragment.setArguments(arguments);
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.main_frame, fragment);
+            if (intent.getBooleanExtra(EXTRA_ADD_TO_BACKSTACK, false)) {
+                ft.addToBackStack(null);
+            }
+            ft.commit();
         }
-        ft.commit();
     }
 
     public BrowseTestFragment getBrowseTestFragment() {

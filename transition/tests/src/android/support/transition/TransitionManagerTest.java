@@ -20,18 +20,19 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.sameInstance;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.verify;
 
-import android.support.test.InstrumentationRegistry;
 import android.support.test.annotation.UiThreadTest;
+import android.support.test.filters.MediumTest;
 import android.support.transition.test.R;
-import android.test.suitebuilder.annotation.MediumTest;
 import android.view.ViewGroup;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 @MediumTest
 public class TransitionManagerTest extends BaseTest {
@@ -42,8 +43,8 @@ public class TransitionManagerTest extends BaseTest {
     public void prepareScenes() {
         TransitionActivity activity = rule.getActivity();
         ViewGroup root = activity.getRoot();
-        mScenes[0] = Scene.getSceneForLayout(root, R.layout.scene0, activity);
-        mScenes[1] = Scene.getSceneForLayout(root, R.layout.scene1, activity);
+        mScenes[0] = Scene.getSceneForLayout(root, R.layout.support_scene0, activity);
+        mScenes[1] = Scene.getSceneForLayout(root, R.layout.support_scene1, activity);
     }
 
     @Test
@@ -63,12 +64,12 @@ public class TransitionManagerTest extends BaseTest {
     }
 
     @Test
-    public void testGo_exitAction() {
+    public void testGo_exitAction() throws Throwable {
         final CheckCalledRunnable enter = new CheckCalledRunnable();
         final CheckCalledRunnable exit = new CheckCalledRunnable();
         mScenes[0].setEnterAction(enter);
         mScenes[0].setExitAction(exit);
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+        rule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 assertThat(enter.wasCalled(), is(false));
@@ -79,7 +80,7 @@ public class TransitionManagerTest extends BaseTest {
             }
         });
         // Let the main thread catch up with the scene change
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+        rule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 TransitionManager.go(mScenes[1]);
@@ -89,10 +90,10 @@ public class TransitionManagerTest extends BaseTest {
     }
 
     @Test
-    public void testGo_transitionListenerStart() {
-        final SyncTransitionListener listener
-                = new SyncTransitionListener(SyncTransitionListener.EVENT_START);
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+    public void testGo_transitionListenerStart() throws Throwable {
+        final SyncTransitionListener listener =
+                new SyncTransitionListener(SyncTransitionListener.EVENT_START);
+        rule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Transition transition = new AutoTransition();
@@ -106,10 +107,10 @@ public class TransitionManagerTest extends BaseTest {
     }
 
     @Test
-    public void testGo_transitionListenerEnd() {
-        final SyncTransitionListener listener
-                = new SyncTransitionListener(SyncTransitionListener.EVENT_END);
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+    public void testGo_transitionListenerEnd() throws Throwable {
+        final SyncTransitionListener listener =
+                new SyncTransitionListener(SyncTransitionListener.EVENT_END);
+        rule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Transition transition = new AutoTransition();
@@ -122,66 +123,61 @@ public class TransitionManagerTest extends BaseTest {
                 listener.await(), is(true));
     }
 
-    /**
-     * This {@link Transition.TransitionListener} synchronously waits for the specified callback.
-     */
-    private static class SyncTransitionListener implements Transition.TransitionListener {
-
-        static final int EVENT_START = 1;
-        static final int EVENT_END = 2;
-        static final int EVENT_CANCEL = 3;
-        static final int EVENT_PAUSE = 4;
-        static final int EVENT_RESUME = 5;
-
-        private final int mTargetEvent;
-        private final CountDownLatch mLatch = new CountDownLatch(1);
-
-        SyncTransitionListener(int event) {
-            mTargetEvent = event;
-        }
-
-        boolean await() {
-            try {
-                return mLatch.await(3000, TimeUnit.MILLISECONDS);
-            } catch (InterruptedException e) {
-                return false;
+    @Test
+    public void testGo_nullParameter() throws Throwable {
+        final ViewGroup root = rule.getActivity().getRoot();
+        rule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TransitionManager.go(mScenes[0], null);
+                assertThat(Scene.getCurrentScene(root), is(mScenes[0]));
+                TransitionManager.go(mScenes[1], null);
+                assertThat(Scene.getCurrentScene(root), is(mScenes[1]));
             }
-        }
+        });
+    }
 
-        @Override
-        public void onTransitionStart(Transition transition) {
-            if (mTargetEvent == EVENT_START) {
-                mLatch.countDown();
+    @Test
+    public void testEndTransitions() throws Throwable {
+        final ViewGroup root = rule.getActivity().getRoot();
+        final Transition transition = new AutoTransition();
+        // This transition is very long, but will be forced to end as soon as it starts
+        transition.setDuration(30000);
+        final Transition.TransitionListener listener = mock(Transition.TransitionListener.class);
+        transition.addListener(listener);
+        rule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TransitionManager.go(mScenes[0], transition);
             }
-        }
+        });
+        verify(listener, timeout(3000)).onTransitionStart(any(Transition.class));
+        rule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TransitionManager.endTransitions(root);
+            }
+        });
+        verify(listener, timeout(3000)).onTransitionEnd(any(Transition.class));
+    }
 
-        @Override
-        public void onTransitionEnd(Transition transition) {
-            if (mTargetEvent == EVENT_END) {
-                mLatch.countDown();
+    @Test
+    public void testEndTransitionsBeforeStarted() throws Throwable {
+        final ViewGroup root = rule.getActivity().getRoot();
+        final Transition transition = new AutoTransition();
+        transition.setDuration(0);
+        final Transition.TransitionListener listener = mock(Transition.TransitionListener.class);
+        transition.addListener(listener);
+        rule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TransitionManager.go(mScenes[0], transition);
+                // This terminates the transition before it starts
+                TransitionManager.endTransitions(root);
             }
-        }
-
-        @Override
-        public void onTransitionCancel(Transition transition) {
-            if (mTargetEvent == EVENT_CANCEL) {
-                mLatch.countDown();
-            }
-        }
-
-        @Override
-        public void onTransitionPause(Transition transition) {
-            if (mTargetEvent == EVENT_PAUSE) {
-                mLatch.countDown();
-            }
-        }
-
-        @Override
-        public void onTransitionResume(Transition transition) {
-            if (mTargetEvent == EVENT_RESUME) {
-                mLatch.countDown();
-            }
-        }
+        });
+        verify(listener, never()).onTransitionStart(any(Transition.class));
+        verify(listener, never()).onTransitionEnd(any(Transition.class));
     }
 
 }

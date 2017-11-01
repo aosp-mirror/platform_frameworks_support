@@ -14,6 +14,8 @@
 
 package android.support.v17.leanback.widget.picker;
 
+import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.RestrictTo;
@@ -27,10 +29,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
-
-import static android.support.annotation.RestrictTo.Scope.GROUP_ID;
 
 /**
  * {@link DatePicker} is a directly subclass of {@link Picker}.
@@ -44,7 +45,7 @@ import static android.support.annotation.RestrictTo.Scope.GROUP_ID;
  * @attr ref R.styleable#lbDatePicker_datePickerFormat
  * @hide
  */
-@RestrictTo(GROUP_ID)
+@RestrictTo(LIBRARY_GROUP)
 public class DatePicker extends Picker {
 
     static final String LOG_TAG = "DatePicker";
@@ -59,7 +60,7 @@ public class DatePicker extends Picker {
 
     final static String DATE_FORMAT = "MM/dd/yyyy";
     final DateFormat mDateFormat = new SimpleDateFormat(DATE_FORMAT);
-    PickerConstant mConstant;
+    PickerUtility.DateConstant mConstant;
 
     Calendar mMinDate;
     Calendar mMaxDate;
@@ -74,7 +75,6 @@ public class DatePicker extends Picker {
         super(context, attrs, defStyleAttr);
 
         updateCurrentLocale();
-        setSeparator(mConstant.dateSeparator);
 
         final TypedArray attributesArray = context.obtainStyledAttributes(attrs,
                 R.styleable.lbDatePicker);
@@ -120,6 +120,98 @@ public class DatePicker extends Picker {
     }
 
     /**
+     * Returns the best localized representation of the date for the given date format and the
+     * current locale.
+     *
+     * @param datePickerFormat The date format skeleton (e.g. "dMy") used to gather the
+     *                         appropriate representation of the date in the current locale.
+     *
+     * @return The best localized representation of the date for the given date format
+     */
+    String getBestYearMonthDayPattern(String datePickerFormat) {
+        final String yearPattern;
+        if (PickerUtility.SUPPORTS_BEST_DATE_TIME_PATTERN) {
+            yearPattern = android.text.format.DateFormat.getBestDateTimePattern(mConstant.locale,
+                    datePickerFormat);
+        } else {
+            final java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(
+                    getContext());
+            if (dateFormat instanceof SimpleDateFormat) {
+                yearPattern = ((SimpleDateFormat) dateFormat).toLocalizedPattern();
+            } else {
+                yearPattern = DATE_FORMAT;
+            }
+        }
+        return TextUtils.isEmpty(yearPattern) ? DATE_FORMAT : yearPattern;
+    }
+
+    /**
+     * Extracts the separators used to separate date fields (including before the first and after
+     * the last date field). The separators can vary based on the individual locale date format,
+     * defined in the Unicode CLDR and cannot be supposed to be "/".
+     *
+     * See http://unicode.org/cldr/trac/browser/trunk/common/main
+     *
+     * For example, for Croatian in dMy format, the best localized representation is "d. M. y". This
+     * method returns {"", ".", ".", "."}, where the first separator indicates nothing needs to be
+     * displayed to the left of the day field, "." needs to be displayed tos the right of the day
+     * field, and so forth.
+     *
+     * @return The ArrayList of separators to populate between the actual date fields in the
+     * DatePicker.
+     */
+    List<CharSequence> extractSeparators() {
+        // Obtain the time format string per the current locale (e.g. h:mm a)
+        String hmaPattern = getBestYearMonthDayPattern(mDatePickerFormat);
+
+        List<CharSequence> separators = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        char lastChar = '\0';
+        // See http://www.unicode.org/reports/tr35/tr35-dates.html for date formats
+        final char[] dateFormats = {'Y', 'y', 'M', 'm', 'D', 'd'};
+        boolean processingQuote = false;
+        for (int i = 0; i < hmaPattern.length(); i++) {
+            char c = hmaPattern.charAt(i);
+            if (c == ' ') {
+                continue;
+            }
+            if (c == '\'') {
+                if (!processingQuote) {
+                    sb.setLength(0);
+                    processingQuote = true;
+                } else {
+                    processingQuote = false;
+                }
+                continue;
+            }
+            if (processingQuote) {
+                sb.append(c);
+            } else {
+                if (isAnyOf(c, dateFormats)) {
+                    if (c != lastChar) {
+                        separators.add(sb.toString());
+                        sb.setLength(0);
+                    }
+                } else {
+                    sb.append(c);
+                }
+            }
+            lastChar = c;
+        }
+        separators.add(sb.toString());
+        return separators;
+    }
+
+    private static boolean isAnyOf(char c, char[] any) {
+        for (int i = 0; i < any.length; i++) {
+            if (c == any[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Changes format of showing dates.  For example "YMD".
      * @param datePickerFormat Format of showing dates.
      */
@@ -128,16 +220,22 @@ public class DatePicker extends Picker {
             datePickerFormat = new String(
                     android.text.format.DateFormat.getDateFormatOrder(getContext()));
         }
-        datePickerFormat = datePickerFormat.toUpperCase();
         if (TextUtils.equals(mDatePickerFormat, datePickerFormat)) {
             return;
         }
         mDatePickerFormat = datePickerFormat;
+        List<CharSequence> separators = extractSeparators();
+        if (separators.size() != (datePickerFormat.length() + 1)) {
+            throw new IllegalStateException("Separators size: " + separators.size() + " must equal"
+                    + " the size of datePickerFormat: " + datePickerFormat.length() + " + 1");
+        }
+        setSeparators(separators);
         mYearColumn = mMonthColumn = mDayColumn = null;
         mColYearIndex = mColDayIndex = mColMonthIndex = -1;
+        String dateFieldsPattern = datePickerFormat.toUpperCase();
         ArrayList<PickerColumn> columns = new ArrayList<PickerColumn>(3);
-        for (int i = 0; i < datePickerFormat.length(); i++) {
-            switch (datePickerFormat.charAt(i)) {
+        for (int i = 0; i < dateFieldsPattern.length(); i++) {
+            switch (dateFieldsPattern.charAt(i)) {
             case 'Y':
                 if (mYearColumn != null) {
                     throw new IllegalArgumentException("datePicker format error");
@@ -179,23 +277,13 @@ public class DatePicker extends Picker {
         return mDatePickerFormat;
     }
 
-    private Calendar getCalendarForLocale(Calendar oldCalendar, Locale locale) {
-        if (oldCalendar == null) {
-            return Calendar.getInstance(locale);
-        } else {
-            final long currentTimeMillis = oldCalendar.getTimeInMillis();
-            Calendar newCalendar = Calendar.getInstance(locale);
-            newCalendar.setTimeInMillis(currentTimeMillis);
-            return newCalendar;
-        }
-    }
-
     private void updateCurrentLocale() {
-        mConstant = new PickerConstant(Locale.getDefault(), getContext().getResources());
-        mTempDate = getCalendarForLocale(mTempDate, mConstant.locale);
-        mMinDate = getCalendarForLocale(mMinDate, mConstant.locale);
-        mMaxDate = getCalendarForLocale(mMaxDate, mConstant.locale);
-        mCurrentDate = getCalendarForLocale(mCurrentDate, mConstant.locale);
+        mConstant = PickerUtility.getDateConstantInstance(Locale.getDefault(),
+                getContext().getResources());
+        mTempDate = PickerUtility.getCalendarForLocale(mTempDate, mConstant.locale);
+        mMinDate = PickerUtility.getCalendarForLocale(mMinDate, mConstant.locale);
+        mMaxDate = PickerUtility.getCalendarForLocale(mMaxDate, mConstant.locale);
+        mCurrentDate = PickerUtility.getCalendarForLocale(mCurrentDate, mConstant.locale);
 
         if (mMonthColumn != null) {
             mMonthColumn.setStaticLabels(mConstant.months);

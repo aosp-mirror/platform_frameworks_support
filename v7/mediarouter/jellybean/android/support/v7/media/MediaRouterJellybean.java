@@ -18,7 +18,9 @@ package android.support.v7.media;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import java.lang.reflect.InvocationTargetException;
@@ -26,8 +28,14 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiresApi(16)
 final class MediaRouterJellybean {
     private static final String TAG = "MediaRouterJellybean";
+
+    // android.media.AudioSystem.DEVICE_OUT_BLUETOOTH_A2DP = 0x80;
+    // android.media.AudioSystem.DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES = 0x100;
+    // android.media.AudioSystem.DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER = 0x200;
+    public static final int DEVICE_OUT_BLUETOOTH = 0x80 | 0x100 | 0x200;
 
     public static final int ROUTE_TYPE_LIVE_AUDIO = 0x1;
     public static final int ROUTE_TYPE_LIVE_VIDEO = 0x2;
@@ -109,6 +117,19 @@ final class MediaRouterJellybean {
 
     public static Object createVolumeCallback(VolumeCallback callback) {
         return new VolumeCallbackProxy<VolumeCallback>(callback);
+    }
+
+    static boolean checkRoutedToBluetooth(Context context) {
+        try {
+            AudioManager audioManager = (AudioManager) context.getSystemService(
+                    Context.AUDIO_SERVICE);
+            Method method = audioManager.getClass().getDeclaredMethod(
+                    "getDevicesForStream", int.class);
+            int device = (Integer) method.invoke(audioManager, AudioManager.STREAM_MUSIC);
+            return (device & DEVICE_OUT_BLUETOOTH) != 0;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public static final class RouteInfo {

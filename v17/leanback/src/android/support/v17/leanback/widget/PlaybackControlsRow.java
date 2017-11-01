@@ -13,19 +13,18 @@
  */
 package android.support.v17.leanback.widget;
 
-import android.support.v17.leanback.R;
-import android.util.TypedValue;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v17.leanback.R;
+import android.support.v17.leanback.util.MathUtil;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 
 /**
@@ -44,6 +43,35 @@ import android.view.KeyEvent;
  * </p>
  */
 public class PlaybackControlsRow extends Row {
+
+    /**
+     * Listener for progress or duration change.
+     */
+    public static class OnPlaybackProgressCallback {
+        /**
+         * Called when {@link PlaybackControlsRow#getCurrentPosition()} changed.
+         * @param row The PlaybackControlsRow that current time changed.
+         * @param currentTimeMs Current time in milliseconds.
+         */
+        public void onCurrentPositionChanged(PlaybackControlsRow row, long currentTimeMs) {
+        }
+
+        /**
+         * Called when {@link PlaybackControlsRow#getDuration()} changed.
+         * @param row The PlaybackControlsRow that total time changed.
+         * @param totalTime Total time in milliseconds.
+         */
+        public void onDurationChanged(PlaybackControlsRow row, long totalTime) {
+        }
+
+        /**
+         * Called when {@link PlaybackControlsRow#getBufferedPosition()} changed.
+         * @param row The PlaybackControlsRow that buffered progress changed.
+         * @param bufferedProgressMs Buffered time in milliseconds.
+         */
+        public void onBufferedPositionChanged(PlaybackControlsRow row, long bufferedProgressMs) {
+        }
+    }
 
     /**
      * Base class for an action comprised of a series of icons.
@@ -161,13 +189,27 @@ public class PlaybackControlsRow extends Row {
     public static class PlayPauseAction extends MultiAction {
         /**
          * Action index for the play icon.
+         * @deprecated Use {@link #INDEX_PLAY}
          */
+        @Deprecated
         public static int PLAY = 0;
 
         /**
          * Action index for the pause icon.
+         * @deprecated Use {@link #INDEX_PAUSE}
          */
+        @Deprecated
         public static int PAUSE = 1;
+
+        /**
+         * Action index for the play icon.
+         */
+        public static final int INDEX_PLAY = 0;
+
+        /**
+         * Action index for the pause icon.
+         */
+        public static final int INDEX_PAUSE = 1;
 
         /**
          * Constructor
@@ -176,15 +218,15 @@ public class PlaybackControlsRow extends Row {
         public PlayPauseAction(Context context) {
             super(R.id.lb_control_play_pause);
             Drawable[] drawables = new Drawable[2];
-            drawables[PLAY] = getStyledDrawable(context,
+            drawables[INDEX_PLAY] = getStyledDrawable(context,
                     R.styleable.lbPlaybackControlsActionIcons_play);
-            drawables[PAUSE] = getStyledDrawable(context,
+            drawables[INDEX_PAUSE] = getStyledDrawable(context,
                     R.styleable.lbPlaybackControlsActionIcons_pause);
             setDrawables(drawables);
 
             String[] labels = new String[drawables.length];
-            labels[PLAY] = context.getString(R.string.lb_playback_controls_play);
-            labels[PAUSE] = context.getString(R.string.lb_playback_controls_pause);
+            labels[INDEX_PLAY] = context.getString(R.string.lb_playback_controls_play);
+            labels[INDEX_PAUSE] = context.getString(R.string.lb_playback_controls_pause);
             setLabels(labels);
             addKeyCode(KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE);
             addKeyCode(KeyEvent.KEYCODE_MEDIA_PLAY);
@@ -358,13 +400,27 @@ public class PlaybackControlsRow extends Row {
     public static abstract class ThumbsAction extends MultiAction {
         /**
          * Action index for the solid thumb icon.
+         * @deprecated Use {@link #INDEX_SOLID}
          */
+        @Deprecated
         public static int SOLID = 0;
 
         /**
          * Action index for the outline thumb icon.
+         * @deprecated Use {@link #INDEX_OUTLINE}
          */
+        @Deprecated
         public static int OUTLINE = 1;
+
+        /**
+         * Action index for the solid thumb icon.
+         */
+        public static final int INDEX_SOLID = 0;
+
+        /**
+         * Action index for the outline thumb icon.
+         */
+        public static final int INDEX_OUTLINE = 1;
 
         /**
          * Constructor
@@ -373,8 +429,8 @@ public class PlaybackControlsRow extends Row {
         public ThumbsAction(int id, Context context, int solidIconIndex, int outlineIconIndex) {
             super(id);
             Drawable[] drawables = new Drawable[2];
-            drawables[SOLID] = getStyledDrawable(context, solidIconIndex);
-            drawables[OUTLINE] = getStyledDrawable(context, outlineIconIndex);
+            drawables[INDEX_SOLID] = getStyledDrawable(context, solidIconIndex);
+            drawables[INDEX_OUTLINE] = getStyledDrawable(context, outlineIconIndex);
             setDrawables(drawables);
         }
     }
@@ -388,8 +444,9 @@ public class PlaybackControlsRow extends Row {
                     R.styleable.lbPlaybackControlsActionIcons_thumb_up,
                     R.styleable.lbPlaybackControlsActionIcons_thumb_up_outline);
             String[] labels = new String[getActionCount()];
-            labels[SOLID] = context.getString(R.string.lb_playback_controls_thumb_up);
-            labels[OUTLINE] = context.getString(R.string.lb_playback_controls_thumb_up_outline);
+            labels[INDEX_SOLID] = context.getString(R.string.lb_playback_controls_thumb_up);
+            labels[INDEX_OUTLINE] = context.getString(
+                    R.string.lb_playback_controls_thumb_up_outline);
             setLabels(labels);
         }
     }
@@ -403,8 +460,9 @@ public class PlaybackControlsRow extends Row {
                     R.styleable.lbPlaybackControlsActionIcons_thumb_down,
                     R.styleable.lbPlaybackControlsActionIcons_thumb_down_outline);
             String[] labels = new String[getActionCount()];
-            labels[SOLID] = context.getString(R.string.lb_playback_controls_thumb_down);
-            labels[OUTLINE] = context.getString(R.string.lb_playback_controls_thumb_down_outline);
+            labels[INDEX_SOLID] = context.getString(R.string.lb_playback_controls_thumb_down);
+            labels[INDEX_OUTLINE] = context.getString(
+                    R.string.lb_playback_controls_thumb_down_outline);
             setLabels(labels);
         }
     }
@@ -415,18 +473,39 @@ public class PlaybackControlsRow extends Row {
     public static class RepeatAction extends MultiAction {
         /**
          * Action index for the repeat-none icon.
+         * @deprecated Use {@link #INDEX_NONE}
          */
+        @Deprecated
         public static int NONE = 0;
 
         /**
          * Action index for the repeat-all icon.
+         * @deprecated Use {@link #INDEX_ALL}
          */
+        @Deprecated
         public static int ALL = 1;
 
         /**
          * Action index for the repeat-one icon.
+         * @deprecated Use {@link #INDEX_ONE}
          */
+        @Deprecated
         public static int ONE = 2;
+
+        /**
+         * Action index for the repeat-none icon.
+         */
+        public static final int INDEX_NONE = 0;
+
+        /**
+         * Action index for the repeat-all icon.
+         */
+        public static final int INDEX_ALL = 1;
+
+        /**
+         * Action index for the repeat-one icon.
+         */
+        public static final int INDEX_ONE = 2;
 
         /**
          * Constructor
@@ -458,20 +537,20 @@ public class PlaybackControlsRow extends Row {
                     R.styleable.lbPlaybackControlsActionIcons_repeat);
             BitmapDrawable repeatOneDrawable = (BitmapDrawable) getStyledDrawable(context,
                     R.styleable.lbPlaybackControlsActionIcons_repeat_one);
-            drawables[NONE] = repeatDrawable;
-            drawables[ALL] = repeatDrawable == null ? null
+            drawables[INDEX_NONE] = repeatDrawable;
+            drawables[INDEX_ALL] = repeatDrawable == null ? null
                     : new BitmapDrawable(context.getResources(),
                             createBitmap(repeatDrawable.getBitmap(), repeatAllColor));
-            drawables[ONE] = repeatOneDrawable == null ? null
+            drawables[INDEX_ONE] = repeatOneDrawable == null ? null
                     : new BitmapDrawable(context.getResources(),
                             createBitmap(repeatOneDrawable.getBitmap(), repeatOneColor));
             setDrawables(drawables);
 
             String[] labels = new String[drawables.length];
             // Note, labels denote the action taken when clicked
-            labels[NONE] = context.getString(R.string.lb_playback_controls_repeat_all);
-            labels[ALL] = context.getString(R.string.lb_playback_controls_repeat_one);
-            labels[ONE] = context.getString(R.string.lb_playback_controls_repeat_none);
+            labels[INDEX_NONE] = context.getString(R.string.lb_playback_controls_repeat_all);
+            labels[INDEX_ALL] = context.getString(R.string.lb_playback_controls_repeat_one);
+            labels[INDEX_ONE] = context.getString(R.string.lb_playback_controls_repeat_none);
             setLabels(labels);
         }
     }
@@ -480,8 +559,29 @@ public class PlaybackControlsRow extends Row {
      * An action for displaying a shuffle icon.
      */
     public static class ShuffleAction extends MultiAction {
+        /**
+         * Action index for shuffle is off.
+         * @deprecated Use {@link #INDEX_OFF}
+         */
+        @Deprecated
         public static int OFF = 0;
+
+        /**
+         * Action index for shuffle is on.
+         * @deprecated Use {@link #INDEX_ON}
+         */
+        @Deprecated
         public static int ON = 1;
+
+        /**
+         * Action index for shuffle is off
+         */
+        public static final int INDEX_OFF = 0;
+
+        /**
+         * Action index for shuffle is on.
+         */
+        public static final int INDEX_ON = 1;
 
         /**
          * Constructor
@@ -501,14 +601,14 @@ public class PlaybackControlsRow extends Row {
             BitmapDrawable uncoloredDrawable = (BitmapDrawable) getStyledDrawable(context,
                     R.styleable.lbPlaybackControlsActionIcons_shuffle);
             Drawable[] drawables = new Drawable[2];
-            drawables[OFF] = uncoloredDrawable;
-            drawables[ON] = new BitmapDrawable(context.getResources(),
+            drawables[INDEX_OFF] = uncoloredDrawable;
+            drawables[INDEX_ON] = new BitmapDrawable(context.getResources(),
                     createBitmap(uncoloredDrawable.getBitmap(), highlightColor));
             setDrawables(drawables);
 
             String[] labels = new String[drawables.length];
-            labels[OFF] = context.getString(R.string.lb_playback_controls_shuffle_enable);
-            labels[ON] = context.getString(R.string.lb_playback_controls_shuffle_disable);
+            labels[INDEX_OFF] = context.getString(R.string.lb_playback_controls_shuffle_enable);
+            labels[INDEX_ON] = context.getString(R.string.lb_playback_controls_shuffle_disable);
             setLabels(labels);
         }
     }
@@ -517,8 +617,29 @@ public class PlaybackControlsRow extends Row {
      * An action for displaying a HQ (High Quality) icon.
      */
     public static class HighQualityAction extends MultiAction {
+        /**
+         * Action index for high quality is off.
+         * @deprecated Use {@link #INDEX_OFF}
+         */
+        @Deprecated
         public static int OFF = 0;
+
+        /**
+         * Action index for high quality is on.
+         * @deprecated Use {@link #INDEX_ON}
+         */
+        @Deprecated
         public static int ON = 1;
+
+        /**
+         * Action index for high quality is off.
+         */
+        public static final int INDEX_OFF = 0;
+
+        /**
+         * Action index for high quality is on.
+         */
+        public static final int INDEX_ON = 1;
 
         /**
          * Constructor
@@ -538,14 +659,16 @@ public class PlaybackControlsRow extends Row {
             BitmapDrawable uncoloredDrawable = (BitmapDrawable) getStyledDrawable(context,
                     R.styleable.lbPlaybackControlsActionIcons_high_quality);
             Drawable[] drawables = new Drawable[2];
-            drawables[OFF] = uncoloredDrawable;
-            drawables[ON] = new BitmapDrawable(context.getResources(),
+            drawables[INDEX_OFF] = uncoloredDrawable;
+            drawables[INDEX_ON] = new BitmapDrawable(context.getResources(),
                     createBitmap(uncoloredDrawable.getBitmap(), highlightColor));
             setDrawables(drawables);
 
             String[] labels = new String[drawables.length];
-            labels[OFF] = context.getString(R.string.lb_playback_controls_high_quality_enable);
-            labels[ON] = context.getString(R.string.lb_playback_controls_high_quality_disable);
+            labels[INDEX_OFF] = context.getString(
+                    R.string.lb_playback_controls_high_quality_enable);
+            labels[INDEX_ON] = context.getString(
+                    R.string.lb_playback_controls_high_quality_disable);
             setLabels(labels);
         }
     }
@@ -554,8 +677,30 @@ public class PlaybackControlsRow extends Row {
      * An action for displaying a CC (Closed Captioning) icon.
      */
     public static class ClosedCaptioningAction extends MultiAction {
+        /**
+         * Action index for closed caption is off.
+         * @deprecated Use {@link #INDEX_OFF}
+         */
+        @Deprecated
         public static int OFF = 0;
+
+        /**
+         * Action index for closed caption is on.
+         * @deprecated Use {@link #INDEX_ON}
+         */
+        @Deprecated
         public static int ON = 1;
+
+        /**
+         * Action index for closed caption is off.
+         */
+        public static final int INDEX_OFF = 0;
+
+        /**
+         * Action index for closed caption is on.
+         */
+        public static final int INDEX_ON = 1;
+
 
         /**
          * Constructor
@@ -575,14 +720,16 @@ public class PlaybackControlsRow extends Row {
             BitmapDrawable uncoloredDrawable = (BitmapDrawable) getStyledDrawable(context,
                     R.styleable.lbPlaybackControlsActionIcons_closed_captioning);
             Drawable[] drawables = new Drawable[2];
-            drawables[OFF] = uncoloredDrawable;
-            drawables[ON] = new BitmapDrawable(context.getResources(),
+            drawables[INDEX_OFF] = uncoloredDrawable;
+            drawables[INDEX_ON] = new BitmapDrawable(context.getResources(),
                     createBitmap(uncoloredDrawable.getBitmap(), highlightColor));
             setDrawables(drawables);
 
             String[] labels = new String[drawables.length];
-            labels[OFF] = context.getString(R.string.lb_playback_controls_closed_captioning_enable);
-            labels[ON] = context.getString(R.string.lb_playback_controls_closed_captioning_disable);
+            labels[INDEX_OFF] = context.getString(
+                    R.string.lb_playback_controls_closed_captioning_enable);
+            labels[INDEX_ON] = context.getString(
+                    R.string.lb_playback_controls_closed_captioning_disable);
             setLabels(labels);
         }
     }
@@ -622,10 +769,10 @@ public class PlaybackControlsRow extends Row {
     private Drawable mImageDrawable;
     private ObjectAdapter mPrimaryActionsAdapter;
     private ObjectAdapter mSecondaryActionsAdapter;
-    private int mTotalTimeMs;
-    private int mCurrentTimeMs;
-    private int mBufferedProgressMs;
-    private OnPlaybackStateChangedListener mListener;
+    private long mTotalTimeMs;
+    private long mCurrentTimeMs;
+    private long mBufferedProgressMs;
+    private OnPlaybackProgressCallback mListener;
 
     /**
      * Constructor for a PlaybackControlsRow that displays some details from
@@ -719,15 +866,62 @@ public class PlaybackControlsRow extends Row {
      * Sets the total time in milliseconds for the playback controls row.
      * <p>If set after the row has been bound to a view, the adapter must be notified that
      * this row has changed.</p>
+     * @deprecated Use {@link #setDuration(long)}
      */
+    @Deprecated
     public void setTotalTime(int ms) {
-        mTotalTimeMs = ms;
+        setDuration((long) ms);
+    }
+
+    /**
+     * Sets the total time in milliseconds (long type) for the playback controls row.
+     * @param ms Total time in milliseconds of long type.
+     * @deprecated Use {@link #setDuration(long)}
+     */
+    @Deprecated
+    public void setTotalTimeLong(long ms) {
+        setDuration(ms);
+    }
+
+    /**
+     * Sets the total time in milliseconds (long type) for the playback controls row.
+     * If this row is bound to a view, the view will automatically
+     * be updated to reflect the new value.
+     * @param ms Total time in milliseconds of long type.
+     */
+    public void setDuration(long ms) {
+        if (mTotalTimeMs != ms) {
+            mTotalTimeMs = ms;
+            if (mListener != null) {
+                mListener.onDurationChanged(this, mTotalTimeMs);
+            }
+        }
     }
 
     /**
      * Returns the total time in milliseconds for the playback controls row.
+     * @throws ArithmeticException If total time in milliseconds overflows int.
+     * @deprecated use {@link #getDuration()}
      */
+    @Deprecated
     public int getTotalTime() {
+        return MathUtil.safeLongToInt(getTotalTimeLong());
+    }
+
+    /**
+     * Returns the total time in milliseconds of long type for the playback controls row.
+     * @deprecated use {@link #getDuration()}
+     */
+    @Deprecated
+    public long getTotalTimeLong() {
+        return mTotalTimeMs;
+    }
+
+    /**
+     * Returns duration in milliseconds.
+     * @return Duration in milliseconds.
+     */
+    public long getDuration() {
         return mTotalTimeMs;
     }
 
@@ -735,18 +929,61 @@ public class PlaybackControlsRow extends Row {
      * Sets the current time in milliseconds for the playback controls row.
      * If this row is bound to a view, the view will automatically
      * be updated to reflect the new value.
+     * @deprecated use {@link #setCurrentPosition(long)}
      */
+    @Deprecated
     public void setCurrentTime(int ms) {
+        setCurrentTimeLong((long) ms);
+    }
+
+    /**
+     * Sets the current time in milliseconds for playback controls row in long type.
+     * @param ms Current time in milliseconds of long type.
+     * @deprecated use {@link #setCurrentPosition(long)}
+     */
+    @Deprecated
+    public void setCurrentTimeLong(long ms) {
+        setCurrentPosition(ms);
+    }
+
+    /**
+     * Sets the current time in milliseconds for the playback controls row.
+     * If this row is bound to a view, the view will automatically
+     * be updated to reflect the new value.
+     * @param ms Current time in milliseconds of long type.
+     */
+    public void setCurrentPosition(long ms) {
         if (mCurrentTimeMs != ms) {
             mCurrentTimeMs = ms;
-            currentTimeChanged();
+            if (mListener != null) {
+                mListener.onCurrentPositionChanged(this, mCurrentTimeMs);
+            }
         }
     }
 
     /**
      * Returns the current time in milliseconds for the playback controls row.
+     * @throws ArithmeticException If current time in milliseconds overflows int.
+     * @deprecated Use {@link #getCurrentPosition()}
      */
+    @Deprecated
     public int getCurrentTime() {
+        return MathUtil.safeLongToInt(getCurrentTimeLong());
+    }
+
+    /**
+     * Returns the current time in milliseconds of long type for playback controls row.
+     * @deprecated Use {@link #getCurrentPosition()}
+     */
+    @Deprecated
+    public long getCurrentTimeLong() {
+        return mCurrentTimeMs;
+    }
+
+    /**
+     * Returns the current time in milliseconds of long type for playback controls row.
+     */
+    public long getCurrentPosition() {
         return mCurrentTimeMs;
     }
 
@@ -754,18 +991,58 @@ public class PlaybackControlsRow extends Row {
      * Sets the buffered progress for the playback controls row.
      * If this row is bound to a view, the view will automatically
      * be updated to reflect the new value.
+     * @deprecated Use {@link #setBufferedPosition(long)}
      */
+    @Deprecated
     public void setBufferedProgress(int ms) {
-        if (mBufferedProgressMs != ms) {
-            mBufferedProgressMs = ms;
-            bufferedProgressChanged();
-        }
+        setBufferedPosition((long) ms);
     }
 
     /**
-     * Returns the buffered progress for the playback controls row.
+     * Sets the buffered progress for the playback controls row.
+     * @param ms Buffered progress in milliseconds of long type.
+     * @deprecated Use {@link #setBufferedPosition(long)}
      */
+    @Deprecated
+    public void setBufferedProgressLong(long ms) {
+        setBufferedPosition(ms);
+    }
+
+    /**
+     * Sets the buffered progress for the playback controls row.
+     * @param ms Buffered progress in milliseconds of long type.
+     */
+    public void setBufferedPosition(long ms) {
+        if (mBufferedProgressMs != ms) {
+            mBufferedProgressMs = ms;
+            if (mListener != null) {
+                mListener.onBufferedPositionChanged(this, mBufferedProgressMs);
+            }
+        }
+    }
+    /**
+     * Returns the buffered progress for the playback controls row.
+     * @throws ArithmeticException If buffered progress in milliseconds overflows int.
+     * @deprecated Use {@link #getBufferedPosition()}
+     */
+    @Deprecated
     public int getBufferedProgress() {
+        return MathUtil.safeLongToInt(getBufferedPosition());
+    }
+
+    /**
+     * Returns the buffered progress of long type for the playback controls row.
+     * @deprecated Use {@link #getBufferedPosition()}
+     */
+    @Deprecated
+    public long getBufferedProgressLong() {
+        return mBufferedProgressMs;
+    }
+
+    /**
+     * Returns the buffered progress of long type for the playback controls row.
+     */
+    public long getBufferedPosition() {
         return mBufferedProgressMs;
     }
 
@@ -797,34 +1074,10 @@ public class PlaybackControlsRow extends Row {
         return null;
     }
 
-    interface OnPlaybackStateChangedListener {
-        public void onCurrentTimeChanged(int currentTimeMs);
-        public void onBufferedProgressChanged(int bufferedProgressMs);
-    }
-
     /**
      * Sets a listener to be called when the playback state changes.
      */
-    void setOnPlaybackStateChangedListener(OnPlaybackStateChangedListener listener) {
+    public void setOnPlaybackProgressChangedListener(OnPlaybackProgressCallback listener) {
         mListener = listener;
-    }
-
-    /**
-     * Returns the playback state listener.
-     */
-    OnPlaybackStateChangedListener getOnPlaybackStateChangedListener() {
-        return mListener;
-    }
-
-    private void currentTimeChanged() {
-        if (mListener != null) {
-            mListener.onCurrentTimeChanged(mCurrentTimeMs);
-        }
-    }
-
-    private void bufferedProgressChanged() {
-        if (mListener != null) {
-            mListener.onBufferedProgressChanged(mBufferedProgressMs);
-        }
     }
 }

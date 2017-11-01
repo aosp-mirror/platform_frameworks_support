@@ -1,4 +1,5 @@
-/* This file is auto-generated from BrowseFrgamentTest.java.  DO NOT MODIFY. */
+// CHECKSTYLE:OFF Generated code
+/* This file is auto-generated from BrowseFragmentTest.java.  DO NOT MODIFY. */
 
 /*
  * Copyright (C) 2015 The Android Open Source Project
@@ -17,42 +18,79 @@
  */
 package android.support.v17.leanback.app;
 
-import android.support.v17.leanback.test.R;
-import android.test.suitebuilder.annotation.MediumTest;
-import android.view.KeyEvent;
-
-import android.support.v17.leanback.widget.Presenter;
-import android.support.v17.leanback.widget.ListRowPresenter;
-import android.content.Intent;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.espresso.action.ViewActions;
-import org.mockito.Mockito;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 
-@MediumTest
+import android.content.Intent;
+import android.os.Build;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.LargeTest;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
+import android.support.v17.leanback.testutils.PollingCheck;
+import android.support.v17.leanback.widget.ItemBridgeAdapter;
+import android.support.v17.leanback.widget.ListRowPresenter;
+import android.support.v17.leanback.widget.Presenter;
+import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
+import android.view.View;
+
+import org.junit.After;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class BrowseSupportFragmentTest {
 
-    static final long TRANSITION_LENGTH = 1000;
-    static final long HORIZONTAL_SCROLL_WAIT = 2000;
+    static final String TAG = "BrowseSupportFragmentTest";
+    static final long WAIT_TRANSIITON_TIMEOUT = 10000;
 
     @Rule
-    public ActivityTestRule<BrowseSupportFragmentTestActivity> activityTestRule
-            = new ActivityTestRule<>(BrowseSupportFragmentTestActivity.class, false, false);
+    public ActivityTestRule<BrowseSupportFragmentTestActivity> activityTestRule =
+            new ActivityTestRule<>(BrowseSupportFragmentTestActivity.class, false, false);
     private BrowseSupportFragmentTestActivity mActivity;
+
+    @After
+    public void afterTest() throws Throwable {
+        activityTestRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mActivity != null) {
+                    mActivity.finish();
+                    mActivity = null;
+                }
+            }
+        });
+    }
+
+    void waitForEntranceTransitionFinished() {
+        PollingCheck.waitFor(WAIT_TRANSIITON_TIMEOUT, new PollingCheck.PollingCheckCondition() {
+            @Override
+            public boolean canProceed() {
+                if (Build.VERSION.SDK_INT >= 21) {
+                    return mActivity.getBrowseTestSupportFragment() != null
+                            && mActivity.getBrowseTestSupportFragment().mEntranceTransitionEnded;
+                } else {
+                    // when entrance transition not supported, wait main fragment loaded.
+                    return mActivity.getBrowseTestSupportFragment() != null
+                            && mActivity.getBrowseTestSupportFragment().getMainFragment() != null;
+                }
+            }
+        });
+    }
+
+    void waitForHeaderTransitionFinished() {
+        View row = mActivity.getBrowseTestSupportFragment().getRowsSupportFragment().getRowViewHolder(
+                mActivity.getBrowseTestSupportFragment().getSelectedPosition()).view;
+        PollingCheck.waitFor(WAIT_TRANSIITON_TIMEOUT, new PollingCheck.ViewStableOnScreen(row));
+    }
 
     @Test
     public void testTwoBackKeysWithBackStack() throws Throwable {
@@ -62,10 +100,11 @@ public class BrowseSupportFragmentTest {
         intent.putExtra(BrowseSupportFragmentTestActivity.EXTRA_ADD_TO_BACKSTACK , true);
         mActivity = activityTestRule.launchActivity(intent);
 
-        Thread.sleep(dataLoadingDelay + TRANSITION_LENGTH);
+        waitForEntranceTransitionFinished();
 
+        assertNotNull(mActivity.getBrowseTestSupportFragment().getMainFragment());
         sendKeys(KeyEvent.KEYCODE_DPAD_RIGHT);
-        Thread.sleep(TRANSITION_LENGTH);
+        waitForHeaderTransitionFinished();
         sendKeys(KeyEvent.KEYCODE_BACK, KeyEvent.KEYCODE_BACK);
     }
 
@@ -77,10 +116,11 @@ public class BrowseSupportFragmentTest {
         intent.putExtra(BrowseSupportFragmentTestActivity.EXTRA_ADD_TO_BACKSTACK , false);
         mActivity = activityTestRule.launchActivity(intent);
 
-        Thread.sleep(dataLoadingDelay + TRANSITION_LENGTH);
+        waitForEntranceTransitionFinished();
 
+        assertNotNull(mActivity.getBrowseTestSupportFragment().getMainFragment());
         sendKeys(KeyEvent.KEYCODE_DPAD_RIGHT);
-        Thread.sleep(TRANSITION_LENGTH);
+        waitForHeaderTransitionFinished();
         sendKeys(KeyEvent.KEYCODE_BACK, KeyEvent.KEYCODE_BACK);
     }
 
@@ -92,6 +132,7 @@ public class BrowseSupportFragmentTest {
         intent.putExtra(BrowseSupportFragmentTestActivity.EXTRA_ADD_TO_BACKSTACK , false);
         mActivity = activityTestRule.launchActivity(intent);
 
+        assertNull(mActivity.getBrowseTestSupportFragment().getMainFragment());
         sendKeys(KeyEvent.KEYCODE_DPAD_RIGHT);
     }
 
@@ -105,7 +146,7 @@ public class BrowseSupportFragmentTest {
         intent.putExtra(BrowseSupportFragmentTestActivity.EXTRA_ADD_TO_BACKSTACK , true);
         mActivity = activityTestRule.launchActivity(intent);
 
-        Thread.sleep(dataLoadingDelay + TRANSITION_LENGTH);
+        waitForEntranceTransitionFinished();
 
         Presenter.ViewHolderTask itemTask = Mockito.spy(
                 new ItemSelectionTask(mActivity, selectRow));
@@ -123,13 +164,20 @@ public class BrowseSupportFragmentTest {
 
         verify(itemTask, timeout(5000).times(1)).run(any(Presenter.ViewHolder.class));
 
-        ListRowPresenter.ViewHolder row = (ListRowPresenter.ViewHolder) mActivity
-                .getBrowseTestSupportFragment().getRowsSupportFragment().getRowViewHolder(selectRow);
-        assertEquals(selectItem, row.getGridView().getSelectedPosition());
+        activityTestRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ListRowPresenter.ViewHolder row = (ListRowPresenter.ViewHolder) mActivity
+                        .getBrowseTestSupportFragment().getRowsSupportFragment().getRowViewHolder(selectRow);
+                assertNotNull(dumpRecyclerView(mActivity.getBrowseTestSupportFragment().getGridView()), row);
+                assertNotNull(row.getGridView());
+                assertEquals(selectItem, row.getGridView().getSelectedPosition());
+            }
+        });
     }
 
     @Test
-    public void activityRecreate_notCrash() throws InterruptedException {
+    public void activityRecreate_notCrash() throws Throwable {
         final long dataLoadingDelay = 1000;
         Intent intent = new Intent();
         intent.putExtra(BrowseSupportFragmentTestActivity.EXTRA_LOAD_DATA_DELAY, dataLoadingDelay);
@@ -137,13 +185,32 @@ public class BrowseSupportFragmentTest {
         intent.putExtra(BrowseSupportFragmentTestActivity.EXTRA_SET_ADAPTER_AFTER_DATA_LOAD, true);
         mActivity = activityTestRule.launchActivity(intent);
 
-        Thread.sleep(dataLoadingDelay + TRANSITION_LENGTH);
+        waitForEntranceTransitionFinished();
 
         InstrumentationRegistry.getInstrumentation().callActivityOnRestart(mActivity);
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+        activityTestRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mActivity.recreate();
+            }
+        });
+    }
+
+
+    @Test
+    public void lateLoadingHeaderDisabled() throws Throwable {
+        final long dataLoadingDelay = 1000;
+        Intent intent = new Intent();
+        intent.putExtra(BrowseSupportFragmentTestActivity.EXTRA_LOAD_DATA_DELAY, dataLoadingDelay);
+        intent.putExtra(BrowseSupportFragmentTestActivity.EXTRA_HEADERS_STATE,
+                BrowseSupportFragment.HEADERS_DISABLED);
+        mActivity = activityTestRule.launchActivity(intent);
+        waitForEntranceTransitionFinished();
+        PollingCheck.waitFor(new PollingCheck.PollingCheckCondition() {
+            @Override
+            public boolean canProceed() {
+                return mActivity.getBrowseTestSupportFragment().getGridView() != null
+                        && mActivity.getBrowseTestSupportFragment().getGridView().getChildCount() > 0;
             }
         });
     }
@@ -159,13 +226,32 @@ public class BrowseSupportFragmentTest {
         private final BrowseSupportFragmentTestActivity activity;
         private final int expectedRow;
 
-        ItemSelectionTask(BrowseSupportFragmentTestActivity activity, int expectedRow) {
+        public ItemSelectionTask(BrowseSupportFragmentTestActivity activity, int expectedRow) {
             this.activity = activity;
             this.expectedRow = expectedRow;
         }
 
+        @Override
         public void run(Presenter.ViewHolder holder) {
-            assertEquals(expectedRow, activity.getBrowseTestSupportFragment().getSelectedPosition());
+            android.util.Log.d(TAG, dumpRecyclerView(activity.getBrowseTestSupportFragment()
+                    .getGridView()));
+            android.util.Log.d(TAG, "Row " + expectedRow + " " + activity.getBrowseTestSupportFragment()
+                    .getRowsSupportFragment().getRowViewHolder(expectedRow), new Exception());
         }
+    }
+
+    static String dumpRecyclerView(RecyclerView recyclerView) {
+        StringBuffer b = new StringBuffer();
+        for (int i = 0; i < recyclerView.getChildCount(); i++) {
+            View child = recyclerView.getChildAt(i);
+            ItemBridgeAdapter.ViewHolder vh = (ItemBridgeAdapter.ViewHolder)
+                    recyclerView.getChildViewHolder(child);
+            b.append("child").append(i).append(":").append(vh);
+            if (vh != null) {
+                b.append(",").append(vh.getViewHolder());
+            }
+            b.append(";");
+        }
+        return b.toString();
     }
 }

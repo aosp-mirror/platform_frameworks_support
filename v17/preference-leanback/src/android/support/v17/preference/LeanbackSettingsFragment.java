@@ -16,6 +16,8 @@
 
 package android.support.v17.preference;
 
+import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Build;
@@ -34,22 +36,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Space;
 
-import static android.support.annotation.RestrictTo.Scope.GROUP_ID;
-
 /**
  * This fragment provides a container for displaying a {@link LeanbackPreferenceFragment}
  *
  * <p>The following sample code shows a simple leanback preference fragment that is
  * populated from a resource.  The resource it loads is:</p>
  *
- * {@sample frameworks/support/samples/SupportPreferenceDemos/res/xml/preferences.xml preferences}
+ * {@sample frameworks/support/samples/SupportPreferenceDemos/src/main/res/xml/preferences.xml preferences}
  *
  * <p>The sample implements
  * {@link PreferenceFragment.OnPreferenceStartFragmentCallback#onPreferenceStartFragment(PreferenceFragment, Preference)},
  * {@link PreferenceFragment.OnPreferenceStartScreenCallback#onPreferenceStartScreen(PreferenceFragment, PreferenceScreen)},
  * and {@link #onPreferenceStartInitialScreen()}:</p>
  *
- * {@sample frameworks/support/samples/SupportPreferenceDemos/src/com/example/android/supportpreference/FragmentSupportPreferencesLeanback.java
+ * {@sample frameworks/support/samples/SupportPreferenceDemos/src/main/java/com/example/android/supportpreference/FragmentSupportPreferencesLeanback.java
  *      support_fragment_leanback}
  */
 public abstract class LeanbackSettingsFragment extends Fragment
@@ -98,7 +98,11 @@ public abstract class LeanbackSettingsFragment extends Fragment
     }
 
     @Override
-    public boolean onPreferenceDisplayDialog(PreferenceFragment caller, Preference pref) {
+    public boolean onPreferenceDisplayDialog(@NonNull PreferenceFragment caller, Preference pref) {
+        if (caller == null) {
+            throw new IllegalArgumentException("Cannot display dialog for preference " + pref
+                    + ", Caller must not be null!");
+        }
         final Fragment f;
         if (pref instanceof ListPreference) {
             final ListPreference listPreference = (ListPreference) pref;
@@ -188,7 +192,7 @@ public abstract class LeanbackSettingsFragment extends Fragment
     /**
      * @hide
      */
-    @RestrictTo(GROUP_ID)
+    @RestrictTo(LIBRARY_GROUP)
     public static class DummyFragment extends Fragment {
 
         @Override

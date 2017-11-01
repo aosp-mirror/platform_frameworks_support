@@ -13,7 +13,9 @@
  */
 package android.support.v17.leanback.widget;
 
+import android.support.annotation.NonNull;
 import android.support.v4.util.CircularIntArray;
+import android.support.v7.widget.RecyclerView;
 
 import java.io.PrintWriter;
 
@@ -23,7 +25,6 @@ import java.io.PrintWriter;
 class SingleRow extends Grid {
 
     private final Location mTmpLocation = new Location(0);
-    private Object[] mTmpItem = new Object[1];
 
     SingleRow() {
         setNumRows(1);
@@ -74,17 +75,18 @@ class SingleRow extends Grid {
             return false;
         }
         boolean filledOne = false;
-        for (int index = getStartIndexForPrepend(); index >= 0; index--) {
-            int size = mProvider.createItem(index, false, mTmpItem);
+        int minIndex = mProvider.getMinIndex();
+        for (int index = getStartIndexForPrepend(); index >= minIndex; index--) {
+            int size = mProvider.createItem(index, false, mTmpItem, false);
             int edge;
             if (mFirstVisibleIndex < 0 || mLastVisibleIndex < 0) {
                 edge = mReversedFlow ? Integer.MIN_VALUE : Integer.MAX_VALUE;
                 mLastVisibleIndex = mFirstVisibleIndex = index;
             } else {
                 if (mReversedFlow) {
-                    edge = mProvider.getEdge(index + 1) + mMargin + size;
+                    edge = mProvider.getEdge(index + 1) + mSpacing + size;
                 } else {
-                    edge = mProvider.getEdge(index + 1) - mMargin - size;
+                    edge = mProvider.getEdge(index + 1) - mSpacing - size;
                 }
                 mFirstVisibleIndex = index;
             }
@@ -108,16 +110,16 @@ class SingleRow extends Grid {
         }
         boolean filledOne = false;
         for (int index = getStartIndexForAppend(); index < mProvider.getCount(); index++) {
-            int size = mProvider.createItem(index, true, mTmpItem);
+            int size = mProvider.createItem(index, true, mTmpItem, false);
             int edge;
             if (mFirstVisibleIndex < 0 || mLastVisibleIndex< 0) {
                 edge = mReversedFlow ? Integer.MAX_VALUE : Integer.MIN_VALUE;
                 mLastVisibleIndex = mFirstVisibleIndex = index;
             } else {
                 if (mReversedFlow) {
-                    edge = mProvider.getEdge(index - 1) - mProvider.getSize(index - 1) - mMargin;
+                    edge = mProvider.getEdge(index - 1) - mProvider.getSize(index - 1) - mSpacing;
                 } else {
-                    edge = mProvider.getEdge(index - 1) + mProvider.getSize(index - 1) + mMargin;
+                    edge = mProvider.getEdge(index - 1) + mProvider.getSize(index - 1) + mSpacing;
                 }
                 mLastVisibleIndex = index;
             }
@@ -128,6 +130,36 @@ class SingleRow extends Grid {
             }
         }
         return filledOne;
+    }
+
+    @Override
+    public void collectAdjacentPrefetchPositions(int fromLimit, int da,
+        @NonNull RecyclerView.LayoutManager.LayoutPrefetchRegistry layoutPrefetchRegistry) {
+        int indexToPrefetch;
+        int nearestEdge;
+        if (mReversedFlow ? da > 0 : da < 0) {
+            // prefetch next prepend, lower index number
+            if (getFirstVisibleIndex() == 0) {
+                return; // no remaining items to prefetch
+            }
+
+            indexToPrefetch = getStartIndexForPrepend();
+            nearestEdge = mProvider.getEdge(mFirstVisibleIndex)
+                    + (mReversedFlow ? mSpacing : -mSpacing);
+        } else {
+            // prefetch next append, higher index number
+            if (getLastVisibleIndex() == mProvider.getCount() - 1) {
+                return; // no remaining items to prefetch
+            }
+
+            indexToPrefetch = getStartIndexForAppend();
+            int itemSizeWithSpace = mProvider.getSize(mLastVisibleIndex) + mSpacing;
+            nearestEdge = mProvider.getEdge(mLastVisibleIndex)
+                    + (mReversedFlow ? -itemSizeWithSpace : itemSizeWithSpace);
+        }
+
+        int distance = Math.abs(nearestEdge - fromLimit);
+        layoutPrefetchRegistry.addPosition(indexToPrefetch, distance);
     }
 
     @Override

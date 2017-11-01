@@ -1,3 +1,6 @@
+// CHECKSTYLE:OFF Generated code
+/* This file is auto-generated from SearchSupportFragment.java.  DO NOT MODIFY. */
+
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *
@@ -13,8 +16,9 @@
  */
 package android.support.v17.leanback.app;
 
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+
 import android.Manifest;
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -30,8 +34,10 @@ import android.support.v17.leanback.widget.Presenter.ViewHolder;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.support.v17.leanback.widget.SearchBar;
+import android.support.v17.leanback.widget.SearchOrbView;
 import android.support.v17.leanback.widget.SpeechRecognitionCallback;
 import android.support.v17.leanback.widget.VerticalGridView;
+import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,8 +48,6 @@ import android.widget.FrameLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.pm.PackageManager.PERMISSION_GRANTED;
-
 /**
  * A fragment to handle searches. An application will supply an implementation
  * of the {@link SearchResultProvider} interface to handle the search and return
@@ -51,12 +55,11 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
  * into a {@link RowsFragment}, in the same way that they are in a {@link
  * BrowseFragment}.
  *
- * <p>If you do not supply a callback via
- * {@link #setSpeechRecognitionCallback(SpeechRecognitionCallback)}, an internal speech
- * recognizer will be used for which your application will need to declare
+ * <p>A SpeechRecognizer object will be created for which your application will need to declare
  * android.permission.RECORD_AUDIO in AndroidManifest file. If app's target version is >= 23 and
  * the device version is >= 23, a permission dialog will show first time using speech recognition.
  * 0 will be used as requestCode in requestPermissions() call.
+ * {@link #setSpeechRecognitionCallback(SpeechRecognitionCallback)} is deprecated.
  * </p>
  * <p>
  * Speech recognition is automatically started when fragment is created, but
@@ -171,8 +174,10 @@ public class SearchFragment extends Fragment {
                 if (mResultAdapter != null) {
                     mResultAdapter.registerObserver(mAdapterObserver);
                 }
-                if (DEBUG) Log.v(TAG, "mResultAdapter " + mResultAdapter + " size " +
-                        (mResultAdapter == null ? 0 : mResultAdapter.size()));
+                if (DEBUG) {
+                    Log.v(TAG, "mResultAdapter " + mResultAdapter + " size "
+                            + (mResultAdapter == null ? 0 : mResultAdapter.size()));
+                }
                 // delay the first time to avoid setting a empty result adapter
                 // until we got first onChange() from the provider
                 if (!(firstTime && (mResultAdapter == null || mResultAdapter.size() == 0))) {
@@ -182,9 +187,11 @@ public class SearchFragment extends Fragment {
             }
             updateSearchBarNextFocusId();
 
-            if (DEBUG) Log.v(TAG, "mAutoStartRecognition " + mAutoStartRecognition +
-                    " mResultAdapter " + mResultAdapter +
-                    " adapter " + mRowsFragment.getAdapter());
+            if (DEBUG) {
+                Log.v(TAG, "mAutoStartRecognition " + mAutoStartRecognition
+                        + " mResultAdapter " + mResultAdapter
+                        + " adapter " + mRowsFragment.getAdapter());
+            }
             if (mAutoStartRecognition) {
                 mHandler.removeCallbacks(mStartRecognitionRunnable);
                 mHandler.postDelayed(mStartRecognitionRunnable, SPEECH_RECOGNITION_DELAY_MS);
@@ -223,8 +230,8 @@ public class SearchFragment extends Fragment {
 
     private boolean mIsPaused;
     private boolean mPendingStartRecognitionWhenPaused;
-    private SearchBar.SearchBarPermissionListener mPermissionListener
-            = new SearchBar.SearchBarPermissionListener() {
+    private SearchBar.SearchBarPermissionListener mPermissionListener =
+            new SearchBar.SearchBarPermissionListener() {
         @Override
         public void requestAudioPermission() {
             PermissionHelper.requestPermissions(SearchFragment.this,
@@ -232,6 +239,7 @@ public class SearchFragment extends Fragment {
         }
     };
 
+    @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
                                            int[] grantResults) {
         if (requestCode == AUDIO_PERMISSION_REQUEST_CODE && permissions.length > 0) {
@@ -386,7 +394,8 @@ public class SearchFragment extends Fragment {
         super.onResume();
         mIsPaused = false;
         if (mSpeechRecognitionCallback == null && null == mSpeechRecognizer) {
-            mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(getActivity());
+            mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(
+                    FragmentUtil.getContext(SearchFragment.this));
             mSearchBar.setSpeechRecognizer(mSpeechRecognizer);
         }
         if (mPendingStartRecognitionWhenPaused) {
@@ -409,6 +418,16 @@ public class SearchFragment extends Fragment {
     public void onDestroy() {
         releaseAdapter();
         super.onDestroy();
+    }
+
+    /**
+     * Returns RowsFragment that shows result rows. RowsFragment is initialized after
+     * SearchFragment.onCreateView().
+     *
+     * @return RowsFragment that shows result rows.
+     */
+    public RowsFragment getRowsFragment() {
+        return mRowsFragment;
     }
 
     private void releaseRecognizer() {
@@ -514,6 +533,28 @@ public class SearchFragment extends Fragment {
     }
 
     /**
+     * Sets background color of not-listening state search orb.
+     *
+     * @param colors SearchOrbView.Colors.
+     */
+    public void setSearchAffordanceColors(SearchOrbView.Colors colors) {
+        if (mSearchBar != null) {
+            mSearchBar.setSearchAffordanceColors(colors);
+        }
+    }
+
+    /**
+     * Sets background color of listening state search orb.
+     *
+     * @param colors SearchOrbView.Colors.
+     */
+    public void setSearchAffordanceColorsInListening(SearchOrbView.Colors colors) {
+        if (mSearchBar != null) {
+            mSearchBar.setSearchAffordanceColorsInListening(colors);
+        }
+    }
+
+    /**
      * Displays the completions shown by the IME. An application may provide
      * a list of query completions that the system will show in the IME.
      *
@@ -537,8 +578,11 @@ public class SearchFragment extends Fragment {
 
     /**
      * Sets this callback to have the fragment pass speech recognition requests
-     * to the activity rather than using an internal recognizer.
+     * to the activity rather than using a SpeechRecognizer object.
+     * @deprecated Launching voice recognition activity is no longer supported. App should declare
+     *             android.permission.RECORD_AUDIO in AndroidManifest file.
      */
+    @Deprecated
     public void setSpeechRecognitionCallback(SpeechRecognitionCallback callback) {
         mSpeechRecognitionCallback = callback;
         if (mSearchBar != null) {
@@ -643,15 +687,15 @@ public class SearchFragment extends Fragment {
         if (mSearchBar == null || mResultAdapter == null) {
             return;
         }
-        final int viewId = (mResultAdapter.size() == 0 || mRowsFragment == null ||
-                mRowsFragment.getVerticalGridView() == null) ? 0 :
-                mRowsFragment.getVerticalGridView().getId();
+        final int viewId = (mResultAdapter.size() == 0 || mRowsFragment == null
+                || mRowsFragment.getVerticalGridView() == null)
+                        ? 0 : mRowsFragment.getVerticalGridView().getId();
         mSearchBar.setNextFocusDownId(viewId);
     }
 
     void updateFocus() {
-        if (mResultAdapter != null && mResultAdapter.size() > 0 &&
-                mRowsFragment != null && mRowsFragment.getAdapter() == mResultAdapter) {
+        if (mResultAdapter != null && mResultAdapter.size() > 0
+                && mRowsFragment != null && mRowsFragment.getAdapter() == mResultAdapter) {
             focusOnResults();
         } else {
             mSearchBar.requestFocus();
@@ -659,9 +703,8 @@ public class SearchFragment extends Fragment {
     }
 
     private void focusOnResults() {
-        if (mRowsFragment == null ||
-                mRowsFragment.getVerticalGridView() == null ||
-                mResultAdapter.size() == 0) {
+        if (mRowsFragment == null || mRowsFragment.getVerticalGridView() == null
+                || mResultAdapter.size() == 0) {
             return;
         }
         if (mRowsFragment.getVerticalGridView().requestFocus()) {

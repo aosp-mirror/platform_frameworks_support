@@ -23,26 +23,54 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
-import android.support.v4.os.BuildCompat;
+import android.support.annotation.RequiresApi;
+import android.support.annotation.RestrictTo;
 
 import java.util.Arrays;
 
 /**
- * Helper for accessing features in {@link Fragment} introduced after
- * API level 13 in a backwards compatible fashion.
+ * Helper for accessing features in {@link Fragment} in a backwards compatible fashion.
  */
 public class FragmentCompat {
     interface FragmentCompatImpl {
-        void setMenuVisibility(Fragment f, boolean visible);
         void setUserVisibleHint(Fragment f, boolean deferStart);
         void requestPermissions(Fragment fragment, String[] permissions, int requestCode);
         boolean shouldShowRequestPermissionRationale(Fragment fragment, String permission);
     }
 
-    static class BaseFragmentCompatImpl implements FragmentCompatImpl {
-        @Override
-        public void setMenuVisibility(Fragment f, boolean visible) {
-        }
+    /**
+     * Customizable delegate that allows delegating permission related compatibility methods
+     * to a custom implementation.
+     *
+     * <p>
+     *     To delegate fragment compatibility methods to a custom class, implement this interface,
+     *     and call {@code FragmentCompat.setPermissionCompatDelegate(delegate);}. All future calls
+     *     to the compatibility methods in this class will first check whether the delegate can
+     *     handle the method call, and invoke the corresponding method if it can.
+     * </p>
+     */
+    public interface PermissionCompatDelegate {
+
+        /**
+         * Determines whether the delegate should handle
+         * {@link FragmentCompat#requestPermissions(Fragment, String[], int)}, and request
+         * permissions if applicable. If this method returns true, it means that permission
+         * request is successfully handled by the delegate, and platform should not perform any
+         * further requests for permission.
+         *
+         * @param fragment The target fragment.
+         * @param permissions The requested permissions.
+         * @param requestCode Application specific request code to match with a result
+         *    reported to {@link OnRequestPermissionsResultCallback#onRequestPermissionsResult(
+         *    int, String[], int[])}.
+         *
+         * @return Whether the delegate has handled the permission request.
+         * @see FragmentCompat#requestPermissions(Fragment, String[], int)
+         */
+        boolean requestPermissions(Fragment fragment, String[] permissions, int requestCode);
+    }
+
+    static class FragmentCompatBaseImpl implements FragmentCompatImpl {
         @Override
         public void setUserVisibleHint(Fragment f, boolean deferStart) {
         }
@@ -80,52 +108,66 @@ public class FragmentCompat {
         }
     }
 
-    static class ICSFragmentCompatImpl extends BaseFragmentCompatImpl {
-        @Override
-        public void setMenuVisibility(Fragment f, boolean visible) {
-            FragmentCompatICS.setMenuVisibility(f, visible);
-        }
-    }
-
-    static class ICSMR1FragmentCompatImpl extends ICSFragmentCompatImpl {
+    @RequiresApi(15)
+    static class FragmentCompatApi15Impl extends FragmentCompatBaseImpl {
         @Override
         public void setUserVisibleHint(Fragment f, boolean deferStart) {
-            FragmentCompatICSMR1.setUserVisibleHint(f, deferStart);
+            f.setUserVisibleHint(deferStart);
         }
     }
 
-    static class MncFragmentCompatImpl extends ICSMR1FragmentCompatImpl {
+    @RequiresApi(23)
+    static class FragmentCompatApi23Impl extends FragmentCompatApi15Impl {
         @Override
         public void requestPermissions(Fragment fragment, String[] permissions, int requestCode) {
-            FragmentCompat23.requestPermissions(fragment, permissions, requestCode);
+            fragment.requestPermissions(permissions, requestCode);
         }
 
         @Override
         public boolean shouldShowRequestPermissionRationale(Fragment fragment, String permission) {
-            return FragmentCompat23.shouldShowRequestPermissionRationale(fragment, permission);
+            return fragment.shouldShowRequestPermissionRationale(permission);
         }
     }
 
-    static class NFragmentCompatImpl extends MncFragmentCompatImpl {
+    @RequiresApi(24)
+    static class FragmentCompatApi24Impl extends FragmentCompatApi23Impl {
         @Override
         public void setUserVisibleHint(Fragment f, boolean deferStart) {
-            FragmentCompatApi24.setUserVisibleHint(f, deferStart);
+            f.setUserVisibleHint(deferStart);
         }
     }
 
     static final FragmentCompatImpl IMPL;
     static {
-        if (BuildCompat.isAtLeastN()) {
-            IMPL = new NFragmentCompatImpl();
+        if (Build.VERSION.SDK_INT >= 24) {
+            IMPL = new FragmentCompatApi24Impl();
         } else if (Build.VERSION.SDK_INT >= 23) {
-            IMPL = new MncFragmentCompatImpl();
+            IMPL = new FragmentCompatApi23Impl();
         } else if (android.os.Build.VERSION.SDK_INT >= 15) {
-            IMPL = new ICSMR1FragmentCompatImpl();
-        } else if (android.os.Build.VERSION.SDK_INT >= 14) {
-            IMPL = new ICSFragmentCompatImpl();
+            IMPL = new FragmentCompatApi15Impl();
         } else {
-            IMPL = new BaseFragmentCompatImpl();
+            IMPL = new FragmentCompatBaseImpl();
         }
+    }
+
+    private static PermissionCompatDelegate sDelegate;
+
+    /**
+     * Sets the permission delegate for {@code FragmentCompat}. Replaces the previously set
+     * delegate.
+     *
+     * @param delegate The delegate to be set. {@code null} to clear the set delegate.
+     */
+    public static void setPermissionCompatDelegate(PermissionCompatDelegate delegate) {
+        sDelegate = delegate;
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public static PermissionCompatDelegate getPermissionCompatDelegate() {
+        return sDelegate;
     }
 
     /**
@@ -154,9 +196,12 @@ public class FragmentCompat {
     /**
      * Call {@link Fragment#setMenuVisibility(boolean) Fragment.setMenuVisibility(boolean)}
      * if running on an appropriate version of the platform.
+     *
+     * @deprecated Use {@link Fragment#setMenuVisibility(boolean)} directly.
      */
+    @Deprecated
     public static void setMenuVisibility(Fragment f, boolean visible) {
-        IMPL.setMenuVisibility(f, visible);
+        f.setMenuVisibility(visible);
     }
 
     /**
@@ -220,6 +265,11 @@ public class FragmentCompat {
      */
     public static void requestPermissions(@NonNull Fragment fragment,
             @NonNull String[] permissions, int requestCode) {
+        if (sDelegate != null && sDelegate.requestPermissions(fragment, permissions, requestCode)) {
+            // Delegate has handled the request.
+            return;
+        }
+
         IMPL.requestPermissions(fragment, permissions, requestCode);
     }
 

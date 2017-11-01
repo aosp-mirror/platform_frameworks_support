@@ -15,25 +15,25 @@
  */
 package android.support.v4.view;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import android.app.Activity;
+import android.support.compat.test.R;
+import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.MediumTest;
+import android.support.v4.BaseInstrumentationTestCase;
 import android.view.Display;
 import android.view.View;
-import android.support.v4.BaseInstrumentationTestCase;
-import android.support.compat.test.R;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
 
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 public class ViewCompatTest extends BaseInstrumentationTestCase<ViewCompatActivity> {
 
     private View mView;
@@ -67,6 +67,13 @@ public class ViewCompatTest extends BaseInstrumentationTestCase<ViewCompatActivi
         final View view = new View(mActivityTestRule.getActivity());
         final Display display = ViewCompat.getDisplay(view);
         assertNull(display);
+    }
+
+    @Test
+    public void testTransitionName() {
+        final View view = new View(mActivityTestRule.getActivity());
+        ViewCompat.setTransitionName(view, "abc");
+        assertEquals("abc", ViewCompat.getTransitionName(view));
     }
 
 }

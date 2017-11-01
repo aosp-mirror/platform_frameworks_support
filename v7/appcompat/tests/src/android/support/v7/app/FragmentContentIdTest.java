@@ -16,33 +16,34 @@
 
 package android.support.v7.app;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import android.support.v7.appcompat.test.R;
-import android.test.suitebuilder.annotation.SmallTest;
-
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
+import android.support.test.filters.SmallTest;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
+import android.support.v7.appcompat.test.R;
+
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class FragmentContentIdTest extends BaseInstrumentationTestCase<FragmentContentIdActivity> {
-
-    public FragmentContentIdTest() {
-        super(FragmentContentIdActivity.class);
-    }
+@RunWith(AndroidJUnit4.class)
+public class FragmentContentIdTest {
+    @Rule
+    public final ActivityTestRule<FragmentContentIdActivity> mActivityTestRule =
+            new ActivityTestRule<>(FragmentContentIdActivity.class);
 
     @SmallTest
     @Test
-    public void testFragmentAddedToAndroidContentIdCanBeRemoved() {
-        getInstrumentation().runOnMainSync(new Runnable() {
+    public void testFragmentAddedToAndroidContentIdCanBeRemoved() throws Throwable {
+        mActivityTestRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                getActivity().replaceWithFragmentB();
+                mActivityTestRule.getActivity().replaceWithFragmentB();
             }
         });
 
@@ -51,5 +52,4 @@ public class FragmentContentIdTest extends BaseInstrumentationTestCase<FragmentC
         // And that fragment_b is displayed
         onView(withId(R.id.fragment_b)).check(matches(isDisplayed()));
     }
-
 }

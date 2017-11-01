@@ -29,25 +29,24 @@ import android.os.SystemClock;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.support.v17.leanback.R;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseIntArray;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.ImageView;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import android.support.v17.leanback.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,14 +115,6 @@ public class SearchBar extends RelativeLayout {
         void requestAudioPermission();
 
     }
-
-    private AudioManager.OnAudioFocusChangeListener mAudioFocusChangeListener =
-            new AudioManager.OnAudioFocusChangeListener() {
-                @Override
-                public void onAudioFocusChange(int focusChange) {
-                    stopRecognition();
-                }
-            };
 
     SearchBarListener mSearchBarListener;
     SearchEditText mSearchTextEditor;
@@ -215,6 +206,8 @@ public class SearchBar extends RelativeLayout {
                 if (DEBUG) Log.v(TAG, "EditText.onFocusChange " + hasFocus);
                 if (hasFocus) {
                     showNativeKeyboard();
+                } else {
+                    hideNativeKeyboard();
                 }
                 updateUi(hasFocus);
             }
@@ -261,8 +254,8 @@ public class SearchBar extends RelativeLayout {
             public boolean onEditorAction(TextView textView, int action, KeyEvent keyEvent) {
                 if (DEBUG) Log.v(TAG, "onEditorAction: " + action + " event: " + keyEvent);
                 boolean handled = true;
-                if ((EditorInfo.IME_ACTION_SEARCH == action ||
-                        EditorInfo.IME_NULL == action) && null != mSearchBarListener) {
+                if ((EditorInfo.IME_ACTION_SEARCH == action
+                        || EditorInfo.IME_NULL == action) && null != mSearchBarListener) {
                     if (DEBUG) Log.v(TAG, "Action or enter pressed");
                     hideNativeKeyboard();
                     mHandler.postDelayed(new Runnable() {
@@ -388,6 +381,28 @@ public class SearchBar extends RelativeLayout {
     }
 
     /**
+     * Sets background color of not-listening state search orb.
+     *
+     * @param colors SearchOrbView.Colors.
+     */
+    public void setSearchAffordanceColors(SearchOrbView.Colors colors) {
+        if (mSpeechOrbView != null) {
+            mSpeechOrbView.setNotListeningOrbColors(colors);
+        }
+    }
+
+    /**
+     * Sets background color of listening state search orb.
+     *
+     * @param colors SearchOrbView.Colors.
+     */
+    public void setSearchAffordanceColorsInListening(SearchOrbView.Colors colors) {
+        if (mSpeechOrbView != null) {
+            mSpeechOrbView.setListeningOrbColors(colors);
+        }
+    }
+
+    /**
      * Returns the current title
      */
     public String getTitle() {
@@ -472,7 +487,12 @@ public class SearchBar extends RelativeLayout {
 
     /**
      * Sets the speech recognition callback.
+     *
+     * @deprecated Launching voice recognition activity is no longer supported. App should declare
+     *             android.permission.RECORD_AUDIO in AndroidManifest file. See details in
+     *             {@link android.support.v17.leanback.app.SearchSupportFragment}.
      */
+    @Deprecated
     public void setSpeechRecognitionCallback(SpeechRecognitionCallback request) {
         mSpeechRecognitionCallback = request;
         if (mSpeechRecognitionCallback != null && mSpeechRecognizer != null) {
@@ -559,7 +579,6 @@ public class SearchBar extends RelativeLayout {
         if (mListening) {
             mSpeechRecognizer.cancel();
             mListening = false;
-            mAudioManager.abandonAudioFocus(mAudioFocusChangeListener);
         }
 
         mSpeechRecognizer.setRecognitionListener(null);
@@ -595,23 +614,12 @@ public class SearchBar extends RelativeLayout {
                 mPermissionListener.requestAudioPermission();
                 return;
             } else {
-                throw new IllegalStateException(Manifest.permission.RECORD_AUDIO +
-                        " required for search");
+                throw new IllegalStateException(Manifest.permission.RECORD_AUDIO
+                        + " required for search");
             }
         }
 
         mRecognizing = true;
-        // Request audio focus
-        int result = mAudioManager.requestAudioFocus(mAudioFocusChangeListener,
-                // Use the music stream.
-                AudioManager.STREAM_MUSIC,
-                // Request exclusive transient focus.
-                AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
-
-
-        if (result != AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-            Log.w(TAG, "Could not get audio focus");
-        }
 
         mSearchTextEditor.setText("");
 
@@ -712,8 +720,10 @@ public class SearchBar extends RelativeLayout {
             public void onPartialResults(Bundle bundle) {
                 ArrayList<String> results = bundle.getStringArrayList(
                         SpeechRecognizer.RESULTS_RECOGNITION);
-                if (DEBUG) Log.v(TAG, "onPartialResults " + bundle + " results " +
-                        (results == null ? results : results.size()));
+                if (DEBUG) {
+                    Log.v(TAG, "onPartialResults " + bundle + " results "
+                            + (results == null ? results : results.size()));
+                }
                 if (results == null || results.size() == 0) {
                     return;
                 }

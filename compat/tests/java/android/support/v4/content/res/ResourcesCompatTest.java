@@ -15,27 +15,44 @@
  */
 package android.support.v4.content.res;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.compat.test.R;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.SmallTest;
+import android.support.v4.provider.FontsContractCompat;
+import android.support.v4.provider.MockFontProvider;
 import android.support.v4.testutils.TestUtils;
-import android.test.suitebuilder.annotation.SmallTest;
 import android.util.DisplayMetrics;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 @SmallTest
 public class ResourcesCompatTest {
+    private Context mContext;
     private Resources mResources;
 
     @Before
     public void setup() {
-        mResources = InstrumentationRegistry.getContext().getResources();
+        mContext = InstrumentationRegistry.getContext();
+        mResources = mContext.getResources();
+        MockFontProvider.prepareFontFiles(mContext);
     }
 
     @Test
@@ -276,5 +293,133 @@ public class ResourcesCompatTest {
         // We should get a drawable that corresponds to the theme requested in the API call.
         TestUtils.assertAllPixelsOfColor("Themed lilac density-aware drawable load : xxhigh color",
                 themedLilacDrawableForXXHighDensity, 0xFFF080F0);
+    }
+
+    @Test(expected = Resources.NotFoundException.class)
+    public void testGetFont_invalidResourceId() {
+        ResourcesCompat.getFont(mContext, -1);
+    }
+
+    @Test
+    public void testGetFont_fontFile_sync() {
+        Typeface font = ResourcesCompat.getFont(mContext, R.font.samplefont);
+
+        assertNotNull(font);
+        assertNotSame(Typeface.DEFAULT, font);
+    }
+
+    private static final class FontCallback extends ResourcesCompat.FontCallback {
+        private final CountDownLatch mLatch;
+        Typeface mTypeface;
+
+        FontCallback(CountDownLatch latch) {
+            mLatch = latch;
+        }
+
+        @Override
+        public void onFontRetrieved(@NonNull Typeface typeface) {
+            mTypeface = typeface;
+            mLatch.countDown();
+        }
+
+        @Override
+        public void onFontRetrievalFailed(int reason) {
+            mLatch.countDown();
+        }
+    }
+
+    @Test
+    public void testGetFont_fontFile_async() throws InterruptedException {
+        final CountDownLatch latch = new CountDownLatch(1);
+        final FontCallback callback = new FontCallback(latch);
+        FontsContractCompat.resetCache();
+
+        ResourcesCompat.getFont(mContext, R.font.samplefont, callback, null);
+
+        assertTrue(latch.await(5L, TimeUnit.SECONDS));
+
+        assertNotNull(callback.mTypeface);
+        assertNotSame(Typeface.DEFAULT, callback.mTypeface);
+    }
+
+    @Test
+    public void testGetFont_xmlFile_sync() {
+        Typeface font = ResourcesCompat.getFont(mContext, R.font.samplexmlfont);
+
+        assertNotNull(font);
+        assertNotSame(Typeface.DEFAULT, font);
+    }
+
+    @Test
+    public void testGetFont_xmlFile_async() throws InterruptedException {
+        final CountDownLatch latch = new CountDownLatch(1);
+        final FontCallback callback = new FontCallback(latch);
+
+        ResourcesCompat.getFont(mContext, R.font.samplexmlfont, callback, null);
+
+        assertTrue(latch.await(5L, TimeUnit.SECONDS));
+
+        assertNotNull(callback.mTypeface);
+        assertNotSame(Typeface.DEFAULT, callback.mTypeface);
+    }
+
+    @Test
+    public void testGetFont_xmlProviderFile_sync() {
+        Typeface font = ResourcesCompat.getFont(mContext, R.font.samplexmldownloadedfont);
+
+        assertNotNull(font);
+        assertNotSame(Typeface.DEFAULT, font);
+    }
+
+    @Test
+    public void testGetFont_xmlProviderFile_async() throws InterruptedException {
+        final CountDownLatch latch = new CountDownLatch(1);
+        final FontCallback callback = new FontCallback(latch);
+
+        // Font provider non-blocking requests post on the calling thread so can't run on
+        // the test thread as it doesn't have a Looper.
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                ResourcesCompat.getFont(mContext, R.font.samplexmldownloadedfont, callback, null);
+            }
+        });
+
+        assertTrue(latch.await(5L, TimeUnit.SECONDS));
+
+        assertNotNull(callback.mTypeface);
+        assertNotSame(Typeface.DEFAULT, callback.mTypeface);
+    }
+
+    @Test
+    public void testGetFont_invalidXmlFile() {
+        try {
+            assertNull(
+                    ResourcesCompat.getFont(mContext, R.font.invalid_xmlfamily));
+        } catch (Resources.NotFoundException e) {
+            // pass
+        }
+
+        try {
+            assertNull(ResourcesCompat.getFont(mContext, R.font.invalid_xmlempty));
+        } catch (Resources.NotFoundException e) {
+            // pass
+        }
+    }
+
+    @Test
+    public void testGetFont_fontFileIsCached() {
+        Typeface font = ResourcesCompat.getFont(mContext, R.font.samplefont);
+        Typeface font2 = ResourcesCompat.getFont(mContext, R.font.samplefont);
+
+        assertSame(font, font2);
+    }
+
+    @Test
+    public void testGetFont_xmlFileIsCached() {
+        Typeface font = ResourcesCompat.getFont(mContext, R.font.samplexmlfont);
+        Typeface font2 = ResourcesCompat.getFont(mContext, R.font.samplexmlfont);
+
+        assertSame(font, font2);
     }
 }

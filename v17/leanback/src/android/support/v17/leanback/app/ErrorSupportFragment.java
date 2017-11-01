@@ -1,5 +1,3 @@
-/* This file is auto-generated from ErrorFragment.java.  DO NOT MODIFY. */
-
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *
@@ -15,23 +13,19 @@
  */
 package android.support.v17.leanback.app;
 
+import android.graphics.Paint;
+import android.graphics.Paint.FontMetricsInt;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v17.leanback.R;
-import android.support.v17.leanback.widget.TitleView;
 import android.text.TextUtils;
-import android.util.Log;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.graphics.Paint;
-import android.graphics.PixelFormat;
-import android.graphics.Paint.FontMetricsInt;
-import android.graphics.drawable.Drawable;
 
 /**
  * A fragment for displaying an error indication.
@@ -77,8 +71,8 @@ public class ErrorSupportFragment extends BrandedSupportFragment {
         mBackgroundDrawable = drawable;
         if (drawable != null) {
             final int opacity = drawable.getOpacity();
-            mIsBackgroundTranslucent = (opacity == PixelFormat.TRANSLUCENT ||
-                    opacity == PixelFormat.TRANSPARENT);
+            mIsBackgroundTranslucent = (opacity == PixelFormat.TRANSLUCENT
+                    || opacity == PixelFormat.TRANSPARENT);
         }
         updateBackground();
         updateMessage();
@@ -196,9 +190,9 @@ public class ErrorSupportFragment extends BrandedSupportFragment {
                 mErrorFrame.setBackground(mBackgroundDrawable);
             } else {
                 mErrorFrame.setBackgroundColor(mErrorFrame.getResources().getColor(
-                        mIsBackgroundTranslucent ?
-                        R.color.lb_error_background_color_translucent :
-                        R.color.lb_error_background_color_opaque));
+                        mIsBackgroundTranslucent
+                                ? R.color.lb_error_background_color_translucent
+                                : R.color.lb_error_background_color_opaque));
             }
         }
     }

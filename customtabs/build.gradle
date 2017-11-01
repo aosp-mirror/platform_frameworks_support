@@ -1,78 +1,27 @@
-apply plugin: 'com.android.library'
-
-archivesBaseName = 'customtabs'
+apply plugin: android.support.SupportAndroidLibraryPlugin
 
 dependencies {
-    compile project(':support-compat')
-    compile project(':support-annotations')
+    api project(':support-compat')
+    api project(':support-annotations')
 
-    androidTestCompile ("com.android.support.test:runner:${project.rootProject.ext.testRunnerVersion}") {
-        exclude module: 'support-annotations'
-    }
-    androidTestCompile ("com.android.support.test.espresso:espresso-core:${project.rootProject.ext.espressoVersion}") {
-        exclude module: 'support-annotations'
-    }
-    testCompile 'junit:junit:4.12'
+    androidTestImplementation libs.test_runner,   { exclude module: 'support-annotations' }
+    androidTestImplementation libs.espresso_core, { exclude module: 'support-annotations' }
+    androidTestImplementation project(':support-testutils')
 }
 
 android {
-    compileSdkVersion project.ext.currentSdk
-
     defaultConfig {
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion 15
     }
 
     sourceSets {
-        main.manifest.srcFile 'AndroidManifest.xml'
-        main.java.srcDirs = ['src']
-        main.aidl.srcDirs = ['src']
-        main.res.srcDir 'res'
-        main.assets.srcDir 'assets'
-        main.resources.srcDir 'java'
-
-        androidTest.setRoot('tests')
-        androidTest.java.srcDir('tests/src/')
-    }
-
-    lintOptions {
-        abortOnError false
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        main.aidl.srcDirs = ['src/main/java']
     }
 }
 
-android.libraryVariants.all { variant ->
-    def name = variant.buildType.name
-
-    if (name.equals(com.android.builder.core.BuilderConstants.DEBUG)) {
-        return; // Skip debug builds.
-    }
-    def suffix = name.capitalize()
-
-    def jarTask = project.tasks.create(name: "jar${suffix}", type: Jar){
-        dependsOn variant.javaCompile
-        from variant.javaCompile.destinationDir
-        from 'LICENSE.txt'
-    }
-    def javadocTask = project.tasks.create(name: "javadoc${suffix}", type: Javadoc) {
-        source android.sourceSets.main.java
-        classpath = files(variant.javaCompile.classpath.files) + files(
-                "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar")
-    }
-
-    def javadocJarTask = project.tasks.create(name: "javadocJar${suffix}", type: Jar) {
-        classifier = 'javadoc'
-        from 'build/docs/javadoc'
-    }
-
-    def sourcesJarTask = project.tasks.create(name: "sourceJar${suffix}", type: Jar) {
-        classifier = 'sources'
-        from android.sourceSets.main.java.srcDirs
-    }
-
-    artifacts.add('archives', javadocJarTask);
-    artifacts.add('archives', sourcesJarTask);
+supportLibrary {
+    name 'Android Support Custom Tabs'
+    publish true
+    inceptionYear '2015'
+    description 'Android Support Custom Tabs'
 }

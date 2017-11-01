@@ -1,3 +1,6 @@
+// CHECKSTYLE:OFF Generated code
+/* This file is auto-generated from RowsSupportFragment.java.  DO NOT MODIFY. */
+
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *
@@ -16,13 +19,15 @@ package android.support.v17.leanback.app;
 import android.animation.TimeAnimator;
 import android.animation.TimeAnimator.TimeListener;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v17.leanback.R;
+import android.support.v17.leanback.widget.BaseOnItemViewClickedListener;
+import android.support.v17.leanback.widget.BaseOnItemViewSelectedListener;
 import android.support.v17.leanback.widget.HorizontalGridView;
 import android.support.v17.leanback.widget.ItemBridgeAdapter;
 import android.support.v17.leanback.widget.ListRowPresenter;
 import android.support.v17.leanback.widget.ObjectAdapter;
-import android.support.v17.leanback.widget.BaseOnItemViewClickedListener;
-import android.support.v17.leanback.widget.BaseOnItemViewSelectedListener;
 import android.support.v17.leanback.widget.OnItemViewClickedListener;
 import android.support.v17.leanback.widget.OnItemViewSelectedListener;
 import android.support.v17.leanback.widget.Presenter;
@@ -133,13 +138,15 @@ public class RowsFragment extends BaseRowFragment implements
 
     static final String TAG = "RowsFragment";
     static final boolean DEBUG = false;
+    static final int ALIGN_TOP_NOT_SET = Integer.MIN_VALUE;
 
     ItemBridgeAdapter.ViewHolder mSelectedViewHolder;
     private int mSubPosition;
     boolean mExpand = true;
     boolean mViewsCreated;
-    private int mAlignedTop;
+    private int mAlignedTop = ALIGN_TOP_NOT_SET;
     boolean mAfterEntranceTransition = true;
+    boolean mFreezeRows;
 
     BaseOnItemViewSelectedListener mOnItemViewSelectedListener;
     BaseOnItemViewClickedListener mOnItemViewClickedListener;
@@ -201,8 +208,8 @@ public class RowsFragment extends BaseRowFragment implements
             if (DEBUG) Log.v(TAG, "setExpand " + expand + " count " + count);
             for (int i = 0; i < count; i++) {
                 View view = listView.getChildAt(i);
-                ItemBridgeAdapter.ViewHolder vh
-                        = (ItemBridgeAdapter.ViewHolder) listView.getChildViewHolder(view);
+                ItemBridgeAdapter.ViewHolder vh =
+                        (ItemBridgeAdapter.ViewHolder) listView.getChildViewHolder(view);
                 setRowViewExpanded(vh, mExpand);
             }
         }
@@ -283,7 +290,7 @@ public class RowsFragment extends BaseRowFragment implements
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         if (DEBUG) Log.v(TAG, "onViewCreated");
         super.onViewCreated(view, savedInstanceState);
         // Align the top edge of child with id row_content.
@@ -348,6 +355,10 @@ public class RowsFragment extends BaseRowFragment implements
             if (mExternalAdapterListener != null) {
                 mExternalAdapterListener.onCreate(vh);
             }
+            RowPresenter rowPresenter = (RowPresenter) vh.getPresenter();
+            RowPresenter.ViewHolder rowVh = rowPresenter.getRowViewHolder(vh.getViewHolder());
+            rowVh.setOnItemViewSelectedListener(mOnItemViewSelectedListener);
+            rowVh.setOnItemViewClickedListener(mOnItemViewClickedListener);
         }
 
         @Override
@@ -361,9 +372,11 @@ public class RowsFragment extends BaseRowFragment implements
             setRowViewExpanded(vh, mExpand);
             RowPresenter rowPresenter = (RowPresenter) vh.getPresenter();
             RowPresenter.ViewHolder rowVh = rowPresenter.getRowViewHolder(vh.getViewHolder());
-            rowVh.setOnItemViewSelectedListener(mOnItemViewSelectedListener);
-            rowVh.setOnItemViewClickedListener(mOnItemViewClickedListener);
             rowPresenter.setEntranceTransitionState(rowVh, mAfterEntranceTransition);
+
+            // freeze the rows attached after RowsFragment#freezeRows() is called
+            rowPresenter.freeze(rowVh, mFreezeRows);
+
             if (mExternalAdapterListener != null) {
                 mExternalAdapterListener.onAttachedToWindow(vh);
             }
@@ -447,6 +460,7 @@ public class RowsFragment extends BaseRowFragment implements
     }
 
     private void freezeRows(boolean freeze) {
+        mFreezeRows = freeze;
         VerticalGridView verticalView = getVerticalGridView();
         if (verticalView != null) {
             final int count = verticalView.getChildCount();
@@ -540,6 +554,9 @@ public class RowsFragment extends BaseRowFragment implements
 
     @Override
     public void setAlignment(int windowAlignOffsetFromTop) {
+        if (windowAlignOffsetFromTop == ALIGN_TOP_NOT_SET) {
+            return;
+        }
         mAlignedTop = windowAlignOffsetFromTop;
         final VerticalGridView gridView = getVerticalGridView();
 
@@ -554,6 +571,19 @@ public class RowsFragment extends BaseRowFragment implements
                     VerticalGridView.WINDOW_ALIGN_OFFSET_PERCENT_DISABLED);
             gridView.setWindowAlignment(VerticalGridView.WINDOW_ALIGN_NO_EDGE);
         }
+    }
+
+    /**
+     * Find row ViewHolder by position in adapter.
+     * @param position Position of row.
+     * @return ViewHolder of Row.
+     */
+    public RowPresenter.ViewHolder findRowViewHolderByPosition(int position) {
+        if (mVerticalGridView == null) {
+            return null;
+        }
+        return getRowViewHolder((ItemBridgeAdapter.ViewHolder) mVerticalGridView
+                .findViewHolderForAdapterPosition(position));
     }
 
     public static class MainFragmentAdapter extends BrowseFragment.MainFragmentAdapter<RowsFragment> {
@@ -600,6 +630,11 @@ public class RowsFragment extends BaseRowFragment implements
 
     }
 
+    /**
+     * The adapter that RowsFragment implements
+     * BrowseFragment.MainFragmentRowsAdapter.
+     * @see #getMainFragmentRowsAdapter().
+     */
     public static class MainFragmentRowsAdapter
             extends BrowseFragment.MainFragmentRowsAdapter<RowsFragment> {
 
@@ -640,6 +675,11 @@ public class RowsFragment extends BaseRowFragment implements
         @Override
         public int getSelectedPosition() {
             return getFragment().getSelectedPosition();
+        }
+
+        @Override
+        public RowPresenter.ViewHolder findRowViewHolderByPosition(int position) {
+            return getFragment().findRowViewHolderByPosition(position);
         }
     }
 }

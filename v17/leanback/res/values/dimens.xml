@@ -38,8 +38,9 @@
     <item name="lb_browse_rows_scale" type="fraction">80%</item>
 
     <!-- Derived from the ux spec of 48dp baseline to baseline -->
-    <dimen name="lb_browse_headers_vertical_margin">21dp</dimen>
+    <dimen name="lb_browse_headers_vertical_spacing">21dp</dimen>
     <dimen name="lb_browse_header_text_size">20sp</dimen>
+    <dimen name="lb_browse_header_description_text_size">14sp</dimen>
     <dimen name="lb_browse_header_height">24dp</dimen>
     <dimen name="lb_browse_section_header_text_size">16sp</dimen>
     <dimen name="lb_browse_header_fading_length">12dp</dimen>
@@ -52,8 +53,8 @@
     <dimen name="lb_browse_row_hovercard_max_width">400dp</dimen>
     <dimen name="lb_browse_row_hovercard_title_font_size">18sp</dimen>
     <dimen name="lb_browse_row_hovercard_description_font_size">14sp</dimen>
-    <dimen name="lb_browse_item_horizontal_margin">8dp</dimen>
-    <dimen name="lb_browse_item_vertical_margin">8dp</dimen>
+    <dimen name="lb_browse_item_horizontal_spacing">8dp</dimen>
+    <dimen name="lb_browse_item_vertical_spacing">8dp</dimen>
     <dimen name="lb_browse_selected_row_top_padding">20dp</dimen>
     <dimen name="lb_browse_expanded_selected_row_top_padding">16dp</dimen>
     <dimen name="lb_browse_expanded_row_no_hovercard_bottom_padding">28dp</dimen>
@@ -63,6 +64,7 @@
     <item name="lb_focus_zoom_factor_medium" type="fraction">114%</item>
     <item name="lb_focus_zoom_factor_large" type="fraction">118%</item>
 
+    <dimen name="lb_details_cover_drawable_parallax_movement">50dip</dimen>
     <dimen name="lb_details_overview_height_large">274dp</dimen>
     <dimen name="lb_details_overview_height_small">159dp</dimen>
     <dimen name="lb_details_overview_margin_start">132dp</dimen>
@@ -75,7 +77,7 @@
     <dimen name="lb_details_overview_description_margin_bottom">12dp</dimen>
     <dimen name="lb_details_overview_image_margin_horizontal">24dp</dimen>
     <dimen name="lb_details_overview_image_margin_vertical">24dp</dimen>
-    <dimen name="lb_details_overview_action_items_margin">16dp</dimen>
+    <dimen name="lb_details_overview_action_items_spacing">16dp</dimen>
     <item name="lb_details_overview_action_select_duration" format="integer" type="dimen">150</item>
     <dimen name="lb_details_overview_actions_padding_start">294dp</dimen>
     <dimen name="lb_details_overview_actions_padding_end">132dp</dimen>
@@ -122,9 +124,11 @@
     <dimen name="lb_action_text_size">16sp</dimen>
     <dimen name="lb_action_button_corner_radius">2dp</dimen>
 
-    <dimen name="lb_playback_controls_align_bottom">58dp</dimen>
-    <dimen name="lb_playback_controls_padding_top">216dp</dimen>
+    <!-- distance of bottom of playback row to bottom edge, used for overscan protection and
+    peeking related rows-->
     <dimen name="lb_playback_controls_padding_bottom">28dp</dimen>
+    <!-- distance of other rows' center to bottom edge, half of screen by default -->
+    <dimen name="lb_playback_other_rows_center_to_bottom">270dp</dimen>
     <dimen name="lb_playback_major_fade_translate_y">200dp</dimen>
     <dimen name="lb_playback_minor_fade_translate_y">16dp</dimen>
     <dimen name="lb_playback_controls_card_height">176dp</dimen>
@@ -156,6 +160,33 @@
     <dimen name="lb_playback_now_playing_view_size">28dp</dimen>
     <dimen name="lb_playback_play_icon_size">14dp</dimen>
 
+    <!-- margin to move controlBar button a bit left to align icon with description left -->
+    <dimen name="lb_playback_transport_controlbar_margin_start">-12dp</dimen>
+    <dimen name="lb_playback_transport_control_info_margin_bottom">20dp</dimen>
+    <dimen name="lb_playback_transport_control_row_padding_bottom">20dp</dimen>
+    <dimen name="lb_playback_transport_image_height">176dp</dimen>
+    <dimen name="lb_playback_transport_image_margin_end">24dp</dimen>
+
+    <!-- height should including enough space for thumbs when activated -->
+    <dimen name="lb_playback_transport_progressbar_height">28dp</dimen>
+    <!-- height for the bar when not focused -->
+    <dimen name="lb_playback_transport_progressbar_bar_height">4dp</dimen>
+    <!-- height for the bar when focused -->
+    <dimen name="lb_playback_transport_progressbar_active_bar_height">6dp</dimen>
+    <!-- radius of thumb when focused -->
+    <dimen name="lb_playback_transport_progressbar_active_radius">6dp</dimen>
+
+    <!-- Thumbs bar -->
+    <dimen name="lb_playback_transport_thumbs_width">154dp</dimen>
+    <dimen name="lb_playback_transport_thumbs_height">154dp</dimen>
+    <dimen name="lb_playback_transport_hero_thumbs_width">192dp</dimen>
+    <dimen name="lb_playback_transport_hero_thumbs_height">192dp</dimen>
+    <dimen name="lb_playback_transport_thumbs_margin">4dp</dimen>
+    <dimen name="lb_playback_transport_thumbs_bottom_margin">18dp</dimen>
+
+    <dimen name="lb_playback_transport_time_margin">8dp</dimen>
+    <dimen name="lb_playback_transport_time_margin_top">8dp</dimen>
+
     <dimen name="lb_control_button_diameter">90dp</dimen>
     <dimen name="lb_control_button_height">64dp</dimen>
     <dimen name="lb_control_button_secondary_diameter">48dp</dimen>
@@ -165,7 +196,7 @@
     <dimen name="lb_control_button_text_size">22sp</dimen>
 
     <dimen name="lb_error_image_max_height">120dp</dimen>
-    <integer name="lb_error_message_max_lines">1</integer>
+    <integer name="lb_error_message_max_lines">3</integer>
     <dimen name="lb_error_message_max_width">600dp</dimen>
     <dimen name="lb_error_message_text_size">16sp</dimen>
     <dimen name="lb_error_under_image_baseline_margin">36dp</dimen>
@@ -227,8 +258,8 @@
     <dimen name="lb_basic_card_info_badge_margin">4dp</dimen>
 
     <!-- z based shadow -->
-    <dimen name="lb_material_shadow_normal_z">6dp</dimen>
-    <dimen name="lb_material_shadow_focused_z">16dp</dimen>
+    <dimen name="lb_material_shadow_normal_z">0dp</dimen>
+    <dimen name="lb_material_shadow_focused_z">10dp</dimen>
     <dimen name="lb_material_shadow_details_z">8dp</dimen>
     <dimen name="lb_search_orb_unfocused_z">2dp</dimen>
     <dimen name="lb_search_orb_focused_z">8dp</dimen>
@@ -277,6 +308,8 @@
     <dimen name="lb_guidedactions_item_space_between_title_and_description">2dp</dimen>
     <dimen name="lb_guidedactions_item_description_font_size">12sp</dimen>
     <dimen name="lb_guidedactions_sublist_bottom_margin">28dp</dimen>
+    <dimen name="lb_guidedactions_sublist_padding_top">8dip</dimen>
+    <dimen name="lb_guidedactions_sublist_padding_bottom">8dip</dimen>
 
     <integer name="lb_guidedactions_item_animation_duration">100</integer>
     <integer name="lb_guidedactions_item_title_min_lines">1</integer>
@@ -285,7 +318,9 @@
     <!-- end GuidedStepFragment -->
 
     <!-- height for picker item. -->
-    <dimen name="picker_item_height">64dp</dimen>
+    <dimen name="picker_item_height">32dp</dimen>
+    <!-- vertical space between two picker item -->
+    <dimen name="picker_item_spacing">32dp</dimen>
     <!-- picker column horizontal padding-->
     <dimen name="picker_column_horizontal_padding">8dp</dimen>
     <!-- picker separator horizontal padding -->

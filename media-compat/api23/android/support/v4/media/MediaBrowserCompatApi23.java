@@ -19,7 +19,9 @@ package android.support.v4.media;
 import android.media.browse.MediaBrowser;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 
+@RequiresApi(23)
 class MediaBrowserCompatApi23 {
 
     public static Object createItemCallback(ItemCallback callback) {
@@ -44,9 +46,13 @@ class MediaBrowserCompatApi23 {
 
         @Override
         public void onItemLoaded(MediaBrowser.MediaItem item) {
-            Parcel parcel = Parcel.obtain();
-            item.writeToParcel(parcel, 0);
-            mItemCallback.onItemLoaded(parcel);
+            if (item == null) {
+                mItemCallback.onItemLoaded(null);
+            } else {
+                Parcel parcel = Parcel.obtain();
+                item.writeToParcel(parcel, 0);
+                mItemCallback.onItemLoaded(parcel);
+            }
         }
 
         @Override

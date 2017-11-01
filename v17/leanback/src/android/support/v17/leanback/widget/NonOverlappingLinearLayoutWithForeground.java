@@ -19,11 +19,8 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION;
-import android.support.annotation.RestrictTo;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
-
-import static android.support.annotation.RestrictTo.Scope.GROUP_ID;
 
 /**
  * Implements foreground drawable before M and falls back to M's foreground implementation.
@@ -60,13 +57,14 @@ class NonOverlappingLinearLayoutWithForeground extends LinearLayout {
             if (d != null) {
                 setForegroundCompat(d);
             }
+            a.recycle();
         }
     }
 
     public void setForegroundCompat(Drawable d) {
         if (VERSION.SDK_INT >= VERSION_M) {
             // From M,  foreground is naturally supported.
-            ForegroundHelper.getInstance().setForeground(this, d);
+            ForegroundHelper.setForeground(this, d);
         } else {
             // before M, do our own customized foreground draw.
             if (mForeground != d) {
@@ -83,7 +81,7 @@ class NonOverlappingLinearLayoutWithForeground extends LinearLayout {
 
     public Drawable getForegroundCompat() {
         if (VERSION.SDK_INT >= VERSION_M) {
-            return ForegroundHelper.getInstance().getForeground(this);
+            return ForegroundHelper.getForeground(this);
         } else {
             return mForeground;
         }

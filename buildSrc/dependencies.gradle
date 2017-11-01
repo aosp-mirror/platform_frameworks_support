@@ -1,0 +1,49 @@
+/*
+ * Copyright (C) 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+// Add ext.libs for library versions
+def libs = [:]
+
+// Testing dependencies
+libs.mockito_core = 'org.mockito:mockito-core:2.7.6'
+libs.dexmaker_mockito = 'com.linkedin.dexmaker:dexmaker-mockito:2.2.0'
+libs.junit = 'junit:junit:4.12'
+libs.test_runner = 'com.android.support.test:runner:1.0.1'
+libs.test_rules = 'com.android.support.test:rules:1.0.1'
+libs.espresso_core = 'com.android.support.test.espresso:espresso-core:3.0.1'
+libs.espresso_contrib = 'com.android.support.test.espresso:espresso-contrib:3.0.1'
+libs.jacoco = 'org.jacoco:org.jacoco.core:0.7.8'
+
+def androidPluginVersionOverride = System.getenv("GRADLE_PLUGIN_VERSION")
+
+if (androidPluginVersionOverride != null) {
+    libs.gradle = 'com.android.tools.build:gradle:' + androidPluginVersionOverride
+} else {
+    // Keep gradle plugin version in sync with ub_supportlib-master manifest.
+    libs.gradle = 'com.android.tools.build:gradle:3.0.0-beta7'
+}
+
+//arch components
+libs.arch_lifecycle_runtime = "android.arch.lifecycle:runtime:1.0.0@aar"
+
+// Other dependencies
+libs.xml_parser_apis = 'xerces:xmlParserAPIs:2.6.2'
+libs.xerces_impl = 'xerces:xercesImpl:2.6.2'
+libs.error_prone = 'net.ltgt.gradle:gradle-errorprone-plugin:0.0.10'
+
+// jarjar plugin
+libs.jarjar_gradle = 'org.anarres.jarjar:jarjar-gradle:1.0.0'
+
+rootProject.ext['libs'] = libs

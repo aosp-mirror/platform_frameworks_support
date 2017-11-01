@@ -1,31 +1,33 @@
 apply plugin: 'com.android.application'
 
 dependencies {
-    compile project(':support-design')
+    implementation project(':design')
 }
 
 android {
     compileSdkVersion project.ext.currentSdk
 
     defaultConfig {
-        minSdkVersion 9
+        minSdkVersion 14
+        targetSdkVersion project.ext.currentSdk
+        vectorDrawables.useSupportLibrary = true
     }
 
-    sourceSets {
-        main.manifest.srcFile 'AndroidManifest.xml'
-        main.java.srcDirs = ['src']
-        main.aidl.srcDirs = ['src']
-        main.res.srcDirs = ['res']
+    signingConfigs {
+        debug {
+            // Use a local debug keystore to avoid build server issues.
+            storeFile project.rootProject.init.debugKeystore
+        }
     }
 
     lintOptions {
-        // TODO: fix errors and reenable.
-        abortOnError false
+        abortOnError true
+        check 'NewApi'
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 

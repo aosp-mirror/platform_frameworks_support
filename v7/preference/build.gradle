@@ -14,42 +14,34 @@
  * limitations under the License
  */
 
-apply plugin: 'com.android.library'
-
-archivesBaseName = 'preference-v7'
+apply plugin: android.support.SupportAndroidLibraryPlugin
 
 dependencies {
-    compile project(':support-v4')
-    compile project(':support-appcompat-v7')
-    compile project(':support-recyclerview-v7')
+    api project(':support-v4')
+    api project(':appcompat-v7')
+    api project(':recyclerview-v7')
+
+    androidTestImplementation libs.test_runner,      { exclude module: 'support-annotations' }
+    androidTestImplementation libs.espresso_core,    { exclude module: 'support-annotations' }
+    androidTestImplementation libs.mockito_core,     { exclude group: 'net.bytebuddy' } // DexMaker has it"s own MockMaker
+    androidTestImplementation libs.dexmaker_mockito, { exclude group: 'net.bytebuddy' } // DexMaker has it"s own MockMaker
 }
 
 android {
-    compileSdkVersion project.ext.currentSdk
-
-    sourceSets {
-        main.manifest.srcFile 'AndroidManifest.xml'
-        main.java.srcDir 'src'
-        main.java.srcDir 'constants'
-        main.res.srcDir 'res'
-        main.assets.srcDir 'assets'
-        main.resources.srcDir 'src'
-
-        // this moves src/instrumentTest to tests so all folders follow:
-        // tests/java, tests/res, tests/assets, ...
-        // This is a *reset* so it replaces the default paths
-        androidTest.setRoot('tests')
-        androidTest.java.srcDir 'tests/src'
+    defaultConfig {
+        minSdkVersion 14
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+    sourceSets {
+        main.res.srcDirs = [
+                'res',
+                'res-public'
+        ]
     }
 
     lintOptions {
-        // TODO: fix errors and reenable.
-        abortOnError false
+        // Remove this once all NewApi breakages have been fixed.
+        disable "NewApi"
     }
 
     buildTypes.all {
@@ -57,69 +49,9 @@ android {
     }
 }
 
-android.libraryVariants.all { variant ->
-    def name = variant.buildType.name
-
-    if (name.equals(com.android.builder.core.BuilderConstants.DEBUG)) {
-        return; // Skip debug builds.
-    }
-    def suffix = name.capitalize()
-
-    def jarTask = project.tasks.create(name: "jar${suffix}", type: Jar){
-        dependsOn variant.javaCompile
-        from variant.javaCompile.destinationDir
-        from 'LICENSE.txt'
-    }
-    def javadocTask = project.tasks.create(name: "javadoc${suffix}", type: Javadoc) {
-        source android.sourceSets.main.java
-        classpath = files(variant.javaCompile.classpath.files) + files(
-                "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar")
-    }
-
-    def javadocJarTask = project.tasks.create(name: "javadocJar${suffix}", type: Jar) {
-        classifier = 'javadoc'
-        from 'build/docs/javadoc'
-    }
-
-    def sourcesJarTask = project.tasks.create(name: "sourceJar${suffix}", type: Jar) {
-        classifier = 'sources'
-        from android.sourceSets.main.java.srcDirs
-    }
-
-    artifacts.add('archives', javadocJarTask);
-    artifacts.add('archives', sourcesJarTask);
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: uri(rootProject.ext.supportRepoOut)) {
-            }
-
-            pom.project {
-                name 'Android Support Preference v7'
-                description "Android Support Preference v7"
-                url 'http://developer.android.com/tools/extras/support-library.html'
-                inceptionYear '2015'
-
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                        distribution 'repo'
-                    }
-                }
-
-                scm {
-                    url "http://source.android.com"
-                    connection "scm:git:https://android.googlesource.com/platform/frameworks/support"
-                }
-                developers {
-                    developer {
-                        name 'The Android Open Source Project'
-                    }
-                }
-            }
-        }
-    }
+supportLibrary {
+    name 'Android Support Preference v7'
+    publish true
+    inceptionYear '2015'
+    description 'Android Support Preference v7'
 }

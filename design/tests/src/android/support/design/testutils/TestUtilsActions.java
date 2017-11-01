@@ -16,25 +16,30 @@
 
 package android.support.design.testutils;
 
+import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayingAtLeast;
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
+
 import android.graphics.drawable.Drawable;
+import android.os.Parcelable;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.MenuRes;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.TextViewCompat;
-import android.support.v7.widget.Toolbar;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import org.hamcrest.Matcher;
 
-import static android.support.test.espresso.matcher.ViewMatchers.*;
+import org.hamcrest.Matcher;
 
 public class TestUtilsActions {
     /**
@@ -68,7 +73,7 @@ public class TestUtilsActions {
                         // Create a new one
                         final LayoutInflater layoutInflater =
                                 LayoutInflater.from(view.getContext());
-                        final TabLayout newTabLayout =  (TabLayout) layoutInflater.inflate(
+                        final TabLayout newTabLayout = (TabLayout) layoutInflater.inflate(
                                 tabLayoutResId, viewGroup, false);
                         // Make sure we're adding the new TabLayout at the same index
                         viewGroup.addView(newTabLayout, i);
@@ -237,6 +242,50 @@ public class TestUtilsActions {
         };
     }
 
+    public static ViewAction setClickable(final boolean clickable) {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isDisplayed();
+            }
+
+            @Override
+            public String getDescription() {
+                return "set clickable";
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                uiController.loopMainThreadUntilIdle();
+
+                view.setClickable(clickable);
+
+                uiController.loopMainThreadUntilIdle();
+            }
+        };
+    }
+
+    public static ViewAction setSelected(final boolean selected) {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isDisplayed();
+            }
+
+            @Override
+            public String getDescription() {
+                return "set selected";
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                uiController.loopMainThreadUntilIdle();
+                view.setSelected(selected);
+                uiController.loopMainThreadUntilIdle();
+            }
+        };
+    }
+
     /**
      * Sets compound drawables on {@link TextView}
      */
@@ -265,4 +314,59 @@ public class TestUtilsActions {
             }
         };
     }
+
+    /**
+     * Restores the saved hierarchy state.
+     *
+     * @param container The saved hierarchy state.
+     */
+    public static ViewAction restoreHierarchyState(final SparseArray<Parcelable> container) {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isAssignableFrom(View.class);
+            }
+
+            @Override
+            public String getDescription() {
+                return "restore the saved state";
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                uiController.loopMainThreadUntilIdle();
+                view.restoreHierarchyState(container);
+                uiController.loopMainThreadUntilIdle();
+            }
+        };
+    }
+
+    /**
+     * Clears and inflates the menu.
+     *
+     * @param menuResId The menu resource XML to be used.
+     */
+    public static ViewAction reinflateMenu(final @MenuRes int menuResId) {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isAssignableFrom(NavigationView.class);
+            }
+
+            @Override
+            public String getDescription() {
+                return "clear and inflate menu " + menuResId;
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                uiController.loopMainThreadUntilIdle();
+                final NavigationView nv = (NavigationView) view;
+                nv.getMenu().clear();
+                nv.inflateMenu(menuResId);
+                uiController.loopMainThreadUntilIdle();
+            }
+        };
+    }
+
 }

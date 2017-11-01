@@ -18,31 +18,50 @@ package android.support.design.widget;
 
 import static android.support.design.testutils.FloatingActionButtonActions.hideThenShow;
 import static android.support.design.testutils.FloatingActionButtonActions.setBackgroundTintColor;
+import static android.support.design.testutils.FloatingActionButtonActions.setBackgroundTintList;
+import static android.support.design.testutils.FloatingActionButtonActions.setCompatElevation;
 import static android.support.design.testutils.FloatingActionButtonActions.setImageResource;
 import static android.support.design.testutils.FloatingActionButtonActions.setLayoutGravity;
 import static android.support.design.testutils.FloatingActionButtonActions.setSize;
 import static android.support.design.testutils.FloatingActionButtonActions.showThenHide;
+import static android.support.design.testutils.TestUtilsActions.setClickable;
+import static android.support.design.testutils.TestUtilsActions.setEnabled;
+import static android.support.design.testutils.TestUtilsActions.setSelected;
+import static android.support.design.testutils.TestUtilsMatchers.isPressed;
 import static android.support.design.testutils.TestUtilsMatchers.withFabBackgroundFill;
 import static android.support.design.testutils.TestUtilsMatchers.withFabContentAreaOnMargins;
 import static android.support.design.testutils.TestUtilsMatchers.withFabContentHeight;
 import static android.support.design.widget.DesignViewActions.setVisibility;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 import static org.hamcrest.Matchers.not;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
+import android.app.Activity;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.support.design.test.R;
 import android.support.design.testutils.TestUtils;
-import android.test.suitebuilder.annotation.SmallTest;
+import android.support.test.espresso.action.CoordinatesProvider;
+import android.support.test.espresso.action.GeneralSwipeAction;
+import android.support.test.espresso.action.Press;
+import android.support.test.espresso.action.Swipe;
+import android.support.test.filters.LargeTest;
+import android.support.test.filters.MediumTest;
+import android.support.test.filters.SmallTest;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 
 import org.junit.Test;
 
-@SmallTest
 public class FloatingActionButtonTest
         extends BaseInstrumentationTestCase<FloatingActionButtonActivity> {
 
@@ -50,6 +69,7 @@ public class FloatingActionButtonTest
         super(FloatingActionButtonActivity.class);
     }
 
+    @SmallTest
     @Test
     public void testDefaultBackgroundTint() {
         final int colorAccent = TestUtils.getThemeAttrColor(
@@ -58,6 +78,7 @@ public class FloatingActionButtonTest
                 .check(matches(withFabBackgroundFill(colorAccent)));
     }
 
+    @SmallTest
     @Test
     public void testSetTintOnDefaultBackgroundTint() {
         onView(withId(R.id.fab_standard))
@@ -65,12 +86,14 @@ public class FloatingActionButtonTest
                 .check(matches(withFabBackgroundFill(Color.GREEN)));
     }
 
+    @SmallTest
     @Test
     public void testDeclaredBackgroundTint() {
         onView(withId(R.id.fab_tint))
                 .check(matches(withFabBackgroundFill(Color.MAGENTA)));
     }
 
+    @SmallTest
     @Test
     public void testSetTintOnDeclaredBackgroundTint() {
         onView(withId(R.id.fab_tint))
@@ -78,12 +101,52 @@ public class FloatingActionButtonTest
                 .check(matches(withFabBackgroundFill(Color.GREEN)));
     }
 
+    @SmallTest
+    @Test
+    public void testSetStatefulTintAcrossStateChanges() {
+        final Activity activity = mActivityTestRule.getActivity();
+
+        final ColorStateList tint = ContextCompat.getColorStateList(activity, R.color.fab_tint);
+        final int normal = ContextCompat.getColor(activity, R.color.sand_default);
+        final int notSelected = ContextCompat.getColor(activity, R.color.sand_disabled);
+
+        // First set the background tint list to the ColorStateList
+        onView(withId(R.id.fab_standard))
+                .perform(setBackgroundTintList(tint));
+
+        // Assert that the background is tinted correctly across state changes
+        onView(withId(R.id.fab_standard))
+                .perform(setSelected(true))
+                .check(matches(withFabBackgroundFill(normal)))
+                .perform(setSelected(false))
+                .check(matches(withFabBackgroundFill(notSelected)))
+                .perform(setSelected(true))
+                .check(matches(withFabBackgroundFill(normal)));
+    }
+
+    @SmallTest
+    @Test
+    public void testDeclaredStatefulTintAcrossStateChanges() {
+        final Activity activity = mActivityTestRule.getActivity();
+        final int normal = ContextCompat.getColor(activity, R.color.sand_default);
+        final int disabled = ContextCompat.getColor(activity, R.color.sand_disabled);
+
+        // Assert that the background is tinted correctly across state changes
+        onView(withId(R.id.fab_state_tint))
+                .perform(setSelected(true))
+                .check(matches(withFabBackgroundFill(normal)))
+                .perform(setSelected(false))
+                .check(matches(withFabBackgroundFill(disabled)));
+    }
+
+    @SmallTest
     @Test
     public void setVectorDrawableSrc() {
         onView(withId(R.id.fab_standard))
                 .perform(setImageResource(R.drawable.vector_icon));
     }
 
+    @SmallTest
     @Test
     public void testSetMiniSize() {
         final int miniSize = mActivityTestRule.getActivity().getResources()
@@ -94,6 +157,7 @@ public class FloatingActionButtonTest
                 .check(matches(withFabContentHeight(miniSize)));
     }
 
+    @SmallTest
     @Test
     public void testSetSizeToggle() {
         final int miniSize = mActivityTestRule.getActivity().getResources()
@@ -110,6 +174,7 @@ public class FloatingActionButtonTest
                 .check(matches(withFabContentHeight(normalSize)));
     }
 
+    @SmallTest
     @Test
     public void testOffset() {
         onView(withId(R.id.fab_standard))
@@ -121,6 +186,7 @@ public class FloatingActionButtonTest
                 .check(matches(withFabContentAreaOnMargins(Gravity.RIGHT | Gravity.BOTTOM)));
     }
 
+    @SmallTest
     @Test
     public void testHideShow() {
         onView(withId(R.id.fab_standard))
@@ -129,6 +195,7 @@ public class FloatingActionButtonTest
                 .check(matches(isDisplayed()));
     }
 
+    @MediumTest
     @Test
     public void testShowHide() {
         onView(withId(R.id.fab_standard))
@@ -137,4 +204,71 @@ public class FloatingActionButtonTest
                 .check(matches(not(isDisplayed())));
     }
 
+    @LargeTest
+    @Test
+    public void testClickableTouchAndDragOffView() {
+        onView(withId(R.id.fab_standard))
+                .perform(setClickable(true))
+                .perform(new GeneralSwipeAction(
+                        Swipe.SLOW,
+                        new CoordinatesProvider() {
+                            @Override
+                            public float[] calculateCoordinates(View view) {
+                                // Create coordinators that in the center of the FAB's content area
+                                final FloatingActionButton fab = (FloatingActionButton) view;
+
+                                final int[] xy = new int[2];
+                                fab.getLocationOnScreen(xy);
+                                final Rect rect = new Rect();
+                                fab.getContentRect(rect);
+
+                                return new float[] {
+                                        xy[0] + rect.centerX(),
+                                        xy[1] + rect.centerY()
+                                };
+                            }
+                        },
+                        new CoordinatesProvider() {
+                            @Override
+                            public float[] calculateCoordinates(View view) {
+                                // Create coordinators that in the center horizontally, but well
+                                // below the view vertically (by 50% of the height)
+                                final int[] xy = new int[2];
+                                view.getLocationOnScreen(xy);
+
+                                return new float[]{
+                                        xy[0] + (view.getWidth() / 2f),
+                                        xy[1] + (view.getHeight() * 1.5f)
+                                };
+                            }
+                        },
+                        Press.FINGER))
+                .check(matches(not(isPressed())));
+    }
+
+    @MediumTest
+    @Test
+    public void testOnClickListener() {
+        final View.OnClickListener listener = mock(View.OnClickListener.class);
+        final View view = mActivityTestRule.getActivity().findViewById(R.id.fab_standard);
+        view.setOnClickListener(listener);
+
+        // Click on the fab
+        onView(withId(R.id.fab_standard)).perform(click());
+
+        // And verify that the listener was invoked once
+        verify(listener, times(1)).onClick(view);
+    }
+
+    @SmallTest
+    @Test
+    public void testSetCompatElevation() {
+        onView(withId(R.id.fab_standard))
+                .perform(setEnabled(false))
+                .perform(setCompatElevation(0));
+
+        onView(withId(R.id.fab_standard))
+                .perform(setEnabled(true))
+                .perform(setCompatElevation(8));
+    }
 }

@@ -1,0 +1,17 @@
+apply plugin: 'groovy'
+apply plugin: 'java'
+
+apply from: "dependencies.gradle"
+
+ext.supportRootFolder = project.projectDir.getParentFile()
+apply from: 'repos.gradle'
+
+repos.addMavenRepositories(repositories)
+
+dependencies {
+    compile libs.gradle
+    compile libs.jacoco
+    compile libs.error_prone
+    compile libs.jarjar_gradle
+    compile gradleApi()
+}

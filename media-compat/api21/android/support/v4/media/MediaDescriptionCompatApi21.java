@@ -20,7 +20,9 @@ import android.media.MediaDescription;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcel;
+import android.support.annotation.RequiresApi;
 
+@RequiresApi(21)
 class MediaDescriptionCompatApi21 {
 
     public static String getMediaId(Object descriptionObj) {

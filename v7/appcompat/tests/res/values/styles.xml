@@ -28,6 +28,7 @@
     <style name="Theme.TextColors" parent="@style/Theme.AppCompat.Light">
         <item name="android:textColorPrimary">#FF0000FF</item>
         <item name="android:textColorSecondary">@color/color_state_list_sand</item>
+        <item name="android:textColorLink">@color/color_state_list_link</item>
     </style>
 
     <style name="TextStyleAllCapsOn" parent="@android:style/TextAppearance.Medium">
@@ -51,4 +52,38 @@
     </style>
 
     <style name="PopupEmptyStyle" />
+
+    <style name="TextView_FontResource">
+        <item name="fontFamily">@font/samplefont</item>
+        <item name="android:textAppearance">@null</item>
+    </style>
+
+    <style name="TextView_FontXmlResource">
+        <item name="fontFamily">@font/samplexmlfont</item>
+    </style>
+
+    <style name="TextView_TextStyleOverride">
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="TextView_FontResourceWithStyle">
+        <item name="fontFamily">@font/samplexmlfont</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="TextView_SansSerif">
+        <item name="fontFamily">@string/font_sans_serif</item>
+    </style>
+
+    <style name="TextView_Serif">
+        <item name="fontFamily">@string/font_serif</item>
+    </style>
+
+    <style name="TextView_Typeface_Serif">
+        <item name="android:typeface">serif</item>
+    </style>
+
+    <style name="TextView_Typeface_Monospace">
+        <item name="android:typeface">monospace</item>
+    </style>
 </resources>

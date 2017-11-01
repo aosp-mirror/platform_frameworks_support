@@ -13,8 +13,11 @@
  */
 package android.support.v17.leanback.transition;
 
+import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.RestrictTo;
 import android.view.Gravity;
 import android.view.View;
@@ -23,13 +26,11 @@ import android.view.Window;
 
 import java.util.ArrayList;
 
-import static android.support.annotation.RestrictTo.Scope.GROUP_ID;
-
 /**
  * Helper for view transitions.
  * @hide
  */
-@RestrictTo(GROUP_ID)
+@RestrictTo(LIBRARY_GROUP)
 public final class TransitionHelper {
 
     public static final int FADE_IN = 0x1;
@@ -48,11 +49,8 @@ public final class TransitionHelper {
      * @return True if Transition animations are supported.
      */
     public static boolean systemSupportsTransitions() {
-        if (Build.VERSION.SDK_INT >= 19) {
-            // Supported on Android 4.4 or later.
-            return true;
-        }
-        return false;
+        // Supported on Android 4.4 or later.
+        return Build.VERSION.SDK_INT >= 19;
     }
 
     /**
@@ -65,98 +63,109 @@ public final class TransitionHelper {
     /**
      * Interface implemented by classes that support Transition animations.
      */
-    static interface TransitionHelperVersionImpl {
+    interface TransitionHelperVersionImpl {
 
-        public void setEnterTransition(android.app.Fragment fragment, Object transition);
+        void setEnterTransition(android.app.Fragment fragment, Object transition);
 
-        public void setExitTransition(android.app.Fragment fragment, Object transition);
+        void setExitTransition(android.app.Fragment fragment, Object transition);
 
-        public void setSharedElementEnterTransition(android.app.Fragment fragment,
+        void setSharedElementEnterTransition(android.app.Fragment fragment,
                 Object transition);
 
-        public void addSharedElement(android.app.FragmentTransaction ft,
+        void addSharedElement(android.app.FragmentTransaction ft,
                 View view, String transitionName);
 
-        public Object getSharedElementEnterTransition(Window window);
+        Object getSharedElementEnterTransition(Window window);
 
-        public Object getSharedElementReturnTransition(Window window);
+        void setSharedElementEnterTransition(Window window, Object transition);
 
-        public Object getSharedElementExitTransition(Window window);
+        Object getSharedElementReturnTransition(Window window);
 
-        public Object getSharedElementReenterTransition(Window window);
+        void setSharedElementReturnTransition(Window window, Object transition);
 
-        public Object getEnterTransition(Window window);
+        Object getSharedElementExitTransition(Window window);
 
-        public Object getReturnTransition(Window window);
+        Object getSharedElementReenterTransition(Window window);
 
-        public Object getExitTransition(Window window);
+        Object getEnterTransition(Window window);
 
-        public Object getReenterTransition(Window window);
+        void setEnterTransition(Window window, Object transition);
 
-        public Object createScene(ViewGroup sceneRoot, Runnable r);
+        Object getReturnTransition(Window window);
 
-        public Object createAutoTransition();
+        void setReturnTransition(Window window, Object transition);
 
-        public Object createSlide(int slideEdge);
+        Object getExitTransition(Window window);
 
-        public Object createScale();
+        Object getReenterTransition(Window window);
 
-        public Object createFadeTransition(int fadingMode);
+        Object createScene(ViewGroup sceneRoot, Runnable r);
 
-        public Object createChangeTransform();
+        Object createAutoTransition();
 
-        public Object createChangeBounds(boolean reparent);
+        Object createSlide(int slideEdge);
 
-        public Object createFadeAndShortSlide(int edge);
+        Object createScale();
 
-        public Object createFadeAndShortSlide(int edge, float distance);
+        Object createFadeTransition(int fadingMode);
 
-        public void setChangeBoundsStartDelay(Object changeBounds, View view, int startDelay);
+        Object createChangeTransform();
 
-        public void setChangeBoundsStartDelay(Object changeBounds, int viewId, int startDelay);
+        Object createChangeBounds(boolean reparent);
 
-        public void setChangeBoundsStartDelay(Object changeBounds, String className,
+        Object createFadeAndShortSlide(int edge);
+
+        Object createFadeAndShortSlide(int edge, float distance);
+
+        void setChangeBoundsStartDelay(Object changeBounds, View view, int startDelay);
+
+        void setChangeBoundsStartDelay(Object changeBounds, int viewId, int startDelay);
+
+        void setChangeBoundsStartDelay(Object changeBounds, String className,
                 int startDelay);
 
-        public void setChangeBoundsDefaultStartDelay(Object changeBounds, int startDelay);
+        void setChangeBoundsDefaultStartDelay(Object changeBounds, int startDelay);
 
-        public Object createTransitionSet(boolean sequential);
+        Object createTransitionSet(boolean sequential);
 
-        public void addTransition(Object transitionSet, Object transition);
+        void addTransition(Object transitionSet, Object transition);
 
-        public void addTransitionListener(Object transition, TransitionListener listener);
+        void addTransitionListener(Object transition, TransitionListener listener);
 
-        public void removeTransitionListener(Object transition, TransitionListener listener);
+        void removeTransitionListener(Object transition, TransitionListener listener);
 
-        public void runTransition(Object scene, Object transition);
+        void runTransition(Object scene, Object transition);
 
-        public void exclude(Object transition, int targetId, boolean exclude);
+        void exclude(Object transition, int targetId, boolean exclude);
 
-        public void exclude(Object transition, View targetView, boolean exclude);
+        void exclude(Object transition, View targetView, boolean exclude);
 
-        public void excludeChildren(Object transition, int targetId, boolean exclude);
+        void excludeChildren(Object transition, int targetId, boolean exclude);
 
-        public void excludeChildren(Object transition, View target, boolean exclude);
+        void excludeChildren(Object transition, View target, boolean exclude);
 
-        public void include(Object transition, int targetId);
+        void include(Object transition, int targetId);
 
-        public void include(Object transition, View targetView);
+        void include(Object transition, View targetView);
 
-        public void setStartDelay(Object transition, long startDelay);
+        void setStartDelay(Object transition, long startDelay);
 
-        public void setDuration(Object transition, long duration);
+        void setDuration(Object transition, long duration);
 
-        public void setInterpolator(Object transition, Object timeInterpolator);
+        void setInterpolator(Object transition, Object timeInterpolator);
 
-        public void addTarget(Object transition, View view);
+        void addTarget(Object transition, View view);
 
-        public Object createDefaultInterpolator(Context context);
+        Object createDefaultInterpolator(Context context);
 
-        public Object loadTransition(Context context, int resId);
+        Object loadTransition(Context context, int resId);
 
-        public void beginDelayedTransition(ViewGroup sceneRoot, Object transitionObject);
+        void beginDelayedTransition(ViewGroup sceneRoot, Object transitionObject);
 
-        public void setTransitionGroup(ViewGroup viewGroup, boolean transitionGroup);
+        void setTransitionGroup(ViewGroup viewGroup, boolean transitionGroup);
+
+        void setEpicenterCallback(Object transitionObject,
+                TransitionEpicenterCallback callback);
     }
 
     /**
@@ -195,8 +204,16 @@ public final class TransitionHelper {
         }
 
         @Override
+        public void setSharedElementEnterTransition(Window window, Object object) {
+        }
+
+        @Override
         public Object getSharedElementReturnTransition(Window window) {
             return null;
+        }
+
+        @Override
+        public void setSharedElementReturnTransition(Window window, Object transition) {
         }
 
         @Override
@@ -215,8 +232,16 @@ public final class TransitionHelper {
         }
 
         @Override
+        public void setEnterTransition(Window window, Object transition) {
+        }
+
+        @Override
         public Object getReturnTransition(Window window) {
             return null;
+        }
+
+        @Override
+        public void setReturnTransition(Window window, Object transition) {
         }
 
         @Override
@@ -393,11 +418,17 @@ public final class TransitionHelper {
         @Override
         public void setTransitionGroup(ViewGroup viewGroup, boolean transitionGroup) {
         }
+
+        @Override
+        public void setEpicenterCallback(Object transitionObject,
+                TransitionEpicenterCallback callback) {
+        }
     }
 
     /**
      * Implementation used on KitKat (and above).
      */
+    @RequiresApi(19)
     static class TransitionHelperKitkatImpl extends TransitionHelperStubImpl {
 
         @Override
@@ -537,6 +568,7 @@ public final class TransitionHelper {
         }
     }
 
+    @RequiresApi(21)
     static final class TransitionHelperApi21Impl extends TransitionHelperKitkatImpl {
 
         @Override
@@ -567,8 +599,18 @@ public final class TransitionHelper {
         }
 
         @Override
+        public void setSharedElementEnterTransition(Window window, Object object) {
+            TransitionHelperApi21.setSharedElementEnterTransition(window, object);
+        }
+
+        @Override
         public Object getSharedElementReturnTransition(Window window) {
             return TransitionHelperApi21.getSharedElementReturnTransition(window);
+        }
+
+        @Override
+        public void setSharedElementReturnTransition(Window window, Object transition) {
+            TransitionHelperApi21.setSharedElementReturnTransition(window, transition);
         }
 
         @Override
@@ -602,8 +644,18 @@ public final class TransitionHelper {
         }
 
         @Override
+        public void setEnterTransition(Window window, Object transition) {
+            TransitionHelperApi21.setEnterTransition(window, transition);
+        }
+
+        @Override
         public Object getReturnTransition(Window window) {
             return TransitionHelperApi21.getReturnTransition(window);
+        }
+
+        @Override
+        public void setReturnTransition(Window window, Object transition) {
+            TransitionHelperApi21.setReturnTransition(window, transition);
         }
 
         @Override
@@ -636,6 +688,11 @@ public final class TransitionHelper {
             return TransitionHelperApi21.createChangeTransform();
         }
 
+        @Override
+        public void setEpicenterCallback(Object transitionObject,
+                TransitionEpicenterCallback callback) {
+            TransitionHelperApi21.setEpicenterCallback(transitionObject, callback);
+        }
     }
 
     static {
@@ -652,8 +709,16 @@ public final class TransitionHelper {
         return sImpl.getSharedElementEnterTransition(window);
     }
 
+    public static void setSharedElementEnterTransition(Window window, Object transition) {
+        sImpl.setSharedElementEnterTransition(window, transition);
+    }
+
     public static Object getSharedElementReturnTransition(Window window) {
         return sImpl.getSharedElementReturnTransition(window);
+    }
+
+    public static void setSharedElementReturnTransition(Window window, Object transition) {
+        sImpl.setSharedElementReturnTransition(window, transition);
     }
 
     public static Object getSharedElementExitTransition(Window window) {
@@ -668,8 +733,16 @@ public final class TransitionHelper {
         return sImpl.getEnterTransition(window);
     }
 
+    public static void setEnterTransition(Window window, Object transition) {
+        sImpl.setEnterTransition(window, transition);
+    }
+
     public static Object getReturnTransition(Window window) {
         return sImpl.getReturnTransition(window);
+    }
+
+    public static void setReturnTransition(Window window, Object transition) {
+        sImpl.setReturnTransition(window, transition);
     }
 
     public static Object getExitTransition(Window window) {
@@ -845,6 +918,11 @@ public final class TransitionHelper {
 
     public static void setTransitionGroup(ViewGroup viewGroup, boolean transitionGroup) {
         sImpl.setTransitionGroup(viewGroup, transitionGroup);
+    }
+
+    public static void setEpicenterCallback(Object transition,
+            TransitionEpicenterCallback callback) {
+        sImpl.setEpicenterCallback(transition, callback);
     }
 
     /**

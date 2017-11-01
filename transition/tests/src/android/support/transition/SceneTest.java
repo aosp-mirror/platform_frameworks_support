@@ -16,18 +16,18 @@
 
 package android.support.transition;
 
-import org.junit.Test;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.sameInstance;
 
 import android.support.test.annotation.UiThreadTest;
+import android.support.test.filters.MediumTest;
 import android.support.transition.test.R;
-import android.test.suitebuilder.annotation.MediumTest;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.sameInstance;
+import org.junit.Test;
 
 @MediumTest
 public class SceneTest extends BaseTest {
@@ -118,9 +118,10 @@ public class SceneTest extends BaseTest {
     public void testGetSceneForLayout_cache() {
         TransitionActivity activity = rule.getActivity();
         ViewGroup root = activity.getRoot();
-        Scene scene = Scene.getSceneForLayout(root, R.layout.scene0, activity);
+        Scene scene = Scene.getSceneForLayout(root, R.layout.support_scene0, activity);
         assertThat("getSceneForLayout should return the same instance for subsequent calls",
-                Scene.getSceneForLayout(root, R.layout.scene0, activity), is(sameInstance(scene)));
+                Scene.getSceneForLayout(root, R.layout.support_scene0, activity),
+                is(sameInstance(scene)));
     }
 
 }

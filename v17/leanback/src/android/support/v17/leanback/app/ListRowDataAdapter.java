@@ -1,10 +1,7 @@
 package android.support.v17.leanback.app;
 
-import android.support.v17.leanback.widget.ArrayObjectAdapter;
-import android.support.v17.leanback.widget.CursorObjectAdapter;
 import android.support.v17.leanback.widget.ObjectAdapter;
 import android.support.v17.leanback.widget.Row;
-import android.support.v17.leanback.widget.SparseArrayObjectAdapter;
 
 /**
  * Wrapper class for {@link ObjectAdapter} used by {@link BrowseFragment} to initialize
@@ -44,6 +41,7 @@ class ListRowDataAdapter extends ObjectAdapter {
     }
 
     void initialize() {
+        mLastVisibleRowIndex = -1;
         int i = mAdapter.size() - 1;
         while (i >= 0) {
             Row item = (Row) mAdapter.get(i);
@@ -78,6 +76,7 @@ class ListRowDataAdapter extends ObjectAdapter {
                 break;
             case ON_CHANGED:
                 notifyChanged();
+                break;
             default:
                 throw new IllegalArgumentException("Invalid event type " + eventType);
         }
@@ -125,7 +124,7 @@ class ListRowDataAdapter extends ObjectAdapter {
             int totalItems = lastVisibleRowIndex - mLastVisibleRowIndex;
             if (totalItems > 0) {
                 onEventFired(ON_ITEM_RANGE_REMOVED,
-                        Math.min(lastVisibleRowIndex + 1, positionStart),
+                        Math.min(mLastVisibleRowIndex + 1, positionStart),
                         totalItems);
             }
         }

@@ -16,30 +16,35 @@
 
 package android.support.v7.app;
 
-import org.junit.Test;
-
-import android.app.Dialog;
-import android.os.Bundle;
-import android.test.suitebuilder.annotation.MediumTest;
-
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-@MediumTest
-public class DialogTestCase extends BaseInstrumentationTestCase<WindowDecorActionBarActivity> {
+import android.app.Dialog;
+import android.os.Bundle;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.MediumTest;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
 
-    public DialogTestCase() {
-        super(WindowDecorActionBarActivity.class);
-    }
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+@MediumTest
+@RunWith(AndroidJUnit4.class)
+public class DialogTestCase {
+    @Rule
+    public final ActivityTestRule<WindowDecorAppCompatActivity> mActivityTestRule =
+            new ActivityTestRule<>(WindowDecorAppCompatActivity.class);
 
     @Test
     public void testDialogFragmentShows() {
-        getInstrumentation().waitForIdleSync();
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
 
         TestDialogFragment fragment = new TestDialogFragment();
-        fragment.show(getActivity().getSupportFragmentManager(), null);
+        fragment.show(mActivityTestRule.getActivity().getSupportFragmentManager(), null);
 
-        getInstrumentation().waitForIdleSync();
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
 
         assertNotNull("Dialog was null", fragment.getDialog());
         assertTrue("Dialog was not being shown", fragment.getDialog().isShowing());
