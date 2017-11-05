@@ -1,6 +1,3 @@
-// CHECKSTYLE:OFF Generated code
-/* This file is auto-generated from RowsFragmentTest.java.  DO NOT MODIFY. */
-
 /*
  * Copyright (C) 2016 The Android Open Source Project
  *
@@ -27,7 +24,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import android.support.v4.app.Fragment;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
@@ -53,6 +49,7 @@ import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.support.v17.leanback.widget.SinglePresenterSelector;
 import android.support.v17.leanback.widget.VerticalGridView;
+import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -739,6 +736,33 @@ public class RowsSupportFragmentTest extends SingleSupportFragmentTestBase {
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
+                adapter1.removeItems(0, 1);
+                adapter1.add(0, new MyPageRow(0));
+            }
+        });
+        fragment.waitPageFragment(SampleRowsSupportFragment.class);
+        assertTrue(adapter1.hasObserver());
+        assertNull(fragment.mMainFragmentListRowDataAdapter);
+    }
+
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.LOLLIPOP)
+    @Test
+    public void browseFragmentNotifyItemChangeListRowToPage() throws InterruptedException {
+        final SingleSupportFragmentTestActivity activity = launchAndWaitActivity(
+                RowsSupportFragmentTest.F_standard.class, 2000);
+        final F_standard fragment = ((F_standard) activity.getTestFragment());
+        fragment.assertExecutedEntranceTransition();
+
+        final ArrayObjectAdapter adapter1 = (ArrayObjectAdapter) fragment.getAdapter();
+        ListRowDataAdapter wrappedAdapter = fragment.mMainFragmentListRowDataAdapter;
+        assertTrue(adapter1.hasObserver());
+        assertTrue(wrappedAdapter.hasObserver());
+
+        fragment.getMainFragmentRegistry().registerFragment(MyPageRow.class,
+                new MyFragmentFactory());
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
                 adapter1.replace(0, new MyPageRow(0));
             }
         });
@@ -750,6 +774,35 @@ public class RowsSupportFragmentTest extends SingleSupportFragmentTestBase {
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.LOLLIPOP)
     @Test
     public void browseFragmentNotifyDataChangeListRowToListRow() throws InterruptedException {
+        final SingleSupportFragmentTestActivity activity = launchAndWaitActivity(
+                RowsSupportFragmentTest.F_standard.class, 2000);
+        final F_standard fragment = ((F_standard) activity.getTestFragment());
+        fragment.assertExecutedEntranceTransition();
+
+        final ArrayObjectAdapter adapter1 = (ArrayObjectAdapter) fragment.getAdapter();
+        ListRowDataAdapter wrappedAdapter = fragment.mMainFragmentListRowDataAdapter;
+        assertTrue(adapter1.hasObserver());
+        assertTrue(wrappedAdapter.hasObserver());
+
+        fragment.getMainFragmentRegistry().registerFragment(MyPageRow.class,
+                new MyFragmentFactory());
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                ObjectAdapter listRowAdapter = createListRowAdapter();
+                HeaderItem header = new HeaderItem(0, "Row 0 changed");
+                adapter1.removeItems(0, 1);
+                adapter1.add(0, new ListRow(header, listRowAdapter));
+            }
+        });
+        assertTrue(adapter1.hasObserver());
+        assertTrue(wrappedAdapter.hasObserver());
+        assertSame(wrappedAdapter, fragment.mMainFragmentListRowDataAdapter);
+    }
+
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.LOLLIPOP)
+    @Test
+    public void browseFragmentNotifyItemChangeListRowToListRow() throws InterruptedException {
         final SingleSupportFragmentTestActivity activity = launchAndWaitActivity(
                 RowsSupportFragmentTest.F_standard.class, 2000);
         final F_standard fragment = ((F_standard) activity.getTestFragment());
@@ -825,6 +878,28 @@ public class RowsSupportFragmentTest extends SingleSupportFragmentTestBase {
         assertNull(fragment.mMainFragmentListRowDataAdapter);
     }
 
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.LOLLIPOP)
+    @Test
+    public void browseFragmentNotifyItemChangePageToPage() throws InterruptedException {
+        final SingleSupportFragmentTestActivity activity = launchAndWaitActivity(
+                RowsSupportFragmentTest.F_2PageRow3ListRow.class, 2000);
+        final F_2PageRow3ListRow fragment = ((F_2PageRow3ListRow) activity.getTestFragment());
+        fragment.assertExecutedEntranceTransition();
+
+        final ArrayObjectAdapter adapter1 = (ArrayObjectAdapter) fragment.getAdapter();
+        assertNull(fragment.mMainFragmentListRowDataAdapter);
+        assertTrue(adapter1.hasObserver());
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                adapter1.replace(0, new MyPageRow(1));
+            }
+        });
+        fragment.waitPageFragment(SampleFragment.class);
+        // adapter1 should no longer has observer and adapter2 will have observer
+        assertTrue(adapter1.hasObserver());
+        assertNull(fragment.mMainFragmentListRowDataAdapter);
+    }
 
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.LOLLIPOP)
     @Test
@@ -870,6 +945,30 @@ public class RowsSupportFragmentTest extends SingleSupportFragmentTestBase {
                 HeaderItem header = new HeaderItem(0, "Row 0 changed");
                 adapter1.removeItems(0, 1);
                 adapter1.add(0, new ListRow(header, listRowAdapter));
+            }
+        });
+        fragment.waitRowsSupportFragment();
+        assertTrue(adapter1.hasObserver());
+        assertTrue(fragment.mMainFragmentListRowDataAdapter.hasObserver());
+    }
+
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.LOLLIPOP)
+    @Test
+    public void browseFragmentNotifyItemChangePageToListRow() throws InterruptedException {
+        final SingleSupportFragmentTestActivity activity = launchAndWaitActivity(
+                RowsSupportFragmentTest.F_2PageRow3ListRow.class, 2000);
+        final F_2PageRow3ListRow fragment = ((F_2PageRow3ListRow) activity.getTestFragment());
+        fragment.assertExecutedEntranceTransition();
+
+        final ArrayObjectAdapter adapter1 = (ArrayObjectAdapter) fragment.getAdapter();
+        assertNull(fragment.mMainFragmentListRowDataAdapter);
+        assertTrue(adapter1.hasObserver());
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                ObjectAdapter listRowAdapter = createListRowAdapter();
+                HeaderItem header = new HeaderItem(0, "Row 0 changed");
+                adapter1.replace(0, new ListRow(header, listRowAdapter));
             }
         });
         fragment.waitRowsSupportFragment();
