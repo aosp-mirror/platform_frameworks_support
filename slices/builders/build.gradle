@@ -19,8 +19,7 @@ plugins {
 }
 
 dependencies {
-    implementation project(":slices-core")
-    implementation project(":support-annotations")
+    implementation libs.support.annotations, libs.support_exclude_config
 }
 
 android {
