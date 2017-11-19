@@ -477,7 +477,6 @@ public class RecyclerViewBasicTest {
             assertTrue("must contain Adapter class", m.contains(MockAdapter.class.getName()));
             assertTrue("must contain LM class", m.contains(LinearLayoutManager.class.getName()));
             assertTrue("must contain ctx class", m.contains(getContext().getClass().getName()));
-
         }
     }
 
@@ -488,13 +487,63 @@ public class RecyclerViewBasicTest {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         measure();
         layout();
-        assertSame(focusAdapter.mBottomLeft,
-                focusAdapter.mTopRight.focusSearch(View.FOCUS_FORWARD));
-        assertSame(focusAdapter.mBottomRight,
-                focusAdapter.mBottomLeft.focusSearch(View.FOCUS_FORWARD));
+
+        boolean isIcsOrLower = Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1;
+
+        // On API 15 and lower, focus forward get's translated to focus down.
+        View expected = isIcsOrLower ? focusAdapter.mBottomRight : focusAdapter.mBottomLeft;
+        assertEquals(expected, focusAdapter.mTopRight.focusSearch(View.FOCUS_FORWARD));
+
+        // On API 15 and lower, focus forward get's translated to focus down, which in this case
+        // runs out of the RecyclerView, thus returning null.
+        expected = isIcsOrLower ? null : focusAdapter.mBottomRight;
+        assertSame(expected, focusAdapter.mBottomLeft.focusSearch(View.FOCUS_FORWARD));
+
         // we don't want looping within RecyclerView
         assertNull(focusAdapter.mBottomRight.focusSearch(View.FOCUS_FORWARD));
         assertNull(focusAdapter.mTopLeft.focusSearch(View.FOCUS_BACKWARD));
+    }
+
+    @Test
+    public void setAdapter_callsCorrectLmMethods() throws Throwable {
+        MockLayoutManager mockLayoutManager = new MockLayoutManager();
+        MockAdapter mockAdapter = new MockAdapter(1);
+        mRecyclerView.setLayoutManager(mockLayoutManager);
+
+        mRecyclerView.setAdapter(mockAdapter);
+        layout();
+
+        assertEquals(1, mockLayoutManager.mAdapterChangedCount);
+        assertEquals(0, mockLayoutManager.mItemsChangedCount);
+    }
+
+    @Test
+    public void swapAdapter_callsCorrectLmMethods() throws Throwable {
+        MockLayoutManager mockLayoutManager = new MockLayoutManager();
+        MockAdapter mockAdapter = new MockAdapter(1);
+        mRecyclerView.setLayoutManager(mockLayoutManager);
+
+        mRecyclerView.swapAdapter(mockAdapter, true);
+        layout();
+
+        assertEquals(1, mockLayoutManager.mAdapterChangedCount);
+        assertEquals(1, mockLayoutManager.mItemsChangedCount);
+    }
+
+    @Test
+    public void notifyDataSetChanged_callsCorrectLmMethods() throws Throwable {
+        MockLayoutManager mockLayoutManager = new MockLayoutManager();
+        MockAdapter mockAdapter = new MockAdapter(1);
+        mRecyclerView.setLayoutManager(mockLayoutManager);
+        mRecyclerView.setAdapter(mockAdapter);
+        mockLayoutManager.mAdapterChangedCount = 0;
+        mockLayoutManager.mItemsChangedCount = 0;
+
+        mockAdapter.notifyDataSetChanged();
+        layout();
+
+        assertEquals(0, mockLayoutManager.mAdapterChangedCount);
+        assertEquals(1, mockLayoutManager.mItemsChangedCount);
     }
 
     static class MockLayoutManager extends RecyclerView.LayoutManager {
@@ -502,6 +551,7 @@ public class RecyclerViewBasicTest {
         int mLayoutCount = 0;
 
         int mAdapterChangedCount = 0;
+        int mItemsChangedCount = 0;
 
         RecyclerView.Adapter mPrevAdapter;
 
@@ -516,6 +566,11 @@ public class RecyclerViewBasicTest {
             mPrevAdapter = oldAdapter;
             mNextAdapter = newAdapter;
             mAdapterChangedCount++;
+        }
+
+        @Override
+        public void onItemsChanged(RecyclerView recyclerView) {
+            mItemsChangedCount++;
         }
 
         @Override
