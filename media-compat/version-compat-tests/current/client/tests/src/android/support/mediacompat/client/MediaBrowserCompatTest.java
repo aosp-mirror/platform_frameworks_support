@@ -112,6 +112,8 @@ public class MediaBrowserCompatTest {
                     "android.support.mediacompat.service.test",
                     "android.support.mediacompat.service"
                             + ".StubMediaBrowserServiceCompatWithDelayedMediaSession");
+    private static final ComponentName TEST_INVALID_BROWSER_SERVICE = new ComponentName(
+            "invalid.package", "invalid.ServiceClassName");
 
     private String mServiceVersion;
     private MediaBrowserCompat mMediaBrowser;
@@ -157,6 +159,21 @@ public class MediaBrowserCompatTest {
 
     @Test
     @SmallTest
+    public void testBrowserRoot() {
+        final String id = "test-id";
+        final String key = "test-key";
+        final String val = "test-val";
+        final Bundle extras = new Bundle();
+        extras.putString(key, val);
+
+        MediaBrowserServiceCompat.BrowserRoot browserRoot =
+                new MediaBrowserServiceCompat.BrowserRoot(id, extras);
+        assertEquals(id, browserRoot.getRootId());
+        assertEquals(val, browserRoot.getExtras().getString(key));
+    }
+
+    @Test
+    @SmallTest
     public void testMediaBrowser() throws Exception {
         assertFalse(mMediaBrowser.isConnected());
 
@@ -174,6 +191,37 @@ public class MediaBrowserCompatTest {
                 return !mMediaBrowser.isConnected();
             }
         }.run();
+    }
+
+    @Test
+    @SmallTest
+    public void testGetServiceComponentBeforeConnection() {
+        try {
+            ComponentName serviceComponent = mMediaBrowser.getServiceComponent();
+            fail();
+        } catch (IllegalStateException e) {
+            // expected
+        }
+    }
+
+    @Test
+    @SmallTest
+    public void testConnectionFailed() throws Exception {
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                mMediaBrowser = new MediaBrowserCompat(getInstrumentation().getTargetContext(),
+                        TEST_INVALID_BROWSER_SERVICE, mConnectionCallback, mRootHints);
+            }
+        });
+
+        synchronized (mConnectionCallback.mWaitLock) {
+            mMediaBrowser.connect();
+            mConnectionCallback.mWaitLock.wait(TIME_OUT_MS);
+        }
+        assertTrue(mConnectionCallback.mConnectionFailedCount > 0);
+        assertEquals(0, mConnectionCallback.mConnectedCount);
+        assertEquals(0, mConnectionCallback.mConnectionSuspendedCount);
     }
 
     @Test
@@ -611,6 +659,7 @@ public class MediaBrowserCompatTest {
             customActionExtras.putString(TEST_KEY_1, TEST_VALUE_1);
             mMediaBrowser.sendCustomAction(
                     CUSTOM_ACTION, customActionExtras, mCustomActionCallback);
+            mCustomActionCallback.mWaitLock.wait(WAIT_TIME_FOR_NO_RESPONSE_MS);
 
             mCustomActionCallback.reset();
             Bundle data1 = new Bundle();
@@ -701,6 +750,8 @@ public class MediaBrowserCompatTest {
         Bundle customActionExtras = new Bundle();
         customActionExtras.putString(TEST_KEY_1, TEST_VALUE_1);
         mMediaBrowser.sendCustomAction(CUSTOM_ACTION, customActionExtras, null);
+        // Wait some time so that the service can get a result receiver for the custom action.
+        Thread.sleep(WAIT_TIME_FOR_NO_RESPONSE_MS);
 
         // These calls should not make any exceptions.
         callMediaBrowserServiceMethod(CUSTOM_ACTION_SEND_PROGRESS_UPDATE, new Bundle(),
