@@ -16,10 +16,17 @@
 
 package androidx.app.slice.widget;
 
+import static android.app.slice.Slice.HINT_LARGE;
+import static android.app.slice.Slice.HINT_TITLE;
+import static android.app.slice.Slice.SUBTYPE_SOURCE;
+import static android.app.slice.SliceItem.FORMAT_ACTION;
+import static android.app.slice.SliceItem.FORMAT_COLOR;
+import static android.app.slice.SliceItem.FORMAT_IMAGE;
+import static android.app.slice.SliceItem.FORMAT_TEXT;
+
+import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.app.PendingIntent.CanceledException;
-import android.app.slice.Slice;
-import android.app.slice.SliceItem;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -33,6 +40,8 @@ import android.graphics.drawable.shapes.OvalShape;
 import android.net.Uri;
 import android.support.annotation.RestrictTo;
 
+import androidx.app.slice.Slice;
+import androidx.app.slice.SliceItem;
 import androidx.app.slice.core.SliceQuery;
 import androidx.app.slice.view.R;
 
@@ -40,6 +49,7 @@ import androidx.app.slice.view.R;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY)
+@TargetApi(23)
 public class ShortcutView extends androidx.app.slice.widget.SliceView.SliceModeView {
 
     private static final String TAG = "ShortcutView";
@@ -63,9 +73,9 @@ public class ShortcutView extends androidx.app.slice.widget.SliceView.SliceModeV
     public void setSlice(Slice slice) {
         removeAllViews();
         determineShortcutItems(getContext(), slice);
-        SliceItem colorItem = SliceQuery.find(slice, SliceItem.TYPE_COLOR);
+        SliceItem colorItem = SliceQuery.find(slice, FORMAT_COLOR);
         if (colorItem == null) {
-            colorItem = SliceQuery.find(slice, SliceItem.TYPE_COLOR);
+            colorItem = SliceQuery.find(slice, FORMAT_COLOR);
         }
         // TODO: pick better default colour
         final int color = colorItem != null ? colorItem.getColor() : Color.GRAY;
@@ -73,8 +83,8 @@ public class ShortcutView extends androidx.app.slice.widget.SliceView.SliceModeV
         circle.setTint(color);
         setBackground(circle);
         if (mIcon != null) {
-            final boolean isLarge = mIcon.hasHint(Slice.HINT_LARGE)
-                    || mIcon.hasHint(Slice.HINT_SOURCE);
+            final boolean isLarge = mIcon.hasHint(HINT_LARGE)
+                    || SUBTYPE_SOURCE.equals(mIcon.getSubType());
             final int iconSize = isLarge ? mLargeIconSize : mSmallIconSize;
             SliceViewUtil.createCircledIcon(getContext(), color, iconSize, mIcon.getIcon(),
                     isLarge, this /* parent */);
@@ -112,38 +122,38 @@ public class ShortcutView extends androidx.app.slice.widget.SliceView.SliceModeV
      * Looks at the slice and determines which items are best to use to compose the shortcut.
      */
     private void determineShortcutItems(Context context, Slice slice) {
-        SliceItem titleItem = SliceQuery.find(slice, SliceItem.TYPE_ACTION,
-                Slice.HINT_TITLE, null);
+        SliceItem titleItem = SliceQuery.find(slice, FORMAT_ACTION,
+                HINT_TITLE, null);
 
         if (titleItem != null) {
             // Preferred case: hinted action containing hinted image and text
             mAction = titleItem.getAction();
-            mIcon = SliceQuery.find(titleItem.getSlice(), SliceItem.TYPE_IMAGE, Slice.HINT_TITLE,
+            mIcon = SliceQuery.find(titleItem.getSlice(), FORMAT_IMAGE, HINT_TITLE,
                     null);
-            mLabel = SliceQuery.find(titleItem.getSlice(), SliceItem.TYPE_TEXT, Slice.HINT_TITLE,
+            mLabel = SliceQuery.find(titleItem.getSlice(), FORMAT_TEXT, HINT_TITLE,
                     null);
         } else {
             // No hinted action; just use the first one
-            SliceItem actionItem = SliceQuery.find(slice, SliceItem.TYPE_ACTION, (String) null,
+            SliceItem actionItem = SliceQuery.find(slice, FORMAT_ACTION, (String) null,
                     null);
             mAction = (actionItem != null) ? actionItem.getAction() : null;
         }
         // First fallback: any hinted image and text
         if (mIcon == null) {
-            mIcon = SliceQuery.find(slice, SliceItem.TYPE_IMAGE, Slice.HINT_TITLE,
+            mIcon = SliceQuery.find(slice, FORMAT_IMAGE, HINT_TITLE,
                     null);
         }
         if (mLabel == null) {
-            mLabel = SliceQuery.find(slice, SliceItem.TYPE_TEXT, Slice.HINT_TITLE,
+            mLabel = SliceQuery.find(slice, FORMAT_TEXT, HINT_TITLE,
                     null);
         }
         // Second fallback: first image and text
         if (mIcon == null) {
-            mIcon = SliceQuery.find(slice, SliceItem.TYPE_IMAGE, (String) null,
+            mIcon = SliceQuery.find(slice, FORMAT_IMAGE, (String) null,
                     null);
         }
         if (mLabel == null) {
-            mLabel = SliceQuery.find(slice, SliceItem.TYPE_TEXT, (String) null,
+            mLabel = SliceQuery.find(slice, FORMAT_TEXT, (String) null,
                     null);
         }
         // Final fallback: use app info
@@ -156,12 +166,12 @@ public class ShortcutView extends androidx.app.slice.widget.SliceView.SliceModeV
                 if (mIcon == null) {
                     Slice.Builder sb = new Slice.Builder(slice.getUri());
                     Drawable icon = pm.getApplicationIcon(appInfo);
-                    sb.addIcon(SliceViewUtil.createIconFromDrawable(icon), Slice.HINT_LARGE);
+                    sb.addIcon(SliceViewUtil.createIconFromDrawable(icon), HINT_LARGE);
                     mIcon = sb.build().getItems().get(0);
                 }
                 if (mLabel == null) {
                     Slice.Builder sb = new Slice.Builder(slice.getUri());
-                    sb.addText(pm.getApplicationLabel(appInfo));
+                    sb.addText(pm.getApplicationLabel(appInfo), null);
                     mLabel = sb.build().getItems().get(0);
                 }
                 if (mAction == null) {

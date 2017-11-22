@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright 2017 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,20 @@
  * limitations under the License.
  */
 
-plugins {
-    id("SupportAndroidLibraryPlugin")
-}
+package androidx.app.slice.core;
 
-dependencies {
-    compile project(path: ':slices-core')
-    implementation libs.support.annotations, libs.support_exclude_config
-}
+import android.app.slice.SliceSpec;
+import android.support.annotation.RestrictTo;
 
-android {
-    defaultConfig {
-        minSdkVersion 19
-    }
-}
+import java.util.Collections;
+import java.util.List;
 
-supportLibrary {
-    name 'Slice builders'
-    publish false
-    inceptionYear '2017'
-    description "A set of builders to create templates using SliceProvider APIs"
-    java8Library false
+/**
+ * @hide
+ */
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+public class SliceSpecs {
+
+    // TODO: Fill these in.
+    public static List<SliceSpec> SUPPORTED_SPECS = Collections.emptyList();
 }

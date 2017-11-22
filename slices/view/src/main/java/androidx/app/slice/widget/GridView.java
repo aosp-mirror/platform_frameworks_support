@@ -16,11 +16,16 @@
 
 package androidx.app.slice.widget;
 
+import static android.app.slice.Slice.HINT_LARGE;
+import static android.app.slice.Slice.HINT_TITLE;
+import static android.app.slice.SliceItem.FORMAT_COLOR;
+import static android.app.slice.SliceItem.FORMAT_IMAGE;
+import static android.app.slice.SliceItem.FORMAT_SLICE;
+import static android.app.slice.SliceItem.FORMAT_TEXT;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
-import android.app.slice.Slice;
-import android.app.slice.SliceItem;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.RestrictTo;
@@ -37,7 +42,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
+import androidx.app.slice.SliceItem;
 import androidx.app.slice.core.SliceQuery;
 import androidx.app.slice.view.R;
 
@@ -45,6 +52,7 @@ import androidx.app.slice.view.R;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY)
+@TargetApi(24)
 public class GridView extends LinearLayout implements LargeSliceAdapter.SliceListView {
 
     private static final String TAG = "GridView";
@@ -76,7 +84,7 @@ public class GridView extends LinearLayout implements LargeSliceAdapter.SliceLis
         mIsAllImages = true;
         removeAllViews();
         int total = 1;
-        if (slice.getType() == SliceItem.TYPE_SLICE) {
+        if (FORMAT_SLICE.equals(slice.getFormat())) {
             List<SliceItem> items = slice.getSlice().getItems();
             total = items.size();
             for (int i = 0; i < total; i++) {
@@ -98,6 +106,11 @@ public class GridView extends LinearLayout implements LargeSliceAdapter.SliceLis
         if (total > getChildCount() && mIsAllImages) {
             addExtraCount(total - getChildCount());
         }
+    }
+
+    @Override
+    public void setColor(SliceItem color) {
+
     }
 
     private void addExtraCount(int numExtra) {
@@ -126,15 +139,15 @@ public class GridView extends LinearLayout implements LargeSliceAdapter.SliceLis
     /**
      * Returns true if this item is just an image.
      */
-    private boolean addItem(SliceItem item) {
-        if (item.getType() == SliceItem.TYPE_IMAGE) {
+    private boolean addItem(final SliceItem item) {
+        if (FORMAT_IMAGE.equals(item.getFormat())) {
             ImageView v = new ImageView(getContext());
             v.setImageIcon(item.getIcon());
             v.setScaleType(ScaleType.CENTER_CROP);
             addView(v, new LayoutParams(0, MATCH_PARENT, 1));
             return true;
         } else {
-            LinearLayout v = new LinearLayout(getContext());
+            final LinearLayout v = new LinearLayout(getContext());
             int s = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                     12, getContext().getResources().getDisplayMetrics());
             v.setPadding(0, s, 0, 0);
@@ -142,40 +155,45 @@ public class GridView extends LinearLayout implements LargeSliceAdapter.SliceLis
             v.setGravity(Gravity.CENTER_HORIZONTAL);
             // TODO: Unify sporadic inflates that happen throughout the code.
             ArrayList<SliceItem> items = new ArrayList<>();
-            if (item.getType() == SliceItem.TYPE_SLICE) {
+            if (FORMAT_SLICE.equals(item.getFormat())) {
                 items.addAll(item.getSlice().getItems());
             }
-            items.forEach(i -> {
-                Context context = getContext();
-                switch (i.getType()) {
-                    case SliceItem.TYPE_TEXT:
-                        boolean title = false;
-                        if ((SliceQuery.hasAnyHints(item, new String[] {
-                                Slice.HINT_LARGE, Slice.HINT_TITLE
-                        }))) {
-                            title = true;
-                        }
-                        TextView tv = (TextView) LayoutInflater.from(context).inflate(title
-                                ? R.layout.abc_slice_title : R.layout.abc_slice_secondary_text,
-                                null);
-                        tv.setText(i.getText());
-                        v.addView(tv);
-                        break;
-                    case SliceItem.TYPE_IMAGE:
-                        ImageView iv = new ImageView(context);
-                        iv.setImageIcon(i.getIcon());
-                        if (item.hasHint(Slice.HINT_LARGE)) {
-                            iv.setLayoutParams(new LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
-                        } else {
-                            int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                                    48, context.getResources().getDisplayMetrics());
-                            iv.setLayoutParams(new LayoutParams(size, size));
-                        }
-                        v.addView(iv);
-                        break;
-                    case SliceItem.TYPE_COLOR:
-                        // TODO: Support color to tint stuff here.
-                        break;
+            items.forEach(new Consumer<SliceItem>() {
+                @Override
+                public void accept(SliceItem i) {
+                    Context context = getContext();
+                    switch (i.getFormat()) {
+                        case FORMAT_TEXT:
+                            boolean title = false;
+                            if ((SliceQuery.hasAnyHints(item, new String[]{
+                                    HINT_LARGE, HINT_TITLE
+                            }))) {
+                                title = true;
+                            }
+                            TextView tv = (TextView) LayoutInflater.from(context).inflate(title
+                                            ? R.layout.abc_slice_title
+                                            : R.layout.abc_slice_secondary_text,
+                                    null);
+                            tv.setText(i.getText());
+                            v.addView(tv);
+                            break;
+                        case FORMAT_IMAGE:
+                            ImageView iv = new ImageView(context);
+                            iv.setImageIcon(i.getIcon());
+                            if (item.hasHint(HINT_LARGE)) {
+                                iv.setLayoutParams(new LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
+                            } else {
+                                int size = (int) TypedValue.applyDimension(
+                                        TypedValue.COMPLEX_UNIT_DIP,
+                                        48, context.getResources().getDisplayMetrics());
+                                iv.setLayoutParams(new LayoutParams(size, size));
+                            }
+                            v.addView(iv);
+                            break;
+                        case FORMAT_COLOR:
+                            // TODO: Support color to tint stuff here.
+                            break;
+                    }
                 }
             });
             addView(v, new LayoutParams(0, WRAP_CONTENT, 1));

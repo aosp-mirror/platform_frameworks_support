@@ -18,11 +18,12 @@ package androidx.app.slice.builders;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
-import android.app.slice.Slice;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
+
+import androidx.app.slice.Slice;
 
 /**
  * Builder to construct slice content in a messaging format.
@@ -58,7 +59,7 @@ public class MessagingSliceBuilder extends TemplateSliceBuilder {
 
     @Override
     public void add(SubTemplateSliceBuilder builder) {
-        getBuilder().addSubSlice(builder.build());
+        getBuilder().addSubSlice(builder.build(), android.app.slice.Slice.SUBTYPE_MESSAGE);
     }
 
     /**
@@ -72,14 +73,13 @@ public class MessagingSliceBuilder extends TemplateSliceBuilder {
         @RestrictTo(RestrictTo.Scope.LIBRARY)
         public MessageBuilder(MessagingSliceBuilder parent) {
             super(parent.createChildBuilder(), parent);
-            getBuilder().addHints(Slice.HINT_MESSAGE);
         }
 
         /**
          * Add the icon used to display contact in the messaging experience
          */
         public MessageBuilder addSource(Icon source) {
-            getBuilder().addIcon(source, Slice.HINT_SOURCE);
+            getBuilder().addIcon(source, android.app.slice.Slice.SUBTYPE_SOURCE);
             return this;
         }
 
@@ -87,7 +87,7 @@ public class MessagingSliceBuilder extends TemplateSliceBuilder {
          * Add the text to be used for this message.
          */
         public MessageBuilder addText(CharSequence text) {
-            getBuilder().addText(text);
+            getBuilder().addText(text, null);
             return this;
         }
 
@@ -95,7 +95,7 @@ public class MessagingSliceBuilder extends TemplateSliceBuilder {
          * Add the time at which this message arrived in ms since Unix epoch
          */
         public MessageBuilder addTimestamp(long timestamp) {
-            getBuilder().addTimestamp(timestamp);
+            getBuilder().addTimestamp(timestamp, null);
             return this;
         }
 
