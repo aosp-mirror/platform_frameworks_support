@@ -44,6 +44,13 @@ public class NullPaddedList<Type> extends PagedList<Type> {
     NullPaddedList() {
     }
 
+    @Override
+    public String toString() {
+        return "NullPaddedList " + mLeadingNullCount
+                + ", " + mList.size()
+                + ", " + mTrailingNullCount;
+    }
+
     /**
      * Create a static, immutable NullPaddedList with the specified list,
      *
@@ -102,8 +109,8 @@ public class NullPaddedList<Type> extends PagedList<Type> {
 
     @Override
     public Type get(int index) {
-        if (index >= size()) {
-            throw new IllegalArgumentException();
+        if (index < 0 || index >= size()) {
+            throw new IndexOutOfBoundsException();
         }
 
         index -= mLeadingNullCount;
@@ -144,27 +151,20 @@ public class NullPaddedList<Type> extends PagedList<Type> {
     }
 
     @Override
-    public void addCallback(@Nullable PagedList<Type> previousSnapshot,
+    public void addWeakCallback(@Nullable PagedList<Type> previousSnapshot,
             @NonNull Callback callback) {
         // no op, immutable
     }
 
     @Override
-    public void removeCallback(Callback callback) {
+    public void removeWeakCallback(Callback callback) {
         // no op, immutable
     }
 
     // --------------- Contiguous API ---------------
 
-    /**
-     * Position offset of the data in the list.
-     * <p>
-     * The item returned from <code>get(i)</code> has a position of
-     * <code>i + getPositionOffset() + getLeadingNullCount()</code>.
-     * <p>
-     * This position corresponds to positions that are passed to a PositionalDataSource.
-     */
-    int getPositionOffset() {
+    @Override
+    public int getPositionOffset() {
         return mPositionOffset;
     }
 

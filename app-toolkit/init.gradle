@@ -89,11 +89,12 @@ def zipFlatfootDocsTask = rootProject.tasks.create(name : "createFlatfootDocsArc
 
 buildServerAnchorTask.dependsOn zipFlatfootDocsTask
 zipFlatfootDocsTask.dependsOn rootProject.tasks["generateDocs"]
-
+buildServerAnchorTask.dependsOn createDiffArchive
 buildServerAnchorTask.dependsOn createArchive
 
 rootProject.ext.flatfootProjectGroups = [
         "room" : "android.arch.persistence.room",
+        "persistence" : "android.arch.persistence",
         "lifecycle" : "android.arch.lifecycle",
         "arch" : "android.arch.core",
         "paging" : "android.arch.paging",

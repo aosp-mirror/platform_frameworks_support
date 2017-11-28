@@ -17,6 +17,7 @@
 package android.arch.paging;
 
 import android.support.annotation.AnyThread;
+import android.support.annotation.WorkerThread;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -27,14 +28,18 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * <p>
  * Choose based on whether each load operation is based on the position of the data in the list.
  * <p>
- * Use KeyedDataSource if you need to use data from item <code>N-1</code> to load item
+ * Use {@link KeyedDataSource} if you need to use data from item <code>N-1</code> to load item
  * <code>N</code>. For example, if requesting the backend for the next comments in the list
  * requires the ID or timestamp of the most recent loaded comment, or if querying the next users
  * from a name-sorted database query requires the name and unique ID of the previous.
  * <p>
- * Use TiledDataSource if you can load arbitrary pages based solely on position information, and
- * can provide a fixed item count. TiledDataSource supports querying pages at arbitrary positions,
- * so can provide data to PagedLists in arbitrary order.
+ * Use {@link TiledDataSource} if you can load arbitrary pages based solely on position information,
+ * and can provide a fixed item count. TiledDataSource supports querying pages at arbitrary
+ * positions, so can provide data to PagedLists in arbitrary order.
+ * <p>
+ * Because a <code>null</code> item indicates a placeholder in {@link PagedList}, DataSource may not
+ * return <code>null</code> items in lists that it loads. This is so that users of the PagedList
+ * can differentiate unloaded placeholder items from content that has been paged in.
  *
  * @param <Key> Input used to trigger initial load from the DataSource. Often an Integer position.
  * @param <Value> Value type loaded by the DataSource.
@@ -48,19 +53,20 @@ public abstract class DataSource<Key, Value> {
     }
 
     /**
-     * If returned by loadCount(), indicates an undefined number of items are provided by the data
+     * If returned by countItems(), indicates an undefined number of items are provided by the data
      * source. Continued querying in either direction may continue to produce more data.
      */
     @SuppressWarnings("WeakerAccess")
     public static int COUNT_UNDEFINED = -1;
 
     /**
-     * Number of items that this DataSource can provide in total, or COUNT_UNDEFINED.
+     * Number of items that this DataSource can provide in total, or {@link #COUNT_UNDEFINED}.
      *
-     * @return number of items that this DataSource can provide in total, or COUNT_UNDEFINED
-     * if difficult or undesired to compute.
+     * @return number of items that this DataSource can provide in total, or
+     * {@link #COUNT_UNDEFINED} if expensive or undesired to compute.
      */
-    public abstract int loadCount();
+    @WorkerThread
+    public abstract int countItems();
 
     /**
      * Returns true if the data source guaranteed to produce a contiguous set of items,
@@ -69,7 +75,10 @@ public abstract class DataSource<Key, Value> {
     abstract boolean isContiguous();
 
     /**
-     * Invalidation callback
+     * Invalidation callback for DataSource.
+     * <p>
+     * Used to signal when a DataSource a data source has become invalid, and that a new data source
+     * is needed to continue loading data.
      */
     public interface InvalidatedCallback {
         /**
@@ -136,6 +145,7 @@ public abstract class DataSource<Key, Value> {
      *
      * @return True if the data source is invalid, and can no longer return data.
      */
+    @WorkerThread
     public boolean isInvalid() {
         return mInvalid.get();
     }

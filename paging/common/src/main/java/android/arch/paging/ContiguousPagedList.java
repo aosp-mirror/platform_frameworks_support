@@ -22,6 +22,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.WorkerThread;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -43,12 +44,12 @@ class ContiguousPagedList<T> extends NullPaddedList<T> {
     private int mPrependItemsRequested = 0;
     private int mAppendItemsRequested = 0;
 
-    private int mLastLoad = -1;
-    private T mLastItem;
+    private int mLastLoad = 0;
+    private T mLastItem = null;
 
     private AtomicBoolean mDetached = new AtomicBoolean(false);
 
-    private ArrayList<Callback> mCallbacks = new ArrayList<>();
+    private ArrayList<WeakReference<Callback>> mCallbacks = new ArrayList<>();
 
     @WorkerThread
     <K> ContiguousPagedList(@NonNull ContiguousDataSource<K, T> dataSource,
@@ -62,9 +63,10 @@ class ContiguousPagedList<T> extends NullPaddedList<T> {
         mMainThreadExecutor = mainThreadExecutor;
         mBackgroundThreadExecutor = backgroundThreadExecutor;
         mConfig = config;
-        NullPaddedList<T> initialState = dataSource.loadInitial(key, config.mInitialLoadSizeHint);
+        NullPaddedList<T> initialState = dataSource.loadInitial(
+                key, config.mInitialLoadSizeHint, config.mEnablePlaceholders);
 
-        if (initialState != null && !initialState.mList.isEmpty()) {
+        if (initialState != null) {
             mPositionOffset = initialState.getPositionOffset();
 
             mLeadingNullCount = initialState.getLeadingNullCount();
@@ -79,8 +81,10 @@ class ContiguousPagedList<T> extends NullPaddedList<T> {
                         + " beyond initial load.");
             }
 
-            mLastLoad = mLeadingNullCount + mList.size() / 2;
-            mLastItem = mList.get(mList.size() / 2);
+            if (initialState.size() != 0) {
+                mLastLoad = mLeadingNullCount + mList.size() / 2;
+                mLastItem = mList.get(mList.size() / 2);
+            }
         } else {
             mList = new ArrayList<>();
             detach();
@@ -90,11 +94,6 @@ class ContiguousPagedList<T> extends NullPaddedList<T> {
             mPrependWorkerRunning = true;
             mAppendWorkerRunning = true;
         }
-    }
-
-    @Override
-    public int getPositionOffset() {
-        return mPositionOffset;
     }
 
     @Override
@@ -237,12 +236,15 @@ class ContiguousPagedList<T> extends NullPaddedList<T> {
         }
 
         // finally dispatch callbacks, after prepend may have already been scheduled
-        for (Callback callback : mCallbacks) {
-            if (changedCount != 0) {
-                callback.onChanged(mLeadingNullCount, changedCount);
-            }
-            if (addedCount != 0) {
-                callback.onInserted(0, addedCount);
+        for (WeakReference<Callback> weakRef : mCallbacks) {
+            Callback callback = weakRef.get();
+            if (callback != null) {
+                if (changedCount != 0) {
+                    callback.onChanged(mLeadingNullCount, changedCount);
+                }
+                if (addedCount != 0) {
+                    callback.onInserted(0, addedCount);
+                }
             }
         }
     }
@@ -274,13 +276,16 @@ class ContiguousPagedList<T> extends NullPaddedList<T> {
         }
 
         // finally dispatch callbacks, after append may have already been scheduled
-        for (Callback callback : mCallbacks) {
-            final int endPosition = mLeadingNullCount + mList.size() - count;
-            if (changedCount != 0) {
-                callback.onChanged(endPosition, changedCount);
-            }
-            if (addedCount != 0) {
-                callback.onInserted(endPosition + changedCount, addedCount);
+        for (WeakReference<Callback> weakRef : mCallbacks) {
+            Callback callback = weakRef.get();
+            if (callback != null) {
+                final int endPosition = mLeadingNullCount + mList.size() - count;
+                if (changedCount != 0) {
+                    callback.onChanged(endPosition, changedCount);
+                }
+                if (addedCount != 0) {
+                    callback.onInserted(endPosition + changedCount, addedCount);
+                }
             }
         }
     }
@@ -293,7 +298,8 @@ class ContiguousPagedList<T> extends NullPaddedList<T> {
     }
 
     @Override
-    public void addCallback(@Nullable PagedList<T> previousSnapshot, @NonNull Callback callback) {
+    public void addWeakCallback(@Nullable PagedList<T> previousSnapshot,
+            @NonNull Callback callback) {
         NullPaddedList<T> snapshot = (NullPaddedList<T>) previousSnapshot;
         if (snapshot != this && snapshot != null) {
             final int newlyAppended = mNumberAppended - snapshot.getNumberAppended();
@@ -338,51 +344,32 @@ class ContiguousPagedList<T> extends NullPaddedList<T> {
                 }
             }
         }
-        mCallbacks.add(callback);
+        mCallbacks.add(new WeakReference<>(callback));
     }
 
     @Override
-    public void removeCallback(@NonNull Callback callback) {
-        mCallbacks.remove(callback);
-    }
-
-    /**
-     * Returns the last position accessed by the PagedList. Can be used to initialize loads in
-     * subsequent PagedList versions.
-     *
-     * @return Last position accessed by the PagedList.
-     */
-    @SuppressWarnings("WeakerAccess")
-    public int getLastLoad() {
-        return mLastLoad;
+    public void removeWeakCallback(@NonNull Callback callback) {
+        for (int i = mCallbacks.size() - 1; i >= 0; i--) {
+            Callback currentCallback = mCallbacks.get(i).get();
+            if (currentCallback == null || currentCallback == callback) {
+                mCallbacks.remove(i);
+            }
+        }
     }
 
     @Override
-    public T getLastItem() {
-        return mLastItem;
-    }
-
-    /**
-     * True if the PagedList has detached the DataSource it was loading from, and will no longer
-     * load new data.
-     *
-     * @return True if the data source is detached.
-     */
-    @SuppressWarnings("WeakerAccess")
     public boolean isDetached() {
         return mDetached.get();
     }
 
-    /**
-     * Detach the PagedList from its DataSource, and attempt to load no more data.
-     * <p>
-     * This is called automatically when a DataSource load returns <code>null</code>, which is a
-     * signal to stop loading. The PagedList will continue to present existing data, but will not
-     * load new items.
-     */
     @SuppressWarnings("WeakerAccess")
     public void detach() {
         mDetached.set(true);
     }
 
+    @Nullable
+    @Override
+    public Object getLastKey() {
+        return mDataSource.getKey(mLastLoad, mLastItem);
+    }
 }

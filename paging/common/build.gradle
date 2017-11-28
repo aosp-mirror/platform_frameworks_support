@@ -20,9 +20,6 @@ import android.support.SupportLibraryExtension;
 apply plugin: android.support.SupportJavaLibraryPlugin
 apply plugin: 'kotlin'
 
-// disable paging for now.
-project.ext.noDocs = true
-
 dependencies {
     compile libs.support.annotations
     compile project(":arch:common")
@@ -31,7 +28,6 @@ dependencies {
     testCompile libs.mockito_core
     compile libs.support.annotations
     compile project(path: ':arch:common')
-    compile libs.junit
     testCompile libs.kotlin.stdlib
 }
 
@@ -41,7 +37,7 @@ createKotlinCheckstyle(project)
 version = LibraryVersions.PAGING.toString()
 supportLibrary {
     name 'Android Paging-Common'
-    publish false
+    publish true
     inceptionYear '2017'
     description "Android Paging-Common"
     url SupportLibraryExtension.ARCHITECTURE_URL

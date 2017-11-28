@@ -16,11 +16,13 @@
 
 package android.arch.paging;
 
+import android.support.annotation.AnyThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.WorkerThread;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -33,7 +35,7 @@ import java.util.List;
  * attributes of the item such just before the next query define how to execute it.
  * <p>
  * A compute usage pattern with Room SQL queries would look like this (though note, Room plans to
- * provide generation of some of this code in the future):
+ * provide generation of much of this code in the future):
  * <pre>
  * {@literal @}Dao
  * interface UserDao {
@@ -48,22 +50,46 @@ import java.util.List;
  * }
  *
  * public class KeyedUserQueryDataSource extends KeyedDataSource&lt;String, User> {
- *     {@literal @}NonNull {@literal @}Override
+ *     private MyDatabase mDb;
+ *     private final UserDao mUserDao;
+ *     {@literal @}SuppressWarnings("FieldCanBeLocal")
+ *     private final InvalidationTracker.Observer mObserver;
+ *
+ *     public OffsetUserQueryDataSource(MyDatabase db) {
+ *         mDb = db;
+ *         mUserDao = db.getUserDao();
+ *         mObserver = new InvalidationTracker.Observer("user") {
+ *             {@literal @}Override
+ *             public void onInvalidated({@literal @}NonNull Set&lt;String> tables) {
+ *                 // the user table has been invalidated, invalidate the DataSource
+ *                 invalidate();
+ *             }
+ *         };
+ *         db.getInvalidationTracker().addWeakObserver(mObserver);
+ *     }
+ *
+ *     {@literal @}Override
+ *     public boolean isInvalid() {
+ *         mDb.getInvalidationTracker().refreshVersionsSync();
+ *         return super.isInvalid();
+ *     }
+ *
+ *     {@literal @}Override
  *     public String getKey({@literal @}NonNull User item) {
  *         return item.getName();
  *     }
  *
- *     {@literal @}Nullable {@literal @}Override
+ *     {@literal @}Override
  *     public List&lt;User> loadInitial(int pageSize) {
  *         return mUserDao.userNameInitial(pageSize);
  *     }
  *
- *     {@literal @}Nullable {@literal @}Override
+ *     {@literal @}Override
  *     public List&lt;User> loadBefore({@literal @}NonNull String userName, int pageSize) {
  *         return mUserDao.userNameLoadBefore(userName, pageSize);
  *     }
  *
- *     {@literal @}Nullable {@literal @}Override
+ *     {@literal @}Override
  *     public List&lt;User> loadAfter({@literal @}Nullable String userName, int pageSize) {
  *         return mUserDao.userNameLoadAfter(userName, pageSize);
  *     }
@@ -73,78 +99,164 @@ import java.util.List;
  * @param <Value> Type of items being loaded by the DataSource.
  */
 public abstract class KeyedDataSource<Key, Value> extends ContiguousDataSource<Key, Value> {
-    public final int loadCount() {
+    @Override
+    public final int countItems() {
         return 0; // method not called, can't be overridden
     }
 
-    /** @hide */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @Nullable
     @Override
-    public List<Value> loadAfter(int currentEndIndex, @NonNull Value currentEndItem, int pageSize) {
+    List<Value> loadAfterImpl(int currentEndIndex, @NonNull Value currentEndItem, int pageSize) {
         return loadAfter(getKey(currentEndItem), pageSize);
     }
 
-    /** @hide */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @Nullable
     @Override
-    public List<Value> loadBefore(int currentBeginIndex, @NonNull Value currentBeginItem,
-            int pageSize) {
+    List<Value> loadBeforeImpl(
+            int currentBeginIndex, @NonNull Value currentBeginItem, int pageSize) {
         return loadBefore(getKey(currentBeginItem), pageSize);
     }
 
-    /** @hide */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @Nullable
-    @WorkerThread
-    public NullPaddedList<Value> loadInitial(@Nullable Key key, int initialLoadSize) {
-        List<Value> after;
+    private NullPaddedList<Value> loadInitialInternal(
+            @Nullable Key key, int initialLoadSize, boolean enablePlaceholders) {
+        List<Value> list;
         if (key == null) {
             // no key, so load initial.
-            after = loadInitial(initialLoadSize);
-            if (after == null) {
+            list = loadInitial(initialLoadSize);
+            if (list == null) {
                 return null;
             }
         } else {
-            after = loadAfter(key, initialLoadSize);
+            List<Value> after = loadAfter(key, initialLoadSize / 2);
             if (after == null) {
                 return null;
             }
 
-            if (after.isEmpty()) {
-                // if no content exists after current key, loadBefore instead
-                after = loadBefore(key, initialLoadSize);
-                if (after == null) {
+            Key loadBeforeKey = after.isEmpty() ? key : getKey(after.get(0));
+            List<Value> before = loadBefore(loadBeforeKey, initialLoadSize / 2);
+            if (before == null) {
+                return null;
+            }
+            if (!after.isEmpty() || !before.isEmpty()) {
+                // one of the lists has data
+                if (after.isEmpty()) {
+                    // retry loading after, since it may be that the key passed points to the end of
+                    // the list, so we need to load after the last item in the before list
+                    after = loadAfter(getKey(before.get(0)), initialLoadSize / 2);
+                    if (after == null) {
+                        return null;
+                    }
+                }
+                // assemble full list
+                list = new ArrayList<>();
+                list.addAll(before);
+                // Note - we reverse the list instead of before, in case before is immutable
+                Collections.reverse(list);
+                list.addAll(after);
+            } else {
+                // load before(key) and load after(key) failed - try load initial to be *sure* we
+                // catch the case where there's only one item, which is loaded by the key case
+                list = loadInitial(initialLoadSize);
+                if (list == null) {
                     return null;
                 }
-                Collections.reverse(after);
             }
         }
 
-        if (after.isEmpty()) {
-            // wasn't able to load any items, so publish an empty list that can't grow.
+        if (list.isEmpty()) {
+            // wasn't able to load any items, so publish an unpadded empty list.
             return new NullPaddedList<>(0, Collections.<Value>emptyList());
         }
 
-        // TODO: consider also loading another page before here
-
-        int itemsBefore = countItemsBefore(getKey(after.get(0)));
-        int itemsAfter = countItemsAfter(getKey(after.get(after.size() - 1)));
+        int itemsBefore = COUNT_UNDEFINED;
+        int itemsAfter = COUNT_UNDEFINED;
+        if (enablePlaceholders) {
+            itemsBefore = countItemsBefore(getKey(list.get(0)));
+            itemsAfter = countItemsAfter(getKey(list.get(list.size() - 1)));
+            if (isInvalid()) {
+                return null;
+            }
+        }
         if (itemsBefore == COUNT_UNDEFINED || itemsAfter == COUNT_UNDEFINED) {
-            return new NullPaddedList<>(0, after, 0);
+            return new NullPaddedList<>(0, list, 0);
         } else {
-            return new NullPaddedList<>(itemsBefore, after, itemsAfter);
+            return new NullPaddedList<>(itemsBefore, list, itemsAfter);
         }
     }
 
+    /** @hide */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public NullPaddedList<Value> loadInitial(
+            @Nullable Key key, int initialLoadSize, boolean enablePlaceholders) {
+        if (isInvalid()) {
+            return null;
+        }
+        NullPaddedList<Value> list = loadInitialInternal(key, initialLoadSize, enablePlaceholders);
+        if (list == null || isInvalid()) {
+            return null;
+        }
+        return list;
+    }
+
+    /**
+     * Return a key associated with the given item.
+     * <p>
+     * If your KeyedDataSource is loading from a source that is sorted and loaded by a unique
+     * integer ID, you would return {@code item.getID()} here. This key can then be passed to
+     * {@link #loadBefore(Key, int)} or {@link #loadAfter(Key, int)} to load additional items
+     * adjacent to the item passed to this function.
+     * <p>
+     * If your key is more complex, such as when you're sorting by name, then resolving collisions
+     * with integer ID, you'll need to return both. In such a case you would use a wrapper class,
+     * such as {@code Pair<String, Integer>} or, in Kotlin,
+     * {@code data class Key(val name: String, val id: Int)}
+     *
+     * @param item Item to get the key from.
+     * @return Key associated with given item.
+     */
     @NonNull
+    @AnyThread
     public abstract Key getKey(@NonNull Value item);
 
+    /**
+     * Return the number of items that occur before the item uniquely identified by {@code key} in
+     * the data set.
+     * <p>
+     * For example, if you're loading items sorted by ID, then this would return the total number of
+     * items with ID less than {@code key}.
+     * <p>
+     * If you return {@link #COUNT_UNDEFINED} here, or from {@link #countItemsAfter(Key)}, your
+     * data source will not present placeholder null items in place of unloaded data.
+     *
+     * @param key A unique identifier of an item in the data set.
+     * @return Number of items in the data set before the item identified by {@code key}, or
+     *         {@link #COUNT_UNDEFINED}.
+     *
+     * @see #countItemsAfter(Key)
+     */
+    @WorkerThread
     public int countItemsBefore(@NonNull Key key) {
         return COUNT_UNDEFINED;
     }
 
+    /**
+     * Return the number of items that occur after the item uniquely identified by {@code key} in
+     * the data set.
+     * <p>
+     * For example, if you're loading items sorted by ID, then this would return the total number of
+     * items with ID greater than {@code key}.
+     * <p>
+     * If you return {@link #COUNT_UNDEFINED} here, or from {@link #countItemsBefore(Key)}, your
+     * data source will not present placeholder null items in place of unloaded data.
+     *
+     * @param key A unique identifier of an item in the data set.
+     * @return Number of items in the data set after the item identified by {@code key}, or
+     *         {@link #COUNT_UNDEFINED}.
+     *
+     * @see #countItemsBefore(Key)
+     */
+    @WorkerThread
     public int countItemsAfter(@NonNull Key key) {
         return COUNT_UNDEFINED;
     }
@@ -185,4 +297,13 @@ public abstract class KeyedDataSource<Key, Value> extends ContiguousDataSource<K
     @WorkerThread
     @Nullable
     public abstract List<Value> loadBefore(@NonNull Key currentBeginKey, int pageSize);
+
+    @Nullable
+    @Override
+    Key getKey(int position, Value item) {
+        if (item == null) {
+            return null;
+        }
+        return getKey(item);
+    }
 }

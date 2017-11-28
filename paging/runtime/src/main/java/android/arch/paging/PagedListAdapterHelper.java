@@ -21,7 +21,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.recyclerview.extensions.DiffCallback;
 import android.support.v7.recyclerview.extensions.ListAdapterConfig;
 import android.support.v7.recyclerview.extensions.ListAdapterHelper;
-import android.support.v7.recyclerview.extensions.ListReceiver;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.widget.RecyclerView;
@@ -51,13 +50,14 @@ import java.util.List;
  * {@literal @}Dao
  * interface UserDao {
  *     {@literal @}Query("SELECT * FROM user ORDER BY lastName ASC")
- *     public abstract LivePagedListProvider&lt;User> usersByLastName();
+ *     public abstract LivePagedListProvider&lt;Integer, User> usersByLastName();
  * }
  *
  * class MyViewModel extends ViewModel {
  *     public final LiveData&lt;PagedList&lt;User>> usersList;
  *     public MyViewModel(UserDao userDao) {
  *         usersList = userDao.usersByLastName().create(
+ *                 /* initial load position {@literal *}/ 0,
  *                 new PagedList.Config.Builder()
  *                         .setPageSize(50)
  *                         .setPrefetchDistance(50)
@@ -65,29 +65,29 @@ import java.util.List;
  *     }
  * }
  *
- * class MyActivity extends Activity implements LifecycleRegistryOwner {
+ * class MyActivity extends AppCompatActivity {
  *     {@literal @}Override
  *     public void onCreate(Bundle savedState) {
  *         super.onCreate(savedState);
  *         MyViewModel viewModel = ViewModelProviders.of(this).get(MyViewModel.class);
  *         RecyclerView recyclerView = findViewById(R.id.user_list);
- *         UserAdapter&lt;User> adapter = new UserAdapter();
- *         LiveListAdapterUtil.bind(viewModel.usersList, this, adapter.getHelper());
+ *         final UserAdapter&lt;User> adapter = new UserAdapter();
+ *         viewModel.usersList.observe(this, pagedList -> adapter.setList(pagedList));
  *         recyclerView.setAdapter(adapter);
  *     }
  * }
  *
  * class UserAdapter extends RecyclerView.Adapter&lt;UserViewHolder> {
- *     private final PagedListAdapterHelper&lt;User> helper;
+ *     private final PagedListAdapterHelper&lt;User> mHelper;
  *     public UserAdapter(PagedListAdapterHelper.Builder&lt;User> builder) {
- *         helper = new PagedListAdapterHelper(this, User.DIFF_CALLBACK);
+ *         mHelper = new PagedListAdapterHelper(this, DIFF_CALLBACK);
  *     }
  *     {@literal @}Override
  *     public int getItemCount() {
  *         return mHelper.getItemCount();
  *     }
- *     public PagedListAdapterHelper getHelper() {
- *         return mHelper;
+ *     public void setList(PagedList&lt;User> pagedList) {
+ *         mHelper.setList(pagedList);
  *     }
  *     {@literal @}Override
  *     public void onBindViewHolder(UserViewHolder holder, int position) {
@@ -100,11 +100,26 @@ import java.util.List;
  *             holder.clear();
  *         }
  *     }
+ *     public static final DiffCallback&lt;User> DIFF_CALLBACK = new DiffCallback&lt;User>() {
+ *          {@literal @}Override
+ *          public boolean areItemsTheSame(
+ *                  {@literal @}NonNull User oldUser, {@literal @}NonNull User newUser) {
+ *              // User properties may have changed if reloaded from the DB, but ID is fixed
+ *              return oldUser.getId() == newUser.getId();
+ *          }
+ *          {@literal @}Override
+ *          public boolean areContentsTheSame(
+ *                  {@literal @}NonNull User oldUser, {@literal @}NonNull User newUser) {
+ *              // NOTE: if you use equals, your object must properly override Object#equals()
+ *              // Incorrectly returning false here will result in too many animations.
+ *              return oldUser.equals(newUser);
+ *          }
+ *      }
  * }</pre>
  *
  * @param <T> Type of the PagedLists this helper will receive.
  */
-public class PagedListAdapterHelper<T> implements ListReceiver<PagedList<T>> {
+public class PagedListAdapterHelper<T> {
     private final ListUpdateCallback mUpdateCallback;
     private final ListAdapterConfig<T> mConfig;
 
@@ -195,7 +210,6 @@ public class PagedListAdapterHelper<T> implements ListReceiver<PagedList<T>> {
      *
      * @param pagedList The new PagedList.
      */
-    @Override
     public void setList(final PagedList<T> pagedList) {
         if (pagedList != null) {
             if (mList == null) {
@@ -218,7 +232,7 @@ public class PagedListAdapterHelper<T> implements ListReceiver<PagedList<T>> {
 
         if (pagedList == null) {
             mUpdateCallback.onRemoved(0, mList.size());
-            mList.removeCallback(mPagedListCallback);
+            mList.removeWeakCallback(mPagedListCallback);
             mList = null;
             return;
         }
@@ -227,14 +241,14 @@ public class PagedListAdapterHelper<T> implements ListReceiver<PagedList<T>> {
             // fast simple first insert
             mUpdateCallback.onInserted(0, pagedList.size());
             mList = pagedList;
-            pagedList.addCallback(null, mPagedListCallback);
+            pagedList.addWeakCallback(null, mPagedListCallback);
             return;
         }
 
         if (!mList.isImmutable()) {
             // first update scheduled on this list, so capture mPages as a snapshot, removing
             // callbacks so we don't have resolve updates against a moving target
-            mList.removeCallback(mPagedListCallback);
+            mList.removeWeakCallback(mPagedListCallback);
             mList = (PagedList<T>) mList.snapshot();
         }
 
@@ -278,6 +292,21 @@ public class PagedListAdapterHelper<T> implements ListReceiver<PagedList<T>> {
             SparseDiffHelper.dispatchDiff(mUpdateCallback, diffResult);
         }
         mList = newList;
-        newList.addCallback((PagedList<T>) diffSnapshot, mPagedListCallback);
+        newList.addWeakCallback((PagedList<T>) diffSnapshot, mPagedListCallback);
+    }
+
+    /**
+     * Returns the list currently being displayed by the AdapterHelper.
+     * <p>
+     * This is not necessarily the most recent list passed to {@link #setList(PagedList)}, because a
+     * diff is computed asynchronously between the new list and the current list before updating the
+     * currentList value.
+     *
+     * @return The list currently being displayed.
+     */
+    @SuppressWarnings("WeakerAccess")
+    @Nullable
+    public PagedList<T> getCurrentList() {
+        return mList;
     }
 }
