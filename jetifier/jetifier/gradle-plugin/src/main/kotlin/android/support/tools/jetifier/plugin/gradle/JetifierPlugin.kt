@@ -20,7 +20,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 /**
- * This servers as the main entry point of this plugin and registers the extension object.
+ * This serves as the main entry point of this plugin and registers the extension object.
  */
 open class JetifierPlugin : Plugin<Project>  {
 
@@ -29,7 +29,7 @@ open class JetifierPlugin : Plugin<Project>  {
     }
 
     override fun apply(project: Project) {
-        project.getExtensions().create(GROOVY_OBJECT_NAME, JetifierExtension::class.java, project)
+        project.extensions.create(GROOVY_OBJECT_NAME, JetifierExtension::class.java, project)
     }
 
 }
