@@ -16,10 +16,14 @@
 
 package com.example.androidx.slice.demos;
 
+import static com.example.androidx.slice.demos.SampleSliceProvider.URI_PATHS;
+import static com.example.androidx.slice.demos.SampleSliceProvider.getUri;
+
 import android.arch.lifecycle.LiveData;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -58,7 +62,7 @@ public class SliceBrowser extends AppCompatActivity {
     private static final String TAG = "SlicePresenter";
 
     private static final String SLICE_METADATA_KEY = "android.metadata.SLICE_URI";
-    private static final boolean TEST_INTENT = true;
+    private static final boolean TEST_INTENT = false;
 
     private ArrayList<Uri> mSliceUris = new ArrayList<Uri>();
     private int mSelectedMode;
@@ -136,6 +140,7 @@ public class SliceBrowser extends AppCompatActivity {
         mTypeMenu.add("Shortcut");
         mTypeMenu.add("Small");
         mTypeMenu.add("Large");
+        menu.add("Auth");
         super.onCreateOptionsMenu(menu);
         return true;
     }
@@ -143,6 +148,9 @@ public class SliceBrowser extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getTitle().toString()) {
+            case "Auth":
+                authAllSlices();
+                return true;
             case "Shortcut":
                 mTypeMenu.setIcon(R.drawable.ic_shortcut);
                 mSelectedMode = SliceView.MODE_SHORTCUT;
@@ -169,6 +177,17 @@ public class SliceBrowser extends AppCompatActivity {
         outState.putString("SELECTED_QUERY", mSearchView.getQuery().toString());
     }
 
+    private void authAllSlices() {
+        List<ApplicationInfo> packages = getPackageManager().getInstalledApplications(0);
+        packages.forEach(info -> {
+            for (int i = 0; i < URI_PATHS.length; i++) {
+                grantUriPermission(info.packageName, getUri(URI_PATHS[i], getApplicationContext()),
+                        Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+                                | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            }
+        });
+    }
+
     private void updateAvailableSlices() {
         mSliceUris.clear();
         List<PackageInfo> packageInfos = getPackageManager()
@@ -186,7 +205,9 @@ public class SliceBrowser extends AppCompatActivity {
                 }
             }
         }
-        mSliceUris.add(SampleSliceProvider.MESSAGE);
+        for (int i = 0; i < URI_PATHS.length; i++) {
+            mSliceUris.add(getUri(URI_PATHS[i], getApplicationContext()));
+        }
         populateAdapter(String.valueOf(mSearchView.getQuery()));
     }
 

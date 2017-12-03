@@ -120,12 +120,14 @@ class SupportAndroidLibraryPlugin : Plugin<Project> {
 
                         // Enforce the following checks.
                         "-Xep:RestrictTo:OFF",
+                        "-Xep:ParameterNotNullable:ERROR",
                         "-Xep:MissingOverride:ERROR",
                         "-Xep:NarrowingCompoundAssignment:ERROR",
                         "-Xep:ClassNewInstance:ERROR",
                         "-Xep:ClassCanBeStatic:ERROR",
                         "-Xep:SynchronizeOnNonFinalField:ERROR",
-                        "-Xep:OperatorPrecedence:ERROR"
+                        "-Xep:OperatorPrecedence:ERROR",
+                        "-Xep:IntLongMath:ERROR"
                 )
             }
         }
