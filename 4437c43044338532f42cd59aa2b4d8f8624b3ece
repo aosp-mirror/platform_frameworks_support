@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d447d156_af695e83",
+        "filename": "annotations/src/main/java/android/support/annotation/DeprecationLevel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2017-12-11T19:43:12Z",
+      "side": 1,
+      "message": "How would this be used in practice?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 10
+      },
+      "revId": "4437c43044338532f42cd59aa2b4d8f8624b3ece",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83740192_d7abf8af",
+        "filename": "compat/src/main/java/android/support/v4/view/ViewCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2017-12-11T19:43:12Z",
+      "side": 1,
+      "message": "Redundancy and requiring fully-qualified name are less-than-ideal. Would we be able to remove the Java @Deprecated annotation once tooling is updated? Could we pick a name that doesn\u0027t conflict with the Java annotation?",
+      "range": {
+        "startLine": 101,
+        "startChar": 5,
+        "endLine": 101,
+        "endChar": 42
+      },
+      "revId": "4437c43044338532f42cd59aa2b4d8f8624b3ece",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
