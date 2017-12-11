@@ -30,6 +30,12 @@ import java.util.concurrent.Executor;
  * Implement a DataSource using PageKeyedDataSource if you need to use data from page {@code N - 1}
  * to load page {@code N}. This is common, for example, in network APIs that include a next/previous
  * link or key with each page load.
+ * <p>
+ * The {@code InMemoryByPageRepository} in the
+ * <a href="https://github.com/googlesamples/android-architecture-components/blob/master/PagingWithNetworkSample/README.md">PagingWithNetworkSample</a>
+ * shows how to implement a network PageKeyedDataSource using
+ * <a href="https://square.github.io/retrofit/">Retrofit</a>, while
+ * handling swipe-to-refresh, network errors, and retry.
  *
  * @param <Key> Type of data used to query Value types out of the DataSource.
  * @param <Value> Type of items being loaded by the DataSource.
@@ -139,6 +145,13 @@ public abstract class PageKeyedDataSource<Key, Value> extends ContiguousDataSour
      * <p>
      * A callback can be called only once, and will throw if called again.
      * <p>
+     * If you can compute the number of items in the data set before and after the loaded range,
+     * call the five parameter {@link #onResult(List, int, int, Object, Object)} to pass that
+     * information. You can skip passing this information by calling the three parameter
+     * {@link #onResult(List, Object, Object)}, either if it's difficult to compute, or if
+     * {@link LoadInitialParams#placeholdersEnabled} is {@code false}, so the positioning
+     * information will be ignored.
+     * <p>
      * It is always valid for a DataSource loading method that takes a callback to stash the
      * callback and call it later. This enables DataSources to be fully asynchronous, and to handle
      * temporary, recoverable error states (such as a network error that can be retried).
@@ -179,17 +192,19 @@ public abstract class PageKeyedDataSource<Key, Value> extends ContiguousDataSour
          */
         public void onResult(@NonNull List<Value> data, int position, int totalCount,
                 @Nullable Key previousPageKey, @Nullable Key nextPageKey) {
-            validateInitialLoadParams(data, position, totalCount);
+            if (!dispatchInvalidResultIfInvalid()) {
+                validateInitialLoadParams(data, position, totalCount);
 
-            // setup keys before dispatching data, so guaranteed to be ready
-            mDataSource.initKeys(previousPageKey, nextPageKey);
+                // setup keys before dispatching data, so guaranteed to be ready
+                mDataSource.initKeys(previousPageKey, nextPageKey);
 
-            int trailingUnloadedCount = totalCount - position - data.size();
-            if (mCountingEnabled) {
-                dispatchResultToReceiver(new PageResult<>(
-                        data, position, trailingUnloadedCount, 0));
-            } else {
-                dispatchResultToReceiver(new PageResult<>(data, position));
+                int trailingUnloadedCount = totalCount - position - data.size();
+                if (mCountingEnabled) {
+                    dispatchResultToReceiver(new PageResult<>(
+                            data, position, trailingUnloadedCount, 0));
+                } else {
+                    dispatchResultToReceiver(new PageResult<>(data, position));
+                }
             }
         }
 
@@ -210,8 +225,10 @@ public abstract class PageKeyedDataSource<Key, Value> extends ContiguousDataSour
          */
         public void onResult(@NonNull List<Value> data, @Nullable Key previousPageKey,
                 @Nullable Key nextPageKey) {
-            dispatchResultToReceiver(new PageResult<>(data, 0, 0, 0));
-            mDataSource.initKeys(previousPageKey, nextPageKey);
+            if (!dispatchInvalidResultIfInvalid()) {
+                mDataSource.initKeys(previousPageKey, nextPageKey);
+                dispatchResultToReceiver(new PageResult<>(data, 0, 0, 0));
+            }
         }
     }
 
@@ -259,14 +276,13 @@ public abstract class PageKeyedDataSource<Key, Value> extends ContiguousDataSour
          *                        no more pages to load in the current load direction.
          */
         public void onResult(@NonNull List<Value> data, @Nullable Key adjacentPageKey) {
-            dispatchResultToReceiver(new PageResult<>(data, 0, 0, 0));
-
-            // Note: we currently ignore next key on loadBefore and prev key on loadAfter.
-            // We will need these once we start dropping pages, if we want to requery the first page
-            if (mResultType == PageResult.APPEND) {
-                mDataSource.setNextKey(adjacentPageKey);
-            } else {
-                mDataSource.setPreviousKey(adjacentPageKey);
+            if (!dispatchInvalidResultIfInvalid()) {
+                if (mResultType == PageResult.APPEND) {
+                    mDataSource.setNextKey(adjacentPageKey);
+                } else {
+                    mDataSource.setPreviousKey(adjacentPageKey);
+                }
+                dispatchResultToReceiver(new PageResult<>(data, 0, 0, 0));
             }
         }
     }
