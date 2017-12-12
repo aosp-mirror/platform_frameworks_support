@@ -25,7 +25,8 @@ import android.arch.core.executor.testing.CountingTaskExecutorRule;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
-import android.arch.paging.LivePagedListProvider;
+import android.arch.paging.DataSource;
+import android.arch.paging.LivePagedListBuilder;
 import android.arch.paging.PagedList;
 import android.arch.paging.TiledDataSource;
 import android.arch.persistence.room.Dao;
@@ -202,7 +203,8 @@ public class QueryTransactionTest {
 
     @Test
     public void pagedList() {
-        LiveData<PagedList<Entity1>> pagedList = mDao.pagedList().create(null, 10);
+        LiveData<PagedList<Entity1>> pagedList =
+                new LivePagedListBuilder<>(mDao.pagedList(), 10).build();
         observeForever(pagedList);
         drain();
         assertThat(sStartedTransactionCount.get(), is(mUseTransactionDao ? 0 : 0));
@@ -224,6 +226,7 @@ public class QueryTransactionTest {
         mDao.insert(new Entity1(2, "bar"));
         drain();
         resetTransactionCount();
+        @SuppressWarnings("deprecation")
         TiledDataSource<Entity1> dataSource = mDao.dataSource();
         dataSource.loadRange(0, 10);
         assertThat(sStartedTransactionCount.get(), is(mUseTransactionDao ? 1 : 0));
@@ -366,7 +369,7 @@ public class QueryTransactionTest {
 
         List<Entity1WithChildren> withRelation();
 
-        LivePagedListProvider<Integer, Entity1> pagedList();
+        DataSource.Factory<Integer, Entity1> pagedList();
 
         TiledDataSource<Entity1> dataSource();
 
@@ -406,7 +409,7 @@ public class QueryTransactionTest {
 
         @Override
         @Query(SELECT_ALL)
-        LivePagedListProvider<Integer, Entity1> pagedList();
+        DataSource.Factory<Integer, Entity1> pagedList();
 
         @Override
         @Query(SELECT_ALL)
@@ -448,7 +451,7 @@ public class QueryTransactionTest {
         @Override
         @Transaction
         @Query(SELECT_ALL)
-        LivePagedListProvider<Integer, Entity1> pagedList();
+        DataSource.Factory<Integer, Entity1> pagedList();
 
         @Override
         @Transaction
