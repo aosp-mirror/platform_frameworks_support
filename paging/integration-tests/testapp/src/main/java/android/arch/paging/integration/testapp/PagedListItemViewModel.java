@@ -19,7 +19,7 @@ package android.arch.paging.integration.testapp;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 import android.arch.paging.DataSource;
-import android.arch.paging.LivePagedListProvider;
+import android.arch.paging.LivePagedListBuilder;
 import android.arch.paging.PagedList;
 
 /**
@@ -27,9 +27,23 @@ import android.arch.paging.PagedList;
  */
 @SuppressWarnings("WeakerAccess")
 public class PagedListItemViewModel extends ViewModel {
-    private LiveData<PagedList<Item>> mLivePagedList;
     private ItemDataSource mDataSource;
     private final Object mDataSourceLock = new Object();
+
+    private final DataSource.Factory<Integer, Item> mFactory =
+            new DataSource.Factory<Integer, Item>() {
+        @Override
+        public DataSource<Integer, Item> create() {
+            ItemDataSource newDataSource = new ItemDataSource();
+            synchronized (mDataSourceLock) {
+                mDataSource = newDataSource;
+                return mDataSource;
+            }
+        }
+    };
+
+    private LiveData<PagedList<Item>> mLivePagedList =
+            new LivePagedListBuilder<>(mFactory, 20).build();
 
     void invalidateList() {
         synchronized (mDataSourceLock) {
@@ -40,19 +54,6 @@ public class PagedListItemViewModel extends ViewModel {
     }
 
     LiveData<PagedList<Item>> getLivePagedList() {
-        if (mLivePagedList == null) {
-            mLivePagedList = new LivePagedListProvider<Integer, Item>() {
-                @Override
-                protected DataSource<Integer, Item> createDataSource() {
-                    ItemDataSource newDataSource = new ItemDataSource();
-                    synchronized (mDataSourceLock) {
-                        mDataSource = newDataSource;
-                        return mDataSource;
-                    }
-                }
-            }.create(0, 20);
-        }
-
         return mLivePagedList;
     }
 }

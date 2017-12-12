@@ -16,45 +16,43 @@
 
 package android.arch.paging;
 
-import android.arch.core.executor.ArchTaskExecutor;
-import android.arch.lifecycle.ComputableLiveData;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.AnyThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
+// NOTE: Room 1.0 depends on this class, so it should not be removed
+// until Room switches to using DataSource.Factory directly
 /**
  * Provides a {@code LiveData<PagedList>}, given a means to construct a DataSource.
  * <p>
  * Return type for data-loading system of an application or library to produce a
  * {@code LiveData<PagedList>}, while leaving the details of the paging mechanism up to the
  * consumer.
- * <p>
- * If you're using Room, it can generate a LivePagedListProvider from a query:
- * <pre>
- * {@literal @}Dao
- * interface UserDao {
- *     {@literal @}Query("SELECT * FROM user ORDER BY lastName ASC")
- *     public abstract LivePagedListProvider&lt;Integer, User> usersByLastName();
- * }</pre>
- * In the above sample, {@code Integer} is used because it is the {@code Key} type of
- * {@link TiledDataSource}. Currently, Room can only generate a {@code LIMIT}/{@code OFFSET},
- * position based loader that uses TiledDataSource under the hood, and specifying {@code Integer}
- * here lets you pass an initial loading position as an integer.
- * <p>
- * In the future, Room plans to offer other key types to support paging content with a
- * {@link KeyedDataSource}.
  *
  * @param <Key> Type of input valued used to load data from the DataSource. Must be integer if
- *             you're using TiledDataSource.
+ *             you're using PositionalDataSource.
  * @param <Value> Data type produced by the DataSource, and held by the PagedLists.
  *
  * @see PagedListAdapter
  * @see DataSource
  * @see PagedList
+ *
+ * @deprecated use {@link LivePagedListBuilder} to construct a {@code LiveData<PagedList>}. It
+ * provides the same construction capability with more customization, and simpler defaults. The role
+ * of DataSource construction has been separated out to {@link DataSource.Factory} to access or
+ * provide a self-invalidating sequence of DataSources. If you were acquiring this from Room, you
+ * can switch to having your Dao return a {@link DataSource.Factory} instead, and create a
+ * {@code LiveData<PagedList>} with a {@link LivePagedListBuilder}.
  */
-public abstract class LivePagedListProvider<Key, Value> {
+@Deprecated
+public abstract class LivePagedListProvider<Key, Value> implements DataSource.Factory<Key, Value> {
+
+    @Override
+    public DataSource<Key, Value> create() {
+        return createDataSource();
+    }
 
     /**
      * Construct a new data source to be wrapped in a new PagedList, which will be returned
@@ -80,10 +78,9 @@ public abstract class LivePagedListProvider<Key, Value> {
     @AnyThread
     @NonNull
     public LiveData<PagedList<Value>> create(@Nullable Key initialLoadKey, int pageSize) {
-        return create(initialLoadKey,
-                new PagedList.Config.Builder()
-                        .setPageSize(pageSize)
-                        .build());
+        return new LivePagedListBuilder<>(this, pageSize)
+                .setInitialLoadKey(initialLoadKey)
+                .build();
     }
 
     /**
@@ -100,49 +97,10 @@ public abstract class LivePagedListProvider<Key, Value> {
      */
     @AnyThread
     @NonNull
-    public LiveData<PagedList<Value>> create(@Nullable final Key initialLoadKey,
-            final PagedList.Config config) {
-        return new ComputableLiveData<PagedList<Value>>() {
-            @Nullable
-            private PagedList<Value> mList;
-            @Nullable
-            private DataSource<Key, Value> mDataSource;
-
-            private final DataSource.InvalidatedCallback mCallback =
-                    new DataSource.InvalidatedCallback() {
-                @Override
-                public void onInvalidated() {
-                    invalidate();
-                }
-            };
-
-            @Override
-            protected PagedList<Value> compute() {
-                @Nullable Key initializeKey = initialLoadKey;
-                if (mList != null) {
-                    //noinspection unchecked
-                    initializeKey = (Key) mList.getLastKey();
-                }
-
-                do {
-                    if (mDataSource != null) {
-                        mDataSource.removeInvalidatedCallback(mCallback);
-                    }
-
-                    mDataSource = createDataSource();
-                    mDataSource.addInvalidatedCallback(mCallback);
-
-                    mList = new PagedList.Builder<Key, Value>()
-                            .setDataSource(mDataSource)
-                            .setMainThreadExecutor(ArchTaskExecutor.getMainThreadExecutor())
-                            .setBackgroundThreadExecutor(
-                                    ArchTaskExecutor.getIOThreadExecutor())
-                            .setConfig(config)
-                            .setInitialKey(initializeKey)
-                            .build();
-                } while (mList.isDetached());
-                return mList;
-            }
-        }.getLiveData();
+    public LiveData<PagedList<Value>> create(@Nullable Key initialLoadKey,
+            @NonNull PagedList.Config config) {
+        return new LivePagedListBuilder<>(this, config)
+                .setInitialLoadKey(initialLoadKey)
+                .build();
     }
 }
