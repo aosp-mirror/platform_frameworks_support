@@ -15,11 +15,13 @@
  */
 package android.arch.persistence.room.integration.testapp.database;
 
+import android.arch.paging.DataSource;
 import android.arch.paging.KeyedDataSource;
 import android.arch.persistence.room.InvalidationTracker;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -32,10 +34,19 @@ public class LastNameAscCustomerDataSource extends KeyedDataSource<String, Custo
     private final InvalidationTracker.Observer mObserver;
     private SampleDatabase mDb;
 
+    public static Factory<String, Customer> factory(final SampleDatabase db) {
+        return new Factory<String, Customer>() {
+            @Override
+            public DataSource<String, Customer> create() {
+                return new LastNameAscCustomerDataSource(db);
+            }
+        };
+    }
+
     /**
      * Create a DataSource from the customer table of the given database
      */
-    public LastNameAscCustomerDataSource(SampleDatabase db) {
+    private LastNameAscCustomerDataSource(SampleDatabase db) {
         mDb = db;
         mCustomerDao = db.getCustomerDao();
         mObserver = new InvalidationTracker.Observer("customer") {
@@ -50,7 +61,6 @@ public class LastNameAscCustomerDataSource extends KeyedDataSource<String, Custo
     @Override
     public boolean isInvalid() {
         mDb.getInvalidationTracker().refreshVersionsSync();
-
         return super.isInvalid();
     }
 
@@ -66,30 +76,48 @@ public class LastNameAscCustomerDataSource extends KeyedDataSource<String, Custo
     }
 
     @Override
-    public int countItemsBefore(@NonNull String customerName) {
-        return mCustomerDao.customerNameCountBefore(customerName);
+    public void loadInitial(@Nullable String customerName, int initialLoadSize,
+            boolean enablePlaceholders, @NonNull InitialLoadCallback<Customer> callback) {
+        List<Customer> list;
+        if (customerName != null) {
+            // initial keyed load - load before 'customerName',
+            // and load after last item in before list
+            int pageSize = initialLoadSize / 2;
+            String key = customerName;
+            list = mCustomerDao.customerNameLoadBefore(key, pageSize);
+            Collections.reverse(list);
+            if (!list.isEmpty()) {
+                key = getKey(list.get(list.size() - 1));
+            }
+            list.addAll(mCustomerDao.customerNameLoadAfter(key, pageSize));
+        } else {
+            list = mCustomerDao.customerNameInitial(initialLoadSize);
+        }
+
+        if (enablePlaceholders && !list.isEmpty()) {
+            String firstKey = getKey(list.get(0));
+            String lastKey = getKey(list.get(list.size() - 1));
+
+            // only bother counting if placeholders are desired
+            final int position = mCustomerDao.customerNameCountBefore(firstKey);
+            final int count = position + list.size() + mCustomerDao.customerNameCountAfter(lastKey);
+            callback.onResult(list, position, count);
+        } else {
+            callback.onResult(list);
+        }
     }
 
     @Override
-    public int countItemsAfter(@NonNull String customerName) {
-        return mCustomerDao.customerNameCountAfter(customerName);
+    public void loadAfter(@NonNull String currentEndKey, int pageSize,
+            @NonNull LoadCallback<Customer> callback) {
+        callback.onResult(mCustomerDao.customerNameLoadAfter(currentEndKey, pageSize));
     }
 
-    @Nullable
     @Override
-    public List<Customer> loadInitial(int pageSize) {
-        return mCustomerDao.customerNameInitial(pageSize);
-    }
-
-    @Nullable
-    @Override
-    public List<Customer> loadBefore(@NonNull String customerName, int pageSize) {
-        return mCustomerDao.customerNameLoadBefore(customerName, pageSize);
-    }
-
-    @Nullable
-    @Override
-    public List<Customer> loadAfter(@Nullable String customerName, int pageSize) {
-        return mCustomerDao.customerNameLoadAfter(customerName, pageSize);
+    public void loadBefore(@NonNull String currentBeginKey, int pageSize,
+            @NonNull LoadCallback<Customer> callback) {
+        List<Customer> list = mCustomerDao.customerNameLoadBefore(currentBeginKey, pageSize);
+        Collections.reverse(list);
+        callback.onResult(list);
     }
 }

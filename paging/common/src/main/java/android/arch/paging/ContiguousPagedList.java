@@ -21,6 +21,7 @@ import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.util.List;
 import java.util.concurrent.Executor;
 
 class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Callback {
@@ -31,26 +32,14 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
     private int mPrependItemsRequested = 0;
     private int mAppendItemsRequested = 0;
 
-    @SuppressWarnings("unchecked")
-    private final PagedStorage<K, V> mKeyedStorage = (PagedStorage<K, V>) mStorage;
-
-    private final PageResult.Receiver<K, V> mReceiver = new PageResult.Receiver<K, V>() {
+    private PageResult.Receiver<V> mReceiver = new PageResult.Receiver<V>() {
+        // Creation thread for initial synchronous load, otherwise main thread
+        // Safe to access main thread only state - no other thread has reference during construction
         @AnyThread
         @Override
-        public void postOnPageResult(@NonNull final PageResult<K, V> pageResult) {
-            // NOTE: if we're already on main thread, this can delay page receive by a frame
-            mMainThreadExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    onPageResult(pageResult);
-                }
-            });
-        }
-
-        @MainThread
-        @Override
-        public void onPageResult(@NonNull PageResult<K, V> pageResult) {
-            if (pageResult.page == null) {
+        public void onPageResult(@PageResult.ResultType int resultType,
+                @NonNull PageResult<V> pageResult) {
+            if (pageResult.isInvalid()) {
                 detach();
                 return;
             }
@@ -60,15 +49,26 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
                 return;
             }
 
-            Page<K, V> page = pageResult.page;
-            if (pageResult.type == PageResult.INIT) {
-                mKeyedStorage.init(pageResult.leadingNulls, page, pageResult.trailingNulls,
+            List<V> page = pageResult.page;
+            if (resultType == PageResult.INIT) {
+                mStorage.init(pageResult.leadingNulls, page, pageResult.trailingNulls,
                         pageResult.positionOffset, ContiguousPagedList.this);
-                notifyInserted(0, mKeyedStorage.size());
-            } else if (pageResult.type == PageResult.APPEND) {
-                mKeyedStorage.appendPage(page, ContiguousPagedList.this);
-            } else if (pageResult.type == PageResult.PREPEND) {
-                mKeyedStorage.prependPage(page, ContiguousPagedList.this);
+                mLastLoad = pageResult.leadingNulls + pageResult.positionOffset + page.size() / 2;
+            } else if (resultType == PageResult.APPEND) {
+                mStorage.appendPage(page, ContiguousPagedList.this);
+            } else if (resultType == PageResult.PREPEND) {
+                mStorage.prependPage(page, ContiguousPagedList.this);
+            }
+
+            if (mBoundaryCallback != null) {
+                boolean deferEmpty = mStorage.size() == 0;
+                boolean deferBegin = !deferEmpty
+                        && resultType == PageResult.PREPEND
+                        && pageResult.page.size() == 0;
+                boolean deferEnd = !deferEmpty
+                        && resultType == PageResult.APPEND
+                        && pageResult.page.size() == 0;
+                deferBoundaryCallbacks(deferEmpty, deferBegin, deferEnd);
             }
         }
     };
@@ -77,25 +77,39 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
             @NonNull ContiguousDataSource<K, V> dataSource,
             @NonNull Executor mainThreadExecutor,
             @NonNull Executor backgroundThreadExecutor,
+            @Nullable BoundaryCallback<V> boundaryCallback,
             @NonNull Config config,
             final @Nullable K key) {
-        super(new PagedStorage<K, V>(), mainThreadExecutor, backgroundThreadExecutor, config);
+        super(new PagedStorage<V>(), mainThreadExecutor, backgroundThreadExecutor,
+                boundaryCallback, config);
         mDataSource = dataSource;
 
-        // blocking init just triggers the initial load on the construction thread -
-        // Could still be posted with callback, if desired.
-        mDataSource.loadInitial(key,
-                mConfig.mInitialLoadSizeHint,
-                mConfig.mEnablePlaceholders,
-                mReceiver);
+        if (mDataSource.isInvalid()) {
+            detach();
+        } else {
+            @DataSource.LoadCountType int type = mConfig.enablePlaceholders
+                    ? DataSource.LOAD_COUNT_ACCEPTED
+                    : DataSource.LOAD_COUNT_PREVENTED;
+
+            DataSource.InitialLoadCallback<V> callback = new DataSource.InitialLoadCallback<>(
+                    type, mConfig.pageSize, mDataSource, mReceiver);
+            mDataSource.loadInitial(key,
+                    mConfig.initialLoadSizeHint,
+                    mConfig.enablePlaceholders,
+                    callback);
+
+            // If initialLoad's callback is not called within the body, we force any following calls
+            // to post to the UI thread. This constructor may be run on a background thread, but
+            // after constructor, mutation must happen on UI thread.
+            callback.setPostExecutor(mMainThreadExecutor);
+        }
     }
 
     @MainThread
     @Override
     void dispatchUpdatesSinceSnapshot(
             @NonNull PagedList<V> pagedListSnapshot, @NonNull Callback callback) {
-
-        final PagedStorage<?, V> snapshot = pagedListSnapshot.mStorage;
+        final PagedStorage<V> snapshot = pagedListSnapshot.mStorage;
 
         final int newlyAppended = mStorage.getNumberAppended() - snapshot.getNumberAppended();
         final int newlyPrepended = mStorage.getNumberPrepended() - snapshot.getNumberPrepended();
@@ -105,7 +119,8 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
 
         // Validate that the snapshot looks like a previous version of this list - if it's not,
         // we can't be sure we'll dispatch callbacks safely
-        if (newlyAppended < 0
+        if (snapshot.isEmpty()
+                || newlyAppended < 0
                 || newlyPrepended < 0
                 || mStorage.getTrailingNullCount() != Math.max(previousTrailing - newlyAppended, 0)
                 || mStorage.getLeadingNullCount() != Math.max(previousLeading - newlyPrepended, 0)
@@ -143,8 +158,8 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
     @MainThread
     @Override
     protected void loadAroundInternal(int index) {
-        int prependItems = mConfig.mPrefetchDistance - (index - mStorage.getLeadingNullCount());
-        int appendItems = index + mConfig.mPrefetchDistance
+        int prependItems = mConfig.prefetchDistance - (index - mStorage.getLeadingNullCount());
+        int appendItems = index + mConfig.prefetchDistance
                 - (mStorage.getLeadingNullCount() + mStorage.getStorageCount());
 
         mPrependItemsRequested = Math.max(prependItems, mPrependItemsRequested);
@@ -168,14 +183,21 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
         final int position = mStorage.getLeadingNullCount() + mStorage.getPositionOffset();
 
         // safe to access first item here - mStorage can't be empty if we're prepending
-        final V item = mStorage.getFirstContiguousItem();
+        final V item = mStorage.getFirstLoadedItem();
         mBackgroundThreadExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 if (isDetached()) {
                     return;
                 }
-                mDataSource.loadBefore(position, item, mConfig.mPageSize, mReceiver);
+                if (mDataSource.isInvalid()) {
+                    detach();
+                } else {
+                    DataSource.LoadCallback<V> callback = new DataSource.LoadCallback<>(
+                            PageResult.PREPEND, mMainThreadExecutor, mDataSource, mReceiver);
+                    mDataSource.loadBefore(position, item, mConfig.pageSize, callback);
+                }
+
             }
         });
     }
@@ -191,14 +213,20 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
                 + mStorage.getStorageCount() - 1 + mStorage.getPositionOffset();
 
         // safe to access first item here - mStorage can't be empty if we're appending
-        final V item = mStorage.getLastContiguousItem();
+        final V item = mStorage.getLastLoadedItem();
         mBackgroundThreadExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 if (isDetached()) {
                     return;
                 }
-                mDataSource.loadAfter(position, item, mConfig.mPageSize, mReceiver);
+                if (mDataSource.isInvalid()) {
+                    detach();
+                } else {
+                    DataSource.LoadCallback<V> callback = new DataSource.LoadCallback<>(
+                            PageResult.APPEND, mMainThreadExecutor, mDataSource, mReceiver);
+                    mDataSource.loadAfter(position, item, mConfig.pageSize, callback);
+                }
             }
         });
     }
@@ -234,6 +262,8 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
         // finally dispatch callbacks, after prepend may have already been scheduled
         notifyChanged(leadingNulls, changedCount);
         notifyInserted(0, addedCount);
+
+        offsetBoundaryAccessIndices(addedCount);
     }
 
     @MainThread

@@ -44,18 +44,14 @@ import android.support.v7.widget.RecyclerView;
  * {@literal @}Dao
  * interface UserDao {
  *     {@literal @}Query("SELECT * FROM user ORDER BY lastName ASC")
- *     public abstract LivePagedListProvider&lt;Integer, User> usersByLastName();
+ *     public abstract DataSource.Factory&lt;Integer, User> usersByLastName();
  * }
  *
  * class MyViewModel extends ViewModel {
  *     public final LiveData&lt;PagedList&lt;User>> usersList;
  *     public MyViewModel(UserDao userDao) {
- *         usersList = userDao.usersByLastName().create(
- *                 /* initial load position {@literal *}/ 0,
- *                 new PagedList.Config.Builder()
- *                         .setPageSize(50)
- *                         .setPrefetchDistance(50)
- *                         .build());
+ *         usersList = LivePagedListBuilder&lt;>(
+ *                 userDao.usersByLastName(), /* page size {@literal *}/ 20).build();
  *     }
  * }
  *
@@ -113,6 +109,13 @@ import android.support.v7.widget.RecyclerView;
 public abstract class PagedListAdapter<T, VH extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<VH> {
     private final PagedListAdapterHelper<T> mHelper;
+    private final PagedListAdapterHelper.PagedListListener<T> mListener =
+            new PagedListAdapterHelper.PagedListListener<T>() {
+        @Override
+        public void onCurrentListChanged(@Nullable PagedList<T> currentList) {
+            PagedListAdapter.this.onCurrentListChanged(currentList);
+        }
+    };
 
     /**
      * Creates a PagedListAdapter with default threading and
@@ -125,11 +128,13 @@ public abstract class PagedListAdapter<T, VH extends RecyclerView.ViewHolder>
      */
     protected PagedListAdapter(@NonNull DiffCallback<T> diffCallback) {
         mHelper = new PagedListAdapterHelper<>(this, diffCallback);
+        mHelper.mListener = mListener;
     }
 
     @SuppressWarnings("unused, WeakerAccess")
     protected PagedListAdapter(@NonNull ListAdapterConfig<T> config) {
         mHelper = new PagedListAdapterHelper<>(new ListAdapterHelper.AdapterCallback(this), config);
+        mHelper.mListener = mListener;
     }
 
     /**
@@ -166,5 +171,23 @@ public abstract class PagedListAdapter<T, VH extends RecyclerView.ViewHolder>
     @Nullable
     public PagedList<T> getCurrentList() {
         return mHelper.getCurrentList();
+    }
+
+    /**
+     * Called when the current PagedList is updated.
+     * <p>
+     * This may be dispatched as part of {@link #setList(PagedList)} if a background diff isn't
+     * needed (such as when the first list is passed, or the list is cleared). In either case,
+     * PagedListAdapter will simply call
+     * {@link #notifyItemRangeInserted(int, int) notifyItemRangeInserted/Removed(0, mPreviousSize)}.
+     * <p>
+     * This method will <em>not</em>be called when the Adapter switches from presenting a PagedList
+     * to a snapshot version of the PagedList during a diff. This means you cannot observe each
+     * PagedList via this method.
+     *
+     * @param currentList new PagedList being displayed, may be null.
+     */
+    @SuppressWarnings("WeakerAccess")
+    public void onCurrentListChanged(@Nullable PagedList<T> currentList) {
     }
 }
