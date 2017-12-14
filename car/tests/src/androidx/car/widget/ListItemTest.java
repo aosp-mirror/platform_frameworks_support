@@ -40,6 +40,7 @@ import android.support.test.filters.SmallTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -113,7 +114,7 @@ public class ListItemTest {
     public void testEmptyItemHidesAllViews() {
         ListItem item = new ListItem.Builder(mActivity).build();
         setupPagedListView(Arrays.asList(item));
-        verifyViewIsHidden(mPagedListView.findViewByPosition(0));
+        verifyViewIsHidden(mPagedListView.getRecyclerView().getLayoutManager().getChildAt(0));
     }
 
     @Test
@@ -157,11 +158,11 @@ public class ListItemTest {
                         .withSupplementalIcon(android.R.drawable.sym_def_app_icon, true)
                         .build(),
                 new ListItem.Builder(mActivity)
-                        .withAction("text", true, null)
+                        .withAction("text", true, v -> { /* Do nothing. */ })
                         .build(),
                 new ListItem.Builder(mActivity)
-                        .withActions("text", true, null,
-                                 "text", true, null)
+                        .withActions("text", true, v -> { /* Do nothing. */ },
+                                 "text", true, v -> { /* Do nothing. */ })
                         .build());
         setupPagedListView(items);
 
@@ -188,11 +189,11 @@ public class ListItemTest {
                         .withSupplementalIcon(android.R.drawable.sym_def_app_icon, false)
                         .build(),
                 new ListItem.Builder(mActivity)
-                        .withAction("text", false, null)
+                        .withAction("text", false, v -> { /* Do nothing. */ })
                         .build(),
                 new ListItem.Builder(mActivity)
-                        .withActions("text", false, null,
-                                "text", false, null)
+                        .withActions("text", false, v -> { /* Do nothing. */ },
+                                "text", false, v -> { /* Do nothing. */ })
                         .build());
         setupPagedListView(items);
 
@@ -269,8 +270,10 @@ public class ListItemTest {
         double singleLineHeight = InstrumentationRegistry.getContext().getResources().getDimension(
                 R.dimen.car_single_line_list_item_height);
 
+        LinearLayoutManager layoutManager =
+                (LinearLayoutManager) mPagedListView.getRecyclerView().getLayoutManager();
         for (int i = 0; i < items.size(); i++) {
-            assertThat((double) mPagedListView.findViewByPosition(i).getHeight(),
+            assertThat((double) layoutManager.findViewByPosition(i).getHeight(),
                     is(closeTo(singleLineHeight, 1.0d)));
         }
     }
@@ -297,8 +300,10 @@ public class ListItemTest {
                 (int) InstrumentationRegistry.getContext().getResources().getDimension(
                         R.dimen.car_double_line_list_item_height);
 
+        LinearLayoutManager layoutManager =
+                (LinearLayoutManager) mPagedListView.getRecyclerView().getLayoutManager();
         for (int i = 0; i < items.size(); i++) {
-            assertThat(mPagedListView.findViewByPosition(i).getHeight(),
+            assertThat(layoutManager.findViewByPosition(i).getHeight(),
                     is(greaterThanOrEqualTo(doubleLineHeight)));
         }
     }
@@ -368,9 +373,9 @@ public class ListItemTest {
         final boolean[] clicked = {false, false};
         List<ListItem> items = Arrays.asList(
                 new ListItem.Builder(mActivity)
-                        .withOnClickListener((v) -> clicked[0] = true)
+                        .withOnClickListener(v -> clicked[0] = true)
                         .withSupplementalIcon(android.R.drawable.sym_def_app_icon, true,
-                                (v) -> clicked[1] = true)
+                                v -> clicked[1] = true)
                         .build());
         setupPagedListView(items);
 
@@ -389,7 +394,7 @@ public class ListItemTest {
         List<ListItem> items = Arrays.asList(
                 new ListItem.Builder(mActivity)
                         .withSupplementalIcon(android.R.drawable.sym_def_app_icon, true,
-                                (v) -> clicked[0] = true)
+                                v -> clicked[0] = true)
                         .build());
         setupPagedListView(items);
 
@@ -399,11 +404,23 @@ public class ListItemTest {
     }
 
     @Test
+    public void testSupplementalIconWithoutClickListenerIsNotClickable() {
+        List<ListItem> items = Arrays.asList(
+                new ListItem.Builder(mActivity)
+                        .withSupplementalIcon(android.R.drawable.sym_def_app_icon, true)
+                        .build());
+        setupPagedListView(items);
+
+        ListItemAdapter.ViewHolder viewHolder = getViewHolderAtPosition(0);
+        assertFalse(viewHolder.getSupplementalIcon().isClickable());
+    }
+
+    @Test
     public void testClickingSupplementalAction() {
         final boolean[] clicked = {false};
         List<ListItem> items = Arrays.asList(
                 new ListItem.Builder(mActivity)
-                        .withAction("action", true, (v) -> clicked[0] = true)
+                        .withAction("action", true, v -> clicked[0] = true)
                         .build());
         setupPagedListView(items);
 
@@ -417,8 +434,8 @@ public class ListItemTest {
         final boolean[] clicked = {false, false};
         List<ListItem> items = Arrays.asList(
                 new ListItem.Builder(mActivity)
-                        .withActions("action 1", true, (v) -> clicked[0] = true,
-                                "action 2", true, (v) -> clicked[1] = true)
+                        .withActions("action 1", true, v -> clicked[0] = true,
+                                "action 2", true, v -> clicked[1] = true)
                         .build());
         setupPagedListView(items);
 
