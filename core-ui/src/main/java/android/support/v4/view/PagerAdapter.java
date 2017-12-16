@@ -135,9 +135,9 @@ public abstract class PagerAdapter {
      * @param container The containing View from which the page will be removed.
      * @param position The page position that is now the primary.
      * @param object The same object that was returned by
-     * {@link #instantiateItem(View, int)}.
+     * {@link #instantiateItem(View, int)} or null if there is no current item.
      */
-    public void setPrimaryItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+    public void setPrimaryItem(@NonNull ViewGroup container, int position, @Nullable Object object) {
         setPrimaryItem((View) container, position, object);
     }
 
