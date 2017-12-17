@@ -48,7 +48,9 @@ import java.io.PrintWriter;
  *     AmbientMode.AmbientController controller = AmbientMode.attachAmbientSupport(this);
  *     boolean isAmbient =  controller.isAmbient();
  * }</pre>
+ * @deprecated please use {@link AmbientModeSupport} instead.
  */
+@Deprecated
 public final class AmbientMode extends Fragment {
     private static final String TAG = "AmbientMode";
 

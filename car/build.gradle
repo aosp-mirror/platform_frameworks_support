@@ -1,5 +1,6 @@
 import static android.support.dependencies.DependenciesKt.*
 import android.support.LibraryGroups
+import android.support.LibraryVersions
 
 plugins {
     id("SupportAndroidLibraryPlugin")
@@ -20,10 +21,6 @@ dependencies {
 }
 
 android {
-    defaultConfig {
-        minSdkVersion 24
-    }
-
     sourceSets {
         main.res.srcDirs 'res', 'res-public'
     }
@@ -32,9 +29,11 @@ android {
 supportLibrary {
     name = "Android Car Support UI"
     publish = false
+    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
     mavenGroup = LibraryGroups.SUPPORT
     inceptionYear = "2017"
     description = "Android Car Support UI"
     java8Library = true
     legacySourceLocation = true
+    minSdkVersion = 24
 }

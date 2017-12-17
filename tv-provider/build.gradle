@@ -13,12 +13,6 @@ dependencies {
     androidTestImplementation(TEST_RUNNER)
 }
 
-android {
-    defaultConfig {
-        minSdkVersion 21
-    }
-}
-
 supportLibrary {
     name = "Android Support TV Provider"
     publish = true
@@ -26,5 +20,5 @@ supportLibrary {
     mavenGroup = LibraryGroups.SUPPORT
     inceptionYear = "2017"
     description = "Android Support Library for TV Provider"
-    legacySourceLocation = true
+    minSdkVersion = 21
 }

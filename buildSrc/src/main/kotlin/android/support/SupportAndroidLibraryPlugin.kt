@@ -43,6 +43,8 @@ class SupportAndroidLibraryPlugin : Plugin<Project> {
             val library = project.extensions.findByType(LibraryExtension::class.java)
                     ?: return@afterEvaluate
 
+            library.defaultConfig.minSdkVersion(supportLibraryExtension.minSdkVersion)
+
             if (supportLibraryExtension.legacySourceLocation) {
                 // We use a non-standard manifest path.
                 library.sourceSets.getByName("main").manifest.srcFile("AndroidManifest.xml")
@@ -78,7 +80,12 @@ class SupportAndroidLibraryPlugin : Plugin<Project> {
         project.apply(mapOf("plugin" to ErrorProneBasePlugin::class.java))
 
         project.configurations.all { configuration ->
-            if (isCoreSupportLibrary) {
+            if (isCoreSupportLibrary && project.name != "support-annotations") {
+                // While this usually happens naturally due to normal project dependencies, force
+                // evaluation on the annotations project in case the below substitution is the only
+                // dependency to this project. See b/70650240 on what happens when this is missing.
+                project.evaluationDependsOn(":support-annotations")
+
                 // In projects which compile as part of the "core" support libraries (which include
                 // the annotations), replace any transitive pointer to the deployed Maven
                 // coordinate version of annotations with a reference to the local project. These
@@ -160,6 +167,9 @@ private fun setUpLint(lintOptions: LintOptions, baseline: File) {
     // Always lint check NewApi as fatal.
     lintOptions.isAbortOnError = true
     lintOptions.isIgnoreWarnings = true
+
+    // Skip lintVital tasks on assemble. We explicitly run lintRelease for libraries.
+    lintOptions.isCheckReleaseBuilds = false
 
     // Write output directly to the console (and nowhere else).
     lintOptions.textOutput("stderr")
