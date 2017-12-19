@@ -14,20 +14,23 @@
  * limitations under the License.
  */
 
-package androidx.app.slice.core;
+package android.arch.persistence.room.integration.testapp.vo;
 
-import android.app.slice.SliceSpec;
-import android.support.annotation.RestrictTo;
 
-import java.util.Collections;
-import java.util.List;
+public class NameAndLastName {
+    private String mName;
+    private String mLastName;
 
-/**
- * @hide
- */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class SliceSpecs {
+    public NameAndLastName(String name, String lastName) {
+        mName = name;
+        mLastName = lastName;
+    }
 
-    // TODO: Fill these in.
-    public static List<SliceSpec> SUPPORTED_SPECS = Collections.emptyList();
+    public String getName() {
+        return mName;
+    }
+
+    public String getLastName() {
+        return mLastName;
+    }
 }
