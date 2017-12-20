@@ -26,8 +26,8 @@ import static android.app.slice.Slice.HINT_PARTIAL;
 import static android.app.slice.Slice.HINT_SELECTED;
 import static android.app.slice.Slice.HINT_TITLE;
 import static android.app.slice.SliceItem.FORMAT_ACTION;
-import static android.app.slice.SliceItem.FORMAT_COLOR;
 import static android.app.slice.SliceItem.FORMAT_IMAGE;
+import static android.app.slice.SliceItem.FORMAT_INT;
 import static android.app.slice.SliceItem.FORMAT_REMOTE_INPUT;
 import static android.app.slice.SliceItem.FORMAT_SLICE;
 import static android.app.slice.SliceItem.FORMAT_TEXT;
@@ -63,8 +63,9 @@ import androidx.app.slice.core.SliceHints;
 /**
  * A slice is a piece of app content and actions that can be surfaced outside of the app.
  *
- * <p>They are constructed using {@link Builder} in a tree structure
- * that provides the OS some information about how the content should be displayed.
+ * <p>They are constructed using {@link androidx.app.slice.builders.TemplateSliceBuilder}s
+ * in a tree structure that provides the OS some information about how the content should be
+ * displayed.
  */
 public final class Slice {
 
@@ -179,7 +180,9 @@ public final class Slice {
 
     /**
      * A Builder used to construct {@link Slice}s
+     * @hide
      */
+    @RestrictTo(Scope.LIBRARY_GROUP)
     public static class Builder {
 
         private final Uri mUri;
@@ -323,24 +326,24 @@ public final class Slice {
         }
 
         /**
-         * Add a color to the slice being constructed
+         * Add a int to the slice being constructed
          * @param subType Optional template-specific type information
          * @see {@link SliceItem#getSubType()}
          */
-        public Builder addColor(int color, @Nullable String subType,
+        public Builder addInt(int value, @Nullable String subType,
                 @SliceHint String... hints) {
-            mItems.add(new SliceItem(color, FORMAT_COLOR, subType, hints));
+            mItems.add(new SliceItem(value, FORMAT_INT, subType, hints));
             return this;
         }
 
         /**
-         * Add a color to the slice being constructed
+         * Add a int to the slice being constructed
          * @param subType Optional template-specific type information
          * @see {@link SliceItem#getSubType()}
          */
-        public Builder addColor(int color, @Nullable String subType,
+        public Builder addInt(int value, @Nullable String subType,
                 @SliceHint List<String> hints) {
-            return addColor(color, subType, hints.toArray(new String[hints.size()]));
+            return addInt(value, subType, hints.toArray(new String[hints.size()]));
         }
 
         /**
