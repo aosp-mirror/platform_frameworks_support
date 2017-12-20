@@ -99,8 +99,8 @@
     <color name="car_body4_dark">@android:color/black</color>
     <color name="car_body4">@color/car_body4_dark</color>
 
-    <color name="car_action1_light">@color/car_grey_900</color>
-    <color name="car_action1_dark">@color/car_grey_50</color>
+    <color name="car_action1_light">@color/car_grey_50</color>
+    <color name="car_action1_dark">@color/car_grey_900</color>
     <color name="car_action1">@color/car_action1_dark</color>
 
     <!-- The tinting colors to create a light- and dark-colored icon respectively. -->
@@ -112,6 +112,9 @@
 
     <!-- An inverted tinting from car_tint. -->
     <color name="car_tint_inverse">@color/car_tint_light</color>
+
+    <!-- The color of the list header.-->
+    <color name="car_list_header">@color/car_blue_500</color>
 
     <!-- The color of the divider. The color here is a lighter shade. -->
     <color name="car_list_divider_light">#1fffffff</color>
