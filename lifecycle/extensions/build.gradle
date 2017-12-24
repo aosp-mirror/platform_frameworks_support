@@ -35,6 +35,8 @@ dependencies {
     api(project(":arch:runtime"))
     api(SUPPORT_FRAGMENTS, libs.support_exclude_config)
     api(project(":lifecycle:common"))
+    api(project(":lifecycle:livedata"))
+    api(project(":lifecycle:viewmodel"))
 
     testImplementation(project(":arch:core-testing"))
     testImplementation(JUNIT)

@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-package android.webkit;
+package android.support
 
-public abstract class WebKitMethodParametertype {
-    public void method(WebViewClient webViewClient);
-    public void methodX(SafeBrowsingResponse response) {
-        return null;
-    }
-    public void urlCall(String url) {
-        return null;
-    }
+import android.support.SupportConfig.DEFAULT_MIN_SDK_VERSION
+import org.gradle.api.Project
+
+/**
+ * Extension for [SupportAndroidTestAppPlugin].
+ */
+open class SupportAndroidTestAppExtension(val project: Project) {
+    /**
+     * If unset minSdkVersion will be [DEFAULT_MIN_SDK_VERSION].
+     */
+    var minSdkVersion: Int = DEFAULT_MIN_SDK_VERSION
 }
