@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "caf8297f_e69d5a7a",
+        "filename": "room/Android.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-01-02T18:07:01Z",
+      "side": 1,
+      "message": "remove empty space.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 1
+      },
+      "revId": "43dfe53c84f11374c09f7a7d7f558cd01296b6a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b515d28a_4836f3f7",
         "filename": "room/Android.mk",
         "patchSetId": 2
@@ -18,6 +41,29 @@
         "startChar": 0,
         "endLine": 30,
         "endChar": 30
+      },
+      "revId": "43dfe53c84f11374c09f7a7d7f558cd01296b6a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4856ef9a_67fa7494",
+        "filename": "room/Android.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-01-02T18:07:01Z",
+      "side": 1,
+      "message": "rm",
+      "range": {
+        "startLine": 42,
+        "startChar": 43,
+        "endLine": 42,
+        "endChar": 44
       },
       "revId": "43dfe53c84f11374c09f7a7d7f558cd01296b6a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
