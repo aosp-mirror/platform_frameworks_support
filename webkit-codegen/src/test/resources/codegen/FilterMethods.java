@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright 2017 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,10 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package android.webkit;
 
-package android.support.v13.app;
+public class FilterMethods {
 
-import android.app.Activity;
+    public void method1(boolean param) {
+    }
 
-public class FragmentCompatTestActivity extends Activity {
+    public void method2(int x) {
+    }
+
+    public void method3(WebViewClient client) {
+    }
 }
