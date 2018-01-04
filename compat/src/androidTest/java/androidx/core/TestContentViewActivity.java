@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package androidx.core.widget;
+package androidx.core;
 
 import android.support.v4.BaseTestActivity;
 

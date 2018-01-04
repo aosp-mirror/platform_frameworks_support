@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 
-<androidx.core.widget.TestContentView
+<androidx.core.TestContentView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/testContentView"
     android:layout_width="match_parent"

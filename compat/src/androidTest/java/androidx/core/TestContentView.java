@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package androidx.core.widget;
+package androidx.core;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
