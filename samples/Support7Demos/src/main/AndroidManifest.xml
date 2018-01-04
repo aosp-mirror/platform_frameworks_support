@@ -423,6 +423,24 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".widget.RvInNestedScrollViewActivity"
+                  android:label="@string/rv_in_nestedScrollView"
+                  android:theme="@style/Theme.AppCompat">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv7.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".widget.RvIn2NestedScrollViewsActivity"
+                  android:label="@string/rv_in_2_nestedScrollViews"
+                  android:theme="@style/Theme.AppCompat">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv7.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".widget.LinearLayoutManagerActivity"
                   android:label="@string/linear_layout_manager"
                   android:theme="@style/Theme.AppCompat">
