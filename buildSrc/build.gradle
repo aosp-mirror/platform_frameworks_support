@@ -11,6 +11,14 @@ buildscript {
     dependencies {
         classpath build_libs.kotlin.gradle_plugin
     }
+
+    configurations.classpath.resolutionStrategy {
+        eachDependency { details ->
+            if (details.requested.group == 'org.jetbrains.kotlin') {
+                details.useVersion build_versions.kotlin
+            }
+        }
+    }
 }
 def runningInBuildServer = System.env.DIST_DIR != null && System.env.OUT_DIR != null
 if (runningInBuildServer) {
@@ -38,4 +46,5 @@ dependencies {
     compile build_libs.error_prone
     compile build_libs.jarjar_gradle
     compile gradleApi()
+    testCompile "junit:junit:4.12"
 }
