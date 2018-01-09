@@ -26,6 +26,7 @@ import android.support.annotation.IntDef;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 
 import java.lang.annotation.Retention;
@@ -58,6 +59,7 @@ import androidx.car.R;
  *         <li>Supplemental Icon
  *         <li>One Action Button
  *         <li>Two Action Buttons
+ *         <li>Switch</li>
  *     </ul>
  * </ul>
  *
@@ -87,10 +89,25 @@ public class ListItem {
                 vh.getPrimaryIcon(),
                 vh.getTitle(), vh.getBody(),
                 vh.getSupplementalIcon(), vh.getSupplementalIconDivider(),
+                vh.getSwitch(), vh.getSwitchDivider(),
                 vh.getAction1(), vh.getAction1Divider(), vh.getAction2(), vh.getAction2Divider()};
         for (View v : subviews) {
             v.setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * Returns whether the divider that comes after the ListItem should be hidden or not.
+     *
+     * <p>Note: For this to work, one must invoke
+     * {@code PagedListView.setDividerVisibilityManager(adapter} for {@link ListItemAdapter} and
+     * have dividers enabled on {@link PagedListView}.
+     *
+     * @return {@code true} if divider coming after the item should be hidden, {@code false}
+     * otherwise.
+     */
+    boolean shouldHideDivider() {
+        return mBuilder.mHideDivider;
     }
 
     /**
@@ -127,13 +144,15 @@ public class ListItem {
 
         @Retention(SOURCE)
         @IntDef({SUPPLEMENTAL_ACTION_NO_ACTION, SUPPLEMENTAL_ACTION_SUPPLEMENTAL_ICON,
-                SUPPLEMENTAL_ACTION_ONE_ACTION, SUPPLEMENTAL_ACTION_TWO_ACTIONS})
+                SUPPLEMENTAL_ACTION_ONE_ACTION, SUPPLEMENTAL_ACTION_TWO_ACTIONS,
+                SUPPLEMENTAL_ACTION_SWITCH})
         private @interface SupplementalActionType {}
 
         private static final int SUPPLEMENTAL_ACTION_NO_ACTION = 0;
         private static final int SUPPLEMENTAL_ACTION_SUPPLEMENTAL_ICON = 1;
         private static final int SUPPLEMENTAL_ACTION_ONE_ACTION = 2;
         private static final int SUPPLEMENTAL_ACTION_TWO_ACTIONS = 3;
+        private static final int SUPPLEMENTAL_ACTION_SWITCH = 4;
 
         private final Context mContext;
         private final List<ViewBinder> mBinders = new ArrayList<>();
@@ -149,11 +168,17 @@ public class ListItem {
         private String mTitle;
         private String mBody;
         private boolean mIsBodyPrimary;
+        // tag for indicating whether to hide the divider
+        private boolean mHideDivider;
 
         @SupplementalActionType private int mSupplementalActionType = SUPPLEMENTAL_ACTION_NO_ACTION;
         private int mSupplementalIconResId;
         private View.OnClickListener mSupplementalIconOnClickListener;
         private boolean mShowSupplementalIconDivider;
+
+        private boolean mSwitchChecked;
+        private boolean mShowSwitchDivider;
+        private CompoundButton.OnCheckedChangeListener mSwitchOnCheckedChangeListener;
 
         private String mAction1Text;
         private View.OnClickListener mAction1OnClickListener;
@@ -484,9 +509,29 @@ public class ListItem {
                 case SUPPLEMENTAL_ACTION_NO_ACTION:
                     // Do nothing
                     break;
+                case SUPPLEMENTAL_ACTION_SWITCH:
+                    mBinders.add(vh -> {
+                        vh.getSwitch().setVisibility(View.VISIBLE);
+                        vh.getSwitch().setChecked(mSwitchChecked);
+                        vh.getSwitch().setOnCheckedChangeListener(mSwitchOnCheckedChangeListener);
+                        if (mShowSwitchDivider) {
+                            vh.getSwitchDivider().setVisibility(View.VISIBLE);
+                        }
+                    });
+                    break;
                 default:
                     throw new IllegalArgumentException("Unrecognized supplemental action type.");
             }
+        }
+
+        /**
+         * Instructs the Builder to always hide the item divider coming after this ListItem.
+         *
+         * @return This Builder object to allow for chaining calls to set methods.
+         */
+        public Builder withDividerHidden() {
+            mHideDivider = true;
+            return this;
         }
 
         /**
@@ -655,6 +700,7 @@ public class ListItem {
          *
          * @param action1Text button text to display - this button will be closer to item end.
          * @param action2Text button text to display.
+         * @return This Builder object to allow for chaining calls to set methods.
          */
         public Builder withActions(String action1Text, boolean showAction1Divider,
                 View.OnClickListener action1OnClickListener,
@@ -674,6 +720,24 @@ public class ListItem {
             mAction2Text = action2Text;
             mAction2OnClickListener = action2OnClickListener;
             mShowAction2Divider = showAction2Divider;
+            return this;
+        }
+
+        /**
+         * Sets {@code Supplemental Action} to be represented by a {@link android.widget.Switch}.
+         *
+         * @param checked initial value for switched.
+         * @param showDivider whether to display a vertical bar between switch and text.
+         * @param listener callback to be invoked when the checked state is changed.
+         * @return This Builder object to allow for chaining calls to set methods.
+         */
+        public Builder withSwitch(boolean checked, boolean showDivider,
+                CompoundButton.OnCheckedChangeListener listener) {
+            mSupplementalActionType = SUPPLEMENTAL_ACTION_SWITCH;
+
+            mSwitchChecked = checked;
+            mShowSwitchDivider = showDivider;
+            mSwitchOnCheckedChangeListener = listener;
             return this;
         }
 

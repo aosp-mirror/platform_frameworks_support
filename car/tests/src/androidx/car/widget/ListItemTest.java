@@ -23,6 +23,7 @@ import static android.support.test.espresso.contrib.RecyclerViewActions.scrollTo
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.number.IsCloseTo.closeTo;
@@ -180,6 +181,28 @@ public class ListItemTest {
     }
 
     @Test
+    public void testSwitchVisibleAndCheckedState() {
+        List<ListItem> items = Arrays.asList(
+                new ListItem.Builder(mActivity)
+                        .withSwitch(true, true, null)
+                        .build(),
+                new ListItem.Builder(mActivity)
+                        .withSwitch(false, true, null)
+                        .build());
+        setupPagedListView(items);
+
+        ListItemAdapter.ViewHolder viewHolder = getViewHolderAtPosition(0);
+        assertThat(viewHolder.getSwitch().getVisibility(), is(equalTo(View.VISIBLE)));
+        assertThat(viewHolder.getSwitch().isChecked(), is(equalTo(true)));
+        assertThat(viewHolder.getSwitchDivider().getVisibility(), is(equalTo(View.VISIBLE)));
+
+        viewHolder = getViewHolderAtPosition(1);
+        assertThat(viewHolder.getSwitch().getVisibility(), is(equalTo(View.VISIBLE)));
+        assertThat(viewHolder.getSwitch().isChecked(), is(equalTo(false)));
+        assertThat(viewHolder.getSwitchDivider().getVisibility(), is(equalTo(View.VISIBLE)));
+    }
+
+    @Test
     public void testDividersAreOptional() {
         List<ListItem> items = Arrays.asList(
                 new ListItem.Builder(mActivity)
@@ -191,9 +214,10 @@ public class ListItemTest {
                 new ListItem.Builder(mActivity)
                         .withActions("text", false, v -> { /* Do nothing. */ },
                                 "text", false, v -> { /* Do nothing. */ })
+                        .build(),
+                new ListItem.Builder(mActivity)
+                        .withSwitch(true, false, null)
                         .build());
-        setupPagedListView(items);
-
         setupPagedListView(items);
 
         ListItemAdapter.ViewHolder viewHolder = getViewHolderAtPosition(0);
@@ -210,6 +234,30 @@ public class ListItemTest {
         assertThat(viewHolder.getAction1Divider().getVisibility(), is(equalTo(View.GONE)));
         assertThat(viewHolder.getAction2().getVisibility(), is(equalTo(View.VISIBLE)));
         assertThat(viewHolder.getAction2Divider().getVisibility(), is(equalTo(View.GONE)));
+
+        viewHolder = getViewHolderAtPosition(3);
+        assertThat(viewHolder.getSwitch().getVisibility(), is(equalTo(View.VISIBLE)));
+        assertThat(viewHolder.getSwitchDivider().getVisibility(), is(equalTo(View.GONE)));
+    }
+
+    @Test
+    public void testCanHideItemDividers() {
+        List<ListItem> items = Arrays.asList(
+                new ListItem.Builder(mActivity)
+                        .withDividerHidden()
+                        .build(),
+                new ListItem.Builder(mActivity)
+                        .build());
+        setupPagedListView(items);
+
+        assertThat(items.get(0).shouldHideDivider(), is(true));
+        assertThat(items.get(1).shouldHideDivider(), is(false));
+
+        PagedListView.DividerVisibilityManager dvm = (PagedListView.DividerVisibilityManager)
+                mPagedListView.getAdapter();
+        assertThat(dvm, is(notNullValue()));
+        assertThat(dvm.shouldHideDivider(0), is(true));
+        assertThat(dvm.shouldHideDivider(1), is(false));
     }
 
     @Test
@@ -453,6 +501,35 @@ public class ListItemTest {
 
         ListItemAdapter.ViewHolder viewHolder = getViewHolderAtPosition(0);
         assertFalse(viewHolder.getSupplementalIcon().isClickable());
+    }
+
+    @Test
+    public void testCheckingSwitch() {
+        final boolean[] clicked = {false, false};
+        List<ListItem> items = Arrays.asList(
+                new ListItem.Builder(mActivity)
+                        .withSwitch(false, false, (button, isChecked) -> {
+                            // Initial value is false.
+                            assertTrue(isChecked);
+                            clicked[0] = true;
+                        })
+                        .build(),
+                new ListItem.Builder(mActivity)
+                        .withSwitch(true, false, (button, isChecked) -> {
+                            // Initial value is true.
+                            assertFalse(isChecked);
+                            clicked[1] = true;
+                        })
+                        .build());
+        setupPagedListView(items);
+
+        onView(withId(R.id.recycler_view)).perform(
+                actionOnItemAtPosition(0, clickChildViewWithId(R.id.switch_widget)));
+        assertTrue(clicked[0]);
+
+        onView(withId(R.id.recycler_view)).perform(
+                actionOnItemAtPosition(1, clickChildViewWithId(R.id.switch_widget)));
+        assertTrue(clicked[1]);
     }
 
     @Test

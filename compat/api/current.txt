@@ -1794,6 +1794,7 @@ package android.support.v4.view {
 
   public final class ViewConfigurationCompat {
     method public static float getScaledHorizontalScrollFactor(android.view.ViewConfiguration, android.content.Context);
+    method public static int getScaledHoverSlop(android.view.ViewConfiguration);
     method public static deprecated int getScaledPagingTouchSlop(android.view.ViewConfiguration);
     method public static float getScaledVerticalScrollFactor(android.view.ViewConfiguration, android.content.Context);
     method public static deprecated boolean hasPermanentMenuKey(android.view.ViewConfiguration);
@@ -2400,6 +2401,7 @@ package android.support.v4.widget {
     method public static void setCompoundDrawablesRelative(android.widget.TextView, android.graphics.drawable.Drawable, android.graphics.drawable.Drawable, android.graphics.drawable.Drawable, android.graphics.drawable.Drawable);
     method public static void setCompoundDrawablesRelativeWithIntrinsicBounds(android.widget.TextView, android.graphics.drawable.Drawable, android.graphics.drawable.Drawable, android.graphics.drawable.Drawable, android.graphics.drawable.Drawable);
     method public static void setCompoundDrawablesRelativeWithIntrinsicBounds(android.widget.TextView, int, int, int, int);
+    method public static void setCustomSelectionActionModeCallback(android.widget.TextView, android.view.ActionMode.Callback);
     method public static void setTextAppearance(android.widget.TextView, int);
     field public static final int AUTO_SIZE_TEXT_TYPE_NONE = 0; // 0x0
     field public static final int AUTO_SIZE_TEXT_TYPE_UNIFORM = 1; // 0x1
