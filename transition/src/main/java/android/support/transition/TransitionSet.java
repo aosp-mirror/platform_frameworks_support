@@ -51,7 +51,7 @@ import java.util.ArrayList;
  * transition on the affected view targets:</p>
  * <pre>
  *     &lt;transitionSet xmlns:android="http://schemas.android.com/apk/res/android"
- *             android:ordering="sequential"&gt;
+ *             android:transitionOrdering="sequential"&gt;
  *         &lt;fade/&gt;
  *         &lt;changeBounds/&gt;
  *     &lt;/transitionSet&gt;
@@ -557,6 +557,15 @@ public class TransitionSet extends Transition {
         int numTransitions = mTransitions.size();
         for (int i = 0; i < numTransitions; ++i) {
             mTransitions.get(i).setCanRemoveViews(canRemoveViews);
+        }
+    }
+
+    @Override
+    public void setPropagation(TransitionPropagation propagation) {
+        super.setPropagation(propagation);
+        int numTransitions = mTransitions.size();
+        for (int i = 0; i < numTransitions; ++i) {
+            mTransitions.get(i).setPropagation(propagation);
         }
     }
 
