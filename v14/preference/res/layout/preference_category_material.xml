@@ -19,7 +19,7 @@
     android:id="@android:id/title"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dip"
+    android:layout_marginBottom="1dip"
     android:textAppearance="@style/Preference_TextAppearanceMaterialBody2"
     android:textColor="@color/preference_fallback_accent_color"
     android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
