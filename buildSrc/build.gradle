@@ -4,6 +4,9 @@ buildscript {
         maven {
             url "${supportRootFolder}/../../prebuilts/tools/common/m2/repository"
         }
+        if ((new File(supportRootFolder, "unbundled-build")).exists()) {
+            jcenter()
+        }
     }
 
     apply from: "build_dependencies.gradle"
