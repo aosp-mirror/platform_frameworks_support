@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6bc7f63_8d6a9d88",
+        "filename": "buildSrc/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-01-18T23:43:06Z",
+      "side": 1,
+      "message": "can we abstrtact this in a function somewhere?",
+      "range": {
+        "startLine": 7,
+        "startChar": 12,
+        "endLine": 7,
+        "endChar": 69
+      },
+      "revId": "73dd7252317b9d7a793029e56f77c7206bd2847b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
