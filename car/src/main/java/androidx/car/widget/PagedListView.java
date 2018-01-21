@@ -40,6 +40,7 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import androidx.car.R;
@@ -122,6 +123,10 @@ public class PagedListView extends FrameLayout {
     private int mLastItemCount;
 
     private boolean mNeedsFocus;
+
+    @Gutter
+    private int mGutter;
+    private int mGutterSize;
 
     /**
      * Interface for a {@link android.support.v7.widget.RecyclerView.Adapter} to cap the number of
@@ -245,11 +250,15 @@ public class PagedListView extends FrameLayout {
                 new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        mSnapHelper = new PagedSnapHelper();
+        mSnapHelper = new PagedSnapHelper(context);
         mSnapHelper.attachToRecyclerView(mRecyclerView);
 
         mRecyclerView.setOnScrollListener(mRecyclerViewOnScrollListener);
         mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 12);
+
+        int defaultGutterSize = getResources().getDimensionPixelSize(R.dimen.car_margin);
+        mGutterSize = a.getDimensionPixelSize(R.styleable.PagedListView_gutterSize,
+                defaultGutterSize);
 
         if (a.hasValue(R.styleable.PagedListView_gutter)) {
             int gutter = a.getInt(R.styleable.PagedListView_gutter, Gutter.BOTH);
@@ -279,6 +288,12 @@ public class PagedListView extends FrameLayout {
         int itemSpacing = a.getDimensionPixelSize(R.styleable.PagedListView_itemSpacing, 0);
         if (itemSpacing > 0) {
             mRecyclerView.addItemDecoration(new ItemSpacingDecoration(itemSpacing));
+        }
+
+        int listContentTopMargin =
+                a.getDimensionPixelSize(R.styleable.PagedListView_listContentTopOffset, 0);
+        if (listContentTopMargin > 0) {
+            mRecyclerView.addItemDecoration(new TopOffsetDecoration(listContentTopMargin));
         }
 
         // Set this to true so that this view consumes clicks events and views underneath
@@ -333,6 +348,13 @@ public class PagedListView extends FrameLayout {
             params.setMarginStart(0);
         }
 
+        if (a.hasValue(R.styleable.PagedListView_scrollBarContainerWidth)) {
+            int carMargin = getResources().getDimensionPixelSize(R.dimen.car_margin);
+            int scrollBarContainerWidth = a.getDimensionPixelSize(
+                    R.styleable.PagedListView_scrollBarContainerWidth, carMargin);
+            setScrollBarContainerWidth(scrollBarContainerWidth);
+        }
+
         setDayNightStyle(DayNightStyle.AUTO);
         a.recycle();
     }
@@ -360,26 +382,54 @@ public class PagedListView extends FrameLayout {
     /**
      * Set the gutter to the specified value.
      *
-     * The gutter is the space to the start/end of the list view items and will be equal in size
+     * <p>The gutter is the space to the start/end of the list view items and will be equal in size
      * to the scroll bars. By default, there is a gutter to both the left and right of the list
      * view items, to account for the scroll bar.
      *
      * @param gutter A {@link Gutter} value that identifies which sides to apply the gutter to.
      */
     public void setGutter(@Gutter int gutter) {
+        mGutter = gutter;
+
         int startPadding = 0;
         int endPadding = 0;
-        if ((gutter & Gutter.START) != 0) {
-            startPadding = getResources().getDimensionPixelSize(R.dimen.car_margin);
+        if ((mGutter & Gutter.START) != 0) {
+            startPadding = mGutterSize;
         }
-        if ((gutter & Gutter.END) != 0) {
-            endPadding = getResources().getDimensionPixelSize(R.dimen.car_margin);
+        if ((mGutter & Gutter.END) != 0) {
+            endPadding = mGutterSize;
         }
         mRecyclerView.setPaddingRelative(startPadding, 0, endPadding, 0);
 
         // If there's a gutter, set ClipToPadding to false so that CardView's shadow will still
         // appear outside of the padding.
         mRecyclerView.setClipToPadding(startPadding == 0 && endPadding == 0);
+    }
+
+    /**
+     * Sets the size of the gutter that appears at the start, end or both sizes of the items in
+     * the {@code PagedListView}.
+     *
+     * @param gutterSize The size of the gutter in pixels.
+     * @see #setGutter(int)
+     */
+    public void setGutterSize(int gutterSize) {
+        mGutterSize = gutterSize;
+
+        // Call setGutter to reset the gutter.
+        setGutter(mGutter);
+    }
+
+    /**
+     * Sets the width of the container that holds the scrollbar. The scrollbar will be centered
+     * within this width.
+     *
+     * @param width The width of the scrollbar container.
+     */
+    public void setScrollBarContainerWidth(int width) {
+        ViewGroup.LayoutParams layoutParams = mScrollBarView.getLayoutParams();
+        layoutParams.width = width;
+        mScrollBarView.requestLayout();
     }
 
     /**
@@ -390,7 +440,33 @@ public class PagedListView extends FrameLayout {
     public void setScrollBarTopMargin(int topMargin) {
         MarginLayoutParams params = (MarginLayoutParams) mScrollBarView.getLayoutParams();
         params.topMargin = topMargin;
-        requestLayout();
+        mScrollBarView.requestLayout();
+    }
+
+    /**
+     * Sets an offset above the first item in the {@code PagedListView}. This offset is scrollable
+     * with the contents of the list.
+     *
+     * @param offset The top offset to add.
+     */
+    public void setListContentTopOffset(int offset) {
+        TopOffsetDecoration existing = null;
+        for (int i = 0, count = mRecyclerView.getItemDecorationCount(); i < count; i++) {
+            RecyclerView.ItemDecoration itemDecoration = mRecyclerView.getItemDecorationAt(i);
+            if (itemDecoration instanceof TopOffsetDecoration) {
+                existing = (TopOffsetDecoration) itemDecoration;
+                break;
+            }
+        }
+
+        if (offset == 0 && existing != null) {
+            mRecyclerView.removeItemDecoration(existing);
+        } else if (existing == null) {
+            mRecyclerView.addItemDecoration(new TopOffsetDecoration(offset));
+        } else {
+            existing.setTopOffset(offset);
+        }
+        mRecyclerView.invalidateItemDecorations();
     }
 
     @NonNull
@@ -404,14 +480,15 @@ public class PagedListView extends FrameLayout {
      * @param position The position in the list to scroll to.
      */
     public void scrollToPosition(int position) {
-        if (mRecyclerView.getLayoutManager() == null) {
+        RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
+        if (layoutManager == null) {
             return;
         }
 
-        PagedSmoothScroller smoothScroller = new PagedSmoothScroller(getContext());
+        RecyclerView.SmoothScroller smoothScroller = mSnapHelper.createScroller(layoutManager);
         smoothScroller.setTargetPosition(position);
 
-        mRecyclerView.getLayoutManager().startSmoothScroll(smoothScroller);
+        layoutManager.startSmoothScroll(smoothScroller);
 
         // Sometimes #scrollToPosition doesn't change the scroll state so we need to make sure
         // the pagination arrows actually get updated. See b/15801119
@@ -1109,6 +1186,37 @@ public class PagedListView extends FrameLayout {
 
         private boolean hideDividerForAdapterPosition(int position) {
             return mVisibilityManager != null && mVisibilityManager.shouldHideDivider(position);
+        }
+    }
+
+    /**
+     * A {@link android.support.v7.widget.RecyclerView.ItemDecoration} that will add a top offset
+     * to the first item in the RecyclerView it is added to.
+     */
+    private static class TopOffsetDecoration extends RecyclerView.ItemDecoration {
+        private int mTopOffset;
+
+        private TopOffsetDecoration(int topOffset) {
+            mTopOffset = topOffset;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
+                RecyclerView.State state) {
+            super.getItemOffsets(outRect, view, parent, state);
+            int position = parent.getChildAdapterPosition(view);
+
+            // Only set the offset for the first item.
+            if (position == 0) {
+                outRect.top = mTopOffset;
+            }
+        }
+
+        /**
+         * @param topOffset sets spacing between each item.
+         */
+        public void setTopOffset(int topOffset) {
+            mTopOffset = topOffset;
         }
     }
 }

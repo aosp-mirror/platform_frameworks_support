@@ -42,10 +42,18 @@ limitations under the License.
             <!-- Include a gutter on both sides of the list view items. -->
             <enum name="both" value="3" />
         </attr>
+        <!-- The size of the gutter that is either at the start, end or both sides of the
+             items in the PagedListView. There is a default value that changes per screen size if
+             a gutter size is not explicitly set.-->
+        <attr name="gutterSize" format="dimension" />
         <!-- Whether to display the scrollbar or not. Defaults to true. -->
         <attr name="scrollBarEnabled" format="boolean" />
         <!-- The top margin before the scroll bar is drawn. -->
         <attr name="scrollBarTopMargin" format="dimension" />
+        <!-- The width of the container that will hold the scrollbar. The scrollbar is centered
+             within this value. If this value is not explicitly set, the scrollbar centers itself
+             within the car_margin value. -->
+        <attr name="scrollBarContainerWidth" format="dimension" />
         <!-- Whether or not to show a diving line between each item of the list. -->
         <attr name="showPagedListViewDivider" format="boolean" />
         <!-- An optional id that specifies a child View whose starting edge will be used to
@@ -66,6 +74,9 @@ limitations under the License.
         <attr name="upButtonIcon" format="reference" />
         <!-- The icon to be used for the down button of the scroll bar.  -->
         <attr name="downButtonIcon" format="reference" />
+        <!-- The amount of space before the first item in the list view. This space is
+             scrollable with the contents of the list. -->
+        <attr name="listContentTopOffset" format="reference" />
     </declare-styleable>
 
     <!-- The attributes for customizing the appearance of the hamburger and back arrow in the
@@ -87,5 +98,12 @@ limitations under the License.
         <attr name="carMenuBarSpacing" format="dimension"/>
         <!-- The size of the menu bars (i.e. the "hamburger" icon). -->
         <attr name="carMenuBarThickness" format="dimension"/>
+    </declare-styleable>
+
+    <!-- Attributes for the ClickThroughToolbar. -->
+    <declare-styleable name="ClickThroughToolbar">
+        <!-- Whether or not clicks on this toolbar will pass through to an underlying view. This
+             value is false by default. -->
+        <attr name="clickThrough" format="boolean"/>
     </declare-styleable>
 </resources>
