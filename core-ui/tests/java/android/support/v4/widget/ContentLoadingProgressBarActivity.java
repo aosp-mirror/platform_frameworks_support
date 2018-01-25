@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,14 @@
  * limitations under the License.
  */
 
-package android.support.v4.app;
+package android.support.v4.widget;
 
-import android.os.Bundle;
-import android.support.compat.test.R;
-import android.view.WindowManager;
+import android.support.coreui.test.R;
+import android.support.v4.BaseTestActivity;
 
-public class TestSupportActivity extends SupportActivity {
+public class ContentLoadingProgressBarActivity extends BaseTestActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        setContentView(R.layout.activity_compat_activity);
+    protected int getContentViewLayoutResId() {
+        return R.layout.content_loading_progress_bar_activity;
     }
 }

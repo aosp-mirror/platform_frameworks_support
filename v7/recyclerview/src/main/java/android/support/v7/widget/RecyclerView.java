@@ -2722,7 +2722,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
         removeCallbacks(mItemAnimatorRunner);
         mViewInfoStore.onDetach();
 
-        if (ALLOW_THREAD_GAP_WORK) {
+        if (ALLOW_THREAD_GAP_WORK && mGapWorker != null) {
             // Unregister with gap worker
             mGapWorker.remove(this);
             mGapWorker = null;
@@ -6643,11 +6643,19 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
          * @see #onCreateViewHolder(ViewGroup, int)
          */
         public final VH createViewHolder(@NonNull ViewGroup parent, int viewType) {
-            TraceCompat.beginSection(TRACE_CREATE_VIEW_TAG);
-            final VH holder = onCreateViewHolder(parent, viewType);
-            holder.mItemViewType = viewType;
-            TraceCompat.endSection();
-            return holder;
+            try {
+                TraceCompat.beginSection(TRACE_CREATE_VIEW_TAG);
+                final VH holder = onCreateViewHolder(parent, viewType);
+                if (holder.itemView.getParent() != null) {
+                    throw new IllegalStateException("ViewHolder views must not be attached when"
+                            + " created. Ensure that you are not passing 'true' to the attachToRoot"
+                            + " parameter of LayoutInflater.inflate(..., boolean attachToRoot)");
+                }
+                holder.mItemViewType = viewType;
+                return holder;
+            } finally {
+                TraceCompat.endSection();
+            }
         }
 
         /**

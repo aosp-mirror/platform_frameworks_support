@@ -18,6 +18,8 @@
 # Grabs all the support libraries and runs them through a preprocessor
 # using the default Jetifier config to generate the final mappings.
 
+set -e
+
 ROOT_DIR=$(dirname $(readlink -f $0))
 OUT_DIR="$ROOT_DIR/out"
 TEMP_LOG="$OUT_DIR/tempLog"
@@ -28,15 +30,16 @@ DEFAULT_CONFIG="$JETIFIER_DIR/core/src/main/resources/default.config"
 GENERATED_CONFIG="$JETIFIER_DIR/core/src/main/resources/default.generated.config"
 PREPROCESSOR_DISTRO_PATH="$BUILD_DIR/preprocessor/build/distributions/preprocessor-1.0.zip"
 PREPROCESSOR_BIN_PATH="$OUT_DIR/preprocessor-1.0/bin/preprocessor"
-SUPPORT_LIBS_DOWNLOADED="$OUT_DIR/supportLibs"
+SUPPORT_LIBS_BUILD_NUMBER="4560478"
+SUPPORT_LIBS_DOWNLOADED="$OUT_DIR/supportLibs/downloaded"
+SUPPORT_LIBS_UNPACKED="$OUT_DIR/supportLibs/unpacked"
 
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-function exitAndFail() {
-	cat $TEMP_LOG
-	echo -e "${RED}FAILED${NC}"
+function die() {
+	echo "$@"
 	exit 1
 }
 
@@ -53,16 +56,34 @@ function printSuccess() {
 
 function buildProjectUsingGradle() {
 	cd $1
-	sh gradlew clean build $2 > $TEMP_LOG --stacktrace || exitAndFail 2>&1
+	sh gradlew clean build $2 > $TEMP_LOG --stacktrace
 }
 
 
-rm -r $OUT_DIR
+rm -rf $OUT_DIR
 mkdir $OUT_DIR
 echo "OUT dir is at '$OUT_DIR'"
 
-printSectionStart "Downloading all affected support libraries"
-wget -nd -i $ROOT_DIR/repo-links -P $SUPPORT_LIBS_DOWNLOADED
+function getPreRenamedSupportLib() {
+	INPUT_FILENAME="top-of-tree-m2repository-$SUPPORT_LIBS_BUILD_NUMBER.zip"
+	printSectionStart "Downloading all affected support libraries"
+	mkdir -p "$SUPPORT_LIBS_DOWNLOADED"
+	cd "$SUPPORT_LIBS_DOWNLOADED"
+
+	if [ "$FETCH_ARTIFACT" == "" ]; then
+		if which fetch_artifact; then
+			FETCH_ARTIFACT="$(which fetch_artifact)"
+		fi
+	fi
+	if [ ! -f "$FETCH_ARTIFACT" ]; then
+		die "fetch_artifact not found. Please set the environment variable FETCH_ARTIFACT equal to the path of fetch_artifact and try again"
+	fi
+	"$FETCH_ARTIFACT" --bid "$SUPPORT_LIBS_BUILD_NUMBER" --target support_library "$INPUT_FILENAME"
+	cd -
+
+	unzip -oj "$SUPPORT_LIBS_DOWNLOADED/$INPUT_FILENAME" -d "$SUPPORT_LIBS_UNPACKED"
+}
+getPreRenamedSupportLib
 
 printSectionStart "Preparing Jetifier"
 buildProjectUsingGradle $JETIFIER_DIR
@@ -72,7 +93,7 @@ unzip $PREPROCESSOR_DISTRO_PATH -d $OUT_DIR > /dev/null
 echo "[OK] Copied & unziped jetifier preprocessor"
 
 printSectionStart "Preprocessing mappings on support libraries"
-sh $PREPROCESSOR_BIN_PATH -i "$SUPPORT_LIBS_DOWNLOADED" -o "$GENERATED_CONFIG" -c "$DEFAULT_CONFIG" -l verbose || exitAndFail
+sh $PREPROCESSOR_BIN_PATH -i "$SUPPORT_LIBS_UNPACKED" -o "$GENERATED_CONFIG" -c "$DEFAULT_CONFIG" -l verbose || exitAndFail
 echo "[OK] Done, config generated into $GENERATED_CONFIG"
 
 printSuccess
