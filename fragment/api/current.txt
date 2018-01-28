@@ -16,6 +16,7 @@ package android.support.v4.app {
     method public void setStyle(int, int);
     method public void show(android.support.v4.app.FragmentManager, java.lang.String);
     method public int show(android.support.v4.app.FragmentTransaction, java.lang.String);
+    method public void showNow(android.support.v4.app.FragmentManager, java.lang.String);
     field public static final int STYLE_NORMAL = 0; // 0x0
     field public static final int STYLE_NO_FRAME = 2; // 0x2
     field public static final int STYLE_NO_INPUT = 3; // 0x3
@@ -104,6 +105,10 @@ package android.support.v4.app {
     method public void postponeEnterTransition();
     method public void registerForContextMenu(android.view.View);
     method public final void requestPermissions(java.lang.String[], int);
+    method public final android.support.v4.app.FragmentActivity requireActivity();
+    method public final android.content.Context requireContext();
+    method public final android.support.v4.app.FragmentManager requireFragmentManager();
+    method public final java.lang.Object requireHost();
     method public void setAllowEnterTransitionOverlap(boolean);
     method public void setAllowReturnTransitionOverlap(boolean);
     method public void setArguments(android.os.Bundle);

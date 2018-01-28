@@ -136,7 +136,7 @@ class SupportAndroidLibraryPlugin : Plugin<Project> {
 
         project.tasks.getByName("uploadArchives").dependsOn("lintRelease")
 
-        SourceJarTaskHelper.setUpAndroidProject(project, library)
+        setUpSoureJarTaskForAndroidProject(project, library)
 
         val toolChain = ErrorProneToolChain.create(project)
         library.buildTypes.create("errorProne")
@@ -160,7 +160,12 @@ class SupportAndroidLibraryPlugin : Plugin<Project> {
                         "-Xep:ClassCanBeStatic:ERROR",
                         "-Xep:SynchronizeOnNonFinalField:ERROR",
                         "-Xep:OperatorPrecedence:ERROR",
-                        "-Xep:IntLongMath:ERROR"
+                        "-Xep:IntLongMath:ERROR",
+
+                        // Nullaway
+                        "-XepIgnoreUnknownCheckNames", // https://github.com/uber/NullAway/issues/25
+                        "-Xep:NullAway:ERROR",
+                        "-XepOpt:NullAway:AnnotatedPackages=android.arch,android.support"
                 )
             }
         }
