@@ -66,6 +66,7 @@ public class SliceBrowser extends AppCompatActivity implements SliceView.OnSlice
 
     private static final String SLICE_METADATA_KEY = "android.metadata.SLICE_URI";
     private static final boolean TEST_INTENT = false;
+    private static final boolean TEST_THEMES = false;
 
     private ArrayList<Uri> mSliceUris = new ArrayList<Uri>();
     private int mSelectedMode;
@@ -122,8 +123,8 @@ public class SliceBrowser extends AppCompatActivity implements SliceView.OnSlice
         });
 
         mSelectedMode = (savedInstanceState != null)
-                ? savedInstanceState.getInt("SELECTED_MODE", SliceView.MODE_SHORTCUT)
-                : SliceView.MODE_SHORTCUT;
+                ? savedInstanceState.getInt("SELECTED_MODE", SliceView.MODE_LARGE)
+                : SliceView.MODE_LARGE;
         if (savedInstanceState != null) {
             mSearchView.setQuery(savedInstanceState.getString("SELECTED_QUERY"), true);
         }
@@ -139,7 +140,7 @@ public class SliceBrowser extends AppCompatActivity implements SliceView.OnSlice
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         mTypeMenu = menu.addSubMenu("Type");
-        mTypeMenu.setIcon(R.drawable.ic_shortcut);
+        mTypeMenu.setIcon(R.drawable.ic_large);
         mTypeMenu.getItem().setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         mTypeMenu.add("Shortcut");
         mTypeMenu.add("Small");
@@ -220,7 +221,9 @@ public class SliceBrowser extends AppCompatActivity implements SliceView.OnSlice
     }
 
     private void addSlice(Intent intent) {
-        SliceView v = new SliceView(getApplicationContext());
+        SliceView v = TEST_THEMES
+                ? (SliceView) getLayoutInflater().inflate(R.layout.slice_view, mContainer, false)
+                : new SliceView(getApplicationContext());
         v.setOnSliceActionListener(this);
         v.setTag(intent);
         if (mSliceLiveData != null) {
@@ -235,7 +238,10 @@ public class SliceBrowser extends AppCompatActivity implements SliceView.OnSlice
 
     private void addSlice(Uri uri) {
         if (ContentResolver.SCHEME_CONTENT.equals(uri.getScheme())) {
-            SliceView v = new SliceView(getApplicationContext());
+            SliceView v = TEST_THEMES
+                    ? (SliceView) getLayoutInflater().inflate(
+                            R.layout.slice_view, mContainer, false)
+                    : new SliceView(getApplicationContext());
             v.setOnSliceActionListener(this);
             v.setTag(uri);
             if (mSliceLiveData != null) {
