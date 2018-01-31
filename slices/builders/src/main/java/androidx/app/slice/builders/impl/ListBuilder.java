@@ -21,6 +21,7 @@ import static android.support.annotation.RestrictTo.Scope.LIBRARY;
 import android.app.PendingIntent;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 
 /**
@@ -51,6 +52,16 @@ public interface ListBuilder {
      * large or small formats.
      */
     void setActions(TemplateBuilderImpl impl);
+
+    /**
+     * Add an input range row to the list builder.
+     */
+    void addInputRange(TemplateBuilderImpl builder);
+
+    /**
+     * Add a range row to the list builder.
+     */
+    void addRange(TemplateBuilderImpl builder);
 
     /**
      * Sets the color to tint items displayed by this template (e.g. icons).
@@ -87,8 +98,53 @@ public interface ListBuilder {
     TemplateBuilderImpl createActionBuilder(Uri uri);
 
     /**
+     * Create a builder that implements {@link InputRangeBuilder}.
      */
-    public interface RowBuilder {
+    TemplateBuilderImpl createInputRangeBuilder();
+
+    /**
+     * Create a builder that implements {@link RangeBuilder}.
+     */
+    TemplateBuilderImpl createRangeBuilder();
+
+    /**
+     * Builder to construct a range.
+     */
+    interface RangeBuilder {
+        /**
+         * Set the upper limit.
+         */
+        void setMax(int max);
+
+        /**
+         * Set the current value.
+         */
+        void setValue(int value);
+
+        /**
+         * Set the title.
+         */
+        void setTitle(@NonNull CharSequence title);
+    }
+
+    /**
+     * Builder to construct an input range.
+     */
+    interface InputRangeBuilder extends RangeBuilder {
+        /**
+         * Set the {@link PendingIntent} to send when the value changes.
+         */
+        void setAction(@NonNull PendingIntent action);
+
+        /**
+         * Set the {@link Icon} to be displayed as the thumb on the input range.
+         */
+        void setThumb(@NonNull Icon thumb);
+    }
+
+    /**
+     */
+    interface RowBuilder {
 
         /**
          * Sets the title item to be the provided timestamp. Only one timestamp can be added, if
@@ -100,20 +156,36 @@ public interface ListBuilder {
         void setTitleItem(long timeStamp);
 
         /**
-         * Sets the title item to be the provided icon.
-         * <p>
-         * There can only be one title item, this will replace any other title
-         * items that may have been set.
+         * Sets the title item to be the provided icon. There can only be one title item, this
+         * will replace any other title items that may have been set.
          */
         void setTitleItem(Icon icon);
 
         /**
-         * Sets the title item to be a tappable icon.
+         * Sets the title item to be the provided icon. There can only be one title item, this
+         * will replace any other title items that may have been set.
          * <p>
-         * There can only be one title item, this will replace any other title
-         * items that may have been set.
+         * When set to true, the parameter {@code isLoading} indicates that the app is doing work
+         * to load this content in the background, in this case the template displays a placeholder
+         * until updated.
+         */
+        void setTitleItem(Icon icon, boolean isLoading);
+
+        /**
+         * Sets the title item to be a tappable icon. There can only be one title item, this will
+         * replace any other title items that may have been set.
          */
         void setTitleItem(Icon icon, PendingIntent action);
+
+        /**
+         * Sets the title item to be a tappable icon. There can only be one title item, this will
+         * replace any other title items that may have been set.
+         * <p>
+         * When set to true, the parameter {@code isLoading} indicates that the app is doing work
+         * to load this content in the background, in this case the template displays a placeholder
+         * until updated.
+         */
+        void setTitleItem(Icon icon, PendingIntent action, boolean isLoading);
 
         /**
          * Sets the action to be invoked if the user taps on the main content of the template.
@@ -126,9 +198,27 @@ public interface ListBuilder {
         void setTitle(CharSequence title);
 
         /**
+         * Sets the title text.
+         * <p>
+         * When set to true, the parameter {@code isLoading} indicates that the app is doing work
+         * to load this content in the background, in this case the template displays a placeholder
+         * until updated.
+         */
+        void setTitle(CharSequence title, boolean isLoading);
+
+        /**
          * Sets the subtitle text.
          */
         void setSubtitle(CharSequence subtitle);
+
+        /**
+         * Sets the subtitle text.
+         * <p>
+         * When set to true, the parameter {@code isLoading} indicates that the app is doing work
+         * to load this content in the background, in this case the template displays a placeholder
+         * until updated.
+         */
+        void setSubtitle(CharSequence subtitle, boolean isLoading);
 
         /**
          * Adds a timestamp to be displayed at the end of the row.
@@ -141,15 +231,43 @@ public interface ListBuilder {
         void addEndItem(Icon icon);
 
         /**
+         * Adds an icon to be displayed at the end of the row.
+         * <p>
+         * When set to true, the parameter {@code isLoading} indicates that the app is doing work
+         * to load this content in the background, in this case the template displays a placeholder
+         * until updated.
+         */
+        void addEndItem(Icon icon, boolean isLoading);
+
+        /**
          * Adds a tappable icon to be displayed at the end of the row.
          */
         void addEndItem(Icon icon, PendingIntent action);
+
+        /**
+         * Adds a tappable icon to be displayed at the end of the row.
+         * <p>
+         * When set to true, the parameter {@code isLoading} indicates that the app is doing work
+         * to load this content in the background, in this case the template displays a placeholder
+         * until updated.
+         */
+        void addEndItem(Icon icon, PendingIntent action, boolean isLoading);
 
         /**
          * Adds a toggle action to the template with custom icons to represent checked and unchecked
          * state.
          */
         void addToggle(PendingIntent action, boolean isChecked, Icon icon);
+
+        /**
+         * Adds a toggle action to the template with custom icons to represent checked and unchecked
+         * state.
+         * <p>
+         * When set to true, the parameter {@code isLoading} indicates that the app is doing work
+         * to load this content in the background, in this case the template displays a placeholder
+         * until updated.
+         */
+        void addToggle(PendingIntent action, boolean isChecked, Icon icon, boolean isLoading);
     }
 
 

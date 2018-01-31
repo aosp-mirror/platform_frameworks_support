@@ -202,6 +202,149 @@ public class ListBuilder extends TemplateSliceBuilder {
     }
 
     /**
+     * Add an input range row to the list builder.
+     */
+    @NonNull
+    public ListBuilder addInputRange(@NonNull InputRangeBuilder b) {
+        mImpl.addInputRange((TemplateBuilderImpl) b.mImpl);
+        return this;
+    }
+
+    /**
+     * Add an input range row to the list builder.
+     */
+    @NonNull
+    public ListBuilder addInputRange(@NonNull Consumer<InputRangeBuilder> c) {
+        InputRangeBuilder inputRangeBuilder = new InputRangeBuilder(this);
+        c.accept(inputRangeBuilder);
+        return addInputRange(inputRangeBuilder);
+    }
+
+    /**
+     * Add a range row to the list builder.
+     */
+    @NonNull
+    public ListBuilder addRange(@NonNull RangeBuilder rangeBuilder) {
+        mImpl.addRange((TemplateBuilderImpl) rangeBuilder.mImpl);
+        return this;
+    }
+
+    /**
+     * Add a range row to the list builder.
+     */
+    @NonNull
+    public ListBuilder addRange(@NonNull Consumer<RangeBuilder> c) {
+        RangeBuilder rangeBuilder = new RangeBuilder(this);
+        c.accept(rangeBuilder);
+        return addRange(rangeBuilder);
+    }
+
+    /**
+     * Builder to construct a range row.
+     */
+    public static class RangeBuilder extends TemplateSliceBuilder {
+        private androidx.app.slice.builders.impl.ListBuilder.RangeBuilder mImpl;
+
+        public RangeBuilder(@NonNull ListBuilder parent) {
+            super(parent.mImpl.createRangeBuilder());
+        }
+
+        /**
+         * Set the upper limit of the range. The default is 100.
+         */
+        @NonNull
+        public RangeBuilder setMax(int max) {
+            mImpl.setMax(max);
+            return this;
+        }
+
+        /**
+         * Set the current value of the range.
+         */
+        @NonNull
+        public RangeBuilder setValue(int value) {
+            mImpl.setValue(value);
+            return this;
+        }
+
+        /**
+         * Set the title.
+         */
+        @NonNull
+        public RangeBuilder setTitle(@NonNull CharSequence title) {
+            mImpl.setTitle(title);
+            return this;
+        }
+
+        @Override
+        void setImpl(TemplateBuilderImpl impl) {
+            mImpl = (androidx.app.slice.builders.impl.ListBuilder.RangeBuilder) impl;
+        }
+    }
+
+    /**
+     * Builder to construct a input range row.
+     */
+    public static class InputRangeBuilder extends TemplateSliceBuilder {
+        private androidx.app.slice.builders.impl.ListBuilder.InputRangeBuilder mImpl;
+
+        public InputRangeBuilder(@NonNull ListBuilder parent) {
+            super(parent.mImpl.createInputRangeBuilder());
+        }
+
+        /**
+         * Set the upper limit of the range. The default is 100.
+         */
+        @NonNull
+        public InputRangeBuilder setMax(int max) {
+            mImpl.setMax(max);
+            return this;
+        }
+
+        /**
+         * Set the current value of the range.
+         */
+        @NonNull
+        public InputRangeBuilder setValue(int value) {
+            mImpl.setValue(value);
+            return this;
+        }
+
+        /**
+         * Set the title.
+         */
+        @NonNull
+        public InputRangeBuilder setTitle(@NonNull CharSequence title) {
+            mImpl.setTitle(title);
+            return this;
+        }
+
+
+        /**
+         * Set the {@link PendingIntent} to send when the current value is updated.
+         */
+        @NonNull
+        public InputRangeBuilder setAction(@NonNull PendingIntent action) {
+            mImpl.setAction(action);
+            return this;
+        }
+
+        /**
+         * Set the {@link Icon} to be displayed as the thumb on the input range.
+         */
+        @NonNull
+        public InputRangeBuilder setThumb(@NonNull Icon thumb) {
+            mImpl.setThumb(thumb);
+            return this;
+        }
+
+        @Override
+        void setImpl(TemplateBuilderImpl impl) {
+            mImpl = (androidx.app.slice.builders.impl.ListBuilder.InputRangeBuilder) impl;
+        }
+    }
+
+    /**
      * Sub-builder to construct a row of slice content.
      * <p>
      * Row content can have:
@@ -273,10 +416,8 @@ public class ListBuilder extends TemplateSliceBuilder {
         }
 
         /**
-         * Sets the title item to be the provided icon.
-         * <p>
-         * There can only be one title item, this will replace any other title
-         * items that may have been set.
+         * Sets the title item to be the provided icon. There can only be one title item, this
+         * will replace any other title items that may have been set.
          */
         @NonNull
         public RowBuilder setTitleItem(@NonNull Icon icon) {
@@ -285,14 +426,44 @@ public class ListBuilder extends TemplateSliceBuilder {
         }
 
         /**
-         * Sets the title item to be a tappable icon.
+         * Sets the title item to be the provided icon. There can only be one title item, this
+         * will replace any other title items that may have been set.
          * <p>
-         * There can only be one title item, this will replace any other title
-         * items that may have been set.
+         * Use this method to specify content that will appear in the template once it's been
+         * loaded.
+         * </p>
+         * @param isLoading indicates whether the app is doing work to load the added content in the
+         *                  background or not.
+         */
+        @NonNull
+        public RowBuilder setTitleItem(@Nullable Icon icon, boolean isLoading) {
+            mImpl.setTitleItem(icon, isLoading);
+            return this;
+        }
+
+        /**
+         * Sets the title item to be a tappable icon. There can only be one title item, this will
+         * replace any other title items that may have been set.
          */
         @NonNull
         public RowBuilder setTitleItem(@NonNull Icon icon, @NonNull PendingIntent action) {
-            mImpl.setTitleItem(icon, action);
+            return setTitleItem(icon, action, false /* isLoading */);
+        }
+
+        /**
+         * Sets the title item to be a tappable icon. There can only be one title item, this will
+         * replace any other title items that may have been set.
+         * <p>
+         * Use this method to specify content that will appear in the template once it's been
+         * loaded.
+         * </p>
+         * @param isLoading indicates whether the app is doing work to load the added content in the
+         *                  background or not.
+         */
+        @NonNull
+        public RowBuilder setTitleItem(@NonNull Icon icon, @NonNull PendingIntent action,
+                boolean isLoading) {
+            mImpl.setTitleItem(icon, action, isLoading);
             return this;
         }
 
@@ -309,8 +480,23 @@ public class ListBuilder extends TemplateSliceBuilder {
          * Sets the title text.
          */
         @NonNull
-        public RowBuilder setTitle(CharSequence title) {
+        public RowBuilder setTitle(@NonNull CharSequence title) {
             mImpl.setTitle(title);
+            return this;
+        }
+
+        /**
+         * Sets the title text.
+         * <p>
+         * Use this method to specify content that will appear in the template once it's been
+         * loaded.
+         * </p>
+         * @param isLoading indicates whether the app is doing work to load the added content in the
+         *                  background or not.
+         */
+        @NonNull
+        public RowBuilder setTitle(@Nullable CharSequence title, boolean isLoading) {
+            mImpl.setTitle(title, isLoading);
             return this;
         }
 
@@ -318,8 +504,22 @@ public class ListBuilder extends TemplateSliceBuilder {
          * Sets the subtitle text.
          */
         @NonNull
-        public RowBuilder setSubtitle(CharSequence subtitle) {
-            mImpl.setSubtitle(subtitle);
+        public RowBuilder setSubtitle(@NonNull CharSequence subtitle) {
+            return setSubtitle(subtitle, false /* isLoading */);
+        }
+
+        /**
+         * Sets the subtitle text.
+         * <p>
+         * Use this method to specify content that will appear in the template once it's been
+         * loaded.
+         * </p>
+         * @param isLoading indicates whether the app is doing work to load the added content in the
+         *                  background or not.
+         */
+        @NonNull
+        public RowBuilder setSubtitle(@Nullable CharSequence subtitle, boolean isLoading) {
+            mImpl.setSubtitle(subtitle, isLoading);
             return this;
         }
 
@@ -345,12 +545,28 @@ public class ListBuilder extends TemplateSliceBuilder {
          */
         @NonNull
         public RowBuilder addEndItem(@NonNull Icon icon) {
+            return addEndItem(icon, false /* isLoading */);
+        }
+
+        /**
+         * Adds an icon to be displayed at the end of the row. A mixture of icons and tappable
+         * icons is not permitted. If an action has already been added this will throw
+         * {@link IllegalArgumentException}.
+         * <p>
+         * Use this method to specify content that will appear in the template once it's been
+         * loaded.
+         * </p>
+         * @param isLoading indicates whether the app is doing work to load the added content in the
+         *                  background or not.
+         */
+        @NonNull
+        public RowBuilder addEndItem(@NonNull Icon icon, boolean isLoading) {
             if (mHasEndActionOrToggle) {
                 throw new IllegalArgumentException("Trying to add an icon to end items when an"
                         + "action has already been added. End items cannot have a mixture of "
                         + "tappable icons and icons.");
             }
-            mImpl.addEndItem(icon);
+            mImpl.addEndItem(icon, isLoading);
             mHasEndImage = true;
             return this;
         }
@@ -362,13 +578,24 @@ public class ListBuilder extends TemplateSliceBuilder {
          */
         @NonNull
         public RowBuilder addEndItem(@NonNull Icon icon, @NonNull PendingIntent action) {
-            if (mHasEndImage) {
-                throw new IllegalArgumentException("Trying to add an action to end items when an"
-                        + "icon has already been added. End items cannot have a mixture of "
-                        + "tappable icons and icons.");
-            }
-            mImpl.addEndItem(icon, action);
-            mHasEndActionOrToggle = true;
+            return addEndItem(icon, action, false /* isLoading */);
+        }
+
+        /**
+         * Adds a tappable icon to be displayed at the end of the row. A mixture of icons and
+         * tappable icons is not permitted. If an icon has already been added, this will throw
+         * {@link IllegalArgumentException}.
+         * <p>
+         * Use this method to specify content that will appear in the template once it's been
+         * loaded.
+         * </p>
+         * @param isLoading indicates whether the app is doing work to load the added content in the
+         *                  background or not.
+         */
+        @NonNull
+        public RowBuilder addEndItem(@Nullable Icon icon, @Nullable PendingIntent action,
+                boolean isLoading) {
+            mImpl.addEndItem(icon, action, isLoading);
             return this;
         }
 
@@ -379,7 +606,24 @@ public class ListBuilder extends TemplateSliceBuilder {
          */
         @NonNull
         public RowBuilder addToggle(@NonNull PendingIntent action, boolean isChecked) {
-            return addToggleInternal(action, isChecked, null);
+            return addToggle(action, isChecked, null, false /* isLoading */);
+        }
+
+        /**
+         * Adds a toggle action to be displayed at the end of the row. A mixture of icons and
+         * tappable icons is not permitted. If an icon has already been added, this will throw an
+         * {@link IllegalArgumentException}.
+         * <p>
+         * Use this method to specify content that will appear in the template once it's been
+         * loaded.
+         * </p>
+         * @param isLoading indicates whether the app is doing work to load the added content in the
+         *                  background or not.
+         */
+        @NonNull
+        public RowBuilder addToggle(@NonNull PendingIntent action, boolean isChecked,
+                boolean isLoading) {
+            return addToggleInternal(action, isChecked, null, isLoading);
         }
 
         /**
@@ -391,11 +635,29 @@ public class ListBuilder extends TemplateSliceBuilder {
         @NonNull
         public RowBuilder addToggle(@NonNull PendingIntent action, boolean isChecked,
                 @NonNull Icon icon) {
-            return addToggleInternal(action, isChecked, icon);
+            return addToggle(action, isChecked, icon, false /* isLoading */);
+        }
+
+        /**
+         * Adds a toggle action to be displayed with custom icons to represent checked and
+         * unchecked state at the end of the row. A mixture of icons and tappable icons is not
+         * permitted. If an icon has already been added, this will throw an
+         * {@link IllegalArgumentException}.
+         * <p>
+         * Use this method to specify content that will appear in the template once it's been
+         * loaded.
+         * </p>
+         * @param isLoading indicates whether the app is doing work to load the added content in the
+         *                  background or not.
+         */
+        @NonNull
+        public RowBuilder addToggle(@NonNull PendingIntent action, boolean isChecked,
+                @NonNull Icon icon, boolean isLoading) {
+            return addToggleInternal(action, isChecked, icon, isLoading);
         }
 
         private RowBuilder addToggleInternal(@NonNull PendingIntent action, boolean isChecked,
-                @Nullable Icon icon) {
+                @Nullable Icon icon, boolean isLoading) {
             if (mHasEndImage) {
                 throw new IllegalStateException("Trying to add a toggle to end items when an "
                         + "icon has already been added. End items cannot have a mixture of "
@@ -406,7 +668,7 @@ public class ListBuilder extends TemplateSliceBuilder {
                         + "in a single row. If you would like to include multiple toggles "
                         + "in a row, set a custom icon for each toggle.");
             }
-            mImpl.addToggle(action, isChecked, icon);
+            mImpl.addToggle(action, isChecked, icon, isLoading);
             mHasDefaultToggle = icon == null;
             mHasEndActionOrToggle = true;
             return this;
