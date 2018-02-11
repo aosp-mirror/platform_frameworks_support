@@ -43,7 +43,6 @@ dependencies {
     implementation(project(":arch:runtime"))
 
     implementation(SUPPORT_APPCOMPAT, libs.support_exclude_config)
-    kapt project(":room:compiler")
     kaptAndroidTest project(":room:compiler")
 
     androidTestImplementation(TEST_RUNNER) {
@@ -61,7 +60,7 @@ dependencies {
     androidTestImplementation project(':room:testing')
     androidTestImplementation project(':room:rxjava2')
     androidTestImplementation project(':arch:core-testing')
-    androidTestImplementation(GUAVA)
+    androidTestImplementation(GUAVA_ANDROID)
     androidTestImplementation(RX_JAVA)
     testImplementation(MOCKITO_CORE)
 }
@@ -69,3 +68,8 @@ dependencies {
 tasks['check'].dependsOn(tasks['connectedCheck'])
 
 uploadArchives.enabled = false
+
+supportTestApp {
+    // to assert that room generates somewhat OK code.
+    enableErrorProne = true
+}
