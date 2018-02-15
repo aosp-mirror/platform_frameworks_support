@@ -13,7 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+// TO debug processor, run:
+//./gradlew :r:in:k:clean :r:in:k:cC --no-daemon
+// -Dorg.gradle.debug=true
+// -Dkotlin.compiler.execution.strategy="in-process"
 import static android.support.dependencies.DependenciesKt.*
 
 plugins {
@@ -57,6 +60,7 @@ dependencies {
     androidTestImplementation project(':lifecycle:extensions')
     androidTestImplementation project(':lifecycle:common')
     androidTestImplementation project(':lifecycle:runtime')
+    androidTestImplementation project(':room:guava')
     androidTestImplementation project(':room:testing')
     androidTestImplementation project(':room:rxjava2')
     androidTestImplementation project(':arch:core-testing')

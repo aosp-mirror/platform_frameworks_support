@@ -30,7 +30,9 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.TestSubscriber
 import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.instanceOf
+import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Assert.assertNotNull
 import org.junit.Test
@@ -67,6 +69,17 @@ class BooksDaoTest : TestDatabaseTest() {
     }
 
     @Test
+    fun bookByIdListenableFuture() {
+        booksDao.addAuthors(TestUtil.AUTHOR_1)
+        booksDao.addPublishers(TestUtil.PUBLISHER)
+        booksDao.addBooks(TestUtil.BOOK_1)
+
+        assertThat(
+                booksDao.getBookListenableFuture(TestUtil.BOOK_1.bookId).get(),
+                `is`<Book>(TestUtil.BOOK_1))
+    }
+
+    @Test
     fun bookByIdOptional() {
         booksDao.addAuthors(TestUtil.AUTHOR_1)
         booksDao.addPublishers(TestUtil.PUBLISHER)
@@ -75,6 +88,24 @@ class BooksDaoTest : TestDatabaseTest() {
         assertThat(
                 booksDao.getBookOptional(TestUtil.BOOK_1.bookId),
                 `is`<Optional<Book>>(Optional.of(TestUtil.BOOK_1)))
+    }
+
+    @Test
+    fun bookByIdOptionalListenableFuture() {
+        booksDao.addAuthors(TestUtil.AUTHOR_1)
+        booksDao.addPublishers(TestUtil.PUBLISHER)
+        booksDao.addBooks(TestUtil.BOOK_1)
+
+        assertThat(
+                booksDao.getBookOptionalListenableFuture(TestUtil.BOOK_1.bookId).get(),
+                `is`<Optional<Book>>(Optional.of(TestUtil.BOOK_1)))
+    }
+
+    @Test
+    fun bookByIdOptionalListenableFutureAbsent() {
+        assertThat(
+                booksDao.getBookOptionalListenableFuture(TestUtil.BOOK_1.bookId).get(),
+                `is`<Optional<Book>>(Optional.absent()))
     }
 
     @Test
@@ -124,6 +155,21 @@ class BooksDaoTest : TestDatabaseTest() {
         expectedList.add(expected)
 
         assertThat(database.booksDao().getBooksWithPublisher(),
+                `is`<List<BookWithPublisher>>(expectedList))
+    }
+
+    @Test
+    fun bookWithPublisherListenableFuture() {
+        booksDao.addAuthors(TestUtil.AUTHOR_1)
+        booksDao.addPublishers(TestUtil.PUBLISHER)
+        booksDao.addBooks(TestUtil.BOOK_1)
+
+        val expected = BookWithPublisher(TestUtil.BOOK_1.bookId, TestUtil.BOOK_1.title,
+                TestUtil.PUBLISHER)
+        val expectedList = ArrayList<BookWithPublisher>()
+        expectedList.add(expected)
+
+        assertThat(database.booksDao().getBooksWithPublisherListenableFuture().get(),
                 `is`<List<BookWithPublisher>>(expectedList))
     }
 
@@ -239,5 +285,39 @@ class BooksDaoTest : TestDatabaseTest() {
         val author = database.derivedDao().getAuthor(TestUtil.AUTHOR_1.authorId)
 
         assertThat(author, CoreMatchers.`is`<Author>(TestUtil.AUTHOR_1))
+    }
+
+    @Test
+    fun deleteAndAddPublisher() {
+        booksDao.addPublishers(TestUtil.PUBLISHER)
+        booksDao.getPublishers().run {
+            assertThat(this.size, `is`(1))
+            assertThat(this.first(), `is`(equalTo(TestUtil.PUBLISHER)))
+        }
+        booksDao.deleteAndAddPublisher(TestUtil.PUBLISHER, TestUtil.PUBLISHER2)
+        booksDao.getPublishers().run {
+            assertThat(this.size, `is`(1))
+            assertThat(this.first(), `is`(equalTo(TestUtil.PUBLISHER2)))
+        }
+    }
+
+    @Test
+    fun deleteAndAddPublisher_failure() {
+        booksDao.addPublishers(TestUtil.PUBLISHER)
+        booksDao.getPublishers().run {
+            assertThat(this.size, `is`(1))
+            assertThat(this.first(), `is`(equalTo(TestUtil.PUBLISHER)))
+        }
+        var throwable: Throwable? = null
+        try {
+            booksDao.deleteAndAddPublisher(TestUtil.PUBLISHER, TestUtil.PUBLISHER2, true)
+        } catch (e: RuntimeException) {
+            throwable = e
+        }
+        assertThat(throwable, `is`(notNullValue()))
+        booksDao.getPublishers().run {
+            assertThat(this.size, `is`(1))
+            assertThat(this.first(), `is`(equalTo(TestUtil.PUBLISHER)))
+        }
     }
 }

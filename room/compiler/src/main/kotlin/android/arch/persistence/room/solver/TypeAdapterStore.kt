@@ -28,11 +28,12 @@ import android.arch.persistence.room.processor.EntityProcessor
 import android.arch.persistence.room.processor.FieldProcessor
 import android.arch.persistence.room.processor.PojoProcessor
 import android.arch.persistence.room.solver.binderprovider.CursorQueryResultBinderProvider
+import android.arch.persistence.room.solver.binderprovider.DataSourceFactoryQueryResultBinderProvider
 import android.arch.persistence.room.solver.binderprovider.DataSourceQueryResultBinderProvider
 import android.arch.persistence.room.solver.binderprovider.FlowableQueryResultBinderProvider
 import android.arch.persistence.room.solver.binderprovider.InstantQueryResultBinderProvider
 import android.arch.persistence.room.solver.binderprovider.LiveDataQueryResultBinderProvider
-import android.arch.persistence.room.solver.binderprovider.DataSourceFactoryQueryResultBinderProvider
+import android.arch.persistence.room.solver.binderprovider.GuavaListenableFutureQueryResultBinderProvider
 import android.arch.persistence.room.solver.binderprovider.RxMaybeQueryResultBinderProvider
 import android.arch.persistence.room.solver.binderprovider.RxSingleQueryResultBinderProvider
 import android.arch.persistence.room.solver.query.parameter.ArrayQueryParameterAdapter
@@ -137,6 +138,7 @@ class TypeAdapterStore private constructor(
             CursorQueryResultBinderProvider(context),
             LiveDataQueryResultBinderProvider(context),
             FlowableQueryResultBinderProvider(context),
+            GuavaListenableFutureQueryResultBinderProvider(context),
             RxMaybeQueryResultBinderProvider(context),
             RxSingleQueryResultBinderProvider(context),
             DataSourceQueryResultBinderProvider(context),
@@ -481,6 +483,11 @@ class TypeAdapterStore private constructor(
         }
     }
 
+    /**
+     * Returns all type converters that can receive input type and return into another type.
+     * The returned list is ordered by priority such that if we have an exact match, it is
+     * prioritized.
+     */
     private fun getAllTypeConverters(input: TypeMirror, excludes: List<TypeMirror>):
             List<TypeConverter> {
         val types = context.processingEnv.typeUtils
@@ -489,6 +496,13 @@ class TypeAdapterStore private constructor(
         return typeConverters.filter { converter ->
             types.isAssignable(input, converter.from) &&
                     !excludes.any { types.isSameType(it, converter.to) }
-        }
+        }.sortedByDescending {
+                    // if it is the same, prioritize
+                    if (types.isSameType(it.from, input)) {
+                        2
+                    } else {
+                        1
+                    }
+                }
     }
 }
