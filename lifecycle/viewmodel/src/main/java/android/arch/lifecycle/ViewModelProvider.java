@@ -93,6 +93,7 @@ public class ViewModelProvider {
      * @return A ViewModel that is an instance of the given type {@code T}.
      */
     @NonNull
+    @MainThread
     public <T extends ViewModel> T get(@NonNull Class<T> modelClass) {
         String canonicalName = modelClass.getCanonicalName();
         if (canonicalName == null) {
@@ -170,6 +171,7 @@ public class ViewModelProvider {
          * @param application an application to pass in {@link AndroidViewModel}
          * @return A valid {@link AndroidViewModelFactory}
          */
+        @NonNull
         public static AndroidViewModelFactory getInstance(@NonNull Application application) {
             if (sInstance == null) {
                 sInstance = new AndroidViewModelFactory(application);

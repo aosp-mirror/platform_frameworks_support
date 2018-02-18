@@ -21,11 +21,13 @@ import static android.support.annotation.RestrictTo.Scope.LIBRARY;
 import android.app.PendingIntent;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 
 import androidx.app.slice.Slice;
 import androidx.app.slice.SliceSpec;
+import androidx.app.slice.builders.SliceAction;
 
 /**
  * @hide
@@ -56,7 +58,7 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
     /**
      */
     @Override
-    public void setActions(TemplateBuilderImpl impl) {
+    public void addAction(SliceAction impl) {
         // Do nothing.
     }
 
@@ -92,7 +94,7 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
     /**
      */
     @Override
-    public void setColor(int color) {
+    public void setColor(@ColorInt int color) {
     }
 
     /**
@@ -113,7 +115,7 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
      */
     @Override
     public TemplateBuilderImpl createGridBuilder() {
-        return new GridBuilderBasicImpl(createChildBuilder(), null);
+        return new GridBuilderBasicImpl(this);
     }
 
     @Override
@@ -124,16 +126,6 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
     @Override
     public TemplateBuilderImpl createHeaderBuilder(Uri uri) {
         return new HeaderBuilderImpl(uri);
-    }
-
-    @Override
-    public TemplateBuilderImpl createActionBuilder() {
-        return new ActionBuilderImpl(this);
-    }
-
-    @Override
-    public TemplateBuilderImpl createActionBuilder(Uri uri) {
-        return new ActionBuilderImpl(uri);
     }
 
     @Override
@@ -157,9 +149,6 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
      */
     public static class RowBuilderImpl extends TemplateBuilderImpl
             implements ListBuilder.RowBuilder {
-        private Icon mIcon;
-        private CharSequence mTitle;
-        private CharSequence mSubtitle;
 
         /**
          */
@@ -190,29 +179,14 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
         /**
          */
         @Override
-        public void addEndItem(Icon icon, PendingIntent action) {
+        public void addEndItem(SliceAction action) {
 
         }
 
         /**
          */
         @Override
-        public void addEndItem(Icon icon, PendingIntent action, boolean isLoading) {
-
-        }
-
-        /**
-         */
-        @Override
-        public void addToggle(PendingIntent action, boolean isChecked, Icon icon) {
-
-        }
-
-        /**
-         */
-        @Override
-        public void addToggle(PendingIntent action, boolean isChecked, Icon icon,
-                boolean isLoading) {
+        public void addEndItem(SliceAction action, boolean isLoading) {
 
         }
 
@@ -227,7 +201,6 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
          */
         @Override
         public void setTitleItem(Icon icon) {
-            mIcon = icon;
         }
 
         /**
@@ -240,21 +213,20 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
         /**
          */
         @Override
-        public void setTitleItem(Icon icon, PendingIntent action) {
-            mIcon = icon;
+        public void setTitleItem(SliceAction action) {
         }
 
         /**
          */
         @Override
-        public void setTitleItem(Icon icon, PendingIntent action, boolean isLoading) {
+        public void setTitleItem(SliceAction action, boolean isLoading) {
 
         }
 
         /**
          */
         @Override
-        public void setContentIntent(PendingIntent action) {
+        public void setPrimaryAction(SliceAction action) {
 
         }
 
@@ -262,7 +234,6 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
          */
         @Override
         public void setTitle(CharSequence title) {
-            mTitle = title;
         }
 
         /**
@@ -276,7 +247,6 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
          */
         @Override
         public void setSubtitle(CharSequence subtitle) {
-            mSubtitle = subtitle;
         }
 
         /**
@@ -349,40 +319,7 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
         /**
          */
         @Override
-        public void setContentIntent(PendingIntent intent) {
-
-        }
-    }
-
-    /**
-     */
-    public static class ActionBuilderImpl extends TemplateBuilderImpl
-            implements ListBuilder.ActionBuilder {
-
-        /**
-         */
-        public ActionBuilderImpl(@NonNull ListBuilderBasicImpl parent) {
-            super(parent.createChildBuilder(), null);
-        }
-
-        /**
-         */
-        public ActionBuilderImpl(@NonNull Uri uri) {
-            super(new Slice.Builder(uri), null);
-        }
-
-        /**
-         */
-        @Override
-        public void apply(Slice.Builder builder) {
-
-        }
-
-        /**
-         */
-        @Override
-        public void addAction(PendingIntent action, Icon actionIcon,
-                CharSequence contentDescription, int priority) {
+        public void setPrimaryAction(SliceAction action) {
 
         }
     }
