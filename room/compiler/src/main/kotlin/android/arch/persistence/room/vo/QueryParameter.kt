@@ -22,5 +22,10 @@ import javax.lang.model.type.TypeMirror
 /**
  * Holds the parameter for a {@link QueryMethod}.
  */
-data class QueryParameter(val name: String, val type: TypeMirror,
-                          val queryParamAdapter: QueryParameterAdapter?)
+data class QueryParameter(
+        // this is name seen by java
+        val name: String,
+        // this is the name used in the query. Might be different for kotlin queries
+        val sqlName: String,
+        val type: TypeMirror,
+        val queryParamAdapter: QueryParameterAdapter?)
