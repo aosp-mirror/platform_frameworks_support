@@ -14,23 +14,20 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <androidx.car.widget.ActionBar
+        android:id="@+id/action_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/car_margin"
+        android:layout_marginRight="@dimen/car_margin"
+        android:layout_marginBottom="@dimen/car_padding_2"
+        android:layout_alignParentBottom="true"
+        app:columns="5" />
 
-    <!-- Putting this as the last child so that it can intercept any touch events on the
-         scroll buttons. -->
-    <androidx.car.widget.PagedScrollBarView
-        android:id="@+id/paged_scroll_view"
-        android:layout_width="@dimen/car_margin"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/car_padding_4"
-        android:paddingTop="@dimen/car_padding_4"
-        android:visibility="invisible" />
-</FrameLayout>
+</RelativeLayout>

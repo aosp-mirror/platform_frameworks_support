@@ -67,6 +67,9 @@ limitations under the License.
         <!-- A starting margin before the drawing of the dividing line. This margin will be an
              offset from the view specified by "alignDividerStartTo" if given. -->
         <attr name="dividerStartMargin" format="dimension" />
+        <!-- An ending margin before the drawing of the dividing line. This margin will be an
+             offset from the view specified by "alignDividerEndTo" if given. -->
+        <attr name="dividerEndMargin" format="dimension" />
         <!-- The color of the list divider. -->
         <attr name="listDividerColor" format="color" />
         <!-- The width of the margin on the right side of the list.
@@ -138,6 +141,12 @@ limitations under the License.
         <attr name="clickThrough" format="boolean"/>
     </declare-styleable>
 
+    <!-- Attributes for the ActionBar. -->
+    <declare-styleable name="ActionBar">
+        <!-- The number of horizontal slots. The minimum number is 3. -->
+        <attr name="columns" format="integer" />
+    </declare-styleable>
+
     <!-- Attributes specifically related to modifying car themes. -->
     <declare-styleable name="CarTheme">
         <!-- ================== -->
@@ -190,5 +199,6 @@ limitations under the License.
         <attr name="drawerItemBodyTextAppearance" format="reference"/>
         <!-- The styling of the list in the drawer. -->
         <attr name="drawerListStyle" format="reference"/>
+
     </declare-styleable>
 </resources>
