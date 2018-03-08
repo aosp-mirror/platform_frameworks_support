@@ -27,7 +27,9 @@ import java.lang.annotation.Target;
 /**
  * Denotes that the annotated method or constructor should only be called on the UI thread.
  * If the annotated element is a class, then all methods in the class should be called
- * on the UI thread.
+ * on the UI thread. Note that, if any method has another annotation such as
+ * {@link WorkerThread}, method annotation takes precedence.
+ *
  * <p>
  * Example:
  * <pre><code>
@@ -37,7 +39,7 @@ import java.lang.annotation.Target;
  * </code></pre>
  *
  * <p class="note"><b>Note:</b> Ordinarily, an app's UI thread is also the main
- * thread. However, However, under special circumstances, an app's UI thread
+ * thread. However, under special circumstances, an app's UI thread
  * might not be its main thread; for more information, see
  * <a href="/studio/write/annotations.html#thread-annotations">Thread
  * annotations</a>.
