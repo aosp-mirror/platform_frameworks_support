@@ -8,12 +8,12 @@ plugins {
 }
 
 dependencies {
-    api(project(":support-annotations"))
-    api(project(":support-compat"))
-    api(project(":support-core-ui"))
+    api(project(":annotation"))
+    api(project(":core"))
+    api(project(":legacy-support-core-ui"))
 
-    androidTestImplementation(TEST_RUNNER)
-    androidTestImplementation(ESPRESSO_CORE)
+    androidTestImplementation(TEST_RUNNER_TMP, libs.exclude_for_espresso)
+    androidTestImplementation(ESPRESSO_CORE_TMP, libs.exclude_for_espresso)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation(JUNIT)
@@ -22,7 +22,7 @@ dependencies {
 
     testImplementation(JUNIT)
     testImplementation(MOCKITO_CORE)
-    testImplementation(TEST_RUNNER)
+    testImplementation(TEST_RUNNER_TMP, libs.exclude_for_espresso)
 }
 
 android {
@@ -39,7 +39,7 @@ supportLibrary {
     name = "Android Support RecyclerView v7"
     publish = true
     mavenVersion = LibraryVersions.SUPPORT_LIBRARY
-    mavenGroup = LibraryGroups.SUPPORT
+    mavenGroup = LibraryGroups.RECYCLERVIEW
     inceptionYear = "2014"
     description = "Android Support RecyclerView v7"
 }

@@ -16,15 +16,18 @@
 
 package androidx.slice.builders.impl;
 
-import static android.support.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.slice.core.SliceHints.HINT_KEY_WORDS;
 
 import android.app.PendingIntent;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
 
+import java.util.List;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 import androidx.slice.Slice;
 import androidx.slice.SliceSpec;
 import androidx.slice.builders.SliceAction;
@@ -100,6 +103,17 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
     /**
      */
     @Override
+    public void setKeywords(List<String> keywords) {
+        Slice.Builder sb = new Slice.Builder(getBuilder());
+        for (int i = 0; i < keywords.size(); i++) {
+            sb.addText(keywords.get(i), null);
+        }
+        getBuilder().addSubSlice(sb.addHints(HINT_KEY_WORDS).build());
+    }
+
+    /**
+     */
+    @Override
     public TemplateBuilderImpl createRowBuilder() {
         return new RowBuilderImpl(this);
     }
@@ -165,20 +179,6 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
         /**
          */
         @Override
-        public void addEndItem(Icon icon) {
-
-        }
-
-        /**
-         */
-        @Override
-        public void addEndItem(Icon icon, boolean isLoading) {
-
-        }
-
-        /**
-         */
-        @Override
         public void addEndItem(SliceAction action) {
 
         }
@@ -193,6 +193,13 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
         /**
          */
         @Override
+        public void setContentDescription(CharSequence description) {
+
+        }
+
+        /**
+         */
+        @Override
         public void setTitleItem(long timeStamp) {
 
         }
@@ -200,13 +207,14 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
         /**
          */
         @Override
-        public void setTitleItem(Icon icon) {
+        public void setTitleItem(Icon icon, int imageMode) {
+
         }
 
         /**
          */
         @Override
-        public void setTitleItem(Icon icon, boolean isLoading) {
+        public void setTitleItem(Icon icon, int imageMode, boolean isLoading) {
 
         }
 
@@ -266,6 +274,20 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
         /**
          */
         @Override
+        public void addEndItem(Icon icon, int imageMode) {
+
+        }
+
+        /**
+         */
+        @Override
+        public void addEndItem(Icon icon, int imageMode, boolean isLoading) {
+
+        }
+
+        /**
+         */
+        @Override
         public void apply(Slice.Builder builder) {
 
         }
@@ -298,21 +320,21 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
         /**
          */
         @Override
-        public void setTitle(CharSequence title) {
+        public void setTitle(CharSequence title, boolean isLoading) {
 
         }
 
         /**
          */
         @Override
-        public void setSubtitle(CharSequence subtitle) {
+        public void setSubtitle(CharSequence subtitle, boolean isLoading) {
 
         }
 
         /**
          */
         @Override
-        public void setSummarySubtitle(CharSequence summarySubtitle) {
+        public void setSummarySubtitle(CharSequence summarySubtitle, boolean isLoading) {
 
         }
 
@@ -320,6 +342,11 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
          */
         @Override
         public void setPrimaryAction(SliceAction action) {
+
+        }
+
+        @Override
+        public void setContentDescription(CharSequence description) {
 
         }
     }

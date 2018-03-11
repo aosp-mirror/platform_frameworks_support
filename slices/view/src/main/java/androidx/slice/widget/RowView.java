@@ -36,8 +36,6 @@ import android.app.PendingIntent.CanceledException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Icon;
-import android.support.annotation.ColorInt;
-import android.support.annotation.RestrictTo;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -56,6 +54,8 @@ import android.widget.ToggleButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.RestrictTo;
 import androidx.slice.Slice;
 import androidx.slice.SliceItem;
 import androidx.slice.core.SliceQuery;
@@ -92,12 +92,15 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     private boolean mIsHeader;
     private List<SliceItem> mHeaderActions;
 
+    private int mImageSize;
     private int mIconSize;
     private int mPadding;
 
     public RowView(Context context) {
         super(context);
         mIconSize = getContext().getResources().getDimensionPixelSize(R.dimen.abc_slice_icon_size);
+        mImageSize = getContext().getResources().getDimensionPixelSize(
+                R.dimen.abc_slice_small_image_size);
         mPadding = getContext().getResources().getDimensionPixelSize(R.dimen.abc_slice_padding);
         inflate(context, R.layout.abc_slice_small_template, this);
 
@@ -180,7 +183,10 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             showSeeMore();
             return;
         }
-
+        CharSequence contentDescr = mRowContent.getContentDescription();
+        if (contentDescr != null) {
+            mContent.setContentDescription(contentDescr);
+        }
         boolean showStart = false;
         final SliceItem startItem = mRowContent.getStartItem();
         if (startItem != null) {
@@ -365,6 +371,10 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             toggle = new Switch(getContext());
             container.addView(toggle);
         }
+        CharSequence contentDesc = actionContent.getContentDescription();
+        if (contentDesc != null) {
+            toggle.setContentDescription(contentDesc);
+        }
         toggle.setChecked(actionContent.isChecked());
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -424,13 +434,20 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         if (image != null) {
             ImageView iv = new ImageView(getContext());
             iv.setImageIcon(image.getIcon());
-            if (color != -1 && !sliceItem.hasHint(HINT_NO_TINT)) {
-                iv.setColorFilter(color);
+            int size = mImageSize;
+            if (!image.hasHint(HINT_NO_TINT)) {
+                if (color != -1) {
+                    iv.setColorFilter(color);
+                }
+                size = mIconSize;
+            }
+            if (actionContent != null && actionContent.getContentDescription() != null) {
+                iv.setContentDescription(actionContent.getContentDescription());
             }
             container.addView(iv);
             LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) iv.getLayoutParams();
-            lp.width = mIconSize;
-            lp.height = mIconSize;
+            lp.width = size;
+            lp.height = size;
             lp.setMarginStart(padding);
             addedView = iv;
         } else if (timeStamp != null) {

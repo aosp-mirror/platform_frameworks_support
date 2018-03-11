@@ -26,9 +26,13 @@ import static android.app.slice.Slice.HINT_SHORTCUT;
 import static android.app.slice.Slice.HINT_SUMMARY;
 import static android.app.slice.Slice.HINT_TITLE;
 import static android.app.slice.Slice.SUBTYPE_COLOR;
+import static android.app.slice.Slice.SUBTYPE_CONTENT_DESCRIPTION;
 import static android.app.slice.SliceItem.FORMAT_TEXT;
-import static android.support.annotation.RestrictTo.Scope.LIBRARY;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.slice.builders.ListBuilder.ICON_IMAGE;
+import static androidx.slice.builders.ListBuilder.LARGE_IMAGE;
+import static androidx.slice.core.SliceHints.HINT_KEY_WORDS;
 import static androidx.slice.core.SliceHints.SUBTYPE_MAX;
 import static androidx.slice.core.SliceHints.SUBTYPE_RANGE;
 import static androidx.slice.core.SliceHints.SUBTYPE_VALUE;
@@ -36,14 +40,13 @@ import static androidx.slice.core.SliceHints.SUBTYPE_VALUE;
 import android.app.PendingIntent;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 import androidx.slice.Slice;
 import androidx.slice.SliceItem;
 import androidx.slice.SliceSpec;
@@ -153,6 +156,7 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
         private int mMax = 100;
         private int mValue = 0;
         private CharSequence mTitle;
+        private CharSequence mContentDescr;
 
         public RangeBuilderImpl(Slice.Builder sb) {
             super(sb, null);
@@ -174,9 +178,17 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
         }
 
         @Override
+        public void setContentDescription(@NonNull CharSequence description) {
+            mContentDescr = description;
+        }
+
+        @Override
         public void apply(Slice.Builder builder) {
             if (mTitle != null) {
                 builder.addText(mTitle, null, HINT_TITLE);
+            }
+            if (mContentDescr != null) {
+                builder.addText(mContentDescr, SUBTYPE_CONTENT_DESCRIPTION);
             }
             builder.addHints(HINT_LIST_ITEM)
                     .addInt(mMax, SUBTYPE_MAX)
@@ -226,6 +238,17 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
     @Override
     public void setColor(@ColorInt int color) {
         getBuilder().addInt(color, SUBTYPE_COLOR);
+    }
+
+    /**
+     */
+    @Override
+    public void setKeywords(@NonNull List<String> keywords) {
+        Slice.Builder sb = new Slice.Builder(getBuilder());
+        for (int i = 0; i < keywords.size(); i++) {
+            sb.addText(keywords.get(i), null);
+        }
+        getBuilder().addSubSlice(sb.addHints(HINT_KEY_WORDS).build());
     }
 
     /**
@@ -282,6 +305,7 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
         private SliceItem mSubtitleItem;
         private Slice mStartItem;
         private ArrayList<Slice> mEndItems = new ArrayList<>();
+        private CharSequence mContentDescr;
 
         /**
          */
@@ -314,15 +338,27 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
          */
         @NonNull
         @Override
-        public void setTitleItem(@NonNull Icon icon) {
-            setTitleItem(icon, false /* isLoading */);
+        public void setTitleItem(Icon icon, int imageMode) {
+            setTitleItem(icon, imageMode, false /* isLoading */);
         }
 
         /**
          */
+        @NonNull
         @Override
-        public void setTitleItem(@Nullable Icon icon, boolean isLoading) {
-            Slice.Builder sb = new Slice.Builder(getBuilder()).addIcon(icon, null /* subtype */);
+        public void setTitleItem(Icon icon, int imageMode, boolean isLoading) {
+            ArrayList<String> hints = new ArrayList<>();
+            if (imageMode != ICON_IMAGE) {
+                hints.add(HINT_NO_TINT);
+            }
+            if (imageMode == LARGE_IMAGE) {
+                hints.add(HINT_LARGE);
+            }
+            if (isLoading) {
+                hints.add(HINT_PARTIAL);
+            }
+            Slice.Builder sb = new Slice.Builder(getBuilder())
+                    .addIcon(icon, null /* subType */, hints);
             if (isLoading) {
                 sb.addHints(HINT_PARTIAL);
             }
@@ -405,16 +441,27 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
          */
         @NonNull
         @Override
-        public void addEndItem(@NonNull Icon icon) {
-            addEndItem(icon, false /* isLoading */);
+        public void addEndItem(Icon icon, int imageMode) {
+            addEndItem(icon, imageMode, false /* isLoading */);
         }
 
         /**
          */
+        @NonNull
         @Override
-        public void addEndItem(Icon icon, boolean isLoading) {
-            Slice.Builder sb = new Slice.Builder(getBuilder()).addIcon(icon, null /* subType */,
-                    HINT_NO_TINT, HINT_LARGE);
+        public void addEndItem(Icon icon, int imageMode, boolean isLoading) {
+            ArrayList<String> hints = new ArrayList<>();
+            if (imageMode != ICON_IMAGE) {
+                hints.add(HINT_NO_TINT);
+            }
+            if (imageMode == LARGE_IMAGE) {
+                hints.add(HINT_LARGE);
+            }
+            if (isLoading) {
+                hints.add(HINT_PARTIAL);
+            }
+            Slice.Builder sb = new Slice.Builder(getBuilder())
+                    .addIcon(icon, null /* subType */, hints);
             if (isLoading) {
                 sb.addHints(HINT_PARTIAL);
             }
@@ -440,6 +487,11 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
             mEndItems.add(action.buildSlice(sb));
         }
 
+        @Override
+        public void setContentDescription(CharSequence description) {
+            mContentDescr = description;
+        }
+
         /**
          */
         @Override
@@ -457,6 +509,9 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
                 Slice item = mEndItems.get(i);
                 b.addSubSlice(item);
             }
+            if (mContentDescr != null) {
+                b.addText(mContentDescr, SUBTYPE_CONTENT_DESCRIPTION);
+            }
             if (mPrimaryAction != null) {
                 Slice.Builder sb = new Slice.Builder(
                         getBuilder()).addHints(HINT_TITLE, HINT_SHORTCUT);
@@ -471,10 +526,11 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
     public static class HeaderBuilderImpl extends TemplateBuilderImpl
             implements ListBuilder.HeaderBuilder {
 
-        private CharSequence mTitle;
-        private CharSequence mSubtitle;
-        private CharSequence mSummarySubtitle;
+        private SliceItem mTitleItem;
+        private SliceItem mSubtitleItem;
+        private SliceItem mSummaryItem;
         private SliceAction mPrimaryAction;
+        private CharSequence mContentDescr;
 
         /**
          */
@@ -492,14 +548,17 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
          */
         @Override
         public void apply(Slice.Builder b) {
-            if (mTitle != null) {
-                b.addText(mTitle, null /* subtype */, HINT_TITLE);
+            if (mTitleItem != null) {
+                b.addItem(mTitleItem);
             }
-            if (mSubtitle != null) {
-                b.addText(mSubtitle, null /* subtype */);
+            if (mSubtitleItem != null) {
+                b.addItem(mSubtitleItem);
             }
-            if (mSummarySubtitle != null) {
-                b.addText(mSummarySubtitle, null /* subtype */, HINT_SUMMARY);
+            if (mSummaryItem != null) {
+                b.addItem(mSummaryItem);
+            }
+            if (mContentDescr != null) {
+                b.addText(mContentDescr, SUBTYPE_CONTENT_DESCRIPTION);
             }
             if (mPrimaryAction != null) {
                 Slice.Builder sb = new Slice.Builder(
@@ -511,22 +570,32 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
         /**
          */
         @Override
-        public void setTitle(CharSequence title) {
-            mTitle = title;
+        public void setTitle(CharSequence title, boolean isLoading) {
+            mTitleItem = new SliceItem(title, FORMAT_TEXT, null, new String[] {HINT_TITLE});
+            if (isLoading) {
+                mTitleItem.addHint(HINT_PARTIAL);
+            }
         }
 
         /**
          */
         @Override
-        public void setSubtitle(CharSequence subtitle) {
-            mSubtitle = subtitle;
+        public void setSubtitle(CharSequence subtitle, boolean isLoading) {
+            mSubtitleItem = new SliceItem(subtitle, FORMAT_TEXT, null, new String[0]);
+            if (isLoading) {
+                mSubtitleItem.addHint(HINT_PARTIAL);
+            }
         }
 
         /**
          */
         @Override
-        public void setSummarySubtitle(CharSequence summarySubtitle) {
-            mSummarySubtitle = summarySubtitle;
+        public void setSummarySubtitle(CharSequence summarySubtitle, boolean isLoading) {
+            mSummaryItem = new SliceItem(summarySubtitle, FORMAT_TEXT, null,
+                    new String[] {HINT_SUMMARY});
+            if (isLoading) {
+                mSummaryItem.addHint(HINT_PARTIAL);
+            }
         }
 
         /**
@@ -534,6 +603,13 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
         @Override
         public void setPrimaryAction(SliceAction action) {
             mPrimaryAction = action;
+        }
+
+        /**
+         */
+        @Override
+        public void setContentDescription(CharSequence description) {
+            mContentDescr = description;
         }
     }
 }

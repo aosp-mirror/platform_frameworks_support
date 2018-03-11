@@ -16,22 +16,24 @@
 
 package androidx.slice.builders;
 
-import static android.support.annotation.RestrictTo.Scope.LIBRARY;
-import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.RestrictTo;
 
+import java.util.List;
 import java.util.function.Consumer;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
 import androidx.slice.SliceSpecs;
 import androidx.slice.builders.impl.ListBuilderBasicImpl;
 import androidx.slice.builders.impl.ListBuilderV1Impl;
@@ -60,6 +62,28 @@ public class ListBuilder extends TemplateSliceBuilder {
 
     private boolean mHasSeeMore;
     private androidx.slice.builders.impl.ListBuilder mImpl;
+
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    @IntDef({
+            LARGE_IMAGE, SMALL_IMAGE, ICON_IMAGE
+    })
+    public @interface ImageMode{}
+
+    /**
+     * Indicates that an image should be presented as an icon and it can be tinted.
+     */
+    public static final int ICON_IMAGE = 0;
+    /**
+     * Indicates that an image should be presented in a smaller size and it shouldn't be tinted.
+     */
+    public static final int SMALL_IMAGE = 1;
+    /**
+     * Indicates that an image presented in a larger size and it shouldn't be tinted.
+     */
+    public static final int LARGE_IMAGE = 2;
 
     /**
      * Create a builder which will construct a slice that will display rows of content.
@@ -163,6 +187,15 @@ public class ListBuilder extends TemplateSliceBuilder {
     @NonNull
     public ListBuilder setColor(@ColorInt int color) {
         mImpl.setColor(color);
+        return this;
+    }
+
+    /**
+     * Sets keywords to associate with this slice.
+     */
+    @NonNull
+    public ListBuilder setKeywords(List<String> keywords) {
+        mImpl.setKeywords(keywords);
         return this;
     }
 
@@ -333,6 +366,15 @@ public class ListBuilder extends TemplateSliceBuilder {
             return this;
         }
 
+        /**
+         * Sets the content description.
+         */
+        @NonNull
+        public RangeBuilder setContentDescription(@NonNull CharSequence description) {
+            mImpl.setContentDescription(description);
+            return this;
+        }
+
         @Override
         void setImpl(TemplateBuilderImpl impl) {
             mImpl = (androidx.slice.builders.impl.ListBuilder.RangeBuilder) impl;
@@ -392,6 +434,15 @@ public class ListBuilder extends TemplateSliceBuilder {
         @NonNull
         public InputRangeBuilder setThumb(@NonNull Icon thumb) {
             mImpl.setThumb(thumb);
+            return this;
+        }
+
+        /**
+         * Sets the content description.
+         */
+        @NonNull
+        public InputRangeBuilder setContentDescription(@NonNull CharSequence description) {
+            mImpl.setContentDescription(description);
             return this;
         }
 
@@ -475,11 +526,13 @@ public class ListBuilder extends TemplateSliceBuilder {
         /**
          * Sets the title item to be the provided icon. There can only be one title item, this
          * will replace any other title items that may have been set.
+         *
+         * @deprecated use ListBuilder{@link #setTitleItem(Icon, int)} instead.
          */
+        @Deprecated
         @NonNull
         public RowBuilder setTitleItem(@NonNull Icon icon) {
-            mImpl.setTitleItem(icon);
-            return this;
+            return setTitleItem(icon, ICON_IMAGE);
         }
 
         /**
@@ -491,10 +544,51 @@ public class ListBuilder extends TemplateSliceBuilder {
          * </p>
          * @param isLoading indicates whether the app is doing work to load the added content in the
          *                  background or not.
+         *
+         * @deprecated use ListBuilder{@link #setTitleItem(Icon, int, boolean)} instead.
          */
+        @Deprecated
         @NonNull
         public RowBuilder setTitleItem(@Nullable Icon icon, boolean isLoading) {
-            mImpl.setTitleItem(icon, isLoading);
+            return setTitleItem(icon, ICON_IMAGE, isLoading);
+        }
+
+        /**
+         * Sets the title item to be the provided icon. There can only be one title item, this
+         * will replace any other title items that may have been set.
+         *
+         * @param icon the image to display.
+         * @param imageMode the mode that image should be displayed in.
+         *
+         * @see #ICON_IMAGE
+         * @see #SMALL_IMAGE
+         * @see #LARGE_IMAGE
+         */
+        public RowBuilder setTitleItem(@NonNull Icon icon, @ImageMode int imageMode) {
+            mImpl.setTitleItem(icon, imageMode, false /* isLoading */);
+            return this;
+        }
+
+        /**
+         * Sets the title item to be the provided icon. There can only be one title item, this
+         * will replace any other title items that may have been set.
+         * <p>
+         * When set to true, the parameter {@code isLoading} indicates that the app is doing work
+         * to load this content in the background, in this case the template displays a placeholder
+         * until updated.
+         *
+         * @param icon the image to display.
+         * @param imageMode the mode that image should be displayed in.
+         * @param isLoading whether this content is being loaded in the background.
+         *
+         * @see #ICON_IMAGE
+         * @see #SMALL_IMAGE
+         * @see #LARGE_IMAGE
+         */
+        @NonNull
+        public RowBuilder setTitleItem(@Nullable Icon icon, @ImageMode int imageMode,
+                boolean isLoading) {
+            mImpl.setTitleItem(icon, imageMode, isLoading /* isLoading */);
             return this;
         }
 
@@ -598,10 +692,13 @@ public class ListBuilder extends TemplateSliceBuilder {
          * Adds an icon to be displayed at the end of the row. A mixture of icons and actions
          * is not permitted. If an action has already been added this will throw
          * {@link IllegalArgumentException}.
+         *
+         * @deprecated use ListBuilder{@link #addEndItem(Icon, int)} instead.
          */
+        @Deprecated
         @NonNull
         public RowBuilder addEndItem(@NonNull Icon icon) {
-            return addEndItem(icon, false /* isLoading */);
+            return addEndItem(icon, ICON_IMAGE, false /* isLoading */);
         }
 
         /**
@@ -614,15 +711,54 @@ public class ListBuilder extends TemplateSliceBuilder {
          * </p>
          * @param isLoading indicates whether the app is doing work to load the added content in the
          *                  background or not.
+         *
+         * @deprecated use ListBuilder{@link #addEndItem(Icon, int, boolean)} instead.
          */
+        @Deprecated
         @NonNull
         public RowBuilder addEndItem(@NonNull Icon icon, boolean isLoading) {
+            return addEndItem(icon, ICON_IMAGE, isLoading);
+        }
+
+        /**
+         * Adds an icon to be displayed at the end of the row.
+         *
+         * @param icon the image to display.
+         * @param imageMode the mode that image should be displayed in.
+         *
+         * @see #ICON_IMAGE
+         * @see #SMALL_IMAGE
+         * @see #LARGE_IMAGE
+         */
+        @NonNull
+        public RowBuilder addEndItem(@NonNull Icon icon, @ImageMode int imageMode) {
+            return addEndItem(icon, imageMode, false /* isLoading */);
+        }
+
+        /**
+         * Adds an icon to be displayed at the end of the row.
+         * <p>
+         * When set to true, the parameter {@code isLoading} indicates that the app is doing work
+         * to load this content in the background, in this case the template displays a placeholder
+         * until updated.
+         *
+         * @param icon the image to display.
+         * @param imageMode the mode that image should be displayed in.
+         * @param isLoading whether this content is being loaded in the background.
+         *
+         * @see #ICON_IMAGE
+         * @see #SMALL_IMAGE
+         * @see #LARGE_IMAGE
+         */
+        @NonNull
+        public RowBuilder addEndItem(@Nullable Icon icon, @ImageMode int imageMode,
+                boolean isLoading) {
             if (mHasEndActionOrToggle) {
                 throw new IllegalArgumentException("Trying to add an icon to end items when an"
                         + "action has already been added. End items cannot have a mixture of "
                         + "actions and icons.");
             }
-            mImpl.addEndItem(icon, isLoading);
+            mImpl.addEndItem(icon, imageMode, isLoading);
             mHasEndImage = true;
             return this;
         }
@@ -663,6 +799,15 @@ public class ListBuilder extends TemplateSliceBuilder {
             mImpl.addEndItem(action, isLoading);
             mHasDefaultToggle = action.isDefaultToggle();
             mHasEndActionOrToggle = true;
+            return this;
+        }
+
+        /**
+         * Sets the content description for the row.
+         */
+        @NonNull
+        public RowBuilder setContentDescription(@NonNull CharSequence description) {
+            mImpl.setContentDescription(description);
             return this;
         }
 
@@ -711,7 +856,15 @@ public class ListBuilder extends TemplateSliceBuilder {
          */
         @NonNull
         public HeaderBuilder setTitle(@NonNull CharSequence title) {
-            mImpl.setTitle(title);
+            return setTitle(title, false /* isLoading */);
+        }
+
+        /**
+         * Sets the title to be shown in this header.
+         */
+        @NonNull
+        public HeaderBuilder setTitle(@NonNull CharSequence title, boolean isLoading) {
+            mImpl.setTitle(title, isLoading);
             return this;
         }
 
@@ -720,7 +873,15 @@ public class ListBuilder extends TemplateSliceBuilder {
          */
         @NonNull
         public HeaderBuilder setSubtitle(@NonNull CharSequence subtitle) {
-            mImpl.setSubtitle(subtitle);
+            return setSubtitle(subtitle, false /* isLoading */);
+        }
+
+        /**
+         * Sets the subtitle to be shown in this header.
+         */
+        @NonNull
+        public HeaderBuilder setSubtitle(@NonNull CharSequence subtitle, boolean isLoading) {
+            mImpl.setSubtitle(subtitle, isLoading);
             return this;
         }
 
@@ -731,7 +892,18 @@ public class ListBuilder extends TemplateSliceBuilder {
          */
         @NonNull
         public HeaderBuilder setSummarySubtitle(@NonNull CharSequence summarySubtitle) {
-            mImpl.setSummarySubtitle(summarySubtitle);
+            return setSummarySubtitle(summarySubtitle, false /* isLoading */);
+        }
+
+        /**
+         * Sets the summary subtitle to be shown in this header. If unset, the normal subtitle
+         * will be used. The summary is used when the parent template is presented in a
+         * small format.
+         */
+        @NonNull
+        public HeaderBuilder setSummarySubtitle(@NonNull CharSequence summarySubtitle,
+                boolean isLoading) {
+            mImpl.setSummarySubtitle(summarySubtitle, isLoading);
             return this;
         }
 
@@ -741,6 +913,15 @@ public class ListBuilder extends TemplateSliceBuilder {
         @NonNull
         public HeaderBuilder setPrimaryAction(@NonNull SliceAction action) {
             mImpl.setPrimaryAction(action);
+            return this;
+        }
+
+        /**
+         * Sets the content description for the header.
+         */
+        @NonNull
+        public HeaderBuilder setContentDescription(@NonNull CharSequence description) {
+            mImpl.setContentDescription(description);
             return this;
         }
 

@@ -16,15 +16,17 @@
 
 package androidx.slice.builders.impl;
 
-import static android.support.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 
 import android.app.PendingIntent;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
 
+import java.util.List;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 import androidx.slice.builders.SliceAction;
 
 /**
@@ -93,6 +95,11 @@ public interface ListBuilder {
     void setColor(@ColorInt int color);
 
     /**
+     * Sets keywords to associate with this slice.
+     */
+    void setKeywords(List<String> keywords);
+
+    /**
      * Create a builder that implements {@link RowBuilder}.
      */
     TemplateBuilderImpl createRowBuilder();
@@ -139,6 +146,11 @@ public interface ListBuilder {
          * Set the title.
          */
         void setTitle(@NonNull CharSequence title);
+
+        /**
+         * Sets the content description.
+         */
+        void setContentDescription(CharSequence description);
     }
 
     /**
@@ -172,8 +184,11 @@ public interface ListBuilder {
         /**
          * Sets the title item to be the provided icon. There can only be one title item, this
          * will replace any other title items that may have been set.
+         *
+         * @param icon the image to display.
+         * @param imageMode the mode that image should be displayed in.
          */
-        void setTitleItem(Icon icon);
+        void setTitleItem(Icon icon, int imageMode);
 
         /**
          * Sets the title item to be the provided icon. There can only be one title item, this
@@ -182,8 +197,12 @@ public interface ListBuilder {
          * When set to true, the parameter {@code isLoading} indicates that the app is doing work
          * to load this content in the background, in this case the template displays a placeholder
          * until updated.
+         *
+         * @param icon the image to display.
+         * @param imageMode the mode that image should be displayed in.
+         * @param isLoading whether this content is being loaded in the background.
          */
-        void setTitleItem(Icon icon, boolean isLoading);
+        void setTitleItem(Icon icon, int imageMode, boolean isLoading);
 
         /**
          * Sets the title item to be a tappable icon. There can only be one title item, this will
@@ -241,8 +260,11 @@ public interface ListBuilder {
 
         /**
          * Adds an icon to be displayed at the end of the row.
+         *
+         * @param icon the image to display.
+         * @param imageMode the mode that image should be displayed in.
          */
-        void addEndItem(Icon icon);
+        void addEndItem(Icon icon, int imageMode);
 
         /**
          * Adds an icon to be displayed at the end of the row.
@@ -250,8 +272,12 @@ public interface ListBuilder {
          * When set to true, the parameter {@code isLoading} indicates that the app is doing work
          * to load this content in the background, in this case the template displays a placeholder
          * until updated.
+         *
+         * @param icon the image to display.
+         * @param imageMode the mode that image should be displayed in.
+         * @param isLoading whether this content is being loaded in the background.
          */
-        void addEndItem(Icon icon, boolean isLoading);
+        void addEndItem(Icon icon, int imageMode, boolean isLoading);
 
         /**
          * Adds a tappable icon to be displayed at the end of the row.
@@ -266,6 +292,11 @@ public interface ListBuilder {
          * until updated.
          */
         void addEndItem(SliceAction action, boolean isLoading);
+
+        /**
+         * Sets the content description for this row.
+         */
+        void setContentDescription(CharSequence description);
     }
 
 
@@ -278,24 +309,29 @@ public interface ListBuilder {
         /**
          * Sets the title to be shown in this header.
          */
-        void setTitle(CharSequence title);
+        void setTitle(CharSequence title, boolean isLoading);
 
         /**
          * Sets the subtitle to be shown in this header.
          */
-        void setSubtitle(CharSequence subtitle);
+        void setSubtitle(CharSequence subtitle, boolean isLoading);
 
         /**
          * Sets the summary subtitle to be shown in this header. If unset, the normal subtitle
          * will be used. The summary is used when the parent template is presented in a
          * small format.
          */
-        void setSummarySubtitle(CharSequence summarySubtitle);
+        void setSummarySubtitle(CharSequence summarySubtitle, boolean isLoading);
 
         /**
          * Sets the action to invoke when the header is activated.
          */
         void setPrimaryAction(SliceAction action);
+
+        /**
+         * Sets the content description for the header.
+         */
+        void setContentDescription(CharSequence description);
     }
 }
 

@@ -21,6 +21,7 @@ import static android.app.slice.Slice.HINT_SEE_MORE;
 import static android.app.slice.Slice.HINT_SHORTCUT;
 import static android.app.slice.Slice.HINT_SUMMARY;
 import static android.app.slice.Slice.HINT_TITLE;
+import static android.app.slice.Slice.SUBTYPE_CONTENT_DESCRIPTION;
 import static android.app.slice.SliceItem.FORMAT_ACTION;
 import static android.app.slice.SliceItem.FORMAT_IMAGE;
 import static android.app.slice.SliceItem.FORMAT_INT;
@@ -29,18 +30,19 @@ import static android.app.slice.SliceItem.FORMAT_SLICE;
 import static android.app.slice.SliceItem.FORMAT_TEXT;
 import static android.app.slice.SliceItem.FORMAT_TIMESTAMP;
 
+import static androidx.slice.core.SliceHints.HINT_KEY_WORDS;
 import static androidx.slice.core.SliceHints.SUBTYPE_RANGE;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
 import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.slice.SliceItem;
 import androidx.slice.core.SliceQuery;
 import androidx.slice.view.R;
@@ -60,8 +62,9 @@ public class RowContent {
     private SliceItem mSubtitleItem;
     private SliceItem mSummaryItem;
     private ArrayList<SliceItem> mEndItems = new ArrayList<>();
-    private boolean mEndItemsContainAction;
     private SliceItem mRange;
+    private SliceItem mContentDescr;
+    private boolean mEndItemsContainAction;
     private boolean mIsHeader;
     private int mLineCount = 0;
     private int mMaxHeight;
@@ -74,24 +77,9 @@ public class RowContent {
     }
 
     /**
-     * Resets the content.
-     */
-    public void reset() {
-        mPrimaryAction = null;
-        mRowSlice = null;
-        mStartItem = null;
-        mTitleItem = null;
-        mSubtitleItem = null;
-        mEndItems.clear();
-        mIsHeader = false;
-        mLineCount = 0;
-    }
-
-    /**
      * @return whether this row has content that is valid to display.
      */
     private boolean populate(SliceItem rowSlice, boolean isHeader) {
-        reset();
         mIsHeader = isHeader;
         mRowSlice = rowSlice;
         if (!isValidRow(rowSlice)) {
@@ -101,7 +89,9 @@ public class RowContent {
         // Find primary action first (otherwise filtered out of valid row items)
         String[] hints = new String[] {HINT_SHORTCUT, HINT_TITLE};
         mPrimaryAction = SliceQuery.find(rowSlice, FORMAT_SLICE, hints,
-                new String[] { HINT_ACTIONS } /* nonHints */);
+                new String[] { HINT_ACTIONS, HINT_KEY_WORDS } /* nonHints */);
+
+        mContentDescr = SliceQuery.findSubtype(rowSlice, FORMAT_TEXT, SUBTYPE_CONTENT_DESCRIPTION);
 
         // Filter anything not viable for displaying in a row
         ArrayList<SliceItem> rowItems = filterInvalidItems(rowSlice);
@@ -238,6 +228,14 @@ public class RowContent {
     }
 
     /**
+     * @return the content description to use for this row.
+     */
+    @Nullable
+    public CharSequence getContentDescription() {
+        return mContentDescr != null ? mContentDescr.getText() : null;
+    }
+
+    /**
      * @return whether {@link #getEndItems()} contains a SliceItem with FORMAT_SLICE, HINT_SHORTCUT
      */
     public boolean endItemsContainAction() {
@@ -334,12 +332,17 @@ public class RowContent {
      * @return whether this item is valid content to display in a row.
      */
     private static boolean isValidRowContent(SliceItem slice, SliceItem item) {
-        if (FORMAT_SLICE.equals(item.getFormat()) && !item.hasHint(HINT_SHORTCUT)) {
+        if (item.hasHint(HINT_KEY_WORDS)) {
+            return false;
+        }
+        if (FORMAT_SLICE.equals(item.getFormat())
+                && !item.hasAnyHints(HINT_SHORTCUT, HINT_KEY_WORDS)) {
             // Unpack contents of slice
             item = item.getSlice().getItems().get(0);
         }
         final String itemFormat = item.getFormat();
-        return FORMAT_TEXT.equals(itemFormat)
+        return (FORMAT_TEXT.equals(itemFormat)
+                && !SUBTYPE_CONTENT_DESCRIPTION.equals(item.getSubType()))
                 || FORMAT_IMAGE.equals(itemFormat)
                 || FORMAT_TIMESTAMP.equals(itemFormat)
                 || FORMAT_REMOTE_INPUT.equals(itemFormat)

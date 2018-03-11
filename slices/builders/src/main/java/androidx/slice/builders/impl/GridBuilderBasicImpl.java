@@ -16,15 +16,15 @@
 
 package androidx.slice.builders.impl;
 
-import static android.support.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 
 import android.app.PendingIntent;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.slice.Slice;
 import androidx.slice.builders.SliceAction;
 
@@ -78,6 +78,12 @@ public class GridBuilderBasicImpl extends TemplateBuilderImpl implements GridBui
      */
     @Override
     public void setPrimaryAction(SliceAction action) {
+    }
+
+    /**
+     */
+    @Override
+    public void setContentDescription(CharSequence description) {
     }
 
     /**
@@ -150,6 +156,12 @@ public class GridBuilderBasicImpl extends TemplateBuilderImpl implements GridBui
         @NonNull
         @Override
         public void setContentIntent(@NonNull PendingIntent intent) {
+        }
+
+        /**
+         */
+        @Override
+        public void setContentDescription(CharSequence description) {
         }
 
         /**

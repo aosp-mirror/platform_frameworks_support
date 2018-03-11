@@ -41,12 +41,18 @@ const val REACTIVE_STREAMS = "org.reactivestreams:reactive-streams:1.0.0"
 const val RX_JAVA = "io.reactivex.rxjava2:rxjava:2.0.6"
 const val TEST_RUNNER = "com.android.support.test:runner:1.0.1"
 const val TEST_RULES = "com.android.support.test:rules:1.0.1"
+const val TRUTH = "com.google.truth:truth:0.34"
 /**
  * this Xerial version is newer than we want but we need it to fix
  * https://github.com/xerial/sqlite-jdbc/issues/97
  * https://github.com/xerial/sqlite-jdbc/issues/267
  */
 const val XERIAL = "org.xerial:sqlite-jdbc:3.20.1"
+
+const val ESPRESSO_CONTRIB_TMP = "com.android.temp.support.test.espresso:espresso-contrib:3.0.1"
+const val ESPRESSO_CORE_TMP = "com.android.temp.support.test.espresso:espresso-core:3.0.1"
+const val TEST_RUNNER_TMP = "com.android.temp.support.test:runner:1.0.1"
+const val TEST_RULES_TMP = "com.android.temp.support.test:rules:1.0.1"
 
 // Support library dependencies needed for projects that compile against prebuilt versions
 // instead of source directly.
@@ -67,7 +73,7 @@ const val SUPPORT_RECYCLERVIEW = "com.android.support:recyclerview-v7:$SUPPORT_V
 const val SUPPORT_V4 = "com.android.support:support-v4:$SUPPORT_VERSION"
 
 // Arch libraries
-const val ARCH_LIFECYCLE_RUNTIME = "android.arch.lifecycle:runtime:1.1.0@aar"
-const val ARCH_LIFECYCLE_LIVEDATA_CORE = "android.arch.lifecycle:livedata-core:1.1.0@aar"
-const val ARCH_LIFECYCLE_VIEWMODEL = "android.arch.lifecycle:viewmodel:1.1.0@aar"
-const val ARCH_LIFECYCLE_EXTENSIONS = "android.arch.lifecycle:extensions:1.1.0@aar"
+const val ARCH_LIFECYCLE_RUNTIME = "androidx.temp.arch.lifecycle:runtime:2.0.0-alpha1@aar"
+const val ARCH_LIFECYCLE_LIVEDATA_CORE = "androidx.temp.arch.lifecycle:livedata-core:2.0.0-alpha1@aar"
+const val ARCH_LIFECYCLE_VIEWMODEL = "androidx.temp.arch.lifecycle:viewmodel:2.0.0-alpha1@aar"
+const val ARCH_LIFECYCLE_EXTENSIONS = "androidx.temp.arch.lifecycle:extensions:2.0.0-alpha1@aar"
