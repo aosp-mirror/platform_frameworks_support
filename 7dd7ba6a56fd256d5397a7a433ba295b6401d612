@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14f57557_477d0dc7",
+        "filename": "annotations/src/main/java/android/support/annotation/MainThread.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2018-03-13T15:56:36Z",
+      "side": 1,
+      "message": "Maybe also mention that if a thread can be called on more than one thread you can combine multiple threading annotations?",
+      "revId": "7dd7ba6a56fd256d5397a7a433ba295b6401d612",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
