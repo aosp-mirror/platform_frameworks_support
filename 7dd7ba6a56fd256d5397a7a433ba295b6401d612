@@ -16,6 +16,24 @@
       "revId": "7dd7ba6a56fd256d5397a7a433ba295b6401d612",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3a7c7b4_0c4a289a",
+        "filename": "annotations/src/main/java/android/support/annotation/MainThread.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1290593
+      },
+      "writtenOn": "2018-03-14T05:13:42Z",
+      "side": 1,
+      "message": "Do you mean something like below? \n\n @MainThread\n @WorkerThread\n void safeToUseAnywhere() {}\n\nI can definitely mention this and also put a reference to @AnyThread annotation which does the same thing AFAIK. \n\nI\u0027ll also update AnyThread annotation as well.",
+      "parentUuid": "14f57557_477d0dc7",
+      "revId": "7dd7ba6a56fd256d5397a7a433ba295b6401d612",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
