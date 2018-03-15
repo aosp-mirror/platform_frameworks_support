@@ -16,8 +16,9 @@
 
 package androidx.webkit.internal;
 
-import androidx.core.os.BuildCompat;
 import android.webkit.WebView;
+
+import androidx.core.os.BuildCompat;
 
 import org.chromium.support_lib_boundary.WebViewProviderFactoryBoundaryInterface;
 import org.chromium.support_lib_boundary.util.BoundaryInterfaceReflectionUtil;
@@ -60,10 +61,14 @@ public class WebViewGlueCommunicator {
             Class<?> glueFactoryProviderFetcherClass = Class.forName(
                     GLUE_FACTORY_PROVIDER_FETCHER_CLASS, false, getWebViewClassLoader());
             Method createProviderFactoryMethod = glueFactoryProviderFetcherClass.getDeclaredMethod(
-                    GLUE_FACTORY_PROVIDER_FETCHER_METHOD);
-            return (InvocationHandler) createProviderFactoryMethod.invoke(null);
+                    GLUE_FACTORY_PROVIDER_FETCHER_METHOD, InvocationHandler.class);
+            return (InvocationHandler) createProviderFactoryMethod.invoke(null,
+                    BoundaryInterfaceReflectionUtil.createInvocationHandlerFor(
+                            new SupportLibraryInfo()));
         } catch (IllegalAccessException | InvocationTargetException | ClassNotFoundException
                 | NoSuchMethodException e) {
+            // TODO(gsennton) if this happens we should avoid throwing an exception! And probably
+            // declare that the list of features supported by the WebView APK is empty.
             throw new RuntimeException(e);
         }
     }
