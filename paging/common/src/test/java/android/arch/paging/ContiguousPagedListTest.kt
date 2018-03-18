@@ -16,9 +16,11 @@
 
 package android.arch.paging
 
+import android.arch.core.util.Function
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -103,6 +105,16 @@ class ContiguousPagedListTest(private val mCounted: Boolean) {
         private fun getClampedRange(startInc: Int, endExc: Int): List<Item> {
             return listData.subList(Math.max(0, startInc), Math.min(listData.size, endExc))
         }
+
+        override fun <ToValue : Any?> mapByPage(function: Function<List<Item>, List<ToValue>>):
+                DataSource<Int, ToValue> {
+            throw UnsupportedOperationException()
+        }
+
+        override fun <ToValue : Any?> map(function: Function<Item, ToValue>):
+                DataSource<Int, ToValue> {
+            throw UnsupportedOperationException()
+        }
     }
 
     private fun verifyRange(start: Int, count: Int, actual: PagedStorage<Item>) {
@@ -156,6 +168,16 @@ class ContiguousPagedListTest(private val mCounted: Boolean) {
     fun construct() {
         val pagedList = createCountedPagedList(0)
         verifyRange(0, 40, pagedList)
+    }
+
+    @Test
+    fun getDataSource() {
+        val pagedList = createCountedPagedList(0)
+        assertTrue(pagedList.dataSource is TestSource)
+
+        // snapshot keeps same DataSource
+        assertSame(pagedList.dataSource,
+                (pagedList.snapshot() as SnapshotPagedList<Item>).dataSource)
     }
 
     private fun verifyCallback(callback: PagedList.Callback, countedPosition: Int,
