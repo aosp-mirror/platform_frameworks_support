@@ -38,7 +38,6 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.StyleRes;
 
@@ -54,6 +53,7 @@ import java.util.List;
  * Helper for accessing features in {@link TextView}.
  */
 public final class TextViewCompat {
+    private static final String LOG_TAG = "TextViewCompat";
 
     /**
      * The TextView does not auto-size text (default).
@@ -72,486 +72,39 @@ public final class TextViewCompat {
     @Retention(RetentionPolicy.SOURCE)
     public @interface AutoSizeTextType {}
 
+    private static Field sMaximumField;
+    private static boolean sMaximumFieldFetched;
+    private static Field sMaxModeField;
+    private static boolean sMaxModeFieldFetched;
+
+    private static Field sMinimumField;
+    private static boolean sMinimumFieldFetched;
+    private static Field sMinModeField;
+    private static boolean sMinModeFieldFetched;
+
+    private static final int LINES = 1;
+
     // Hide constructor
     private TextViewCompat() {}
 
-    static class TextViewCompatBaseImpl {
-        private static final String LOG_TAG = "TextViewCompatBase";
-        private static final int LINES = 1;
-
-        private static Field sMaximumField;
-        private static boolean sMaximumFieldFetched;
-        private static Field sMaxModeField;
-        private static boolean sMaxModeFieldFetched;
-
-        private static Field sMinimumField;
-        private static boolean sMinimumFieldFetched;
-        private static Field sMinModeField;
-        private static boolean sMinModeFieldFetched;
-
-        public void setCompoundDrawablesRelative(@NonNull TextView textView,
-                @Nullable Drawable start, @Nullable Drawable top, @Nullable Drawable end,
-                @Nullable Drawable bottom) {
-            textView.setCompoundDrawables(start, top, end, bottom);
+    private static Field retrieveField(String fieldName) {
+        Field field = null;
+        try {
+            field = TextView.class.getDeclaredField(fieldName);
+            field.setAccessible(true);
+        } catch (NoSuchFieldException e) {
+            Log.e(LOG_TAG, "Could not retrieve " + fieldName + " field.");
         }
-
-        public void setCompoundDrawablesRelativeWithIntrinsicBounds(@NonNull TextView textView,
-                @Nullable Drawable start, @Nullable Drawable top, @Nullable Drawable end,
-                @Nullable Drawable bottom) {
-            textView.setCompoundDrawablesWithIntrinsicBounds(start, top, end, bottom);
-        }
-
-        public void setCompoundDrawablesRelativeWithIntrinsicBounds(@NonNull TextView textView,
-                @DrawableRes int start, @DrawableRes int top, @DrawableRes int end,
-                @DrawableRes int bottom) {
-            textView.setCompoundDrawablesWithIntrinsicBounds(start, top, end, bottom);
-        }
-
-        private static Field retrieveField(String fieldName) {
-            Field field = null;
-            try {
-                field = TextView.class.getDeclaredField(fieldName);
-                field.setAccessible(true);
-            } catch (NoSuchFieldException e) {
-                Log.e(LOG_TAG, "Could not retrieve " + fieldName + " field.");
-            }
-            return field;
-        }
-
-        private static int retrieveIntFromField(Field field, TextView textView) {
-            try {
-                return field.getInt(textView);
-            } catch (IllegalAccessException e) {
-                Log.d(LOG_TAG, "Could not retrieve value of " + field.getName() + " field.");
-            }
-            return -1;
-        }
-
-        public int getMaxLines(TextView textView) {
-            if (!sMaxModeFieldFetched) {
-                sMaxModeField = retrieveField("mMaxMode");
-                sMaxModeFieldFetched = true;
-            }
-            if (sMaxModeField != null && retrieveIntFromField(sMaxModeField, textView) == LINES) {
-                // If the max mode is using lines, we can grab the maximum value
-                if (!sMaximumFieldFetched) {
-                    sMaximumField = retrieveField("mMaximum");
-                    sMaximumFieldFetched = true;
-                }
-                if (sMaximumField != null) {
-                    return retrieveIntFromField(sMaximumField, textView);
-                }
-            }
-            return -1;
-        }
-
-        public int getMinLines(TextView textView) {
-            if (!sMinModeFieldFetched) {
-                sMinModeField = retrieveField("mMinMode");
-                sMinModeFieldFetched = true;
-            }
-            if (sMinModeField != null && retrieveIntFromField(sMinModeField, textView) == LINES) {
-                // If the min mode is using lines, we can grab the maximum value
-                if (!sMinimumFieldFetched) {
-                    sMinimumField = retrieveField("mMinimum");
-                    sMinimumFieldFetched = true;
-                }
-                if (sMinimumField != null) {
-                    return retrieveIntFromField(sMinimumField, textView);
-                }
-            }
-            return -1;
-        }
-
-        @SuppressWarnings("deprecation")
-        public void setTextAppearance(TextView textView, @StyleRes int resId) {
-            textView.setTextAppearance(textView.getContext(), resId);
-        }
-
-        public Drawable[] getCompoundDrawablesRelative(@NonNull TextView textView) {
-            return textView.getCompoundDrawables();
-        }
-
-        public void setAutoSizeTextTypeWithDefaults(TextView textView, int autoSizeTextType) {
-            if (textView instanceof AutoSizeableTextView) {
-                ((AutoSizeableTextView) textView).setAutoSizeTextTypeWithDefaults(autoSizeTextType);
-            }
-        }
-
-        public void setAutoSizeTextTypeUniformWithConfiguration(
-                TextView textView,
-                int autoSizeMinTextSize,
-                int autoSizeMaxTextSize,
-                int autoSizeStepGranularity,
-                int unit) throws IllegalArgumentException {
-            if (textView instanceof AutoSizeableTextView) {
-                ((AutoSizeableTextView) textView).setAutoSizeTextTypeUniformWithConfiguration(
-                        autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
-            }
-        }
-
-        public void setAutoSizeTextTypeUniformWithPresetSizes(TextView textView,
-                @NonNull int[] presetSizes, int unit) throws IllegalArgumentException {
-            if (textView instanceof AutoSizeableTextView) {
-                ((AutoSizeableTextView) textView).setAutoSizeTextTypeUniformWithPresetSizes(
-                        presetSizes, unit);
-            }
-        }
-
-        public int getAutoSizeTextType(TextView textView) {
-            if (textView instanceof AutoSizeableTextView) {
-                return ((AutoSizeableTextView) textView).getAutoSizeTextType();
-            }
-            return AUTO_SIZE_TEXT_TYPE_NONE;
-        }
-
-        public int getAutoSizeStepGranularity(TextView textView) {
-            if (textView instanceof AutoSizeableTextView) {
-                return ((AutoSizeableTextView) textView).getAutoSizeStepGranularity();
-            }
-            return -1;
-        }
-
-        public int getAutoSizeMinTextSize(TextView textView) {
-            if (textView instanceof AutoSizeableTextView) {
-                return ((AutoSizeableTextView) textView).getAutoSizeMinTextSize();
-            }
-            return -1;
-        }
-
-        public int getAutoSizeMaxTextSize(TextView textView) {
-            if (textView instanceof AutoSizeableTextView) {
-                return ((AutoSizeableTextView) textView).getAutoSizeMaxTextSize();
-            }
-            return -1;
-        }
-
-        public int[] getAutoSizeTextAvailableSizes(TextView textView) {
-            if (textView instanceof AutoSizeableTextView) {
-                return ((AutoSizeableTextView) textView).getAutoSizeTextAvailableSizes();
-            }
-            return new int[0];
-        }
-
-        public void setCustomSelectionActionModeCallback(TextView textView,
-                ActionMode.Callback callback) {
-            textView.setCustomSelectionActionModeCallback(callback);
-        }
+        return field;
     }
 
-    @RequiresApi(16)
-    static class TextViewCompatApi16Impl extends TextViewCompatBaseImpl {
-        @Override
-        public int getMaxLines(TextView textView) {
-            return textView.getMaxLines();
+    private static int retrieveIntFromField(Field field, TextView textView) {
+        try {
+            return field.getInt(textView);
+        } catch (IllegalAccessException e) {
+            Log.d(LOG_TAG, "Could not retrieve value of " + field.getName() + " field.");
         }
-
-        @Override
-        public int getMinLines(TextView textView) {
-            return textView.getMinLines();
-        }
-    }
-
-    @RequiresApi(17)
-    static class TextViewCompatApi17Impl extends TextViewCompatApi16Impl {
-        @Override
-        public void setCompoundDrawablesRelative(@NonNull TextView textView,
-                @Nullable Drawable start, @Nullable Drawable top, @Nullable Drawable end,
-                @Nullable Drawable bottom) {
-            boolean rtl = textView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
-            textView.setCompoundDrawables(rtl ? end : start, top, rtl ? start : end, bottom);
-        }
-
-        @Override
-        public void setCompoundDrawablesRelativeWithIntrinsicBounds(@NonNull TextView textView,
-                @Nullable Drawable start, @Nullable Drawable top, @Nullable Drawable end,
-                @Nullable Drawable bottom) {
-            boolean rtl = textView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
-            textView.setCompoundDrawablesWithIntrinsicBounds(rtl ? end : start, top,
-                    rtl ? start : end,  bottom);
-        }
-
-        @Override
-        public void setCompoundDrawablesRelativeWithIntrinsicBounds(@NonNull TextView textView,
-                @DrawableRes int start, @DrawableRes int top, @DrawableRes int end,
-                @DrawableRes int bottom) {
-            boolean rtl = textView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
-            textView.setCompoundDrawablesWithIntrinsicBounds(rtl ? end : start, top,
-                    rtl ? start : end, bottom);
-        }
-
-        @Override
-        public Drawable[] getCompoundDrawablesRelative(@NonNull TextView textView) {
-            final boolean rtl = textView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
-            final Drawable[] compounds = textView.getCompoundDrawables();
-            if (rtl) {
-                // If we're on RTL, we need to invert the horizontal result like above
-                final Drawable start = compounds[2];
-                final Drawable end = compounds[0];
-                compounds[0] = start;
-                compounds[2] = end;
-            }
-            return compounds;
-        }
-    }
-
-    @RequiresApi(18)
-    static class TextViewCompatApi18Impl extends TextViewCompatApi17Impl {
-        @Override
-        public void setCompoundDrawablesRelative(@NonNull TextView textView,
-                @Nullable Drawable start, @Nullable Drawable top, @Nullable Drawable end,
-                @Nullable Drawable bottom) {
-            textView.setCompoundDrawablesRelative(start, top, end, bottom);
-        }
-
-        @Override
-        public void setCompoundDrawablesRelativeWithIntrinsicBounds(@NonNull TextView textView,
-                @Nullable Drawable start, @Nullable Drawable top, @Nullable Drawable end,
-                @Nullable Drawable bottom) {
-            textView.setCompoundDrawablesRelativeWithIntrinsicBounds(start, top, end, bottom);
-        }
-
-        @Override
-        public void setCompoundDrawablesRelativeWithIntrinsicBounds(@NonNull TextView textView,
-                @DrawableRes int start, @DrawableRes int top, @DrawableRes int end,
-                @DrawableRes int bottom) {
-            textView.setCompoundDrawablesRelativeWithIntrinsicBounds(start, top, end, bottom);
-        }
-
-        @Override
-        public Drawable[] getCompoundDrawablesRelative(@NonNull TextView textView) {
-            return textView.getCompoundDrawablesRelative();
-        }
-    }
-
-    @RequiresApi(23)
-    static class TextViewCompatApi23Impl extends TextViewCompatApi18Impl {
-        @Override
-        public void setTextAppearance(@NonNull TextView textView, @StyleRes int resId) {
-            textView.setTextAppearance(resId);
-        }
-    }
-
-    @RequiresApi(26)
-    static class TextViewCompatApi26Impl extends TextViewCompatApi23Impl {
-        @Override
-        public void setCustomSelectionActionModeCallback(final TextView textView,
-                final ActionMode.Callback callback) {
-            if (Build.VERSION.SDK_INT != Build.VERSION_CODES.O
-                    && Build.VERSION.SDK_INT != Build.VERSION_CODES.O_MR1) {
-                super.setCustomSelectionActionModeCallback(textView, callback);
-                return;
-            }
-
-
-            // A bug in O and O_MR1 causes a number of options for handling the ACTION_PROCESS_TEXT
-            // intent after selection to not be displayed in the menu, although they should be.
-            // Here we fix this, by removing the menu items created by the framework code, and
-            // adding them (and the missing ones) back correctly.
-            textView.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
-                // This constant should be correlated with its definition in the
-                // android.widget.Editor class.
-                private static final int MENU_ITEM_ORDER_PROCESS_TEXT_INTENT_ACTIONS_START = 100;
-
-                // References to the MenuBuilder class and its removeItemAt(int) method.
-                // Since in most cases the menu instance processed by this callback is going
-                // to be a MenuBuilder, we keep these references to avoid querying for them
-                // frequently by reflection in recomputeProcessTextMenuItems.
-                private Class mMenuBuilderClass;
-                private Method mMenuBuilderRemoveItemAtMethod;
-                private boolean mCanUseMenuBuilderReferences;
-                private boolean mInitializedMenuBuilderReferences = false;
-
-                @Override
-                public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                    return callback.onCreateActionMode(mode, menu);
-                }
-
-                @Override
-                public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                    recomputeProcessTextMenuItems(menu);
-                    return callback.onPrepareActionMode(mode, menu);
-                }
-
-                @Override
-                public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                    return callback.onActionItemClicked(mode, item);
-                }
-
-                @Override
-                public void onDestroyActionMode(ActionMode mode) {
-                    callback.onDestroyActionMode(mode);
-                }
-
-                private void recomputeProcessTextMenuItems(final Menu menu) {
-                    final Context context = textView.getContext();
-                    final PackageManager packageManager = context.getPackageManager();
-
-                    if (!mInitializedMenuBuilderReferences) {
-                        mInitializedMenuBuilderReferences = true;
-                        try {
-                            mMenuBuilderClass =
-                                    Class.forName("com.android.internal.view.menu.MenuBuilder");
-                            mMenuBuilderRemoveItemAtMethod = mMenuBuilderClass
-                                    .getDeclaredMethod("removeItemAt", Integer.TYPE);
-                            mCanUseMenuBuilderReferences = true;
-                        } catch (ClassNotFoundException | NoSuchMethodException e) {
-                            mMenuBuilderClass = null;
-                            mMenuBuilderRemoveItemAtMethod = null;
-                            mCanUseMenuBuilderReferences = false;
-                        }
-                    }
-                    // Remove the menu items created for ACTION_PROCESS_TEXT handlers.
-                    try {
-                        final Method removeItemAtMethod =
-                                (mCanUseMenuBuilderReferences && mMenuBuilderClass.isInstance(menu))
-                                        ? mMenuBuilderRemoveItemAtMethod
-                                        : menu.getClass()
-                                                .getDeclaredMethod("removeItemAt", Integer.TYPE);
-                        for (int i = menu.size() - 1; i >= 0; --i) {
-                            final MenuItem item = menu.getItem(i);
-                            if (item.getIntent() != null && Intent.ACTION_PROCESS_TEXT
-                                    .equals(item.getIntent().getAction())) {
-                                removeItemAtMethod.invoke(menu, i);
-                            }
-                        }
-                    } catch (NoSuchMethodException | IllegalAccessException
-                            | InvocationTargetException e) {
-                        // There is a menu custom implementation used which is not providing
-                        // a removeItemAt(int) menu. There is nothing we can do in this case.
-                        return;
-                    }
-
-                    // Populate the menu again with the ACTION_PROCESS_TEXT handlers.
-                    final List<ResolveInfo> supportedActivities =
-                            getSupportedActivities(context, packageManager);
-                    for (int i = 0; i < supportedActivities.size(); ++i) {
-                        final ResolveInfo info = supportedActivities.get(i);
-                        menu.add(Menu.NONE, Menu.NONE,
-                                MENU_ITEM_ORDER_PROCESS_TEXT_INTENT_ACTIONS_START + i,
-                                info.loadLabel(packageManager))
-                                .setIntent(createProcessTextIntentForResolveInfo(info, textView))
-                                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-                    }
-                }
-
-                private List<ResolveInfo> getSupportedActivities(final Context context,
-                        final PackageManager packageManager) {
-                    final List<ResolveInfo> supportedActivities = new ArrayList<>();
-                    boolean canStartActivityForResult = context instanceof Activity;
-                    if (!canStartActivityForResult) {
-                        return supportedActivities;
-                    }
-                    final List<ResolveInfo> unfiltered =
-                            packageManager.queryIntentActivities(createProcessTextIntent(), 0);
-                    for (ResolveInfo info : unfiltered) {
-                        if (isSupportedActivity(info, context)) {
-                            supportedActivities.add(info);
-                        }
-                    }
-                    return supportedActivities;
-                }
-
-                private boolean isSupportedActivity(final ResolveInfo info, final Context context) {
-                    if (context.getPackageName().equals(info.activityInfo.packageName)) {
-                        return true;
-                    }
-                    if (!info.activityInfo.exported) {
-                        return false;
-                    }
-                    return info.activityInfo.permission == null
-                            || context.checkSelfPermission(info.activityInfo.permission)
-                                == PackageManager.PERMISSION_GRANTED;
-                }
-
-                private Intent createProcessTextIntentForResolveInfo(final ResolveInfo info,
-                        final TextView textView) {
-                    return createProcessTextIntent()
-                            .putExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, !isEditable(textView))
-                            .setClassName(info.activityInfo.packageName, info.activityInfo.name);
-                }
-
-                private boolean isEditable(final TextView textView) {
-                    return textView instanceof Editable
-                            && textView.onCheckIsTextEditor()
-                            && textView.isEnabled();
-                }
-
-                private Intent createProcessTextIntent() {
-                    return new Intent().setAction(Intent.ACTION_PROCESS_TEXT).setType("text/plain");
-                }
-            });
-        }
-    }
-
-    @RequiresApi(27)
-    static class TextViewCompatApi27Impl extends TextViewCompatApi26Impl {
-        @Override
-        public void setAutoSizeTextTypeWithDefaults(TextView textView, int autoSizeTextType) {
-            textView.setAutoSizeTextTypeWithDefaults(autoSizeTextType);
-        }
-
-        @Override
-        public void setAutoSizeTextTypeUniformWithConfiguration(
-                TextView textView,
-                int autoSizeMinTextSize,
-                int autoSizeMaxTextSize,
-                int autoSizeStepGranularity,
-                int unit) throws IllegalArgumentException {
-            textView.setAutoSizeTextTypeUniformWithConfiguration(
-                    autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
-        }
-
-        @Override
-        public void setAutoSizeTextTypeUniformWithPresetSizes(TextView textView,
-                @NonNull int[] presetSizes, int unit) throws IllegalArgumentException {
-            textView.setAutoSizeTextTypeUniformWithPresetSizes(presetSizes, unit);
-        }
-
-        @Override
-        public int getAutoSizeTextType(TextView textView) {
-            return textView.getAutoSizeTextType();
-        }
-
-        @Override
-        public int getAutoSizeStepGranularity(TextView textView) {
-            return textView.getAutoSizeStepGranularity();
-        }
-
-        @Override
-        public int getAutoSizeMinTextSize(TextView textView) {
-            return textView.getAutoSizeMinTextSize();
-        }
-
-        @Override
-        public int getAutoSizeMaxTextSize(TextView textView) {
-            return textView.getAutoSizeMaxTextSize();
-        }
-
-        @Override
-        public int[] getAutoSizeTextAvailableSizes(TextView textView) {
-            return textView.getAutoSizeTextAvailableSizes();
-        }
-    }
-
-    static final TextViewCompatBaseImpl IMPL;
-
-    static {
-        if (Build.VERSION.SDK_INT >= 27) {
-            IMPL = new TextViewCompatApi27Impl();
-        } else if (Build.VERSION.SDK_INT >= 26) {
-            IMPL = new TextViewCompatApi26Impl();
-        } else if (Build.VERSION.SDK_INT >= 23) {
-            IMPL = new TextViewCompatApi23Impl();
-        } else if (Build.VERSION.SDK_INT >= 18) {
-            IMPL = new TextViewCompatApi18Impl();
-        } else if (Build.VERSION.SDK_INT >= 17) {
-            IMPL = new TextViewCompatApi17Impl();
-        } else if (Build.VERSION.SDK_INT >= 16) {
-            IMPL = new TextViewCompatApi16Impl();
-        } else {
-            IMPL = new TextViewCompatBaseImpl();
-        }
+        return -1;
     }
 
     /**
@@ -572,7 +125,14 @@ public final class TextViewCompat {
     public static void setCompoundDrawablesRelative(@NonNull TextView textView,
             @Nullable Drawable start, @Nullable Drawable top, @Nullable Drawable end,
             @Nullable Drawable bottom) {
-        IMPL.setCompoundDrawablesRelative(textView, start, top, end, bottom);
+        if (Build.VERSION.SDK_INT >= 18) {
+            textView.setCompoundDrawablesRelative(start, top, end, bottom);
+        } else if (Build.VERSION.SDK_INT >= 17) {
+            boolean rtl = textView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+            textView.setCompoundDrawables(rtl ? end : start, top, rtl ? start : end, bottom);
+        } else {
+            textView.setCompoundDrawables(start, top, end, bottom);
+        }
     }
 
     /**
@@ -592,7 +152,15 @@ public final class TextViewCompat {
     public static void setCompoundDrawablesRelativeWithIntrinsicBounds(@NonNull TextView textView,
             @Nullable Drawable start, @Nullable Drawable top, @Nullable Drawable end,
             @Nullable Drawable bottom) {
-        IMPL.setCompoundDrawablesRelativeWithIntrinsicBounds(textView, start, top, end, bottom);
+        if (Build.VERSION.SDK_INT >= 18) {
+            textView.setCompoundDrawablesRelativeWithIntrinsicBounds(start, top, end, bottom);
+        } else if (Build.VERSION.SDK_INT >= 17) {
+            boolean rtl = textView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+            textView.setCompoundDrawablesWithIntrinsicBounds(rtl ? end : start, top,
+                    rtl ? start : end,  bottom);
+        } else {
+            textView.setCompoundDrawablesWithIntrinsicBounds(start, top, end, bottom);
+        }
     }
 
     /**
@@ -616,7 +184,15 @@ public final class TextViewCompat {
     public static void setCompoundDrawablesRelativeWithIntrinsicBounds(@NonNull TextView textView,
             @DrawableRes int start, @DrawableRes int top, @DrawableRes int end,
             @DrawableRes int bottom) {
-        IMPL.setCompoundDrawablesRelativeWithIntrinsicBounds(textView, start, top, end, bottom);
+        if (Build.VERSION.SDK_INT >= 18) {
+            textView.setCompoundDrawablesRelativeWithIntrinsicBounds(start, top, end, bottom);
+        } else if (Build.VERSION.SDK_INT >= 17) {
+            boolean rtl = textView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+            textView.setCompoundDrawablesWithIntrinsicBounds(rtl ? end : start, top,
+                    rtl ? start : end, bottom);
+        } else {
+            textView.setCompoundDrawablesWithIntrinsicBounds(start, top, end, bottom);
+        }
     }
 
     /**
@@ -624,7 +200,25 @@ public final class TextViewCompat {
      * height was set in pixels instead.
      */
     public static int getMaxLines(@NonNull TextView textView) {
-        return IMPL.getMaxLines(textView);
+        if (Build.VERSION.SDK_INT >= 16) {
+            return textView.getMaxLines();
+        }
+
+        if (!sMaxModeFieldFetched) {
+            sMaxModeField = retrieveField("mMaxMode");
+            sMaxModeFieldFetched = true;
+        }
+        if (sMaxModeField != null && retrieveIntFromField(sMaxModeField, textView) == LINES) {
+            // If the max mode is using lines, we can grab the maximum value
+            if (!sMaximumFieldFetched) {
+                sMaximumField = retrieveField("mMaximum");
+                sMaximumFieldFetched = true;
+            }
+            if (sMaximumField != null) {
+                return retrieveIntFromField(sMaximumField, textView);
+            }
+        }
+        return -1;
     }
 
     /**
@@ -632,7 +226,25 @@ public final class TextViewCompat {
      * height was set in pixels instead.
      */
     public static int getMinLines(@NonNull TextView textView) {
-        return IMPL.getMinLines(textView);
+        if (Build.VERSION.SDK_INT >= 16) {
+            return textView.getMinLines();
+        }
+
+        if (!sMinModeFieldFetched) {
+            sMinModeField = retrieveField("mMinMode");
+            sMinModeFieldFetched = true;
+        }
+        if (sMinModeField != null && retrieveIntFromField(sMinModeField, textView) == LINES) {
+            // If the min mode is using lines, we can grab the maximum value
+            if (!sMinimumFieldFetched) {
+                sMinimumField = retrieveField("mMinimum");
+                sMinimumFieldFetched = true;
+            }
+            if (sMinimumField != null) {
+                return retrieveIntFromField(sMinimumField, textView);
+            }
+        }
+        return -1;
     }
 
     /**
@@ -645,7 +257,11 @@ public final class TextViewCompat {
      * @param resId    The resource identifier of the style to apply.
      */
     public static void setTextAppearance(@NonNull TextView textView, @StyleRes int resId) {
-        IMPL.setTextAppearance(textView, resId);
+        if (Build.VERSION.SDK_INT >= 23) {
+            textView.setTextAppearance(resId);
+        } else {
+            textView.setTextAppearance(textView.getContext(), resId);
+        }
     }
 
     /**
@@ -653,7 +269,22 @@ public final class TextViewCompat {
      */
     @NonNull
     public static Drawable[] getCompoundDrawablesRelative(@NonNull TextView textView) {
-        return IMPL.getCompoundDrawablesRelative(textView);
+        if (Build.VERSION.SDK_INT >= 18) {
+            return textView.getCompoundDrawablesRelative();
+        }
+        if (Build.VERSION.SDK_INT >= 17) {
+            final boolean rtl = textView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+            final Drawable[] compounds = textView.getCompoundDrawables();
+            if (rtl) {
+                // If we're on RTL, we need to invert the horizontal result like above
+                final Drawable start = compounds[2];
+                final Drawable end = compounds[0];
+                compounds[0] = start;
+                compounds[2] = end;
+            }
+            return compounds;
+        }
+        return textView.getCompoundDrawables();
     }
 
     /**
@@ -666,9 +297,14 @@ public final class TextViewCompat {
      *
      * @attr name android:autoSizeTextType
      */
+    @SuppressWarnings("RedundantCast") // Intentionally invoking interface method.
     public static void setAutoSizeTextTypeWithDefaults(@NonNull TextView textView,
             int autoSizeTextType) {
-        IMPL.setAutoSizeTextTypeWithDefaults(textView, autoSizeTextType);
+        if (Build.VERSION.SDK_INT >= 27) {
+            textView.setAutoSizeTextTypeWithDefaults(autoSizeTextType);
+        } else if (textView instanceof AutoSizeableTextView) {
+            ((AutoSizeableTextView) textView).setAutoSizeTextTypeWithDefaults(autoSizeTextType);
+        }
     }
 
     /**
@@ -692,14 +328,20 @@ public final class TextViewCompat {
      * @attr name android:autoSizeMaxTextSize
      * @attr name android:autoSizeStepGranularity
      */
+    @SuppressWarnings("RedundantCast") // Intentionally invoking interface method.
     public static void setAutoSizeTextTypeUniformWithConfiguration(
             @NonNull TextView textView,
             int autoSizeMinTextSize,
             int autoSizeMaxTextSize,
             int autoSizeStepGranularity,
             int unit) throws IllegalArgumentException {
-        IMPL.setAutoSizeTextTypeUniformWithConfiguration(textView, autoSizeMinTextSize,
-                autoSizeMaxTextSize, autoSizeStepGranularity, unit);
+        if (Build.VERSION.SDK_INT >= 27) {
+            textView.setAutoSizeTextTypeUniformWithConfiguration(
+                    autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
+        } else if (textView instanceof AutoSizeableTextView) {
+            ((AutoSizeableTextView) textView).setAutoSizeTextTypeUniformWithConfiguration(
+                    autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
+        }
     }
 
     /**
@@ -716,9 +358,15 @@ public final class TextViewCompat {
      * @attr name android:autoSizeTextType
      * @attr name android:autoSizePresetSizes
      */
+    @SuppressWarnings("RedundantCast") // Intentionally invoking interface method.
     public static void setAutoSizeTextTypeUniformWithPresetSizes(@NonNull TextView textView,
             @NonNull int[] presetSizes, int unit) throws IllegalArgumentException {
-        IMPL.setAutoSizeTextTypeUniformWithPresetSizes(textView, presetSizes, unit);
+        if (Build.VERSION.SDK_INT >= 27) {
+            textView.setAutoSizeTextTypeUniformWithPresetSizes(presetSizes, unit);
+        } else if (textView instanceof AutoSizeableTextView) {
+            ((AutoSizeableTextView) textView).setAutoSizeTextTypeUniformWithPresetSizes(
+                    presetSizes, unit);
+        }
     }
 
     /**
@@ -730,8 +378,15 @@ public final class TextViewCompat {
      *
      * @attr name android:autoSizeTextType
      */
+    @SuppressWarnings("RedundantCast") // Intentionally invoking interface method.
     public static int getAutoSizeTextType(@NonNull TextView textView) {
-        return IMPL.getAutoSizeTextType(textView);
+        if (Build.VERSION.SDK_INT >= 27) {
+            return textView.getAutoSizeTextType();
+        }
+        if (textView instanceof AutoSizeableTextView) {
+            return ((AutoSizeableTextView) textView).getAutoSizeTextType();
+        }
+        return AUTO_SIZE_TEXT_TYPE_NONE;
     }
 
     /**
@@ -739,8 +394,15 @@ public final class TextViewCompat {
      *
      * @attr name android:autoSizeStepGranularity
      */
+    @SuppressWarnings("RedundantCast") // Intentionally invoking interface method.
     public static int getAutoSizeStepGranularity(@NonNull TextView textView) {
-        return IMPL.getAutoSizeStepGranularity(textView);
+        if (Build.VERSION.SDK_INT >= 27) {
+            return textView.getAutoSizeStepGranularity();
+        }
+        if (textView instanceof AutoSizeableTextView) {
+            return ((AutoSizeableTextView) textView).getAutoSizeStepGranularity();
+        }
+        return -1;
     }
 
     /**
@@ -749,8 +411,15 @@ public final class TextViewCompat {
      *
      * @attr name android:autoSizeMinTextSize
      */
+    @SuppressWarnings("RedundantCast") // Intentionally invoking interface method.
     public static int getAutoSizeMinTextSize(@NonNull TextView textView) {
-        return IMPL.getAutoSizeMinTextSize(textView);
+        if (Build.VERSION.SDK_INT >= 27) {
+            return textView.getAutoSizeMinTextSize();
+        }
+        if (textView instanceof AutoSizeableTextView) {
+            return ((AutoSizeableTextView) textView).getAutoSizeMinTextSize();
+        }
+        return -1;
     }
 
     /**
@@ -759,8 +428,15 @@ public final class TextViewCompat {
      *
      * @attr name android:autoSizeMaxTextSize
      */
+    @SuppressWarnings("RedundantCast") // Intentionally invoking interface method.
     public static int getAutoSizeMaxTextSize(@NonNull TextView textView) {
-        return IMPL.getAutoSizeMaxTextSize(textView);
+        if (Build.VERSION.SDK_INT >= 27) {
+            return textView.getAutoSizeMaxTextSize();
+        }
+        if (textView instanceof AutoSizeableTextView) {
+            return ((AutoSizeableTextView) textView).getAutoSizeMaxTextSize();
+        }
+        return -1;
     }
 
     /**
@@ -769,8 +445,15 @@ public final class TextViewCompat {
      * @attr name android:autoSizePresetSizes
      */
     @NonNull
+    @SuppressWarnings("RedundantCast") // Intentionally invoking interface method.
     public static int[] getAutoSizeTextAvailableSizes(@NonNull TextView textView) {
-        return IMPL.getAutoSizeTextAvailableSizes(textView);
+        if (Build.VERSION.SDK_INT >= 27) {
+            return textView.getAutoSizeTextAvailableSizes();
+        }
+        if (textView instanceof AutoSizeableTextView) {
+            return ((AutoSizeableTextView) textView).getAutoSizeTextAvailableSizes();
+        }
+        return new int[0];
     }
 
     /**
@@ -795,8 +478,149 @@ public final class TextViewCompat {
      * @param textView The TextView to set the action selection mode callback on.
      * @param callback The action selection mode callback to set on textView.
      */
-    public static void setCustomSelectionActionModeCallback(@NonNull TextView textView,
-                @NonNull ActionMode.Callback callback) {
-        IMPL.setCustomSelectionActionModeCallback(textView, callback);
+    public static void setCustomSelectionActionModeCallback(@NonNull final TextView textView,
+                @NonNull final ActionMode.Callback callback) {
+        if (Build.VERSION.SDK_INT < 26 || Build.VERSION.SDK_INT > 27) {
+            textView.setCustomSelectionActionModeCallback(callback);
+            return;
+        }
+
+        // A bug in O and O_MR1 causes a number of options for handling the ACTION_PROCESS_TEXT
+        // intent after selection to not be displayed in the menu, although they should be.
+        // Here we fix this, by removing the menu items created by the framework code, and
+        // adding them (and the missing ones) back correctly.
+        textView.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
+            // This constant should be correlated with its definition in the
+            // android.widget.Editor class.
+            private static final int MENU_ITEM_ORDER_PROCESS_TEXT_INTENT_ACTIONS_START = 100;
+
+            // References to the MenuBuilder class and its removeItemAt(int) method.
+            // Since in most cases the menu instance processed by this callback is going
+            // to be a MenuBuilder, we keep these references to avoid querying for them
+            // frequently by reflection in recomputeProcessTextMenuItems.
+            private Class mMenuBuilderClass;
+            private Method mMenuBuilderRemoveItemAtMethod;
+            private boolean mCanUseMenuBuilderReferences;
+            private boolean mInitializedMenuBuilderReferences = false;
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                return callback.onCreateActionMode(mode, menu);
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                recomputeProcessTextMenuItems(menu);
+                return callback.onPrepareActionMode(mode, menu);
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                return callback.onActionItemClicked(mode, item);
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                callback.onDestroyActionMode(mode);
+            }
+
+            private void recomputeProcessTextMenuItems(final Menu menu) {
+                final Context context = textView.getContext();
+                final PackageManager packageManager = context.getPackageManager();
+
+                if (!mInitializedMenuBuilderReferences) {
+                    mInitializedMenuBuilderReferences = true;
+                    try {
+                        mMenuBuilderClass =
+                                Class.forName("com.android.internal.view.menu.MenuBuilder");
+                        mMenuBuilderRemoveItemAtMethod = mMenuBuilderClass
+                                .getDeclaredMethod("removeItemAt", Integer.TYPE);
+                        mCanUseMenuBuilderReferences = true;
+                    } catch (ClassNotFoundException | NoSuchMethodException e) {
+                        mMenuBuilderClass = null;
+                        mMenuBuilderRemoveItemAtMethod = null;
+                        mCanUseMenuBuilderReferences = false;
+                    }
+                }
+                // Remove the menu items created for ACTION_PROCESS_TEXT handlers.
+                try {
+                    final Method removeItemAtMethod =
+                            (mCanUseMenuBuilderReferences && mMenuBuilderClass.isInstance(menu))
+                                    ? mMenuBuilderRemoveItemAtMethod
+                                    : menu.getClass()
+                                            .getDeclaredMethod("removeItemAt", Integer.TYPE);
+                    for (int i = menu.size() - 1; i >= 0; --i) {
+                        final MenuItem item = menu.getItem(i);
+                        if (item.getIntent() != null && Intent.ACTION_PROCESS_TEXT
+                                .equals(item.getIntent().getAction())) {
+                            removeItemAtMethod.invoke(menu, i);
+                        }
+                    }
+                } catch (NoSuchMethodException | IllegalAccessException
+                        | InvocationTargetException e) {
+                    // There is a menu custom implementation used which is not providing
+                    // a removeItemAt(int) menu. There is nothing we can do in this case.
+                    return;
+                }
+
+                // Populate the menu again with the ACTION_PROCESS_TEXT handlers.
+                final List<ResolveInfo> supportedActivities =
+                        getSupportedActivities(context, packageManager);
+                for (int i = 0; i < supportedActivities.size(); ++i) {
+                    final ResolveInfo info = supportedActivities.get(i);
+                    menu.add(Menu.NONE, Menu.NONE,
+                            MENU_ITEM_ORDER_PROCESS_TEXT_INTENT_ACTIONS_START + i,
+                            info.loadLabel(packageManager))
+                            .setIntent(createProcessTextIntentForResolveInfo(info, textView))
+                            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+                }
+            }
+
+            private List<ResolveInfo> getSupportedActivities(final Context context,
+                    final PackageManager packageManager) {
+                final List<ResolveInfo> supportedActivities = new ArrayList<>();
+                boolean canStartActivityForResult = context instanceof Activity;
+                if (!canStartActivityForResult) {
+                    return supportedActivities;
+                }
+                final List<ResolveInfo> unfiltered =
+                        packageManager.queryIntentActivities(createProcessTextIntent(), 0);
+                for (ResolveInfo info : unfiltered) {
+                    if (isSupportedActivity(info, context)) {
+                        supportedActivities.add(info);
+                    }
+                }
+                return supportedActivities;
+            }
+
+            private boolean isSupportedActivity(final ResolveInfo info, final Context context) {
+                if (context.getPackageName().equals(info.activityInfo.packageName)) {
+                    return true;
+                }
+                if (!info.activityInfo.exported) {
+                    return false;
+                }
+                return info.activityInfo.permission == null
+                        || context.checkSelfPermission(info.activityInfo.permission)
+                            == PackageManager.PERMISSION_GRANTED;
+            }
+
+            private Intent createProcessTextIntentForResolveInfo(final ResolveInfo info,
+                    final TextView textView11) {
+                return createProcessTextIntent()
+                        .putExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, !isEditable(textView11))
+                        .setClassName(info.activityInfo.packageName, info.activityInfo.name);
+            }
+
+            private boolean isEditable(final TextView textView11) {
+                return textView11 instanceof Editable
+                        && textView11.onCheckIsTextEditor()
+                        && textView11.isEnabled();
+            }
+
+            private Intent createProcessTextIntent() {
+                return new Intent().setAction(Intent.ACTION_PROCESS_TEXT).setType("text/plain");
+            }
+        });
     }
 }

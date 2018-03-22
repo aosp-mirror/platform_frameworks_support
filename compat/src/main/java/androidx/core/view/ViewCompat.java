@@ -51,7 +51,6 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityNodeProviderCompat;
@@ -452,220 +451,26 @@ public class ViewCompat {
     private static Method sDispatchFinishTemporaryDetach;
     private static boolean sTempDetachBound;
 
-    static class ViewCompatBaseImpl {
-        private static WeakHashMap<View, String> sTransitionNameMap;
-        WeakHashMap<View, ViewPropertyAnimatorCompat> mViewPropertyAnimatorCompatMap = null;
-        private static Method sChildrenDrawingOrderMethod;
-        static Field sAccessibilityDelegateField;
-        static boolean sAccessibilityDelegateCheckFailed = false;
+    private static WeakHashMap<View, String> sTransitionNameMap;
+    private static WeakHashMap<View, ViewPropertyAnimatorCompat> sViewPropertyAnimatorMap = null;
 
-        public void setAccessibilityDelegate(View v,
-                @Nullable AccessibilityDelegateCompat delegate) {
-            v.setAccessibilityDelegate(delegate == null ? null : delegate.getBridge());
+    private static Method sChildrenDrawingOrderMethod;
+    private static Field sAccessibilityDelegateField;
+    private static boolean sAccessibilityDelegateCheckFailed = false;
+
+    private static ThreadLocal<Rect> sThreadLocalRect;
+
+    private static Rect getEmptyTempRect() {
+        if (sThreadLocalRect == null) {
+            sThreadLocalRect = new ThreadLocal<>();
         }
-
-        public boolean hasAccessibilityDelegate(View v) {
-            if (sAccessibilityDelegateCheckFailed) {
-                return false; // View implementation might have changed.
-            }
-            if (sAccessibilityDelegateField == null) {
-                try {
-                    sAccessibilityDelegateField = View.class
-                            .getDeclaredField("mAccessibilityDelegate");
-                    sAccessibilityDelegateField.setAccessible(true);
-                } catch (Throwable t) {
-                    sAccessibilityDelegateCheckFailed = true;
-                    return false;
-                }
-            }
-            try {
-                return sAccessibilityDelegateField.get(v) != null;
-            } catch (Throwable t) {
-                sAccessibilityDelegateCheckFailed = true;
-                return false;
-            }
+        Rect rect = sThreadLocalRect.get();
+        if (rect == null) {
+            rect = new Rect();
+            sThreadLocalRect.set(rect);
         }
-
-        public ViewPropertyAnimatorCompat animate(View view) {
-            if (mViewPropertyAnimatorCompatMap == null) {
-                mViewPropertyAnimatorCompatMap = new WeakHashMap<>();
-            }
-            ViewPropertyAnimatorCompat vpa = mViewPropertyAnimatorCompatMap.get(view);
-            if (vpa == null) {
-                vpa = new ViewPropertyAnimatorCompat(view);
-                mViewPropertyAnimatorCompatMap.put(view, vpa);
-            }
-            return vpa;
-        }
-
-        public void setTransitionName(View view, String transitionName) {
-            if (sTransitionNameMap == null) {
-                sTransitionNameMap = new WeakHashMap<>();
-            }
-            sTransitionNameMap.put(view, transitionName);
-        }
-
-        public String getTransitionName(View view) {
-            if (sTransitionNameMap == null) {
-                return null;
-            }
-            return sTransitionNameMap.get(view);
-        }
-
-        public void setChildrenDrawingOrderEnabled(ViewGroup viewGroup, boolean enabled) {
-            if (sChildrenDrawingOrderMethod == null) {
-                try {
-                    sChildrenDrawingOrderMethod = ViewGroup.class
-                            .getDeclaredMethod("setChildrenDrawingOrderEnabled", boolean.class);
-                } catch (NoSuchMethodException e) {
-                    Log.e(TAG, "Unable to find childrenDrawingOrderEnabled", e);
-                }
-                sChildrenDrawingOrderMethod.setAccessible(true);
-            }
-            try {
-                sChildrenDrawingOrderMethod.invoke(viewGroup, enabled);
-            } catch (IllegalAccessException e) {
-                Log.e(TAG, "Unable to invoke childrenDrawingOrderEnabled", e);
-            } catch (IllegalArgumentException e) {
-                Log.e(TAG, "Unable to invoke childrenDrawingOrderEnabled", e);
-            } catch (InvocationTargetException e) {
-                Log.e(TAG, "Unable to invoke childrenDrawingOrderEnabled", e);
-            }
-        }
-
-        public void offsetLeftAndRight(View view, int offset) {
-            view.offsetLeftAndRight(offset);
-            if (view.getVisibility() == View.VISIBLE) {
-                tickleInvalidationFlag(view);
-
-                ViewParent parent = view.getParent();
-                if (parent instanceof View) {
-                    tickleInvalidationFlag((View) parent);
-                }
-            }
-        }
-
-        public void offsetTopAndBottom(View view, int offset) {
-            view.offsetTopAndBottom(offset);
-            if (view.getVisibility() == View.VISIBLE) {
-                tickleInvalidationFlag(view);
-
-                ViewParent parent = view.getParent();
-                if (parent instanceof View) {
-                    tickleInvalidationFlag((View) parent);
-                }
-            }
-        }
-
-        private static void tickleInvalidationFlag(View view) {
-            final float y = view.getTranslationY();
-            view.setTranslationY(y + 1);
-            view.setTranslationY(y);
-        }
-    }
-
-    @RequiresApi(21)
-    static class ViewCompatApi21Impl extends ViewCompatBaseImpl {
-        private static ThreadLocal<Rect> sThreadLocalRect;
-
-        @Override
-        public void setTransitionName(View view, String transitionName) {
-            view.setTransitionName(transitionName);
-        }
-
-        @Override
-        public String getTransitionName(View view) {
-            return view.getTransitionName();
-        }
-
-        @Override
-        public void offsetLeftAndRight(View view, int offset) {
-            final Rect parentRect = getEmptyTempRect();
-            boolean needInvalidateWorkaround = false;
-
-            final ViewParent parent = view.getParent();
-            if (parent instanceof View) {
-                final View p = (View) parent;
-                parentRect.set(p.getLeft(), p.getTop(), p.getRight(), p.getBottom());
-                // If the view currently does not currently intersect the parent (and is therefore
-                // not displayed) we may need need to invalidate
-                needInvalidateWorkaround = !parentRect.intersects(view.getLeft(), view.getTop(),
-                        view.getRight(), view.getBottom());
-            }
-
-            // Now offset, invoking the API 11+ implementation (which contains its own workarounds)
-            super.offsetLeftAndRight(view, offset);
-
-            // The view has now been offset, so let's intersect the Rect and invalidate where
-            // the View is now displayed
-            if (needInvalidateWorkaround && parentRect.intersect(view.getLeft(), view.getTop(),
-                    view.getRight(), view.getBottom())) {
-                ((View) parent).invalidate(parentRect);
-            }
-        }
-
-        @Override
-        public void offsetTopAndBottom(View view, int offset) {
-            final Rect parentRect = getEmptyTempRect();
-            boolean needInvalidateWorkaround = false;
-
-            final ViewParent parent = view.getParent();
-            if (parent instanceof View) {
-                final View p = (View) parent;
-                parentRect.set(p.getLeft(), p.getTop(), p.getRight(), p.getBottom());
-                // If the view currently does not currently intersect the parent (and is therefore
-                // not displayed) we may need need to invalidate
-                needInvalidateWorkaround = !parentRect.intersects(view.getLeft(), view.getTop(),
-                        view.getRight(), view.getBottom());
-            }
-
-            // Now offset, invoking the API 11+ implementation (which contains its own workarounds)
-            super.offsetTopAndBottom(view, offset);
-
-            // The view has now been offset, so let's intersect the Rect and invalidate where
-            // the View is now displayed
-            if (needInvalidateWorkaround && parentRect.intersect(view.getLeft(), view.getTop(),
-                    view.getRight(), view.getBottom())) {
-                ((View) parent).invalidate(parentRect);
-            }
-        }
-
-        private static Rect getEmptyTempRect() {
-            if (sThreadLocalRect == null) {
-                sThreadLocalRect = new ThreadLocal<>();
-            }
-            Rect rect = sThreadLocalRect.get();
-            if (rect == null) {
-                rect = new Rect();
-                sThreadLocalRect.set(rect);
-            }
-            rect.setEmpty();
-            return rect;
-        }
-    }
-
-    @RequiresApi(23)
-    static class ViewCompatApi23Impl extends ViewCompatApi21Impl {
-        @Override
-        public void offsetLeftAndRight(View view, int offset) {
-            view.offsetLeftAndRight(offset);
-        }
-
-        @Override
-        public void offsetTopAndBottom(View view, int offset) {
-            view.offsetTopAndBottom(offset);
-        }
-    }
-
-    static final ViewCompatBaseImpl IMPL;
-    static {
-        if (Build.VERSION.SDK_INT >= 23) {
-            IMPL = new ViewCompatApi23Impl();
-        } else if (Build.VERSION.SDK_INT >= 21) {
-            IMPL = new ViewCompatApi21Impl();
-        } else {
-            IMPL = new ViewCompatBaseImpl();
-        }
+        rect.setEmpty();
+        return rect;
     }
 
     /**
@@ -859,7 +664,7 @@ public class ViewCompat {
      */
     public static void setAccessibilityDelegate(@NonNull View v,
             AccessibilityDelegateCompat delegate) {
-        IMPL.setAccessibilityDelegate(v, delegate);
+        v.setAccessibilityDelegate(delegate == null ? null : delegate.getBridge());
     }
 
     /**
@@ -1039,7 +844,25 @@ public class ViewCompat {
      * @return True if the View has an accessibility delegate
      */
     public static boolean hasAccessibilityDelegate(@NonNull View v) {
-        return IMPL.hasAccessibilityDelegate(v);
+        if (sAccessibilityDelegateCheckFailed) {
+            return false; // View implementation might have changed.
+        }
+        if (sAccessibilityDelegateField == null) {
+            try {
+                sAccessibilityDelegateField = View.class
+                        .getDeclaredField("mAccessibilityDelegate");
+                sAccessibilityDelegateField.setAccessible(true);
+            } catch (Throwable t) {
+                sAccessibilityDelegateCheckFailed = true;
+                return false;
+            }
+        }
+        try {
+            return sAccessibilityDelegateField.get(v) != null;
+        } catch (Throwable t) {
+            sAccessibilityDelegateCheckFailed = true;
+            return false;
+        }
     }
 
     /**
@@ -1915,7 +1738,15 @@ public class ViewCompat {
      */
     @NonNull
     public static ViewPropertyAnimatorCompat animate(@NonNull View view) {
-        return IMPL.animate(view);
+        if (sViewPropertyAnimatorMap == null) {
+            sViewPropertyAnimatorMap = new WeakHashMap<>();
+        }
+        ViewPropertyAnimatorCompat vpa = sViewPropertyAnimatorMap.get(view);
+        if (vpa == null) {
+            vpa = new ViewPropertyAnimatorCompat(view);
+            sViewPropertyAnimatorMap.put(view, vpa);
+        }
+        return vpa;
     }
 
     /**
@@ -2226,7 +2057,14 @@ public class ViewCompat {
      * @param transitionName The name of the View to uniquely identify it for Transitions.
      */
     public static void setTransitionName(@NonNull View view, String transitionName) {
-        IMPL.setTransitionName(view, transitionName);
+        if (Build.VERSION.SDK_INT >= 21) {
+            view.setTransitionName(transitionName);
+        } else {
+            if (sTransitionNameMap == null) {
+                sTransitionNameMap = new WeakHashMap<>();
+            }
+            sTransitionNameMap.put(view, transitionName);
+        }
     }
 
     /**
@@ -2241,7 +2079,13 @@ public class ViewCompat {
      */
     @Nullable
     public static String getTransitionName(@NonNull View view) {
-        return IMPL.getTransitionName(view);
+        if (Build.VERSION.SDK_INT >= 21) {
+            return view.getTransitionName();
+        }
+        if (sTransitionNameMap == null) {
+            return null;
+        }
+        return sTransitionNameMap.get(view);
     }
 
     /**
@@ -2279,7 +2123,24 @@ public class ViewCompat {
      */
     @Deprecated
     public static void setChildrenDrawingOrderEnabled(ViewGroup viewGroup, boolean enabled) {
-       IMPL.setChildrenDrawingOrderEnabled(viewGroup, enabled);
+        if (sChildrenDrawingOrderMethod == null) {
+            try {
+                sChildrenDrawingOrderMethod = ViewGroup.class
+                        .getDeclaredMethod("setChildrenDrawingOrderEnabled", boolean.class);
+            } catch (NoSuchMethodException e) {
+                Log.e(TAG, "Unable to find childrenDrawingOrderEnabled", e);
+            }
+            sChildrenDrawingOrderMethod.setAccessible(true);
+        }
+        try {
+            sChildrenDrawingOrderMethod.invoke(viewGroup, enabled);
+        } catch (IllegalAccessException e) {
+            Log.e(TAG, "Unable to invoke childrenDrawingOrderEnabled", e);
+        } catch (IllegalArgumentException e) {
+            Log.e(TAG, "Unable to invoke childrenDrawingOrderEnabled", e);
+        } catch (InvocationTargetException e) {
+            Log.e(TAG, "Unable to invoke childrenDrawingOrderEnabled", e);
+        }
     }
 
     /**
@@ -3039,7 +2900,46 @@ public class ViewCompat {
      * @param offset the number of pixels to offset the view by
      */
     public static void offsetTopAndBottom(@NonNull View view, int offset) {
-        IMPL.offsetTopAndBottom(view, offset);
+        if (Build.VERSION.SDK_INT >= 23) {
+            view.offsetTopAndBottom(offset);
+        } else if (Build.VERSION.SDK_INT >= 21) {
+            final Rect parentRect = getEmptyTempRect();
+            boolean needInvalidateWorkaround = false;
+
+            final ViewParent parent = view.getParent();
+            if (parent instanceof View) {
+                final View p = (View) parent;
+                parentRect.set(p.getLeft(), p.getTop(), p.getRight(), p.getBottom());
+                // If the view currently does not currently intersect the parent (and is therefore
+                // not displayed) we may need need to invalidate
+                needInvalidateWorkaround = !parentRect.intersects(view.getLeft(), view.getTop(),
+                        view.getRight(), view.getBottom());
+            }
+
+            // Now offset, invoking the API 14+ implementation (which contains its own workarounds)
+            compatOffsetTopAndBottom(view, offset);
+
+            // The view has now been offset, so let's intersect the Rect and invalidate where
+            // the View is now displayed
+            if (needInvalidateWorkaround && parentRect.intersect(view.getLeft(), view.getTop(),
+                    view.getRight(), view.getBottom())) {
+                ((View) parent).invalidate(parentRect);
+            }
+        } else {
+            compatOffsetTopAndBottom(view, offset);
+        }
+    }
+
+    private static void compatOffsetTopAndBottom(View view, int offset) {
+        view.offsetTopAndBottom(offset);
+        if (view.getVisibility() == View.VISIBLE) {
+            tickleInvalidationFlag(view);
+
+            ViewParent parent = view.getParent();
+            if (parent instanceof View) {
+                tickleInvalidationFlag((View) parent);
+            }
+        }
     }
 
     /**
@@ -3048,7 +2948,52 @@ public class ViewCompat {
      * @param offset the number of pixels to offset the view by
      */
     public static void offsetLeftAndRight(@NonNull View view, int offset) {
-        IMPL.offsetLeftAndRight(view, offset);
+        if (Build.VERSION.SDK_INT >= 23) {
+            view.offsetLeftAndRight(offset);
+        } else if (Build.VERSION.SDK_INT >= 21) {
+            final Rect parentRect = getEmptyTempRect();
+            boolean needInvalidateWorkaround = false;
+
+            final ViewParent parent = view.getParent();
+            if (parent instanceof View) {
+                final View p = (View) parent;
+                parentRect.set(p.getLeft(), p.getTop(), p.getRight(), p.getBottom());
+                // If the view currently does not currently intersect the parent (and is therefore
+                // not displayed) we may need need to invalidate
+                needInvalidateWorkaround = !parentRect.intersects(view.getLeft(), view.getTop(),
+                        view.getRight(), view.getBottom());
+            }
+
+            // Now offset, invoking the API 14+ implementation (which contains its own workarounds)
+            compatOffsetLeftAndRight(view, offset);
+
+            // The view has now been offset, so let's intersect the Rect and invalidate where
+            // the View is now displayed
+            if (needInvalidateWorkaround && parentRect.intersect(view.getLeft(), view.getTop(),
+                    view.getRight(), view.getBottom())) {
+                ((View) parent).invalidate(parentRect);
+            }
+        } else {
+            compatOffsetLeftAndRight(view, offset);
+        }
+    }
+
+    private static void compatOffsetLeftAndRight(View view, int offset) {
+        view.offsetLeftAndRight(offset);
+        if (view.getVisibility() == View.VISIBLE) {
+            tickleInvalidationFlag(view);
+
+            ViewParent parent = view.getParent();
+            if (parent instanceof View) {
+                tickleInvalidationFlag((View) parent);
+            }
+        }
+    }
+
+    private static void tickleInvalidationFlag(View view) {
+        final float y = view.getTranslationY();
+        view.setTranslationY(y + 1);
+        view.setTranslationY(y);
     }
 
     /**

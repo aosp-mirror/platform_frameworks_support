@@ -23,13 +23,13 @@ import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Build;
 
-import java.util.function.Consumer;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.slice.builders.impl.TemplateBuilderImpl;
+
+import java.util.function.Consumer;
 
 
 /**
@@ -38,10 +38,12 @@ import androidx.slice.builders.impl.TemplateBuilderImpl;
  * A grid row is composed of cells, each cell can have a combination of text and images. For more
  * details see {@link CellBuilder}.
  * </p>
+ * @deprecated TO BE REMOVED; please use {@link GridRowBuilder} instead.
  */
+@Deprecated
 public class GridBuilder extends TemplateSliceBuilder {
 
-    private androidx.slice.builders.impl.GridBuilder mImpl;
+    private androidx.slice.builders.impl.GridRowBuilder mImpl;
     private boolean mHasSeeMore;
 
     /**
@@ -76,7 +78,7 @@ public class GridBuilder extends TemplateSliceBuilder {
 
     @Override
     void setImpl(TemplateBuilderImpl impl) {
-        mImpl = (androidx.slice.builders.impl.GridBuilder) impl;
+        mImpl = (androidx.slice.builders.impl.GridRowBuilder) impl;
     }
 
     /**
@@ -190,7 +192,7 @@ public class GridBuilder extends TemplateSliceBuilder {
      * @hide
      */
     @RestrictTo(LIBRARY)
-    public androidx.slice.builders.impl.GridBuilder getImpl() {
+    public androidx.slice.builders.impl.GridRowBuilder getImpl() {
         return mImpl;
     }
 
@@ -210,16 +212,19 @@ public class GridBuilder extends TemplateSliceBuilder {
      *
      * A cell can have at most two text items and one image.
      * </p>
+     *
+     * @deprecated TO BE REMOVED; please use {@link GridRowBuilder.CellBuilder} instead.
      */
+    @Deprecated
     public static final class CellBuilder extends TemplateSliceBuilder {
-        private androidx.slice.builders.impl.GridBuilder.CellBuilder mImpl;
+        private androidx.slice.builders.impl.GridRowBuilder.CellBuilder mImpl;
 
         /**
          * Create a builder which will construct a slice displayed as a cell in a grid.
          * @param parent The builder constructing the parent slice.
          */
         public CellBuilder(@NonNull GridBuilder parent) {
-            super(parent.mImpl.createGridBuilder());
+            super(parent.mImpl.createGridRowBuilder());
         }
 
         /**
@@ -227,12 +232,12 @@ public class GridBuilder extends TemplateSliceBuilder {
          * @param uri Uri to tag for this slice.
          */
         public CellBuilder(@NonNull GridBuilder parent, @NonNull Uri uri) {
-            super(parent.mImpl.createGridBuilder(uri));
+            super(parent.mImpl.createGridRowBuilder(uri));
         }
 
         @Override
         void setImpl(TemplateBuilderImpl impl) {
-            mImpl = (androidx.slice.builders.impl.GridBuilder.CellBuilder) impl;
+            mImpl = (androidx.slice.builders.impl.GridRowBuilder.CellBuilder) impl;
         }
 
         /**
