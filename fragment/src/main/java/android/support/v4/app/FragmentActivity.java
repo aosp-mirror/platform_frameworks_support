@@ -132,7 +132,7 @@ public class FragmentActivity extends BaseFragmentActivityApi16 implements
      * Dispatch incoming result to the correct fragment.
      */
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         mFragments.noteStateNotSaved();
         int requestIndex = requestCode>>16;
         if (requestIndex != 0) {
