@@ -19,7 +19,7 @@ package androidx.paging;
 import androidx.annotation.AnyThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.executor.ArchTaskExecutor;
+import androidx.arch.core.executor.ArchTaskExecutor;
 import androidx.lifecycle.ComputableLiveData;
 import androidx.lifecycle.LiveData;
 
@@ -167,7 +167,7 @@ public final class LivePagedListBuilder<Key, Value> {
             @NonNull final DataSource.Factory<Key, Value> dataSourceFactory,
             @NonNull final Executor mainThreadExecutor,
             @NonNull final Executor backgroundThreadExecutor) {
-        return new ComputableLiveData<PagedList<Value>>() {
+        return new ComputableLiveData<PagedList<Value>>(backgroundThreadExecutor) {
             @Nullable
             private PagedList<Value> mList;
             @Nullable

@@ -16,7 +16,7 @@ package androidx.slice {
     method public android.app.PendingIntent getAction();
     method public java.lang.String getFormat();
     method public java.util.List<java.lang.String> getHints();
-    method public android.graphics.drawable.Icon getIcon();
+    method public androidx.core.graphics.drawable.IconCompat getIcon();
     method public int getInt();
     method public androidx.slice.Slice getSlice();
     method public java.lang.String getSubType();
@@ -32,6 +32,25 @@ package androidx.slice {
     method public android.net.Uri onMapIntentToUri(android.content.Intent);
     method public void onSlicePinned(android.net.Uri);
     method public void onSliceUnpinned(android.net.Uri);
+  }
+
+}
+
+package androidx.slice.core {
+
+  public abstract interface SliceAction {
+    method public abstract android.app.PendingIntent getAction();
+    method public abstract java.lang.CharSequence getContentDescription();
+    method public abstract androidx.core.graphics.drawable.IconCompat getIcon();
+    method public abstract int getImageMode();
+    method public abstract int getPriority();
+    method public abstract java.lang.CharSequence getTitle();
+    method public abstract boolean isChecked();
+    method public abstract boolean isDefaultToggle();
+    method public abstract boolean isToggle();
+    method public abstract androidx.slice.core.SliceAction setChecked(boolean);
+    method public abstract androidx.slice.core.SliceAction setContentDescription(java.lang.CharSequence);
+    method public abstract androidx.slice.core.SliceAction setPriority(int);
   }
 
 }

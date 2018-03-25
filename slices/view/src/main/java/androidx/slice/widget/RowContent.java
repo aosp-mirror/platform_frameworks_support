@@ -17,6 +17,7 @@
 package androidx.slice.widget;
 
 import static android.app.slice.Slice.HINT_ACTIONS;
+import static android.app.slice.Slice.HINT_PARTIAL;
 import static android.app.slice.Slice.HINT_SEE_MORE;
 import static android.app.slice.Slice.HINT_SHORTCUT;
 import static android.app.slice.Slice.HINT_SUMMARY;
@@ -31,6 +32,8 @@ import static android.app.slice.SliceItem.FORMAT_TEXT;
 import static android.app.slice.SliceItem.FORMAT_TIMESTAMP;
 
 import static androidx.slice.core.SliceHints.HINT_KEY_WORDS;
+import static androidx.slice.core.SliceHints.HINT_LAST_UPDATED;
+import static androidx.slice.core.SliceHints.HINT_TTL;
 import static androidx.slice.core.SliceHints.SUBTYPE_RANGE;
 
 import android.content.Context;
@@ -271,7 +274,9 @@ public class RowContent {
     }
 
     private static boolean hasText(SliceItem textSlice) {
-        return textSlice != null && !TextUtils.isEmpty(textSlice.getText());
+        return textSlice != null
+                && (textSlice.hasHint(HINT_PARTIAL)
+                    || !TextUtils.isEmpty(textSlice.getText()));
     }
 
     /**
@@ -337,11 +342,10 @@ public class RowContent {
      * @return whether this item is valid content to display in a row.
      */
     private static boolean isValidRowContent(SliceItem slice, SliceItem item) {
-        if (item.hasHint(HINT_KEY_WORDS)) {
+        if (item.hasAnyHints(HINT_KEY_WORDS, HINT_TTL, HINT_LAST_UPDATED)) {
             return false;
         }
-        if (FORMAT_SLICE.equals(item.getFormat())
-                && !item.hasAnyHints(HINT_SHORTCUT, HINT_KEY_WORDS)) {
+        if (FORMAT_SLICE.equals(item.getFormat()) && !item.hasHint(HINT_SHORTCUT)) {
             // Unpack contents of slice
             item = item.getSlice().getItems().get(0);
         }
@@ -367,6 +371,7 @@ public class RowContent {
         final String type = item.getFormat();
         return (FORMAT_ACTION.equals(type) && (SliceQuery.find(item, FORMAT_IMAGE) != null))
                     || FORMAT_IMAGE.equals(type)
-                    || FORMAT_TIMESTAMP.equals(type);
+                    || (FORMAT_TIMESTAMP.equals(type)
+                && !item.hasAnyHints(HINT_TTL, HINT_LAST_UPDATED));
     }
 }

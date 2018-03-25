@@ -16,14 +16,6 @@
 
 package androidx.slice.builders;
 
-import static android.app.slice.Slice.HINT_NO_TINT;
-import static android.app.slice.Slice.HINT_SELECTED;
-import static android.app.slice.Slice.HINT_SHORTCUT;
-import static android.app.slice.Slice.HINT_TITLE;
-import static android.app.slice.Slice.SUBTYPE_CONTENT_DESCRIPTION;
-import static android.app.slice.Slice.SUBTYPE_PRIORITY;
-import static android.app.slice.Slice.SUBTYPE_TOGGLE;
-
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.slice.builders.ListBuilder.ICON_IMAGE;
 
@@ -34,21 +26,43 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.core.graphics.drawable.IconCompat;
 import androidx.slice.Slice;
+import androidx.slice.core.SliceActionImpl;
 
 /**
  * Class representing an action, supports tappable icons, custom toggle icons, and default toggles.
  */
-public class SliceAction {
+public class SliceAction implements androidx.slice.core.SliceAction {
 
-    private PendingIntent mAction;
-    private Icon mIcon;
-    private int mImageMode;
-    private CharSequence mTitle;
-    private CharSequence mContentDescription;
-    private boolean mIsToggle;
-    private boolean mIsChecked;
-    private int mPriority = -1;
+    private SliceActionImpl mSliceAction;
+
+    /**
+     * @deprecated TO BE REMOVED
+     */
+    @Deprecated
+    public SliceAction(@NonNull PendingIntent action, @NonNull Icon actionIcon,
+            @NonNull CharSequence actionTitle) {
+        this(action, actionIcon, ICON_IMAGE, actionTitle);
+    }
+
+    /**
+     * @deprecated TO BE REMOVED
+     */
+    @Deprecated
+    public SliceAction(@NonNull PendingIntent action, @NonNull Icon actionIcon,
+            @ListBuilder.ImageMode int imageMode, @NonNull CharSequence actionTitle) {
+        this(action, IconCompat.createFromIcon(actionIcon), imageMode, actionTitle);
+    }
+
+    /**
+     * @deprecated TO BE REMOVED
+     */
+    @Deprecated
+    public SliceAction(@NonNull PendingIntent action, @NonNull Icon actionIcon,
+            @NonNull CharSequence actionTitle, boolean isChecked) {
+        this(action, IconCompat.createFromIcon(actionIcon), actionTitle, isChecked);
+    }
 
     /**
      * Construct a SliceAction representing a tappable icon.
@@ -58,7 +72,7 @@ public class SliceAction {
      * @param actionTitle the title for this action, also used for content description if one hasn't
      *                    been set via {@link #setContentDescription(CharSequence)}.
      */
-    public SliceAction(@NonNull PendingIntent action, @NonNull Icon actionIcon,
+    public SliceAction(@NonNull PendingIntent action, @NonNull IconCompat actionIcon,
             @NonNull CharSequence actionTitle) {
         this(action, actionIcon, ICON_IMAGE, actionTitle);
     }
@@ -80,12 +94,9 @@ public class SliceAction {
      * @see ListBuilder#SMALL_IMAGE
      * @see ListBuilder#LARGE_IMAGE
      */
-    public SliceAction(@NonNull PendingIntent action, @NonNull Icon actionIcon,
+    public SliceAction(@NonNull PendingIntent action, @NonNull IconCompat actionIcon,
             @ListBuilder.ImageMode int imageMode, @NonNull CharSequence actionTitle) {
-        mAction = action;
-        mIcon = actionIcon;
-        mTitle = actionTitle;
-        mImageMode = imageMode;
+        mSliceAction = new SliceActionImpl(action, actionIcon, imageMode, actionTitle);
     }
 
     /**
@@ -98,11 +109,9 @@ public class SliceAction {
      *                    been set via {@link #setContentDescription(CharSequence)}.
      * @param isChecked the state of the toggle.
      */
-    public SliceAction(@NonNull PendingIntent action, @NonNull Icon actionIcon,
+    public SliceAction(@NonNull PendingIntent action, @NonNull IconCompat actionIcon,
             @NonNull CharSequence actionTitle, boolean isChecked) {
-        this(action, actionIcon, ICON_IMAGE, actionTitle);
-        mIsChecked = isChecked;
-        mIsToggle = true;
+        mSliceAction = new SliceActionImpl(action, actionIcon, actionTitle, isChecked);
     }
 
     /**
@@ -115,19 +124,16 @@ public class SliceAction {
      */
     public SliceAction(@NonNull PendingIntent action, @NonNull CharSequence actionTitle,
             boolean isChecked) {
-        mAction = action;
-        mTitle = actionTitle;
-        mIsToggle = true;
-        mIsChecked = isChecked;
-
+        mSliceAction = new SliceActionImpl(action, actionTitle, isChecked);
     }
 
     /**
      * @param description the content description for this action.
      */
-    @Nullable
+    @NonNull
+    @Override
     public SliceAction setContentDescription(@NonNull CharSequence description) {
-        mContentDescription = description;
+        mSliceAction.setContentDescription(description);
         return this;
     }
 
@@ -135,16 +141,20 @@ public class SliceAction {
      * @param isChecked whether the state of this action is checked or not; only used for toggle
      *                  actions.
      */
+    @NonNull
+    @Override
     public SliceAction setChecked(boolean isChecked) {
-        mIsChecked = isChecked;
+        mSliceAction.setChecked(isChecked);
         return this;
     }
 
     /**
      * Sets the priority of this action, with the lowest priority having the highest ranking.
      */
+    @NonNull
+    @Override
     public SliceAction setPriority(@IntRange(from = 0) int priority) {
-        mPriority = priority;
+        mSliceAction.setPriority(priority);
         return this;
     }
 
@@ -152,8 +162,9 @@ public class SliceAction {
      * @return the {@link PendingIntent} associated with this action.
      */
     @NonNull
+    @Override
     public PendingIntent getAction() {
-        return mAction;
+        return mSliceAction.getAction();
     }
 
     /**
@@ -161,53 +172,67 @@ public class SliceAction {
      * represented is a default toggle.
      */
     @Nullable
-    public Icon getIcon() {
-        return mIcon;
+    @Override
+    public IconCompat getIcon() {
+        return mSliceAction.getIcon();
     }
 
     /**
      * @return the title for this action.
      */
     @NonNull
+    @Override
     public CharSequence getTitle() {
-        return mTitle;
+        return mSliceAction.getTitle();
     }
 
     /**
      * @return the content description to use for this action.
      */
     @Nullable
+    @Override
     public CharSequence getContentDescription() {
-        return mContentDescription;
+        return mSliceAction.getContentDescription();
     }
 
     /**
      * @return the priority associated with this action, -1 if unset.
      */
+    @Override
     public int getPriority() {
-        return mPriority;
+        return mSliceAction.getPriority();
     }
 
     /**
      * @return whether this action represents a toggle (i.e. has a checked and unchecked state).
      */
+    @Override
     public boolean isToggle() {
-        return mIsToggle;
+        return mSliceAction.isToggle();
     }
 
     /**
      * @return whether the state of this action is checked or not; only used for toggle actions.
      */
+    @Override
     public boolean isChecked() {
-        return mIsChecked;
+        return mSliceAction.isChecked();
     }
 
     /**
-     * @hide
+     * @return the image mode to use for this action.
      */
-    @RestrictTo(LIBRARY)
+    @Override
+    public @ListBuilder.ImageMode int getImageMode() {
+        return mSliceAction.getImageMode();
+    }
+
+    /**
+     * @return whether this action is a toggle using the standard switch control.
+     */
+    @Override
     public boolean isDefaultToggle() {
-        return mIsToggle && mIcon == null;
+        return mSliceAction.isDefaultToggle();
     }
 
     /**
@@ -219,28 +244,15 @@ public class SliceAction {
     @RestrictTo(LIBRARY)
     @NonNull
     public Slice buildSlice(@NonNull Slice.Builder builder) {
-        Slice.Builder sb = new Slice.Builder(builder);
-        if (mIcon != null) {
-            @Slice.SliceHint String[] hints = mImageMode == ICON_IMAGE
-                    ? new String[] {}
-                    : new String[] {HINT_NO_TINT};
-            sb.addIcon(mIcon, null, hints);
-        }
-        if (mTitle != null) {
-            sb.addText(mTitle, null, HINT_TITLE);
-        }
-        if (mContentDescription != null) {
-            sb.addText(mContentDescription, SUBTYPE_CONTENT_DESCRIPTION);
-        }
-        if (mIsToggle && mIsChecked) {
-            sb.addHints(HINT_SELECTED);
-        }
-        if (mPriority != -1) {
-            sb.addInt(mPriority, SUBTYPE_PRIORITY);
-        }
-        String subtype = mIsToggle ? SUBTYPE_TOGGLE : null;
-        builder.addHints(HINT_SHORTCUT);
-        builder.addAction(mAction, sb.build(), subtype);
-        return builder.build();
+        return mSliceAction.buildSlice(builder);
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(LIBRARY)
+    @NonNull
+    public SliceActionImpl getImpl() {
+        return mSliceAction;
     }
 }

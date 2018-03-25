@@ -18,6 +18,7 @@ package androidx.slice.widget;
 
 import static android.app.slice.Slice.EXTRA_TOGGLE_STATE;
 import static android.app.slice.Slice.HINT_NO_TINT;
+import static android.app.slice.Slice.HINT_PARTIAL;
 import static android.app.slice.Slice.HINT_SHORTCUT;
 import static android.app.slice.Slice.SUBTYPE_TOGGLE;
 import static android.app.slice.SliceItem.FORMAT_ACTION;
@@ -27,6 +28,8 @@ import static android.app.slice.SliceItem.FORMAT_SLICE;
 import static android.app.slice.SliceItem.FORMAT_TIMESTAMP;
 
 import static androidx.slice.core.SliceHints.EXTRA_RANGE_VALUE;
+import static androidx.slice.core.SliceHints.ICON_IMAGE;
+import static androidx.slice.core.SliceHints.SMALL_IMAGE;
 import static androidx.slice.core.SliceHints.SUBTYPE_MAX;
 import static androidx.slice.core.SliceHints.SUBTYPE_VALUE;
 import static androidx.slice.widget.SliceView.MODE_SMALL;
@@ -35,7 +38,10 @@ import android.app.PendingIntent;
 import android.app.PendingIntent.CanceledException;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Icon;
+import android.graphics.Typeface;
+import android.text.SpannableString;
+import android.text.TextUtils;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -53,8 +59,10 @@ import android.widget.ToggleButton;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.RestrictTo;
+import androidx.core.graphics.drawable.IconCompat;
 import androidx.slice.Slice;
 import androidx.slice.SliceItem;
+import androidx.slice.core.SliceActionImpl;
 import androidx.slice.core.SliceQuery;
 import androidx.slice.view.R;
 
@@ -79,6 +87,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     private LinearLayout mContent;
     private TextView mPrimaryText;
     private TextView mSecondaryText;
+    private TextView mLastUpdatedText;
     private View mDivider;
     private ArrayList<CompoundButton> mToggles = new ArrayList<>();
     private LinearLayout mEndContainer;
@@ -88,7 +97,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
 
     private int mRowIndex;
     private RowContent mRowContent;
-    private ActionContent mRowAction;
+    private SliceActionImpl mRowAction;
     private boolean mIsHeader;
     private List<SliceItem> mHeaderActions;
 
@@ -108,6 +117,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         mContent = (LinearLayout) findViewById(android.R.id.content);
         mPrimaryText = (TextView) findViewById(android.R.id.title);
         mSecondaryText = (TextView) findViewById(android.R.id.summary);
+        mLastUpdatedText = (TextView) findViewById(R.id.last_updated);
         mDivider = findViewById(R.id.divider);
         mEndContainer = (LinearLayout) findViewById(android.R.id.widget_frame);
         mSeekBar = (SeekBar) findViewById(R.id.seek_bar);
@@ -138,6 +148,14 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     @Override
     public void setSliceActions(List<SliceItem> actions) {
         mHeaderActions = actions;
+        if (mRowContent != null) {
+            populateViews();
+        }
+    }
+
+    @Override
+    public void setShowLastUpdated(boolean showLastUpdated) {
+        super.setShowLastUpdated(showLastUpdated);
         if (mRowContent != null) {
             populateViews();
         }
@@ -208,17 +226,10 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         mPrimaryText.setTextColor(mTitleColor);
         mPrimaryText.setVisibility(titleItem != null ? View.VISIBLE : View.GONE);
 
-        final SliceItem subTitle = getMode() == MODE_SMALL
+        final SliceItem subtitleItem = getMode() == MODE_SMALL
                 ? mRowContent.getSummaryItem()
                 : mRowContent.getSubtitleItem();
-        if (subTitle != null) {
-            mSecondaryText.setText(subTitle.getText());
-        }
-        mSecondaryText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mIsHeader
-                ? mHeaderSubtitleSize
-                : mSubtitleSize);
-        mSecondaryText.setTextColor(mSubtitleColor);
-        mSecondaryText.setVisibility(subTitle != null ? View.VISIBLE : View.GONE);
+        addSubtitle(subtitleItem);
 
         final SliceItem range = mRowContent.getRange();
         if (range != null) {
@@ -228,7 +239,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
 
         SliceItem primaryAction = mRowContent.getPrimaryAction();
         if (primaryAction != null) {
-            mRowAction = new ActionContent(primaryAction);
+            mRowAction = new SliceActionImpl(primaryAction);
             if (mRowAction.isToggle()) {
                 // If primary action is a toggle, add it and we're done
                 addToggle(mRowAction, mTintColor, mEndContainer);
@@ -236,9 +247,9 @@ public class RowView extends SliceChildView implements View.OnClickListener {
                 return;
             }
         }
-        List<SliceItem> endItems = mRowContent.getEndItems();
 
-        // If we're here we might be able to show end items
+        // If we're here we can can show end items; check for top level actions first
+        List<SliceItem> endItems = mRowContent.getEndItems();
         String desiredFormat = FORMAT_ACTION;
         if (mIsHeader && mHeaderActions != null && mHeaderActions.size() > 0) {
             // Use these if we have them instead
@@ -297,11 +308,42 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             if (mRowContent.endItemsContainAction() && itemCount == 1) {
                 SliceItem unwrappedActionItem = endItems.get(0).getSlice().getItems().get(0);
                 if (!SUBTYPE_TOGGLE.equals(unwrappedActionItem.getSubType())) {
-                    mRowAction = new ActionContent(endItems.get(0));
+                    mRowAction = new SliceActionImpl(endItems.get(0));
                 }
                 setViewClickable(this, true);
             }
         }
+    }
+
+    private void addSubtitle(final SliceItem subtitleItem) {
+        CharSequence subtitleTimeString = null;
+        if (mShowLastUpdated) {
+            subtitleTimeString = getResources().getString(R.string.abc_slice_updated,
+                    SliceViewUtil.getRelativeTimeString(mLastUpdated));
+        }
+        CharSequence subtitle = subtitleItem != null ? subtitleItem.getText() : null;
+        boolean subtitleExists = !TextUtils.isEmpty(subtitle)
+                        || (subtitleItem != null && subtitleItem.hasHint(HINT_PARTIAL));
+        if (subtitleExists) {
+            mSecondaryText.setText(subtitle);
+            mSecondaryText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mIsHeader
+                    ? mHeaderSubtitleSize
+                    : mSubtitleSize);
+            mSecondaryText.setTextColor(mSubtitleColor);
+        }
+        if (subtitleTimeString != null) {
+            if (!TextUtils.isEmpty(subtitle)) {
+                subtitleTimeString = " \u00B7 " + subtitleTimeString;
+            }
+            SpannableString sp = new SpannableString(subtitleTimeString);
+            sp.setSpan(new StyleSpan(Typeface.ITALIC), 0, subtitleTimeString.length(), 0);
+            mLastUpdatedText.setText(sp);
+            mLastUpdatedText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    mIsHeader ? mHeaderSubtitleSize : mSubtitleSize);
+            mLastUpdatedText.setTextColor(mSubtitleColor);
+        }
+        mLastUpdatedText.setVisibility(TextUtils.isEmpty(subtitleTimeString) ? GONE : VISIBLE);
+        mSecondaryText.setVisibility(subtitleExists ? VISIBLE : GONE);
     }
 
     private void addRange(final SliceItem range) {
@@ -344,11 +386,11 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     /**
      * Add a toggle view to container.
      */
-    private void addToggle(final ActionContent actionContent, int color, ViewGroup container) {
+    private void addToggle(final SliceActionImpl actionContent, int color, ViewGroup container) {
         // Check if this is a custom toggle
         final CompoundButton toggle;
-        if (actionContent.isCustomToggle()) {
-            Icon checkedIcon = actionContent.getIconItem().getIcon();
+        if (actionContent.isToggle() && !actionContent.isDefaultToggle()) {
+            IconCompat checkedIcon = actionContent.getIcon();
             if (color != -1) {
                 // TODO - Should custom toggle buttons be tinted? What if the app wants diff
                 // colors per state?
@@ -375,7 +417,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 try {
-                    PendingIntent pi = actionContent.getActionItem().getAction();
+                    PendingIntent pi = actionContent.getAction();
                     Intent i = new Intent().putExtra(EXTRA_TOGGLE_STATE, isChecked);
                     pi.send(getContext(), 0, i, null, null);
                     if (mObserver != null) {
@@ -399,15 +441,15 @@ public class RowView extends SliceChildView implements View.OnClickListener {
      */
     private boolean addItem(SliceItem sliceItem, int color, boolean isStart, int padding,
             final EventInfo info) {
-        SliceItem image = null;
-        SliceItem action = null;
+        IconCompat icon = null;
+        int imageMode = 0;
         SliceItem timeStamp = null;
-        ActionContent actionContent = null;
+        SliceActionImpl actionContent = null;
         ViewGroup container = isStart ? mStartContainer : mEndContainer;
         if (FORMAT_SLICE.equals(sliceItem.getFormat())) {
             // It's an action.... let's make it so
             if (sliceItem.hasHint(HINT_SHORTCUT)) {
-                actionContent = new ActionContent(sliceItem);
+                actionContent = new SliceActionImpl(sliceItem);
             } else {
                 sliceItem = sliceItem.getSlice().getItems().get(0);
             }
@@ -417,20 +459,23 @@ public class RowView extends SliceChildView implements View.OnClickListener {
                 addToggle(actionContent, color, container);
                 return true;
             }
-            action = actionContent.getActionItem();
-            image = actionContent.getIconItem();
+            icon = actionContent.getIcon();
+            if (icon != null) {
+                imageMode = actionContent.getImageMode();
+            }
         }
         if (FORMAT_IMAGE.equals(sliceItem.getFormat())) {
-            image = sliceItem;
+            icon = sliceItem.getIcon();
+            imageMode = sliceItem.hasHint(HINT_NO_TINT) ? SMALL_IMAGE : ICON_IMAGE;
         } else if (FORMAT_TIMESTAMP.equals(sliceItem.getFormat())) {
             timeStamp = sliceItem;
         }
         View addedView = null;
-        if (image != null) {
+        if (icon != null) {
             ImageView iv = new ImageView(getContext());
-            iv.setImageIcon(image.getIcon());
+            iv.setImageDrawable(icon.loadDrawable(getContext()));
             int size = mImageSize;
-            if (!image.hasHint(HINT_NO_TINT)) {
+            if (imageMode == ICON_IMAGE) {
                 if (color != -1) {
                     iv.setColorFilter(color);
                 }
@@ -453,15 +498,15 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             container.addView(tv);
             addedView = tv;
         }
-        if (action != null && addedView != null) {
-            final SliceItem sliceAction = action;
+        if (actionContent != null && addedView != null) {
+            final SliceActionImpl finalAction = actionContent;
             addedView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     try {
-                        sliceAction.getAction().send();
+                        finalAction.getAction().send();
                         if (mObserver != null) {
-                            mObserver.onSliceAction(info, sliceAction);
+                            mObserver.onSliceAction(info, finalAction.getSliceItem());
                         }
                     } catch (CanceledException e) {
                         e.printStackTrace();
@@ -501,10 +546,10 @@ public class RowView extends SliceChildView implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if (mRowAction != null && mRowAction.getActionItem() != null && !mRowAction.isToggle()) {
+        if (mRowAction != null && mRowAction.getAction() != null && !mRowAction.isToggle()) {
             // Check for a row action
             try {
-                mRowAction.getActionItem().getAction().send();
+                mRowAction.getAction().send();
                 if (mObserver != null) {
                     EventInfo info = new EventInfo(getMode(), EventInfo.ACTION_TYPE_CONTENT,
                             EventInfo.ROW_TYPE_LIST, mRowIndex);

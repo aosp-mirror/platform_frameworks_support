@@ -17,8 +17,6 @@
 package androidx.slice;
 
 
-import static android.app.slice.Slice.HINT_PARTIAL;
-import static android.app.slice.Slice.HINT_TITLE;
 import static android.app.slice.SliceItem.FORMAT_ACTION;
 import static android.app.slice.SliceItem.FORMAT_SLICE;
 import static android.app.slice.SliceItem.FORMAT_TEXT;
@@ -26,22 +24,15 @@ import static android.app.slice.SliceItem.FORMAT_TEXT;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertNull;
-
-import static androidx.slice.SliceUtils.LOADING_ALL;
-import static androidx.slice.SliceUtils.LOADING_COMPLETE;
-import static androidx.slice.SliceUtils.LOADING_PARTIAL;
-import static androidx.slice.core.SliceHints.HINT_KEY_WORDS;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
+
+import androidx.core.graphics.drawable.IconCompat;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,7 +40,6 @@ import org.junit.runner.RunWith;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest
@@ -126,7 +116,7 @@ public class SliceXmlTest {
                 .addSubSlice(new Slice.Builder(Uri.parse("content://pkg/slice/sub"))
                         .addTimestamp(System.currentTimeMillis(), null, "Hint")
                         .build())
-                .addIcon(Icon.createWithBitmap(b), null)
+                .addIcon(IconCompat.createWithBitmap(b), null)
                 .addText("Some text", null)
                 .addAction(null, new Slice.Builder(Uri.parse("content://pkg/slice/sub"))
                         .addText("Action text", null)
@@ -146,57 +136,6 @@ public class SliceXmlTest {
         Slice after = SliceUtils.parseSlice(inputStream, "UTF-8");
 
         assertEquivalent(before, after);
-    }
-
-    @Test
-    public void testKeywords() {
-        Uri uri = Uri.parse("content://pkg/slice");
-        Slice keywordSlice = new Slice.Builder(uri)
-                .addHints(HINT_KEY_WORDS)
-                .addText("keyword1", null)
-                .addText("keyword2", null)
-                .addText("keyword3", null).build();
-        Slice slice = new Slice.Builder(uri)
-                .addText("Some text", null, HINT_TITLE)
-                .addText("Some other text", null)
-                .addSubSlice(keywordSlice)
-                .build();
-
-        List<String> sliceKeywords = SliceUtils.getSliceKeywords(slice);
-        String[] expectedList = new String[] {"keyword1", "keyword2", "keyword3"};
-        assertArrayEquals(expectedList, sliceKeywords.toArray());
-
-        // Make sure it doesn't find keywords that aren't there
-        Slice slice2 = new Slice.Builder(uri)
-                .addText("Some text", null, HINT_TITLE)
-                .addText("Some other text", null).build();
-        List<String> slice2Keywords = SliceUtils.getSliceKeywords(slice2);
-        assertNull(slice2Keywords);
-
-        // Make sure empty list if specified to have no keywords
-        Slice noKeywordSlice = new Slice.Builder(uri).addHints(HINT_KEY_WORDS).build();
-        Slice slice3 = new Slice.Builder(uri)
-                .addText("Some text", null, HINT_TITLE)
-                .addSubSlice(noKeywordSlice)
-                .build();
-        List<String> slice3Keywords = SliceUtils.getSliceKeywords(slice3);
-        assertTrue(slice3Keywords.isEmpty());
-    }
-
-    @Test
-    public void testGetLoadingState() {
-        Uri uri = Uri.parse("content://pkg/slice");
-        Slice s1 = new Slice.Builder(uri).build();
-        int actualState1 = SliceUtils.getLoadingState(s1);
-        assertEquals(LOADING_ALL, actualState1);
-
-        Slice s2 = new Slice.Builder(uri).addText(null, null, HINT_PARTIAL).build();
-        int actualState2 = SliceUtils.getLoadingState(s2);
-        assertEquals(LOADING_PARTIAL, actualState2);
-
-        Slice s3 = new Slice.Builder(uri).addText("Text", null).build();
-        int actualState3 = SliceUtils.getLoadingState(s3);
-        assertEquals(LOADING_COMPLETE, actualState3);
     }
 
     private void assertEquivalent(Slice desired, Slice actual) {

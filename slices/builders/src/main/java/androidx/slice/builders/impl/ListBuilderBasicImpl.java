@@ -20,12 +20,12 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.slice.core.SliceHints.HINT_KEY_WORDS;
 
 import android.app.PendingIntent;
-import android.graphics.drawable.Icon;
 import android.net.Uri;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
+import androidx.core.graphics.drawable.IconCompat;
 import androidx.slice.Slice;
 import androidx.slice.SliceSpec;
 import androidx.slice.builders.SliceAction;
@@ -109,6 +109,12 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
             sb.addText(keywords.get(i), null);
         }
         getBuilder().addSubSlice(sb.addHints(HINT_KEY_WORDS).build());
+    }
+
+    /**
+     */
+    @Override
+    public void setTtl(long ttl) {
     }
 
     /**
@@ -207,14 +213,14 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
         /**
          */
         @Override
-        public void setTitleItem(Icon icon, int imageMode) {
+        public void setTitleItem(IconCompat icon, int imageMode) {
 
         }
 
         /**
          */
         @Override
-        public void setTitleItem(Icon icon, int imageMode, boolean isLoading) {
+        public void setTitleItem(IconCompat icon, int imageMode, boolean isLoading) {
 
         }
 
@@ -274,14 +280,14 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
         /**
          */
         @Override
-        public void addEndItem(Icon icon, int imageMode) {
+        public void addEndItem(IconCompat icon, int imageMode) {
 
         }
 
         /**
          */
         @Override
-        public void addEndItem(Icon icon, int imageMode, boolean isLoading) {
+        public void addEndItem(IconCompat icon, int imageMode, boolean isLoading) {
 
         }
 

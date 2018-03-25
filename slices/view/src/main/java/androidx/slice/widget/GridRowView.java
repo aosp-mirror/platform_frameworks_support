@@ -17,6 +17,7 @@
 package androidx.slice.widget;
 
 import static android.app.slice.Slice.HINT_LARGE;
+import static android.app.slice.Slice.HINT_LIST_ITEM;
 import static android.app.slice.Slice.HINT_NO_TINT;
 import static android.app.slice.Slice.HINT_TITLE;
 import static android.app.slice.SliceItem.FORMAT_ACTION;
@@ -46,16 +47,16 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import androidx.annotation.ColorInt;
 import androidx.annotation.RestrictTo;
 import androidx.slice.Slice;
 import androidx.slice.SliceItem;
 import androidx.slice.core.SliceQuery;
 import androidx.slice.view.R;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @hide
@@ -139,7 +140,8 @@ public class GridRowView extends SliceChildView implements View.OnClickListener 
     public void setSlice(Slice slice) {
         resetView();
         mRowIndex = 0;
-        mGridContent = new GridContent(getContext(), slice.getItems().get(0));
+        SliceItem item = SliceQuery.find(slice, FORMAT_SLICE, HINT_LIST_ITEM, null);
+        mGridContent = new GridContent(getContext(), item);
         populateViews(mGridContent);
     }
 
@@ -325,7 +327,7 @@ public class GridRowView extends SliceChildView implements View.OnClickListener 
             addedView = tv;
         } else if (FORMAT_IMAGE.equals(format)) {
             ImageView iv = new ImageView(getContext());
-            iv.setImageIcon(item.getIcon());
+            iv.setImageDrawable(item.getIcon().loadDrawable(getContext()));
             LinearLayout.LayoutParams lp;
             if (item.hasHint(HINT_LARGE)) {
                 iv.setScaleType(ScaleType.CENTER_CROP);

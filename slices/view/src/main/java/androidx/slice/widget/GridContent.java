@@ -30,25 +30,27 @@ import static android.app.slice.SliceItem.FORMAT_SLICE;
 import static android.app.slice.SliceItem.FORMAT_TEXT;
 import static android.app.slice.SliceItem.FORMAT_TIMESTAMP;
 
-import static androidx.slice.builders.ListBuilder.ICON_IMAGE;
-import static androidx.slice.builders.ListBuilder.LARGE_IMAGE;
-import static androidx.slice.builders.ListBuilder.SMALL_IMAGE;
 import static androidx.slice.core.SliceHints.HINT_KEY_WORDS;
+import static androidx.slice.core.SliceHints.HINT_LAST_UPDATED;
+import static androidx.slice.core.SliceHints.HINT_TTL;
+import static androidx.slice.core.SliceHints.ICON_IMAGE;
+import static androidx.slice.core.SliceHints.LARGE_IMAGE;
+import static androidx.slice.core.SliceHints.SMALL_IMAGE;
 
 import android.app.slice.Slice;
 import android.content.Context;
 import android.content.res.Resources;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.slice.SliceItem;
-import androidx.slice.builders.ListBuilder;
+import androidx.slice.core.SliceHints;
 import androidx.slice.core.SliceQuery;
 import androidx.slice.view.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Extracts information required to present content in a grid format from a slice.
@@ -64,7 +66,7 @@ public class GridContent {
     private SliceItem mSeeMoreItem;
     private int mMaxCellLineCount;
     private boolean mHasImage;
-    private @ListBuilder.ImageMode int mLargestImageMode;
+    private @SliceHints.ImageMode int mLargestImageMode;
     private SliceItem mContentDescr;
 
     private int mBigPicMinHeight;
@@ -195,10 +197,11 @@ public class GridContent {
         List<SliceItem> filteredItems = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             SliceItem item = items.get(i);
+            boolean isNonCellContent = item.hasAnyHints(HINT_SHORTCUT, HINT_SEE_MORE,
+                    HINT_KEY_WORDS, HINT_TTL, HINT_LAST_UPDATED);
             if (SUBTYPE_CONTENT_DESCRIPTION.equals(item.getSubType())) {
                 mContentDescr = item;
-            } else if (item.hasHint(HINT_LIST_ITEM) && !item.hasAnyHints(HINT_SHORTCUT,
-                    HINT_SEE_MORE, HINT_KEY_WORDS)) {
+            } else if (item.hasHint(HINT_LIST_ITEM) && !isNonCellContent) {
                 filteredItems.add(item);
             }
         }
@@ -333,9 +336,9 @@ public class GridContent {
          */
         private boolean isValidCellContent(SliceItem cellItem) {
             final String format = cellItem.getFormat();
-            boolean isSpecial = SUBTYPE_CONTENT_DESCRIPTION.equals(cellItem.getSubType())
-                    || cellItem.hasHint(HINT_KEY_WORDS);
-            return !isSpecial
+            boolean isNonCellContent = SUBTYPE_CONTENT_DESCRIPTION.equals(cellItem.getSubType())
+                    || cellItem.hasAnyHints(HINT_KEY_WORDS, HINT_TTL, HINT_LAST_UPDATED);
+            return !isNonCellContent
                     && (FORMAT_TEXT.equals(format)
                     || FORMAT_TIMESTAMP.equals(format)
                     || FORMAT_IMAGE.equals(format));

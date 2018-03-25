@@ -158,7 +158,7 @@ public class ViewPager2 extends ViewGroup {
         int mRecyclerViewId;
         Parcelable[] mAdapterState;
 
-        @RequiresApi(21)
+        @RequiresApi(24)
         SavedState(Parcel source, ClassLoader loader) {
             super(source, loader);
             readValues(source, loader);
@@ -188,7 +188,7 @@ public class ViewPager2 extends ViewGroup {
         static final Creator<SavedState> CREATOR = new ClassLoaderCreator<SavedState>() {
             @Override
             public SavedState createFromParcel(Parcel source, ClassLoader loader) {
-                return Build.VERSION.SDK_INT >= 21
+                return Build.VERSION.SDK_INT >= 24
                         ? new SavedState(source, loader)
                         : new SavedState(source);
             }
@@ -453,11 +453,6 @@ public class ViewPager2 extends ViewGroup {
         // TODO(b/70666620): consider adding a support for Decor views
         throw new IllegalStateException(
                 getClass().getSimpleName() + " does not support direct child views");
-    }
-
-    /** @see RecyclerView#addOnScrollListener(RecyclerView.OnScrollListener) */
-    public void addOnScrollListener(RecyclerView.OnScrollListener listener) {
-        mRecyclerView.addOnScrollListener(listener);
     }
 
     @Override

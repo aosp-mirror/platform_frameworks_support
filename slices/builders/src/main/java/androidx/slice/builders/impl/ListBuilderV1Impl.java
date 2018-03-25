@@ -31,19 +31,23 @@ import static android.app.slice.SliceItem.FORMAT_TEXT;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.slice.builders.ListBuilder.ICON_IMAGE;
+import static androidx.slice.builders.ListBuilder.INFINITY;
 import static androidx.slice.builders.ListBuilder.LARGE_IMAGE;
 import static androidx.slice.core.SliceHints.HINT_KEY_WORDS;
+import static androidx.slice.core.SliceHints.HINT_LAST_UPDATED;
+import static androidx.slice.core.SliceHints.HINT_TTL;
 import static androidx.slice.core.SliceHints.SUBTYPE_MAX;
+import static androidx.slice.core.SliceHints.SUBTYPE_MILLIS;
 import static androidx.slice.core.SliceHints.SUBTYPE_RANGE;
 import static androidx.slice.core.SliceHints.SUBTYPE_VALUE;
 
 import android.app.PendingIntent;
-import android.graphics.drawable.Icon;
 import android.net.Uri;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
+import androidx.core.graphics.drawable.IconCompat;
 import androidx.slice.Slice;
 import androidx.slice.SliceItem;
 import androidx.slice.SliceSpec;
@@ -71,6 +75,7 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
      */
     @Override
     public void apply(Slice.Builder builder) {
+        builder.addTimestamp(System.currentTimeMillis(), SUBTYPE_MILLIS, HINT_LAST_UPDATED);
         if (mSliceHeader != null) {
             builder.addSubSlice(mSliceHeader);
         }
@@ -202,7 +207,7 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
     public static class InputRangeBuilderImpl
             extends RangeBuilderImpl implements InputRangeBuilder {
         private PendingIntent mAction;
-        private Icon mThumb;
+        private IconCompat mThumb;
 
         public InputRangeBuilderImpl(Slice.Builder sb) {
             super(sb);
@@ -214,7 +219,7 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
         }
 
         @Override
-        public void setThumb(@NonNull Icon thumb) {
+        public void setThumb(@NonNull IconCompat thumb) {
             mThumb = thumb;
         }
 
@@ -249,6 +254,14 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
             sb.addText(keywords.get(i), null);
         }
         getBuilder().addSubSlice(sb.addHints(HINT_KEY_WORDS).build());
+    }
+
+    /**
+     */
+    @Override
+    public void setTtl(long ttl) {
+        long expiry = ttl == INFINITY ? INFINITY : System.currentTimeMillis() + ttl;
+        getBuilder().addTimestamp(expiry, SUBTYPE_MILLIS, HINT_TTL);
     }
 
     /**
@@ -338,7 +351,7 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
          */
         @NonNull
         @Override
-        public void setTitleItem(Icon icon, int imageMode) {
+        public void setTitleItem(IconCompat icon, int imageMode) {
             setTitleItem(icon, imageMode, false /* isLoading */);
         }
 
@@ -346,7 +359,7 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
          */
         @NonNull
         @Override
-        public void setTitleItem(Icon icon, int imageMode, boolean isLoading) {
+        public void setTitleItem(IconCompat icon, int imageMode, boolean isLoading) {
             ArrayList<String> hints = new ArrayList<>();
             if (imageMode != ICON_IMAGE) {
                 hints.add(HINT_NO_TINT);
@@ -441,7 +454,7 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
          */
         @NonNull
         @Override
-        public void addEndItem(Icon icon, int imageMode) {
+        public void addEndItem(IconCompat icon, int imageMode) {
             addEndItem(icon, imageMode, false /* isLoading */);
         }
 
@@ -449,7 +462,7 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
          */
         @NonNull
         @Override
-        public void addEndItem(Icon icon, int imageMode, boolean isLoading) {
+        public void addEndItem(IconCompat icon, int imageMode, boolean isLoading) {
             ArrayList<String> hints = new ArrayList<>();
             if (imageMode != ICON_IMAGE) {
                 hints.add(HINT_NO_TINT);

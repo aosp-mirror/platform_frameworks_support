@@ -19,12 +19,12 @@ package androidx.slice.builders.impl;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 
 import android.app.PendingIntent;
-import android.graphics.drawable.Icon;
 import android.net.Uri;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
+import androidx.core.graphics.drawable.IconCompat;
 import androidx.slice.builders.SliceAction;
 
 import java.util.List;
@@ -100,6 +100,14 @@ public interface ListBuilder {
     void setKeywords(List<String> keywords);
 
     /**
+     * Sets the time-to-live for this slice, i.e. how long the data contained in the slice
+     * can remain fresh.
+     *
+     * @param ttl the length in milliseconds that this content can live for.
+     */
+    void setTtl(long ttl);
+
+    /**
      * Create a builder that implements {@link RowBuilder}.
      */
     TemplateBuilderImpl createRowBuilder();
@@ -163,9 +171,9 @@ public interface ListBuilder {
         void setAction(@NonNull PendingIntent action);
 
         /**
-         * Set the {@link Icon} to be displayed as the thumb on the input range.
+         * Set the {@link IconCompat} to be displayed as the thumb on the input range.
          */
-        void setThumb(@NonNull Icon thumb);
+        void setThumb(@NonNull IconCompat thumb);
     }
 
     /**
@@ -184,11 +192,10 @@ public interface ListBuilder {
         /**
          * Sets the title item to be the provided icon. There can only be one title item, this
          * will replace any other title items that may have been set.
-         *
-         * @param icon the image to display.
+         *  @param icon the image to display.
          * @param imageMode the mode that image should be displayed in.
          */
-        void setTitleItem(Icon icon, int imageMode);
+        void setTitleItem(IconCompat icon, int imageMode);
 
         /**
          * Sets the title item to be the provided icon. There can only be one title item, this
@@ -197,12 +204,11 @@ public interface ListBuilder {
          * When set to true, the parameter {@code isLoading} indicates that the app is doing work
          * to load this content in the background, in this case the template displays a placeholder
          * until updated.
-         *
-         * @param icon the image to display.
+         *  @param icon the image to display.
          * @param imageMode the mode that image should be displayed in.
          * @param isLoading whether this content is being loaded in the background.
          */
-        void setTitleItem(Icon icon, int imageMode, boolean isLoading);
+        void setTitleItem(IconCompat icon, int imageMode, boolean isLoading);
 
         /**
          * Sets the title item to be a tappable icon. There can only be one title item, this will
@@ -260,11 +266,10 @@ public interface ListBuilder {
 
         /**
          * Adds an icon to be displayed at the end of the row.
-         *
-         * @param icon the image to display.
+         *  @param icon the image to display.
          * @param imageMode the mode that image should be displayed in.
          */
-        void addEndItem(Icon icon, int imageMode);
+        void addEndItem(IconCompat icon, int imageMode);
 
         /**
          * Adds an icon to be displayed at the end of the row.
@@ -272,12 +277,11 @@ public interface ListBuilder {
          * When set to true, the parameter {@code isLoading} indicates that the app is doing work
          * to load this content in the background, in this case the template displays a placeholder
          * until updated.
-         *
-         * @param icon the image to display.
+         *  @param icon the image to display.
          * @param imageMode the mode that image should be displayed in.
          * @param isLoading whether this content is being loaded in the background.
          */
-        void addEndItem(Icon icon, int imageMode, boolean isLoading);
+        void addEndItem(IconCompat icon, int imageMode, boolean isLoading);
 
         /**
          * Adds a tappable icon to be displayed at the end of the row.
