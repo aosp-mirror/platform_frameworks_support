@@ -1062,6 +1062,7 @@ package androidx.core.os {
     method public static deprecated boolean isAtLeastO();
     method public static deprecated boolean isAtLeastOMR1();
     method public static boolean isAtLeastP();
+    method public static boolean isAtLeastQ();
   }
 
   public final class CancellationSignal {
@@ -1291,6 +1292,10 @@ package androidx.core.util {
     method public java.io.FileInputStream openRead() throws java.io.FileNotFoundException;
     method public byte[] readFully() throws java.io.IOException;
     method public java.io.FileOutputStream startWrite() throws java.io.IOException;
+  }
+
+  public abstract interface Consumer<T> {
+    method public abstract void accept(T);
   }
 
   public class ObjectsCompat {

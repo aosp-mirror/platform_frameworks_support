@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,18 @@
  * limitations under the License.
  */
 
-import static androidx.build.dependencies.DependenciesKt.*
+package androidx.core.util;
 
-plugins {
-    id("SupportAndroidLibraryPlugin")
-}
+/**
+ * Compat version of {@link java.util.function.Consumer}
+ * @param <T> the type of the input to the operation
+ */
+public interface Consumer<T> {
 
-dependencies {
-    androidTestImplementation project(':support-media-compat-test-lib')
-    androidTestImplementation "com.android.support:support-media-compat:27.1.0"
-
-    androidTestImplementation(TEST_RUNNER_TMP, libs.exclude_for_espresso)
+    /**
+     * Performs this operation on the given argument.
+     *
+     * @param t the input argument
+     */
+    void accept(T t);
 }
