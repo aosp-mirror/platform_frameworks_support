@@ -77,7 +77,7 @@ public interface ListBuilder {
      * a row or action has been previously added.
      * </p>
      */
-    void addSeeMoreRow(TemplateBuilderImpl builder);
+    void setSeeMoreRow(TemplateBuilderImpl builder);
     /**
      * If all content in a slice cannot be shown, a "see more" affordance will be displayed where
      * the content is cut off. The action added here should take the user to an activity to see
@@ -87,7 +87,7 @@ public interface ListBuilder {
      * a row or action has been previously added.
      * </p>
      */
-    void addSeeMoreAction(PendingIntent intent);
+    void setSeeMoreAction(PendingIntent intent);
 
     /**
      * Sets the color to tint items displayed by this template (e.g. icons).
@@ -156,6 +156,16 @@ public interface ListBuilder {
         void setTitle(@NonNull CharSequence title);
 
         /**
+         * Set the subtitle.
+         */
+        void setSubtitle(@NonNull CharSequence title);
+
+        /**
+         * Set the primary action.
+         */
+        void setPrimaryAction(@NonNull SliceAction action);
+
+        /**
          * Sets the content description.
          */
         void setContentDescription(CharSequence description);
@@ -168,7 +178,7 @@ public interface ListBuilder {
         /**
          * Set the {@link PendingIntent} to send when the value changes.
          */
-        void setAction(@NonNull PendingIntent action);
+        void setInputAction(@NonNull PendingIntent action);
 
         /**
          * Set the {@link IconCompat} to be displayed as the thumb on the input range.
@@ -325,7 +335,7 @@ public interface ListBuilder {
          * will be used. The summary is used when the parent template is presented in a
          * small format.
          */
-        void setSummarySubtitle(CharSequence summarySubtitle, boolean isLoading);
+        void setSummary(CharSequence summarySubtitle, boolean isLoading);
 
         /**
          * Sets the action to invoke when the header is activated.

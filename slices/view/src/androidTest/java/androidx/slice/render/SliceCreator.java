@@ -58,7 +58,7 @@ public class SliceCreator {
 
     public static final String[] URI_PATHS = {"message", "wifi", "wifi2", "note", "ride",
             "ride-ttl", "toggle", "toggle2", "contact", "gallery", "subscription", "subscription2",
-            "weather", "reservation"};
+            "weather", "reservation", "inputrange", "range"};
 
     private final Context mContext;
 
@@ -112,6 +112,10 @@ public class SliceCreator {
                 return createWeather(sliceUri);
             case "/reservation":
                 return createReservationSlice(sliceUri);
+            case "/inputrange":
+                return createStarRatingInputRange(sliceUri);
+            case "/range":
+                return createDownloadProgressRange(sliceUri);
         }
         throw new IllegalArgumentException("Unknown uri " + sliceUri);
     }
@@ -156,7 +160,7 @@ public class SliceCreator {
         ListBuilder b = new ListBuilder(getContext(), sliceUri, INFINITY);
         GridRowBuilder gb = new GridRowBuilder(b);
         PendingIntent pi = getBroadcastIntent(ACTION_TOAST, "see more of your gallery");
-        gb.addSeeMoreAction(pi);
+        gb.setSeeMoreAction(pi);
         gb.addCell(new GridRowBuilder.CellBuilder(gb)
                 .addImage(IconCompat.createWithResource(getContext(), R.drawable.slices_1),
                         LARGE_IMAGE))
@@ -191,9 +195,9 @@ public class SliceCreator {
                     ICON_IMAGE);
             cb.setContentIntent(pi);
             cb.addText("All cats");
-            gb.addSeeMoreCell(cb);
+            gb.setSeeMoreCell(cb);
         } else {
-            gb.addSeeMoreAction(pi);
+            gb.setSeeMoreAction(pi);
         }
         gb.addCell(new GridRowBuilder.CellBuilder(gb)
                 .addImage(IconCompat.createWithResource(getContext(), R.drawable.cat_1),
@@ -417,7 +421,8 @@ public class SliceCreator {
                     .setTitle("Network" + networkName);
             boolean locked = i % 3 == 0;
             if (locked) {
-                rb.addEndItem(IconCompat.createWithResource(getContext(), R.drawable.ic_lock));
+                rb.addEndItem(IconCompat.createWithResource(getContext(), R.drawable.ic_lock),
+                        ICON_IMAGE);
             }
             String message = locked ? "Open wifi password dialog" : "Connect to " + networkName;
             rb.setPrimaryAction(new SliceAction(getBroadcastIntent(ACTION_TOAST, message), icon,
@@ -425,13 +430,14 @@ public class SliceCreator {
             lb.addRow(rb);
         }
         if (customSeeMore) {
-            lb.addSeeMoreRow(new ListBuilder.RowBuilder(lb)
+            lb.setSeeMoreRow(new ListBuilder.RowBuilder(lb)
                     .setTitle("See all available networks")
                     .addEndItem(
-                            IconCompat.createWithResource(getContext(), R.drawable.ic_right_caret))
+                            IconCompat.createWithResource(getContext(), R.drawable.ic_right_caret),
+                            ICON_IMAGE)
                     .setPrimaryAction(primaryAction));
         } else {
-            lb.addSeeMoreAction(primaryAction.getAction());
+            lb.setSeeMoreAction(primaryAction.getAction());
         }
         return lb.build();
     }
@@ -463,6 +469,41 @@ public class SliceCreator {
                         "Contact host"))
                 .addGridRow(gb1)
                 .addGridRow(gb2)
+                .build();
+    }
+
+
+    private Slice createStarRatingInputRange(Uri sliceUri) {
+        IconCompat icon = IconCompat.createWithResource(getContext(), R.drawable.ic_star_on);
+        SliceAction primaryAction =
+                new SliceAction(getBroadcastIntent(ACTION_TOAST, "open star rating"), icon, "Rate");
+        ListBuilder lb = new ListBuilder(getContext(), sliceUri, INFINITY);
+        return lb.setColor(0xffff4081)
+                .addInputRange(new ListBuilder.InputRangeBuilder(lb)
+                        .setTitle("Star rating")
+                        .setSubtitle("Pick a rating from 0 to 5")
+                        .setThumb(icon)
+                        .setInputAction(getBroadcastIntent(ACTION_TOAST, "range changed"))
+                        .setMax(5)
+                        .setValue(3)
+                        .setPrimaryAction(primaryAction)
+                        .setContentDescription("Slider for star ratings"))
+                .build();
+    }
+
+    private Slice createDownloadProgressRange(Uri sliceUri) {
+        IconCompat icon = IconCompat.createWithResource(getContext(), R.drawable.ic_star_on);
+        SliceAction primaryAction =
+                new SliceAction(
+                        getBroadcastIntent(ACTION_TOAST, "open download"), icon, "Download");
+        ListBuilder lb = new ListBuilder(getContext(), sliceUri, INFINITY);
+        return lb.setColor(0xffff4081)
+                .addRange(new ListBuilder.RangeBuilder(lb)
+                        .setTitle("Download progress")
+                        .setSubtitle("Download is happening")
+                        .setMax(100)
+                        .setValue(75)
+                        .setPrimaryAction(primaryAction))
                 .build();
     }
 

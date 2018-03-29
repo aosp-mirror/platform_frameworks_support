@@ -21,16 +21,13 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import android.app.PendingIntent;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
-import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.core.graphics.drawable.IconCompat;
+import androidx.core.util.Consumer;
 import androidx.slice.builders.impl.TemplateBuilderImpl;
-
-import java.util.function.Consumer;
 
 
 /**
@@ -94,7 +91,6 @@ public class GridBuilder extends TemplateSliceBuilder {
     /**
      * Add a cell to the grid builder.
      */
-    @RequiresApi(Build.VERSION_CODES.N)
     @NonNull
     public GridBuilder addCell(@NonNull Consumer<CellBuilder> c) {
         CellBuilder b = new CellBuilder(this);
@@ -123,7 +119,7 @@ public class GridBuilder extends TemplateSliceBuilder {
             throw new IllegalStateException("Trying to add see more cell when one has "
                     + "already been added");
         }
-        mImpl.addSeeMoreCell((TemplateBuilderImpl) builder.mImpl);
+        mImpl.setSeeMoreCell((TemplateBuilderImpl) builder.mImpl);
         mHasSeeMore = true;
         return this;
     }
@@ -143,7 +139,6 @@ public class GridBuilder extends TemplateSliceBuilder {
      * a row or action has been previously added.
      * </p>
      */
-    @RequiresApi(Build.VERSION_CODES.N)
     @NonNull
     public GridBuilder addSeeMoreCell(@NonNull Consumer<CellBuilder> c) {
         CellBuilder b = new CellBuilder(this);
@@ -166,7 +161,7 @@ public class GridBuilder extends TemplateSliceBuilder {
             throw new IllegalStateException("Trying to add see more action when one has "
                     + "already been added");
         }
-        mImpl.addSeeMoreAction(intent);
+        mImpl.setSeeMoreAction(intent);
         mHasSeeMore = true;
         return this;
     }

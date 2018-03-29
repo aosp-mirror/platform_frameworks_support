@@ -33,7 +33,7 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.slice.builders.ListBuilder.ICON_IMAGE;
 import static androidx.slice.builders.ListBuilder.INFINITY;
 import static androidx.slice.builders.ListBuilder.LARGE_IMAGE;
-import static androidx.slice.core.SliceHints.HINT_KEY_WORDS;
+import static androidx.slice.core.SliceHints.HINT_KEYWORDS;
 import static androidx.slice.core.SliceHints.HINT_LAST_UPDATED;
 import static androidx.slice.core.SliceHints.HINT_TTL;
 import static androidx.slice.core.SliceHints.SUBTYPE_MAX;
@@ -136,7 +136,7 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
     /**
      */
     @Override
-    public void addSeeMoreRow(TemplateBuilderImpl builder) {
+    public void setSeeMoreRow(TemplateBuilderImpl builder) {
         builder.getBuilder().addHints(HINT_SEE_MORE);
         getBuilder().addSubSlice(builder.build());
     }
@@ -144,7 +144,7 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
     /**
      */
     @Override
-    public void addSeeMoreAction(PendingIntent intent) {
+    public void setSeeMoreAction(PendingIntent intent) {
         getBuilder().addSubSlice(
                 new Slice.Builder(getBuilder())
                         .addHints(HINT_SEE_MORE)
@@ -161,7 +161,9 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
         private int mMax = 100;
         private int mValue = 0;
         private CharSequence mTitle;
+        private CharSequence mSubtitle;
         private CharSequence mContentDescr;
+        private SliceAction mPrimaryAction;
 
         public RangeBuilderImpl(Slice.Builder sb) {
             super(sb, null);
@@ -183,6 +185,16 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
         }
 
         @Override
+        public void setSubtitle(@NonNull CharSequence title) {
+            mSubtitle = title;
+        }
+
+        @Override
+        public void setPrimaryAction(@NonNull SliceAction action) {
+            mPrimaryAction = action;
+        }
+
+        @Override
         public void setContentDescription(@NonNull CharSequence description) {
             mContentDescr = description;
         }
@@ -192,8 +204,16 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
             if (mTitle != null) {
                 builder.addText(mTitle, null, HINT_TITLE);
             }
+            if (mSubtitle != null) {
+                builder.addText(mSubtitle, null);
+            }
             if (mContentDescr != null) {
                 builder.addText(mContentDescr, SUBTYPE_CONTENT_DESCRIPTION);
+            }
+            if (mPrimaryAction != null) {
+                Slice.Builder sb = new Slice.Builder(
+                        getBuilder()).addHints(HINT_TITLE, HINT_SHORTCUT);
+                builder.addSubSlice(mPrimaryAction.buildSlice(sb), null /* subtype */);
             }
             builder.addHints(HINT_LIST_ITEM)
                     .addInt(mMax, SUBTYPE_MAX)
@@ -214,7 +234,7 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
         }
 
         @Override
-        public void setAction(@NonNull PendingIntent action) {
+        public void setInputAction(@NonNull PendingIntent action) {
             mAction = action;
         }
 
@@ -253,7 +273,7 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
         for (int i = 0; i < keywords.size(); i++) {
             sb.addText(keywords.get(i), null);
         }
-        getBuilder().addSubSlice(sb.addHints(HINT_KEY_WORDS).build());
+        getBuilder().addSubSlice(sb.addHints(HINT_KEYWORDS).build());
     }
 
     /**
@@ -603,7 +623,7 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
         /**
          */
         @Override
-        public void setSummarySubtitle(CharSequence summarySubtitle, boolean isLoading) {
+        public void setSummary(CharSequence summarySubtitle, boolean isLoading) {
             mSummaryItem = new SliceItem(summarySubtitle, FORMAT_TEXT, null,
                     new String[] {HINT_SUMMARY});
             if (isLoading) {
