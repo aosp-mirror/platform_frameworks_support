@@ -31,6 +31,7 @@ import static android.app.slice.Slice.HINT_TITLE;
 import static android.app.slice.SliceItem.FORMAT_ACTION;
 import static android.app.slice.SliceItem.FORMAT_IMAGE;
 import static android.app.slice.SliceItem.FORMAT_INT;
+import static android.app.slice.SliceItem.FORMAT_LONG;
 import static android.app.slice.SliceItem.FORMAT_REMOTE_INPUT;
 import static android.app.slice.SliceItem.FORMAT_SLICE;
 import static android.app.slice.SliceItem.FORMAT_TEXT;
@@ -39,6 +40,7 @@ import static android.app.slice.SliceItem.FORMAT_TIMESTAMP;
 import static androidx.slice.SliceConvert.unwrap;
 import static androidx.slice.core.SliceHints.HINT_KEYWORDS;
 import static androidx.slice.core.SliceHints.HINT_LAST_UPDATED;
+import static androidx.slice.core.SliceHints.HINT_PERMISSION_REQUEST;
 import static androidx.slice.core.SliceHints.HINT_TTL;
 
 import android.app.PendingIntent;
@@ -57,6 +59,7 @@ import androidx.annotation.RestrictTo.Scope;
 import androidx.annotation.StringDef;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.core.os.BuildCompat;
+import androidx.core.util.Consumer;
 import androidx.slice.compat.SliceProviderCompat;
 
 import java.util.ArrayList;
@@ -84,9 +87,24 @@ public final class Slice {
      * @hide
      */
     @RestrictTo(Scope.LIBRARY)
-    @StringDef({HINT_TITLE, HINT_LIST, HINT_LIST_ITEM, HINT_LARGE, HINT_ACTIONS, HINT_SELECTED,
-            HINT_HORIZONTAL, HINT_NO_TINT, HINT_PARTIAL, HINT_SUMMARY, HINT_SEE_MORE,
-            HINT_SHORTCUT, HINT_KEYWORDS, HINT_TTL, HINT_LAST_UPDATED})
+    @StringDef({
+            HINT_TITLE,
+            HINT_LIST,
+            HINT_LIST_ITEM,
+            HINT_LARGE,
+            HINT_ACTIONS,
+            HINT_SELECTED,
+            HINT_HORIZONTAL,
+            HINT_NO_TINT,
+            HINT_PARTIAL,
+            HINT_SUMMARY,
+            HINT_SEE_MORE,
+            HINT_SHORTCUT,
+            HINT_KEYWORDS,
+            HINT_TTL,
+            HINT_LAST_UPDATED,
+            HINT_PERMISSION_REQUEST,
+    })
     public @interface SliceHint{ }
 
     private final SliceItem[] mItems;
@@ -269,6 +287,19 @@ public final class Slice {
         }
 
         /**
+         * Add an action to the slice being constructed
+         * @param subType Optional template-specific type information
+         * @see {@link SliceItem#getSubType()}
+         */
+        public Slice.Builder addAction(@NonNull Consumer<Uri> action,
+                @NonNull Slice s, @Nullable String subType) {
+            @SliceHint String[] hints = s != null
+                    ? s.getHints().toArray(new String[s.getHints().size()]) : new String[0];
+            mItems.add(new SliceItem(action, s, FORMAT_ACTION, subType, hints));
+            return this;
+        }
+
+        /**
          * Add text to the slice being constructed
          * @param subType Optional template-specific type information
          * @see {@link SliceItem#getSubType()}
@@ -361,6 +392,19 @@ public final class Slice {
          * @param subType Optional template-specific type information
          * @see {@link SliceItem#getSubType()}
          */
+        public Slice.Builder addLong(long time, @Nullable String subType,
+                @SliceHint String... hints) {
+            mItems.add(new SliceItem(time, FORMAT_LONG, subType, hints));
+            return this;
+        }
+
+        /**
+         * Add a timestamp to the slice being constructed
+         * @param subType Optional template-specific type information
+         * @see {@link SliceItem#getSubType()}
+         * @deprecated TO BE REMOVED
+         */
+        @Deprecated
         public Slice.Builder addTimestamp(long time, @Nullable String subType,
                 @SliceHint String... hints) {
             mItems.add(new SliceItem(time, FORMAT_TIMESTAMP, subType, hints));
@@ -396,35 +440,28 @@ public final class Slice {
     }
 
     /**
-     * @hide
      * @return A string representation of this slice.
      */
-    @RestrictTo(Scope.LIBRARY)
     @Override
     public String toString() {
         return toString("");
     }
 
     /**
+     * @return A string representation of this slice.
      * @hide
      */
     @RestrictTo(Scope.LIBRARY)
     public String toString(String indent) {
         StringBuilder sb = new StringBuilder();
+        sb.append(indent);
+        sb.append("slice: ");
+        sb.append("\n");
+        indent += "   ";
         for (int i = 0; i < mItems.length; i++) {
-            sb.append(indent);
-            if (FORMAT_SLICE.equals(mItems[i].getFormat())) {
-                sb.append("slice:\n");
-                sb.append(mItems[i].getSlice().toString(indent + "   "));
-            } else if (FORMAT_ACTION.equals(mItems[i].getFormat())) {
-                sb.append("action:\n");
-                sb.append(mItems[i].getSlice().toString(indent + "   "));
-            } else if (FORMAT_TEXT.equals(mItems[i].getFormat())) {
-                sb.append("text: ");
-                sb.append(mItems[i].getText());
-                sb.append("\n");
-            } else {
-                sb.append(SliceItem.typeToString(mItems[i].getFormat()));
+            SliceItem item = mItems[i];
+            sb.append(item.toString(indent));
+            if (!FORMAT_SLICE.equals(item.getFormat())) {
                 sb.append("\n");
             }
         }

@@ -22,8 +22,10 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import android.content.Context;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.core.util.Consumer;
@@ -111,6 +113,7 @@ public class MessagingSliceBuilder extends TemplateSliceBuilder {
         /**
          * Add the icon used to display contact in the messaging experience
          */
+        @RequiresApi(23)
         public MessageBuilder addSource(Icon source) {
             mImpl.addSource(source);
             return this;
@@ -120,7 +123,9 @@ public class MessagingSliceBuilder extends TemplateSliceBuilder {
          * Add the icon used to display contact in the messaging experience
          */
         public MessageBuilder addSource(IconCompat source) {
-            mImpl.addSource(source.toIcon());
+            if (Build.VERSION.SDK_INT >= 23) {
+                mImpl.addSource(source.toIcon());
+            }
             return this;
         }
 

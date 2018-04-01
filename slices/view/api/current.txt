@@ -3,11 +3,14 @@ package androidx.slice {
   public abstract class SliceManager {
     method public abstract androidx.slice.Slice bindSlice(android.net.Uri);
     method public abstract androidx.slice.Slice bindSlice(android.content.Intent);
+    method public abstract int checkSlicePermission(android.net.Uri, int, int);
     method public static androidx.slice.SliceManager getInstance(android.content.Context);
+    method public abstract void grantSlicePermission(java.lang.String, android.net.Uri);
     method public abstract android.net.Uri mapIntentToUri(android.content.Intent);
     method public abstract void pinSlice(android.net.Uri);
     method public abstract void registerSliceCallback(android.net.Uri, androidx.slice.SliceManager.SliceCallback);
     method public abstract void registerSliceCallback(android.net.Uri, java.util.concurrent.Executor, androidx.slice.SliceManager.SliceCallback);
+    method public abstract void revokeSlicePermission(java.lang.String, android.net.Uri);
     method public abstract void unpinSlice(android.net.Uri);
     method public abstract void unregisterSliceCallback(android.net.Uri, androidx.slice.SliceManager.SliceCallback);
   }
@@ -28,6 +31,7 @@ package androidx.slice {
     method public java.util.List<java.lang.String> getSliceKeywords();
     method public java.util.List<androidx.slice.core.SliceAction> getToggles();
     method public boolean hasLargeMode();
+    method public boolean isPermissionSlice();
     field public static final int LOADED_ALL = 2; // 0x2
     field public static final int LOADED_NONE = 0; // 0x0
     field public static final int LOADED_PARTIAL = 1; // 0x1
@@ -37,8 +41,8 @@ package androidx.slice {
     method public static deprecated int getLoadingState(androidx.slice.Slice);
     method public static deprecated java.util.List<androidx.slice.SliceItem> getSliceActions(androidx.slice.Slice);
     method public static deprecated java.util.List<java.lang.String> getSliceKeywords(androidx.slice.Slice);
-    method public static androidx.slice.Slice parseSlice(java.io.InputStream, java.lang.String) throws java.io.IOException;
-    method public static void serializeSlice(androidx.slice.Slice, android.content.Context, java.io.OutputStream, java.lang.String, androidx.slice.SliceUtils.SerializeOptions) throws java.io.IOException;
+    method public static androidx.slice.Slice parseSlice(android.content.Context, java.io.InputStream, java.lang.String, androidx.slice.SliceUtils.SliceActionListener) throws java.io.IOException, androidx.slice.SliceUtils.SliceParseException;
+    method public static void serializeSlice(androidx.slice.Slice, android.content.Context, java.io.OutputStream, java.lang.String, androidx.slice.SliceUtils.SerializeOptions) throws java.io.IOException, java.lang.IllegalArgumentException;
     field public static final deprecated int LOADING_ALL = 0; // 0x0
     field public static final deprecated int LOADING_COMPLETE = 2; // 0x2
     field public static final deprecated int LOADING_PARTIAL = 1; // 0x1
@@ -48,9 +52,18 @@ package androidx.slice {
     ctor public SliceUtils.SerializeOptions();
     method public androidx.slice.SliceUtils.SerializeOptions setActionMode(int);
     method public androidx.slice.SliceUtils.SerializeOptions setImageMode(int);
-    field public static final int MODE_DISABLE = 2; // 0x2
+    method public androidx.slice.SliceUtils.SerializeOptions setMaxImageHeight(int);
+    method public androidx.slice.SliceUtils.SerializeOptions setMaxImageWidth(int);
+    field public static final int MODE_CONVERT = 2; // 0x2
     field public static final int MODE_REMOVE = 1; // 0x1
     field public static final int MODE_THROW = 0; // 0x0
+  }
+
+  public static abstract interface SliceUtils.SliceActionListener {
+    method public abstract void onSliceAction(android.net.Uri);
+  }
+
+  public static class SliceUtils.SliceParseException extends java.lang.Exception {
   }
 
 }
@@ -88,7 +101,6 @@ package androidx.slice.widget {
   }
 
   public final class SliceLiveData {
-    ctor public SliceLiveData();
     method public static androidx.lifecycle.LiveData<androidx.slice.Slice> fromIntent(android.content.Context, android.content.Intent);
     method public static androidx.lifecycle.LiveData<androidx.slice.Slice> fromUri(android.content.Context, android.net.Uri);
   }
