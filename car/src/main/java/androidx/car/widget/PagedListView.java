@@ -18,6 +18,8 @@ package androidx.car.widget;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+import static java.lang.annotation.RetentionPolicy.SOURCE;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -49,6 +51,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.OrientationHelper;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.lang.annotation.Retention;
 
 /**
  * View that wraps a {@link RecyclerView} and a scroll bar that has
@@ -187,6 +191,7 @@ public class PagedListView extends FrameLayout {
             Gutter.END,
             Gutter.BOTH,
     })
+    @Retention(SOURCE)
     public @interface Gutter {
         /**
          * No gutter on either side of the list items. The items will span the full width of the
@@ -260,7 +265,7 @@ public class PagedListView extends FrameLayout {
         mSnapHelper = new PagedSnapHelper(context);
         mSnapHelper.attachToRecyclerView(mRecyclerView);
 
-        mRecyclerView.setOnScrollListener(mRecyclerViewOnScrollListener);
+        mRecyclerView.addOnScrollListener(mRecyclerViewOnScrollListener);
         mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 12);
 
         int defaultGutterSize = getResources().getDimensionPixelSize(R.dimen.car_margin);
@@ -849,6 +854,13 @@ public class PagedListView extends FrameLayout {
                 getOrientationHelper(mRecyclerView.getLayoutManager());
         int screenSize = mRecyclerView.getHeight();
         int scrollDistance = screenSize;
+
+        // If the last item is partially visible, page down should bring it to the top.
+        View lastChild = mRecyclerView.getChildAt(mRecyclerView.getChildCount() - 1);
+        if (mRecyclerView.getLayoutManager().isViewPartiallyVisible(lastChild,
+                /* completelyVisible= */ false, /* acceptEndPointInclusion= */ false)) {
+            scrollDistance = orientationHelper.getDecoratedStart(lastChild);
+        }
 
         // The iteration order matters. In case where there are 2 items longer than screen size, we
         // want to focus on upcoming view (the one at the bottom of screen).
