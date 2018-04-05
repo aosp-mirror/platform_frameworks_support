@@ -141,6 +141,8 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
     private int mActionRowHeight;
 
     private AttributeSet mAttrs;
+    private int mDefStyleAttr;
+    private int mDefStyleRes;
     private int mThemeTintColor = -1;
 
     private OnSliceActionListener mSliceObserver;
@@ -175,8 +177,11 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         mAttrs = attrs;
+        mDefStyleAttr = defStyleAttr;
+        mDefStyleRes = defStyleRes;
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SliceView,
                 defStyleAttr, defStyleRes);
+
         try {
             mThemeTintColor = a.getColor(R.styleable.SliceView_tintColor, -1);
         } finally {
@@ -236,7 +241,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
                     mSliceObserver.onSliceAction(eventInfo, mListContent.getPrimaryAction());
                 }
             } catch (PendingIntent.CanceledException e) {
-                e.printStackTrace();
+                Log.e(TAG, "PendingIntent for slice cannot be sent", e);
             }
         } else if (mOnClickListener != null) {
             mOnClickListener.onClick(this);
@@ -550,7 +555,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         if (mCurrentView instanceof LargeTemplateView) {
             ((LargeTemplateView) mCurrentView).setScrollable(mIsScrollable);
         }
-        mCurrentView.setStyle(mAttrs);
+        mCurrentView.setStyle(mAttrs, mDefStyleAttr, mDefStyleRes);
         mCurrentView.setTint(getTintColor());
 
         // Check if the slice content is expired and show when it was last updated

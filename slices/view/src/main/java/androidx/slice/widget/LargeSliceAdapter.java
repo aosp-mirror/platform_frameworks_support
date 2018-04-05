@@ -19,7 +19,6 @@ package androidx.slice.widget;
 import static android.app.slice.Slice.HINT_HORIZONTAL;
 import static android.app.slice.Slice.SUBTYPE_MESSAGE;
 import static android.app.slice.Slice.SUBTYPE_SOURCE;
-import static android.app.slice.SliceItem.FORMAT_IMAGE;
 import static android.app.slice.SliceItem.FORMAT_INT;
 import static android.app.slice.SliceItem.FORMAT_TEXT;
 
@@ -65,6 +64,8 @@ public class LargeSliceAdapter extends RecyclerView.Adapter<LargeSliceAdapter.Sl
     private SliceView.OnSliceActionListener mSliceObserver;
     private int mColor;
     private AttributeSet mAttrs;
+    private int mDefStyleAttr;
+    private int mDefStyleRes;
     private List<SliceItem> mSliceActions;
     private boolean mShowLastUpdated;
     private long mLastUpdated;
@@ -119,8 +120,10 @@ public class LargeSliceAdapter extends RecyclerView.Adapter<LargeSliceAdapter.Sl
     /**
      * Sets the attribute set to use for views in the list.
      */
-    public void setStyle(AttributeSet attrs) {
+    public void setStyle(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         mAttrs = attrs;
+        mDefStyleAttr = defStyleAttr;
+        mDefStyleRes = defStyleRes;
         notifyDataSetChanged();
     }
 
@@ -246,7 +249,7 @@ public class LargeSliceAdapter extends RecyclerView.Adapter<LargeSliceAdapter.Sl
 
             final boolean isHeader = position == HEADER_INDEX;
             mSliceChildView.setTint(mColor);
-            mSliceChildView.setStyle(mAttrs);
+            mSliceChildView.setStyle(mAttrs, mDefStyleAttr, mDefStyleRes);
             mSliceChildView.setSliceItem(item, isHeader, position, mSliceObserver);
             if (isHeader && mSliceChildView instanceof RowView) {
                 mSliceChildView.setSliceActions(mSliceActions);
@@ -299,12 +302,8 @@ public class LargeSliceAdapter extends RecyclerView.Adapter<LargeSliceAdapter.Sl
             while (items.hasNext()) {
                 SliceItem i = items.next();
                 builder.append(i.getFormat());
-                //i.removeHint(Slice.HINT_SELECTED);
                 builder.append(i.getHints());
                 switch (i.getFormat()) {
-                    case FORMAT_IMAGE:
-                        builder.append(i.getIcon());
-                        break;
                     case FORMAT_TEXT:
                         builder.append(i.getText());
                         break;
