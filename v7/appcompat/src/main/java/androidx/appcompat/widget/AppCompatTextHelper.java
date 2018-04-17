@@ -46,20 +46,14 @@ class AppCompatTextHelper {
     private static final int SERIF = 2;
     private static final int MONOSPACE = 3;
 
-
-    static AppCompatTextHelper create(TextView textView) {
-        if (Build.VERSION.SDK_INT >= 17) {
-            return new AppCompatTextHelperV17(textView);
-        }
-        return new AppCompatTextHelper(textView);
-    }
-
-    final TextView mView;
+    private final TextView mView;
 
     private TintInfo mDrawableLeftTint;
     private TintInfo mDrawableTopTint;
     private TintInfo mDrawableRightTint;
     private TintInfo mDrawableBottomTint;
+    private TintInfo mDrawableStartTint;
+    private TintInfo mDrawableEndTint;
 
     private final @NonNull AppCompatTextViewAutoSizeHelper mAutoSizeTextHelper;
 
@@ -98,6 +92,18 @@ class AppCompatTextHelper {
             mDrawableBottomTint = createTintInfo(context, drawableManager,
                     a.getResourceId(R.styleable.AppCompatTextHelper_android_drawableBottom, 0));
         }
+
+        if (Build.VERSION.SDK_INT >= 17) {
+            if (a.hasValue(R.styleable.AppCompatTextHelper_android_drawableStart)) {
+                mDrawableStartTint = createTintInfo(context, drawableManager,
+                    a.getResourceId(R.styleable.AppCompatTextHelper_android_drawableStart, 0));
+            }
+            if (a.hasValue(R.styleable.AppCompatTextHelper_android_drawableEnd)) {
+                mDrawableEndTint = createTintInfo(context, drawableManager,
+                    a.getResourceId(R.styleable.AppCompatTextHelper_android_drawableEnd, 0));
+            }
+        }
+
         a.recycle();
 
         // PasswordTransformationMethod wipes out all other TransformationMethod instances
@@ -203,6 +209,25 @@ class AppCompatTextHelper {
                     }
                 }
             }
+        }
+
+        // Read line and baseline heights attributes.
+        a = TintTypedArray.obtainStyledAttributes(context, attrs, R.styleable.AppCompatTextView);
+        final int firstBaselineToTopHeight = a.getDimensionPixelSize(
+                R.styleable.AppCompatTextView_firstBaselineToTopHeight, -1);
+        final int lastBaselineToBottomHeight = a.getDimensionPixelSize(
+                R.styleable.AppCompatTextView_lastBaselineToBottomHeight, -1);
+        final int lineHeight = a.getDimensionPixelSize(
+                R.styleable.AppCompatTextView_lineHeight, -1);
+        a.recycle();
+        if (firstBaselineToTopHeight != -1) {
+            TextViewCompat.setFirstBaselineToTopHeight(mView, firstBaselineToTopHeight);
+        }
+        if (lastBaselineToBottomHeight != -1) {
+            TextViewCompat.setLastBaselineToBottomHeight(mView, lastBaselineToBottomHeight);
+        }
+        if (lineHeight != -1) {
+            TextViewCompat.setLineHeight(mView, lineHeight);
         }
     }
 
@@ -318,15 +343,22 @@ class AppCompatTextHelper {
             applyCompoundDrawableTint(compoundDrawables[2], mDrawableRightTint);
             applyCompoundDrawableTint(compoundDrawables[3], mDrawableBottomTint);
         }
+        if (Build.VERSION.SDK_INT >= 17) {
+            if (mDrawableStartTint != null || mDrawableEndTint != null) {
+                final Drawable[] compoundDrawables = mView.getCompoundDrawablesRelative();
+                applyCompoundDrawableTint(compoundDrawables[0], mDrawableStartTint);
+                applyCompoundDrawableTint(compoundDrawables[2], mDrawableEndTint);
+            }
+        }
     }
 
-    final void applyCompoundDrawableTint(Drawable drawable, TintInfo info) {
+    private void applyCompoundDrawableTint(Drawable drawable, TintInfo info) {
         if (drawable != null && info != null) {
             AppCompatDrawableManager.tintDrawable(drawable, info, mView.getDrawableState());
         }
     }
 
-    protected static TintInfo createTintInfo(Context context,
+    private static TintInfo createTintInfo(Context context,
             AppCompatDrawableManager drawableManager, int drawableId) {
         final ColorStateList tintList = drawableManager.getTintList(context, drawableId);
         if (tintList != null) {
