@@ -23,6 +23,15 @@
                 android:color="@color/car_seekbar_track_background" />
         </shape>
     </item>
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape android:shape="line">
+                <stroke
+                    android:width="@dimen/car_seekbar_height"
+                    android:color="@color/car_seekbar_track_secondary_progress" />
+            </shape>
+        </clip>
+    </item>
     <item android:id="@android:id/progress">
         <clip>
             <shape android:shape="line">

@@ -24,6 +24,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:showPagedListViewDivider="true"
-        app:gutter="start"/>
+        app:dayNightStyle="force_night"
+        app:dividerStartMargin="@dimen/car_keyline_1"
+        app:dividerEndMargin="@dimen/car_keyline_1"
+        app:gutter="both"/>
 </FrameLayout>
 
