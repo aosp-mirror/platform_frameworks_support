@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,24 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package androidx.work.integration.testapp.sherlockholmes;
+
+package androidx.work.test;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import androidx.work.Worker;
-import androidx.work.integration.testapp.db.TestDatabase;
+
+import java.util.UUID;
 
 /**
- * A Worker that deletes the final results file.
+ * Additional functionality exposed for {@link androidx.work.WorkManager}
+ * that are useful in the context of testing.
  */
-public class TextStartupWorker extends Worker {
+public interface TestDriver {
 
-    @Override
-    public @NonNull WorkerResult doWork() {
-        TestDatabase db = TestDatabase.getInstance(getApplicationContext());
-        db.getWordCountDao().clear();
-        Log.d("Startup", "Database cleared");
-        return WorkerResult.SUCCESS;
-    }
+    /**
+     * Tells {@link TestDriver} to pretend that all constraints on the
+     * {@link Worker} with the given {@code workSpecId} are met.
+     *
+     * The {@link Worker} is scheduled for execution.
+     *
+     * @param workSpecId is the {@link Worker}s id.
+     */
+    void setAllConstraintsMet(@NonNull UUID workSpecId);
 }

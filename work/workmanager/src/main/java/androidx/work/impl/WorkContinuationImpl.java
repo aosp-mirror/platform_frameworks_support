@@ -26,14 +26,14 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.work.ArrayCreatingInputMerger;
-import androidx.work.BlockingWorkContinuation;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
+import androidx.work.SynchronousWorkContinuation;
 import androidx.work.WorkContinuation;
 import androidx.work.WorkRequest;
 import androidx.work.WorkStatus;
 import androidx.work.impl.utils.EnqueueRunnable;
-import androidx.work.impl.workers.JoinWorker;
+import androidx.work.impl.workers.CombineContinuationsWorker;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,7 +48,7 @@ import java.util.Set;
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class WorkContinuationImpl extends WorkContinuation
-        implements BlockingWorkContinuation {
+        implements SynchronousWorkContinuation {
 
     private static final String TAG = "WorkContinuationImpl";
 
@@ -140,7 +140,7 @@ public class WorkContinuationImpl extends WorkContinuation
             }
         }
         for (int i = 0; i < work.size(); i++) {
-            String id = work.get(i).getId();
+            String id = work.get(i).getStringId();
             mIds.add(id);
             mAllIds.add(id);
         }
@@ -177,9 +177,9 @@ public class WorkContinuationImpl extends WorkContinuation
 
     @Override
     @WorkerThread
-    public void enqueueBlocking() {
+    public void enqueueSync() {
         if (Looper.getMainLooper().getThread() == Thread.currentThread()) {
-            throw new IllegalStateException("Cannot enqueueBlocking on main thread!");
+            throw new IllegalStateException("Cannot enqueueSync on main thread!");
         }
 
         if (!mEnqueued) {
@@ -192,17 +192,17 @@ public class WorkContinuationImpl extends WorkContinuation
     }
 
     @Override
-    public BlockingWorkContinuation blocking() {
+    public SynchronousWorkContinuation synchronous() {
         return this;
     }
 
     @Override
-    protected WorkContinuation joinInternal(
+    protected WorkContinuation combineInternal(
             @Nullable OneTimeWorkRequest work,
             @NonNull List<WorkContinuation> continuations) {
 
         if (work == null) {
-            work = new OneTimeWorkRequest.Builder(JoinWorker.class)
+            work = new OneTimeWorkRequest.Builder(CombineContinuationsWorker.class)
                     .withInputMerger(ArrayCreatingInputMerger.class)
                     .build();
         }

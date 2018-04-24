@@ -19,15 +19,100 @@ package androidx.work;
 import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.RestrictTo;
 
 import androidx.work.impl.WorkManagerImpl;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 /**
- * WorkManager is a class used to enqueue persisted work that is guaranteed to run after its
- * constraints are met.
+ * WorkManager is a library used to enqueue work that is guaranteed to execute after its constraints
+ * are met.  WorkManager allows observation of work status and the ability to create complex chains
+ * of work.
+ *
+ * WorkManager uses an underlying job dispatching service when available based on the following
+ * criteria:
+ *
+ * * Uses JobScheduler for API 23+
+ * * For API 14-22
+ *   * If using Firebase JobDispatcher in the app and the optional Firebase dependency, uses
+ *     Firebase JobDispatcher
+ *   * Otherwise, uses a custom AlarmManager + BroadcastReceiver implementation
+ *
+ * All work must have a corresponding {@link Worker} to perform the computations.  Work is
+ * performed in the background thread.
+ *
+ * There are two types of work supported by WorkManager: {@link OneTimeWorkRequest} and
+ * {@link PeriodicWorkRequest}.  You can enqueue requests using WorkManager as follows:
+ *
+ * <pre>
+ * {@code
+ * WorkManager workManager = WorkManager.getInstance();
+ * workManager.enqueue(new OneTimeWorkRequest.Builder(FooWorker.class).build());}</pre>
+ *
+ * A {@link WorkRequest} has an associated id that can be used for lookups and observation as
+ * follows:
+ *
+ * <pre>
+ * {@code
+ * WorkRequest request = new OneTimeWorkRequest.Builder(FooWorker.class).build();
+ * workManager.enqueue(request);
+ * LiveData<WorkStatus> status = workManager.getStatusById(request.getId());
+ * status.observe(...);}</pre>
+ *
+ * You can also use the id for cancellation:
+ *
+ * <pre>
+ * {@code
+ * WorkRequest request = new OneTimeWorkRequest.Builder(FooWorker.class).build();
+ * workManager.enqueue(request);
+ * workManager.cancelWorkById(request.getId());}</pre>
+ *
+ * You can chain work as follows:
+ *
+ * <pre>
+ * {@code
+ * WorkRequest request1 = new OneTimeWorkRequest.Builder(FooWorker.class).build();
+ * WorkRequest request2 = new OneTimeWorkRequest.Builder(BarWorker.class).build();
+ * WorkRequest request3 = new OneTimeWorkRequest.Builder(BazWorker.class).build();
+ * workManager.beginWith(request1, request2).then(request3).enqueue();}</pre>
+ *
+ * Each call to {@link #beginWith(OneTimeWorkRequest...)} or {@link #beginWith(List)} returns a
+ * {@link WorkContinuation} upon which you can call
+ * {@link WorkContinuation#then(OneTimeWorkRequest...)} or {@link WorkContinuation#then(List)} to
+ * chain further work.  This allows for creation of complex chains of work.  For example, to create
+ * a chain like this:
+ *
+ * <pre>
+ *            A
+ *            |
+ *      +----------+
+ *      |          |
+ *      B          C
+ *      |
+ *   +----+
+ *   |    |
+ *   D    E             </pre>
+ *
+ * you would enqueue them as follows:
+ *
+ * <pre>
+ * {@code
+ * WorkContinuation continuation = workManager.beginWith(A);
+ * continuation.then(B).then(D, E).enqueue();  // A is implicitly enqueued here
+ * continuation.then(C).enqueue();}</pre>
+ *
+ * WorkRequests can accept {@link Constraints}, inputs (see {@link Data}), and backoff criteria.
+ * WorkRequests can be tagged with human-readable Strings
+ * (see {@link WorkRequest.Builder#addTag(String)}), and chains of work can be given a
+ * uniquely-identifiable name (see
+ * {@link #beginUniqueWork(String, ExistingWorkPolicy, OneTimeWorkRequest...)}).
+ *
+ * By default, WorkManager runs its operations on a background thread.  If you are already running
+ * on a background thread and have need for synchronous (blocking) calls to WorkManager, use
+ * {@link #synchronous()} to access such methods.
  */
 public abstract class WorkManager {
 
@@ -156,7 +241,7 @@ public abstract class WorkManager {
      *
      * @param id The id of the work
      */
-    public abstract void cancelWorkById(@NonNull String id);
+    public abstract void cancelWorkById(@NonNull UUID id);
 
     /**
      * Cancels all unfinished work with the given tag.  Note that cancellation is a best-effort
@@ -180,7 +265,7 @@ public abstract class WorkManager {
      * @param id The id of the work
      * @return A {@link LiveData} of the {@link WorkStatus} associated with {@code id}
      */
-    public abstract LiveData<WorkStatus> getStatusById(@NonNull String id);
+    public abstract LiveData<WorkStatus> getStatusById(@NonNull UUID id);
 
     /**
      * Gets a {@link LiveData} of the {@link WorkStatus} for all work for a given tag.
@@ -202,10 +287,16 @@ public abstract class WorkManager {
             @NonNull String uniqueWorkName);
 
     /**
-     * Gets an object that gives access to blocking (synchronous) methods.
+     * Gets an object that gives access to synchronous methods.
      *
-     * @return A {@link BlockingWorkManager} object, which gives access to blocking
-     *         (synchronous) methods
+     * @return A {@link SynchronousWorkManager} object, which gives access to synchronous methods
      */
-    public abstract BlockingWorkManager blocking();
+    public abstract SynchronousWorkManager synchronous();
+
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    protected WorkManager() {
+    }
 }

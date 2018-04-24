@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,24 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package androidx.work.integration.testapp.sherlockholmes;
+
+package androidx.work.test.workers;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import androidx.work.Worker;
-import androidx.work.integration.testapp.db.TestDatabase;
 
-/**
- * A Worker that deletes the final results file.
- */
-public class TextStartupWorker extends Worker {
+public class TestWorker extends Worker {
+    private static final String TAG = "TestWorker";
 
+    @NonNull
     @Override
-    public @NonNull WorkerResult doWork() {
-        TestDatabase db = TestDatabase.getInstance(getApplicationContext());
-        db.getWordCountDao().clear();
-        Log.d("Startup", "Database cleared");
+    public WorkerResult doWork() {
+        Log.i(TAG, "Doing work.");
         return WorkerResult.SUCCESS;
     }
 }

@@ -14,29 +14,23 @@
  * limitations under the License.
  */
 
-package androidx.work.test;
+package androidx.work.impl.workers;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
+import android.support.annotation.RestrictTo;
 
-import androidx.work.impl.Scheduler;
-import androidx.work.impl.model.WorkSpec;
-
-import java.util.Arrays;
+import androidx.work.Worker;
 
 /**
- * An implementation of a Scheduler which just logs requests to schedule and cancel.
+ * A {@link Worker} that helps combine work continuations.
+ *
+ * @hide
  */
-public class NoOpScheduler implements Scheduler {
-    private static final String TAG = "NoOpScheduler";
-
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+public class CombineContinuationsWorker extends Worker {
     @Override
-    public void schedule(WorkSpec... workSpecs) {
-        Log.i(TAG, String.format("Scheduling Request for %s ", Arrays.toString(workSpecs)));
-    }
-
-    @Override
-    public void cancel(@NonNull String workSpecId) {
-        Log.i(TAG, String.format("Cancel request for %s", workSpecId));
+    public @NonNull WorkerResult doWork() {
+        setOutputData(getInputData());
+        return WorkerResult.SUCCESS;
     }
 }

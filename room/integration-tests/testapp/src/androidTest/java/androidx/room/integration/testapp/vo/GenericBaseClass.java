@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright (C) 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,25 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package androidx.room.integration.testapp.vo;
 
-package androidx.work.impl.workers;
+import androidx.room.Embedded;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
-
-import androidx.work.Worker;
-
-/**
- * Is a implementation of the {@link Worker} that helps join
- * work continuations.
- *
- * @hide
- */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class JoinWorker extends Worker {
-    @Override
-    public @NonNull WorkerResult doWork() {
-        setOutputData(getInputData());
-        return WorkerResult.SUCCESS;
-    }
+public class GenericBaseClass<T> {
+    @Embedded
+    public T item;
 }
