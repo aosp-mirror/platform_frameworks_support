@@ -27,7 +27,6 @@
         <activity android:name="androidx.lifecycle.activity.FragmentLifecycleActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
         <activity android:name="androidx.lifecycle.activity.EmptyActivity"/>
-        <service android:name="androidx.lifecycle.service.TestService"/>
     </application>
 
 </manifest>
