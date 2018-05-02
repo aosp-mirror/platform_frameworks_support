@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,12 @@
  * limitations under the License.
  */
 
-package androidx.core.app;
+package androidx.work.ktx.workers
 
-import android.os.Bundle;
-import android.view.WindowManager;
+import androidx.work.Worker
 
-import androidx.core.test.R;
-
-public class TestSupportActivity extends SupportActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        setContentView(R.layout.activity_compat_activity);
+class TestWorker : Worker() {
+    override fun doWork(): WorkerResult {
+        return WorkerResult.SUCCESS
     }
 }
