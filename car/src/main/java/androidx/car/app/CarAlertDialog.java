@@ -23,7 +23,6 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.TouchDelegate;
 import android.view.View;
@@ -51,6 +50,7 @@ public class CarAlertDialog extends Dialog {
     private final OnClickListener mNegativeButtonListener;
 
     private final int mTopPadding;
+    private final int mButtonPanelTopMargin;
     private final int mBottomPadding;
     private final int mButtonMinWidth;
     private final int mButtonSpacing;
@@ -76,6 +76,7 @@ public class CarAlertDialog extends Dialog {
 
         Resources res = context.getResources();
         mTopPadding = res.getDimensionPixelSize(R.dimen.car_padding_4);
+        mButtonPanelTopMargin = res.getDimensionPixelSize(R.dimen.car_padding_2);
         mBottomPadding = res.getDimensionPixelSize(R.dimen.car_padding_4);
         mButtonMinWidth = res.getDimensionPixelSize(R.dimen.car_button_min_width);
         mButtonSpacing = res.getDimensionPixelSize(R.dimen.car_padding_4);
@@ -114,12 +115,11 @@ public class CarAlertDialog extends Dialog {
         mTitleView.setText(title);
         mTitleView.setVisibility(hasTitle ? View.VISIBLE : View.GONE);
 
-        // Center title if there is no button.
-        mTitleView.setGravity(hasButton ? Gravity.CENTER_VERTICAL | Gravity.START : Gravity.CENTER);
-
         // If there's a title, then remove the padding at the top of the content view.
         int topPadding = hasTitle ? 0 : mTopPadding;
-        // If there is only title, also remove the padding at the bottom so title is centered.
+
+        // If there is only title, also remove the padding at the bottom so title is
+        // vertically centered.
         int bottomPadding = !hasButton && !hasBody ? 0 : mContentView.getPaddingBottom();
         mContentView.setPaddingRelative(
                 mContentView.getPaddingStart(),
@@ -131,6 +131,7 @@ public class CarAlertDialog extends Dialog {
     private void setBody(CharSequence body) {
         mBodyView.setText(body);
         mBodyView.setVisibility(TextUtils.isEmpty(body) ? View.GONE : View.VISIBLE);
+        updateButtonPanelTopMargin();
     }
 
     private void setPositiveButton(CharSequence text) {
@@ -151,6 +152,24 @@ public class CarAlertDialog extends Dialog {
         updateTargetTargetForButton(mNegativeButton);
         updateButtonPanelVisibility();
         updateButtonSpacing();
+    }
+
+    /**
+     * Updates the top margin of the button panel depending on if there's body text. If there is,
+     * then separate the body text from the button panel with margin specified by
+     * {@link #mButtonPanelTopMargin}. Otherwise, no margin.
+     */
+    private void updateButtonPanelTopMargin() {
+        boolean hasBody = mBodyView.getVisibility() == View.VISIBLE;
+
+        ViewGroup.MarginLayoutParams layoutParams =
+                (ViewGroup.MarginLayoutParams) mButtonPanel.getLayoutParams();
+
+        // Separate the action panel with a top margin if there's body text. Otherwise, do not have
+        // any margin.
+        layoutParams.topMargin = hasBody ? mButtonPanelTopMargin : 0;
+
+        mButtonPanel.requestLayout();
     }
 
     /**
