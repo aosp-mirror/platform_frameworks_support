@@ -61,6 +61,7 @@ public class Transformations {
      * @return a LiveData which emits resulting values
      */
     @MainThread
+    @NonNull
     public static <X, Y> LiveData<Y> map(@NonNull LiveData<X> source,
             @NonNull final Function<X, Y> func) {
         final MediatorLiveData<Y> result = new MediatorLiveData<>();
@@ -122,6 +123,7 @@ public class Transformations {
      * @param <Y>     a type of resulting LiveData
      */
     @MainThread
+    @NonNull
     public static <X, Y> LiveData<Y> switchMap(@NonNull LiveData<X> trigger,
             @NonNull final Function<X, LiveData<Y>> func) {
         final MediatorLiveData<Y> result = new MediatorLiveData<>();
