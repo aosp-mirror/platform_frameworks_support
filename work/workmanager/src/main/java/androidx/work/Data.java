@@ -590,9 +590,9 @@ public final class Data {
         }
 
         /**
-         * Puts all input key-value pairs into the Builder.  Any non-valid types will be logged and
-         * ignored.  Valid types are: Boolean, Integer, Long, Double, String, and array versions of
-         * each of those types.  Any {@code null} values will also be ignored.
+         * Puts all input key-value pairs into the Builder. Valid types are: Boolean, Integer,
+         * Long, Float, Double, String, and array versions of each of those types.
+         * Invalid types throw an {@link IllegalArgumentException}.
          *
          * @param values A {@link Map} of key-value pairs to add
          * @return The {@link Builder}
@@ -609,6 +609,7 @@ public final class Data {
                 if (valueType == Boolean.class
                         || valueType == Integer.class
                         || valueType == Long.class
+                        || valueType == Float.class
                         || valueType == Double.class
                         || valueType == String.class
                         || valueType == Boolean[].class
