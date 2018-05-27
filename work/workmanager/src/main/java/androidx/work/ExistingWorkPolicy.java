@@ -17,25 +17,25 @@
 package androidx.work;
 
 /**
- * An enum that determines what to do with existing work with the same unique tag in case of a
- * collision.
+ * An enum that determines what to do with existing {@link OneTimeWorkRequest}s with the same unique
+ * name in case of a collision.
  */
 public enum ExistingWorkPolicy {
 
     /**
-     * If there is existing pending work with the same unique tag, cancel and delete it.  Then,
+     * If there is existing pending work with the same unique name, cancel and delete it.  Then,
      * insert the newly-specified work.
      */
     REPLACE,
 
     /**
-     * If there is existing pending work with the same unique tag, do nothing.  Otherwise, insert
+     * If there is existing pending work with the same unique name, do nothing.  Otherwise, insert
      * the newly-specified work.
      */
     KEEP,
 
     /**
-     * If there is existing pending work with the same unique tag, append the newly-specified work
+     * If there is existing pending work with the same unique name, append the newly-specified work
      * as a child of all the leaves of that work sequence.  Otherwise, insert the newly-specified
      * work as the start of a new sequence.
      */

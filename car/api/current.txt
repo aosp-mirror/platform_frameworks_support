@@ -54,7 +54,6 @@ package androidx.car.drawer {
     method public void setMainContent(android.view.View);
     method public void setMainContent(int);
     method public void setToolbarAlwaysShow();
-    method public void setToolbarClickThrough(boolean);
     method public void setToolbarCollapsible();
     method public void setToolbarElevation(float);
     method public void setToolbarElevationWithAnimation(float);
@@ -77,7 +76,8 @@ package androidx.car.drawer {
   }
 
   public class CarDrawerController {
-    ctor public CarDrawerController(androidx.appcompat.widget.Toolbar, androidx.drawerlayout.widget.DrawerLayout, androidx.appcompat.app.ActionBarDrawerToggle);
+    ctor public deprecated CarDrawerController(androidx.appcompat.widget.Toolbar, androidx.drawerlayout.widget.DrawerLayout, androidx.appcompat.app.ActionBarDrawerToggle);
+    ctor public CarDrawerController(androidx.drawerlayout.widget.DrawerLayout, androidx.appcompat.app.ActionBarDrawerToggle);
     method public void addDrawerListener(androidx.drawerlayout.widget.DrawerLayout.DrawerListener);
     method public void closeDrawer();
     method public void onConfigurationChanged(android.content.res.Configuration);
@@ -110,7 +110,10 @@ package androidx.car.moderator {
     ctor public ContentRateLimiter(double, double, long);
     method public double getAvailablePermits();
     method public double getMaxStoredPermits();
+    method public void setAcquiredPermitsRate(double);
     method public void setAvailablePermits(double);
+    method public void setMaxStoredPermits(double);
+    method public void setPermitFillDelay(long);
     method public void setUnlimitedMode(boolean);
     method public boolean tryAcquire();
     method public boolean tryAcquire(int);
@@ -429,6 +432,7 @@ package androidx.car.widget {
     method protected void resolveDirtyState();
     method public void setText(java.lang.String);
     method public void setTextStartMarginType(int);
+    method public final boolean shouldHideDivider();
     field public static final int TEXT_START_MARGIN_TYPE_LARGE = 2; // 0x2
     field public static final int TEXT_START_MARGIN_TYPE_NONE = 0; // 0x0
     field public static final int TEXT_START_MARGIN_TYPE_SMALL = 1; // 0x1
