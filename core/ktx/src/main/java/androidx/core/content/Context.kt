@@ -20,7 +20,6 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
 import androidx.annotation.AttrRes
-import androidx.annotation.RequiresApi
 import androidx.annotation.StyleRes
 
 /**
@@ -32,9 +31,12 @@ import androidx.annotation.StyleRes
  *
  * @see Context.getSystemService(Class)
  */
-@RequiresApi(23)
-@Suppress("HasPlatformType") // Intentionally propagating platform type with unknown nullability.
-inline fun <reified T> Context.systemService() = getSystemService(T::class.java)
+inline fun <reified T> Context.getSystemService(): T? =
+        ContextCompat.getSystemService(this, T::class.java)
+
+@Deprecated("Use getSystemService", ReplaceWith("this.getSystemService<T>()"))
+inline fun <reified T> Context.systemService(): T? =
+        ContextCompat.getSystemService(this, T::class.java)
 
 /**
  * Executes [block] on a [TypedArray] receiver. The [TypedArray] holds the attribute
@@ -62,12 +64,7 @@ inline fun Context.withStyledAttributes(
     @StyleRes defStyleRes: Int = 0,
     block: TypedArray.() -> Unit
 ) {
-    val typedArray = obtainStyledAttributes(set, attrs, defStyleAttr, defStyleRes)
-    try {
-        typedArray.block()
-    } finally {
-        typedArray.recycle()
-    }
+    obtainStyledAttributes(set, attrs, defStyleAttr, defStyleRes).apply(block).recycle()
 }
 
 /**
@@ -84,10 +81,5 @@ inline fun Context.withStyledAttributes(
     attrs: IntArray,
     block: TypedArray.() -> Unit
 ) {
-    val typedArray = obtainStyledAttributes(resourceId, attrs)
-    try {
-        typedArray.block()
-    } finally {
-        typedArray.recycle()
-    }
+    obtainStyledAttributes(resourceId, attrs).apply(block).recycle()
 }

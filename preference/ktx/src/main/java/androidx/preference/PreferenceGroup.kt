@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2018 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-@file:Suppress("NOTHING_TO_INLINE", "DeprecatedCallableAddReplaceWith", "DEPRECATION")
+@file:Suppress("NOTHING_TO_INLINE")
 
-package androidx.core.preference
-
-import android.preference.Preference
-import android.preference.PreferenceGroup
+package androidx.preference
 
 /**
  * Returns the preference with `key`.
  *
  * @throws NullPointerException if no preference is found with that key.
  */
-@Deprecated("Use Jetpack preference library")
 inline operator fun PreferenceGroup.get(key: CharSequence): Preference = findPreference(key)
 
 /**
@@ -34,12 +30,10 @@ inline operator fun PreferenceGroup.get(key: CharSequence): Preference = findPre
  *
  * @throws IndexOutOfBoundsException if index is less than 0 or greater than or equal to the count.
  */
-@Deprecated("Use Jetpack preference library")
 operator fun PreferenceGroup.get(index: Int): Preference = getPreference(index)
         ?: throw IndexOutOfBoundsException("Index: $index, Size: $preferenceCount")
 
 /** Returns `true` if `preference` is found in this preference group. */
-@Deprecated("Use Jetpack preference library")
 operator fun PreferenceGroup.contains(preference: Preference): Boolean {
     for (index in 0 until preferenceCount) {
         if (getPreference(index) == preference) {
@@ -50,31 +44,25 @@ operator fun PreferenceGroup.contains(preference: Preference): Boolean {
 }
 
 /** Adds `preference` to this preference group. */
-@Deprecated("Use Jetpack preference library")
 inline operator fun PreferenceGroup.plusAssign(preference: Preference) {
     addPreference(preference)
 }
 
 /** Removes `preference` from this preference group. */
-@Deprecated("Use Jetpack preference library")
 inline operator fun PreferenceGroup.minusAssign(preference: Preference) {
     removePreference(preference)
 }
 
 /** Returns the number of preferences in this preference group. */
-@Deprecated("Use Jetpack preference library")
 inline val PreferenceGroup.size: Int get() = preferenceCount
 
 /** Returns true if this preference group contains no preferences. */
-@Deprecated("Use Jetpack preference library")
 inline fun PreferenceGroup.isEmpty(): Boolean = size == 0
 
 /** Returns true if this preference group contains one or more preferences. */
-@Deprecated("Use Jetpack preference library")
 inline fun PreferenceGroup.isNotEmpty(): Boolean = size != 0
 
 /** Performs the given action on each preference in this preference group. */
-@Deprecated("Use Jetpack preference library")
 inline fun PreferenceGroup.forEach(action: (preference: Preference) -> Unit) {
     for (index in 0 until preferenceCount) {
         action(get(index))
@@ -82,7 +70,6 @@ inline fun PreferenceGroup.forEach(action: (preference: Preference) -> Unit) {
 }
 
 /** Performs the given action on each preference in this preference group, providing its sequential index. */
-@Deprecated("Use Jetpack preference library")
 inline fun PreferenceGroup.forEachIndexed(action: (index: Int, preference: Preference) -> Unit) {
     for (index in 0 until preferenceCount) {
         action(index, get(index))
@@ -90,7 +77,6 @@ inline fun PreferenceGroup.forEachIndexed(action: (index: Int, preference: Prefe
 }
 
 /** Returns a [MutableIterator] over the preferences in this preference group. */
-@Deprecated("Use Jetpack preference library")
 operator fun PreferenceGroup.iterator() = object : MutableIterator<Preference> {
     private var index = 0
     override fun hasNext() = index < size
@@ -101,7 +87,6 @@ operator fun PreferenceGroup.iterator() = object : MutableIterator<Preference> {
 }
 
 /** Returns a [Sequence] over the preferences in this preference group. */
-@Deprecated("Use Jetpack preference library")
 val PreferenceGroup.children: Sequence<Preference>
     get() = object : Sequence<Preference> {
         override fun iterator() = this@children.iterator()

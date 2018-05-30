@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<!--
   ~ Copyright 2018 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,10 +13,11 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" package="total.fake.sad">
 
-    <application tools:ignore="AllowBackup,GoogleAppIndexingWarning,MissingApplicationIcon"
-                 tools:replace="android:appComponentFactory"
-                 android:appComponentFactory="androidx.core.app.CoreComponentFactory"/>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="androidx.preference.ktx.test">
+    <uses-sdk android:targetSdkVersion="${target-sdk-version}"/>
+    <application>
+        <activity android:name="androidx.preference.TestPreferenceActivity"/>
+    </application>
 </manifest>
