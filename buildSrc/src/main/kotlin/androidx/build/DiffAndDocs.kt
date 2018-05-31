@@ -22,6 +22,11 @@ import androidx.build.checkapi.ApiXmlConversionTask
 import androidx.build.checkapi.CheckApiTask
 import androidx.build.checkapi.UpdateApiTask
 import androidx.build.doclava.DoclavaTask
+import androidx.build.doclava.DEFAULT_DOCLAVA_CONFIG
+import androidx.build.doclava.CHECK_API_CONFIG_DEVELOP
+import androidx.build.doclava.CHECK_API_CONFIG_RELEASE
+import androidx.build.doclava.CHECK_API_CONFIG_PATCH
+import androidx.build.doclava.ChecksConfig
 import androidx.build.docs.GenerateDocsTask
 import androidx.build.jdiff.JDiffTask
 import com.android.build.gradle.AppExtension
@@ -45,7 +50,6 @@ import kotlin.collections.Collection
 import kotlin.collections.List
 import kotlin.collections.MutableMap
 import kotlin.collections.emptyList
-import kotlin.collections.emptySet
 import kotlin.collections.filter
 import kotlin.collections.find
 import kotlin.collections.forEach
@@ -55,13 +59,12 @@ import kotlin.collections.minus
 import kotlin.collections.mutableMapOf
 import kotlin.collections.plus
 import kotlin.collections.set
-import kotlin.collections.toList
 import kotlin.collections.toSet
 
 data class DacOptions(val libraryroot: String, val dataname: String)
 
 object DiffAndDocs {
-    private lateinit var allChecksTask: Task
+    private lateinit var anchorTask: Task
     private var docsProject: Project? = null
 
     private lateinit var rules: List<PublishDocsRules>
@@ -76,7 +79,7 @@ object DiffAndDocs {
     ): Task {
         rules = additionalRules + TIP_OF_TREE
         docsProject = root.findProject(":docs-fake")
-        allChecksTask = root.tasks.create("anchorCheckApis")
+        anchorTask = root.tasks.create("anchorDocsTask")
         val doclavaConfiguration = root.configurations.getByName("doclava")
         val generateSdkApiTask = createGenerateSdkApiTask(root, doclavaConfiguration)
         rules.forEach {
@@ -87,13 +90,13 @@ object DiffAndDocs {
                     destDir = File(root.docsDir(), it.name),
                     taskName = "${it.name}DocsTask")
             docsTasks[it.name] = task
+            anchorTask.dependsOn(createDistDocsTask(root, task, it.name))
         }
 
         root.tasks.create("generateDocs").dependsOn(docsTasks[TIP_OF_TREE.name])
 
         setupDocsProject()
-        createDistDocsTask(root, docsTasks[TIP_OF_TREE.name]!!)
-        return allChecksTask
+        return anchorTask
     }
 
     private fun prebuiltSources(
@@ -206,7 +209,7 @@ object DiffAndDocs {
         registerJavaProjectForDocsTask(tasks.generateApi, compileJava)
         registerJavaProjectForDocsTask(tasks.generateDiffs, compileJava)
         setupDocsTasks(project, tasks)
-        allChecksTask.dependsOn(tasks.checkApiTask)
+        anchorTask.dependsOn(tasks.checkApiTask)
     }
 
     /**
@@ -249,7 +252,7 @@ object DiffAndDocs {
                 registerAndroidProjectForDocsTask(tasks.generateApi, variant)
                 registerAndroidProjectForDocsTask(tasks.generateDiffs, variant)
                 setupDocsTasks(project, tasks)
-                allChecksTask.dependsOn(tasks.checkApiTask)
+                anchorTask.dependsOn(tasks.checkApiTask)
             }
         }
     }
@@ -267,55 +270,10 @@ object DiffAndDocs {
     }
 }
 
-private data class CheckApiConfig(
-    val onFailMessage: String,
-    val errors: List<Int>,
-    val warnings: List<Int>,
-    val hidden: List<Int>
-)
-
-private const val MSG_HIDE_API =
-        "If you are adding APIs that should be excluded from the public API surface,\n" +
-                "consider using package or private visibility. If the API must have public\n" +
-                "visibility, you may exclude it from public API by using the @hide javadoc\n" +
-                "annotation paired with the @RestrictTo(LIBRARY_GROUP) code annotation."
-
 @Suppress("DEPRECATION")
 private fun LibraryVariant.hasJavaSources() = !javaCompile.source
         .filter { file -> file.name != "R.java" && file.name != "BuildConfig.java" }
         .isEmpty
-
-private val CHECK_API_CONFIG_RELEASE = CheckApiConfig(
-        onFailMessage =
-        "Compatibility with previously released public APIs has been broken. Please\n" +
-                "verify your change with Support API Council and provide error output,\n" +
-                "including the error messages and associated SHAs.\n" +
-                "\n" +
-                "If you are removing APIs, they must be deprecated first before being removed\n" +
-                "in a subsequent release.\n" +
-                "\n" + MSG_HIDE_API,
-        errors = (7..18).toList(),
-        warnings = emptyList(),
-        hidden = (2..6) + (19..30)
-)
-
-// Check that the API we're building hasn't changed from the development
-// version. These types of changes require an explicit API file update.
-private val CHECK_API_CONFIG_DEVELOP = CheckApiConfig(
-        onFailMessage =
-        "Public API definition has changed. Please run ./gradlew updateApi to confirm\n" +
-                "these changes are intentional by updating the public API definition.\n" +
-                "\n" + MSG_HIDE_API,
-        errors = (2..30) - listOf(22),
-        warnings = emptyList(),
-        hidden = listOf(22)
-)
-
-// This is a patch or finalized release. Check that the API we're building
-// hasn't changed from the current.
-private val CHECK_API_CONFIG_PATCH = CHECK_API_CONFIG_DEVELOP.copy(
-        onFailMessage = "Public API definition may not change in finalized or patch releases.\n" +
-                "\n" + MSG_HIDE_API)
 
 fun Project.hasApiFolder() = File(projectDir, "api").exists()
 
@@ -391,17 +349,14 @@ private fun createCheckApiTask(
     project: Project,
     taskName: String,
     docletpath: Collection<File>,
-    checkApiConfig: CheckApiConfig,
+    config: ChecksConfig,
     oldApi: File?,
     newApi: File,
     whitelist: File? = null
 ) =
         project.tasks.createWithConfig(taskName, CheckApiTask::class.java) {
             doclavaClasspath = docletpath
-            onFailMessage = checkApiConfig.onFailMessage
-            checkApiErrors = checkApiConfig.errors
-            checkApiWarnings = checkApiConfig.warnings
-            checkApiHidden = checkApiConfig.hidden
+            checksConfig = config
             newApiFile = newApi
             oldApiFile = oldApi
             whitelistErrorsFile = whitelist
@@ -494,12 +449,12 @@ private fun createOldApiXml(project: Project, doclavaConfig: Configuration) =
             val fromApi = project.processProperty("fromApi")
             classpath = project.files(doclavaConfig.resolve())
             val rootFolder = project.projectDir
-            if (fromApi != null) {
+            inputApiFile = if (fromApi != null) {
                 // Use an explicit API file.
-                inputApiFile = File(rootFolder, "api/$fromApi.txt")
+                File(rootFolder, "api/$fromApi.txt")
             } else {
                 // Use the most recently released API file bounded by toApi.
-                inputApiFile = getLastReleasedApiFile(rootFolder, toApi)
+                getLastReleasedApiFile(rootFolder, toApi)
             }
 
             outputApiXmlFile = File(project.docsDir(),
@@ -591,13 +546,13 @@ private fun createGenerateDiffsTask(
         }
 
 // Generates a distribution artifact for online docs.
-private fun createDistDocsTask(project: Project, generateDocs: DoclavaTask): Zip =
-        project.tasks.createWithConfig("distDocs", Zip::class.java) {
+private fun createDistDocsTask(project: Project, generateDocs: DoclavaTask, ruleName: String = ""): Zip =
+        project.tasks.createWithConfig("dist${ruleName}Docs", Zip::class.java) {
             dependsOn(generateDocs)
             group = JavaBasePlugin.DOCUMENTATION_GROUP
             description = "Generates distribution artifact for d.android.com-style documentation."
             from(generateDocs.destinationDir)
-            baseName = "android-support-docs"
+            baseName = "android-support-$ruleName-docs"
             version = project.buildNumber()
             destinationDir = project.distDir()
             doLast {
@@ -625,6 +580,13 @@ private fun createGenerateSdkApiTask(project: Project, doclavaConfig: Configurat
             }
         }
 
+private val GENERATEDOCS_HIDDEN = listOf(105, 106, 107, 111, 112, 113, 115, 116, 121)
+private val GENERATE_DOCS_CONFIG = ChecksConfig(
+        warnings = emptyList(),
+        hidden = GENERATEDOCS_HIDDEN + DEFAULT_DOCLAVA_CONFIG.hidden,
+        errors = ((101..122) - GENERATEDOCS_HIDDEN)
+)
+
 private fun createGenerateDocsTask(
     project: Project,
     generateSdkApiTask: DoclavaTask,
@@ -644,11 +606,7 @@ private fun createGenerateDocsTask(
             val offline = project.processProperty("offlineDocs") != null
             destinationDir = File(destDir, if (offline) "offline" else "online")
             classpath = androidJarFile(project)
-            val hidden = listOf(105, 106, 107, 111, 112, 113, 115, 116, 121)
-            doclavaErrors = ((101..122) - hidden).toSet()
-            doclavaWarnings = emptySet()
-            doclavaHidden += hidden
-
+            checksConfig = GENERATE_DOCS_CONFIG
             addSinceFilesFrom(supportRootFolder)
 
             coreJavadocOptions {
