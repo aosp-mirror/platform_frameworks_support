@@ -17,6 +17,7 @@
 package androidx.work;
 
 import android.content.Context;
+import android.net.Network;
 import android.net.Uri;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
@@ -42,7 +43,7 @@ public abstract class Worker {
     /**
      * The result of the Worker's computation that is returned in the {@link #doWork()} method.
      */
-    public enum WorkerResult {
+    public enum Result {
         /**
          * Used to indicate that the work completed successfully.  Any work that depends on this
          * can be executed as long as all of its other dependencies and constraints are met.
@@ -136,14 +137,35 @@ public abstract class Worker {
     }
 
     /**
+     * Gets the {@link Network} to use for this Worker.  This method returns {@code null} if there
+     * is no network needed for this work request.
+     *
+     * @return The {@link Network} specified by the OS to be used with this Worker
+     */
+    @RequiresApi(28)
+    public final @Nullable Network getNetwork() {
+        Extras.RuntimeExtras runtimeExtras = mExtras.getRuntimeExtras();
+        return (runtimeExtras == null) ? null : runtimeExtras.network;
+    }
+
+    /**
+     * Gets the current run attempt count for this work.
+     *
+     * @return The current run attempt count for this work.
+     */
+    public final int getRunAttemptCount() {
+        return mExtras.getRunAttemptCount();
+    }
+
+    /**
      * Override this method to do your actual background processing.
      *
-     * @return The result of the work, corresponding to a {@link WorkerResult} value.  If a
+     * @return The result of the work, corresponding to a {@link Result} value.  If a
      * different value is returned, the result shall be defaulted to
-     * {@link Worker.WorkerResult#FAILURE}.
+     * {@link Result#FAILURE}.
      */
     @WorkerThread
-    public abstract @NonNull WorkerResult doWork();
+    public abstract @NonNull Result doWork();
 
     /**
      * Call this method to pass an {@link Data} object to {@link Worker} that is
@@ -154,7 +176,7 @@ public abstract class Worker {
      * unique.  New values and types will clobber old values and types, and if there are multiple
      * parent Workers of a child Worker, the order of clobbering may not be deterministic.
      *
-     * This method is invoked after {@link #doWork()} returns {@link Worker.WorkerResult#SUCCESS}
+     * This method is invoked after {@link #doWork()} returns {@link Result#SUCCESS}
      * and there are chained jobs available.
      *
      * For example, if you had this structure:

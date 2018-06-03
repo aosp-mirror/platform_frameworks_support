@@ -124,8 +124,11 @@ public class WorkerWrapper implements Runnable {
             input = inputMerger.merge(inputs);
         }
 
-        Extras extras =
-                new Extras(input, mWorkTagDao.getTagsForWorkSpecId(mWorkSpecId), mRuntimeExtras);
+        Extras extras = new Extras(
+                input,
+                mWorkTagDao.getTagsForWorkSpecId(mWorkSpecId),
+                mRuntimeExtras,
+                mWorkSpec.runAttemptCount);
 
         // Not always creating a worker here, as the WorkerWrapper.Builder can set a worker override
         // in test mode.
@@ -146,11 +149,11 @@ public class WorkerWrapper implements Runnable {
                 return;
             }
 
-            Worker.WorkerResult result;
+            Worker.Result result;
             try {
                 result = mWorker.doWork();
             } catch (Exception | Error e) {
-                result = Worker.WorkerResult.FAILURE;
+                result = Worker.Result.FAILURE;
             }
 
             try {
@@ -231,7 +234,7 @@ public class WorkerWrapper implements Runnable {
         });
     }
 
-    private void handleResult(Worker.WorkerResult result) {
+    private void handleResult(Worker.Result result) {
         switch (result) {
             case SUCCESS: {
                 Log.d(TAG, String.format("Worker result SUCCESS for %s", mWorkSpecId));

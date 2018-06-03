@@ -30,6 +30,7 @@ import android.app.job.JobParameters;
 import android.arch.core.executor.ArchTaskExecutor;
 import android.arch.core.executor.TaskExecutor;
 import android.content.Context;
+import android.net.Network;
 import android.net.Uri;
 import android.os.Build;
 import android.os.PersistableBundle;
@@ -232,6 +233,27 @@ public class SystemJobServiceTest extends WorkManagerTest {
         assertThat(ContentUriTriggerLoggingWorker.sTriggeredContentUris, is(testContentUris));
     }
 
+    @Test
+    @LargeTest
+    @SdkSuppress(minSdkVersion = 28)
+    public void testStartJob_passesNetwork() throws InterruptedException {
+        WorkRequest work = new OneTimeWorkRequest.Builder(NetworkLoggingWorker.class).build();
+        insertWork(work);
+
+        Network mockNetwork = mock(Network.class);
+
+        JobParameters mockParams = createMockJobParameters(work.getStringId());
+        when(mockParams.getNetwork()).thenReturn(mockNetwork);
+
+        assertThat(NetworkLoggingWorker.sTimesUpdated, is(0));
+        assertThat(mSystemJobServiceSpy.onStartJob(mockParams), is(true));
+
+        Thread.sleep(1000L);
+
+        assertThat(NetworkLoggingWorker.sTimesUpdated, is(1));
+        assertThat(NetworkLoggingWorker.sNetwork, is(mockNetwork));
+    }
+
     private JobParameters createMockJobParameters(String id) {
         JobParameters jobParameters = mock(JobParameters.class);
 
@@ -253,13 +275,28 @@ public class SystemJobServiceTest extends WorkManagerTest {
         static Uri[] sTriggeredContentUris;
 
         @Override
-        public @NonNull WorkerResult doWork() {
+        public @NonNull Result doWork() {
             synchronized (ContentUriTriggerLoggingWorker.class) {
                 ++sTimesUpdated;
                 sTriggeredContentAuthorities = getTriggeredContentAuthorities();
                 sTriggeredContentUris = getTriggeredContentUris();
             }
-            return WorkerResult.SUCCESS;
+            return Result.SUCCESS;
+        }
+    }
+
+    public static class NetworkLoggingWorker extends Worker {
+
+        static int sTimesUpdated = 0;
+        static Network sNetwork;
+
+        @Override
+        public @NonNull Result doWork() {
+            synchronized (NetworkLoggingWorker.class) {
+                ++sTimesUpdated;
+                sNetwork = getNetwork();
+            }
+            return Result.SUCCESS;
         }
     }
 }
