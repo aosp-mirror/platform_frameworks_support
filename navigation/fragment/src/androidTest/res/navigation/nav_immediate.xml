@@ -16,9 +16,13 @@
   -->
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/foo"
-            app:startDestination="@+id/first_screen">
-    <fragment android:name="a.FakeFragment"><action android:id="@+fppid/finish" app:popUpTo="@id/first_screen"  />
-    </fragment>
+            app:startDestination="@+id/start_test">
+
+    <fragment
+            android:id="@+id/start_test"
+            android:name="androidx.navigation.fragment.test.ImmediateNavigationActivity$NavigateOnResumeFragment"/>
+
+    <fragment
+            android:id="@+id/deep_link_test"
+            android:name="androidx.navigation.fragment.test.EmptyFragment"/>
 </navigation>
