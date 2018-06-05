@@ -16,9 +16,11 @@
 
 package androidx.work.impl;
 
+import android.net.Network;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.RestrictTo;
 
 import androidx.work.Data;
@@ -38,13 +40,16 @@ public class Extras {
     private @NonNull Data mInputData;
     private @NonNull Set<String> mTags;
     private @Nullable RuntimeExtras mRuntimeExtras;
+    private int mRunAttemptCount;
 
     public Extras(@NonNull Data inputData,
             @NonNull List<String> tags,
-            @Nullable RuntimeExtras runtimeExtras) {
+            @Nullable RuntimeExtras runtimeExtras,
+            int runAttemptCount) {
         mInputData = inputData;
         mTags = new HashSet<>(tags);
         mRuntimeExtras = runtimeExtras;
+        mRunAttemptCount = runAttemptCount;
     }
 
     public @NonNull Data getInputData() {
@@ -59,6 +64,10 @@ public class Extras {
         return mRuntimeExtras;
     }
 
+    public int getRunAttemptCount() {
+        return mRunAttemptCount;
+    }
+
     /**
      * Extra runtime information for Workers.
      *
@@ -69,5 +78,8 @@ public class Extras {
 
         public String[] triggeredContentAuthorities;
         public Uri[] triggeredContentUris;
+
+        @RequiresApi(28)
+        public Network network;
     }
 }
