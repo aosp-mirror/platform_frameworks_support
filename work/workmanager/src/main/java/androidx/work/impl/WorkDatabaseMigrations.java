@@ -38,7 +38,7 @@ public class WorkDatabaseMigrations {
     private static final int VERSION_2 = 2;
 
     private static final String CREATE_SYSTEM_ID_INFO =
-            "CREATE TABLE IF NOT EXISTS `systemIdInfo` (`work_spec_id` TEXT NOT NULL, `system_id`"
+            "CREATE TABLE IF NOT EXISTS `SystemIdInfo` (`work_spec_id` TEXT NOT NULL, `system_id`"
                     + " INTEGER NOT NULL, PRIMARY KEY(`work_spec_id`), FOREIGN KEY(`work_spec_id`)"
                     + " REFERENCES `WorkSpec`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )";
 
@@ -49,20 +49,20 @@ public class WorkDatabaseMigrations {
                     + "CASCADE )";
 
     private static final String MIGRATE_ALARM_INFO_TO_SYSTEM_ID_INFO =
-            "INSERT INTO systemIdInfo(work_spec_id, system_id) "
+            "INSERT INTO SystemIdInfo(work_spec_id, system_id) "
                     + "SELECT work_spec_id, alarm_id AS system_id FROM alarmInfo";
 
     private static final String MIGRATE_SYSTEM_ID_INFO_TO_ALARM_INFO =
             "INSERT INTO alarmInfo(work_spec_id, alarm_id) "
-                    + "SELECT work_spec_id, system_id AS alarm_id FROM systemIdInfo";
+                    + "SELECT work_spec_id, system_id AS alarm_id FROM SystemIdInfo";
 
     private static final String REMOVE_ALARM_INFO = "DROP TABLE IF EXISTS alarmInfo";
-    private static final String REMOVE_SYSTEM_ID_INFO = "DROP TABLE IF EXISTS systemIdInfo";
-
+    private static final String REMOVE_SYSTEM_ID_INFO = "DROP TABLE IF EXISTS SystemIdInfo";
 
     /**
      * Removes the {@code alarmInfo} table and substitutes it for a more general
-     * {@code systemIdInfo} table.
+     * {@code SystemIdInfo} table.
+     * Adds implicit work tags for all work (a tag with the worker class name).
      */
     public static Migration MIGRATION_1_2 = new Migration(VERSION_1, VERSION_2) {
         @Override
@@ -70,12 +70,14 @@ public class WorkDatabaseMigrations {
             database.execSQL(CREATE_SYSTEM_ID_INFO);
             database.execSQL(MIGRATE_ALARM_INFO_TO_SYSTEM_ID_INFO);
             database.execSQL(REMOVE_ALARM_INFO);
+            database.execSQL("INSERT INTO worktag(tag, work_spec_id) "
+                    + "SELECT worker_class_name AS tag, id AS work_spec_id FROM workspec");
         }
     };
 
     /**
      * Removes the {@code alarmInfo} table and substitutes it for a more general
-     * {@code systemIdInfo} table.
+     * {@code SystemIdInfo} table.
      */
     public static Migration MIGRATION_2_1 = new Migration(VERSION_2, VERSION_1) {
         @Override
@@ -83,6 +85,7 @@ public class WorkDatabaseMigrations {
             database.execSQL(CREATE_ALARM_INFO);
             database.execSQL(MIGRATE_SYSTEM_ID_INFO_TO_ALARM_INFO);
             database.execSQL(REMOVE_SYSTEM_ID_INFO);
+            // Don't remove implicit tags; they may have been added by the developer.
         }
     };
 }
