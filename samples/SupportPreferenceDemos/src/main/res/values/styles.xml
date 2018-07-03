@@ -25,11 +25,11 @@
         <item name="colorAccent">#FF4081</item>
     </style>
 
-    <style name="SupportPreferenceLeanback" parent="Theme.Leanback">
+    <style name="LeanbackTheme" parent="Theme.Leanback">
         <item name="preferenceTheme">@style/PreferenceThemeOverlayLeanback</item>
     </style>
 
-    <style name="SupportPreferenceCar" parent="Theme.Car.Light.NoActionBar">
+    <style name="CarTheme" parent="Theme.Car.Light.NoActionBar">
         <item name="preferenceTheme">@style/PreferenceThemeOverlayCar</item>
         <item name="android:windowBackground">@color/car_card</item>
     </style>
