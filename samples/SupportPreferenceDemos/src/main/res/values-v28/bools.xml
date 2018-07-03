@@ -16,6 +16,6 @@
   -->
 
 <resources>
-    <!-- This boolean is true if running on Lollipop or above. The default value is false. -->
-    <bool name="atLeastLollipop">true</bool>
+    <!-- This boolean is true if running on P or above. The default value is false. -->
+    <bool name="atLeastP">true</bool>
 </resources>

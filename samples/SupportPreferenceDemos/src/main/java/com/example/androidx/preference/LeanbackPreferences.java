@@ -11,10 +11,12 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License
+ * limitations under the License.
  */
 
-package com.example.android.supportpreference;
+package com.example.androidx.preference;
+
+import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -28,8 +30,11 @@ import androidx.preference.PreferenceDialogFragment;
 import androidx.preference.PreferenceFragment;
 import androidx.preference.PreferenceScreen;
 
-@RequiresApi(17)
-public class FragmentSupportPreferencesLeanback extends Activity {
+/**
+ * Demo activity using a LeanbackSettingsFragment to display a preference hierarchy.
+ */
+@RequiresApi(JELLY_BEAN_MR1)
+public class LeanbackPreferences extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +46,14 @@ public class FragmentSupportPreferencesLeanback extends Activity {
         }
     }
 
-//BEGIN_INCLUDE(support_fragment_leanback)
+    /**
+     * LeanbackSettingsFragment that manages the DemoFragment that displays the preference hierarchy
+     */
+    //BEGIN_INCLUDE(leanback_preferences)
     public static class SettingsFragment extends LeanbackSettingsFragment {
         @Override
         public void onPreferenceStartInitialScreen() {
-            startPreferenceFragment(new PrefsFragment());
+            startPreferenceFragment(new DemoFragment());
         }
 
         @Override
@@ -61,18 +69,26 @@ public class FragmentSupportPreferencesLeanback extends Activity {
             return true;
         }
 
+        /**
+         * This callback is used to handle navigation between nested preference screens. If you only
+         * have one screen of preferences or are using separate fragments for different screens you
+         * do not need to implement this.
+         */
         @Override
         public boolean onPreferenceStartScreen(PreferenceFragment caller, PreferenceScreen pref) {
-            final Fragment f = new PrefsFragment();
+            final Fragment fragment = new DemoFragment();
             final Bundle args = new Bundle(1);
             args.putString(PreferenceFragment.ARG_PREFERENCE_ROOT, pref.getKey());
-            f.setArguments(args);
-            startPreferenceFragment(f);
+            fragment.setArguments(args);
+            startPreferenceFragment(fragment);
             return true;
         }
     }
 
-    public static class PrefsFragment extends LeanbackPreferenceFragment {
+    /**
+     * LeanbackPreferenceFragment that sets the preference hierarchy from XML
+     */
+    public static class DemoFragment extends LeanbackPreferenceFragment {
 
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -80,6 +96,5 @@ public class FragmentSupportPreferencesLeanback extends Activity {
             setPreferencesFromResource(R.xml.preferences, rootKey);
         }
     }
-//END_INCLUDE(support_fragment_leanback)
-
+    //END_INCLUDE(leanback_preferences)
 }

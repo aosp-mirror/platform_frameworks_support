@@ -11,10 +11,10 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License
+ * limitations under the License.
  */
 
-package com.example.android.supportpreference;
+package com.example.androidx.preference;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -24,10 +24,9 @@ import androidx.preference.PreferenceFragment;
 import androidx.preference.PreferenceScreen;
 
 /**
- * Demonstration of PreferenceFragment, showing a single fragment in an
- * activity.
+ * Demo activity using a PreferenceFragment to display a preference hierarchy.
  */
-public class FragmentSupportPreferences extends Activity
+public class Preferences extends Activity
         implements PreferenceFragment.OnPreferenceStartScreenCallback {
 
     @Override
@@ -39,24 +38,38 @@ public class FragmentSupportPreferences extends Activity
         // Display the fragment as the main content.
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction().replace(android.R.id.content,
-                    new PrefsFragment()).commit();
+                    new DemoFragment()).commit();
         }
     }
 
     @Override
+    public boolean onNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    /**
+     * This callback is used to handle navigation between nested preference screens. If you only
+     * have one screen of preferences or are using separate fragments for different screens you
+     * do not need to implement this.
+     */
+    @Override
     public boolean onPreferenceStartScreen(PreferenceFragment caller, PreferenceScreen pref) {
-        final Fragment f = new PrefsFragment();
+        final Fragment fragment = new DemoFragment();
         final Bundle args = new Bundle(1);
         args.putString(PreferenceFragment.ARG_PREFERENCE_ROOT, pref.getKey());
-        f.setArguments(args);
-        getFragmentManager().beginTransaction().replace(android.R.id.content, f)
+        fragment.setArguments(args);
+        getFragmentManager().beginTransaction().replace(android.R.id.content, fragment)
                 .addToBackStack(null)
                 .commit();
         return true;
     }
 
-    //BEGIN_INCLUDE(support_fragment)
-    public static class PrefsFragment extends PreferenceFragment {
+    /**
+     * PreferenceFragment that sets the preference hierarchy from XML
+     */
+    //BEGIN_INCLUDE(preferences)
+    public static class DemoFragment extends PreferenceFragment {
 
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -64,5 +77,5 @@ public class FragmentSupportPreferences extends Activity
             setPreferencesFromResource(R.xml.preferences, rootKey);
         }
     }
-//END_INCLUDE(support_fragment)
+    //END_INCLUDE(preferences)
 }

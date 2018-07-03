@@ -99,8 +99,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * that the preferences framework takes care of loading the current values out of the app
  * preferences and writing them when changed:</p>
  *
- * {@sample frameworks/support/samples/SupportPreferenceDemos/src/main/java/com/example/android/supportpreference/FragmentSupportPreferences.java
- *      support_fragment}
+ * {@sample frameworks/support/samples/SupportPreferenceDemos/src/main/java/com/example/androidx/preference/Preferences.java preferences}
  *
  * @see Preference
  * @see PreferenceScreen
