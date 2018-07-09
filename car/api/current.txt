@@ -95,11 +95,12 @@ package androidx.car.drawer {
     method public abstract void onItemClick(int);
   }
 
-  public class DrawerItemViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder {
+  public class DrawerItemViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder implements android.car.drivingstate.CarUxRestrictionsManager.OnUxRestrictionsChangedListener {
     method public android.widget.ImageView getEndIcon();
     method public android.widget.ImageView getIcon();
     method public android.widget.TextView getText();
     method public android.widget.TextView getTitle();
+    method public void onUxRestrictionsChanged(android.car.drivingstate.CarUxRestrictions);
   }
 
 }
@@ -230,11 +231,11 @@ package androidx.car.widget {
     method public abstract void bind(VH);
   }
 
-  public static abstract class ListItem.ViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder {
+  public static abstract class ListItem.ViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder implements android.car.drivingstate.CarUxRestrictionsManager.OnUxRestrictionsChangedListener {
     ctor public ListItem.ViewHolder(android.view.View);
     method public final void addCleanUp(androidx.car.widget.ListItem.ViewBinder<androidx.car.widget.ListItem.ViewHolder>);
-    method protected abstract void applyUxRestrictions(android.car.drivingstate.CarUxRestrictions);
     method public final void cleanUp();
+    method public void onUxRestrictionsChanged(android.car.drivingstate.CarUxRestrictions);
   }
 
   public class ListItemAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter implements androidx.car.widget.PagedListView.DividerVisibilityManager androidx.car.widget.PagedListView.ItemCap {
@@ -408,7 +409,6 @@ package androidx.car.widget {
 
   public static class SeekbarListItem.ViewHolder extends androidx.car.widget.ListItem.ViewHolder {
     ctor public SeekbarListItem.ViewHolder(android.view.View);
-    method protected void applyUxRestrictions(android.car.drivingstate.CarUxRestrictions);
     method public android.view.ViewGroup getContainerLayout();
     method public android.widget.ImageView getPrimaryIcon();
     method public android.widget.SeekBar getSeekBar();
@@ -437,7 +437,6 @@ package androidx.car.widget {
 
   public static class SubheaderListItem.ViewHolder extends androidx.car.widget.ListItem.ViewHolder {
     ctor public SubheaderListItem.ViewHolder(android.view.View);
-    method protected void applyUxRestrictions(android.car.drivingstate.CarUxRestrictions);
     method public android.widget.TextView getText();
   }
 
@@ -476,7 +475,6 @@ package androidx.car.widget {
 
   public static class TextListItem.ViewHolder extends androidx.car.widget.ListItem.ViewHolder {
     ctor public TextListItem.ViewHolder(android.view.View);
-    method protected void applyUxRestrictions(android.car.drivingstate.CarUxRestrictions);
     method public android.widget.Button getAction1();
     method public android.view.View getAction1Divider();
     method public android.widget.Button getAction2();

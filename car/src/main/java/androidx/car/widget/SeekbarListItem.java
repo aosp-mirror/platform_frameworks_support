@@ -54,7 +54,7 @@ import java.util.List;
  *         <li>No Icon - no icon is shown.
  *         <li>Empty Icon - {@code Seekbar} offsets start space as if there was an icon.
  *     </ul>
- *     <li>{@code Seekbar}: with optional {@code Text}.
+ *     <li>{@code Seekbar}: with optional text.
  *     <li>{@code Supplemental Action}: presented by an icon of following types; aligned to
  *     the end of item.
  *     <ul>
@@ -560,8 +560,15 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
                     mSupplementalIcon, mSupplementalIconDivider};
         }
 
+        /**
+         * Updates child views when car UX restrictions changes.
+         *
+         * <p>Seekbar text might be truncated to meet length limit required by regulation.
+         *
+         * @param restrictions current car UX restrictions.
+         */
         @Override
-        protected void applyUxRestrictions(@NonNull CarUxRestrictions restrictions) {
+        public void onUxRestrictionsChanged(@NonNull CarUxRestrictions restrictions) {
             CarUxRestrictionsUtils.apply(itemView.getContext(), restrictions, getText());
         }
 

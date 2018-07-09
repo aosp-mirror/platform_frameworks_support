@@ -19,13 +19,11 @@ package androidx.car.widget;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import android.car.drivingstate.CarUxRestrictions;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import androidx.annotation.NonNull;
 import androidx.car.test.R;
 import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
@@ -216,11 +214,6 @@ public final class ListItemAdapterTest {
         public static class ViewHolder extends ListItem.ViewHolder {
             ViewHolder(View itemView) {
                 super(itemView);
-            }
-
-            @Override
-            protected void applyUxRestrictions(@NonNull CarUxRestrictions restrictions) {
-                // No-op
             }
         }
     }
