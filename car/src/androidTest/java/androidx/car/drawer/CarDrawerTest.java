@@ -119,14 +119,14 @@ public final class CarDrawerTest {
         DrawerItemViewHolder vh = getViewHolderAtPositionInDrawer(0);
         final String originalText = (String) vh.getText().getText();
 
-        vh.applyUxRestrictions(CarUxRestrictionsTestUtils.getFullyRestricted());
+        vh.onUxRestrictionsChanged(CarUxRestrictionsTestUtils.getFullyRestricted());
         refreshUi();
 
         assumeThat(vh.getText().getText().length(), is(lessThan(originalText.length())));
     }
 
     /**
-     * Drawer adapter that populates {@itemCount} items, each with text set to {@cod text}.
+     * Drawer adapter that populates {@itemCount} items, each with text set to {@code text}.
      */
     private static class TextDrawerAdapter extends CarDrawerAdapter {
         private int mItemCount;

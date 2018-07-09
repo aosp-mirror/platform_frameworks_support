@@ -17,6 +17,7 @@
 package androidx.car.drawer;
 
 import android.car.drivingstate.CarUxRestrictions;
+import android.car.drivingstate.CarUxRestrictionsManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,7 +32,8 @@ import androidx.recyclerview.widget.RecyclerView;
  * Re-usable {@link RecyclerView.ViewHolder} for displaying items in the
  * {@link androidx.car.drawer.CarDrawerAdapter}.
  */
-public class DrawerItemViewHolder extends RecyclerView.ViewHolder {
+public class DrawerItemViewHolder extends RecyclerView.ViewHolder
+        implements CarUxRestrictionsManager.OnUxRestrictionsChangedListener {
     private final ImageView mIcon;
     private final TextView mTitle;
     private final TextView mText;
@@ -89,13 +91,14 @@ public class DrawerItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     /**
-     * Applies car UX restrictions to children views.
+     * Updates children {@code View}s when car UX restrictions changes.
      *
      * <p>{@code Text} might be truncated to meet length limit required by regulation.
      *
      * @param restrictions current car UX restrictions.
      */
-    void applyUxRestrictions(@NonNull CarUxRestrictions restrictions) {
+    @Override
+    public void onUxRestrictionsChanged(@NonNull CarUxRestrictions restrictions) {
         CarUxRestrictionsUtils.apply(itemView.getContext(), restrictions, getText());
     }
 }

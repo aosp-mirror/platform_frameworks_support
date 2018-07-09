@@ -933,14 +933,14 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
         }
 
         /**
-         * Applies car UX restrictions to child views.
+         * Updates child {@code Views} when car UX restrictions changes.
          *
          * <p>{@code Body} text might be truncated to meet length limit required by regulation.
          *
          * @param restrictions current car UX restrictions.
          */
         @Override
-        protected void applyUxRestrictions(@NonNull CarUxRestrictions restrictions) {
+        public void onUxRestrictionsChanged(@NonNull CarUxRestrictions restrictions) {
             CarUxRestrictionsUtils.apply(itemView.getContext(), restrictions, getBody());
         }
 

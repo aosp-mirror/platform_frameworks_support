@@ -1,6 +1,7 @@
 package androidx.car.widget;
 
 import android.car.drivingstate.CarUxRestrictions;
+import android.car.drivingstate.CarUxRestrictionsManager;
 import android.view.View;
 
 import androidx.annotation.CallSuper;
@@ -257,8 +258,16 @@ public abstract class ListItem<VH extends ListItem.ViewHolder> {
 
     /**
      * ViewHolder that supports {@link ViewBinder}.
+     *
+     * <p>Subclass should update child views to comply with current {@code CarUxRestrictions} in
+     * onUxRestrictionsChanged(). For example, when
+     * {@link CarUxRestrictions#UX_RESTRICTIONS_LIMIT_STRING_LENGTH} is active, hide or partially
+     * display text.
+     *
+     * <p>This method will be called by adapter when CarUxRestrictions changes.
      */
-    public abstract static class ViewHolder extends RecyclerView.ViewHolder {
+    public abstract static class ViewHolder extends RecyclerView.ViewHolder
+            implements CarUxRestrictionsManager.OnUxRestrictionsChangedListener {
         private final List<ViewBinder> mCleanUps = new ArrayList<>();
 
         public ViewHolder(View itemView) {
@@ -284,11 +293,9 @@ public abstract class ListItem<VH extends ListItem.ViewHolder> {
             }
         }
 
-        /**
-         * Applies UX restriction changes to child views.
-         *
-         * @param restrictions current car UX restrictions.
-         */
-        protected abstract void applyUxRestrictions(@NonNull CarUxRestrictions restrictions);
+        @Override
+        public void onUxRestrictionsChanged(@NonNull CarUxRestrictions restrictions) {
+            // No-op.
+        }
     }
 }
