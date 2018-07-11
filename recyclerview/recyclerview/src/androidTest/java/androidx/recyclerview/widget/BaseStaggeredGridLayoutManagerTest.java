@@ -411,15 +411,10 @@ abstract class BaseStaggeredGridLayoutManagerTest extends BaseRecyclerViewInstru
         static final int DEFAULT_ITEM_COUNT = 300;
 
         int mOrientation = OrientationHelper.VERTICAL;
-
         boolean mReverseLayout = false;
-
         int mSpanCount = 3;
-
         int mGapStrategy = GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS;
-
         int mItemCount = DEFAULT_ITEM_COUNT;
-
         boolean mWrap = false;
 
         Config(int orientation, boolean reverseLayout, int spanCount, int gapStrategy) {
@@ -465,13 +460,14 @@ abstract class BaseStaggeredGridLayoutManagerTest extends BaseRecyclerViewInstru
 
         @Override
         public String toString() {
-            return "[CONFIG:"
+            return "{"
                     + "span:" + mSpanCount
                     + ",orientation:" + (mOrientation == HORIZONTAL ? "horz," : "vert,")
                     + ",reverse:" + (mReverseLayout ? "T" : "F")
                     + ",itemCount:" + mItemCount
                     + ",wrapContent:" + mWrap
-                    + ",gap_strategy:" + gapStrategyName(mGapStrategy);
+                    + ",gap_strategy:" + gapStrategyName(mGapStrategy)
+                    + "}";
         }
 
         protected static String gapStrategyName(int gapStrategy) {

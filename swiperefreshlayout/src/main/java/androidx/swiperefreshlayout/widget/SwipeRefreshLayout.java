@@ -39,9 +39,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.Px;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.NestedScrollingChild;
+import androidx.core.view.NestedScrollingChild2;
 import androidx.core.view.NestedScrollingChildHelper;
-import androidx.core.view.NestedScrollingParent;
+import androidx.core.view.NestedScrollingParent2;
 import androidx.core.view.NestedScrollingParentHelper;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.ListViewCompat;
@@ -67,8 +67,8 @@ import androidx.core.widget.ListViewCompat;
  * refresh of the content wherever this gesture is used.
  * </p>
  */
-public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingParent,
-        NestedScrollingChild {
+public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingParent2,
+        NestedScrollingChild2 {
     // Maps to ProgressBar.Large style
     public static final int LARGE = CircularProgressDrawable.LARGE;
     // Maps to ProgressBar default style
@@ -758,7 +758,55 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
         }
     }
 
-    // NestedScrollingParent
+    // NestedScrollingParent 2
+
+    @Override
+    public boolean onStartNestedScroll(View child, View target, int axes, int type) {
+        if (type == ViewCompat.TYPE_TOUCH) {
+            return onStartNestedScroll(child, target, axes);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public void onNestedScrollAccepted(View child, View target, int axes, int type) {
+        // Should always be true because onStartNestedScroll returns false for all type !=
+        // ViewCompat.TYPE_TOUCH, but check just in case.
+        if (type == ViewCompat.TYPE_TOUCH) {
+            onNestedScrollAccepted(child, target, axes);
+        }
+    }
+
+    @Override
+    public void onStopNestedScroll(View target, int type) {
+        // Should always be true because onStartNestedScroll returns false for all type !=
+        // ViewCompat.TYPE_TOUCH, but check just in case.
+        if (type == ViewCompat.TYPE_TOUCH) {
+            onStopNestedScroll(target);
+        }
+    }
+
+    @Override
+    public void onNestedScroll(View target, int dxConsumed, int dyConsumed, int dxUnconsumed,
+            int dyUnconsumed, int type) {
+        // Should always be true because onStartNestedScroll returns false for all type !=
+        // ViewCompat.TYPE_TOUCH, but check just in case.
+        if (type == ViewCompat.TYPE_TOUCH) {
+            onNestedScroll(target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
+        }
+    }
+
+    @Override
+    public void onNestedPreScroll(View target, int dx, int dy, int[] consumed, int type) {
+        // Should always be true because onStartNestedScroll returns false for all type !=
+        // ViewCompat.TYPE_TOUCH, but check just in case.
+        if (type == ViewCompat.TYPE_TOUCH) {
+            onNestedPreScroll(target, dx, dy, consumed);
+        }
+    }
+
+    // NestedScrollingParent 1
 
     @Override
     public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes) {
@@ -846,7 +894,52 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
         }
     }
 
-    // NestedScrollingChild
+    @Override
+    public boolean onNestedPreFling(View target, float velocityX,
+            float velocityY) {
+        return dispatchNestedPreFling(velocityX, velocityY);
+    }
+
+    @Override
+    public boolean onNestedFling(View target, float velocityX, float velocityY,
+            boolean consumed) {
+        return dispatchNestedFling(velocityX, velocityY, consumed);
+    }
+
+    // NestedScrollingChild 2
+
+    @Override
+    public boolean startNestedScroll(int axes, int type) {
+        return type == ViewCompat.TYPE_TOUCH && startNestedScroll(axes);
+    }
+
+    @Override
+    public void stopNestedScroll(int type) {
+        if (type == ViewCompat.TYPE_TOUCH) {
+            stopNestedScroll();
+        }
+    }
+
+    @Override
+    public boolean hasNestedScrollingParent(int type) {
+        return type == ViewCompat.TYPE_TOUCH && hasNestedScrollingParent();
+    }
+
+    @Override
+    public boolean dispatchNestedScroll(int dxConsumed, int dyConsumed, int dxUnconsumed,
+            int dyUnconsumed, int[] offsetInWindow, int type) {
+        return type == ViewCompat.TYPE_TOUCH && dispatchNestedScroll(dxConsumed, dyConsumed,
+                dxUnconsumed, dyUnconsumed, offsetInWindow);
+    }
+
+    @Override
+    public boolean dispatchNestedPreScroll(int dx, int dy, int[] consumed, int[] offsetInWindow,
+            int type) {
+        return type == ViewCompat.TYPE_TOUCH && dispatchNestedPreScroll(dx, dy, consumed,
+                offsetInWindow);
+    }
+
+    // NestedScrollingChild 1
 
     @Override
     public void setNestedScrollingEnabled(boolean enabled) {
@@ -884,18 +977,6 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
     public boolean dispatchNestedPreScroll(int dx, int dy, int[] consumed, int[] offsetInWindow) {
         return mNestedScrollingChildHelper.dispatchNestedPreScroll(
                 dx, dy, consumed, offsetInWindow);
-    }
-
-    @Override
-    public boolean onNestedPreFling(View target, float velocityX,
-            float velocityY) {
-        return dispatchNestedPreFling(velocityX, velocityY);
-    }
-
-    @Override
-    public boolean onNestedFling(View target, float velocityX, float velocityY,
-            boolean consumed) {
-        return dispatchNestedFling(velocityX, velocityY, consumed);
     }
 
     @Override
