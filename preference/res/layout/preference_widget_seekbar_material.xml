@@ -91,6 +91,8 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="@dimen/preference_seekbar_padding_start"
                     android:paddingEnd="@dimen/preference_seekbar_padding_end"
+                    android:paddingLeft="@dimen/preference_seekbar_padding_start"
+                    android:paddingRight="@dimen/preference_seekbar_padding_end"
                     android:focusable="false"
                     android:clickable="false"
                     android:background="@null" />
