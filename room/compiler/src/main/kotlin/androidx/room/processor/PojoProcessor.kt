@@ -74,6 +74,7 @@ import javax.lang.model.util.ElementFilter
 /**
  * Processes any class as if it is a Pojo.
  */
+
 class PojoProcessor(
     baseContext: Context,
     val element: TypeElement,
