@@ -381,22 +381,26 @@ public class MediaUtils2 {
         if (ratingCompat == null) {
             return null;
         }
-        if (!ratingCompat.isRated()) {
-            return Rating2.newUnratedRating(ratingCompat.getRatingStyle());
-        }
-
         switch (ratingCompat.getRatingStyle()) {
             case RatingCompat.RATING_3_STARS:
+                return ratingCompat.isRated()
+                        ? new StarRating2(3, ratingCompat.getStarRating()) : new StarRating2(3);
             case RatingCompat.RATING_4_STARS:
+                return ratingCompat.isRated()
+                        ? new StarRating2(4, ratingCompat.getStarRating()) : new StarRating2(4);
             case RatingCompat.RATING_5_STARS:
-                return Rating2.newStarRating(
-                        ratingCompat.getRatingStyle(), ratingCompat.getStarRating());
+                return ratingCompat.isRated()
+                        ? new StarRating2(5, ratingCompat.getStarRating()) : new StarRating2(5);
             case RatingCompat.RATING_HEART:
-                return Rating2.newHeartRating(ratingCompat.hasHeart());
+                return ratingCompat.isRated()
+                        ? new HeartRating2(ratingCompat.hasHeart()) : new HeartRating2();
             case RatingCompat.RATING_THUMB_UP_DOWN:
-                return Rating2.newThumbRating(ratingCompat.isThumbUp());
+                return ratingCompat.isRated()
+                        ? new ThumbRating2(ratingCompat.isThumbUp()) : new ThumbRating2();
             case RatingCompat.RATING_PERCENTAGE:
-                return Rating2.newPercentageRating(ratingCompat.getPercentRating());
+                return ratingCompat.isRated()
+                        ? new PercentageRating2(ratingCompat.getPercentRating())
+                        : new PercentageRating2();
             default:
                 return null;
         }
@@ -412,22 +416,24 @@ public class MediaUtils2 {
         if (rating2 == null) {
             return null;
         }
+        int ratingStyle = getRatingStyle(rating2);
         if (!rating2.isRated()) {
-            return RatingCompat.newUnratedRating(rating2.getRatingStyle());
+            return RatingCompat.newUnratedRating(ratingStyle);
         }
 
-        switch (rating2.getRatingStyle()) {
-            case Rating2.RATING_3_STARS:
-            case Rating2.RATING_4_STARS:
-            case Rating2.RATING_5_STARS:
+        switch (ratingStyle) {
+            case RatingCompat.RATING_3_STARS:
+            case RatingCompat.RATING_4_STARS:
+            case RatingCompat.RATING_5_STARS:
                 return RatingCompat.newStarRating(
-                        rating2.getRatingStyle(), rating2.getStarRating());
-            case Rating2.RATING_HEART:
-                return RatingCompat.newHeartRating(rating2.hasHeart());
-            case Rating2.RATING_THUMB_UP_DOWN:
-                return RatingCompat.newThumbRating(rating2.isThumbUp());
-            case Rating2.RATING_PERCENTAGE:
-                return RatingCompat.newPercentageRating(rating2.getPercentRating());
+                        ratingStyle, ((StarRating2) rating2).getStarRating());
+            case RatingCompat.RATING_HEART:
+                return RatingCompat.newHeartRating(((HeartRating2) rating2).hasHeart());
+            case RatingCompat.RATING_THUMB_UP_DOWN:
+                return RatingCompat.newThumbRating(((ThumbRating2) rating2).isThumbUp());
+            case RatingCompat.RATING_PERCENTAGE:
+                return RatingCompat.newPercentageRating(
+                        ((PercentageRating2) rating2).getPercentRating());
             default:
                 return null;
         }
@@ -572,5 +578,25 @@ public class MediaUtils2 {
                 bundles.remove(i);
             }
         }
+    }
+
+    private static int getRatingStyle(Rating2 rating) {
+        if (rating instanceof HeartRating2) {
+            return RatingCompat.RATING_HEART;
+        } else if (rating instanceof ThumbRating2) {
+            return RatingCompat.RATING_THUMB_UP_DOWN;
+        } else if (rating instanceof StarRating2) {
+            switch (((StarRating2) rating).getMaxStars()) {
+                case 3:
+                    return RatingCompat.RATING_3_STARS;
+                case 4:
+                    return RatingCompat.RATING_4_STARS;
+                case 5:
+                    return RatingCompat.RATING_5_STARS;
+            }
+        } else if (rating instanceof PercentageRating2) {
+            return RatingCompat.RATING_PERCENTAGE;
+        }
+        return RatingCompat.RATING_NONE;
     }
 }
