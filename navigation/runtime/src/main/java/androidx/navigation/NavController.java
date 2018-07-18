@@ -495,6 +495,7 @@ public class NavController {
      * @return True if the navigation controller found a valid deep link and navigated to it.
      * @see NavDestination#addDeepLink(String)
      */
+    @SuppressWarnings("unchecked")
     public boolean onHandleDeepLink(@Nullable Intent intent) {
         if (intent == null) {
             return false;
@@ -510,7 +511,20 @@ public class NavController {
             Pair<NavDestination, Bundle> matchingDeepLink = mGraph.matchDeepLink(intent.getData());
             if (matchingDeepLink != null) {
                 deepLink = matchingDeepLink.first.buildDeepLinkIds();
-                bundle.putAll(matchingDeepLink.second);
+                for (String key: matchingDeepLink.second.keySet()) {
+                    NavArgument argument = matchingDeepLink.first.getArguments().get(key);
+                    if (argument != null) {
+                        Object value = argument.getType()
+                                .parseValue(matchingDeepLink.second.getString(key));
+                        if (value != null) {
+                            argument.getType().put(bundle, key, value);
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        bundle.putString(key, matchingDeepLink.second.getString(key));
+                    }
+                }
             }
         }
         if (deepLink == null || deepLink.length == 0) {

@@ -16,7 +16,6 @@
 
 package androidx.navigation
 
-import android.os.Bundle
 import android.support.annotation.IdRes
 import androidx.test.InstrumentationRegistry
 import androidx.test.filters.SmallTest
@@ -60,6 +59,12 @@ class NavDestinationTest {
         assertWithMessage("NavDestination should have default arguments set")
             .that(destination.defaultArguments)
             .isEqualTo(arguments)
+        assertEquals("NavDestination expected to have default argument myArg == 123",
+                destination.defaultArguments.getInt("myArg"), 123)
+        assertTrue("NavDestination expected to have default argument myArg2",
+                destination.defaultArguments.containsKey("myArg2"))
+        assertNull("NavDestination expected to have default argument myArg2 == null",
+                destination.defaultArguments.getString("myArg2"))
     }
 
     @Test

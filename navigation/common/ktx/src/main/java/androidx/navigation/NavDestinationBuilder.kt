@@ -16,7 +16,6 @@
 
 package androidx.navigation
 
-import android.os.Bundle
 import android.support.annotation.IdRes
 
 @DslMarker
@@ -27,8 +26,8 @@ annotation class NavDestinationDsl
  */
 @NavDestinationDsl
 open class NavDestinationBuilder<out D : NavDestination>(
-        protected val navigator: Navigator<out D>,
-        @IdRes val id: Int
+    protected val navigator: Navigator<out D>,
+    @IdRes val id: Int
 ) {
     /**
      * The descriptive label of the destination
@@ -36,9 +35,16 @@ open class NavDestinationBuilder<out D : NavDestination>(
     var label: CharSequence? = null
 
     /**
-     * The default arguments that should be passed to the destination
+     * The arguments supported by this destination
      */
-    var defaultArguments: Bundle? = null
+    private var navArguments = mutableListOf<NavArgument<*>>()
+
+    /**
+     * Adds a new [NavAction] to the destination
+     */
+    fun <T> argument(name: String, navType: NavType<T>, block: NavArgumentBuilder<T>.() -> Unit) {
+        navArguments.add(NavArgumentBuilder(name, navType).apply(block).build())
+    }
 
     private var deepLinks = mutableListOf<String>()
 
@@ -79,7 +85,9 @@ open class NavDestinationBuilder<out D : NavDestination>(
         return navigator.createDestination().also { destination ->
             destination.id = id
             destination.label = label
-            destination.setDefaultArguments(defaultArguments)
+            navArguments.forEach {
+                destination.putArgument(it.name, it)
+            }
             deepLinks.forEach { deepLink ->
                 destination.addDeepLink(deepLink)
             }
@@ -110,4 +118,31 @@ class NavActionBuilder {
     }
 
     internal fun build() = NavAction(destinationId, navOptions)
+}
+
+/**
+ * DSL for building a [NavArgument].
+ */
+@NavDestinationDsl
+class NavArgumentBuilder<T>(name: String, type: NavType<T>) {
+    private val builder: NavArgument.Builder<T> = NavArgument.Builder()
+
+    init {
+        builder.setName(name)
+        builder.setType(type)
+    }
+
+    var defaultValue: T? = null
+        set(value) {
+            builder.setDefaultValue(value)
+        }
+
+    var isNullable: Boolean = false
+        set(value) {
+            builder.setIsNullable(value)
+        }
+
+    fun build(): NavArgument<T> {
+        return builder.build()
+    }
 }

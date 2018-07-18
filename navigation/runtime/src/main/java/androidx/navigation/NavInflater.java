@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
+import android.os.Bundle;
 import android.support.annotation.NavigationRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -134,59 +135,123 @@ public class NavInflater {
         return dest;
     }
 
+    @SuppressWarnings("unchecked")
     private void inflateArgument(@NonNull Resources res, @NonNull NavDestination dest,
             @NonNull AttributeSet attrs) throws XmlPullParserException {
         final TypedArray a = res.obtainAttributes(attrs, R.styleable.NavArgument);
         String name = a.getString(R.styleable.NavArgument_android_name);
+        if (name == null) {
+            return;
+        }
+
+        NavArgument.Builder argumentBuilder = new NavArgument.Builder();
+        argumentBuilder.setName(name);
+        argumentBuilder.setIsNullable(a.getBoolean(R.styleable.NavArgument_nullable, false));
 
         TypedValue value = sTmpValue.get();
         if (value == null) {
             value = new TypedValue();
             sTmpValue.set(value);
         }
+
+        Object defaultValue = null;
+        NavType navType = null;
         String argType = a.getString(R.styleable.NavArgument_argType);
+        if (argType != null) {
+            navType = NavType.fromArgType(argType);
+        }
+
         if (a.getValue(R.styleable.NavArgument_android_defaultValue, value)) {
-            if ("string".equals(argType)) {
-                dest.getDefaultArguments()
-                        .putString(name, a.getString(R.styleable.NavArgument_android_defaultValue));
+            if (navType == NavType.StringType) {
+                defaultValue = a.getString(R.styleable.NavArgument_android_defaultValue);
             } else {
                 switch (value.type) {
                     case TypedValue.TYPE_STRING:
                         String stringValue = value.string.toString();
-                        if (argType == null) {
-                            Long longValue = parseLongValue(stringValue);
-                            if (longValue != null) {
-                                dest.getDefaultArguments().putLong(name, longValue);
-                                break;
+                        if (navType == null) {
+                            navType = NavType.inferFromValue(stringValue);
+                            if (navType == null) {
+                                throw new XmlPullParserException(
+                                        "unsupported value " + value.string
+                                                + ": cannot infer type");
                             }
-                        } else if ("long".equals(argType)) {
-                            Long longValue = parseLongValue(stringValue);
-                            if (longValue != null) {
-                                dest.getDefaultArguments().putLong(name, longValue);
-                                break;
-                            }
-                            throw new XmlPullParserException(
-                                    "unsupported long value " + value.string);
                         }
-                        dest.getDefaultArguments().putString(name, stringValue);
+                        defaultValue = navType.parseValue(stringValue);
+                        if (defaultValue == null) {
+                            throw new XmlPullParserException(
+                                    "unsupported value '" + value.string
+                                            + "' for " + navType.getName());
+                        }
                         break;
                     case TypedValue.TYPE_DIMENSION:
-                        dest.getDefaultArguments().putInt(name,
-                                (int) value.getDimension(res.getDisplayMetrics()));
+                        if (navType != null && navType != NavType.IntType) {
+                            throw new XmlPullParserException(
+                                    "Type is " + argType + " but found dimension: " + value.data);
+                        } else {
+                            if (navType == null) {
+                                navType = NavType.IntType;
+                            }
+                            defaultValue = (int) value.getDimension(res.getDisplayMetrics());
+                        }
                         break;
                     case TypedValue.TYPE_FLOAT:
-                        dest.getDefaultArguments().putFloat(name, value.getFloat());
+                        if (navType != null && navType != NavType.FloatType) {
+                            throw new XmlPullParserException(
+                                    "Type is " + argType + " but found float: " + value.data);
+                        } else {
+                            if (navType == null) {
+                                navType = NavType.FloatType;
+                            }
+                            defaultValue = value.getFloat();
+                        }
                         break;
                     case TypedValue.TYPE_REFERENCE:
-                        dest.getDefaultArguments().putInt(name, value.data);
+                        if (navType != null && navType != NavType.IntType) {
+                            throw new XmlPullParserException(
+                                    "Type is " + argType + " but found reference: " + value.data);
+                        } else {
+                            if (navType == null) {
+                                navType = NavType.IntType;
+                            }
+                            defaultValue = value.data;
+                        }
+                        break;
+                    case TypedValue.TYPE_INT_BOOLEAN:
+                        if (navType != null && navType != NavType.BoolType) {
+                            throw new XmlPullParserException(
+                                    "Type is " + argType + " but found boolean: " + value.data);
+                        } else {
+                            if (navType == null) {
+                                navType = NavType.BoolType;
+                            }
+                            defaultValue = value.data != 0;
+                        }
                         break;
                     default:
                         if (value.type >= TypedValue.TYPE_FIRST_INT
                                 && value.type <= TypedValue.TYPE_LAST_INT) {
                             if (value.type == TypedValue.TYPE_INT_BOOLEAN) {
-                                dest.getDefaultArguments().putBoolean(name, value.data != 0);
+                                if (navType != null && navType != NavType.BoolType) {
+                                    throw new XmlPullParserException(
+                                            "Type is " + argType + " but found integer: "
+                                                    + value.data);
+                                } else {
+                                    if (navType == null) {
+                                        navType = NavType.BoolType;
+                                    }
+                                    defaultValue = value.data != 0;
+                                }
                             } else {
-                                dest.getDefaultArguments().putInt(name, value.data);
+                                if (navType != null && navType != NavType.IntType) {
+                                    throw new XmlPullParserException(
+                                            "Type is " + argType + " but found integer: "
+                                                    + value.data);
+                                } else {
+                                    if (navType == null) {
+                                        navType = NavType.IntType;
+                                    }
+                                    defaultValue = value.data;
+                                }
                             }
                         } else {
                             throw new XmlPullParserException(
@@ -195,23 +260,20 @@ public class NavInflater {
                 }
             }
         }
-        a.recycle();
-    }
 
-    private @Nullable Long parseLongValue(String value) {
-        if (!value.endsWith("L")) {
-            return null;
+        if (defaultValue != null) {
+            argumentBuilder.setDefaultValue(defaultValue);
+        }
+        if (navType != null) {
+            argumentBuilder.setType(navType);
         }
         try {
-            value = value.substring(0, value.length() - 1);
-            if (value.startsWith("0x")) {
-                return Long.parseLong(value.substring(2), 16);
-            } else {
-                return Long.parseLong(value);
-            }
-        } catch (NumberFormatException ex) {
-            return null;
+            dest.putArgument(name, argumentBuilder.build());
+        } catch (IllegalStateException e) {
+            throw new RuntimeException(attrs.getPositionDescription(), e);
         }
+
+        a.recycle();
     }
 
     private void inflateDeepLink(@NonNull Resources res, @NonNull NavDestination dest,

@@ -39,7 +39,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * NavDestination represents one node within an overall navigation graph.
@@ -134,9 +136,15 @@ public class NavDestination {
     private NavGraph mParent;
     private int mId;
     private CharSequence mLabel;
-    private Bundle mDefaultArgs;
     private ArrayList<NavDeepLink> mDeepLinks;
     private SparseArrayCompat<NavAction> mActions;
+    private HashMap<String, NavArgument> mArguments;
+
+    @Nullable
+    public Map<String, NavArgument> getArguments() {
+        return mArguments == null ? Collections.<String, NavArgument>emptyMap()
+                : Collections.unmodifiableMap(mArguments);
+    }
 
     /**
      * NavDestinations should be created via {@link Navigator#createDestination}.
@@ -228,29 +236,13 @@ public class NavDestination {
      * @return the default arguments bundle
      */
     public @NonNull Bundle getDefaultArguments() {
-        if (mDefaultArgs == null) {
-            mDefaultArgs = new Bundle();
+        Bundle defaultArgs = new Bundle();
+        if (mArguments != null) {
+            for (NavArgument argument : mArguments.values()) {
+                argument.putDefaultValue(defaultArgs);
+            }
         }
-        return mDefaultArgs;
-    }
-
-    /**
-     * Sets the destination's default arguments bundle.
-     *
-     * @param args the new bundle to set
-     */
-    public void setDefaultArguments(@Nullable Bundle args) {
-        mDefaultArgs = args;
-    }
-
-    /**
-     * Merges a bundle of arguments into the current default arguments for this destination.
-     * New values with the same keys will replace old values with those keys.
-     *
-     * @param args arguments to add
-     */
-    public void addDefaultArguments(@NonNull Bundle args) {
-        getDefaultArguments().putAll(args);
+        return defaultArgs;
     }
 
     /**
@@ -387,24 +379,67 @@ public class NavDestination {
     }
 
     /**
+     * Sets an argument type for an argument name
+     *
+     * @param argumentName argument name to bind
+     * @param argument argument type to associate with argumentName
+     */
+    public void putArgument(@NonNull String argumentName, @NonNull NavArgument argument) {
+        //noinspection ConstantConditions
+        if (argumentName == null) {
+            throw new IllegalArgumentException("Cannot have an argument with null name");
+        }
+        if (mArguments == null) {
+            mArguments = new HashMap<>();
+        }
+        mArguments.put(argumentName, argument);
+    }
+
+    /**
+     * Unsets the argument type for an argument name.
+     *
+     * @param argumentName argument to remove
+     */
+    public void removeArgument(@NonNull String argumentName) {
+        //noinspection ConstantConditions
+        if (argumentName == null) {
+            throw new IllegalArgumentException("Cannot have an argument with null name");
+        }
+        if (mArguments == null) {
+            return;
+        }
+        mArguments.remove(argumentName);
+    }
+
+    /**
      * Navigates to this destination.
      *
      * <p>Uses the {@link #getNavigator() configured navigator} to navigate to this destination.
      * Apps should not call this directly, instead use {@link NavController}'s navigation methods
      * to ensure consistent back stack tracking and behavior.</p>
-     *  @param args arguments to the new destination
+     *
+     * @param args arguments to the new destination
      * @param navOptions options for navigation
      * @param navigatorExtras extras to pass to the Navigator
      */
     @SuppressWarnings("unchecked")
     public void navigate(@Nullable Bundle args, @Nullable NavOptions navOptions,
             @Nullable Navigator.Extras navigatorExtras) {
-        Bundle defaultArgs = getDefaultArguments();
-        Bundle finalArgs = new Bundle();
-        finalArgs.putAll(defaultArgs);
+        Bundle finalArgs = getDefaultArguments();
         if (args != null) {
             finalArgs.putAll(args);
+            if (mArguments != null) {
+                for (NavArgument argument : mArguments.values()) {
+                    if (!argument.verify(args)) {
+                        throw new IllegalArgumentException(
+                                "Wrong argument type for '" + argument.getName()
+                                        + "' in argument bundle. "
+                                        + argument.getType().getName() + " expected.");
+                    }
+                }
+            }
         }
+
         mNavigator.navigate(this, finalArgs, navOptions, navigatorExtras);
     }
 }
