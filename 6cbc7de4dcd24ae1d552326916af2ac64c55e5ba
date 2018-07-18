@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d15bd0e3_99f89ff4",
+        "filename": "project.config",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1086523
+      },
+      "writtenOn": "2018-07-18T00:45:57Z",
+      "side": 1,
+      "message": "These are copied from unrestricted projects.",
+      "revId": "6cbc7de4dcd24ae1d552326916af2ac64c55e5ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
