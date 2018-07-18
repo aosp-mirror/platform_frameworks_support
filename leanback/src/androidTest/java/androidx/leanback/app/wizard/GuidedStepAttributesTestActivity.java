@@ -14,13 +14,13 @@
 
 package androidx.leanback.app.wizard;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
 
-import androidx.leanback.app.GuidedStepFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.leanback.app.GuidedStepSupportFragment;
 
-public class GuidedStepAttributesTestActivity extends Activity {
+public class GuidedStepAttributesTestActivity extends FragmentActivity {
 
     private GuidedStepAttributesTestFragment mGuidedStepAttributesTestFragment;
 
@@ -32,9 +32,11 @@ public class GuidedStepAttributesTestActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         mGuidedStepAttributesTestFragment = new GuidedStepAttributesTestFragment();
-        GuidedStepFragment.addAsRoot(this, mGuidedStepAttributesTestFragment, android.R.id.content);
+        GuidedStepSupportFragment.addAsRoot(this, mGuidedStepAttributesTestFragment,
+                android.R.id.content);
     }
+
     public Fragment getGuidedStepTestFragment() {
-        return getFragmentManager().findFragmentById(android.R.id.content);
+        return getSupportFragmentManager().findFragmentById(android.R.id.content);
     }
 }

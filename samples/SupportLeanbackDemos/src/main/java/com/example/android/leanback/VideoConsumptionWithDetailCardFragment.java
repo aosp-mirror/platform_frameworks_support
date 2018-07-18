@@ -19,8 +19,8 @@ package com.example.android.leanback;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.leanback.app.VideoFragment;
-import androidx.leanback.app.VideoFragmentGlueHost;
+import androidx.leanback.app.VideoSupportFragment;
+import androidx.leanback.app.VideoSupportFragmentGlueHost;
 import androidx.leanback.media.MediaPlayerAdapter;
 import androidx.leanback.media.PlaybackBannerControlGlue;
 import androidx.leanback.media.PlaybackGlue;
@@ -28,7 +28,7 @@ import androidx.leanback.media.PlaybackGlue;
 /**
  * Fragment used as Control Glue's host
  */
-public class VideoConsumptionWithDetailCardFragment extends VideoFragment {
+public class VideoConsumptionWithDetailCardFragment extends VideoSupportFragment {
 
     public static final String TAG = "VideoConsumptionWithDetailCardFragment";
     // A valid video URL to play video. So the progress bar can be seen to reproduce the bug.
@@ -39,7 +39,7 @@ public class VideoConsumptionWithDetailCardFragment extends VideoFragment {
     public static final String SUBTITLE = "A Googler";
 
     private PlaybackBannerControlGlue<MediaPlayerAdapter> mMediaPlayerGlue;
-    final VideoFragmentGlueHost mHost = new VideoFragmentGlueHost(this);
+    final VideoSupportFragmentGlueHost mHost = new VideoSupportFragmentGlueHost(this);
 
     /**
      * helper function for playBackGlue to add/ remove callbacks

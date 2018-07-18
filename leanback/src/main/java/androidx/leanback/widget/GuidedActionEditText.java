@@ -30,7 +30,8 @@ import android.widget.TextView;
 import androidx.core.widget.TextViewCompat;
 
 /**
- * A custom EditText that satisfies the IME key monitoring requirements of GuidedStepFragment.
+ * A custom EditText that satisfies the IME key monitoring requirements of
+ * GuidedStepSupportFragment.
  */
 public class GuidedActionEditText extends EditText implements ImeKeyMonitor,
         GuidedActionAutofillSupport {

@@ -62,7 +62,7 @@ final class DetailsBackgroundVideoHelper {
     private boolean mBackgroundDrawableVisible;
 
     /**
-     * Constructor to setup a Helper for controlling video playback in DetailsFragment.
+     * Constructor to setup a Helper for controlling video playback in DetailsSupportFragment.
      * @param playbackGlue The PlaybackGlue used to control underlying player.
      * @param detailsParallax The DetailsParallax to add special parallax effect to control video
      *                        start/stop. Video is played when

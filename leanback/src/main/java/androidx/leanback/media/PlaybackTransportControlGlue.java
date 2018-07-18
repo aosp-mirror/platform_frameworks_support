@@ -65,14 +65,14 @@ import java.lang.ref.WeakReference;
  * </p>
  * Sample Code:
  * <pre><code>
- * public class MyVideoFragment extends VideoFragment {
+ * public class MyVideoFragment extends VideoSupportFragment {
  *     &#64;Override
  *     public void onCreate(Bundle savedInstanceState) {
  *         super.onCreate(savedInstanceState);
  *         PlaybackTransportControlGlue<MediaPlayerAdapter> playerGlue =
  *                 new PlaybackTransportControlGlue(getActivity(),
  *                         new MediaPlayerAdapter(getActivity()));
- *         playerGlue.setHost(new VideoFragmentGlueHost(this));
+ *         playerGlue.setHost(new VideoSupportFragmentGlueHost(this));
  *         playerGlue.setSubtitle("Leanback artist");
  *         playerGlue.setTitle("Leanback team at work");
  *         String uriPath = "android.resource://com.example.android.leanback/raw/video";

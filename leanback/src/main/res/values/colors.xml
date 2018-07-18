@@ -74,7 +74,7 @@
 
     <color name="lb_search_plate_hint_text_color">#FFCCCCCC</color>
 
-    <!-- GuidedStepFragment -->
+    <!-- GuidedStepSupportFragment -->
     <color name="lb_tv_white">#FFCCCCCC</color>
 
     <!-- refactor naming here -->

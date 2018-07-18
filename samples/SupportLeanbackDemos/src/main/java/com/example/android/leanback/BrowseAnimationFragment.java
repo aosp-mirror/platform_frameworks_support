@@ -32,7 +32,7 @@ import androidx.leanback.widget.RowPresenter;
 import java.util.Random;
 
 public class BrowseAnimationFragment extends
-        androidx.leanback.app.BrowseFragment {
+        androidx.leanback.app.BrowseSupportFragment {
     private static final String TAG = "leanback.BrowseAnimationFragment";
 
     private static final int NUM_ROWS = 10;
@@ -67,7 +67,7 @@ public class BrowseAnimationFragment extends
         setOnSearchClickedListener(new View.OnClickListener() {
                 @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                Intent intent = new Intent(getActivity(), SearchSupportActivity.class);
                 startActivity(intent);
             }
         });

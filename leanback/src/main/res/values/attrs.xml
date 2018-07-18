@@ -212,19 +212,19 @@
 
     <declare-styleable name="LeanbackTheme">
 
-        <!-- start padding of BrowseFragment, RowsFragment, DetailsFragment -->
+        <!-- start padding of BrowseSupportFragment, RowsSupportFragment, DetailsSupportFragment -->
         <attr name="browsePaddingStart" format="dimension" />
-        <!-- end padding of BrowseFragment, RowsFragment, DetailsFragment -->
+        <!-- end padding of BrowseSupportFragment, RowsSupportFragment, DetailsSupportFragment -->
         <attr name="browsePaddingEnd" format="dimension" />
-        <!-- top padding of BrowseFragment -->
+        <!-- top padding of BrowseSupportFragment -->
         <attr name="browsePaddingTop" format="dimension" />
-        <!-- bottom padding of BrowseFragment -->
+        <!-- bottom padding of BrowseSupportFragment -->
         <attr name="browsePaddingBottom" format="dimension" />
-        <!-- start margin of RowsFragment inside BrowseFragment when HeadersFragment is visible -->
+        <!-- start margin of RowsSupportFragment inside BrowseSupportFragment when HeadersSupportFragment is visible -->
         <attr name="browseRowsMarginStart" format="dimension" />
-        <!-- top margin of RowsFragment inside BrowseFragment when BrowseFragment title is visible -->
+        <!-- top margin of RowsSupportFragment inside BrowseSupportFragment when BrowseSupportFragment title is visible -->
         <attr name="browseRowsMarginTop" format="dimension" />
-        <!-- fading edge length of start of browse row when HeadersFragment is visible -->
+        <!-- fading edge length of start of browse row when HeadersSupportFragment is visible -->
         <attr name="browseRowsFadingEdgeLength" format="dimension" />
 
         <!-- fragment title text style -->
@@ -239,14 +239,14 @@
         <!-- customize title view layout file, it must have title view with id browse_title_group -->
         <attr name="browseTitleViewLayout" format="reference" />
 
-        <!-- vertical grid style inside HeadersFragment -->
+        <!-- vertical grid style inside HeadersSupportFragment -->
         <attr name="headersVerticalGridStyle" format="reference" />
-        <!-- header style inside HeadersFragment -->
+        <!-- header style inside HeadersSupportFragment -->
         <attr name="headerStyle" format="reference" />
-        <!-- Non selectable header style inside HeadersFragment -->
+        <!-- Non selectable header style inside HeadersSupportFragment -->
         <attr name="sectionHeaderStyle" format="reference" />
 
-        <!-- vertical grid style inside RowsFragment -->
+        <!-- vertical grid style inside RowsSupportFragment -->
         <attr name="rowsVerticalGridStyle" format="reference" />
 
         <!-- horizontal grid style inside a row -->
@@ -362,10 +362,10 @@
 
     <declare-styleable name="LeanbackGuidedStepTheme">
 
-        <!-- Theme attribute for the overall theme used in a GuidedStepFragment. The Leanback themes
+        <!-- Theme attribute for the overall theme used in a GuidedStepSupportFragment. The Leanback themes
              set the default for this, but a custom theme that does not derive from a leanback theme
              can set this to <code>@style/Theme.Leanback.GuidedStep</code> in order to specify the
-             default GuidedStepFragment styles. -->
+             default GuidedStepSupportFragment styles. -->
         <attr name="guidedStepTheme" format="reference" />
         <!-- Used to control the height of the fragment. By default this fragment will take
              up the full height of it's parent. The height of this fragment is governed by
@@ -381,7 +381,7 @@
              Theme attribute used to inspect theme inheritance. -->
         <attr name="guidedStepThemeFlag" format="boolean" />
 
-        <!-- Theme attribute of background drawable used by GuidedStepFragment. -->
+        <!-- Theme attribute of background drawable used by GuidedStepSupportFragment. -->
         <attr name="guidedStepBackground" format="reference|color" />
 
         <!-- Theme attribute for the animation used when a guided step element is animated in
@@ -580,7 +580,7 @@
         <!-- Theme attribute for the overall theme used in the onboarding. The Leanback themes set
              the default for this, but a custom theme that does not derive from a leanback theme can
              set this to <code>@style/Theme.Leanback.Onboarding</code> in order to specify the
-             default OnboardingFragment styles. -->
+             default OnboardingSupportFragment styles. -->
         <attr name="onboardingTheme" format="reference" />
 
         <!-- Theme attribute for the style of the header in onboarding screen. Default is

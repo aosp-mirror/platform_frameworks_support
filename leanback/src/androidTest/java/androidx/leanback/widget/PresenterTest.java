@@ -28,7 +28,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 
 import androidx.leanback.R;
-import androidx.leanback.app.HeadersFragment;
+import androidx.leanback.app.HeadersSupportFragment;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.MediumTest;
 import androidx.test.runner.AndroidJUnit4;
@@ -77,7 +77,7 @@ public class PresenterTest {
 
     @Test
     public void testHeaderPresenter() throws Throwable {
-        HeadersFragment hf = new HeadersFragment();
+        HeadersSupportFragment hf = new HeadersSupportFragment();
         PresenterSelector ps = hf.getPresenterSelector();
 
         Presenter p = ps.getPresenter(new Row());

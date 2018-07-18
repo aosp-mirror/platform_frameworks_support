@@ -269,7 +269,7 @@
 
     <dimen name="lb_rounded_rect_corner_radius">2dp</dimen>
 
-    <!-- GuidedStepFragment -->
+    <!-- GuidedStepSupportFragment -->
     <dimen name="lb_guidedstep_slide_ime_distance">-100dp</dimen>
 
     <dimen name="lb_guidedactions_list_padding_start">24dp</dimen>
@@ -315,7 +315,7 @@
     <integer name="lb_guidedactions_item_title_min_lines">1</integer>
     <integer name="lb_guidedactions_item_title_max_lines">3</integer>
     <integer name="lb_guidedactions_item_description_min_lines">2</integer>
-    <!-- end GuidedStepFragment -->
+    <!-- end GuidedStepSupportFragment -->
 
     <!-- height for picker item. -->
     <dimen name="picker_item_height">32dp</dimen>

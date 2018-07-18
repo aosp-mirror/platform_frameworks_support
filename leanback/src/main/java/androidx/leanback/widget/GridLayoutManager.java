@@ -2018,7 +2018,7 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
                     }
                 }
             } else {
-                // prune disabled(e.g. in RowsFragment transition): append all removed items
+                // prune disabled(e.g. in RowsSupportFragment transition): append all removed items
                 while (mGrid.appendOneColumnVisibleItems()
                         && mGrid.getLastVisibleIndex() < savedLastPos);
             }

@@ -15,7 +15,7 @@
      limitations under the License.
 -->
 
-<!-- container for hosting GuidedStepFragment -->
+<!-- container for hosting GuidedStepSupportFragment -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:id="@+id/lb_guidedstep_host"
   android:layout_width="match_parent"

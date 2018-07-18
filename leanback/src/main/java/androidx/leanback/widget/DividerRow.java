@@ -14,7 +14,7 @@
 package androidx.leanback.widget;
 
 /**
- * Used to represent divider in HeadersFragment.
+ * Used to represent divider in HeadersSupportFragment.
  */
 public class DividerRow extends Row {
 

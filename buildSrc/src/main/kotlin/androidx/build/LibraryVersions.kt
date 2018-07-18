@@ -132,7 +132,12 @@ object LibraryVersions {
     /**
      * Version code for Leanback
      */
-    val LEANBACK = Version("1.1.0-alpha01")
+    val LEANBACK = Version("2.0.0-alpha01")
+
+    /**
+     * Version code for Leanback-preference
+     */
+    val LEANBACK_PREFERENCE = Version("2.0.0-alpha01")
 
     /**
      * Version code for Webkit

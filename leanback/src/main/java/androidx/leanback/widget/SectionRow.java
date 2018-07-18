@@ -14,7 +14,8 @@
 package androidx.leanback.widget;
 
 /**
- * Used to represent section item in HeadersFragment.  Unlike a normal Row, it's not focusable.
+ * Used to represent section item in HeadersSupportFragment.  Unlike a normal Row, it's not
+ * focusable.
  */
 public class SectionRow extends Row {
 

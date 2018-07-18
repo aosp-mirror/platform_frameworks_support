@@ -136,9 +136,9 @@
         <item name="guidedStepHeightWeight">@dimen/lb_guidedstep_height_weight</item>
 
 
-        <!-- background applied to each GuidedStepFragment by default-->
+        <!-- background applied to each GuidedStepSupportFragment by default-->
         <item name="guidedStepBackground">?android:attr/colorBackground</item>
-        <!-- Each GuidedStepFragment has a background so activity does not need a background.
+        <!-- Each GuidedStepSupportFragment has a background so activity does not need a background.
              But We still need a dumb background to keep the temporary translucent state last
              as long as the background view fade-in transition -->
         <item name="android:windowBackground">@android:color/transparent</item>

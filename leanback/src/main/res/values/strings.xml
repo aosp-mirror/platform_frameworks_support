@@ -17,7 +17,7 @@ limitations under the License.
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
            xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- contentDescription that will be announced when go inside navigation menu of BrowseFragment-->
+    <!-- contentDescription that will be announced when go inside navigation menu of BrowseSupportFragment-->
     <string name="lb_navigation_menu_contentDescription">Navigation menu</string>
 
     <!-- Image description for the call to search action visible when browsing content [CHAR LIMIT=40] -->
@@ -87,9 +87,9 @@ limitations under the License.
     <string name="lb_playback_controls_shown">Media controls shown</string>
     <string name="lb_playback_controls_hidden">Media controls hidden, press d-pad to show</string>
 
-    <!-- Title of standard Finish action for GuidedStepFragment -->
+    <!-- Title of standard Finish action for GuidedStepSupportFragment -->
     <string name="lb_guidedaction_finish_title">Finish</string>
-    <!-- Title of standard Continue action for GuidedStepFragment -->
+    <!-- Title of standard Continue action for GuidedStepSupportFragment -->
     <string name="lb_guidedaction_continue_title">Continue</string>
 
     <!-- Error string for MediaPlayer -->

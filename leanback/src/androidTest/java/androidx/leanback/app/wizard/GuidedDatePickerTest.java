@@ -23,7 +23,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.LinearLayout;
 
-import androidx.leanback.app.GuidedStepFragment;
+import androidx.leanback.app.GuidedStepSupportFragment;
 import androidx.leanback.test.R;
 import androidx.leanback.widget.GuidanceStylist;
 import androidx.leanback.widget.GuidedAction;
@@ -607,7 +607,7 @@ public class GuidedDatePickerTest {
     private void traverseMonths(DatePicker mPickerView, GuidedDatePickerAction dateAction)
             throws Throwable {
 
-        final GuidedStepFragment mFragment = (GuidedStepFragment)
+        final GuidedStepSupportFragment mFragment = (GuidedStepSupportFragment)
                 mActivity.getGuidedStepTestFragment();
 
         Calendar currentActionCal = Calendar.getInstance();
@@ -871,7 +871,7 @@ public class GuidedDatePickerTest {
     private void scrollToMinAndMaxDates(int[] columnIndices, GuidedDatePickerAction dateAction)
             throws Throwable{
 
-        final GuidedStepFragment mFragment = (GuidedStepFragment)
+        final GuidedStepSupportFragment mFragment = (GuidedStepSupportFragment)
                 mActivity.getGuidedStepTestFragment();
 
         VerticalGridView guidedActionsList = (VerticalGridView)

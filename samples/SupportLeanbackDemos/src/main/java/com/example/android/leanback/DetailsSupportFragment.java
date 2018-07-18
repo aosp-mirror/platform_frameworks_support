@@ -1,6 +1,3 @@
-// CHECKSTYLE:OFF Generated code
-/* This file is auto-generated from DetailsFragment.java.  DO NOT MODIFY. */
-
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *
@@ -120,7 +117,7 @@ public class DetailsSupportFragment extends androidx.leanback.app.DetailsSupport
                     actions.clear(ACTION_RENT);
                     dor.setItem(mPhotoItem.getTitle() + "(Rented)");
                 } else if (action.getId() == ACTION_PLAY) {
-                    Intent intent = new Intent(context, PlaybackActivity.class);
+                    Intent intent = new Intent(context, PlaybackSupportActivity.class);
                     getActivity().startActivity(intent);
                 }
             }

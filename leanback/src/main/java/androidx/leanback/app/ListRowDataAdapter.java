@@ -4,14 +4,14 @@ import androidx.leanback.widget.ObjectAdapter;
 import androidx.leanback.widget.Row;
 
 /**
- * Wrapper class for {@link ObjectAdapter} used by {@link BrowseFragment} to initialize
- * {@link RowsFragment}. We use invisible rows to represent
+ * Wrapper class for {@link ObjectAdapter} used by {@link BrowseSupportFragment} to initialize
+ * {@link RowsSupportFragment}. We use invisible rows to represent
  * {@link androidx.leanback.widget.DividerRow},
  * {@link androidx.leanback.widget.SectionRow} and
- * {@link androidx.leanback.widget.PageRow} in RowsFragment. In case we have an
- * invisible row at the end of a RowsFragment, it creates a jumping effect as the layout manager
- * thinks there are items even though they're invisible. This class takes care of filtering out
- * the invisible rows at the end. In case the data inside the adapter changes, it adjusts the
+ * {@link androidx.leanback.widget.PageRow} in RowsSupportFragment. In case we have an
+ * invisible row at the end of a RowsSupportFragment, it creates a jumping effect as the layout
+ * manager thinks there are items even though they're invisible. This class takes care of filtering
+ * out the invisible rows at the end. In case the data inside the adapter changes, it adjusts the
  * bounds to reflect the latest data.
  * {@link #detach()} must be called to release DataObserver from Adapter.
  */

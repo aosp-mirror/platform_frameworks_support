@@ -16,11 +16,11 @@ package androidx.leanback.widget;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.leanback.app.HeadersFragment;
+import androidx.leanback.app.HeadersSupportFragment;
 import androidx.leanback.graphics.ColorOverlayDimmer;
 
 /**
- * An abstract {@link Presenter} that renders an Object in RowsFragment, the object can be
+ * An abstract {@link Presenter} that renders an Object in RowsSupportFragment, the object can be
  * subclass {@link Row} or a generic one.  When the object is not {@link Row} class,
  * {@link ViewHolder#getRow()} returns null.
  *
@@ -28,9 +28,9 @@ import androidx.leanback.graphics.ColorOverlayDimmer;
  * When a subclass of RowPresenter adds UI widgets, it should subclass
  * {@link RowPresenter.ViewHolder} and override {@link #createRowViewHolder(ViewGroup)}
  * and {@link #initializeRowViewHolder(ViewHolder)}. The subclass must use layout id
- * "row_content" for the widget that will be aligned to the title of any {@link HeadersFragment}
- * that may exist in the parent fragment. RowPresenter contains an optional and
- * replaceable {@link RowHeaderPresenter} that renders the header. You can disable
+ * "row_content" for the widget that will be aligned to the title of any
+ * {@link HeadersSupportFragment} that may exist in the parent fragment. RowPresenter contains an
+ * optional and replaceable {@link RowHeaderPresenter} that renders the header. You can disable
  * the default rendering or replace the Presenter with a new header presenter
  * by calling {@link #setHeaderPresenter(RowHeaderPresenter)}.
  *
@@ -46,7 +46,7 @@ import androidx.leanback.graphics.ColorOverlayDimmer;
  * </li>
  * <li>
  * A row is expanded to full height via {@link #setRowViewExpanded(Presenter.ViewHolder, boolean)}
- * when BrowseFragment hides fast lane on the left.
+ * when BrowseSupportFragment hides fast lane on the left.
  * The event is triggered immediately before the expand animation is started.
  * Row title is shown when row is expanded.  Expanded status may control activated status
  * of the row (see "Activated status" below).
