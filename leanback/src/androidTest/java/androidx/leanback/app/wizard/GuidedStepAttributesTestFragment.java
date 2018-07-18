@@ -16,18 +16,18 @@ package androidx.leanback.app.wizard;
 
 import android.os.Bundle;
 
-import androidx.leanback.app.GuidedStepFragment;
+import androidx.leanback.app.GuidedStepSupportFragment;
 import androidx.leanback.widget.GuidanceStylist;
 import androidx.leanback.widget.GuidedAction;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class GuidedStepAttributesTestFragment extends GuidedStepFragment {
+public class GuidedStepAttributesTestFragment extends GuidedStepSupportFragment {
 
     private static String TAG = "GuidedStepAttributesTestFragment";
     static class Callback {
-        public void onActionClicked(GuidedStepFragment fragment, long id) {
+        public void onActionClicked(GuidedStepSupportFragment fragment, long id) {
         }
     }
 

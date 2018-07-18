@@ -1,6 +1,3 @@
-// CHECKSTYLE:OFF Generated code
-/* This file is auto-generated from PlaybackActivity.java.  DO NOT MODIFY. */
-
 /*
  * Copyright (C) 2016 The Android Open Source Project
  *
@@ -27,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Host PlaybackFragment and provide PIP events.
+ * Host PlaybackSupportFragment and provide PIP events.
  */
 public class PlaybackSupportActivity extends FragmentActivity {
     private List<PictureInPictureListener> mListeners = new ArrayList<>();

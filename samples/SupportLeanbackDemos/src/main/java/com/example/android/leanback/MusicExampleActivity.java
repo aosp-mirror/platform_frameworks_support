@@ -15,13 +15,14 @@
  */
 
 package com.example.android.leanback;
-import android.app.Activity;
 import android.os.Bundle;
+
+import androidx.fragment.app.FragmentActivity;
 
 /**
  * Main Activity for the Music Player
  */
-public class MusicExampleActivity extends Activity {
+public class MusicExampleActivity extends FragmentActivity {
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

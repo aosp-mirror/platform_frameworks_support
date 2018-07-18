@@ -18,8 +18,8 @@ import android.view.View;
 
 /**
  * This class allows a customized widget class to implement {@link TitleViewAdapter.Provider}
- * and expose {@link TitleViewAdapter} methods to containing fragment (e.g. BrowseFragment or
- * DetailsFragment).
+ * and expose {@link TitleViewAdapter} methods to containing fragment (e.g. BrowseSupportFragment or
+ * DetailsSupportFragment).
  * The title view must have a search orb view ({@link #getSearchAffordanceView()} aligned to start
  * and can typically have a branding Drawable and or title text aligned to end.  The branding part
  * is fully open to customization: not necessary to be a drawable or text.

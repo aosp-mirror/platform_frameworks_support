@@ -20,7 +20,7 @@ import android.widget.EditText;
  * Interface for an EditText subclass that can delegate calls to onKeyPreIme up to a registered
  * listener.
  * <p>
- * Used in editable actions within {@link androidx.leanback.app.GuidedStepFragment} to
+ * Used in editable actions within {@link androidx.leanback.app.GuidedStepSupportFragment} to
  * allow for custom back key handling. Specifically, this is used to implement the behavior that
  * dismissing the IME also clears edit text focus. Clients who need to supply custom layouts for
  * {@link GuidedActionsStylist} with their own EditText classes should satisfy this interface in

@@ -35,8 +35,8 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Renders a {@link DetailsOverviewRow} to display an overview of an item.
  * Typically this row will be the first row in a fragment
- * such as the {@link androidx.leanback.app.DetailsFragment
- * DetailsFragment}.  The View created by the DetailsOverviewRowPresenter is made in three parts:
+ * such as the {@link androidx.leanback.app.DetailsSupportFragment DetailsSupportFragment}.
+ * The View created by the DetailsOverviewRowPresenter is made in three parts:
  * ImageView on the left, action list view on the bottom and a customizable detailed
  * description view on the right.
  *

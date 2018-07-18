@@ -20,17 +20,6 @@ package androidx.leanback.app {
     method public void setThemeDrawableResourceId(int);
   }
 
-  public deprecated class BaseFragment extends androidx.leanback.app.BrandedFragment {
-    method protected java.lang.Object createEntranceTransition();
-    method public final androidx.leanback.app.ProgressBarManager getProgressBarManager();
-    method protected void onEntranceTransitionEnd();
-    method protected void onEntranceTransitionPrepare();
-    method protected void onEntranceTransitionStart();
-    method public void prepareEntranceTransition();
-    method protected void runEntranceTransition(java.lang.Object);
-    method public void startEntranceTransition();
-  }
-
   public class BaseSupportFragment extends androidx.leanback.app.BrandedSupportFragment {
     method protected java.lang.Object createEntranceTransition();
     method public final androidx.leanback.app.ProgressBarManager getProgressBarManager();
@@ -40,27 +29,6 @@ package androidx.leanback.app {
     method public void prepareEntranceTransition();
     method protected void runEntranceTransition(java.lang.Object);
     method public void startEntranceTransition();
-  }
-
-  public deprecated class BrandedFragment extends android.app.Fragment {
-    ctor public BrandedFragment();
-    method public android.graphics.drawable.Drawable getBadgeDrawable();
-    method public int getSearchAffordanceColor();
-    method public androidx.leanback.widget.SearchOrbView.Colors getSearchAffordanceColors();
-    method public java.lang.CharSequence getTitle();
-    method public android.view.View getTitleView();
-    method public androidx.leanback.widget.TitleViewAdapter getTitleViewAdapter();
-    method public void installTitleView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle);
-    method public final boolean isShowingTitle();
-    method public android.view.View onInflateTitleView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle);
-    method public void setBadgeDrawable(android.graphics.drawable.Drawable);
-    method public void setOnSearchClickedListener(android.view.View.OnClickListener);
-    method public void setSearchAffordanceColor(int);
-    method public void setSearchAffordanceColors(androidx.leanback.widget.SearchOrbView.Colors);
-    method public void setTitle(java.lang.CharSequence);
-    method public void setTitleView(android.view.View);
-    method public void showTitle(boolean);
-    method public void showTitle(int);
   }
 
   public class BrandedSupportFragment extends androidx.fragment.app.Fragment {
@@ -82,106 +50,6 @@ package androidx.leanback.app {
     method public void setTitleView(android.view.View);
     method public void showTitle(boolean);
     method public void showTitle(int);
-  }
-
-  public deprecated class BrowseFragment extends androidx.leanback.app.BaseFragment {
-    ctor public BrowseFragment();
-    method public static android.os.Bundle createArgs(android.os.Bundle, java.lang.String, int);
-    method public void enableMainFragmentScaling(boolean);
-    method public deprecated void enableRowScaling(boolean);
-    method public androidx.leanback.widget.ObjectAdapter getAdapter();
-    method public int getBrandColor();
-    method public androidx.leanback.app.HeadersFragment getHeadersFragment();
-    method public int getHeadersState();
-    method public android.app.Fragment getMainFragment();
-    method public final androidx.leanback.app.BrowseFragment.MainFragmentAdapterRegistry getMainFragmentRegistry();
-    method public androidx.leanback.widget.OnItemViewClickedListener getOnItemViewClickedListener();
-    method public androidx.leanback.widget.OnItemViewSelectedListener getOnItemViewSelectedListener();
-    method public androidx.leanback.app.RowsFragment getRowsFragment();
-    method public int getSelectedPosition();
-    method public androidx.leanback.widget.RowPresenter.ViewHolder getSelectedRowViewHolder();
-    method public final boolean isHeadersTransitionOnBackEnabled();
-    method public boolean isInHeadersTransition();
-    method public boolean isShowingHeaders();
-    method public androidx.leanback.app.HeadersFragment onCreateHeadersFragment();
-    method public void setAdapter(androidx.leanback.widget.ObjectAdapter);
-    method public void setBrandColor(int);
-    method public void setBrowseTransitionListener(androidx.leanback.app.BrowseFragment.BrowseTransitionListener);
-    method public void setHeaderPresenterSelector(androidx.leanback.widget.PresenterSelector);
-    method public void setHeadersState(int);
-    method public final void setHeadersTransitionOnBackEnabled(boolean);
-    method public void setOnItemViewClickedListener(androidx.leanback.widget.OnItemViewClickedListener);
-    method public void setOnItemViewSelectedListener(androidx.leanback.widget.OnItemViewSelectedListener);
-    method public void setSelectedPosition(int);
-    method public void setSelectedPosition(int, boolean);
-    method public void setSelectedPosition(int, boolean, androidx.leanback.widget.Presenter.ViewHolderTask);
-    method public void startHeadersTransition(boolean);
-    field public static final int HEADERS_DISABLED = 3; // 0x3
-    field public static final int HEADERS_ENABLED = 1; // 0x1
-    field public static final int HEADERS_HIDDEN = 2; // 0x2
-  }
-
-  public static deprecated class BrowseFragment.BrowseTransitionListener {
-    ctor public BrowseFragment.BrowseTransitionListener();
-    method public void onHeadersTransitionStart(boolean);
-    method public void onHeadersTransitionStop(boolean);
-  }
-
-  public static abstract deprecated class BrowseFragment.FragmentFactory<T extends android.app.Fragment> {
-    ctor public BrowseFragment.FragmentFactory();
-    method public abstract T createFragment(java.lang.Object);
-  }
-
-  public static abstract deprecated interface BrowseFragment.FragmentHost {
-    method public abstract void notifyDataReady(androidx.leanback.app.BrowseFragment.MainFragmentAdapter);
-    method public abstract void notifyViewCreated(androidx.leanback.app.BrowseFragment.MainFragmentAdapter);
-    method public abstract void showTitleView(boolean);
-  }
-
-  public static deprecated class BrowseFragment.ListRowFragmentFactory extends androidx.leanback.app.BrowseFragment.FragmentFactory {
-    ctor public BrowseFragment.ListRowFragmentFactory();
-    method public androidx.leanback.app.RowsFragment createFragment(java.lang.Object);
-  }
-
-  public static deprecated class BrowseFragment.MainFragmentAdapter<T extends android.app.Fragment> {
-    ctor public BrowseFragment.MainFragmentAdapter(T);
-    method public final T getFragment();
-    method public final androidx.leanback.app.BrowseFragment.FragmentHost getFragmentHost();
-    method public boolean isScalingEnabled();
-    method public boolean isScrolling();
-    method public void onTransitionEnd();
-    method public boolean onTransitionPrepare();
-    method public void onTransitionStart();
-    method public void setAlignment(int);
-    method public void setEntranceTransitionState(boolean);
-    method public void setExpand(boolean);
-    method public void setScalingEnabled(boolean);
-  }
-
-  public static abstract deprecated interface BrowseFragment.MainFragmentAdapterProvider {
-    method public abstract androidx.leanback.app.BrowseFragment.MainFragmentAdapter getMainFragmentAdapter();
-  }
-
-  public static final deprecated class BrowseFragment.MainFragmentAdapterRegistry {
-    ctor public BrowseFragment.MainFragmentAdapterRegistry();
-    method public android.app.Fragment createFragment(java.lang.Object);
-    method public void registerFragment(java.lang.Class, androidx.leanback.app.BrowseFragment.FragmentFactory);
-  }
-
-  public static deprecated class BrowseFragment.MainFragmentRowsAdapter<T extends android.app.Fragment> {
-    ctor public BrowseFragment.MainFragmentRowsAdapter(T);
-    method public androidx.leanback.widget.RowPresenter.ViewHolder findRowViewHolderByPosition(int);
-    method public final T getFragment();
-    method public int getSelectedPosition();
-    method public void setAdapter(androidx.leanback.widget.ObjectAdapter);
-    method public void setOnItemViewClickedListener(androidx.leanback.widget.OnItemViewClickedListener);
-    method public void setOnItemViewSelectedListener(androidx.leanback.widget.OnItemViewSelectedListener);
-    method public void setSelectedPosition(int, boolean, androidx.leanback.widget.Presenter.ViewHolderTask);
-    method public void setSelectedPosition(int, boolean);
-  }
-
-  public static abstract deprecated interface BrowseFragment.MainFragmentRowsAdapterProvider {
-    method public abstract androidx.leanback.app.BrowseFragment.MainFragmentRowsAdapter getMainFragmentRowsAdapter();
   }
 
   public class BrowseSupportFragment extends androidx.leanback.app.BaseSupportFragment {
@@ -284,46 +152,6 @@ package androidx.leanback.app {
     method public abstract androidx.leanback.app.BrowseSupportFragment.MainFragmentRowsAdapter getMainFragmentRowsAdapter();
   }
 
-  public deprecated class DetailsFragment extends androidx.leanback.app.BaseFragment {
-    ctor public DetailsFragment();
-    method public androidx.leanback.widget.ObjectAdapter getAdapter();
-    method public androidx.leanback.widget.BaseOnItemViewClickedListener getOnItemViewClickedListener();
-    method public androidx.leanback.widget.DetailsParallax getParallax();
-    method public androidx.leanback.app.RowsFragment getRowsFragment();
-    method protected deprecated android.view.View inflateTitle(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle);
-    method protected void onSetDetailsOverviewRowStatus(androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter, androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.ViewHolder, int, int, int);
-    method protected void onSetRowStatus(androidx.leanback.widget.RowPresenter, androidx.leanback.widget.RowPresenter.ViewHolder, int, int, int);
-    method public void setAdapter(androidx.leanback.widget.ObjectAdapter);
-    method public void setOnItemViewClickedListener(androidx.leanback.widget.BaseOnItemViewClickedListener);
-    method public void setOnItemViewSelectedListener(androidx.leanback.widget.BaseOnItemViewSelectedListener);
-    method public void setSelectedPosition(int);
-    method public void setSelectedPosition(int, boolean);
-    method protected void setupDetailsOverviewRowPresenter(androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter);
-    method protected void setupPresenter(androidx.leanback.widget.Presenter);
-  }
-
-  public deprecated class DetailsFragmentBackgroundController {
-    ctor public DetailsFragmentBackgroundController(androidx.leanback.app.DetailsFragment);
-    method public boolean canNavigateToVideoFragment();
-    method public void enableParallax();
-    method public void enableParallax(android.graphics.drawable.Drawable, android.graphics.drawable.Drawable, androidx.leanback.widget.ParallaxTarget.PropertyValuesHolderTarget);
-    method public final android.app.Fragment findOrCreateVideoFragment();
-    method public final android.graphics.drawable.Drawable getBottomDrawable();
-    method public final android.graphics.Bitmap getCoverBitmap();
-    method public final android.graphics.drawable.Drawable getCoverDrawable();
-    method public final int getParallaxDrawableMaxOffset();
-    method public final androidx.leanback.media.PlaybackGlue getPlaybackGlue();
-    method public final int getSolidColor();
-    method public androidx.leanback.media.PlaybackGlueHost onCreateGlueHost();
-    method public android.app.Fragment onCreateVideoFragment();
-    method public final void setCoverBitmap(android.graphics.Bitmap);
-    method public final void setParallaxDrawableMaxOffset(int);
-    method public final void setSolidColor(int);
-    method public void setupVideoPlayback(androidx.leanback.media.PlaybackGlue);
-    method public final void switchToRows();
-    method public final void switchToVideo();
-  }
-
   public class DetailsSupportFragment extends androidx.leanback.app.BaseSupportFragment {
     ctor public DetailsSupportFragment();
     method public androidx.leanback.widget.ObjectAdapter getAdapter();
@@ -364,22 +192,6 @@ package androidx.leanback.app {
     method public final void switchToVideo();
   }
 
-  public deprecated class ErrorFragment extends androidx.leanback.app.BrandedFragment {
-    ctor public ErrorFragment();
-    method public android.graphics.drawable.Drawable getBackgroundDrawable();
-    method public android.view.View.OnClickListener getButtonClickListener();
-    method public java.lang.String getButtonText();
-    method public android.graphics.drawable.Drawable getImageDrawable();
-    method public java.lang.CharSequence getMessage();
-    method public boolean isBackgroundTranslucent();
-    method public void setBackgroundDrawable(android.graphics.drawable.Drawable);
-    method public void setButtonClickListener(android.view.View.OnClickListener);
-    method public void setButtonText(java.lang.String);
-    method public void setDefaultBackground(boolean);
-    method public void setImageDrawable(android.graphics.drawable.Drawable);
-    method public void setMessage(java.lang.CharSequence);
-  }
-
   public class ErrorSupportFragment extends androidx.leanback.app.BrandedSupportFragment {
     ctor public ErrorSupportFragment();
     method public android.graphics.drawable.Drawable getBackgroundDrawable();
@@ -394,68 +206,6 @@ package androidx.leanback.app {
     method public void setDefaultBackground(boolean);
     method public void setImageDrawable(android.graphics.drawable.Drawable);
     method public void setMessage(java.lang.CharSequence);
-  }
-
-  public deprecated class GuidedStepFragment extends android.app.Fragment {
-    ctor public GuidedStepFragment();
-    method public static int add(android.app.FragmentManager, androidx.leanback.app.GuidedStepFragment);
-    method public static int add(android.app.FragmentManager, androidx.leanback.app.GuidedStepFragment, int);
-    method public static int addAsRoot(android.app.Activity, androidx.leanback.app.GuidedStepFragment, int);
-    method public void collapseAction(boolean);
-    method public void collapseSubActions();
-    method public void expandAction(androidx.leanback.widget.GuidedAction, boolean);
-    method public void expandSubActions(androidx.leanback.widget.GuidedAction);
-    method public androidx.leanback.widget.GuidedAction findActionById(long);
-    method public int findActionPositionById(long);
-    method public androidx.leanback.widget.GuidedAction findButtonActionById(long);
-    method public int findButtonActionPositionById(long);
-    method public void finishGuidedStepFragments();
-    method public android.view.View getActionItemView(int);
-    method public java.util.List<androidx.leanback.widget.GuidedAction> getActions();
-    method public android.view.View getButtonActionItemView(int);
-    method public java.util.List<androidx.leanback.widget.GuidedAction> getButtonActions();
-    method public static androidx.leanback.app.GuidedStepFragment getCurrentGuidedStepFragment(android.app.FragmentManager);
-    method public androidx.leanback.widget.GuidanceStylist getGuidanceStylist();
-    method public androidx.leanback.widget.GuidedActionsStylist getGuidedActionsStylist();
-    method public androidx.leanback.widget.GuidedActionsStylist getGuidedButtonActionsStylist();
-    method public int getSelectedActionPosition();
-    method public int getSelectedButtonActionPosition();
-    method public int getUiStyle();
-    method public boolean isExpanded();
-    method public boolean isFocusOutEndAllowed();
-    method public boolean isFocusOutStartAllowed();
-    method public boolean isSubActionsExpanded();
-    method public void notifyActionChanged(int);
-    method public void notifyButtonActionChanged(int);
-    method protected void onAddSharedElementTransition(android.app.FragmentTransaction, androidx.leanback.app.GuidedStepFragment);
-    method public void onCreateActions(java.util.List<androidx.leanback.widget.GuidedAction>, android.os.Bundle);
-    method public androidx.leanback.widget.GuidedActionsStylist onCreateActionsStylist();
-    method public android.view.View onCreateBackgroundView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle);
-    method public void onCreateButtonActions(java.util.List<androidx.leanback.widget.GuidedAction>, android.os.Bundle);
-    method public androidx.leanback.widget.GuidedActionsStylist onCreateButtonActionsStylist();
-    method public androidx.leanback.widget.GuidanceStylist.Guidance onCreateGuidance(android.os.Bundle);
-    method public androidx.leanback.widget.GuidanceStylist onCreateGuidanceStylist();
-    method public void onGuidedActionClicked(androidx.leanback.widget.GuidedAction);
-    method public void onGuidedActionEditCanceled(androidx.leanback.widget.GuidedAction);
-    method public deprecated void onGuidedActionEdited(androidx.leanback.widget.GuidedAction);
-    method public long onGuidedActionEditedAndProceed(androidx.leanback.widget.GuidedAction);
-    method public void onGuidedActionFocused(androidx.leanback.widget.GuidedAction);
-    method protected void onProvideFragmentTransitions();
-    method public int onProvideTheme();
-    method public boolean onSubGuidedActionClicked(androidx.leanback.widget.GuidedAction);
-    method public void openInEditMode(androidx.leanback.widget.GuidedAction);
-    method public void popBackStackToGuidedStepFragment(java.lang.Class, int);
-    method public void setActions(java.util.List<androidx.leanback.widget.GuidedAction>);
-    method public void setActionsDiffCallback(androidx.leanback.widget.DiffCallback<androidx.leanback.widget.GuidedAction>);
-    method public void setButtonActions(java.util.List<androidx.leanback.widget.GuidedAction>);
-    method public void setSelectedActionPosition(int);
-    method public void setSelectedButtonActionPosition(int);
-    method public void setUiStyle(int);
-    field public static final java.lang.String EXTRA_UI_STYLE = "uiStyle";
-    field public static final int UI_STYLE_ACTIVITY_ROOT = 2; // 0x2
-    field public static final deprecated int UI_STYLE_DEFAULT = 0; // 0x0
-    field public static final int UI_STYLE_ENTRANCE = 1; // 0x1
-    field public static final int UI_STYLE_REPLACE = 0; // 0x0
   }
 
   public class GuidedStepSupportFragment extends androidx.fragment.app.Fragment {
@@ -520,23 +270,6 @@ package androidx.leanback.app {
     field public static final int UI_STYLE_REPLACE = 0; // 0x0
   }
 
-  public deprecated class HeadersFragment extends android.app.Fragment {
-    ctor public HeadersFragment();
-    method public boolean isScrolling();
-    method public void onTransitionEnd();
-    method public void onTransitionStart();
-    method public void setOnHeaderClickedListener(androidx.leanback.app.HeadersFragment.OnHeaderClickedListener);
-    method public void setOnHeaderViewSelectedListener(androidx.leanback.app.HeadersFragment.OnHeaderViewSelectedListener);
-  }
-
-  public static abstract deprecated interface HeadersFragment.OnHeaderClickedListener {
-    method public abstract void onHeaderClicked(androidx.leanback.widget.RowHeaderPresenter.ViewHolder, androidx.leanback.widget.Row);
-  }
-
-  public static abstract deprecated interface HeadersFragment.OnHeaderViewSelectedListener {
-    method public abstract void onHeaderSelected(androidx.leanback.widget.RowHeaderPresenter.ViewHolder, androidx.leanback.widget.Row);
-  }
-
   public class HeadersSupportFragment extends androidx.fragment.app.Fragment {
     ctor public HeadersSupportFragment();
     method public boolean isScrolling();
@@ -552,45 +285,6 @@ package androidx.leanback.app {
 
   public static abstract interface HeadersSupportFragment.OnHeaderViewSelectedListener {
     method public abstract void onHeaderSelected(androidx.leanback.widget.RowHeaderPresenter.ViewHolder, androidx.leanback.widget.Row);
-  }
-
-  public abstract deprecated class OnboardingFragment extends android.app.Fragment {
-    ctor public OnboardingFragment();
-    method public final int getArrowBackgroundColor();
-    method public final int getArrowColor();
-    method protected final int getCurrentPageIndex();
-    method public final int getDescriptionViewTextColor();
-    method public final int getDotBackgroundColor();
-    method public final int getIconResourceId();
-    method public final int getLogoResourceId();
-    method protected abstract int getPageCount();
-    method protected abstract java.lang.CharSequence getPageDescription(int);
-    method protected abstract java.lang.CharSequence getPageTitle(int);
-    method public final java.lang.CharSequence getStartButtonText();
-    method public final int getTitleViewTextColor();
-    method protected final boolean isLogoAnimationFinished();
-    method protected void moveToNextPage();
-    method protected void moveToPreviousPage();
-    method protected abstract android.view.View onCreateBackgroundView(android.view.LayoutInflater, android.view.ViewGroup);
-    method protected abstract android.view.View onCreateContentView(android.view.LayoutInflater, android.view.ViewGroup);
-    method protected android.animation.Animator onCreateDescriptionAnimator();
-    method protected android.animation.Animator onCreateEnterAnimation();
-    method protected abstract android.view.View onCreateForegroundView(android.view.LayoutInflater, android.view.ViewGroup);
-    method protected android.animation.Animator onCreateLogoAnimation();
-    method protected android.animation.Animator onCreateTitleAnimator();
-    method protected void onFinishFragment();
-    method protected void onLogoAnimationFinished();
-    method protected void onPageChanged(int, int);
-    method public int onProvideTheme();
-    method public void setArrowBackgroundColor(int);
-    method public void setArrowColor(int);
-    method public void setDescriptionViewTextColor(int);
-    method public void setDotBackgroundColor(int);
-    method public final void setIconResouceId(int);
-    method public final void setLogoResourceId(int);
-    method public void setStartButtonText(java.lang.CharSequence);
-    method public void setTitleViewTextColor(int);
-    method protected final void startEnterAnimation(boolean);
   }
 
   public abstract class OnboardingSupportFragment extends androidx.fragment.app.Fragment {
@@ -630,47 +324,6 @@ package androidx.leanback.app {
     method public void setStartButtonText(java.lang.CharSequence);
     method public void setTitleViewTextColor(int);
     method protected final void startEnterAnimation(boolean);
-  }
-
-  public deprecated class PlaybackFragment extends android.app.Fragment {
-    ctor public PlaybackFragment();
-    method public deprecated void fadeOut();
-    method public androidx.leanback.widget.ObjectAdapter getAdapter();
-    method public int getBackgroundType();
-    method public androidx.leanback.app.ProgressBarManager getProgressBarManager();
-    method public void hideControlsOverlay(boolean);
-    method public boolean isControlsOverlayAutoHideEnabled();
-    method public boolean isControlsOverlayVisible();
-    method public deprecated boolean isFadingEnabled();
-    method public void notifyPlaybackRowChanged();
-    method protected void onBufferingStateChanged(boolean);
-    method protected void onError(int, java.lang.CharSequence);
-    method protected void onVideoSizeChanged(int, int);
-    method public void setAdapter(androidx.leanback.widget.ObjectAdapter);
-    method public void setBackgroundType(int);
-    method public void setControlsOverlayAutoHideEnabled(boolean);
-    method public deprecated void setFadingEnabled(boolean);
-    method public void setHostCallback(androidx.leanback.media.PlaybackGlueHost.HostCallback);
-    method public void setOnItemViewClickedListener(androidx.leanback.widget.BaseOnItemViewClickedListener);
-    method public void setOnItemViewSelectedListener(androidx.leanback.widget.BaseOnItemViewSelectedListener);
-    method public final void setOnKeyInterceptListener(android.view.View.OnKeyListener);
-    method public void setOnPlaybackItemViewClickedListener(androidx.leanback.widget.BaseOnItemViewClickedListener);
-    method public void setPlaybackRow(androidx.leanback.widget.Row);
-    method public void setPlaybackRowPresenter(androidx.leanback.widget.PlaybackRowPresenter);
-    method public void setPlaybackSeekUiClient(androidx.leanback.widget.PlaybackSeekUi.Client);
-    method public void setSelectedPosition(int);
-    method public void setSelectedPosition(int, boolean);
-    method public void showControlsOverlay(boolean);
-    method public void tickle();
-    field public static final int BG_DARK = 1; // 0x1
-    field public static final int BG_LIGHT = 2; // 0x2
-    field public static final int BG_NONE = 0; // 0x0
-  }
-
-  public deprecated class PlaybackFragmentGlueHost extends androidx.leanback.media.PlaybackGlueHost implements androidx.leanback.widget.PlaybackSeekUi {
-    ctor public PlaybackFragmentGlueHost(androidx.leanback.app.PlaybackFragment);
-    method public void fadeOut();
-    method public void setPlaybackSeekUiClient(androidx.leanback.widget.PlaybackSeekUi.Client);
   }
 
   public class PlaybackSupportFragment extends androidx.fragment.app.Fragment {
@@ -726,35 +379,6 @@ package androidx.leanback.app {
     method public void show();
   }
 
-  public deprecated class RowsFragment extends android.app.Fragment implements androidx.leanback.app.BrowseFragment.MainFragmentAdapterProvider androidx.leanback.app.BrowseFragment.MainFragmentRowsAdapterProvider {
-    ctor public RowsFragment();
-    method public deprecated void enableRowScaling(boolean);
-    method protected androidx.leanback.widget.VerticalGridView findGridViewFromRoot(android.view.View);
-    method public androidx.leanback.widget.RowPresenter.ViewHolder findRowViewHolderByPosition(int);
-    method public androidx.leanback.app.BrowseFragment.MainFragmentAdapter getMainFragmentAdapter();
-    method public androidx.leanback.app.BrowseFragment.MainFragmentRowsAdapter getMainFragmentRowsAdapter();
-    method public androidx.leanback.widget.BaseOnItemViewClickedListener getOnItemViewClickedListener();
-    method public androidx.leanback.widget.BaseOnItemViewSelectedListener getOnItemViewSelectedListener();
-    method public androidx.leanback.widget.RowPresenter.ViewHolder getRowViewHolder(int);
-    method public boolean isScrolling();
-    method public void onTransitionEnd();
-    method public boolean onTransitionPrepare();
-    method public void setAlignment(int);
-    method public void setEntranceTransitionState(boolean);
-    method public void setExpand(boolean);
-    method public void setOnItemViewClickedListener(androidx.leanback.widget.BaseOnItemViewClickedListener);
-    method public void setOnItemViewSelectedListener(androidx.leanback.widget.BaseOnItemViewSelectedListener);
-    method public void setSelectedPosition(int, boolean, androidx.leanback.widget.Presenter.ViewHolderTask);
-  }
-
-  public static class RowsFragment.MainFragmentAdapter extends androidx.leanback.app.BrowseFragment.MainFragmentAdapter {
-    ctor public RowsFragment.MainFragmentAdapter(androidx.leanback.app.RowsFragment);
-  }
-
-  public static deprecated class RowsFragment.MainFragmentRowsAdapter extends androidx.leanback.app.BrowseFragment.MainFragmentRowsAdapter {
-    ctor public RowsFragment.MainFragmentRowsAdapter(androidx.leanback.app.RowsFragment);
-  }
-
   public class RowsSupportFragment extends androidx.fragment.app.Fragment implements androidx.leanback.app.BrowseSupportFragment.MainFragmentAdapterProvider androidx.leanback.app.BrowseSupportFragment.MainFragmentRowsAdapterProvider {
     ctor public RowsSupportFragment();
     method public deprecated void enableRowScaling(boolean);
@@ -782,36 +406,6 @@ package androidx.leanback.app {
 
   public static class RowsSupportFragment.MainFragmentRowsAdapter extends androidx.leanback.app.BrowseSupportFragment.MainFragmentRowsAdapter {
     ctor public RowsSupportFragment.MainFragmentRowsAdapter(androidx.leanback.app.RowsSupportFragment);
-  }
-
-  public deprecated class SearchFragment extends android.app.Fragment {
-    ctor public SearchFragment();
-    method public static android.os.Bundle createArgs(android.os.Bundle, java.lang.String);
-    method public static android.os.Bundle createArgs(android.os.Bundle, java.lang.String, java.lang.String);
-    method public void displayCompletions(java.util.List<java.lang.String>);
-    method public void displayCompletions(android.view.inputmethod.CompletionInfo[]);
-    method public android.graphics.drawable.Drawable getBadgeDrawable();
-    method public android.content.Intent getRecognizerIntent();
-    method public androidx.leanback.app.RowsFragment getRowsFragment();
-    method public java.lang.String getTitle();
-    method public static androidx.leanback.app.SearchFragment newInstance(java.lang.String);
-    method public void setBadgeDrawable(android.graphics.drawable.Drawable);
-    method public void setOnItemViewClickedListener(androidx.leanback.widget.OnItemViewClickedListener);
-    method public void setOnItemViewSelectedListener(androidx.leanback.widget.OnItemViewSelectedListener);
-    method public void setSearchAffordanceColors(androidx.leanback.widget.SearchOrbView.Colors);
-    method public void setSearchAffordanceColorsInListening(androidx.leanback.widget.SearchOrbView.Colors);
-    method public void setSearchQuery(java.lang.String, boolean);
-    method public void setSearchQuery(android.content.Intent, boolean);
-    method public void setSearchResultProvider(androidx.leanback.app.SearchFragment.SearchResultProvider);
-    method public deprecated void setSpeechRecognitionCallback(androidx.leanback.widget.SpeechRecognitionCallback);
-    method public void setTitle(java.lang.String);
-    method public void startRecognition();
-  }
-
-  public static abstract interface SearchFragment.SearchResultProvider {
-    method public abstract androidx.leanback.widget.ObjectAdapter getResultsAdapter();
-    method public abstract boolean onQueryTextChange(java.lang.String);
-    method public abstract boolean onQueryTextSubmit(java.lang.String);
   }
 
   public class SearchSupportFragment extends androidx.fragment.app.Fragment {
@@ -844,18 +438,6 @@ package androidx.leanback.app {
     method public abstract boolean onQueryTextSubmit(java.lang.String);
   }
 
-  public deprecated class VerticalGridFragment extends androidx.leanback.app.BaseFragment {
-    ctor public VerticalGridFragment();
-    method public androidx.leanback.widget.ObjectAdapter getAdapter();
-    method public androidx.leanback.widget.VerticalGridPresenter getGridPresenter();
-    method public androidx.leanback.widget.OnItemViewClickedListener getOnItemViewClickedListener();
-    method public void setAdapter(androidx.leanback.widget.ObjectAdapter);
-    method public void setGridPresenter(androidx.leanback.widget.VerticalGridPresenter);
-    method public void setOnItemViewClickedListener(androidx.leanback.widget.OnItemViewClickedListener);
-    method public void setOnItemViewSelectedListener(androidx.leanback.widget.OnItemViewSelectedListener);
-    method public void setSelectedPosition(int);
-  }
-
   public class VerticalGridSupportFragment extends androidx.leanback.app.BaseSupportFragment {
     ctor public VerticalGridSupportFragment();
     method public androidx.leanback.widget.ObjectAdapter getAdapter();
@@ -866,17 +448,6 @@ package androidx.leanback.app {
     method public void setOnItemViewClickedListener(androidx.leanback.widget.OnItemViewClickedListener);
     method public void setOnItemViewSelectedListener(androidx.leanback.widget.OnItemViewSelectedListener);
     method public void setSelectedPosition(int);
-  }
-
-  public deprecated class VideoFragment extends androidx.leanback.app.PlaybackFragment {
-    ctor public VideoFragment();
-    method public android.view.SurfaceView getSurfaceView();
-    method public void setSurfaceHolderCallback(android.view.SurfaceHolder.Callback);
-  }
-
-  public deprecated class VideoFragmentGlueHost extends androidx.leanback.app.PlaybackFragmentGlueHost implements androidx.leanback.media.SurfaceHolderGlueHost {
-    ctor public VideoFragmentGlueHost(androidx.leanback.app.VideoFragment);
-    method public void setSurfaceHolderCallback(android.view.SurfaceHolder.Callback);
   }
 
   public class VideoSupportFragment extends androidx.leanback.app.PlaybackSupportFragment {

@@ -13,10 +13,14 @@
  */
 package com.example.android.leanback;
 
-import android.app.Activity;
 import android.os.Bundle;
 
-public class BrowseAnimationActivity extends Activity
+import androidx.fragment.app.FragmentActivity;
+
+/**
+ * Samples shows recyclerview animations on a BrowseSupportFragment row.
+ */
+public class BrowseAnimationActivity extends FragmentActivity
 {
     /** Called when the activity is first created. */
     @Override

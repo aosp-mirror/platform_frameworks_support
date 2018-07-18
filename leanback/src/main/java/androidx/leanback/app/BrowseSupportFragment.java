@@ -862,7 +862,7 @@ public class BrowseSupportFragment extends BaseSupportFragment {
         }
         // first clear previous mMainFragmentRowsAdapter and set a new mMainFragmentRowsAdapter
         if (mMainFragmentRowsAdapter != null) {
-            // RowsFragment cannot change click/select listeners after view created.
+            // RowsSupportFragment cannot change click/select listeners after view created.
             // The main fragment and adapter should be GCed as long as there is no reference from
             // BrowseSupportFragment to it.
             mMainFragmentRowsAdapter.setAdapter(null);

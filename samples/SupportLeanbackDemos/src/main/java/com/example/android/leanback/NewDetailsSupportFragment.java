@@ -179,7 +179,7 @@ public class NewDetailsSupportFragment extends androidx.leanback.app.DetailsSupp
                             mDetailsBackground.switchToVideo();
                         }
                     } else {
-                        Intent intent = new Intent(context, PlaybackActivity.class);
+                        Intent intent = new Intent(context, PlaybackSupportActivity.class);
                         getActivity().startActivity(intent);
                     }
                 } else if (action.getId() == ACTION_RENT) {
@@ -194,14 +194,14 @@ public class NewDetailsSupportFragment extends androidx.leanback.app.DetailsSupp
                         setupMainVideo();
                         mDetailsBackground.switchToVideo();
                     } else {
-                        Intent intent = new Intent(context, PlaybackActivity.class);
+                        Intent intent = new Intent(context, PlaybackSupportActivity.class);
                         getActivity().startActivity(intent);
                     }
                 } else if (action.getId() == ACTION_PLAY) {
                     if (TEST_BACKGROUND_PLAYER) {
                         mDetailsBackground.switchToVideo();
                     } else {
-                        Intent intent = new Intent(context, PlaybackActivity.class);
+                        Intent intent = new Intent(context, PlaybackSupportActivity.class);
                         getActivity().startActivity(intent);
                     }
                 }

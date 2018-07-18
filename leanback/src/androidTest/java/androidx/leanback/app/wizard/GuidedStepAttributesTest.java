@@ -21,7 +21,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.view.KeyEvent;
 
-import androidx.leanback.app.GuidedStepFragment;
+import androidx.leanback.app.GuidedStepSupportFragment;
 import androidx.leanback.test.R;
 import androidx.leanback.widget.GuidanceStylist;
 import androidx.leanback.widget.GuidedAction;
@@ -119,7 +119,8 @@ public class GuidedStepAttributesTest {
 
         int lastSelectedActionId = -1;
         int selectIndex = 0;
-        GuidedStepFragment mFragment = (GuidedStepFragment) mActivity.getGuidedStepTestFragment();
+        GuidedStepSupportFragment mFragment = (GuidedStepSupportFragment)
+                mActivity.getGuidedStepTestFragment();
         int prevSelectedActionPosition = -1;
         int nextSelectedActionPosition = mFragment.getSelectedActionPosition();
         while ( nextSelectedActionPosition != prevSelectedActionPosition ) {
@@ -153,7 +154,7 @@ public class GuidedStepAttributesTest {
      static final GuidedStepAttributesTestFragment.Callback sRevertCallback = new
             GuidedStepAttributesTestFragment.Callback() {
         @Override
-        public void onActionClicked(GuidedStepFragment fragment, long id) {
+        public void onActionClicked(GuidedStepSupportFragment fragment, long id) {
             List<GuidedAction> allActions = fragment.getActions();
             for(int i = 1; i < allActions.size(); i++) {
                 GuidedAction action = allActions.get(i);
@@ -324,7 +325,7 @@ public class GuidedStepAttributesTest {
 
         initActivity(intent);
 
-        final GuidedStepFragment mFragment = (GuidedStepFragment)
+        final GuidedStepSupportFragment mFragment = (GuidedStepSupportFragment)
                 mActivity.getGuidedStepTestFragment();
 
         mActivity.runOnUiThread(new Runnable() {
@@ -346,7 +347,7 @@ public class GuidedStepAttributesTest {
                                 List<Integer> EXPECTED_CLICKED_SEQUENCE)
             throws Throwable {
 
-        final GuidedStepFragment mFragment = (GuidedStepFragment)
+        final GuidedStepSupportFragment mFragment = (GuidedStepSupportFragment)
                 mActivity.getGuidedStepTestFragment();
 
         for(int i = 0; i < CLICK_SEQUENCE.size(); i++) {
@@ -504,7 +505,7 @@ public class GuidedStepAttributesTest {
                                 int NUM_RADIO_ACTIONS,
                                 int NUM_CHECK_BOX_ACTIONS) throws Throwable {
 
-        final GuidedStepFragment guidedStepCheckedFragment = (GuidedStepFragment)
+        final GuidedStepSupportFragment guidedStepCheckedFragment = (GuidedStepSupportFragment)
                 mActivity.getGuidedStepTestFragment();
         final int firstRadioActionIndex = 1;
         final int firstCheckBoxActionIndex = firstRadioActionIndex + NUM_RADIO_ACTIONS + 1;
@@ -612,8 +613,8 @@ public class GuidedStepAttributesTest {
                                                                 List<Integer> expectedClickedSeq)
             throws Throwable{
 
-        final GuidedStepFragment mFragment =
-                (GuidedStepFragment) mActivity.getGuidedStepTestFragment();
+        final GuidedStepSupportFragment mFragment =
+                (GuidedStepSupportFragment) mActivity.getGuidedStepTestFragment();
         int focusStep = 0, clickStep = 0;
         GuidedStepAttributesTestFragment.LAST_SELECTED_ACTION_ID =
                 GuidedStepAttributesTestFragment.LAST_CLICKED_ACTION_ID = -1;
@@ -635,10 +636,10 @@ public class GuidedStepAttributesTest {
                             == expectedFocusedSeq.get(focusStep++)
             );
         } else {
-            // If the currently focused position is the same as the position of the action of interest,
-            // then GuidedStepFragment won't received onGuidedActionFocused callback. Since the first
-            // element in the expectedFocusSeq is always the id of this action, we need to move focusStep
-            // one step forward.
+            // If the currently focused position is the same as the position of the action of
+            // interest, then GuidedStepSupportFragment won't received onGuidedActionFocused
+            // callback. Since the first element in the expectedFocusSeq is always the id of this
+            // action, we need to move focusStep one step forward.
             focusStep++;
         }
         if (selectedAction.hasSubActions()) {

@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * A data class which represents an action within a {@link
- * androidx.leanback.app.GuidedStepFragment}. GuidedActions contain at minimum a title
+ * androidx.leanback.app.GuidedStepSupportFragment}. GuidedActions contain at minimum a title
  * and a description, and typically also an icon.
  * <p>
  * A GuidedAction typically represents a single action a user may take, but may also represent a
@@ -856,7 +856,8 @@ public class GuidedAction extends Action {
 
     /**
      * Returns whether this action will request further user input when selected, such as showing
-     * another GuidedStepFragment or launching a new activity. Configured during construction.
+     * another GuidedStepSupportFragment or launching a new activity. Configured during
+     * construction.
      * @return true if the action will request further user input when selected, false otherwise.
      */
     public boolean hasNext() {

@@ -23,7 +23,8 @@ import androidx.annotation.RestrictTo;
 import androidx.leanback.R;
 
 /**
- * DividerPresenter provides a default presentation for {@link DividerRow} in HeadersFragment.
+ * DividerPresenter provides a default presentation for {@link DividerRow} in
+ * HeadersSupportFragment.
  */
 public class DividerPresenter extends Presenter {
 

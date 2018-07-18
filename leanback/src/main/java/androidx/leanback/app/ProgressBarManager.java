@@ -10,7 +10,7 @@ import android.widget.ProgressBar;
 /**
  * Manager for showing/hiding progress bar widget. This class lets user specify an initial
  * delay after which the progress bar will be shown. This is currently being used in
- * {@link BrowseFragment} & {@link VerticalGridFragment} to show {@link ProgressBar}
+ * {@link BrowseSupportFragment} & {@link VerticalGridSupportFragment} to show {@link ProgressBar}
  * while the data is being loaded.
  */
 public final class ProgressBarManager {

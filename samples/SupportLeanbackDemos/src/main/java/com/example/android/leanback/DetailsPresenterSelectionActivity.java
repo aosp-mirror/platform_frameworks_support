@@ -16,12 +16,12 @@
 
 package com.example.android.leanback;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
-import androidx.leanback.app.GuidedStepFragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.leanback.app.GuidedStepSupportFragment;
 import androidx.leanback.widget.GuidanceStylist;
 import androidx.leanback.widget.GuidanceStylist.Guidance;
 import androidx.leanback.widget.GuidedAction;
@@ -29,9 +29,9 @@ import androidx.leanback.widget.GuidedAction;
 import java.util.List;
 
 /**
- * Activity that showcases different aspects of GuidedStepFragments.
+ * Setup to use old DetailsPresenter or new FullWidthDetailsOverviewRowPresenter
  */
-public class DetailsPresenterSelectionActivity extends Activity {
+public class DetailsPresenterSelectionActivity extends FragmentActivity {
 
     private static final int OPTION_CHECK_SET_ID = 10;
 
@@ -48,7 +48,7 @@ public class DetailsPresenterSelectionActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        GuidedStepFragment.addAsRoot(this, new SetupFragment(), android.R.id.content);
+        GuidedStepSupportFragment.addAsRoot(this, new SetupFragment(), android.R.id.content);
     }
 
     private static void addAction(List<GuidedAction> actions, long id, String title, String desc) {
@@ -73,7 +73,7 @@ public class DetailsPresenterSelectionActivity extends Activity {
     /**
      * Fragment hosted in DetailsPresenterSelectionActivity.
      */
-    public static class SetupFragment extends GuidedStepFragment {
+    public static class SetupFragment extends GuidedStepSupportFragment {
 
         @Override
         public Guidance onCreateGuidance(Bundle savedInstanceState) {

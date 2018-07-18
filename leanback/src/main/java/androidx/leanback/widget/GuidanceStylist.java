@@ -28,7 +28,7 @@ import androidx.leanback.R;
 import java.util.List;
 
 /**
- * GuidanceStylist is used within a {@link androidx.leanback.app.GuidedStepFragment}
+ * GuidanceStylist is used within a {@link androidx.leanback.app.GuidedStepSupportFragment}
  * to display contextual information for the decision(s) required at that step.
  * <p>
  * Many aspects of the base GuidanceStylist can be customized through theming; see the theme
@@ -59,14 +59,14 @@ import java.util.List;
  * @attr ref androidx.leanback.R.styleable#LeanbackGuidedStepTheme_guidanceDescriptionStyle
  * @attr ref androidx.leanback.R.styleable#LeanbackGuidedStepTheme_guidanceBreadcrumbStyle
  * @attr ref androidx.leanback.R.styleable#LeanbackGuidedStepTheme_guidanceIconStyle
- * @see androidx.leanback.app.GuidedStepFragment
+ * @see androidx.leanback.app.GuidedStepSupportFragment
  * @see GuidanceStylist.Guidance
  */
 public class GuidanceStylist implements FragmentAnimationProvider {
 
     /**
      * A data class representing contextual information for a {@link
-     * androidx.leanback.app.GuidedStepFragment}. Guidance consists of a short title,
+     * androidx.leanback.app.GuidedStepSupportFragment}. Guidance consists of a short title,
      * a longer description, a breadcrumb to help with global navigation (often indicating where
      * the back button will lead), and an optional icon.  All this information is intended to
      * provide users with the appropriate context to make the decision(s) required by the current

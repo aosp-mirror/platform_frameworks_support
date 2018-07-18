@@ -31,41 +31,25 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="BrowseActivity"
-            android:theme="@style/Theme.Example.Leanback.Browse"
-            android:exported="true" />
-
         <activity android:name="BrowseSupportActivity"
-            android:theme="@style/Theme.Example.Leanback.Browse"
-            android:exported="true" />
+                  android:theme="@style/Theme.Example.Leanback.Browse"
+                  android:exported="true" />
 
         <activity android:name="BrowseAnimationActivity"
             android:exported="true" >
         </activity>
 
-        <activity android:name="DetailsActivity"
-            android:theme="@style/Theme.Example.Leanback.Details"
-            android:exported="true" />
-
         <activity android:name="DetailsSupportActivity"
-            android:theme="@style/Theme.Example.Leanback.Details"
-            android:exported="true" />
-
-        <activity android:name="DetailsVideoActivity"
-            android:theme="@style/Theme.Example.Leanback.Details"
-            android:exported="true" />
+                  android:theme="@style/Theme.Example.Leanback.Details"
+                  android:exported="true" />
 
         <activity android:name="DetailsVideoSupportActivity"
-            android:theme="@style/Theme.Example.Leanback.Details"
-            android:exported="true" />
-
-        <activity android:name="DetailsCustomTitleActivity"
-            android:theme="@style/Theme.Example.Leanback.Details.CustomTitle"
-            android:exported="true" />
+                  android:theme="@style/Theme.Example.Leanback.Details"
+                  android:exported="true" />
 
         <activity android:name="DetailsCustomTitleSupportActivity"
-            android:theme="@style/Theme.Example.Leanback.Details.CustomTitle"
-            android:exported="true" />
+                  android:theme="@style/Theme.Example.Leanback.Details.CustomTitle"
+                  android:exported="true" />
 
         <activity android:name="SearchDetailsActivity"
             android:theme="@style/Theme.Example.Leanback.SearchDetails"
@@ -75,90 +59,49 @@
             android:theme="@style/Theme.Example.Leanback.SearchDetails"
             android:exported="true" />
 
-        <activity android:name="RowsActivity"
-            android:theme="@style/Theme.Example.Leanback.Rows"
-            android:exported="true" />
-
         <activity android:name="RowsSupportActivity"
-            android:theme="@style/Theme.Example.Leanback.Rows"
-            android:exported="true" />
-
-        <activity android:name="PlaybackTransportControlActivity"
-            android:configChanges=
-                "screenSize|smallestScreenSize|screenLayout|orientation"
-            android:resizeableActivity="true"
-            android:supportsPictureInPicture="true"
-            android:launchMode="singleTask"
-            android:exported="true" />
+                  android:theme="@style/Theme.Example.Leanback.Rows"
+                  android:exported="true" />
 
         <activity android:name="PlaybackTransportControlSupportActivity"
-            android:configChanges=
+                  android:configChanges=
                 "screenSize|smallestScreenSize|screenLayout|orientation"
-            android:resizeableActivity="true"
-            android:supportsPictureInPicture="true"
-            android:launchMode="singleTask"
-            android:exported="true" />
-
-        <activity android:name="PlaybackActivity"
-            android:configChanges=
-                "screenSize|smallestScreenSize|screenLayout|orientation"
-            android:resizeableActivity="true"
-            android:supportsPictureInPicture="true"
-            android:launchMode="singleTask"
-            android:exported="true" />
+                  android:resizeableActivity="true"
+                  android:supportsPictureInPicture="true"
+                  android:launchMode="singleTask"
+                  android:exported="true" />
 
         <activity android:name="PlaybackSupportActivity"
-            android:configChanges=
+                  android:configChanges=
                 "screenSize|smallestScreenSize|screenLayout|orientation"
-            android:resizeableActivity="true"
-            android:supportsPictureInPicture="true"
-            android:launchMode="singleTask"
-            android:exported="true" />
-
-        <activity android:name="VerticalGridActivity"
-                  android:theme="@style/Theme.Example.Leanback.VerticalGrid"
+                  android:resizeableActivity="true"
+                  android:supportsPictureInPicture="true"
+                  android:launchMode="singleTask"
                   android:exported="true" />
 
         <activity android:name="VerticalGridSupportActivity"
-            android:theme="@style/Theme.Example.Leanback.VerticalGrid"
-            android:exported="true" />
-
-        <activity android:name="SearchActivity"
-            android:exported="true" />
+                  android:theme="@style/Theme.Example.Leanback.VerticalGrid"
+                  android:exported="true" />
 
         <activity android:name="SearchSupportActivity"
-            android:exported="true" />
-
-        <activity android:name="BrowseErrorActivity"
-            android:theme="@style/Theme.Example.Leanback.Browse"
-            android:exported="true" />
+                  android:exported="true" />
 
         <activity android:name="BrowseErrorSupportActivity"
-            android:theme="@style/Theme.Example.Leanback.Browse"
-            android:exported="true" />
+                  android:theme="@style/Theme.Example.Leanback.Browse"
+                  android:exported="true" />
 
         <activity android:name="HorizontalGridTestActivity"
             android:exported="true" />
 
-        <activity android:name="GuidedStepActivity"
-            android:theme="@style/Theme.Example.Leanback.GuidedStep"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="true" />
-
         <activity android:name="GuidedStepSupportActivity"
-            android:theme="@style/Theme.Example.Leanback.GuidedStep"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="true" />
-
-        <activity android:name="GuidedStepHalfScreenActivity"
-            android:theme="@style/Theme.Example.Leanback.GuidedStep.Half"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="true" />
+                  android:theme="@style/Theme.Example.Leanback.GuidedStep"
+                  android:windowSoftInputMode="adjustResize"
+                  android:exported="true" />
 
         <activity android:name="GuidedStepSupportHalfScreenActivity"
-            android:theme="@style/Theme.Example.Leanback.GuidedStep.Half"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="true" />
+                  android:theme="@style/Theme.Example.Leanback.GuidedStep.Half"
+                  android:windowSoftInputMode="adjustResize"
+                  android:exported="true" />
 
         <activity android:name="DetailsPresenterSelectionActivity"
             android:theme="@style/Theme.Example.Leanback.GuidedStep"
@@ -168,19 +111,12 @@
                   android:theme="@style/Theme.Example.Leanback.Preferences"
                   android:exported="true" />
 
-        <activity android:name=".OnboardingActivity"
-                  android:theme="@style/Theme.Example.Leanback.Onboarding"
-                  android:exported="true" />
-
         <activity android:name=".OnboardingSupportActivity"
                   android:theme="@style/Theme.Example.Leanback.Onboarding"
                   android:exported="true" />
 
-        <activity android:name=".VideoActivity"
-            android:exported="true" />
-
         <activity android:name=".VideoSupportActivity"
-            android:exported="true" />
+                  android:exported="true" />
 
         <activity android:name=".VideoActivityWithDetailedCard"
                   android:exported="true" />

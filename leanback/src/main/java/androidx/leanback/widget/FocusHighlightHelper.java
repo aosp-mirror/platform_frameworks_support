@@ -28,7 +28,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 
 import androidx.leanback.R;
-import androidx.leanback.app.HeadersFragment;
+import androidx.leanback.app.HeadersSupportFragment;
 import androidx.leanback.graphics.ColorOverlayDimmer;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -240,8 +240,8 @@ public class FocusHighlightHelper {
      * {@link RowHeaderPresenter#onSelectLevelChanged(RowHeaderPresenter.ViewHolder)}.
      * Equivalent to call setupHeaderItemFocusHighlight(itemBridgeAdapter, true).
      *
-     * @param adapter  The adapter of HeadersFragment.
-     * @see HeadersFragment#getBridgeAdapter()
+     * @param adapter  The adapter of HeadersSupportFragment.
+     * @see HeadersSupportFragment#getBridgeAdapter()
      */
     public static void setupHeaderItemFocusHighlight(ItemBridgeAdapter adapter) {
         setupHeaderItemFocusHighlight(adapter, true);
@@ -250,11 +250,11 @@ public class FocusHighlightHelper {
     /**
      * Sets up the focus highlight behavior of a focused item in header list.
      *
-     * @param adapter  The adapter of HeadersFragment.
+     * @param adapter  The adapter of HeadersSupportFragment.
      * @param scaleEnabled True if scale the item when focused, false otherwise. Note that
      * {@link RowHeaderPresenter#onSelectLevelChanged(RowHeaderPresenter.ViewHolder)}
      * will always be called regardless value of scaleEnabled.
-     * @see HeadersFragment#getBridgeAdapter()
+     * @see HeadersSupportFragment#getBridgeAdapter()
      */
     public static void setupHeaderItemFocusHighlight(ItemBridgeAdapter adapter,
             boolean scaleEnabled) {

@@ -64,7 +64,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * GuidedActionsStylist is used within a {@link androidx.leanback.app.GuidedStepFragment}
+ * GuidedActionsStylist is used within a {@link androidx.leanback.app.GuidedStepSupportFragment}
  * to supply the right-side panel where users can take actions. It consists of a container for the
  * list of actions, and a stationary selector view that indicates visually the location of focus.
  * GuidedActionsStylist has two different layouts: default is for normal actions including text,

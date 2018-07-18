@@ -1,6 +1,3 @@
-// CHECKSTYLE:OFF Generated code
-/* This file is auto-generated from SearchFragment.java.  DO NOT MODIFY. */
-
 package com.example.android.leanback;
 
 import static com.example.android.leanback.CardPresenter.CONTENT;
@@ -223,7 +220,7 @@ public class SearchSupportFragment extends androidx.leanback.app.SearchSupportFr
                 5));
         photoItems.add(new PhotoItem(
                 "GuidedStep (Slide bottom up)",
-                "Open GuidedStepFragment",
+                "Open GuidedStepSupportFragment",
                 R.drawable.gallery_photo_6,
                 6));
         photoItems.add(new PhotoItem(

@@ -125,8 +125,8 @@ public class BrowseSupportFragmentTest {
     @Test
     public void testTouchMode() throws Throwable {
         Intent intent = new Intent();
-        intent.putExtra(BrowseFragmentTestActivity.EXTRA_ADD_TO_BACKSTACK , true);
-        intent.putExtra(BrowseFragmentTestActivity.EXTRA_LOAD_DATA_DELAY , 0L);
+        intent.putExtra(BrowseSupportFragmentTestActivity.EXTRA_ADD_TO_BACKSTACK , true);
+        intent.putExtra(BrowseSupportFragmentTestActivity.EXTRA_LOAD_DATA_DELAY , 0L);
         mActivity = activityTestRule.launchActivity(intent);
 
         waitForEntranceTransitionFinished();

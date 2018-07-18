@@ -33,7 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Renders a {@link DetailsOverviewRow} to display an overview of an item. Typically this row will
  * be the first row in a fragment such as the
- * {@link androidx.leanback.app.DetailsFragment}. The View created by the
+ * {@link androidx.leanback.app.DetailsSupportFragment}. The View created by the
  * FullWidthDetailsOverviewRowPresenter is made in three parts: logo view on the left, action list view on
  * the top and a customizable detailed description view on the right.
  *
@@ -57,7 +57,7 @@ import androidx.recyclerview.widget.RecyclerView;
  *
  * <p>
  * The view has three states: {@link #STATE_HALF} {@link #STATE_FULL} and {@link #STATE_SMALL}. See
- * {@link androidx.leanback.app.DetailsFragment} where it switches states based on
+ * {@link androidx.leanback.app.DetailsSupportFragment} where it switches states based on
  * selected row position.
  * </p>
  */

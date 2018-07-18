@@ -198,10 +198,10 @@
     <style name="Widget.Leanback.Title.Icon">
     </style>
 
-    <!-- HeadersFragment -->
+    <!-- HeadersSupportFragment -->
     <style name="Widget.Leanback.Headers" />
 
-    <!-- RowsFragment -->
+    <!-- RowsSupportFragment -->
     <style name="Widget.Leanback.Rows" >
     </style>
 
@@ -689,7 +689,7 @@
     <!-- deprecated style, do not use -->
     <style name="Widget.Leanback.GuidedActionsSelectorStyle"></style>
 
-    <!-- Style for the header in OnboardingFragment. -->
+    <!-- Style for the header in OnboardingSupportFragment. -->
     <style name="Widget.Leanback.OnboardingHeaderStyle">
         <item name="android:layout_width">@dimen/lb_onboarding_content_width</item>
         <item name="android:layout_height">@dimen/lb_onboarding_header_height</item>
@@ -701,7 +701,7 @@
         <item name="android:orientation">vertical</item>
     </style>
 
-    <!-- Style for the header title in OnboardingFragment. -->
+    <!-- Style for the header title in OnboardingSupportFragment. -->
     <style name="Widget.Leanback.OnboardingTitleStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>
@@ -714,7 +714,7 @@
         <item name="android:lineSpacingExtra">14sp</item>
     </style>
 
-    <!-- Style for the header description in OnboardingFragment. -->
+    <!-- Style for the header description in OnboardingSupportFragment. -->
     <style name="Widget.Leanback.OnboardingDescriptionStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>
@@ -727,7 +727,7 @@
         <item name="android:lineSpacingExtra">10sp</item>
     </style>
 
-    <!-- Style for the container of page indicator and start button in OnboardingFragment. -->
+    <!-- Style for the container of page indicator and start button in OnboardingSupportFragment. -->
     <style name="Widget.Leanback.OnboardingNavigatorContainerStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -736,7 +736,7 @@
         <item name="android:layout_alignParentBottom">true</item>
     </style>
 
-    <!-- Style for the page indicator in OnboardingFragment. -->
+    <!-- Style for the page indicator in OnboardingSupportFragment. -->
     <style name="Widget.Leanback.OnboardingPageIndicatorStyle">
         <item name="android:layout_width">@dimen/lb_onboarding_content_width</item>
         <item name="android:layout_height">@dimen/lb_onboarding_navigation_height</item>
@@ -754,7 +754,7 @@
     <style name="Widget.Leanback.OnboardingStartButtonStyleBase">
     </style>
 
-    <!-- Style for the start button in OnboardingFragment. -->
+    <!-- Style for the start button in OnboardingSupportFragment. -->
     <style name="Widget.Leanback.OnboardingStartButtonStyle" parent="Widget.Leanback.OnboardingStartButtonStyleBase">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">36dp</item>
@@ -771,7 +771,7 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <!-- Style for the logo splash image in OnboardingFragment. -->
+    <!-- Style for the logo splash image in OnboardingSupportFragment. -->
     <style name="Widget.Leanback.OnboardingLogoStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -779,7 +779,7 @@
         <item name="android:contentDescription">@null</item>
     </style>
 
-    <!-- Styles for the main icon in OnboardingFragment. -->
+    <!-- Styles for the main icon in OnboardingSupportFragment. -->
     <style name="Widget.Leanback.OnboardingMainIconStyle">
         <item name="android:layout_width">64dp</item>
         <item name="android:layout_height">64dp</item>

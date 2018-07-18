@@ -25,8 +25,8 @@ import android.os.IBinder;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 
-import androidx.leanback.app.PlaybackFragment;
-import androidx.leanback.app.PlaybackFragmentGlueHost;
+import androidx.leanback.app.PlaybackSupportFragment;
+import androidx.leanback.app.PlaybackSupportFragmentGlueHost;
 import androidx.leanback.media.MediaControllerAdapter;
 import androidx.leanback.media.PlaybackBannerControlGlue;
 import androidx.leanback.media.PlaybackBaseControlGlue;
@@ -45,7 +45,7 @@ import java.util.List;
  * The fragment which contains the MediaSessionService through binding to it.
  * Also this fragment contains a specialized glue with repeat and shuffle operation.
  */
-public class MusicPlayerFragment extends PlaybackFragment implements
+public class MusicPlayerFragment extends PlaybackSupportFragment implements
         MediaSessionService.MediaPlayerListener {
 
     /**
@@ -212,7 +212,7 @@ public class MusicPlayerFragment extends PlaybackFragment implements
 
             // register this callback in service, so current UI can toggle UI pause
             // to control control row's status
-            mGlue.setHost(new PlaybackFragmentGlueHost(MusicPlayerFragment.this));
+            mGlue.setHost(new PlaybackSupportFragmentGlueHost(MusicPlayerFragment.this));
         }
 
         @Override

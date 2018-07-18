@@ -16,20 +16,20 @@
 
 package com.example.android.leanback;
 
-import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.fragment.app.FragmentActivity;
+
 /**
  * Activity that hosts VideoConsumptionExampleFragment.
  *
  * The main purpose to add this activity is to observe the bug b/28003943
  */
-public class VideoActivityWithDetailedCard extends Activity {
+public class VideoActivityWithDetailedCard extends FragmentActivity {
 
     public static final String TAG = "VideoExampleActivity";
 
@@ -39,10 +39,11 @@ public class VideoActivityWithDetailedCard extends Activity {
         setContentView(R.layout.video_activity_detailed_card);
 
         if (savedInstanceState == null) {
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.add(R.id.videoFragment, new VideoConsumptionWithDetailCardFragment(),
-                    VideoConsumptionWithDetailCardFragment.TAG);
-            ft.commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.videoFragment, new VideoConsumptionWithDetailCardFragment(),
+                            VideoConsumptionWithDetailCardFragment.TAG)
+                    .commit();
         }
     }
 

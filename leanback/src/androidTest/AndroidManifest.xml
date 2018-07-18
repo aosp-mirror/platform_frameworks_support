@@ -39,14 +39,6 @@
             android:exported="true"
             android:theme="@style/Theme.Leanback.GuidedStep"/>
 
-        <activity android:name="androidx.leanback.app.SingleFragmentTestActivity"
-                  android:exported="true"
-                  android:theme="@style/Theme.Leanback"/>
-
-        <activity android:name="androidx.leanback.app.BrowseFragmentTestActivity"
-                  android:exported="true"
-                  android:theme="@style/Theme.Leanback.Browse"/>
-
         <activity android:name="androidx.leanback.app.SingleSupportFragmentTestActivity"
                   android:exported="true"
                   android:theme="@style/Theme.Leanback"/>
@@ -54,10 +46,6 @@
         <activity android:name="androidx.leanback.app.BrowseSupportFragmentTestActivity"
                   android:exported="true"
                   android:theme="@style/Theme.Leanback.Browse"/>
-
-        <activity android:name="androidx.leanback.app.GuidedStepFragmentTestActivity"
-                  android:exported="true"
-                  android:theme="@style/Theme.Leanback.GuidedStep"/>
 
         <activity
             android:name="androidx.leanback.app.GuidedStepSupportFragmentTestActivity"

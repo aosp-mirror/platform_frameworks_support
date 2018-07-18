@@ -17,19 +17,18 @@
 package androidx.leanback.widget;
 
 import androidx.leanback.R;
-import androidx.leanback.app.DetailsFragment;
 import androidx.leanback.app.DetailsSupportFragment;
 
 /**
- * Subclass of Parallax object that tracks overview row's top and bottom edge in DetailsFragment
- * or DetailsSupportFragment.
+ * Subclass of Parallax object that tracks overview row's top and bottom edge in
+ * DetailsSupportFragment.
  * <p>
  * It can be used for both creating cover image parallax effect and controlling video playing
  * when transitioning to/from half/full screen.  A direct use case is
- * {@link androidx.leanback.app.DetailsFragmentBackgroundController}.
+ * {@link androidx.leanback.app.DetailsSupportFragmentBackgroundController}.
  * </p>
- * @see DetailsFragment#getParallax()
- * @see androidx.leanback.app.DetailsFragmentBackgroundController
+ * @see DetailsSupportFragment#getParallax()
+ * @see androidx.leanback.app.DetailsSupportFragmentBackgroundController
  * @see DetailsSupportFragment#getParallax()
  * @see androidx.leanback.app.DetailsSupportFragmentBackgroundController
  */
