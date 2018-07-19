@@ -90,7 +90,13 @@ final class SessionToken2ImplLegacy implements SessionToken2Impl {
 
     @Override
     public int hashCode() {
-        return mLegacyToken.hashCode();
+        final int prime = 31;
+        return mType
+                + prime * (mUid
+                + prime * (mPackageName.hashCode()
+                + prime * (mId.hashCode()
+                + prime * (mComponentName != null ? mComponentName.hashCode() : 0)
+                + prime * (mLegacyToken != null ? mLegacyToken.hashCode() : 0))));
     }
 
     @Override
