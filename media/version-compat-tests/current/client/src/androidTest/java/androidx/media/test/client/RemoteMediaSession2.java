@@ -55,7 +55,6 @@ import java.util.concurrent.TimeUnit;
  * Users can run {@link MediaSession2} methods remotely with this object.
  */
 public class RemoteMediaSession2 {
-
     private static final String TAG = "RemoteMediaSession2";
 
     private final Context mContext;
@@ -453,7 +452,6 @@ public class RemoteMediaSession2 {
         }
     }
 
-    // These methods will run on main thread.
     class MyServiceConnection implements ServiceConnection {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {

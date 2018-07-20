@@ -232,9 +232,9 @@ public class RemoteMediaSession2Service extends Service {
             }
         }
 
-        /**
-         * {@link MediaSession2} methods.
-         */
+        ////////////////////////////////////////////////////////////////////////////////
+        // MediaSession2 methods
+        ////////////////////////////////////////////////////////////////////////////////
 
         @Override
         public Bundle getToken(String sessionId) throws RemoteException {
@@ -294,9 +294,9 @@ public class RemoteMediaSession2Service extends Service {
             session2.setCustomLayout(info, MediaTestUtils.buttonListFromBundleList(layout));
         }
 
-        /**
-         * {@link MockPlayerConnector} methods.
-         */
+        ////////////////////////////////////////////////////////////////////////////////
+        // MockPlayerConnector methods
+        ////////////////////////////////////////////////////////////////////////////////
 
         @Override
         public void setPlayerState(String sessionId, int state) {
@@ -394,9 +394,10 @@ public class RemoteMediaSession2Service extends Service {
             player.notifyMediaPrepared(agent.getPlaylist().get(index).getDataSourceDesc());
         }
 
-        /**
-         * {@link MockPlaylistAgent} methods.
-         */
+
+        ////////////////////////////////////////////////////////////////////////////////
+        // MockPlaylistAgent methods
+        ////////////////////////////////////////////////////////////////////////////////
 
         @Override
         public void setPlaylist(String sessionId, List<Bundle> playlist)
