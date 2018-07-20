@@ -875,6 +875,12 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
                     TraceCompat.beginSection("RV removeViewAt");
                 }
                 RecyclerView.this.removeViewAt(index);
+                if (mItemAnimator != null) {
+                    ViewHolder viewHolder = getChildViewHolder(child);
+                    if (viewHolder != null) {
+                        mItemAnimator.endAnimation(viewHolder);
+                    }
+                }
                 if (VERBOSE_TRACING) {
                     TraceCompat.endSection();
                 }
