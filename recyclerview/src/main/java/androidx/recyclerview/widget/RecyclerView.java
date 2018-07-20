@@ -6101,6 +6101,18 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
                 holder.clearReturnedFromScrapFlag();
             }
             recycleViewHolderInternal(holder);
+            // Usually we dont need call endAnimation() as the animation finish callback will
+            // cleanup the ViewHolder, mark it as recyclable and put back to cache/recyclebin.
+            // However, DefaultItemAnimator calls postDelayed() on mPendingMoveViews to schedule
+            // move animation, if scroll pass removed the View here, the postDelayed() will be
+            // called on a detached view and the ItemAnimator never gets chance to finish.
+            // So we proactively endAnimation() when a view is detached. Note the order that
+            // we must call endAnimation() later to avoid recycle twice. recycleViewHolderInternal()
+            // will not recycle if the ViewHolder is set to isRecycable(false) by ItemAnimator and
+            // onAnimationsFinished() will reset the flag and recycle the view.
+            if (mItemAnimator != null) {
+                mItemAnimator.endAnimation(holder);
+            }
         }
 
         /**
