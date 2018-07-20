@@ -55,6 +55,7 @@ val RELEASE_RULE = docsRules("public") {
     prebuilts(LibraryGroups.MEDIA, "media-widget", "1.0.0-alpha4")
     prebuilts(LibraryGroups.MEDIA2, "1.0.0-alpha01")
     prebuilts(LibraryGroups.MEDIAROUTER, "1.0.0-alpha4")
+    prebuilts(LibraryGroups.MULTIDEX, "2.0.0")
     prebuilts(LibraryGroups.PALETTE, defaultVersion)
     prebuilts(LibraryGroups.PERCENTLAYOUT, defaultVersion)
     prebuilts(LibraryGroups.PREFERENCE, defaultVersion)

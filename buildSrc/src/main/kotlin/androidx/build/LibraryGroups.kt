@@ -50,6 +50,7 @@ object LibraryGroups {
     const val MEDIA = "androidx.media"
     const val MEDIA2 = "androidx.media2"
     const val MEDIAROUTER = "androidx.mediarouter"
+    const val MULTIDEX = "androidx.multidex"
     const val PALETTE = "androidx.palette"
     const val PERCENTLAYOUT = "androidx.percentlayout"
     const val PREFERENCE = "androidx.preference"
