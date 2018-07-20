@@ -6101,6 +6101,19 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
                 holder.clearReturnedFromScrapFlag();
             }
             recycleViewHolderInternal(holder);
+            // Usually we dont need call endAnimation() because when view is detached,
+            // ViewPropertyAnimation will end. But if the animation is based on ObjectAnimator or
+            // if the ItemAnimator uses "pending runnable", the animation on the view may not
+            // be cleared. In b/720547, the View is removed by scroll pass while it's in
+            // the pendingMoving list of DefaultItemAnimator and DefaultItemAnimator perform
+            // a postDelayed() on the detached view which never gets executed.
+            // To fix the issue, we issue endAnimation() here. Note the order that
+            // we must call endAnimation() after recycleViewHolderInternal() to avoid recycle twice.
+            // If ViewHolder isRecycable is false, recycleViewHolderInternal() will not recycle it,
+            // Then endAnimation() will reset isRecycable flag and recycle the view.
+            if (mItemAnimator != null && !holder.isRecyclable()) {
+                mItemAnimator.endAnimation(holder);
+            }
         }
 
         /**
