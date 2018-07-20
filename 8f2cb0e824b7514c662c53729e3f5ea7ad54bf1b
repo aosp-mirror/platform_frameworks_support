@@ -22,6 +22,30 @@
       "revId": "8f2cb0e824b7514c662c53729e3f5ea7ad54bf1b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27f4b9d9_d3af0bfc",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-07-20T23:24:27Z",
+      "side": 1,
+      "message": "It doesn\u0027t work, because we don\u0027t have a \"multidex\" module and this rule is still based on our project structure (we use it to find all artifacts in one LibraryGroup)",
+      "parentUuid": "9aa71756_207a8749",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 46
+      },
+      "revId": "8f2cb0e824b7514c662c53729e3f5ea7ad54bf1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
