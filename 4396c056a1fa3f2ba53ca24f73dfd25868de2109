@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "34af40e5_e0a85c82",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-07-20T16:55:33Z",
+      "side": 1,
+      "message": "is it really 3gb in yours? i\u0027ll try a fresh checkout.\n\n➜  src du -sh test_androidx_master_dev \n2.3G\ttest_androidx_master_dev\n\nwe don\u0027t have to be accurate so if you want to account for the future, feel free to keep it 3.",
+      "parentUuid": "f5d797df_05f31283",
+      "range": {
+        "startLine": 19,
+        "startChar": 154,
+        "endLine": 19,
+        "endChar": 159
+      },
+      "revId": "4396c056a1fa3f2ba53ca24f73dfd25868de2109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "16411a14_1c22af7f",
         "filename": "README.md",
         "patchSetId": 1
