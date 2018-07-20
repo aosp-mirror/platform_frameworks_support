@@ -908,6 +908,29 @@ public class LinearLayoutManagerTest extends BaseLinearLayoutManagerTest {
     }
 
     @Test
+    public void scrollRemovePendingMovingViewBug73552923() throws Throwable {
+        final Config config = new Config();
+        TestAdapter adapter = new TestAdapter(100);
+        adapter.setHasStableIds(false);
+        config.adapter(adapter);
+        setupByConfig(config, true);
+        DefaultItemAnimator itemAnimator = new DefaultItemAnimator();
+        mRecyclerView.setItemAnimator(itemAnimator);
+
+        // Test that scroll removes pending move animation.
+        mTestAdapter.deleteAndNotify(0, 3);
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                int recyclerViewHeight = mRecyclerView.getHeight();
+                mRecyclerView.scrollBy(0, recyclerViewHeight / 2);
+                mRecyclerView.scrollBy(0, recyclerViewHeight / 2);
+            }
+        });
+        waitForAnimations(5);
+    }
+
+    @Test
     public void layoutFrozenBug70402422() throws Throwable {
         final Config config = new Config();
         TestAdapter adapter = new TestAdapter(2);
