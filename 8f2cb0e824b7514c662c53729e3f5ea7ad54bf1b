@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9aa71756_207a8749",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-07-20T23:10:14Z",
+      "side": 1,
+      "message": "Based on the lack of multidex in the dist docs output, I\u0027m guessing this is wrong?",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 46
+      },
+      "revId": "8f2cb0e824b7514c662c53729e3f5ea7ad54bf1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
