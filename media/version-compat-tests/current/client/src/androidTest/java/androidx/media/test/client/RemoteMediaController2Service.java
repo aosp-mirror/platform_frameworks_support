@@ -139,9 +139,9 @@ public class RemoteMediaController2Service extends Service {
             // If needed, define some commands in MediaController2Constants.
         }
 
-        /**
-         * {@link MediaController2} methods.
-         */
+        ////////////////////////////////////////
+        ////    MediaController2 methods    ////
+        ////////////////////////////////////////
 
         @Override
         public void play(String controllerId) throws RemoteException {

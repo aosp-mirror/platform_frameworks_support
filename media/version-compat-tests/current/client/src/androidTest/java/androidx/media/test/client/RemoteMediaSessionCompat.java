@@ -280,7 +280,7 @@ public class RemoteMediaSessionCompat {
         return bundle;
     }
 
-    // These methods will run on main thread.
+    // ServiceConnection methods are always called from the main thread.
     class MyServiceConnection implements ServiceConnection {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {

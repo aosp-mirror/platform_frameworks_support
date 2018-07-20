@@ -424,7 +424,7 @@ public class RemoteMediaController2 {
         }
     }
 
-    // ServiceConnection methods will run on the main thread.
+    // ServiceConnection methods are always called from the main thread.
     class MyServiceConnection implements ServiceConnection {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
