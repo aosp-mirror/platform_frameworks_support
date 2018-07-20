@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8655ef84_8fe274ff",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-20T16:03:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c62bef7_aeedbe04",
+      "revId": "4396c056a1fa3f2ba53ca24f73dfd25868de2109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f43b1ad3_56d8d5e6",
         "filename": "README.md",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2018-07-20T02:10:58Z",
       "side": 1,
       "message": "when i checked out it was 2.5. I just re-synced now it shows 1.7 GB i have no idea why",
+      "range": {
+        "startLine": 19,
+        "startChar": 154,
+        "endLine": 19,
+        "endChar": 159
+      },
+      "revId": "4396c056a1fa3f2ba53ca24f73dfd25868de2109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5d797df_05f31283",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-20T16:03:34Z",
+      "side": 1,
+      "message": "Updated this to 3GB.",
+      "parentUuid": "f43b1ad3_56d8d5e6",
       "range": {
         "startLine": 19,
         "startChar": 154,
@@ -62,6 +104,30 @@
       "revId": "4396c056a1fa3f2ba53ca24f73dfd25868de2109",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56de2046_c3c1f953",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-20T16:03:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16411a14_1c22af7f",
+      "range": {
+        "startLine": 76,
+        "startChar": 104,
+        "endLine": 76,
+        "endChar": 105
+      },
+      "revId": "4396c056a1fa3f2ba53ca24f73dfd25868de2109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
