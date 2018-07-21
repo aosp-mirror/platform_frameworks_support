@@ -150,7 +150,8 @@ internal class NavParser(
                     StringValue(defaultValue)
                 }
             }
-            is ParcelableType -> {
+            IntArrayType, LongArrayType, FloatArrayType, StringArrayType,
+            BoolArrayType, ReferenceArrayType, is ObjectArrayType, is ObjectType -> {
                 if (defaultValue == VALUE_NULL) {
                     NullValue
                 } else {
