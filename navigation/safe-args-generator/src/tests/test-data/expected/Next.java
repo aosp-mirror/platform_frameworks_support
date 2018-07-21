@@ -18,9 +18,12 @@ package a.b;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import androidx.navigation.NavDirections;
+import java.io.Serializable;
+import java.lang.Enum;
 import java.lang.IllegalArgumentException;
 import java.lang.Object;
 import java.lang.Override;
@@ -107,8 +110,24 @@ public static class Next implements NavDirections {
         __outBundle.putInt("mainInt", this.mainInt);
         __outBundle.putString("optional", this.optional);
         __outBundle.putInt("optionalInt", this.optionalInt);
-        __outBundle.putParcelable("optionalParcelable", this.optionalParcelable);
-        __outBundle.putParcelable("parcelable", this.parcelable);
+        if (Parcelable.class.isAssignableFrom(ActivityInfo.class) || this.optionalParcelable == null) {
+            __outBundle.putParcelable("optionalParcelable", Parcelable.class.cast(this.optionalParcelable));
+        } else if (Serializable.class.isAssignableFrom(ActivityInfo.class)) {
+            __outBundle.putSerializable("optionalParcelable", Serializable.class.cast(this.optionalParcelable));
+        } else if (ActivityInfo.class.isEnum()) {
+            __outBundle.putString("optionalParcelable", Enum.class.cast(this.optionalParcelable).name());
+        } else {
+            throw new UnsupportedOperationException(ActivityInfo.class.getName() + " must implement Parcelable or Serializable or must be an Enum.");
+        }
+        if (Parcelable.class.isAssignableFrom(ActivityInfo.class) || this.parcelable == null) {
+            __outBundle.putParcelable("parcelable", Parcelable.class.cast(this.parcelable));
+        } else if (Serializable.class.isAssignableFrom(ActivityInfo.class)) {
+            __outBundle.putSerializable("parcelable", Serializable.class.cast(this.parcelable));
+        } else if (ActivityInfo.class.isEnum()) {
+            __outBundle.putString("parcelable", Enum.class.cast(this.parcelable).name());
+        } else {
+            throw new UnsupportedOperationException(ActivityInfo.class.getName() + " must implement Parcelable or Serializable or must be an Enum.");
+        }
         return __outBundle;
     }
 
