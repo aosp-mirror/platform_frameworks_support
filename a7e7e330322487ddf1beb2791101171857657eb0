@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ce7d95c_0cd6fd45",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-07-23T20:13:09Z",
+      "side": 1,
+      "message": "The first time you initialize the repository",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 18
+      },
+      "revId": "a7e7e330322487ddf1beb2791101171857657eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c9b4385_0b9ced90",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-07-23T20:13:09Z",
+      "side": 1,
+      "message": "Before uploading your first contribution, you will need to setup a password, and agree to the contribution agreement",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 105
+      },
+      "revId": "a7e7e330322487ddf1beb2791101171857657eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a485cb7_661c58e5",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-07-23T20:13:09Z",
+      "side": 1,
+      "message": "Generate a HTTPS password:",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 48
+      },
+      "revId": "a7e7e330322487ddf1beb2791101171857657eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0524d3cb_98718959",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-07-23T20:13:09Z",
+      "side": 1,
+      "message": "Agree to the Google Contributor License Agreement:",
+      "revId": "a7e7e330322487ddf1beb2791101171857657eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
