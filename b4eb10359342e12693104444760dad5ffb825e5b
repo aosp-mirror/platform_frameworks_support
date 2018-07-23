@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a401c14_52623c35",
+        "filename": "recyclerview/src/main/java/androidx/recyclerview/widget/PagerSnapHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-07-23T18:28:47Z",
+      "side": 1,
+      "message": "I could be wrong, but, if a user uses their finger to start moving to the 2nd view (say 50px towards the 2nd view) and then they fling lightly back to the starting position, say such that the animation will end at 5 pixels away from the original position, the RV will have failed to snap all the way to 0 pixels.\n\nRight?  \n\nI think you may need to continue to return an actual position from this method, but some check needs to exist that checks to see if the item at the position is actually going to scroll at all before starting the scroll animation and the ensuing lifecycle methods.",
+      "range": {
+        "startLine": 123,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 9
+      },
+      "revId": "b4eb10359342e12693104444760dad5ffb825e5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
