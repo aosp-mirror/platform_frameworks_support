@@ -36,6 +36,7 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.annotation.StyleRes;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.VectorEnabledTintResources;
@@ -485,6 +486,19 @@ public abstract class AppCompatDelegate {
     public static int getDefaultNightMode() {
         return sDefaultNightMode;
     }
+
+    /**
+     * TODO
+     * @return
+     */
+    @NonNull
+    public abstract Context getThemedContext();
+
+    /**
+     * TODO
+     * @param themeResId
+     */
+    public abstract void onSetTheme(@StyleRes int themeResId);
 
     /**
      * Sets whether vector drawables on older platforms (< API 21) can be used within

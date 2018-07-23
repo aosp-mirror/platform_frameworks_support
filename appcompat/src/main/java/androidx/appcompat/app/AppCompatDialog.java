@@ -60,6 +60,7 @@ public class AppCompatDialog extends Dialog implements AppCompatCallback {
         // which means that we can't rely on onCreate() being called before a content view is set.
         // To workaround this, we call onCreate(null) in the ctor, and then again as usual in
         // onCreate().
+        getDelegate().onSetTheme(getThemeResId(context, theme));
         getDelegate().onCreate(null);
 
         // Apply AppCompat's DayNight resources if needed

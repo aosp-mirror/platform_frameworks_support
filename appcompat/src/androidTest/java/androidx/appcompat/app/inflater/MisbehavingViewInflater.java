@@ -29,6 +29,10 @@ import androidx.appcompat.widget.AppCompatButton;
  * {@link #createButton(Context, AttributeSet)} method.
  */
 public class MisbehavingViewInflater extends AppCompatViewInflater {
+    public MisbehavingViewInflater() {
+        super(hostContext);
+    }
+
     @NonNull
     @Override
     protected AppCompatButton createButton(Context context, AttributeSet attrs) {
