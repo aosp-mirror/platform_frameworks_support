@@ -28,10 +28,12 @@ import androidx.test.runner.AndroidJUnit4
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.nio.file.AccessMode
 
 @SmallTest
 @RunWith(AndroidJUnit4::class)
@@ -108,6 +110,14 @@ class NavInflaterTest {
         assertEquals(456789013456L, defaultArguments.getLong("test_long"))
         assertEquals(456789013456L, defaultArguments.getLong("test_long2"))
         assertEquals(123L, defaultArguments.getLong("test_long3"))
+    }
+
+    @Test
+    fun testDefaultArgumentsEnum() {
+        val defaultArguments = inflateDefaultArgumentsFromGraph()
+
+        assertEquals(AccessMode.READ, defaultArguments.getSerializable("test_enum") as AccessMode)
+        assertNull(defaultArguments.getSerializable("test_enum2"))
     }
 
     @Test
