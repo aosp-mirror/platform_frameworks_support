@@ -50,7 +50,8 @@
             android:layout_marginTop="16dp"
             android:paddingRight="?android:attr/listPreferredItemPaddingRight"
             android:textAlignment="viewStart"
-            android:textColor="@color/preference_fallback_accent_color"/>
+            android:gravity="start"
+            android:textColor="?attr/colorAccent"/>
         <TextView
             android:id="@android:id/summary"
             android:layout_width="wrap_content"
