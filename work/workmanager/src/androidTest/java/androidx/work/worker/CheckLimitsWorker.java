@@ -16,7 +16,7 @@
 
 package androidx.work.worker;
 
-import static androidx.work.Worker.Result.SUCCESS;
+import static androidx.work.NonBlockingWorker.Result.SUCCESS;
 
 import android.support.annotation.NonNull;
 

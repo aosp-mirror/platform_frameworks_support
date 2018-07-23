@@ -23,7 +23,10 @@ import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
 import androidx.work.Logger;
+import androidx.work.NonBlockingWorker;
 import androidx.work.Worker;
+import androidx.work.impl.ExecutionListener;
+import androidx.work.impl.Extras;
 import androidx.work.impl.WorkDatabase;
 import androidx.work.impl.WorkManagerImpl;
 import androidx.work.impl.WorkerWrapper;
@@ -41,7 +44,7 @@ import java.util.List;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class ConstraintTrackingWorker extends Worker implements WorkConstraintsCallback {
+public class ConstraintTrackingWorker extends NonBlockingWorker implements WorkConstraintsCallback {
 
     private static final String TAG = "ConstraintTrkngWrkr";
 
@@ -52,25 +55,36 @@ public class ConstraintTrackingWorker extends Worker implements WorkConstraintsC
             "androidx.work.impl.workers.ConstraintTrackingWorker.ARGUMENT_CLASS_NAME";
 
     @Nullable
-    private Worker mDelegate;
+    private NonBlockingWorker mDelegate;
+    private ExecutionListener mOriginalListener;
+    private ConstraintTrackingListener mListener;
 
     private final Object mLock;
-    private boolean mAreConstraintsUnmet;
+    // Marking this volatile as the delegated workers could switch threads.
+    private volatile boolean mAreConstraintsUnmet;
 
     public ConstraintTrackingWorker() {
         mLock = new Object();
         mAreConstraintsUnmet = false;
+        mListener = new ConstraintTrackingListener(this);
     }
 
     @Override
-    public @NonNull Result doWork() {
+    public void onStartWork() {
+
         String className = getInputData().getString(ARGUMENT_CLASS_NAME);
         if (TextUtils.isEmpty(className)) {
             Logger.debug(TAG, "No worker to delegate to.");
-            return Result.FAILURE;
+            onWorkFinished(Result.FAILURE);
         }
         // Instantiate the delegated worker. Use the same workSpecId, and the same Data
         // as this Worker's Data are a superset of the delegate's Worker's Data.
+        Extras extras = getExtras();
+        Extras.RuntimeExtras runtimeExtras = extras.getRuntimeExtras();
+        // Swap listeners so we can intercept completions.
+        mOriginalListener = runtimeExtras.mExecutionListener;
+        runtimeExtras.mExecutionListener = mListener;
+
         mDelegate = WorkerWrapper.workerFromClassName(
                 getApplicationContext(),
                 className,
@@ -79,7 +93,7 @@ public class ConstraintTrackingWorker extends Worker implements WorkConstraintsC
 
         if (mDelegate == null) {
             Logger.debug(TAG, "No worker to delegate to.");
-            return Result.FAILURE;
+            onWorkFinished(Result.FAILURE);
         }
 
         WorkDatabase workDatabase = getWorkDatabase();
@@ -87,7 +101,7 @@ public class ConstraintTrackingWorker extends Worker implements WorkConstraintsC
         // We need to know what the real constraints are for the delegate.
         WorkSpec workSpec = workDatabase.workSpecDao().getWorkSpec(getId().toString());
         if (workSpec == null) {
-            return Result.FAILURE;
+            onWorkFinished(Result.FAILURE);
         }
         WorkConstraintsTracker workConstraintsTracker =
                 new WorkConstraintsTracker(getApplicationContext(), this);
@@ -102,31 +116,23 @@ public class ConstraintTrackingWorker extends Worker implements WorkConstraintsC
             // changes in constraints can cause the worker to throw RuntimeExceptions, and
             // that should cause a retry.
             try {
-                Result result = mDelegate.doWork();
-                synchronized (mLock) {
-                    if (mAreConstraintsUnmet) {
-                        return Result.RETRY;
-                    } else {
-                        setOutputData(mDelegate.getOutputData());
-                        return result;
-                    }
-                }
+                mDelegate.onStartWork();
             } catch (Throwable exception) {
                 Logger.debug(TAG, String.format(
                         "Delegated worker %s threw a runtime exception.", className), exception);
                 synchronized (mLock) {
                     if (mAreConstraintsUnmet) {
                         Logger.debug(TAG, "Constraints were unmet, Retrying.");
-                        return Result.RETRY;
+                        onWorkFinished(Result.RETRY);
                     } else {
-                        return Result.FAILURE;
+                        onWorkFinished(Result.FAILURE);
                     }
                 }
             }
         } else {
             Logger.debug(TAG, String.format(
                     "Constraints not met for delegate %s. Requesting retry.", className));
-            return Result.RETRY;
+            onWorkFinished(Result.RETRY);
         }
     }
 
@@ -150,6 +156,44 @@ public class ConstraintTrackingWorker extends Worker implements WorkConstraintsC
         Logger.debug(TAG, String.format("Constraints changed for %s", workSpecIds));
         synchronized (mLock) {
             mAreConstraintsUnmet = true;
+        }
+    }
+
+    /**
+     * An implementation of a {@link ExecutionListener} for the delegated
+     * {@link NonBlockingWorker} used by the {@link ConstraintTrackingWorker}.
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @VisibleForTesting
+    public static class ConstraintTrackingListener implements ExecutionListener {
+        private final ConstraintTrackingWorker mWorker;
+
+        @VisibleForTesting
+        public ConstraintTrackingListener(@NonNull ConstraintTrackingWorker worker) {
+            mWorker = worker;
+        }
+
+        @Override
+        public void onExecuted(
+                @NonNull String workSpecId,
+                boolean isSuccessful,
+                boolean needsReschedule) {
+
+            synchronized (mWorker.mLock) {
+                if (mWorker.mAreConstraintsUnmet) {
+                    mWorker.setResult(Result.RETRY);
+                } else {
+                    if (mWorker.mDelegate != null) {
+                        mWorker.setOutputData(mWorker.mDelegate.getOutputData());
+                        mWorker.setResult(mWorker.mDelegate.getResult());
+                    }
+                }
+                // Notify original listener that we have a result.
+                mWorker.mOriginalListener.onExecuted(
+                        workSpecId, isSuccessful, needsReschedule);
+            }
         }
     }
 }
