@@ -93,7 +93,7 @@ public class FragmentActivity extends ComponentActivity implements
         }
 
     };
-    final FragmentController mFragments = FragmentController.createController(new HostCallbacks());
+    final FragmentController mFragments = FragmentController.createController(createHostCallback());
 
     private ViewModelStore mViewModelStore;
 
@@ -954,7 +954,19 @@ public class FragmentActivity extends ComponentActivity implements
         }
     }
 
-    class HostCallbacks extends FragmentHostCallback<FragmentActivity> {
+    /**
+     * WIP We have the public host APIs, so this should probably be public.
+     * @return
+     */
+    @NonNull
+    public FragmentHostCallback createHostCallback() {
+        return new HostCallbacks();
+    }
+
+    /**
+     * WIP We have the public host APIs, so this should probably be public.
+     */
+    public class HostCallbacks extends FragmentHostCallback<FragmentActivity> {
         public HostCallbacks() {
             super(FragmentActivity.this /*fragmentActivity*/);
         }
@@ -969,6 +981,7 @@ public class FragmentActivity extends ComponentActivity implements
             return !isFinishing();
         }
 
+        @NonNull
         @Override
         public LayoutInflater onGetLayoutInflater() {
             return FragmentActivity.this.getLayoutInflater().cloneInContext(FragmentActivity.this);
@@ -981,7 +994,7 @@ public class FragmentActivity extends ComponentActivity implements
 
         @Override
         public void onSupportInvalidateOptionsMenu() {
-            FragmentActivity.this.supportInvalidateOptionsMenu();
+            FragmentActivity.this.invalidateOptionsMenu();
         }
 
         @Override
