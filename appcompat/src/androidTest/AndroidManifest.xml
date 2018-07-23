@@ -135,6 +135,12 @@
 
         <activity
                 android:name="androidx.appcompat.app.LayoutInflaterFactoryTestActivity"/>
+                android:name="androidx.appcompat.app.NightModeConfigChangesActivity"
+                android:theme="@style/Theme.AppCompat.DayNight"
+                android:configChanges="uiMode"/>
+
+        <activity
+            android:name="androidx.appcompat.app.AppCompatVectorDrawableIntegrationActivity"/>
 
         <activity
                 android:name="androidx.appcompat.app.FragmentContentIdActivity"/>
@@ -142,6 +148,11 @@
         <activity
                 android:name="androidx.appcompat.app.NightModeActivity"
                 android:theme="@style/Theme.AppCompat.DayNight"/>
+
+        <activity
+                android:name="androidx.appcompat.app.NightModeConfigChangesActivity"
+                android:theme="@style/Theme.AppCompat.DayNight"
+                android:configChanges="uiMode"/>
 
         <activity
                 android:name="androidx.appcompat.app.AppCompatVectorDrawableIntegrationActivity"/>
