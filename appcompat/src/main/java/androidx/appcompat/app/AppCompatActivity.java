@@ -16,6 +16,7 @@
 
 package androidx.appcompat.app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -23,6 +24,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -42,6 +44,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NavUtils;
 import androidx.core.app.TaskStackBuilder;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentHostCallback;
 
 /**
  * Base class for activities that use the
@@ -63,7 +66,6 @@ public class AppCompatActivity extends FragmentActivity implements AppCompatCall
         TaskStackBuilder.SupportParentable, ActionBarDrawerToggle.DelegateProvider {
 
     private AppCompatDelegate mDelegate;
-    private int mThemeId = 0;
     private Resources mResources;
 
     @Override
@@ -71,31 +73,29 @@ public class AppCompatActivity extends FragmentActivity implements AppCompatCall
         final AppCompatDelegate delegate = getDelegate();
         delegate.installViewFactory();
         delegate.onCreate(savedInstanceState);
-        if (delegate.applyDayNight() && mThemeId != 0) {
-            // If DayNight has been applied, we need to re-apply the theme for
-            // the changes to take effect. On API 23+, we should bypass
-            // setTheme(), which will no-op if the theme ID is identical to the
-            // current theme ID.
-            if (Build.VERSION.SDK_INT >= 23) {
-                onApplyThemeResource(getTheme(), mThemeId, false);
-            } else {
-                setTheme(mThemeId);
-            }
-        }
+        delegate.applyDayNight();
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public void setTheme(@StyleRes final int resid) {
-        super.setTheme(resid);
-        // Keep hold of the theme id so that we can re-set it later if needed
-        mThemeId = resid;
+    public void setTheme(@StyleRes final int resId) {
+        super.setTheme(resId);
+        getDelegate().onSetTheme(resId);
     }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         getDelegate().onPostCreate(savedInstanceState);
+    }
+
+    /**
+     * TODO
+     * @return
+     */
+    @NonNull
+    public Context getThemedContext() {
+        return getDelegate().getThemedContext();
     }
 
     /**
@@ -588,5 +588,18 @@ public class AppCompatActivity extends FragmentActivity implements AppCompatCall
                 && (actionBar == null || !actionBar.closeOptionsMenu())) {
             super.closeOptionsMenu();
         }
+    }
+
+    @NonNull
+    @Override
+    public FragmentHostCallback<FragmentActivity> createHostCallback() {
+        return new HostCallbacks() {
+            @NonNull
+            @Override
+            public LayoutInflater onGetLayoutInflater() {
+                return LayoutInflater.from(AppCompatActivity.this)
+                        .cloneInContext(getThemedContext());
+            }
+        };
     }
 }

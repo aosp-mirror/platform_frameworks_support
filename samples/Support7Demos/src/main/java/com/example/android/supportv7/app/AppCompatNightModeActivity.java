@@ -18,7 +18,10 @@ package com.example.android.supportv7.app;
 
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.WebView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,7 +37,7 @@ public class AppCompatNightModeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.appcompat_night_mode);
+        setContentView(R.layout.appcompat_night_mode_activity);
     }
 
     public void setModeNightNo(View view) {
@@ -47,5 +50,18 @@ public class AppCompatNightModeActivity extends AppCompatActivity {
 
     public void setModeNightAuto(View view) {
         getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+    }
+
+    public void loadWebView(View view) {
+        // Create a WebView, which will reset the Activity resources
+        WebView webView = new WebView(this);
+        refreshIndicator();
+    }
+
+    private void refreshIndicator() {
+        final ViewGroup indicatorParent = findViewById(R.id.night_mode_indicator_parent);
+        indicatorParent.removeAllViews();
+        LayoutInflater.from(getThemedContext())
+                .inflate(R.layout.appcompat_night_mode_indicator, indicatorParent);
     }
 }
