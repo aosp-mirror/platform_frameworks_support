@@ -20,18 +20,16 @@ import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
 
 /**
- * The basic object that performs work.  Worker classes are instantiated at runtime by
- * {@link WorkManager} and the {@link #doWork()} method is called on a background thread.  In case
- * the work is preempted for any reason, the same instance of Worker is not reused.  This means
- * that {@link #doWork()} is called exactly once per Worker instance.
+ * The callback interface which signals work completion for a {@link NonBlockingWorker}.
  */
-public abstract class Worker extends NonBlockingWorker {
-    @WorkerThread
-    public abstract @NonNull Result doWork();
+public interface WorkFinishedCallback {
 
-    @Override
-    public void onStartWork(@NonNull WorkFinishedCallback callback) {
-        Result result = doWork();
-        callback.onWorkFinished(result);
-    }
+    /**
+     * The completion callback for {@link NonBlockingWorker}.
+     *
+     * @param result the {@link NonBlockingWorker.Result} of the {@link NonBlockingWorker}'s
+     *               execution.
+     */
+    @WorkerThread
+    void onWorkFinished(@NonNull NonBlockingWorker.Result result);
 }

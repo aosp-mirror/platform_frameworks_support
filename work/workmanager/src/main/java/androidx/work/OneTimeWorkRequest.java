@@ -70,7 +70,6 @@ public final class OneTimeWorkRequest extends WorkRequest {
      * Builder for {@link OneTimeWorkRequest} class.
      */
     public static final class Builder extends WorkRequest.Builder<Builder, OneTimeWorkRequest> {
-
         public Builder(@NonNull Class<? extends Worker> workerClass) {
             super(workerClass);
             mWorkSpec.inputMergerClassName = OverwritingInputMerger.class.getName();
@@ -102,8 +101,8 @@ public final class OneTimeWorkRequest extends WorkRequest {
 
         /**
          * Specify the {@link InputMerger} class name for this {@link OneTimeWorkRequest}.  An
-         * InputMerger takes one or more {@link Data} inputs to a {@link Worker} and converts
-         * them to a single merged {@link Data} to be used as its input.
+         * InputMerger takes one or more {@link Data} inputs to a {@link Worker} and converts them
+         * to a single merged {@link Data} to be used as its input.
          * The default InputMerger is {@link OverwritingInputMerger}.
          *
          * @param inputMerger The class name of the {@link InputMerger} for this
