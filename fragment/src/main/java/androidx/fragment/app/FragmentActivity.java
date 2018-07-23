@@ -25,6 +25,8 @@ import android.content.IntentSender;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -75,8 +77,7 @@ public class FragmentActivity extends ComponentActivity implements
     static final String REQUEST_FRAGMENT_WHO_TAG = "android:support:request_fragment_who";
     static final int MAX_NUM_PENDING_FRAGMENT_ACTIVITY_RESULTS = 0xffff - 1;
 
-    final FragmentController mFragments = FragmentController.createController(new HostCallbacks());
-
+    final FragmentController mFragments = FragmentController.createController(createHostCallback());
     private ViewModelStore mViewModelStore;
 
     boolean mCreated;
@@ -930,7 +931,19 @@ public class FragmentActivity extends ComponentActivity implements
         }
     }
 
-    class HostCallbacks extends FragmentHostCallback<FragmentActivity> {
+    /**
+     * WIP We have the public host APIs, so this should probably be public.
+     * @return
+     */
+    @NonNull
+    public FragmentHostCallback createHostCallback() {
+        return new HostCallbacks();
+    }
+
+    /**
+     * WIP We have the public host APIs, so this should probably be public.
+     */
+    public class HostCallbacks extends FragmentHostCallback<FragmentActivity> {
         public HostCallbacks() {
             super(FragmentActivity.this /*fragmentActivity*/);
         }
@@ -945,6 +958,7 @@ public class FragmentActivity extends ComponentActivity implements
             return !isFinishing();
         }
 
+        @NonNull
         @Override
         public LayoutInflater onGetLayoutInflater() {
             return FragmentActivity.this.getLayoutInflater().cloneInContext(FragmentActivity.this);
@@ -957,7 +971,7 @@ public class FragmentActivity extends ComponentActivity implements
 
         @Override
         public void onSupportInvalidateOptionsMenu() {
-            FragmentActivity.this.supportInvalidateOptionsMenu();
+            FragmentActivity.this.invalidateOptionsMenu();
         }
 
         @Override

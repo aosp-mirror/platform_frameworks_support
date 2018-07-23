@@ -16,6 +16,8 @@
 
 package androidx.appcompat.app;
 
+import android.content.res.Configuration;
+
 import androidx.appcompat.test.R;
 import androidx.appcompat.testutils.BaseTestActivity;
 
@@ -28,6 +30,14 @@ public class NightModeActivity extends BaseTestActivity {
      * updating it in onResume and onPause. I said it was gross.
      */
     static NightModeActivity TOP_ACTIVITY = null;
+
+    Configuration lastChangeConfiguration = null;
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        lastChangeConfiguration = newConfig;
+    }
 
     @Override
     protected int getContentViewLayoutResId() {
