@@ -1,9 +1,12 @@
+
 package a.b;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import java.io.Serializable;
 import java.lang.IllegalArgumentException;
 import java.lang.Object;
 import java.lang.Override;
@@ -52,7 +55,11 @@ public class MainFragmentArgs {
             result.boolArg = bundle.getBoolean("boolArg");
         }
         if (bundle.containsKey("optionalParcelable")) {
-            result.optionalParcelable = bundle.getParcelable("optionalParcelable");
+            if (Parcelable.class.isAssignableFrom(ActivityInfo.class) || Serializable.class.isAssignableFrom(ActivityInfo.class)) {
+                result.optionalParcelable = (ActivityInfo) bundle.get("optionalParcelable");
+            } else {
+                throw new UnsupportedOperationException(ActivityInfo.class.getName() + " must implement Parcelable or Serializable or must be an Enum.");
+            }
         }
         return result;
     }
@@ -91,7 +98,13 @@ public class MainFragmentArgs {
         __outBundle.putInt("reference", this.reference);
         __outBundle.putFloat("floatArg", this.floatArg);
         __outBundle.putBoolean("boolArg", this.boolArg);
-        __outBundle.putParcelable("optionalParcelable", this.optionalParcelable);
+        if (Parcelable.class.isAssignableFrom(ActivityInfo.class) || this.optionalParcelable == null) {
+            __outBundle.putParcelable("optionalParcelable", Parcelable.class.cast(this.optionalParcelable));
+        } else if (Serializable.class.isAssignableFrom(ActivityInfo.class)) {
+            __outBundle.putSerializable("optionalParcelable", Serializable.class.cast(this.optionalParcelable));
+        } else {
+            throw new UnsupportedOperationException(ActivityInfo.class.getName() + " must implement Parcelable or Serializable or must be an Enum.");
+        }
         return __outBundle;
     }
 
