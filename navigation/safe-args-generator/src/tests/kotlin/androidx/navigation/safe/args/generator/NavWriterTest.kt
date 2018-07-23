@@ -80,13 +80,13 @@ class NavWriterTest {
                         Argument("optionalInt", IntType, IntValue("239")),
                         Argument(
                                 "optionalParcelable",
-                                ParcelableType(ClassName.get("android.content.pm", "ActivityInfo")),
+                                ObjectType(ClassName.get("android.content.pm", "ActivityInfo")),
                                 NullValue,
                                 true
                         ),
                         Argument(
                                 "parcelable",
-                                ParcelableType(ClassName.get("android.content.pm", "ActivityInfo"))
+                                ObjectType(ClassName.get("android.content.pm", "ActivityInfo"))
                         ))), false)
         val actual = toJavaFileObject(actionSpec)
         JavaSourcesSubject.assertThat(actual).parsesAs("a.b.Next")
@@ -154,7 +154,7 @@ class NavWriterTest {
                 Argument("boolArg", BoolType, BooleanValue("true")),
                 Argument(
                         "optionalParcelable",
-                        ParcelableType(ClassName.get("android.content.pm", "ActivityInfo")),
+                        ObjectType(ClassName.get("android.content.pm", "ActivityInfo")),
                         NullValue,
                         true
                 )),

@@ -49,11 +49,11 @@ class NavParserTest {
                         Argument("intArgument", IntType, IntValue("261")),
                         Argument(
                                 "activityInfo",
-                                ParcelableType(ClassName.get("android.content.pm", "ActivityInfo"))
+                                ObjectType(ClassName.get("android.content.pm", "ActivityInfo"))
                         ),
                         Argument(
                                 "activityInfoNull",
-                                ParcelableType(ClassName.get("android.content.pm", "ActivityInfo")),
+                                ObjectType(ClassName.get("android.content.pm", "ActivityInfo")),
                                 NullValue,
                                 true
                         )
