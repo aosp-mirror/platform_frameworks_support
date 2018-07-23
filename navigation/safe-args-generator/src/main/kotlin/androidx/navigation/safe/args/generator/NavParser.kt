@@ -173,15 +173,23 @@ internal class NavParser(
                     StringValue(defaultValue)
                 }
             }
-            is ParcelableType -> {
+            IntArrayType, LongArrayType, FloatArrayType, StringArrayType,
+            BoolArrayType, ReferenceArrayType, is ObjectArrayType -> {
                 if (defaultValue == VALUE_NULL) {
                     NullValue
                 } else {
                     context.logger.error(
-                            NavParserErrors.defaultValueParcelable(typeString),
+                            NavParserErrors.defaultValueObjectType(typeString),
                             xmlPosition
                     )
                     return context.createStubArg()
+                }
+            }
+            is ObjectType -> {
+                if (defaultValue == VALUE_NULL) {
+                    NullValue
+                } else {
+                    EnumValue(type.typeName(), defaultValue)
                 }
             }
         }
