@@ -44,7 +44,6 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AndroidRuntimeException;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -163,6 +162,9 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     final Window.Callback mOriginalWindowCallback;
     final Window.Callback mAppCompatWindowCallback;
     final AppCompatCallback mAppCompatCallback;
+
+    Context mThemedContext;
+    int mThemeResId;
 
     ActionBar mActionBar;
     MenuInflater mMenuInflater;
@@ -370,6 +372,12 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         invalidateOptionsMenu();
     }
 
+    @NonNull
+    @Override
+    public Context getThemedContext() {
+        return mThemedContext != null ? mThemedContext : mContext;
+    }
+
     final Context getActionBarThemedContext() {
         Context context = null;
 
@@ -380,7 +388,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         }
 
         if (context == null) {
-            context = mContext;
+            context = getThemedContext();
         }
         return context;
     }
@@ -390,8 +398,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         // Make sure that action views can get an appropriate theme.
         if (mMenuInflater == null) {
             initWindowDecorActionBar();
-            mMenuInflater = new SupportMenuInflater(
-                    mActionBar != null ? mActionBar.getThemedContext() : mContext);
+            mMenuInflater = new SupportMenuInflater(getActionBarThemedContext());
         }
         return mMenuInflater;
     }
@@ -418,7 +425,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         }
 
         // Make sure that the DrawableManager knows about the new config
-        AppCompatDrawableManager.get().onConfigurationChanged(mContext);
+        AppCompatDrawableManager.get().onConfigurationChanged(getThemedContext());
 
         // Re-apply Day/Night to the new configuration
         applyDayNight();
@@ -455,7 +462,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     @Override
     public void setContentView(View v) {
         ensureSubDecor();
-        ViewGroup contentParent = (ViewGroup) mSubDecor.findViewById(android.R.id.content);
+        ViewGroup contentParent = mSubDecor.findViewById(android.R.id.content);
         contentParent.removeAllViews();
         contentParent.addView(v);
         mOriginalWindowCallback.onContentChanged();
@@ -464,16 +471,17 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     @Override
     public void setContentView(int resId) {
         ensureSubDecor();
-        ViewGroup contentParent = (ViewGroup) mSubDecor.findViewById(android.R.id.content);
+        ViewGroup contentParent = mSubDecor.findViewById(android.R.id.content);
         contentParent.removeAllViews();
-        LayoutInflater.from(mContext).inflate(resId, contentParent);
+        LayoutInflater.from(mContext).cloneInContext(getThemedContext())
+                .inflate(resId, contentParent);
         mOriginalWindowCallback.onContentChanged();
     }
 
     @Override
     public void setContentView(View v, ViewGroup.LayoutParams lp) {
         ensureSubDecor();
-        ViewGroup contentParent = (ViewGroup) mSubDecor.findViewById(android.R.id.content);
+        ViewGroup contentParent = mSubDecor.findViewById(android.R.id.content);
         contentParent.removeAllViews();
         contentParent.addView(v, lp);
         mOriginalWindowCallback.onContentChanged();
@@ -482,7 +490,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     @Override
     public void addContentView(View v, ViewGroup.LayoutParams lp) {
         ensureSubDecor();
-        ViewGroup contentParent = (ViewGroup) mSubDecor.findViewById(android.R.id.content);
+        ViewGroup contentParent = mSubDecor.findViewById(android.R.id.content);
         contentParent.addView(v, lp);
         mOriginalWindowCallback.onContentChanged();
     }
@@ -548,7 +556,8 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     }
 
     private ViewGroup createSubDecor() {
-        TypedArray a = mContext.obtainStyledAttributes(R.styleable.AppCompatTheme);
+        final Context themedContext = getThemedContext();
+        TypedArray a = themedContext.obtainStyledAttributes(R.styleable.AppCompatTheme);
 
         if (!a.hasValue(R.styleable.AppCompatTheme_windowActionBar)) {
             a.recycle();
@@ -574,7 +583,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         // Now let's make sure that the Window has installed its decor by retrieving it
         mWindow.getDecorView();
 
-        final LayoutInflater inflater = LayoutInflater.from(mContext);
+        final LayoutInflater inflater = LayoutInflater.from(mContext).cloneInContext(themedContext);
         ViewGroup subDecor = null;
 
 
@@ -593,24 +602,23 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                  * ContextThemeWrapper pointing to actionBarTheme.
                  */
                 TypedValue outValue = new TypedValue();
-                mContext.getTheme().resolveAttribute(R.attr.actionBarTheme, outValue, true);
+                themedContext.getTheme().resolveAttribute(R.attr.actionBarTheme, outValue, true);
 
-                Context themedContext;
+                Context abThemedContext;
                 if (outValue.resourceId != 0) {
-                    themedContext = new ContextThemeWrapper(mContext, outValue.resourceId);
+                    abThemedContext = new ContextThemeWrapper(themedContext, outValue.resourceId);
                 } else {
-                    themedContext = mContext;
+                    abThemedContext = themedContext;
                 }
 
                 // Now inflate the view using the themed context and set it as the content view
-                subDecor = (ViewGroup) LayoutInflater.from(themedContext)
+                subDecor = (ViewGroup) LayoutInflater.from(abThemedContext)
                         .inflate(R.layout.abc_screen_toolbar, null);
 
-                mDecorContentParent = (DecorContentParent) subDecor
-                        .findViewById(R.id.decor_content_parent);
+                mDecorContentParent = subDecor.findViewById(R.id.decor_content_parent);
                 mDecorContentParent.setWindowCallback(getWindowCallback());
 
-                /**
+                /*
                  * Propagate features to DecorContentParent
                  */
                 if (mOverlayActionBar) {
@@ -739,7 +747,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 windowDecor.getPaddingTop(), windowDecor.getPaddingRight(),
                 windowDecor.getPaddingBottom());
 
-        TypedArray a = mContext.obtainStyledAttributes(R.styleable.AppCompatTheme);
+        TypedArray a = getThemedContext().obtainStyledAttributes(R.styleable.AppCompatTheme);
         a.getValue(R.styleable.AppCompatTheme_windowMinWidthMajor, cfl.getMinWidthMajor());
         a.getValue(R.styleable.AppCompatTheme_windowMinWidthMinor, cfl.getMinWidthMinor());
 
@@ -952,6 +960,8 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             }
         }
 
+        final Context themedContext = getThemedContext();
+
         if (mode != null) {
             mActionMode = mode;
         } else {
@@ -959,19 +969,19 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 if (mIsFloating) {
                     // Use the action bar theme.
                     final TypedValue outValue = new TypedValue();
-                    final Resources.Theme baseTheme = mContext.getTheme();
+                    final Resources.Theme baseTheme = themedContext.getTheme();
                     baseTheme.resolveAttribute(R.attr.actionBarTheme, outValue, true);
 
                     final Context actionBarContext;
                     if (outValue.resourceId != 0) {
-                        final Resources.Theme actionBarTheme = mContext.getResources().newTheme();
+                        final Resources.Theme actionBarTheme = themedContext.getResources().newTheme();
                         actionBarTheme.setTo(baseTheme);
                         actionBarTheme.applyStyle(outValue.resourceId, true);
 
-                        actionBarContext = new ContextThemeWrapper(mContext, 0);
+                        actionBarContext = new ContextThemeWrapper(themedContext, 0);
                         actionBarContext.getTheme().setTo(actionBarTheme);
                     } else {
-                        actionBarContext = mContext;
+                        actionBarContext = themedContext;
                     }
 
                     mActionModeView = new ActionBarContextView(actionBarContext);
@@ -1019,8 +1029,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                         }
                     };
                 } else {
-                    ViewStubCompat stub = (ViewStubCompat) mSubDecor
-                            .findViewById(R.id.action_mode_bar_stub);
+                    ViewStubCompat stub = mSubDecor.findViewById(R.id.action_mode_bar_stub);
                     if (stub != null) {
                         // Set the layout inflater so that it is inflated with the action bar's context
                         stub.setLayoutInflater(LayoutInflater.from(getActionBarThemedContext()));
@@ -1232,7 +1241,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     public View createView(View parent, final String name, @NonNull Context context,
             @NonNull AttributeSet attrs) {
         if (mAppCompatViewInflater == null) {
-            TypedArray a = mContext.obtainStyledAttributes(R.styleable.AppCompatTheme);
+            TypedArray a = getThemedContext().obtainStyledAttributes(R.styleable.AppCompatTheme);
             String viewInflaterClassName =
                     a.getString(R.styleable.AppCompatTheme_viewInflaterClass);
             if ((viewInflaterClassName == null)
@@ -1252,6 +1261,9 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                     mAppCompatViewInflater = new AppCompatViewInflater();
                 }
             }
+            // Give the inflater the host context in case the view hierarchy context is not the
+            // same as the Activity's (happens with night mode)
+            mAppCompatViewInflater.setHostContext(mContext);
         }
 
         boolean inheritContext = false;
@@ -1297,7 +1309,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     @Override
     public void installViewFactory() {
-        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+        LayoutInflater layoutInflater = LayoutInflater.from(getThemedContext());
         if (layoutInflater.getFactory() == null) {
             LayoutInflaterCompat.setFactory2(layoutInflater, this);
         } else {
@@ -1333,7 +1345,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         // Don't open an options panel on xlarge devices.
         // (The app should be using an action bar for menu items.)
         if (st.featureId == FEATURE_OPTIONS_PANEL) {
-            Configuration config = mContext.getResources().getConfiguration();
+            Configuration config = getThemedContext().getResources().getConfiguration();
             boolean isXLarge = (config.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
                     == Configuration.SCREENLAYOUT_SIZE_XLARGE;
             if (isXLarge) {
@@ -1348,7 +1360,8 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             return;
         }
 
-        final WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+        final WindowManager wm = (WindowManager) getThemedContext()
+                .getSystemService(Context.WINDOW_SERVICE);
         if (wm == null) {
             return;
         }
@@ -1429,7 +1442,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     private void reopenMenu(MenuBuilder menu, boolean toggleMenuMode) {
         if (mDecorContentParent != null && mDecorContentParent.canShowOverflowMenu()
-                && (!ViewConfiguration.get(mContext).hasPermanentMenuKey()
+                && (!ViewConfiguration.get(getThemedContext()).hasPermanentMenuKey()
                         || mDecorContentParent.isOverflowMenuShowPending())) {
 
             final Window.Callback cb = getWindowCallback();
@@ -1472,7 +1485,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     }
 
     private boolean initializePanelMenu(final PanelFeatureState st) {
-        Context context = mContext;
+        Context context = getThemedContext();
 
         // If we have an action bar, initialize the menu with the right theme.
         if ((st.featureId == FEATURE_OPTIONS_PANEL || st.featureId == FEATURE_SUPPORT_ACTION_BAR) &&
@@ -1664,7 +1677,8 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             return;
         }
 
-        final WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+        final WindowManager wm = (WindowManager) getThemedContext()
+                .getSystemService(Context.WINDOW_SERVICE);
         if (wm != null && st.isOpen && st.decorView != null) {
             wm.removeView(st.decorView);
 
@@ -1705,11 +1719,12 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             return false;
         }
 
+        final Context context = getThemedContext();
         boolean handled = false;
         final PanelFeatureState st = getPanelState(featureId, true);
         if (featureId == FEATURE_OPTIONS_PANEL && mDecorContentParent != null &&
                 mDecorContentParent.canShowOverflowMenu() &&
-                !ViewConfiguration.get(mContext).hasPermanentMenuKey()) {
+                !ViewConfiguration.get(context).hasPermanentMenuKey()) {
             if (!mDecorContentParent.isOverflowMenuShowing()) {
                 if (!mIsDestroyed && preparePanel(st, event)) {
                     handled = mDecorContentParent.showOverflowMenu();
@@ -1742,7 +1757,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         }
 
         if (handled) {
-            AudioManager audioManager = (AudioManager) mContext.getSystemService(
+            AudioManager audioManager = (AudioManager) context.getSystemService(
                     Context.AUDIO_SERVICE);
             if (audioManager != null) {
                 audioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
@@ -1902,8 +1917,9 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                         mlp.topMargin = insetTop;
 
                         if (mStatusGuard == null) {
-                            mStatusGuard = new View(mContext);
-                            mStatusGuard.setBackgroundColor(mContext.getResources()
+                            final Context context = getThemedContext();
+                            mStatusGuard = new View(context);
+                            mStatusGuard.setBackgroundColor(context.getResources()
                                     .getColor(R.color.abc_input_method_navigation_guard));
                             mSubDecor.addView(mStatusGuard, -1,
                                     new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -2014,6 +2030,18 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         }
 
         mApplyDayNightCalled = true;
+
+        if (applied) {
+            // If DayNight has been applied, we need to re-apply the theme for
+            // the changes to take effect. On API 23+, we should bypass
+            // setTheme(), which will no-op if the theme ID is identical to the
+            // current theme ID. Instead, we set the theme twice.
+            if (Build.VERSION.SDK_INT >= 23) {
+                mContext.setTheme(0);
+            }
+            mContext.setTheme(mThemeResId);
+        }
+
         return applied;
     }
 
@@ -2071,6 +2099,14 @@ class AppCompatDelegateImpl extends AppCompatDelegate
      * chosen {@code UI_MODE_NIGHT} value.
      */
     private boolean updateForNightMode(@ApplyableNightMode final int mode) {
+        boolean applied = updateContextConfigForNightMode(mode);
+        if (Build.VERSION.SDK_INT >= 17) {
+            applied = updateThemedContextForNightMode(mode);
+        }
+        return applied;
+    }
+
+    private boolean updateContextConfigForNightMode(@ApplyableNightMode final int mode) {
         final Resources res = mContext.getResources();
         final Configuration conf = res.getConfiguration();
         final int currentNightMode = conf.uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -2093,14 +2129,12 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                     Log.d(TAG, "applyNightMode() | Night mode changed, updating configuration");
                 }
                 final Configuration config = new Configuration(conf);
-                final DisplayMetrics metrics = res.getDisplayMetrics();
-
                 // Update the UI Mode to reflect the new night mode
                 config.uiMode = newNightMode | (config.uiMode & ~Configuration.UI_MODE_NIGHT_MASK);
-                res.updateConfiguration(config, metrics);
+                res.updateConfiguration(config, res.getDisplayMetrics());
 
                 // We may need to flush the Resources' drawable cache due to framework bugs.
-                if (!(Build.VERSION.SDK_INT >= 26)) {
+                if (Build.VERSION.SDK_INT < 26) {
                     ResourcesFlusher.flush(res);
                 }
             }
@@ -2113,9 +2147,58 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         return false;
     }
 
+    @RequiresApi(17)
+    private boolean updateThemedContextForNightMode(@ApplyableNightMode final int mode) {
+        int currentNightMode = Configuration.UI_MODE_NIGHT_UNDEFINED;
+        if (mThemedContext != null) {
+            final Resources res = mThemedContext.getResources();
+            final Configuration conf = res.getConfiguration();
+            currentNightMode = conf.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        }
+
+        final int newNightMode = (mode == MODE_NIGHT_YES)
+                ? Configuration.UI_MODE_NIGHT_YES
+                : Configuration.UI_MODE_NIGHT_NO;
+
+        if (currentNightMode != newNightMode) {
+            if (shouldRecreateOnNightModeChange()) {
+                if (DEBUG) {
+                    Log.d(TAG, "applyNightMode() | Night mode changed, recreating Activity");
+                }
+                // If we've already been created, we need to recreate the Activity for the
+                // mode to be applied
+                final Activity activity = (Activity) mContext;
+                activity.recreate();
+            } else {
+                if (DEBUG) {
+                    Log.d(TAG, "applyNightMode() | Night mode changed, updating configuration");
+                }
+                final Configuration config = new Configuration(
+                        mContext.getResources().getConfiguration());
+                // Update the UI Mode to reflect the new night mode
+                config.uiMode = newNightMode | (config.uiMode & ~Configuration.UI_MODE_NIGHT_MASK);
+
+                mThemedContext = mContext.createConfigurationContext(config);
+                mThemedContext.setTheme(mThemeResId);
+            }
+            return true;
+        } else {
+            if (DEBUG) {
+                Log.d(TAG, "applyNightMode() | Skipping. Night mode has not changed: " + mode);
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void onSetTheme(int themeResId) {
+        mThemeResId = themeResId;
+    }
+
     private void ensureAutoNightModeManager() {
         if (mAutoNightModeManager == null) {
-            mAutoNightModeManager = new AutoNightModeManager(TwilightManager.getInstance(mContext));
+            final TwilightManager twilightManager = TwilightManager.getInstance(getThemedContext());
+            mAutoNightModeManager = new AutoNightModeManager(twilightManager);
         }
     }
 
@@ -2618,7 +2701,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 android.view.ActionMode.Callback callback) {
             // Wrap the callback as a v7 ActionMode.Callback
             final SupportActionModeWrapper.CallbackWrapper callbackWrapper =
-                    new SupportActionModeWrapper.CallbackWrapper(mContext, callback);
+                    new SupportActionModeWrapper.CallbackWrapper(getThemedContext(), callback);
 
             // Try and start a support action mode using the wrapped callback
             final androidx.appcompat.view.ActionMode supportActionMode =

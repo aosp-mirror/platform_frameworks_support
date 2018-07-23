@@ -32,6 +32,10 @@ import androidx.appcompat.widget.AppCompatTextView;
  * Custom view inflater that takes over the inflation of a few widget types.
  */
 public class CustomViewInflater extends AppCompatViewInflater {
+    public CustomViewInflater() {
+        super(hostContext);
+    }
+
     public static class CustomTextView extends AppCompatTextView {
         public CustomTextView(Context context) {
             super(context);
