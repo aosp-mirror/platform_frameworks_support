@@ -16,6 +16,8 @@ Follow the [“Downloading the Source”](https://source.android.com/source/down
 
     repo init -u https://android.googlesource.com/platform/manifest -b androidx-master-dev
 
+For the first time, it will ask for user name and email.
+
 Now your repository is set to pull only what you need for building and running AndroidX libraries. Download the code (and grab a coffee while we pull down 3GB):
 
     repo sync -j8 -c
