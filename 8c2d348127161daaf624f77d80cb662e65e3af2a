@@ -1,0 +1,8 @@
+Code-Review+2: Sergey Vasilinets <sergeyv@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Verified+1: Daniel Santiago Rivera <danysantiago@google.com>
+Submitted-by: Daniel Santiago Rivera <danysantiago@google.com>
+Submitted-at: Mon, 23 Jul 2018 21:29:07 +0000
+Reviewed-on: https://android-review.googlesource.com/720548
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
