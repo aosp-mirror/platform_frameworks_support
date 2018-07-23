@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8019771e_3a790c7c",
+        "filename": "core/ktx/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2018-07-23T16:28:58Z",
+      "side": 1,
+      "message": "ok. waiting for these to be merged and then I\u0027ll rebase",
+      "parentUuid": "21c2d7f0_2b856968",
+      "revId": "02c7163784b8aceeecd252bf857f9a01c97aa133",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8b5a140_18383145",
         "filename": "core/ktx/src/main/java/androidx/core/widget/TextView.kt",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "02c7163784b8aceeecd252bf857f9a01c97aa133",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d50fac41_946b0b1e",
+        "filename": "core/ktx/src/main/java/androidx/core/widget/TextView.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2018-07-23T16:28:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8b5a140_18383145",
+      "revId": "02c7163784b8aceeecd252bf857f9a01c97aa133",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
