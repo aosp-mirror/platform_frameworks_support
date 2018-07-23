@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21c2d7f0_2b856968",
+        "filename": "core/ktx/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-07-23T16:01:33Z",
+      "side": 1,
+      "message": "These deprecations are already gone from internal and Aurimas said he\u0027s going to do another final sync out so we\u0027ll probably want to wait and rebase this once that happens so we don\u0027t cause a conflict.",
+      "revId": "02c7163784b8aceeecd252bf857f9a01c97aa133",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8b5a140_18383145",
+        "filename": "core/ktx/src/main/java/androidx/core/widget/TextView.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-07-23T16:01:33Z",
+      "side": 1,
+      "message": "The feedback on the other methods like this from API council was that we should make them `inline` to avoid their overhead.\n\nSee the animation ones for an example.",
+      "revId": "02c7163784b8aceeecd252bf857f9a01c97aa133",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
