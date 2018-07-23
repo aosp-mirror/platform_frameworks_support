@@ -118,7 +118,7 @@ public abstract class WorkRequest {
         WorkSpec mWorkSpec;
         Set<String> mTags = new HashSet<>();
 
-        public Builder(@NonNull Class<? extends Worker> workerClass) {
+        public Builder(@NonNull Class<? extends NonBlockingWorker> workerClass) {
             mId = UUID.randomUUID();
             mWorkSpec = new WorkSpec(mId.toString(), workerClass.getName());
             addTag(workerClass.getName());
