@@ -35,6 +35,8 @@ import androidx.work.Configuration;
 import androidx.work.Data;
 import androidx.work.InputMerger;
 import androidx.work.Logger;
+import androidx.work.NonBlockingWorker;
+import androidx.work.NonBlockingWorker.Result;
 import androidx.work.State;
 import androidx.work.Worker;
 import androidx.work.impl.model.DependencyDao;
@@ -63,10 +65,11 @@ public class WorkerWrapper implements Runnable {
     String mWorkSpecId;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     ExecutionListener mListener;
+    NonBlockingListener mWorkerListener;
     private List<Scheduler> mSchedulers;
     private Extras.RuntimeExtras mRuntimeExtras;
     private WorkSpec mWorkSpec;
-    Worker mWorker;
+    NonBlockingWorker mWorker;
 
     private Configuration mConfiguration;
     private WorkDatabase mWorkDatabase;
@@ -85,6 +88,13 @@ public class WorkerWrapper implements Runnable {
         mListener = builder.mListener;
         mSchedulers = builder.mSchedulers;
         mRuntimeExtras = builder.mRuntimeExtras;
+        mWorkerListener = new NonBlockingListener(this);
+        if (mRuntimeExtras == null) {
+            // Create an instance of RuntimeExtras so we can make the Worker aware of its
+            // ExecutionListener.
+            mRuntimeExtras = new Extras.RuntimeExtras();
+        }
+        mRuntimeExtras.mExecutionListener = mWorkerListener;
         mWorker = builder.mWorker;
 
         mConfiguration = builder.mConfiguration;
@@ -101,14 +111,6 @@ public class WorkerWrapper implements Runnable {
         mWorkDescription = createWorkDescription(mTags);
 
         runWorker();
-
-        // Try to schedule any newly-unblocked workers, and workers requiring rescheduling (such as
-        // periodic work using AlarmManager).  This code runs after runWorker() because it should
-        // happen in its own transaction.
-        //
-        // Further investigation: This could also happen as part of the Processor's
-        // ExecutionListener callback.  Does that make more sense?
-        Schedulers.schedule(mConfiguration, mWorkDatabase, mSchedulers);
     }
 
     private void runWorker() {
@@ -185,40 +187,51 @@ public class WorkerWrapper implements Runnable {
                 return;
             }
 
-            Worker.Result result;
             try {
-                result = mWorker.doWork();
+                mWorker.onStartWork();
             } catch (Exception | Error e) {
-                result = Worker.Result.FAILURE;
                 Logger.error(TAG,
                         String.format("%s failed because it threw an exception/error",
                                 mWorkDescription),
                         e);
-            }
 
-            try {
-                mWorkDatabase.beginTransaction();
-                if (!tryCheckForInterruptionAndNotify()) {
-                    State state = mWorkSpecDao.getState(mWorkSpecId);
-                    if (state == null) {
-                        // state can be null here with a REPLACE on beginUniqueWork().
-                        // Treat it as a failure, and rescheduleAndNotify() will
-                        // turn into a no-op. We still need to notify potential observers
-                        // holding on to wake locks on our behalf.
-                        notifyListener(false, false);
-                    } else if (state == RUNNING) {
-                        handleResult(result);
-                    } else if (!state.isFinished()) {
-                        rescheduleAndNotify();
-                    }
-                    mWorkDatabase.setTransactionSuccessful();
-                }
-            } finally {
-                mWorkDatabase.endTransaction();
+                // Mark it as a failure
+                onWorkFinished(Result.FAILURE);
             }
         } else {
             notifyIncorrectStatus();
         }
+    }
+
+    private void onWorkFinished(@NonNull Result result) {
+        try {
+            mWorkDatabase.beginTransaction();
+            if (!tryCheckForInterruptionAndNotify()) {
+                State state = mWorkSpecDao.getState(mWorkSpecId);
+                if (state == null) {
+                    // state can be null here with a REPLACE on beginUniqueWork().
+                    // Treat it as a failure, and rescheduleAndNotify() will
+                    // turn into a no-op. We still need to notify potential observers
+                    // holding on to wake locks on our behalf.
+                    notifyListener(false, false);
+                } else if (state == RUNNING) {
+                    handleResult(result);
+                } else if (!state.isFinished()) {
+                    rescheduleAndNotify();
+                }
+                mWorkDatabase.setTransactionSuccessful();
+            }
+        } finally {
+            mWorkDatabase.endTransaction();
+        }
+
+        // Try to schedule any newly-unblocked workers, and workers requiring rescheduling (such as
+        // periodic work using AlarmManager).  This code runs after runWorker() because it should
+        // happen in its own transaction.
+        //
+        // Further investigation: This could also happen as part of the Processor's
+        // ExecutionListener callback.  Does that make more sense?
+        Schedulers.schedule(mConfiguration, mWorkDatabase, mSchedulers);
     }
 
     /**
@@ -439,7 +452,7 @@ public class WorkerWrapper implements Runnable {
         return sb.toString();
     }
 
-    static Worker workerFromWorkSpec(@NonNull Context context,
+    static NonBlockingWorker workerFromWorkSpec(@NonNull Context context,
             @NonNull WorkSpec workSpec,
             @NonNull Extras extras) {
         String workerClassName = workSpec.workerClassName;
@@ -464,7 +477,7 @@ public class WorkerWrapper implements Runnable {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @SuppressWarnings("ClassNewInstance")
-    public static Worker workerFromClassName(
+    public static NonBlockingWorker workerFromClassName(
             @NonNull Context context,
             @NonNull String workerClassName,
             @NonNull UUID workSpecId,
@@ -473,7 +486,7 @@ public class WorkerWrapper implements Runnable {
         try {
             Class<?> clazz = Class.forName(workerClassName);
             Worker worker = (Worker) clazz.newInstance();
-            Method internalInitMethod = Worker.class.getDeclaredMethod(
+            Method internalInitMethod = NonBlockingWorker.class.getDeclaredMethod(
                     "internalInit",
                     Context.class,
                     UUID.class,
@@ -499,7 +512,7 @@ public class WorkerWrapper implements Runnable {
     public static class Builder {
         Context mAppContext;
         @Nullable
-        Worker mWorker;
+        NonBlockingWorker mWorker;
         Configuration mConfiguration;
         WorkDatabase mWorkDatabase;
         String mWorkSpecId;
@@ -546,12 +559,12 @@ public class WorkerWrapper implements Runnable {
         }
 
         /**
-         * @param worker The instance of {@link Worker} to be executed by {@link WorkerWrapper}.
-         *               Useful in the context of testing.
+         * @param worker The instance of {@link NonBlockingWorker} to be executed by
+         * {@link WorkerWrapper}. Useful in the context of testing.
          * @return The instance of {@link Builder} for chaining.
          */
         @VisibleForTesting
-        public Builder withWorker(Worker worker) {
+        public Builder withWorker(NonBlockingWorker worker) {
             mWorker = worker;
             return this;
         }
@@ -561,6 +574,28 @@ public class WorkerWrapper implements Runnable {
          */
         public WorkerWrapper build() {
             return new WorkerWrapper(this);
+        }
+    }
+
+    /**
+     * An {@link ExecutionListener} that keeps track of {@link androidx.work.NonBlockingWorker}s
+     * execution.
+     */
+    public static class NonBlockingListener implements ExecutionListener {
+
+        private @NonNull WorkerWrapper mWorkerWrapper;
+
+        public NonBlockingListener(@NonNull WorkerWrapper workerWrapper) {
+            mWorkerWrapper = workerWrapper;
+        }
+
+        @Override
+        public void onExecuted(@NonNull String workSpecId,
+                boolean isSuccessful,
+                boolean needsReschedule) {
+
+            Result result = mWorkerWrapper.mWorker.getResult();
+            mWorkerWrapper.onWorkFinished(result);
         }
     }
 }
