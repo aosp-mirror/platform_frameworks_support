@@ -34,6 +34,8 @@ import androidx.test.filters.SmallTest;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.nio.file.AccessMode;
+
 @SmallTest
 public class NavInflaterTest {
     private Instrumentation mInstrumentation;
@@ -120,6 +122,9 @@ public class NavInflaterTest {
         assertThat(defaultArguments.getString("test_string3"), is("123L"));
         assertThat(defaultArguments.getString("test_string4"), is("123"));
         assertThat(defaultArguments.containsKey("test_string_no_default"), is(false));
+        assertThat(defaultArguments.getString("test_enum"), is("READ"));
+        assertThat(AccessMode.valueOf(defaultArguments.getString("test_enum")),
+                is(AccessMode.READ));
     }
 
     @Test
