@@ -167,6 +167,34 @@ public class NavInflater {
                             }
                             throw new XmlPullParserException(
                                     "unsupported long value " + value.string);
+                        } else { //this might be an Enum
+                            try {
+                                Class<?> cls = Class.forName(argType);
+                                if (cls.isEnum()) {
+                                    boolean found = false;
+                                    for (Object constant : cls.getEnumConstants()) {
+                                        if (((Enum) constant).name().equals(stringValue)) {
+                                            dest.getDefaultArguments()
+                                                    .putSerializable(name, (Enum) constant);
+                                            found = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!found) {
+                                        throw new XmlPullParserException(
+                                                "Cannot find Enum value '" + stringValue + "' for "
+                                                        + "'" + argType + "'");
+                                    }
+                                    break; //from switch statement
+                                } else {
+                                    throw new XmlPullParserException(
+                                            "Unsupported argument type '" + argType + "' with "
+                                                    + "non-null defaultValue. Class '" + argType
+                                                    + " does not exist or is not an Enum.");
+                                }
+                            } catch (ClassNotFoundException e) {
+                                e.printStackTrace();
+                            }
                         }
                         dest.getDefaultArguments().putString(name, stringValue);
                         break;
@@ -190,7 +218,7 @@ public class NavInflater {
                             }
                         } else {
                             throw new XmlPullParserException(
-                                    "unsupported argument type " + value.type);
+                                    "Unsupported argument type " + value.type);
                         }
                 }
             }
