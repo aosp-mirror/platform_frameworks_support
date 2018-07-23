@@ -115,6 +115,13 @@ public class PagerSnapHelper extends SnapHelper {
                 reverseLayout = vectorForEnd.x < 0 || vectorForEnd.y < 0;
             }
         }
+
+        // No snapping is needed for "before first" case. By returning NO_POSITION here we yield
+        // handling the fling back to RecyclerView.
+        if (centerPosition == 0 && !forwardDirection) {
+            return RecyclerView.NO_POSITION;
+        }
+
         return reverseLayout
                 ? (forwardDirection ? centerPosition - 1 : centerPosition)
                 : (forwardDirection ? centerPosition + 1 : centerPosition);
