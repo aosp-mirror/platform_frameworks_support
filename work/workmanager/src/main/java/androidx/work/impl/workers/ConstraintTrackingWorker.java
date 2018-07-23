@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package androidx.work.impl.workers;
 
 import android.support.annotation.NonNull;
@@ -33,7 +32,6 @@ import androidx.work.impl.model.WorkSpec;
 
 import java.util.Collections;
 import java.util.List;
-
 /**
  * Is an implementation of a {@link Worker} that can delegate to a different {@link Worker}
  * when the constraints are met.
@@ -42,26 +40,20 @@ import java.util.List;
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class ConstraintTrackingWorker extends Worker implements WorkConstraintsCallback {
-
     private static final String TAG = "ConstraintTrkngWrkr";
-
     /**
      * The {@code className} of the {@link Worker} to delegate to.
      */
     public static final String ARGUMENT_CLASS_NAME =
             "androidx.work.impl.workers.ConstraintTrackingWorker.ARGUMENT_CLASS_NAME";
-
     @Nullable
     private Worker mDelegate;
-
     private final Object mLock;
     private boolean mAreConstraintsUnmet;
-
     public ConstraintTrackingWorker() {
         mLock = new Object();
         mAreConstraintsUnmet = false;
     }
-
     @Override
     public @NonNull Result doWork() {
         String className = getInputData().getString(ARGUMENT_CLASS_NAME);
@@ -71,19 +63,21 @@ public class ConstraintTrackingWorker extends Worker implements WorkConstraintsC
         }
         // Instantiate the delegated worker. Use the same workSpecId, and the same Data
         // as this Worker's Data are a superset of the delegate's Worker's Data.
-        mDelegate = WorkerWrapper.workerFromClassName(
+
+        // This returns a NonBlockingWorker instance. However, it's safe to cast it to a Worker
+        // now as all underlying Workers are blocking.
+        // Once we make NonBlockingWorker public, switch to the non-blocking version of the
+        // ConstraintTrackingWorker as implemented https://paste.googleplex.com/4823933475880960.
+        mDelegate = (Worker) WorkerWrapper.workerFromClassName(
                 getApplicationContext(),
                 className,
                 getId(),
                 getExtras());
-
         if (mDelegate == null) {
             Logger.debug(TAG, "No worker to delegate to.");
             return Result.FAILURE;
         }
-
         WorkDatabase workDatabase = getWorkDatabase();
-
         // We need to know what the real constraints are for the delegate.
         WorkSpec workSpec = workDatabase.workSpecDao().getWorkSpec(getId().toString());
         if (workSpec == null) {
@@ -91,13 +85,10 @@ public class ConstraintTrackingWorker extends Worker implements WorkConstraintsC
         }
         WorkConstraintsTracker workConstraintsTracker =
                 new WorkConstraintsTracker(getApplicationContext(), this);
-
         // Start tracking
         workConstraintsTracker.replace(Collections.singletonList(workSpec));
-
         if (workConstraintsTracker.areAllConstraintsMet(getId().toString())) {
             Logger.debug(TAG, String.format("Constraints met for delegate %s", className));
-
             // Wrapping the call to mDelegate#doWork() in a try catch, because
             // changes in constraints can cause the worker to throw RuntimeExceptions, and
             // that should cause a retry.
@@ -129,7 +120,6 @@ public class ConstraintTrackingWorker extends Worker implements WorkConstraintsC
             return Result.RETRY;
         }
     }
-
     /**
      * @return The instance of {@link WorkDatabase}.
      */
@@ -137,13 +127,11 @@ public class ConstraintTrackingWorker extends Worker implements WorkConstraintsC
     public WorkDatabase getWorkDatabase() {
         return WorkManagerImpl.getInstance().getWorkDatabase();
     }
-
     @Override
     public void onAllConstraintsMet(@NonNull List<String> workSpecIds) {
         // WorkConstraintTracker notifies on the main thread. So we don't want to trampoline
         // between the background thread and the main thread in this case.
     }
-
     @Override
     public void onAllConstraintsNotMet(@NonNull List<String> workSpecIds) {
         // If at any point, constraints are not met mark it so we can retry the work.
