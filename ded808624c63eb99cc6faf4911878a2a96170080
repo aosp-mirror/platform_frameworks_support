@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a935a9fe_a0df6876",
+        "filename": "preference/res/layout/preference_widget_seekbar_material.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-07-23T14:09:54Z",
+      "side": 1,
+      "message": "You can delete these, they will be stripped below 17 anyway.",
+      "range": {
+        "startLine": 92,
+        "startChar": 20,
+        "endLine": 93,
+        "endChar": 78
+      },
+      "revId": "ded808624c63eb99cc6faf4911878a2a96170080",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
