@@ -22,6 +22,30 @@
       "revId": "8f1692821e2894a9822186ec33d7999cf5137b81",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43f62efe_b48ec05f",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-24T12:58:28Z",
+      "side": 1,
+      "message": "Sounds better. Done.",
+      "parentUuid": "feb9fac4_27e6b151",
+      "range": {
+        "startLine": 450,
+        "startChar": 42,
+        "endLine": 450,
+        "endChar": 49
+      },
+      "revId": "8f1692821e2894a9822186ec33d7999cf5137b81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
