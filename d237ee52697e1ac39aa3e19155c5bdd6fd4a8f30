@@ -22,6 +22,30 @@
       "revId": "d237ee52697e1ac39aa3e19155c5bdd6fd4a8f30",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a18fc2e_02518ecc",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-07-24T17:20:34Z",
+      "side": 0,
+      "message": "Is it worth exposing that level of detail in the output? I think broadly, most folks want to know how many runs contribute to min/max/mean.  (Stddev is another matter, where we\u0027re currently not reporting stddev of individual loop iterations, but thats separate)\n\nIf we do expose the two types of looping, I\u0027m not sure of what names would clarify meaning - iteration, count, runs all seem ambiguous.",
+      "parentUuid": "3d8e9542_b8c35adb",
+      "range": {
+        "startLine": 236,
+        "startChar": 19,
+        "endLine": 236,
+        "endChar": 28
+      },
+      "revId": "d237ee52697e1ac39aa3e19155c5bdd6fd4a8f30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
