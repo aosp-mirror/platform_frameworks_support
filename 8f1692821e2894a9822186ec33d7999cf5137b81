@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "feb9fac4_27e6b151",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-07-24T12:33:41Z",
+      "side": 1,
+      "message": "What is the definition of initial state or uninitialized state?\nWhat about just idle state?",
+      "range": {
+        "startLine": 450,
+        "startChar": 42,
+        "endLine": 450,
+        "endChar": 49
+      },
+      "revId": "8f1692821e2894a9822186ec33d7999cf5137b81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
