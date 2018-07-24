@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f7f0c253_c91f7328",
+        "filename": "biometric/src/main/java/androidx/biometrics/BiometricPrompt.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2018-07-24T23:47:17Z",
+      "side": 1,
+      "message": "That\u0027s reasonable, the frameworks/base prompt and the support dialog will hide the fields if null/empty.",
+      "parentUuid": "1708f8d2_c0fc39c2",
+      "range": {
+        "startLine": 211,
+        "startChar": 39,
+        "endLine": 211,
+        "endChar": 69
+      },
+      "revId": "3a4f81762994777c771a59d6b47f9e6da4fc4d13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea937691_21cca042",
         "filename": "biometric/src/main/java/androidx/biometrics/BiometricPrompt.java",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "708477fa_e7f0ed38",
+        "filename": "biometric/src/main/java/androidx/biometrics/BiometricPrompt.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2018-07-24T23:47:17Z",
+      "side": 1,
+      "message": "Ditto",
+      "parentUuid": "ea937691_21cca042",
+      "range": {
+        "startLine": 220,
+        "startChar": 43,
+        "endLine": 220,
+        "endChar": 75
+      },
+      "revId": "3a4f81762994777c771a59d6b47f9e6da4fc4d13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5593a3b4_75e56754",
         "filename": "biometric/src/main/java/androidx/biometrics/BiometricPrompt.java",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "3a4f81762994777c771a59d6b47f9e6da4fc4d13",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "421e4844_39b3e826",
+        "filename": "biometric/src/main/java/androidx/biometrics/BiometricPrompt.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2018-07-24T23:47:17Z",
+      "side": 1,
+      "message": "Yes, there is no positive button API/UI for positive button, only a single (negative) button.",
+      "parentUuid": "5593a3b4_75e56754",
+      "range": {
+        "startLine": 296,
+        "startChar": 28,
+        "endLine": 296,
+        "endChar": 49
+      },
+      "revId": "3a4f81762994777c771a59d6b47f9e6da4fc4d13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
