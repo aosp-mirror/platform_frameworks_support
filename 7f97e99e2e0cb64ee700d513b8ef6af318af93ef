@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c859557_4b73bb93",
+        "filename": "recyclerview/src/main/java/androidx/recyclerview/widget/PagerSnapHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-07-24T17:52:40Z",
+      "side": 1,
+      "message": "Even though it seems reasonable to assume that if a LayoutManager can\u0027t scroll vertically, it can scroll horizontally... let\u0027s be safe and not make that assumption.  I did a cursory look over other checks for canScrollHorizontally/canScrollVertically, and I didn\u0027t find other code that makes that assumption (again it was cursory).",
+      "range": {
+        "startLine": 88,
+        "startChar": 46,
+        "endLine": 90,
+        "endChar": 53
+      },
+      "revId": "7f97e99e2e0cb64ee700d513b8ef6af318af93ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

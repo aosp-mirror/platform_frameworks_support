@@ -46,6 +46,30 @@
       "revId": "b4eb10359342e12693104444760dad5ffb825e5b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1340eed9_0a3ff1f5",
+        "filename": "recyclerview/src/main/java/androidx/recyclerview/widget/PagerSnapHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-07-24T17:52:40Z",
+      "side": 1,
+      "message": "Cool, thanks for making the check more specific!  Looks good!",
+      "parentUuid": "4a24d4d1_98f9c4db",
+      "range": {
+        "startLine": 123,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 9
+      },
+      "revId": "b4eb10359342e12693104444760dad5ffb825e5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
