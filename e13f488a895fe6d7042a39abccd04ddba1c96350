@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb437200_db45fdf6",
+        "filename": "biometric/src/main/java/androidx/biometrics/BiometricPrompt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-24T18:27:51Z",
+      "side": 1,
+      "message": "@Nullable/@NonNull?",
+      "range": {
+        "startLine": 132,
+        "startChar": 15,
+        "endLine": 132,
+        "endChar": 27
+      },
+      "revId": "e13f488a895fe6d7042a39abccd04ddba1c96350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15abe977_ff04b048",
+        "filename": "biometric/src/main/java/androidx/biometrics/BiometricPrompt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-24T18:27:51Z",
+      "side": 1,
+      "message": "Add @IntDef that lists all the possible error codes.",
+      "range": {
+        "startLine": 150,
+        "startChar": 42,
+        "endLine": 150,
+        "endChar": 45
+      },
+      "revId": "e13f488a895fe6d7042a39abccd04ddba1c96350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f032b39_d995c116",
+        "filename": "biometric/src/main/java/androidx/biometrics/BiometricPrompt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-24T18:27:51Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 150,
+        "startChar": 57,
+        "endLine": 150,
+        "endChar": 69
+      },
+      "revId": "e13f488a895fe6d7042a39abccd04ddba1c96350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07ac77f0_12949fdd",
+        "filename": "biometric/src/main/java/androidx/biometrics/BiometricPrompt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-24T18:27:51Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 156,
+        "startChar": 46,
+        "endLine": 156,
+        "endChar": 66
+      },
+      "revId": "e13f488a895fe6d7042a39abccd04ddba1c96350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfea6643_21c89fb9",
+        "filename": "biometric/src/main/java/androidx/biometrics/BiometricPrompt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-24T18:27:51Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 180,
+        "startChar": 19,
+        "endLine": 180,
+        "endChar": 26
+      },
+      "revId": "e13f488a895fe6d7042a39abccd04ddba1c96350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "479ad15c_f3b14264",
+        "filename": "biometric/src/main/java/androidx/biometrics/BiometricPrompt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-24T18:27:51Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 188,
+        "startChar": 19,
+        "endLine": 188,
+        "endChar": 26
+      },
+      "revId": "e13f488a895fe6d7042a39abccd04ddba1c96350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08ff99b4_912976b6",
+        "filename": "biometric/src/main/java/androidx/biometrics/BiometricPrompt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-24T18:27:51Z",
+      "side": 1,
+      "message": "@NonNull, fix this for all the builder methods.",
+      "range": {
+        "startLine": 196,
+        "startChar": 19,
+        "endLine": 196,
+        "endChar": 26
+      },
+      "revId": "e13f488a895fe6d7042a39abccd04ddba1c96350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34c65e90_d84c0254",
+        "filename": "biometric/src/main/java/androidx/biometrics/BiometricPrompt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-24T18:27:51Z",
+      "side": 1,
+      "message": "@Nullable?",
+      "range": {
+        "startLine": 245,
+        "startChar": 15,
+        "endLine": 245,
+        "endChar": 27
+      },
+      "revId": "e13f488a895fe6d7042a39abccd04ddba1c96350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59b43239_85b2337d",
+        "filename": "biometric/src/main/java/androidx/biometrics/BiometricPrompt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-24T18:27:51Z",
+      "side": 1,
+      "message": "@Nullable",
+      "range": {
+        "startLine": 252,
+        "startChar": 15,
+        "endLine": 252,
+        "endChar": 27
+      },
+      "revId": "e13f488a895fe6d7042a39abccd04ddba1c96350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5ea9c88_39510bc8",
+        "filename": "biometric/src/main/java/androidx/biometrics/BiometricPrompt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-24T18:27:51Z",
+      "side": 1,
+      "message": "@Nullable",
+      "range": {
+        "startLine": 259,
+        "startChar": 15,
+        "endLine": 259,
+        "endChar": 27
+      },
+      "revId": "e13f488a895fe6d7042a39abccd04ddba1c96350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27b05457_efe9e164",
+        "filename": "biometric/src/main/java/androidx/biometrics/BiometricPrompt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-24T18:27:51Z",
+      "side": 1,
+      "message": "@Nullable",
+      "range": {
+        "startLine": 266,
+        "startChar": 15,
+        "endLine": 266,
+        "endChar": 27
+      },
+      "revId": "e13f488a895fe6d7042a39abccd04ddba1c96350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
