@@ -26,7 +26,7 @@ android {
 
 supportLibrary {
     name = "Android TextClassifier Support Library"
-    publish = false
+    publish = true
     mavenVersion = LibraryVersions.SUPPORT_LIBRARY
     mavenGroup = LibraryGroups.TEXTCLASSIFIER
     inceptionYear = "2018"
