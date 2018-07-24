@@ -68,7 +68,6 @@ val RELEASE_RULE = docsRules("public") {
     prebuilts(LibraryGroups.SLICE, "slice-view", defaultVersion)
     prebuilts(LibraryGroups.SLIDINGPANELAYOUT, defaultVersion)
     prebuilts(LibraryGroups.SWIPEREFRESHLAYOUT, defaultVersion)
-    prebuilts(LibraryGroups.TEXTCLASSIFIER, defaultVersion)
     prebuilts(LibraryGroups.TRANSITION, defaultVersion)
     prebuilts(LibraryGroups.TVPROVIDER, defaultVersion)
     prebuilts(LibraryGroups.VECTORDRAWABLE, defaultVersion)

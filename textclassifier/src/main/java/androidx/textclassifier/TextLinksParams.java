@@ -161,6 +161,8 @@ public final class TextLinksParams {
          * Set to {@code null} to use the default span factory.
          *
          * @return this builder
+         *
+         * @hide
          */
         public Builder setSpanFactory(@Nullable SpanFactory spanFactory) {
             mSpanFactory = spanFactory == null ? DEFAULT_SPAN_FACTORY : spanFactory;

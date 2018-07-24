@@ -32,6 +32,7 @@ import androidx.core.util.Supplier;
 import java.util.concurrent.Executor;
 
 /**
+ * @hide
  * Provides {@link android.text.util.Linkify} functionality using a {@link TextClassifier}.
  */
 public final class SmartLinkify {

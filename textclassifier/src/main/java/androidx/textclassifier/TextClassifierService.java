@@ -48,6 +48,8 @@ import androidx.core.util.Preconditions;
  * </service>}</pre>
  *
  * @see TextClassifier
+ *
+ * @hide
  */
 public abstract class TextClassifierService extends Service {
 

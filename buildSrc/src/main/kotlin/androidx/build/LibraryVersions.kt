@@ -151,4 +151,9 @@ object LibraryVersions {
      * Version code for Biometric
      */
     val BIOMETRIC = Version("1.0.0-alpha01")
+
+    /**
+     * Version code for TextClassifier
+     */
+    val TEXTCLASSIFIER = Version("1.0.0-alpha01")
 }
