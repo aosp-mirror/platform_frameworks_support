@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44bb58eb_c3080823",
+        "filename": "media/version-compat-tests/lib/src/main/java/androidx/media/test/lib/MediaControllerCompatConstants.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-07-24T12:56:34Z",
+      "side": 1,
+      "message": "2 empty lines",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 0
+      },
+      "revId": "ee36de5cd9a18eb5f6074b8bc12501f24df70f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
