@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "472dee22_3a9910f7",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/constraints/WorkConstraintsTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-07-24T04:27:56Z",
+      "side": 1,
+      "message": "This is a public method.  We do need a lock here.",
+      "range": {
+        "startLine": 119,
+        "startChar": 8,
+        "endLine": 119,
+        "endChar": 84
+      },
+      "revId": "5361b65c629dc2b5b8b6659019a2141c62672110",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
