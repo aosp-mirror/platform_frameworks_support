@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3463082f_8f1b26b3",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-07-24T21:06:11Z",
+      "side": 1,
+      "message": "I don\u0027t think we need this comment since the Kotlin API differentiates between an iterator that can remove and one which cannot already.",
+      "revId": "59ce705e11327a6dfcf03b44f51ce3597141e832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de576030_ca61abab",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-07-24T21:06:11Z",
+      "side": 1,
+      "message": "We don\u0027t define this for other collection-like types. Do you have a motivating use case?",
+      "revId": "59ce705e11327a6dfcf03b44f51ce3597141e832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aacd47ff_7664ea1a",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-07-24T21:06:11Z",
+      "side": 1,
+      "message": "This can be pre-sized since the count is known.",
+      "revId": "59ce705e11327a6dfcf03b44f51ce3597141e832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bd76714_9287ec1a",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-07-24T21:06:11Z",
+      "side": 1,
+      "message": "No defensive copy is needed here.",
+      "revId": "59ce705e11327a6dfcf03b44f51ce3597141e832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01032083_6dc4bc66",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-07-24T21:06:11Z",
+      "side": 1,
+      "message": "Need a descriptive parameter name here. Is this just `items`? I\u0027ve never worked with ClipData...",
+      "revId": "59ce705e11327a6dfcf03b44f51ce3597141e832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8da304a4_8274d552",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-07-24T21:06:11Z",
+      "side": 1,
+      "message": "\"resolver\"? We tend to avoid acronyms as parameter names since Kotlin allows their use in public API.",
+      "revId": "59ce705e11327a6dfcf03b44f51ce3597141e832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "326c7090_21fbae75",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-07-24T21:06:11Z",
+      "side": 1,
+      "message": "This a lot of complexity to inline into the call site. The compiler isn\u0027t going to be able to eliminate these branches statically to reduce the overhead to be equivalent to the what you would write manually.\n\nWe are also moving away from providing factory APIs which have runtime type checks instead of compile-time checks (like bundleOf). If we want to do a factory function, we should probably explore traditional overloads with different generic bounds and using @JvmName to avoid bytecode signature clashes.\n\nBut that feels like something that belongs in a different CL so we can figure it out separately from the otherwise uncontroversial APIs above.",
+      "revId": "59ce705e11327a6dfcf03b44f51ce3597141e832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
