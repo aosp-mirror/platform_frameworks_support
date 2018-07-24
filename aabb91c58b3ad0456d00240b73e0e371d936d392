@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdeba7b2_4f0e544d",
+        "filename": "recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6104,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-07-24T21:54:36Z",
+      "side": 1,
+      "message": "\"Usually\" is confusing, maybe say \"In the non-edge case\" instead?",
+      "range": {
+        "startLine": 6104,
+        "startChar": 15,
+        "endLine": 6104,
+        "endChar": 22
+      },
+      "revId": "aabb91c58b3ad0456d00240b73e0e371d936d392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b0b9870_58fcfcf0",
+        "filename": "recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6107,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-07-24T21:54:36Z",
+      "side": 1,
+      "message": "Change to \". I\"",
+      "range": {
+        "startLine": 6107,
+        "startChar": 29,
+        "endLine": 6107,
+        "endChar": 32
+      },
+      "revId": "aabb91c58b3ad0456d00240b73e0e371d936d392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fe71b59_a47d6c0f",
+        "filename": "recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6107,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-07-24T21:54:36Z",
+      "side": 1,
+      "message": "delete",
+      "range": {
+        "startLine": 6107,
+        "startChar": 69,
+        "endLine": 6107,
+        "endChar": 72
+      },
+      "revId": "aabb91c58b3ad0456d00240b73e0e371d936d392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d105b623_589ff947",
+        "filename": "recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6107,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-07-24T21:54:36Z",
+      "side": 1,
+      "message": "Change to \"removes\"",
+      "range": {
+        "startLine": 6107,
+        "startChar": 46,
+        "endLine": 6107,
+        "endChar": 53
+      },
+      "revId": "aabb91c58b3ad0456d00240b73e0e371d936d392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da59d01e_245c6aeb",
+        "filename": "recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6112,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-07-24T21:54:36Z",
+      "side": 1,
+      "message": "Separate out into new paragraph and clarify a bit.",
+      "range": {
+        "startLine": 6109,
+        "startChar": 73,
+        "endLine": 6112,
+        "endChar": 79
+      },
+      "revId": "aabb91c58b3ad0456d00240b73e0e371d936d392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
