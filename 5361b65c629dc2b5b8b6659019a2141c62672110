@@ -22,6 +22,30 @@
       "revId": "5361b65c629dc2b5b8b6659019a2141c62672110",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4f28bae_314e742f",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/constraints/WorkConstraintsTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-07-24T16:46:43Z",
+      "side": 1,
+      "message": "I did not use the lock originally, because the only place where this race condition is an issue is for GreedyScheduler (which uses WCT in to track more than one WorkSpec). Every other component that uses WorkConstraintTracker, uses an instance of WCT per WorkSpec.\n\nAdded a lock here to make this part less confusing \u0026 safer.",
+      "parentUuid": "472dee22_3a9910f7",
+      "range": {
+        "startLine": 119,
+        "startChar": 8,
+        "endLine": 119,
+        "endChar": 84
+      },
+      "revId": "5361b65c629dc2b5b8b6659019a2141c62672110",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
