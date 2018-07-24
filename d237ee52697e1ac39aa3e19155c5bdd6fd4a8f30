@@ -70,6 +70,30 @@
       "revId": "d237ee52697e1ac39aa3e19155c5bdd6fd4a8f30",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e09bcc7_f3491c3b",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-07-24T17:35:50Z",
+      "side": 0,
+      "message": "true, SGTM",
+      "parentUuid": "a99e3bf0_cc8df229",
+      "range": {
+        "startLine": 236,
+        "startChar": 19,
+        "endLine": 236,
+        "endChar": 28
+      },
+      "revId": "d237ee52697e1ac39aa3e19155c5bdd6fd4a8f30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
