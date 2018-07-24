@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ca2c8ac_72cc1ede",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-07-24T23:32:41Z",
+      "side": 0,
+      "message": "They are in baking process and should be released to main d.android.com",
+      "revId": "6de2a2bc6af3b9397e503a6a176034f85f6a0701",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
