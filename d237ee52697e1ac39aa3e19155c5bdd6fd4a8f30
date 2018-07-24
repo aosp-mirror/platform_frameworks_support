@@ -46,6 +46,30 @@
       "revId": "d237ee52697e1ac39aa3e19155c5bdd6fd4a8f30",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a99e3bf0_cc8df229",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2018-07-24T17:24:32Z",
+      "side": 0,
+      "message": "min/max/mean all only operate at the repeat count level, the number reported by count\u003d doesn\u0027t really map to that. We exclusively report mean for mMaxIteration, it\u0027s only for REPEAT_COUNT that we report a min/max/mean. I would think just mMaxIteration is the number you\u0027d want, then, as we only work on averages of mMaxIteration?",
+      "parentUuid": "2a18fc2e_02518ecc",
+      "range": {
+        "startLine": 236,
+        "startChar": 19,
+        "endLine": 236,
+        "endChar": 28
+      },
+      "revId": "d237ee52697e1ac39aa3e19155c5bdd6fd4a8f30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
