@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d16f4f7_a0b31415",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-24T12:55:51Z",
+      "side": 1,
+      "message": "I suppose we want to hide this for now?",
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
