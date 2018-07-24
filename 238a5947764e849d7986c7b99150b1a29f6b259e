@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b56d246b_659ea6f6",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/RemoteMediaControllerCompatService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-07-24T11:33:42Z",
+      "side": 1,
+      "message": "You may want not to use java-doc style comment here.",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 11
+      },
+      "revId": "238a5947764e849d7986c7b99150b1a29f6b259e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c94a6a7_e34df6bd",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/RemoteMediaControllerCompatService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-07-24T11:33:42Z",
+      "side": 1,
+      "message": "You may want not to use java-doc style comment here.",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 0
+      },
+      "revId": "238a5947764e849d7986c7b99150b1a29f6b259e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "676a4c76_2e6e40f9",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/RemoteMediaControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-07-24T11:33:42Z",
+      "side": 1,
+      "message": "Which is right?\n1. will, should, or must\n2. run, or be run",
+      "range": {
+        "startLine": 425,
+        "startChar": 33,
+        "endLine": 425,
+        "endChar": 41
+      },
+      "revId": "238a5947764e849d7986c7b99150b1a29f6b259e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f29d0db_041edd9f",
+        "filename": "media/version-compat-tests/lib/src/main/aidl/android/support/mediacompat/testlib/IRemoteMediaControllerCompat.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-07-24T11:33:42Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "238a5947764e849d7986c7b99150b1a29f6b259e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
