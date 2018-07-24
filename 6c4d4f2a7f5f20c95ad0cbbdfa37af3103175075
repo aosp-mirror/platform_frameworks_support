@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6bbb0190_ffb458c6",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-24T18:29:07Z",
+      "side": 1,
+      "message": "@VisibleForTesting(otherwise \u003d VisibleForTesting.PACKAGE_PRIVATE) since it is being used by non-test code (MultiInstanceInvalidationClient)",
+      "range": {
+        "startLine": 434,
+        "startChar": 4,
+        "endLine": 434,
+        "endChar": 22
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30162d5b_32648db2",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-24T18:29:07Z",
+      "side": 1,
+      "message": "The else case seems to also cover for the single mTablesNames case, unless I\u0027m missing something. Can we keep one logic?",
+      "range": {
+        "startLine": 574,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 13
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5db15da_cc64f9af",
+        "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-24T18:29:07Z",
+      "side": 1,
+      "message": "Add @Nullable ?",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f7436d1_07eb373c",
+        "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-24T18:29:07Z",
+      "side": 1,
+      "message": "Add @Nullable?",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 46
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80ea25c8_0b362961",
+        "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-24T18:29:07Z",
+      "side": 1,
+      "message": "Maybe move this to a runnable done in the executor instead of the binder thread?",
+      "range": {
+        "startLine": 83,
+        "startChar": 20,
+        "endLine": 83,
+        "endChar": 77
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "907cf8cb_667a5506",
+        "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-24T18:29:07Z",
+      "side": 1,
+      "message": "I would also null-check it here, even though this is scheduled in onServiceConnected since it is done in the background a onServiceDisconnected can occur before this runnable sgets a chance to exec.",
+      "range": {
+        "startLine": 114,
+        "startChar": 28,
+        "endLine": 114,
+        "endChar": 36
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "027019dd_30ab2633",
+        "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-24T18:29:07Z",
+      "side": 1,
+      "message": "It seem we can create a single Observer and have it in a field instead of creating one on each setup. Might need to do it in the ctor since it needs mInvalidationTracker.",
+      "range": {
+        "startLine": 115,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 60
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77ba31a7_c18b917e",
+        "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-24T18:29:07Z",
+      "side": 1,
+      "message": "Missing @NonNull",
+      "range": {
+        "startLine": 117,
+        "startChar": 46,
+        "endLine": 117,
+        "endChar": 64
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e02c1ca9_771ca0b8",
+        "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-24T18:29:07Z",
+      "side": 1,
+      "message": "I think the service stub needs to always be null-checked since a onServiceDisconnected() can occur at anytime. Specifically imagine an app that uses the main process for UI and a 2nd process to do some background work that uses Room. UI crashes taking down the main process and the MultiInstanceInvalidationService yet the 2nd process can keep going using Room and at the time of disposing of Room, since it finished it job it crashes due to a NPE here.",
+      "range": {
+        "startLine": 153,
+        "startChar": 16,
+        "endLine": 153,
+        "endChar": 24
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fed6e620_86f0a8a6",
+        "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-24T18:29:07Z",
+      "side": 1,
+      "message": "I think this needs to be wrapped in a try-catch of RemoteException with likely a no-op in the catch just in case the callback dies while still iterating over the list.",
+      "range": {
+        "startLine": 115,
+        "startChar": 32,
+        "endLine": 117,
+        "endChar": 64
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
