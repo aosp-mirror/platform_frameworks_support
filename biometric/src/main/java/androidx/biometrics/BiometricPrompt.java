@@ -238,6 +238,34 @@ public class BiometricPrompt implements BiometricConstants {
         Bundle getBundle() {
             return mBundle;
         }
+
+        /**
+         * @return See {@link Builder#setTitle(CharSequence)}.
+         */
+        public CharSequence getTitle() {
+            return mBundle.getCharSequence(KEY_TITLE);
+        }
+
+        /**
+         * @return See {@link Builder#setSubtitle(CharSequence)}, null if empty.
+         */
+        public CharSequence getSubtitle() {
+            return mBundle.getCharSequence(KEY_SUBTITLE);
+        }
+
+        /**
+         * @return See {@link Builder#setDescription(CharSequence)}, null if empty.
+         */
+        public CharSequence getDescription() {
+            return mBundle.getCharSequence(KEY_DESCRIPTION);
+        }
+
+        /**
+         * @return See {@link Builder#setNegativeButtonText(CharSequence)}.
+         */
+        public CharSequence getNegativeButtonText() {
+            return mBundle.getCharSequence(KEY_NEGATIVE_TEXT);
+        }
     }
 
     // Passed in from the client.

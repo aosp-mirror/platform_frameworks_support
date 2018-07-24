@@ -40,6 +40,10 @@ package androidx.biometrics {
   }
 
   public static class BiometricPrompt.PromptInfo {
+    method public java.lang.CharSequence getDescription();
+    method public java.lang.CharSequence getNegativeButtonText();
+    method public java.lang.CharSequence getSubtitle();
+    method public java.lang.CharSequence getTitle();
   }
 
   public static class BiometricPrompt.PromptInfo.Builder {
