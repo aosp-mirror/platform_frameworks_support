@@ -17,6 +17,9 @@
 <resources>
     <color name="lb_preference_decor_list_background">#FF202124</color>
 
+    <!-- Leanback settings category text & radio button color -->
+    <color name="lb_preference_item_category_text_color">#FF51AAFF</color>
+
     <color name="lb_preference_item_primary_text_color_default">#EEEEEE</color>
     <color name="lb_preference_item_primary_text_color_disabled">#4DEEEEEE</color>
 
