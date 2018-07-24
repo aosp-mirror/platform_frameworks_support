@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea2e9c3b_ce73132c",
+        "filename": "samples/SupportSliceDemos/src/main/java/com/example/androidx/slice/demos/SliceSelectionDialog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1344805
+      },
+      "writtenOn": "2018-07-24T14:14:04Z",
+      "side": 1,
+      "message": "can you add a comment why we need to set the mainIntent to the new Intent below when the size is 1?",
+      "revId": "dfca9d88d8308e33fd60b1ac9fa6707813bd9a22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
