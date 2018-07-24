@@ -1,0 +1,9 @@
+Code-Review+2: John Reck <jreck@google.com>
+Autosubmit+1: Chris Craik <ccraik@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Verified+1: Chris Craik <ccraik@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Tue, 24 Jul 2018 19:33:07 +0000
+Reviewed-on: https://android-review.googlesource.com/721065
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
