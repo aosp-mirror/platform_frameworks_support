@@ -22,6 +22,30 @@
       "revId": "b4eb10359342e12693104444760dad5ffb825e5b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a24d4d1_98f9c4db",
+        "filename": "recyclerview/src/main/java/androidx/recyclerview/widget/PagerSnapHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-07-24T14:17:50Z",
+      "side": 1,
+      "message": "The case you described works, but opting for a more specific condition.\n\nFrom my investigation, the infrastructure of snapper / scroller / flinger / overscroller / choreographer all working together looks very fragile, so opting for a minimal solution, even if it looks less elegant.",
+      "parentUuid": "4a401c14_52623c35",
+      "range": {
+        "startLine": 123,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 9
+      },
+      "revId": "b4eb10359342e12693104444760dad5ffb825e5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
