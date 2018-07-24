@@ -22,6 +22,30 @@
       "revId": "6fcfd6e132c42e5de8f41ce7f4d60ce3373fc24f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22c299ee_6f3f3780",
+        "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-07-24T06:21:28Z",
+      "side": 1,
+      "message": "Done. Yes, it does.",
+      "parentUuid": "75576c63_64338e98",
+      "range": {
+        "startLine": 101,
+        "startChar": 12,
+        "endLine": 101,
+        "endChar": 59
+      },
+      "revId": "6fcfd6e132c42e5de8f41ce7f4d60ce3373fc24f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
