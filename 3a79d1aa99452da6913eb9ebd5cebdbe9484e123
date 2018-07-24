@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56f2531b_711d1487",
+        "filename": "biometric/src/main/java/androidx/biometrics/BiometricPrompt.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-24T23:30:25Z",
+      "side": 1,
+      "message": "Call it BiometricErrors?",
+      "range": {
+        "startLine": 76,
+        "startChar": 15,
+        "endLine": 76,
+        "endChar": 36
+      },
+      "revId": "3a79d1aa99452da6913eb9ebd5cebdbe9484e123",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
