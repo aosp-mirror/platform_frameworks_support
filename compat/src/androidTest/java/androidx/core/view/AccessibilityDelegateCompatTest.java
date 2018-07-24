@@ -35,7 +35,6 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.accessibility.AccessibilityNodeProvider;
 
-import androidx.core.os.BuildCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityNodeProviderCompat;
 import androidx.test.filters.MediumTest;
@@ -82,25 +81,27 @@ public class AccessibilityDelegateCompatTest extends
 
     @Test
     public void testScreenReaderFocusable_propagatesToAccessibilityNodeInfo() {
-        assertThat(ViewCompat.isScreenReaderFocusable(mView), is(false));
-        assertThat(getCompatForView(mView).isScreenReaderFocusable(), is(false));
+        if (Build.VERSION.SDK_INT >= 19) {
+            assertThat(ViewCompat.isScreenReaderFocusable(mView), is(false));
+            assertThat(getCompatForView(mView).isScreenReaderFocusable(), is(false));
 
-        ViewCompat.setScreenReaderFocusable(mView, true);
+            ViewCompat.setScreenReaderFocusable(mView, true);
 
-        assertThat(ViewCompat.isScreenReaderFocusable(mView), is(true));
-        assertThat(getCompatForView(mView).isScreenReaderFocusable(), is(true));
+            assertThat(ViewCompat.isScreenReaderFocusable(mView), is(true));
+            assertThat(getCompatForView(mView).isScreenReaderFocusable(), is(true));
 
-        // The value should still propagate even if we attach and detach another delegate compat
-        ViewCompat.setAccessibilityDelegate(mView, new AccessibilityDelegateCompat());
-        assertThat(getCompatForView(mView).isScreenReaderFocusable(), is(true));
-        ViewCompat.setAccessibilityDelegate(mView, null);
-        assertThat(getCompatForView(mView).isScreenReaderFocusable(), is(true));
+            // The value should still propagate even if we attach and detach another delegate compat
+            ViewCompat.setAccessibilityDelegate(mView, new AccessibilityDelegateCompat());
+            assertThat(getCompatForView(mView).isScreenReaderFocusable(), is(true));
+            ViewCompat.setAccessibilityDelegate(mView, null);
+            assertThat(getCompatForView(mView).isScreenReaderFocusable(), is(true));
+        }
     }
 
     @Test
     public void testScreenReaderFocusable_generatesAccessibilityEvent() {
         // The core framework is responsible for this behavior from P
-        if (!BuildCompat.isAtLeastP()) {
+        if (Build.VERSION.SDK_INT < 28 && Build.VERSION.SDK_INT >= 19) {
             //This test isn't to test the propgation up, just that the event is sent correctly.
             ViewCompat.setAccessibilityLiveRegion(mView,
                     ViewCompat.ACCESSIBILITY_LIVE_REGION_POLITE);
@@ -120,25 +121,27 @@ public class AccessibilityDelegateCompatTest extends
 
     @Test
     public void testAccessibilityHeading_propagatesToAccessibilityNodeInfo() {
-        assertThat(ViewCompat.isAccessibilityHeading(mView), is(false));
-        assertThat(getCompatForView(mView).isHeading(), is(false));
+        if (Build.VERSION.SDK_INT >= 19) {
+            assertThat(ViewCompat.isAccessibilityHeading(mView), is(false));
+            assertThat(getCompatForView(mView).isHeading(), is(false));
 
-        ViewCompat.setAccessibilityHeading(mView, true);
+            ViewCompat.setAccessibilityHeading(mView, true);
 
-        assertThat(ViewCompat.isAccessibilityHeading(mView), is(true));
-        assertThat(getCompatForView(mView).isHeading(), is(true));
+            assertThat(ViewCompat.isAccessibilityHeading(mView), is(true));
+            assertThat(getCompatForView(mView).isHeading(), is(true));
 
-        // The value should still propagate even if we attach and detach another delegate compat
-        ViewCompat.setAccessibilityDelegate(mView, new AccessibilityDelegateCompat());
-        assertThat(getCompatForView(mView).isHeading(), is(true));
-        ViewCompat.setAccessibilityDelegate(mView, null);
-        assertThat(getCompatForView(mView).isHeading(), is(true));
+            // The value should still propagate even if we attach and detach another delegate compat
+            ViewCompat.setAccessibilityDelegate(mView, new AccessibilityDelegateCompat());
+            assertThat(getCompatForView(mView).isHeading(), is(true));
+            ViewCompat.setAccessibilityDelegate(mView, null);
+            assertThat(getCompatForView(mView).isHeading(), is(true));
+        }
     }
 
     @Test
     public void testSetAccessibilityHeading_generatesAccessibilityEvent() {
         // The core framework is responsible for this behavior from P
-        if (!BuildCompat.isAtLeastP()) {
+        if (Build.VERSION.SDK_INT < 28 && Build.VERSION.SDK_INT >= 19) {
             //This test isn't to test the propgation up, just that the event is sent correctly.
             ViewCompat.setAccessibilityLiveRegion(mView,
                     ViewCompat.ACCESSIBILITY_LIVE_REGION_POLITE);
