@@ -58,6 +58,7 @@ object LibraryGroups {
     const val RECYCLERVIEW = "androidx.recyclerview"
     const val SLICE = "androidx.slice"
     const val SLIDINGPANELAYOUT = "androidx.slidingpanelayout"
+    const val SPARKLERS = "androidx.sparklers"
     const val SWIPEREFRESHLAYOUT = "androidx.swiperefreshlayout"
     const val TEXTCLASSIFIER = "androidx.textclassifier"
     const val TRANSITION = "androidx.transition"
