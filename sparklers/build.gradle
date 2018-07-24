@@ -27,26 +27,23 @@ dependencies {
     implementation project(":annotation")
     implementation project(":appcompat")
 
+    androidTestImplementation(JUNIT)
+    androidTestCompileOnly(project(":slice-view"))
+    androidTestCompileOnly(project(":slice-core"))
     androidTestImplementation(TEST_RUNNER)
+    androidTestImplementation(TEST_RULES)
+    androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy)
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy)
-
-    annotationProcessor project(":versionedparcelable-annotation")
-}
-
-android {
-    defaultConfig {
-        resValue "string", "abc_slice_version", LibraryVersions.SLICE.toString()
-    }
 }
 
 supportLibrary {
-    name = "Common utilities for slices"
-    publish = true
-    mavenVersion = LibraryVersions.SLICE
-    mavenGroup = LibraryGroups.SLICE
-    inceptionYear = "2017"
-    description = "The slices core library provides utilities for the slices view and provider libraries"
+    name = "Sparklers"
+    publish = false
+    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
+    mavenGroup = LibraryGroups.SPARKLERS
+    inceptionYear = "2018"
+    description = "Utility for library selection and loading"
     failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
 }
