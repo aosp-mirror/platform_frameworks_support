@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "69ffd65e_40fb5b11",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-07-24T13:34:06Z",
+      "side": 1,
+      "message": "nit: This entire API is changing. Do we want to wait for that change?",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 33
+      },
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7048611f_b3d2e6ae",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-07-24T13:34:06Z",
+      "side": 1,
+      "message": "nit: getEntity(), getEntityCount() and similar APIs should change to getEntityType(), getEntityTypeCount(). This was an error in O and we should probably not make the same in supportlib. To fix in platform, I consider introducing these methods in the platform and maybe (or not) deprecate the badly named ones.",
+      "range": {
+        "startLine": 65,
+        "startChar": 35,
+        "endLine": 65,
+        "endChar": 44
+      },
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e8afdde_fd4f690e",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-07-24T13:34:06Z",
+      "side": 1,
+      "message": "nit: I wonder if all our setText() APIs should really be taking a CharSequence. Question is, what will getText() return?",
+      "range": {
+        "startLine": 78,
+        "startChar": 69,
+        "endLine": 78,
+        "endChar": 76
+      },
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3299849_e71fe9b4",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-07-24T13:34:06Z",
+      "side": 1,
+      "message": "nit: final?\nMaybe we should be consistent with what other Android system service managers do\nor\nMaybe if we can get away with it, we make this final.\n\nI don\u0027t see this being a big problem though, as I imagine the only place where one can even make use of a TCM subclass will be in a test.",
+      "range": {
+        "startLine": 112,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 14
+      },
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4d16f4f7_a0b31415",
         "filename": "textclassifier/api/1.0.0.txt",
         "patchSetId": 1
@@ -13,6 +105,93 @@
       "writtenOn": "2018-07-24T12:55:51Z",
       "side": 1,
       "message": "I suppose we want to hide this for now?",
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77bae495_8487166d",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-07-24T13:34:06Z",
+      "side": 1,
+      "message": "Yup.",
+      "parentUuid": "4d16f4f7_a0b31415",
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21209f3a_a8105747",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-07-24T13:34:06Z",
+      "side": 1,
+      "message": "Do we need this to be public?",
+      "range": {
+        "startLine": 188,
+        "startChar": 22,
+        "endLine": 188,
+        "endChar": 27
+      },
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "350f7ea8_9356524b",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-07-24T13:34:06Z",
+      "side": 1,
+      "message": "People hate me for insisting on this method. Wdyt, should we keep it, should we lose it?\n\nI\u0027m also considering introducing a toBuilder() method on all our objects. Perhaps we should lose this and then talk about whether to brink this method back if toBuilder() methods happen.",
+      "range": {
+        "startLine": 205,
+        "startChar": 60,
+        "endLine": 205,
+        "endChar": 76
+      },
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40885e64_81c54b4a",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-07-24T13:34:06Z",
+      "side": 1,
+      "message": "Uhmm, probably needs public methods?",
+      "range": {
+        "startLine": 239,
+        "startChar": 2,
+        "endLine": 240,
+        "endChar": 3
+      },
       "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
