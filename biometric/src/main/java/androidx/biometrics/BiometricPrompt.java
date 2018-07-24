@@ -43,7 +43,7 @@ import javax.crypto.Mac;
  * canceled by the client. For security reasons, the prompt will automatically dismiss when the
  * activity is no longer in the foreground.
  */
-public class BiometricPrompt implements BiometricConstants {
+public class BiometricPrompt {
 
     private static final String TAG = "BiometricPromptCompat";
     private static final boolean DEBUG = false;
@@ -129,6 +129,7 @@ public class BiometricPrompt implements BiometricConstants {
          * Obtain the crypto object associated with this transaction
          * @return crypto object provided to {@link #authenticate(PromptInfo, CryptoObject)}.
          */
+        @Nullable
         public CryptoObject getCryptoObject() {
             return mCryptoObject;
         }
@@ -147,13 +148,14 @@ public class BiometricPrompt implements BiometricConstants {
          *                  be one of the BIOMETRIC_ERROR constants.
          * @param errString A human-readable error string that can be shown on an UI
          */
-        public void onAuthenticationError(int errorCode, CharSequence errString) {}
+        public void onAuthenticationError(@BiometricConstants int errorCode,
+                @NonNull CharSequence errString) {}
 
         /**
          * Called when a biometric is recognized.
          * @param result An object containing authentication-related data
          */
-        public void onAuthenticationSucceeded(AuthenticationResult result) {}
+        public void onAuthenticationSucceeded(@NonNull AuthenticationResult result) {}
 
         /**
          * Called when a biometric is valid but not recognized.
@@ -177,6 +179,7 @@ public class BiometricPrompt implements BiometricConstants {
             /**
              * Required: Set the title to display.
              */
+            @NonNull
             public Builder setTitle(@NonNull CharSequence title) {
                 mBundle.putCharSequence(KEY_TITLE, title);
                 return this;
@@ -185,6 +188,7 @@ public class BiometricPrompt implements BiometricConstants {
             /**
              * Optional: Set the subtitle to display.
              */
+            @NonNull
             public Builder setSubtitle(@NonNull CharSequence subtitle) {
                 mBundle.putCharSequence(KEY_SUBTITLE, subtitle);
                 return this;
@@ -193,6 +197,7 @@ public class BiometricPrompt implements BiometricConstants {
             /**
              * Optional: Set the description to display.
              */
+            @NonNull
             public Builder setDescription(@NonNull CharSequence description) {
                 mBundle.putCharSequence(KEY_DESCRIPTION, description);
                 return this;
@@ -205,6 +210,7 @@ public class BiometricPrompt implements BiometricConstants {
              * @param text
              * @return
              */
+            @NonNull
             public Builder setNegativeButtonText(@NonNull CharSequence text) {
                 mBundle.putCharSequence(KEY_NEGATIVE_TEXT, text);
                 return this;
@@ -215,6 +221,7 @@ public class BiometricPrompt implements BiometricConstants {
              * @return a {@link BiometricPrompt}
              * @throws IllegalArgumentException if any of the required fields are not set.
              */
+            @NonNull
             public PromptInfo build() {
                 final CharSequence title = mBundle.getCharSequence(KEY_TITLE);
                 final CharSequence negative = mBundle.getCharSequence(KEY_NEGATIVE_TEXT);
@@ -237,6 +244,38 @@ public class BiometricPrompt implements BiometricConstants {
 
         Bundle getBundle() {
             return mBundle;
+        }
+
+        /**
+         * @return See {@link Builder#setTitle(CharSequence)}.
+         */
+        @NonNull
+        public CharSequence getTitle() {
+            return mBundle.getCharSequence(KEY_TITLE);
+        }
+
+        /**
+         * @return See {@link Builder#setSubtitle(CharSequence)}.
+         */
+        @Nullable
+        public CharSequence getSubtitle() {
+            return mBundle.getCharSequence(KEY_SUBTITLE);
+        }
+
+        /**
+         * @return See {@link Builder#setDescription(CharSequence)}.
+         */
+        @Nullable
+        public CharSequence getDescription() {
+            return mBundle.getCharSequence(KEY_DESCRIPTION);
+        }
+
+        /**
+         * @return See {@link Builder#setNegativeButtonText(CharSequence)}.
+         */
+        @NonNull
+        public CharSequence getNegativeButtonText() {
+            return mBundle.getCharSequence(KEY_NEGATIVE_TEXT);
         }
     }
 
@@ -269,7 +308,7 @@ public class BiometricPrompt implements BiometricConstants {
                                 CharSequence errorText =
                                         mBiometricFragment.getNegativeButtonText();
                                 mAuthenticationCallback.onAuthenticationError(
-                                        BIOMETRIC_ERROR_NEGATIVE_BUTTON,
+                                        BiometricConstants.ERROR_NEGATIVE_BUTTON,
                                         errorText);
                                 mFragmentActivity.getSupportFragmentManager().beginTransaction()
                                         .remove(mBiometricFragment).commit();
@@ -277,7 +316,7 @@ public class BiometricPrompt implements BiometricConstants {
                                 CharSequence errorText =
                                         mFingerprintDialogFragment.getNegativeButtonText();
                                 mAuthenticationCallback.onAuthenticationError(
-                                        BIOMETRIC_ERROR_NEGATIVE_BUTTON,
+                                        BiometricConstants.ERROR_NEGATIVE_BUTTON,
                                         errorText);
                                 mFingerprintHelperFragment.cancel(
                                         FingerprintHelperFragment
