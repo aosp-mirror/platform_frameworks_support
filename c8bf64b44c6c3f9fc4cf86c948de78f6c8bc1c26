@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1323da_9a87df96",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlaylistAgent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-07-24T12:23:33Z",
+      "side": 1,
+      "message": "needs",
+      "range": {
+        "startLine": 358,
+        "startChar": 30,
+        "endLine": 358,
+        "endChar": 34
+      },
+      "revId": "c8bf64b44c6c3f9fc4cf86c948de78f6c8bc1c26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bd13b1d_7e032961",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlaylistAgent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-07-24T12:23:33Z",
+      "side": 1,
+      "message": "needs",
+      "range": {
+        "startLine": 371,
+        "startChar": 30,
+        "endLine": 371,
+        "endChar": 34
+      },
+      "revId": "c8bf64b44c6c3f9fc4cf86c948de78f6c8bc1c26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce4d43d0_a1385910",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlaylistAgent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-07-24T12:23:33Z",
+      "side": 1,
+      "message": "needs",
+      "revId": "c8bf64b44c6c3f9fc4cf86c948de78f6c8bc1c26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
