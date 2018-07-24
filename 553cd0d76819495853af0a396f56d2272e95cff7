@@ -16,6 +16,24 @@
       "revId": "553cd0d76819495853af0a396f56d2272e95cff7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c0b13af_3afecf16",
+        "filename": "core/ktx/src/main/java/androidx/core/widget/TextView.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2018-07-24T12:33:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c365bf3_b16f05a4",
+      "revId": "553cd0d76819495853af0a396f56d2272e95cff7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
