@@ -64,11 +64,12 @@ val RELEASE_RULE = docsRules("public") {
     prebuilts(LibraryGroups.SLICE, "slice-builders", defaultVersion)
     prebuilts(LibraryGroups.SLICE, "slice-builders-ktx", "1.0.0-alpha4")
     prebuilts(LibraryGroups.SLICE, "slice-core", defaultVersion)
-    prebuilts(LibraryGroups.SLICE, "slice-test", defaultVersion)
+    // TODO: land prebuilts
+//    prebuilts(LibraryGroups.SLICE, "slice-test", defaultVersion)
+    ignore(LibraryGroups.SLICE, "slice-test")
     prebuilts(LibraryGroups.SLICE, "slice-view", defaultVersion)
     prebuilts(LibraryGroups.SLIDINGPANELAYOUT, defaultVersion)
     prebuilts(LibraryGroups.SWIPEREFRESHLAYOUT, defaultVersion)
-    prebuilts(LibraryGroups.TEXTCLASSIFIER, defaultVersion)
     prebuilts(LibraryGroups.TRANSITION, defaultVersion)
     prebuilts(LibraryGroups.TVPROVIDER, defaultVersion)
     prebuilts(LibraryGroups.VECTORDRAWABLE, defaultVersion)
@@ -79,6 +80,8 @@ val RELEASE_RULE = docsRules("public") {
     val flatfootVersion = "2.0.0-beta01"
     prebuilts(LibraryGroups.ROOM, flatfootVersion)
     prebuilts(LibraryGroups.PERSISTENCE, flatfootVersion)
+    ignore(LibraryGroups.LIFECYCLE, "lifecycle-savedstate-core")
+    ignore(LibraryGroups.LIFECYCLE, "lifecycle-savedstate-fragment")
     prebuilts(LibraryGroups.LIFECYCLE, flatfootVersion)
     prebuilts(LibraryGroups.ARCH_CORE, flatfootVersion)
     ignore(LibraryGroups.PAGING, "paging-common-ktx")
