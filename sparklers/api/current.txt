@@ -1,0 +1,54 @@
+package androidx.sparklers {
+
+  public final class LoadPolicy {
+    method public byte[] getDebugSha256();
+    method public java.util.List<java.lang.String> getDisabledVersions();
+    method public java.lang.String getLibrary();
+    method public int getLoadMode();
+    method public java.lang.String getLocalVersion();
+    method public java.lang.String getMinVersion();
+    method public byte[] getReleaseSha256();
+    method public static androidx.sparklers.LoadPolicy readLoadPolicy(android.content.Context, int) throws androidx.sparklers.SparkException;
+    field public static final int ONLY_LOAD = 3; // 0x3
+    field public static final int ONLY_LOCAL = 2; // 0x2
+    field public static final int PREFER_LOAD = 1; // 0x1
+    field public static final int PREFER_LOCAL = 0; // 0x0
+  }
+
+  public static class LoadPolicy.Builder {
+    ctor public LoadPolicy.Builder(java.lang.String);
+    method public androidx.sparklers.LoadPolicy build();
+    method public androidx.sparklers.LoadPolicy.Builder disableVersion(java.lang.String);
+    method public androidx.sparklers.LoadPolicy.Builder setDebugSha256(byte[]);
+    method public androidx.sparklers.LoadPolicy.Builder setLoadMode(int);
+    method public androidx.sparklers.LoadPolicy.Builder setLocalVersion(java.lang.String);
+    method public androidx.sparklers.LoadPolicy.Builder setMinVersion(java.lang.String);
+    method public androidx.sparklers.LoadPolicy.Builder setReleaseSha256(byte[]);
+  }
+
+  public static abstract class LoadPolicy.LoadMode implements java.lang.annotation.Annotation {
+  }
+
+  public class Spark {
+    method public java.lang.ClassLoader getClassLoader();
+    method public android.content.Context getContext();
+    method public int getSourceType();
+    method public java.lang.String getVersion();
+    method public <T> T load(java.lang.String) throws androidx.sparklers.SparkException;
+    field public static final int SOURCE_LOADED = 1; // 0x1
+    field public static final int SOURCE_LOCAL = 0; // 0x0
+  }
+
+  public static abstract class Spark.SourceType implements java.lang.annotation.Annotation {
+  }
+
+  public class SparkException extends java.lang.Exception {
+    ctor public SparkException(java.lang.String);
+  }
+
+  public class Sparklers {
+    method public static androidx.sparklers.Spark loadSpark(android.content.Context, androidx.sparklers.LoadPolicy) throws androidx.sparklers.SparkException;
+  }
+
+}
+
