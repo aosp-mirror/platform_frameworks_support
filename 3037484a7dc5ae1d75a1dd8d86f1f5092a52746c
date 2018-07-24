@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4613c1fd_3cf96b04",
+        "filename": "biometric/src/main/java/androidx/biometrics/BiometricConstants.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-24T23:02:03Z",
+      "side": 1,
+      "message": "It is not a good idea to make a publicly visible @InfDef @Interface (details here \nhttps://docs.google.com/document/d/1LtR7mSHWOESKBH0GEgLSUZnnt4gDplCm3WoSJuJmbbI/view#heading\u003dh.cg6cyrqi59jq )\n\nLet\u0027s keep this as an interface, then make BiometricPrompt.java extend BiometricConstants. Then inside of BiometricPrompt create an inner @IntDef that refers to BiometricPrompt.ERROR_* and use that.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 0
+      },
+      "revId": "3037484a7dc5ae1d75a1dd8d86f1f5092a52746c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
