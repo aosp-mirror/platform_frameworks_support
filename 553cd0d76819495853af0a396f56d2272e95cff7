@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c365bf3_b16f05a4",
+        "filename": "core/ktx/src/main/java/androidx/core/widget/TextView.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1010077
+      },
+      "writtenOn": "2018-07-24T09:17:24Z",
+      "side": 1,
+      "message": "Sorry to jump in out of the blue. Shouldn\u0027t this line read: \"Copyright (C) 2018 The Android Open Source Project\"? I don\u0027t think there were changes to AOSP copyright policies. Cheers.",
+      "revId": "553cd0d76819495853af0a396f56d2272e95cff7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
