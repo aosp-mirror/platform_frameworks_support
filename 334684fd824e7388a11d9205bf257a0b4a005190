@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "87273ee3_d1b91e46",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-25T15:53:49Z",
+      "side": 1,
+      "message": "Opps\n\nAnd IIRC, I didn\u0027t use --no-verify, any chance the AOSP repo is not setup the lint hook properly?",
+      "parentUuid": "4cb184ca_5f32e111",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 8
+      },
+      "revId": "334684fd824e7388a11d9205bf257a0b4a005190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dec7ad4e_58b6d813",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
         "patchSetId": 2
@@ -82,6 +106,30 @@
       "writtenOn": "2018-07-25T14:37:08Z",
       "side": 1,
       "message": "I am pretty sure this method will cause the class to fail verification on SDK \u003c 28. Have you test this library on SDK \u003c 28 devices?",
+      "range": {
+        "startLine": 276,
+        "startChar": 0,
+        "endLine": 276,
+        "endChar": 63
+      },
+      "revId": "334684fd824e7388a11d9205bf257a0b4a005190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3788b05c_1aa89cd3",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-25T15:53:49Z",
+      "side": 1,
+      "message": "We do have tests for API \u003c 28, and tests seem passing. (Except the one you have just assigned to me, I think)\n\nCould you please elaborate what do you mean by \"fail verification\"? \nSo not calling this method in API \u003c 28 is not good enough?\n\n\nAnd FWIW, I saw this, but I am not sure the implication of this. Thanks.\n\n07-12 10:34:17.778 14947 14960 E dalvikvm: Could not find class \u0027android.view.textclassifier.TextSelection$Request$Builder\u0027, referenced from method androidx.textclassifier.TextSelection$Request.toPlatform\n07-12 10:34:17.778 14947 14960 W dalvikvm: VFY: unable to resolve new-instance 505 (Landroid/view/textclassifier/TextSelection$Request$Builder;) in Landroidx/textclassifier/TextSelection$Request;\n07-12 10:34:17.778 14947 14960 D dalvikvm: VFY: replacing opcode 0x22 at 0x0004\n07-12 10:34:17.778 14947 14960 D dalvikvm: DexOpt: unable to opt direct call 0x0a7d at 0x0c in Landroidx/textclassifier/TextSelection$Request;.toPlatform\n07-12 10:34:17.778 14947 14960 E dalvikvm: Could not find class \u0027android.view.textclassifier.TextClassification$Request$Builder\u0027, referenced from method androidx.textclassifier.TextClassification$Request.toPlatform\n07-12 10:34:17.778 14947 14960 W dalvikvm: VFY: unable to resolve new-instance 491 (Landroid/view/textclassifier/TextClassification$Request$Builder;) in Landroidx/textclassifier/TextClassification$Request;\n07-12 10:34:17.778 14947 14960 D dalvikvm: VFY: replacing opcode 0x22 at 0x0004\n07-12 10:34:17.778 14947 14960 D dalvikvm: DexOpt: unable to opt direct call 0x0a47 at 0x0c in Landroidx/textclassifier/TextClassification$Request;.toPlatform\n07-12 10:34:17.778 14947 14960 W dalvikvm: Unable to match class for part: \u0027Landroid/view/textclassifier/TextClassifier;\u0027",
+      "parentUuid": "527787dd_5172e337",
       "range": {
         "startLine": 276,
         "startChar": 0,
