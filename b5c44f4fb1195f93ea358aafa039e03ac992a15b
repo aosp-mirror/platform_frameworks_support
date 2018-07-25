@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10bf6348_f08201c0",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1140,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-07-25T06:13:11Z",
+      "side": 1,
+      "message": "Changed as per ag/4541524",
+      "range": {
+        "startLine": 1138,
+        "startChar": 0,
+        "endLine": 1140,
+        "endChar": 0
+      },
+      "revId": "b5c44f4fb1195f93ea358aafa039e03ac992a15b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
