@@ -22,6 +22,30 @@
       "revId": "38f4c69ddc80e061c18d0dc00b0ae14ba6a92223",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc264c8b_91a15fe4",
+        "filename": "buildSrc/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-07-25T22:58:48Z",
+      "side": 1,
+      "message": "When I run `buildEnvironment` I see the jacoco dependency we specify on the classpath. Prior to this (when I had removed it), jacoco wasn\u0027t on the classpath at all. While the things we compile in `buildSrc/` end up on the classpath, I\u0027m pretty sure the way that it works is that they\u0027re compiled on their own and then its output + its dependencies are loaded onto the regular buildscript classpath. So anything we define here is available during compilation of `buildSrc` sources and will end up on the buildscript because they become transitive dependencies of the `buildSrc` output, we can still affect the buildscript classpath with normal dependencies.",
+      "parentUuid": "d54e073f_1270a72d",
+      "range": {
+        "startLine": 41,
+        "startChar": 3,
+        "endLine": 41,
+        "endChar": 29
+      },
+      "revId": "38f4c69ddc80e061c18d0dc00b0ae14ba6a92223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
