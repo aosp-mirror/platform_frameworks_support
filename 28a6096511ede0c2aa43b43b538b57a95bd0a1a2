@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c319dea4_d87f02e0",
+        "filename": "compat/src/androidTest/java/androidx/core/content/ContextCompatTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-07-25T14:44:35Z",
+      "side": 1,
+      "message": "The input space is so small on pre-22 that it might as well be tested exhaustively. And it would have caught this bug had I done so in the first place. There\u0027s already a test that 23+ delegates to the system so we don\u0027t need to test anything newer.",
+      "revId": "28a6096511ede0c2aa43b43b538b57a95bd0a1a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
