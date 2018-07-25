@@ -41,8 +41,10 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.isIn;
 import static org.hamcrest.Matchers.isOneOf;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -52,7 +54,10 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.db.SupportSQLiteOpenHelper;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -76,6 +81,7 @@ import androidx.work.TestLifecycleOwner;
 import androidx.work.WorkContinuation;
 import androidx.work.WorkRequest;
 import androidx.work.WorkStatus;
+import androidx.work.impl.background.systemalarm.RescheduleReceiver;
 import androidx.work.impl.model.Dependency;
 import androidx.work.impl.model.DependencyDao;
 import androidx.work.impl.model.WorkName;
@@ -107,6 +113,10 @@ import java.util.concurrent.TimeUnit;
 @RunWith(AndroidJUnit4.class)
 public class WorkManagerImplTest {
 
+    private static final long SLEEP_DURATION_SMALL_MILLIS = 500L;
+
+    private Context mContext;
+    private PackageManager mPackageManager;
     private WorkDatabase mDatabase;
     private WorkManagerImpl mWorkManagerImpl;
 
@@ -132,11 +142,23 @@ public class WorkManagerImplTest {
             }
         });
 
-        Context context = InstrumentationRegistry.getTargetContext();
+        mPackageManager = mock(PackageManager.class);
+        mContext = new ContextWrapper(InstrumentationRegistry.getTargetContext()) {
+            @Override
+            public Context getApplicationContext() {
+                return this;
+            }
+
+            @Override
+            public PackageManager getPackageManager() {
+                return mPackageManager;
+            }
+        };
+
         Configuration configuration = new Configuration.Builder()
                 .setExecutor(Executors.newSingleThreadExecutor())
                 .build();
-        mWorkManagerImpl = new WorkManagerImpl(context, configuration);
+        mWorkManagerImpl = new WorkManagerImpl(mContext, configuration);
         WorkManagerImpl.setDelegate(mWorkManagerImpl);
         mDatabase = mWorkManagerImpl.getWorkDatabase();
     }
@@ -1464,6 +1486,30 @@ public class WorkManagerImplTest {
         assertThat(workSpecDao.getWorkSpec(work0.getStringId()), is(nullValue()));
         assertThat(workSpecDao.getWorkSpec(work1.getStringId()), is(not(nullValue())));
         assertThat(workSpecDao.getWorkSpec(work2.getStringId()), is(not(nullValue())));
+    }
+
+    @Test
+    @LargeTest
+    public void testEnableDisableRescheduleReceiver() throws InterruptedException {
+        OneTimeWorkRequest infiniteWorkerRequest =
+                new OneTimeWorkRequest.Builder(TestWorker.class)
+                        .build();
+
+        mWorkManagerImpl.enqueueSync(infiniteWorkerRequest);
+        ComponentName componentName = new ComponentName(mContext, RescheduleReceiver.class);
+        verify(mPackageManager, times(1))
+                .setComponentEnabledSetting(eq(componentName),
+                        eq(PackageManager.COMPONENT_ENABLED_STATE_ENABLED),
+                        eq(PackageManager.DONT_KILL_APP));
+
+        reset(mPackageManager);
+        mWorkManagerImpl.cancelAllWorkSync();
+        // Sleeping for a little bit, to give the listeners a chance to catch up.
+        Thread.sleep(SLEEP_DURATION_SMALL_MILLIS);
+        verify(mPackageManager)
+                .setComponentEnabledSetting(eq(componentName),
+                        eq(PackageManager.COMPONENT_ENABLED_STATE_DISABLED),
+                        eq(PackageManager.DONT_KILL_APP));
     }
 
     @Test
