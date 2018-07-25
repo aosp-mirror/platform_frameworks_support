@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "a22f98e9_326317fb",
+        "filename": "media2/src/androidTest/java/androidx/media2/Rating2Test.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-07-25T08:00:32Z",
+      "side": 1,
+      "message": "Please add test for other methods in Rating2 and its subclasses. Such as:\n\nisRated\nisThumbUp\nhasHeart\ngetMaxStars/getStarRating\n...",
+      "range": {
+        "startLine": 36,
+        "startChar": 13,
+        "endLine": 36,
+        "endChar": 24
+      },
+      "revId": "0b18edc609b1f32e73782fb1581649a44231a6be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a28fc11f_56474899",
+        "filename": "media2/src/androidTest/java/androidx/media2/Rating2Test.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-07-25T08:00:32Z",
+      "side": 1,
+      "message": "The constructors of the Rating class is not public. (package-private)\nLet\u0027s make it public or make the Rating2 class as abstract.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 0
+      },
+      "revId": "0b18edc609b1f32e73782fb1581649a44231a6be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "46f88a3d_6c4a91be",
         "filename": "media2/src/main/java/androidx/media2/MediaUtils2.java",
         "patchSetId": 2
@@ -18,6 +64,121 @@
         "startChar": 23,
         "endLine": 583,
         "endChar": 37
+      },
+      "revId": "0b18edc609b1f32e73782fb1581649a44231a6be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "575fdb3d_998fa911",
+        "filename": "media2/src/main/java/androidx/media2/StarRating2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-07-25T08:00:32Z",
+      "side": 1,
+      "message": "It seems we are not checking this, here and L41\u0027s constructor.\n(e.g. maxStars \u003d\u003d 0 \u0026\u0026 starRating \u003d\u003d 0)",
+      "range": {
+        "startLine": 49,
+        "startChar": 7,
+        "endLine": 49,
+        "endChar": 52
+      },
+      "revId": "0b18edc609b1f32e73782fb1581649a44231a6be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da99ed34_46acd9a2",
+        "filename": "media2/src/main/java/androidx/media2/StarRating2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-07-25T08:00:32Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 52,
+        "startChar": 78,
+        "endLine": 52,
+        "endChar": 79
+      },
+      "revId": "0b18edc609b1f32e73782fb1581649a44231a6be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7244ef81_892e240b",
+        "filename": "media2/src/main/java/androidx/media2/StarRating2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-07-25T08:00:32Z",
+      "side": 1,
+      "message": "suggestion) The maximum number of stars which this rating can have.",
+      "range": {
+        "startLine": 52,
+        "startChar": 23,
+        "endLine": 52,
+        "endChar": 81
+      },
+      "revId": "0b18edc609b1f32e73782fb1581649a44231a6be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2d607ee_d8377bf9",
+        "filename": "media2/src/main/java/androidx/media2/ThumbRating2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-07-25T08:00:32Z",
+      "side": 1,
+      "message": "Remove this",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 96
+      },
+      "revId": "0b18edc609b1f32e73782fb1581649a44231a6be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77a2d862_68c107c4",
+        "filename": "media2/src/main/java/androidx/media2/ThumbRating2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-07-25T08:00:32Z",
+      "side": 1,
+      "message": "Can we merge this line with L53?",
+      "range": {
+        "startLine": 53,
+        "startChar": 31,
+        "endLine": 54,
+        "endChar": 71
       },
       "revId": "0b18edc609b1f32e73782fb1581649a44231a6be",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
