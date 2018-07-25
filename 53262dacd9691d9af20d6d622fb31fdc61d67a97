@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d1f1849_35f50aff",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-25T14:22:55Z",
+      "side": 1,
+      "message": "Given the name, I expect additional code not to show volume seek bar with the result.",
+      "range": {
+        "startLine": 398,
+        "startChar": 12,
+        "endLine": 398,
+        "endChar": 36
+      },
+      "revId": "53262dacd9691d9af20d6d622fb31fdc61d67a97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee0db5a6_8b4cd6bf",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-25T14:22:55Z",
+      "side": 1,
+      "message": "doc needs updated. perhaps \u0027Remove holder from the map\u0027 or simply remove?",
+      "range": {
+        "startLine": 694,
+        "startChar": 0,
+        "endLine": 694,
+        "endChar": 94
+      },
+      "revId": "53262dacd9691d9af20d6d622fb31fdc61d67a97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e96b4795_fb5547b6",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-25T14:22:55Z",
+      "side": 1,
+      "message": "1. This needs to be unset somewhere when the view is recycled.\n-\u003e null check is needed when use afterward.\n2. the word \u0027chosen\u0027 is only used here. could you set better name here?",
+      "range": {
+        "startLine": 882,
+        "startChar": 20,
+        "endLine": 882,
+        "endChar": 45
+      },
+      "revId": "53262dacd9691d9af20d6d622fb31fdc61d67a97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
