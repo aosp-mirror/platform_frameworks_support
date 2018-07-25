@@ -630,19 +630,26 @@ public final class MediaBrowserCompat {
 
         /**
          * Invoked after {@link MediaBrowserCompat#connect()} when the request has successfully
-         * completed.
+         * completed. This can also be called when the service is reactivated after it crashed or
+         * has been killed.
+         *
+         * @see ServiceConnection#onServiceConnected(ComponentName, IBinder)
          */
         public void onConnected() {
         }
 
         /**
-         * Invoked when the client is disconnected from the media browser.
+         * Invoked when the service is crashed or killed.
+         *
+         * @see ServiceConnection#onServiceDisconnected(ComponentName)
          */
         public void onConnectionSuspended() {
         }
 
         /**
-         * Invoked when the connection to the media browser failed.
+         * Invoked when the connection to the media browser service failed.
+         * Connection failures can happen when the browser failed to bind to the service,
+         * or when it is rejected from the service.
          */
         public void onConnectionFailed() {
         }
