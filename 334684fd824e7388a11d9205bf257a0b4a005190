@@ -166,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "e1a2c561_b671394c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-25T18:06:43Z",
+      "side": 1,
+      "message": "Re the verify bit, gotcha, thanks.\n\nRe Standalone vs Wrapper:\n\nYes, I am aware of this, though that section is changed a bit since last time I read it :)\n\nThese classes are the drop-in replacements of their counterparts in the platform, so developers, except us, should never need to refer to the platform one directly. Also, these toPlatform / fromPlatform are also @hide, developers, except us, should never need to call them.\nSo, we should not have the \"potential import collision\" problem?\n\nBut we may need to rename the package to androidx.view.textclassifier to match with the \nplatform one.\n\nThanks.",
+      "parentUuid": "706e8c8a_b78d8d43",
+      "range": {
+        "startLine": 276,
+        "startChar": 0,
+        "endLine": 276,
+        "endChar": 63
+      },
+      "revId": "334684fd824e7388a11d9205bf257a0b4a005190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52d3596c_da156de2",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 2
