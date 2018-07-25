@@ -36,8 +36,10 @@ import org.gradle.api.plugins.JavaLibraryPlugin
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.plugins.JavaPluginConvention
 import org.gradle.api.tasks.bundling.Jar
+import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.getPlugin
 import org.gradle.kotlin.dsl.withType
+import java.io.File
 
 /**
  * A plugin which enables all of the Gradle customizations for AndroidX.
@@ -100,6 +102,23 @@ class AndroidXPlugin : Plugin<Project> {
                 listOf(RELEASE_RULE))
 
         tasks.getByName(BUILD_ON_SERVER_TASK).dependsOn(allDocsTask)
+
+        // This jacoco jar is used by the build server. Instrumentation tests are executed outside
+        // of Gradle and this is needed to process the coverage files.
+        val myJacoco = configurations.create("myJacoco")
+        myJacoco.dependencies.add(dependencies.create("org.jacoco:org.jacoco.ant:0.7.8"))
+        val jacocoUberJar = tasks.create("jacocoAntUberJar", Jar::class.java) {
+            it.inputs.files(myJacoco)
+            it.from(myJacoco.resolvedConfiguration.resolvedArtifacts.map { zipTree(it.file) }) {
+                it.exclude("META-INF/*.SF")
+                it.exclude("META-INF/*.DSA")
+                it.exclude("META-INF/*.RSA")
+            }
+            it.destinationDir = extra["distDir"] as File
+            it.archiveName = "jacocoant.jar"
+        }
+
+        tasks.getByName(BUILD_ON_SERVER_TASK).dependsOn(jacocoUberJar)
     }
 
     private fun Project.configureAndroidCommonOptions(extension: BaseExtension) {
