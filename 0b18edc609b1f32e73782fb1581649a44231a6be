@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46f88a3d_6c4a91be",
+        "filename": "media2/src/main/java/androidx/media2/MediaUtils2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-07-25T07:33:55Z",
+      "side": 1,
+      "message": "This private method seems to be used only in L149.\nHow about moving/merging this method body into L149 and removing this method?\n\nIf we really need to create this method, Let\u0027s rename it to getRatingCompatStyle():\n\n    private static @RatingCompat.Style int getRatingCompatStyle()\n\nin order to prevent confusion.",
+      "range": {
+        "startLine": 583,
+        "startChar": 23,
+        "endLine": 583,
+        "endChar": 37
+      },
+      "revId": "0b18edc609b1f32e73782fb1581649a44231a6be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
