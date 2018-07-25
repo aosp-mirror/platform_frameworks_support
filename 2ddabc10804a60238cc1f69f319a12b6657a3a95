@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c68508a5_be24a228",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-25T02:39:29Z",
+      "side": 1,
+      "message": "Why don\u0027t you keep ViewHolder, and also introduce interface for getting the volume slider? Then we don\u0027t need to call findViewById() everytime.",
+      "range": {
+        "startLine": 350,
+        "startChar": 24,
+        "endLine": 350,
+        "endChar": 45
+      },
+      "revId": "2ddabc10804a60238cc1f69f319a12b6657a3a95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ddf8c91_e2ff1886",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-25T02:39:29Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 365,
+        "startChar": 0,
+        "endLine": 366,
+        "endChar": 0
+      },
+      "revId": "2ddabc10804a60238cc1f69f319a12b6657a3a95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1f13c36_aa003b05",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-25T02:39:29Z",
+      "side": 1,
+      "message": "updateVolumeSliderLayout()",
+      "range": {
+        "startLine": 390,
+        "startChar": 0,
+        "endLine": 396,
+        "endChar": 0
+      },
+      "revId": "2ddabc10804a60238cc1f69f319a12b6657a3a95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4259f97_8fc8165b",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-25T02:39:29Z",
+      "side": 1,
+      "message": "mRouteForTouchedVolumeSlider",
+      "revId": "2ddabc10804a60238cc1f69f319a12b6657a3a95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47378935_2d0ad6a2",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-25T02:39:29Z",
+      "side": 1,
+      "message": "Why don\u0027t you do this in RecylerView.Adapter#onViewRecycled?",
+      "range": {
+        "startLine": 787,
+        "startChar": 0,
+        "endLine": 787,
+        "endChar": 61
+      },
+      "revId": "2ddabc10804a60238cc1f69f319a12b6657a3a95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91651478_8e12e52a",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-25T02:39:29Z",
+      "side": 1,
+      "message": "Why don\u0027t you do this in RecylerView.Adapter#onViewRecycled?",
+      "range": {
+        "startLine": 869,
+        "startChar": 16,
+        "endLine": 871,
+        "endChar": 61
+      },
+      "revId": "2ddabc10804a60238cc1f69f319a12b6657a3a95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b368e698_f972e17f",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-25T02:39:29Z",
+      "side": 1,
+      "message": "1. Why we need to check this?\n2. If it\u0027s needed, why don\u0027t you do this in other places such as L901, L906?",
+      "range": {
+        "startLine": 921,
+        "startChar": 0,
+        "endLine": 922,
+        "endChar": 0
+      },
+      "revId": "2ddabc10804a60238cc1f69f319a12b6657a3a95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "918628df_6fa844ec",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-25T02:39:29Z",
+      "side": 1,
+      "message": "could you also leave log as we did in the Controller Dialog?",
+      "range": {
+        "startLine": 928,
+        "startChar": 27,
+        "endLine": 928,
+        "endChar": 28
+      },
+      "revId": "2ddabc10804a60238cc1f69f319a12b6657a3a95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
