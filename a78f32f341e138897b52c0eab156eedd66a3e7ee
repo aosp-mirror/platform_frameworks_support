@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45e9bce7_b00f2a60",
+        "filename": "buildSrc/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-25T20:49:28Z",
+      "side": 0,
+      "message": "This has a side-effect of setting Jacoco version used by AGP. If we don\u0027t put it on the classpath here and in root project, I am pretty sure it will just pick its own jacoco versions.",
+      "revId": "a78f32f341e138897b52c0eab156eedd66a3e7ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
