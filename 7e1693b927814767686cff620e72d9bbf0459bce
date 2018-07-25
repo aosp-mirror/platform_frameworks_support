@@ -1,0 +1,8 @@
+Code-Review+2: Yigit Boyar <yboyar@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Verified+1: Yuichi Araki <yaraki@google.com>
+Submitted-by: Yuichi Araki <yaraki@google.com>
+Submitted-at: Wed, 25 Jul 2018 02:58:38 +0000
+Reviewed-on: https://android-review.googlesource.com/720906
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
