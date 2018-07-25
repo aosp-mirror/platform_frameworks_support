@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28864ced_486f2119",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-07-25T02:41:48Z",
+      "side": 1,
+      "message": "we should update this comment or divide this method to be more purpose specific.",
+      "range": {
+        "startLine": 258,
+        "startChar": 4,
+        "endLine": 261,
+        "endChar": 7
+      },
+      "revId": "26f019178311f2f5e4255b13a4697446ad21723c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7b5865f_270b8ede",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-07-25T02:41:48Z",
+      "side": 1,
+      "message": "why do we need a separate ignore for those ? they wouldn\u0027t be publish \u003d true.",
+      "range": {
+        "startLine": 63,
+        "startChar": 3,
+        "endLine": 63,
+        "endChar": 64
+      },
+      "revId": "26f019178311f2f5e4255b13a4697446ad21723c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
