@@ -37,10 +37,12 @@ import androidx.work.InputMerger;
 import androidx.work.Logger;
 import androidx.work.State;
 import androidx.work.Worker;
+import androidx.work.impl.background.systemalarm.RescheduleReceiver;
 import androidx.work.impl.model.DependencyDao;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.model.WorkSpecDao;
 import androidx.work.impl.model.WorkTagDao;
+import androidx.work.impl.utils.PackageManagerHelper;
 import androidx.work.impl.utils.taskexecutor.WorkManagerTaskExecutor;
 
 import java.lang.reflect.Method;
@@ -266,12 +268,30 @@ public class WorkerWrapper implements Runnable {
         if (mListener == null) {
             return;
         }
-        WorkManagerTaskExecutor.getInstance().postToMainThread(new Runnable() {
-            @Override
-            public void run() {
-                mListener.onExecuted(mWorkSpecId, isSuccessful, needsReschedule);
-            }
-        });
+
+        try {
+            // Check to see if there is more work to be done. If there is no more work, then
+            // disable RescheduleReceiver. Using a transaction here, as there could be more than
+            // one thread looking at the list of eligible WorkSpecs.
+            mWorkDatabase.beginTransaction();
+            List<String> unfinishedWork = mWorkDatabase.workSpecDao().getAllUnfinishedWork();
+            final boolean noMoreWork = unfinishedWork == null || unfinishedWork.isEmpty();
+            WorkManagerTaskExecutor.getInstance().postToMainThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (noMoreWork) {
+                        PackageManagerHelper.setComponentEnabled(
+                                mAppContext,
+                                RescheduleReceiver.class,
+                                false);
+                    }
+                    mListener.onExecuted(mWorkSpecId, isSuccessful, needsReschedule);
+                }
+            });
+            mWorkDatabase.setTransactionSuccessful();
+        } finally {
+            mWorkDatabase.endTransaction();
+        }
     }
 
     private void handleResult(Worker.Result result) {
