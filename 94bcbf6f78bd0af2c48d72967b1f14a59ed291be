@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "84e1a3f6_4e2eca1a",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-07-25T20:20:33Z",
+      "side": 1,
+      "message": "You are right. We can call PackageManager from any thread, given its a binder transaction. I am going to call it from the task executor thread instead.",
+      "parentUuid": "30dbaee5_2d3d02cf",
+      "range": {
+        "startLine": 282,
+        "startChar": 20,
+        "endLine": 287,
+        "endChar": 21
+      },
+      "revId": "94bcbf6f78bd0af2c48d72967b1f14a59ed291be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1be9efa4_dfc38fab",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/EnqueueRunnable.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "94bcbf6f78bd0af2c48d72967b1f14a59ed291be",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50b98600_0c230c87",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/EnqueueRunnable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-07-25T20:20:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1be9efa4_dfc38fab",
+      "range": {
+        "startLine": 89,
+        "startChar": 20,
+        "endLine": 90,
+        "endChar": 48
+      },
+      "revId": "94bcbf6f78bd0af2c48d72967b1f14a59ed291be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
