@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "cfa0e669_1c15d229",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-07-25T22:37:08Z",
+      "side": 1,
+      "message": "The runnable that checks for the state of the world in WorkerWrapper runs on the main thread.\nInstead, I changed it such that we call PackageManager.setComponentEnabled() on the background executor\u0027s thread instead. That will give us the same guarantees.",
+      "parentUuid": "5516c068_4f05a8ea",
+      "range": {
+        "startLine": 282,
+        "startChar": 20,
+        "endLine": 287,
+        "endChar": 21
+      },
+      "revId": "94bcbf6f78bd0af2c48d72967b1f14a59ed291be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1be9efa4_dfc38fab",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/EnqueueRunnable.java",
         "patchSetId": 2
