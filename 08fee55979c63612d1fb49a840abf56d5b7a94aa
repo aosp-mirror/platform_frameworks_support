@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "e88a8316_2722ac0d",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAnimationsTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-07-25T20:42:29Z",
+      "side": 1,
+      "message": "As discussed, I meant adding a listener to DummyItemAnimator that will get a call back for onAnimationFinished(ViewHolder), not onAnimationFinished().",
+      "parentUuid": "76ab3f52_fd051ae6",
+      "range": {
+        "startLine": 626,
+        "startChar": 16,
+        "endLine": 626,
+        "endChar": 26
+      },
+      "revId": "08fee55979c63612d1fb49a840abf56d5b7a94aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d0744dc8_b5acafea",
         "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewCacheTest.java",
         "patchSetId": 7
