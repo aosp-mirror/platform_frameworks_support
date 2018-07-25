@@ -16,6 +16,24 @@
       "revId": "a78f32f341e138897b52c0eab156eedd66a3e7ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "918e1c3e_dd9b8536",
+        "filename": "buildSrc/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-07-25T21:08:41Z",
+      "side": 0,
+      "message": "Hmm okay so I can see their compileOnly dependency on Jacoco and the recommendation to specify it on the buildscript classpath yourself.\n\nI will fix and add a comment.",
+      "parentUuid": "45e9bce7_b00f2a60",
+      "revId": "a78f32f341e138897b52c0eab156eedd66a3e7ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
