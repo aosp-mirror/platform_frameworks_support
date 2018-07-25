@@ -1,0 +1,7 @@
+Code-Review+2: Aurimas Liutikas <aurimas@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Tony Mak <tonymak@google.com>
+Submitted-at: Wed, 25 Jul 2018 19:20:54 +0000
+Reviewed-on: https://android-review.googlesource.com/721411
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
