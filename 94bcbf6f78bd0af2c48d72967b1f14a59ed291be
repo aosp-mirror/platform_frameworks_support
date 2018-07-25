@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5516c068_4f05a8ea",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-07-25T22:04:45Z",
+      "side": 1,
+      "message": "That might still be racy.  For example, what if you had the following behavior:\n\nt\u003d0, TaskExecutor enqueue starts\nt\u003d1, Worker thread work finishes (here) and there is no more work\n     Queue up a runnable to disable the component\nt\u003d2, TaskExecutor enqueue finishes and component is enabled\nt\u003d3, TaskExecutor disables component\n\nYou may want to make a runnable that checks the current state of the world to enable/disable the component instead.  That way you won\u0027t have race conditions.",
+      "parentUuid": "84e1a3f6_4e2eca1a",
+      "range": {
+        "startLine": 282,
+        "startChar": 20,
+        "endLine": 287,
+        "endChar": 21
+      },
+      "revId": "94bcbf6f78bd0af2c48d72967b1f14a59ed291be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1be9efa4_dfc38fab",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/EnqueueRunnable.java",
         "patchSetId": 2
