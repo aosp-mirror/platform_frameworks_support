@@ -22,6 +22,30 @@
       "revId": "e3dca5ed054c06438811cf4be3f61283a6e4f4b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc8fc484_df17f6fd",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-07-25T22:47:33Z",
+      "side": 1,
+      "message": "Ah I see, you\u0027re inside a transaction.  Never mind, I see your point.",
+      "parentUuid": "3c8f2142_c8e3b39d",
+      "range": {
+        "startLine": 280,
+        "startChar": 16,
+        "endLine": 281,
+        "endChar": 70
+      },
+      "revId": "e3dca5ed054c06438811cf4be3f61283a6e4f4b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
