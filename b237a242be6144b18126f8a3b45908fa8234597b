@@ -1,0 +1,8 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Filip Pavlis <pavlis@google.com>
+Verified+1: Louis Pullen-Freilich <lpf@google.com>
+Submitted-by: Louis Pullen-Freilich <lpf@google.com>
+Submitted-at: Wed, 25 Jul 2018 16:39:25 +0000
+Reviewed-on: https://android-review.googlesource.com/720970
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
