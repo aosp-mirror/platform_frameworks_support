@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d54e073f_1270a72d",
+        "filename": "buildSrc/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-25T22:27:10Z",
+      "side": 1,
+      "message": "We load AGP here. I am fairly certain that jacoco get initialized here since buildSrc and root project shares classpaths.",
+      "range": {
+        "startLine": 41,
+        "startChar": 3,
+        "endLine": 41,
+        "endChar": 29
+      },
+      "revId": "38f4c69ddc80e061c18d0dc00b0ae14ba6a92223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
