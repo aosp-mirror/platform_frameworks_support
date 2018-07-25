@@ -722,11 +722,11 @@ public class ContextCompat {
         static final HashMap<Class<?>, String> SERVICES = new HashMap<>();
 
         static {
-            if (Build.VERSION.SDK_INT > 22) {
+            if (Build.VERSION.SDK_INT >= 22) {
                 SERVICES.put(SubscriptionManager.class, TELEPHONY_SUBSCRIPTION_SERVICE);
                 SERVICES.put(UsageStatsManager.class, USAGE_STATS_SERVICE);
             }
-            if (Build.VERSION.SDK_INT > 21) {
+            if (Build.VERSION.SDK_INT >= 21) {
                 SERVICES.put(AppWidgetManager.class, APPWIDGET_SERVICE);
                 SERVICES.put(BatteryManager.class, BATTERY_SERVICE);
                 SERVICES.put(CameraManager.class, CAMERA_SERVICE);
@@ -738,20 +738,20 @@ public class ContextCompat {
                 SERVICES.put(TelecomManager.class, TELECOM_SERVICE);
                 SERVICES.put(TvInputManager.class, TV_INPUT_SERVICE);
             }
-            if (Build.VERSION.SDK_INT > 19) {
+            if (Build.VERSION.SDK_INT >= 19) {
                 SERVICES.put(AppOpsManager.class, APP_OPS_SERVICE);
                 SERVICES.put(CaptioningManager.class, CAPTIONING_SERVICE);
                 SERVICES.put(ConsumerIrManager.class, CONSUMER_IR_SERVICE);
                 SERVICES.put(PrintManager.class, PRINT_SERVICE);
             }
-            if (Build.VERSION.SDK_INT > 18) {
+            if (Build.VERSION.SDK_INT >= 18) {
                 SERVICES.put(BluetoothManager.class, BLUETOOTH_SERVICE);
             }
-            if (Build.VERSION.SDK_INT > 17) {
+            if (Build.VERSION.SDK_INT >= 17) {
                 SERVICES.put(DisplayManager.class, DISPLAY_SERVICE);
                 SERVICES.put(UserManager.class, USER_SERVICE);
             }
-            if (Build.VERSION.SDK_INT > 16) {
+            if (Build.VERSION.SDK_INT >= 16) {
                 SERVICES.put(InputManager.class, INPUT_SERVICE);
                 SERVICES.put(MediaRouter.class, MEDIA_ROUTER_SERVICE);
                 SERVICES.put(NsdManager.class, NSD_SERVICE);
