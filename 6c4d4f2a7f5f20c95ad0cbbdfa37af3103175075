@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8e578ea4_3746b6f4",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-07-25T05:43:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bbb0190_ffb458c6",
+      "range": {
+        "startLine": 434,
+        "startChar": 4,
+        "endLine": 434,
+        "endChar": 22
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30162d5b_32648db2",
         "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e3f8411_e31e3b37",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-07-25T05:43:35Z",
+      "side": 1,
+      "message": "The intention behind this separate logic is optimization for single-table observers. Most observers handle only one table, so we can reuse mSingleTableSet for the notifying parameter. We do the same in notifyByTableVersions as well.\nI\u0027m adding a comment to clarify that.",
+      "parentUuid": "30162d5b_32648db2",
+      "range": {
+        "startLine": 574,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 13
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7176287d_157c28ca",
+        "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-07-25T05:43:35Z",
+      "side": 1,
+      "message": "It\u0027s already there.",
+      "parentUuid": "c5db15da_cc64f9af",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f7436d1_07eb373c",
         "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationClient.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d26bbefa_1e8d9166",
+        "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-07-25T05:43:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f7436d1_07eb373c",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 46
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "f4a8f7f4_4e5d6ed6",
+        "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-07-25T05:43:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80ea25c8_0b362961",
+      "range": {
+        "startLine": 83,
+        "startChar": 20,
+        "endLine": 83,
+        "endChar": 77
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "907cf8cb_667a5506",
         "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationClient.java",
         "patchSetId": 2
@@ -137,6 +257,30 @@
       "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68012b48_83b0b5b1",
+        "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-07-25T05:43:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "907cf8cb_667a5506",
+      "range": {
+        "startLine": 114,
+        "startChar": 28,
+        "endLine": 114,
+        "endChar": 36
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "31df5257_0e0816ea",
+        "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-07-25T05:43:35Z",
+      "side": 1,
+      "message": "Done. It\u0027s nice the field can now be final.",
+      "parentUuid": "027019dd_30ab2633",
+      "range": {
+        "startLine": 115,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 60
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77ba31a7_c18b917e",
         "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationClient.java",
         "patchSetId": 2
@@ -183,6 +351,30 @@
       "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f24e5e0a_61280702",
+        "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-07-25T05:43:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77ba31a7_c18b917e",
+      "range": {
+        "startLine": 117,
+        "startChar": 46,
+        "endLine": 117,
+        "endChar": 64
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "0e723ebd_716d04f1",
+        "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-07-25T05:43:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e02c1ca9_771ca0b8",
+      "range": {
+        "startLine": 153,
+        "startChar": 16,
+        "endLine": 153,
+        "endChar": 24
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fed6e620_86f0a8a6",
         "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationService.java",
         "patchSetId": 2
@@ -229,6 +445,30 @@
       "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81d5b0fc_1e9076b2",
+        "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-07-25T05:43:35Z",
+      "side": 1,
+      "message": "Done.\nIt makes sense. An error in one of the callbacks should not block others.",
+      "parentUuid": "fed6e620_86f0a8a6",
+      "range": {
+        "startLine": 115,
+        "startChar": 32,
+        "endLine": 117,
+        "endChar": 64
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
