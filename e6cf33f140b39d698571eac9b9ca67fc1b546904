@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee805a4c_b1837a87",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1021471
+      },
+      "writtenOn": "2018-07-25T21:31:16Z",
+      "side": 1,
+      "message": "nit: not space-safe but i guess its unsupported (neither is splitting by the space on L100)",
+      "range": {
+        "startLine": 98,
+        "startChar": 54,
+        "endLine": 98,
+        "endChar": 75
+      },
+      "revId": "e6cf33f140b39d698571eac9b9ca67fc1b546904",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
