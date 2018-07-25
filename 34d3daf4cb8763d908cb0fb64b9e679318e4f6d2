@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c1e6439_f943c4a5",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_route_item.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-25T02:08:31Z",
+      "side": 1,
+      "message": "Specify scaleType just to make sure that icons are shown in full size.",
+      "range": {
+        "startLine": 30,
+        "startChar": 59,
+        "endLine": 32,
+        "endChar": 61
+      },
+      "revId": "34d3daf4cb8763d908cb0fb64b9e679318e4f6d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
