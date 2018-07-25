@@ -142,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "706e8c8a_b78d8d43",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-07-25T16:23:56Z",
+      "side": 1,
+      "message": "That\u0027s a better result than I had expected, but these VFY warnings should be avoided where possible since they will incur a performance hit during initialization. Class verification includes all method signatures, so you\u0027d normally want to return Object and rely on the developer to manually cast -- not ideal UX, but it conforms to what Dalvik expects.\n\nAnd since we\u0027re here... what is the use case for this method? Generally we don\u0027t want to expose an identically-named platform class from an AndroidX class (see \"Wrapper\" and \"Standalone\" requirements at go/androidx-api-guidelines).",
+      "parentUuid": "3788b05c_1aa89cd3",
+      "range": {
+        "startLine": 276,
+        "startChar": 0,
+        "endLine": 276,
+        "endChar": 63
+      },
+      "revId": "334684fd824e7388a11d9205bf257a0b4a005190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52d3596c_da156de2",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 2
