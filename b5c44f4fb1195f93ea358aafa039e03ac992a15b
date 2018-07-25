@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "6f398f1b_5997a705",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-07-25T11:28:47Z",
+      "side": 1,
+      "message": "Is it OK not to guard this values with a lock?",
+      "range": {
+        "startLine": 306,
+        "startChar": 0,
+        "endLine": 307,
+        "endChar": 27
+      },
+      "revId": "b5c44f4fb1195f93ea358aafa039e03ac992a15b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "162ca723_60c3ca71",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1406,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-07-25T11:28:47Z",
+      "side": 1,
+      "message": "You don\u0027t need to check this.",
+      "range": {
+        "startLine": 1406,
+        "startChar": 17,
+        "endLine": 1406,
+        "endChar": 66
+      },
+      "revId": "b5c44f4fb1195f93ea358aafa039e03ac992a15b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6748f57_45c4b01a",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2198,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-07-25T11:28:47Z",
+      "side": 1,
+      "message": "I\u0027m fine with current state, but just FYI, you can do follows as well:\n1)\nif (mNextSeekPosition !\u003d SEEK_POSITION_NOT_SET) {\n    return mNextSeekPosition;\n} else if (mCurrentSeekPosition !\u003d SEEK_POSITION_NOT_SET) {\n    return mCurrentSeekPosition;\n}\nreturn getCurrentPosition();\n\n2)\nreturn (mNextSeekPosition !\u003d SEEK_POSITION_NOT_SET) ? mNextSeekPosition\n        : (mCurrentSeekPosition !\u003d SEEK_POSITION_NOT_SET) ? mCurrentSeekPosition\n        : getCurrentPosition();",
+      "range": {
+        "startLine": 2190,
+        "startChar": 0,
+        "endLine": 2198,
+        "endChar": 34
+      },
+      "revId": "b5c44f4fb1195f93ea358aafa039e03ac992a15b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "10bf6348_f08201c0",
         "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
         "patchSetId": 3
