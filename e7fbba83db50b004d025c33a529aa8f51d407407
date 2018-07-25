@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "81e328e2_7dafca74",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-25T13:16:50Z",
+      "side": 1,
+      "message": "I will hide it for now.",
+      "parentUuid": "69ffd65e_40fb5b11",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 33
+      },
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7048611f_b3d2e6ae",
         "filename": "textclassifier/api/1.0.0.txt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b43459b_296886da",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-25T13:16:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7048611f_b3d2e6ae",
+      "range": {
+        "startLine": 65,
+        "startChar": 35,
+        "endLine": 65,
+        "endChar": 44
+      },
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3afa87a9_3f4228ea",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-25T13:16:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e8afdde_fd4f690e",
+      "range": {
+        "startLine": 78,
+        "startChar": 69,
+        "endLine": 78,
+        "endChar": 76
+      },
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3299849_e71fe9b4",
         "filename": "textclassifier/api/1.0.0.txt",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f14a7a9_b724698d",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-25T13:16:50Z",
+      "side": 1,
+      "message": "mmm, a lot of service Manager classes do not have \"final\" :)\nhttps://cs.corp.google.com/search/?q\u003d%22public+class%22++f:Manager.java+file:%5Eframeworks/base/core/java/+package:%5Eandroid$\u0026m\u003d100\u0026type\u003dcs\n\nAnyway, let\u0027s final it. In theory, app can use setTCFactory for testing purpose to force TCM to return a mock TC.\n\nThanks.",
+      "parentUuid": "b3299849_e71fe9b4",
+      "range": {
+        "startLine": 112,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 14
+      },
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -129,6 +225,24 @@
     },
     {
       "key": {
+        "uuid": "3004b34b_baeccd21",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-25T13:16:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77bae495_8487166d",
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21209f3a_a8105747",
         "filename": "textclassifier/api/1.0.0.txt",
         "patchSetId": 1
@@ -140,6 +254,30 @@
       "writtenOn": "2018-07-24T13:34:06Z",
       "side": 1,
       "message": "Do we need this to be public?",
+      "range": {
+        "startLine": 188,
+        "startChar": 22,
+        "endLine": 188,
+        "endChar": 27
+      },
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "961927f5_b8700bd9",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-25T13:16:50Z",
+      "side": 1,
+      "message": "mmm, if we believe developers will just use the SmartLinkify API, let\u0027s hide it for now?",
+      "parentUuid": "21209f3a_a8105747",
       "range": {
         "startLine": 188,
         "startChar": 22,
@@ -175,6 +313,30 @@
     },
     {
       "key": {
+        "uuid": "e096d512_71837b92",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-25T13:16:50Z",
+      "side": 1,
+      "message": "Could you explain why you want to have this? I don\u0027t have the enough context :)",
+      "parentUuid": "350f7ea8_9356524b",
+      "range": {
+        "startLine": 205,
+        "startChar": 60,
+        "endLine": 205,
+        "endChar": 76
+      },
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "40885e64_81c54b4a",
         "filename": "textclassifier/api/1.0.0.txt",
         "patchSetId": 1
@@ -195,6 +357,47 @@
       "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a3aaaf9_e54053e3",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-25T13:16:50Z",
+      "side": 1,
+      "message": "If we believe devs will just use the SmartLinkify API, we probably don\u0027t need any method here?\nThough I think expose those getter methods here will at least help them to write tests.\n\nWDYT?",
+      "parentUuid": "40885e64_81c54b4a",
+      "range": {
+        "startLine": 239,
+        "startChar": 2,
+        "endLine": 240,
+        "endChar": 3
+      },
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ba9583e_621ac3fc",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-25T13:16:50Z",
+      "side": 1,
+      "message": "FYI, I am going to hide this as SpanFactory is @hide now.",
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
