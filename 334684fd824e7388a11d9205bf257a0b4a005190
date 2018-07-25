@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d366c3fb_5a929b29",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SelectionEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-07-25T14:37:08Z",
+      "side": 1,
+      "message": "Consider using VersionedParcelable (go/versioned-parcelable) rather than Bundle if you need serialization for IPC.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 33
+      },
+      "revId": "334684fd824e7388a11d9205bf257a0b4a005190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cb184ca_5f32e111",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-07-25T14:37:08Z",
+      "side": 1,
+      "message": "Must be paired with @RestrictTo to have any effect. We have presubmit checks that should have caught this -- are you submitting with --no-verify?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 8
+      },
+      "revId": "334684fd824e7388a11d9205bf257a0b4a005190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dec7ad4e_58b6d813",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-07-25T14:37:08Z",
+      "side": 1,
+      "message": "Please file a bug against Lint to have this fixed, if possible.",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 99
+      },
+      "revId": "334684fd824e7388a11d9205bf257a0b4a005190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "527787dd_5172e337",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-07-25T14:37:08Z",
+      "side": 1,
+      "message": "I am pretty sure this method will cause the class to fail verification on SDK \u003c 28. Have you test this library on SDK \u003c 28 devices?",
+      "range": {
+        "startLine": 276,
+        "startChar": 0,
+        "endLine": 276,
+        "endChar": 63
+      },
+      "revId": "334684fd824e7388a11d9205bf257a0b4a005190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52d3596c_da156de2",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-07-25T14:37:08Z",
+      "side": 1,
+      "message": "@RestrictTo",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 12
+      },
+      "revId": "334684fd824e7388a11d9205bf257a0b4a005190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfa0fcef_dcd7f75c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinksParams.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-07-25T14:37:08Z",
+      "side": 1,
+      "message": "@RestrictTo",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 16
+      },
+      "revId": "334684fd824e7388a11d9205bf257a0b4a005190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
