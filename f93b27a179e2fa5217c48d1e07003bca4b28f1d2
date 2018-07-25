@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb2d9827_754e77e4",
+        "filename": "media/src/main/java/android/support/v4/media/MediaBrowserCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-07-25T12:25:23Z",
+      "side": 1,
+      "message": "According to ServiceConnection.onServiceDisconnected(),\nhttps://developer.android.com/reference/android/content/ServiceConnection.html#onServiceDisconnected(android.content.ComponentName)\nit looks this method could be called again if the connected MediaBrowserService is reactivated.\nPlease double check.",
+      "range": {
+        "startLine": 632,
+        "startChar": 11,
+        "endLine": 633,
+        "endChar": 21
+      },
+      "revId": "f93b27a179e2fa5217c48d1e07003bca4b28f1d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce43d065_da25c99f",
+        "filename": "media/src/main/java/android/support/v4/media/MediaBrowserCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-07-25T12:25:23Z",
+      "side": 1,
+      "message": "You might want to refer ServiceConnection.onServiceDisconnected().\nhttps://developer.android.com/reference/android/content/ServiceConnection.html#onServiceDisconnected(android.content.ComponentName)",
+      "revId": "f93b27a179e2fa5217c48d1e07003bca4b28f1d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
