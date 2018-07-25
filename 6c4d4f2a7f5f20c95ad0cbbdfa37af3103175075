@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "e05972d5_383bf799",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-25T16:05:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2e3f8411_e31e3b37",
+      "range": {
+        "startLine": 574,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 13
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5db15da_cc64f9af",
         "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationClient.java",
         "patchSetId": 2
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "It\u0027s already there.",
       "parentUuid": "c5db15da_cc64f9af",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "6c4d4f2a7f5f20c95ad0cbbdfa37af3103175075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e8c7841_16021d26",
+        "filename": "room/runtime/src/main/java/androidx/room/MultiInstanceInvalidationClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-25T16:05:10Z",
+      "side": 1,
+      "message": "Ups, did not notice it at all. Thx",
+      "parentUuid": "7176287d_157c28ca",
       "range": {
         "startLine": 45,
         "startChar": 4,
