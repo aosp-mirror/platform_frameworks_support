@@ -636,13 +636,15 @@ public final class MediaBrowserCompat {
         }
 
         /**
-         * Invoked when the client is disconnected from the media browser.
+         * Invoked when the service is crashed or killed.
          */
         public void onConnectionSuspended() {
         }
 
         /**
-         * Invoked when the connection to the media browser failed.
+         * Invoked when the connection to the media browser service failed.
+         * Connection failures can happen when the browser failed to bind to the service,
+         * or when it is rejected from the service.
          */
         public void onConnectionFailed() {
         }
