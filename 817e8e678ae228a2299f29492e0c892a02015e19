@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "357c8320_131d3e6f",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-07-25T07:02:00Z",
+      "side": 1,
+      "message": "This change reflects the comments in the following slide (https://docs.google.com/presentation/d/1-dQh5iOVnucxMmsaN7D4PKQ4ndQeKHUKdcLkMj6Faks/edit#slide\u003did.g3887e0165c_1_41)\n\nFor light theme, the metadata view will have a dark background and white colored text by default.",
+      "range": {
+        "startLine": 93,
+        "startChar": 21,
+        "endLine": 93,
+        "endChar": 51
+      },
+      "revId": "817e8e678ae228a2299f29492e0c892a02015e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
