@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c817b257_a59547f8",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-07-25T21:18:09Z",
+      "side": 1,
+      "message": "why so complicated?\n\nI think this should work the same?\n val offline \u003d if (offlineOverride !\u003d null) {\n   offlineOverride \u003d\u003d \"true\"\n } else {\n   it.offline\n }",
+      "range": {
+        "startLine": 116,
+        "startChar": 10,
+        "endLine": 122,
+        "endChar": 0
+      },
+      "revId": "fb2a6ff3993898ea42ff9aba4dd8476285a981a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
