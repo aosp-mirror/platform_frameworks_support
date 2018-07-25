@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "336a5443_d3acce2e",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/RemoteMediaController2Service.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-25T14:05:34Z",
+      "side": 1,
+      "message": "Question) In MediaSession2Stub, we don\u0027t have \u003cRating2\u003e (see: http://shortn/_DRDG7fRCnZ)\n        final Rating2 rating2 \u003d ParcelUtils.fromParcelable(rating);\n\nIs there any difference? Or is it OK anyway?",
+      "range": {
+        "startLine": 327,
+        "startChar": 43,
+        "endLine": 327,
+        "endChar": 87
+      },
+      "revId": "e3f04902eec385747a1dde832c843e8389b68b81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e00bccaa_adde08c1",
+        "filename": "media2/src/main/java/androidx/media2/Rating2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-25T14:05:34Z",
+      "side": 1,
+      "message": "question) why it\u0027s not abstract class? do we have a use case for instantiating it? is it versioned parcelable requirement?",
+      "range": {
+        "startLine": 28,
+        "startChar": 7,
+        "endLine": 28,
+        "endChar": 20
+      },
+      "revId": "e3f04902eec385747a1dde832c843e8389b68b81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a611aabf_a8e5aecd",
+        "filename": "media2/src/main/java/androidx/media2/Rating2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-25T14:05:34Z",
+      "side": 1,
+      "message": "question) why do we have float value here? HeartRating2, for example, is sufficient with a Boolean (null for unrated), and not sure whether it\u0027s our intended behavior.",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 22
+      },
+      "revId": "e3f04902eec385747a1dde832c843e8389b68b81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
