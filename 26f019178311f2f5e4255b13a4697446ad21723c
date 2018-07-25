@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6f5a6bea_ac11e67b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-07-25T16:33:07Z",
+      "side": 1,
+      "message": "why should we update comment, this method does all listed things? \n\n//I agree on division, but I don\u0027t want to do it in this CL.",
+      "parentUuid": "28864ced_486f2119",
+      "range": {
+        "startLine": 258,
+        "startChar": 4,
+        "endLine": 261,
+        "endChar": 7
+      },
+      "revId": "26f019178311f2f5e4255b13a4697446ad21723c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c7b5865f_270b8ede",
         "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-25T02:41:48Z",
       "side": 1,
       "message": "why do we need a separate ignore for those ? they wouldn\u0027t be publish \u003d true.",
+      "range": {
+        "startLine": 63,
+        "startChar": 3,
+        "endLine": 63,
+        "endChar": 64
+      },
+      "revId": "26f019178311f2f5e4255b13a4697446ad21723c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47e2cfcd_1e88065b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-07-25T16:33:07Z",
+      "side": 1,
+      "message": "Currently, those rules don\u0027t account for publish flags, I can revisit that, but in separate CL",
+      "parentUuid": "c7b5865f_270b8ede",
       "range": {
         "startLine": 63,
         "startChar": 3,
