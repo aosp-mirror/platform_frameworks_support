@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d4d79f5_017ca5b8",
+        "filename": "media2/src/main/java/androidx/media2/SessionCommandGroup2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-25T02:45:49Z",
+      "side": 1,
+      "message": "Note) ArraySet is better for small data. HashSet is implemented by the HashMap with the same values for all keys.",
+      "revId": "ccf1863032a09f4973a8e48cee210f959e282cb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
