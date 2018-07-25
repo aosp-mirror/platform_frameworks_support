@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c8f2142_c8e3b39d",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-07-25T22:42:00Z",
+      "side": 1,
+      "message": "Again, you have two different threads enabling/disabling the receivers, which means they can trample all over each other.  You need to have these happen on the same thread/synchronize them somehow.  You have WorkerWrapper and EnqueueRunnable\u0027s threads both doing this - what if they are running simultaneously?",
+      "range": {
+        "startLine": 280,
+        "startChar": 16,
+        "endLine": 281,
+        "endChar": 70
+      },
+      "revId": "e3dca5ed054c06438811cf4be3f61283a6e4f4b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
