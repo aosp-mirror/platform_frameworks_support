@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "929d9fa5_68753bda",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaSessionManager2Test.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-25T02:01:52Z",
+      "side": 1,
+      "message": "P for now?",
+      "range": {
+        "startLine": 39,
+        "startChar": 49,
+        "endLine": 39,
+        "endChar": 59
+      },
+      "revId": "9116208e633aab40616b3a4effc00df05f908b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36dd05c3_dff9ee0c",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionManager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-25T02:01:52Z",
+      "side": 1,
+      "message": "\u003e \u003e null check\n\n\u003e done\n\nNot done",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 94
+      },
+      "revId": "9116208e633aab40616b3a4effc00df05f908b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8974e09f_05742c37",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionManager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-25T02:01:52Z",
+      "side": 1,
+      "message": "Question) Should we update this here? What about L80?",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 74
+      },
+      "revId": "9116208e633aab40616b3a4effc00df05f908b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2c2ce59a_acc8583f",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionManager2.java",
         "patchSetId": 1
@@ -18,6 +87,29 @@
         "startChar": 11,
         "endLine": 117,
         "endChar": 30
+      },
+      "revId": "9116208e633aab40616b3a4effc00df05f908b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6f6b2ac_b449c3ce",
+        "filename": "media2/src/main/java/androidx/media2/SessionToken2ImplLegacy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-25T02:01:52Z",
+      "side": 1,
+      "message": "\u003e \u003e Please revert this. Here\u0027s the reason.\n\u003e \u003e Hash codes should be the same for two objects if they equal.\nHowever, equals() only checks mLegacyToken and mComponentName,\nand there may be two tokens with the same tokens but different other fields.\nWe\u0027d better to keep as-is.\n\u003e \u003e Hash code is only used for hash related data bases, so only considering legacy token wouldn\u0027t cause huge issue here.\n\n\u003e Done\n\nNot done here.",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 100,
+        "endChar": 0
       },
       "revId": "9116208e633aab40616b3a4effc00df05f908b0b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
