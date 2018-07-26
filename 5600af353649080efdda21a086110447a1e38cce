@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "443a466d_6039a96e",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-26T14:59:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e514cf19_f8835285",
+      "range": {
+        "startLine": 106,
+        "startChar": 11,
+        "endLine": 106,
+        "endChar": 17
+      },
+      "revId": "5600af353649080efdda21a086110447a1e38cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6031ea32_3c67374b",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
         "patchSetId": 3
