@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "718cb971_294768dc",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-07-26T20:18:24Z",
+      "side": 1,
+      "message": "maven group names and project names are guaranteed not to have spaces",
+      "parentUuid": "ee805a4c_b1837a87",
+      "range": {
+        "startLine": 98,
+        "startChar": 54,
+        "endLine": 98,
+        "endChar": 75
+      },
+      "revId": "e6cf33f140b39d698571eac9b9ca67fc1b546904",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a55555df_cc5cd84c",
         "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2018-07-25T21:33:08Z",
       "side": 1,
       "message": "also obligatory obvious statement:\n\nI don\u0027t know if this does it already, but the app needs to be restarted after recompile, if it stills running then it will use the old code",
+      "revId": "e6cf33f140b39d698571eac9b9ca67fc1b546904",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a0d25f5_742f65b3",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-07-26T20:18:24Z",
+      "side": 1,
+      "message": "App is just being installed for the first time, so it\u0027s not running.\n\nWhen running from gradle, it uninstalls the app after each test run :P",
+      "parentUuid": "a55555df_cc5cd84c",
       "revId": "e6cf33f140b39d698571eac9b9ca67fc1b546904",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
