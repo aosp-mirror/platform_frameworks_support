@@ -85,6 +85,29 @@
       "revId": "af50521edc458b5ee1252f6f9d10e1230edac4aa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8d8d8a6_9b3542cd",
+        "filename": "recyclerview/benchmark/src/androidTest/java/androidx/recyclerview/benchmark/ScrollBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-07-26T16:53:49Z",
+      "side": 1,
+      "message": "Just curious, does it make sense to isolate RV from inflation and to benchmark inflation separately?  I suppose this is the common case but it seems that inflation performance would muddy the data related to RV inflation.",
+      "range": {
+        "startLine": 102,
+        "startChar": 26,
+        "endLine": 103,
+        "endChar": 50
+      },
+      "revId": "af50521edc458b5ee1252f6f9d10e1230edac4aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
