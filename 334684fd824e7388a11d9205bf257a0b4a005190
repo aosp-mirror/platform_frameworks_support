@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f3c471cf_c97177fd",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SelectionEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-26T14:11:28Z",
+      "side": 1,
+      "message": "Mind if I fix this in a separate CL? \n\nFiled b/111869699 to track.\n\nThanks.",
+      "parentUuid": "d366c3fb_5a929b29",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 33
+      },
+      "revId": "334684fd824e7388a11d9205bf257a0b4a005190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4cb184ca_5f32e111",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
         "patchSetId": 2
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "006679ae_d2536523",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-26T14:11:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87273ee3_d1b91e46",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 8
+      },
+      "revId": "334684fd824e7388a11d9205bf257a0b4a005190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dec7ad4e_58b6d813",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
         "patchSetId": 2
@@ -92,6 +140,30 @@
       "revId": "334684fd824e7388a11d9205bf257a0b4a005190",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f727a7b8_27f68376",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-26T14:11:28Z",
+      "side": 1,
+      "message": "b/111871774, thanks.",
+      "parentUuid": "dec7ad4e_58b6d813",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 99
+      },
+      "revId": "334684fd824e7388a11d9205bf257a0b4a005190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -214,6 +286,30 @@
     },
     {
       "key": {
+        "uuid": "e455f208_cb3bfef0",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-26T14:11:28Z",
+      "side": 1,
+      "message": "Re the return type of the function, if you don\u0027t mind, I will do it in a separate CL.\nFiled b/111869658 to track.\n\n(These methods are @hide, so it won\u0027t affect the API surface)",
+      "parentUuid": "90911c47_23c4f250",
+      "range": {
+        "startLine": 276,
+        "startChar": 0,
+        "endLine": 276,
+        "endChar": 63
+      },
+      "revId": "334684fd824e7388a11d9205bf257a0b4a005190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52d3596c_da156de2",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 2
@@ -237,6 +333,30 @@
     },
     {
       "key": {
+        "uuid": "805fb80b_7a5faf66",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-26T14:11:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52d3596c_da156de2",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 12
+      },
+      "revId": "334684fd824e7388a11d9205bf257a0b4a005190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cfa0fcef_dcd7f75c",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinksParams.java",
         "patchSetId": 2
@@ -257,6 +377,30 @@
       "revId": "334684fd824e7388a11d9205bf257a0b4a005190",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a4e4ea7_1be3ee7c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinksParams.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-26T14:11:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfa0fcef_dcd7f75c",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 16
+      },
+      "revId": "334684fd824e7388a11d9205bf257a0b4a005190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
