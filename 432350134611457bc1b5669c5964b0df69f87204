@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2887be9e_7b0ab037",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/SmartLinkifyTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-26T13:28:10Z",
+      "side": 1,
+      "message": "nit: assertTrue(\"BlockingCallback timed out\", throwIfIncomplete \u0026\u0026 !complete);",
+      "revId": "432350134611457bc1b5669c5964b0df69f87204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f83ff64_5adac305",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/SmartLinkifyTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-26T13:28:10Z",
+      "side": 1,
+      "message": "nit: I will probably just let the exception propagate.",
+      "revId": "432350134611457bc1b5669c5964b0df69f87204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
