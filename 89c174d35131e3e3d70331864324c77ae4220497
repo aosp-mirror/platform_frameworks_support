@@ -22,6 +22,30 @@
       "revId": "89c174d35131e3e3d70331864324c77ae4220497",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80be94b4_f42b91cc",
+        "filename": "sparklers/src/androidTest/java/androidx/sparklers/SparklersTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-07-26T14:20:24Z",
+      "side": 1,
+      "message": "Ack, will do in followup.",
+      "parentUuid": "a6399b03_19e866ab",
+      "range": {
+        "startLine": 43,
+        "startChar": 16,
+        "endLine": 43,
+        "endChar": 33
+      },
+      "revId": "89c174d35131e3e3d70331864324c77ae4220497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
