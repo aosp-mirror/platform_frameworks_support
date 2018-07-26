@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "90911c47_23c4f250",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-07-26T13:22:06Z",
+      "side": 1,
+      "message": "SGTM\n\nPackage is fine, following AndroidX convention over platform is preferred.",
+      "parentUuid": "e1a2c561_b671394c",
+      "range": {
+        "startLine": 276,
+        "startChar": 0,
+        "endLine": 276,
+        "endChar": 63
+      },
+      "revId": "334684fd824e7388a11d9205bf257a0b4a005190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52d3596c_da156de2",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 2
