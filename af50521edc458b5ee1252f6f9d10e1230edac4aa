@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1f415fdf_48039049",
+        "filename": "recyclerview/benchmark/src/androidTest/java/androidx/recyclerview/benchmark/ScrollBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-07-26T17:42:33Z",
+      "side": 1,
+      "message": "Adapter is stateful, so we recreate it each time.\n\nAdded comment",
+      "parentUuid": "844488be_115fa4bc",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "af50521edc458b5ee1252f6f9d10e1230edac4aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "19ab874f_5943dcfd",
         "filename": "recyclerview/benchmark/src/androidTest/java/androidx/recyclerview/benchmark/ScrollBenchmark.kt",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2018-07-26T16:17:45Z",
       "side": 1,
       "message": "comment why the initial 50?",
+      "revId": "af50521edc458b5ee1252f6f9d10e1230edac4aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a6a2e24_e7d69ae7",
+        "filename": "recyclerview/benchmark/src/androidTest/java/androidx/recyclerview/benchmark/ScrollBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-07-26T17:42:33Z",
+      "side": 1,
+      "message": "added comment",
+      "parentUuid": "19ab874f_5943dcfd",
       "revId": "af50521edc458b5ee1252f6f9d10e1230edac4aa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "a8cfd98d_3f488eca",
+        "filename": "recyclerview/benchmark/src/androidTest/java/androidx/recyclerview/benchmark/ScrollBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-07-26T17:42:33Z",
+      "side": 1,
+      "message": "Renamed",
+      "parentUuid": "8fd331d1_3fea2830",
+      "range": {
+        "startLine": 96,
+        "startChar": 14,
+        "endLine": 96,
+        "endChar": 24
+      },
+      "revId": "af50521edc458b5ee1252f6f9d10e1230edac4aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "831f9d74_063d4984",
         "filename": "recyclerview/benchmark/src/androidTest/java/androidx/recyclerview/benchmark/ScrollBenchmark.kt",
         "patchSetId": 1
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "e86554b2_6239b679",
+        "filename": "recyclerview/benchmark/src/androidTest/java/androidx/recyclerview/benchmark/ScrollBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-07-26T17:42:33Z",
+      "side": 1,
+      "message": "Renamed",
+      "parentUuid": "831f9d74_063d4984",
+      "range": {
+        "startLine": 98,
+        "startChar": 14,
+        "endLine": 98,
+        "endChar": 21
+      },
+      "revId": "af50521edc458b5ee1252f6f9d10e1230edac4aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8d8d8a6_9b3542cd",
         "filename": "recyclerview/benchmark/src/androidTest/java/androidx/recyclerview/benchmark/ScrollBenchmark.kt",
         "patchSetId": 1
@@ -99,6 +189,30 @@
       "writtenOn": "2018-07-26T16:53:49Z",
       "side": 1,
       "message": "Just curious, does it make sense to isolate RV from inflation and to benchmark inflation separately?  I suppose this is the common case but it seems that inflation performance would muddy the data related to RV inflation.",
+      "range": {
+        "startLine": 102,
+        "startChar": 26,
+        "endLine": 103,
+        "endChar": 50
+      },
+      "revId": "af50521edc458b5ee1252f6f9d10e1230edac4aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e173b72d_27b2b6bd",
+        "filename": "recyclerview/benchmark/src/androidTest/java/androidx/recyclerview/benchmark/ScrollBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-07-26T17:42:33Z",
+      "side": 1,
+      "message": "While I\u0027d like to have both tests, for now I\u0027m prioritizing more \u0027realistic\u0027 benchmarks. Since RV\u0027s part of creation basically can\u0027t happen without inflation/constructor, I\u0027d rather test it all together to be more accurate to real memory access patterns.\n\nAdded variants - both regular inflation, and in code w/ constructor.",
+      "parentUuid": "c8d8d8a6_9b3542cd",
       "range": {
         "startLine": 102,
         "startChar": 26,
