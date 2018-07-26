@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3c029876_2ecb1a47",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/RemoteMediaController2Service.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-07-26T02:10:49Z",
+      "side": 1,
+      "message": "In order to address following compile error:\nincompatible types: VersionedParcelable cannot be converted to Rating2\ncontroller2.setRating(mediaId, ParcelUtils.fromParcelable(rating));",
+      "parentUuid": "336a5443_d3acce2e",
+      "range": {
+        "startLine": 327,
+        "startChar": 43,
+        "endLine": 327,
+        "endChar": 87
+      },
+      "revId": "e3f04902eec385747a1dde832c843e8389b68b81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e00bccaa_adde08c1",
         "filename": "media2/src/main/java/androidx/media2/Rating2.java",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "6b0c5552_e91e0ac7",
+        "filename": "media2/src/main/java/androidx/media2/Rating2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-07-26T02:10:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e00bccaa_adde08c1",
+      "range": {
+        "startLine": 28,
+        "startChar": 7,
+        "endLine": 28,
+        "endChar": 20
+      },
+      "revId": "e3f04902eec385747a1dde832c843e8389b68b81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a611aabf_a8e5aecd",
         "filename": "media2/src/main/java/androidx/media2/Rating2.java",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "e3f04902eec385747a1dde832c843e8389b68b81",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aedcc9c1_572876ee",
+        "filename": "media2/src/main/java/androidx/media2/Rating2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-07-26T02:10:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a611aabf_a8e5aecd",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 22
+      },
+      "revId": "e3f04902eec385747a1dde832c843e8389b68b81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
