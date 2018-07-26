@@ -22,6 +22,30 @@
       "revId": "2dc998ec4d643725521c3f58a8be52069b34b4e1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3ebaa18_b67218f5",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-07-26T21:20:57Z",
+      "side": 1,
+      "message": "talked with Jake, he said to leave it here for now since we use the supportLibraryExtension",
+      "parentUuid": "faaa2c3d_69790d34",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 51
+      },
+      "revId": "2dc998ec4d643725521c3f58a8be52069b34b4e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
