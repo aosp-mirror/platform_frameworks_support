@@ -222,6 +222,30 @@
       "revId": "af50521edc458b5ee1252f6f9d10e1230edac4aa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33b950c3_64b8f9bd",
+        "filename": "recyclerview/benchmark/src/androidTest/java/androidx/recyclerview/benchmark/ScrollBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-07-26T19:52:02Z",
+      "side": 1,
+      "message": "Cool, sounds good!",
+      "parentUuid": "e173b72d_27b2b6bd",
+      "range": {
+        "startLine": 102,
+        "startChar": 26,
+        "endLine": 103,
+        "endChar": 50
+      },
+      "revId": "af50521edc458b5ee1252f6f9d10e1230edac4aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
