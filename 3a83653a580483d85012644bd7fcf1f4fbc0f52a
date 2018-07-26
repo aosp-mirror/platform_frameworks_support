@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dec02302_1a5091f6",
+        "filename": "media2/src/main/java/androidx/media2/Rating2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-26T06:48:23Z",
+      "side": 1,
+      "message": "\u0027rating value is available\u0027\n\nnegative rating value cannot be applied to heart/thumb rating",
+      "range": {
+        "startLine": 27,
+        "startChar": 35,
+        "endLine": 27,
+        "endChar": 88
+      },
+      "revId": "3a83653a580483d85012644bd7fcf1f4fbc0f52a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
