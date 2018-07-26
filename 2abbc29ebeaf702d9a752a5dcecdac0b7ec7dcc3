@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c8c5420_0a341f4c",
+        "filename": "biometric/src/main/java/androidx/biometrics/BiometricPrompt.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-07-26T13:19:38Z",
+      "side": 1,
+      "message": "remove s, IntDef names shouldn\u0027t be plural since they indicate a type",
+      "range": {
+        "startLine": 76,
+        "startChar": 29,
+        "endLine": 76,
+        "endChar": 30
+      },
+      "revId": "2abbc29ebeaf702d9a752a5dcecdac0b7ec7dcc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
