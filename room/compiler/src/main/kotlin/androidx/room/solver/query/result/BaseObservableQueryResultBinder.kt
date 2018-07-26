@@ -19,6 +19,7 @@ package androidx.room.solver.query.result
 import androidx.room.ext.AndroidTypeNames
 import androidx.room.ext.L
 import androidx.room.ext.N
+import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.T
 import androidx.room.solver.CodeGenScope
 import androidx.room.writer.DaoWriter
@@ -41,34 +42,64 @@ abstract class BaseObservableQueryResultBinder(adapter: QueryResultAdapter?)
         }.build()
     }
 
-    protected fun createRunQueryAndReturnStatements(builder: MethodSpec.Builder,
-                                                    roomSQLiteQueryVar: String,
-                                                    dbField: FieldSpec,
-                                                    inTransaction: Boolean,
-                                                    scope: CodeGenScope) {
+    protected fun createRunQueryAndReturnStatements(
+        builder: MethodSpec.Builder,
+        roomSQLiteQueryVar: String,
+        dbField: FieldSpec,
+        inTransaction: Boolean,
+        scope: CodeGenScope
+    ) {
         val transactionWrapper = if (inTransaction) {
             builder.transactionWrapper(dbField)
         } else {
             null
         }
+        val shouldCopyCursor = adapter?.shouldCopyCursor() == true
         val outVar = scope.getTmpVar("_result")
         val cursorVar = scope.getTmpVar("_cursor")
+        val cursorCopyVar = scope.getTmpVar("_cursorCopy")
         transactionWrapper?.beginTransactionWithControlFlow()
         builder.apply {
+            if (shouldCopyCursor) {
+                addStatement("final $T $L", AndroidTypeNames.CURSOR, cursorCopyVar)
+            }
             addStatement("final $T $L = $N.query($L)", AndroidTypeNames.CURSOR, cursorVar,
                     DaoWriter.dbField, roomSQLiteQueryVar)
             beginControlFlow("try").apply {
-                val adapterScope = scope.fork()
-                adapter?.convert(outVar, cursorVar, adapterScope)
-                addCode(adapterScope.builder().build())
-                transactionWrapper?.commitTransaction()
-                addStatement("return $L", outVar)
+                if (shouldCopyCursor) {
+                    addStatement("$L = $T.copy($L)",
+                            cursorCopyVar, RoomTypeNames.CURSOR_UTIL, cursorVar)
+                } else {
+                    writeConvert(outVar, cursorVar, transactionWrapper, scope)
+                }
             }
             nextControlFlow("finally").apply {
                 addStatement("$L.close()", cursorVar)
             }
             endControlFlow()
+            if (shouldCopyCursor) {
+                beginControlFlow("try").apply {
+                    writeConvert(outVar, cursorCopyVar, transactionWrapper, scope)
+                }
+                nextControlFlow("finally").apply {
+                    addStatement("$L.close()", cursorCopyVar)
+                }
+                endControlFlow()
+            }
         }
         transactionWrapper?.endTransactionWithControlFlow()
+    }
+
+    private fun MethodSpec.Builder.writeConvert(
+        outVar: String,
+        cursorVar: String,
+        transactionWrapper: TransactionWrapper?,
+        scope: CodeGenScope
+    ) {
+        val adapterScope = scope.fork()
+        adapter?.convert(outVar, cursorVar, adapterScope)
+        addCode(adapterScope.builder().build())
+        transactionWrapper?.commitTransaction()
+        addStatement("return $L", outVar)
     }
 }

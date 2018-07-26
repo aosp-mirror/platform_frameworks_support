@@ -23,8 +23,11 @@ import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.S
 import androidx.room.ext.T
 import androidx.room.solver.CodeGenScope
+import androidx.room.solver.query.result.PojoRowAdapter
+import androidx.room.vo.Relation
 import androidx.room.vo.RelationCollector
 import com.squareup.javapoet.ClassName
+import com.squareup.javapoet.CodeBlock
 import com.squareup.javapoet.MethodSpec
 import com.squareup.javapoet.ParameterSpec
 import com.squareup.javapoet.ParameterizedTypeName
@@ -115,42 +118,50 @@ class RelationCollectorMethodWriter(private val collector: RelationCollector)
             addStatement("final $T $L = $N.query($L)", AndroidTypeNames.CURSOR, cursorVar,
                     DaoWriter.dbField, stmtVar)
 
+            addStatement("final $T $L = $L.getColumnIndex($S)",
+                    TypeName.INT, itemKeyIndexVar, cursorVar, relation.entityField.columnName)
+            beginControlFlow("if ($L == -1)", itemKeyIndexVar).apply {
+                addStatement("return")
+            }
+            endControlFlow()
+
+            val shouldCopyCursor = collector.rowAdapter.let {
+                it is PojoRowAdapter && it.relationCollectors.isNotEmpty()
+            }
+            val cursorCopyVar = scope.getTmpVar("_cursorCopy")
+            if (shouldCopyCursor) {
+                addStatement("final $T $L", AndroidTypeNames.CURSOR, cursorCopyVar)
+            }
+
             beginControlFlow("try").apply {
-                addStatement("final $T $L = $L.getColumnIndex($S)",
-                        TypeName.INT, itemKeyIndexVar, cursorVar, relation.entityField.columnName)
-
-                beginControlFlow("if ($L == -1)", itemKeyIndexVar).apply {
-                    addStatement("return")
+                if (shouldCopyCursor) {
+                    addStatement("$L = $T.copy($L)",
+                            cursorCopyVar, RoomTypeNames.CURSOR_UTIL, cursorVar)
+                } else {
+                    prepareConvert(cursorVar = cursorVar,
+                            itemKeyIndexVar = itemKeyIndexVar,
+                            param = param,
+                            relation = relation,
+                            scope = scope)
                 }
-                endControlFlow()
-
-                collector.rowAdapter.onCursorReady(cursorVar, scope)
-                val tmpVarName = scope.getTmpVar("_item")
-                beginControlFlow("while($L.moveToNext())", cursorVar).apply {
-                    // read key from the cursor
-                    collector.readKey(
-                            cursorVarName = cursorVar,
-                            indexVar = itemKeyIndexVar,
-                            scope = scope
-                    ) { keyVar ->
-                        val collectionVar = scope.getTmpVar("_tmpCollection")
-                        addStatement("$T $L = $N.get($L)", collector.collectionTypeName,
-                                collectionVar, param, keyVar)
-                        beginControlFlow("if ($L != null)", collectionVar).apply {
-                            addStatement("final $T $L", relation.pojoTypeName, tmpVarName)
-                            collector.rowAdapter.convert(tmpVarName, cursorVar, scope)
-                            addStatement("$L.add($L)", collectionVar, tmpVarName)
-                        }
-                        endControlFlow()
-                    }
-                }
-                endControlFlow()
-                collector.rowAdapter.onCursorFinished()?.invoke(scope)
             }
             nextControlFlow("finally").apply {
                 addStatement("$L.close()", cursorVar)
             }
             endControlFlow()
+            if (shouldCopyCursor) {
+                beginControlFlow("try").apply {
+                    prepareConvert(cursorVar = cursorCopyVar,
+                            itemKeyIndexVar = itemKeyIndexVar,
+                            param = param,
+                            relation = relation,
+                            scope = scope)
+                }
+                nextControlFlow("finally").apply {
+                    addStatement("$L.close()", cursorCopyVar)
+                }
+                endControlFlow()
+            }
         }
         builder.apply {
             addModifiers(Modifier.PRIVATE)
@@ -158,5 +169,37 @@ class RelationCollectorMethodWriter(private val collector: RelationCollector)
             returns(TypeName.VOID)
             addCode(scope.builder().build())
         }
+    }
+
+    private fun CodeBlock.Builder.prepareConvert(
+        cursorVar: String,
+        itemKeyIndexVar: String,
+        param: ParameterSpec,
+        relation: Relation,
+        scope: CodeGenScope
+    ) {
+        collector.rowAdapter.onCursorReady(cursorVar, scope)
+        val tmpVarName = scope.getTmpVar("_item")
+        beginControlFlow("while($L.moveToNext())", cursorVar).apply {
+            // read key from the cursor
+            collector.readKey(
+                    cursorVarName = cursorVar,
+                    indexVar = itemKeyIndexVar,
+                    scope = scope
+            ) { keyVar ->
+                val collectionVar = scope.getTmpVar(
+                        "_tmp${relation.field.name.stripNonJava().capitalize()}Collection")
+                addStatement("$T $L = $N.get($L)", collector.collectionTypeName,
+                        collectionVar, param, keyVar)
+                beginControlFlow("if ($L != null)", collectionVar).apply {
+                    addStatement("final $T $L", relation.pojoTypeName, tmpVarName)
+                    collector.rowAdapter.convert(tmpVarName, cursorVar, scope)
+                    addStatement("$L.add($L)", collectionVar, tmpVarName)
+                }
+                endControlFlow()
+            }
+        }
+        endControlFlow()
+        collector.rowAdapter.onCursorFinished()?.invoke(scope)
     }
 }

@@ -18,20 +18,24 @@ package androidx.room.solver.query.result
 import androidx.room.ext.AndroidTypeNames
 import androidx.room.ext.L
 import androidx.room.ext.N
+import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.T
 import androidx.room.solver.CodeGenScope
 import androidx.room.writer.DaoWriter
+import com.squareup.javapoet.CodeBlock
 import com.squareup.javapoet.FieldSpec
 
 /**
  * Instantly runs and returns the query.
  */
 class InstantQueryResultBinder(adapter: QueryResultAdapter?) : QueryResultBinder(adapter) {
-    override fun convertAndReturn(roomSQLiteQueryVar: String,
-                                  canReleaseQuery: Boolean,
-                                  dbField: FieldSpec,
-                                  inTransaction: Boolean,
-                                  scope: CodeGenScope) {
+    override fun convertAndReturn(
+        roomSQLiteQueryVar: String,
+        canReleaseQuery: Boolean,
+        dbField: FieldSpec,
+        inTransaction: Boolean,
+        scope: CodeGenScope
+    ) {
         val transactionWrapper = if (inTransaction) {
             scope.builder().transactionWrapper(dbField)
         } else {
@@ -39,14 +43,22 @@ class InstantQueryResultBinder(adapter: QueryResultAdapter?) : QueryResultBinder
         }
         transactionWrapper?.beginTransactionWithControlFlow()
         scope.builder().apply {
+            val shouldCopyCursor = adapter?.shouldCopyCursor() == true
             val outVar = scope.getTmpVar("_result")
             val cursorVar = scope.getTmpVar("_cursor")
+            val cursorCopyVar = scope.getTmpVar("_cursorCopy")
+            if (shouldCopyCursor) {
+                addStatement("final $T $L", AndroidTypeNames.CURSOR, cursorCopyVar)
+            }
             addStatement("final $T $L = $N.query($L)", AndroidTypeNames.CURSOR, cursorVar,
                     DaoWriter.dbField, roomSQLiteQueryVar)
             beginControlFlow("try").apply {
-                adapter?.convert(outVar, cursorVar, scope)
-                transactionWrapper?.commitTransaction()
-                addStatement("return $L", outVar)
+                if (shouldCopyCursor) {
+                    addStatement("$L = $T.copy($L)",
+                            cursorCopyVar, RoomTypeNames.CURSOR_UTIL, cursorVar)
+                } else {
+                    writeConvert(outVar, cursorVar, transactionWrapper, scope)
+                }
             }
             nextControlFlow("finally").apply {
                 addStatement("$L.close()", cursorVar)
@@ -55,7 +67,27 @@ class InstantQueryResultBinder(adapter: QueryResultAdapter?) : QueryResultBinder
                 }
             }
             endControlFlow()
+            if (shouldCopyCursor) {
+                beginControlFlow("try").apply {
+                    writeConvert(outVar, cursorCopyVar, transactionWrapper, scope)
+                }
+                nextControlFlow("finally").apply {
+                    addStatement("$L.close()", cursorCopyVar)
+                }
+                endControlFlow()
+            }
         }
         transactionWrapper?.endTransactionWithControlFlow()
+    }
+
+    private fun CodeBlock.Builder.writeConvert(
+        outVar: String,
+        cursorVar: String,
+        transactionWrapper: TransactionWrapper?,
+        scope: CodeGenScope
+    ) {
+        adapter?.convert(outVar, cursorVar, scope)
+        transactionWrapper?.commitTransaction()
+        addStatement("return $L", outVar)
     }
 }
