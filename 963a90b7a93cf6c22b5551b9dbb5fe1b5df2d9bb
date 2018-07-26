@@ -46,6 +46,30 @@
       "revId": "963a90b7a93cf6c22b5551b9dbb5fe1b5df2d9bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "635f8882_dd00c301",
+        "filename": "leanback/api/1.0.0.ignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2018-07-26T22:48:07Z",
+      "side": 1,
+      "message": "As a suggestion,  updateApi should report an error if a CL adding deprecated flag to outer class without marking the inner ones deprecated.",
+      "parentUuid": "26977e75_625fe11f",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 7
+      },
+      "revId": "963a90b7a93cf6c22b5551b9dbb5fe1b5df2d9bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
