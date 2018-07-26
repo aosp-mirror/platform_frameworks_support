@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright 2017 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,24 +16,13 @@
 
 package androidx.core.os;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import androidx.annotation.IntRange;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
 
 import java.util.Locale;
 
-/**
- * Interface describing backwards-compatible LocaleList APIs.
- *
- * @hide Internal use only
- */
-@RestrictTo(LIBRARY_GROUP)
 interface LocaleListInterface {
-    void setLocaleList(@NonNull Locale... list);
-
+    @Nullable
     Object getLocaleList();
 
     Locale get(int index);
@@ -45,15 +34,6 @@ interface LocaleListInterface {
 
     @IntRange(from = -1)
     int indexOf(Locale locale);
-
-    @Override
-    boolean equals(Object other);
-
-    @Override
-    int hashCode();
-
-    @Override
-    String toString();
 
     String toLanguageTags();
 
