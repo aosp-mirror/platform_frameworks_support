@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f097c2d_91e253aa",
+        "filename": "compat/src/main/java/androidx/core/content/res/ColorStateListInflaterCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-26T20:33:39Z",
+      "side": 0,
+      "message": "This kind of looks like a bug that we are not using this?\n\n+nickbutcher@ as FYI.",
+      "range": {
+        "startLine": 155,
+        "startChar": 12,
+        "endLine": 158,
+        "endChar": 0
+      },
+      "revId": "a65d8edac84b29bbe395a1b00cefd26b75c2e9b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
