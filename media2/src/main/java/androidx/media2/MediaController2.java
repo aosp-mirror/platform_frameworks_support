@@ -166,6 +166,9 @@ public class MediaController2 implements AutoCloseable {
      * Requests that the player starts or resumes playback.
      */
     public void play() {
+        if (!isConnected()) {
+            throw new IllegalStateException("play() is called while not connected.");
+        }
         mImpl.play();
     }
 
@@ -173,6 +176,9 @@ public class MediaController2 implements AutoCloseable {
      * Requests that the player pauses playback.
      */
     public void pause() {
+        if (!isConnected()) {
+            throw new IllegalStateException("pause() is called while not connected.");
+        }
         mImpl.pause();
     }
 
@@ -180,6 +186,9 @@ public class MediaController2 implements AutoCloseable {
      * Requests that the player be reset to its uninitialized state.
      */
     public void reset() {
+        if (!isConnected()) {
+            throw new IllegalStateException("reset() is called while not connected.");
+        }
         mImpl.reset();
     }
 
@@ -191,6 +200,9 @@ public class MediaController2 implements AutoCloseable {
      * called to start playback.
      */
     public void prepare() {
+        if (!isConnected()) {
+            throw new IllegalStateException("prepare() is called while not connected.");
+        }
         mImpl.prepare();
     }
 
@@ -199,6 +211,9 @@ public class MediaController2 implements AutoCloseable {
      * may increase the rate.
      */
     public void fastForward() {
+        if (!isConnected()) {
+            throw new IllegalStateException("fastForward() is called while not connected.");
+        }
         mImpl.fastForward();
     }
 
@@ -207,6 +222,9 @@ public class MediaController2 implements AutoCloseable {
      * the rate.
      */
     public void rewind() {
+        if (!isConnected()) {
+            throw new IllegalStateException("rewind() is called while not connected.");
+        }
         mImpl.rewind();
     }
 
@@ -216,6 +234,9 @@ public class MediaController2 implements AutoCloseable {
      * @param pos Position to move to, in milliseconds.
      */
     public void seekTo(long pos) {
+        if (!isConnected()) {
+            throw new IllegalStateException("seekTo() is called while not connected.");
+        }
         mImpl.seekTo(pos);
     }
 
@@ -224,6 +245,9 @@ public class MediaController2 implements AutoCloseable {
      */
     @RestrictTo(LIBRARY_GROUP)
     public void skipForward() {
+        if (!isConnected()) {
+            throw new IllegalStateException("skipForward() is called while not connected.");
+        }
         // To match with KEYCODE_MEDIA_SKIP_FORWARD
         mImpl.skipForward();
     }
@@ -233,6 +257,9 @@ public class MediaController2 implements AutoCloseable {
      */
     @RestrictTo(LIBRARY_GROUP)
     public void skipBackward() {
+        if (!isConnected()) {
+            throw new IllegalStateException("skipBackward() is called while not connected.");
+        }
         // To match with KEYCODE_MEDIA_SKIP_BACKWARD
         mImpl.skipBackward();
     }
@@ -248,6 +275,9 @@ public class MediaController2 implements AutoCloseable {
         if (mediaId == null) {
             throw new IllegalArgumentException("mediaId shouldn't be null");
         }
+        if (!isConnected()) {
+            throw new IllegalStateException("playFromMediaId() is called while not connected.");
+        }
         mImpl.playFromMediaId(mediaId, extras);
     }
 
@@ -260,6 +290,9 @@ public class MediaController2 implements AutoCloseable {
     public void playFromSearch(@NonNull String query, @Nullable Bundle extras) {
         if (TextUtils.isEmpty(query)) {
             throw new IllegalArgumentException("query shouldn't be empty");
+        }
+        if (!isConnected()) {
+            throw new IllegalStateException("playFromSearch() is called while not connected.");
         }
         mImpl.playFromSearch(query, extras);
     }
@@ -274,6 +307,9 @@ public class MediaController2 implements AutoCloseable {
     public void playFromUri(@NonNull Uri uri, @Nullable Bundle extras) {
         if (uri == null) {
             throw new IllegalArgumentException("uri shouldn't be null");
+        }
+        if (!isConnected()) {
+            throw new IllegalStateException("playFromUri() is called while not connected.");
         }
         mImpl.playFromUri(uri, extras);
     }
@@ -294,6 +330,9 @@ public class MediaController2 implements AutoCloseable {
         if (mediaId == null) {
             throw new IllegalArgumentException("mediaId shouldn't be null");
         }
+        if (!isConnected()) {
+            throw new IllegalStateException("prepareFromMediaId() is called while not connected.");
+        }
         mImpl.prepareFromMediaId(mediaId, extras);
     }
 
@@ -312,6 +351,9 @@ public class MediaController2 implements AutoCloseable {
     public void prepareFromSearch(@NonNull String query, @Nullable Bundle extras) {
         if (TextUtils.isEmpty(query)) {
             throw new IllegalArgumentException("query shouldn't be empty");
+        }
+        if (!isConnected()) {
+            throw new IllegalStateException("prepareFromSearch() is called while not connected.");
         }
         mImpl.prepareFromSearch(query, extras);
     }
@@ -332,6 +374,9 @@ public class MediaController2 implements AutoCloseable {
         if (uri == null) {
             throw new IllegalArgumentException("uri shouldn't be null");
         }
+        if (!isConnected()) {
+            throw new IllegalStateException("prepareFromUri() is called while not connected.");
+        }
         mImpl.prepareFromUri(uri, extras);
     }
 
@@ -351,6 +396,9 @@ public class MediaController2 implements AutoCloseable {
      *              playback
      */
     public void setVolumeTo(int value, @VolumeFlags int flags) {
+        if (!isConnected()) {
+            throw new IllegalStateException("setVolumeTo() is called while not connected.");
+        }
         mImpl.setVolumeTo(value, flags);
     }
 
@@ -375,6 +423,9 @@ public class MediaController2 implements AutoCloseable {
      *              playback
      */
     public void adjustVolume(@VolumeDirection int direction, @VolumeFlags int flags) {
+        if (!isConnected()) {
+            throw new IllegalStateException("adjustVolume() is called while not connected.");
+        }
         mImpl.adjustVolume(direction, flags);
     }
 
@@ -384,6 +435,9 @@ public class MediaController2 implements AutoCloseable {
      * @return A {@link PendingIntent} to launch UI or null.
      */
     public @Nullable PendingIntent getSessionActivity() {
+        if (!isConnected()) {
+            throw new IllegalStateException("getSessionActivity() is called while not connected.");
+        }
         return mImpl.getSessionActivity();
     }
 
@@ -394,6 +448,9 @@ public class MediaController2 implements AutoCloseable {
      * @return player state
      */
     public int getPlayerState() {
+        if (!isConnected()) {
+            throw new IllegalStateException("getPlayerState() is called while not connected.");
+        }
         return mImpl.getPlayerState();
     }
 
@@ -403,6 +460,9 @@ public class MediaController2 implements AutoCloseable {
      * @return the duration in ms, or {@link MediaPlayerConnector#UNKNOWN_TIME}.
      */
     public long getDuration() {
+        if (!isConnected()) {
+            throw new IllegalStateException("getDuration() is called while not connected.");
+        }
         return mImpl.getDuration();
     }
 
@@ -415,6 +475,9 @@ public class MediaController2 implements AutoCloseable {
      * @return position
      */
     public long getCurrentPosition() {
+        if (!isConnected()) {
+            throw new IllegalStateException("getCurrentPosition() is called while not connected.");
+        }
         return mImpl.getCurrentPosition();
     }
 
@@ -425,6 +488,9 @@ public class MediaController2 implements AutoCloseable {
      * @return speed the lastly cached playback speed, or 0.0f if unknown.
      */
     public float getPlaybackSpeed() {
+        if (!isConnected()) {
+            throw new IllegalStateException("getPlaybackSpeed() is called while not connected.");
+        }
         return mImpl.getPlaybackSpeed();
     }
 
@@ -432,6 +498,9 @@ public class MediaController2 implements AutoCloseable {
      * Set the playback speed.
      */
     public void setPlaybackSpeed(float speed) {
+        if (!isConnected()) {
+            throw new IllegalStateException("setPlaybackSpeed() is called while not connected.");
+        }
         mImpl.setPlaybackSpeed(speed);
     }
 
@@ -442,6 +511,9 @@ public class MediaController2 implements AutoCloseable {
      * @return the buffering state.
      */
     public @MediaPlayerConnector.BuffState int getBufferingState() {
+        if (!isConnected()) {
+            throw new IllegalStateException("getBufferingState() is called while not connected.");
+        }
         return mImpl.getBufferingState();
     }
 
@@ -454,6 +526,9 @@ public class MediaController2 implements AutoCloseable {
      * unknown.
      */
     public long getBufferedPosition() {
+        if (!isConnected()) {
+            throw new IllegalStateException("getBufferedPosition() is called while not connected.");
+        }
         return mImpl.getBufferedPosition();
     }
 
@@ -463,6 +538,9 @@ public class MediaController2 implements AutoCloseable {
      * @return The current playback info or null.
      */
     public @Nullable PlaybackInfo getPlaybackInfo() {
+        if (!isConnected()) {
+            throw new IllegalStateException("getPlaybackInfo() is called while not connected.");
+        }
         return mImpl.getPlaybackInfo();
     }
 
@@ -485,6 +563,9 @@ public class MediaController2 implements AutoCloseable {
         if (rating == null) {
             throw new IllegalArgumentException("rating shouldn't be null");
         }
+        if (!isConnected()) {
+            throw new IllegalStateException("setRating() is called while not connected.");
+        }
         mImpl.setRating(mediaId, rating);
     }
 
@@ -503,6 +584,9 @@ public class MediaController2 implements AutoCloseable {
         if (command.getCommandCode() != SessionCommand2.COMMAND_CODE_CUSTOM) {
             throw new IllegalArgumentException("command should be a custom command");
         }
+        if (!isConnected()) {
+            throw new IllegalStateException("sendCustomCommand() is called while not connected.");
+        }
         mImpl.sendCustomCommand(command, args, cb);
     }
 
@@ -519,6 +603,9 @@ public class MediaController2 implements AutoCloseable {
      * @see SessionCommand2#COMMAND_CODE_PLAYLIST_GET_LIST
      */
     public @Nullable List<MediaItem2> getPlaylist() {
+        if (!isConnected()) {
+            throw new IllegalStateException("getPlaylist() is called while not connected.");
+        }
         return mImpl.getPlaylist();
     }
 
@@ -538,6 +625,9 @@ public class MediaController2 implements AutoCloseable {
         if (list == null) {
             throw new IllegalArgumentException("list shouldn't be null");
         }
+        if (!isConnected()) {
+            throw new IllegalStateException("setPlaylist() is called while not connected.");
+        }
         mImpl.setPlaylist(list, metadata);
     }
 
@@ -547,6 +637,10 @@ public class MediaController2 implements AutoCloseable {
      * @param metadata metadata of the playlist
      */
     public void updatePlaylistMetadata(@Nullable MediaMetadata2 metadata) {
+        if (!isConnected()) {
+            throw new IllegalStateException(
+                    "updatePlaylistMetadata() is called while not connected.");
+        }
         mImpl.updatePlaylistMetadata(metadata);
     }
 
@@ -558,6 +652,9 @@ public class MediaController2 implements AutoCloseable {
      * @return metadata metadata of the playlist, or null if none is set
      */
     public @Nullable MediaMetadata2 getPlaylistMetadata() {
+        if (!isConnected()) {
+            throw new IllegalStateException("getPlaylistMetadata() is called while not connected.");
+        }
         return mImpl.getPlaylistMetadata();
     }
 
@@ -580,6 +677,9 @@ public class MediaController2 implements AutoCloseable {
         if (item == null) {
             throw new IllegalArgumentException("item shouldn't be null");
         }
+        if (!isConnected()) {
+            throw new IllegalStateException("addPlaylistItem() is called while not connected.");
+        }
         mImpl.addPlaylistItem(index, item);
     }
 
@@ -594,6 +694,9 @@ public class MediaController2 implements AutoCloseable {
     public void removePlaylistItem(@NonNull MediaItem2 item) {
         if (item == null) {
             throw new IllegalArgumentException("item shouldn't be null");
+        }
+        if (!isConnected()) {
+            throw new IllegalStateException("removePlaylistItem() is called while not connected.");
         }
         mImpl.removePlaylistItem(item);
     }
@@ -612,6 +715,9 @@ public class MediaController2 implements AutoCloseable {
         if (item == null) {
             throw new IllegalArgumentException("item shouldn't be null");
         }
+        if (!isConnected()) {
+            throw new IllegalStateException("replacePlaylistItem() is called while not connected.");
+        }
         mImpl.replacePlaylistItem(index, item);
     }
 
@@ -622,6 +728,9 @@ public class MediaController2 implements AutoCloseable {
      * @return the currently playing item, or null if unknown.
      */
     public MediaItem2 getCurrentMediaItem() {
+        if (!isConnected()) {
+            throw new IllegalStateException("getCurrentMediaItem() is called while not connected.");
+        }
         return mImpl.getCurrentMediaItem();
     }
 
@@ -631,6 +740,9 @@ public class MediaController2 implements AutoCloseable {
      * This calls {@link MediaPlaylistAgent#skipToPreviousItem()}.
      */
     public void skipToPreviousItem() {
+        if (!isConnected()) {
+            throw new IllegalStateException("skipToPreviousItem() is called while not connected.");
+        }
         mImpl.skipToPreviousItem();
     }
 
@@ -640,6 +752,9 @@ public class MediaController2 implements AutoCloseable {
      * This calls {@link MediaPlaylistAgent#skipToNextItem()}.
      */
     public void skipToNextItem() {
+        if (!isConnected()) {
+            throw new IllegalStateException("skipToNextItem() is called while not connected.");
+        }
         mImpl.skipToNextItem();
     }
 
@@ -654,6 +769,9 @@ public class MediaController2 implements AutoCloseable {
         if (item == null) {
             throw new IllegalArgumentException("item shouldn't be null");
         }
+        if (!isConnected()) {
+            throw new IllegalStateException("skipToPlaylistItem() is called while not connected.");
+        }
         mImpl.skipToPlaylistItem(item);
     }
 
@@ -667,6 +785,9 @@ public class MediaController2 implements AutoCloseable {
      * @see MediaPlaylistAgent#REPEAT_MODE_GROUP
      */
     public @RepeatMode int getRepeatMode() {
+        if (!isConnected()) {
+            throw new IllegalStateException("getRepeatMode() is called while not connected.");
+        }
         return mImpl.getRepeatMode();
     }
 
@@ -680,6 +801,9 @@ public class MediaController2 implements AutoCloseable {
      * @see MediaPlaylistAgent#REPEAT_MODE_GROUP
      */
     public void setRepeatMode(@RepeatMode int repeatMode) {
+        if (!isConnected()) {
+            throw new IllegalStateException("setRepeatMode() is called while not connected.");
+        }
         mImpl.setRepeatMode(repeatMode);
     }
 
@@ -692,6 +816,9 @@ public class MediaController2 implements AutoCloseable {
      * @see MediaPlaylistAgent#SHUFFLE_MODE_GROUP
      */
     public @ShuffleMode int getShuffleMode() {
+        if (!isConnected()) {
+            throw new IllegalStateException("getShuffleMode() is called while not connected.");
+        }
         return mImpl.getShuffleMode();
     }
 
@@ -704,6 +831,9 @@ public class MediaController2 implements AutoCloseable {
      * @see MediaPlaylistAgent#SHUFFLE_MODE_GROUP
      */
     public void setShuffleMode(@ShuffleMode int shuffleMode) {
+        if (!isConnected()) {
+            throw new IllegalStateException("setShuffleMode() is called while not connected.");
+        }
         mImpl.setShuffleMode(shuffleMode);
     }
 
@@ -711,6 +841,9 @@ public class MediaController2 implements AutoCloseable {
      * Queries for information about the routes currently known.
      */
     public void subscribeRoutesInfo() {
+        if (!isConnected()) {
+            throw new IllegalStateException("subscribeRoutesInfo() is called while not connected.");
+        }
         mImpl.subscribeRoutesInfo();
     }
 
@@ -722,6 +855,10 @@ public class MediaController2 implements AutoCloseable {
      * </p>
      */
     public void unsubscribeRoutesInfo() {
+        if (!isConnected()) {
+            throw new IllegalStateException(
+                    "unsubscribeRoutesInfo() is called while not connected.");
+        }
         mImpl.unsubscribeRoutesInfo();
     }
 
@@ -733,6 +870,9 @@ public class MediaController2 implements AutoCloseable {
     public void selectRoute(@NonNull Bundle route) {
         if (route == null) {
             throw new IllegalArgumentException("route shouldn't be null");
+        }
+        if (!isConnected()) {
+            throw new IllegalStateException("selectRoute() is called while not connected.");
         }
         mImpl.selectRoute(route);
     }

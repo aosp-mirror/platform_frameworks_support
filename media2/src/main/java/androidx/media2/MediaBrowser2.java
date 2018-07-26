@@ -35,6 +35,143 @@ public class MediaBrowser2 extends MediaController2 {
     static final String TAG = "MediaBrowser2";
     static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 
+    public MediaBrowser2(@NonNull Context context, @NonNull SessionToken2 token,
+            @NonNull /*@CallbackExecutor*/ Executor executor, @NonNull BrowserCallback callback) {
+        super(context, token, executor, callback);
+    }
+
+    @Override
+    MediaBrowser2Impl createImpl(@NonNull Context context, @NonNull SessionToken2 token,
+            @NonNull Executor executor, @NonNull MediaController2.ControllerCallback callback) {
+        if (token.isLegacySession()) {
+            return new MediaBrowser2ImplLegacy(
+                    context, this, token, executor, (BrowserCallback) callback);
+        } else {
+            return new MediaBrowser2ImplBase(
+                    context, this, token, executor, (BrowserCallback) callback);
+        }
+    }
+
+    @Override
+    MediaBrowser2Impl getImpl() {
+        return (MediaBrowser2Impl) super.getImpl();
+    }
+
+    @Override
+    BrowserCallback getCallback() {
+        return (BrowserCallback) super.getCallback();
+    }
+
+    /**
+     * Get the library root. Result would be sent back asynchronously with the
+     * {@link BrowserCallback#onGetLibraryRootDone(MediaBrowser2, Bundle, String, Bundle)}.
+     *
+     * @param extras extras for getting root
+     * @see BrowserCallback#onGetLibraryRootDone(MediaBrowser2, Bundle, String, Bundle)
+     */
+    public void getLibraryRoot(@Nullable final Bundle extras) {
+        if (!isConnected()) {
+            throw new IllegalStateException("getLibraryRoot() is called while not connected.");
+        }
+        getImpl().getLibraryRoot(extras);
+    }
+
+    /**
+     * Subscribe to a parent id for the change in its children. When there's a change,
+     * {@link BrowserCallback#onChildrenChanged(MediaBrowser2, String, int, Bundle)} will be called
+     * with the bundle that you've specified. You should call
+     * {@link #getChildren(String, int, int, Bundle)} to get the actual contents for the parent.
+     *
+     * @param parentId parent id
+     * @param extras extra bundle
+     */
+    public void subscribe(@NonNull String parentId, @Nullable Bundle extras) {
+        if (!isConnected()) {
+            throw new IllegalStateException("subscribe() is called while not connected.");
+        }
+        getImpl().subscribe(parentId, extras);
+    }
+
+    /**
+     * Unsubscribe for changes to the children of the parent, which was previously subscribed with
+     * {@link #subscribe(String, Bundle)}.
+     * <p>
+     * This unsubscribes all previous subscription with the parent id, regardless of the extra
+     * that was previously sent to the library service.
+     *
+     * @param parentId parent id
+     */
+    public void unsubscribe(@NonNull String parentId) {
+        if (!isConnected()) {
+            throw new IllegalStateException("unsubscribe() is called while not connected.");
+        }
+        getImpl().unsubscribe(parentId);
+    }
+
+    /**
+     * Get list of children under the parent. Result would be sent back asynchronously with the
+     * {@link BrowserCallback#onGetChildrenDone(MediaBrowser2, String, int, int, List, Bundle)}.
+     *
+     * @param parentId parent id for getting the children.
+     * @param page page number to get the result. Starts from {@code 0}
+     * @param pageSize page size. Should be greater or equal to {@code 1}
+     * @param extras extra bundle
+     */
+    public void getChildren(@NonNull String parentId, int page, int pageSize,
+            @Nullable Bundle extras) {
+        if (!isConnected()) {
+            throw new IllegalStateException("getChildren() is called while not connected.");
+        }
+        getImpl().getChildren(parentId, page, pageSize, extras);
+    }
+
+    /**
+     * Get the media item with the given media id. Result would be sent back asynchronously with the
+     * {@link BrowserCallback#onGetItemDone(MediaBrowser2, String, MediaItem2)}.
+     *
+     * @param mediaId media id for specifying the item
+     */
+    public void getItem(@NonNull final String mediaId) {
+        if (!isConnected()) {
+            throw new IllegalStateException("getItem() is called while not connected.");
+        }
+        getImpl().getItem(mediaId);
+    }
+
+    /**
+     * Send a search request to the library service. When the search result is changed,
+     * {@link BrowserCallback#onSearchResultChanged(MediaBrowser2, String, int, Bundle)} will be
+     * called. You should call {@link #getSearchResult(String, int, int, Bundle)} to get the actual
+     * search result.
+     *
+     * @param query search query. Should not be an empty string.
+     * @param extras extra bundle
+     */
+    public void search(@NonNull String query, @Nullable Bundle extras) {
+        if (!isConnected()) {
+            throw new IllegalStateException("search() is called while not connected.");
+        }
+        getImpl().search(query, extras);
+    }
+
+    /**
+     * Get the search result from lhe library service. Result would be sent back asynchronously with
+     * the
+     * {@link BrowserCallback#onGetSearchResultDone(MediaBrowser2, String, int, int, List, Bundle)}.
+     *
+     * @param query search query that you've specified with {@link #search(String, Bundle)}
+     * @param page page number to get search result. Starts from {@code 0}
+     * @param pageSize page size. Should be greater or equal to {@code 1}
+     * @param extras extra bundle
+     */
+    public void getSearchResult(final @NonNull String query, final int page, final int pageSize,
+            final @Nullable Bundle extras) {
+        if (!isConnected()) {
+            throw new IllegalStateException("getSearchResult() is called while not connected.");
+        }
+        getImpl().getSearchResult(query, page, pageSize, extras);
+    }
+
     /**
      * Callback to listen events from {@link MediaLibraryService2}.
      */
@@ -130,122 +267,6 @@ public class MediaBrowser2 extends MediaController2 {
         public void onGetSearchResultDone(@NonNull MediaBrowser2 browser, @NonNull String query,
                 int page, int pageSize, @Nullable List<MediaItem2> result,
                 @Nullable Bundle extras) { }
-    }
-
-    public MediaBrowser2(@NonNull Context context, @NonNull SessionToken2 token,
-            @NonNull /*@CallbackExecutor*/ Executor executor, @NonNull BrowserCallback callback) {
-        super(context, token, executor, callback);
-    }
-
-    @Override
-    MediaBrowser2Impl createImpl(@NonNull Context context, @NonNull SessionToken2 token,
-            @NonNull Executor executor, @NonNull MediaController2.ControllerCallback callback) {
-        if (token.isLegacySession()) {
-            return new MediaBrowser2ImplLegacy(
-                    context, this, token, executor, (BrowserCallback) callback);
-        } else {
-            return new MediaBrowser2ImplBase(
-                    context, this, token, executor, (BrowserCallback) callback);
-        }
-    }
-
-    @Override
-    MediaBrowser2Impl getImpl() {
-        return (MediaBrowser2Impl) super.getImpl();
-    }
-
-    @Override
-    BrowserCallback getCallback() {
-        return (BrowserCallback) super.getCallback();
-    }
-
-    /**
-     * Get the library root. Result would be sent back asynchronously with the
-     * {@link BrowserCallback#onGetLibraryRootDone(MediaBrowser2, Bundle, String, Bundle)}.
-     *
-     * @param extras extras for getting root
-     * @see BrowserCallback#onGetLibraryRootDone(MediaBrowser2, Bundle, String, Bundle)
-     */
-    public void getLibraryRoot(@Nullable final Bundle extras) {
-        getImpl().getLibraryRoot(extras);
-    }
-
-    /**
-     * Subscribe to a parent id for the change in its children. When there's a change,
-     * {@link BrowserCallback#onChildrenChanged(MediaBrowser2, String, int, Bundle)} will be called
-     * with the bundle that you've specified. You should call
-     * {@link #getChildren(String, int, int, Bundle)} to get the actual contents for the parent.
-     *
-     * @param parentId parent id
-     * @param extras extra bundle
-     */
-    public void subscribe(@NonNull String parentId, @Nullable Bundle extras) {
-        getImpl().subscribe(parentId, extras);
-    }
-
-    /**
-     * Unsubscribe for changes to the children of the parent, which was previously subscribed with
-     * {@link #subscribe(String, Bundle)}.
-     * <p>
-     * This unsubscribes all previous subscription with the parent id, regardless of the extra
-     * that was previously sent to the library service.
-     *
-     * @param parentId parent id
-     */
-    public void unsubscribe(@NonNull String parentId) {
-        getImpl().unsubscribe(parentId);
-    }
-
-    /**
-     * Get list of children under the parent. Result would be sent back asynchronously with the
-     * {@link BrowserCallback#onGetChildrenDone(MediaBrowser2, String, int, int, List, Bundle)}.
-     *
-     * @param parentId parent id for getting the children.
-     * @param page page number to get the result. Starts from {@code 0}
-     * @param pageSize page size. Should be greater or equal to {@code 1}
-     * @param extras extra bundle
-     */
-    public void getChildren(@NonNull String parentId, int page, int pageSize,
-            @Nullable Bundle extras) {
-        getImpl().getChildren(parentId, page, pageSize, extras);
-    }
-
-    /**
-     * Get the media item with the given media id. Result would be sent back asynchronously with the
-     * {@link BrowserCallback#onGetItemDone(MediaBrowser2, String, MediaItem2)}.
-     *
-     * @param mediaId media id for specifying the item
-     */
-    public void getItem(@NonNull final String mediaId) {
-        getImpl().getItem(mediaId);
-    }
-
-    /**
-     * Send a search request to the library service. When the search result is changed,
-     * {@link BrowserCallback#onSearchResultChanged(MediaBrowser2, String, int, Bundle)} will be
-     * called. You should call {@link #getSearchResult(String, int, int, Bundle)} to get the actual
-     * search result.
-     *
-     * @param query search query. Should not be an empty string.
-     * @param extras extra bundle
-     */
-    public void search(@NonNull String query, @Nullable Bundle extras) {
-        getImpl().search(query, extras);
-    }
-
-    /**
-     * Get the search result from lhe library service. Result would be sent back asynchronously with
-     * the
-     * {@link BrowserCallback#onGetSearchResultDone(MediaBrowser2, String, int, int, List, Bundle)}.
-     *
-     * @param query search query that you've specified with {@link #search(String, Bundle)}
-     * @param page page number to get search result. Starts from {@code 0}
-     * @param pageSize page size. Should be greater or equal to {@code 1}
-     * @param extras extra bundle
-     */
-    public void getSearchResult(final @NonNull String query, final int page, final int pageSize,
-            final @Nullable Bundle extras) {
-        getImpl().getSearchResult(query, page, pageSize, extras);
     }
 
     interface MediaBrowser2Impl extends MediaController2Impl {
