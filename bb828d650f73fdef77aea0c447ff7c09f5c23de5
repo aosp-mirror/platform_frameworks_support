@@ -1,0 +1,8 @@
+Presubmit-Ready+1: Jake Wharton <jakew@google.com>
+Code-Review+2: Chris Craik <ccraik@google.com>
+Autosubmit+1: Jake Wharton <jakew@google.com>
+Submitted-by: Jake Wharton <jakew@google.com>
+Submitted-at: Thu, 26 Jul 2018 18:39:25 +0000
+Reviewed-on: https://android-review.googlesource.com/721501
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
