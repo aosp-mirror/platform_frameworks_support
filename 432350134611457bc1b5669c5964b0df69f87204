@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d4f518ca_d38e6935",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/SmartLinkifyTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-07-26T15:12:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2887be9e_7b0ab037",
+      "revId": "432350134611457bc1b5669c5964b0df69f87204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f83ff64_5adac305",
         "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/SmartLinkifyTest.java",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "432350134611457bc1b5669c5964b0df69f87204",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c027c81d_4d99b202",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/SmartLinkifyTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-07-26T15:12:47Z",
+      "side": 1,
+      "message": "I was trying to avoid having to deal with the exception in all the tests.\nAs discussed offline, changed this to fail().\nThanks.",
+      "parentUuid": "3f83ff64_5adac305",
+      "revId": "432350134611457bc1b5669c5964b0df69f87204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
