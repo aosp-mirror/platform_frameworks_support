@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "50433cb4_03560207",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-07-26T08:37:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d1f1849_35f50aff",
+      "range": {
+        "startLine": 398,
+        "startChar": 12,
+        "endLine": 398,
+        "endChar": 36
+      },
+      "revId": "53262dacd9691d9af20d6d622fb31fdc61d67a97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee0db5a6_8b4cd6bf",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "4d3298e3_d9be72ee",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-07-26T08:37:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee0db5a6_8b4cd6bf",
+      "range": {
+        "startLine": 694,
+        "startChar": 0,
+        "endLine": 694,
+        "endChar": 94
+      },
+      "revId": "53262dacd9691d9af20d6d622fb31fdc61d67a97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e96b4795_fb5547b6",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "53262dacd9691d9af20d6d622fb31fdc61d67a97",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b0a72a6_15a24e01",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-07-26T08:37:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e96b4795_fb5547b6",
+      "range": {
+        "startLine": 882,
+        "startChar": 20,
+        "endLine": 882,
+        "endChar": 45
+      },
+      "revId": "53262dacd9691d9af20d6d622fb31fdc61d67a97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
