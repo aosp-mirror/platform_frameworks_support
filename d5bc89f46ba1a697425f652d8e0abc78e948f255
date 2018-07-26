@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "704d63b6_25962067",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/EntityProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-07-26T05:45:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cc66e74_01d7637a",
+      "range": {
+        "startLine": 72,
+        "startChar": 28,
+        "endLine": 72,
+        "endChar": 40
+      },
+      "revId": "d5bc89f46ba1a697425f652d8e0abc78e948f255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0124131e_f0dfa89d",
         "filename": "room/compiler/src/test/kotlin/androidx/room/processor/PojoProcessorTest.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "d5bc89f46ba1a697425f652d8e0abc78e948f255",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e148974_3e4924ec",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/PojoProcessorTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1076,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-07-26T05:45:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0124131e_f0dfa89d",
+      "range": {
+        "startLine": 1076,
+        "startChar": 47,
+        "endLine": 1076,
+        "endChar": 69
+      },
+      "revId": "d5bc89f46ba1a697425f652d8e0abc78e948f255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
