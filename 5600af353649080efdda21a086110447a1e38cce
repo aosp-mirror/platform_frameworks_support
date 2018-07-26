@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d367da4c_73f8fc73",
+        "filename": "textclassifier/api/current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-07-26T14:18:39Z",
+      "side": 1,
+      "message": "Thanks!",
+      "range": {
+        "startLine": 54,
+        "startChar": 35,
+        "endLine": 54,
+        "endChar": 48
+      },
+      "revId": "5600af353649080efdda21a086110447a1e38cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e514cf19_f8835285",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-07-26T14:18:39Z",
+      "side": 1,
+      "message": "nit: CharSequence?",
+      "range": {
+        "startLine": 106,
+        "startChar": 11,
+        "endLine": 106,
+        "endChar": 17
+      },
+      "revId": "5600af353649080efdda21a086110447a1e38cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6031ea32_3c67374b",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-07-26T14:18:39Z",
+      "side": 1,
+      "message": "Thanks!",
+      "range": {
+        "startLine": 321,
+        "startChar": 41,
+        "endLine": 321,
+        "endChar": 53
+      },
+      "revId": "5600af353649080efdda21a086110447a1e38cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

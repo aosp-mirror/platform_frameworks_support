@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "c313af01_a12838ec",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-07-26T14:18:39Z",
+      "side": 1,
+      "message": "Yeah. Android system services don\u0027t tend to be final but perhaps we can get a way with it here. :)",
+      "parentUuid": "5f14a7a9_b724698d",
+      "range": {
+        "startLine": 112,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 14
+      },
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d16f4f7_a0b31415",
         "filename": "textclassifier/api/1.0.0.txt",
         "patchSetId": 1
@@ -290,6 +314,30 @@
     },
     {
       "key": {
+        "uuid": "b6ab6688_953b871e",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-07-26T14:18:39Z",
+      "side": 1,
+      "message": "Hide sounds good. Thanks.",
+      "parentUuid": "961927f5_b8700bd9",
+      "range": {
+        "startLine": 188,
+        "startChar": 22,
+        "endLine": 188,
+        "endChar": 27
+      },
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "350f7ea8_9356524b",
         "filename": "textclassifier/api/1.0.0.txt",
         "patchSetId": 1
@@ -325,6 +373,30 @@
       "side": 1,
       "message": "Could you explain why you want to have this? I don\u0027t have the enough context :)",
       "parentUuid": "350f7ea8_9356524b",
+      "range": {
+        "startLine": 205,
+        "startChar": 60,
+        "endLine": 205,
+        "endChar": 76
+      },
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd06b550_8d314bbc",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-07-26T14:18:39Z",
+      "side": 1,
+      "message": "My reason for adding it here was for something like this:\n\nTextLinks.Builder builder \u003d new TextLinks.Builder();\n\nTextLinks createTextLinks(int start, int end, Map\u003c\u003e scores) {\n  return builder.clearLinks()\n                .addLink(start, end, scores)\n                .build();\n}\n\nBasically, allowing apps to reuse an existing builder instead of always being forced to create a new one.",
+      "parentUuid": "e096d512_71837b92",
       "range": {
         "startLine": 205,
         "startChar": 60,
@@ -384,6 +456,30 @@
     },
     {
       "key": {
+        "uuid": "c64156d4_4c21d3f5",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-07-26T14:18:39Z",
+      "side": 1,
+      "message": "Argh! You\u0027re right. All clients *need* is a builder. Thanks.",
+      "parentUuid": "9a3aaaf9_e54053e3",
+      "range": {
+        "startLine": 239,
+        "startChar": 2,
+        "endLine": 240,
+        "endChar": 3
+      },
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ba9583e_621ac3fc",
         "filename": "textclassifier/api/1.0.0.txt",
         "patchSetId": 1
@@ -395,6 +491,24 @@
       "writtenOn": "2018-07-25T13:16:50Z",
       "side": 1,
       "message": "FYI, I am going to hide this as SpanFactory is @hide now.",
+      "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "654d6825_808041e0",
+        "filename": "textclassifier/api/1.0.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-07-26T14:18:39Z",
+      "side": 1,
+      "message": "sgtm.",
+      "parentUuid": "0ba9583e_621ac3fc",
       "revId": "e7fbba83db50b004d025c33a529aa8f51d407407",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
