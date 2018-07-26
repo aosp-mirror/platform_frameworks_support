@@ -1172,20 +1172,21 @@ package androidx.core.os {
     method public static boolean postDelayed(android.os.Handler, java.lang.Runnable, java.lang.Object, long);
   }
 
-  public final class LocaleListCompat {
+  public abstract class LocaleListCompat {
     method public static androidx.core.os.LocaleListCompat create(java.util.Locale...);
     method public static androidx.core.os.LocaleListCompat forLanguageTags(java.lang.String);
-    method public java.util.Locale get(int);
+    method public abstract java.util.Locale get(int);
     method public static androidx.core.os.LocaleListCompat getAdjustedDefault();
     method public static androidx.core.os.LocaleListCompat getDefault();
     method public static androidx.core.os.LocaleListCompat getEmptyLocaleList();
-    method public java.util.Locale getFirstMatch(java.lang.String[]);
-    method public int indexOf(java.util.Locale);
-    method public boolean isEmpty();
-    method public int size();
-    method public java.lang.String toLanguageTags();
-    method public java.lang.Object unwrap();
-    method public static androidx.core.os.LocaleListCompat wrap(java.lang.Object);
+    method public abstract java.util.Locale getFirstMatch(java.lang.String[]);
+    method public abstract int indexOf(java.util.Locale);
+    method public abstract boolean isEmpty();
+    method public abstract int size();
+    method public abstract java.lang.String toLanguageTags();
+    method public abstract java.lang.Object unwrap();
+    method public static deprecated androidx.core.os.LocaleListCompat wrap(java.lang.Object);
+    method public static androidx.core.os.LocaleListCompat wrap(android.os.LocaleList);
   }
 
   public final class MessageCompat {
