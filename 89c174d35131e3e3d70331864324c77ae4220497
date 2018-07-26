@@ -69,6 +69,30 @@
       "revId": "89c174d35131e3e3d70331864324c77ae4220497",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57d57262_e40170ae",
+        "filename": "sparklers/src/main/java/androidx/sparklers/LoadPolicy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1003403
+      },
+      "writtenOn": "2018-07-26T14:25:43Z",
+      "side": 1,
+      "message": "https://security.googleblog.com/2017/02/announcing-first-sha1-collision.html",
+      "parentUuid": "74a6208e_0f409f3e",
+      "range": {
+        "startLine": 91,
+        "startChar": 18,
+        "endLine": 91,
+        "endChar": 32
+      },
+      "revId": "89c174d35131e3e3d70331864324c77ae4220497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
