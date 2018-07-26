@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "844488be_115fa4bc",
+        "filename": "recyclerview/benchmark/src/androidTest/java/androidx/recyclerview/benchmark/ScrollBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2018-07-26T16:17:45Z",
+      "side": 1,
+      "message": "why not just val adapter \u003d Adapter() this? There\u0027s no thread locals in play or anything that forces a lateinit + runOnUiThread construction",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "af50521edc458b5ee1252f6f9d10e1230edac4aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19ab874f_5943dcfd",
+        "filename": "recyclerview/benchmark/src/androidTest/java/androidx/recyclerview/benchmark/ScrollBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2018-07-26T16:17:45Z",
+      "side": 1,
+      "message": "comment why the initial 50?",
+      "revId": "af50521edc458b5ee1252f6f9d10e1230edac4aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fd331d1_3fea2830",
+        "filename": "recyclerview/benchmark/src/androidTest/java/androidx/recyclerview/benchmark/ScrollBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2018-07-26T16:17:45Z",
+      "side": 1,
+      "message": "SingleViewHolder?",
+      "range": {
+        "startLine": 96,
+        "startChar": 14,
+        "endLine": 96,
+        "endChar": 24
+      },
+      "revId": "af50521edc458b5ee1252f6f9d10e1230edac4aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "831f9d74_063d4984",
+        "filename": "recyclerview/benchmark/src/androidTest/java/androidx/recyclerview/benchmark/ScrollBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2018-07-26T16:17:45Z",
+      "side": 1,
+      "message": "TestAdapter? ScrollBenchAdapter?",
+      "range": {
+        "startLine": 98,
+        "startChar": 14,
+        "endLine": 98,
+        "endChar": 21
+      },
+      "revId": "af50521edc458b5ee1252f6f9d10e1230edac4aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
