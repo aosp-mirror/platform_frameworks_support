@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6399b03_19e866ab",
+        "filename": "sparklers/src/androidTest/java/androidx/sparklers/SparklersTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1003403
+      },
+      "writtenOn": "2018-07-26T14:06:49Z",
+      "side": 1,
+      "message": "Maybe also a test that checks the policy behavior: version too low, version too high, version explicitly disabled, etc etc",
+      "range": {
+        "startLine": 43,
+        "startChar": 16,
+        "endLine": 43,
+        "endChar": 33
+      },
+      "revId": "89c174d35131e3e3d70331864324c77ae4220497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
