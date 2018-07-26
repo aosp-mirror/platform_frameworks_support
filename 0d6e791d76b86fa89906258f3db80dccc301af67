@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3cdb46f1_93a2d5b6",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2Manager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-07-26T02:21:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5c90663_84c0b7fa",
+      "range": {
+        "startLine": 65,
+        "startChar": 31,
+        "endLine": 65,
+        "endChar": 52
+      },
+      "revId": "0d6e791d76b86fa89906258f3db80dccc301af67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad4b1e57_737b3c08",
         "filename": "media2/src/main/java/androidx/media2/MediaSession2Manager.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "eaaff61c_25887809",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2Manager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-07-26T02:21:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad4b1e57_737b3c08",
+      "range": {
+        "startLine": 67,
+        "startChar": 19,
+        "endLine": 67,
+        "endChar": 38
+      },
+      "revId": "0d6e791d76b86fa89906258f3db80dccc301af67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d9fe56b_a59e5d99",
         "filename": "media2/src/main/java/androidx/media2/MediaSession2Manager.java",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2018-07-25T14:32:57Z",
       "side": 1,
       "message": "question) do we have a reason for the API duplications? ControllerInfo for media2 API has isTrusted, so I\u0027m curious if we need this.",
+      "range": {
+        "startLine": 98,
+        "startChar": 19,
+        "endLine": 98,
+        "endChar": 43
+      },
+      "revId": "0d6e791d76b86fa89906258f3db80dccc301af67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0329428c_fd41d099",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2Manager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-07-26T02:21:49Z",
+      "side": 1,
+      "message": "With this method, developer doesn\u0027t need to hold two instances, one from MediaSessionManager, the other from MediaSession2Manager.\n\nDo you think this is a kind of redundant?",
+      "parentUuid": "4d9fe56b_a59e5d99",
       "range": {
         "startLine": 98,
         "startChar": 19,
@@ -91,6 +163,30 @@
       "revId": "0d6e791d76b86fa89906258f3db80dccc301af67",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3a6b011_92938df3",
+        "filename": "media2/src/main/java/androidx/media2/SessionToken2ImplLegacy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-07-26T02:21:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "582210d3_9c80c81a",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 93,
+        "endChar": 21
+      },
+      "revId": "0d6e791d76b86fa89906258f3db80dccc301af67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
