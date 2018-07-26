@@ -76,6 +76,8 @@ object RoomTypeNames {
             ClassName.get("androidx.room.util", "TableInfo.Index")
     val LIMIT_OFFSET_DATA_SOURCE: ClassName =
             ClassName.get("androidx.room.paging", "LimitOffsetDataSource")
+    val CURSOR_UTIL: ClassName =
+            ClassName.get("androidx.room.util", "CursorUtil")
 }
 
 object PagingTypeNames {

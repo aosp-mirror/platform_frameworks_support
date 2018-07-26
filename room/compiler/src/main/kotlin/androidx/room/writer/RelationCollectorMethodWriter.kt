@@ -23,6 +23,7 @@ import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.S
 import androidx.room.ext.T
 import androidx.room.solver.CodeGenScope
+import androidx.room.solver.query.result.PojoRowAdapter
 import androidx.room.vo.RelationCollector
 import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.MethodSpec
@@ -62,7 +63,7 @@ class RelationCollectorMethodWriter(private val collector: RelationCollector)
         val sqlQueryVar = scope.getTmpVar("_sql")
         val keySetVar = KEY_SET_VARIABLE
 
-        val cursorVar = "_cursor"
+        var cursorVar = "_cursor"
         val itemKeyIndexVar = "_itemKeyIndex"
         val stmtVar = scope.getTmpVar("_stmt")
         scope.builder().apply {
@@ -115,15 +116,24 @@ class RelationCollectorMethodWriter(private val collector: RelationCollector)
             addStatement("final $T $L = $N.query($L)", AndroidTypeNames.CURSOR, cursorVar,
                     DaoWriter.dbField, stmtVar)
 
+            addStatement("final $T $L = $L.getColumnIndex($S)",
+                    TypeName.INT, itemKeyIndexVar, cursorVar, relation.entityField.columnName)
+            beginControlFlow("if ($L == -1)", itemKeyIndexVar).apply {
+                addStatement("return")
+            }
+            endControlFlow()
+
+            val shouldCopyCursor = collector.rowAdapter.let {
+                it is PojoRowAdapter && it.relationCollectors.isNotEmpty()
+            }
+            if (shouldCopyCursor) {
+                val cursorCopyVar = scope.getTmpVar("_cursorCopy")
+                addStatement("final $T $L = $T.copyAndClose($L)", AndroidTypeNames.CURSOR,
+                        cursorCopyVar, RoomTypeNames.CURSOR_UTIL, cursorVar)
+                cursorVar = cursorCopyVar
+            }
+
             beginControlFlow("try").apply {
-                addStatement("final $T $L = $L.getColumnIndex($S)",
-                        TypeName.INT, itemKeyIndexVar, cursorVar, relation.entityField.columnName)
-
-                beginControlFlow("if ($L == -1)", itemKeyIndexVar).apply {
-                    addStatement("return")
-                }
-                endControlFlow()
-
                 collector.rowAdapter.onCursorReady(cursorVar, scope)
                 val tmpVarName = scope.getTmpVar("_item")
                 beginControlFlow("while($L.moveToNext())", cursorVar).apply {
