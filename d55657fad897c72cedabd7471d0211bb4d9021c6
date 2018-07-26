@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b76b086e_08f76bac",
+        "filename": "compat/src/main/java/androidx/core/graphics/drawable/WrappedDrawableState.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-07-26T15:29:01Z",
+      "side": 1,
+      "message": "I moved this class to be top-level because it was weird having a nested class inside the API 14 wrapper know about the API 21 wrapper. It was already static so knowledge of each wasn\u0027t a problem, the fact that it was nested was the violation.",
+      "revId": "d55657fad897c72cedabd7471d0211bb4d9021c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
