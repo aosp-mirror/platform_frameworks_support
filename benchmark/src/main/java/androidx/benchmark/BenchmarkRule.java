@@ -33,7 +33,7 @@ import org.junit.runners.model.Statement;
  *
  * <pre>
  *
- * {@literal @}Rule public PerfStatusReporter mPerfStatusReporter = new PerfStatusReporter();
+ * {@literal @}Rule public BenchmarkRule mPerfStatusReporter = new BenchmarkRule();
  * {@literal @}Test public void functionName() {
  *     ...
  *     BenchmarkState state = mPerfStatusReporter.getBenchmarkState();
@@ -51,13 +51,13 @@ import org.junit.runners.model.Statement;
  * name when using parameterization.
  */
 
-public class PerfStatusReporter implements TestRule {
-    private static final String TAG = "PerfStatusReporter";
+public class BenchmarkRule implements TestRule {
+    private static final String TAG = "BenchmarkRule";
     @SuppressWarnings("WeakerAccess") // synthetic access
     final BenchmarkState mState = new BenchmarkState();
 
     @NonNull
-    public BenchmarkState getBenchmarkState() {
+    public BenchmarkState getState() {
         return mState;
     }
 
