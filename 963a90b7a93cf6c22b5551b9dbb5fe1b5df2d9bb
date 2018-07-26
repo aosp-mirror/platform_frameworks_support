@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "113c9d2f_b28229b9",
+        "filename": "leanback/api/1.0.0.ignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-26T22:41:20Z",
+      "side": 1,
+      "message": "What are we suppressing here? It seems like we are deleting something that was not deprecated before?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 7
+      },
+      "revId": "963a90b7a93cf6c22b5551b9dbb5fe1b5df2d9bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
