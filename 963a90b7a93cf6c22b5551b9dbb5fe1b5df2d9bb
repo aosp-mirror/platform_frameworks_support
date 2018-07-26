@@ -22,6 +22,30 @@
       "revId": "963a90b7a93cf6c22b5551b9dbb5fe1b5df2d9bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26977e75_625fe11f",
+        "filename": "leanback/api/1.0.0.ignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2018-07-26T22:46:16Z",
+      "side": 1,
+      "message": "Yes, that are two inner classes forgot to be marked as deprecated with their outer ones.  Inner ones should be automatically made deprecated if outer class goes deprecated.",
+      "parentUuid": "113c9d2f_b28229b9",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 7
+      },
+      "revId": "963a90b7a93cf6c22b5551b9dbb5fe1b5df2d9bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
