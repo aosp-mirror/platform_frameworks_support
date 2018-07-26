@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ede4359d_0bc6b5ac",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-07-26T13:16:29Z",
+      "side": 1,
+      "message": "Inconsistent naming versus MediaSessionService2 below, consider MediaSessionManager2 here or MediaSession2Service below.",
+      "range": {
+        "startLine": 682,
+        "startChar": 20,
+        "endLine": 682,
+        "endChar": 42
+      },
+      "revId": "272cfcbd0e9bf6d1462cf87c4c541c00748bae81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f064816_3b6ebcad",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-07-26T13:16:29Z",
+      "side": 1,
+      "message": "Consider getInstance(Context) for consistency with other manager classes.",
+      "range": {
+        "startLine": 683,
+        "startChar": 62,
+        "endLine": 683,
+        "endChar": 80
+      },
+      "revId": "272cfcbd0e9bf6d1462cf87c4c541c00748bae81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
