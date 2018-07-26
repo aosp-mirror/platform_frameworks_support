@@ -46,6 +46,29 @@
       "revId": "89c174d35131e3e3d70331864324c77ae4220497",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "74a6208e_0f409f3e",
+        "filename": "sparklers/src/main/java/androidx/sparklers/LoadPolicy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1003403
+      },
+      "writtenOn": "2018-07-26T14:22:39Z",
+      "side": 1,
+      "message": "Maybe don\u0027t put SHA1 in the API? It\u0027s kind of deprecated anyway.\n\n`getReleaseFingerprint` with a spec on how to generate fingerprints, that might change over time.",
+      "range": {
+        "startLine": 91,
+        "startChar": 18,
+        "endLine": 91,
+        "endChar": 32
+      },
+      "revId": "89c174d35131e3e3d70331864324c77ae4220497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
