@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8b9a678_1f82d817",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-26T22:55:41Z",
+      "side": 1,
+      "message": "You should *never* have to use @TargetApi as all it does it suppresses lint. What are you trying to do here? If you are getting warnings from lint you should fix them by doing proper if SDK_INT checks (lint understands these) or marking methods/classes with @RequiresApi which let\u0027s lint know that they should only be called on certain API levels.",
+      "range": {
+        "startLine": 74,
+        "startChar": 1,
+        "endLine": 74,
+        "endChar": 10
+      },
+      "revId": "ddc59ba18452bc8829cd2404419fce00740458bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
