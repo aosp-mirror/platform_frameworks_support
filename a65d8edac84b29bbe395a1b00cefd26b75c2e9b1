@@ -22,6 +22,30 @@
       "revId": "a65d8edac84b29bbe395a1b00cefd26b75c2e9b1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d3a1aa3_fb194004",
+        "filename": "compat/src/main/java/androidx/core/content/res/ColorStateListInflaterCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-07-26T21:34:37Z",
+      "side": 0,
+      "message": "Let me know",
+      "parentUuid": "3f097c2d_91e253aa",
+      "range": {
+        "startLine": 155,
+        "startChar": 12,
+        "endLine": 158,
+        "endChar": 0
+      },
+      "revId": "a65d8edac84b29bbe395a1b00cefd26b75c2e9b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
