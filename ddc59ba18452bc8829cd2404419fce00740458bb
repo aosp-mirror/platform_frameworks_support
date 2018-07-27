@@ -46,6 +46,30 @@
       "revId": "ddc59ba18452bc8829cd2404419fce00740458bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9c9840e_f32fa4e6",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-27T21:24:27Z",
+      "side": 1,
+      "message": "If this class should only be used on P and newer, yes you need to mark it @RequiresApi. However, your library minSdkVersion is API 14. What are developers supposed to do for devices older than P?",
+      "parentUuid": "7e7e2162_7d265050",
+      "range": {
+        "startLine": 74,
+        "startChar": 1,
+        "endLine": 74,
+        "endChar": 10
+      },
+      "revId": "ddc59ba18452bc8829cd2404419fce00740458bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
