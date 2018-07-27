@@ -22,6 +22,30 @@
       "revId": "ddc59ba18452bc8829cd2404419fce00740458bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e7e2162_7d265050",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-07-27T06:48:55Z",
+      "side": 1,
+      "message": "Aurimas, thanks for your feedback.\n\nIt is not because of lint warnings. It is only for marking this code is targeted to P. We don\u0027t want it be called under P. So, in this case should it be @RequiresApi(P)?\n\nThe problem here was that it had been annotated with @TargetApi(KIKAT), but current target API is P. It will be lowered to KIKAT later.",
+      "parentUuid": "a8b9a678_1f82d817",
+      "range": {
+        "startLine": 74,
+        "startChar": 1,
+        "endLine": 74,
+        "endChar": 10
+      },
+      "revId": "ddc59ba18452bc8829cd2404419fce00740458bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
