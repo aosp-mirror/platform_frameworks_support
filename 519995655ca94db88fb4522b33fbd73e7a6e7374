@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e0477ee8_0a79e6f8",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-07-27T13:40:57Z",
+      "side": 1,
+      "message": "does this mean we don\u0027t need to add @hide when repackaging exoplayer lib?",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 11
+      },
+      "revId": "519995655ca94db88fb4522b33fbd73e7a6e7374",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
