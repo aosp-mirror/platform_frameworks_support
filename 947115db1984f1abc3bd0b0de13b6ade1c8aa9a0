@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6febb112_ed284181",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/PojoProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-07-27T00:30:49Z",
+      "side": 1,
+      "message": "localize",
+      "range": {
+        "startLine": 331,
+        "startChar": 20,
+        "endLine": 331,
+        "endChar": 85
+      },
+      "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24f30baf_4bf47691",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/BaseObservableQueryResultBinder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-07-27T00:30:49Z",
+      "side": 1,
+      "message": "lets name that method copyAndClose and also move the try finally there so that this code can be simpler as well.\n\nwould be nice to merge cursorCopyVar and cursorVar.",
+      "range": {
+        "startLine": 68,
+        "startChar": 12,
+        "endLine": 78,
+        "endChar": 13
+      },
+      "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb31d23a_fb394fc0",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/GuavaListenableFutureQueryResultBinder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-07-27T00:30:49Z",
+      "side": 1,
+      "message": "newline",
+      "range": {
+        "startLine": 94,
+        "startChar": 57,
+        "endLine": 94,
+        "endChar": 72
+      },
+      "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f728d695_b45133b9",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/InstantQueryResultBinder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-07-27T00:30:49Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 55,
+        "startChar": 12,
+        "endLine": 62,
+        "endChar": 13
+      },
+      "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2da2f4d_2ea49b9f",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/RxCallableQueryResultBinder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-07-27T00:30:49Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4623fd82_c374b73a",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/RelationCollectorMethodWriter.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-07-27T00:30:49Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5155888a_199f4f8c",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/PojoProcessorTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-07-27T00:30:49Z",
+      "side": 1,
+      "message": "yummy.",
+      "range": {
+        "startLine": 816,
+        "startChar": 10,
+        "endLine": 816,
+        "endChar": 30
+      },
+      "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e00765f_c86fd9f2",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/dao/UserHouseDao.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-07-27T00:30:49Z",
+      "side": 1,
+      "message": "not fully against creating a new one but i think we already have enough entities  to create this use case.\neverything in relation tests and a few more pojos that has\nconstructor relationship\nconstructor + field relationship\n\nand also nested versions of them.",
+      "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5a37661_e44639ab",
+        "filename": "room/runtime/src/main/java/androidx/room/util/CursorUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-07-27T00:30:49Z",
+      "side": 1,
+      "message": "as mentioned before, rename this to copyAndClose, move the try catch here.",
+      "range": {
+        "startLine": 43,
+        "startChar": 25,
+        "endLine": 43,
+        "endChar": 29
+      },
+      "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
