@@ -40,9 +40,51 @@ import java.util.List;
  * compatible fashion.
  */
 public class AccessibilityNodeInfoCompat {
+    /**
+     * Implement to create a custom accessibility action.
+     */
+    public interface  AccessibilityViewCommand {
+        /**
+         * Performs the action.
+         *
+         * @return If the action was handled.
+         *
+         * @param view The view to perform the action on.
+         * @param actionId The id of the action.
+         * @param arguments Optional action arguments.
+         */
+        boolean perform(View view, int actionId, Bundle arguments);
+    }
 
+    /**
+     * A class defining an action that can be performed on an {@link AccessibilityNodeInfo}.
+     * Each action has a unique id and a label.
+     * <p>
+     * There are three categories of actions:
+     * <ul>
+     * <li><strong>Standard actions</strong> - These are actions that are reported and
+     * handled by the standard UI widgets in the platform. For each standard action
+     * there is a static constant defined in this class, e.g. {@link #ACTION_FOCUS}.
+     * These actions will have {@code null} labels.
+     * </li>
+     * <li><strong>Custom actions action</strong> - These are actions that are reported
+     * and handled by custom widgets. i.e. ones that are not part of the UI toolkit. For
+     * example, an application may define a custom action for clearing the user history.
+     * </li>
+     * <li><strong>Overriden standard actions</strong> - These are actions that override
+     * standard actions to customize them. For example, an app may add a label to the
+     * standard {@link #ACTION_CLICK} action to indicate to the user that this action clears
+     * browsing history.
+     * </ul>
+     * </p>
+     * <p class="note">
+     * <strong>Note:</strong> Views which support these actions should invoke
+     * {@link View#setImportantForAccessibility(int)} with
+     * {@link View#IMPORTANT_FOR_ACCESSIBILITY_YES} to ensure an {@link AccessibilityService}
+     * can discover the set of supported actions.
+     * </p>
+     */
     public static class AccessibilityActionCompat {
-
         /**
          * Action that gives input focus to the node.
          */
@@ -443,6 +485,9 @@ public class AccessibilityNodeInfoCompat {
                         ? AccessibilityNodeInfo.AccessibilityAction.ACTION_HIDE_TOOLTIP : null);
 
         final Object mAction;
+        private final int mId;
+        private final CharSequence mLabel;
+        private final AccessibilityViewCommand mCommand;
 
         /**
          * Creates a new instance.
@@ -451,12 +496,35 @@ public class AccessibilityNodeInfoCompat {
          * @param label The action label.
          */
         public AccessibilityActionCompat(int actionId, CharSequence label) {
+            this(actionId, label, null);
+        }
+
+        /**
+         * Creates a new instance.
+         *
+         * @param actionId The action id.
+         * @param label The action label.
+         * @param command The command performed when the service requests the qction
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public AccessibilityActionCompat(int actionId, CharSequence label,
+                AccessibilityViewCommand command) {
             this(Build.VERSION.SDK_INT >= 21
-                    ? new AccessibilityNodeInfo.AccessibilityAction(actionId, label) : null);
+                            ? new AccessibilityNodeInfo.AccessibilityAction(actionId, label) : null,
+                    actionId, label, command);
         }
 
         AccessibilityActionCompat(Object action) {
+            this(action, 0, null, null);
+        }
+
+        AccessibilityActionCompat(Object action, int id, CharSequence label,
+                AccessibilityViewCommand command) {
             mAction = action;
+            mId = id;
+            mLabel = label;
+            mCommand = command;
         }
 
         /**
@@ -468,7 +536,7 @@ public class AccessibilityNodeInfoCompat {
             if (Build.VERSION.SDK_INT >= 21) {
                 return ((AccessibilityNodeInfo.AccessibilityAction) mAction).getId();
             } else {
-                return 0;
+                return mId;
             }
         }
 
@@ -482,8 +550,32 @@ public class AccessibilityNodeInfoCompat {
             if (Build.VERSION.SDK_INT >= 21) {
                 return ((AccessibilityNodeInfo.AccessibilityAction) mAction).getLabel();
             } else {
-                return null;
+                return mLabel;
             }
+        }
+
+        /**
+         * Performs the action.
+         * @return If the action was handled.
+         * @param view The view to perform the action on.
+         * @param actionId the actions id.
+         * @param arguments Optional action arguments.
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public boolean perform(View view, int actionId, Bundle arguments) {
+            return mCommand != null && mCommand.perform(view, actionId, arguments);
+        }
+
+        @Override
+        public int hashCode() {
+            return mId;
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            return other instanceof AccessibilityActionCompat
+                    && mId == ((AccessibilityActionCompat) other).getId();
         }
     }
 
@@ -872,6 +964,13 @@ public class AccessibilityNodeInfoCompat {
 
     private static final String BOOLEAN_PROPERTY_KEY =
             "androidx.view.accessibility.AccessibilityNodeInfoCompat.BOOLEAN_PROPERTY_KEY";
+
+    // The arraylists associated with ACTION_IDS_KEY and ACTION_LABELS_KEY are the same length.
+    private static final String ACTION_IDS_KEY =
+            "androidx.view.accessibility.AccessibilityNodeInfoCompat.ACTIONS_IDS_KEY";
+
+    private static final String ACTION_LABELS_KEY =
+            "androidx.view.accessibility.AccessibilityNodeInfoCompat.ACTION_LABELS_KEY";
 
     // These don't line up with the internal framework constants, since they are independent
     // and we might as well get all 32 bits of utility here.
@@ -1610,6 +1709,59 @@ public class AccessibilityNodeInfoCompat {
         mInfo.addAction(action);
     }
 
+    private List<AccessibilityActionCompat> createExtrasActionList() {
+        List<AccessibilityActionCompat> actions = new ArrayList<AccessibilityActionCompat>();
+        List<Integer> ids = getExtrasActionIdList();
+        List<CharSequence> labels = getExtrasActionLabelList();
+        for (int i = 0; i < ids.size() && i < labels.size(); i++) {
+            actions.add(new AccessibilityActionCompat(ids.get(i), labels.get(i)));
+        }
+        return actions;
+    }
+
+    private List<CharSequence> getExtrasActionLabelList() {
+        if (Build.VERSION.SDK_INT < 19) {
+            return new ArrayList<CharSequence>();
+        }
+        ArrayList<CharSequence> labels = mInfo.getExtras()
+                .getCharSequenceArrayList(ACTION_LABELS_KEY);
+        if (labels == null) {
+            labels = new ArrayList<CharSequence>();
+            mInfo.getExtras().putCharSequenceArrayList(ACTION_LABELS_KEY, labels);
+        }
+        return labels;
+    }
+
+    private List<Integer> getExtrasActionIdList() {
+        if (Build.VERSION.SDK_INT < 19) {
+            return new ArrayList<Integer>();
+        }
+        ArrayList<Integer> ids = mInfo.getExtras()
+                .getIntegerArrayList(ACTION_IDS_KEY);
+        if (ids == null) {
+            ids = new ArrayList<Integer>();
+            mInfo.getExtras().putIntegerArrayList(ACTION_IDS_KEY, ids);
+        }
+        return ids;
+    }
+
+
+    private boolean removeExtrasAction(AccessibilityActionCompat action) {
+        int index = getExtrasActionIdList().indexOf(action.getId());
+        if (index != -1) {
+            getExtrasActionIdList().remove(index);
+            getExtrasActionLabelList().remove(index);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void addExtrasAction(AccessibilityActionCompat action) {
+        getExtrasActionIdList().add(action.getId());
+        getExtrasActionLabelList().add(action.getLabel());
+    }
+
     /**
      * Adds an action that can be performed on the node.
      * <p>
@@ -1624,6 +1776,8 @@ public class AccessibilityNodeInfoCompat {
     public void addAction(AccessibilityActionCompat action) {
         if (Build.VERSION.SDK_INT >= 21) {
             mInfo.addAction((AccessibilityNodeInfo.AccessibilityAction) action.mAction);
+        } else {
+            addExtrasAction(action);
         }
     }
 
@@ -1645,7 +1799,7 @@ public class AccessibilityNodeInfoCompat {
         if (Build.VERSION.SDK_INT >= 21) {
             return mInfo.removeAction((AccessibilityNodeInfo.AccessibilityAction) action.mAction);
         } else {
-            return false;
+            return removeExtrasAction(action);
         }
     }
 
@@ -2501,20 +2655,18 @@ public class AccessibilityNodeInfoCompat {
      */
     @SuppressWarnings("unchecked")
     public List<AccessibilityActionCompat> getActionList() {
-        List<Object> actions = null;
         if (Build.VERSION.SDK_INT >= 21) {
-            actions = (List<Object>) (List<?>) mInfo.getActionList();
-        }
-        if (actions != null) {
             List<AccessibilityActionCompat> result = new ArrayList<AccessibilityActionCompat>();
-            final int actionCount = actions.size();
-            for (int i = 0; i < actionCount; i++) {
-                Object action = actions.get(i);
-                result.add(new AccessibilityActionCompat(action));
+            List<Object> actions = (List<Object>) (List<?>) mInfo.getActionList();
+            if (actions != null) {
+                final int actionCount = actions.size();
+                for (int i = 0; i < actionCount; i++) {
+                    result.add(new AccessibilityActionCompat(actions.get(i)));
+                }
             }
             return result;
         } else {
-            return Collections.<AccessibilityActionCompat>emptyList();
+            return createExtrasActionList();
         }
     }
 
