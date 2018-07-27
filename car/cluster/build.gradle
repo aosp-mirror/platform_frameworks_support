@@ -1,0 +1,39 @@
+import static androidx.build.dependencies.DependenciesKt.*
+import androidx.build.LibraryGroups
+import androidx.build.LibraryVersions
+
+plugins {
+    id("SupportAndroidLibraryPlugin")
+}
+
+dependencies {
+    implementation(project(":car"))
+    api(project(":annotation"))
+
+    androidTestImplementation(TEST_RUNNER)
+    androidTestImplementation(TEST_RULES)
+    androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
+    androidTestImplementation(ESPRESSO_CONTRIB, libs.exclude_for_espresso)
+    androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
+    androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
+
+    testImplementation(JUNIT)
+    testImplementation(TEST_RUNNER)
+    testImplementation(MOCKITO_CORE)
+}
+
+android {
+    sourceSets {
+        main.res.srcDirs 'res', 'res-public'
+    }
+}
+
+supportLibrary {
+    name = "Android Car Instrument Cluster Support"
+    publish = false
+    mavenVersion = LibraryVersions.CAR
+    mavenGroup = LibraryGroups.CAR
+    inceptionYear = "2018"
+    description = "Android Car Instrument Cluster Support"
+    failOnUncheckedWarnings = false
+}
