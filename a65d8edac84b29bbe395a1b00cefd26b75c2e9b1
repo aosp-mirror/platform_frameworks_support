@@ -22,6 +22,30 @@
       "revId": "a65d8edac84b29bbe395a1b00cefd26b75c2e9b1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67ca95ec_b0d22a38",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-07-27T06:34:46Z",
+      "side": 0,
+      "message": "It is used for MP1 backport. It will be removed when we are convincing MP2\u0027s backport is complete.",
+      "parentUuid": "c8761f63_893b757f",
+      "range": {
+        "startLine": 1141,
+        "startChar": 46,
+        "endLine": 1141,
+        "endChar": 72
+      },
+      "revId": "a65d8edac84b29bbe395a1b00cefd26b75c2e9b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
