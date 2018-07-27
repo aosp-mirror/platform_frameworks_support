@@ -603,7 +603,7 @@ package androidx.media {
   }
 
   public final class MediaSessionManager {
-    method public static androidx.media.MediaSessionManager getSessionManager(android.content.Context);
+    method public static androidx.media.MediaSessionManager getInstance(android.content.Context);
     method public boolean isTrustedForMediaControl(androidx.media.MediaSessionManager.RemoteUserInfo);
   }
 

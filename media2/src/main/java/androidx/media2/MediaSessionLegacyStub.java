@@ -82,7 +82,7 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
     MediaSessionLegacyStub(MediaSession2Impl session) {
         mSessionImpl = session;
         mContext = mSessionImpl.getContext();
-        mSessionManager = MediaSessionManager.getSessionManager(mContext);
+        mSessionManager = MediaSessionManager.getInstance(mContext);
         mControllerInfoForAll = new ControllerInfo(
                 new RemoteUserInfo(
                         RemoteUserInfo.LEGACY_CONTROLLER, Process.myPid(), Process.myUid()),

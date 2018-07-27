@@ -45,7 +45,7 @@ class MediaSessionService2LegacyStub extends MediaBrowserServiceCompat {
         attachToBaseContext(context);
         onCreate();
         setSessionToken(token);
-        mManager = MediaSessionManager.getSessionManager(context);
+        mManager = MediaSessionManager.getInstance(context);
         mSessionImpl = sessionImpl;
         mConnectedControllersManager = new ConnectedControllersManager<>(sessionImpl);
     }

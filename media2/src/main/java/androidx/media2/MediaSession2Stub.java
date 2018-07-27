@@ -98,7 +98,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     MediaSession2Stub(MediaSession2Impl sessionImpl) {
         mSessionImpl = sessionImpl;
         mContext = mSessionImpl.getContext();
-        mSessionManager = MediaSessionManager.getSessionManager(mContext);
+        mSessionManager = MediaSessionManager.getInstance(mContext);
         mConnectedControllersManager = new ConnectedControllersManager<>(sessionImpl);
     }
 

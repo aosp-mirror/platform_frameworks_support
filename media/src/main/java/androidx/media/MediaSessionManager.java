@@ -51,7 +51,7 @@ public final class MediaSessionManager {
      *
      * @return The MediaSessionManager instance for this context.
      */
-    public static @NonNull MediaSessionManager getSessionManager(@NonNull Context context) {
+    public static @NonNull MediaSessionManager getInstance(@NonNull Context context) {
         MediaSessionManager manager = sSessionManager;
         if (manager == null) {
             synchronized (sLock) {
