@@ -165,6 +165,7 @@ def configureBuildOnServer() {
         }
     }
     buildOnServerTask.dependsOn createJacocoAntUberJarTask()
+    buildOnServerTask.dependsOn createCoverageJarTask()
     return buildOnServerTask
 }
 
@@ -188,6 +189,24 @@ def createJacocoAntUberJarTask() {
         destinationDir file(project.distDir)
         archiveName "jacocoant.jar"
     }
+}
+
+def createCoverageJarTask() {
+    // Package the individual *-allclasses.jar files together to generate code coverage reports
+    def packageAllClassFiles = project.tasks.create(
+        name: "packageAllClassFilesForCoverageReport",
+        type: Jar) {
+        destinationDir file(project.distDir)
+        archiveName "jacoco-report-classes-all.jar"
+    }
+    subprojects {
+        project.tasks.whenTaskAdded { task ->
+            if (task.name.endsWith("ClassFilesForCoverageReport")) {
+                packageAllClassFiles.from task
+            }
+        }
+    }
+    return packageAllClassFiles
 }
 
 def configureSubProjects() {
