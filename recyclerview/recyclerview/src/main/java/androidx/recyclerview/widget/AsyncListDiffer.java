@@ -22,6 +22,7 @@ import android.os.Looper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -131,6 +132,22 @@ public class AsyncListDiffer<T> {
     private static final Executor sMainThreadExecutor = new MainThreadExecutor();
 
     /**
+     * Listener for when the current List is updated.
+     *
+     * @param <T> Type of items in List
+     */
+    public interface ListListener<T> {
+        /**
+         * Called after the current List has been updated.
+         *
+         * @param currentList The new current list, may be null.
+         */
+        void onCurrentListChanged(@Nullable List<T> currentList);
+    }
+
+    private final List<ListListener<T>> mListeners = new ArrayList<>();
+
+    /**
      * Convenience for
      * {@code AsyncListDiffer(new AdapterListUpdateCallback(adapter),
      * new AsyncDifferConfig.Builder().setDiffCallback(diffCallback).build());}
@@ -227,6 +244,7 @@ public class AsyncListDiffer<T> {
             mReadOnlyList = Collections.emptyList();
             // notify last, after list is updated
             mUpdateCallback.onRemoved(0, countRemoved);
+            onCurrentListChanged();
             return;
         }
 
@@ -236,6 +254,7 @@ public class AsyncListDiffer<T> {
             mReadOnlyList = Collections.unmodifiableList(newList);
             // notify last, after list is updated
             mUpdateCallback.onInserted(0, newList.size());
+            onCurrentListChanged();
             return;
         }
 
@@ -316,5 +335,36 @@ public class AsyncListDiffer<T> {
         // notify last, after list is updated
         mReadOnlyList = Collections.unmodifiableList(newList);
         diffResult.dispatchUpdatesTo(mUpdateCallback);
+        onCurrentListChanged();
+    }
+
+    private void onCurrentListChanged() {
+        // current list is always mReadOnlyList
+        for (int i = mListeners.size() - 1; i >= 0; i--) {
+            mListeners.get(i).onCurrentListChanged(mReadOnlyList);
+        }
+    }
+
+    /**
+     * Add a ListListener to receive updates when the current List changes.
+     *
+     * @param listener Listener to receive updates.
+     *
+     * @see #getCurrentList()
+     * @see #removeListListener(ListListener)
+     */
+    public void addListListener(@NonNull ListListener<T> listener) {
+        mListeners.add(listener);
+    }
+
+    /**
+     * Remove a previously registered ListListener.
+     *
+     * @param listener Previously registered listener.
+     * @see #getCurrentList()
+     * @see #addListListener(ListListener)
+     */
+    public void removeListListener(@NonNull ListListener<T> listener) {
+        mListeners.remove(listener);
     }
 }

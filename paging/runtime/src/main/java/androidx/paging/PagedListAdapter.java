@@ -130,13 +130,13 @@ public abstract class PagedListAdapter<T, VH extends RecyclerView.ViewHolder>
      */
     protected PagedListAdapter(@NonNull DiffUtil.ItemCallback<T> diffCallback) {
         mDiffer = new AsyncPagedListDiffer<>(this, diffCallback);
-        mDiffer.mListener = mListener;
+        mDiffer.addPagedListListener(mListener);
     }
 
     @SuppressWarnings("unused, WeakerAccess")
     protected PagedListAdapter(@NonNull AsyncDifferConfig<T> config) {
         mDiffer = new AsyncPagedListDiffer<>(new AdapterListUpdateCallback(this), config);
-        mDiffer.mListener = mListener;
+        mDiffer.addPagedListListener(mListener);
     }
 
     /**
@@ -169,6 +169,8 @@ public abstract class PagedListAdapter<T, VH extends RecyclerView.ViewHolder>
      * updating the currentList value. May be null if no PagedList is being presented.
      *
      * @return The list currently being displayed.
+     *
+     * @see #onCurrentListChanged(PagedList)
      */
     @Nullable
     public PagedList<T> getCurrentList() {
@@ -188,6 +190,8 @@ public abstract class PagedListAdapter<T, VH extends RecyclerView.ViewHolder>
      * PagedList via this method.
      *
      * @param currentList new PagedList being displayed, may be null.
+     *
+     * @see #getCurrentList()
      */
     @SuppressWarnings("WeakerAccess")
     public void onCurrentListChanged(@Nullable PagedList<T> currentList) {

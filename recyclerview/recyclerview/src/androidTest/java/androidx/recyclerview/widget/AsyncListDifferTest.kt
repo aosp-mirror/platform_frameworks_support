@@ -29,6 +29,7 @@ import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
 import org.mockito.Mockito.verifyZeroInteractions
 import java.lang.UnsupportedOperationException
+import java.util.Collections
 import java.util.Collections.emptyList
 import java.util.LinkedList
 import java.util.concurrent.Executor
@@ -305,6 +306,42 @@ class AsyncListDifferTest {
         assertEquals(6, differ.currentList.size)
         differ.submitList(null)
         assertEquals(0, differ.currentList.size)
+    }
+
+    @Test
+    fun listListener() {
+        val differ = createDiffer(IGNORE_CALLBACK, STRING_DIFF_CALLBACK)
+
+        @Suppress("UNCHECKED_CAST")
+        val listener = mock(AsyncListDiffer.ListListener::class.java)
+                as AsyncListDiffer.ListListener<String>
+        differ.addListListener(listener)
+
+        // first - simple insert
+        val first = listOf("a", "b")
+        verifyZeroInteractions(listener)
+        differ.submitList(first)
+        verify(listener).onCurrentListChanged(first)
+        verifyNoMoreInteractions(listener)
+
+        // second - async update
+        val second = listOf("c", "d")
+        differ.submitList(second)
+        verifyNoMoreInteractions(listener)
+        drain()
+        verify(listener).onCurrentListChanged(second)
+        verifyNoMoreInteractions(listener)
+
+        // third - null
+        differ.submitList(null)
+        verify(listener).onCurrentListChanged(Collections.emptyList())
+        verifyNoMoreInteractions(listener)
+
+        // remove listener, see nothing
+        differ.removeListListener(listener)
+        differ.submitList(first)
+        drain()
+        verifyNoMoreInteractions(listener)
     }
 
     private fun drain() {

@@ -26,6 +26,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executor;
 
 /**
@@ -124,16 +126,23 @@ public class AsyncPagedListDiffer<T> {
     @SuppressWarnings("RestrictedApi")
     Executor mMainThreadExecutor = ArchTaskExecutor.getMainThreadExecutor();
 
-    // TODO: REAL API
-    interface PagedListListener<T> {
+    /**
+     * Listener for when the current PagedList is updated.
+     *
+     * @param <T> Type of items in PagedList
+     */
+    public interface PagedListListener<T> {
+        /**
+         * Called after the current PagedList has been updated.
+         *
+         * @param currentList The new current list, may be null.
+         */
         void onCurrentListChanged(@Nullable PagedList<T> currentList);
     }
 
-    @Nullable
-    PagedListListener<T> mListener;
+    private final List<PagedListListener<T>> mListeners = new ArrayList<>();
 
     private boolean mIsContiguous;
-    private int mLastAccessIndex;
 
     private PagedList<T> mPagedList;
     private PagedList<T> mSnapshot;
@@ -262,9 +271,7 @@ public class AsyncPagedListDiffer<T> {
             }
             // dispatch update callback after updating mPagedList/mSnapshot
             mUpdateCallback.onRemoved(0, removedCount);
-            if (mListener != null) {
-                mListener.onCurrentListChanged(null);
-            }
+            onCurrentListChanged(null);
             return;
         }
 
@@ -276,9 +283,7 @@ public class AsyncPagedListDiffer<T> {
             // dispatch update callback after updating mPagedList/mSnapshot
             mUpdateCallback.onInserted(0, pagedList.size());
 
-            if (mListener != null) {
-                mListener.onCurrentListChanged(pagedList);
-            }
+            onCurrentListChanged(pagedList);
             return;
         }
 
@@ -345,9 +350,36 @@ public class AsyncPagedListDiffer<T> {
         // copy lastLoad position, clamped to list bounds
         mPagedList.mLastLoad = Math.max(0, Math.min(mPagedList.size(), newPosition));
 
-        if (mListener != null) {
-            mListener.onCurrentListChanged(mPagedList);
+        onCurrentListChanged(mPagedList);
+    }
+
+    private void onCurrentListChanged(@Nullable PagedList<T> currentList) {
+        for (int i = mListeners.size() - 1; i >= 0; i--) {
+            mListeners.get(i).onCurrentListChanged(currentList);
         }
+    }
+
+    /**
+     * Add a PagedListListener to receive updates when the current PagedList changes.
+     *
+     * @param listener Listener to receive updates.
+     *
+     * @see #getCurrentList()
+     * @see #removePagedListListener(PagedListListener)
+     */
+    public void addPagedListListener(@NonNull PagedListListener<T> listener) {
+        mListeners.add(listener);
+    }
+
+    /**
+     * Remove a previously registered PagedListListener.
+     *
+     * @param listener Previously registered listener.
+     * @see #getCurrentList()
+     * @see #addPagedListListener(PagedListListener)
+     */
+    public void removePagedListListener(@NonNull PagedListListener<T> listener) {
+        mListeners.remove(listener);
     }
 
     /**
