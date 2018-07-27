@@ -1,0 +1,8 @@
+Autosubmit+1: Jake Wharton <jakew@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Aurimas Liutikas <aurimas@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Fri, 27 Jul 2018 23:25:34 +0000
+Reviewed-on: https://android-review.googlesource.com/721491
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
