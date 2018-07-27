@@ -22,6 +22,30 @@
       "revId": "1cb85d89208800d21a1c5c215df5543645da70b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ad6a0d1_91505b4a",
+        "filename": "car/src/main/java/androidx/car/widget/ListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-07-27T17:10:28Z",
+      "side": 1,
+      "message": "Ah right. Reverted this change.",
+      "parentUuid": "2eb0def6_aa21ae1c",
+      "range": {
+        "startLine": 213,
+        "startChar": 22,
+        "endLine": 213,
+        "endChar": 34
+      },
+      "revId": "1cb85d89208800d21a1c5c215df5543645da70b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
