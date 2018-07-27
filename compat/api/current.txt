@@ -1851,6 +1851,7 @@ package androidx.core.view {
 
   public class ViewCompat {
     ctor protected ViewCompat();
+    method public static int addAccessibilityAction(android.view.View, java.lang.CharSequence, androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityViewCommand);
     method public static void addKeyboardNavigationClusters(android.view.View, java.util.Collection<android.view.View>, int);
     method public static void addOnUnhandledKeyEventListener(android.view.View, androidx.core.view.ViewCompat.OnUnhandledKeyEventListenerCompat);
     method public static androidx.core.view.ViewPropertyAnimatorCompat animate(android.view.View);
@@ -1945,6 +1946,7 @@ package androidx.core.view {
     method public static void postInvalidateOnAnimation(android.view.View, int, int, int, int);
     method public static void postOnAnimation(android.view.View, java.lang.Runnable);
     method public static void postOnAnimationDelayed(android.view.View, java.lang.Runnable, long);
+    method public static void removeAccessibilityAction(android.view.View, int);
     method public static void removeOnUnhandledKeyEventListener(android.view.View, androidx.core.view.ViewCompat.OnUnhandledKeyEventListenerCompat);
     method public static void requestApplyInsets(android.view.View);
     method public static <T extends android.view.View> T requireViewById(android.view.View, int);
@@ -2447,6 +2449,10 @@ package androidx.core.view.accessibility {
     field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat ACTION_SET_TEXT;
     field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat ACTION_SHOW_ON_SCREEN;
     field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat ACTION_SHOW_TOOLTIP;
+  }
+
+  public static abstract interface AccessibilityNodeInfoCompat.AccessibilityViewCommand {
+    method public abstract boolean perform(android.view.View, int, android.os.Bundle);
   }
 
   public static class AccessibilityNodeInfoCompat.CollectionInfoCompat {
