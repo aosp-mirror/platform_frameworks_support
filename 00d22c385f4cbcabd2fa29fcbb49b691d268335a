@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e39b2a60_a872786d",
+        "filename": "media/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-07-27T02:21:15Z",
+      "side": 1,
+      "message": "Alan, I manually modify current.txt file instead of \"./gradlew updateApi\" since it doesn\u0027t allow this change at this time.\nPlease let me know if there are  any expected steps for merging this to AndroidX 1.0.0 release.",
+      "range": {
+        "startLine": 606,
+        "startChar": 60,
+        "endLine": 606,
+        "endChar": 71
+      },
+      "revId": "00d22c385f4cbcabd2fa29fcbb49b691d268335a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
