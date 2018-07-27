@@ -26,8 +26,13 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.accessibility.AccessibilityNodeProvider;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.R;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
 import androidx.core.view.accessibility.AccessibilityNodeProviderCompat;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Helper for accessing {@link AccessibilityDelegate}.
@@ -72,6 +77,10 @@ public class AccessibilityDelegateCompat {
             nodeInfoCompat.setHeading(ViewCompat.isAccessibilityHeading(host));
             nodeInfoCompat.setPaneTitle(ViewCompat.getAccessibilityPaneTitle(host));
             mCompat.onInitializeAccessibilityNodeInfo(host, nodeInfoCompat);
+            List<AccessibilityActionCompat> actions = getActionList(host);
+            for (int i = 0; i < actions.size(); i++) {
+                nodeInfoCompat.addAction(actions.get(i));
+            }
         }
 
         @Override
@@ -315,8 +324,21 @@ public class AccessibilityDelegateCompat {
      */
     public boolean performAccessibilityAction(View host, int action, Bundle args) {
         if (Build.VERSION.SDK_INT >= 16) {
+            List<AccessibilityActionCompat> actions = getActionList(host);
+            for (int i = 0; i < actions.size(); i++) {
+                AccessibilityActionCompat actionCompat = actions.get(i);
+                if (actionCompat.getId() == action && actionCompat.perform(args)) {
+                    return true;
+                }
+            }
             return DEFAULT_DELEGATE.performAccessibilityAction(host, action, args);
         }
         return false;
+    }
+
+    static List<AccessibilityActionCompat> getActionList(View view) {
+        List<AccessibilityActionCompat> actions = (List<AccessibilityActionCompat>)
+                view.getTag(R.id.tag_accessibility_actions);
+        return actions == null ? Collections.<AccessibilityActionCompat>emptyList() : actions;
     }
 }

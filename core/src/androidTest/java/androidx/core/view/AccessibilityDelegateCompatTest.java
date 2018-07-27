@@ -19,10 +19,12 @@ package androidx.core.view;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -32,6 +34,7 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.BaseInstrumentationTestCase;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
@@ -39,7 +42,10 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.accessibility.AccessibilityNodeProvider;
 
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
 import androidx.core.view.accessibility.AccessibilityNodeProviderCompat;
+import androidx.core.view.accessibility.AccessibilityViewCommand;
+import androidx.core.view.accessibility.AccessibilityViewCommand.MoveAtGranularityArguments;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.runner.AndroidJUnit4;
@@ -48,6 +54,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+
+import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
 @MediumTest
@@ -160,6 +168,86 @@ public class AccessibilityDelegateCompatTest extends
                 ArgumentCaptor.forClass(AccessibilityEvent.class);
         verify(mockDelegate, never()).sendAccessibilityEventUnchecked(
                 eq(mView), argumentCaptor.capture());
+    }
+
+    @Test
+    public void testAccessibilityActionPropagatesToNodeInfo() {
+        if (Build.VERSION.SDK_INT >= 21) {
+            final AccessibilityViewCommand action = mock(AccessibilityViewCommand.class);
+            final CharSequence label = "Asad's action";
+            final int id = ViewCompat.addAccessibilityAction(mView, label, action);
+            assertTrue(nodeHasActionWithId(id, label));
+            ViewCompat.removeAccessibilityAction(mView, id);
+            assertFalse(nodeHasActionWithId(id, label));
+        }
+    }
+
+    private boolean nodeHasActionWithId(int id, CharSequence label) {
+        final List<AccessibilityActionCompat> actions = getNodeCompatForView(mView).getActionList();
+        for (int i = 0; i < actions.size(); i++) {
+            final AccessibilityActionCompat action = actions.get(i);
+            if (action.getId() == id && TextUtils.equals(action.getLabel(), label)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Test
+    public void testAccessibilityActionPerformIsCalled() {
+        if (Build.VERSION.SDK_INT >= 19) {
+            final AccessibilityViewCommand action = mock(AccessibilityViewCommand.class);
+            final int id = ViewCompat.addAccessibilityAction(mView, "Asad's action", action);
+            ViewCompat.performAccessibilityAction(mView, id, null);
+            verify(action).perform(null);
+        }
+    }
+
+    @Test
+    public void testReplaceActionPerformIsCalled() {
+        if (Build.VERSION.SDK_INT >= 19) {
+            final AccessibilityViewCommand action = mock(AccessibilityViewCommand.class);
+
+            ViewCompat.replaceAccessibilityAction(mView, AccessibilityActionCompat.ACTION_FOCUS,
+                    "Focus title", action);
+
+            ViewCompat.performAccessibilityAction(mView,
+                    AccessibilityNodeInfoCompat.ACTION_FOCUS, null);
+            verify(action).perform(null);
+        }
+    }
+
+    @Test
+    public void testReplaceActionPerformIsCalledWithArguments() {
+        if (Build.VERSION.SDK_INT >= 19) {
+            final AccessibilityViewCommand<MoveAtGranularityArguments> action =
+                    (AccessibilityViewCommand<MoveAtGranularityArguments>) mock(
+                            AccessibilityViewCommand.class);
+
+            ViewCompat.replaceAccessibilityAction(mView,
+                    AccessibilityActionCompat.ACTION_NEXT_AT_MOVEMENT_GRANULARITY, "Move title",
+                    action);
+
+
+            final Bundle bundle = new Bundle();
+            final int granularity = AccessibilityNodeInfoCompat.MOVEMENT_GRANULARITY_CHARACTER;
+            bundle.putInt(AccessibilityNodeInfoCompat.ACTION_ARGUMENT_MOVEMENT_GRANULARITY_INT,
+                    granularity);
+            final boolean extendSelection = true;
+            bundle.putBoolean(AccessibilityNodeInfoCompat.ACTION_ARGUMENT_EXTEND_SELECTION_BOOLEAN,
+                    extendSelection);
+            ViewCompat.performAccessibilityAction(mView,
+                    AccessibilityNodeInfoCompat.ACTION_NEXT_AT_MOVEMENT_GRANULARITY, bundle);
+            AccessibilityViewCommand.MoveAtGranularityArguments args =
+                    new AccessibilityViewCommand.MoveAtGranularityArguments();
+            args.setBundle(bundle);
+
+            final ArgumentCaptor<MoveAtGranularityArguments> captor = ArgumentCaptor.forClass(
+                    MoveAtGranularityArguments.class);
+            verify(action).perform(captor.capture());
+            assertTrue(captor.getValue().getGranularity() == granularity);
+            assertTrue(captor.getValue().getExtendSelection() == extendSelection);
+        }
     }
 
     @Test
