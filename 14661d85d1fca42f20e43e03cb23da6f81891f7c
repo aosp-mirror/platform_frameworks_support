@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a804f2c_32ecc8e8",
+        "filename": "core/ktx/api/current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1010077
+      },
+      "writtenOn": "2018-07-27T13:25:01Z",
+      "side": 1,
+      "message": "CheckApi task complained about missing clipDataOf method but it doesn\u0027t complain about map...",
+      "revId": "14661d85d1fca42f20e43e03cb23da6f81891f7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
