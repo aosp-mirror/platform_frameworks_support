@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2eb0def6_aa21ae1c",
+        "filename": "car/src/main/java/androidx/car/widget/ListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-07-27T00:51:07Z",
+      "side": 1,
+      "message": "this is not updated.\n\ni suppose similar comment also applies to ListItem ViewHolders, right? I can get started with those? (next prebuilt update will be fun... like any of the ones before...)",
+      "range": {
+        "startLine": 213,
+        "startChar": 22,
+        "endLine": 213,
+        "endChar": 34
+      },
+      "revId": "1cb85d89208800d21a1c5c215df5543645da70b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
