@@ -93,6 +93,30 @@
       "revId": "272cfcbd0e9bf6d1462cf87c4c541c00748bae81",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c430585b_d7997b11",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-07-27T02:24:42Z",
+      "side": 1,
+      "message": "FYI, I uploaded another CL for renaming getSessionManager to getInstance of MediaSessionManager class in \"media\" artifact (not media2).\n https://android-review.googlesource.com/c/platform/frameworks/support/+/722549",
+      "parentUuid": "fe4e127d_40a64917",
+      "range": {
+        "startLine": 683,
+        "startChar": 62,
+        "endLine": 683,
+        "endChar": 80
+      },
+      "revId": "272cfcbd0e9bf6d1462cf87c4c541c00748bae81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
