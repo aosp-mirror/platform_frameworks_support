@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "35bfd75b_21cbaa49",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/PojoProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-27T20:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6febb112_ed284181",
+      "range": {
+        "startLine": 331,
+        "startChar": 20,
+        "endLine": 331,
+        "endChar": 85
+      },
+      "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24f30baf_4bf47691",
         "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/BaseObservableQueryResultBinder.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "521b9084_7efcfc8c",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/BaseObservableQueryResultBinder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-27T20:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24f30baf_4bf47691",
+      "range": {
+        "startLine": 68,
+        "startChar": 12,
+        "endLine": 78,
+        "endChar": 13
+      },
+      "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "874a2101_c2c490f0",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/GuavaListenableFutureQueryResultBinder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-27T20:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb31d23a_fb394fc0",
+      "range": {
+        "startLine": 94,
+        "startChar": 57,
+        "endLine": 94,
+        "endChar": 72
+      },
+      "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f728d695_b45133b9",
         "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/InstantQueryResultBinder.kt",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "1caf7e8e_e8ba5dce",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/InstantQueryResultBinder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-27T20:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f728d695_b45133b9",
+      "range": {
+        "startLine": 55,
+        "startChar": 12,
+        "endLine": 62,
+        "endChar": 13
+      },
+      "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2da2f4d_2ea49b9f",
         "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/RxCallableQueryResultBinder.kt",
         "patchSetId": 1
@@ -111,6 +207,24 @@
     },
     {
       "key": {
+        "uuid": "3dd4c8e2_94ab0461",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/RxCallableQueryResultBinder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-27T20:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2da2f4d_2ea49b9f",
+      "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4623fd82_c374b73a",
         "filename": "room/compiler/src/main/kotlin/androidx/room/writer/RelationCollectorMethodWriter.kt",
         "patchSetId": 1
@@ -125,6 +239,24 @@
       "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f463b02_25b283b8",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/RelationCollectorMethodWriter.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-27T20:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4623fd82_c374b73a",
+      "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "4266b5ca_b1c1b68e",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/PojoProcessorTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-27T20:05:01Z",
+      "side": 1,
+      "message": "Num num num - https://media.giphy.com/media/7s6Zr6O4jFWhi/giphy.gif",
+      "parentUuid": "5155888a_199f4f8c",
+      "range": {
+        "startLine": 816,
+        "startChar": 10,
+        "endLine": 816,
+        "endChar": 30
+      },
+      "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e00765f_c86fd9f2",
         "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/dao/UserHouseDao.java",
         "patchSetId": 1
@@ -165,6 +321,24 @@
       "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95b1d78b_2da3f646",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/dao/UserHouseDao.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-27T20:05:01Z",
+      "side": 1,
+      "message": "We almost had everything except for a Pojo with multiple relations (not nested). UserAndPetsAndHouses helps us verify that case of more than one @Relation in the pojo.",
+      "parentUuid": "7e00765f_c86fd9f2",
+      "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -188,6 +362,30 @@
       "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5855711_3faa3843",
+        "filename": "room/runtime/src/main/java/androidx/room/util/CursorUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-27T20:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5a37661_e44639ab",
+      "range": {
+        "startLine": 43,
+        "startChar": 25,
+        "endLine": 43,
+        "endChar": 29
+      },
+      "revId": "947115db1984f1abc3bd0b0de13b6ade1c8aa9a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
