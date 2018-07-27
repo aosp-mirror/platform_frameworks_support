@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "db7ddaba_6d04dd26",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1010077
+      },
+      "writtenOn": "2018-07-27T12:47:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3463082f_8f1b26b3",
+      "revId": "59ce705e11327a6dfcf03b44f51ce3597141e832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de576030_ca61abab",
         "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "59ce705e11327a6dfcf03b44f51ce3597141e832",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4b2d832_9b12bd4e",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1010077
+      },
+      "writtenOn": "2018-07-27T12:47:03Z",
+      "side": 1,
+      "message": "In the original issue in GitHub (https://github.com/android/android-ktx/issues/497) Akshay Chordiya wrote:\n\"ClipData holds multiple URIs and it is generally useful if you are firing a chooser intent with ability to select multiple items. In those cases, the intent returned contains ClipData which in turn provides list of URIs of the selected items.\nPreviously we needed to write the boilerplate code to get list of URIs from ClipData and vice versa. \"\n\nA simpler use case is to create a list of strings from ClipData to display in a clip ring.",
+      "parentUuid": "de576030_ca61abab",
+      "revId": "59ce705e11327a6dfcf03b44f51ce3597141e832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "744ad035_81b00213",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1010077
+      },
+      "writtenOn": "2018-07-27T12:47:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aacd47ff_7664ea1a",
+      "revId": "59ce705e11327a6dfcf03b44f51ce3597141e832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0bd76714_9287ec1a",
         "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "59ce705e11327a6dfcf03b44f51ce3597141e832",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d22f7d20_0b26aebc",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1010077
+      },
+      "writtenOn": "2018-07-27T12:47:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bd76714_9287ec1a",
+      "revId": "59ce705e11327a6dfcf03b44f51ce3597141e832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "f753c275_1ed28dce",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1010077
+      },
+      "writtenOn": "2018-07-27T12:47:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01032083_6dc4bc66",
+      "revId": "59ce705e11327a6dfcf03b44f51ce3597141e832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8da304a4_8274d552",
         "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
         "patchSetId": 1
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "d4ab6fb2_6731b3f7",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1010077
+      },
+      "writtenOn": "2018-07-27T12:47:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8da304a4_8274d552",
+      "revId": "59ce705e11327a6dfcf03b44f51ce3597141e832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "326c7090_21fbae75",
         "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
         "patchSetId": 1
@@ -118,6 +226,24 @@
       "revId": "59ce705e11327a6dfcf03b44f51ce3597141e832",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a6b95a2_e3ceead5",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1010077
+      },
+      "writtenOn": "2018-07-27T12:47:03Z",
+      "side": 1,
+      "message": "Agree. (Fell victim to how elegant it looked in comparison with the version in the new patch set. Not a good excuse, I know, but still...) Anyway, here\u0027s a new try more akin to bundleOf. I find it useful, do you have an example code you\u0027re working on to replace bundleOf?",
+      "parentUuid": "326c7090_21fbae75",
+      "revId": "59ce705e11327a6dfcf03b44f51ce3597141e832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
