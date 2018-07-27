@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4309b760_71bce5c6",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/WorkManagerImplTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1493,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-07-27T22:29:27Z",
+      "side": 1,
+      "message": "Can you set the mocks for just this test, instead of all tests in this file?",
+      "range": {
+        "startLine": 1493,
+        "startChar": 16,
+        "endLine": 1493,
+        "endChar": 51
+      },
+      "revId": "d68fd9e4fbf59875039a7278a702a2ff4dff2b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71b7eaac_bed685d7",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/WorkManagerImplTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1501,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-07-27T22:29:27Z",
+      "side": 1,
+      "message": "I\u0027m unfamiliar with this - is this supposed to be equalsTo?  If so, can we use that?",
+      "range": {
+        "startLine": 1501,
+        "startChar": 44,
+        "endLine": 1501,
+        "endChar": 46
+      },
+      "revId": "d68fd9e4fbf59875039a7278a702a2ff4dff2b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
