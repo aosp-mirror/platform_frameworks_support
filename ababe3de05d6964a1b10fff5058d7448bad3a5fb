@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a52ed01d_88b09e4f",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1345967
+      },
+      "writtenOn": "2018-07-27T22:22:46Z",
+      "side": 1,
+      "message": "Yes, this automatically creates a dependency and uses the output of the task.",
+      "parentUuid": "43b51a35_6aa60caf",
+      "revId": "ababe3de05d6964a1b10fff5058d7448bad3a5fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0690d0e7_4b66bb07",
         "filename": "buildSrc/init.gradle",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "ababe3de05d6964a1b10fff5058d7448bad3a5fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2ac14ef_0b59ad79",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1345967
+      },
+      "writtenOn": "2018-07-27T22:22:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0690d0e7_4b66bb07",
+      "revId": "ababe3de05d6964a1b10fff5058d7448bad3a5fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
