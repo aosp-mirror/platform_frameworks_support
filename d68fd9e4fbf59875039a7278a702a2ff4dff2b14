@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "486531b9_0b9d87b9",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/WorkManagerImplTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1493,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-07-27T23:04:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4309b760_71bce5c6",
+      "range": {
+        "startLine": 1493,
+        "startChar": 16,
+        "endLine": 1493,
+        "endChar": 51
+      },
+      "revId": "d68fd9e4fbf59875039a7278a702a2ff4dff2b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71b7eaac_bed685d7",
         "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/WorkManagerImplTest.java",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "d68fd9e4fbf59875039a7278a702a2ff4dff2b14",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dc2c2db_ffc5df8a",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/WorkManagerImplTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1501,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-07-27T23:04:07Z",
+      "side": 1,
+      "message": "eq is a Mockito matcher, and equalTo() is a Hamcrest matcher. It looks like equalTo() can only be used in conjunction with assert*() methods because they return a Matcher\u003cT\u003e instead of what Mockito expects which is T.\n\nhttps://stackoverflow.com/questions/8348046/mockitos-matcher-vs-hamcrest-matcher",
+      "parentUuid": "71b7eaac_bed685d7",
+      "range": {
+        "startLine": 1501,
+        "startChar": 44,
+        "endLine": 1501,
+        "endChar": 46
+      },
+      "revId": "d68fd9e4fbf59875039a7278a702a2ff4dff2b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
