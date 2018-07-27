@@ -22,15 +22,23 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.style.ClickableSpan;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.core.R;
 import androidx.core.accessibilityservice.AccessibilityServiceInfoCompat;
 import androidx.core.view.ViewCompat;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -972,6 +980,18 @@ public class AccessibilityNodeInfoCompat {
     private static final String ACTION_LABELS_KEY =
             "androidx.view.accessibility.AccessibilityNodeInfoCompat.ACTION_LABELS_KEY";
 
+    private static final String SPANS_ID_KEY =
+            "androidx.view.accessibility.AccessibilityNodeInfoCompat.SPANS_ID_KEY";
+
+    private static final String SPANS_START_KEY =
+            "androidx.view.accessibility.AccessibilityNodeInfoCompat.SPANS_START_KEY";
+
+    private static final String SPANS_END_KEY =
+            "androidx.view.accessibility.AccessibilityNodeInfoCompat.SPANS_END_KEY";
+
+    private static final String SPANS_FLAGS_KEY =
+            "androidx.view.accessibility.AccessibilityNodeInfoCompat.SPANS_FLAGS_KEY";
+
     // These don't line up with the internal framework constants, since they are independent
     // and we might as well get all 32 bits of utility here.
     private static final int BOOLEAN_PROPERTY_SCREEN_READER_FOCUSABLE = 0x00000001;
@@ -1389,6 +1409,8 @@ public class AccessibilityNodeInfoCompat {
      */
     public static final int MOVEMENT_GRANULARITY_PAGE = 0x00000010;
 
+    private static int sClickableSpanId = 0;
+
     /**
      * Creates a wrapper for info implementation.
      *
@@ -1711,46 +1733,46 @@ public class AccessibilityNodeInfoCompat {
 
     private List<AccessibilityActionCompat> createExtrasActionList() {
         List<AccessibilityActionCompat> actions = new ArrayList<AccessibilityActionCompat>();
-        List<Integer> ids = getExtrasActionIdList();
-        List<CharSequence> labels = getExtrasActionLabelList();
+        List<Integer> ids = extrasIntList(ACTION_IDS_KEY);
+        List<CharSequence> labels = extrasCharSequenceList(ACTION_LABELS_KEY);
         for (int i = 0; i < ids.size() && i < labels.size(); i++) {
             actions.add(new AccessibilityActionCompat(ids.get(i), labels.get(i)));
         }
         return actions;
     }
 
-    private List<CharSequence> getExtrasActionLabelList() {
+    private List<CharSequence> extrasCharSequenceList(String key) {
         if (Build.VERSION.SDK_INT < 19) {
             return new ArrayList<CharSequence>();
         }
-        ArrayList<CharSequence> labels = mInfo.getExtras()
-                .getCharSequenceArrayList(ACTION_LABELS_KEY);
-        if (labels == null) {
-            labels = new ArrayList<CharSequence>();
-            mInfo.getExtras().putCharSequenceArrayList(ACTION_LABELS_KEY, labels);
+        ArrayList<CharSequence> list = mInfo.getExtras()
+                .getCharSequenceArrayList(key);
+        if (list == null) {
+            list = new ArrayList<CharSequence>();
+            mInfo.getExtras().putCharSequenceArrayList(key, list);
         }
-        return labels;
+        return list;
     }
 
-    private List<Integer> getExtrasActionIdList() {
+    private List<Integer> extrasIntList(String key) {
         if (Build.VERSION.SDK_INT < 19) {
             return new ArrayList<Integer>();
         }
-        ArrayList<Integer> ids = mInfo.getExtras()
-                .getIntegerArrayList(ACTION_IDS_KEY);
-        if (ids == null) {
-            ids = new ArrayList<Integer>();
-            mInfo.getExtras().putIntegerArrayList(ACTION_IDS_KEY, ids);
+        ArrayList<Integer> list = mInfo.getExtras()
+                .getIntegerArrayList(key);
+        if (list == null) {
+            list = new ArrayList<Integer>();
+            mInfo.getExtras().putIntegerArrayList(key, list);
         }
-        return ids;
+        return list;
     }
 
 
     private boolean removeExtrasAction(AccessibilityActionCompat action) {
-        int index = getExtrasActionIdList().indexOf(action.getId());
+        int index = extrasIntList(ACTION_IDS_KEY).indexOf(action.getId());
         if (index != -1) {
-            getExtrasActionIdList().remove(index);
-            getExtrasActionLabelList().remove(index);
+            extrasIntList(ACTION_IDS_KEY).remove(index);
+            extrasCharSequenceList(ACTION_LABELS_KEY).remove(index);
             return true;
         } else {
             return false;
@@ -1758,8 +1780,8 @@ public class AccessibilityNodeInfoCompat {
     }
 
     private void addExtrasAction(AccessibilityActionCompat action) {
-        getExtrasActionIdList().add(action.getId());
-        getExtrasActionLabelList().add(action.getLabel());
+        extrasIntList(ACTION_IDS_KEY).add(action.getId());
+        extrasCharSequenceList(ACTION_LABELS_KEY).add(action.getLabel());
     }
 
     /**
@@ -2398,7 +2420,21 @@ public class AccessibilityNodeInfoCompat {
      * @return The text.
      */
     public CharSequence getText() {
-        return mInfo.getText();
+        if (hasSpans()) {
+            List<Integer> starts = extrasIntList(SPANS_START_KEY);
+            List<Integer> ends = extrasIntList(SPANS_END_KEY);
+            List<Integer> flags = extrasIntList(SPANS_FLAGS_KEY);
+            List<Integer> ids = extrasIntList(SPANS_ID_KEY);
+            Spannable spannable = new SpannableString(TextUtils.substring(mInfo.getText(),
+                    0, mInfo.getText().length()));
+            for (int i = 0; i < starts.size(); i++) {
+                spannable.setSpan(new AccessibilityClickableSpanCompat(ids.get(i), this),
+                        starts.get(i), ends.get(i), flags.get(i));
+            }
+            return spannable;
+        } else {
+            return mInfo.getText();
+        }
     }
 
     /**
@@ -2414,6 +2450,99 @@ public class AccessibilityNodeInfoCompat {
      */
     public void setText(CharSequence text) {
         mInfo.setText(text);
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public void addSpansToExtras(CharSequence text, View view) {
+        if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 26) {
+            clearExtrasSpans();
+            removeCollectedSpans(view);
+            ClickableSpan[] spans = getClickableSpans(text);
+            if (spans != null && spans.length > 0) {
+                SparseArray<WeakReference<ClickableSpan>> tagSpans =
+                        getOrCreateSpansFromViewTags(view);
+                for (int i = 0; spans != null && i < spans.length; i++) {
+                    int id = idForClickableSpan(spans[i], tagSpans);
+                    tagSpans.put(id, new WeakReference<>(spans[i]));
+                    addSpanLocationToExtras(spans[i], (Spanned) text, id);
+                }
+            }
+        }
+    }
+
+    private SparseArray<WeakReference<ClickableSpan>> getOrCreateSpansFromViewTags(View host) {
+        SparseArray<WeakReference<ClickableSpan>> spans = getSpansFromViewTags(host);
+        if (spans == null) {
+            spans = new SparseArray<>();
+            host.setTag(R.id.tag_accessibility_clickable_spans, spans);
+        }
+        return spans;
+    }
+
+    private SparseArray<WeakReference<ClickableSpan>> getSpansFromViewTags(View host) {
+        return (SparseArray<WeakReference<ClickableSpan>>) host.getTag(
+                R.id.tag_accessibility_clickable_spans);
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public static ClickableSpan[] getClickableSpans(CharSequence text) {
+        if (text instanceof Spanned) {
+            Spanned spanned = (Spanned) text;
+            return spanned.getSpans(0, text.length(), ClickableSpan.class);
+        }
+        return null;
+    }
+
+    private int idForClickableSpan(ClickableSpan span,
+            SparseArray<WeakReference<ClickableSpan>> spans) {
+        if (spans != null) {
+            for (int i = 0; i < spans.size(); i++) {
+                ClickableSpan aSpan = spans.valueAt(i).get();
+                if (aSpan.equals(span)) {
+                    return spans.keyAt(i);
+                }
+            }
+        }
+        return sClickableSpanId++;
+    }
+
+    private boolean hasSpans() {
+        return !extrasIntList(SPANS_START_KEY).isEmpty();
+    }
+
+    private void clearExtrasSpans() {
+        mInfo.getExtras().remove(SPANS_START_KEY);
+        mInfo.getExtras().remove(SPANS_END_KEY);
+        mInfo.getExtras().remove(SPANS_FLAGS_KEY);
+        mInfo.getExtras().remove(SPANS_ID_KEY);
+    }
+
+    private void addSpanLocationToExtras(ClickableSpan span, Spanned spanned, int id) {
+        extrasIntList(SPANS_START_KEY).add(spanned.getSpanStart(span));
+        extrasIntList(SPANS_END_KEY).add(spanned.getSpanEnd(span));
+        extrasIntList(SPANS_FLAGS_KEY).add(spanned.getSpanFlags(span));
+        extrasIntList(SPANS_ID_KEY).add(id);
+    }
+
+    private void removeCollectedSpans(View view) {
+        SparseArray<WeakReference<ClickableSpan>> spans = getSpansFromViewTags(view);
+        if (spans != null) {
+            List<Integer> toBeRemovedIndices = new ArrayList<>();
+            for (int i = 0; i < spans.size(); i++) {
+                if (spans.valueAt(i).get() == null) {
+                    toBeRemovedIndices.add(i);
+                }
+            }
+            for (int i = 0; i < toBeRemovedIndices.size(); i++) {
+                spans.remove(toBeRemovedIndices.get(i));
+            }
+        }
     }
 
     /**
