@@ -41,9 +41,9 @@ fun setSdkInLocalPropertiesFile(supportRoot: File) {
 fun getSdkPath(supportRoot: File): File {
     if (isUnbundledBuild(supportRoot)) {
         val properties = Properties()
-        val propertiesFile = File("local.properties")
+        val propertiesFile = File(supportRoot, "local.properties")
         if (propertiesFile.exists()) {
-            properties.load(propertiesFile.inputStream())
+            propertiesFile.inputStream().use(properties::load)
         }
         return findSdkLocation(properties, supportRoot)
     } else {

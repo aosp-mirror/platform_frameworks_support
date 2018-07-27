@@ -1,0 +1,81 @@
+/*
+ * Copyright 2018 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+apply plugin: 'org.jetbrains.kotlin.jvm'
+
+dependencies {
+    implementation build_libs.lint.core
+    implementation build_libs.lint.api
+    implementation build_libs.kotlin.stdlib
+    testImplementation build_libs.lint.tests
+}
+
+// These two functions adapted from SdkHelper.kt
+def getSdkPath() {
+    def supportRoot = projectDir.parentFile.parentFile
+    if (isUnbundledBuild(supportRoot)) {
+        val properties = Properties()
+        val propertiesFile = new File(supportRoot, 'local.properties')
+        if (propertiesFile.exists()) {
+            propertiesFile.inputStream().withStream { properties.load(it) }
+        }
+        return findSdkLocation(properties, supportRoot)
+    } else {
+        def osName = System.getProperty("os.name").toLowerCase()
+        def isMacOsX = osName.contains("mac os x") || osName.contains("darwin") ||
+                osName.contains("osx")
+        def platform = isMacOsX ? "darwin" : "linux"
+        // Making an assumption that prebuilts directory is in ../../prebuilts/
+        return new File(supportRoot.parentFile.parentFile, "prebuilts/fullsdk-$platform")
+    }
+}
+
+static def findSdkLocation(Properties properties, File rootDir) {
+    def sdkDirProp = properties.getProperty("sdk.dir")
+    if (sdkDirProp != null) {
+        def sdk = new File(sdkDirProp)
+        if (!sdk.isAbsolute()) {
+            sdk = new File(rootDir, sdkDirProp)
+        }
+        return sdk
+    }
+
+    sdkDirProp = properties.getProperty("android.dir")
+    if (sdkDirProp != null) {
+        return new File(rootDir, sdkDirProp)
+    }
+
+    def envVar = System.getenv("ANDROID_HOME")
+    if (envVar != null) {
+        return new File(envVar)
+    }
+
+    def property = System.getProperty("android.home")
+    if (property != null) {
+        return new File(property)
+    }
+    throw new Exception("Could not find your SDK")
+}
+
+test {
+    environment 'ANDROID_HOME', getSdkPath()
+}
+
+jar {
+    manifest {
+        attributes('Lint-Registry-v2': 'androidx.build.lint.AndroidXIssueRegistry')
+    }
+}
