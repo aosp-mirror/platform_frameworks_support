@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43b51a35_6aa60caf",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-07-27T21:24:13Z",
+      "side": 1,
+      "message": "Does this automatically create a dependsOn relationship? or do we need to specify that as well?",
+      "revId": "ababe3de05d6964a1b10fff5058d7448bad3a5fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0690d0e7_4b66bb07",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-07-27T21:24:13Z",
+      "side": 1,
+      "message": "I don\u0027t think this dependency is correct. The assemble task of the variant shouldn\u0027t depend on the global packaging task. The buildOnServer task should depend on the packager which then depends on the individual tasks.",
+      "revId": "ababe3de05d6964a1b10fff5058d7448bad3a5fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
