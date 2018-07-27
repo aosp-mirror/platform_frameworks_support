@@ -22,6 +22,30 @@
       "revId": "519995655ca94db88fb4522b33fbd73e7a6e7374",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33ac26d0_a583c361",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-07-27T13:50:01Z",
+      "side": 1,
+      "message": "As I understand it this just prevents javadoc for the media2-exoplayer module from being published, and we still need to @hide all the repackaged classes to prevent them from becoming part of the public API surface of media2.",
+      "parentUuid": "e0477ee8_0a79e6f8",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 11
+      },
+      "revId": "519995655ca94db88fb4522b33fbd73e7a6e7374",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
