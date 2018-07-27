@@ -63,6 +63,8 @@ import androidx.collection.ArrayMap;
 import androidx.core.R;
 import androidx.core.view.AccessibilityDelegateCompat.AccessibilityDelegateAdapter;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityViewCommand;
 import androidx.core.view.accessibility.AccessibilityNodeProviderCompat;
 import androidx.core.view.accessibility.WrapperForExternalAccessibilityDelegate;
 
@@ -74,6 +76,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -1154,6 +1157,83 @@ public class ViewCompat {
             return view.performAccessibilityAction(action, arguments);
         }
         return false;
+    }
+
+    /**
+     * In frameworks we check to see if id & 0xFF000000 is non 0. This is a check to make sure the
+     * generated id is a resource id. The developer shouldn't need to specify an id, so we generate
+     * it for them. 0x7f is what app generated resourceids are. And 0x01 are framework generated.
+     * So we go with 0x8F.
+     */
+    private static int sAccessibilityActionId = 0x8F000000;
+
+    /**
+     * Adds an accessibility action that can be performed on a node associated with a view.
+     *
+     * @param view The view.
+     * @param label The use facing description of the action.
+     * @param command The command performed when the service requests the action.
+     *
+     * @return The resourceId associated with the action, or -1 if it could not be created
+     * <p>
+     * Compatibility:
+     * <ul>
+     *     <li>API &lt; 19: No-op
+     * </ul>
+     */
+    public static int addAccessibilityAction(
+            @NonNull View view, @Nullable CharSequence label,
+            @Nullable AccessibilityViewCommand command) {
+        if (Build.VERSION.SDK_INT >= 19) {
+            getOrCreateAccessibilityDelegateCompat(view);
+            int actionId = sAccessibilityActionId++;
+            AccessibilityActionCompat action =
+                    new AccessibilityActionCompat(actionId, label, command);
+            List<AccessibilityActionCompat> actions = getActionList(view);
+            actions.remove(action);
+            actions.add(action);
+            notifyViewAccessibilityStateChangedIfNeeded(
+                    view, AccessibilityEvent.CONTENT_CHANGE_TYPE_UNDEFINED);
+            return actionId;
+        }
+        return -1;
+    }
+
+    /**
+     * Removes an accessibility action that can be performed on a node associated with a view.
+     * If the action was not already added to the node, calling this method has no effect.
+     *
+     * @param view The view
+     * @param actionId The actionId of the action to be removed.
+     * <p>
+     * Compatibility:
+     * <ul>
+     *     <li>API &lt; 19: No-op
+     * </ul>
+     */
+    public static void removeAccessibilityAction(View view, int actionId) {
+        if (Build.VERSION.SDK_INT >= 19) {
+            getOrCreateAccessibilityDelegateCompat(view);
+            List<AccessibilityActionCompat> actions = getActionList(view);
+            for (int i = 0; i < actions.size(); i++) {
+                if (actions.get(i).getId() == actionId) {
+                    actions.remove(i);
+                    break;
+                }
+            }
+            notifyViewAccessibilityStateChangedIfNeeded(
+                    view, AccessibilityEvent.CONTENT_CHANGE_TYPE_UNDEFINED);
+        }
+    }
+
+    private static List<AccessibilityActionCompat> getActionList(View view) {
+        ArrayList<AccessibilityActionCompat> actions =
+                (ArrayList<AccessibilityActionCompat>) view.getTag(R.id.tag_accessibility_actions);
+        if (actions == null) {
+            actions = new ArrayList<AccessibilityActionCompat>();
+            view.setTag(R.id.tag_accessibility_actions, actions);
+        }
+        return actions;
     }
 
     /**
