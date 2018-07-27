@@ -210,9 +210,9 @@ public abstract class ListItem<VH extends ListItem.ViewHolder> {
      * TextListItem item = new TextListItem(context);
      * item.setTitle("title");
      * item.addViewBinder((viewHolder) -> {
-     *     viewHolder.getTitle().doFoobar();
+     *     viewHolder.getTitleView().doFoobar();
      * }, (viewHolder) -> {
-     *     viewHolder.getTitle().revertFoobar();
+     *     viewHolder.getTitleView().revertFoobar();
      * });
      * }
      * </pre>
