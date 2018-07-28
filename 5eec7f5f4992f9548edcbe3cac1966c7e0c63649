@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24e607f7_77986b73",
+        "filename": "paging/runtime/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-07-28T00:29:30Z",
+      "side": 1,
+      "message": "pass the previous list?",
+      "range": {
+        "startLine": 15,
+        "startChar": 32,
+        "endLine": 15,
+        "endChar": 52
+      },
+      "revId": "5eec7f5f4992f9548edcbe3cac1966c7e0c63649",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b22c7d22_45c21199",
+        "filename": "paging/runtime/src/main/java/androidx/paging/AsyncPagedListDiffer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-07-28T00:29:30Z",
+      "side": 1,
+      "message": "copyonwrite just to be safe",
+      "range": {
+        "startLine": 143,
+        "startChar": 62,
+        "endLine": 143,
+        "endChar": 71
+      },
+      "revId": "5eec7f5f4992f9548edcbe3cac1966c7e0c63649",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e24a250_956d873d",
+        "filename": "recyclerview/recyclerview/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-07-28T00:29:30Z",
+      "side": 1,
+      "message": "we need to change dependents of RV to ensure they depend on prebuilts, not original source",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 47
+      },
+      "revId": "5eec7f5f4992f9548edcbe3cac1966c7e0c63649",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
