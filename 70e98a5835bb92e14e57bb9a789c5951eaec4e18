@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "398be3fc_1c0488a3",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/InstantQueryResultBinder.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-28T00:55:53Z",
+      "side": 1,
+      "message": "Done - Moved the copying to a new runtime util method called DBUtil#query() which will conditionally copy the cursor based on our offline talks about when to copy or not.",
+      "parentUuid": "2d96136b_7dac7a7b",
+      "range": {
+        "startLine": 47,
+        "startChar": 12,
+        "endLine": 55,
+        "endChar": 13
+      },
+      "revId": "70e98a5835bb92e14e57bb9a789c5951eaec4e18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a567f061_d0dbfa5f",
         "filename": "room/runtime/src/main/java/androidx/room/util/CursorUtil.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "70e98a5835bb92e14e57bb9a789c5951eaec4e18",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4609650_f284ad02",
+        "filename": "room/runtime/src/main/java/androidx/room/util/CursorUtil.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-28T00:55:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a567f061_d0dbfa5f",
+      "range": {
+        "startLine": 33,
+        "startChar": 6,
+        "endLine": 34,
+        "endChar": 55
+      },
+      "revId": "70e98a5835bb92e14e57bb9a789c5951eaec4e18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
