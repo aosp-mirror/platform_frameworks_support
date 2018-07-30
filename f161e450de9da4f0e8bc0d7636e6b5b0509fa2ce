@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eda57957_ddee52b4",
+        "filename": "media/src/main/java/android/support/v4/media/MediaBrowserCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-30T07:14:26Z",
+      "side": 1,
+      "message": "\u0027(re)activated\u0027 doesn\u0027t seem like to be used for the service, while it\u0027s being used for the binding connection.\n\nCould you take another look at ServiceConnection#onServiceConnected() and copy the javadoc here?",
+      "range": {
+        "startLine": 633,
+        "startChar": 66,
+        "endLine": 633,
+        "endChar": 77
+      },
+      "revId": "f161e450de9da4f0e8bc0d7636e6b5b0509fa2ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5c7767b_3cf9ff5f",
+        "filename": "media/src/main/java/android/support/v4/media/MediaBrowserCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-30T07:14:26Z",
+      "side": 1,
+      "message": "also document about the reconnection. You may copy Javadoc of ServiceConnection#onServiceDisconnected()",
+      "range": {
+        "startLine": 642,
+        "startChar": 0,
+        "endLine": 642,
+        "endChar": 57
+      },
+      "revId": "f161e450de9da4f0e8bc0d7636e6b5b0509fa2ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
