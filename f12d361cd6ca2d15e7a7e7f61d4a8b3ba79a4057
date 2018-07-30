@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dbca5321_0654e732",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/RelationCollectorMethodWriter.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-30T17:47:10Z",
+      "side": 1,
+      "message": "Not sure what you mean...\n\nThis check was already here and happens after the relationship query. It seems to be a check to make sure the query result contains the column used to match the parent pojo column.",
+      "parentUuid": "83b8b179_73f615e5",
+      "range": {
+        "startLine": 128,
+        "startChar": 16,
+        "endLine": 133,
+        "endChar": 32
+      },
+      "revId": "f12d361cd6ca2d15e7a7e7f61d4a8b3ba79a4057",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9a7df11_0b876f11",
         "filename": "room/runtime/src/main/java/androidx/room/util/DBUtil.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "f12d361cd6ca2d15e7a7e7f61d4a8b3ba79a4057",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ae951a8_6cbd59e3",
+        "filename": "room/runtime/src/main/java/androidx/room/util/DBUtil.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-07-30T17:47:10Z",
+      "side": 1,
+      "message": "I\u0027ll be an instanceof, neither SupportSQLiteCursor nor FrameworkSQLiteCursor are classes that exist within the wrapper package (androidx.sqlite.db) and FrameworkSQLiteDatabase uses cursor factories that make android.database.sqlite.SQLiteCursor. Cursors is the one layer that wasn\u0027t wrapped so we should be good, unless you foresee Cursors being wrapped too if we unbundle sqlite.",
+      "parentUuid": "f9a7df11_0b876f11",
+      "range": {
+        "startLine": 51,
+        "startChar": 43,
+        "endLine": 51,
+        "endChar": 65
+      },
+      "revId": "f12d361cd6ca2d15e7a7e7f61d4a8b3ba79a4057",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
