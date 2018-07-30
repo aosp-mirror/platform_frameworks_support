@@ -79,4 +79,29 @@
         <item name="android:clipToPadding">false</item>
     </style>
 
+    <style name="TextAppearance.LeanbackPreference.Title" parent="android:TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/lb_preference_decor_title_text_size</item>
+        <item name="android:textColor">?android:attr/titleTextColor</item>
+    </style>
+
+    <style name="TextAppearance.LeanbackPreference.Category" parent="android:TextAppearance">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">?android:attr/colorAccent</item>
+        <item name="android:textSize">@dimen/lb_preference_category_text_size</item>
+    </style>
+
+    <style name="TextAppearance.LeanbackPreference.ListItem" parent="android:TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textSize">@dimen/lb_preference_item_primary_text_size</item>
+    </style>
+
+    <style name="TextAppearance.LeanbackPreference.ListItem.Secondary" parent="android:TextAppearance">
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+        <item name="android:textSize">@dimen/lb_preference_item_secondary_text_size</item>
+    </style>
+
 </resources>
