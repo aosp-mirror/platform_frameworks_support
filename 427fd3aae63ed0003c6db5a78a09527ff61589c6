@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83bdd829_cf347af7",
+        "filename": "slices/core/src/androidTest/java/androidx/slice/SliceTestProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-07-30T16:32:22Z",
+      "side": 1,
+      "message": "Can you remove the curly braces as we generally don\u0027t have them in switch blocks.",
+      "revId": "427fd3aae63ed0003c6db5a78a09527ff61589c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
