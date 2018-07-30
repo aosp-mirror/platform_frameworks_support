@@ -234,7 +234,7 @@ public abstract class MediaPlayer2 {
      * Debug flag that forces use of {@link ExoPlayerMediaPlayer2Impl} even if the device is running
      * an Android P build.
      */
-    private static final boolean DEBUG_USE_EXOPLAYER = false;
+    private static final boolean DEBUG_USE_EXOPLAYER = true;
 
     /**
      * Create a MediaPlayer2 object.
@@ -1311,8 +1311,11 @@ public abstract class MediaPlayer2 {
 
     /**
      * The start of the methods which have separate call complete callback.
+     *
+     * @hide
      */
-    static final int SEPARATE_CALL_COMPLETE_CALLBACK_START = 1000;
+    @RestrictTo(LIBRARY_GROUP)
+    public static final int SEPARATE_CALL_COMPLETE_CALLBACK_START = 1000;
 
     /** The player just completed a call {@code notifyWhenCommandLabelReached}.
      * @see EventCallback#onCommandLabelReached
