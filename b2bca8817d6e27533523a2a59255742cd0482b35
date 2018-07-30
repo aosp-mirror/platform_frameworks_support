@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c28dbf07_894e113f",
+        "filename": "sparklers/src/main/java/androidx/sparklers/Spark.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-07-30T19:42:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b75e5230_ecc10642",
+      "revId": "b2bca8817d6e27533523a2a59255742cd0482b35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0880acd0_2f6c5f79",
         "filename": "sparklers/src/main/java/androidx/sparklers/Sparklers.java",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "6a3eeac5_00cd87b1",
+        "filename": "sparklers/src/main/java/androidx/sparklers/Sparklers.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-07-30T19:42:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0880acd0_2f6c5f79",
+      "revId": "b2bca8817d6e27533523a2a59255742cd0482b35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7705c642_0096edfe",
         "filename": "sparklers/src/main/java/androidx/sparklers/Sparklers.java",
         "patchSetId": 3
@@ -50,6 +86,24 @@
       "revId": "b2bca8817d6e27533523a2a59255742cd0482b35",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fed6493b_7373176f",
+        "filename": "sparklers/src/main/java/androidx/sparklers/Sparklers.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-07-30T19:42:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7705c642_0096edfe",
+      "revId": "b2bca8817d6e27533523a2a59255742cd0482b35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
