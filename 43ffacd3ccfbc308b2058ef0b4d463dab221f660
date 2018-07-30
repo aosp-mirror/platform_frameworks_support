@@ -70,6 +70,30 @@
       "revId": "43ffacd3ccfbc308b2058ef0b4d463dab221f660",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d04ebc3f_3e68706b",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/StaggeredGridLayoutManagerGapTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-07-30T21:28:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "883980ed_2d2253c1",
+      "range": {
+        "startLine": 84,
+        "startChar": 37,
+        "endLine": 84,
+        "endChar": 38
+      },
+      "revId": "43ffacd3ccfbc308b2058ef0b4d463dab221f660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
