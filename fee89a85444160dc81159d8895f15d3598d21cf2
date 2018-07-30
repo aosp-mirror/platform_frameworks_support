@@ -25,6 +25,115 @@
     },
     {
       "key": {
+        "uuid": "d75924e1_f0fd61a6",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-30T03:18:40Z",
+      "side": 1,
+      "message": "Add followings to mark that this is package private just because of the lint warning.\n\n@SuppressWarnings(\"WeakerAccess\") /* synthetic access */",
+      "revId": "fee89a85444160dc81159d8895f15d3598d21cf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d9f49f3_6a1b6f4e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-30T03:18:40Z",
+      "side": 1,
+      "message": "add comments as above",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 30
+      },
+      "revId": "fee89a85444160dc81159d8895f15d3598d21cf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "172e5c0e_42717cf7",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-30T03:18:40Z",
+      "side": 1,
+      "message": "Also add comment",
+      "range": {
+        "startLine": 350,
+        "startChar": 4,
+        "endLine": 350,
+        "endChar": 42
+      },
+      "revId": "fee89a85444160dc81159d8895f15d3598d21cf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61a48555_141fb3a6",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-30T03:18:40Z",
+      "side": 1,
+      "message": "you don\u0027t need this -- \u0027null instanceof AnyClass\u0027 is always false.",
+      "range": {
+        "startLine": 352,
+        "startChar": 12,
+        "endLine": 352,
+        "endChar": 21
+      },
+      "revId": "fee89a85444160dc81159d8895f15d3598d21cf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a38c323c_1f0d5a3a",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-30T03:18:40Z",
+      "side": 1,
+      "message": "I rather define an interface for getting volume slider, for both GroupVolumeViewHolder and RouteViewHolder can implements that.\n\nBy doing that, you can\n1. change the map type so only the route with the volume slider can be there\n2. you don\u0027t need check instanceof for multiple classes, which doesn\u0027t look like having a common interface.",
+      "range": {
+        "startLine": 355,
+        "startChar": 0,
+        "endLine": 355,
+        "endChar": 74
+      },
+      "revId": "fee89a85444160dc81159d8895f15d3598d21cf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6d08800_ec6ac4eb",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 6
@@ -41,6 +150,29 @@
         "startChar": 8,
         "endLine": 368,
         "endChar": 33
+      },
+      "revId": "fee89a85444160dc81159d8895f15d3598d21cf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "109460b6_d8db2cc2",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-30T03:18:40Z",
+      "side": 1,
+      "message": "onViewRecycled is missing.",
+      "range": {
+        "startLine": 858,
+        "startChar": 16,
+        "endLine": 859,
+        "endChar": 0
       },
       "revId": "fee89a85444160dc81159d8895f15d3598d21cf2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
