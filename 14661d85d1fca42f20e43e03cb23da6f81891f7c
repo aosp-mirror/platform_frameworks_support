@@ -16,6 +16,40 @@
       "revId": "14661d85d1fca42f20e43e03cb23da6f81891f7c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52a3ddad_3aa758bf",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-07-30T23:17:11Z",
+      "side": 1,
+      "message": "This doesn\u0027t need to be `reified`. Also we probably want this to return `List\u003cT\u003e` not `MutableList\u003cT\u003e`.",
+      "revId": "14661d85d1fca42f20e43e03cb23da6f81891f7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab585550_40ccb6ed",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-07-30T23:17:11Z",
+      "side": 1,
+      "message": "I\u0027m still skeptical of the utility of this function and its design. I would prefer it be separated out into its own CL so as to not hold the rest of the extensions up.\n\nThe absence of type safety, the fact that `resolver` is only used for certain types, and not using vararg all stand out to me as things we probably want to address.",
+      "revId": "14661d85d1fca42f20e43e03cb23da6f81891f7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
