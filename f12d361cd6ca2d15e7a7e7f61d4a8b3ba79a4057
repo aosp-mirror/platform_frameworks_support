@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83b8b179_73f615e5",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/RelationCollectorMethodWriter.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-07-30T15:44:42Z",
+      "side": 1,
+      "message": "how is this happening ? raw query?",
+      "range": {
+        "startLine": 128,
+        "startChar": 16,
+        "endLine": 133,
+        "endChar": 32
+      },
+      "revId": "f12d361cd6ca2d15e7a7e7f61d4a8b3ba79a4057",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9a7df11_0b876f11",
+        "filename": "room/runtime/src/main/java/androidx/room/util/DBUtil.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-07-30T15:44:42Z",
+      "side": 1,
+      "message": "i don\u0027t think it is ever instance of it because of the wrapping we have.",
+      "range": {
+        "startLine": 51,
+        "startChar": 43,
+        "endLine": 51,
+        "endChar": 65
+      },
+      "revId": "f12d361cd6ca2d15e7a7e7f61d4a8b3ba79a4057",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
