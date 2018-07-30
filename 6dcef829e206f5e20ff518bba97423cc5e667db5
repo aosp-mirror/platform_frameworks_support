@@ -34,6 +34,24 @@
       "revId": "6dcef829e206f5e20ff518bba97423cc5e667db5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc80315f_b1a816fe",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/ObsoleteBuildCompatUsageDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-07-30T18:19:45Z",
+      "side": 1,
+      "message": "Do we have a doc somewhere that explains the use cases?\n\n\nIf \"VERSION.SDK_INT \u003e\u003d 29\" is better than \"isAtLeastQ\" for those reasons, why wouldn\u0027t a developer write that in the first place? Is it because the two have slightly different meanings (is it that the SDK_INT check only returns true for released versions whereas the isAtLeastQ check only returns true for prelease versions)?\n\nThe sample method BuildCompat.isAtLeastQRelease that I put doesn\u0027t have any functional impact, that\u0027s correct - it\u0027s more about clarifying what various things mean (and if we can clarify it by other means such as comments, error messages, etc then yeah, not having it seems fine to me).\n\nI hypothesize that the meaning of isAtLeastP changes throughout the release lifecycle of frameworks/support/compat (is the correct?) but I think that the comment on top of isAtLeastP (currently \"Checks if the device is running on a pre-release version of Android P or newer\") is wrong (it would return false when (VERSION.CODENAME \u003d\u003d \"P\")) (which I think is caused by the fact that the meaning of isAtLeastP changes over time) , which makes it harder to know what the lint error message means.\n\nIt seems to me that if we\u0027re not going to change the standard process around isAtLeastP-style methods, that a clearer error message from lint would be:\n\"BuildConfig methods should only be used prior to an API level\u0027s finalization. Once an API level number is assigned, targeting prelease versions of the SDK is disallowed. Comparing directly with SDK_INT is preferred as it enables other lint checks to correctly work.\"\n\nIs this just something that everybody just intrinsically knows already?",
+      "parentUuid": "389d1bf3_7c2bd9d4",
+      "revId": "6dcef829e206f5e20ff518bba97423cc5e667db5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
