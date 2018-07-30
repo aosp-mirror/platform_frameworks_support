@@ -512,6 +512,7 @@ public final class SliceItem extends CustomVersionedParcelable {
     @Override
     public void onPostParceling() {
         mObj = mHolder.getObj(mFormat);
+        mHolder.release();
         mHolder = null;
     }
 
