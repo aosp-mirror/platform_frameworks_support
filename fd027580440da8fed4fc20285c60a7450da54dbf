@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb88b2fb_cbf9657b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-30T16:29:51Z",
+      "side": 0,
+      "message": "Damn, I should have caught that we are no longer using this. Thanks for removing it!",
+      "range": {
+        "startLine": 42,
+        "startChar": 10,
+        "endLine": 42,
+        "endChar": 14
+      },
+      "revId": "fd027580440da8fed4fc20285c60a7450da54dbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
