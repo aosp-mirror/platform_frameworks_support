@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2018 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+
+    <!-- TODO: the whole theme will be moved to platforms >= API 28 so that we have a single place
+    on device to control colors and fonts across all apps. -->
+
+    <style name="PreferenceThemeOverlayLeanbackBase" >
+        <!-- settings panel background color -->
+        <item name="android:windowBackground">@color/default_preference_window_background</item>
+
+        <!-- settings title panel background color -->
+        <item name="android:colorPrimary">@color/default_preference_brand_color</item>
+
+        <!-- colorAccent is used for category, checkbox and slider -->
+        <item name="android:colorAccent">@color/default_preference_color_accent</item>
+
+        <!-- text appearance for Settings panel main title -->
+        <item name="android:titleTextAppearance">@style/TextAppearance.LeanbackPreference.Title</item>
+
+        <!-- text appearance for item text -->
+        <item name="android:textAppearanceListItem">@style/TextAppearance.LeanbackPreference.ListItem</item>
+
+        <!-- text appearance for item second text -->
+        <item name="android:textAppearanceListItemSecondary">@style/TextAppearance.LeanbackPreference.ListItem.Secondary</item>
+
+        <!-- text appearance for category -->
+        <item name="android:textAppearanceListItemSmall">@style/TextAppearance.LeanbackPreference.Category</item>
+    </style>
+
+</resources>

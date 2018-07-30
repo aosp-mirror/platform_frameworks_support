@@ -17,8 +17,10 @@
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/lb_preference_category_height"
+    android:layout_height="wrap_content"
     android:clipToPadding="false"
+    android:paddingTop="@dimen/lb_preference_category_padding_top"
+    android:paddingBottom="@dimen/lb_preference_category_padding_bottom"
     android:paddingStart="@dimen/lb_preference_item_padding_start"
     android:paddingEnd="@dimen/lb_preference_item_padding_end">
 

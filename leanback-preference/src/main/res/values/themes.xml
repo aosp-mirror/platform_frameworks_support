@@ -16,7 +16,30 @@
   -->
 
 <resources>
-    <style name="PreferenceThemeOverlayLeanback">
+
+    <style name="PreferenceThemeOverlayLeanbackBase" >
+        <!-- settings panel background color -->
+        <item name="android:windowBackground">@color/default_preference_window_background_legacy</item>
+
+        <!-- no accent color defined < v28: we use material default accent color -->
+
+        <!-- settings title panel background color -->
+        <item name="android:colorPrimary">@color/default_preference_brand_color_legacy</item>
+
+        <!-- text appearance for Settings panel main title -->
+        <item name="android:titleTextAppearance">@style/TextAppearance.LeanbackPreference.Title</item>
+
+        <!-- text appearance for item text -->
+        <item name="android:textAppearanceListItem">@style/TextAppearance.LeanbackPreference.ListItem</item>
+
+        <!-- text appearance for item second text -->
+        <item name="android:textAppearanceListItemSecondary">@style/TextAppearance.LeanbackPreference.ListItem.Secondary</item>
+
+        <!-- text appearance for category -->
+        <item name="android:textAppearanceListItemSmall">@style/TextAppearance.LeanbackPreference.Category</item>
+    </style>
+
+    <style name="PreferenceThemeOverlayLeanback" parent="PreferenceThemeOverlayLeanbackBase">
         <item name="checkBoxPreferenceStyle">@style/LeanbackPreference.CheckBoxPreference</item>
         <item name="dialogPreferenceStyle">@style/LeanbackPreference.DialogPreference</item>
         <item name="dropdownPreferenceStyle">@style/Preference.DropDown</item>
