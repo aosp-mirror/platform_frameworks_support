@@ -347,7 +347,7 @@ class PageChangeListenerTest : BaseTest() {
                 val latch = viewPager.addWaitForScrolledLatch(targetPage)
 
                 runOnUiThread { viewPager.setCurrentItem(targetPage, true) }
-                latch.await(1, SECONDS)
+                latch.await(2, SECONDS)
 
                 // then
                 val pageIxDelta = targetPage - currentPage
@@ -383,6 +383,103 @@ class PageChangeListenerTest : BaseTest() {
     @Test
     fun test_selectItemProgrammatically_smoothScroll_vertical() {
         test_selectItemProgrammatically_smoothScroll(VERTICAL)
+    }
+
+    /*
+    Sample log to guide the test
+
+    0 -> 2
+    onPageScrollStateChanged,2
+    onPageSelected,2
+    onPageScrolled,0,0.192593,208
+    onPageScrolled,1,0.287963,310
+    onPageScrolled,1,0.492593,532
+    onPageScrolled,1,0.655556,708
+    onPageScrolled,1,0.774074,836
+    onPageScrolled,1,0.857407,926
+    onPageScrolled,1,0.911111,984
+    onPageScrolled,1,0.949074,1025
+    onPageScrolled,1,0.973148,1051
+    onPageScrolled,1,0.986111,1065
+    onPageScrolled,1,0.994444,1074
+    onPageScrolled,1,0.998148,1078
+    onPageScrolled,1,0.999074,1079
+    onPageScrolled,2,0.000000,0
+    onPageScrollStateChanged,0
+
+    2 -> 2
+    // nothing
+
+    2 -> 0
+    onPageScrollStateChanged,2
+    onPageSelected,0
+    onPageScrolled,0,0.887037,958
+    onPageScrolled,0,0.628704,679
+    onPageScrolled,0,0.434259,469
+    onPageScrolled,0,0.298148,322
+    onPageScrolled,0,0.193519,209
+    onPageScrolled,0,0.120370,130
+    onPageScrolled,0,0.071296,77
+    onPageScrolled,0,0.040741,44
+    onPageScrolled,0,0.021296,23
+    onPageScrolled,0,0.010185,11
+    onPageScrolled,0,0.003704,4
+    onPageScrolled,0,0.000926,1
+    onPageScrolled,0,0.000000,0
+    onPageScrollStateChanged,0
+     */
+    private fun test_selectItemProgrammatically_smoothScroll_longJump(
+        @Orientation orientation: Int
+    ) {
+        // given
+        setUpTest(1000, orientation).apply {
+
+            // when
+            listOf(0, 5, 6, 4, 7, 3, 8, 2, 9, 1, 10, 0, 0, 999, 0).forEach { targetPage ->
+                val currentPage = viewPager.currentItem
+                viewPager.clearOnPageChangeListeners()
+                val listener = viewPager.addNewRecordingListener()
+                val latch = viewPager.addWaitForScrolledLatch(targetPage)
+
+                runOnUiThread { viewPager.setCurrentItem(targetPage, true) }
+                latch.await(2, SECONDS)
+
+                // then
+                assertThat(viewPager.currentCompletelyVisibleItem, equalTo(targetPage))
+                val pageIxDelta = targetPage - currentPage
+                listener.apply {
+                    when (pageIxDelta) {
+                        0 -> assertThat(eventCount, equalTo(0))
+                        else -> {
+                            // verify all events
+                            assertThat(settlingIx, equalTo(0))
+                            assertThat(pageSelectedIx(targetPage), equalTo(1))
+                            assertThat(idleIx, equalTo(lastIx))
+                            assertThat(scrollEventCount, equalTo(eventCount - 3))
+
+                            // dive into scroll events
+                            val sortOrder = if (pageIxDelta > 0) SortOrder.ASC else SortOrder.DESC
+                            scrollEvents.assertPositionSorted(sortOrder)
+                            scrollEvents.assertOffsetSorted(sortOrder)
+                            scrollEvents.assertValueSanity(currentPage, targetPage,
+                                    viewPager.pageSize)
+                            scrollEvents.assertLastCorrect(targetPage)
+                            scrollEvents.assertMaxShowedPages(currentPage, 3)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun test_selectItemProgrammatically_smoothScroll_longJump_horizontal() {
+        test_selectItemProgrammatically_smoothScroll_longJump(HORIZONTAL)
+    }
+
+    @Test
+    fun test_selectItemProgrammatically_smoothScroll_longJump_vertical() {
+        test_selectItemProgrammatically_smoothScroll_longJump(VERTICAL)
     }
 
     /*
@@ -630,5 +727,9 @@ class PageChangeListenerTest : BaseTest() {
 
     private fun List<OnPageScrolledEvent>.assertPositionSorted(sortOrder: SortOrder) {
         map { it.position }.assertSorted { it * sortOrder.sign }
+    }
+
+    private fun List<OnPageScrolledEvent>.assertMaxShowedPages(startPage: Int, max: Int) {
+        assertThat(map { it.position }.distinct().minus(startPage).size, isBetweenInIn(0, max))
     }
 }
