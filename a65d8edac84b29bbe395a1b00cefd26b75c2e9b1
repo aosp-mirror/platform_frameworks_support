@@ -70,6 +70,30 @@
       "revId": "a65d8edac84b29bbe395a1b00cefd26b75c2e9b1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4f8eed9_36686098",
+        "filename": "compat/src/main/java/androidx/core/content/res/ColorStateListInflaterCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2018-07-30T01:19:05Z",
+      "side": 0,
+      "message": "Yeah this is a valid removal. We don\u0027t have a way (without reflection) of setting a CSLs defaultColor so this can be removed. CSL will automatically update it\u0027s own defaultColor anyway.",
+      "parentUuid": "35cacd93_6377cfef",
+      "range": {
+        "startLine": 155,
+        "startChar": 12,
+        "endLine": 158,
+        "endChar": 0
+      },
+      "revId": "a65d8edac84b29bbe395a1b00cefd26b75c2e9b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
