@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "feed0723_803c48d4",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-07-30T23:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a03d2a87_8baf9f7a",
+      "range": {
+        "startLine": 38,
+        "startChar": 93,
+        "endLine": 38,
+        "endChar": 99
+      },
+      "revId": "ce7204ecdc27f53d907e3fcddc7266949878df1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e3347a1_29d450a5",
         "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e5e3d007_b6e0fb41",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-07-30T23:43:16Z",
+      "side": 1,
+      "message": "Not that I know of :(",
+      "parentUuid": "0e3347a1_29d450a5",
+      "range": {
+        "startLine": 47,
+        "startChar": 22,
+        "endLine": 47,
+        "endChar": 39
+      },
+      "revId": "ce7204ecdc27f53d907e3fcddc7266949878df1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9085c224_bbc74d64",
         "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2018-07-30T19:51:14Z",
       "side": 1,
       "message": "Shouldn\u0027t this be an abstract method, with the rest of this code in Worker?  (And you don\u0027t need an interface for it in that case.)",
+      "range": {
+        "startLine": 296,
+        "startChar": 16,
+        "endLine": 296,
+        "endChar": 30
+      },
+      "revId": "ce7204ecdc27f53d907e3fcddc7266949878df1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09037331_0bc40dac",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-07-30T23:43:16Z",
+      "side": 1,
+      "message": "This is the implementation of the WorkFinishedCallback interface. I made it more clear by using the @Override annotation.",
+      "parentUuid": "9085c224_bbc74d64",
       "range": {
         "startLine": 296,
         "startChar": 16,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "46f85efe_d45de8f6",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-07-30T23:43:16Z",
+      "side": 1,
+      "message": "Yeah. In a subsequent CL I will make it onExecuted(String workSpecId, @Nullable Result result).",
+      "parentUuid": "9af1912f_8426824b",
+      "range": {
+        "startLine": 305,
+        "startChar": 12,
+        "endLine": 306,
+        "endChar": 79
+      },
+      "revId": "ce7204ecdc27f53d907e3fcddc7266949878df1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ca9c65a3_7eb8bda8",
         "filename": "work/workmanager/src/main/java/androidx/work/OneTimeWorkRequest.java",
         "patchSetId": 4
@@ -114,6 +210,30 @@
       "revId": "ce7204ecdc27f53d907e3fcddc7266949878df1f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19d7ea25_a17ad08e",
+        "filename": "work/workmanager/src/main/java/androidx/work/OneTimeWorkRequest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-07-30T23:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca9c65a3_7eb8bda8",
+      "range": {
+        "startLine": 37,
+        "startChar": 14,
+        "endLine": 37,
+        "endChar": 31
+      },
+      "revId": "ce7204ecdc27f53d907e3fcddc7266949878df1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "6ef5a5cb_6047a3cc",
+        "filename": "work/workmanager/src/main/java/androidx/work/PeriodicWorkRequest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-07-30T23:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c30b230_5d0d319f",
+      "range": {
+        "startLine": 58,
+        "startChar": 41,
+        "endLine": 58,
+        "endChar": 58
+      },
+      "revId": "ce7204ecdc27f53d907e3fcddc7266949878df1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d9b5dc2_63c48b2e",
         "filename": "work/workmanager/src/main/java/androidx/work/WorkRequest.java",
         "patchSetId": 4
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "d17afc7e_70ea0175",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkRequest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-07-30T23:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d9b5dc2_63c48b2e",
+      "range": {
+        "startLine": 121,
+        "startChar": 41,
+        "endLine": 121,
+        "endChar": 58
+      },
+      "revId": "ce7204ecdc27f53d907e3fcddc7266949878df1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed415e4f_b886f157",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
         "patchSetId": 4
@@ -174,6 +342,30 @@
       "writtenOn": "2018-07-30T19:51:14Z",
       "side": 1,
       "message": "This is weird.  I don\u0027t get why we would do it this way.",
+      "range": {
+        "startLine": 191,
+        "startChar": 16,
+        "endLine": 191,
+        "endChar": 45
+      },
+      "revId": "ce7204ecdc27f53d907e3fcddc7266949878df1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34501cfd_29e2dd1a",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-07-30T23:43:16Z",
+      "side": 1,
+      "message": "I know this is a bit confusing. onStartWork() gets a WorkFinishedCallback interface. For convenience, NonBlockingWorker also implements WorkFinishedCallback, which in turn invokes ExecutionListener.\n\nIf you have suggestions on how to make this easier to understand, please let me know.",
+      "parentUuid": "ed415e4f_b886f157",
       "range": {
         "startLine": 191,
         "startChar": 16,
