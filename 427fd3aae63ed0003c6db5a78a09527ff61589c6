@@ -16,6 +16,24 @@
       "revId": "427fd3aae63ed0003c6db5a78a09527ff61589c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef245db6_5ba1e336",
+        "filename": "slices/core/src/androidTest/java/androidx/slice/SliceTestProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-07-30T16:52:23Z",
+      "side": 1,
+      "message": "Oops, those were there because I had an \"/allowed_span\" case that also had a SpannableStringBuilder. I\u0027ll put it back in a future change if it seems necessary, or just toss a single one at the top.",
+      "parentUuid": "83bdd829_cf347af7",
+      "revId": "427fd3aae63ed0003c6db5a78a09527ff61589c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
