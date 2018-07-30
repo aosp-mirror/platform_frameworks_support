@@ -53,7 +53,7 @@ public @interface VersionedParcelize {
      * {@link ParcelUtils#toOutputStream(VersionedParcelable, OutputStream)} and
      * {@link ParcelUtils#fromInputStream(InputStream)}.
      * <p>
-     * If this flag is false and a call to {@link VersionedParcel#writeParcelable(Parcelable, int)},
+     * If this flag is true and a call to {@link VersionedParcel#writeParcelable(Parcelable, int)},
      * {@link VersionedParcel#writeStrongBinder(IBinder, int)}, or
      * {@link VersionedParcel#writeStrongInterface(IInterface, int)} is made, then a runtime
      * exception
