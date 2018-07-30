@@ -419,7 +419,7 @@ public class RemoteMediaSession2Service extends Service {
         }
 
         @Override
-        public void setPlaylistWithNewDsd(String sessionId, List<Bundle> playlist)
+        public void setPlaylistWithDummyDsd(String sessionId, List<Bundle> playlist)
                 throws RemoteException {
             MediaSession2 session2 = mSession2Map.get(sessionId);
             MockPlaylistAgent agent = (MockPlaylistAgent) session2.getPlaylistAgent();
