@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "54adb744_ac71964f",
+        "filename": "paging/runtime/src/main/java/androidx/paging/AsyncPagedListDiffer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-07-30T17:44:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3c38ff1_8e5b0d71",
+      "range": {
+        "startLine": 363,
+        "startChar": 8,
+        "endLine": 365,
+        "endChar": 9
+      },
+      "revId": "10cb32f840d48aa0fca6a16963be6da8ed4b34b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9149695_b97fd82c",
         "filename": "paging/runtime/src/main/java/androidx/paging/PagedListAdapter.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-30T17:19:32Z",
       "side": 1,
       "message": "should we make the 2 arg one\u0027s default impl call 1 arg one instead ?\ni\u0027m fine w/ this too, just an idea.",
+      "range": {
+        "startLine": 118,
+        "startChar": 11,
+        "endLine": 119,
+        "endChar": 82
+      },
+      "revId": "10cb32f840d48aa0fca6a16963be6da8ed4b34b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5602e3c7_5b2613eb",
+        "filename": "paging/runtime/src/main/java/androidx/paging/PagedListAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-07-30T17:44:47Z",
+      "side": 1,
+      "message": "I\u0027d like to have the callback apis in the library remain empty, so folks never need to worry about calling super\n\nEventually if we ever get a @DoNotCallSuper, I\u0027d love to use that",
+      "parentUuid": "f9149695_b97fd82c",
       "range": {
         "startLine": 118,
         "startChar": 11,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2d2bc1bc_87f86f08",
+        "filename": "paging/runtime/src/main/java/androidx/paging/PagedListAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-07-30T17:44:47Z",
+      "side": 1,
+      "message": "right now, the above is exactly what we do, and I think it\u0027s correct\n\nIf we pass list1 the 2nd time, it doesn\u0027t reflect what actually changed when the swap occurred, E.g.\n\n    1) onChanged(null, listV1(10 -\u003e 20))\n    2) // list2 \u003d v2(0 -\u003e 20) submitted, list1_snapshot \u003d v1(10 -\u003e 20)\n    3) // list 1 finishes loading a prepended page, now list1 \u003d v1(0 -\u003e 20)\n\n\nIf we dispatch: onChanged(v1(0 -\u003e 20), v1(0 -\u003e 20))\n\n\nThen the app can make bad assumptions, e.g.:\n * v1(0-\u003e10) were presented with Adapter, may trigger move animations\n * no large page insertions occur, just diff between 0-\u003e20 items\n * items present in previousList parameter won\u0027t trigger enter animations\n\n\n\nI\u0027d prefer we keep it as is, though we could consider:\n    onChanged(null, list1)\n    onChanged(list1, list1_snapshot)\n    onChanged(list1_snapshot, list2)\n\nDownside then is that we need to distinguish the snapshot variant, since you generally don\u0027t want to do anything in that case. Guess we could have an onSnapshot :P",
+      "parentUuid": "6f5cd561_a7b5fe4c",
+      "range": {
+        "startLine": 214,
+        "startChar": 6,
+        "endLine": 216,
+        "endChar": 33
+      },
+      "revId": "10cb32f840d48aa0fca6a16963be6da8ed4b34b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8f5e3bd4_0206f8d5",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/AsyncDifferConfig.java",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2018-07-30T17:19:32Z",
       "side": 1,
       "message": "what happened here ? was it just wrong ?",
+      "range": {
+        "startLine": 36,
+        "startChar": 3,
+        "endLine": 36,
+        "endChar": 13
+      },
+      "revId": "10cb32f840d48aa0fca6a16963be6da8ed4b34b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f9cd222_efc1abc8",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/AsyncDifferConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-07-30T17:44:47Z",
+      "side": 1,
+      "message": "Yep, and I cleaned up warnings in the Differ that was using it",
+      "parentUuid": "8f5e3bd4_0206f8d5",
       "range": {
         "startLine": 36,
         "startChar": 3,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "8dd8defc_5330899b",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/AsyncListDiffer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-07-30T17:44:47Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "1081d65d_75dc0866",
+      "range": {
+        "startLine": 347,
+        "startChar": 8,
+        "endLine": 349,
+        "endChar": 9
+      },
+      "revId": "10cb32f840d48aa0fca6a16963be6da8ed4b34b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8e097004_b7302a4b",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/ListAdapter.java",
         "patchSetId": 2
@@ -128,6 +248,30 @@
       "writtenOn": "2018-07-30T17:19:32Z",
       "side": 1,
       "message": "that is weird, wny ?",
+      "range": {
+        "startLine": 162,
+        "startChar": 4,
+        "endLine": 165,
+        "endChar": 6
+      },
+      "revId": "10cb32f840d48aa0fca6a16963be6da8ed4b34b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77369839_f3350c08",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/ListAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-07-30T17:44:47Z",
+      "side": 1,
+      "message": "1) to keep consistent with ListAdapter#currentList\n2) because we don\u0027t want them editing those lists.\n\nWe pass the read-only wrapper any time a list is passed out of the ListAdapter/AsyncListDiffer",
+      "parentUuid": "8e097004_b7302a4b",
       "range": {
         "startLine": 162,
         "startChar": 4,
