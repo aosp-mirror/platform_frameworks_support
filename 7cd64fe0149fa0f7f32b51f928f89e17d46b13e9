@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2530695b_f14c2662",
+        "filename": "car/res/values-night/colors.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-07-30T21:59:45Z",
+      "side": 1,
+      "message": "Yeah this is intended for now. The problem is that we\u0027ve assumed light theme when we first started. If I migrated car_card to point to this, then it\u0027ll break any existing apps. We need all those apps to migrate to dark theme first.",
+      "parentUuid": "d368a968_f817714c",
+      "range": {
+        "startLine": 33,
+        "startChar": 17,
+        "endLine": 33,
+        "endChar": 30
+      },
+      "revId": "7cd64fe0149fa0f7f32b51f928f89e17d46b13e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f9af84e_6550cea4",
         "filename": "car/res/values/colors.xml",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-30T21:52:50Z",
       "side": 1,
       "message": "this doesn\u0027t really matter so entirely up to you (since this seems like a lot work) - if you plan to keep using upper letters for color, perhaps update existing ones as well. \n\nI think vim can do this conversion relatively easy - lmk if you want me to handle it",
+      "range": {
+        "startLine": 99,
+        "startChar": 41,
+        "endLine": 99,
+        "endChar": 49
+      },
+      "revId": "7cd64fe0149fa0f7f32b51f928f89e17d46b13e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0c646e3_1189cb1c",
+        "filename": "car/res/values/colors.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-07-30T21:59:45Z",
+      "side": 1,
+      "message": "Converted my newest changes to lower case.",
+      "parentUuid": "2f9af84e_6550cea4",
       "range": {
         "startLine": 99,
         "startChar": 41,
