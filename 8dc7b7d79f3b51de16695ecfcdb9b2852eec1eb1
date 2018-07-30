@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aafaaf84_4155f3bc",
+        "filename": "project.config",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-30T17:49:50Z",
+      "side": 1,
+      "message": "Undo this part of the change. It should stay as\n[level \"Verified\"]",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 17
+      },
+      "revId": "8dc7b7d79f3b51de16695ecfcdb9b2852eec1eb1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
