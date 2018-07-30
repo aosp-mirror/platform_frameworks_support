@@ -19,7 +19,7 @@
     android:id="@+id/main_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lb_preference_decor_list_background"
+    android:background="?android:attr/windowBackground"
     android:elevation="@dimen/lb_preference_decor_elevation"
     android:orientation="vertical"
     android:transitionGroup="false"
@@ -40,12 +40,9 @@
             android:layout_marginTop="@dimen/lb_preference_decor_title_margin_top"
             android:layout_marginStart="@dimen/lb_preference_decor_title_margin_start"
             android:layout_marginEnd="@dimen/lb_preference_decor_title_margin_end"
-            android:fontFamily="sans-serif"
-            android:textStyle="bold"
+            android:textAppearance="?android:attr/titleTextAppearance"
             android:gravity="center_vertical"
             android:singleLine="true"
-            android:textSize="@dimen/lb_preference_decor_title_text_size"
-            android:textColor="?android:attr/textColorPrimary"
             />
     </FrameLayout>
 
