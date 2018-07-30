@@ -22,6 +22,30 @@
       "revId": "43ffacd3ccfbc308b2058ef0b4d463dab221f660",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3008c9a4_a59da296",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/StaggeredGridLayoutManagerGapTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-07-30T21:09:09Z",
+      "side": 1,
+      "message": "The large majority of calls to this method wait 2 seconds, and if they aren\u0027t flakey, then I wouldn\u0027t expect this test to be flaky either unless notifyItemRangeRemoved should expect to have some code path that is orders of magnitude slower than other paths (I don\u0027t suspect this is the case).\n\nThe wider question is, do we ever use these waits as indicators of actual test failures?  I suppose the answer is no, especially given that if we want to have tests set up for that, they should be in their own test and not spread out amongst other tests.  So that being the case... it seems like we should make waitForFoo arbitrarily long... up to the limit of killing things when the device is tremendously slow instead of allowing it to run that slowly.\n\nThoughts?",
+      "parentUuid": "b3389f03_01b84f7d",
+      "range": {
+        "startLine": 84,
+        "startChar": 37,
+        "endLine": 84,
+        "endChar": 38
+      },
+      "revId": "43ffacd3ccfbc308b2058ef0b4d463dab221f660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
