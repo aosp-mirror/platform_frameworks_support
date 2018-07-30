@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9448cbe9_04f9964c",
+        "filename": "media/src/main/java/android/support/v4/media/MediaBrowserCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-07-30T07:47:20Z",
+      "side": 1,
+      "message": "Changed to \"the service is next running\" which is quoted from:\n\nhttps://developer.android.com/reference/android/content/ServiceConnection.html#onServiceDisconnected(android.content.ComponentName)",
+      "parentUuid": "eda57957_ddee52b4",
+      "range": {
+        "startLine": 633,
+        "startChar": 66,
+        "endLine": 633,
+        "endChar": 77
+      },
+      "revId": "f161e450de9da4f0e8bc0d7636e6b5b0509fa2ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b5c7767b_3cf9ff5f",
         "filename": "media/src/main/java/android/support/v4/media/MediaBrowserCompat.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "f161e450de9da4f0e8bc0d7636e6b5b0509fa2ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73fe94ab_ade61c46",
+        "filename": "media/src/main/java/android/support/v4/media/MediaBrowserCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-07-30T07:47:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5c7767b_3cf9ff5f",
+      "range": {
+        "startLine": 642,
+        "startChar": 0,
+        "endLine": 642,
+        "endChar": 57
+      },
+      "revId": "f161e450de9da4f0e8bc0d7636e6b5b0509fa2ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
