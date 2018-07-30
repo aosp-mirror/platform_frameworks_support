@@ -1,0 +1,9 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Yuxing Yao <yaoyx@google.com>
+Autosubmit+1: Anthony Chen <ajchen@google.com>
+API-Review+1: Aurimas Liutikas <aurimas@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Mon, 30 Jul 2018 22:38:51 +0000
+Reviewed-on: https://android-review.googlesource.com/722526
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
