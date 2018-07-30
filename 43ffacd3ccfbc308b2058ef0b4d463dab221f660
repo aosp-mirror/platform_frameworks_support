@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b3389f03_01b84f7d",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/StaggeredGridLayoutManagerGapTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-07-30T18:10:53Z",
+      "side": 1,
+      "message": "oh this looks like an obvious fix :/. thanks.\n\n\nprobably increase the timeout?",
+      "range": {
+        "startLine": 84,
+        "startChar": 37,
+        "endLine": 84,
+        "endChar": 38
+      },
+      "revId": "43ffacd3ccfbc308b2058ef0b4d463dab221f660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
