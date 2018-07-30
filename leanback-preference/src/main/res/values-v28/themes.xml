@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (C) 2015 The Android Open Source Project
+  ~ Copyright 2018 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -12,19 +12,23 @@
   ~ distributed under the License is distributed on an "AS IS" BASIS,
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
-  ~ limitations under the License
+  ~ limitations under the License.
   -->
 
 <resources>
 
+    <!-- TODO: the whole theme will be moved to platforms >= API 28 so that we have a single place
+    on device to control colors and fonts across all apps. -->
+
     <style name="PreferenceThemeOverlayLeanbackBase" >
         <!-- settings panel background color -->
-        <item name="android:windowBackground">@color/default_preference_window_background_legacy</item>
-
-        <!-- no accent color defined < v28: we use material default accent color -->
+        <item name="android:windowBackground">@color/default_preference_window_background</item>
 
         <!-- settings title panel background color -->
-        <item name="android:colorPrimary">@color/default_preference_brand_color_legacy</item>
+        <item name="android:colorPrimary">@color/default_preference_brand_color</item>
+
+        <!-- colorAccent is used for category, checkbox and slider -->
+        <item name="android:colorAccent">@color/default_preference_color_accent</item>
 
         <!-- text appearance for Settings panel main title -->
         <item name="android:titleTextAppearance">@style/TextAppearance.LeanbackPreference.Title</item>
@@ -61,26 +65,6 @@
 
         <!-- color for controls checked: checkbox, seekbar, etc -->
         <item name="android:colorControlActivated">?android:attr/colorAccent</item>
-
     </style>
 
-    <style name="PreferenceThemeOverlayLeanback" parent="PreferenceThemeOverlayLeanbackBase">
-        <item name="checkBoxPreferenceStyle">@style/LeanbackPreference.CheckBoxPreference</item>
-        <item name="dialogPreferenceStyle">@style/LeanbackPreference.DialogPreference</item>
-        <item name="dropdownPreferenceStyle">@style/Preference.DropDown</item>
-        <item name="editTextPreferenceStyle">@style/LeanbackPreference.DialogPreference.EditTextPreference</item>
-        <item name="preferenceCategoryStyle">@style/LeanbackPreference.Category</item>
-        <item name="preferenceFragmentCompatStyle">@style/PreferenceFragment.Leanback</item>
-        <item name="preferenceFragmentListStyle">@style/PreferenceFragmentList.Leanback</item>
-        <item name="preferenceFragmentStyle">@style/PreferenceFragment.Leanback</item>
-        <item name="preferenceInformationStyle">@style/LeanbackPreference.Information</item>
-        <item name="preferenceScreenStyle">@style/LeanbackPreference.PreferenceScreen</item>
-        <item name="preferenceStyle">@style/LeanbackPreference</item>
-        <item name="seekBarPreferenceStyle">@style/LeanbackPreference.SeekBarPreference</item>
-        <item name="switchPreferenceCompatStyle">@style/LeanbackPreference.SwitchPreferenceCompat</item>
-        <item name="switchPreferenceStyle">@style/LeanbackPreference.SwitchPreference</item>
-    </style>
-
-    <!-- Deprecated. Use PreferenceThemeOverlayLeanback instead. -->
-    <style name="PreferenceThemeOverlay.v14.Leanback" parent="PreferenceThemeOverlayLeanback"/>
 </resources>
