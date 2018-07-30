@@ -39,6 +39,9 @@ import androidx.core.view.ViewCompat;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
+import androidx.testutils.Direction;
+import androidx.testutils.FlingData;
+import androidx.testutils.SimpleGestureGeneratorKt;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -208,13 +211,14 @@ public class NestedScrollViewNestedScrollingChildTest {
     public void uiFling_parentHasNestedScrollingChildWithTypeFling() {
         when(mParentSpy.onStartNestedScroll(any(View.class), any(View.class), anyInt(), anyInt()))
                 .thenReturn(true);
-        NestedScrollViewTestUtils
-                .simulateFlingDown(InstrumentationRegistry.getContext(), mNestedScrollView);
+        Context context = InstrumentationRegistry.getContext();
+        SimpleGestureGeneratorKt.simulateFling(mNestedScrollView, context, 500, 500, Direction.UP);
 
         assertThat(mParentSpy.axesForTypeTouch, is(ViewCompat.SCROLL_AXIS_NONE));
         assertThat(mParentSpy.axesForTypeNonTouch, is(ViewCompat.SCROLL_AXIS_VERTICAL));
     }
 
+    // TODO(b/112421950): Solve issue blocking uncommenting the below test.
     /*@Test
     public void uiFling_callsNestedFlingsCorrectly() {
         NestedScrollViewTestUtils
@@ -237,19 +241,18 @@ public class NestedScrollViewNestedScrollingChildTest {
         when(mParentSpy.onStartNestedScroll(any(View.class), any(View.class), anyInt(), anyInt()))
                 .thenReturn(true);
         final Context context = InstrumentationRegistry.getContext();
-        final int[] targetFlingTimeAndDistance =
-                NestedScrollViewTestUtils.getTargetFlingVelocityTimeAndDistance(context);
-        final int targetTimePassed = targetFlingTimeAndDistance[1];
-        final MotionEvent[] motionEvents =
-                NestedScrollViewTestUtils.generateMotionEvents(targetFlingTimeAndDistance);
-        NestedScrollViewTestUtils.dispatchMotionEventsToView(mNestedScrollView, motionEvents);
+        FlingData flingData = SimpleGestureGeneratorKt.getFlingData(context);
+        MotionEvent[] motionEvents = SimpleGestureGeneratorKt
+                .generateFlingMotionEvents(flingData, 500, 500, Direction.UP);
+        SimpleGestureGeneratorKt.dispatchMotionEventsToView(mNestedScrollView, motionEvents);
+
         // Sanity check that onStopNestedScroll has not yet been called of type TYPE_NON_TOUCH.
         verify(mParentSpy, never())
                 .onStopNestedScroll(mNestedScrollView, ViewCompat.TYPE_NON_TOUCH);
 
         MotionEvent down = MotionEvent.obtain(
                 0,
-                targetTimePassed + 100, // Should be after fling events occurred.
+                flingData.getTimeMillis() + 100, // Should be after fling events occurred.
                 MotionEvent.ACTION_DOWN,
                 500,
                 500,
@@ -259,6 +262,7 @@ public class NestedScrollViewNestedScrollingChildTest {
         verify(mParentSpy).onStopNestedScroll(mNestedScrollView, ViewCompat.TYPE_NON_TOUCH);
     }
 
+    // TODO(b/112421950): Solve issue blocking uncommenting the below tests.
     /*@Test
     public void uiFlings_parentReturnsTrueForOnNestedFling_dispatchNestedFlingCalled() {
         when(mParentSpy.onNestedPreFling(eq(mNestedScrollView), anyFloat(), anyFloat()))
@@ -268,9 +272,9 @@ public class NestedScrollViewNestedScrollingChildTest {
                 .simulateFlingDown(InstrumentationRegistry.getContext(), mNestedScrollView);
 
         verify(mParentSpy).onNestedFling(eq(mNestedScrollView), anyFloat(), anyFloat(), eq(true));
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void uiFlings_parentReturnsFalseForOnNestedFling_dispatchNestedFlingNotCalled() {
         when(mParentSpy.onNestedPreFling(eq(mNestedScrollView), anyFloat(), anyFloat()))
                 .thenReturn(true);
