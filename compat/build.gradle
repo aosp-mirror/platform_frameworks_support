@@ -4,6 +4,7 @@ import androidx.build.LibraryVersions
 
 plugins {
     id("SupportAndroidLibraryPlugin")
+    id("kotlin-android")
 }
 
 dependencies {
@@ -21,6 +22,7 @@ dependencies {
         exclude group: 'androidx.core', module: 'core'
     }
     annotationProcessor(project(":versionedparcelable-annotation"))
+    androidTestImplementation(KOTLIN_STDLIB)
 }
 
 android {
