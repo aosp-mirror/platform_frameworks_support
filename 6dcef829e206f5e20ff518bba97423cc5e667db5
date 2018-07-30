@@ -16,6 +16,24 @@
       "revId": "6dcef829e206f5e20ff518bba97423cc5e667db5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "389d1bf3_7c2bd9d4",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/ObsoleteBuildCompatUsageDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-07-30T17:54:14Z",
+      "side": 1,
+      "message": "Once an API level is finalized you can use the normal mechanism for checking instead of this bespoke abstraction that breaks lint, wastes a method reference in your dex, and encourages the use of @TargetApi which should never be used.\n\nIn your proposal I don\u0027t see why the first method needs to exist. Just use its implementation at the call site which is far more clear since it references an actual API level instead of an alphabet letter.",
+      "parentUuid": "3fc8278e_cd559968",
+      "revId": "6dcef829e206f5e20ff518bba97423cc5e667db5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
