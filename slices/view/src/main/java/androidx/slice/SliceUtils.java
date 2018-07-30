@@ -63,7 +63,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.annotation.Retention;
 import java.nio.charset.Charset;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -339,7 +338,7 @@ public class SliceUtils {
             if (inputStream.read(buf, 0, buf.length) < 0) {
                 return false;
             }
-            return Arrays.equals(buf, data);
+            return parcelName.equals(new String(buf, "UTF-16"));
         } catch (IOException e) {
             return false;
         }
