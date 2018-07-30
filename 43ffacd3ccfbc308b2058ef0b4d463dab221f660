@@ -46,6 +46,30 @@
       "revId": "43ffacd3ccfbc308b2058ef0b4d463dab221f660",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "883980ed_2d2253c1",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/StaggeredGridLayoutManagerGapTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-07-30T21:24:51Z",
+      "side": 1,
+      "message": "yea just sth reasonable so that it fails in some reasonable time :) we actually do want them to be failures in case the expected layout didn\u0027t happen (and won\u0027t happen).\n\n2ms is fine for now since other places also use it.",
+      "parentUuid": "3008c9a4_a59da296",
+      "range": {
+        "startLine": 84,
+        "startChar": 37,
+        "endLine": 84,
+        "endChar": 38
+      },
+      "revId": "43ffacd3ccfbc308b2058ef0b4d463dab221f660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
