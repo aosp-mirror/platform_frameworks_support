@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fc8278e_cd559968",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/ObsoleteBuildCompatUsageDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-07-30T17:34:11Z",
+      "side": 1,
+      "message": "Why shouldn\u0027t BuildCompat.isAtLeastP be used once an API is finalized?\nIs it because once final APIs exist, we no longer have a use case for writing AndroidX libraries that use in-development platform APIs, and so we globally disallow it?\n\nI\u0027d imagine it\u0027d be clearer to instead provide two methods:\n\nboolean BuildCompat.isAtLeastQRelease() {\n  return VERSION.SDK_INT \u003e\u003d 29\n}\n\nboolean BuildCompat.isAtLeastQPrerelease() {\n  return BuildCompat.isAtLeastQRelease() || VERSION.CODENAME \u003d\u003d \"Q\"\n}\n\n(and then the lint rule would discourage usages of isAtLeastQPrerelease)\n\nand/or update the error message to clarify the different meanings (the existing justification, \"Once an API level number is assigned, comparing directly with SDK_INT is preferred as it enables other lint checks to correctly work.\", sounds to me like an implementation detail in lint that we could fix).",
+      "revId": "6dcef829e206f5e20ff518bba97423cc5e667db5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
