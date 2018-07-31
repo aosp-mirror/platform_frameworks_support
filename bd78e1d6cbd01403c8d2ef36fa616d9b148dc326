@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "526f5394_1d802198",
+        "filename": "car/cluster/README.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-31T17:42:06Z",
+      "side": 1,
+      "message": "Please use README.md instead of README.txt so they get shown nicely in gitiles.",
+      "revId": "bd78e1d6cbd01403c8d2ef36fa616d9b148dc326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c191b65b_3710db63",
+        "filename": "car/cluster/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-31T17:42:06Z",
+      "side": 1,
+      "message": "Add copyright header.",
+      "revId": "bd78e1d6cbd01403c8d2ef36fa616d9b148dc326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8a78b65_c0942cb1",
+        "filename": "car/cluster/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-31T17:42:06Z",
+      "side": 1,
+      "message": "You only have one sample test. The test is useless. Remove the test and only add the dependencies as you need them.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 106
+      },
+      "revId": "bd78e1d6cbd01403c8d2ef36fa616d9b148dc326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4f25745_9fb91376",
+        "filename": "car/cluster/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-31T17:42:06Z",
+      "side": 1,
+      "message": "You have no host side tests. Remove.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 36
+      },
+      "revId": "bd78e1d6cbd01403c8d2ef36fa616d9b148dc326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4531711_6ccf6e49",
+        "filename": "car/cluster/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-31T17:42:06Z",
+      "side": 1,
+      "message": "Add more detailed description.",
+      "range": {
+        "startLine": 37,
+        "startChar": 19,
+        "endLine": 37,
+        "endChar": 57
+      },
+      "revId": "bd78e1d6cbd01403c8d2ef36fa616d9b148dc326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6b71dd3_8c14cd30",
+        "filename": "car/cluster/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-31T17:42:06Z",
+      "side": 1,
+      "message": "Actually address these warnings instead of suppressing them, then remove this.",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 35
+      },
+      "revId": "bd78e1d6cbd01403c8d2ef36fa616d9b148dc326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5ba16db_dcc87943",
+        "filename": "car/cluster/src/androidTest/java/androidx/car/cluster/navigation/SampleTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-07-31T17:42:06Z",
+      "side": 1,
+      "message": "This is useless. Remove.",
+      "range": {
+        "startLine": 22,
+        "startChar": 1,
+        "endLine": 29,
+        "endChar": 1
+      },
+      "revId": "bd78e1d6cbd01403c8d2ef36fa616d9b148dc326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
