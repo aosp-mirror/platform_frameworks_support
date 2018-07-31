@@ -22,6 +22,7 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.versionedparcelable.VersionedParcelable;
 
 import java.util.Locale;
 
@@ -31,7 +32,7 @@ import java.util.Locale;
  * @hide Internal use only
  */
 @RestrictTo(LIBRARY_GROUP)
-interface LocaleListInterface {
+interface LocaleListInterface extends VersionedParcelable{
     void setLocaleList(@NonNull Locale... list);
 
     Object getLocaleList();

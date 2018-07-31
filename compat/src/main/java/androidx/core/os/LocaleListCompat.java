@@ -24,19 +24,36 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.Size;
+import androidx.versionedparcelable.CustomVersionedParcelable;
+import androidx.versionedparcelable.NonParcelField;
+import androidx.versionedparcelable.ParcelField;
+import androidx.versionedparcelable.VersionedParcelable;
+import androidx.versionedparcelable.VersionedParcelize;
 
 import java.util.Locale;
 
 /**
  * Helper for accessing features in {@link LocaleList}.
  */
-public final class LocaleListCompat {
-    final LocaleListInterface mImpl;
+@VersionedParcelize
+public final class LocaleListCompat extends CustomVersionedParcelable {
+    @ParcelField(1)
+    LocaleListInterface mImpl;
+
     private static final LocaleListCompat sEmptyLocaleList = new LocaleListCompat();
 
+    @VersionedParcelize(isCustom = true)
+    static class LocaleListCompatBaseImpl extends CustomVersionedParcelable
+            implements LocaleListInterface {
 
-    static class LocaleListCompatBaseImpl implements LocaleListInterface {
+        @NonParcelField
         private LocaleListHelper mLocaleList = new LocaleListHelper();
+
+        /**
+         * Used by VersionedParcelable.
+         */
+        @ParcelField(1)
+        String mLanguageTags;
 
         @Override
         public void setLocaleList(@NonNull Locale... list) {
@@ -98,11 +115,25 @@ public final class LocaleListCompat {
             }
             return null;
         }
+
+
+        @Override
+        public void onPreParceling(boolean isStream) {
+            mLanguageTags = toLanguageTags();
+        }
+
+        @Override
+        public void onPostParceling() {
+            mLocaleList = LocaleListHelper.forLanguageTags(mLanguageTags);
+            mLanguageTags = null;
+        }
     }
 
     @RequiresApi(24)
-    static class LocaleListCompatApi24Impl implements LocaleListInterface {
-        private LocaleList mLocaleList = new LocaleList();
+    @VersionedParcelize
+    static class LocaleListCompatApi24Impl implements LocaleListInterface, VersionedParcelable {
+        @ParcelField(1)
+        LocaleList mLocaleList = new LocaleList();
 
         @Override
         public void setLocaleList(@NonNull Locale... list) {
@@ -166,7 +197,7 @@ public final class LocaleListCompat {
         }
     }
 
-    private LocaleListCompat() {
+    LocaleListCompat() {
         if (Build.VERSION.SDK_INT >= 24) {
             mImpl = new LocaleListCompatApi24Impl();
         } else {
