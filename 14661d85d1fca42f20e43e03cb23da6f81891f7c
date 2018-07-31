@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "b74e2720_e6cc243f",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1010077
+      },
+      "writtenOn": "2018-07-31T11:57:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52a3ddad_3aa758bf",
+      "revId": "14661d85d1fca42f20e43e03cb23da6f81891f7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab585550_40ccb6ed",
         "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
         "patchSetId": 3
@@ -47,6 +65,24 @@
       "writtenOn": "2018-07-30T23:17:11Z",
       "side": 1,
       "message": "I\u0027m still skeptical of the utility of this function and its design. I would prefer it be separated out into its own CL so as to not hold the rest of the extensions up.\n\nThe absence of type safety, the fact that `resolver` is only used for certain types, and not using vararg all stand out to me as things we probably want to address.",
+      "revId": "14661d85d1fca42f20e43e03cb23da6f81891f7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5574506a_397e3a5c",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1010077
+      },
+      "writtenOn": "2018-07-31T11:57:03Z",
+      "side": 1,
+      "message": "Separated to https://android-review.googlesource.com/c/platform/frameworks/support/+/723769\n\nI understand the skepticism. Creating a ClipData instance out of given content is a tedious job. A function like this is probably created by virtually anyone using ClipData. Its design I\u0027m afraid is a victim of the design of ClipData API itself. Let\u0027s talk more details in separate CL in the URL above.",
+      "parentUuid": "ab585550_40ccb6ed",
       "revId": "14661d85d1fca42f20e43e03cb23da6f81891f7c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
