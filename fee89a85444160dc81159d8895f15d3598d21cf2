@@ -363,6 +363,30 @@
       "revId": "fee89a85444160dc81159d8895f15d3598d21cf2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68b6e858_87c1b892",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-31T07:25:55Z",
+      "side": 1,
+      "message": "Then could you put mViewHolderMap in Adapter, instead of individual views?\nIf we do, put/remove are at the similar places so readability would be increased.",
+      "parentUuid": "4d321819_4888b7c5",
+      "range": {
+        "startLine": 858,
+        "startChar": 16,
+        "endLine": 859,
+        "endChar": 0
+      },
+      "revId": "fee89a85444160dc81159d8895f15d3598d21cf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
