@@ -20,18 +20,24 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 
 import androidx.annotation.IntDef;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.mediarouter.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 final class MediaRouterThemeHelper {
+    static final boolean USE_SUPPORT_DYNAMIC_GROUP =
+            Log.isLoggable("UseSupportDynamicGroup", Log.DEBUG);
+
     private static final float MIN_CONTRAST = 3.0f;
 
     @IntDef({COLOR_DARK_ON_LIGHT_BACKGROUND, COLOR_WHITE_ON_DARK_BACKGROUND})
@@ -41,49 +47,37 @@ final class MediaRouterThemeHelper {
     static final int COLOR_DARK_ON_LIGHT_BACKGROUND = 0xDE000000; /* Opacity of 87% */
     static final int COLOR_WHITE_ON_DARK_BACKGROUND = Color.WHITE;
 
-    static Drawable sDefaultIcon;
-    static Drawable sTvIcon;
-    static Drawable sSpeakerIcon;
-    static Drawable sSpeakerGroupIcon;
-
     private MediaRouterThemeHelper() {
     }
 
     static Drawable getDefaultDrawableIcon(Context context) {
-        if (sDefaultIcon == null) {
-            sDefaultIcon = getDrawableIcon(context, 0);
-        }
-        return sDefaultIcon;
+        return getDrawableIcon(context, 0);
     }
 
     static Drawable getTvDrawableIcon(Context context) {
-        if (sTvIcon == null) {
-            sTvIcon = getDrawableIcon(context, 1);
-        }
-        return sTvIcon;
+        return getDrawableIcon(context, 1);
     }
 
     static Drawable getSpeakerDrawableIcon(Context context) {
-        if (sSpeakerIcon == null) {
-            sSpeakerIcon = getDrawableIcon(context, 2);
-        }
-        return sSpeakerIcon;
+        return getDrawableIcon(context, 2);
     }
 
     static Drawable getSpeakerGropuIcon(Context context) {
-        if (sSpeakerGroupIcon == null) {
-            sSpeakerGroupIcon = getDrawableIcon(context, 3);
-        }
-        return sSpeakerGroupIcon;
+        return getDrawableIcon(context, 3);
     }
 
-    private static Drawable getDrawableIcon(Context context, int resId) {
+    private static Drawable getDrawableIcon(Context context, int idx) {
         TypedArray styledAttributes = context.obtainStyledAttributes(new int[] {
                 R.attr.mediaRouteDefaultIconDrawable,
                 R.attr.mediaRouteTvIconDrawable,
                 R.attr.mediaRouteSpeakerIconDrawable,
                 R.attr.mediaRouteSpeakerGroupIconDrawable});
-        Drawable icon = styledAttributes.getDrawable(resId);
+        Drawable icon = styledAttributes.getDrawable(idx);
+
+        if (USE_SUPPORT_DYNAMIC_GROUP && isLightTheme(context)) {
+            int tintColor = ContextCompat.getColor(context, R.color.mr_dynamic_dialog_icon_dark);
+            DrawableCompat.setTint(icon, tintColor);
+        }
         styledAttributes.recycle();
         return icon;
     }
