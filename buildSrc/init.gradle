@@ -17,10 +17,14 @@
 
 import androidx.build.AndroidXPlugin
 import androidx.build.Release
+import androidx.build.dependencyTracker.AffectedModuleDetector
+import androidx.build.dependencyTracker.BuildAllAffectedTask
 import androidx.build.gmaven.GMavenVersionChecker
 import androidx.build.license.CheckExternalDependencyLicensesTask
 import com.android.build.gradle.internal.coverage.JacocoReportTask
 import com.android.build.gradle.internal.tasks.DeviceProviderInstrumentTestTask
+import kotlin.Unit
+import kotlin.jvm.functions.Function1
 
 def supportRoot = ext.supportRootFolder
 if (supportRoot == null) {
@@ -34,6 +38,10 @@ ext.runningInBuildServer = System.env.DIST_DIR != null && System.env.OUT_DIR != 
 
 apply from: "${supportRoot}/buildSrc/dependencies.gradle"
 apply from: "${supportRoot}/buildSrc/build_dependencies.gradle"
+
+def setupDependencyTracker() {
+    AffectedModuleDetector.configure(gradle, rootProject)
+}
 
 def setupRepoOutAndBuildNumber() {
     // common support repo folder which works well for prebuilts.
@@ -80,12 +88,13 @@ def configureBuildOnServer() {
                 || "distDocs".equals(task.name)
                 || "dejetifyArchive".equals(task.name)
                 || "runErrorProne".equals(task.name)
+                || "logChanges".equals(task.name)
                 || CheckExternalDependencyLicensesTask.TASK_NAME.equals(task.name)) {
             buildOnServerTask.dependsOn task
         }
     }
     def docsProject = rootProject.findProject(":docs-fake")
-    subprojects {
+    subprojects { project ->
         if (docsProject == project) {
             return
         }
@@ -187,7 +196,8 @@ def configureSubProjects() {
                         }
                     }
                     def hasSourceCode = !source.java.sourceFiles.isEmpty() || hasKotlinSources
-                    if (task.hasProperty("outputDirectory") && (hasSourceCode || !testApk)) {
+                    def affectedModuleDetector = AffectedModuleDetector.getOrThrow()
+                    if (task.hasProperty("outputDirectory") && (hasSourceCode || !testApk) && affectedModuleDetector.shouldInclude(task.project)) {
                         copy {
                             from(task.outputDirectory)
                             include '*.apk'
@@ -254,6 +264,12 @@ def configureSubProjects() {
     }
 }
 
+def createAllAffectedTaskForLocal() {
+    BuildAllAffectedTask.create(rootProject)
+}
+
 ext.init.setupRepoOutAndBuildNumber = this.&setupRepoOutAndBuildNumber
 ext.init.configureSubProjects = this.&configureSubProjects
 ext.init.configureBuildOnServer = this.&configureBuildOnServer
+ext.init.setupDependencyTracker = this.&setupDependencyTracker
+ext.init.createAllAffectedTaskForLocal = this.&createAllAffectedTaskForLocal
