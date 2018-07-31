@@ -133,4 +133,53 @@ class ClipDataTest {
         val uris = clipData.map { item -> item.uri }
         assertThat(uris).containsExactly(uri0, uri1)
     }
+
+    @Test fun clipDataOfValid() {
+        val strings = listOf("", "item1", "item2")
+        val clipDataOfStrings = clipDataOf(strings, "strings")
+        val itemsOfStrings = clipDataOfStrings.map { item -> item.text }
+        assertThat(itemsOfStrings).containsExactlyElementsIn(strings)
+
+        val uris = listOf(Uri.parse("content://uri1"),
+            Uri.parse("content://uri2"),
+            Uri.parse("content://uri3"))
+        val clipDataOfUris = clipDataOf(uris, "uris")
+        val itemsOfUris = clipDataOfUris.map { item -> item.uri }
+        assertThat(itemsOfUris).containsExactlyElementsIn(uris)
+
+        val urisWithResolver = listOf(Uri.parse("http://www.example.com"),
+                Uri.parse("http://www.example.org"))
+        val clipDataOfUrisWithResolver = clipDataOf(urisWithResolver,
+                "now with ContentResolver",
+                context.contentResolver)
+        val itemsOfUrisWithResolver = clipDataOfUrisWithResolver.map { item -> item.uri }
+        assertThat(itemsOfUrisWithResolver).containsExactlyElementsIn(urisWithResolver)
+
+        val intents = listOf(Intent("com.androidx.action", Uri.parse("content://uri1")),
+            Intent("com.androidx.action", Uri.parse("content://uri2")),
+            Intent("com.androidx.action", Uri.parse("content://uri3")))
+        val clipDataOfIntents = clipDataOf(intents, "intents")
+        val itemsOfIntents = clipDataOfIntents.map { item -> item.intent }
+        assertThat(itemsOfIntents).containsExactlyElementsIn(intents)
+
+        val anys = MutableList<Any>(3) {}
+        anys[0] = "item0"
+        anys[1] = Uri.parse("http://www.example.com")
+        anys[2] = Intent("com.androidx.action", Uri.parse("content://uri1"))
+        val clipDataOfAny = clipDataOf(anys, "anys")
+        val itemsOfAny = clipDataOfAny.map { item -> item.coerceToText(context) }
+        assertThat(itemsOfAny).containsExactly("item0",
+                "http://www.example.com",
+                "intent://uri1#Intent;scheme=content;action=com.androidx.action;end")
+    }
+
+    @Test fun clipDataOfInvalid() {
+        assertThrows<IllegalArgumentException> {
+            clipDataOf(listOf<String>(), "empty")
+        }.hasMessageThat().isEqualTo("Illegal argument, list cannot be empty.")
+
+        assertThrows<IllegalArgumentException> {
+            clipDataOf(listOf(1, 2, 3), "ints")
+        }.hasMessageThat().isEqualTo("Illegal type: java.lang.Integer")
+    }
 }
