@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4873e17f_a1bc6f92",
+        "filename": "versionedparcelable/src/main/java/androidx/versionedparcelable/VersionedParcel.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1374,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-07-31T17:28:24Z",
+      "side": 1,
+      "message": "Can you remove the field param from readCollection, it shouldn\u0027t be there and makes this look incorrect.",
+      "revId": "72596e90f077bfc5a6021fdd7b914f6e5d89f4ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
