@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a31c5a1c_c7a74f5b",
+        "filename": "leanback/src/main/java/androidx/leanback/system/Settings.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2018-07-31T14:38:31Z",
+      "side": 1,
+      "message": "dont need compat class, it can be directly called with SDK_INT check",
+      "range": {
+        "startLine": 32,
+        "startChar": 7,
+        "endLine": 32,
+        "endChar": 47
+      },
+      "revId": "3f4de759208a955b40bdc0657b0194044d5ecf6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c306ff57_4936c4d2",
+        "filename": "leanback/src/main/java/androidx/leanback/system/Settings.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2018-07-31T14:38:31Z",
+      "side": 1,
+      "message": "move code into body of generateSettings() where it does the SDK_INT check",
+      "range": {
+        "startLine": 71,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 86
+      },
+      "revId": "3f4de759208a955b40bdc0657b0194044d5ecf6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b38f5d2_1bc02db4",
+        "filename": "leanback/src/main/java/androidx/leanback/system/Settings.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2018-07-31T14:38:31Z",
+      "side": 1,
+      "message": "no do the format change",
+      "revId": "3f4de759208a955b40bdc0657b0194044d5ecf6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
