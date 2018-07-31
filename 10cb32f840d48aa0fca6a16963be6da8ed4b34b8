@@ -281,6 +281,30 @@
       "revId": "10cb32f840d48aa0fca6a16963be6da8ed4b34b8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f06b13c7_fc7c2a7b",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/ListAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2018-07-31T15:06:39Z",
+      "side": 1,
+      "message": "what is the difference of this callback vs the recyclervieww adapter observer?",
+      "parentUuid": "77369839_f3350c08",
+      "range": {
+        "startLine": 162,
+        "startChar": 4,
+        "endLine": 165,
+        "endChar": 6
+      },
+      "revId": "10cb32f840d48aa0fca6a16963be6da8ed4b34b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
