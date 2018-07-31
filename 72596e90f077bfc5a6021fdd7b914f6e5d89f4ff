@@ -16,6 +16,24 @@
       "revId": "72596e90f077bfc5a6021fdd7b914f6e5d89f4ff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c2b5441_ffe88d9f",
+        "filename": "versionedparcelable/src/main/java/androidx/versionedparcelable/VersionedParcel.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1374,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-07-31T17:32:46Z",
+      "side": 1,
+      "message": "Was being lazy to remove that unused variable :)\n\nDone, thanks!",
+      "parentUuid": "4873e17f_a1bc6f92",
+      "revId": "72596e90f077bfc5a6021fdd7b914f6e5d89f4ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
