@@ -30,6 +30,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.os.Parcelable;
 import android.os.RemoteException;
 import android.os.ResultReceiver;
 import android.support.v4.media.MediaBrowserCompat;
@@ -533,14 +534,14 @@ public final class MediaControllerCompat {
     }
 
     /**
-     * Gets the SessionToken2 as bundle for the session that this controller is connected to.
+     * Gets the SessionToken2 as Parcelable for the session that this controller is connected to.
      *
-     * @return The session's token as bundle.
+     * @return The session's token as parcelable.
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
-    public @Nullable Bundle getSessionToken2Bundle() {
-        return mToken.getSessionToken2Bundle();
+    public @Nullable Parcelable getSessionToken2Parcelable() {
+        return mToken.getSessionToken2Parcelable();
     }
 
     /**
@@ -2238,8 +2239,9 @@ public final class MediaControllerCompat {
                             IMediaSession.Stub.asInterface(
                                     BundleCompat.getBinder(
                                             resultData, MediaSessionCompat.KEY_EXTRA_BINDER)));
-                    mediaControllerImpl.mSessionToken.setSessionToken2Bundle(
-                            resultData.getBundle(MediaSessionCompat.KEY_SESSION_TOKEN2_BUNDLE));
+                    mediaControllerImpl.mSessionToken.setSessionToken2Parcelable(
+                            resultData.getParcelable(
+                                    MediaSessionCompat.KEY_SESSION_TOKEN2_PARCELABLE));
                     mediaControllerImpl.processPendingCallbacksLocked();
                 }
             }

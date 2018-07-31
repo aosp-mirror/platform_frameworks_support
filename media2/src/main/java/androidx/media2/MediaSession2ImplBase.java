@@ -60,6 +60,7 @@ import androidx.media2.MediaPlayerConnector.PlayerEventCallback;
 import androidx.media2.MediaPlaylistAgent.PlaylistEventCallback;
 import androidx.media2.MediaSession2.ErrorCode;
 import androidx.media2.MediaSession2.MediaSession2Impl;
+import androidx.versionedparcelable.ParcelUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -150,7 +151,8 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         String sessionCompatId = TextUtils.join(DEFAULT_MEDIA_SESSION_TAG_DELIM,
                 new String[] {DEFAULT_MEDIA_SESSION_TAG_PREFIX, id});
 
-        mSessionCompat = new MediaSessionCompat(context, sessionCompatId, mSessionToken.toBundle());
+        mSessionCompat = new MediaSessionCompat(context, sessionCompatId,
+                ParcelUtils.toParcelable(mSessionToken));
         // NOTE: mSessionLegacyStub should be created after mSessionCompat created.
         mSessionLegacyStub = new MediaSessionLegacyStub(this);
 
