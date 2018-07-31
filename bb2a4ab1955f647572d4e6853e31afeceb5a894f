@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35c62e6b_0610cac0",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1010077
+      },
+      "writtenOn": "2018-07-31T15:04:28Z",
+      "side": 1,
+      "message": "* I refrained from using vararg like the other 2 factory methods in ktx to avoid confusing the label parameter for a String item. Caller would have to name the label parameter. I understand using vararg would make it require non-empty argument list in compile time, but sacrificed it for what looked to me as slightly easier usage.\n* Type safety is an issue as is with other factory methods in ktx. I understand you have some ideas how to tackle it, but I haven\u0027t looked into it in detail.",
+      "revId": "bb2a4ab1955f647572d4e6853e31afeceb5a894f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da84f31e_c47f6e48",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1010077
+      },
+      "writtenOn": "2018-07-31T15:04:28Z",
+      "side": 1,
+      "message": "Only Uri items of ClipData use ContentResolver and addItem was added a variant overloaded with ContentResolver only in API 26, while factory method newUri had it from the beginning. Back then you would instantiate a ClipData object with a string containing all the mime types you could think of would be needed for that particular clip and then append items using addItem that would be expected to be handled with existing mime types.",
+      "revId": "bb2a4ab1955f647572d4e6853e31afeceb5a894f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53bb3ecc_676e21d0",
+        "filename": "core/ktx/src/main/java/androidx/core/content/ClipData.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1010077
+      },
+      "writtenOn": "2018-07-31T15:04:28Z",
+      "side": 1,
+      "message": "You can only instantiate a ClipData object with one initial ClipData.Item - not size, not multiple items but one item. Then you would append items (of any accepted underlying type) calling addItem on that object.",
+      "revId": "bb2a4ab1955f647572d4e6853e31afeceb5a894f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
