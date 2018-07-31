@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "473469f2_5e6dc41c",
+        "filename": "leanback-preference/src/main/res/layout/leanback_list_preference_fragment.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1081123
+      },
+      "writtenOn": "2018-07-31T16:13:25Z",
+      "side": 1,
+      "message": "nit: 4 space indent for consistency",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 37,
+        "endChar": 16
+      },
+      "revId": "e993c8480d498984c80f0065805b38e00aaece2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
