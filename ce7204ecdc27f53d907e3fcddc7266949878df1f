@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "c8b01db4_abf43e34",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-07-31T23:56:52Z",
+      "side": 1,
+      "message": "Discussed offline. Gerrit does not seem to make this easy.",
+      "parentUuid": "d1e85ae7_46e49829",
+      "range": {
+        "startLine": 47,
+        "startChar": 22,
+        "endLine": 47,
+        "endChar": 39
+      },
+      "revId": "ce7204ecdc27f53d907e3fcddc7266949878df1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9085c224_bbc74d64",
         "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
         "patchSetId": 4
@@ -486,6 +510,30 @@
       "side": 1,
       "message": "Well I\u0027m not sure why we have the WorkFinishedCallback as an interface if, in practicality, the same object implements them both.",
       "parentUuid": "34501cfd_29e2dd1a",
+      "range": {
+        "startLine": 191,
+        "startChar": 16,
+        "endLine": 191,
+        "endChar": 45
+      },
+      "revId": "ce7204ecdc27f53d907e3fcddc7266949878df1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32baf946_d403ac5d",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-07-31T23:56:52Z",
+      "side": 1,
+      "message": "Talked offline. We will be revisiting this in the future.",
+      "parentUuid": "e6317a80_b651ce07",
       "range": {
         "startLine": 191,
         "startChar": 16,
