@@ -1,0 +1,12 @@
+# Uncomment the branches to upload:
+#
+# project frameworks/support/:
+  branch dg-mute ( 1 commit, Mon Aug 6 16:53:49 2018 +0900) to remote branch androidx-master-dev:
+#         09cdef8d Implement mute function in MediaRouteCastDialog
+#
+#  branch dg-color ( 5 commits, Fri Aug 3 19:12:29 2018 +0900) to remote branch androidx-master-dev:
+#         14455f74 Implement mute function in MediaRouteCastDialog
+#         bf9a0271 Replace checkbox with radio button icons
+#         7bc77c50 Add click event listener to transferable route section
+#         fcef10c6 Add border-bottom to volume slider layout
+#         7b67c5bc tmp
