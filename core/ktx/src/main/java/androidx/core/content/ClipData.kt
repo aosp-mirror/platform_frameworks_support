@@ -76,3 +76,46 @@ val ClipData.items: Sequence<ClipData.Item>
 inline fun <T> ClipData.map(transform: (ClipData.Item) -> T) = List(itemCount) {
     transform(getItemAt(it))
 }
+
+/**
+ * Returns a new [ClipData] with given list of items and
+ * the optional clip label and [ContentResolver] for [Uri] items.
+ * NOTE: HtmlText ClipData not supported.
+ *
+ * @throws IllegalArgumentException When the list doesn't contain items of type supported
+ *         by [ClipData].
+ */
+fun clipDataOf(
+    items: List<Any>,
+    label: String = "",
+    resolver: ContentResolver? = null
+): ClipData = if (items.isEmpty()) {
+    throw IllegalArgumentException("Illegal argument, list cannot be empty.")
+} else {
+    when (items[0]) {
+        is Uri ->
+            if (resolver == null) {
+                ClipData.newRawUri(label, items[0] as Uri)
+            } else {
+                ClipData.newUri(resolver, label, items[0] as Uri)
+            }
+        is CharSequence ->
+            ClipData.newPlainText(label, items[0] as CharSequence)
+        is Intent ->
+            ClipData.newIntent(label, items[0] as Intent)
+        else -> throw IllegalArgumentException(
+                "Illegal type: ${items[0]::class.java.canonicalName}")
+    }.apply {
+        items.forEachIndexed { index, item ->
+            if (index > 0) {
+                when (item) {
+                    is Uri -> addItem(ClipData.Item(item))
+                    is CharSequence -> addItem(ClipData.Item(item))
+                    is Intent -> addItem(ClipData.Item(item))
+                    else -> throw IllegalArgumentException(
+                            "Illegal type: ${item::class.java.canonicalName}")
+                }
+            }
+        }
+    }
+}
