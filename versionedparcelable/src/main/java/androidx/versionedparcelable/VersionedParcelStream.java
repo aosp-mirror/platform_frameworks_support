@@ -172,13 +172,19 @@ class VersionedParcelStream extends VersionedParcel {
     }
 
     @Override
+    protected void writeCharSequence(CharSequence charSequence) {
+        if (!mIgnoreParcelables) {
+            throw new RuntimeException("CharSequence cannot be written to an OutputStream");
+        }
+    }
+
+    @Override
     public void writeInt(int val) {
         try {
             mCurrentOutput.writeInt(val);
         } catch (IOException e) {
             throw new ParcelException(e);
         }
-
     }
 
     @Override
@@ -332,6 +338,13 @@ class VersionedParcelStream extends VersionedParcel {
             }
         } catch (IOException e) {
             throw new ParcelException(e);
+        }
+    }
+
+    @Override
+    protected CharSequence readCharSequence() {
+        if (!mIgnoreParcelables) {
+            throw new RuntimeException("CharSequence cannot be written to an OutputStream");
         }
     }
 
