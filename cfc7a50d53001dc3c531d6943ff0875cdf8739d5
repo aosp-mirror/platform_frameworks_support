@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c430a055_e03e503f",
+        "filename": "slices/spark/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-07-31T18:55:42Z",
+      "side": 1,
+      "message": "Why are these set?",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 23
+      },
+      "revId": "cfc7a50d53001dc3c531d6943ff0875cdf8739d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d034ee53_9be702bf",
+        "filename": "sparklers/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-07-31T18:55:42Z",
+      "side": 1,
+      "message": "Create your own version constant starting at 1.0.0-alpha1.",
+      "range": {
+        "startLine": 43,
+        "startChar": 19,
+        "endLine": 43,
+        "endChar": 50
+      },
+      "revId": "cfc7a50d53001dc3c531d6943ff0875cdf8739d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d22f84cc_55a76614",
+        "filename": "sparklers/src/main/java/androidx/sparklers/LoadPolicy.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-07-31T18:55:42Z",
+      "side": 1,
+      "message": "byte[]",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 38
+      },
+      "revId": "cfc7a50d53001dc3c531d6943ff0875cdf8739d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcf56818_9fd82514",
+        "filename": "sparklers/src/main/java/androidx/sparklers/LoadPolicy.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-07-31T18:55:42Z",
+      "side": 1,
+      "message": "Is this intended to be a Comparable value at some point in the future?",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 37
+      },
+      "revId": "cfc7a50d53001dc3c531d6943ff0875cdf8739d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
