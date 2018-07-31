@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "76d285ce_c11dd2c3",
+        "filename": "slices/spark/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-07-31T19:41:13Z",
+      "side": 1,
+      "message": "Because these control the finding/version setting of the loaded version.",
+      "parentUuid": "c430a055_e03e503f",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 23
+      },
+      "revId": "cfc7a50d53001dc3c531d6943ff0875cdf8739d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d034ee53_9be702bf",
         "filename": "sparklers/build.gradle",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "cfc7a50d53001dc3c531d6943ff0875cdf8739d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7d1426c_4e483413",
+        "filename": "sparklers/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-07-31T19:41:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d034ee53_9be702bf",
+      "range": {
+        "startLine": 43,
+        "startChar": 19,
+        "endLine": 43,
+        "endChar": 50
+      },
+      "revId": "cfc7a50d53001dc3c531d6943ff0875cdf8739d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9803ae33_ca8ee3f9",
+        "filename": "sparklers/src/main/java/androidx/sparklers/LoadPolicy.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-07-31T19:41:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d22f84cc_55a76614",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 38
+      },
+      "revId": "cfc7a50d53001dc3c531d6943ff0875cdf8739d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dcf56818_9fd82514",
         "filename": "sparklers/src/main/java/androidx/sparklers/LoadPolicy.java",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "cfc7a50d53001dc3c531d6943ff0875cdf8739d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd561e2d_11da74ae",
+        "filename": "sparklers/src/main/java/androidx/sparklers/LoadPolicy.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-07-31T19:41:13Z",
+      "side": 1,
+      "message": "Its in the same format as local/disabled versions, haven\u0027t gotten around to hooking it up.",
+      "parentUuid": "dcf56818_9fd82514",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 37
+      },
+      "revId": "cfc7a50d53001dc3c531d6943ff0875cdf8739d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
