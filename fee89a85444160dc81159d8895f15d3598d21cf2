@@ -387,6 +387,30 @@
       "revId": "fee89a85444160dc81159d8895f15d3598d21cf2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "028407de_c288db4b",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-07-31T07:58:27Z",
+      "side": 1,
+      "message": "Currently, mViewHolderMap is a member variable of MediaRouteCastDialog since MediaRouteCastDialog#getVolumeSlider() uses it. Do I have to move mViewHolderMap into the Adapter regardless of MediaRouteCastDialog#getVolumeSlider()?",
+      "parentUuid": "68b6e858_87c1b892",
+      "range": {
+        "startLine": 858,
+        "startChar": 16,
+        "endLine": 859,
+        "endChar": 0
+      },
+      "revId": "fee89a85444160dc81159d8895f15d3598d21cf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
