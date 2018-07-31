@@ -22,6 +22,30 @@
       "revId": "5c4c87af114bac75acf3933a8eaaa4d4a0c2c186",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "872b321e_2be6e26a",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/RemoteMediaSession2Service.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-07-31T12:25:11Z",
+      "side": 1,
+      "message": "Thanks for the info. Since we are not using it concurrently, Let\u0027s merge this as-is.",
+      "parentUuid": "bb6f7037_2a288b03",
+      "range": {
+        "startLine": 246,
+        "startChar": 37,
+        "endLine": 246,
+        "endChar": 49
+      },
+      "revId": "5c4c87af114bac75acf3933a8eaaa4d4a0c2c186",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
