@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d315b6f4_bbe021e8",
+        "filename": "slices/benchmark/src/androidTest/java/androidx/slice/SliceSerializeMetrics.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1146169
+      },
+      "writtenOn": "2018-07-31T18:55:04Z",
+      "side": 1,
+      "message": "Why sleep here?",
+      "revId": "1a101c1772480c9fb6a02ac9e97b0f1330976cba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4922ceb0_c4c0b777",
+        "filename": "slices/benchmark/src/androidTest/java/androidx/slice/SliceSerializeMetrics.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1146169
+      },
+      "writtenOn": "2018-07-31T18:55:04Z",
+      "side": 1,
+      "message": "Does the format need to be the same for ACTION and SLICE formats? If so this technically allows for instance desired-\u003eFORMAT_SLICE and actual-\u003eFORMAT_ACTION.\n\nCould just check if the formats are equal and bail early if the format was of type SLICE/ACTION",
+      "revId": "1a101c1772480c9fb6a02ac9e97b0f1330976cba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
