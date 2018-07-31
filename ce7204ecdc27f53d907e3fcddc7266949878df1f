@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "3ca5db2d_f4104611",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-07-31T23:46:33Z",
+      "side": 1,
+      "message": "Talked about it offline.  Let\u0027s keep this for now but we will need to revisit this in the future anyway.",
+      "parentUuid": "2cdc3c31_910ba2b1",
+      "range": {
+        "startLine": 296,
+        "startChar": 16,
+        "endLine": 296,
+        "endChar": 30
+      },
+      "revId": "ce7204ecdc27f53d907e3fcddc7266949878df1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9af1912f_8426824b",
         "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
         "patchSetId": 4
@@ -235,6 +259,30 @@
       "revId": "ce7204ecdc27f53d907e3fcddc7266949878df1f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c038f2a_c95012a9",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-07-31T23:46:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "46f85efe_d45de8f6",
+      "range": {
+        "startLine": 305,
+        "startChar": 12,
+        "endLine": 306,
+        "endChar": 79
+      },
+      "revId": "ce7204ecdc27f53d907e3fcddc7266949878df1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
