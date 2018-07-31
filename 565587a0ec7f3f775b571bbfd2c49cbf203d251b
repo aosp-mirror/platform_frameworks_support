@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "702d99c6_6d951787",
+        "filename": "compat/src/main/java/androidx/core/os/LocaleListCompat.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-07-31T20:47:41Z",
+      "side": 1,
+      "message": "Had to add unwrapping here because of the other changes.",
+      "revId": "565587a0ec7f3f775b571bbfd2c49cbf203d251b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
