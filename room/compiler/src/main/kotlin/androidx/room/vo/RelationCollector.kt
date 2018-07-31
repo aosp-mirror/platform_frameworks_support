@@ -29,11 +29,13 @@ import androidx.room.processor.Context
 import androidx.room.processor.ProcessorErrors.CANNOT_FIND_QUERY_RESULT_ADAPTER
 import androidx.room.processor.ProcessorErrors.relationAffinityMismatch
 import androidx.room.solver.CodeGenScope
+import androidx.room.solver.query.parameter.QueryParameterAdapter
 import androidx.room.solver.query.result.RowAdapter
 import androidx.room.solver.query.result.SingleColumnRowAdapter
 import androidx.room.verifier.DatabaseVerificaitonErrors
 import androidx.room.writer.QueryWriter
 import androidx.room.writer.RelationCollectorMethodWriter
+import com.google.auto.common.MoreTypes
 import com.squareup.javapoet.ArrayTypeName
 import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.CodeBlock
@@ -142,15 +144,20 @@ data class RelationCollector(
             }
         }
         scope.builder().apply {
+            val keyType = if (mapTypeName.rawType == AndroidTypeNames.LONG_SPARSE_ARRAY) {
+                keyTypeName.unbox()
+            } else {
+                keyTypeName
+            }
             val tmpVar = scope.getTmpVar("_tmpKey")
             if (relation.parentField.nonNull) {
                 addStatement("final $T $L = $L.$L($L)",
-                        keyTypeName, tmpVar, cursorVarName, cursorGetter, indexVar)
+                        keyType, tmpVar, cursorVarName, cursorGetter, indexVar)
                 this.postRead(tmpVar)
             } else {
                 beginControlFlow("if (!$L.isNull($L))", cursorVarName, indexVar).apply {
                     addStatement("final $T $L = $L.$L($L)",
-                            keyTypeName, tmpVar, cursorVarName, cursorGetter, indexVar)
+                            keyType, tmpVar, cursorVarName, cursorGetter, indexVar)
                     this.postRead(tmpVar)
                 }
                 endControlFlow()
@@ -158,7 +165,45 @@ data class RelationCollector(
         }
     }
 
+    /**
+     * Adapter for binding a LongSparseArray keys into query arguments. This special adapter is only
+     * used for binding the relationship query who's keys have INTEGER affinity.
+     */
+    private class LongSparseArrayKeyQueryParameterAdapter : QueryParameterAdapter(true) {
+        override fun bindToStmt(
+            inputVarName: String,
+            stmtVarName: String,
+            startIndexVarName: String,
+            scope: CodeGenScope
+        ) {
+            scope.builder().apply {
+                val itrIndexVar = "i"
+                val itrItemVar = scope.getTmpVar("_item")
+                beginControlFlow("for (int $L = 0; $L < $L.size(); i++)",
+                        itrIndexVar, itrIndexVar, inputVarName).apply {
+                    addStatement("long $L = $L.keyAt($L)", itrItemVar, inputVarName, itrIndexVar)
+                    addStatement("$L.bindLong($L, $L)", stmtVarName, startIndexVarName, itrItemVar)
+                    addStatement("$L ++", startIndexVarName)
+                }
+                endControlFlow()
+            }
+        }
+
+        override fun getArgCount(
+            inputVarName: String,
+            outputVarName: String,
+            scope: CodeGenScope
+        ) {
+            scope.builder().addStatement("final $T $L = $L.size()",
+                    TypeName.INT, outputVarName, inputVarName)
+        }
+    }
+
     companion object {
+
+        private val LONG_SPARSE_ARRAY_KEY_QUERY_PARAM_ADAPTER =
+                LongSparseArrayKeyQueryParameterAdapter()
+
         fun createCollectors(
             baseContext: Context,
             relations: List<Relation>
@@ -197,17 +242,30 @@ data class RelationCollector(
                             relation.pojoTypeName)
                 }
 
+                val canUseLongSparseArray = context.processingEnv.elementUtils
+                        .getTypeElement(AndroidTypeNames.LONG_SPARSE_ARRAY.toString()) != null
                 val canUseArrayMap = context.processingEnv.elementUtils
                         .getTypeElement(AndroidTypeNames.ARRAY_MAP.toString()) != null
-                val mapClass = if (canUseArrayMap) {
-                    AndroidTypeNames.ARRAY_MAP
+                val tmpMapType = if (canUseLongSparseArray && affinity == SQLTypeAffinity.INTEGER) {
+                    ParameterizedTypeName.get(AndroidTypeNames.LONG_SPARSE_ARRAY,
+                            collectionTypeName)
+                } else if (canUseArrayMap) {
+                    ParameterizedTypeName.get(AndroidTypeNames.ARRAY_MAP,
+                            keyType, collectionTypeName)
                 } else {
-                    ClassName.get(java.util.HashMap::class.java)
+                    ParameterizedTypeName.get(ClassName.get(java.util.HashMap::class.java),
+                            keyType, collectionTypeName)
                 }
-                val tmpMapType = ParameterizedTypeName.get(mapClass, keyType, collectionTypeName)
-                val keyTypeMirror = keyTypeMirrorFor(context, affinity)
-                val set = context.processingEnv.elementUtils.getTypeElement("java.util.Set")
-                val keySet = context.processingEnv.typeUtils.getDeclaredType(set, keyTypeMirror)
+                val usingLongSparseArray = tmpMapType.rawType == AndroidTypeNames.LONG_SPARSE_ARRAY
+                val keySet = if (usingLongSparseArray) {
+                    val longSparseArray = context.processingEnv.elementUtils
+                            .getTypeElement(AndroidTypeNames.LONG_SPARSE_ARRAY.toString())
+                    MoreTypes.asDeclared(longSparseArray.asType())
+                } else {
+                    val keyTypeMirror = keyTypeMirrorFor(context, affinity)
+                    val set = context.processingEnv.elementUtils.getTypeElement("java.util.Set")
+                    context.processingEnv.typeUtils.getDeclaredType(set, keyTypeMirror)
+                }
                 val loadAllQuery = relation.createLoadAllSql()
                 val parsedQuery = SqlParser.parse(loadAllQuery)
                 context.checker.check(parsedQuery.errors.isEmpty(), relation.field.element,
@@ -221,13 +279,23 @@ data class RelationCollector(
                     }
                 }
                 val resultInfo = parsedQuery.resultInfo
-
+                val queryParamAdapter = if (usingLongSparseArray) {
+                    LONG_SPARSE_ARRAY_KEY_QUERY_PARAM_ADAPTER
+                } else {
+                    context.typeAdapterStore.findQueryParameterAdapter(keySet)
+                }
+                val queryParamName = if (usingLongSparseArray) {
+                    RelationCollectorMethodWriter.PARAM_MAP_VARIABLE
+                } else {
+                    RelationCollectorMethodWriter.KEY_SET_VARIABLE
+                }
                 val queryParam = QueryParameter(
-                        name = RelationCollectorMethodWriter.KEY_SET_VARIABLE,
-                        sqlName = RelationCollectorMethodWriter.KEY_SET_VARIABLE,
+                        name = queryParamName,
+                        sqlName = queryParamName,
                         type = keySet,
-                        queryParamAdapter =
-                                context.typeAdapterStore.findQueryParameterAdapter(keySet))
+                        queryParamAdapter = queryParamAdapter
+                )
+
                 val queryWriter = QueryWriter(
                         parameters = listOf(queryParam),
                         sectionToParamMapping = listOf(Pair(parsedQuery.bindSections.first(),
