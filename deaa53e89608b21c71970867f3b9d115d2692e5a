@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "66b949d6_d75d27d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-31T11:04:31Z",
+      "side": 1,
+      "message": "It\u0027s always Javadoc (the same as the Google)\n\nhttps://en.wikipedia.org/wiki/Javadoc",
+      "range": {
+        "startLine": 7,
+        "startChar": 7,
+        "endLine": 7,
+        "endChar": 15
+      },
+      "revId": "deaa53e89608b21c71970867f3b9d115d2692e5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e061a0d8_5599c743",
         "filename": "media/src/main/java/android/support/v4/media/MediaBrowserCompat.java",
         "patchSetId": 5
