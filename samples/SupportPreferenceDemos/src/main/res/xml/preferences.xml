@@ -37,6 +37,12 @@
         android:summary="This preference has an icon"
         android:icon="@android:drawable/ic_menu_camera" />
 
+    <Preference
+            android:key="preference_with_icon_tint"
+            android:title="Preference with icon tint"
+            android:summary="The icon will be tinted on selection"
+            android:icon="@drawable/ic_drawable_camera" />
+
     <PreferenceCategory
         android:title="@string/inline_preferences">
 

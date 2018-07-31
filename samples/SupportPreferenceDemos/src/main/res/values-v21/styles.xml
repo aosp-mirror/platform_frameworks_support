@@ -23,10 +23,24 @@
     </style>
 
     <style name="SupportPreferenceLeanback" parent="Theme.Leanback">
-        <item name="preferenceTheme">@style/PreferenceThemeOverlayLeanback</item>
-        <item name="android:colorPrimary">#3F51B5</item>
-        <item name="android:colorPrimaryDark">#303F9F</item>
-        <item name="android:colorAccent">#FF4081</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlayLeanback.Inversable</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <!-- custom style that inverse color of selected text -->
+    <style name="PreferenceThemeOverlayLeanback.Inversable" parent="PreferenceThemeOverlayLeanback">
+        <item name="android:selectableItemBackground">@drawable/select_item_background</item>
+        <item name="android:textColorPrimary">@color/select_item_text_color_state_list</item>
+        <item name="android:textColorSecondary">@color/select_item_text_color_state_list</item>
+        <!-- make controls visible both on black and white background -->
+        <item name="android:colorControlNormal">#888888</item>
+        <item name="android:imageButtonStyle">@style/ImageViewTinted</item>
+    </style>
+
+    <style name="ImageViewTinted">
+        <!-- duplicate focused state to drawable -->
+        <item name="android:duplicateParentState">true</item>
     </style>
 
     <style name="SupportPreferenceCar" parent="Theme.Car.Light.NoActionBar">

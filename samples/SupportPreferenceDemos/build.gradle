@@ -2,6 +2,12 @@ plugins {
     id("SupportAndroidTestAppPlugin")
 }
 
+android {
+    defaultConfig {
+        minSdkVersion 24
+    }
+}
+
 dependencies {
     implementation(project(":appcompat"))
     implementation(project(":recyclerview"))
