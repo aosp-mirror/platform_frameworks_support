@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ef0f907_9374ee8a",
+        "filename": "slices/view/src/main/java/androidx/slice/SliceUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1146169
+      },
+      "writtenOn": "2018-07-31T20:22:16Z",
+      "side": 1,
+      "message": "Does this need to set SliceItemHolder.sHandler back to null like above, or does the handler need to exist later? It seems scary to let the sHandler leak outside of the synchronized block.",
+      "revId": "1e97286d67f12a5de4f09d5af45e513af6184149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
