@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08c686ae_092a43cb",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/RemoteMediaSession2Service.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-31T11:35:02Z",
+      "side": 1,
+      "message": "why not introduce toBundle()/fromBundle() or implement VersionedParcelable?",
+      "range": {
+        "startLine": 238,
+        "startChar": 54,
+        "endLine": 238,
+        "endChar": 73
+      },
+      "revId": "c15fc12362ef5027558232bca4c188db95fab5cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
