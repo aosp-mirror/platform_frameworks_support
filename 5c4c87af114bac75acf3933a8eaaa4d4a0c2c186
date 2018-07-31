@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb6f7037_2a288b03",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/RemoteMediaSession2Service.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-31T11:24:02Z",
+      "side": 1,
+      "message": "minor, can do that outside of this CL)\nYou may ignore this because this is test only only used by one client from the single thread.\n\nBut it would be better to synchronize this or use ConcurrentHashMap, because incoming binder calls would be called on the thread pool so you needs to synchronize variables that are used inside of binders.",
+      "range": {
+        "startLine": 246,
+        "startChar": 37,
+        "endLine": 246,
+        "endChar": 49
+      },
+      "revId": "5c4c87af114bac75acf3933a8eaaa4d4a0c2c186",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
