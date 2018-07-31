@@ -16,6 +16,7 @@
 
 import androidx.build.AndroidXPlugin
 import androidx.build.SdkHelperKt
+import androidx.build.dependencyTracker.DependencyTracker
 import androidx.build.jacoco.Jacoco
 
 def currentJvmVersion = org.gradle.api.JavaVersion.current()
@@ -56,3 +57,4 @@ apply plugin: AndroidXPlugin
 // AndroidX needed before jetify since it accesses the createArchive task name directly.
 apply from: 'buildSrc/jetify.gradle'
 
+new DependencyTracker(rootProject).debug()
