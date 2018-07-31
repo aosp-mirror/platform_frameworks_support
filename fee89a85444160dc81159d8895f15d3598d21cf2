@@ -411,6 +411,30 @@
       "revId": "fee89a85444160dc81159d8895f15d3598d21cf2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed636a8d_f0595742",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-07-31T08:08:56Z",
+      "side": 1,
+      "message": "sorry, typo. only move mViewHolderMap.put(xx) to Adapter.",
+      "parentUuid": "028407de_c288db4b",
+      "range": {
+        "startLine": 858,
+        "startChar": 16,
+        "endLine": 859,
+        "endChar": 0
+      },
+      "revId": "fee89a85444160dc81159d8895f15d3598d21cf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
