@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cb7e429_9718c4e1",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/workers/ConstraintTrackingWorker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-07-31T22:16:31Z",
+      "side": 1,
+      "message": "Please revert all changes to this file.",
+      "range": {
+        "startLine": 42,
+        "startChar": 13,
+        "endLine": 42,
+        "endChar": 37
+      },
+      "revId": "e3d6137578f0fc4cb084457d23fd196e06162c6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
