@@ -38,6 +38,7 @@ import android.view.accessibility.AccessibilityNodeProvider;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityNodeProviderCompat;
 import androidx.test.filters.MediumTest;
+import androidx.test.filters.SdkSuppress;
 import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
@@ -80,6 +81,7 @@ public class AccessibilityDelegateCompatTest extends
     }
 
     @Test
+    @SdkSuppress(minSdkVersion = 19)
     public void testScreenReaderFocusable_propagatesToAccessibilityNodeInfo() {
         assertThat(ViewCompat.isScreenReaderFocusable(mView), is(false));
         assertThat(getCompatForView(mView).isScreenReaderFocusable(), is(false));
@@ -97,27 +99,26 @@ public class AccessibilityDelegateCompatTest extends
     }
 
     @Test
+    @SdkSuppress(minSdkVersion = 19, maxSdkVersion = 27)
     public void testScreenReaderFocusable_generatesAccessibilityEvent() {
-        // The core framework is responsible for this behavior from P
-        if (Build.VERSION.SDK_INT < 28) {
-            //This test isn't to test the propgation up, just that the event is sent correctly.
-            ViewCompat.setAccessibilityLiveRegion(mView,
-                    ViewCompat.ACCESSIBILITY_LIVE_REGION_POLITE);
-            final AccessibilityDelegateCompat mockDelegate = mock(
-                    AccessibilityDelegateCompat.class);
-            ViewCompat.setAccessibilityDelegate(mView, new BridgingDelegateCompat(mockDelegate));
-            ViewCompat.setScreenReaderFocusable(mView, true);
+        //This test isn't to test the propgation up, just that the event is sent correctly.
+        ViewCompat.setAccessibilityLiveRegion(mView,
+                ViewCompat.ACCESSIBILITY_LIVE_REGION_POLITE);
+        final AccessibilityDelegateCompat mockDelegate = mock(
+                AccessibilityDelegateCompat.class);
+        ViewCompat.setAccessibilityDelegate(mView, new BridgingDelegateCompat(mockDelegate));
+        ViewCompat.setScreenReaderFocusable(mView, true);
 
-            ArgumentCaptor<AccessibilityEvent> argumentCaptor =
-                    ArgumentCaptor.forClass(AccessibilityEvent.class);
-            verify(mockDelegate).sendAccessibilityEventUnchecked(
-                    eq(mView), argumentCaptor.capture());
-            AccessibilityEvent event = argumentCaptor.<AccessibilityEvent>getValue();
-            assertThat(event.getEventType(), is(AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED));
-        }
+        ArgumentCaptor<AccessibilityEvent> argumentCaptor =
+                ArgumentCaptor.forClass(AccessibilityEvent.class);
+        verify(mockDelegate).sendAccessibilityEventUnchecked(
+                eq(mView), argumentCaptor.capture());
+        AccessibilityEvent event = argumentCaptor.<AccessibilityEvent>getValue();
+        assertThat(event.getEventType(), is(AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED));
     }
 
     @Test
+    @SdkSuppress(minSdkVersion = 19)
     public void testAccessibilityHeading_propagatesToAccessibilityNodeInfo() {
         assertThat(ViewCompat.isAccessibilityHeading(mView), is(false));
         assertThat(getCompatForView(mView).isHeading(), is(false));
@@ -135,24 +136,22 @@ public class AccessibilityDelegateCompatTest extends
     }
 
     @Test
+    @SdkSuppress(minSdkVersion = 19, maxSdkVersion = 27)
     public void testSetAccessibilityHeading_generatesAccessibilityEvent() {
-        // The core framework is responsible for this behavior from P
-        if (Build.VERSION.SDK_INT < 28) {
-            //This test isn't to test the propgation up, just that the event is sent correctly.
-            ViewCompat.setAccessibilityLiveRegion(mView,
-                    ViewCompat.ACCESSIBILITY_LIVE_REGION_POLITE);
-            final AccessibilityDelegateCompat mockDelegate = mock(
-                    AccessibilityDelegateCompat.class);
-            ViewCompat.setAccessibilityDelegate(mView, new BridgingDelegateCompat(mockDelegate));
-            ViewCompat.setAccessibilityHeading(mView, true);
+        //This test isn't to test the propgation up, just that the event is sent correctly.
+        ViewCompat.setAccessibilityLiveRegion(mView,
+                ViewCompat.ACCESSIBILITY_LIVE_REGION_POLITE);
+        final AccessibilityDelegateCompat mockDelegate = mock(
+                AccessibilityDelegateCompat.class);
+        ViewCompat.setAccessibilityDelegate(mView, new BridgingDelegateCompat(mockDelegate));
+        ViewCompat.setAccessibilityHeading(mView, true);
 
-            ArgumentCaptor<AccessibilityEvent> argumentCaptor =
-                    ArgumentCaptor.forClass(AccessibilityEvent.class);
-            verify(mockDelegate).sendAccessibilityEventUnchecked(
-                    eq(mView), argumentCaptor.capture());
-            AccessibilityEvent event = argumentCaptor.<AccessibilityEvent>getValue();
-            assertThat(event.getEventType(), is(AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED));
-        }
+        ArgumentCaptor<AccessibilityEvent> argumentCaptor =
+                ArgumentCaptor.forClass(AccessibilityEvent.class);
+        verify(mockDelegate).sendAccessibilityEventUnchecked(
+                eq(mView), argumentCaptor.capture());
+        AccessibilityEvent event = argumentCaptor.<AccessibilityEvent>getValue();
+        assertThat(event.getEventType(), is(AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED));
     }
 
     @Test
