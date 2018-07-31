@@ -43,6 +43,8 @@ buildscript {
     }
 }
 
+init.setupDependencyTracker()
+
 repos.addMavenRepositories(repositories)
 
 init.setupRepoOutAndBuildNumber()
