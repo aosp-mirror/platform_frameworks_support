@@ -19,10 +19,11 @@ package androidx.core.os;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.versionedparcelable.VersionedParcelable;
 
 import java.util.Locale;
 
-interface LocaleListInterface {
+interface LocaleListInterface extends VersionedParcelable {
     Object getLocaleList();
 
     Locale get(int index);

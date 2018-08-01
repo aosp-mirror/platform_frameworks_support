@@ -22,19 +22,27 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.versionedparcelable.CustomVersionedParcelable;
+import androidx.versionedparcelable.NonParcelField;
+import androidx.versionedparcelable.ParcelField;
+import androidx.versionedparcelable.VersionedParcelize;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Locale;
 
-final class LocaleListCompatWrapper implements LocaleListInterface {
-    private final Locale[] mList;
+@VersionedParcelize(isCustom = true)
+final class LocaleListCompatWrapper extends CustomVersionedParcelable
+        implements LocaleListInterface {
+    @NonParcelField
+    private Locale[] mList;
     // This is a comma-separated list of the locales in the LocaleListHelper created at construction
     // time, basically the result of running each locale's toLanguageTag() method and concatenating
     // them with commas in between.
     @NonNull
-    private final String mStringRepresentation;
+    @ParcelField(1)
+    String mStringRepresentation;
 
     private static final Locale[] sEmptyList = new Locale[0];
 
@@ -118,6 +126,10 @@ final class LocaleListCompatWrapper implements LocaleListInterface {
     }
 
     LocaleListCompatWrapper(@NonNull Locale... list) {
+        init(list);
+    }
+
+    private void init(Locale... list) {
         if (list.length == 0) {
             mList = sEmptyList;
             mStringRepresentation = "";
@@ -264,5 +276,15 @@ final class LocaleListCompatWrapper implements LocaleListInterface {
     public Locale getFirstMatch(@NonNull String[] supportedLocales) {
         return computeFirstMatch(Arrays.asList(supportedLocales),
                 false /* assume English is not supported */);
+    }
+
+    @Override
+    public void onPostParceling() {
+        final String[] tags = mStringRepresentation.split(",", -1);
+        final Locale[] localeArray = new Locale[tags.length];
+        for (int i = 0; i < localeArray.length; i++) {
+            localeArray[i] = LocaleListCompat.forLanguageTagCompat(tags[i]);
+        }
+        init(localeArray);
     }
 }
