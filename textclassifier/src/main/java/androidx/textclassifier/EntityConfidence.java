@@ -21,6 +21,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.collection.ArrayMap;
 import androidx.core.util.Preconditions;
+import androidx.versionedparcelable.NonParcelField;
+import androidx.versionedparcelable.ParcelField;
+import androidx.versionedparcelable.VersionedParcelable;
+import androidx.versionedparcelable.VersionedParcelize;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,10 +38,13 @@ import java.util.Map;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY)
-final class EntityConfidence {
+@VersionedParcelize
+final class EntityConfidence implements VersionedParcelable {
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    final ArrayMap<String, Float> mEntityConfidence = new ArrayMap<>();
+    @ParcelField(1)
+    ArrayMap<String, Float> mEntityConfidence = new ArrayMap<>();
+    @NonParcelField
     private final ArrayList<String> mSortedEntities = new ArrayList<>();
 
     /**
@@ -50,7 +57,10 @@ final class EntityConfidence {
      */
     EntityConfidence(@NonNull Map<String, Float> source) {
         Preconditions.checkNotNull(source);
+        init(source);
+    }
 
+    private void init(@NonNull Map<String, Float> source) {
         // Prune non-existent entities and clamp to 1.
         mEntityConfidence.ensureCapacity(source.size());
         for (Map.Entry<String, Float> it : source.entrySet()) {
@@ -59,6 +69,8 @@ final class EntityConfidence {
         }
         resetSortedEntitiesFromMap();
     }
+
+    EntityConfidence() {}
 
     /**
      * Returns an immutable list of entities found in the classified text ordered from
