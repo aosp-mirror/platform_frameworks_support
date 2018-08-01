@@ -18,12 +18,10 @@ package androidx.media2;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
-import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -182,7 +180,6 @@ import java.util.concurrent.RejectedExecutionException;
  * </table>
  * @see MediaSessionService2
  */
-@TargetApi(Build.VERSION_CODES.P)
 public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseable {
     /**
      * @hide

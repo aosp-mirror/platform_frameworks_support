@@ -18,12 +18,10 @@ package androidx.media2;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
-import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.media.AudioManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.support.v4.media.MediaBrowserCompat;
@@ -71,7 +69,6 @@ import java.util.concurrent.Executor;
  * @see MediaSession2
  * @see MediaSessionService2
  */
-@TargetApi(Build.VERSION_CODES.P)
 public class MediaController2 implements AutoCloseable {
     /**
      * @hide

@@ -18,9 +18,6 @@ package androidx.media2;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
-import android.annotation.TargetApi;
-import android.os.Build;
-
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,7 +32,6 @@ import java.util.concurrent.Executor;
 /**
  * Base interface for all media players that want media session.
  */
-@TargetApi(Build.VERSION_CODES.P)
 public abstract class MediaPlayerConnector implements AutoCloseable {
     /**
      * @hide

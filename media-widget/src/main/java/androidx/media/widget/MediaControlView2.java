@@ -23,7 +23,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
@@ -31,7 +30,6 @@ import android.graphics.Point;
 import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.support.v4.media.MediaMetadataCompat;
@@ -65,7 +63,6 @@ import android.widget.TextView;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.media2.DataSourceDesc2;
 import androidx.media2.MediaController2;
@@ -115,8 +112,6 @@ import java.util.concurrent.Executor;
  * 2) Set full screen mode
  *
  */
-@TargetApi(Build.VERSION_CODES.P)
-@RequiresApi(21) // TODO correct minSdk API use incompatibilities and remove before release.
 public class MediaControlView2 extends BaseLayout {
     /**
      * @hide
