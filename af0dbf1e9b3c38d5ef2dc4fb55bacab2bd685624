@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e026e7e5_f40f683a",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-01T02:01:06Z",
+      "side": 1,
+      "message": "This local variable would be only used for specific cases, so I don\u0027t think that defining local variable here make sense.\nYou can use {} for each \u0027case\u0027 in \u0027switch\u0027 to prevent compile error.",
+      "range": {
+        "startLine": 660,
+        "startChar": 34,
+        "endLine": 660,
+        "endChar": 40
+      },
+      "revId": "af0dbf1e9b3c38d5ef2dc4fb55bacab2bd685624",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
