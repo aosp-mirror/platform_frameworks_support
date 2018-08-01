@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad572ced_59776fef",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-01T08:39:00Z",
+      "side": 1,
+      "message": "Where comes the 5 here? 5 may exceed max volume.",
+      "range": {
+        "startLine": 105,
+        "startChar": 21,
+        "endLine": 105,
+        "endChar": 39
+      },
+      "revId": "0006f5ffc808af9822e265fecdec80c88970b277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b82d12fb_24b82412",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-01T08:39:00Z",
+      "side": 1,
+      "message": "mBeforeMuteVolumes",
+      "range": {
+        "startLine": 153,
+        "startChar": 25,
+        "endLine": 153,
+        "endChar": 37
+      },
+      "revId": "0006f5ffc808af9822e265fecdec80c88970b277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65aa625c_b228e85c",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-01T08:39:00Z",
+      "side": 1,
+      "message": "/**\n * xxxx\n */",
+      "range": {
+        "startLine": 573,
+        "startChar": 0,
+        "endLine": 573,
+        "endChar": 83
+      },
+      "revId": "0006f5ffc808af9822e265fecdec80c88970b277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d703be6_98fc5328",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-01T08:39:00Z",
+      "side": 1,
+      "message": "volume?",
+      "range": {
+        "startLine": 577,
+        "startChar": 40,
+        "endLine": 577,
+        "endChar": 48
+      },
+      "revId": "0006f5ffc808af9822e265fecdec80c88970b277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c89ccf4_12b4ed9d",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-01T08:39:00Z",
+      "side": 1,
+      "message": "See ImageView#setSelected()",
+      "range": {
+        "startLine": 879,
+        "startChar": 16,
+        "endLine": 879,
+        "endChar": 43
+      },
+      "revId": "0006f5ffc808af9822e265fecdec80c88970b277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d63afb2d_b363f09f",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_group_volume_item.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-01T08:39:00Z",
+      "side": 1,
+      "message": "ImageButton can have state whether it\u0027s pressed or not.\nAnd you can set images for each state in advance.",
+      "range": {
+        "startLine": 37,
+        "startChar": 9,
+        "endLine": 37,
+        "endChar": 20
+      },
+      "revId": "0006f5ffc808af9822e265fecdec80c88970b277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
