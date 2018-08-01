@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24db6c18_8a869812",
+        "filename": "compat/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3901,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-08-01T00:39:10Z",
+      "side": 1,
+      "message": "(From internal review before we moved to AOSP)\n\n\nPhil:\nDo you have a sense for how often this is called? We generally avoid using iterators if we can, but maybe there isn\u0027t a better solution here.\n\nQasid:\nEach time layout happens, what is the better solution you are thinking of?\n\nPhil:\nI was thinking to do something like iterating over a list without creating an interator. It may be faster to hold everything in an ArrayList and do the (for i \u003d 0; i \u003c list.size; i++) list.get(i) thing. That avoids allocating an iterator.\n\nMy concern is that layout is pretty time-critical, since everything is traversed and it needs still to fit into one frame time.\n\nI\u0027m OK to submit this as-is, but you may want to think a bit more about it. And if someone discovers that using panes leads to jank, they\u0027ll be talking to you :-)\n\nQasid:\nAs you suggested, let\u0027s see what Alan thinks",
+      "revId": "1369f2fb79743de0eabe33acfc40d6c52ec3556f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
