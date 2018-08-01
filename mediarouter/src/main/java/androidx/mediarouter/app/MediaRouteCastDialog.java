@@ -648,7 +648,6 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             mTvIcon = MediaRouterThemeHelper.getTvDrawableIcon(mContext);
             mSpeakerIcon = MediaRouterThemeHelper.getSpeakerDrawableIcon(mContext);
             mSpeakerGroupIcon = MediaRouterThemeHelper.getSpeakerGropuIcon(mContext);
-
             setItems();
         }
 
@@ -930,16 +929,19 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                     mVolumeSliderLayout.setVisibility(View.VISIBLE);
                 }
             };
-            final View.OnClickListener mCheckBoxClickListener = new View.OnClickListener() {
+            final View.OnClickListener mSelectButtonClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (((CheckBox) v).isChecked()) {
+                    if (v.isSelected()) {
+                        mCheckBox.setSelected(false);
+                        mCheckBox.removeCallbacks(mSelectRoute);
+                        mVolumeSliderLayout.setVisibility(View.GONE);
+
+                    } else {
+                        mCheckBox.setSelected(true);
                         mImageView.setVisibility(View.INVISIBLE);
                         mProgressBar.setVisibility(View.VISIBLE);
                         mCheckBox.postDelayed(mSelectRoute, PROGRESS_BAR_DISPLAY_MS);
-                    } else {
-                        mVolumeSliderLayout.setVisibility(View.GONE);
-                        mCheckBox.removeCallbacks(mSelectRoute);
                     }
                 }
             };
@@ -984,10 +986,10 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 mVolumeSlider.setProgress(route.getVolume());
                 mVolumeSlider.setOnSeekBarChangeListener(mVolumeChangeListener);
                 mVolumeSliderLayout.setVisibility(selected ? View.VISIBLE : View.GONE);
-                mCheckBox.setOnClickListener(mCheckBoxClickListener);
-                // TODO(b/111624415): Make CheckBox works for both selected and unselected routes.
+                mCheckBox.setOnClickListener(mSelectButtonClickListener);
+                // TODO(b/111624415): Make button works for both selected and unselected routes.
                 if (selected) {
-                    mCheckBox.setChecked(true);
+                    mCheckBox.setSelected(true);
                     mCheckBox.setEnabled(true);
                 } else {
                     mCheckBox.setEnabled(false);
