@@ -70,6 +70,30 @@
       "revId": "ddc59ba18452bc8829cd2404419fce00740458bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e00f3bff_52dac446",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-01T10:03:29Z",
+      "side": 1,
+      "message": "Okay, it would be better to set minSdkVersion to P in build.gradle and remove @TargetApi annotation on the source code. We don\u0027t need to add @RequiresApi as well. Am I correct?",
+      "parentUuid": "b9c9840e_f32fa4e6",
+      "range": {
+        "startLine": 74,
+        "startChar": 1,
+        "endLine": 74,
+        "endChar": 10
+      },
+      "revId": "ddc59ba18452bc8829cd2404419fce00740458bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
