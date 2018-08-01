@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16dc6d49_bf44e3e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-01T16:50:21Z",
+      "side": 1,
+      "message": "Used by whom? Do you have stats of external developer usage of this library?",
+      "range": {
+        "startLine": 11,
+        "startChar": 2,
+        "endLine": 11,
+        "endChar": 62
+      },
+      "revId": "a7a55dfc754d72b2ae3ed3d9145bab7d48cf9e9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
