@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1389e2e5_c57bdeb2",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-01T18:21:00Z",
+      "side": 1,
+      "message": "Nit: Sure you want to go the inheritance route instead of composition?  When reading through the base classes, it feels a bit confusing trying to understand where certain properties and methods are being defined because they come from a super class.",
+      "range": {
+        "startLine": 53,
+        "startChar": 11,
+        "endLine": 53,
+        "endChar": 19
+      },
+      "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8962e8c3_6fc894da",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-01T18:21:00Z",
+      "side": 1,
+      "message": "It\u0027s a little disconcerting to me that you are relying on part of your own implementation in a class that is assumidly used to run various other tests, some of which might test for the correctness of IDLE.\n\nThoughts?",
+      "range": {
+        "startLine": 133,
+        "startChar": 39,
+        "endLine": 133,
+        "endChar": 52
+      },
+      "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be3d8549_7bf7bea9",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/SwipeTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-01T18:21:00Z",
+      "side": 1,
+      "message": "Nit: This feels convoluted, but after I understood what you were doing, I see how it makes sense.  It just feels like an awful lot of hoops are being jumped through to build the combinations that otherwise could just be built with nested loops.  Consider simplifying somehow?  No big deal if you can\u0027t / don\u0027t want to.",
+      "range": {
+        "startLine": 94,
+        "startChar": 12,
+        "endLine": 94,
+        "endChar": 25
+      },
+      "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39c747a3_f7a51fc7",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/SwipeTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-01T18:21:00Z",
+      "side": 1,
+      "message": "Could be missing something, but, isn\u0027t this comparing the class of the Activity to FragmentStatePagerAdapter.class?",
+      "range": {
+        "startLine": 176,
+        "startChar": 8,
+        "endLine": 176,
+        "endChar": 72
+      },
+      "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
