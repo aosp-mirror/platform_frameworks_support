@@ -311,29 +311,12 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
         // Create a list of items with mRoutes and add them to mItems
         void setItems() {
             mItems = new ArrayList<>();
-            ArrayList<MediaRouter.RouteInfo> routeGroups = new ArrayList<>();
 
-            // Find route consists of multiple devices and add them to routeGroups
-            for (int i = mRoutes.size() - 1; i >= 0; i--) {
-                MediaRouter.RouteInfo route = mRoutes.get(i);
-
-                if (route instanceof MediaRouter.RouteGroup) {
-                    routeGroups.add(route);
-                    mRoutes.remove(i);
-                }
-            }
-
-            // Add list items of single device section to mItems
-            mItems.add(new Item(mContext.getString(R.string.mr_dialog_device_header)));
+            mItems.add(new Item(mContext.getString(R.string.mr_chooser_title)));
             for (MediaRouter.RouteInfo route : mRoutes) {
                 mItems.add(new Item(route));
             }
 
-            // Add list items of group section to mItems
-            mItems.add(new Item(mContext.getString(R.string.mr_dialog_route_header)));
-            for (MediaRouter.RouteInfo routeGroup : routeGroups) {
-                mItems.add(new Item(routeGroup));
-            }
             notifyDataSetChanged();
         }
 
