@@ -43,7 +43,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -608,7 +607,6 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             mTvIcon = MediaRouterThemeHelper.getTvDrawableIcon(mContext);
             mSpeakerIcon = MediaRouterThemeHelper.getSpeakerDrawableIcon(mContext);
             mSpeakerGroupIcon = MediaRouterThemeHelper.getSpeakerGropuIcon(mContext);
-
             setItems();
         }
 
@@ -912,26 +910,29 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             final TextView mTextView;
             final MediaRouteVolumeSlider mVolumeSlider;
             final LinearLayout mVolumeSliderLayout;
-            final CheckBox mCheckBox;
+            final ImageButton mSelectButton;
             final Runnable mSelectRoute = new Runnable() {
                 @Override
                 public void run() {
                     mImageView.setVisibility(View.VISIBLE);
                     mProgressBar.setVisibility(View.INVISIBLE);
-                    mCheckBox.setEnabled(true);
+                    mSelectButton.setEnabled(true);
                     mVolumeSliderLayout.setVisibility(View.VISIBLE);
                 }
             };
-            final View.OnClickListener mCheckBoxClickListener = new View.OnClickListener() {
+            final View.OnClickListener mSelectButtonClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (((CheckBox) v).isChecked()) {
+                    if (v.isSelected()) {
+                        mSelectButton.setSelected(false);
+                        mSelectButton.removeCallbacks(mSelectRoute);
+                        mVolumeSliderLayout.setVisibility(View.GONE);
+
+                    } else {
+                        mSelectButton.setSelected(true);
                         mImageView.setVisibility(View.INVISIBLE);
                         mProgressBar.setVisibility(View.VISIBLE);
-                        mCheckBox.postDelayed(mSelectRoute, PROGRESS_BAR_DISPLAY_MS);
-                    } else {
-                        mVolumeSliderLayout.setVisibility(View.GONE);
-                        mCheckBox.removeCallbacks(mSelectRoute);
+                        mSelectButton.postDelayed(mSelectRoute, PROGRESS_BAR_DISPLAY_MS);
                     }
                 }
             };
@@ -961,7 +962,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 mTextView = itemView.findViewById(R.id.mr_cast_route_name);
                 mVolumeSlider = itemView.findViewById(R.id.mr_cast_volume_slider);
                 mVolumeSliderLayout = itemView.findViewById(R.id.mr_cast_volume_layout);
-                mCheckBox = itemView.findViewById(R.id.mr_cast_checkbox);
+                mSelectButton = itemView.findViewById(R.id.mr_cast_select_button);
             }
 
             public void updateVolume() {
@@ -1005,13 +1006,13 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 mVolumeSlider.setProgress(route.getVolume());
                 mVolumeSlider.setOnSeekBarChangeListener(mVolumeChangeListener);
                 mVolumeSliderLayout.setVisibility(selected ? View.VISIBLE : View.GONE);
-                mCheckBox.setOnClickListener(mCheckBoxClickListener);
-                // TODO(b/111624415): Make CheckBox works for both selected and unselected routes.
+                mSelectButton.setOnClickListener(mSelectButtonClickListener);
+                // TODO(b/111624415): Make button works for both selected and unselected routes.
                 if (selected) {
-                    mCheckBox.setChecked(true);
-                    mCheckBox.setEnabled(true);
+                    mSelectButton.setSelected(true);
+                    mSelectButton.setEnabled(true);
                 } else {
-                    mCheckBox.setEnabled(false);
+                    mSelectButton.setEnabled(false);
                 }
             }
         }
