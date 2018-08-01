@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5da47cb3_6dc95a62",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-01T12:27:36Z",
+      "side": 1,
+      "message": "Hmmm. I think I\u0027m missing the point here.\nIsn\u0027t sInstance cached? If you\u0027ve grabbed the LegacyTextClassifier once, then you don\u0027t need to grab any again. Thought this is consistent with similar code:\nhttps://cs.corp.google.com/android/frameworks/support/textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java?rcl\u003d294a61ddbf3d9ac11d83ba46cb364fb303421843\u0026l\u003d47\n\nPlease correct me if I\u0027m missing something.\nThanks.",
+      "parentUuid": "307383c0_54820ca4",
+      "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a7d2eac_1fd01301",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2018-08-01T10:19:47Z",
       "side": 1,
       "message": "nit: Instead of returning empty, should we return a TextClassification with text and entity type \u003d\u003d other?",
+      "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36807861_ecfdc9b0",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-01T12:27:36Z",
+      "side": 1,
+      "message": "I think EMPTY is relevant here. Easy for clients to check and easily know not to bother with the result. E.g. not all clients will use our remote action but instead check the entity type list and decide what to do with it. EMPTY makes it clear that they don\u0027t need to bother with processing the results -- just like null, but we don\u0027t like nulls :)",
+      "parentUuid": "6a7d2eac_1fd01301",
       "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "470656b2_98ab3560",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-01T12:27:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3da0342_71bd43cf",
+      "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "947c424c_5974d76b",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2018-08-01T10:19:47Z",
       "side": 1,
       "message": "I believe we don\u0027t need all these exported and hasPermission checking.\nresolveActivity with flag \u003d\u003d 0 will only return activities that the caller can access to.\n\nWe have these checking in some system server codes only because system server can access all activities, no matter it is exported or not, protected by permission or not.\n\nWe can do a little experiment to verify this :)",
+      "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6065df63_f4bee88b",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-01T12:27:36Z",
+      "side": 1,
+      "message": "I can\u0027t seem to find doc that says that and I\u0027d be careful for support lib code to depend on something that isn\u0027t consistent across pm implementations.\nI remember writing such code in response to b/26638966. I can\u0027t remember what investigation was done then.\nI\u0027d investigate and report back with what I find.\nThanks.",
+      "parentUuid": "947c424c_5974d76b",
       "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -84,6 +156,24 @@
       "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e788b1a4_058d591c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-01T12:27:36Z",
+      "side": 1,
+      "message": "Yeah. We should restrict legacy behavior to only activities.\nDone.",
+      "parentUuid": "2dedc69e_d9e118fc",
+      "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
