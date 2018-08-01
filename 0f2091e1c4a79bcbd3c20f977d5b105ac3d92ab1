@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f1888ff0_db534e39",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-01T22:38:38Z",
+      "side": 1,
+      "message": "As discussed, keep for now.",
+      "parentUuid": "1389e2e5_c57bdeb2",
+      "range": {
+        "startLine": 53,
+        "startChar": 11,
+        "endLine": 53,
+        "endChar": 19
+      },
+      "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8962e8c3_6fc894da",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-01T18:21:00Z",
       "side": 1,
       "message": "It\u0027s a little disconcerting to me that you are relying on part of your own implementation in a class that is assumidly used to run various other tests, some of which might test for the correctness of IDLE.\n\nThoughts?",
+      "range": {
+        "startLine": 133,
+        "startChar": 39,
+        "endLine": 133,
+        "endChar": 52
+      },
+      "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1067334_83b7baaf",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-01T22:38:38Z",
+      "side": 1,
+      "message": "As discussed, you are going to add a comment to speak to the validity of this approach.  Once you do so, please go ahead and resolves this item.",
+      "parentUuid": "8962e8c3_6fc894da",
       "range": {
         "startLine": 133,
         "startChar": 39,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ce86c8b4_e4216f5c",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/SwipeTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-01T22:38:38Z",
+      "side": 1,
+      "message": "As discussed, you are going to take a quick stab at simplifying the code that builds your TestConfigs.\n\nIn fact, I bet you can build all of your TestConfigs with nothing but chained extension functions.  Basically like nested loops, but functional?  Right?",
+      "parentUuid": "be3d8549_7bf7bea9",
+      "range": {
+        "startLine": 94,
+        "startChar": 12,
+        "endLine": 94,
+        "endChar": 25
+      },
+      "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "39c747a3_f7a51fc7",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/SwipeTest.kt",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2018-08-01T18:21:00Z",
       "side": 1,
       "message": "Could be missing something, but, isn\u0027t this comparing the class of the Activity to FragmentStatePagerAdapter.class?",
+      "range": {
+        "startLine": 176,
+        "startChar": 8,
+        "endLine": 176,
+        "endChar": 72
+      },
+      "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22f79f91_9a3668f6",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/SwipeTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-01T22:38:38Z",
+      "side": 1,
+      "message": "As discussed, this is a bug, so you will fix.",
+      "parentUuid": "39c747a3_f7a51fc7",
       "range": {
         "startLine": 176,
         "startChar": 8,
