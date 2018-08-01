@@ -232,6 +232,24 @@
     },
     {
       "key": {
+        "uuid": "d510989b_a6914589",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-01T16:47:23Z",
+      "side": 1,
+      "message": "thanks for testing it out!!\n\n(Sad, I always think that it is the case ...)",
+      "parentUuid": "28ee0d85_9246ba8f",
+      "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2dedc69e_d9e118fc",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
         "patchSetId": 3
