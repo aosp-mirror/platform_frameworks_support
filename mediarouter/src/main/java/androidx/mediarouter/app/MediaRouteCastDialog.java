@@ -648,7 +648,6 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             mTvIcon = MediaRouterThemeHelper.getTvDrawableIcon(mContext);
             mSpeakerIcon = MediaRouterThemeHelper.getSpeakerDrawableIcon(mContext);
             mSpeakerGroupIcon = MediaRouterThemeHelper.getSpeakerGropuIcon(mContext);
-
             setItems();
         }
 
@@ -930,7 +929,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                     mVolumeSliderLayout.setVisibility(View.VISIBLE);
                 }
             };
-            final View.OnClickListener mCheckBoxClickListener = new View.OnClickListener() {
+            final View.OnClickListener mSelectButtonClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (((CheckBox) v).isChecked()) {
@@ -984,8 +983,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 mVolumeSlider.setProgress(route.getVolume());
                 mVolumeSlider.setOnSeekBarChangeListener(mVolumeChangeListener);
                 mVolumeSliderLayout.setVisibility(selected ? View.VISIBLE : View.GONE);
-                mCheckBox.setOnClickListener(mCheckBoxClickListener);
-                // TODO(b/111624415): Make CheckBox works for both selected and unselected routes.
+                mCheckBox.setOnClickListener(mSelectButtonClickListener);
+                // TODO(b/111624415): Make button works for both selected and unselected routes.
                 if (selected) {
                     mCheckBox.setChecked(true);
                     mCheckBox.setEnabled(true);
