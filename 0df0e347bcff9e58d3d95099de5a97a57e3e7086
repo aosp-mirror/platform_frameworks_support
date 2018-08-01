@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "307383c0_54820ca4",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-01T10:19:47Z",
+      "side": 1,
+      "message": "nit: Actually, is there any benefit to use singleton here? \nSeems like we are not caching anything.\n\nThanks.",
+      "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a7d2eac_1fd01301",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-01T10:19:47Z",
+      "side": 1,
+      "message": "nit: Instead of returning empty, should we return a TextClassification with text and entity type \u003d\u003d other?",
+      "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3da0342_71bd43cf",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-01T10:19:47Z",
+      "side": 1,
+      "message": "mmm, how about\n\nicon \u003d NO_ICON;\n\nand remove \n\nif (icon \u003d\u003d null) {\n   icon \u003d NO_ICON;\n}",
+      "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "947c424c_5974d76b",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-01T10:19:47Z",
+      "side": 1,
+      "message": "I believe we don\u0027t need all these exported and hasPermission checking.\nresolveActivity with flag \u003d\u003d 0 will only return activities that the caller can access to.\n\nWe have these checking in some system server codes only because system server can access all activities, no matter it is exported or not, protected by permission or not.\n\nWe can do a little experiment to verify this :)",
+      "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dedc69e_d9e118fc",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-01T10:19:47Z",
+      "side": 1,
+      "message": "Just curious, given that we only support phone, email, and url here, do we really have a case that it will be resolved to a service?\n\nAlso, when we are resolving the icon, we are always using resolveActivity....\n\nThanks.",
+      "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
