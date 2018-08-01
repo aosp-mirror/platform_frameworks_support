@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "173b7833_48610184",
+        "filename": "compat/src/main/java/androidx/core/os/LocaleListCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-01T13:24:39Z",
+      "side": 1,
+      "message": "Does this get dejetified to a different class, if so you\u0027ll need to use jetifyAs, and switch protected things to public.",
+      "revId": "59b3b047f162a0cd90edb6229f2588da5aed70f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "070691ac_5f6d4bec",
+        "filename": "compat/src/main/java/androidx/core/os/LocaleListCompatWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-01T13:24:39Z",
+      "side": 1,
+      "message": "No preprocessing to fill in mStringRepresentation?",
+      "revId": "59b3b047f162a0cd90edb6229f2588da5aed70f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
