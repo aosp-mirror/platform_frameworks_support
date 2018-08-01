@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1092dd1c_54623b0c",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/checker/AutoValueTargetCheckerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-01T22:35:17Z",
+      "side": 1,
+      "message": "do we need an invalid version of this as well?",
+      "revId": "e31b2fa85ae9cb414023346684060d1009bf4c11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
