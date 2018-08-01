@@ -85,7 +85,7 @@ public class MediaController2LegacyTest extends MediaSession2TestBase {
                     @Override
                     public void onSessionToken2Created(
                             MediaSessionCompat.Token token, SessionToken2 token2) {
-                        assertTrue(token2.isLegacySession());
+                        assertTrue(token2.isLegacy());
                         mToken2 = token2;
                         latch.countDown();
                     }
@@ -137,7 +137,7 @@ public class MediaController2LegacyTest extends MediaSession2TestBase {
     public void testGetPackageName() throws Exception {
         prepareLooper();
         mController = createController(mToken2);
-        assertEquals(SERVICE_PACKAGE_NAME, mController.getSessionToken().getPackageName());
+        assertEquals(SERVICE_PACKAGE_NAME, mController.getToken().getPackageName());
     }
 
     @Test

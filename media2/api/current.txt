@@ -55,7 +55,7 @@ package androidx.media2 {
   }
 
   public class MediaBrowser2 extends androidx.media2.MediaController2 {
-    ctor public MediaBrowser2(android.content.Context, androidx.media2.SessionToken2, java.util.concurrent.Executor, androidx.media2.MediaBrowser2.BrowserCallback);
+    ctor public MediaBrowser2(android.content.Context, androidx.media2.Token2, java.util.concurrent.Executor, androidx.media2.MediaBrowser2.BrowserCallback);
     method public void getChildren(java.lang.String, int, int, android.os.Bundle);
     method public void getItem(java.lang.String);
     method public void getLibraryRoot(android.os.Bundle);
@@ -76,7 +76,7 @@ package androidx.media2 {
   }
 
   public class MediaController2 implements java.lang.AutoCloseable {
-    ctor public MediaController2(android.content.Context, androidx.media2.SessionToken2, java.util.concurrent.Executor, androidx.media2.MediaController2.ControllerCallback);
+    ctor public MediaController2(android.content.Context, androidx.media2.Token2, java.util.concurrent.Executor, androidx.media2.MediaController2.ControllerCallback);
     method public void addPlaylistItem(int, androidx.media2.MediaItem2);
     method public void adjustVolume(int, int);
     method public void close();
@@ -93,8 +93,8 @@ package androidx.media2 {
     method public androidx.media2.MediaMetadata2 getPlaylistMetadata();
     method public int getRepeatMode();
     method public android.app.PendingIntent getSessionActivity();
-    method public androidx.media2.SessionToken2 getSessionToken();
     method public int getShuffleMode();
+    method public androidx.media2.Token2 getToken();
     method public boolean isConnected();
     method public void pause();
     method public void play();
@@ -693,7 +693,6 @@ package androidx.media2 {
     method public abstract androidx.media2.MediaSession2 onCreateSession(java.lang.String);
     method public androidx.media2.MediaSessionService2.MediaNotification onUpdateNotification();
     field public static final java.lang.String SERVICE_INTERFACE = "android.media.MediaSessionService2";
-    field public static final java.lang.String SERVICE_META_DATA_SESSION_ID = "android.media.session2.SESSION_ID";
   }
 
   public static class MediaSessionService2.MediaNotification {
@@ -806,18 +805,28 @@ package androidx.media2 {
     method public androidx.media2.SessionCommandGroup2.Builder removeCommand(int);
   }
 
-  public final class SessionToken2 {
-    ctor public SessionToken2(android.content.Context, android.content.ComponentName);
+  public class SessionServiceToken2 extends androidx.media2.Token2 {
+    ctor public SessionServiceToken2(android.content.Context, android.content.ComponentName);
+    method public static androidx.media2.SessionServiceToken2 fromBundle(android.os.Bundle);
+    method public android.content.ComponentName getComponentName();
+    method public java.lang.String getPackageName();
+    method public int getServiceType();
+    method public int getUid();
+    method public boolean isLegacy();
+    method public android.os.Bundle toBundle();
+    field public static final int TYPE_LIBRARY_SERVICE = 2; // 0x2
+    field public static final int TYPE_SESSION_SERVICE = 1; // 0x1
+  }
+
+  public final class SessionToken2 extends androidx.media2.Token2 {
     method public static androidx.media2.SessionToken2 fromBundle(android.os.Bundle);
     method public java.lang.String getId();
     method public java.lang.String getPackageName();
-    method public java.lang.String getServiceName();
-    method public int getType();
+    method public int getSessionType();
     method public int getUid();
     method public android.os.Bundle toBundle();
-    field public static final int TYPE_LIBRARY_SERVICE = 2; // 0x2
+    field public static final int TYPE_LIBRARY_SESSION = 1; // 0x1
     field public static final int TYPE_SESSION = 0; // 0x0
-    field public static final int TYPE_SESSION_SERVICE = 1; // 0x1
   }
 
   public final class StarRating2 implements androidx.media2.Rating2 {
@@ -848,6 +857,14 @@ package androidx.media2 {
   public class TimedMetaData2 {
     method public byte[] getMetaData();
     method public long getTimestamp();
+  }
+
+  public abstract class Token2 {
+    ctor public Token2();
+    method public static androidx.media2.Token2 fromBundle(android.os.Bundle);
+    method public abstract java.lang.String getPackageName();
+    method public abstract int getUid();
+    method public abstract android.os.Bundle toBundle();
   }
 
   public class UriDataSourceDesc2 extends androidx.media2.DataSourceDesc2 {

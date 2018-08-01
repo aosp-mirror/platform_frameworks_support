@@ -63,6 +63,7 @@ import androidx.media2.MediaSession2;
 import androidx.media2.MediaSession2.ControllerInfo;
 import androidx.media2.SessionCommand2;
 import androidx.media2.SessionCommandGroup2;
+import androidx.media2.SessionServiceToken2;
 import androidx.media2.SessionToken2;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
@@ -135,7 +136,7 @@ public class MediaController2CallbackTest extends MediaSession2TestBase {
     @Test
     public void testConnection_toLibraryService() throws InterruptedException {
         prepareLooper();
-        SessionToken2 token = new SessionToken2(mContext, MOCK_MEDIA_LIBRARY_SERVICE);
+        SessionServiceToken2 token = new SessionServiceToken2(mContext, MOCK_MEDIA_LIBRARY_SERVICE);
         MediaController2 controller = createController(token);
         assertNotNull(controller);
     }
@@ -162,7 +163,7 @@ public class MediaController2CallbackTest extends MediaSession2TestBase {
     @LargeTest
     public void testNoInteractionAfterSessionClose_session() throws InterruptedException {
         prepareLooper();
-        SessionToken2 token = mRemoteSession2.getToken();
+        final SessionToken2 token = (SessionToken2) mRemoteSession2.getToken();
         mController = createController(token);
         testControllerAfterSessionIsClosed(token.getId());
     }
@@ -171,7 +172,7 @@ public class MediaController2CallbackTest extends MediaSession2TestBase {
     @LargeTest
     public void testNoInteractionAfterControllerClose_session() throws InterruptedException {
         prepareLooper();
-        final SessionToken2 token = mRemoteSession2.getToken();
+        final SessionToken2 token = (SessionToken2) mRemoteSession2.getToken();
         mController = createController(token);
 
         mController.close();
@@ -729,7 +730,7 @@ public class MediaController2CallbackTest extends MediaSession2TestBase {
         // Ensure that the controller cannot use newly create session with the same ID.
         // Recreated session has different session stub, so previously created controller
         // shouldn't be available.
-        SessionToken2 token = mRemoteSession2.getToken();
+        SessionToken2 token = (SessionToken2) mRemoteSession2.getToken();
         assertEquals(id, token.getId());
         testNoInteraction();
     }

@@ -816,7 +816,7 @@ public class MediaController2Test extends MediaSession2TestBase {
     @Test
     public void testGetPackageName() {
         prepareLooper();
-        assertEquals(mContext.getPackageName(), mController.getSessionToken().getPackageName());
+        assertEquals(mContext.getPackageName(), mController.getToken().getPackageName());
     }
 
     @Test
@@ -1238,11 +1238,11 @@ public class MediaController2Test extends MediaSession2TestBase {
     @Test
     public void testGetServiceToken() {
         prepareLooper();
-        SessionToken2 token = TestUtils.getServiceToken(mContext, MockMediaSessionService2.ID);
+        SessionServiceToken2 token = TestUtils.getServiceToken(
+                mContext, MockMediaSessionService2.ID);
         assertNotNull(token);
         assertEquals(mContext.getPackageName(), token.getPackageName());
-        assertEquals(MockMediaSessionService2.ID, token.getId());
-        assertEquals(SessionToken2.TYPE_SESSION_SERVICE, token.getType());
+        assertEquals(SessionServiceToken2.TYPE_SESSION_SERVICE, token.getServiceType());
     }
 
     @Test

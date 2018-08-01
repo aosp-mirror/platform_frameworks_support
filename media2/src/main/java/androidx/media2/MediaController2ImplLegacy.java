@@ -94,7 +94,7 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     final Context mContext;
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    final SessionToken2 mToken;
+    final Token2 mToken;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final ControllerCallback mCallback;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -171,7 +171,7 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     private volatile boolean mConnected;
 
     MediaController2ImplLegacy(@NonNull Context context, @NonNull MediaController2 instance,
-            @NonNull SessionToken2 token, @NonNull Executor executor,
+            @NonNull Token2 token, @NonNull Executor executor,
             @NonNull ControllerCallback callback) {
         mContext = context;
         mInstance = instance;
@@ -182,12 +182,13 @@ class MediaController2ImplLegacy implements MediaController2Impl {
         mCallback = callback;
         mCallbackExecutor = executor;
 
-        if (mToken.getType() == SessionToken2.TYPE_SESSION) {
+        if (mToken instanceof SessionToken2) {
             synchronized (mLock) {
                 mBrowserCompat = null;
             }
-            connectToSession((MediaSessionCompat.Token) mToken.getBinder());
-        } else {
+            SessionToken2 sessionToken = (SessionToken2) mToken;
+            connectToSession((MediaSessionCompat.Token) sessionToken.getBinder());
+        } else if (mToken instanceof SessionServiceToken2) {
             connectToService();
         }
     }
@@ -231,7 +232,7 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     }
 
     @Override
-    public @NonNull SessionToken2 getSessionToken() {
+    public @NonNull Token2 getToken() {
         return mToken;
     }
 
@@ -857,8 +858,10 @@ class MediaController2ImplLegacy implements MediaController2Impl {
             @Override
             public void run() {
                 synchronized (mLock) {
-                    mBrowserCompat = new MediaBrowserCompat(mContext, mToken.getComponentName(),
-                            new ConnectionCallback(), sDefaultRootExtras);
+                    SessionServiceToken2 serviceToken = (SessionServiceToken2) mToken;
+                    mBrowserCompat = new MediaBrowserCompat(mContext,
+                            serviceToken.getComponentName(), new ConnectionCallback(),
+                            sDefaultRootExtras);
                     mBrowserCompat.connect();
                 }
             }

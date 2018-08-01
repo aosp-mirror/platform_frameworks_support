@@ -47,13 +47,13 @@ public final class TestUtils {
      * @param id
      * @return
      */
-    public static SessionToken2 getServiceToken(Context context, String id) {
+    public static SessionServiceToken2 getServiceToken(Context context, String id) {
         switch (id) {
             case MockMediaSessionService2.ID:
-                return new SessionToken2(context, new ComponentName(
+                return new SessionServiceToken2(context, new ComponentName(
                         context.getPackageName(), MockMediaSessionService2.class.getName()));
             case MockMediaLibraryService2.ID:
-                return new SessionToken2(context, new ComponentName(
+                return new SessionServiceToken2(context, new ComponentName(
                         context.getPackageName(), MockMediaLibraryService2.class.getName()));
         }
         fail("Unknown id=" + id);

@@ -29,7 +29,7 @@ import androidx.media2.MediaBrowser2;
 import androidx.media2.MediaController2;
 import androidx.media2.MediaController2.ControllerCallback;
 import androidx.media2.SessionCommandGroup2;
-import androidx.media2.SessionToken2;
+import androidx.media2.Token2;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
@@ -49,7 +49,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class MediaBrowser2Test extends MediaController2Test {
 
     @Override
-    TestControllerInterface onCreateController(final @NonNull SessionToken2 token,
+    TestControllerInterface onCreateController(final @NonNull Token2 token,
             final @Nullable ControllerCallback callback) throws InterruptedException {
         final AtomicReference<TestControllerInterface> controller = new AtomicReference<>();
         sHandler.postAndSync(new Runnable() {
@@ -109,7 +109,7 @@ public class MediaBrowser2Test extends MediaController2Test {
             MediaSession2TestBase.TestControllerInterface {
         private final BrowserCallback mCallback;
 
-        public TestMediaBrowser(@NonNull Context context, @NonNull SessionToken2 token,
+        public TestMediaBrowser(@NonNull Context context, @NonNull Token2 token,
                 @NonNull BrowserCallback callback) {
             super(context, token, sHandlerExecutor, callback);
             mCallback = callback;
