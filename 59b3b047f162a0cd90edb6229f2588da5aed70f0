@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "d2c684ef_25d736e2",
+        "filename": "compat/src/main/java/androidx/core/os/LocaleListCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-01T14:35:30Z",
+      "side": 1,
+      "message": "gotcha, thanks.",
+      "parentUuid": "b5385a63_c35d8510",
+      "revId": "59b3b047f162a0cd90edb6229f2588da5aed70f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "070691ac_5f6d4bec",
         "filename": "compat/src/main/java/androidx/core/os/LocaleListCompatWrapper.java",
         "patchSetId": 2
