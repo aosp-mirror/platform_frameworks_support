@@ -117,11 +117,11 @@ abstract class MediaSession2TestBase extends MediaTestBase {
         }
     }
 
-    final MediaController2 createController(SessionToken2 token) throws InterruptedException {
+    final MediaController2 createController(Token2 token) throws InterruptedException {
         return createController(token, true, null);
     }
 
-    final MediaController2 createController(@NonNull SessionToken2 token,
+    final MediaController2 createController(@NonNull Token2 token,
             boolean waitForConnect, @Nullable ControllerCallback callback)
             throws InterruptedException {
         TestControllerInterface instance = onCreateController(token, callback);
@@ -166,7 +166,7 @@ abstract class MediaSession2TestBase extends MediaTestBase {
         getTestControllerCallbackInterface(controller).setRunnableForOnCustomCommand(runnable);
     }
 
-    TestControllerInterface onCreateController(final @NonNull SessionToken2 token,
+    TestControllerInterface onCreateController(final @NonNull Token2 token,
             @Nullable ControllerCallback callback) throws InterruptedException {
         final ControllerCallback controllerCallback =
                 callback != null ? callback : new ControllerCallback() {};
@@ -187,7 +187,7 @@ abstract class MediaSession2TestBase extends MediaTestBase {
     public class TestMediaController extends MediaController2 implements TestControllerInterface {
         private final ControllerCallback mCallback;
 
-        TestMediaController(@NonNull Context context, @NonNull SessionToken2 token,
+        TestMediaController(@NonNull Context context, @NonNull Token2 token,
                 @NonNull ControllerCallback callback) {
             super(context, token, sHandlerExecutor, callback);
             mCallback = callback;

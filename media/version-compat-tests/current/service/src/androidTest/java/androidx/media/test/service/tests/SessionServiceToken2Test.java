@@ -25,7 +25,7 @@ import android.os.Process;
 
 import androidx.media.test.service.MockMediaLibraryService2;
 import androidx.media.test.service.MockMediaSessionService2;
-import androidx.media2.SessionToken2;
+import androidx.media2.SessionServiceToken2;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
@@ -36,12 +36,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * Tests {@link SessionToken2}.
+ * Tests {@link SessionServiceToken2Test}.
  */
 @SdkSuppress(minSdkVersion = Build.VERSION_CODES.JELLY_BEAN)
 @RunWith(AndroidJUnit4.class)
 @SmallTest
-public class SessionToken2Test {
+public class SessionServiceToken2Test {
     private Context mContext;
 
     @Before
@@ -51,23 +51,21 @@ public class SessionToken2Test {
 
     @Test
     public void testConstructor_sessionService() {
-        SessionToken2 token = new SessionToken2(mContext, new ComponentName(
+        SessionServiceToken2 token = new SessionServiceToken2(mContext, new ComponentName(
                 mContext.getPackageName(),
                 MockMediaSessionService2.class.getCanonicalName()));
-        assertEquals(MockMediaSessionService2.ID, token.getId());
         assertEquals(mContext.getPackageName(), token.getPackageName());
         assertEquals(Process.myUid(), token.getUid());
-        assertEquals(SessionToken2.TYPE_SESSION_SERVICE, token.getType());
+        assertEquals(SessionServiceToken2.TYPE_SESSION_SERVICE, token.getServiceType());
     }
 
     @Test
     public void testConstructor_libraryService() {
-        SessionToken2 token = new SessionToken2(mContext, new ComponentName(
+        SessionServiceToken2 token = new SessionServiceToken2(mContext, new ComponentName(
                 mContext.getPackageName(),
                 MockMediaLibraryService2.class.getCanonicalName()));
-        assertEquals(MockMediaLibraryService2.ID, token.getId());
         assertEquals(mContext.getPackageName(), token.getPackageName());
         assertEquals(Process.myUid(), token.getUid());
-        assertEquals(SessionToken2.TYPE_LIBRARY_SERVICE, token.getType());
+        assertEquals(SessionServiceToken2.TYPE_LIBRARY_SERVICE, token.getServiceType());
     }
 }

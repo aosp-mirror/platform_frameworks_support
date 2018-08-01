@@ -122,7 +122,7 @@ public class MediaSessionCompatCallbackTestWithMediaController2 extends MediaSes
                     @Override
                     public void onSessionToken2Created(
                             MediaSessionCompat.Token token, SessionToken2 token2) {
-                        assertTrue(token2.isLegacySession());
+                        assertTrue(token2.isLegacy());
                         mController = new RemoteMediaController2(mContext, token2, true);
                         latch.countDown();
                     }

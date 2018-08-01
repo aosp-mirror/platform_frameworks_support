@@ -58,7 +58,7 @@ public class MediaBrowser2LegacyTest extends MediaSession2TestBase {
     private static final String TAG = "MediaBrowser2LegacyTest";
 
     @Override
-    TestControllerInterface onCreateController(final @NonNull SessionToken2 token,
+    TestControllerInterface onCreateController(final @NonNull Token2 token,
             final @Nullable ControllerCallback callback) throws InterruptedException {
         final AtomicReference<TestControllerInterface> controller = new AtomicReference<>();
         sHandler.postAndSync(new Runnable() {
@@ -79,7 +79,7 @@ public class MediaBrowser2LegacyTest extends MediaSession2TestBase {
     }
 
     private MediaBrowser2 createBrowser(boolean waitForConnect, BrowserCallback callback) {
-        SessionToken2 token = new SessionToken2(mContext,
+        SessionServiceToken2 token = new SessionServiceToken2(mContext,
                 new ComponentName(mContext, MockMediaBrowserServiceCompat.class));
         try {
             return (MediaBrowser2) createController(token, waitForConnect, callback);
@@ -575,7 +575,7 @@ public class MediaBrowser2LegacyTest extends MediaSession2TestBase {
     public class TestMediaBrowser extends MediaBrowser2 implements TestControllerInterface {
         private final BrowserCallback mCallback;
 
-        public TestMediaBrowser(@NonNull Context context, @NonNull SessionToken2 token,
+        public TestMediaBrowser(@NonNull Context context, @NonNull Token2 token,
                 @NonNull BrowserCallback callback) {
             super(context, token, sHandlerExecutor, callback);
             mCallback = callback;

@@ -32,7 +32,8 @@ import java.util.List;
 import java.util.concurrent.Executor;
 
 /**
- * Base class for media library services.
+ * Base class for media library services, which is the service containing
+ * {@link MediaLibrarySession}.
  * <p>
  * Media library services enable applications to browse media content provided by an application
  * and ask the application to start playing it. They may also be used to control content that
@@ -45,11 +46,6 @@ import java.util.concurrent.Executor;
  *     &lt;action android:name="android.media.MediaLibraryService2" /&gt;
  *   &lt;/intent-filter&gt;
  * &lt;/service&gt;</pre>
- * <p>
- * The {@link MediaLibraryService2} class derives from {@link MediaSessionService2}. IDs shouldn't
- * be shared between the {@link MediaSessionService2} and {@link MediaSession2}. By
- * default, an empty string will be used for ID of the service. If you want to specify an ID,
- * declare metadata in the manifest as follows.
  *
  * @see MediaSessionService2
  */

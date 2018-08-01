@@ -53,10 +53,10 @@ import android.support.mediacompat.testlib.util.PollingCheck;
 import androidx.media.AudioAttributesCompat;
 import androidx.media.test.client.MediaTestUtils;
 import androidx.media.test.client.RemoteMediaSession2;
-import androidx.media2.MediaPlayerConnector;
 import androidx.media2.MediaController2;
 import androidx.media2.MediaController2.PlaybackInfo;
 import androidx.media2.MediaItem2;
+import androidx.media2.MediaPlayerConnector;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
@@ -207,7 +207,7 @@ public class MediaController2Test extends MediaSession2TestBase {
     public void testGetPackageName() throws Exception {
         prepareLooper();
         MediaController2 controller = createController(mRemoteSession2.getToken());
-        assertEquals(SERVICE_PACKAGE_NAME, controller.getSessionToken().getPackageName());
+        assertEquals(SERVICE_PACKAGE_NAME, controller.getToken().getPackageName());
     }
 
     @Test
