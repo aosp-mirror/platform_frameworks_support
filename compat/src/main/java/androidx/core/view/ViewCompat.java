@@ -66,7 +66,6 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityViewCommand;
 import androidx.core.view.accessibility.AccessibilityNodeProviderCompat;
-import androidx.core.view.accessibility.WrapperForExternalAccessibilityDelegate;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -890,7 +889,7 @@ public class ViewCompat {
         if (delegate instanceof AccessibilityDelegateAdapter) {
             return ((AccessibilityDelegateAdapter) delegate).mCompat;
         }
-        return new WrapperForExternalAccessibilityDelegate(delegate);
+        return new AccessibilityDelegateCompat(delegate);
     }
 
     static AccessibilityDelegateCompat getOrCreateAccessibilityDelegateCompat(
@@ -898,8 +897,8 @@ public class ViewCompat {
         AccessibilityDelegateCompat delegateCompat = getAccessibilityDelegate(v);
         if (delegateCompat == null) {
             delegateCompat = new AccessibilityDelegateCompat();
-            setAccessibilityDelegate(v, delegateCompat);
         }
+        setAccessibilityDelegate(v, delegateCompat);
         return delegateCompat;
     }
 
@@ -1223,6 +1222,22 @@ public class ViewCompat {
             }
             notifyViewAccessibilityStateChangedIfNeeded(
                     view, AccessibilityEvent.CONTENT_CHANGE_TYPE_UNDEFINED);
+        }
+    }
+
+    /**
+     * Allow accessibility services to find and activate clickable spans in the application.
+     *
+     * @param view The view
+     * <p>
+     * Compatibility:
+     * <ul>
+     *     <li>API &lt; 19: No-op
+     * </ul>
+     */
+    public static void enableAccessibleClickableSpanSupport(View view) {
+        if (Build.VERSION.SDK_INT >= 19) {
+            getOrCreateAccessibilityDelegateCompat(view);
         }
     }
 
