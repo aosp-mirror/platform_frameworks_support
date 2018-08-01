@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7d6ef6e9_de9efd14",
+        "filename": "compat/src/main/java/androidx/core/os/LocaleListCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-01T13:28:53Z",
+      "side": 1,
+      "message": "mmm, no idea how jetity works :)\nAny example / doc I can follow?\n\nThanks.",
+      "parentUuid": "173b7833_48610184",
+      "revId": "59b3b047f162a0cd90edb6229f2588da5aed70f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "070691ac_5f6d4bec",
         "filename": "compat/src/main/java/androidx/core/os/LocaleListCompatWrapper.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2018-08-01T13:24:39Z",
       "side": 1,
       "message": "No preprocessing to fill in mStringRepresentation?",
+      "revId": "59b3b047f162a0cd90edb6229f2588da5aed70f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d82a2456_032539d1",
+        "filename": "compat/src/main/java/androidx/core/os/LocaleListCompatWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-01T13:28:53Z",
+      "side": 1,
+      "message": "mStringRepresentation is set in constructor.",
+      "parentUuid": "070691ac_5f6d4bec",
       "revId": "59b3b047f162a0cd90edb6229f2588da5aed70f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
