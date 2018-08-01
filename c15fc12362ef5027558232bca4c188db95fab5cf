@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "77b1cffd_bbf5efa6",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/RemoteMediaSession2Service.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-01T08:52:23Z",
+      "side": 1,
+      "message": "I didn\u0027t know that this isn\u0027t used anymore -- please remove this method either in this CL or another CL. If you want to do this in another CL, please revert changes here.",
+      "revId": "c15fc12362ef5027558232bca4c188db95fab5cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "08c686ae_092a43cb",
         "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/RemoteMediaSession2Service.java",
         "patchSetId": 2
