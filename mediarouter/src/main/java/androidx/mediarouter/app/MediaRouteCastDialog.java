@@ -938,12 +938,15 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 mImageView.setImageDrawable(getIconDrawable(route));
                 mTextView.setText(route.getName());
                 mVolumeSliderLayout.setVisibility(selected ? View.VISIBLE : View.GONE);
+                Drawable checkBoxIcon = MediaRouterThemeHelper.getCheckBoxDrawableIcon(mContext);
+                mCheckBox.setButtonDrawable(checkBoxIcon);
                 mCheckBox.setOnClickListener(mCheckBoxClickListener);
                 // TODO(b/111624415): Make CheckBox works for both selected and unselected routes.
                 if (selected) {
                     mCheckBox.setChecked(true);
                     mCheckBox.setEnabled(true);
                 } else {
+                    mCheckBox.setChecked(false);
                     mCheckBox.setEnabled(false);
                 }
             }

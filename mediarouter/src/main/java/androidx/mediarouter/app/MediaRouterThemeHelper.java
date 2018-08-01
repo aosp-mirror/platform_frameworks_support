@@ -64,6 +64,18 @@ final class MediaRouterThemeHelper {
         return muteButtonIcon;
     }
 
+    static Drawable getCheckBoxDrawableIcon(Context context) {
+        Resources resources = context.getResources();
+        Drawable checkBoxIcon = resources.getDrawable(R.drawable.mr_cast_checkbox);
+
+        if (isLightTheme(context)) {
+            int tintColor = resources.getColor(COLOR_DARK_ON_LIGHT_BACKGROUND_RES_ID);
+            DrawableCompat.setTint(checkBoxIcon, tintColor);
+        }
+
+        return checkBoxIcon;
+    }
+
     static Drawable getDefaultDrawableIcon(Context context) {
         return getDrawableIcon(context, R.attr.mediaRouteDefaultIconDrawable);
     }
