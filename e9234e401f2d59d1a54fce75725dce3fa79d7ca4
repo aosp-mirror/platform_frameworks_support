@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4650521d_10d72fe6",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-01T02:07:53Z",
+      "side": 1,
+      "message": "be consistent when using {} in cases -- {} should exist for all or nothing",
+      "range": {
+        "startLine": 668,
+        "startChar": 0,
+        "endLine": 669,
+        "endChar": 0
+      },
+      "revId": "e9234e401f2d59d1a54fce75725dce3fa79d7ca4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
