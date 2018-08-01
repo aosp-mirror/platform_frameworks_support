@@ -25,6 +25,7 @@
         <item name="mediaRoutePauseDrawable">@drawable/mr_media_pause_dark</item>
         <item name="mediaRouteStopDrawable">@drawable/mr_media_stop_dark</item>
         <item name="mediaRouteAudioTrackDrawable">@drawable/mr_vol_type_audiotrack_dark</item>
+        <item name="mediaRouteSelectButtonDrawable">@drawable/mr_cast_select_button_dark</item>
         <item name="mediaRouteMuteButtonDrawable">@drawable/mr_cast_mute_button_dark</item>
         <item name="mediaRouteDefaultIconDrawable">@drawable/ic_mr_button_disconnected_dark</item>
         <item name="mediaRouteTvIconDrawable">@drawable/ic_vol_type_tv_dark</item>
@@ -47,6 +48,7 @@
         <item name="mediaRoutePauseDrawable">@drawable/mr_media_pause_light</item>
         <item name="mediaRouteStopDrawable">@drawable/mr_media_stop_light</item>
         <item name="mediaRouteAudioTrackDrawable">@drawable/mr_vol_type_audiotrack_light</item>
+        <item name="mediaRouteSelectButtonDrawable">@drawable/mr_cast_select_button_light</item>
         <item name="mediaRouteMuteButtonDrawable">@drawable/mr_cast_mute_button_light</item>
         <item name="mediaRouteDefaultIconDrawable">@drawable/ic_mr_button_grey</item>
         <item name="mediaRouteTvIconDrawable">@drawable/ic_vol_type_tv_light</item>
@@ -65,6 +67,7 @@
         <item name="mediaRoutePauseDrawable">@drawable/mr_media_pause_dark</item>
         <item name="mediaRouteStopDrawable">@drawable/mr_media_stop_dark</item>
         <item name="mediaRouteAudioTrackDrawable">@drawable/mr_vol_type_audiotrack_dark</item>
+        <item name="mediaRouteSelectButtonDrawable">@drawable/mr_cast_select_button_dark</item>
         <item name="mediaRouteMuteButtonDrawable">@drawable/mr_cast_mute_button_dark</item>
     </style>
     <style name="ThemeOverlay.MediaRouter.Light" parent="ThemeOverlay.AppCompat.Light">
@@ -72,6 +75,7 @@
         <item name="mediaRoutePauseDrawable">@drawable/mr_media_pause_light</item>
         <item name="mediaRouteStopDrawable">@drawable/mr_media_stop_light</item>
         <item name="mediaRouteAudioTrackDrawable">@drawable/mr_vol_type_audiotrack_light</item>
+        <item name="mediaRouteSelectButtonDrawable">@drawable/mr_cast_select_button_light</item>
         <item name="mediaRouteMuteButtonDrawable">@drawable/mr_cast_mute_button_light</item>
     </style>
 
