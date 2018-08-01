@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "103d0884_8f24eafb",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-01T12:37:50Z",
+      "side": 1,
+      "message": "oh, by cached, I was referring member variables.\n\nFor TCM, we cached the parser result, so we don\u0027t need to parse it over and over again.\nThough the code is now deleted as our plans are changed :)\n\nAnyway, I am not too fussed about it. Thanks.",
+      "parentUuid": "5da47cb3_6dc95a62",
+      "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a7d2eac_1fd01301",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
         "patchSetId": 3
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "I think EMPTY is relevant here. Easy for clients to check and easily know not to bother with the result. E.g. not all clients will use our remote action but instead check the entity type list and decide what to do with it. EMPTY makes it clear that they don\u0027t need to bother with processing the results -- just like null, but we don\u0027t like nulls :)",
       "parentUuid": "6a7d2eac_1fd01301",
+      "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75f99726_cc26f393",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-01T12:37:50Z",
+      "side": 1,
+      "message": "sg. Though I think TextClassifierImpl will return entity type \u003d\u003d other for this case?",
+      "parentUuid": "36807861_ecfdc9b0",
       "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -136,6 +172,24 @@
       "side": 1,
       "message": "I can\u0027t seem to find doc that says that and I\u0027d be careful for support lib code to depend on something that isn\u0027t consistent across pm implementations.\nI remember writing such code in response to b/26638966. I can\u0027t remember what investigation was done then.\nI\u0027d investigate and report back with what I find.\nThanks.",
       "parentUuid": "947c424c_5974d76b",
+      "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cc34c5a_17f3114e",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-01T12:37:50Z",
+      "side": 1,
+      "message": "ChooserActivity.java (Share sheet) is running in system server, and that\u0027s why we needs those checks\n\nLet\u0027s see your investigation result :) Thanks!",
+      "parentUuid": "6065df63_f4bee88b",
       "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
