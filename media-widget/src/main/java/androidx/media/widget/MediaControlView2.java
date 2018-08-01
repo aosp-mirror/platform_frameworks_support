@@ -218,6 +218,8 @@ public class MediaControlView2 extends BaseLayout {
     static final String EVENT_UPDATE_TRACK_STATUS = "UpdateTrackStatus";
     static final String KEY_STATE_IS_ADVERTISEMENT = "MediaTypeAdvertisement";
     static final String EVENT_UPDATE_MEDIA_TYPE_STATUS = "UpdateMediaTypeStatus";
+    static final String EVENT_UPDATE_SUBTITLE_SELECTED = "UpdateSubtitleSelected";
+    static final String EVENT_UPDATE_SUBTITLE_DESELECTED = "UpdateSubtitleDeselected";
 
     // String for sending command to show subtitle to MediaSession.
     static final String COMMAND_SHOW_SUBTITLE = "showSubtitle";
@@ -2699,6 +2701,24 @@ public class MediaControlView2 extends BaseLayout {
                             updateLayoutForAd();
                         }
                         break;
+                    case EVENT_UPDATE_SUBTITLE_SELECTED:
+                        int selectedTrackIndex = args.getInt(KEY_SELECTED_SUBTITLE_INDEX, -1);
+                        if (selectedTrackIndex < 0 || selectedTrackIndex >= mSubtitleTrackCount) {
+                            Log.w(TAG, "Selected subtitle track index (" + selectedTrackIndex
+                                    + ") is out of range.");
+                            break;
+                        }
+                        mSelectedSubtitleTrackIndex = selectedTrackIndex + 1;
+                        if (mSettingsMode == SETTINGS_MODE_SUBTITLE_TRACK) {
+                            mSubSettingsAdapter.setCheckPosition(mSelectedSubtitleTrackIndex);
+                        }
+                        break;
+                    case EVENT_UPDATE_SUBTITLE_DESELECTED:
+                        mSelectedSubtitleTrackIndex = 0;
+                        if (mSettingsMode == SETTINGS_MODE_SUBTITLE_TRACK) {
+                            mSubSettingsAdapter.setCheckPosition(mSelectedSubtitleTrackIndex);
+                        }
+                        break;
                 }
             }
         }
@@ -2994,6 +3014,24 @@ public class MediaControlView2 extends BaseLayout {
                         if (newStatus != mIsAdvertisement) {
                             mIsAdvertisement = newStatus;
                             updateLayoutForAd();
+                        }
+                        break;
+                    case EVENT_UPDATE_SUBTITLE_SELECTED:
+                        int selectedTrackIndex = extras.getInt(KEY_VIDEO_TRACK_COUNT);
+                        if (selectedTrackIndex < 0 || selectedTrackIndex >= mSubtitleTrackCount) {
+                            Log.w(TAG, "Selected subtitle track index (" + selectedTrackIndex
+                                    + ") is out of range.");
+                            break;
+                        }
+                        mSelectedSubtitleTrackIndex = selectedTrackIndex + 1;
+                        if (mSettingsMode == SETTINGS_MODE_SUBTITLE_TRACK) {
+                            mSubSettingsAdapter.setCheckPosition(mSelectedSubtitleTrackIndex);
+                        }
+                        break;
+                    case EVENT_UPDATE_SUBTITLE_DESELECTED:
+                        mSelectedSubtitleTrackIndex = 0;
+                        if (mSettingsMode == SETTINGS_MODE_SUBTITLE_TRACK) {
+                            mSubSettingsAdapter.setCheckPosition(mSelectedSubtitleTrackIndex);
                         }
                         break;
                 }
