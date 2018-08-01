@@ -26,11 +26,15 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.core.util.Preconditions;
+import androidx.versionedparcelable.ParcelField;
+import androidx.versionedparcelable.VersionedParcelable;
+import androidx.versionedparcelable.VersionedParcelize;
 
 /**
  * Helper for accessing features in {@link android.app.RemoteAction}.
  */
-public final class RemoteActionCompat {
+@VersionedParcelize
+public final class RemoteActionCompat implements VersionedParcelable {
 
     private static final String EXTRA_ICON = "icon";
     private static final String EXTRA_TITLE = "title";
@@ -39,12 +43,18 @@ public final class RemoteActionCompat {
     private static final String EXTRA_ENABLED = "enabled";
     private static final String EXTRA_SHOULD_SHOW_ICON = "showicon";
 
-    private final IconCompat mIcon;
-    private final CharSequence mTitle;
-    private final CharSequence mContentDescription;
-    private final PendingIntent mActionIntent;
-    private boolean mEnabled;
-    private boolean mShouldShowIcon;
+    @ParcelField(1)
+    IconCompat mIcon;
+    @ParcelField(2)
+    CharSequence mTitle;
+    @ParcelField(3)
+    CharSequence mContentDescription;
+    @ParcelField(4)
+    PendingIntent mActionIntent;
+    @ParcelField(5)
+    boolean mEnabled;
+    @ParcelField(6)
+    boolean mShouldShowIcon;
 
     public RemoteActionCompat(@NonNull IconCompat icon, @NonNull CharSequence title,
             @NonNull CharSequence contentDescription, @NonNull PendingIntent intent) {
@@ -59,6 +69,8 @@ public final class RemoteActionCompat {
         mEnabled = true;
         mShouldShowIcon = true;
     }
+
+    RemoteActionCompat() {}
 
     /**
      * Constructs a Foo builder using data from {@code other}.
