@@ -49,6 +49,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.tools.Diagnostic;
 
@@ -305,13 +306,26 @@ public class VersionedParcelProcessor extends AbstractProcessor {
         return pkg;
     }
 
+    private List<TypeMirror> listTypes(TypeElement typeElement) {
+        TypeMirror currentType = typeElement.asType();
+        List<TypeMirror> result = new ArrayList<>();
+        while (currentType.getKind() != TypeKind.NONE) {
+            TypeElement currentTypeElement =
+                    (TypeElement) mEnv.getTypeUtils().asElement(currentType);
+            result.addAll(currentTypeElement.getInterfaces());
+            result.add(currentType);
+            currentType = currentTypeElement.getSuperclass();
+        }
+        return result;
+    }
+
     private String getMethod(VariableElement e) {
         TypeMirror type = e.asType();
         String m = getMethod(type);
         if (m != null) return m;
         TypeElement te = (TypeElement) mEnv.getTypeUtils().asElement(type);
         if (te != null) {
-            for (TypeMirror t : te.getInterfaces()) {
+            for (TypeMirror t : listTypes(te)) {
                 m = getMethod(t);
                 if (m != null) return m;
             }
