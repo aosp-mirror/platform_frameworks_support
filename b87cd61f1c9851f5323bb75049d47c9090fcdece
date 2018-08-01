@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9f4f4d2_a918dbb9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-01T12:55:01Z",
+      "side": 1,
+      "message": "Rename when we implement future API.\nI cannot find a good reason for the renaming now.",
+      "range": {
+        "startLine": 11,
+        "startChar": 5,
+        "endLine": 11,
+        "endChar": 30
+      },
+      "revId": "b87cd61f1c9851f5323bb75049d47c9090fcdece",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cf41464_2c22ef4d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-01T12:55:01Z",
+      "side": 1,
+      "message": "Only keep this changes.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 56
+      },
+      "revId": "b87cd61f1c9851f5323bb75049d47c9090fcdece",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
