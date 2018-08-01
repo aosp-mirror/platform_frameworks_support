@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ae9ca61_f59ebc48",
+        "filename": "versionedparcelable/src/main/java/androidx/versionedparcelable/VersionedParcelStream.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-01T13:20:36Z",
+      "side": 1,
+      "message": "This should check mIgnoreParcelables, same below.",
+      "revId": "064dba11f5185ff601c7223358e74477249642cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
