@@ -21,12 +21,20 @@ import android.os.LocaleList;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.versionedparcelable.ParcelField;
+import androidx.versionedparcelable.VersionedParcelable;
+import androidx.versionedparcelable.VersionedParcelize;
 
 import java.util.Locale;
 
 @RequiresApi(24)
-final class LocaleListPlatformWrapper implements LocaleListInterface {
-    private final LocaleList mLocaleList;
+@VersionedParcelize
+final class LocaleListPlatformWrapper implements LocaleListInterface, VersionedParcelable {
+    @ParcelField(1)
+    LocaleList mLocaleList;
+
+    /** Used by VersionedParcelable */
+    LocaleListPlatformWrapper() {}
 
     LocaleListPlatformWrapper(LocaleList localeList) {
         mLocaleList = localeList;

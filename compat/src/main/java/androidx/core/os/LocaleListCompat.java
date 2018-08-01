@@ -24,20 +24,28 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.Size;
+import androidx.versionedparcelable.ParcelField;
+import androidx.versionedparcelable.VersionedParcelable;
+import androidx.versionedparcelable.VersionedParcelize;
 
 import java.util.Locale;
 
 /**
  * Helper for accessing features in {@link LocaleList}.
  */
-public final class LocaleListCompat {
+@VersionedParcelize(jetifyAs = "android.support.v4.os.LocaleListCompat")
+public final class LocaleListCompat implements VersionedParcelable {
     private static final LocaleListCompat sEmptyLocaleList = create();
 
-    private LocaleListInterface mImpl;
+    @ParcelField(1)
+    LocaleListInterface mImpl;
 
     private LocaleListCompat(LocaleListInterface impl) {
         mImpl = impl;
     }
+
+    /** Used by VersionedParcelable only **/
+    LocaleListCompat() {}
 
     /** @deprecated Use {@link #wrap(LocaleList)} */
     @Deprecated

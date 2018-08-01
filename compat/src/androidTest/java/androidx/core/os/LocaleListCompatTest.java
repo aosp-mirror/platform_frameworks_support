@@ -27,10 +27,12 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import android.os.Build;
+import android.os.Parcel;
 
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
+import androidx.versionedparcelable.ParcelUtils;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -403,6 +405,18 @@ public class LocaleListCompatTest {
         LocaleListCompat first = LocaleListCompat.forLanguageTags("en-US");
         LocaleListCompat second = LocaleListCompat.forLanguageTags("zh-HK");
         assertNotEquals(first.toLanguageTags(), second.toLanguageTags());
+    }
+
+    @Test
+    public void testParcelable() {
+        LocaleListCompat localeListCompat = LocaleListCompat.forLanguageTags("ko-KR,zh");
+
+        Parcel p = Parcel.obtain();
+        p.writeParcelable(ParcelUtils.toParcelable(localeListCompat), 0);
+        p.setDataPosition(0);
+        LocaleListCompat other = ParcelUtils.fromParcelable(
+                p.readParcelable(getClass().getClassLoader()));
+        assertEquals(localeListCompat, other);
     }
 
     private Locale forLanguageTag(String str) {
