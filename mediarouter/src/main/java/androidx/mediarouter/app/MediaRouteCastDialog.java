@@ -661,7 +661,6 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             mTvIcon = MediaRouterThemeHelper.getTvDrawableIcon(mContext);
             mSpeakerIcon = MediaRouterThemeHelper.getSpeakerDrawableIcon(mContext);
             mSpeakerGroupIcon = MediaRouterThemeHelper.getSpeakerGroupDrawableIcon(mContext);
-
             setItems();
         }
 
@@ -905,6 +904,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             final TextView mTextView;
             final LinearLayout mVolumeSliderLayout;
             final CheckBox mCheckBox;
+            final StateListDrawable mCheckBoxIcon;
             final Runnable mSelectRoute = new Runnable() {
                 @Override
                 public void run() {
@@ -935,6 +935,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 mTextView = itemView.findViewById(R.id.mr_cast_route_name);
                 mVolumeSliderLayout = itemView.findViewById(R.id.mr_cast_volume_layout);
                 mCheckBox = itemView.findViewById(R.id.mr_cast_checkbox);
+
+                mCheckBoxIcon = MediaRouterThemeHelper.getCheckBoxDrawableIcon(mContext);
             }
 
             public void bindRouteViewHolder(Item item) {
@@ -945,12 +947,14 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 mImageView.setImageDrawable(getIconDrawable(route));
                 mTextView.setText(route.getName());
                 mVolumeSliderLayout.setVisibility(selected ? View.VISIBLE : View.GONE);
+                mCheckBox.setButtonDrawable(mCheckBoxIcon);
                 mCheckBox.setOnClickListener(mCheckBoxClickListener);
                 // TODO(b/111624415): Make CheckBox works for both selected and unselected routes.
                 if (selected) {
                     mCheckBox.setChecked(true);
                     mCheckBox.setEnabled(true);
                 } else {
+                    mCheckBox.setChecked(false);
                     mCheckBox.setEnabled(false);
                 }
             }

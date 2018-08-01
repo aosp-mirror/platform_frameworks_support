@@ -74,6 +74,26 @@ final class MediaRouterThemeHelper {
         return muteButtonIcon;
     }
 
+    static StateListDrawable getCheckBoxDrawableIcon(Context context) {
+        Resources resources = context.getResources();
+        VectorDrawableCompat checkedIcon =
+                VectorDrawableCompat.create(resources, R.drawable.ic_checked_checkbox, null);
+        VectorDrawableCompat uncheckedIcon =
+                VectorDrawableCompat.create(resources, R.drawable.ic_unchecked_checkbox, null);
+
+        if (isLightTheme(context)) {
+            int tintColor = resources.getColor(COLOR_DARK_RES_ID);
+            checkedIcon.setTint(tintColor);
+            uncheckedIcon.setTint(tintColor);
+        }
+
+        StateListDrawable checkBoxIcon = new StateListDrawable();
+        checkBoxIcon.addState(new int[]{ android.R.attr.state_checked }, checkedIcon);
+        checkBoxIcon.addState(new int[]{ -android.R.attr.state_checked }, uncheckedIcon);
+
+        return checkBoxIcon;
+    }
+
     static Drawable getDefaultDrawableIcon(Context context) {
         return getDrawableIcon(context, R.attr.mediaRouteDefaultIconDrawable);
     }
