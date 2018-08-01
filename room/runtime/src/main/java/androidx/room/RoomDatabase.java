@@ -63,6 +63,7 @@ import java.util.concurrent.locks.ReentrantLock;
 //@SuppressWarnings({"unused", "WeakerAccess"})
 public abstract class RoomDatabase {
     private static final String DB_IMPL_SUFFIX = "_Impl";
+    public static final String REMOVE_ME = "TODO";
     /**
      * Unfortunately, we cannot read this value so we are only setting it to the SQLite default.
      *
