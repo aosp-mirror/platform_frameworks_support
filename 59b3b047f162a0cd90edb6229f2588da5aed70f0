@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "c3a1821b_04ffb64c",
+        "filename": "compat/src/main/java/androidx/core/os/LocaleListCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-01T13:34:33Z",
+      "side": 1,
+      "message": "jetify transforms classes into their previous name before the androidx refactor.",
+      "parentUuid": "7d6ef6e9_de9efd14",
+      "revId": "59b3b047f162a0cd90edb6229f2588da5aed70f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "070691ac_5f6d4bec",
         "filename": "compat/src/main/java/androidx/core/os/LocaleListCompatWrapper.java",
         "patchSetId": 2
@@ -69,6 +87,24 @@
       "revId": "59b3b047f162a0cd90edb6229f2588da5aed70f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "268cf6ef_d17e4d7a",
+        "filename": "compat/src/main/java/androidx/core/os/LocaleListCompatWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-01T13:34:33Z",
+      "side": 1,
+      "message": "Ah, I didn\u0027t see that the field was pre-existing.",
+      "parentUuid": "d82a2456_032539d1",
+      "revId": "59b3b047f162a0cd90edb6229f2588da5aed70f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
