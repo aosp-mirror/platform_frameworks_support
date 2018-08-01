@@ -132,15 +132,15 @@ public class MediaBrowser2 extends MediaController2 {
                 @Nullable Bundle extras) { }
     }
 
-    public MediaBrowser2(@NonNull Context context, @NonNull SessionToken2 token,
+    public MediaBrowser2(@NonNull Context context, @NonNull Token2 token,
             @NonNull /*@CallbackExecutor*/ Executor executor, @NonNull BrowserCallback callback) {
         super(context, token, executor, callback);
     }
 
     @Override
-    MediaBrowser2Impl createImpl(@NonNull Context context, @NonNull SessionToken2 token,
+    MediaBrowser2Impl createImpl(@NonNull Context context, @NonNull Token2 token,
             @NonNull Executor executor, @NonNull MediaController2.ControllerCallback callback) {
-        if (token.isLegacySession()) {
+        if (token.isLegacy()) {
             return new MediaBrowser2ImplLegacy(
                     context, this, token, executor, (BrowserCallback) callback);
         } else {

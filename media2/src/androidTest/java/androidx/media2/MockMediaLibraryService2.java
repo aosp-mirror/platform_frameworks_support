@@ -75,7 +75,7 @@ public class MockMediaLibraryService2 extends MediaLibraryService2 {
         EXTRAS.putString(ROOT_ID, ROOT_ID);
     }
     @GuardedBy("MockMediaLibraryService2.class")
-    private static SessionToken2 sToken;
+    private static SessionServiceToken2 sToken;
 
     private MediaLibrarySession mSession;
 
@@ -129,12 +129,12 @@ public class MockMediaLibraryService2 extends MediaLibraryService2 {
         TestServiceRegistry.getInstance().cleanUp();
     }
 
-    public static SessionToken2 getToken(Context context) {
+    public static SessionServiceToken2 getToken(Context context) {
         synchronized (MockMediaLibraryService2.class) {
             if (sToken == null) {
-                sToken = new SessionToken2(context, new ComponentName(
+                sToken = new SessionServiceToken2(context, new ComponentName(
                         context.getPackageName(), MockMediaLibraryService2.class.getName()));
-                assertEquals(SessionToken2.TYPE_LIBRARY_SERVICE, sToken.getType());
+                assertEquals(SessionServiceToken2.TYPE_LIBRARY_SERVICE, sToken.getServiceType());
             }
             return sToken;
         }
