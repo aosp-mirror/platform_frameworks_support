@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8c684dc_b8e2716f",
+        "filename": "media-widget/src/androidTest/res/layout/videoview2_layout.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-01T02:38:45Z",
+      "side": 1,
+      "message": "Q) What about defining another layout for MCV2 test?",
+      "revId": "ff0a21bd1c384206f429ae0a6f4927c78e0b6043",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
