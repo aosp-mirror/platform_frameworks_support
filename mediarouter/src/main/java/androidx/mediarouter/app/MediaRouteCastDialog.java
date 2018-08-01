@@ -540,8 +540,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         private static final int ITEM_TYPE_GROUP = 4;
 
         private final ArrayList<Item> mItems;
-        private final ArrayList<MediaRouter.RouteInfo> mAvailableRoutes;
-        private final ArrayList<MediaRouter.RouteInfo> mAvailableGroups;
+        private final ArrayList<MediaRouter.RouteInfo> mGroupableRoutes;
+        private final ArrayList<MediaRouter.RouteInfo> mTransferableRoutes;
 
         private final LayoutInflater mInflater;
         private final Drawable mDefaultIcon;
@@ -551,8 +551,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
 
         RecyclerAdapter() {
             mItems = new ArrayList<>();
-            mAvailableRoutes = new ArrayList<>();
-            mAvailableGroups = new ArrayList<>();
+            mGroupableRoutes = new ArrayList<>();
+            mTransferableRoutes = new ArrayList<>();
 
             mInflater = LayoutInflater.from(mContext);
             mDefaultIcon = MediaRouterThemeHelper.getDefaultDrawableIcon(mContext);
@@ -595,8 +595,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 mItems.add(new Item(mRoute, ITEM_TYPE_ROUTE));
             }
 
-            mAvailableRoutes.clear();
-            mAvailableGroups.clear();
+            mGroupableRoutes.clear();
+            mTransferableRoutes.clear();
 
             for (MediaRouter.RouteInfo route: mRoutes) {
                 // If route is current selected route, skip
@@ -604,26 +604,27 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                     continue;
                 }
                 if (route instanceof MediaRouter.RouteGroup) {
-                    mAvailableGroups.add(route);
+                    mTransferableRoutes.add(route);
                 } else {
-                    mAvailableRoutes.add(route);
+                    mGroupableRoutes.add(route);
                 }
             }
 
-            if (mAvailableRoutes.size() > 0) {
-                // Add list items of single device section to mItems
-                mItems.add(new Item(mContext.getString(R.string.mr_dialog_device_header),
+            // Add items of groupable routes section
+            if (mGroupableRoutes.size() > 0) {
+                mItems.add(new Item(mContext.getString(R.string.mr_dialog_groupable_header),
                         ITEM_TYPE_HEADER));
-                for (MediaRouter.RouteInfo route : mAvailableRoutes) {
+                for (MediaRouter.RouteInfo route : mGroupableRoutes) {
                     mItems.add(new Item(route, ITEM_TYPE_ROUTE));
                 }
             }
 
-            if (mAvailableGroups.size() > 0) {
+            // Add items of tranferable routes section
+            if (mTransferableRoutes.size() > 0) {
                 // Add list items of group section to mItems
-                mItems.add(new Item(mContext.getString(R.string.mr_dialog_route_header),
+                mItems.add(new Item(mContext.getString(R.string.mr_dialog_transferable_header),
                         ITEM_TYPE_HEADER));
-                for (MediaRouter.RouteInfo route : mAvailableGroups) {
+                for (MediaRouter.RouteInfo route : mTransferableRoutes) {
                     mItems.add(new Item(route, ITEM_TYPE_GROUP));
                 }
             }
