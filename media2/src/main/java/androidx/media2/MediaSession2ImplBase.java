@@ -1221,6 +1221,12 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         if (controller == null) {
             return;
         }
+        if (!controller.equals(mSessionLegacyStub.getControllersForAll())
+                && getConnectedControllers().contains(controller)) {
+            // Do not send command to an unconnected controller.
+            return;
+        }
+
         try {
             runnable.run(controller.getControllerCb());
         } catch (DeadObjectException e) {
