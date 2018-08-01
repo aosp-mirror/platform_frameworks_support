@@ -15,7 +15,10 @@
    limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="android.support.mediacompat.service.test">
+    <uses-sdk
+        tools:overrideLibrary="androidx.media2" />
     <application>
         <receiver android:name="android.support.mediacompat.service.ServiceBroadcastReceiver">
             <intent-filter>

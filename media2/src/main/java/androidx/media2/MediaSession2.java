@@ -18,7 +18,6 @@ package androidx.media2;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
-import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -36,6 +35,7 @@ import android.view.KeyEvent;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.util.ObjectsCompat;
@@ -182,7 +182,7 @@ import java.util.concurrent.RejectedExecutionException;
  * </table>
  * @see MediaSessionService2
  */
-@TargetApi(Build.VERSION_CODES.P)
+@RequiresApi(Build.VERSION_CODES.P)  // TODO: Lowering the API level to minSdkVersion.
 public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseable {
     /**
      * @hide

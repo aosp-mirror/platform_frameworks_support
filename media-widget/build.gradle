@@ -36,6 +36,12 @@ dependencies {
     androidTestImplementation project(':internal-testutils')
 }
 
+android {
+    defaultConfig {
+        minSdkVersion 19
+    }
+}
+
 supportLibrary {
     name = "Androidx Media Widget library"
     publish = true

@@ -16,14 +16,14 @@
 
 package androidx.media2;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
-import android.annotation.TargetApi;
 import android.os.Build;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.media.AudioAttributesCompat;
 
@@ -35,7 +35,7 @@ import java.util.concurrent.Executor;
 /**
  * Base interface for all media players that want media session.
  */
-@TargetApi(Build.VERSION_CODES.P)
+@RequiresApi(Build.VERSION_CODES.P)  // TODO: Lowering the API level to minSdkVersion.
 public abstract class MediaPlayerConnector implements AutoCloseable {
     /**
      * @hide

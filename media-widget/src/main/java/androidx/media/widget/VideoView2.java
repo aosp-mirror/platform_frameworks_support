@@ -18,7 +18,6 @@ package androidx.media.widget;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -99,8 +98,7 @@ import java.util.Map;
  * @attr ref androidx.media.widget.R.styleable#VideoView2_enableControlView
  * @attr ref androidx.media.widget.R.styleable#VideoView2_viewType
  */
-@TargetApi(Build.VERSION_CODES.P)
-@RequiresApi(21)  // It can be lowered, using MP1 and MS1, without guarantee subtitle feature.
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)  // TODO: Lowering the API level to minSdkVersion.
 public class VideoView2 extends BaseLayout {
     /** @hide */
     @RestrictTo(LIBRARY_GROUP)

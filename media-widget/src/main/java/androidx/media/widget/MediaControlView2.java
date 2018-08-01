@@ -23,7 +23,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
@@ -115,8 +114,7 @@ import java.util.concurrent.Executor;
  * 2) Set full screen mode
  *
  */
-@TargetApi(Build.VERSION_CODES.P)
-@RequiresApi(21) // TODO correct minSdk API use incompatibilities and remove before release.
+@RequiresApi(Build.VERSION_CODES.P)  // TODO: Lowering the API level to minSdkVersion.
 public class MediaControlView2 extends BaseLayout {
     /**
      * @hide
