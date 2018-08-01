@@ -45,6 +45,8 @@ final class MediaRouterThemeHelper {
     static Drawable sTvIcon;
     static Drawable sSpeakerIcon;
     static Drawable sSpeakerGroupIcon;
+    static Drawable sVolumeOnIcon;
+    static Drawable sVolumeoffIcon;
 
     private MediaRouterThemeHelper() {
     }
@@ -77,12 +79,28 @@ final class MediaRouterThemeHelper {
         return sSpeakerGroupIcon;
     }
 
+    static Drawable getVolumeOnIcon(Context context) {
+        if (sVolumeOnIcon == null) {
+            sVolumeOnIcon = getDrawableIcon(context, 4);
+        }
+        return sVolumeOnIcon;
+    }
+
+    static Drawable getVolumeOffIcon(Context context) {
+        if (sVolumeoffIcon == null) {
+            sVolumeoffIcon = getDrawableIcon(context, 5);
+        }
+        return sVolumeoffIcon;
+    }
+
     private static Drawable getDrawableIcon(Context context, int resId) {
         TypedArray styledAttributes = context.obtainStyledAttributes(new int[] {
                 R.attr.mediaRouteDefaultIconDrawable,
                 R.attr.mediaRouteTvIconDrawable,
                 R.attr.mediaRouteSpeakerIconDrawable,
-                R.attr.mediaRouteSpeakerGroupIconDrawable});
+                R.attr.mediaRouteSpeakerGroupIconDrawable,
+                R.attr.mediaRouteVolumeOnDrawable,
+                R.attr.mediaRouteVolumeOffDrawable});
         Drawable icon = styledAttributes.getDrawable(resId);
         styledAttributes.recycle();
         return icon;
