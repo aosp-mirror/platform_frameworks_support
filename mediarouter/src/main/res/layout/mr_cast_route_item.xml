@@ -45,9 +45,11 @@
                   android:layout_marginLeft="16dp"
                   android:layout_marginRight="16dp"
                   android:singleLine="true" />
-        <CheckBox android:id="@+id/mr_cast_checkbox"
+        <ImageButton android:id="@+id/mr_cast_select_button"
                   android:layout_width="24dp"
-                  android:layout_height="24dp" />
+                  android:layout_height="24dp"
+                  android:src="?attr/mediaRouteSelectButtonDrawable"
+                  android:background="?attr/selectableItemBackgroundBorderless" />
     </LinearLayout>
     <LinearLayout android:id="@+id/mr_cast_volume_layout"
                   android:layout_width="match_parent"
