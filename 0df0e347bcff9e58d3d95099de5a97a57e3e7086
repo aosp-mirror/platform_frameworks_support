@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "9c06d3bc_b8ff749d",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-01T16:44:01Z",
+      "side": 1,
+      "message": "Yeah. I think we can skip creating a new object for now. The result doesn\u0027t seem interesting here.\n\nThere are a few reasons why TCImpl will want to return something with \"other\". e.g. for metrics purposes.\n\nIf it turns out we need more info, I\u0027m happy to revisit.\nThanks.",
+      "parentUuid": "75f99726_cc26f393",
+      "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3da0342_71bd43cf",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
         "patchSetId": 3
@@ -193,6 +211,24 @@
       "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28ee0d85_9246ba8f",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-01T16:44:01Z",
+      "side": 1,
+      "message": "From my investigation, it looks like pm.resolveActivity(intent, 0) also returns activities that this app does not have permission to access. Activating the corresponding PendingIntent leads to a SecurityException.\n\nI admit, it\u0027ll be a neat trick if there was a way to flag PackageManager not to return activities we can\u0027t access.",
+      "parentUuid": "1cc34c5a_17f3114e",
+      "revId": "0df0e347bcff9e58d3d95099de5a97a57e3e7086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
