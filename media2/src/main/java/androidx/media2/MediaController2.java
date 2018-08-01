@@ -51,8 +51,8 @@ import java.util.concurrent.Executor;
 
 /**
  * Allows an app to interact with an active {@link MediaSession2} or a
- * {@link MediaSessionService2} in any status. Media buttons and other commands can be sent to
- * the session.
+ * {@link MediaSessionService2} which would provide {@link MediaSession2}. Media buttons and other
+ * commands can be sent to the session.
  * <p>
  * When you're done, use {@link #close()} to clean up resources. This also helps session service
  * to be destroyed when there's no controller associated with it.
@@ -105,7 +105,7 @@ public class MediaController2 implements AutoCloseable {
      * @param executor executor to run callbacks on.
      * @param callback controller callback to receive changes in
      */
-    public MediaController2(@NonNull Context context, @NonNull SessionToken2 token,
+    public MediaController2(@NonNull Context context, @NonNull Token2 token,
             @NonNull Executor executor, @NonNull ControllerCallback callback) {
         if (context == null) {
             throw new IllegalArgumentException("context shouldn't be null");
@@ -122,9 +122,9 @@ public class MediaController2 implements AutoCloseable {
         mImpl = createImpl(context, token, executor, callback);
     }
 
-    MediaController2Impl createImpl(@NonNull Context context, @NonNull SessionToken2 token,
+    MediaController2Impl createImpl(@NonNull Context context, @NonNull Token2 token,
             @NonNull Executor executor, @NonNull ControllerCallback callback) {
-        if (token.isLegacySession()) {
+        if (token.isLegacy()) {
             return new MediaController2ImplLegacy(context, this, token, executor, callback);
         } else {
             return new MediaController2ImplBase(context, this, token, executor, callback);
@@ -151,8 +151,8 @@ public class MediaController2 implements AutoCloseable {
     /**
      * @return token
      */
-    public @NonNull SessionToken2 getSessionToken() {
-        return mImpl.getSessionToken();
+    public @NonNull Token2 getToken() {
+        return mImpl.getToken();
     }
 
     /**
@@ -765,7 +765,7 @@ public class MediaController2 implements AutoCloseable {
     }
 
     interface MediaController2Impl extends AutoCloseable {
-        SessionToken2 getSessionToken();
+        Token2 getToken();
         boolean isConnected();
         void play();
         void pause();

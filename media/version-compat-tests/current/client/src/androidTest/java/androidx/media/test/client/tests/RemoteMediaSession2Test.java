@@ -27,7 +27,7 @@ import android.content.Context;
 
 import androidx.media.test.client.RemoteMediaSession2;
 import androidx.media2.MediaController2;
-import androidx.media2.SessionToken2;
+import androidx.media2.Token2;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
@@ -60,7 +60,7 @@ public class RemoteMediaSession2Test {
     @Test
     @SmallTest
     public void testGettingToken() {
-        SessionToken2 token = mRemoteSession2.getToken();
+        Token2 token = mRemoteSession2.getToken();
         assertNotNull(token);
         assertEquals(SERVICE_PACKAGE_NAME, token.getPackageName());
     }
@@ -68,7 +68,7 @@ public class RemoteMediaSession2Test {
     @Test
     @SmallTest
     public void testCreatingController() {
-        SessionToken2 token = mRemoteSession2.getToken();
+        Token2 token = mRemoteSession2.getToken();
         assertNotNull(token);
         MediaController2 controller = new MediaController2(mContext, token, new Executor() {
             @Override

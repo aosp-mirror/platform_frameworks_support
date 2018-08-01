@@ -89,7 +89,7 @@ class MediaController2ImplBase implements MediaController2Impl {
     private final Object mLock = new Object();
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    final SessionToken2 mToken;
+    final Token2 mToken;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final ControllerCallback mCallback;
     private final Executor mCallbackExecutor;
@@ -135,7 +135,7 @@ class MediaController2ImplBase implements MediaController2Impl {
     @GuardedBy("mLock")
     private volatile IMediaSession2 mISession2;
 
-    MediaController2ImplBase(Context context, MediaController2 instance, SessionToken2 token,
+    MediaController2ImplBase(Context context, MediaController2 instance, Token2 token,
             Executor executor, ControllerCallback callback) {
         mInstance = instance;
         if (context == null) {
@@ -162,12 +162,14 @@ class MediaController2ImplBase implements MediaController2Impl {
             }
         };
 
-        IMediaSession2 iSession2 = IMediaSession2.Stub.asInterface((IBinder) mToken.getBinder());
-        if (mToken.getType() == SessionToken2.TYPE_SESSION) {
+        if (mToken instanceof SessionToken2) {
             // Session
             mServiceConnection = null;
+            SessionToken2 sessionToken = (SessionToken2) mToken;
+            IMediaSession2 iSession2 = IMediaSession2.Stub.asInterface(
+                    (IBinder) sessionToken.getBinder());
             connectToSession(iSession2);
-        } else {
+        } else if (mToken instanceof SessionServiceToken2) {
             mServiceConnection = new SessionServiceConnection();
             connectToService();
         }
@@ -210,7 +212,7 @@ class MediaController2ImplBase implements MediaController2Impl {
     }
 
     @Override
-    public SessionToken2 getSessionToken() {
+    public Token2 getToken() {
         return mToken;
     }
 
@@ -782,7 +784,8 @@ class MediaController2ImplBase implements MediaController2Impl {
     private void connectToService() {
         // Service. Needs to get fresh binder whenever connection is needed.
         final Intent intent = new Intent(MediaSessionService2.SERVICE_INTERFACE);
-        intent.setClassName(mToken.getPackageName(), mToken.getServiceName());
+        SessionServiceToken2 serviceToken = (SessionServiceToken2) mToken;
+        intent.setComponent(serviceToken.getComponentName());
 
         // Use bindService() instead of startForegroundService() to start session service for three
         // reasons.
@@ -1146,9 +1149,10 @@ class MediaController2ImplBase implements MediaController2Impl {
                 Log.d(TAG, "onServiceConnected " + name + " " + this);
             }
             // Sanity check
-            if (!mToken.getPackageName().equals(name.getPackageName())) {
-                Log.wtf(TAG, name + " was connected, but expected pkg="
-                        + mToken.getPackageName() + " with id=" + mToken.getId());
+            SessionServiceToken2 serviceToken = (SessionServiceToken2) mToken;
+            if (!serviceToken.getComponentName().equals(name)) {
+                Log.wtf(TAG, "Expected " + serviceToken.getComponentName() + " but " + name
+                        + " was connected instead");
                 return;
             }
             connectToSession(IMediaSession2.Stub.asInterface(service));

@@ -38,7 +38,7 @@ import java.util.concurrent.Executor;
  */
 class MediaBrowser2ImplBase extends MediaController2ImplBase implements
         MediaBrowser2.MediaBrowser2Impl {
-    MediaBrowser2ImplBase(Context context, MediaController2 instance, SessionToken2 token,
+    MediaBrowser2ImplBase(Context context, MediaController2 instance, Token2 token,
             Executor executor, BrowserCallback callback) {
         super(context, instance, token, executor, callback);
     }

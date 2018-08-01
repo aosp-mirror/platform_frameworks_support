@@ -45,7 +45,7 @@ class MediaBrowser2ImplLegacy extends MediaController2ImplLegacy implements Medi
     private final HashMap<String, List<SubscribeCallback>> mSubscribeCallbacks = new HashMap<>();
 
     MediaBrowser2ImplLegacy(@NonNull Context context, MediaBrowser2 instance,
-            @NonNull SessionToken2 token, @NonNull /*@CallbackExecutor*/ Executor executor,
+            @NonNull Token2 token, @NonNull /*@CallbackExecutor*/ Executor executor,
             @NonNull BrowserCallback callback) {
         super(context, instance, token, executor, callback);
     }
@@ -69,6 +69,10 @@ class MediaBrowser2ImplLegacy extends MediaController2ImplLegacy implements Medi
 
     @Override
     public void getLibraryRoot(@Nullable final Bundle extras) {
+        if (!(getToken() instanceof SessionServiceToken2)) {
+            // It's legacy SessionToken2 that cannot handle this request. Ignore.
+            return;
+        }
         final MediaBrowserCompat browser = getBrowserCompat(extras);
         if (browser != null) {
             // Already connected with the given extras.
@@ -85,8 +89,9 @@ class MediaBrowser2ImplLegacy extends MediaController2ImplLegacy implements Medi
                 public void run() {
                     // Do this on the callback executor to set the looper of MediaBrowserCompat's
                     // callback handler to this looper.
+                    SessionServiceToken2 serviceToken = (SessionServiceToken2) getToken();
                     MediaBrowserCompat newBrowser = new MediaBrowserCompat(getContext(),
-                            getSessionToken().getComponentName(),
+                            serviceToken.getComponentName(),
                             new GetLibraryRootCallback(extras), extras);
                     synchronized (mLock) {
                         mBrowserCompats.put(extras, newBrowser);

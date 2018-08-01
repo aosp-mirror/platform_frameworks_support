@@ -70,7 +70,7 @@ public class MediaBrowser2Test extends MediaController2Test {
     private static final String TAG = "MediaBrowser2Test";
 
     @Override
-    TestControllerInterface onCreateController(final @NonNull SessionToken2 token,
+    TestControllerInterface onCreateController(final @NonNull Token2 token,
             final @Nullable ControllerCallback callback) throws InterruptedException {
         final AtomicReference<TestControllerInterface> controller = new AtomicReference<>();
         sHandler.postAndSync(new Runnable() {
@@ -84,6 +84,16 @@ public class MediaBrowser2Test extends MediaController2Test {
             }
         });
         return controller.get();
+    }
+
+    private MediaBrowser2 createController(BrowserCallback callback) throws InterruptedException {
+        final SessionServiceToken2 token = MockMediaLibraryService2.getToken(mContext);
+        return (MediaBrowser2) createController(token, true, callback);
+    }
+
+    private MediaBrowser2 createController() throws InterruptedException {
+        final SessionServiceToken2 token = MockMediaLibraryService2.getToken(mContext);
+        return (MediaBrowser2) createController(token, true, null);
     }
 
     /**
@@ -123,9 +133,7 @@ public class MediaBrowser2Test extends MediaController2Test {
             }
         };
 
-        final SessionToken2 token = MockMediaLibraryService2.getToken(mContext);
-        MediaBrowser2 browser =
-                (MediaBrowser2) createController(token, true, callback);
+        MediaBrowser2 browser = createController(callback);
         browser.getLibraryRoot(param);
         assertTrue(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
     }
@@ -146,8 +154,7 @@ public class MediaBrowser2Test extends MediaController2Test {
             }
         };
 
-        final SessionToken2 token = MockMediaLibraryService2.getToken(mContext);
-        MediaBrowser2 browser = (MediaBrowser2) createController(token, true, callback);
+        MediaBrowser2 browser = createController(callback);
         browser.getItem(mediaId);
         assertTrue(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
     }
@@ -167,8 +174,7 @@ public class MediaBrowser2Test extends MediaController2Test {
             }
         };
 
-        final SessionToken2 token = MockMediaLibraryService2.getToken(mContext);
-        MediaBrowser2 browser = (MediaBrowser2) createController(token, true, callback);
+        MediaBrowser2 browser = createController(callback);
         browser.getItem(mediaId);
         assertTrue(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
     }
@@ -209,8 +215,7 @@ public class MediaBrowser2Test extends MediaController2Test {
             }
         };
 
-        final SessionToken2 token = MockMediaLibraryService2.getToken(mContext);
-        MediaBrowser2 browser = (MediaBrowser2) createController(token, true, callback);
+        MediaBrowser2 browser = createController(callback);
         browser.getChildren(parentId, page, pageSize, extras);
         assertTrue(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
     }
@@ -231,8 +236,7 @@ public class MediaBrowser2Test extends MediaController2Test {
             }
         };
 
-        final SessionToken2 token = MockMediaLibraryService2.getToken(mContext);
-        MediaBrowser2 browser = (MediaBrowser2) createController(token, true, callback);
+        MediaBrowser2 browser = createController(callback);
         browser.getChildren(parentId, 1, 1, null);
         assertTrue(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
     }
@@ -252,8 +256,7 @@ public class MediaBrowser2Test extends MediaController2Test {
             }
         };
 
-        final SessionToken2 token = MockMediaLibraryService2.getToken(mContext);
-        MediaBrowser2 browser = (MediaBrowser2) createController(token, true, callback);
+        MediaBrowser2 browser = createController(callback);
         browser.getChildren(parentId, 1, 1, null);
         assertTrue(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
     }
@@ -304,8 +307,7 @@ public class MediaBrowser2Test extends MediaController2Test {
         };
 
         // Request the search.
-        final SessionToken2 token = MockMediaLibraryService2.getToken(mContext);
-        MediaBrowser2 browser = (MediaBrowser2) createController(token, true, callback);
+        MediaBrowser2 browser = createController(callback);
         browser.search(query, extras);
         assertTrue(latchForSearch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
 
@@ -334,8 +336,7 @@ public class MediaBrowser2Test extends MediaController2Test {
             }
         };
 
-        final SessionToken2 token = MockMediaLibraryService2.getToken(mContext);
-        MediaBrowser2 browser = (MediaBrowser2) createController(token, true, callback);
+        MediaBrowser2 browser = createController(callback);
         browser.search(query, extras);
         assertTrue(latch.await(
                 MockMediaLibraryService2.SEARCH_TIME_IN_MS + WAIT_TIME_MS, TimeUnit.MILLISECONDS));
@@ -360,8 +361,7 @@ public class MediaBrowser2Test extends MediaController2Test {
             }
         };
 
-        final SessionToken2 token = MockMediaLibraryService2.getToken(mContext);
-        MediaBrowser2 browser = (MediaBrowser2) createController(token, true, callback);
+        MediaBrowser2 browser = createController(callback);
         browser.search(query, extras);
         assertTrue(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
     }
@@ -387,8 +387,7 @@ public class MediaBrowser2Test extends MediaController2Test {
             }
         };
         TestServiceRegistry.getInstance().setSessionCallback(callback);
-        final SessionToken2 token = MockMediaLibraryService2.getToken(mContext);
-        MediaBrowser2 browser = (MediaBrowser2) createController(token);
+        MediaBrowser2 browser = createController();
         browser.subscribe(testParentId, testExtras);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
@@ -409,8 +408,7 @@ public class MediaBrowser2Test extends MediaController2Test {
             }
         };
         TestServiceRegistry.getInstance().setSessionCallback(callback);
-        final SessionToken2 token = MockMediaLibraryService2.getToken(mContext);
-        MediaBrowser2 browser = (MediaBrowser2) createController(token);
+        MediaBrowser2 browser = createController();
         browser.unsubscribe(testParentId);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
@@ -454,9 +452,7 @@ public class MediaBrowser2Test extends MediaController2Test {
         };
 
         TestServiceRegistry.getInstance().setSessionCallback(sessionCallback);
-        final SessionToken2 token = MockMediaLibraryService2.getToken(mContext);
-        final MediaBrowser2 browser = (MediaBrowser2) createController(
-                token, true, controllerCallbackProxy);
+        MediaBrowser2 browser = createController(controllerCallbackProxy);
         browser.subscribe(subscribedMediaId, null);
 
         // onChildrenChanged() should not be called.
@@ -503,9 +499,7 @@ public class MediaBrowser2Test extends MediaController2Test {
         };
 
         TestServiceRegistry.getInstance().setSessionCallback(sessionCallback);
-        final SessionToken2 token = MockMediaLibraryService2.getToken(mContext);
-        final MediaBrowser2 browser = (MediaBrowser2) createController(
-                token, true, controllerCallbackProxy);
+        MediaBrowser2 browser = createController(controllerCallbackProxy);
         browser.subscribe(expectedParentId, null);
 
         // onChildrenChanged() should be called.
@@ -552,9 +546,7 @@ public class MediaBrowser2Test extends MediaController2Test {
         };
 
         TestServiceRegistry.getInstance().setSessionCallback(sessionCallback);
-        final SessionToken2 token = MockMediaLibraryService2.getToken(mContext);
-        final MediaBrowser2 browser = (MediaBrowser2) createController(
-                token, true, controllerCallbackProxy);
+        MediaBrowser2 browser = createController(controllerCallbackProxy);
         browser.subscribe(subscribedMediaId, null);
 
         // onChildrenChanged() should not be called.
@@ -602,9 +594,7 @@ public class MediaBrowser2Test extends MediaController2Test {
         };
 
         TestServiceRegistry.getInstance().setSessionCallback(sessionCallback);
-        final SessionToken2 token = MockMediaLibraryService2.getToken(mContext);
-        final MediaBrowser2 browser = (MediaBrowser2) createController(
-                token, true, controllerCallbackProxy);
+        MediaBrowser2 browser = createController(controllerCallbackProxy);
         browser.subscribe(expectedParentId, null);
 
         // onChildrenChanged() should be called.
@@ -614,7 +604,7 @@ public class MediaBrowser2Test extends MediaController2Test {
     public class TestMediaBrowser extends MediaBrowser2 implements TestControllerInterface {
         private final BrowserCallback mCallback;
 
-        public TestMediaBrowser(@NonNull Context context, @NonNull SessionToken2 token,
+        public TestMediaBrowser(@NonNull Context context, @NonNull Token2 token,
                 @NonNull BrowserCallback callback) {
             super(context, token, sHandlerExecutor, callback);
             mCallback = callback;

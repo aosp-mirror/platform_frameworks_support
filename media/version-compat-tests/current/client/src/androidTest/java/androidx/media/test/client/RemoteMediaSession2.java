@@ -43,7 +43,7 @@ import androidx.media2.MediaSession2.CommandButton;
 import androidx.media2.MediaSession2.ControllerInfo;
 import androidx.media2.SessionCommand2;
 import androidx.media2.SessionCommandGroup2;
-import androidx.media2.SessionToken2;
+import androidx.media2.Token2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,19 +124,19 @@ public class RemoteMediaSession2 {
     ////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Gets {@link SessionToken2} from the service app.
+     * Gets {@link Token2} from the service app.
      * Should be used after the creation of the session through {@link #create()}.
      *
-     * @return A {@link SessionToken2} object if succeeded, {@code null} if failed.
+     * @return A {@link Token2} object if succeeded, {@code null} if failed.
      */
-    public SessionToken2 getToken() {
-        SessionToken2 token = null;
+    public Token2 getToken() {
+        Token2 token = null;
         try {
             Bundle bundle = mBinder.getToken(mSessionId);
             if (bundle != null) {
                 bundle.setClassLoader(MediaSession2.class.getClassLoader());
             }
-            token = SessionToken2.fromBundle(bundle);
+            token = Token2.fromBundle(bundle);
         } catch (RemoteException ex) {
             Log.e(TAG, "Failed to get session token. sessionId=" + mSessionId);
         }
