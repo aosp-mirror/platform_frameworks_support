@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd7c5b55_3a5ab25e",
+        "filename": "compat/src/main/java/androidx/core/os/LocaleListCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-01T14:53:48Z",
+      "side": 1,
+      "message": "This likely needs to be public too. I\u0027m working on testing for this, but for now we only know when we produce the dejetified versions and test them.",
+      "revId": "2f8779adefa85ffb65b4f7946c9483a251e62a5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
