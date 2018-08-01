@@ -659,7 +659,6 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             mTvIcon = MediaRouterThemeHelper.getTvDrawableIcon(mContext);
             mSpeakerIcon = MediaRouterThemeHelper.getSpeakerDrawableIcon(mContext);
             mSpeakerGroupIcon = MediaRouterThemeHelper.getSpeakerGropuIcon(mContext);
-
             setItems();
         }
 
@@ -980,7 +979,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 mTextView.setText(route.getName());
                 mVolumeSliderLayout.setVisibility(selected ? View.VISIBLE : View.GONE);
                 mCheckBox.setOnClickListener(mCheckBoxClickListener);
-                // TODO(b/111624415): Make CheckBox works for both selected and unselected routes.
+                // TODO(b/111624415): Make checkbox works for both selected and unselected routes.
                 if (selected) {
                     mCheckBox.setChecked(true);
                     mCheckBox.setEnabled(true);
