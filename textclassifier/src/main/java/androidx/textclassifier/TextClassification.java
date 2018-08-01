@@ -38,6 +38,9 @@ import androidx.core.graphics.drawable.IconCompat;
 import androidx.core.os.LocaleListCompat;
 import androidx.core.util.Preconditions;
 import androidx.textclassifier.TextClassifier.EntityType;
+import androidx.versionedparcelable.ParcelField;
+import androidx.versionedparcelable.VersionedParcelable;
+import androidx.versionedparcelable.VersionedParcelize;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -68,7 +71,8 @@ import java.util.Map;
  *   }
  * }</pre>
  */
-public final class TextClassification {
+@VersionedParcelize
+public final class TextClassification implements VersionedParcelable {
 
     private static final String EXTRA_TEXT = "text";
     private static final String EXTRA_ACTIONS = "actions";
@@ -83,10 +87,18 @@ public final class TextClassification {
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     static final TextClassification EMPTY = new TextClassification.Builder().build();
 
-    @Nullable private final String mText;
-    @NonNull private final List<RemoteActionCompat> mActions;
-    @NonNull private final EntityConfidence mEntityConfidence;
-    @Nullable private final String mId;
+    @Nullable
+    @ParcelField(1)
+    private String mText;
+    @NonNull
+    @ParcelField(2)
+    private List<RemoteActionCompat> mActions;
+    @NonNull
+    @ParcelField(3)
+    private EntityConfidence mEntityConfidence;
+    @Nullable
+    @ParcelField(4)
+    private String mId;
 
     TextClassification(
             @Nullable String text,
@@ -373,7 +385,8 @@ public final class TextClassification {
     /**
      * A request object for generating TextClassification.
      */
-    public static final class Request {
+    @VersionedParcelize
+    public static final class Request implements VersionedParcelable {
 
         private static final String EXTRA_TEXT = "text";
         private static final String EXTRA_START_INDEX = "start";
@@ -382,11 +395,18 @@ public final class TextClassification {
         private static final String EXTRA_REFERENCE_TIME = "reftime";
         private static final String EXTRA_CALLING_PACKAGE_NAME = "calling_package";
 
+        @ParcelField(1)
         private final CharSequence mText;
+        @ParcelField(2)
         private final int mStartIndex;
+        @ParcelField(3)
         private final int mEndIndex;
-        @Nullable private final LocaleListCompat mDefaultLocales;
-        @Nullable private final Calendar mReferenceTime;
+        @ParcelField(4)
+        @Nullable
+        private final LocaleListCompat mDefaultLocales;
+        @ParcelField(5)
+        @Nullable
+        private final Calendar mReferenceTime;
 
         Request(
                 CharSequence text,
