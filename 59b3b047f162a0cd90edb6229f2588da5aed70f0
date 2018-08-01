@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "b5385a63_c35d8510",
+        "filename": "compat/src/main/java/androidx/core/os/LocaleListCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-01T13:35:09Z",
+      "side": 1,
+      "message": "meant to link this:\nhttps://cs.corp.google.com/android/frameworks/support/compat/src/main/java/androidx/core/graphics/drawable/IconCompat.java?q\u003dIconCompat\u0026sq\u003dpackage:%5Eandroid$\u0026g\u003d0\u0026l\u003d86",
+      "parentUuid": "c3a1821b_04ffb64c",
+      "revId": "59b3b047f162a0cd90edb6229f2588da5aed70f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "070691ac_5f6d4bec",
         "filename": "compat/src/main/java/androidx/core/os/LocaleListCompatWrapper.java",
         "patchSetId": 2
