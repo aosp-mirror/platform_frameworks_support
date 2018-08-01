@@ -16,6 +16,24 @@
       "revId": "064dba11f5185ff601c7223358e74477249642cc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e8ca3f0_77197db2",
+        "filename": "versionedparcelable/src/main/java/androidx/versionedparcelable/VersionedParcelStream.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-01T14:27:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ae9ca61_f59ebc48",
+      "revId": "064dba11f5185ff601c7223358e74477249642cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
