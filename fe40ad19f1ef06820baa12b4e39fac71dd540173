@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a53e3b9_2e9013cf",
+        "filename": "compat/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1186,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-08-01T00:52:25Z",
+      "side": 1,
+      "message": "Alan: Phil and I have two opinions on what this API should be .\n1) The developer can specify an actionId (which must be a resourceId) in addAccessibilityAction. (to match frameworks).\n2) We auto-generate the actionId.\nYour thoughts?",
+      "revId": "fe40ad19f1ef06820baa12b4e39fac71dd540173",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
