@@ -17,7 +17,25 @@
 package androidx.car.cluster.navigation;
 
 /**
- * Sample class of the cluster library.
+ * Possible driving side (e.g. {@link #RIGHT} in USA, and {@link #LEFT} in Australia), or turning
+ * direction.
  */
-public class Sample {
+public enum Side {
+    /**
+     * The side is unknown to the consumer.
+     */
+    UNKNOWN,
+    /**
+     * Driving or turning side is not relevant (e.g.: for {@link Maneuver.Type#STRAIGHT},
+     * turning direction is not relevant).
+     */
+    NO_SIDE,
+    /**
+     * Left-hand driving (e.g.: Australian driving side), or left turn.
+     */
+    LEFT,
+    /**
+     * Right-hand driving (e.g.: USA driving side), or right turn.
+     */
+    RIGHT,
 }
