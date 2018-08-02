@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "22a905a0_176bacf8",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-02T08:15:09Z",
+      "side": 1,
+      "message": "It was just guess of mine. Then how about using percentage instead? For instance, 0.1*route.getMaxVolume()?",
+      "parentUuid": "ad572ced_59776fef",
+      "range": {
+        "startLine": 105,
+        "startChar": 21,
+        "endLine": 105,
+        "endChar": 39
+      },
+      "revId": "0006f5ffc808af9822e265fecdec80c88970b277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b82d12fb_24b82412",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "0006f5ffc808af9822e265fecdec80c88970b277",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53dad0e3_dd334d86",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-02T08:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b82d12fb_24b82412",
+      "range": {
+        "startLine": 153,
+        "startChar": 25,
+        "endLine": 153,
+        "endChar": 37
+      },
+      "revId": "0006f5ffc808af9822e265fecdec80c88970b277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b78b1c96_e9f2d135",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-02T08:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65aa625c_b228e85c",
+      "range": {
+        "startLine": 573,
+        "startChar": 0,
+        "endLine": 573,
+        "endChar": 83
+      },
+      "revId": "0006f5ffc808af9822e265fecdec80c88970b277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d703be6_98fc5328",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2018-08-01T08:39:00Z",
       "side": 1,
       "message": "volume?",
+      "range": {
+        "startLine": 577,
+        "startChar": 40,
+        "endLine": 577,
+        "endChar": 48
+      },
+      "revId": "0006f5ffc808af9822e265fecdec80c88970b277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d088431e_39c4a28c",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-02T08:15:09Z",
+      "side": 1,
+      "message": "Since method name is updateVolumeBy\u0027Progress\u0027 and it is used to update UI element related with volume by progress change of volume slider (not real volume of route), I think using \u0027progress\u0027 as a name of parameter seems better to me. \nIf it still doesn\u0027t make sense to you, let\u0027s share ideas offline.",
+      "parentUuid": "0d703be6_98fc5328",
       "range": {
         "startLine": 577,
         "startChar": 40,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "0df645bd_946c1a71",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-02T08:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c89ccf4_12b4ed9d",
+      "range": {
+        "startLine": 879,
+        "startChar": 16,
+        "endLine": 879,
+        "endChar": 43
+      },
+      "revId": "0006f5ffc808af9822e265fecdec80c88970b277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d63afb2d_b363f09f",
         "filename": "mediarouter/src/main/res/layout/mr_cast_group_volume_item.xml",
         "patchSetId": 2
@@ -137,6 +257,30 @@
       "revId": "0006f5ffc808af9822e265fecdec80c88970b277",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc0fe1b9_f33d9593",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_group_volume_item.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-02T08:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d63afb2d_b363f09f",
+      "range": {
+        "startLine": 37,
+        "startChar": 9,
+        "endLine": 37,
+        "endChar": 20
+      },
+      "revId": "0006f5ffc808af9822e265fecdec80c88970b277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
