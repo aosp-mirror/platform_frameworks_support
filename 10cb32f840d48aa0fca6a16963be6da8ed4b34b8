@@ -305,6 +305,30 @@
       "revId": "10cb32f840d48aa0fca6a16963be6da8ed4b34b8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6c8a394_64bfe4c0",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/ListAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-02T16:58:47Z",
+      "side": 1,
+      "message": "The adapter observer tells you whenever *anything* changes. Page load, drop, content swap, or e.g. footer you insert appears/removed.\n\nThis tells you specifically when the pagedlist swaps - your DB or network has updated content.",
+      "parentUuid": "f06b13c7_fc7c2a7b",
+      "range": {
+        "startLine": 162,
+        "startChar": 4,
+        "endLine": 165,
+        "endChar": 6
+      },
+      "revId": "10cb32f840d48aa0fca6a16963be6da8ed4b34b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
