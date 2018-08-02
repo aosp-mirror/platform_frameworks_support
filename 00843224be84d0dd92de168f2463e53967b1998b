@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a0326d9_fae09d24",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 24
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-02T18:57:02Z",
+      "side": 1,
+      "message": "Do this directly in AndroidXPlugin?",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 57
+      },
+      "revId": "00843224be84d0dd92de168f2463e53967b1998b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cb9e877_37effa0e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 24
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-02T18:57:02Z",
+      "side": 1,
+      "message": "Weird name for the method? I know you are calling to onlyIf, but the method name makes it sound that you did not complete the method name, configureTaskOnlyIfSomethingHappens :)",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 110,
+        "endChar": 31
+      },
+      "revId": "00843224be84d0dd92de168f2463e53967b1998b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87990639_8bc5f7aa",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/GitClient.kt",
+        "patchSetId": 24
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-02T18:57:02Z",
+      "side": 1,
+      "message": "Do we really want to allow this to potentially sit there for 60 minutes? Maybe fail sooner.",
+      "range": {
+        "startLine": 91,
+        "startChar": 12,
+        "endLine": 91,
+        "endChar": 46
+      },
+      "revId": "00843224be84d0dd92de168f2463e53967b1998b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99dcbf01_ef530d29",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/ProjectGraph.kt",
+        "patchSetId": 24
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-02T18:57:02Z",
+      "side": 1,
+      "message": "Why is this nullable?",
+      "range": {
+        "startLine": 50,
+        "startChar": 30,
+        "endLine": 50,
+        "endChar": 38
+      },
+      "revId": "00843224be84d0dd92de168f2463e53967b1998b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
