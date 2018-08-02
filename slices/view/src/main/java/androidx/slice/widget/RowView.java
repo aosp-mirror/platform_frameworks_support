@@ -316,23 +316,23 @@ public class RowView extends SliceChildView implements View.OnClickListener {
      * This is called when RowView is being used as a component in a large template.
      */
     @Override
-    public void setSliceItem(SliceItem slice, boolean isHeader, int index,
+    public void setSliceItem(SliceContent content, boolean isHeader, int index,
             int rowCount, SliceView.OnSliceActionListener observer) {
         setSliceActionListener(observer);
 
         boolean isUpdate = false;
-        if (slice != null && mRowContent != null && mRowContent.isValid()) {
+        if (content != null && mRowContent != null && mRowContent.isValid()) {
             // Might be same slice
             SliceStructure prevSs = mRowContent != null
-                    ? new SliceStructure(mRowContent.getSlice()) : null;
-            boolean sameSliceId = mRowContent.getSlice().getSlice().getUri().equals(
-                    slice.getSlice().getUri());
-            boolean sameStructure = new SliceStructure(slice.getSlice()).equals(prevSs);
+                    ? new SliceStructure(mRowContent.getSliceItem()) : null;
+            boolean sameSliceId = mRowContent.getSliceItem().getSlice().getUri().equals(
+                    content.getSliceItem().getSlice().getUri());
+            boolean sameStructure = new SliceStructure(content.getSliceItem().getSlice()).equals(prevSs);
             isUpdate = sameSliceId && sameStructure;
         }
         mShowActionSpinner = false;
         mIsHeader = isHeader;
-        mRowContent = new RowContent(getContext(), slice, mIsHeader);
+        mRowContent = (RowContent) content;
         mRowIndex = index;
         populateViews(isUpdate);
     }
@@ -343,8 +343,8 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             resetViewState();
         }
 
-        if (mRowContent.getLayoutDirItem() != null) {
-            setLayoutDirection(mRowContent.getLayoutDirItem().getInt());
+        if (mRowContent.getLayoutDir() != -1) {
+            setLayoutDirection(mRowContent.getLayoutDir());
         }
         if (mRowContent.isDefaultSeeMore()) {
             showSeeMore();
@@ -752,16 +752,16 @@ public class RowView extends SliceChildView implements View.OnClickListener {
                     if (mObserver != null) {
                         EventInfo info = new EventInfo(getMode(), EventInfo.ACTION_TYPE_SEE_MORE,
                                 EventInfo.ROW_TYPE_LIST, mRowIndex);
-                        mObserver.onSliceAction(info, mRowContent.getSlice());
+                        mObserver.onSliceAction(info, mRowContent.getSliceItem());
                     }
                     mShowActionSpinner =
-                            mRowContent.getSlice().fireActionInternal(getContext(), null);
+                            mRowContent.getSliceItem().fireActionInternal(getContext(), null);
                     if (mShowActionSpinner) {
                         if (mLoadingListener != null) {
-                            mLoadingListener.onSliceActionLoading(mRowContent.getSlice(),
+                            mLoadingListener.onSliceActionLoading(mRowContent.getSliceItem(),
                                     mRowIndex);
                         }
-                        mLoadingActions.add(mRowContent.getSlice());
+                        mLoadingActions.add(mRowContent.getSliceItem());
                         b.setVisibility(GONE);
                     }
                     updateActionSpinner();
@@ -775,7 +775,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         }
         mSeeMoreView = b;
         mRootView.addView(mSeeMoreView);
-        if (mLoadingActions.contains(mRowContent.getSlice())) {
+        if (mLoadingActions.contains(mRowContent.getSliceItem())) {
             mShowActionSpinner = true;
             b.setVisibility(GONE);
             updateActionSpinner();

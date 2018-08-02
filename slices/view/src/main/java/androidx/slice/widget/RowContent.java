@@ -61,12 +61,10 @@ import java.util.List;
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 @RequiresApi(19)
-public class RowContent {
+public class RowContent extends SliceContent {
     private static final String TAG = "RowContent";
 
-    private SliceItem mRowSlice;
     private SliceItem mPrimaryAction;
-    private SliceItem mLayoutDirItem;
     private SliceItem mStartItem;
     private SliceItem mTitleItem;
     private SliceItem mSubtitleItem;
@@ -74,7 +72,6 @@ public class RowContent {
     private ArrayList<SliceItem> mEndItems = new ArrayList<>();
     private ArrayList<SliceAction> mToggleItems = new ArrayList<>();
     private SliceItem mRange;
-    private SliceItem mContentDescr;
     private boolean mEndItemsContainAction;
     private boolean mIsHeader;
     private int mLineCount = 0;
@@ -85,6 +82,7 @@ public class RowContent {
     private int mRangeHeight;
 
     public RowContent(Context context, SliceItem rowSlice, boolean isHeader) {
+        super(rowSlice);
         populate(rowSlice, isHeader);
         if (context != null) {
             mMaxHeight = context.getResources().getDimensionPixelSize(
@@ -105,14 +103,11 @@ public class RowContent {
      */
     private boolean populate(SliceItem rowSlice, boolean isHeader) {
         mIsHeader = isHeader;
-        mRowSlice = rowSlice;
         if (!isValidRow(rowSlice)) {
             Log.w(TAG, "Provided SliceItem is invalid for RowContent");
             return false;
         }
         determineStartAndPrimaryAction(rowSlice);
-
-        mContentDescr = SliceQuery.findSubtype(rowSlice, FORMAT_TEXT, SUBTYPE_CONTENT_DESCRIPTION);
 
         // Filter anything not viable for displaying in a row
         ArrayList<SliceItem> rowItems = filterInvalidItems(rowSlice);
@@ -124,14 +119,6 @@ public class RowContent {
                 rowSlice = rowItems.get(0);
                 rowItems = filterInvalidItems(rowSlice);
             }
-        }
-        mLayoutDirItem = SliceQuery.findTopLevelItem(rowSlice.getSlice(), FORMAT_INT,
-                SUBTYPE_LAYOUT_DIRECTION, null, null);
-        if (mLayoutDirItem != null) {
-            // Make sure it's valid
-            mLayoutDirItem = resolveLayoutDirection(mLayoutDirItem.getInt()) != -1
-                    ? mLayoutDirItem
-                    : null;
         }
         if (SUBTYPE_RANGE.equals(rowSlice.getSubType())) {
             mRange = rowSlice;
@@ -233,19 +220,6 @@ public class RowContent {
     }
 
     /**
-     * @return the {@link SliceItem} used to populate this row.
-     */
-    @NonNull
-    public SliceItem getSlice() {
-        return mRowSlice;
-    }
-
-    @Nullable
-    public SliceItem getLayoutDirItem() {
-        return mLayoutDirItem;
-    }
-
-    /**
      * @return the {@link SliceItem} representing the range in the row; can be null.
      */
     @Nullable
@@ -321,14 +295,6 @@ public class RowContent {
     }
 
     /**
-     * @return the content description to use for this row.
-     */
-    @Nullable
-    public CharSequence getContentDescription() {
-        return mContentDescr != null ? mContentDescr.getText() : null;
-    }
-
-    /**
      * @return whether {@link #getEndItems()} contains a SliceItem with FORMAT_SLICE, HINT_SHORTCUT
      */
     public boolean endItemsContainAction() {
@@ -347,10 +313,9 @@ public class RowContent {
      */
     public int getSmallHeight(int maxSmallHeight) {
         int maxHeight = maxSmallHeight > 0 ? maxSmallHeight : mMaxHeight;
-        int size =  getRange() != null
+        return getRange() != null
                 ? getActualHeight(maxHeight)
                 : maxHeight;
-        return size;
     }
 
     /**
@@ -382,22 +347,20 @@ public class RowContent {
      * @return whether this row content represents a default see more item.
      */
     public boolean isDefaultSeeMore() {
-        return FORMAT_ACTION.equals(mRowSlice.getFormat())
-                && mRowSlice.getSlice().hasHint(HINT_SEE_MORE)
-                && mRowSlice.getSlice().getItems().isEmpty();
+        return FORMAT_ACTION.equals(mSliceItem.getFormat())
+                && mSliceItem.getSlice().hasHint(HINT_SEE_MORE)
+                && mSliceItem.getSlice().getItems().isEmpty();
     }
 
-    /**
-     * @return whether this row has content that is valid to display.
-     */
     public boolean isValid() {
-        return mStartItem != null
+        return super.isValid() &&
+                (mStartItem != null
                 || mPrimaryAction != null
                 || mTitleItem != null
                 || mSubtitleItem != null
                 || mEndItems.size() > 0
                 || mRange != null
-                || isDefaultSeeMore();
+                || isDefaultSeeMore());
     }
 
     /**

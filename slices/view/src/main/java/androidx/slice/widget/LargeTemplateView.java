@@ -49,11 +49,9 @@ public class LargeTemplateView extends SliceChildView {
     private final RecyclerView mRecyclerView;
     private boolean mScrollingEnabled;
     private ListContent mListContent;
-    private ArrayList<SliceItem> mDisplayedItems = new ArrayList<>();
+    private ArrayList<SliceContent> mDisplayedItems = new ArrayList<>();
     private int mDisplayedItemsHeight = 0;
     private int[] mLoc = new int[2];
-    private int mMaxSmallHeight;
-    private boolean mShowActionSpinner;
 
     public LargeTemplateView(Context context) {
         super(context);
@@ -148,8 +146,7 @@ public class LargeTemplateView extends SliceChildView {
 
     @Override
     public void setMaxSmallHeight(int maxSmallHeight) {
-        mMaxSmallHeight = maxSmallHeight;
-        mAdapter.setMaxSmallHeight(mMaxSmallHeight);
+        mAdapter.setMaxSmallHeight(maxSmallHeight);
     }
 
     @Override

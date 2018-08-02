@@ -140,14 +140,14 @@ public class LargeSliceAdapter extends RecyclerView.Adapter<LargeSliceAdapter.Sl
     /**
      * Set the {@link SliceItem}'s to be displayed in the adapter and the accent color.
      */
-    public void setSliceItems(List<SliceItem> slices, int color, int mode) {
+    public void setSliceItems(List<SliceContent> slices, int color, int mode) {
         if (slices == null) {
             mLoadingActions.clear();
             mSlices.clear();
         } else {
             mIdGen.resetUsage();
             mSlices = new ArrayList<>(slices.size());
-            for (SliceItem s : slices) {
+            for (SliceContent s : slices) {
                 mSlices.add(new SliceWrapper(s, mIdGen, mode));
             }
         }
@@ -282,14 +282,14 @@ public class LargeSliceAdapter extends RecyclerView.Adapter<LargeSliceAdapter.Sl
     }
 
     protected static class SliceWrapper {
-        final SliceItem mItem;
+        final SliceContent mItem;
         final int mType;
         final long mId;
 
-        public SliceWrapper(SliceItem item, IdGenerator idGen, int mode) {
+        public SliceWrapper(SliceContent item, IdGenerator idGen, int mode) {
             mItem = item;
-            mType = getFormat(item);
-            mId = idGen.getId(item);
+            mType = getFormat(item.getSliceItem());
+            mId = idGen.getId(item.getSliceItem());
         }
 
         public static int getFormat(SliceItem item) {
@@ -323,7 +323,7 @@ public class LargeSliceAdapter extends RecyclerView.Adapter<LargeSliceAdapter.Sl
             mSliceChildView = itemView instanceof SliceChildView ? (SliceChildView) itemView : null;
         }
 
-        void bind(SliceItem item, int position) {
+        void bind(SliceContent item, int position) {
             if (mSliceChildView == null || item == null) {
                 return;
             }
@@ -337,7 +337,7 @@ public class LargeSliceAdapter extends RecyclerView.Adapter<LargeSliceAdapter.Sl
             // can be added to it (e.g. last updated, slice actions). Headers are styled slightly
             // differently so we must note that difference.
             final boolean isFirstPosition = position == HEADER_INDEX;
-            final boolean isHeader = ListContent.isValidHeader(item);
+            final boolean isHeader = ListContent.isValidHeader(item.getSliceItem());
             int mode = mParent != null ? mParent.getMode() : MODE_LARGE;
             mSliceChildView.setLoadingActions(mLoadingActions);
             mSliceChildView.setMode(mode);
@@ -357,7 +357,7 @@ public class LargeSliceAdapter extends RecyclerView.Adapter<LargeSliceAdapter.Sl
             mSliceChildView.setSliceActions(isFirstPosition ? mSliceActions : null);
             mSliceChildView.setSliceItem(item, isHeader, position, getItemCount(), mSliceObserver);
             int[] info = new int[2];
-            info[0] = ListContent.getRowType(mContext, item, isHeader, mSliceActions);
+            info[0] = ListContent.getRowType(item, isHeader, mSliceActions);
             info[1] = position;
             mSliceChildView.setTag(info);
         }

@@ -473,11 +473,12 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         mCurrentView.setShowLastUpdated(mShowLastUpdated && isExpired());
         mCurrentView.setAllowTwoLines(mSliceMetadata.isPermissionSlice());
 
+        // TODO: can't we just call applyConfigurations here?
         // Tint color can come with the slice, so may need to update it
         mCurrentView.setTint(getTintColor());
 
-        if (mListContent.getLayoutDirItem() != null) {
-            mCurrentView.setLayoutDirection(mListContent.getLayoutDirItem().getInt());
+        if (mListContent.getLayoutDir() != -1) {
+            mCurrentView.setLayoutDirection(mListContent.getLayoutDir());
         } else {
             mCurrentView.setLayoutDirection(View.LAYOUT_DIRECTION_INHERIT);
         }
@@ -712,8 +713,8 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         mCurrentView.setStyle(mSliceStyle);
         mCurrentView.setTint(getTintColor());
 
-        if (mListContent != null && mListContent.getLayoutDirItem() != null) {
-            mCurrentView.setLayoutDirection(mListContent.getLayoutDirItem().getInt());
+        if (mListContent != null && mListContent.getLayoutDir() != -1) {
+            mCurrentView.setLayoutDirection(mListContent.getLayoutDir());
         } else {
             mCurrentView.setLayoutDirection(View.LAYOUT_DIRECTION_INHERIT);
         }

@@ -79,19 +79,17 @@ public class ShortcutView extends SliceChildView {
         if (mListContent == null) {
             return;
         }
-        ShortcutContent shortcutContent = new ShortcutContent(sliceContent);
+        ShortcutContent shortcutContent = sliceContent.getShortcutContent();
         mActionItem = shortcutContent.getActionItem();
         mIcon = shortcutContent.getIcon();
         mLabel = shortcutContent.getLabel();
         if (mIcon == null || mIcon.getIcon() == null || mLabel == null || mActionItem == null) {
             useAppDataAsFallbackItems(getContext());
         }
-        SliceItem colorItem = shortcutContent.getColorItem();
-        final int color = colorItem != null
-                ? colorItem.getInt()
-                : SliceViewUtil.getColorAccent(getContext());
+        int color = shortcutContent.getAccentColor();
+        final int accentColor = color != -1 ? color : SliceViewUtil.getColorAccent(getContext());
         Drawable circle = DrawableCompat.wrap(new ShapeDrawable(new OvalShape()));
-        DrawableCompat.setTint(circle, color);
+        DrawableCompat.setTint(circle, accentColor);
         ImageView iv = new ImageView(getContext());
         if (mIcon != null && !mIcon.hasHint(HINT_NO_TINT)) {
             // Only set the background if we're tintable
@@ -103,7 +101,7 @@ public class ShortcutView extends SliceChildView {
             final int iconSize = isImage ? mLargeIconSize : mSmallIconSize;
             SliceViewUtil.createCircledIcon(getContext(), iconSize, mIcon.getIcon(),
                     isImage, this /* parent */);
-            mUri = sliceContent.getSlice().getUri();
+            mUri = sliceContent.getSliceItem().getSlice().getUri();
             setClickable(true);
         } else {
             setClickable(false);
@@ -140,8 +138,7 @@ public class ShortcutView extends SliceChildView {
                             EventInfo.ROW_TYPE_SHORTCUT, 0 /* rowIndex */);
                     SliceItem interactedItem = mActionItem != null
                             ? mActionItem
-                            : new SliceItem(mListContent.getSlice(), FORMAT_SLICE,
-                                    null /* subtype */, mListContent.getSlice().getHints());
+                            : mListContent.getSliceItem();
                     mObserver.onSliceAction(ei, interactedItem);
                 }
             } catch (CanceledException e) {
@@ -155,7 +152,7 @@ public class ShortcutView extends SliceChildView {
      * Uses app data as the last fallback items for shortcut view.
      */
     private void useAppDataAsFallbackItems(Context context) {
-        Slice slice = mListContent.getSlice();
+        Slice slice = mListContent.getSliceItem().getSlice();
         PackageManager pm = context.getPackageManager();
         ProviderInfo providerInfo = pm.resolveContentProvider(
                 slice.getUri().getAuthority(), 0);
