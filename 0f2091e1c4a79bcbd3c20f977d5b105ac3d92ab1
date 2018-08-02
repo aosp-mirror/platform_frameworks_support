@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "4d460fb7_ae13321e",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-02T18:12:56Z",
+      "side": 1,
+      "message": "Thought some more on this.\n\n1) There is already comment:\n     * Note: returned latch relies on the tested API, so it\u0027s critical to check that the final\n     * visible page is correct using [assertBasicState].\n\n2) If there were more than one page visible, there would be more than one TextView with id\u003d\"text_view\", so Swiping would start failing because of an ambiguous match.\n\n3) So, in summary, it\u0027s not ideal, but it\u0027s fine. :)",
+      "parentUuid": "c1067334_83b7baaf",
+      "range": {
+        "startLine": 133,
+        "startChar": 39,
+        "endLine": 133,
+        "endChar": 52
+      },
+      "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc1de41a_d9636873",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
         "patchSetId": 1
@@ -116,6 +140,30 @@
       "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff024fa7_674dd44c",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-02T18:12:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc1de41a_d9636873",
+      "range": {
+        "startLine": 497,
+        "startChar": 33,
+        "endLine": 498,
+        "endChar": 39
+      },
+      "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -142,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "ace8ebd5_e3607a85",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-02T18:12:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d84e6676_e1483105",
+      "range": {
+        "startLine": 539,
+        "startChar": 8,
+        "endLine": 542,
+        "endChar": 9
+      },
+      "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "806aa4a0_fe2a9f06",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
         "patchSetId": 1
@@ -162,6 +234,30 @@
       "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebf28b95_5dc62cd6",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-02T18:12:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "806aa4a0_fe2a9f06",
+      "range": {
+        "startLine": 553,
+        "startChar": 8,
+        "endLine": 554,
+        "endChar": 86
+      },
+      "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +305,30 @@
       "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3494230_40fa5613",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/SwipeTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-02T18:12:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce86c8b4_e4216f5c",
+      "range": {
+        "startLine": 94,
+        "startChar": 12,
+        "endLine": 94,
+        "endChar": 25
+      },
+      "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -283,6 +403,30 @@
     },
     {
       "key": {
+        "uuid": "d7cde5bd_54337510",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/SwipeTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-02T18:12:56Z",
+      "side": 1,
+      "message": "Didn\u0027t work. Need to read-up on this in Kotlin. Still, fixed the bug.",
+      "parentUuid": "4b91ad94_742655f9",
+      "range": {
+        "startLine": 176,
+        "startChar": 8,
+        "endLine": 176,
+        "endChar": 72
+      },
+      "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "96221341_55a2a56f",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/SwipeTest.kt",
         "patchSetId": 1
@@ -303,6 +447,30 @@
       "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "824d8d18_47c8860e",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/SwipeTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-02T18:12:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96221341_55a2a56f",
+      "range": {
+        "startLine": 270,
+        "startChar": 20,
+        "endLine": 270,
+        "endChar": 40
+      },
+      "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
