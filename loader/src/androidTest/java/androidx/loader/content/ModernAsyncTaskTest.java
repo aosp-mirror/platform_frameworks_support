@@ -28,6 +28,7 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(AndroidJUnit4.class)
@@ -51,7 +52,7 @@ public class ModernAsyncTaskTest {
             public void run() {
                 mModernAsyncTask = new ModernAsyncTask() {
                     @Override
-                    protected Object doInBackground(Object[] params) {
+                    protected Object doInBackground() {
                         readyToCancel.countDown();
                         try {
                             readyToThrow.await();
@@ -68,7 +69,7 @@ public class ModernAsyncTaskTest {
             }
         });
 
-        mModernAsyncTask.execute();
+        mModernAsyncTask.executeOnExecutor(Executors.newSingleThreadExecutor());
         if (!readyToCancel.await(5, TimeUnit.SECONDS)) {
             fail("Test failure: doInBackground did not run in time.");
         }
@@ -94,7 +95,7 @@ public class ModernAsyncTaskTest {
             public void run() {
                 mModernAsyncTask = new ModernAsyncTask() {
                     @Override
-                    protected Object doInBackground(Object[] params) {
+                    protected Object doInBackground() {
                         throw new RuntimeException();
                     }
 
