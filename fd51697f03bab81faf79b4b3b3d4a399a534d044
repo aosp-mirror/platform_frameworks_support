@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "650825a9_f186fb90",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaController2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1422,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-02T03:01:59Z",
+      "side": 1,
+      "message": "Minor) I think this can be simply testGetCurrentPosition()",
+      "range": {
+        "startLine": 1422,
+        "startChar": 38,
+        "endLine": 1422,
+        "endChar": 56
+      },
+      "revId": "fd51697f03bab81faf79b4b3b3d4a399a534d044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
