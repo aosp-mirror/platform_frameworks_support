@@ -146,7 +146,6 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
     View.OnLongClickListener mLongClickListener;
     Handler mHandler;
 
-    private int mMode = MODE_LARGE;
     private Slice mCurrentSlice;
     private SliceMetrics mCurrentSliceMetrics;
     private List<SliceAction> mActions;
@@ -163,6 +162,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
     private int mLargeHeight;
     private int mActionRowHeight;
 
+    private SliceViewPolicy mViewPolicy;
     private SliceStyle mSliceStyle;
     private int mThemeTintColor = -1;
 
@@ -204,9 +204,9 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         mLargeHeight = getResources().getDimensionPixelSize(R.dimen.abc_slice_large_height);
         mActionRowHeight = getResources().getDimensionPixelSize(
                 R.dimen.abc_slice_action_row_height);
-
+        mViewPolicy = new SliceViewPolicy();
         mCurrentView = new LargeTemplateView(getContext());
-        mCurrentView.setMode(getMode());
+        mCurrentView.setPolicy(mViewPolicy);
         addView(mCurrentView, getChildLp(mCurrentView));
         applyConfigurations();
 
@@ -234,7 +234,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     public boolean isSliceViewClickable() {
         return mOnClickListener != null
-                || (mListContent != null && mListContent.getPrimaryAction() != null);
+                || (mListContent != null && mListContent.getShortcut(getContext()) != null);
     }
 
     /**
@@ -248,9 +248,9 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
 
     @Override
     public void onClick(View v) {
-        if (mListContent != null && mListContent.getPrimaryAction() != null) {
+        if (mListContent != null && mListContent.getShortcut(getContext()) != null) {
             try {
-                SliceActionImpl sa = new SliceActionImpl(mListContent.getPrimaryAction());
+                SliceActionImpl sa = (SliceActionImpl) mListContent.getShortcut(getContext());
                 boolean loading = sa.getActionItem().fireActionInternal(getContext(), null);
                 if (loading) {
                     mCurrentView.setActionLoading(sa.getSliceItem());
@@ -258,9 +258,8 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
                 if (mSliceObserver != null && mClickInfo != null && mClickInfo.length > 1) {
                     EventInfo eventInfo = new EventInfo(getMode(),
                             EventInfo.ACTION_TYPE_CONTENT, mClickInfo[0], mClickInfo[1]);
-                    SliceItem sliceItem = mListContent.getPrimaryAction();
-                    mSliceObserver.onSliceAction(eventInfo, sliceItem);
-                    logSliceMetricsOnTouch(sliceItem, eventInfo);
+                    mSliceObserver.onSliceAction(eventInfo, sa.getSliceItem());
+                    logSliceMetricsOnTouch(sa.getSliceItem(), eventInfo);
                 }
             } catch (PendingIntent.CanceledException e) {
                 Log.e(TAG, "PendingIntent for slice cannot be sent", e);
@@ -341,22 +340,19 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         }
         if (maxHeight > 0 && maxHeight <= mMinTemplateHeight) {
             maxHeight = mMinTemplateHeight;
-            mListContent.setMaxSmallHeight(mMinTemplateHeight);
-            mCurrentView.setMaxSmallHeight(mMinTemplateHeight);
+            mViewPolicy.setMaxSmallHeight(mMinTemplateHeight);
         } else {
-            mListContent.setMaxSmallHeight(0);
-            mCurrentView.setMaxSmallHeight(0);
+            mViewPolicy.setMaxSmallHeight(0);
         }
-        return mode == MODE_LARGE
-                ? mListContent.getLargeHeight(maxHeight, mIsScrollable)
-                : mListContent.getSmallHeight();
+        mViewPolicy.setMaxHeight(maxHeight);
+        return mListContent.getHeight(mSliceStyle, mViewPolicy);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int childWidth = MeasureSpec.getSize(widthMeasureSpec);
-        if (MODE_SHORTCUT == mMode) {
+        if (MODE_SHORTCUT == getMode()) {
             // TODO: consider scaling the shortcut to fit if too small
             childWidth = mShortcutSize;
             width = mShortcutSize + getPaddingLeft() + getPaddingRight();
@@ -454,8 +450,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
             mCurrentView.resetView();
         }
         mCurrentSlice = slice;
-        mListContent =
-                new ListContent(getContext(), mCurrentSlice, mSliceStyle);
+        mListContent = new ListContent(getContext(), mCurrentSlice);
         if (!mListContent.isValid()) {
             mActions = null;
             mCurrentView.resetView();
@@ -476,8 +471,8 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         // Tint color can come with the slice, so may need to update it
         mCurrentView.setTint(getTintColor());
 
-        if (mListContent.getLayoutDirItem() != null) {
-            mCurrentView.setLayoutDirection(mListContent.getLayoutDirItem().getInt());
+        if (mListContent.getLayoutDir() != -1) {
+            mCurrentView.setLayoutDirection(mListContent.getLayoutDir());
         } else {
             mCurrentView.setLayoutDirection(View.LAYOUT_DIRECTION_INHERIT);
         }
@@ -581,11 +576,8 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
      * Set whether this view should allow scrollable content when presenting in {@link #MODE_LARGE}.
      */
     public void setScrollable(boolean isScrollable) {
-        if (isScrollable != mIsScrollable) {
-            mIsScrollable = isScrollable;
-            if (mCurrentView instanceof LargeTemplateView) {
-                ((LargeTemplateView) mCurrentView).setScrollable(mIsScrollable);
-            }
+        if (isScrollable != mViewPolicy.isScrollable()) {
+            mViewPolicy.setScrollable(isScrollable);
         }
     }
 
@@ -626,7 +618,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         if (animate) {
             Log.e(TAG, "Animation not supported yet");
         }
-        if (mMode == mode) {
+        if (mViewPolicy.getMode() == mode) {
             return;
         }
         if (mode != MODE_SMALL && mode != MODE_LARGE && mode != MODE_SHORTCUT) {
@@ -634,7 +626,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
                     + " please use one of MODE_SHORTCUT, MODE_SMALL, MODE_LARGE");
             mode = MODE_LARGE;
         }
-        mMode = mode;
+        mViewPolicy.setMode(mode);
         updateViewConfig();
     }
 
@@ -642,7 +634,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
      * @return the mode this view is presenting in.
      */
     public @SliceMode int getMode() {
-        return mMode;
+        return mViewPolicy.getMode();
     }
 
     /**
@@ -688,11 +680,9 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
             newView = true;
         }
 
-        // Set the mode
-        mCurrentView.setMode(mode);
-
         // If the view changes we should apply any configurations to it
         if (newView) {
+            mCurrentView.setPolicy(mViewPolicy);
             mCurrentView.setInsets(getPaddingStart(), getPaddingTop(), getPaddingEnd(),
                     getPaddingBottom());
             applyConfigurations();
@@ -706,14 +696,11 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
 
     private void applyConfigurations() {
         mCurrentView.setSliceActionListener(mSliceObserver);
-        if (mCurrentView instanceof LargeTemplateView) {
-            ((LargeTemplateView) mCurrentView).setScrollable(mIsScrollable);
-        }
         mCurrentView.setStyle(mSliceStyle);
         mCurrentView.setTint(getTintColor());
 
-        if (mListContent != null && mListContent.getLayoutDirItem() != null) {
-            mCurrentView.setLayoutDirection(mListContent.getLayoutDirItem().getInt());
+        if (mListContent != null && mListContent.getLayoutDir() != -1) {
+            mCurrentView.setLayoutDirection(mListContent.getLayoutDir());
         } else {
             mCurrentView.setLayoutDirection(View.LAYOUT_DIRECTION_INHERIT);
         }
@@ -729,7 +716,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         // Sort actions based on priority and set them in action rows.
         List<SliceAction> sortedActions = new ArrayList<>(mActions);
         Collections.sort(sortedActions, SLICE_ACTION_PRIORITY_COMPARATOR);
-        if (mShowActions && mMode != MODE_SHORTCUT && mActions.size() >= 2) {
+        if (mShowActions && getMode() != MODE_SHORTCUT && mActions.size() >= 2) {
             // Show in action row if available
             mActionRow.setActions(sortedActions, getTintColor());
             mActionRow.setVisibility(View.VISIBLE);
@@ -854,7 +841,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
             if (item.getSlice() != null && item.getSlice().getUri() != null) {
                 mCurrentSliceMetrics.logTouch(
                         info.actionType,
-                        mListContent.getPrimaryAction().getSlice().getUri());
+                        item.getSlice().getUri());
             }
         }
     }
