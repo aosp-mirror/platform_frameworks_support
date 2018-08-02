@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import static androidx.build.dependencies.DependenciesKt.*
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
@@ -21,13 +22,23 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":car"))
+    api(project(":car"))
+    api(project(':versionedparcelable'))
     api(project(":annotation"))
+
+    annotationProcessor(project(":versionedparcelable-annotation"))
+
+    androidTestImplementation(TEST_RUNNER)
+    androidTestImplementation(TEST_RULES)
+    androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
+
+    testImplementation(JUNIT)
+    testImplementation(TEST_RUNNER)
 }
 
 android {
     defaultConfig {
-        minSdkVersion 24
+        minSdkVersion 26
     }
 
     compileOptions {
