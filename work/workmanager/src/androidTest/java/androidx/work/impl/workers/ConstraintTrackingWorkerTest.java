@@ -76,9 +76,12 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest implements Execut
     private CountDownLatch mLatch;
     private ExecutorService mExecutorService;
 
+    private WorkerWrapper mWorkerWrapper;
+    private ConstraintTrackingWorker mWorker;
     private WorkManagerImpl mWorkManagerImpl;
     private Configuration mConfiguration;
     private Scheduler mScheduler;
+    private Extras.RuntimeExtras mRuntimeExtras;
     private Trackers mTracker;
     private BatteryChargingTracker mBatteryChargingTracker;
     private BatteryNotLowTracker mBatteryNotLowTracker;
@@ -92,6 +95,8 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest implements Execut
         mExecutorService = Executors.newSingleThreadScheduledExecutor();
         mLatch = new CountDownLatch(1);
         mConfiguration = new Configuration.Builder().build();
+        mRuntimeExtras = new Extras.RuntimeExtras();
+        mRuntimeExtras.mExecutionListener = this;
 
         mWorkManagerImpl = mock(WorkManagerImpl.class);
         mScheduler = mock(Scheduler.class);
@@ -148,18 +153,19 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest implements Execut
                         mContext,
                         ConstraintTrackingWorker.class.getName(),
                         work.getId(),
-                        new Extras(input, Collections.<String>emptyList(), null, 1));
+                        new Extras(input, Collections.<String>emptyList(), mRuntimeExtras, 1));
 
-        ConstraintTrackingWorker spyWorker = spy(worker);
-        when(spyWorker.getWorkDatabase()).thenReturn(mDatabase);
+        mWorker = spy(worker);
+        when(mWorker.getWorkDatabase()).thenReturn(mDatabase);
 
         WorkerWrapper.Builder builder =
                 new WorkerWrapper.Builder(mContext, mConfiguration, mDatabase, workSpecId);
-        builder.withWorker(spyWorker)
-                .withListener(this)
+        builder.withWorker(mWorker)
+                .withListener(null) // set on ConstraintTrackingWorker
                 .withSchedulers(Collections.singletonList(mScheduler));
+        mWorkerWrapper = builder.build();
+        mExecutorService.submit(mWorkerWrapper);
 
-        mExecutorService.submit(builder.build());
         mLatch.await(TEST_TIMEOUT_IN_SECONDS, TimeUnit.SECONDS);
         WorkSpec workSpec = mDatabase.workSpecDao().getWorkSpec(workSpecId);
         assertThat(mLatch.getCount(), is(0L));
@@ -194,18 +200,19 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest implements Execut
                         mContext,
                         ConstraintTrackingWorker.class.getName(),
                         work.getId(),
-                        new Extras(input, Collections.<String>emptyList(), null, 1));
+                        new Extras(input, Collections.<String>emptyList(), mRuntimeExtras, 1));
 
-        ConstraintTrackingWorker spyWorker = spy(worker);
-        when(spyWorker.getWorkDatabase()).thenReturn(mDatabase);
+        mWorker = spy(worker);
+        when(mWorker.getWorkDatabase()).thenReturn(mDatabase);
 
         WorkerWrapper.Builder builder =
                 new WorkerWrapper.Builder(mContext, mConfiguration, mDatabase, workSpecId);
-        builder.withWorker(spyWorker)
-                .withListener(this)
+        builder.withWorker(mWorker)
+                .withListener(null) // set on ConstraintTrackingWorker
                 .withSchedulers(Collections.singletonList(mScheduler));
 
-        mExecutorService.submit(builder.build());
+        mWorkerWrapper = builder.build();
+        mExecutorService.submit(mWorkerWrapper);
         mLatch.await(TEST_TIMEOUT_IN_SECONDS, TimeUnit.SECONDS);
         WorkSpec workSpec = mDatabase.workSpecDao().getWorkSpec(workSpecId);
         assertThat(mLatch.getCount(), is(0L));
@@ -239,17 +246,18 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest implements Execut
                         mContext,
                         ConstraintTrackingWorker.class.getName(),
                         work.getId(),
-                        new Extras(input, Collections.<String>emptyList(), null, 1));
+                        new Extras(input, Collections.<String>emptyList(), mRuntimeExtras, 1));
 
-        ConstraintTrackingWorker spyWorker = spy(worker);
-        when(spyWorker.getWorkDatabase()).thenReturn(mDatabase);
+        mWorker = spy(worker);
+        when(mWorker.getWorkDatabase()).thenReturn(mDatabase);
         WorkerWrapper.Builder builder =
                 new WorkerWrapper.Builder(mContext, mConfiguration, mDatabase, workSpecId);
-        builder.withWorker(spyWorker)
-                .withListener(this)
+        builder.withWorker(mWorker)
+                .withListener(null) // set on ConstraintTrackingWorker
                 .withSchedulers(Collections.singletonList(mScheduler));
 
-        mExecutorService.submit(builder.build());
+        mWorkerWrapper = builder.build();
+        mExecutorService.submit(mWorkerWrapper);
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -291,18 +299,19 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest implements Execut
                         mContext,
                         ConstraintTrackingWorker.class.getName(),
                         work.getId(),
-                        new Extras(input, Collections.<String>emptyList(), null, 1));
+                        new Extras(input, Collections.<String>emptyList(), mRuntimeExtras, 1));
 
-        ConstraintTrackingWorker spyWorker = spy(worker);
-        when(spyWorker.getWorkDatabase()).thenReturn(mDatabase);
+        mWorker = spy(worker);
+        when(mWorker.getWorkDatabase()).thenReturn(mDatabase);
 
         WorkerWrapper.Builder builder =
                 new WorkerWrapper.Builder(mContext, mConfiguration, mDatabase, workSpecId);
-        builder.withWorker(spyWorker)
-                .withListener(this)
+        builder.withWorker(mWorker)
+                .withListener(null) // set on ConstraintTrackingWorker
                 .withSchedulers(Collections.singletonList(mScheduler));
 
-        mExecutorService.submit(builder.build());
+        mWorkerWrapper = builder.build();
+        mExecutorService.submit(mWorkerWrapper);
 
         mHandler.postDelayed(new Runnable() {
             @Override
@@ -329,6 +338,11 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest implements Execut
             @NonNull String workSpecId,
             boolean isSuccessful,
             boolean needsReschedule) {
+
+        // Complete the execution of the ConstraintTrackingWorker like the real WorkerWrapper would.
+        // TODO (rahulrav@) Once we move to the world where NonBlockingWorker is public, this is
+        // no longer required.
+        mWorkerWrapper.onWorkFinished(mWorker.getResult());
         mLatch.countDown();
     }
 }
