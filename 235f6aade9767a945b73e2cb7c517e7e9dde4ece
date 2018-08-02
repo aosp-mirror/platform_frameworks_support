@@ -22,6 +22,30 @@
       "revId": "235f6aade9767a945b73e2cb7c517e7e9dde4ece",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe883ea6_13c93d06",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/SwipeTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-02T22:23:04Z",
+      "side": 1,
+      "message": "Looks good!  Thanks!",
+      "parentUuid": "1eb9d96a_b9100e32",
+      "range": {
+        "startLine": 156,
+        "startChar": 12,
+        "endLine": 156,
+        "endChar": 88
+      },
+      "revId": "235f6aade9767a945b73e2cb7c517e7e9dde4ece",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
