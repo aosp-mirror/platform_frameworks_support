@@ -22,6 +22,30 @@
       "revId": "aba5790509d0855a2f777d5b71158a2f0d27f453",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e08b7232_967e0d88",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/workers/ConstraintTrackingWorkerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-02T20:35:10Z",
+      "side": 1,
+      "message": "The delegate being used is different on a per test case. Made a helper method instead.",
+      "parentUuid": "5bbe9332_f2416497",
+      "range": {
+        "startLine": 151,
+        "startChar": 8,
+        "endLine": 159,
+        "endChar": 62
+      },
+      "revId": "aba5790509d0855a2f777d5b71158a2f0d27f453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
