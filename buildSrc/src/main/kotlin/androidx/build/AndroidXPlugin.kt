@@ -55,6 +55,8 @@ class AndroidXPlugin : Plugin<Project> {
         // TODO do not use evaluationDependsOn in DiffAndDocs to break this cycle!
         project.configureExternalDependencyLicenseCheck()
 
+        project.configureClockLockTasks()
+
         if (project.isRoot) {
             project.configureRootProject()
         }
