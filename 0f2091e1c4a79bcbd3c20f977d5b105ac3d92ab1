@@ -96,6 +96,75 @@
     },
     {
       "key": {
+        "uuid": "fc1de41a_d9636873",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-02T13:41:39Z",
+      "side": 1,
+      "message": "Consider mapNotNull:\n\n events.mapNotNull { it as? OnPageScrolledEvent }\n\n(same for next two occurrences of filter{is X}.map{as X})",
+      "range": {
+        "startLine": 497,
+        "startChar": 33,
+        "endLine": 498,
+        "endChar": 39
+      },
+      "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d84e6676_e1483105",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-02T13:41:39Z",
+      "side": 1,
+      "message": "Consider\n\n last().apply {\n     assertThat(position, equalTo(targetPage))\n     assertThat(positionOffsetPixels, equalTo(0))\n }",
+      "range": {
+        "startLine": 539,
+        "startChar": 8,
+        "endLine": 542,
+        "endChar": 9
+      },
+      "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "806aa4a0_fe2a9f06",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-02T13:41:39Z",
+      "side": 1,
+      "message": "Consider reversing the calculation, i.e., instead of calculating offset from offsetPixels, calculate offsetPixels from offset. That should be an exact match with the actual offsetPixels.\n\n assertThat((it.positionOffset * pageSize).roundToInt(), equalTo(it.positionOffsetPixels))",
+      "range": {
+        "startLine": 553,
+        "startChar": 8,
+        "endLine": 554,
+        "endChar": 86
+      },
+      "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be3d8549_7bf7bea9",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/SwipeTest.kt",
         "patchSetId": 1
@@ -183,6 +252,53 @@
         "startChar": 8,
         "endLine": 176,
         "endChar": 72
+      },
+      "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b91ad94_742655f9",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/SwipeTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-02T13:41:39Z",
+      "side": 1,
+      "message": "Maybe\n\n return this is FragmentStatePagerAdapter",
+      "parentUuid": "22f79f91_9a3668f6",
+      "range": {
+        "startLine": 176,
+        "startChar": 8,
+        "endLine": 176,
+        "endChar": 72
+      },
+      "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96221341_55a2a56f",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/SwipeTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-02T13:41:39Z",
+      "side": 1,
+      "message": "Maybe derive the test name from the seed of random, so we can reproduce the test if it fails (provided that the test name is printed somewhere when the test fails)",
+      "range": {
+        "startLine": 270,
+        "startChar": 20,
+        "endLine": 270,
+        "endChar": 40
       },
       "revId": "0f2091e1c4a79bcbd3c20f977d5b105ac3d92ab1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
