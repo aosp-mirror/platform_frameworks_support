@@ -71,7 +71,7 @@ public class LargeSliceAdapter extends RecyclerView.Adapter<LargeSliceAdapter.Sl
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     int mColor;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    SliceStyle mSliceStyle;
+            SliceStyle mSliceStyle;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     List<SliceAction> mSliceActions;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -96,10 +96,15 @@ public class LargeSliceAdapter extends RecyclerView.Adapter<LargeSliceAdapter.Sl
     Set<SliceItem> mLoadingActions = new HashSet<>();
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     boolean mAllowTwoLines;
+    SliceViewPolicy mPolicy;
 
     public LargeSliceAdapter(Context context) {
         mContext = context;
         setHasStableIds(true);
+    }
+
+    public void setPolicy(SliceViewPolicy p) {
+        mPolicy = p;
     }
 
     /**
@@ -140,14 +145,14 @@ public class LargeSliceAdapter extends RecyclerView.Adapter<LargeSliceAdapter.Sl
     /**
      * Set the {@link SliceItem}'s to be displayed in the adapter and the accent color.
      */
-    public void setSliceItems(List<SliceItem> slices, int color, int mode) {
+    public void setSliceItems(List<SliceContent> slices, int color, int mode) {
         if (slices == null) {
             mLoadingActions.clear();
             mSlices.clear();
         } else {
             mIdGen.resetUsage();
             mSlices = new ArrayList<>(slices.size());
-            for (SliceItem s : slices) {
+            for (SliceContent s : slices) {
                 mSlices.add(new SliceWrapper(s, mIdGen, mode));
             }
         }
@@ -227,16 +232,6 @@ public class LargeSliceAdapter extends RecyclerView.Adapter<LargeSliceAdapter.Sl
         return new SliceViewHolder(v);
     }
 
-    /**
-     * Overrides the normal maximum height for a slice displayed in {@link SliceView#MODE_SMALL}.
-     */
-    public void setMaxSmallHeight(int maxSmallHeight) {
-        if (mMaxSmallHeight != maxSmallHeight) {
-            mMaxSmallHeight = maxSmallHeight;
-            notifyHeaderChanged();
-        }
-    }
-
     @Override
     public int getItemViewType(int position) {
         return mSlices.get(position).mType;
@@ -258,7 +253,7 @@ public class LargeSliceAdapter extends RecyclerView.Adapter<LargeSliceAdapter.Sl
         holder.bind(slice.mItem, position);
     }
 
-    private void notifyHeaderChanged() {
+    public void notifyHeaderChanged() {
         if (getItemCount() > 0) {
             notifyItemChanged(HEADER_INDEX);
         }
@@ -282,14 +277,14 @@ public class LargeSliceAdapter extends RecyclerView.Adapter<LargeSliceAdapter.Sl
     }
 
     protected static class SliceWrapper {
-        final SliceItem mItem;
+        final SliceContent mItem;
         final int mType;
         final long mId;
 
-        public SliceWrapper(SliceItem item, IdGenerator idGen, int mode) {
+        public SliceWrapper(SliceContent item, IdGenerator idGen, int mode) {
             mItem = item;
-            mType = getFormat(item);
-            mId = idGen.getId(item);
+            mType = getFormat(item.getSliceItem());
+            mId = idGen.getId(item.getSliceItem());
         }
 
         public static int getFormat(SliceItem item) {
@@ -323,7 +318,7 @@ public class LargeSliceAdapter extends RecyclerView.Adapter<LargeSliceAdapter.Sl
             mSliceChildView = itemView instanceof SliceChildView ? (SliceChildView) itemView : null;
         }
 
-        void bind(SliceItem item, int position) {
+        void bind(SliceContent item, int position) {
             if (mSliceChildView == null || item == null) {
                 return;
             }
@@ -333,19 +328,14 @@ public class LargeSliceAdapter extends RecyclerView.Adapter<LargeSliceAdapter.Sl
             mSliceChildView.setOnTouchListener(this);
             mSliceChildView.setSliceActionLoadingListener(LargeSliceAdapter.this);
 
-            // A RowBuilder or HeaderBuilder might be in first position where certain things
-            // can be added to it (e.g. last updated, slice actions). Headers are styled slightly
-            // differently so we must note that difference.
-            final boolean isFirstPosition = position == HEADER_INDEX;
-            final boolean isHeader = ListContent.isValidHeader(item);
+            final boolean isHeader = position == HEADER_INDEX;
             int mode = mParent != null ? mParent.getMode() : MODE_LARGE;
             mSliceChildView.setLoadingActions(mLoadingActions);
-            mSliceChildView.setMode(mode);
-            mSliceChildView.setMaxSmallHeight(mMaxSmallHeight);
+            mSliceChildView.setPolicy(mPolicy);
             mSliceChildView.setTint(mColor);
             mSliceChildView.setStyle(mSliceStyle);
-            mSliceChildView.setShowLastUpdated(isFirstPosition && mShowLastUpdated);
-            mSliceChildView.setLastUpdated(isFirstPosition ? mLastUpdated : -1);
+            mSliceChildView.setShowLastUpdated(isHeader && mShowLastUpdated);
+            mSliceChildView.setLastUpdated(isHeader ? mLastUpdated : -1);
             // Only apply top / bottom insets to first / last rows
             int top = position == 0 ? mInsetTop : 0;
             int bottom = position == getItemCount() - 1 ? mInsetBottom : 0;
@@ -354,10 +344,10 @@ public class LargeSliceAdapter extends RecyclerView.Adapter<LargeSliceAdapter.Sl
                 ((RowView) mSliceChildView).setSingleItem(getItemCount() == 1);
             }
             mSliceChildView.setAllowTwoLines(mAllowTwoLines);
-            mSliceChildView.setSliceActions(isFirstPosition ? mSliceActions : null);
+            mSliceChildView.setSliceActions(isHeader ? mSliceActions : null);
             mSliceChildView.setSliceItem(item, isHeader, position, getItemCount(), mSliceObserver);
             int[] info = new int[2];
-            info[0] = ListContent.getRowType(mContext, item, isHeader, mSliceActions);
+            info[0] = ListContent.getRowType(item, isHeader, mSliceActions);
             info[1] = position;
             mSliceChildView.setTag(info);
         }
