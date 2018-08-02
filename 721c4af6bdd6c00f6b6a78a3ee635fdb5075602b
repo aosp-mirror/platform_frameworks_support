@@ -34,6 +34,24 @@
       "revId": "721c4af6bdd6c00f6b6a78a3ee635fdb5075602b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "888d5af2_bd1b9af3",
+        "filename": "navigation/fragment/src/main/java/androidx/navigation/fragment/FragmentNavigator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-02T20:55:41Z",
+      "side": 1,
+      "message": "Removed both @hide and @Restrict",
+      "parentUuid": "ee0c0adb_cbf13244",
+      "revId": "721c4af6bdd6c00f6b6a78a3ee635fdb5075602b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
