@@ -97,9 +97,9 @@ public class SliceUtils {
             Slice.Builder slice = copyMetadata(s);
             switch (mode) {
                 case SliceView.MODE_SHORTCUT:
-                    return new ShortcutContent(listContent).buildSlice(slice);
+                    return listContent.getShortcutContent().buildSlice(slice);
                 case SliceView.MODE_SMALL:
-                    slice.addItem(listContent.getHeaderItem());
+                    slice.addItem(listContent.getHeader().getSliceItem());
                     List<SliceAction> actions = listContent.getSliceActions();
                     if (actions != null && actions.size() > 0) {
                         Slice.Builder sb = new Slice.Builder(slice);
