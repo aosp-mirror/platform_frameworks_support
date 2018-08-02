@@ -74,6 +74,7 @@ public class MediaControlView2Test {
     private static final String TAG = "MediaControlView2Test";
     // Expected success time
     private static final int WAIT_TIME_MS = 1000;
+    private static final int HTTPS_WAIT_TIME_MS = 5000;
     private static final long FFWD_MS = 30000L;
     private static final long REW_MS = 10000L;
 
@@ -83,7 +84,12 @@ public class MediaControlView2Test {
 
     private Activity mActivity;
     private VideoView2 mVideoView;
-    private MediaItem2 mMediaItem;
+    private Uri mFileSchemeUri;
+    private Uri mHttpsSchemeUri;
+    private Uri mHttpSchemeUri;
+    private MediaItem2 mFileSchemeMediaItem;
+    private MediaItem2 mHttpsSchemeMediaItem;
+    private MediaItem2 mHttpSchemeMediaItem;
     private List<MediaController2> mControllers = new ArrayList<>();
 
     @Rule
@@ -98,7 +104,15 @@ public class MediaControlView2Test {
 
         mActivity = mActivityRule.getActivity();
         mVideoView = mActivity.findViewById(R.id.videoview);
-        mMediaItem = createTestMediaItem2();
+        mFileSchemeUri = Uri.parse("android.resource://" + mContext.getPackageName() + "/"
+                + R.raw.test_file_scheme_video);
+        mHttpsSchemeUri = Uri.parse(mContext.getResources().getString(
+                R.string.test_https_scheme_video));
+        mHttpSchemeUri = Uri.parse(mContext.getResources().getString(
+                R.string.test_http_scheme_video));
+        mFileSchemeMediaItem = createTestMediaItem2(mFileSchemeUri);
+        mHttpsSchemeMediaItem = createTestMediaItem2(mHttpsSchemeUri);
+        mHttpSchemeMediaItem = createTestMediaItem2(mHttpSchemeUri);
 
         setKeepScreenOn();
         checkAttachedToWindow();
@@ -122,7 +136,7 @@ public class MediaControlView2Test {
     @Test
     public void testPlayPauseButtonClick() throws Throwable {
         // Don't run the test if the codec isn't supported.
-        if (!hasCodec()) {
+        if (!hasCodec(mFileSchemeUri)) {
             Log.i(TAG, "SKIPPING testPlayPauseButtonClick(): codec is not supported");
             return;
         }
@@ -146,7 +160,7 @@ public class MediaControlView2Test {
         mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mVideoView.setMediaItem2(mMediaItem);
+                mVideoView.setMediaItem2(mFileSchemeMediaItem);
             }
         });
         assertFalse(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
@@ -157,7 +171,7 @@ public class MediaControlView2Test {
     @Test
     public void testFfwdButtonClick() throws Throwable {
         // Don't run the test if the codec isn't supported.
-        if (!hasCodec()) {
+        if (!hasCodec(mFileSchemeUri)) {
             Log.i(TAG, "SKIPPING testFfwdButtonClick(): codec is not supported");
             return;
         }
@@ -176,7 +190,7 @@ public class MediaControlView2Test {
         mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mVideoView.setMediaItem2(mMediaItem);
+                mVideoView.setMediaItem2(mFileSchemeMediaItem);
             }
         });
         assertFalse(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
@@ -187,7 +201,7 @@ public class MediaControlView2Test {
     @Test
     public void testRewButtonClick() throws Throwable {
         // Don't run the test if the codec isn't supported.
-        if (!hasCodec()) {
+        if (!hasCodec(mFileSchemeUri)) {
             Log.i(TAG, "SKIPPING testRewButtonClick(): codec is not supported");
             return;
         }
@@ -222,12 +236,73 @@ public class MediaControlView2Test {
         mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mVideoView.setMediaItem2(mMediaItem);
+                mVideoView.setMediaItem2(mFileSchemeMediaItem);
             }
         });
         assertFalse(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
         onView(withId(R.id.rew)).perform(click());
         assertTrue(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
+    }
+
+    @Test
+    public void testPlayHttpsSchemeVideo() throws Throwable {
+        // Don't run the test if the codec isn't supported.
+        if (!hasCodec(mHttpsSchemeUri)) {
+            Log.i(TAG, "SKIPPING testPlayHttpsSchemeVideo(): codec is not supported");
+            return;
+        }
+
+        final CountDownLatch latch = new CountDownLatch(2);
+        final MediaController2 controller =
+                createController(new MediaController2.ControllerCallback() {
+                    @Override
+                    public void onPlayerStateChanged(@NonNull MediaController2 controller,
+                            int state) {
+                        switch ((int) latch.getCount()) {
+                            case 2:
+                                assertEquals(state, MediaPlayerConnector.PLAYER_STATE_PAUSED);
+                                break;
+                            case 1:
+                                assertEquals(state, MediaPlayerConnector.PLAYER_STATE_PLAYING);
+                        }
+                        latch.countDown();
+                    }
+                });
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mVideoView.setMediaItem2(mHttpsSchemeMediaItem);
+            }
+        });
+        assertFalse(latch.await(WAIT_TIME_MS * 5, TimeUnit.MILLISECONDS));
+        onView(withId(R.id.pause)).perform(click());
+        assertTrue(latch.await(WAIT_TIME_MS * 5, TimeUnit.MILLISECONDS));
+    }
+
+    @Test
+    public void testPlayHttpSchemeVideo() throws Throwable {
+        // Don't run the test if the codec isn't supported.
+        if (!hasCodec(mHttpSchemeUri)) {
+            Log.i(TAG, "SKIPPING testPlayHttpSchemeVideo(): codec is not supported");
+            return;
+        }
+
+        final CountDownLatch latch = new CountDownLatch(1);
+        final MediaController2 controller =
+                createController(new MediaController2.ControllerCallback() {
+                    @Override
+                    public void onPlayerStateChanged(@NonNull MediaController2 controller,
+                            int state) {
+                        latch.countDown();
+                    }
+                });
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mVideoView.setMediaItem2(mHttpSchemeMediaItem);
+            }
+        });
+        assertFalse(latch.await(HTTPS_WAIT_TIME_MS, TimeUnit.MILLISECONDS));
     }
 
     private void setKeepScreenOn() throws Throwable {
@@ -269,16 +344,13 @@ public class MediaControlView2Test {
         }
     }
 
-    private MediaItem2 createTestMediaItem2() {
-        Uri testVideoUri = Uri.parse(
-                "android.resource://" + mContext.getPackageName() + "/" + R.raw.testvideo_long);
-        DataSourceDesc2 dsd = new UriDataSourceDesc2.Builder(
-                mVideoView.getContext(), testVideoUri).build();
+    private MediaItem2 createTestMediaItem2(Uri uri) {
+        DataSourceDesc2 dsd = new UriDataSourceDesc2.Builder(mVideoView.getContext(), uri).build();
         return new MediaItem2.Builder(MediaItem2.FLAG_PLAYABLE).setDataSourceDesc(dsd).build();
     }
 
-    private boolean hasCodec() {
-        return MediaUtils2.hasCodecsForResource(mActivity, R.raw.testvideo);
+    private boolean hasCodec(Uri uri) {
+        return MediaUtils2.hasCodecsForUri(mActivity, uri);
     }
 
     private MediaController2 createController(MediaController2.ControllerCallback callback) {
