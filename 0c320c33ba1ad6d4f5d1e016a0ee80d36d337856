@@ -16,6 +16,24 @@
       "revId": "0c320c33ba1ad6d4f5d1e016a0ee80d36d337856",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3131cdc_74887ec8",
+        "filename": "navigation/fragment/src/main/java/androidx/navigation/fragment/FragmentNavigator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-02T20:13:10Z",
+      "side": 1,
+      "message": "Done - Added document to the field where there is more room for an explanation.",
+      "parentUuid": "7a1e43fe_5ab6d039",
+      "revId": "0c320c33ba1ad6d4f5d1e016a0ee80d36d337856",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
