@@ -22,6 +22,30 @@
       "revId": "62ef0840964ac9029302b3aec361408d8f68e818",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31a79891_f0cd11ac",
+        "filename": "leanback-preference/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-08-02T21:55:16Z",
+      "side": 1,
+      "message": "Migration to depend on *Compat classes is being tracked in b/112147603 - can these changes not be done async?",
+      "parentUuid": "d06d74a1_52ef8c2c",
+      "range": {
+        "startLine": 3,
+        "startChar": 24,
+        "endLine": 3,
+        "endChar": 54
+      },
+      "revId": "62ef0840964ac9029302b3aec361408d8f68e818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
