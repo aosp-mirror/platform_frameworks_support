@@ -104,6 +104,8 @@ class AndroidXPlugin : Plugin<Project> {
 
         val jacocoUberJar = Jacoco.createUberJarTask(this)
         tasks.getByName(BUILD_ON_SERVER_TASK).dependsOn(jacocoUberJar)
+
+        project.createClockLockTasks()
     }
 
     private fun Project.configureAndroidCommonOptions(extension: BaseExtension) {
