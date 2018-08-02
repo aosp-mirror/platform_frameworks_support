@@ -37,6 +37,7 @@ import static androidx.slice.core.SliceHints.ICON_IMAGE;
 import static androidx.slice.core.SliceHints.LARGE_IMAGE;
 import static androidx.slice.core.SliceHints.SMALL_IMAGE;
 import static androidx.slice.core.SliceHints.UNKNOWN_IMAGE;
+import static androidx.slice.widget.SliceView.MODE_SMALL;
 import static androidx.slice.widget.SliceViewUtil.resolveLayoutDirection;
 
 import android.app.slice.Slice;
@@ -61,18 +62,15 @@ import java.util.List;
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 @RequiresApi(19)
-public class GridContent {
+public class GridContent extends SliceContent {
 
     private boolean mAllImages;
-    private SliceItem mColorItem;
-    private SliceItem mLayoutDirItem;
     private SliceItem mPrimaryAction;
     private ArrayList<CellContent> mGridContent = new ArrayList<>();
     private SliceItem mSeeMoreItem;
     private int mMaxCellLineCount;
     private boolean mHasImage;
     private int mLargestImageMode = UNKNOWN_IMAGE;
-    private SliceItem mContentDescr;
 
     private int mBigPicMinHeight;
     private int mBigPicMaxHeight;
@@ -83,6 +81,7 @@ public class GridContent {
     private SliceItem mTitleItem;
 
     public GridContent(Context context, SliceItem gridItem) {
+        super(gridItem);
         populate(gridItem);
 
         if (context != null) {
@@ -100,18 +99,6 @@ public class GridContent {
      * @return whether this grid has content that is valid to display.
      */
     private boolean populate(SliceItem gridItem) {
-        mColorItem = SliceQuery.findSubtype(gridItem, FORMAT_INT, SUBTYPE_COLOR);
-        if (FORMAT_SLICE.equals(gridItem.getFormat())
-                || FORMAT_ACTION.equals(gridItem.getFormat())) {
-            mLayoutDirItem = SliceQuery.findTopLevelItem(gridItem.getSlice(), FORMAT_INT,
-                SUBTYPE_LAYOUT_DIRECTION, null, null);
-            if (mLayoutDirItem != null) {
-                // Make sure it's valid
-                mLayoutDirItem = resolveLayoutDirection(mLayoutDirItem.getInt()) != -1
-                        ? mLayoutDirItem
-                        : null;
-            }
-        }
         mSeeMoreItem = SliceQuery.find(gridItem, null, HINT_SEE_MORE, null);
         if (mSeeMoreItem != null && FORMAT_SLICE.equals(mSeeMoreItem.getFormat())) {
             List<SliceItem> seeMoreItems = mSeeMoreItem.getSlice().getItems();
@@ -128,9 +115,7 @@ public class GridContent {
             items = filterAndProcessItems(items);
             for (int i = 0; i < items.size(); i++) {
                 SliceItem item = items.get(i);
-                if (SUBTYPE_CONTENT_DESCRIPTION.equals(item.getSubType())) {
-                    mContentDescr = item;
-                } else {
+                if (!SUBTYPE_CONTENT_DESCRIPTION.equals(item.getSubType())) {
                     CellContent cc = new CellContent(item);
                     processContent(cc);
                 }
@@ -180,19 +165,6 @@ public class GridContent {
         return mGridContent;
     }
 
-    @Nullable
-    public SliceItem getLayoutDirItem() {
-        return mLayoutDirItem;
-    }
-
-    /**
-     * @return the color to tint content in this grid.
-     */
-    @Nullable
-    public SliceItem getColorItem() {
-        return mColorItem;
-    }
-
     /**
      * @return the content intent item for this grid.
      */
@@ -210,18 +182,10 @@ public class GridContent {
     }
 
     /**
-     * @return content description for this row.
-     */
-    @Nullable
-    public CharSequence getContentDescription() {
-        return mContentDescr != null ? mContentDescr.getText() : null;
-    }
-
-    /**
      * @return whether this grid has content that is valid to display.
      */
     public boolean isValid() {
-        return mGridContent.size() > 0;
+        return super.isValid() && mGridContent.size() > 0;
     }
 
     /**
@@ -308,6 +272,10 @@ public class GridContent {
                     ? hasImage ? mMaxHeight : mMinHeight
                     : iconImagesOrNone ? mMinHeight : mImageTextHeight;
         }
+    }
+
+    public int getHeight(Context context, @SliceView.SliceMode int mode) {
+        return getHeight(mode == MODE_SMALL);
     }
 
     /**

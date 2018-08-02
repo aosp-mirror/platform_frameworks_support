@@ -28,6 +28,7 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 import static androidx.slice.core.SliceHints.LARGE_IMAGE;
+import static androidx.slice.widget.SliceView.MODE_LARGE;
 import static androidx.slice.widget.SliceView.MODE_SMALL;
 
 import android.app.PendingIntent;
@@ -134,7 +135,8 @@ public class GridRowView extends SliceChildView implements View.OnClickListener,
         if (mGridContent == null) {
             return 0;
         }
-        return mGridContent.getSmallHeight() + getExtraTopPadding() + getExtraBottomPadding();
+        return mGridContent.getHeight(getContext(), MODE_SMALL)
+                + getExtraTopPadding() + getExtraBottomPadding();
     }
 
     @Override
@@ -142,7 +144,8 @@ public class GridRowView extends SliceChildView implements View.OnClickListener,
         if (mGridContent == null) {
             return 0;
         }
-        return mGridContent.getActualHeight() + getExtraTopPadding() + getExtraBottomPadding();
+        return mGridContent.getHeight(getContext(), MODE_LARGE)
+                + getExtraTopPadding() + getExtraBottomPadding();
     }
 
     private int getExtraTopPadding() {
@@ -186,13 +189,13 @@ public class GridRowView extends SliceChildView implements View.OnClickListener,
      * This is called when GridView is being used as a component in a larger template.
      */
     @Override
-    public void setSliceItem(SliceItem slice, boolean isHeader, int rowIndex,
+    public void setSliceItem(SliceContent slice, boolean isHeader, int rowIndex,
             int rowCount, SliceView.OnSliceActionListener observer) {
         resetView();
         setSliceActionListener(observer);
         mRowIndex = rowIndex;
         mRowCount = rowCount;
-        mGridContent = new GridContent(getContext(), slice);
+        mGridContent = (GridContent) slice;
 
         if (!scheduleMaxCellsUpdate()) {
             populateViews();
@@ -244,8 +247,8 @@ public class GridRowView extends SliceChildView implements View.OnClickListener,
         if (scheduleMaxCellsUpdate()) {
             return;
         }
-        if (mGridContent.getLayoutDirItem() != null) {
-            setLayoutDirection(mGridContent.getLayoutDirItem().getInt());
+        if (mGridContent.getLayoutDir() != -1) {
+            setLayoutDirection(mGridContent.getLayoutDir());
         }
         if (mGridContent.getContentIntent() != null) {
             EventInfo info = new EventInfo(getMode(), EventInfo.ACTION_TYPE_CONTENT,

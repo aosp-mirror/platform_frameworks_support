@@ -38,7 +38,7 @@ import androidx.slice.core.SliceQuery;
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 @RequiresApi(19)
-public class ShortcutContent {
+public class ShortcutContent extends SliceContent {
 
     private SliceItem mIcon;
     private SliceItem mLabel;
@@ -47,7 +47,7 @@ public class ShortcutContent {
     private final boolean mHasTopLevelColorItem;
 
     public ShortcutContent(@NonNull ListContent content) {
-        Slice slice = content.getSlice();
+        Slice slice = content.getSliceItem().getSlice();
         mColorItem = content.getColorItem();
         mHasTopLevelColorItem = mColorItem != null;
         if (!mHasTopLevelColorItem) {
@@ -94,10 +94,6 @@ public class ShortcutContent {
 
     public SliceItem getIcon() {
         return mIcon;
-    }
-
-    public SliceItem getColorItem() {
-        return mColorItem;
     }
 
     /**

@@ -83,7 +83,7 @@ public abstract class SliceChildView extends FrameLayout {
     /**
      * Called when the slice being displayed in this view is an element of a larger list.
      */
-    public void setSliceItem(SliceItem slice, boolean isHeader, int rowIndex,
+    public void setSliceItem(SliceContent slice, boolean isHeader, int rowIndex,
             int rowCount, SliceView.OnSliceActionListener observer) {
         // Do nothing
     }
