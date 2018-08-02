@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5bbe9332_f2416497",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/workers/ConstraintTrackingWorkerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-02T19:37:25Z",
+      "side": 1,
+      "message": "Isn\u0027t this code exactly the same in every test?  Can we do this in the setup?  These tests are probably getting a little hard to read with all the boilerplate now.",
+      "range": {
+        "startLine": 151,
+        "startChar": 8,
+        "endLine": 159,
+        "endChar": 62
+      },
+      "revId": "aba5790509d0855a2f777d5b71158a2f0d27f453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
