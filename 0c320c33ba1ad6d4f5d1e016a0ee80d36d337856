@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1e43fe_5ab6d039",
+        "filename": "navigation/fragment/src/main/java/androidx/navigation/fragment/FragmentNavigator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-02T18:01:03Z",
+      "side": 1,
+      "message": "let\u0027s document, that the only case, when we expect backstack modified not by us is OnBackStackPressed and we rely that it calls popBackStackImmediately()",
+      "revId": "0c320c33ba1ad6d4f5d1e016a0ee80d36d337856",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
