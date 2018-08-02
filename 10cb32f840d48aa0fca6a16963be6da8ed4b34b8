@@ -353,6 +353,30 @@
       "revId": "10cb32f840d48aa0fca6a16963be6da8ed4b34b8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fabca22_573a182b",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/ListAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-02T17:07:34Z",
+      "side": 1,
+      "message": "whoops, good catch",
+      "parentUuid": "4b4b64d6_8a228215",
+      "range": {
+        "startLine": 162,
+        "startChar": 4,
+        "endLine": 165,
+        "endChar": 6
+      },
+      "revId": "10cb32f840d48aa0fca6a16963be6da8ed4b34b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
