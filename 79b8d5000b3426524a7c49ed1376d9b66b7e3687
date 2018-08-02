@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93cefc40_39e57aa5",
+        "filename": "media-widget/src/androidTest/java/androidx/media/widget/VideoView2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-02T05:58:03Z",
+      "side": 1,
+      "message": "Q) What does this do?",
+      "range": {
+        "startLine": 294,
+        "startChar": 16,
+        "endLine": 294,
+        "endChar": 47
+      },
+      "revId": "79b8d5000b3426524a7c49ed1376d9b66b7e3687",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3ced329_42e68a78",
+        "filename": "media-widget/src/androidTest/java/androidx/media/widget/VideoView2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-02T05:58:03Z",
+      "side": 1,
+      "message": "Add empty line?",
+      "range": {
+        "startLine": 328,
+        "startChar": 18,
+        "endLine": 329,
+        "endChar": 18
+      },
+      "revId": "79b8d5000b3426524a7c49ed1376d9b66b7e3687",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91d615a6_bf22b30a",
+        "filename": "media-widget/src/androidTest/java/androidx/media/widget/VideoView2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-02T05:58:03Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 331,
+        "startChar": 8,
+        "endLine": 332,
+        "endChar": 14
+      },
+      "revId": "79b8d5000b3426524a7c49ed1376d9b66b7e3687",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47025083_c8da523e",
+        "filename": "media-widget/src/androidTest/java/androidx/media/widget/VideoView2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-02T05:58:03Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 340,
+        "startChar": 16,
+        "endLine": 341,
+        "endChar": 16
+      },
+      "revId": "79b8d5000b3426524a7c49ed1376d9b66b7e3687",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecc3ee79_dc67b4cb",
+        "filename": "media-widget/src/androidTest/java/androidx/media/widget/VideoView2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-02T05:58:03Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 344,
+        "startChar": 8,
+        "endLine": 345,
+        "endChar": 15
+      },
+      "revId": "79b8d5000b3426524a7c49ed1376d9b66b7e3687",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0062c3f_4510e6e8",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1623,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-02T05:58:03Z",
+      "side": 1,
+      "message": "How about removing this here if we are setting the mSelectedSubtitleTrackIndex value in L2711 \u0026 L2717?\nOtherwise, I don\u0027t think we need to update mSelectedSubtitleTrackIndex in those lines.",
+      "range": {
+        "startLine": 1623,
+        "startChar": 24,
+        "endLine": 1623,
+        "endChar": 62
+      },
+      "revId": "79b8d5000b3426524a7c49ed1376d9b66b7e3687",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
