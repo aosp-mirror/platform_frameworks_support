@@ -16,6 +16,24 @@
       "revId": "721c4af6bdd6c00f6b6a78a3ee635fdb5075602b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee0c0adb_cbf13244",
+        "filename": "navigation/fragment/src/main/java/androidx/navigation/fragment/FragmentNavigator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-02T20:39:29Z",
+      "side": 1,
+      "message": "I still need the @hide if I want to have the @RestrictTo, otherwise I get an error:\n\n\"FragmentNavigator.java:240: Must include both @RestrictTo annotation and @hide Javadoc tag.\"",
+      "parentUuid": "de895dcc_9319c21e",
+      "revId": "721c4af6bdd6c00f6b6a78a3ee635fdb5075602b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
