@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba82b03d_d7f4a23c",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/BlockingReceiver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-02T16:30:07Z",
+      "side": 1,
+      "message": "maybe mention it can\u0027t be reused.",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf1f7367_c6faa5d1",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/BlockingReceiver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-02T16:30:07Z",
+      "side": 1,
+      "message": "nit:fail(\"...\")\nAlso, probably pull out the constant?",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ae23b33_cd0e57fc",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/BlockingReceiver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-02T16:30:07Z",
+      "side": 1,
+      "message": "nit: private",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7287642_998b7402",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-02T16:30:07Z",
+      "side": 1,
+      "message": "I like this, so this should fix the reference time issue we found in hangout chats?",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3024d51_e1b36722",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-02T16:30:07Z",
+      "side": 1,
+      "message": "mmm, why a TextLinkSpan can have a null textlink?",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d158f8f_0fc61a1a",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-02T16:30:07Z",
+      "side": 1,
+      "message": "how about bail out early to avoid unnecessary indentation.\n\nif (!widget instanceOf TextView) {\n   return;\n}",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08317bd0_3568e7b7",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-02T16:30:07Z",
+      "side": 1,
+      "message": "nit: let\u0027s factor this into a separate method? The method is a bit lengthy now :)",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03d900bd_f95a6190",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-02T16:30:07Z",
+      "side": 1,
+      "message": "my bad.\n\nI believe you can just call\nLocaleListCompat.create(textView.getTextLocales());\n\nbecause the api version check is handled in the create function.",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40a1f448_59f7f34d",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-02T16:30:07Z",
+      "side": 1,
+      "message": "I guess you need to run updateApi.",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0496477_bfd9981f",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinksParams.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-02T16:30:07Z",
+      "side": 1,
+      "message": "I guess you need to run updateApi?\n(I think it can\u0027t pass presubmit as publish \u003d True now)",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
