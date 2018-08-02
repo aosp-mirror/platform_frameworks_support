@@ -40,7 +40,10 @@ import androidx.core.content.res.TypedArrayUtils;
  * @attr name android:switchTextOff
  * @attr name android:switchTextOn
  * @attr name android:disableDependentsState
+ *
+ * @deprecated Use {@link SwitchPreferenceCompat} instead
  */
+@Deprecated
 public class SwitchPreference extends TwoStatePreference {
     private final Listener mListener = new Listener();
 
@@ -59,7 +62,10 @@ public class SwitchPreference extends TwoStatePreference {
      * @param defStyleRes  A resource identifier of a style resource that supplies default values
      *                     for the view, used only if defStyleAttr is 0 or can not be found in the
      *                     theme. Can be 0 to not look for defaults.
+     *
+     * @deprecated Use {@link SwitchPreferenceCompat} instead
      */
+    @Deprecated
     public SwitchPreference(Context context, AttributeSet attrs, int defStyleAttr,
             int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -96,7 +102,10 @@ public class SwitchPreference extends TwoStatePreference {
      * @param defStyleAttr An attribute in the current theme that contains a reference to a style
      *                     resource that supplies default values for the view. Can be 0 to not
      *                     look for defaults.
+     *
+     * @deprecated Use {@link SwitchPreferenceCompat} instead
      */
+    @Deprecated
     public SwitchPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         this(context, attrs, defStyleAttr, 0);
     }
@@ -106,7 +115,10 @@ public class SwitchPreference extends TwoStatePreference {
      *
      * @param context The {@link Context} that will style this preference
      * @param attrs   Style attributes that differ from the default
+     *
+     * @deprecated Use {@link SwitchPreferenceCompat} instead
      */
+    @Deprecated
     public SwitchPreference(Context context, AttributeSet attrs) {
         this(context, attrs, TypedArrayUtils.getAttr(context,
                 androidx.preference.R.attr.switchPreferenceStyle,
@@ -117,7 +129,10 @@ public class SwitchPreference extends TwoStatePreference {
      * Construct a new SwitchPreference with default style options.
      *
      * @param context The {@link Context} that will style this preference
+     *
+     * @deprecated Use {@link SwitchPreferenceCompat} instead
      */
+    @Deprecated
     public SwitchPreference(Context context) {
         this(context, null);
     }
@@ -135,7 +150,10 @@ public class SwitchPreference extends TwoStatePreference {
      * This should be a very short string, one word if possible.
      *
      * @param onText Text to display in the on state
+     *
+     * @deprecated Use {@link SwitchPreferenceCompat} instead
      */
+    @Deprecated
     public void setSwitchTextOn(CharSequence onText) {
         mSwitchOn = onText;
         notifyChanged();
@@ -146,7 +164,10 @@ public class SwitchPreference extends TwoStatePreference {
      * This should be a very short string, one word if possible.
      *
      * @param offText Text to display in the off state
+     *
+     * @deprecated Use {@link SwitchPreferenceCompat} instead
      */
+    @Deprecated
     public void setSwitchTextOff(CharSequence offText) {
         mSwitchOff = offText;
         notifyChanged();
@@ -154,7 +175,10 @@ public class SwitchPreference extends TwoStatePreference {
 
     /**
      * @return The text that will be displayed on the switch widget in the on state
+     *
+     * @deprecated Use {@link SwitchPreferenceCompat} instead
      */
+    @Deprecated
     public CharSequence getSwitchTextOn() {
         return mSwitchOn;
     }
@@ -164,14 +188,20 @@ public class SwitchPreference extends TwoStatePreference {
      * This should be a very short string, one word if possible.
      *
      * @param resId The text as a string resource ID
+     *
+     * @deprecated Use {@link SwitchPreferenceCompat} instead
      */
+    @Deprecated
     public void setSwitchTextOn(int resId) {
         setSwitchTextOn(getContext().getString(resId));
     }
 
     /**
      * @return The text that will be displayed on the switch widget in the off state
+     *
+     * @deprecated Use {@link SwitchPreferenceCompat} instead
      */
+    @Deprecated
     public CharSequence getSwitchTextOff() {
         return mSwitchOff;
     }
@@ -181,7 +211,10 @@ public class SwitchPreference extends TwoStatePreference {
      * This should be a very short string, one word if possible.
      *
      * @param resId The text as a string resource ID
+     *
+     * @deprecated Use {@link SwitchPreferenceCompat} instead
      */
+    @Deprecated
     public void setSwitchTextOff(int resId) {
         setSwitchTextOff(getContext().getString(resId));
     }
@@ -227,8 +260,7 @@ public class SwitchPreference extends TwoStatePreference {
     }
 
     private class Listener implements CompoundButton.OnCheckedChangeListener {
-        Listener() {
-        }
+        Listener() {}
 
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
