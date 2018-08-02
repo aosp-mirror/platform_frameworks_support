@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8e642e5_49b00cb5",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/EntityProcessorTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1835,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-02T05:02:36Z",
+      "side": 1,
+      "message": "sorry i ddin\u0027t intent to +2, it just carried over when i was replying the other comment.\n\nhere, parent column is pojoId not entityId why did you need to change it?",
+      "range": {
+        "startLine": 1834,
+        "startChar": 20,
+        "endLine": 1835,
+        "endChar": 44
+      },
+      "revId": "90f384122d83fbe9384324b29190b9318196a19a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
