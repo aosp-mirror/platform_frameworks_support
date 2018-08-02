@@ -16,6 +16,24 @@
       "revId": "e31b2fa85ae9cb414023346684060d1009bf4c11",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10ed794b_770710ad",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/checker/AutoValueTargetCheckerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-02T02:56:55Z",
+      "side": 1,
+      "message": "Not really, its covered by the other invalid tests. That is, this test validates Room accepts the @Relation annotation in an AutoValue method while the invalid tests even though they test with @PrimaryKey, they are applicable to the list of supported annotations.",
+      "parentUuid": "1092dd1c_54623b0c",
+      "revId": "e31b2fa85ae9cb414023346684060d1009bf4c11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
