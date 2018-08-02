@@ -1029,7 +1029,6 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
                 public void onError(
                         MediaPlayer2 mp, DataSourceDesc2 dsd, int frameworkErr, int implErr) {
                     if (DEBUG) {
-                        Log.d(TAG, "Error: " + frameworkErr + "," + implErr);
                     }
                     mCurrentState = STATE_ERROR;
                     mTargetState = STATE_ERROR;
