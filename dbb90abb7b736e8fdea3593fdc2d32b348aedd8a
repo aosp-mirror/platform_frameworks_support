@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6ca3f227_b078e50c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-02T23:19:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ad24c52_d6059c31",
+      "revId": "dbb90abb7b736e8fdea3593fdc2d32b348aedd8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "484165a4_9efb6dad",
         "filename": "buildSrc/src/main/kotlin/androidx/build/LockClocksTask.kt",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "754588c3_e6294fba",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LockClocksTask.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-02T23:19:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "484165a4_9efb6dad",
+      "range": {
+        "startLine": 33,
+        "startChar": 64,
+        "endLine": 33,
+        "endChar": 71
+      },
+      "revId": "dbb90abb7b736e8fdea3593fdc2d32b348aedd8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d94f971_7dc017d5",
         "filename": "buildSrc/src/main/kotlin/androidx/build/LockClocksTask.kt",
         "patchSetId": 1
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "b7ed6000_746bb970",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LockClocksTask.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-02T23:19:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d94f971_7dc017d5",
+      "revId": "dbb90abb7b736e8fdea3593fdc2d32b348aedd8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42da464_65879439",
         "filename": "buildSrc/src/main/kotlin/androidx/build/LockClocksTask.kt",
         "patchSetId": 1
@@ -73,6 +133,24 @@
       "revId": "dbb90abb7b736e8fdea3593fdc2d32b348aedd8a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f4e6a9f_77d23c37",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LockClocksTask.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-02T23:19:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c42da464_65879439",
+      "revId": "dbb90abb7b736e8fdea3593fdc2d32b348aedd8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
