@@ -278,7 +278,7 @@ public class MediaControlView2Test {
     }
 
     private boolean hasCodec() {
-        return MediaUtils2.hasCodecsForResource(mActivity, R.raw.testvideo);
+        return MediaUtils2.hasCodecsForResource(mActivity, R.raw.testvideo_long);
     }
 
     private MediaController2 createController(MediaController2.ControllerCallback callback) {
