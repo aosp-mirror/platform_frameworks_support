@@ -16,8 +16,15 @@
 
 package androidx.car.cluster.navigation;
 
+import androidx.annotation.IntDef;
+
 /**
- * Sample class of the cluster library.
+ * Possible events used to signal changes in navigation state to remote clients.
  */
-public class Sample {
+@IntDef({NavigationStateEventType.NAV_STATE_CHANGED})
+public @interface NavigationStateEventType {
+    /**
+     * This event data includes a full snapshot of the {@link NavigationState}.
+     */
+    int NAV_STATE_CHANGED = 0;
 }
