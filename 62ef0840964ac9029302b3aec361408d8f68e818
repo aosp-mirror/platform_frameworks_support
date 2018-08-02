@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d06d74a1_52ef8c2c",
+        "filename": "leanback-preference/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-02T21:31:47Z",
+      "side": 1,
+      "message": "We have to deprecate leanback preferences that depend on preference classes we are about to deprecate.",
+      "range": {
+        "startLine": 3,
+        "startChar": 24,
+        "endLine": 3,
+        "endChar": 54
+      },
+      "revId": "62ef0840964ac9029302b3aec361408d8f68e818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
