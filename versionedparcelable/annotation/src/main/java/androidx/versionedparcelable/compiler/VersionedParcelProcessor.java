@@ -19,6 +19,7 @@ import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
@@ -58,7 +59,7 @@ import javax.tools.Diagnostic;
 @SupportedAnnotationTypes({VersionedParcelProcessor.VERSIONED_PARCELIZE,
         VersionedParcelProcessor.PARCEL_FIELD,
         VersionedParcelProcessor.NON_PARCEL_FIELD})
-@SupportedSourceVersion(SourceVersion.RELEASE_7)
+@SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class VersionedParcelProcessor extends AbstractProcessor {
 
     public static final String VERSIONED_PARCELIZE =
@@ -223,9 +224,21 @@ public class VersionedParcelProcessor extends AbstractProcessor {
         findFields(fields, parcelFields);
 
         TypeName type = TypeName.get(versionedParcelable.asType());
+        if (type instanceof ParameterizedTypeName) {
+            List<TypeName> p = ((ParameterizedTypeName) type).typeArguments;
+            if (p != null && p.size() > 0) {
+                type = ClassName.get((TypeElement) versionedParcelable);
+                //error("Invalid parameters: " + type);
+            }
+        }
+        AnnotationSpec suppressUncheckedWarning = AnnotationSpec.builder(
+                ClassName.get("java.lang", "SuppressWarnings"))
+                .addMember("value", "$S", "unchecked")
+                .build();
         MethodSpec.Builder readBuilder = MethodSpec
                 .methodBuilder(READ)
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                .addAnnotation(suppressUncheckedWarning)
                 .returns(type)
                 .addParameter(ClassName.get("androidx.versionedparcelable", "VersionedParcel"),
                         "parcel")
@@ -234,6 +247,7 @@ public class VersionedParcelProcessor extends AbstractProcessor {
         MethodSpec.Builder writeBuilder = MethodSpec
                 .methodBuilder(WRITE)
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                .addAnnotation(suppressUncheckedWarning)
                 .addParameter(type, "obj")
                 .addParameter(ClassName.get("androidx.versionedparcelable", "VersionedParcel"),
                         "parcel")
