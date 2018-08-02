@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a367b491_6ddbd5d5",
+        "filename": "buildSrc/src/test/kotlin/androidx/build/dependencyTracker/DependencyTrackerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-02T20:30:46Z",
+      "side": 1,
+      "message": "probably want to use org.junit assert instead/",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 16
+      },
+      "revId": "fc6b5625ee26c2dd351b2c28803112465bb26859",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
