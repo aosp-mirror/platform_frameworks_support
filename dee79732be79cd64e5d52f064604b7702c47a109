@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "518c99bf_e875623b",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/BlockingReceiver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-02T18:46:09Z",
+      "side": 1,
+      "message": "Done.\nChanged the class a bit so it\u0027s clearer that the broadcastReceiver relates to exactly one pendingIntent.",
+      "parentUuid": "ba82b03d_d7f4a23c",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf1f7367_c6faa5d1",
         "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/BlockingReceiver.java",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d71a22c0_61a0f2af",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/BlockingReceiver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-02T18:46:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf1f7367_c6faa5d1",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "5e80a384_b2657b56",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/BlockingReceiver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-02T18:46:09Z",
+      "side": 1,
+      "message": "My intention is to leave it public so callers that don\u0027t assert anything can be able to unregister the reciever.",
+      "parentUuid": "2ae23b33_cd0e57fc",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7287642_998b7402",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
         "patchSetId": 4
@@ -64,6 +118,24 @@
       "writtenOn": "2018-08-02T16:30:07Z",
       "side": 1,
       "message": "I like this, so this should fix the reference time issue we found in hangout chats?",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d82b12e1_430756ba",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-02T18:46:09Z",
+      "side": 1,
+      "message": "Yes. It should.",
+      "parentUuid": "a7287642_998b7402",
       "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "5fd6509d_dd457e45",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-02T18:46:09Z",
+      "side": 1,
+      "message": "So subclasses are not required to provide it.\nAtm, there is no code in TextLinkSpan that actually requires a TextLink to be available. Didn\u0027t want to enforce non-null uneccessarily.",
+      "parentUuid": "d3024d51_e1b36722",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d158f8f_0fc61a1a",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 4
@@ -101,6 +191,24 @@
       "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14053ac4_82974803",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-02T18:46:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d158f8f_0fc61a1a",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "23d2b2a3_bc49fce8",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-02T18:46:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08317bd0_3568e7b7",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03d900bd_f95a6190",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 4
@@ -135,6 +261,24 @@
       "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35925ef4_8a92fba3",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-02T18:46:09Z",
+      "side": 1,
+      "message": "unfortunately, LocaleListCompat takes in an array of Locale objects, not a LocaleList.",
+      "parentUuid": "03d900bd_f95a6190",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "45ba50a7_6738e0a3",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-02T18:46:09Z",
+      "side": 1,
+      "message": "Yeah. I don\u0027t want to affect API now.\nAdded a TODO.\nI\u0027ll deal with API changes later.\nThanks.",
+      "parentUuid": "40a1f448_59f7f34d",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0496477_bfd9981f",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinksParams.java",
         "patchSetId": 4
@@ -169,6 +331,24 @@
       "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93028f8c_85e69a00",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinksParams.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-02T18:46:09Z",
+      "side": 1,
+      "message": "Yeah. Added a TODO.\nI\u0027ll deal with APIs in a different CL.\nThanks.",
+      "parentUuid": "f0496477_bfd9981f",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
