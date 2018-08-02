@@ -46,6 +46,30 @@
       "revId": "90f384122d83fbe9384324b29190b9318196a19a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe6066ef_238d31af",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/EntityProcessorTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1835,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-02T06:31:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ff141c53_ab76ad7f",
+      "range": {
+        "startLine": 1834,
+        "startChar": 20,
+        "endLine": 1835,
+        "endChar": 44
+      },
+      "revId": "90f384122d83fbe9384324b29190b9318196a19a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
