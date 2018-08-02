@@ -17,12 +17,12 @@
 package androidx.navigation.fragment;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RestrictTo;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -36,6 +36,7 @@ import androidx.navigation.Navigator;
 import androidx.navigation.NavigatorProvider;
 
 import java.util.ArrayDeque;
+import java.util.Iterator;
 
 /**
  * Navigator that navigates through {@link FragmentTransaction fragment transactions}. Every
@@ -54,26 +55,24 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     ArrayDeque<Integer> mBackStack = new ArrayDeque<>();
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    int mLastBackStackCount = 1;
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    int mPendingBackStackOperations = 0;
+    boolean mIsPendingBackStackOperation = false;
 
     private final FragmentManager.OnBackStackChangedListener mOnBackStackChangedListener =
             new FragmentManager.OnBackStackChangedListener() {
 
                 @Override
                 public void onBackStackChanged() {
+                    // If we have pending operations made by us then consume this change. Moreover,
+                    // if our back stack is equal to the fragment manager's back stack then we are
+                    // done waiting for operations.
+                    if (mIsPendingBackStackOperation) {
+                        mIsPendingBackStackOperation = !isBackStackEqual();
+                        return;
+                    }
+
                     // The initial Fragment won't be on the back stack, so the
                     // real count of destinations is the back stack entry count + 1
                     int newCount = mFragmentManager.getBackStackEntryCount() + 1;
-                    if (mPendingBackStackOperations > 0
-                            && newCount <= mLastBackStackCount + mPendingBackStackOperations) {
-                        // This was an expected back stack operation caused by a navigate() call
-                        mPendingBackStackOperations -= newCount - mLastBackStackCount;
-                        mLastBackStackCount = newCount;
-                        return;
-                    }
-                    mLastBackStackCount = newCount;
                     if (newCount < mBackStack.size()) {
                         // Handle cases where the user hit the system back button
                         while (mBackStack.size() > newCount) {
@@ -115,6 +114,7 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
         boolean popped = false;
         if (mFragmentManager.getBackStackEntryCount() > 0) {
             mFragmentManager.popBackStack();
+            mIsPendingBackStackOperation = true;
             popped = true;
         }
         mBackStack.removeLast();
@@ -127,17 +127,6 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
     @Override
     public Destination createDestination() {
         return new Destination(this);
-    }
-
-    @NonNull
-    private String getBackStackName(@IdRes int destinationId) {
-        // This gives us the resource name if it exists,
-        // or just the destinationId if it doesn't exist
-        try {
-            return mContext.getResources().getResourceName(destinationId);
-        } catch (Resources.NotFoundException e) {
-            return Integer.toString(destinationId);
-        }
     }
 
     @SuppressWarnings("deprecation")
@@ -186,13 +175,13 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
                 // remove it from the back stack and put our replacement
                 // on the back stack in its place
                 mFragmentManager.popBackStack();
-                ft.addToBackStack(getBackStackName(destId));
-                mPendingBackStackOperations++;
+                ft.addToBackStack(Integer.toString(destId));
+                mIsPendingBackStackOperation = true;
             }
             backStackEffect = BACK_STACK_UNCHANGED;
         } else {
-            ft.addToBackStack(getBackStackName(destId));
-            mPendingBackStackOperations++;
+            ft.addToBackStack(Integer.toString(destId));
+            mIsPendingBackStackOperation = true;
             backStackEffect = BACK_STACK_DESTINATION_ADDED;
         }
         ft.setReorderingAllowed(true);
@@ -226,9 +215,38 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
                 for (int destId : backStack) {
                     mBackStack.add(destId);
                 }
-                mLastBackStackCount = mBackStack.size();
             }
         }
+    }
+
+    /**
+     * Checks if this FragmentNavigator's back stack is equal to the FragmentManager's back stack.
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    boolean isBackStackEqual() {
+        int fragmentBackStackCount = mFragmentManager.getBackStackEntryCount();
+        // Initial fragment won't be on the FragmentManager's back stack so +1 its count.
+        if (mBackStack.size() != fragmentBackStackCount + 1) {
+            return false;
+        }
+
+        // From top to bottom verify destination ids match in both back stacks/
+        Iterator<Integer> backStackIterator = mBackStack.descendingIterator();
+        int fragmentBackStackIndex = fragmentBackStackCount - 1;
+        while (backStackIterator.hasNext() && fragmentBackStackIndex >= 0) {
+            int destId = backStackIterator.next();
+            int fragmentDestId = Integer.valueOf(mFragmentManager
+                    .getBackStackEntryAt(fragmentBackStackIndex--)
+                    .getName());
+            if (destId != fragmentDestId) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
