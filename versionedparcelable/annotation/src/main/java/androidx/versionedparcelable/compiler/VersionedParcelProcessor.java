@@ -58,7 +58,7 @@ import javax.tools.Diagnostic;
 @SupportedAnnotationTypes({VersionedParcelProcessor.VERSIONED_PARCELIZE,
         VersionedParcelProcessor.PARCEL_FIELD,
         VersionedParcelProcessor.NON_PARCEL_FIELD})
-@SupportedSourceVersion(SourceVersion.RELEASE_7)
+@SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class VersionedParcelProcessor extends AbstractProcessor {
 
     public static final String VERSIONED_PARCELIZE =
@@ -222,10 +222,15 @@ public class VersionedParcelProcessor extends AbstractProcessor {
         ArrayList<VariableElement> parcelFields = new ArrayList<>();
         findFields(fields, parcelFields);
 
-        TypeName type = TypeName.get(versionedParcelable.asType());
+        TypeName type = ClassName.get((TypeElement) versionedParcelable);
+        AnnotationSpec suppressUncheckedWarning = AnnotationSpec.builder(
+                ClassName.get("java.lang", "SuppressWarnings"))
+                .addMember("value", "$S", "unchecked")
+                .build();
         MethodSpec.Builder readBuilder = MethodSpec
                 .methodBuilder(READ)
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                .addAnnotation(suppressUncheckedWarning)
                 .returns(type)
                 .addParameter(ClassName.get("androidx.versionedparcelable", "VersionedParcel"),
                         "parcel")
@@ -234,6 +239,7 @@ public class VersionedParcelProcessor extends AbstractProcessor {
         MethodSpec.Builder writeBuilder = MethodSpec
                 .methodBuilder(WRITE)
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                .addAnnotation(suppressUncheckedWarning)
                 .addParameter(type, "obj")
                 .addParameter(ClassName.get("androidx.versionedparcelable", "VersionedParcel"),
                         "parcel")
