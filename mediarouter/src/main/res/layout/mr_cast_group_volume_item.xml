@@ -33,6 +33,7 @@
                   android:paddingStart="16dp"
                   android:paddingEnd="16dp"
                   android:gravity="center_vertical"
+                  android:background="@drawable/mr_cast_list_divider"
                   android:orientation="horizontal">
         <ImageButton android:id="@+id/mr_cast_mute_button"
                      android:layout_width="24dp"

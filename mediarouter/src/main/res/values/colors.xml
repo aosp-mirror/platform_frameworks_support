@@ -17,4 +17,5 @@
 
 <resources>
     <color name="mr_cast_meta_default_background">#212228</color>
+    <color name="mr_cast_list_divider">#1425272B</color>
 </resources>
