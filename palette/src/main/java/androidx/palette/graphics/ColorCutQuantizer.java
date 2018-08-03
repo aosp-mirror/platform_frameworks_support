@@ -441,9 +441,9 @@ final class ColorCutQuantizer {
     }
 
     private boolean shouldIgnoreColor(int rgb, float[] hsl) {
-        if (mFilters != null && mFilters.length > 0) {
-            for (int i = 0, count = mFilters.length; i < count; i++) {
-                if (!mFilters[i].isAllowed(rgb, hsl)) {
+        if (mFilters != null) {
+            for (Palette.Filter mFilter : mFilters) {
+                if (!mFilter.isAllowed(rgb, hsl)) {
                     return true;
                 }
             }

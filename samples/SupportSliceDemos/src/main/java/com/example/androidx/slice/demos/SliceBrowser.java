@@ -299,8 +299,8 @@ public class SliceBrowser extends AppCompatActivity implements SliceView.OnSlice
                 }
             }
         }
-        for (int i = 0; i < URI_PATHS.length; i++) {
-            mSliceUris.add(getUri(URI_PATHS[i], getApplicationContext()));
+        for (String uriPath : URI_PATHS) {
+            mSliceUris.add(getUri(uriPath, getApplicationContext()));
         }
         populateAdapter(String.valueOf(mSearchView.getQuery()));
     }

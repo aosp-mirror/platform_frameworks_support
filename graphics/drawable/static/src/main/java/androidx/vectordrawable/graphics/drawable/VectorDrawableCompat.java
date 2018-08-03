@@ -1687,15 +1687,14 @@ public class VectorDrawableCompat extends VectorDrawableCommon {
         }
 
         public String nodesToString(PathParser.PathDataNode[] nodes) {
-            String result = " ";
-            for (int i = 0; i < nodes.length; i++) {
-                result += nodes[i].mType + ":";
-                float[] params = nodes[i].mParams;
-                for (int j = 0; j < params.length; j++) {
-                    result += params[j] + ",";
+            StringBuilder result = new StringBuilder(" ");
+            for (PathParser.PathDataNode node : nodes) {
+                result.append(node.mType).append(':');
+                for (float param : node.mParams) {
+                    result.append(param).append(',');
                 }
             }
-            return result;
+            return result.toString();
         }
 
         public VPath(VPath copy) {

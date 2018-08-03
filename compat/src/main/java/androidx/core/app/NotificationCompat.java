@@ -2765,9 +2765,9 @@ public class NotificationCompat {
             @NonNull
             static List<Message> getMessagesFromBundleArray(Parcelable[] bundles) {
                 List<Message> messages = new ArrayList<>(bundles.length);
-                for (int i = 0; i < bundles.length; i++) {
-                    if (bundles[i] instanceof Bundle) {
-                        Message message = getMessageFromBundle((Bundle)bundles[i]);
+                for (Parcelable bundle : bundles) {
+                    if (bundle instanceof Bundle) {
+                        Message message = getMessageFromBundle((Bundle) bundle);
                         if (message != null) {
                             messages.add(message);
                         }

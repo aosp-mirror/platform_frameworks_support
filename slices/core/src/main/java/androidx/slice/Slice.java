@@ -519,8 +519,7 @@ public final class Slice implements VersionedParcelable {
         sb.append(mUri);
         sb.append("] {\n");
         final String nextIndent = indent + "  ";
-        for (int i = 0; i < mItems.length; i++) {
-            SliceItem item = mItems[i];
+        for (SliceItem item : mItems) {
             sb.append(item.toString(nextIndent));
         }
         sb.append(indent);

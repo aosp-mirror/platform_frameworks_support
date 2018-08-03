@@ -103,12 +103,11 @@ class MediaSessionManagerImplBase implements MediaSessionManager.MediaSessionMan
         final String enabledNotifListeners = Settings.Secure.getString(mContentResolver,
                 ENABLED_NOTIFICATION_LISTENERS);
         if (enabledNotifListeners != null) {
-            final String[] components = enabledNotifListeners.split(":");
-            for (int i = 0; i < components.length; i++) {
-                final ComponentName component =
-                        ComponentName.unflattenFromString(components[i]);
-                if (component != null) {
-                    if (component.getPackageName().equals(userInfo.getPackageName())) {
+            for (String component : enabledNotifListeners.split(":")) {
+                final ComponentName componentName =
+                        ComponentName.unflattenFromString(component);
+                if (componentName != null) {
+                    if (componentName.getPackageName().equals(userInfo.getPackageName())) {
                         return true;
                     }
                 }

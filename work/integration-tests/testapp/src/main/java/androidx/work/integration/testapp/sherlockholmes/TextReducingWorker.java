@@ -48,11 +48,11 @@ public class TextReducingWorker extends Worker {
             throw new IllegalArgumentException();
         }
 
-        for (int i = 0; i < inputFiles.length; ++i) {
+        for (String inputFile : inputFiles) {
             FileInputStream fileInputStream = null;
             DataInputStream dataInputStream = null;
             try {
-                fileInputStream = getApplicationContext().openFileInput(inputFiles[i]);
+                fileInputStream = getApplicationContext().openFileInput(inputFile);
                 dataInputStream = new DataInputStream(fileInputStream);
                 while (dataInputStream.available() > 0) {
                     String word = dataInputStream.readUTF();

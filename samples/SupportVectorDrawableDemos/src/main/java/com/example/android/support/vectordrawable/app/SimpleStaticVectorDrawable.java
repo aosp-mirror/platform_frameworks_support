@@ -132,14 +132,14 @@ public class SimpleStaticVectorDrawable extends AppCompatActivity {
         setContentView(scrollView);
     }
 
-    private void addDrawableButtons(LinearLayout container, VectorDrawableCompat[] d) {
+    private void addDrawableButtons(LinearLayout container, VectorDrawableCompat[] vds) {
         // Add the VD into consequent views.
-        for (int i = 0; i < d.length; i++) {
+        for (VectorDrawableCompat vd : vds) {
             Button button = new Button(this);
             button.setWidth(200);
             // Note that setBackgroundResource() will fail b/c createFromXmlInner() failed
             // to recognize <vector> pre-L.
-            button.setBackgroundDrawable(d[i]);
+            button.setBackgroundDrawable(vd);
             container.addView(button);
         }
     }

@@ -261,8 +261,8 @@ public class AppCompatViewInflater {
             mConstructorArgs[1] = attrs;
 
             if (-1 == name.indexOf('.')) {
-                for (int i = 0; i < sClassPrefixList.length; i++) {
-                    final View view = createViewByPrefix(context, name, sClassPrefixList[i]);
+                for (String classPrefix : sClassPrefixList) {
+                    final View view = createViewByPrefix(context, name, classPrefix);
                     if (view != null) {
                         return view;
                     }

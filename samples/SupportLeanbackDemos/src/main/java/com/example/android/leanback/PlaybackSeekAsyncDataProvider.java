@@ -24,7 +24,6 @@ import android.util.SparseArray;
 import androidx.collection.LruCache;
 import androidx.leanback.widget.PlaybackSeekDataProvider;
 
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -134,9 +133,7 @@ public abstract class PlaybackSeekAsyncDataProvider extends PlaybackSeekDataProv
     }
 
     protected void prefetch(int hintIndex, boolean forward) {
-        for (Iterator<Map.Entry<Integer, Bitmap>> it =
-                mPrefetchCache.snapshot().entrySet().iterator(); it.hasNext(); ) {
-            Map.Entry<Integer, Bitmap> entry = it.next();
+        for (Map.Entry<Integer, Bitmap> entry : mPrefetchCache.snapshot().entrySet()) {
             if (forward ? entry.getKey() < hintIndex : entry.getKey() > hintIndex) {
                 mPrefetchCache.remove(entry.getKey());
             }
@@ -178,19 +175,17 @@ public abstract class PlaybackSeekAsyncDataProvider extends PlaybackSeekDataProv
             b.append(",");
         }
         b.append("> Cache<");
-        for (Iterator<Integer> it = mCache.snapshot().keySet().iterator(); it.hasNext();) {
-            Integer key = it.next();
-            if (mCache.get(key) != null) {
-                b.append(key);
+        for (Map.Entry<Integer, Bitmap> entry : mCache.snapshot().entrySet()) {
+            if (entry.getValue() != null) {
+                b.append(entry.getKey());
                 b.append(",");
             }
         }
         b.append(">");
         b.append("> PrefetchCache<");
-        for (Iterator<Integer> it = mPrefetchCache.snapshot().keySet().iterator(); it.hasNext();) {
-            Integer key = it.next();
-            if (mPrefetchCache.get(key) != null) {
-                b.append(key);
+        for (Map.Entry<Integer, Bitmap> entry : mPrefetchCache.snapshot().entrySet()) {
+            if (entry.getValue() != null) {
+                b.append(entry.getKey());
                 b.append(",");
             }
         }

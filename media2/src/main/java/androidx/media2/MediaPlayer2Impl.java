@@ -1774,12 +1774,11 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         }
 
         private String arrToHex(byte[] bytes) {
-            String out = "0x";
-            for (int i = 0; i < bytes.length; i++) {
-                out += String.format("%02x", bytes[i]);
+            StringBuilder out = new StringBuilder("0x");
+            for (byte aByte : bytes) {
+                out.append(String.format("%02x", aByte));
             }
-
-            return out;
+            return out.toString();
         }
 
         private UUID bytesToUUID(byte[] uuid) {

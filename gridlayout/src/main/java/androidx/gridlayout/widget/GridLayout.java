@@ -605,8 +605,8 @@ public class GridLayout extends ViewGroup {
 
     static int max2(int[] a, int valueIfEmpty) {
         int result = valueIfEmpty;
-        for (int i = 0, N = a.length; i < N; i++) {
-            result = Math.max(result, a[i]);
+        for (int anA : a) {
+            result = Math.max(result, anA);
         }
         return result;
     }
@@ -1201,8 +1201,8 @@ public class GridLayout extends ViewGroup {
 
         private void computeGroupBounds() {
             Bounds[] values = groupBounds.values;
-            for (int i = 0; i < values.length; i++) {
-                values[i].reset();
+            for (Bounds value : values) {
+                value.reset();
             }
             for (int i = 0, N = getChildCount(); i < N; i++) {
                 View c = getChildAt(i);
@@ -1230,8 +1230,8 @@ public class GridLayout extends ViewGroup {
         private PackedMap<Interval, MutableInt> createLinks(boolean min) {
             Assoc<Interval, MutableInt> result = Assoc.of(Interval.class, MutableInt.class);
             Spec[] keys = getGroupBounds().keys;
-            for (int i = 0, N = keys.length; i < N; i++) {
-                Interval span = min ? keys[i].span : keys[i].span.inverse();
+            for (Spec key : keys) {
+                Interval span = min ? key.span : key.span.inverse();
                 result.put(span, new MutableInt());
             }
             return result.pack();
@@ -1239,8 +1239,8 @@ public class GridLayout extends ViewGroup {
 
         private void computeLinks(PackedMap<Interval, MutableInt> links, boolean min) {
             MutableInt[] spans = links.values;
-            for (int i = 0; i < spans.length; i++) {
-                spans[i].reset();
+            for (MutableInt span : spans) {
+                span.reset();
             }
 
             // Use getter to trigger a re-evaluation
@@ -1514,8 +1514,8 @@ public class GridLayout extends ViewGroup {
                 // We take one extra pass over traditional Bellman-Ford (and omit their final step)
                 for (int i = 0; i < N; i++) {
                     boolean changed = false;
-                    for (int j = 0, length = arcs.length; j < length; j++) {
-                        changed |= relax(locations, arcs[j]);
+                    for (Arc arc : arcs) {
+                        changed |= relax(locations, arc);
                     }
                     if (!changed) {
                         if (originalCulprits != null) {

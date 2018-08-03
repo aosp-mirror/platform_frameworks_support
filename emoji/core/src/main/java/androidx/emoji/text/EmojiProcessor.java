@@ -185,12 +185,10 @@ final class EmojiProcessor {
 
             if (spannable != null) {
                 final EmojiSpan[] spans = spannable.getSpans(start, end, EmojiSpan.class);
-                if (spans != null && spans.length > 0) {
+                if (spans != null) {
                     // remove existing spans, and realign the start, end according to spans
                     // if start or end is in the middle of an emoji they should be aligned
-                    final int length = spans.length;
-                    for (int index = 0; index < length; index++) {
-                        final EmojiSpan span = spans[index];
+                    for (EmojiSpan span : spans) {
                         final int spanStart = spannable.getSpanStart(span);
                         final int spanEnd = spannable.getSpanEnd(span);
                         // Remove span only when its spanStart is NOT equal to current end.
@@ -330,10 +328,8 @@ final class EmojiProcessor {
         }
 
         final EmojiSpan[] spans = content.getSpans(start, end, EmojiSpan.class);
-        if (spans != null && spans.length > 0) {
-            final int length = spans.length;
-            for (int index = 0; index < length; index++) {
-                final EmojiSpan span = spans[index];
+        if (spans != null) {
+            for (final EmojiSpan span : spans) {
                 final int spanStart = content.getSpanStart(span);
                 final int spanEnd = content.getSpanEnd(span);
                 if ((forwardDelete && spanStart == start)
@@ -402,10 +398,8 @@ final class EmojiProcessor {
         }
 
         final EmojiSpan[] spans = editable.getSpans(start, end, EmojiSpan.class);
-        if (spans != null && spans.length > 0) {
-            final int length = spans.length;
-            for (int index = 0; index < length; index++) {
-                final EmojiSpan span = spans[index];
+        if (spans != null) {
+            for (final EmojiSpan span : spans) {
                 int spanStart = editable.getSpanStart(span);
                 int spanEnd = editable.getSpanEnd(span);
                 start = Math.min(spanStart, start);

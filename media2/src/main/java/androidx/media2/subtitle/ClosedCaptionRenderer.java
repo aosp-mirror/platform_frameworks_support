@@ -302,8 +302,8 @@ public class ClosedCaptionRenderer extends SubtitleController.Renderer {
                     Spannable spannable = (Spannable) text;
                     Cea608CCParser.MutableBackgroundColorSpan[] bgSpans = spannable.getSpans(
                             0, spannable.length(), Cea608CCParser.MutableBackgroundColorSpan.class);
-                    for (int i = 0; i < bgSpans.length; i++) {
-                        bgSpans[i].setBackgroundColor(color);
+                    for (Cea608CCParser.MutableBackgroundColorSpan bgSpan : bgSpans) {
+                        bgSpan.setBackgroundColor(color);
                     }
                 }
             }

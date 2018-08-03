@@ -265,11 +265,11 @@ public class SampleMediaRouterActivity extends AppCompatActivity {
         if (externalDir != null) {
             File list[] = externalDir.listFiles();
             if (list != null) {
-                for (int i = 0; i < list.length; i++) {
-                    String filename = list[i].getName();
+                for (File file : list) {
+                    String filename = file.getName();
                     if (filename.matches(".*\\.(m4v|mp4)")) {
                         mLibraryItems.add(new MediaItem("[local] " + filename,
-                                Uri.fromFile(list[i]), "video/mp4"));
+                                Uri.fromFile(file), "video/mp4"));
                     }
                 }
             }

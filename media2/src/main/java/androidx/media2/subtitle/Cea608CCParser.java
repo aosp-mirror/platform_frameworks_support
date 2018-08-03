@@ -88,21 +88,19 @@ class Cea608CCParser {
     }
 
     public void parse(byte[] data) {
-        CCData[] ccData = CCData.fromByteArray(data);
-
-        for (int i = 0; i < ccData.length; i++) {
+        for (CCData ccData : CCData.fromByteArray(data)) {
             if (DEBUG) {
-                Log.d(TAG, ccData[i].toString());
+                Log.d(TAG, ccData.toString());
             }
 
-            if (handleCtrlCode(ccData[i])
-                    || handleTabOffsets(ccData[i])
-                    || handlePACCode(ccData[i])
-                    || handleMidRowCode(ccData[i])) {
+            if (handleCtrlCode(ccData)
+                    || handleTabOffsets(ccData)
+                    || handlePACCode(ccData)
+                    || handleMidRowCode(ccData)) {
                 continue;
             }
 
-            handleDisplayableChars(ccData[i]);
+            handleDisplayableChars(ccData);
         }
     }
 

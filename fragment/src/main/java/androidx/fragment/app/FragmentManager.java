@@ -757,8 +757,8 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         if (anim instanceof ValueAnimator) {
             ValueAnimator valueAnim = (ValueAnimator) anim;
             PropertyValuesHolder[] values = valueAnim.getValues();
-            for (int i = 0; i < values.length; i++) {
-                if (("alpha").equals(values[i].getPropertyName())) {
+            for (PropertyValuesHolder value : values) {
+                if ("alpha".equals(value.getPropertyName())) {
                     return true;
                 }
             }

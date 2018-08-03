@@ -25,7 +25,6 @@ import android.view.View;
 
 import androidx.collection.LruCache;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -77,9 +76,7 @@ class ViewsStateBundle {
         }
         Map<String, SparseArray<Parcelable>> snapshot = mChildStates.snapshot();
         Bundle bundle = new Bundle();
-        for (Iterator<Entry<String, SparseArray<Parcelable>>> i =
-                snapshot.entrySet().iterator(); i.hasNext(); ) {
-            Entry<String, SparseArray<Parcelable>> e = i.next();
+        for (Entry<String, SparseArray<Parcelable>> e : snapshot.entrySet()) {
             bundle.putSparseParcelableArray(e.getKey(), e.getValue());
         }
         return bundle;
@@ -88,8 +85,7 @@ class ViewsStateBundle {
     public final void loadFromBundle(Bundle savedBundle) {
         if (mChildStates != null && savedBundle != null) {
             mChildStates.evictAll();
-            for (Iterator<String> i = savedBundle.keySet().iterator(); i.hasNext(); ) {
-                String key = i.next();
+            for (String key : savedBundle.keySet()) {
                 mChildStates.put(key, savedBundle.getSparseParcelableArray(key));
             }
         }
