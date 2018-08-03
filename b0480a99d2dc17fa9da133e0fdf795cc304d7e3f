@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a4ae88a_12ebea68",
+        "filename": "compat/src/main/java/androidx/core/os/EnvironmentCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-03T17:47:18Z",
+      "side": 1,
+      "message": "@NonNull return right?",
+      "range": {
+        "startLine": 56,
+        "startChar": 18,
+        "endLine": 56,
+        "endChar": 24
+      },
+      "revId": "b0480a99d2dc17fa9da133e0fdf795cc304d7e3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8af097c2_a3b7631b",
+        "filename": "compat/src/main/java/androidx/core/os/LocaleListCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-03T17:47:18Z",
+      "side": 1,
+      "message": "Nullable?",
+      "range": {
+        "startLine": 54,
+        "startChar": 40,
+        "endLine": 54,
+        "endChar": 50
+      },
+      "revId": "b0480a99d2dc17fa9da133e0fdf795cc304d7e3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
