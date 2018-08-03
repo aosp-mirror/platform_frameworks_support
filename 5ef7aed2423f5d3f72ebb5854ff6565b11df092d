@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c0a96b5a_1beb00bc",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-03T19:12:39Z",
+      "side": 1,
+      "message": "This is a good idea. FYI, there is a pending change which is applying ListenableFuture for async commands. (api council feedback) ag/4622411. I just added you also as a reviewer.",
+      "range": {
+        "startLine": 130,
+        "startChar": 4,
+        "endLine": 130,
+        "endChar": 80
+      },
+      "revId": "5ef7aed2423f5d3f72ebb5854ff6565b11df092d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
