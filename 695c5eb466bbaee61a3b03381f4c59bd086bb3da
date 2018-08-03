@@ -22,6 +22,30 @@
       "revId": "695c5eb466bbaee61a3b03381f4c59bd086bb3da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "554ac53e_254cf17a",
+        "filename": "navigation/safe-args-gradle-plugin/src/main/kotlin/androidx/navigation/safeargs/gradle/SafeArgsPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-03T01:28:50Z",
+      "side": 1,
+      "message": "I aligned it with what android plugin does for its tasks, for example:\n:fragment/build/intermediates/incremental/packageDebugResources/\", though I can add plugin name back",
+      "parentUuid": "ccab3999_e05cd5e5",
+      "range": {
+        "startLine": 32,
+        "startChar": 52,
+        "endLine": 32,
+        "endChar": 65
+      },
+      "revId": "695c5eb466bbaee61a3b03381f4c59bd086bb3da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
