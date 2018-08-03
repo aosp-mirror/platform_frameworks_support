@@ -88,6 +88,11 @@ public class SliceHints {
     public static final int UNKNOWN_IMAGE = 3;
 
     /**
+     * Key to retrieve an extra added to an intent when an item in a selection is selected.
+     */
+    public static final String EXTRA_SELECTION = "android.app.slice.extra.SELECTION";
+
+    /**
      * Constant representing infinity.
      */
     public static final long INFINITY = -1;
