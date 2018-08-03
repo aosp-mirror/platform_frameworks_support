@@ -16,13 +16,16 @@
 
 package androidx.media2;
 
+import android.app.Notification;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
 import androidx.annotation.GuardedBy;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.media.MediaBrowserServiceCompat;
+import androidx.media2.MediaController2.ControllerCallback;
 import androidx.media2.MediaSessionService2.MediaNotification;
 import androidx.media2.MediaSessionService2.MediaSessionService2Impl;
 
@@ -36,12 +39,13 @@ class MediaSessionService2ImplBase implements MediaSessionService2Impl {
     private final Object mLock = new Object();
     @GuardedBy("mLock")
     private MediaSession2 mSession;
+    private MediaController2 mController;
 
     MediaSessionService2ImplBase() {
     }
 
     @Override
-    public void onCreate(MediaSessionService2 service) {
+    public void onCreate(final MediaSessionService2 service) {
         SessionToken2 token = new SessionToken2(service,
                 new ComponentName(service, service.getClass().getName()));
         if (token.getType() != getSessionType()) {
@@ -58,6 +62,31 @@ class MediaSessionService2ImplBase implements MediaSessionService2Impl {
                         + " and type " + token.getType() + ", but got " + mSession);
             }
         }
+        mController = new MediaController2(
+                service, session.getToken(), session.getCallbackExecutor(),
+                new ControllerCallback() {
+                    @Override
+                    public void onPlayerStateChanged(MediaController2 controller, int state) {
+                        if (state == MediaPlayerConnector.PLAYER_STATE_IDLE
+                                || state == MediaPlayerConnector.PLAYER_STATE_ERROR) {
+                            service.stopForeground(true /* removeNotification */);
+                            return;
+                        }
+
+                        // state is PLAYER_STATE_PLAYING or PLAYER_STATE_PAUSE.
+                        MediaNotification mediaNotification = service.onUpdateNotification();
+                        if (mediaNotification == null) {
+                            return;
+                        }
+
+                        int notificationId = mediaNotification.getNotificationId();
+                        Notification notification = mediaNotification.getNotification();
+
+                        NotificationManagerCompat manager = NotificationManagerCompat.from(service);
+                        manager.notify(notificationId, notification);
+                        service.startForeground(notificationId, notification);
+                    }
+                });
     }
 
     @Override

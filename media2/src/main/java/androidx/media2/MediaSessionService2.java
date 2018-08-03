@@ -162,9 +162,9 @@ public abstract class MediaSessionService2 extends Service {
      * Called when notification UI needs update. Override this method to show or cancel your own
      * notification UI.
      * <p>
-     * This would be called when player state changed,
+     * This would be called when player state changed.
      * <p>
-     * With the notification returned here, the service become foreground service when the playback
+     * With the notification returned here, the service becomes foreground service when the playback
      * is started. It becomes background service after the playback is stopped.
      *
      * @return a {@link MediaNotification}. If it's {@code null}, notification wouldn't be shown.
