@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97f88818_ebf6bab2",
+        "filename": "car/core/res/values/dimens.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-08-03T23:11:43Z",
+      "side": 0,
+      "message": "should this also be migrated?",
+      "range": {
+        "startLine": 207,
+        "startChar": 17,
+        "endLine": 207,
+        "endChar": 51
+      },
+      "revId": "0bc367b45d9ef212a599bc3ad461ad15037a2f7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
