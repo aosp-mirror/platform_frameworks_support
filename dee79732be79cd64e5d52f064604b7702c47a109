@@ -213,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "2097d8e1_9f337556",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-03T13:51:58Z",
+      "side": 1,
+      "message": "Ok. Though its name and its javadoc is pretty confusing :)\n\n\"A ClickableSpan for a TextLink.\"",
+      "parentUuid": "14a7c5a5_5d1a1602",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d158f8f_0fc61a1a",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 4
