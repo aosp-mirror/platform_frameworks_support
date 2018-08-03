@@ -46,6 +46,30 @@
       "revId": "62ef0840964ac9029302b3aec361408d8f68e818",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f966bac_fed358c5",
+        "filename": "leanback-preference/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-03T19:31:44Z",
+      "side": 1,
+      "message": "Sure.",
+      "parentUuid": "31a79891_f0cd11ac",
+      "range": {
+        "startLine": 3,
+        "startChar": 24,
+        "endLine": 3,
+        "endChar": 54
+      },
+      "revId": "62ef0840964ac9029302b3aec361408d8f68e818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
