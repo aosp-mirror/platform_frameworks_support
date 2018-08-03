@@ -20,6 +20,7 @@
         <item name="android:colorPrimary">#3F51B5</item>
         <item name="android:colorPrimaryDark">#303F9F</item>
         <item name="android:colorAccent">#FF4081</item>
+        <item name="switchStyle">@style/Widget.AppCompat.CompoundButton.Switch</item>
     </style>
 
     <style name="SupportPreferenceLeanback" parent="Theme.Leanback">

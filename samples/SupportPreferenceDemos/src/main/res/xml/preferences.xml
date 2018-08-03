@@ -45,7 +45,7 @@
             android:title="@string/title_checkbox_preference"
             android:summary="@string/summary_checkbox_preference" />
 
-        <SwitchPreference
+        <SwitchPreferenceCompat
             android:key="switch_preference"
             android:title="Switch preference"
             android:summary="This is a switch" />
