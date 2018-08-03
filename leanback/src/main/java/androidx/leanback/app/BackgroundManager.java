@@ -351,11 +351,11 @@ public final class BackgroundManager {
 
         @Override
         public void draw(Canvas canvas) {
-            for (int i = 0; i < mWrapper.length; i++) {
+            for (DrawableWrapper wrapper : mWrapper) {
                 final Drawable d;
                 // For each child drawable, we multiple Wrapper's alpha and LayerDrawable's alpha
                 // temporarily using mSuspendInvalidation to suppress invalidate event.
-                if (mWrapper[i] != null && (d = mWrapper[i].getDrawable()) != null) {
+                if (wrapper != null && (d = wrapper.getDrawable()) != null) {
                     int alpha = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
                             ? DrawableCompat.getAlpha(d) : FULL_ALPHA;
                     final int savedAlpha = alpha;
@@ -364,8 +364,8 @@ public final class BackgroundManager {
                         alpha = alpha * mAlpha;
                         multiple++;
                     }
-                    if (mWrapper[i].mAlpha < FULL_ALPHA) {
-                        alpha = alpha * mWrapper[i].mAlpha;
+                    if (wrapper.mAlpha < FULL_ALPHA) {
+                        alpha = alpha * wrapper.mAlpha;
                         multiple++;
                     }
                     if (multiple == 0) {

@@ -374,8 +374,8 @@ public class DetailsFragment extends BaseFragment {
         mAdapter = adapter;
         Presenter[] presenters = adapter.getPresenterSelector().getPresenters();
         if (presenters != null) {
-            for (int i = 0; i < presenters.length; i++) {
-                setupPresenter(presenters[i]);
+            for (Presenter presenter : presenters) {
+                setupPresenter(presenter);
             }
         } else {
             Log.e(TAG, "PresenterSelector.getPresenters() not implemented");

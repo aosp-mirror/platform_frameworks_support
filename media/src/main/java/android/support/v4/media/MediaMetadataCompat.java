@@ -503,8 +503,8 @@ public final class MediaMetadataCompat implements Parcelable {
         }
 
         // Get the best art bitmap we can find
-        for (int i = 0; i < PREFERRED_BITMAP_ORDER.length; i++) {
-            Bitmap next = getBitmap(PREFERRED_BITMAP_ORDER[i]);
+        for (String preferredBitmapOrder : PREFERRED_BITMAP_ORDER) {
+            Bitmap next = getBitmap(preferredBitmapOrder);
             if (next != null) {
                 icon = next;
                 break;
@@ -512,8 +512,8 @@ public final class MediaMetadataCompat implements Parcelable {
         }
 
         // Get the best Uri we can find
-        for (int i = 0; i < PREFERRED_URI_ORDER.length; i++) {
-            String next = getString(PREFERRED_URI_ORDER[i]);
+        for (String preferredUriOrder : PREFERRED_URI_ORDER) {
+            String next = getString(preferredUriOrder);
             if (!TextUtils.isEmpty(next)) {
                 iconUri = Uri.parse(next);
                 break;

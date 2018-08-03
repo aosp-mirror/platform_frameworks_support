@@ -206,8 +206,8 @@ public abstract class FragmentStatePagerAdapter extends PagerAdapter {
             mSavedState.clear();
             mFragments.clear();
             if (fss != null) {
-                for (int i=0; i<fss.length; i++) {
-                    mSavedState.add((Fragment.SavedState)fss[i]);
+                for (Parcelable fs : fss) {
+                    mSavedState.add((Fragment.SavedState) fs);
                 }
             }
             Iterable<String> keys = bundle.keySet();

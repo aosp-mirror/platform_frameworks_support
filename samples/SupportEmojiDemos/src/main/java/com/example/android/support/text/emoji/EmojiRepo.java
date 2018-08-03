@@ -71,8 +71,8 @@ class EmojiRepo {
                 // emoji codepoints are space separated: i.e. 0x1f1e6 0x1f1e8
                 final String[] split = s.split(" ", -1);
 
-                for (int index = 0; index < split.length; index++) {
-                    final String part = split[index].trim();
+                for (String aSplit : split) {
+                    final String part = aSplit.trim();
                     int codepoint = Integer.parseInt(part, 16);
                     codepointsList.add(codepoint);
                     codepointBuilder.append(String.format("u+%04x", codepoint));

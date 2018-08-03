@@ -92,8 +92,8 @@ final class LocaleListCompatWrapper implements LocaleListInterface {
     @Override
     public int hashCode() {
         int result = 1;
-        for (int i = 0; i < mList.length; i++) {
-            result = 31 * result + mList[i].hashCode();
+        for (Locale locale : mList) {
+            result = 31 * result + locale.hashCode();
         }
         return result;
     }

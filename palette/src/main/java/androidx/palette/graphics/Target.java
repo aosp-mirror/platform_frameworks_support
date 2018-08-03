@@ -239,8 +239,7 @@ public final class Target {
 
     void normalizeWeights() {
         float sum = 0;
-        for (int i = 0, z = mWeights.length; i < z; i++) {
-            float weight = mWeights[i];
+        for (float weight : mWeights) {
             if (weight > 0) {
                 sum += weight;
             }

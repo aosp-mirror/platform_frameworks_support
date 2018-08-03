@@ -304,10 +304,9 @@ public final class LocalBroadcastManager {
                 mPendingBroadcasts.toArray(brs);
                 mPendingBroadcasts.clear();
             }
-            for (int i=0; i<brs.length; i++) {
-                final BroadcastRecord br = brs[i];
+            for (BroadcastRecord br : brs) {
                 final int nbr = br.receivers.size();
-                for (int j=0; j<nbr; j++) {
+                for (int j = 0; j < nbr; j++) {
                     final ReceiverRecord rec = br.receivers.get(j);
                     if (!rec.dead) {
                         rec.receiver.onReceive(mAppContext, br.intent);

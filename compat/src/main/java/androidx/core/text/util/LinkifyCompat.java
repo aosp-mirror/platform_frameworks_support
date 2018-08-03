@@ -394,13 +394,13 @@ public final class LinkifyCompat {
 
         boolean hasPrefix = false;
 
-        for (int i = 0; i < prefixes.length; i++) {
-            if (url.regionMatches(true, 0, prefixes[i], 0, prefixes[i].length())) {
+        for (String prefix : prefixes) {
+            if (url.regionMatches(true, 0, prefix, 0, prefix.length())) {
                 hasPrefix = true;
 
                 // Fix capitalization if necessary
-                if (!url.regionMatches(false, 0, prefixes[i], 0, prefixes[i].length())) {
-                    url = prefixes[i] + url.substring(prefixes[i].length());
+                if (!url.regionMatches(false, 0, prefix, 0, prefix.length())) {
+                    url = prefix + url.substring(prefix.length());
                 }
 
                 break;
@@ -493,11 +493,11 @@ public final class LinkifyCompat {
     private static void pruneOverlaps(ArrayList<LinkSpec> links, Spannable text) {
         // Append spans added by framework
         URLSpan[] urlSpans = text.getSpans(0, text.length(), URLSpan.class);
-        for (int i = 0; i < urlSpans.length; i++) {
+        for (URLSpan urlSpan : urlSpans) {
             LinkSpec spec = new LinkSpec();
-            spec.frameworkAddedSpan = urlSpans[i];
-            spec.start = text.getSpanStart(urlSpans[i]);
-            spec.end = text.getSpanEnd(urlSpans[i]);
+            spec.frameworkAddedSpan = urlSpan;
+            spec.start = text.getSpanStart(urlSpan);
+            spec.end = text.getSpanEnd(urlSpan);
             links.add(spec);
         }
 

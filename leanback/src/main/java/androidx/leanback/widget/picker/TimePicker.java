@@ -230,8 +230,8 @@ public class TimePicker extends Picker {
     }
 
     private static boolean isAnyOf(char c, char[] any) {
-        for (int i = 0; i < any.length; i++) {
-            if (c == any[i]) {
+        for (char test : any) {
+            if (c == test) {
                 return true;
             }
         }

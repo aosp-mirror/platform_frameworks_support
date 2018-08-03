@@ -1023,9 +1023,9 @@ public class PlaybackSupportFragment extends Fragment {
         if (mAdapter != null && mAdapter.getPresenterSelector() != null) {
             Presenter[] presenters = mAdapter.getPresenterSelector().getPresenters();
             if (presenters != null) {
-                for (int i = 0; i < presenters.length; i++) {
-                    if (presenters[i] instanceof PlaybackRowPresenter
-                            && presenters[i].getFacet(ItemAlignmentFacet.class) == null) {
+                for (Presenter presenter : presenters) {
+                    if (presenter instanceof PlaybackRowPresenter
+                            && presenter.getFacet(ItemAlignmentFacet.class) == null) {
                         ItemAlignmentFacet itemAlignment = new ItemAlignmentFacet();
                         ItemAlignmentFacet.ItemAlignmentDef def =
                                 new ItemAlignmentFacet.ItemAlignmentDef();
@@ -1033,7 +1033,7 @@ public class PlaybackSupportFragment extends Fragment {
                         def.setItemAlignmentOffsetPercent(100);
                         itemAlignment.setAlignmentDefs(new ItemAlignmentFacet.ItemAlignmentDef[]
                                 {def});
-                        presenters[i].setFacet(ItemAlignmentFacet.class, itemAlignment);
+                        presenter.setFacet(ItemAlignmentFacet.class, itemAlignment);
                     }
                 }
             }

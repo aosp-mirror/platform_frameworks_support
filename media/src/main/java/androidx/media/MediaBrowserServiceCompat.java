@@ -1496,10 +1496,8 @@ public abstract class MediaBrowserServiceCompat extends Service {
             return false;
         }
         final PackageManager pm = getPackageManager();
-        final String[] packages = pm.getPackagesForUid(uid);
-        final int N = packages.length;
-        for (int i=0; i<N; i++) {
-            if (packages[i].equals(pkg)) {
+        for (String aPackage : pm.getPackagesForUid(uid)) {
+            if (aPackage.equals(pkg)) {
                 return true;
             }
         }

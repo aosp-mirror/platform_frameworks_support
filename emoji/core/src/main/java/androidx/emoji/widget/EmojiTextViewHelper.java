@@ -164,13 +164,13 @@ public final class EmojiTextViewHelper {
 
         @Override
         InputFilter[] getFilters(@NonNull final InputFilter[] filters) {
-            final int count = filters.length;
-            for (int i = 0; i < count; i++) {
-                if (filters[i] instanceof EmojiInputFilter) {
+            for (InputFilter filter : filters) {
+                if (filter instanceof EmojiInputFilter) {
                     return filters;
                 }
             }
-            final InputFilter[] newFilters = new InputFilter[filters.length + 1];
+            final int count = filters.length;
+            final InputFilter[] newFilters = new InputFilter[count + 1];
             System.arraycopy(filters, 0, newFilters, 0, count);
             newFilters[count] = mEmojiInputFilter;
             return newFilters;

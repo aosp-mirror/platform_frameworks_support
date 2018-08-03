@@ -664,8 +664,8 @@ public abstract class Transition implements Cloneable {
         ArrayMap<View, TransitionValues> unmatchedStart = new ArrayMap<>(startValues.mViewValues);
         ArrayMap<View, TransitionValues> unmatchedEnd = new ArrayMap<>(endValues.mViewValues);
 
-        for (int i = 0; i < mMatchOrder.length; i++) {
-            switch (mMatchOrder[i]) {
+        for (int matchOrder : mMatchOrder) {
+            switch (matchOrder) {
                 case MATCH_INSTANCE:
                     matchInstances(unmatchedStart, unmatchedEnd);
                     break;
@@ -754,9 +754,9 @@ public abstract class Transition implements Cloneable {
                             infoValues.view = view;
                             TransitionValues newValues = endValues.mViewValues.get(view);
                             if (newValues != null) {
-                                for (int j = 0; j < properties.length; ++j) {
-                                    infoValues.values.put(properties[j],
-                                            newValues.values.get(properties[j]));
+                                for (String property : properties) {
+                                    infoValues.values.put(property,
+                                            newValues.values.get(property));
                                 }
                             }
                             int numExistingAnims = runningAnimators.size();
@@ -2183,8 +2183,8 @@ public abstract class Transition implements Cloneable {
                 return;
             }
             boolean containsAll = true;
-            for (int i = 0; i < propertyNames.length; i++) {
-                if (!transitionValues.values.containsKey(propertyNames[i])) {
+            for (String propertyName : propertyNames) {
+                if (!transitionValues.values.containsKey(propertyName)) {
                     containsAll = false;
                     break;
                 }

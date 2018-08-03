@@ -91,12 +91,12 @@ public class SimpleAnimatedVectorDrawable extends AppCompatActivity implements
         setContentView(scrollView);
     }
 
-    private void addDrawableButtons(LinearLayout container, AnimatedVectorDrawableCompat[] d) {
-        for (int i = 0; i < d.length; i++) {
+    private void addDrawableButtons(LinearLayout container, AnimatedVectorDrawableCompat[] avds) {
+        for (AnimatedVectorDrawableCompat avd : avds) {
             Button button = new Button(this);
             button.setWidth(200);
             button.setHeight(200);
-            button.setBackgroundDrawable(d[i]);
+            button.setBackgroundDrawable(avd);
             container.addView(button);
             button.setOnClickListener(this);
         }

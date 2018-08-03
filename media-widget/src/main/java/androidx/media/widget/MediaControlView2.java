@@ -2017,8 +2017,8 @@ public class MediaControlView2 extends BaseLayout {
 
         mPlaybackSpeedList = new ArrayList<Float>();
         int[] speeds = mResources.getIntArray(R.array.speed_multiplied_by_100);
-        for (int i = 0; i < speeds.length; i++) {
-            float speed = (float) speeds[i] / 100.0f;
+        for (int aSpeed : speeds) {
+            float speed = (float) aSpeed / 100.0f;
             mPlaybackSpeedList.add(speed);
         }
     }

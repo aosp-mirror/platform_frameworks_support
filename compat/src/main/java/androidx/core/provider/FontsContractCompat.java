@@ -800,9 +800,9 @@ public class FontsContractCompat {
     }
 
     private static List<byte[]> convertToByteArrayList(Signature[] signatures) {
-        List<byte[]> shas = new ArrayList<>();
-        for (int i = 0; i < signatures.length; ++i) {
-            shas.add(signatures[i].toByteArray());
+        List<byte[]> shas = new ArrayList<>(signatures.length);
+        for (Signature signature : signatures) {
+            shas.add(signature.toByteArray());
         }
         return shas;
     }

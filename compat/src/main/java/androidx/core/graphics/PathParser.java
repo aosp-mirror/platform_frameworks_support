@@ -330,15 +330,15 @@ public class PathParser {
         /**
          * Convert an array of PathDataNode to Path.
          *
-         * @param node The source array of PathDataNode.
+         * @param nodes The source array of PathDataNode.
          * @param path The target Path object.
          */
-        public static void nodesToPath(PathDataNode[] node, Path path) {
+        public static void nodesToPath(PathDataNode[] nodes, Path path) {
             float[] current = new float[6];
             char previousCommand = 'm';
-            for (int i = 0; i < node.length; i++) {
-                addCommand(path, current, previousCommand, node[i].mType, node[i].mParams);
-                previousCommand = node[i].mType;
+            for (PathDataNode node : nodes) {
+                addCommand(path, current, previousCommand, node.mType, node.mParams);
+                previousCommand = node.mType;
             }
         }
 
