@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4e39ea9e_7071fac3",
+        "filename": "leanback-preference/api21/androidx/leanback/preference/LeanbackPreferenceFragmentTransitionHelperApi21.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2018-08-03T20:29:03Z",
+      "side": 1,
+      "message": "API is not public",
+      "parentUuid": "af520d28_ec71feff",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 51
+      },
+      "revId": "ff3e78d04dc7abad8c7739f4f44d5550c91af7c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d0baeac1_ca9cabce",
         "filename": "leanback-preference/src/main/java/androidx/leanback/preference/LeanbackListPreferenceDialogFragment.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "ff3e78d04dc7abad8c7739f4f44d5550c91af7c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60350f19_55d8c42b",
+        "filename": "leanback-preference/src/main/java/androidx/leanback/preference/LeanbackListPreferenceDialogFragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2018-08-03T20:29:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0baeac1_ca9cabce",
+      "range": {
+        "startLine": 200,
+        "startChar": 19,
+        "endLine": 200,
+        "endChar": 21
+      },
+      "revId": "ff3e78d04dc7abad8c7739f4f44d5550c91af7c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7d5710ed_1008e63a",
+        "filename": "leanback-preference/src/main/java/androidx/leanback/preference/LeanbackPreferenceFragmentCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2018-08-03T20:29:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d099ed1_036a33b1",
+      "range": {
+        "startLine": 39,
+        "startChar": 12,
+        "endLine": 40,
+        "endChar": 61
+      },
+      "revId": "ff3e78d04dc7abad8c7739f4f44d5550c91af7c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8eff7c7e_0f7ed7fe",
         "filename": "leanback-preference/src/main/java/androidx/leanback/preference/LeanbackSettingsFragmentCompat.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "ff3e78d04dc7abad8c7739f4f44d5550c91af7c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "577fa9a0_a0a3614f",
+        "filename": "leanback-preference/src/main/java/androidx/leanback/preference/LeanbackSettingsFragmentCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2018-08-03T20:29:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8eff7c7e_0f7ed7fe",
+      "range": {
+        "startLine": 51,
+        "startChar": 12,
+        "endLine": 52,
+        "endChar": 61
+      },
+      "revId": "ff3e78d04dc7abad8c7739f4f44d5550c91af7c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
