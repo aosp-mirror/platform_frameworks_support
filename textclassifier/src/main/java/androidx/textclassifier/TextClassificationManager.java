@@ -29,9 +29,16 @@ import androidx.core.util.Preconditions;
  * Class to handle the creation of {@link TextClassifier}.
  */
 public final class TextClassificationManager {
+    /**
+     * A factory that returns the default text classifier.
+     */
+    @NonNull
+    private final TextClassifierFactory mDefaultFactory;
+    @NonNull
     private final Context mContext;
     @Nullable
     private static TextClassificationManager sInstance;
+    @Nullable
     private TextClassifierFactory mTextClassifierFactory;
 
     /** @hide **/
@@ -39,6 +46,17 @@ public final class TextClassificationManager {
     @VisibleForTesting
     TextClassificationManager(@NonNull Context context) {
         mContext = Preconditions.checkNotNull(context);
+        mDefaultFactory = new TextClassifierFactory() {
+            @Override
+            public TextClassifier create(TextClassificationContext textClassificationContext) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    return PlatformTextClassifierWrapper.create(
+                            mContext, textClassificationContext);
+                }
+                return LegacyTextClassifier.of(mContext);
+            }
+        };
+        mTextClassifierFactory = mDefaultFactory;
     }
 
     /**
@@ -63,30 +81,47 @@ public final class TextClassificationManager {
     public TextClassifier createTextClassifier(
             @NonNull TextClassificationContext textClassificationContext) {
         Preconditions.checkNotNull(textClassificationContext);
-        if (mTextClassifierFactory != null) {
-            return mTextClassifierFactory.create(textClassificationContext);
-        }
-        return defaultTextClassifier(textClassificationContext);
+        return getTextClassifierFactory().create(textClassificationContext);
     }
 
     /**
      * Sets a factory that can create a preferred text classifier.
      * <p>
      * To turn off the feature completely, you can set a factory that returns
-     * {@link TextClassifier#NO_OP}.
+     * {@link TextClassifierFactory#NO_OP_FACTORY}.
+     * <p>
+     * You can clear the preferred factory by setting {@code null}, the default factory will then
+     * be used.
      */
     public void setTextClassifierFactory(@Nullable TextClassifierFactory factory) {
         mTextClassifierFactory = factory;
     }
 
     /**
-     * Returns the default text classifier.
+     * Returns a text classifier factory.
+     * <p>
+     * If a factory is set through {@link #setTextClassifierFactory(TextClassifierFactory)},
+     * that factory will be returned. Otherwise, the default factory will be returned.
      */
-    private TextClassifier defaultTextClassifier(
-            @Nullable TextClassificationContext textClassificationContext) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            return PlatformTextClassifierWrapper.create(mContext, textClassificationContext);
+    @NonNull
+    public TextClassifierFactory getTextClassifierFactory() {
+        if (mTextClassifierFactory != null) {
+            return mTextClassifierFactory;
         }
-        return LegacyTextClassifier.of(mContext);
+        return mDefaultFactory;
     }
+
+    /**
+     * Returns the default text classifier factory, regardless of the one set through
+     * {@link #setTextClassifierFactory}.
+     * <p>
+     * In post O, the default factory will return a text classifier that bases on the
+     * platform {@link android.view.textclassifier.TextClassifier}. Otherwise, the default
+     * factory will return a text classifier that is backed by the legacy
+     * {@link androidx.core.text.util.LinkifyCompat} API.
+     */
+    public TextClassifierFactory getDefaultTextClassifierFactory() {
+        return mDefaultFactory;
+    }
+
 }
