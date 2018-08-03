@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "179dbdd0_5f2a8221",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-03T10:43:24Z",
+      "side": 1,
+      "message": "nit: UserManager.getUserRestrictions is actually added in API 18, and our minSDK is 19, so this check maybe not necessary?",
+      "revId": "695457e0bc720dcbe94325226087d216d6f95e08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32eac7bc_646bf487",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-03T10:43:24Z",
+      "side": 1,
+      "message": "classname and packageName are swapped?",
+      "revId": "695457e0bc720dcbe94325226087d216d6f95e08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6d44533_78cba320",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-03T10:43:24Z",
+      "side": 1,
+      "message": "Q: I guess it is just for safe? Or PKM do return null className?",
+      "revId": "695457e0bc720dcbe94325226087d216d6f95e08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d999fea6_17dedcf2",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-03T10:43:24Z",
+      "side": 1,
+      "message": "Maybe we should just pass ActivityInfo or even ResolveInfo as I feel like part of the checking are left here.",
+      "revId": "695457e0bc720dcbe94325226087d216d6f95e08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd95a011_0abddc1e",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-03T10:43:24Z",
+      "side": 1,
+      "message": "If it is primarily for testing, maybe we should just mock PackageManager?\nOr we have difficulty to do so?",
+      "revId": "695457e0bc720dcbe94325226087d216d6f95e08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
