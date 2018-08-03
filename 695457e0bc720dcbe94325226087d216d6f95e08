@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3070592f_743a9f60",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-03T15:53:54Z",
+      "side": 1,
+      "message": "I guess we\u0027d just play safe here.",
+      "parentUuid": "179dbdd0_5f2a8221",
+      "revId": "695457e0bc720dcbe94325226087d216d6f95e08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32eac7bc_646bf487",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "695457e0bc720dcbe94325226087d216d6f95e08",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b9bf49e_fb951b45",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-03T15:53:54Z",
+      "side": 1,
+      "message": "Good catch. Thanks!",
+      "parentUuid": "32eac7bc_646bf487",
+      "revId": "695457e0bc720dcbe94325226087d216d6f95e08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "2fe143e8_bb213048",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-03T15:53:54Z",
+      "side": 1,
+      "message": "Lol. I doubt it.\nUpdated code to assume we always have both. :)",
+      "parentUuid": "f6d44533_78cba320",
+      "revId": "695457e0bc720dcbe94325226087d216d6f95e08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d999fea6_17dedcf2",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
         "patchSetId": 3
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "3aa63e6d_2b36c76d",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-03T15:53:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d999fea6_17dedcf2",
+      "revId": "695457e0bc720dcbe94325226087d216d6f95e08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd95a011_0abddc1e",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
         "patchSetId": 3
@@ -84,6 +156,24 @@
       "revId": "695457e0bc720dcbe94325226087d216d6f95e08",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f73c0c8_8b36117a",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-03T15:53:54Z",
+      "side": 1,
+      "message": "There\u0027s more stuff here beyond the packagemanager. E.g. context.checkSelfPermission(permission). \n\nhasPermission(ActivityInfo) seems like a decent level of abstraction. Not too much complicated code that warrants testing, and no need to be poking much into internals of Android services for what it means for an app to be able to access another app.",
+      "parentUuid": "cd95a011_0abddc1e",
+      "revId": "695457e0bc720dcbe94325226087d216d6f95e08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
