@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4f4a472e_852423e3",
+        "filename": "lifecycle/livedata-core/ktx/src/main/AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-03T17:23:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f605dea_e4e70bfb",
+      "revId": "ed7ae2a4ea681bcb8fd0810c3477ceb6946c199a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57a73ffe_5259d8d7",
         "filename": "lifecycle/livedata-core/ktx/src/main/java/androidx/lifecycle/LiveData.kt",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "ed7ae2a4ea681bcb8fd0810c3477ceb6946c199a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d14a4877_22fab63d",
+        "filename": "lifecycle/livedata-core/ktx/src/main/java/androidx/lifecycle/LiveData.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-03T17:23:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57a73ffe_5259d8d7",
+      "revId": "ed7ae2a4ea681bcb8fd0810c3477ceb6946c199a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
