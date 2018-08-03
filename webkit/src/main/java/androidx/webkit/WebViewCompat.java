@@ -475,6 +475,36 @@ public class WebViewCompat {
         }
     }
 
+    /**
+     * Gets the WebView renderer associated with this WebView.
+     *
+     * <p>In Android O and above, rendering of web content may be performed by a sandboxed renderer
+     * process separate to the application process.
+     * <p>
+     * This method should only be called if
+     * {@link WebViewFeature#isFeatureSupported(String)}
+     * returns true for {@link WebViewFeature#GET_WEB_VIEW_RENDERER}.
+     *
+     * <p>
+     * @return the WebView renderer, or {@code null} if not available.
+     */
+    @SuppressLint("NewApi")
+    @RequiresFeature(name = WebViewFeature.GET_WEB_VIEW_RENDERER,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static @Nullable WebViewRendererCompat getWebViewRenderer(@NonNull WebView webview) {
+        final WebViewFeatureInternal feature =
+                WebViewFeatureInternal.getFeature(WebViewFeature.GET_WEB_VIEW_RENDERER);
+        if (feature.isSupportedByWebView()) {
+            try {
+                return getProvider(webview).getWebViewRenderer();
+            } catch (Exception e) {
+                throw WebViewFeatureInternal.getUnsupportedOperationException();
+            }
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
     private static WebViewProviderFactory getFactory() {
         return WebViewGlueCommunicator.getFactory();
     }

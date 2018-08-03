@@ -262,10 +262,17 @@ public enum WebViewFeatureInternal {
     /**
      * This feature covers {@link WebViewCompat#getWebChromeClient(WebView)}.
      */
-    GET_WEB_CHROME_CLIENT(WebViewFeature.GET_WEB_CHROME_CLIENT, Build.VERSION_CODES.O);
+    GET_WEB_CHROME_CLIENT(WebViewFeature.GET_WEB_CHROME_CLIENT, Build.VERSION_CODES.O),
+
+    GET_WEB_VIEW_RENDERER(WebViewFeature.GET_WEB_VIEW_RENDERER),
+    WEB_VIEW_RENDERER_TERMINATE(WebViewFeature.WEB_VIEW_RENDERER_TERMINATE);
 
     private final String mFeatureValue;
     private final int mOsVersion;
+
+    WebViewFeatureInternal(String featureValue) {
+        this(featureValue, -1);
+    }
 
     WebViewFeatureInternal(String featureValue, int osVersion) {
         mFeatureValue = featureValue;
@@ -287,7 +294,7 @@ public enum WebViewFeatureInternal {
      * current device.
      */
     public boolean isSupportedByFramework() {
-        return Build.VERSION.SDK_INT >= mOsVersion;
+        return mOsVersion >= 0 && Build.VERSION.SDK_INT >= mOsVersion;
     }
 
     /**
