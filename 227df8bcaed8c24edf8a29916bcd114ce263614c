@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60fa1198_80820d69",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LockClocksTask.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-03T17:04:09Z",
+      "side": 1,
+      "message": "I guess, it is better to check return value, because if process didn\u0027t exist, process.exitValue() would throw",
+      "range": {
+        "startLine": 41,
+        "startChar": 16,
+        "endLine": 41,
+        "endChar": 23
+      },
+      "revId": "227df8bcaed8c24edf8a29916bcd114ce263614c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efec5dfa_fe877f11",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LockClocksTask.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-03T17:04:09Z",
+      "side": 1,
+      "message": "nit: use GradleException",
+      "range": {
+        "startLine": 47,
+        "startChar": 18,
+        "endLine": 47,
+        "endChar": 27
+      },
+      "revId": "227df8bcaed8c24edf8a29916bcd114ce263614c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
