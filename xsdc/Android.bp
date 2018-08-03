@@ -1,0 +1,7 @@
+java_binary_host {
+	name: "xsdc",
+	srcs: ["src/**/*.java"],
+	static_libs: ["core-all"],
+	manifest: "MANIFEST.MF"
+}
+

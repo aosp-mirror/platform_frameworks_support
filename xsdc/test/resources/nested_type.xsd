@@ -1,0 +1,28 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="nested_type" elementFormDefault="qualified">
+    <xs:element name="employee">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element type="xs:byte" name="id"/>
+                <xs:element type="xs:string" name="name"/>
+                <xs:element name="address">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:string" name="country"/>
+                            <xs:element type="xs:string" name="state"/>
+                            <xs:element type="xs:short" name="zip"/>
+                            <xs:element name="extra">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:string" name="line1"/>
+                                        <xs:element type="xs:string" name="line2"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element type="xs:string" name="assets" maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,72 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="predefined_types" elementFormDefault="qualified" xmlns="predefined_types">
+    <xs:complexType name="stringTypes">
+        <xs:sequence>
+            <xs:element name="string" type="xs:string" />
+            <xs:element name="token" type="xs:token"/>
+            <xs:element name="normalizedString" type="xs:normalizedString"/>
+            <xs:element name="language" type="xs:language"/>
+            <xs:element name="entity" type="xs:ENTITY"/>
+            <xs:element name="entities" type="xs:ENTITIES"/>
+            <xs:element name="id" type="xs:ID"/>
+            <xs:element name="name" type="xs:Name"/>
+            <xs:element name="ncname" type="xs:NCName"/>
+            <xs:element name="nmtoken" type="xs:NMTOKEN"/>
+            <xs:element name="nmtokens" type="xs:NMTOKENS"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="dateTypes">
+        <xs:sequence>
+            <xs:element name="date" type="xs:date" />
+            <xs:element name="dateTime" type="xs:dateTime"/>
+            <xs:element name="duration" type="xs:duration"/>
+            <xs:element name="gDay" type="xs:gDay"/>
+            <xs:element name="gMonth" type="xs:gMonth"/>
+            <xs:element name="gMonthDay" type="xs:gMonthDay"/>
+            <xs:element name="gYear" type="xs:gYear"/>
+            <xs:element name="gYearMonth" type="xs:gYearMonth"/>
+            <xs:element name="time" type="xs:time"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="numericTypes">
+        <xs:sequence>
+            <xs:element name="decimal" type="xs:decimal"/>
+            <xs:element name="integer" type="xs:integer"/>
+            <xs:element name="long" type="xs:long"/>
+            <xs:element name="int" type="xs:int"/>
+            <xs:element name="short" type="xs:short"/>
+            <xs:element name="byte" type="xs:byte" />
+            <xs:element name="negativeInteger" type="xs:negativeInteger"/>
+            <xs:element name="nonNegativeInteger" type="xs:nonNegativeInteger"/>
+            <xs:element name="positiveInteger" type="xs:positiveInteger"/>
+            <xs:element name="nonPositiveInteger" type="xs:nonPositiveInteger"/>
+            <xs:element name="unsignedLong" type="xs:unsignedLong"/>
+            <xs:element name="unsignedInt" type="xs:unsignedInt"/>
+            <xs:element name="unsignedShort" type="xs:unsignedShort"/>
+            <xs:element name="unsignedByte" type="xs:unsignedByte"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="miscTypes">
+        <xs:sequence>
+            <xs:element name="double" type="xs:double"/>
+            <xs:element name="float" type="xs:float"/>
+            <xs:element name="anyURI" type="xs:anyURI"/>
+            <xs:element name="base64Binary" type="xs:base64Binary"/>
+            <xs:element name="boolean" type="xs:boolean"/>
+            <xs:element name="hexBinary" type="xs:hexBinary" />
+            <xs:element name="QName" type="xs:QName"/>
+            <xs:element name="IDREF" type="xs:IDREF"/>
+            <xs:element name="IDREFS" type="xs:IDREFS"/>
+            <xs:element name="anyType" type="xs:anyType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="types">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="stringTypes" type="stringTypes"/>
+                <xs:element name="dateTypes" type="dateTypes"/>
+                <xs:element name="numericTypes" type="numericTypes"/>
+                <xs:element name="miscTypes" type="miscTypes"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

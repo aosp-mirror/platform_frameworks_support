@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<types xmlns="predefined_types">
+    <stringTypes>
+        <string>abcd</string>
+        <token>abcd</token>
+        <normalizedString>abcd</normalizedString>
+        <language>abcd</language>
+        <entity>abcd</entity>
+        <entities>a b c d</entities>
+        <id>abcd</id>
+        <name>abcd</name>
+        <ncname>abcd</ncname>
+        <nmtoken>abcd</nmtoken>
+        <nmtokens>a b c d</nmtokens>
+    </stringTypes>
+    <dateTypes>
+        <date>2018-06-18</date>
+        <dateTime>2018-06-18T21:32:52</dateTime>
+        <duration>P3M</duration>
+        <gDay>---18</gDay>
+        <gMonth>--06</gMonth>
+        <gMonthDay>--06-18</gMonthDay>
+        <gYear>2018</gYear>
+        <gYearMonth>2018-06</gYearMonth>
+        <time>21:32:52</time>
+    </dateTypes>
+    <numericTypes>
+        <decimal>1234.5678</decimal>
+        <integer>123456789012345678901234567890</integer>
+        <long>9223372036854775807</long>
+        <int>2147483647</int>
+        <short>32767</short>
+        <byte>127</byte>
+        <negativeInteger>-1234</negativeInteger>
+        <nonNegativeInteger>1234</nonNegativeInteger>
+        <positiveInteger>1234</positiveInteger>
+        <nonPositiveInteger>-1234</nonPositiveInteger>
+        <unsignedLong>1234</unsignedLong>
+        <unsignedInt>1234</unsignedInt>
+        <unsignedShort>1234</unsignedShort>
+        <unsignedByte>255</unsignedByte>
+    </numericTypes>
+    <miscTypes>
+        <double>1234.5678</double>
+        <float>123.456</float>
+        <anyURI>https://www.google.com</anyURI>
+        <base64Binary>Z29vZ2xl</base64Binary>
+        <boolean>true</boolean>
+        <hexBinary>516a75cb56d7e7</hexBinary>
+        <QName>abcd</QName>
+        <IDREF>abcd</IDREF>
+        <IDREFS>abcd abcd</IDREFS>
+        <anyType>abcd</anyType>
+    </miscTypes>
+</types>
