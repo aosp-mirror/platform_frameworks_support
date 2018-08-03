@@ -22,6 +22,14 @@ import androidx.annotation.NonNull;
  * Factory that creates {@link TextClassifier}.
  */
 public interface TextClassifierFactory {
+
+    TextClassifierFactory NO_OP_FACTORY = new TextClassifierFactory() {
+        @Override
+        public TextClassifier create(TextClassificationContext textClassificationContext) {
+            return TextClassifier.NO_OP;
+        }
+    };
+
     /**
      * Creates and returns a text classifier.
      */
