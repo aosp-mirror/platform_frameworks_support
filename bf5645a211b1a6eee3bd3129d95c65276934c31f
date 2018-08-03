@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e1bd3f30_bf51370e",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/BlockingReceiver.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-03T13:36:49Z",
+      "side": 1,
+      "message": "I don\u0027t mind either way. Updated.",
+      "parentUuid": "7f13c765_be0f6662",
+      "revId": "bf5645a211b1a6eee3bd3129d95c65276934c31f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9370d86e_6bf38671",
         "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextLinkSpanTest.java",
         "patchSetId": 7
@@ -33,6 +51,24 @@
       "revId": "bf5645a211b1a6eee3bd3129d95c65276934c31f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86d8af51_d38e8528",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextLinkSpanTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-03T13:36:49Z",
+      "side": 1,
+      "message": "Sorry, left over code while debugging.\nRemoved.",
+      "parentUuid": "9370d86e_6bf38671",
+      "revId": "bf5645a211b1a6eee3bd3129d95c65276934c31f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -64,6 +100,24 @@
       "writtenOn": "2018-08-03T10:27:45Z",
       "side": 1,
       "message": "\"apparently\", they prefer long to Calendar, see b/112157114.\nAnyway, I will follow-up this.\n\nThanks.",
+      "revId": "bf5645a211b1a6eee3bd3129d95c65276934c31f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4bfc0bff_58b1a85e",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinksParams.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-03T13:36:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2c9aea20_4b778f9e",
       "revId": "bf5645a211b1a6eee3bd3129d95c65276934c31f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false

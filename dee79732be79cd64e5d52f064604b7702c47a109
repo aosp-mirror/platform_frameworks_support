@@ -195,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "14a7c5a5_5d1a1602",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-03T13:36:49Z",
+      "side": 1,
+      "message": "Summary: The names are similar because they are related, but one does not require the other. Developers should feel free to use them independent of each other.\n\nA TextLinkSpan, although generated from a TextLink via the ClickSpanFactory, does not have to depend on a TextLink. There are many scenarios where a TextLinkSpan\u0027s code will not depend on the TextLink that was used to generate it. e.g. the code as is in the platform, and this code prior to caching the classifierFactory and reference time in the TextLink object. If something is truly optional, I really think we should leave it as optional otherwise it creates unnecessary burden on clients.",
+      "parentUuid": "aadbb635_aa09abe6",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d158f8f_0fc61a1a",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 4
