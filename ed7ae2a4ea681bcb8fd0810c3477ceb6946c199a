@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f605dea_e4e70bfb",
+        "filename": "lifecycle/livedata-core/ktx/src/main/AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-03T13:28:35Z",
+      "side": 1,
+      "message": "Does this need a ktx suffix? It can\u0027t match the package of the regular java artifact",
+      "revId": "ed7ae2a4ea681bcb8fd0810c3477ceb6946c199a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57a73ffe_5259d8d7",
+        "filename": "lifecycle/livedata-core/ktx/src/main/java/androidx/lifecycle/LiveData.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-03T13:28:35Z",
+      "side": 1,
+      "message": "We usually return the listener here so that you can un-listen if you need to.",
+      "revId": "ed7ae2a4ea681bcb8fd0810c3477ceb6946c199a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
