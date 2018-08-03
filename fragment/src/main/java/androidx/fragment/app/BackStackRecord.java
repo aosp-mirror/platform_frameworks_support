@@ -23,7 +23,6 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
-import androidx.core.util.LogWriter;
 import androidx.core.view.ViewCompat;
 
 import java.io.FileDescriptor;

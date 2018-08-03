@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,23 +14,13 @@
  * limitations under the License.
  */
 
-package androidx.core.util;
-
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+package androidx.fragment.app;
 
 import android.util.Log;
 
-import androidx.annotation.RestrictTo;
-
 import java.io.Writer;
 
-/**
- * Helper for accessing features in {@link android.util.LogWriter}.
- *
- * @hide
- */
-@RestrictTo(LIBRARY_GROUP)
-public class LogWriter extends Writer {
+final class LogWriter extends Writer {
     private final String mTag;
     private StringBuilder mBuilder = new StringBuilder(128);
 
@@ -40,7 +30,7 @@ public class LogWriter extends Writer {
      *
      * @param tag A string tag to associate with each printed log statement.
      */
-    public LogWriter(String tag) {
+    LogWriter(String tag) {
         mTag = tag;
     }
 
@@ -53,12 +43,11 @@ public class LogWriter extends Writer {
     }
 
     @Override public void write(char[] buf, int offset, int count) {
-        for(int i = 0; i < count; i++) {
+        for (int i = 0; i < count; i++) {
             char c = buf[offset + i];
-            if ( c == '\n') {
+            if (c == '\n') {
                 flushBuilder();
-            }
-            else {
+            } else {
                 mBuilder.append(c);
             }
         }
