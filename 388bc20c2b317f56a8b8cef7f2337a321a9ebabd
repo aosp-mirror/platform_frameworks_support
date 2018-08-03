@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98fc437e_fe01e19b",
+        "filename": "compat/src/androidTest/java/androidx/core/view/AccessibilityDelegateCompatTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-03T18:01:43Z",
+      "side": 1,
+      "message": "Please use @SupressSdk(minSdkVersion \u003d 19)",
+      "range": {
+        "startLine": 83,
+        "startChar": 16,
+        "endLine": 83,
+        "endChar": 75
+      },
+      "revId": "388bc20c2b317f56a8b8cef7f2337a321a9ebabd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
