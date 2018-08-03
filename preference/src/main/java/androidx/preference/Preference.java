@@ -90,7 +90,7 @@ import java.util.Set;
  * @attr name android:singleLineTitle
  * @attr name android:iconSpaceReserved
  */
-public class Preference implements Comparable<Preference>, View.OnCreateContextMenuListener {
+public class Preference implements Comparable<Preference> {
     /**
      * Specify for {@link #setOrder(int)} if a specific order is not required.
      */
@@ -173,30 +173,14 @@ public class Preference implements Comparable<Preference>, View.OnCreateContextM
     private boolean mWasDetached;
     private boolean mBaseMethodCalled;
 
+    private CopyListener mCopyListener;
+
     private final View.OnClickListener mClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             performClick(v);
         }
     };
-
-    private final MenuItem.OnMenuItemClickListener mCopyMenuListener =
-            new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    ClipboardManager clipboard =
-                            (ClipboardManager) getContext().getSystemService(
-                                    Context.CLIPBOARD_SERVICE);
-                    CharSequence summary = getSummary();
-                    ClipData clip = ClipData.newPlainText(CLIPBOARD_ID, summary);
-                    clipboard.setPrimaryClip(clip);
-                    Toast.makeText(getContext(),
-                            getContext().getString(R.string.preference_copied,
-                                    summary),
-                            Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-            };
 
     /**
      * Perform inflation from XML and apply a class-specific base style. This constructor allows
@@ -586,20 +570,11 @@ public class Preference implements Comparable<Preference>, View.OnCreateContextM
         holder.setDividerAllowedBelow(mAllowDividerBelow);
 
         if (isCopyingEnabled()) {
-            holder.itemView.setOnCreateContextMenuListener(this);
+            if (mCopyListener == null) {
+                mCopyListener = new CopyListener(this);
+            }
+            holder.itemView.setOnCreateContextMenuListener(mCopyListener);
         }
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenu.ContextMenuInfo menuInfo) {
-        CharSequence summary = getSummary();
-        if (!isCopyingEnabled() || TextUtils.isEmpty(summary)) {
-            return;
-        }
-        menu.setHeaderTitle(summary);
-        menu.add(Menu.NONE, Menu.NONE, Menu.NONE, R.string.copy)
-                .setOnMenuItemClickListener(mCopyMenuListener);
     }
 
     /**
@@ -2152,6 +2127,45 @@ public class Preference implements Comparable<Preference>, View.OnCreateContextM
 
         public BaseSavedState(Parcelable superState) {
             super(superState);
+        }
+    }
+
+    /**
+     * A base class for managing the instance state of a {@link Preference}.
+     */
+    public static class CopyListener implements View.OnCreateContextMenuListener,
+            MenuItem.OnMenuItemClickListener {
+        private final Preference mPreference;
+
+        public CopyListener(Preference preference) {
+            mPreference = preference;
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            ClipboardManager clipboard =
+                    (ClipboardManager) mPreference.getContext().getSystemService(
+                            Context.CLIPBOARD_SERVICE);
+            CharSequence summary = mPreference.getSummary();
+            ClipData clip = ClipData.newPlainText(CLIPBOARD_ID, summary);
+            clipboard.setPrimaryClip(clip);
+            Toast.makeText(mPreference.getContext(),
+                    mPreference.getContext().getString(R.string.preference_copied,
+                            summary),
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v,
+                ContextMenu.ContextMenuInfo menuInfo) {
+            CharSequence summary = mPreference.getSummary();
+            if (!mPreference.isCopyingEnabled() || TextUtils.isEmpty(summary)) {
+                return;
+            }
+            menu.setHeaderTitle(summary);
+            menu.add(Menu.NONE, Menu.NONE, Menu.NONE, R.string.copy)
+                    .setOnMenuItemClickListener(this);
         }
     }
 }
