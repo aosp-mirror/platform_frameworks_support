@@ -1,0 +1,54 @@
+package androidx.remotecallback {
+
+  public class AppWidgetProviderWithCallbacks extends android.appwidget.AppWidgetProvider implements androidx.remotecallback.CallbackReceiver {
+    ctor public AppWidgetProviderWithCallbacks();
+    method public final androidx.remotecallback.RemoteCallback createRemoteCallback(android.content.Context, java.lang.String, java.lang.Object...);
+  }
+
+  public abstract class BroadcastReceiverWithCallbacks extends android.content.BroadcastReceiver implements androidx.remotecallback.CallbackReceiver {
+    ctor public BroadcastReceiverWithCallbacks();
+    method public final androidx.remotecallback.RemoteCallback createRemoteCallback(android.content.Context, java.lang.String, java.lang.Object...);
+    method public void onReceive(android.content.Context, android.content.Intent);
+    field public static final java.lang.String ACTION_BROADCAST_CALLBACK = "androidx.remotecallback.action.BROADCAST_CALLBACK";
+  }
+
+  public class CallbackHandlerRegistry {
+    ctor public CallbackHandlerRegistry();
+    method public <T extends androidx.remotecallback.CallbackReceiver> android.os.Bundle createArguments(T, java.lang.String, java.lang.Object[]);
+    method public <T extends androidx.remotecallback.CallbackReceiver> void invokeCallback(T, android.content.Intent);
+    method public <T extends androidx.remotecallback.CallbackReceiver> void invokeCallback(T, android.os.Bundle);
+    method public static <T extends androidx.remotecallback.CallbackReceiver> void registerCallbackHandler(java.lang.Class<T>, java.lang.String, androidx.remotecallback.CallbackHandlerRegistry.CallbackHandler<T>);
+  }
+
+  public static abstract interface CallbackHandlerRegistry.CallbackHandler<T extends androidx.remotecallback.CallbackReceiver> {
+    method public abstract android.os.Bundle assembleArguments(java.lang.Object...);
+    method public abstract void executeCallback(T, android.os.Bundle);
+  }
+
+  public abstract interface CallbackReceiver {
+    method public abstract androidx.remotecallback.RemoteCallback createRemoteCallback(android.content.Context, java.lang.String, java.lang.Object...);
+  }
+
+  public abstract class ContentProviderWithCallbacks extends android.content.ContentProvider implements androidx.remotecallback.CallbackReceiver {
+    ctor public ContentProviderWithCallbacks();
+    method public final androidx.remotecallback.RemoteCallback createRemoteCallback(android.content.Context, java.lang.String, java.lang.Object...);
+  }
+
+  public abstract class RemoteCallable implements java.lang.annotation.Annotation {
+  }
+
+  public class RemoteCallback {
+    method public android.os.Bundle getArgumentBundle();
+    method public java.lang.String getMethodName();
+    method public java.lang.String getReceiverClass();
+    method public int getType();
+    method public android.app.PendingIntent toPendingIntent();
+    field public static final int TYPE_PROVIDER = 1; // 0x1
+    field public static final int TYPE_RECEIVER = 0; // 0x0
+  }
+
+  public class RemoteInputHolder {
+  }
+
+}
+
