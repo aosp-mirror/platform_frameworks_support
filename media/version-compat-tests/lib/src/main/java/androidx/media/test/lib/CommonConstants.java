@@ -33,6 +33,9 @@ public class CommonConstants {
     public static final ComponentName REMOTE_MEDIA_CONTROLLER_COMPAT_SERVICE = new ComponentName(
             IntentUtil.CLIENT_PACKAGE_NAME,
             "androidx.media.test.client.RemoteMediaControllerCompatService");
+    public static final ComponentName REMOTE_MEDIA_BROWSER_COMPAT_SERVICE = new ComponentName(
+            IntentUtil.CLIENT_PACKAGE_NAME,
+            "androidx.media.test.client.RemoteMediaBrowserCompatService");
     public static final ComponentName MOCK_MEDIA_SESSION_SERVICE = new ComponentName(
             IntentUtil.SERVICE_PACKAGE_NAME,
             "androidx.media.test.service.MockMediaSessionService2");
@@ -47,6 +50,8 @@ public class CommonConstants {
             "androidx.media.test.action.MEDIA_SESSION_COMPAT";
     public static final String ACTION_MEDIA_CONTROLLER_COMPAT =
             "androidx.media.test.action.MEDIA_CONTROLLER_COMPAT";
+    public static final String ACTION_MEDIA_BROWSER_COMPAT =
+            "androidx.media.test.action.MEDIA_BROWSER_COMPAT";
 
     // Keys for arguments.
     public static final String KEY_STREAM = "stream";
