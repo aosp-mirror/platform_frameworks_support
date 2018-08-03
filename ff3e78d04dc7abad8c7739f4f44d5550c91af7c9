@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af520d28_ec71feff",
+        "filename": "leanback-preference/api21/androidx/leanback/preference/LeanbackPreferenceFragmentTransitionHelperApi21.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-08-03T13:40:06Z",
+      "side": 1,
+      "message": "Can this be deprecated too?",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 51
+      },
+      "revId": "ff3e78d04dc7abad8c7739f4f44d5550c91af7c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0baeac1_ca9cabce",
+        "filename": "leanback-preference/src/main/java/androidx/leanback/preference/LeanbackListPreferenceDialogFragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-08-03T13:40:06Z",
+      "side": 1,
+      "message": "Typo, same for the rest below in this file",
+      "range": {
+        "startLine": 200,
+        "startChar": 19,
+        "endLine": 200,
+        "endChar": 21
+      },
+      "revId": "ff3e78d04dc7abad8c7739f4f44d5550c91af7c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d099ed1_036a33b1",
+        "filename": "leanback-preference/src/main/java/androidx/leanback/preference/LeanbackPreferenceFragmentCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-08-03T13:40:06Z",
+      "side": 1,
+      "message": "Path needs to be on one line",
+      "range": {
+        "startLine": 39,
+        "startChar": 12,
+        "endLine": 40,
+        "endChar": 61
+      },
+      "revId": "ff3e78d04dc7abad8c7739f4f44d5550c91af7c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8eff7c7e_0f7ed7fe",
+        "filename": "leanback-preference/src/main/java/androidx/leanback/preference/LeanbackSettingsFragmentCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-08-03T13:40:06Z",
+      "side": 1,
+      "message": "Path needs to be on one line",
+      "range": {
+        "startLine": 51,
+        "startChar": 12,
+        "endLine": 52,
+        "endChar": 61
+      },
+      "revId": "ff3e78d04dc7abad8c7739f4f44d5550c91af7c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
