@@ -16,14 +16,18 @@
 
 package androidx.slice.builders;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.view.View;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.IntDef;
@@ -40,12 +44,8 @@ import androidx.slice.builders.impl.ListBuilderV1Impl;
 import androidx.slice.builders.impl.TemplateBuilderImpl;
 import androidx.slice.core.SliceHints;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 // TODO: include image examples in the example section when we can (b/111412886)
 /**
