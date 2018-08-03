@@ -1,0 +1,9 @@
+package androidx.lifecycle {
+
+  public final class LiveDataKt {
+    ctor public LiveDataKt();
+    method public static <T> void observe(androidx.lifecycle.LiveData<T>, androidx.lifecycle.LifecycleOwner lifecycleOwner, kotlin.jvm.functions.Function1<? super T,kotlin.Unit> observer);
+  }
+
+}
+
