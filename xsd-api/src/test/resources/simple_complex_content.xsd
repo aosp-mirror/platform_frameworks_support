@@ -1,0 +1,74 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="simple_complex_content" xmlns="simple_complex_content" elementFormDefault="qualified">
+    <xs:complexType name="address">
+        <xs:sequence>
+            <xs:element name="name"   type="xs:string"/>
+            <xs:element name="street" type="xs:string"/>
+            <xs:element name="city"   type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="USAddress">
+        <xs:complexContent>
+            <xs:extension base="address">
+                <xs:sequence>
+                    <xs:element name="state" type="xs:string"/>
+                    <xs:element name="zipcode" type="xs:positiveInteger"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="KRAddress">
+        <xs:complexContent>
+            <xs:restriction base="address">
+                <xs:sequence>
+                    <xs:element name="name"   type="xs:string"/>
+                    <xs:element name="street" type="xs:string"/>
+                    <xs:element name="city"   type="xs:string" fixed="Seoul"/>
+                </xs:sequence>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:simpleType name="price">
+        <xs:restriction base="xs:decimal">
+            <xs:maxInclusive value="3000000"/>
+            <xs:minInclusive value="1000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:element name="generalPrice">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="price">
+                    <xs:attribute name="currency" type="xs:string" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="shoeSize">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:decimal">
+                    <xs:attribute name="sizing">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="US"/>
+                                <xs:enumeration value="European"/>
+                                <xs:enumeration value="UK"/>
+                                <xs:enumeration value="Korea"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="person">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element ref="shoeSize"/>
+                <xs:element ref="generalPrice"/>
+                <xs:element name="USAddress" type="USAddress"/>
+                <xs:element name="KRAddress" type="KRAddress"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

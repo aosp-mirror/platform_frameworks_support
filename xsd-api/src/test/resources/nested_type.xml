@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<employee xmlns="nested_type">
+    <id>1</id>
+    <name>Peter</name>
+    <address>
+        <country>US</country>
+        <state>Mountain View</state>
+        <zip>3342</zip>
+        <extra>
+            <line1>Donga 303-111</line1>
+            <line2>Good Street</line2>
+        </extra>
+    </address>
+</employee>

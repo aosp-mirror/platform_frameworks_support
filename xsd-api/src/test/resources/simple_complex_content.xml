@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<person xmlns="simple_complex_content">
+    <name>Petr</name>
+    <shoeSize sizing="Korea">265</shoeSize>
+    <generalPrice currency="dollar">1234.5678</generalPrice>
+    <USAddress>
+        <name>404</name>
+        <street>street fighter</street>
+        <city>New York</city>
+        <state>Washington</state>
+        <zipcode>3232323183298523436434</zipcode>
+    </USAddress>
+    <KRAddress>
+        <name>Donga Studio</name>
+        <street>Nokdu Street</street>
+        <city>Seoul</city>
+    </KRAddress>
+</person>

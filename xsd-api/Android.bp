@@ -1,0 +1,13 @@
+java_binary_host {
+	name: "xsd-api",
+	srcs: ["src/main/**/*.java"],
+	static_libs: ["core-all"],
+	manifest: "src/main/META-INF/MANIFEST.MF"
+}
+
+java_test_host {
+	name: "xsd-api-test",
+	srcs: ["src/test/**/*.java"],
+	static_libs: ["xsd-api", "junit"],
+	java_resource_dirs: ["src/test/resources"]
+}

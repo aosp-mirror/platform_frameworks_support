@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<simple-types xmlns="simple_type">
+    <listInt>1 2 3 4 5</listInt>
+    <union-test>100</union-test>
+</simple-types>
