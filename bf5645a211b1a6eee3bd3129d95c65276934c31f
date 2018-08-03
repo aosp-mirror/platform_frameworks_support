@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f13c765_be0f6662",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/BlockingReceiver.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-03T10:27:45Z",
+      "side": 1,
+      "message": "nit: IMO, having two separate assert methods are more clear than passing a boolean and we can also get rid of the fail method below.\nMaybe we can set this method private and have two public assert methods call into this.\n\n\npublic void assertReceived() {\n    assertReceivedInternal(\"error msg\", true);\n}\n\npublic void assertNotReceived() {\n    assertReceivedInternal(\"error msg\", false);\n}",
+      "revId": "bf5645a211b1a6eee3bd3129d95c65276934c31f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9370d86e_6bf38671",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextLinkSpanTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-03T10:27:45Z",
+      "side": 1,
+      "message": "I think onClick should send the pending intent, rather than we send it here manually?",
+      "revId": "bf5645a211b1a6eee3bd3129d95c65276934c31f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57eb12f4_60a50f81",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-03T10:27:45Z",
+      "side": 1,
+      "message": "awesome, it is much neater now, thanks!",
+      "revId": "bf5645a211b1a6eee3bd3129d95c65276934c31f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2c9aea20_4b778f9e",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinksParams.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-03T10:27:45Z",
+      "side": 1,
+      "message": "\"apparently\", they prefer long to Calendar, see b/112157114.\nAnyway, I will follow-up this.\n\nThanks.",
+      "revId": "bf5645a211b1a6eee3bd3129d95c65276934c31f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

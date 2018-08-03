@@ -177,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "aadbb635_aa09abe6",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-03T10:27:45Z",
+      "side": 1,
+      "message": "But I think onClick does require a TextLinkSpan? Was asking this question when I saw null checks in the onClick function \n\nmmm, IMO, TextLinkSpan (or its subclass) should always have a non-null TextLink, as it name suggests :)",
+      "parentUuid": "5fd6509d_dd457e45",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d158f8f_0fc61a1a",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 4
@@ -276,6 +294,24 @@
       "side": 1,
       "message": "unfortunately, LocaleListCompat takes in an array of Locale objects, not a LocaleList.",
       "parentUuid": "03d900bd_f95a6190",
+      "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f70d2498_3494d54f",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-03T10:27:45Z",
+      "side": 1,
+      "message": "Sorry, I missed the \u0027s\u0027 in getTextLocales, thanks.",
+      "parentUuid": "35925ef4_8a92fba3",
       "revId": "dee79732be79cd64e5d52f064604b7702c47a109",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
