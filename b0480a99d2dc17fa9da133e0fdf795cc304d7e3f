@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d261f87e_0ecbdd4b",
+        "filename": "compat/src/main/java/androidx/core/os/EnvironmentCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-03T19:54:11Z",
+      "side": 1,
+      "message": "Unfortunately the nullability of the platform methods it delegates to are hard to determine without a lot of digging I didn\u0027t want to do right now.",
+      "parentUuid": "8a4ae88a_12ebea68",
+      "range": {
+        "startLine": 56,
+        "startChar": 18,
+        "endLine": 56,
+        "endChar": 24
+      },
+      "revId": "b0480a99d2dc17fa9da133e0fdf795cc304d7e3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8af097c2_a3b7631b",
         "filename": "compat/src/main/java/androidx/core/os/LocaleListCompat.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "b0480a99d2dc17fa9da133e0fdf795cc304d7e3f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "544fb000_3c3db5ce",
+        "filename": "compat/src/main/java/androidx/core/os/LocaleListCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-03T19:54:11Z",
+      "side": 1,
+      "message": "It actually never supported nulls so marked as @NonNull",
+      "parentUuid": "8af097c2_a3b7631b",
+      "range": {
+        "startLine": 54,
+        "startChar": 40,
+        "endLine": 54,
+        "endChar": 50
+      },
+      "revId": "b0480a99d2dc17fa9da133e0fdf795cc304d7e3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
