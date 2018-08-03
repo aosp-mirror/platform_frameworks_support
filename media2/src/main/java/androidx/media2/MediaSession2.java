@@ -349,6 +349,10 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
         return mImpl.getCallback();
     }
 
+    void setPlayerStateChangedListener(@Nullable PlayerStateChangedListener listener) {
+        mImpl.setPlayerStateChangedListener(listener);
+    }
+
     /**
      * @hide
      */
@@ -1304,6 +1308,13 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
     }
 
     /**
+     * An internal listener interface to get player state changes.
+     */
+    interface PlayerStateChangedListener {
+        void onPlayerStateChanged(int state);
+    }
+
+    /**
      * Builder for {@link MediaSession2}.
      * <p>
      * Any incoming event from the {@link MediaController2} will be handled on the thread
@@ -1727,6 +1738,7 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
         PlaybackInfo getPlaybackInfo();
         AudioFocusHandler getAudioFocusHandler();
         PendingIntent getSessionActivity();
+        void setPlayerStateChangedListener(PlayerStateChangedListener listener);
         IBinder getLegacyBrowserServiceBinder();
     }
 

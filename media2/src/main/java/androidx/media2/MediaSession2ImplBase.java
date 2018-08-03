@@ -60,6 +60,7 @@ import androidx.media2.MediaPlayerConnector.PlayerEventCallback;
 import androidx.media2.MediaPlaylistAgent.PlaylistEventCallback;
 import androidx.media2.MediaSession2.ErrorCode;
 import androidx.media2.MediaSession2.MediaSession2Impl;
+import androidx.media2.MediaSession2.PlayerStateChangedListener;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -107,6 +108,8 @@ class MediaSession2ImplBase implements MediaSession2Impl {
     private SessionPlaylistAgentImplBase mSessionPlaylistAgent;
     @GuardedBy("mLock")
     private OnDataSourceMissingHelper mDsmHelper;
+    @GuardedBy("mLock")
+    private PlayerStateChangedListener mPlayerStateChangedListener;
 
     MediaSession2ImplBase(MediaSession2 instance, Context context, String id,
             MediaPlayerConnector player, MediaPlaylistAgent playlistAgent,
@@ -330,6 +333,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
             mAudioFocusHandler.close();
             mPlayer.unregisterPlayerEventCallback(mPlayerEventCallback);
             mPlayer = null;
+            mPlayerStateChangedListener = null;
             mSessionCompat.release();
             notifyToAllControllers(new NotifyRunnable() {
                 @Override
@@ -997,6 +1001,13 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         return mSessionActivity;
     }
 
+    @Override
+    public void setPlayerStateChangedListener(@Nullable PlayerStateChangedListener listener) {
+        synchronized (mLock) {
+            mPlayerStateChangedListener = listener;
+        }
+    }
+
     MediaBrowserServiceCompat createLegacyBrowserService(Context context, SessionToken2 token,
             Token sessionToken) {
         switch (token.getType()) {
@@ -1114,6 +1125,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         final long currentTimeMs = SystemClock.elapsedRealtime();
         final long positionMs = getCurrentPosition();
         final int playerState = getPlayerState();
+        notifyPlayerStateChangeToListener(playerState);
         notifyToAllControllers(new NotifyRunnable() {
             @Override
             public void run(ControllerCb callback) throws RemoteException {
@@ -1264,6 +1276,16 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         notifyToController(controller, runnable);
     }
 
+    void notifyPlayerStateChangeToListener(int state) {
+        PlayerStateChangedListener listener;
+        synchronized (mLock) {
+            listener = mPlayerStateChangedListener;
+        }
+        if (listener != null) {
+            listener.onPlayerStateChanged(state);
+        }
+    }
+
     ///////////////////////////////////////////////////
     // Inner classes
     ///////////////////////////////////////////////////
@@ -1387,6 +1409,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
                 public void run() {
                     // Order is important here. AudioFocusHandler should be called at the first
                     // for testing purpose.
+                    session.notifyPlayerStateChangeToListener(state);
                     session.mAudioFocusHandler.onPlayerStateChanged(state);
                     session.getCallback().onPlayerStateChanged(
                             session.getInstance(), player, state);
