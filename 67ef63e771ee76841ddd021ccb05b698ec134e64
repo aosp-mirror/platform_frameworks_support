@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4551ae1d_a731fd64",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/VersionedEnum.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-04T21:43:51Z",
+      "side": 1,
+      "message": "As far as I can tell you aren\u0027t actually using any of the advanced feature of an Enum. If you switch to int constants and use @IntDefs instead, it will generate less classes and save you having to build this adapter.",
+      "revId": "67ef63e771ee76841ddd021ccb05b698ec134e64",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b798186_3f3212f4",
+        "filename": "versionedparcelable/annotation/src/main/java/androidx/versionedparcelable/compiler/VersionedParcelProcessor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-04T21:43:51Z",
+      "side": 1,
+      "message": "Won\u0027t this break all libraries using 1.7?",
+      "revId": "67ef63e771ee76841ddd021ccb05b698ec134e64",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f30dba77_80144235",
+        "filename": "versionedparcelable/annotation/src/main/java/androidx/versionedparcelable/compiler/VersionedParcelProcessor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-04T21:43:51Z",
+      "side": 1,
+      "message": "Why did this need to change?",
+      "revId": "67ef63e771ee76841ddd021ccb05b698ec134e64",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
