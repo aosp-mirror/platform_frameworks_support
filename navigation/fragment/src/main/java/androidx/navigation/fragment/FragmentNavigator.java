@@ -311,7 +311,7 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
          * @return this {@link Destination}
          */
         @NonNull
-        public Destination setFragmentClass(@NonNull Class<? extends Fragment> clazz) {
+        public Destination setFragmentClass(@Nullable Class<? extends Fragment> clazz) {
             mFragmentClass = clazz;
             return this;
         }
@@ -320,6 +320,7 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
          * Gets the Fragment associated with this destination
          * @return
          */
+        @Nullable
         public Class<? extends Fragment> getFragmentClass() {
             return mFragmentClass;
         }
