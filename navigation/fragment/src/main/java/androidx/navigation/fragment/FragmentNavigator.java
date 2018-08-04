@@ -320,6 +320,7 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
          * Gets the Fragment associated with this destination
          * @return
          */
+        @Nullable
         public Class<? extends Fragment> getFragmentClass() {
             return mFragmentClass;
         }
