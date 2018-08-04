@@ -16,6 +16,24 @@
       "revId": "5b27f6ebeea3636b7019d3e88e6f529fb85132d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb33f2a0_095bd65c",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/ActivityNavigator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-04T07:28:35Z",
+      "side": 1,
+      "message": "Nevermind I\u0027m forced into @Nullable for properties to work...",
+      "parentUuid": "80349c0d_a71fcd40",
+      "revId": "5b27f6ebeea3636b7019d3e88e6f529fb85132d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
