@@ -34,6 +34,24 @@
       "revId": "e31b2fa85ae9cb414023346684060d1009bf4c11",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2114c1ce_e0498491",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/checker/AutoValueTargetCheckerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-04T20:15:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "10ed794b_770710ad",
+      "revId": "e31b2fa85ae9cb414023346684060d1009bf4c11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
