@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3587c838_77e34376",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/RelationCollector.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-04T20:14:12Z",
+      "side": 1,
+      "message": "what if it is nullable Integer?\nyou should handle it gracefully and also add a test for that? (especially one where target has keys w/ value 0 because a misuse would default to 0 so we should ensure that we are not adding bad ids into the list)",
+      "range": {
+        "startLine": 248,
+        "startChar": 16,
+        "endLine": 251,
+        "endChar": 47
+      },
+      "revId": "3d26a0221b9096957ef9a5fe9ac81e0962d878ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
