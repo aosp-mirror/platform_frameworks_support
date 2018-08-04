@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80349c0d_a71fcd40",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/ActivityNavigator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-04T07:08:24Z",
+      "side": 1,
+      "message": "Not sure about the intent for this class. This could be nullable and so could the others, but in the case of the others you wouldn\u0027t want to create the intent if someone was passing null.",
+      "revId": "5b27f6ebeea3636b7019d3e88e6f529fb85132d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
