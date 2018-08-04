@@ -213,7 +213,7 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
          * @return this {@link Destination}
          */
         @NonNull
-        public Destination setIntent(Intent intent) {
+        public Destination setIntent(@NonNull Intent intent) {
             mIntent = intent;
             return this;
         }
@@ -234,7 +234,7 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
          * @return this {@link Destination}
          */
         @NonNull
-        public Destination setComponentName(ComponentName name) {
+        public Destination setComponentName(@NonNull ComponentName name) {
             if (mIntent == null) {
                 mIntent = new Intent();
             }
@@ -260,7 +260,7 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
          * @return this {@link Destination}
          */
         @NonNull
-        public Destination setAction(String action) {
+        public Destination setAction(@NonNull String action) {
             if (mIntent == null) {
                 mIntent = new Intent();
             }
@@ -291,7 +291,7 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
          * @return this {@link Destination}
          */
         @NonNull
-        public Destination setData(Uri data) {
+        public Destination setData(@NonNull Uri data) {
             if (mIntent == null) {
                 mIntent = new Intent();
             }
@@ -322,7 +322,7 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
          * @return this {@link Destination}
          */
         @NonNull
-        public Destination setDataPattern(String dataPattern) {
+        public Destination setDataPattern(@NonNull String dataPattern) {
             mDataPattern = dataPattern;
             return this;
         }
