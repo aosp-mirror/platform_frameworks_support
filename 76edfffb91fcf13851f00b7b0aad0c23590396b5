@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8bd7598_370b4a2f",
+        "filename": "lifecycle/viewmodel-savedstate/src/main/java/androidx/lifecycle/SavedStateAccessor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-04T17:16:15Z",
+      "side": 1,
+      "message": "lets check if it is not null and then only set it. (in livedata we have a difference between non set value and null value)",
+      "revId": "76edfffb91fcf13851f00b7b0aad0c23590396b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
