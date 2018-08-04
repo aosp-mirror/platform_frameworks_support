@@ -80,7 +80,6 @@ def configureBuildOnServer() {
                 || task.name.startsWith(Release.DIFF_TASK_PREFIX)
                 || "distDocs".equals(task.name)
                 || "dejetifyArchive".equals(task.name)
-                || "runErrorProne".equals(task.name)
                 || CheckExternalDependencyLicensesTask.TASK_NAME.equals(task.name)) {
             buildOnServerTask.dependsOn task
         }
@@ -94,6 +93,7 @@ def configureBuildOnServer() {
             if ("assembleErrorProne".equals(task.name)
                     || "assembleAndroidTest".equals(task.name)
                     || "assembleDebug".equals(task.name)
+                    || "runErrorProne".equals(task.name)
                     || "lintDebug".equals(task.name)) {
                 buildOnServerTask.dependsOn task
             }
