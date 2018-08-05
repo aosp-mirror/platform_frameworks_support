@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "383ab900_04cc7566",
+        "filename": "drawerlayout/src/main/java/androidx/drawerlayout/widget/DrawerLayout.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1598,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-05T21:01:20Z",
+      "side": 1,
+      "message": "O_O that\u0027s surprising, but it is current behavior",
+      "revId": "36d6015ae4890be39fe895b29f482e6f9258fca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
