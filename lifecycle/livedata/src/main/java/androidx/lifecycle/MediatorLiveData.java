@@ -130,7 +130,7 @@ public class MediatorLiveData<T> extends MutableLiveData<T> {
     private static class Source<V> implements Observer<V> {
         final LiveData<V> mLiveData;
         final Observer<? super V> mObserver;
-        int mVersion = START_VERSION;
+        int mVersion = NO_VERSION;
 
         Source(LiveData<V> liveData, final Observer<? super V> observer) {
             mLiveData = liveData;
