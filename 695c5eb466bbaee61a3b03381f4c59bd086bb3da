@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f6c83493_1409ff19",
+        "filename": "navigation/safe-args-gradle-plugin/src/main/kotlin/androidx/navigation/safeargs/gradle/ArgumentsGenerationTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-05T18:05:39Z",
+      "side": 1,
+      "message": "damn. I merged before noticed your comment...We\u0027ll do that as drive by",
+      "parentUuid": "9cd4c912_52661862",
+      "range": {
+        "startLine": 99,
+        "startChar": 25,
+        "endLine": 99,
+        "endChar": 31
+      },
+      "revId": "695c5eb466bbaee61a3b03381f4c59bd086bb3da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ccab3999_e05cd5e5",
         "filename": "navigation/safe-args-gradle-plugin/src/main/kotlin/androidx/navigation/safeargs/gradle/SafeArgsPlugin.kt",
         "patchSetId": 2
