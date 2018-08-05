@@ -75,8 +75,11 @@ public class SliceSerializeMetrics {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream(1024 * 1024);
 
         if (WRITE_SAMPLE_FILE) {
+            if (!mContext.getDataDir().exists()) {
+                mContext.getDataDir().mkdir();
+            }
             FileOutputStream file = new FileOutputStream(mContext.getDataDir() + "/slice.vp");
-            SliceUtils.serializeSlice(before, mContext, outputStream,
+            SliceUtils.serializeSlice(before, mContext, file,
                     new SliceUtils.SerializeOptions()
                             .setImageMode(SliceUtils.SerializeOptions.MODE_CONVERT)
                             .setActionMode(SliceUtils.SerializeOptions.MODE_CONVERT));
