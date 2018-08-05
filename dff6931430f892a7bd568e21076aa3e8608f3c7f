@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28d6e240_20a93f13",
+        "filename": "samples/TextClassifierDemos/src/main/java/com/example/androidx/textclassifier/MainThreadExecutor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-05T13:06:06Z",
+      "side": 1,
+      "message": "Remove file.",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 24
+      },
+      "revId": "dff6931430f892a7bd568e21076aa3e8608f3c7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2083208b_82e2fe2d",
+        "filename": "samples/TextClassifierDemos/src/main/res/values/strings.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-05T13:06:06Z",
+      "side": 1,
+      "message": ":)",
+      "range": {
+        "startLine": 20,
+        "startChar": 8,
+        "endLine": 24,
+        "endChar": 45
+      },
+      "revId": "dff6931430f892a7bd568e21076aa3e8608f3c7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
