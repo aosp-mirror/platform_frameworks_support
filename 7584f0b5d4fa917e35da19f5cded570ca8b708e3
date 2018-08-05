@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5db16e3a_d5b234de",
+        "filename": "compat/src/main/java/androidx/core/app/RemoteActionCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-05T12:52:23Z",
+      "side": 1,
+      "message": "nit:\n@NonNull",
+      "revId": "7584f0b5d4fa917e35da19f5cded570ca8b708e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
