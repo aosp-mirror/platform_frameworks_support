@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a37b7b05_6362a13d",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-05T12:48:56Z",
+      "side": 1,
+      "message": "getDefaultTextClassifierFactory",
+      "range": {
+        "startLine": 130,
+        "startChar": 67,
+        "endLine": 130,
+        "endChar": 91
+      },
+      "revId": "bb7f00c8dd7dc69f06ec3d44a5c0378ac328f649",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "790e8d7b_9b961c29",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-05T12:48:56Z",
+      "side": 1,
+      "message": "getDefaultTextClassifierFactory",
+      "range": {
+        "startLine": 138,
+        "startChar": 67,
+        "endLine": 138,
+        "endChar": 91
+      },
+      "revId": "bb7f00c8dd7dc69f06ec3d44a5c0378ac328f649",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f03e6a3_4c988209",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-05T12:48:56Z",
+      "side": 1,
+      "message": "@Test\nvoid getSetNullTC() {\n  mTcm.setTCF(null);\n  TCF factory \u003d mTcm.getTCF();\n  TCF defaultFactory \u003d mTcm.getDefaultTCF();\n  assertThat(factory).isSameAs(defaultFactory);\n}",
+      "revId": "bb7f00c8dd7dc69f06ec3d44a5c0378ac328f649",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b9132ba_5c5a70e5",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-05T12:48:56Z",
+      "side": 1,
+      "message": "Do we need this method?\nCan we instead just have clients do tcm.getTCF().create(ctx)?\nShould be easy/convenient to do given that getTCF() never returns null.\nIf we\u0027re already using this method elsewhere in the library, consider hiding it.",
+      "range": {
+        "startLine": 81,
+        "startChar": 26,
+        "endLine": 81,
+        "endChar": 46
+      },
+      "revId": "bb7f00c8dd7dc69f06ec3d44a5c0378ac328f649",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60c7b0d6_e9a927a0",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-05T12:48:56Z",
+      "side": 1,
+      "message": "the",
+      "range": {
+        "startLine": 90,
+        "startChar": 55,
+        "endLine": 90,
+        "endChar": 77
+      },
+      "revId": "bb7f00c8dd7dc69f06ec3d44a5c0378ac328f649",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2db4aee1_80832eac",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-05T12:48:56Z",
+      "side": 1,
+      "message": "Is O included in \"post O\". Let\u0027s clarify this.\n\nPerhaps rephrase to:\n\"In API level 26 and above, the default factory will ...\"",
+      "range": {
+        "startLine": 118,
+        "startChar": 10,
+        "endLine": 118,
+        "endChar": 16
+      },
+      "revId": "bb7f00c8dd7dc69f06ec3d44a5c0378ac328f649",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "201ad0f6_a0e012b3",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-05T12:48:56Z",
+      "side": 1,
+      "message": "that is based on",
+      "range": {
+        "startLine": 118,
+        "startChar": 68,
+        "endLine": 118,
+        "endChar": 81
+      },
+      "revId": "bb7f00c8dd7dc69f06ec3d44a5c0378ac328f649",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f09a0920_7bd10a7f",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-05T12:48:56Z",
+      "side": 1,
+      "message": "Not necessarily the case.\nClassify text for example is based on regex beyond LinkifyCompat and we could even do more interesting stuff with it over time. e.g. Introduce datetime recognition. Perhaps we just say \"based on regex similar to LinkifyCompat\" for now?",
+      "range": {
+        "startLine": 121,
+        "startChar": 7,
+        "endLine": 121,
+        "endChar": 52
+      },
+      "revId": "bb7f00c8dd7dc69f06ec3d44a5c0378ac328f649",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dad0ae8a_33bc94b3",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-05T12:48:56Z",
+      "side": 1,
+      "message": "Javadoc please.",
+      "revId": "bb7f00c8dd7dc69f06ec3d44a5c0378ac328f649",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
