@@ -59,29 +59,23 @@ public final class TextLinkSpanTest {
         mContext = InstrumentationRegistry.getTargetContext();
         mReceiver = BlockingReceiver.registerForPendingIntent(mContext);
         final PendingIntent intent = mReceiver.getPendingIntent();
-        final TextClassifierFactory classifierFactory = new TextClassifierFactory() {
-            @NonNull
+        final TextClassifier textClassifier = new TextClassifier() {
             @Override
-            public TextClassifier create(@NonNull TextClassificationContext ctx) {
-                return new TextClassifier(ctx) {
-                    @NonNull
-                    @Override
-                    public TextClassification classifyText(@NonNull TextClassification.Request r) {
-                        final RemoteActionCompat remoteAction =
-                                new RemoteActionCompat(ICON, "title", "desc", intent);
-                        remoteAction.setShouldShowIcon(false);
-                        return new TextClassification.Builder()
-                                .addAction(remoteAction)
-                                .build();
-                    }
-                };
+            public TextClassification classifyText(@NonNull TextClassification.Request r) {
+                final RemoteActionCompat remoteAction =
+                        new RemoteActionCompat(ICON, "title", "desc", intent);
+                remoteAction.setShouldShowIcon(false);
+                return new TextClassification.Builder()
+                        .addAction(remoteAction)
+                        .build();
             }
         };
-        TextClassificationManager.of(mContext).setTextClassifierFactory(classifierFactory);
+        TextClassificationManager.of(mContext).setTextClassifier(textClassifier);
 
         final Map<String, Float> scores = new ArrayMap<>();
         scores.put(TextClassifier.TYPE_EMAIL, 1f);
         mTextLink = new TextLink(0, ENTITY.length(), scores, null);
+        mTextLink.mTextClassifier = textClassifier;
     }
 
     @Test
@@ -115,13 +109,7 @@ public final class TextLinkSpanTest {
     public void onClick_noActions() throws Exception {
         final TextLinkSpan span = new TextLinkSpan(mTextLink);
         final TextView textView = createTextViewWithSpan(span);
-        mTextLink.mClassifierFactory = new TextClassifierFactory() {
-            @Override
-            public TextClassifier create(TextClassificationContext ctx) {
-                return TextClassifier.NO_OP;  // returns no actions.
-            }
-        };
-
+        mTextLink.mTextClassifier = TextClassifier.NO_OP;
         span.onClick(textView);
 
         mReceiver.assertIntentNotReceived();

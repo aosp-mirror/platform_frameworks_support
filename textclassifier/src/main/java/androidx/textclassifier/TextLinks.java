@@ -20,7 +20,6 @@ import static androidx.textclassifier.ConvertUtils.toPlatformEntityConfig;
 import static androidx.textclassifier.ConvertUtils.unwrapLocalListCompat;
 
 import android.app.PendingIntent;
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.Spanned;
@@ -170,9 +169,9 @@ public final class TextLinks {
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
-    void setClassifierFactory(@Nullable TextClassifierFactory factory) {
+    void setTextClassifier(@Nullable TextClassifier factory) {
         for (TextLink link : getLinks()) {
-            link.mClassifierFactory = factory;
+            link.mTextClassifier = factory;
         }
     }
 
@@ -238,7 +237,7 @@ public final class TextLinks {
          */
         @VisibleForTesting
         @RestrictTo(RestrictTo.Scope.LIBRARY)
-        @Nullable TextClassifierFactory mClassifierFactory;
+        @NonNull TextClassifier mTextClassifier;
 
         /**
          * Reference time for resolving relative dates. e.g. "tomorrow". Not parcelled.
@@ -539,7 +538,7 @@ public final class TextLinks {
                             .setReferenceTime(getReferenceTime())
                             .setDefaultLocales(getLocales(textView))
                             .build();
-            final TextClassifier classifier = getTextClassifier(widget.getContext());
+            final TextClassifier classifier = mTextLink.mTextClassifier;
 
             // TODO: Truncate the text.
             sWorkerExecutor.execute(new Runnable() {
@@ -558,12 +557,10 @@ public final class TextLinks {
                                     Log.e(LOG_TAG, "Error handling TextLinkSpan click", e);
                                 }
                             }
-                            classifier.destroy();
                         }
                     });
                 }
             });
-
         }
 
         @Nullable
@@ -576,19 +573,6 @@ public final class TextLinks {
                 return LocaleListCompat.wrap(textView.getTextLocales());
             } else {
                 return LocaleListCompat.create(textView.getTextLocale());
-            }
-        }
-
-        private TextClassifier getTextClassifier(Context context) {
-            final TextClassificationContext tcc = new TextClassificationContext.Builder(
-                    context.getPackageName(),
-                    TextClassifier.WIDGET_TYPE_TEXTVIEW)
-                    .setWidgetVersion("androidx")
-                    .build();
-            if (mTextLink != null && mTextLink.mClassifierFactory != null) {
-                return mTextLink.mClassifierFactory.create(tcc);
-            } else {
-                return TextClassificationManager.of(context).createTextClassifier(tcc);
             }
         }
 

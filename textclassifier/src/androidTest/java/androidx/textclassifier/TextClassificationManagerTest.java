@@ -52,6 +52,7 @@ public class TextClassificationManagerTest {
                 PACKAGE_NAME, TextClassifier.WIDGET_TYPE_TEXTVIEW).build();
         when(mContext.getPackageManager()).thenReturn(mPackageManager);
         when(mContext.getPackageName()).thenReturn(PACKAGE_NAME);
+        when(mContext.getApplicationContext()).thenReturn(mContext);
         when(mContext.getSystemService(Context.TEXT_CLASSIFICATION_SERVICE)).thenReturn(
                 InstrumentationRegistry.getTargetContext().getSystemService(
                         Context.TEXT_CLASSIFICATION_SERVICE)
@@ -61,8 +62,7 @@ public class TextClassificationManagerTest {
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     @Test
     public void testCreateTextClassifier_default_postO() throws Exception {
-        TextClassifier textClassifier =
-                mTextClassificationManager.createTextClassifier(mTextClassificationContext);
+        TextClassifier textClassifier = mTextClassificationManager.getTextClassifier();
 
         assertThat(textClassifier).isInstanceOf(PlatformTextClassifierWrapper.class);
     }
@@ -70,30 +70,23 @@ public class TextClassificationManagerTest {
     @SdkSuppress(maxSdkVersion = Build.VERSION_CODES.N_MR1)
     @Test
     public void testCreateTextClassifier_default_preO() throws Exception {
-        TextClassifier textClassifier =
-                mTextClassificationManager.createTextClassifier(mTextClassificationContext);
+        TextClassifier textClassifier = mTextClassificationManager.getTextClassifier();
 
         assertThat(textClassifier).isInstanceOf(LegacyTextClassifier.class);
     }
 
     @Test
-    public void testCreateTextClassifier_factory() {
-        mTextClassificationManager.setTextClassifierFactory(
-                new TextClassifierFactory() {
-                    @Override
-                    public TextClassifier create(TextClassificationContext
-                            textClassificationContext) {
-                        return new DummyTextClassifier(textClassificationContext);
-                    }
-                });
+    public void testCreateTextClassifier_custom() throws Exception {
+        mTextClassificationManager.setTextClassifier(new DummyTextClassifier());
         TextClassifier textClassifier =
-                mTextClassificationManager.createTextClassifier(mTextClassificationContext);
+                mTextClassificationManager.getTextClassifier();
+
         assertThat(textClassifier).isInstanceOf(DummyTextClassifier.class);
     }
 
     private static class DummyTextClassifier extends TextClassifier {
-        DummyTextClassifier(TextClassificationContext textClassificationContext) {
-            super(textClassificationContext);
+        DummyTextClassifier() {
+            super();
         }
     }
 }
