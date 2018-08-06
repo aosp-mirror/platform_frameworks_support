@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "76dc862b_7d50adab",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/MainThreadExecutor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-06T10:24:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "943b6684_0e49ef9f",
+      "range": {
+        "startLine": 28,
+        "startChar": 7,
+        "endLine": 28,
+        "endChar": 12
+      },
+      "revId": "02a07eb603d8de623b49f2ca04e53c6d77a62b07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f16790fb_da4b76e6",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/MainThreadExecutor.java",
         "patchSetId": 2
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "1bda45fe_dfee5676",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/MainThreadExecutor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-06T10:24:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f16790fb_da4b76e6",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 5
+      },
+      "revId": "02a07eb603d8de623b49f2ca04e53c6d77a62b07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8938bfb_054461a7",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 2
@@ -82,6 +130,30 @@
       "writtenOn": "2018-08-04T01:55:31Z",
       "side": 1,
       "message": "Do these need to run on the main thread?\nCan we just run this on the current thread?\n\nFYI. Showing the toolbar, which requires the UI thread will ensure that right thing is done.",
+      "range": {
+        "startLine": 553,
+        "startChar": 28,
+        "endLine": 561,
+        "endChar": 49
+      },
+      "revId": "02a07eb603d8de623b49f2ca04e53c6d77a62b07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e819cdcb_e36ae54e",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-06T10:24:16Z",
+      "side": 1,
+      "message": "Probably not required to run in main thread.\nBut as you said, we will replace this as showing toolbar soon, so maybe let\u0027s keep it?",
+      "parentUuid": "a8938bfb_054461a7",
       "range": {
         "startLine": 553,
         "startChar": 28,
