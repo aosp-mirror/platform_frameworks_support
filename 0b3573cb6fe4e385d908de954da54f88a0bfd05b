@@ -126,6 +126,30 @@
     },
     {
       "key": {
+        "uuid": "3f0c8544_f13330a6",
+        "filename": "navigation/fragment/src/main/java/androidx/navigation/fragment/FragmentNavigator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-06T13:28:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bea76e2_eb527e7a",
+      "range": {
+        "startLine": 323,
+        "startChar": 9,
+        "endLine": 323,
+        "endChar": 17
+      },
+      "revId": "0b3573cb6fe4e385d908de954da54f88a0bfd05b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc1c10f1_cc177a37",
         "filename": "navigation/runtime/src/main/java/androidx/navigation/NavController.java",
         "patchSetId": 3
@@ -185,6 +209,30 @@
       "side": 1,
       "message": "Ok, I filed https://b.corp.google.com/issues/112243286 for us.",
       "parentUuid": "e1d1fa39_b62ed39f",
+      "range": {
+        "startLine": 582,
+        "startChar": 5,
+        "endLine": 582,
+        "endChar": 13
+      },
+      "revId": "0b3573cb6fe4e385d908de954da54f88a0bfd05b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fce228b7_a64d16d1",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-06T13:28:03Z",
+      "side": 1,
+      "message": "I suppressed the check on this method for now.",
+      "parentUuid": "2150d9d1_17c49229",
       "range": {
         "startLine": 582,
         "startChar": 5,
