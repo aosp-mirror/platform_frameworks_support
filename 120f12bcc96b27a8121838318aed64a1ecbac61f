@@ -34,6 +34,24 @@
       "revId": "120f12bcc96b27a8121838318aed64a1ecbac61f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b219da45_c724d592",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-06T23:36:45Z",
+      "side": 1,
+      "message": "SG, thanks.",
+      "parentUuid": "55303031_36d3bec3",
+      "revId": "120f12bcc96b27a8121838318aed64a1ecbac61f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
