@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c929b609_905116ab",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaSessionService2NotificationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T10:38:17Z",
+      "side": 1,
+      "message": "\u003cp\u003e",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 2
+      },
+      "revId": "90d2f2fe20f9a8a65c3fac1dec6623b26eabcf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69f4389d_63cecf7e",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T10:38:17Z",
+      "side": 1,
+      "message": "Minor) We\u0027d better to mention about FOREGROUND_SERVICE.",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 0
+      },
+      "revId": "90d2f2fe20f9a8a65c3fac1dec6623b26eabcf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf853048_2e63fa99",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T10:38:17Z",
+      "side": 1,
+      "message": "is changed.",
+      "range": {
+        "startLine": 165,
+        "startChar": 46,
+        "endLine": 165,
+        "endChar": 53
+      },
+      "revId": "90d2f2fe20f9a8a65c3fac1dec6623b26eabcf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
