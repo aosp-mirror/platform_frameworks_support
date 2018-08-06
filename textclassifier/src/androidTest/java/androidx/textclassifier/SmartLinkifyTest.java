@@ -69,7 +69,6 @@ public class SmartLinkifyTest {
 
     @Mock
     private TextClassifier mClassifier;
-    private TextClassifierFactory mClassifierFactory;
 
     private Context mContext;
 
@@ -78,13 +77,6 @@ public class SmartLinkifyTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        mClassifierFactory = new TextClassifierFactory() {
-            @NonNull
-            @Override
-            public TextClassifier create(@NonNull TextClassificationContext ctx) {
-                return mClassifier;
-            }
-        };
         mContext = InstrumentationRegistry.getTargetContext();
         mCallback = new BlockingCallback();
     }
@@ -101,7 +93,7 @@ public class SmartLinkifyTest {
                 .thenReturn(testObject.getTextLinks());
         final Spannable text = testObject.getText();
 
-        SmartLinkify.addLinksAsync(text, mContext, mClassifierFactory, PARAMS,
+        SmartLinkify.addLinksAsync(text, mContext, mClassifier, PARAMS,
                 null /* cancel */, null /* executor */, mCallback);
         mCallback.await(true);  // Block for the result.
 
@@ -126,7 +118,7 @@ public class SmartLinkifyTest {
         textView.setText(testObject.getText().toString());
         assertThat(textView.getText()).isNotInstanceOf(Spannable.class);
 
-        SmartLinkify.addLinksAsync(textView, mClassifierFactory, PARAMS,
+        SmartLinkify.addLinksAsync(textView, mClassifier, PARAMS,
                 null /* cancel */, null /* executor */, mCallback);
         mCallback.await(true);  // Block for the result.
 
@@ -146,7 +138,7 @@ public class SmartLinkifyTest {
         final TextLinks noLinks = new TextLinks.Builder(text.toString()).build();
         when(mClassifier.generateLinks(any(TextLinks.Request.class))).thenReturn(noLinks);
 
-        SmartLinkify.addLinksAsync(text, mContext, mClassifierFactory, PARAMS,
+        SmartLinkify.addLinksAsync(text, mContext, mClassifier, PARAMS,
                 null /* cancel */, null /* executor */, mCallback);
         mCallback.await(true);  // Block for the result.
 
@@ -175,7 +167,7 @@ public class SmartLinkifyTest {
                 text.getSpans(0, text.length(), TextLinks.TextLinkSpan.class);
         assertThat(oldSpans).asList().hasSize(1);
 
-        SmartLinkify.addLinksAsync(text, mContext, mClassifierFactory, PARAMS,
+        SmartLinkify.addLinksAsync(text, mContext, mClassifier, PARAMS,
                 null /* cancel */, null /* executor */, mCallback);
         mCallback.await(true);  // Block for the result.
 
@@ -201,7 +193,7 @@ public class SmartLinkifyTest {
         textView.setText(testObject.getText());
         assertThat(textView.getMovementMethod()).isNull();
 
-        SmartLinkify.addLinksAsync(textView, mClassifierFactory, PARAMS,
+        SmartLinkify.addLinksAsync(textView, mClassifier, PARAMS,
                 null /* cancel */, null /* executor */, mCallback);
         mCallback.await(true);  // Block for the result.
 
@@ -221,7 +213,7 @@ public class SmartLinkifyTest {
         textView.setText(testObject.getText());
         textView.setMovementMethod(new BaseMovementMethod());
 
-        SmartLinkify.addLinksAsync(textView, mClassifierFactory, PARAMS,
+        SmartLinkify.addLinksAsync(textView, mClassifier, PARAMS,
                 null /* cancel */, null /* executor */, mCallback);
         mCallback.await(true);  // Block for the result.
 
@@ -241,7 +233,7 @@ public class SmartLinkifyTest {
         textView.setText(testObject.getText());
         textView.setLinksClickable(false);
 
-        SmartLinkify.addLinksAsync(textView, mClassifierFactory, PARAMS,
+        SmartLinkify.addLinksAsync(textView, mClassifier, PARAMS,
                 null /* cancel */, null /* executor */, mCallback);
         mCallback.await(true);  // Block for the result.
 
@@ -256,18 +248,11 @@ public class SmartLinkifyTest {
                 .addEntity("email@android.com", TextClassifier.TYPE_EMAIL)
                 .build();
         final Spannable text = testObject.getText();
-        final TextClassifierFactory classifierFactory = new TextClassifierFactory() {
-            @NonNull
+        final TextClassifier textClassifier = new TextClassifier() {
             @Override
-            public TextClassifier create(@NonNull TextClassificationContext ctx) {
-                return new TextClassifier(ctx) {
-                    @NonNull
-                    @Override
-                    public TextLinks generateLinks(@NonNull TextLinks.Request request) {
-                        SystemClock.sleep(generateLinksDelay);
-                        return testObject.getTextLinks();
-                    }
-                };
+            public TextLinks generateLinks(TextLinks.Request request) {
+                SystemClock.sleep(generateLinksDelay);
+                return testObject.getTextLinks();
             }
         };
         final CancellationSignal cancel = new CancellationSignal();
@@ -275,7 +260,7 @@ public class SmartLinkifyTest {
         final Executor executor = Executors.newSingleThreadExecutor();
         final SmartLinkify.Callback callback = mock(SmartLinkify.Callback.class);
 
-        SmartLinkify.addLinksAsync(text, mContext, classifierFactory, PARAMS,
+        SmartLinkify.addLinksAsync(text, mContext, textClassifier, PARAMS,
                 cancel, executor, callback);
         cancel.cancel();
         SystemClock.sleep(generateLinksDelay * 2);
@@ -296,7 +281,7 @@ public class SmartLinkifyTest {
         final Executor executor = mock(Executor.class);
         verifyZeroInteractions(executor);
 
-        SmartLinkify.addLinksAsync(text, mContext, mClassifierFactory, PARAMS,
+        SmartLinkify.addLinksAsync(text, mContext, mClassifier, PARAMS,
                 null /* cancel */, executor, mCallback);
         mCallback.await(false);  // Block for the result.
 
@@ -328,7 +313,7 @@ public class SmartLinkifyTest {
                 })
                 .build();
 
-        SmartLinkify.addLinksAsync(text, mContext, mClassifierFactory, params,
+        SmartLinkify.addLinksAsync(text, mContext, mClassifier, params,
                 null /* cancel */, null /* executor */, mCallback);
         mCallback.await(true);  // Block for the result.
 
@@ -361,7 +346,7 @@ public class SmartLinkifyTest {
                 .setApplyStrategy(TextLinks.APPLY_STRATEGY_IGNORE)
                 .build();
 
-        SmartLinkify.addLinksAsync(text, mContext, mClassifierFactory, params,
+        SmartLinkify.addLinksAsync(text, mContext, mClassifier, params,
                 null /* cancel */, null /* executor */, mCallback);
         mCallback.await(true);  // Block for the result.
 
@@ -390,7 +375,7 @@ public class SmartLinkifyTest {
                 .setApplyStrategy(TextLinks.APPLY_STRATEGY_REPLACE)
                 .build();
 
-        SmartLinkify.addLinksAsync(text, mContext, mClassifierFactory, params,
+        SmartLinkify.addLinksAsync(text, mContext, mClassifier, params,
                 null /* cancel */, null /* executor */, mCallback);
         mCallback.await(true);  // Block for the result.
 
@@ -411,22 +396,16 @@ public class SmartLinkifyTest {
 
         final TextView textView = new TextView(InstrumentationRegistry.getTargetContext());
         textView.setText(testObject.getText());
-        final TextClassifierFactory classifierFactory = new TextClassifierFactory() {
+        final TextClassifier textClassifier = new TextClassifier() {
             @NonNull
             @Override
-            public TextClassifier create(@NonNull TextClassificationContext ctx) {
-                return new TextClassifier(ctx) {
-                    @NonNull
-                    @Override
-                    public TextLinks generateLinks(@NonNull TextLinks.Request request) {
-                        SystemClock.sleep(300);
-                        return testObject.getTextLinks();
-                    }
-                };
+            public TextLinks generateLinks(@NonNull TextLinks.Request request) {
+                SystemClock.sleep(300);
+                return testObject.getTextLinks();
             }
         };
 
-        SmartLinkify.addLinksAsync(textView, classifierFactory, PARAMS,
+        SmartLinkify.addLinksAsync(textView, textClassifier, PARAMS,
                 null /* cancel */, null /* executor */, mCallback);
         final Spannable text = new SpannableString("different text");
         textView.setText(text);

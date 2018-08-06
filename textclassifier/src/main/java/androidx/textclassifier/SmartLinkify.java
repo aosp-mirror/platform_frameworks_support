@@ -52,8 +52,7 @@ public final class SmartLinkify {
      * TextView to LinkMovementMethod.
      *
      * <p><strong>Note:</strong> This method returns immediately but generates the links with
-     * a text classifier created via
-     * {@link TextClassificationManager#createTextClassifier(TextClassificationContext)}
+     * a text classifier created via {@link TextClassificationManager#getTextClassifier()}
      * on a background thread. The generated links are applied on the UI thread.
      *
      * @param textView TextView whose text is to be marked-up with links
@@ -62,7 +61,7 @@ public final class SmartLinkify {
     public static void addLinksAsync(
             @NonNull TextView textView,
             @Nullable TextLinksParams params) {
-        addLinksAsync(textView, null /* classifierFactory */, params,
+        addLinksAsync(textView, null /* classifier */, params,
                 null /* cancel */, null /* executor */, null /* callback */);
     }
 
@@ -78,10 +77,9 @@ public final class SmartLinkify {
      * UI thread.
      *
      * @param textView TextView whose text is to be marked-up with links
-     * @param classifierFactory factory to create the TextClassifier used to generate and handle
-     *      the links. If null, a text classifier created via
-     *      {@link TextClassificationManager#createTextClassifier(TextClassificationContext)}
-     *      is used
+     * @param textClassifier text classifier used to generate and handle the links.
+     *      If null, a text classifier returned by
+     *      {@link TextClassificationManager#getTextClassifier()} is used
      * @param params optional parameters to specify how to generate the links
      * @param cancel Cancellation signal to cancel the task
      * @param executor Executor that runs the background task
@@ -89,7 +87,7 @@ public final class SmartLinkify {
      */
     public static void addLinksAsync(
             @NonNull final TextView textView,
-            @Nullable TextClassifierFactory classifierFactory,
+            @Nullable TextClassifier textClassifier,
             @Nullable TextLinksParams params,
             @Nullable CancellationSignal cancel,
             @Nullable Executor executor,
@@ -126,7 +124,7 @@ public final class SmartLinkify {
             }
         };
         addLinksAsync(textSupplier, textView.getContext(), widgetType,
-                classifierFactory, params, cancel, executor, callbackWrapper);
+                textClassifier, params, cancel, executor, callbackWrapper);
     }
 
     private static String getWidgetType(TextView textView) {
@@ -155,7 +153,7 @@ public final class SmartLinkify {
      *
      * <p><strong>Note:</strong> This method returns immediately but generates the links with
      * a text classifier created via
-     * {@link TextClassificationManager#createTextClassifier(TextClassificationContext)}
+     * {@link TextClassificationManager#getTextClassifier()}
      * on a background thread. The generated links are applied on the UI thread.
      *
      * @param text Spannable whose text is to be marked-up with links
@@ -164,7 +162,7 @@ public final class SmartLinkify {
      */
     public static void addLinksAsync(
             @NonNull Spannable text, @NonNull Context context, @Nullable TextLinksParams params) {
-        addLinksAsync(text, context, null /* classifierFactory */,
+        addLinksAsync(text, context, null /* classifier */,
                 params, null /* cancel */, null /* executor */, null /* callback */);
     }
 
@@ -180,10 +178,9 @@ public final class SmartLinkify {
      *
      * @param text Spannable whose text is to be marked-up with links
      * @param context the current context
-     * @param classifierFactory factory to create the TextClassifier used to generate and handle
-     *      the links. If null, a text classifier created via
-     *      {@link TextClassificationManager#createTextClassifier(TextClassificationContext)}
-     *      is used
+     * @param textClassifier text classifier used to generate and handle the links.
+     *      If null, a text classifier returned by
+     *      {@link TextClassificationManager#getTextClassifier()} is used
      * @param params optional parameters to specify how to generate the links
      * @param cancel Cancellation signal to cancel the task
      * @param executor Executor that runs the background task
@@ -192,7 +189,7 @@ public final class SmartLinkify {
     public static void addLinksAsync(
             @NonNull final Spannable text,
             @NonNull final Context context,
-            @Nullable TextClassifierFactory classifierFactory,
+            @Nullable TextClassifier textClassifier,
             @Nullable TextLinksParams params,
             @Nullable CancellationSignal cancel,
             @Nullable Executor executor,
@@ -204,20 +201,20 @@ public final class SmartLinkify {
             }
         };
         addLinksAsync(textSupplier, context, TextClassifier.WIDGET_TYPE_UNKNOWN,
-                classifierFactory, params, cancel, executor, callback);
+                textClassifier, params, cancel, executor, callback);
     }
 
     private static void addLinksAsync(
             @NonNull Supplier<Spannable> textSupplier,
             @NonNull Context context,
             @NonNull String widgetType,
-            @Nullable TextClassifierFactory classifierFactory,
+            @Nullable TextClassifier textClassifier,
             @Nullable TextLinksParams params,
             @Nullable CancellationSignal cancel,
             @Nullable Executor executor,
             @Nullable Callback callback) {
         final LinkifyTask task = new LinkifyTask(
-                textSupplier, context, widgetType, classifierFactory, params, callback);
+                textSupplier, context, widgetType, textClassifier, params, callback);
         if (cancel != null) {
             cancel.setOnCancelListener(task);
         }
@@ -257,13 +254,10 @@ public final class SmartLinkify {
         private final Supplier<Spannable> mTextSupplier;
         private final Spannable mText;
         private final CharSequence mTruncatedText;
-        private final TextClassifier mClassifier;
         private final TextLinksParams mParams;
         private final Callback mCallback;
         private final TextLinks.Request mRequest;
-
-        @Nullable
-        private final TextClassifierFactory mClassifierFactory;
+        private final TextClassifier mTextClassifier;
 
         @TextLinks.Status
         private int mStatus = TextLinks.STATUS_UNKNOWN;
@@ -271,26 +265,21 @@ public final class SmartLinkify {
         LinkifyTask(@NonNull Supplier<Spannable> textSupplier,
                     @NonNull Context context,
                     @NonNull String widgetType,
-                    @Nullable TextClassifierFactory classifierFactory,
+                    @Nullable TextClassifier textClassifier,
                     @Nullable TextLinksParams params,
                     @Nullable Callback callback) {
             mTextSupplier = Preconditions.checkNotNull(textSupplier);
             mText = mTextSupplier.get();
-            mClassifierFactory = classifierFactory;
-            final TextClassificationContext classificationContext =
-                    new TextClassificationContext.Builder(context.getPackageName(), widgetType)
-                            .build();
-            if (mClassifierFactory != null) {
-                mClassifier = classifierFactory.create(classificationContext);
+            if (textClassifier != null) {
+                mTextClassifier = textClassifier;
             } else {
-                mClassifier = TextClassificationManager.of(context)
-                        .createTextClassifier(classificationContext);
+                mTextClassifier = TextClassificationManager.of(context).getTextClassifier();
             }
             mParams = params != null ? params : new TextLinksParams.Builder().build();
             // TODO: If text is longer than the supported length,
             // break it down and process in parallel.
             mTruncatedText = mText.subSequence(
-                    0, Math.min(mText.length(), mClassifier.getMaxGenerateLinksTextLength()));
+                    0, Math.min(mText.length(), mTextClassifier.getMaxGenerateLinksTextLength()));
             mCallback = callback != null ? callback : NO_OP_CALLBACK;
             mRequest = new TextLinks.Request.Builder(mTruncatedText)
                     .setEntityConfig(mParams.getEntityConfig())
@@ -300,8 +289,8 @@ public final class SmartLinkify {
 
         @Override
         protected TextLinks doInBackground(Void... nil) {
-            final TextLinks textLinks = mClassifier.generateLinks(mRequest);
-            textLinks.setClassifierFactory(mClassifierFactory);
+            final TextLinks textLinks = mTextClassifier.generateLinks(mRequest);
+            textLinks.setTextClassifier(mTextClassifier);
             textLinks.setReferenceTime(mParams.getReferenceTime());
             return textLinks;
         }
