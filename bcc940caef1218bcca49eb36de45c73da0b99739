@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4f4813d6_1dc223cb",
+        "filename": "xsd-api/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1348374
+      },
+      "writtenOn": "2018-08-06T06:30:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8306f775_14a8a4aa",
+      "range": {
+        "startLine": 2,
+        "startChar": 8,
+        "endLine": 2,
+        "endChar": 15
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0563b2a3_c1e3bad1",
         "filename": "xsd-api/Android.bp",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a04b5c02_83cff239",
+        "filename": "xsd-api/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1348374
+      },
+      "writtenOn": "2018-08-06T06:30:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0563b2a3_c1e3bad1",
+      "range": {
+        "startLine": 10,
+        "startChar": 9,
+        "endLine": 10,
+        "endChar": 17
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -91,6 +139,54 @@
       "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a79902ee_ea3e5cd4",
+        "filename": "xsd-api/src/main/java/com/google/xsd/Base64TypeDescriptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1348374
+      },
+      "writtenOn": "2018-08-06T06:30:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9c66b00_b74cf56b",
+      "range": {
+        "startLine": 1,
+        "startChar": 8,
+        "endLine": 1,
+        "endChar": 18
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f0c608c_4853dc2e",
+        "filename": "xsd-api/src/main/java/com/google/xsd/Base64TypeDescriptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1348374
+      },
+      "writtenOn": "2018-08-06T06:30:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd40b598_a5d7e253",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 23
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
