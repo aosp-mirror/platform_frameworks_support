@@ -33,8 +33,8 @@ import java.util.Arrays
 import java.util.HashMap
 import java.util.HashSet
 
-class TableInfoValidationWriter(val entity: Entity) {
-    fun write(dbParam: ParameterSpec, scope: CodeGenScope) {
+class TableInfoValidationWriter(val entity: Entity) : ValidationWriter {
+    override fun write(dbParam: ParameterSpec, scope: CodeGenScope) {
         val suffix = entity.tableName.stripNonJava().capitalize()
         val expectedInfoVar = scope.getTmpVar("_info$suffix")
         scope.builder().apply {
@@ -114,5 +114,6 @@ class TableInfoValidationWriter(val entity: Entity) {
 
     // The estimated amount of statements this writer will produce can be defined as the total
     // number of entity properties that needs to be validated.
-    fun statementCount() = entity.fields.size + entity.foreignKeys.size + entity.indices.size
+    override fun statementCount() = entity.fields.size + entity.foreignKeys.size +
+            entity.indices.size
 }
