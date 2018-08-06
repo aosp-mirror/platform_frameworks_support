@@ -25,6 +25,92 @@
     },
     {
       "key": {
+        "uuid": "e0a824bf_15e86a70",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-06T12:01:22Z",
+      "side": 1,
+      "message": "As we talked offline, please consider to add followings instead.\n\nSessionCallback {\n  OnHandleForegroundServiceListener mOnHandleForegroundServiceListener;\n\n  final void onHandleForegroundService(@PlayerState int state) {\n    if (mOnHandleForegroundServiceListener !\u003d null) {\n      mOnHandleForegroundServiceListener.onHadnlaskdjflaksjd();\n    }\n  }\n\n  setOnHandleForegroundServiceListener(OnHandleForegroundServiceListener listener) {\n    mOnHandleForegroundServiceListener \u003d listener;\n  }\n}",
+      "range": {
+        "startLine": 912,
+        "startChar": 33,
+        "endLine": 912,
+        "endChar": 48
+      },
+      "revId": "90d2f2fe20f9a8a65c3fac1dec6623b26eabcf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f104b944_172405c6",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1005,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-06T12:01:22Z",
+      "side": 1,
+      "message": "executor?",
+      "range": {
+        "startLine": 1005,
+        "startChar": 46,
+        "endLine": 1005,
+        "endChar": 47
+      },
+      "revId": "90d2f2fe20f9a8a65c3fac1dec6623b26eabcf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc4b3a1a_e5895fbf",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-06T12:01:22Z",
+      "side": 1,
+      "message": "Not related with this CL, but shouldn\u0027t we call session.getCallback().onPlayerStateChanged() as well?",
+      "revId": "90d2f2fe20f9a8a65c3fac1dec6623b26eabcf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db1591c1_fb59a87e",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1422,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-06T12:01:22Z",
+      "side": 1,
+      "message": "Shouldn\u0027t these be called together everywhere?",
+      "range": {
+        "startLine": 1412,
+        "startChar": 0,
+        "endLine": 1422,
+        "endChar": 23
+      },
+      "revId": "90d2f2fe20f9a8a65c3fac1dec6623b26eabcf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "69f4389d_63cecf7e",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
         "patchSetId": 2
