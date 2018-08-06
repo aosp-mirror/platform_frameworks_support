@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95330848_037e6c86",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-06T19:29:30Z",
+      "side": 1,
+      "message": "I\u0027m confused about why you need this additional layer of checking.  It seems like the above check (within the while loop) is doing the verification you want and then breaking out of the loop, and then you waiting and checking almost the same thing again?\n\nPerhaps you are making sure that you are actually stopping on the item you think you are stopping on?",
+      "range": {
+        "startLine": 480,
+        "startChar": 16,
+        "endLine": 484,
+        "endChar": 70
+      },
+      "revId": "dd288b2644ce4dac9220aef741bfc5c5219d874c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
