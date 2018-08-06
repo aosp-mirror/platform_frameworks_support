@@ -22,6 +22,30 @@
       "revId": "5ef7aed2423f5d3f72ebb5854ff6565b11df092d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8eced6e3_bb65aa68",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-08-06T07:27:16Z",
+      "side": 1,
+      "message": "I\u0027ll take a look. Thanks.",
+      "parentUuid": "c0a96b5a_1beb00bc",
+      "range": {
+        "startLine": 130,
+        "startChar": 4,
+        "endLine": 130,
+        "endChar": 80
+      },
+      "revId": "5ef7aed2423f5d3f72ebb5854ff6565b11df092d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
