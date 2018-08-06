@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "569451be_c0770376",
+        "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaControlView2Test.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-06T08:57:50Z",
+      "side": 1,
+      "message": "Could you specifically point out which variables you are referring to?\nI think all of these variables are used in more than one methods..?",
+      "parentUuid": "374b1033_304384ff",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 44
+      },
+      "revId": "6e621bb7b645647e313e2d8d346b7bcf7fc29915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "35cd2294_12574fa9",
         "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaUtils2.java",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "f6e8489c_04dd9541",
+        "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaUtils2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-06T08:57:50Z",
+      "side": 1,
+      "message": "Changed.",
+      "parentUuid": "35cd2294_12574fa9",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 65
+      },
+      "revId": "6e621bb7b645647e313e2d8d346b7bcf7fc29915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "93ed03c2_f9b63db6",
         "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaUtils2.java",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2018-08-06T08:43:43Z",
       "side": 1,
       "message": "What about renaming this as MediaWidgetTestUtils?",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 17
+      },
+      "revId": "6e621bb7b645647e313e2d8d346b7bcf7fc29915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a4e70e3_72887807",
+        "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaUtils2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-06T08:57:50Z",
+      "side": 1,
+      "message": "How about just renaming it to TestUtils.java like in media2 test?",
+      "parentUuid": "93ed03c2_f9b63db6",
       "range": {
         "startLine": 29,
         "startChar": 6,
