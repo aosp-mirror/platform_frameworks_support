@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d5931899_a61d165f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 29
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-06T18:18:41Z",
+      "side": 1,
+      "message": "that should not be a problem here since we only care about pending CLs and I expect they\u0027ll always be on top (since they are local to the build machine). That being said, if you have an example, we can check the logs to verify.\n\nfindPrevMergeCL is supposed to find the latest commit that is already merged to the tree. after that, we expect any change to be part of the build.\n\nso unless there is a case like:\n\n\nmerge CL\nCL under test\n\nwhere merge CL is after the CL under test, we should be fine.",
+      "parentUuid": "6d255fc7_9b40edfb",
+      "range": {
+        "startLine": 185,
+        "startChar": 27,
+        "endLine": 185,
+        "endChar": 52
+      },
+      "revId": "81b082b6526a2e5f6a1c5c4e2112ebcb19b7c693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b24cc421_29ccd22c",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/GitClient.kt",
         "patchSetId": 29
@@ -36,6 +60,24 @@
       "writtenOn": "2018-08-06T16:58:55Z",
       "side": 1,
       "message": "Note that if this is running `git diff` then it only lists modified files, but not newly created files. (Is this planned for developers to use when running on their workstations too)?",
+      "revId": "81b082b6526a2e5f6a1c5c4e2112ebcb19b7c693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6ea6f39_6663ca17",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/GitClient.kt",
+        "patchSetId": 29
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-06T18:18:41Z",
+      "side": 1,
+      "message": "yea i eventually want to have a task that says \"run tests for everything i\u0027ve changed, including uncomitted\" but not there yet .",
+      "parentUuid": "b24cc421_29ccd22c",
       "revId": "81b082b6526a2e5f6a1c5c4e2112ebcb19b7c693",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
