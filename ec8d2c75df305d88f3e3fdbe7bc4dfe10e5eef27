@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35d42603_c1d43ea7",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T15:21:52Z",
+      "side": 0,
+      "message": "why do you remove this?",
+      "range": {
+        "startLine": 1046,
+        "startChar": 0,
+        "endLine": 1046,
+        "endChar": 88
+      },
+      "revId": "ec8d2c75df305d88f3e3fdbe7bc4dfe10e5eef27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
