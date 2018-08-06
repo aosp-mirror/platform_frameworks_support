@@ -1,0 +1,464 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8306f775_14a8a4aa",
+        "filename": "xsd-api/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T01:06:06Z",
+      "side": 1,
+      "message": "how about renaming this to xsdc, which means xsd compiler",
+      "range": {
+        "startLine": 2,
+        "startChar": 8,
+        "endLine": 2,
+        "endChar": 15
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0563b2a3_c1e3bad1",
+        "filename": "xsd-api/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T01:06:06Z",
+      "side": 1,
+      "message": "tests are under ./tests",
+      "range": {
+        "startLine": 10,
+        "startChar": 9,
+        "endLine": 10,
+        "endChar": 17
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd40b598_a5d7e253",
+        "filename": "xsd-api/src/main/java/com/google/xsd/Base64TypeDescriptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T01:06:06Z",
+      "side": 1,
+      "message": "And place the *Descriptor classes under a specific package",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 23
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9c66b00_b74cf56b",
+        "filename": "xsd-api/src/main/java/com/google/xsd/Base64TypeDescriptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T01:06:06Z",
+      "side": 1,
+      "message": "please rename the package to \u0027com.android.*\u0027",
+      "range": {
+        "startLine": 1,
+        "startChar": 8,
+        "endLine": 1,
+        "endChar": 18
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bed4ead2_8d7eb0e1",
+        "filename": "xsd-api/src/main/java/com/google/xsd/ClassDescriptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T01:06:06Z",
+      "side": 1,
+      "message": "why isn\u0027t this inherit from TypeDescriptor?",
+      "range": {
+        "startLine": 9,
+        "startChar": 6,
+        "endLine": 9,
+        "endChar": 22
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f6e15c6_e42e3484",
+        "filename": "xsd-api/src/main/java/com/google/xsd/ClassDescriptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T01:06:06Z",
+      "side": 1,
+      "message": "This is repeated multiple times and makes reading the code very hard.\n\nIdeally, you will need a custom writer class which automatically detects a line that ends with \u0027{\\n\u0027 and indent the next line (.. and of course un-undent the line that starts with \u0027}\u0027)",
+      "range": {
+        "startLine": 164,
+        "startChar": 8,
+        "endLine": 164,
+        "endChar": 44
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d8101f4_dea8b7c0",
+        "filename": "xsd-api/src/main/java/com/google/xsd/SchemaDescriptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T01:06:06Z",
+      "side": 1,
+      "message": "don\u0027t do this. define a writer that does the indentation for you automatically.",
+      "range": {
+        "startLine": 51,
+        "startChar": 17,
+        "endLine": 51,
+        "endChar": 21
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df821507_d5f9b67e",
+        "filename": "xsd-api/src/main/java/com/google/xsd/SchemaDescriptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T01:06:06Z",
+      "side": 1,
+      "message": "This class is not directly available. Get a pull parser by calling \u0027android.util.Xml.newPullParser()\u0027",
+      "range": {
+        "startLine": 52,
+        "startChar": 63,
+        "endLine": 52,
+        "endChar": 86
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de06edcb_f59aa0dd",
+        "filename": "xsd-api/src/main/java/com/google/xsd/SimpleTypeDescriptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T01:06:06Z",
+      "side": 1,
+      "message": "what is the difference in between getParsingExpression and getRawParsingExpression?",
+      "range": {
+        "startLine": 29,
+        "startChar": 11,
+        "endLine": 29,
+        "endChar": 31
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77351c2f_3f7e69c6",
+        "filename": "xsd-api/src/main/java/com/google/xsd/SimpleTypeDescriptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T01:06:06Z",
+      "side": 1,
+      "message": "don\u0027t indent using tabs",
+      "range": {
+        "startLine": 34,
+        "startChar": 45,
+        "endLine": 34,
+        "endChar": 47
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e852f688_13dc984c",
+        "filename": "xsd-api/src/main/java/com/google/xsd/SimpleTypeDescriptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T01:06:06Z",
+      "side": 1,
+      "message": "omit \"this.\" when unnecessary, throughout the source source",
+      "range": {
+        "startLine": 37,
+        "startChar": 64,
+        "endLine": 37,
+        "endChar": 69
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cd4a1dc_7b149b80",
+        "filename": "xsd-api/src/main/java/com/google/xsd/SimpleTypeDescriptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T01:06:06Z",
+      "side": 1,
+      "message": "document",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 70
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c70a5618_f6b95a76",
+        "filename": "xsd-api/src/main/java/com/google/xsd/TypeDescriptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T01:06:06Z",
+      "side": 1,
+      "message": "make these private, and have methods that returns these getName() and getNullableName()",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 34
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18d73266_d2b73dcf",
+        "filename": "xsd-api/src/main/java/com/google/xsd/TypeDescriptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T01:06:06Z",
+      "side": 1,
+      "message": "just call \u0027this(name, name);\u0027",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 31
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2d9b9d2_3667ceaf",
+        "filename": "xsd-api/src/main/java/com/google/xsd/TypeDescriptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T01:06:06Z",
+      "side": 1,
+      "message": "don\u0027t assign members in a single statement",
+      "range": {
+        "startLine": 8,
+        "startChar": 8,
+        "endLine": 8,
+        "endChar": 45
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "300c907d_cf6a4e0f",
+        "filename": "xsd-api/src/main/java/com/google/xsd/TypeDescriptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T01:06:06Z",
+      "side": 1,
+      "message": "...and make these as abstract",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 5
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3befccb2_2272b5a1",
+        "filename": "xsd-api/src/main/java/com/google/xsd/TypeDescriptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T01:06:06Z",
+      "side": 1,
+      "message": "Please add some javadoc comments here.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 32
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35ad8297_b0e3e756",
+        "filename": "xsd-api/src/main/java/com/google/xsd/Utils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T01:06:06Z",
+      "side": 1,
+      "message": "don\u0027t use tabs for indentation. use 4 spaces",
+      "range": {
+        "startLine": 51,
+        "startChar": 23,
+        "endLine": 51,
+        "endChar": 25
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4bcdfc0_4402b851",
+        "filename": "xsd-api/src/main/java/com/google/xsd/XmlGregorianCalendarTypeDescriptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T01:06:06Z",
+      "side": 1,
+      "message": "I don\u0027t think we will use this type in xml files for Android.",
+      "range": {
+        "startLine": 3,
+        "startChar": 6,
+        "endLine": 3,
+        "endChar": 40
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9b86afd_91dbdca8",
+        "filename": "xsd-api/src/main/java/com/google/xsd/XsdTag.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T01:06:06Z",
+      "side": 1,
+      "message": "place XsdTag and children of it under a separate package that is different from the package for *Descriptor classes.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 23
+      },
+      "revId": "bcc940caef1218bcca49eb36de45c73da0b99739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
