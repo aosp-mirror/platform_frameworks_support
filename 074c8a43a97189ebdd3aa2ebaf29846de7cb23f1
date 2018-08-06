@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4eb9c2c4_921974be",
+        "filename": "lifecycle/livedata-core/src/main/java/androidx/lifecycle/LiveData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-06T16:00:26Z",
+      "side": 1,
+      "message": "empty line b4 param.",
+      "range": {
+        "startLine": 97,
+        "startChar": 7,
+        "endLine": 97,
+        "endChar": 15
+      },
+      "revId": "074c8a43a97189ebdd3aa2ebaf29846de7cb23f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da49648c_64e24ed1",
+        "filename": "lifecycle/livedata-core/src/main/java/androidx/lifecycle/LiveData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-06T16:00:26Z",
+      "side": 1,
+      "message": "why not keep it as START_VERSION and make this START_VERSION + 1?",
+      "range": {
+        "startLine": 101,
+        "startChar": 18,
+        "endLine": 101,
+        "endChar": 20
+      },
+      "revId": "074c8a43a97189ebdd3aa2ebaf29846de7cb23f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65c15b2e_8ef2a979",
+        "filename": "lifecycle/livedata-core/src/main/java/androidx/lifecycle/MutableLiveData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-06T16:00:26Z",
+      "side": 1,
+      "message": "empty line before param.",
+      "revId": "074c8a43a97189ebdd3aa2ebaf29846de7cb23f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
