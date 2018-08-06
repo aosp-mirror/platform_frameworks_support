@@ -154,7 +154,9 @@ public abstract class TextClassifier {
      */
     @WorkerThread
     @NonNull
-    public TextSelection suggestSelection(@NonNull TextSelection.Request request) {
+    TextSelection suggestSelection(
+            @NonNull TextClassificationContext textClassificationContext,
+            @NonNull TextSelection.Request request) {
         Preconditions.checkNotNull(request);
         ensureNotOnMainThread();
         return new TextSelection.Builder(request.getStartIndex(), request.getEndIndex()).build();
@@ -170,7 +172,9 @@ public abstract class TextClassifier {
      */
     @WorkerThread
     @NonNull
-    public TextClassification classifyText(@NonNull TextClassification.Request request) {
+    TextClassification classifyText(
+            @NonNull TextClassificationContext textClassificationContext,
+            @NonNull TextClassification.Request request) {
         Preconditions.checkNotNull(request);
         ensureNotOnMainThread();
         return TextClassification.EMPTY;
@@ -188,7 +192,9 @@ public abstract class TextClassifier {
      */
     @WorkerThread
     @NonNull
-    public TextLinks generateLinks(@NonNull TextLinks.Request request) {
+    TextLinks generateLinks(
+            @NonNull TextClassificationContext textClassificationContext,
+            @NonNull TextLinks.Request request) {
         Preconditions.checkNotNull(request);
         ensureNotOnMainThread();
         return new TextLinks.Builder(request.getText().toString()).build();
@@ -197,23 +203,22 @@ public abstract class TextClassifier {
     /**
      * Returns the maximal length of text that can be processed by generateLinks.
      *
-     * @see #generateLinks(TextLinks.Request)
+     * @see #generateLinks(TextClassificationContext, TextLinks.Request)
      */
-    public int getMaxGenerateLinksTextLength() {
+    int getMaxGenerateLinksTextLength() {
         return GENERATE_LINKS_MAX_TEXT_LENGTH_DEFAULT;
     }
 
-    /**
-     * Reports a selection event.
-     */
-    public final void reportSelectionEvent(@NonNull SelectionEvent event) {
+    public TextClassifierSession createSession(
+            @NonNull TextClassificationContext textClassificationContext) {
+        return new TextClassifierSession(this, textClassificationContext);
     }
 
     /**
      * Called when a selection event is reported.
      */
     @WorkerThread
-    public void onSelectionEvent(@NonNull SelectionEvent event) {
+    void onSelectionEvent(@NonNull SelectionEvent event) {
     }
 
     static void ensureNotOnMainThread() {

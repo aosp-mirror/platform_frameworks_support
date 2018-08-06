@@ -257,7 +257,7 @@ public final class SmartLinkify {
         private final TextLinksParams mParams;
         private final Callback mCallback;
         private final TextLinks.Request mRequest;
-        private final TextClassifier mTextClassifier;
+        private final TextClassifierSession mSession;
 
         @TextLinks.Status
         private int mStatus = TextLinks.STATUS_UNKNOWN;
@@ -270,16 +270,18 @@ public final class SmartLinkify {
                     @Nullable Callback callback) {
             mTextSupplier = Preconditions.checkNotNull(textSupplier);
             mText = mTextSupplier.get();
-            if (textClassifier != null) {
-                mTextClassifier = textClassifier;
-            } else {
-                mTextClassifier = TextClassificationManager.of(context).getTextClassifier();
+            if (textClassifier == null) {
+                textClassifier = TextClassificationManager.of(context).getTextClassifier();
             }
+            TextClassificationContext textClassificationContext =
+                    new TextClassificationContext.Builder(
+                            context.getPackageName(), widgetType).build();
+            mSession = textClassifier.createSession(textClassificationContext);
             mParams = params != null ? params : new TextLinksParams.Builder().build();
             // TODO: If text is longer than the supported length,
             // break it down and process in parallel.
             mTruncatedText = mText.subSequence(
-                    0, Math.min(mText.length(), mTextClassifier.getMaxGenerateLinksTextLength()));
+                    0, Math.min(mText.length(), mSession.getMaxGenerateLinksTextLength()));
             mCallback = callback != null ? callback : NO_OP_CALLBACK;
             mRequest = new TextLinks.Request.Builder(mTruncatedText)
                     .setEntityConfig(mParams.getEntityConfig())
@@ -289,8 +291,7 @@ public final class SmartLinkify {
 
         @Override
         protected TextLinks doInBackground(Void... nil) {
-            final TextLinks textLinks = mTextClassifier.generateLinks(mRequest);
-            textLinks.setTextClassifier(mTextClassifier);
+            final TextLinks textLinks = mSession.generateLinks(mRequest);
             textLinks.setReferenceTime(mParams.getReferenceTime());
             return textLinks;
         }
@@ -313,7 +314,7 @@ public final class SmartLinkify {
                     text.removeSpan(old[i]);
                 }
             }
-            mStatus = mParams.apply(text, links);
+            mStatus = mParams.apply(text, links, mSession);
             mCallback.onLinkify(text, mStatus);
         }
 

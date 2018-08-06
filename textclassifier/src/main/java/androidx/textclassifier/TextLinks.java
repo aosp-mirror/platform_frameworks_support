@@ -130,52 +130,6 @@ public final class TextLinks {
     }
 
     /**
-     * Annotates the given text with the generated links. It will fail if the provided text doesn't
-     * match the original text used to create the TextLinks.
-     *
-     * <p><strong>NOTE: </strong>It may be necessary to set a LinkMovementMethod on the TextView
-     * widget to properly handle links. See
-     * {@link android.widget.TextView#setMovementMethod(android.text.method.MovementMethod)}
-     *
-     * @param text the text to apply the links to. Must match the original text
-     * @param applyStrategy the apply strategy used to determine how to apply links to text.
-     *      e.g {@link TextLinks#APPLY_STRATEGY_IGNORE}
-     * @param spanFactory a custom span factory for converting TextLinks to TextLinkSpans.
-     *      Set to {@code null} to use the default span factory.
-     *
-     * @return a status code indicating whether or not the links were successfully applied
-     *      e.g. {@link #STATUS_LINKS_APPLIED}
-     *
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
-    @Status
-    // TODO: Remove. Should use TextLinksParams.apply() directly.
-    // Move relevant tests in TextLinksTest to TextLinksParamsTest.
-    int apply(
-            @NonNull Spannable text,
-            @ApplyStrategy int applyStrategy,
-            @Nullable SpanFactory spanFactory) {
-        Preconditions.checkNotNull(text);
-        return new TextLinksParams.Builder()
-                .setApplyStrategy(applyStrategy)
-                .setSpanFactory(spanFactory)
-                .build()
-                .apply(text, this);
-    }
-
-    /**
-     * Sets the classifier factory used to generate the links.
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
-    void setTextClassifier(@Nullable TextClassifier factory) {
-        for (TextLink link : getLinks()) {
-            link.mTextClassifier = factory;
-        }
-    }
-
-    /**
      * @param referenceTime reference time based on which relative dates (e.g. "tomorrow"
      *      should be interpreted. This should usually be the time when the text was
      *      originally composed. If no reference time is set, now is used.
@@ -504,7 +458,7 @@ public final class TextLinks {
     public interface SpanFactory {
 
         /** Creates a span from a text link. */
-        TextLinkSpan createSpan(TextLink textLink);
+        TextLinkSpan createSpan(TextLink textLink, TextClassifierSession session);
     }
 
     /**
@@ -513,9 +467,14 @@ public final class TextLinks {
     public static class TextLinkSpan extends ClickableSpan {
 
         @Nullable private final TextLink mTextLink;
+        @NonNull private  final TextClassifierSession mTextClassifierSession;
 
-        public TextLinkSpan(@Nullable TextLink textLink) {
+        // TODO: @NonNull textLink once we hide the setSpanFactory? Also do we even need to
+        // expose TextLinkSpan at all? Devs will just use SmartLinkify and that is?
+        public TextLinkSpan(
+                @Nullable TextLink textLink, @NonNull TextClassifierSession textClassifierSession) {
             mTextLink = textLink;
+            mTextClassifierSession = Preconditions.checkNotNull(textClassifierSession);
         }
 
         @Override
@@ -545,7 +504,8 @@ public final class TextLinks {
                 @Override
                 public void run() {
 
-                    final TextClassification classification = classifier.classifyText(request);
+                    final TextClassification classification =
+                            mTextClassifierSession.classifyText(request);
                     sMainThreadExecutor.execute(new Runnable() {
                         @Override
                         public void run() {

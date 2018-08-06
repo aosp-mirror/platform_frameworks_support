@@ -88,7 +88,9 @@ final class LegacyTextClassifier extends TextClassifier {
     @Override
     @NonNull
     /** @inheritDoc */
-    public TextClassification classifyText(@NonNull TextClassification.Request request) {
+    public TextClassification classifyText(
+            @NonNull TextClassificationContext textClassificationContext,
+            @NonNull TextClassification.Request request) {
         final String requestText = request.getText().toString()
                 .substring(request.getStartIndex(), request.getEndIndex());
         if (Patterns.WEB_URL.matcher(requestText).matches()) {
@@ -117,7 +119,9 @@ final class LegacyTextClassifier extends TextClassifier {
     @Override
     @NonNull
     /** @inheritDoc */
-    public TextLinks generateLinks(@NonNull TextLinks.Request request) {
+    public TextLinks generateLinks(
+            @NonNull TextClassificationContext textClassificationContext,
+            @NonNull TextLinks.Request request) {
         final Collection<String> entityTypes = request.getEntityConfig()
                 .resolveEntityTypes(DEFAULT_ENTITY_TYPES);
         final String requestText = request.getText().toString();

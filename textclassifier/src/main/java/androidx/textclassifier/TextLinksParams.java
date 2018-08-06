@@ -41,8 +41,8 @@ public final class TextLinksParams {
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     static final SpanFactory DEFAULT_SPAN_FACTORY = new SpanFactory() {
         @Override
-        public TextLinkSpan createSpan(TextLink textLink) {
-            return new TextLinkSpan(textLink);
+        public TextLinkSpan createSpan(TextLink textLink, TextClassifierSession session) {
+            return new TextLinkSpan(textLink, session);
         }
     };
 
@@ -105,7 +105,8 @@ public final class TextLinksParams {
      * @return a status code indicating whether or not the links were successfully applied
      */
     @TextLinks.Status
-    int apply(@NonNull Spannable text, @NonNull TextLinks textLinks) {
+    int apply(@NonNull Spannable text, @NonNull TextLinks textLinks,
+            @NonNull TextClassifierSession session) {
         Preconditions.checkNotNull(text);
         Preconditions.checkNotNull(textLinks);
 
@@ -118,7 +119,7 @@ public final class TextLinksParams {
 
         int applyCount = 0;
         for (TextLink link : textLinks.getLinks()) {
-            final TextLinkSpan span = mSpanFactory.createSpan(link);
+            final TextLinkSpan span = mSpanFactory.createSpan(link, session);
             if (span != null) {
                 final ClickableSpan[] existingSpans = text.getSpans(
                         link.getStart(), link.getEnd(), ClickableSpan.class);
@@ -183,6 +184,7 @@ public final class TextLinksParams {
          *
          * @hide
          */
+        // TOOD: Should we go ahead to remove it?
         @RestrictTo(RestrictTo.Scope.LIBRARY)
         public Builder setSpanFactory(@Nullable SpanFactory spanFactory) {
             mSpanFactory = spanFactory == null ? DEFAULT_SPAN_FACTORY : spanFactory;
