@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "592cc040_d82717ed",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/DefaultSessionStrategy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-06T14:32:10Z",
+      "side": 1,
+      "message": "TODO: maybe we should call reportSelectionEvent(EVENT_DESTORY) to notify TC that a session is destroyed.",
+      "revId": "00f86dfcea0491fa9663a993c3d5fdc6fda3c7af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c670286_92195408",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/PlatformTextClassifierWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-06T14:32:10Z",
+      "side": 1,
+      "message": "Each platform TC is a session itself, so we simply forward all the calls to it.",
+      "revId": "00f86dfcea0491fa9663a993c3d5fdc6fda3c7af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b03fe3e4_579fba0c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SessionStrategy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-06T14:32:10Z",
+      "side": 1,
+      "message": "I introduce the SessionStrategy interface only because I don\u0027t wanna developer to extends TextClassifierSession (final), while we can still change the behavior of it for the platformTC.\n\nBut if we are happy to allow devs to extend TextClassifierSession directly, we don\u0027t need this interface.",
+      "revId": "00f86dfcea0491fa9663a993c3d5fdc6fda3c7af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac38c74f_57673a3e",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-06T14:32:10Z",
+      "side": 1,
+      "message": "I am thinking should we pass TC or session here.\n\nHow long should a session is? \nAre all interactions of links generated here should be considered into one session?\nIf so, when do we end the session?\n\nOr should session be based on the FloatingToolbar interaction? Whenever the toolbar is dismissed or any menu item is clicked, the session is destroyed?",
+      "revId": "00f86dfcea0491fa9663a993c3d5fdc6fda3c7af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
