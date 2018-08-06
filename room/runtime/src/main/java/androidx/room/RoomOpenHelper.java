@@ -26,6 +26,7 @@ import androidx.sqlite.db.SimpleSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -185,6 +186,38 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
          * @param db The SQLite database.
          */
         protected abstract void validateMigration(SupportSQLiteDatabase db);
+
+        protected void syncViews(SupportSQLiteDatabase db, String[][] views) {
+            Cursor cursor = db.query("SELECT name, sql FROM sqlite_master WHERE type = 'view'");
+            HashMap<String, String> existingViews = new HashMap<>();
+            //noinspection TryFinallyCanBeTryWithResources
+            try {
+                while (cursor.moveToNext()) {
+                    String name = cursor.getString(0);
+                    String sql = cursor.getString(1);
+                    existingViews.put(name, sql);
+                }
+            } finally {
+                cursor.close();
+            }
+            for (String[] view : views) {
+                String name = view[0];
+                String sql = view[1];
+                if (existingViews.containsKey(name)) {
+                    String existingSql = existingViews.get(name);
+                    existingViews.remove(name);
+                    if (existingSql.equals(sql)) {
+                        continue;
+                    } else {
+                        db.execSQL("DROP VIEW `" + name + "`");
+                    }
+                }
+                db.execSQL(sql);
+            }
+            for (String name : existingViews.keySet()) {
+                db.execSQL("DROP VIEW `" + name + "`");
+            }
+        }
     }
 
 }

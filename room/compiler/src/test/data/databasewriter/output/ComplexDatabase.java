@@ -18,6 +18,7 @@ import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 import javax.annotation.Generated;
 
 @Generated("androidx.room.RoomProcessor")
@@ -52,6 +53,9 @@ public final class ComplexDatabase_Impl extends ComplexDatabase {
             @Override
             public void onOpen(SupportSQLiteDatabase _db) {
                 mDatabase = _db;
+                syncViews(_db, new String[][]{
+                    {"UserSummary", "CREATE VIEW `UserSummary` AS SELECT uid, name FROM User"},
+                })
                 internalInitInvalidationTracker(_db);
                 if (mCallbacks != null) {
                     for (int _i = 0, _size = mCallbacks.size(); _i < _size; _i++) {
@@ -88,7 +92,11 @@ public final class ComplexDatabase_Impl extends ComplexDatabase {
 
     @Override
     protected InvalidationTracker createInvalidationTracker() {
-        return new InvalidationTracker(this, "User");
+        HashMap<String, Set<String>> _viewTables = new HashMap<String, Set<String>>(1);
+        HashSet<String> _tables = new HashSet<String>(1);
+        _tables.add("User");
+        _viewTables.put("usersummary", _tables);
+        return new InvalidationTracker(this, new String[]{"User"}, _viewTables);
     }
 
     @Override

@@ -17,12 +17,14 @@
 package androidx.room.writer
 
 import androidx.room.ext.AndroidTypeNames
+import androidx.room.ext.CommonTypeNames
 import androidx.room.ext.L
 import androidx.room.ext.N
 import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.S
 import androidx.room.ext.SupportDbTypeNames
 import androidx.room.ext.T
+import androidx.room.ext.typeName
 import androidx.room.solver.CodeGenScope
 import androidx.room.vo.DaoMethod
 import androidx.room.vo.Database
@@ -30,9 +32,11 @@ import com.google.auto.common.MoreElements
 import com.squareup.javapoet.FieldSpec
 import com.squareup.javapoet.MethodSpec
 import com.squareup.javapoet.ParameterSpec
+import com.squareup.javapoet.ParameterizedTypeName
 import com.squareup.javapoet.TypeName
 import com.squareup.javapoet.TypeSpec
 import stripNonJava
+import java.util.Locale
 import javax.lang.model.element.Modifier
 import javax.lang.model.element.Modifier.FINAL
 import javax.lang.model.element.Modifier.PRIVATE
@@ -111,6 +115,7 @@ class DatabaseWriter(val database: Database) : ClassWriter(database.implTypeName
     }
 
     private fun createCreateInvalidationTracker(): MethodSpec {
+        val scope = CodeGenScope(this)
         return MethodSpec.methodBuilder("createInvalidationTracker").apply {
             addAnnotation(Override::class.java)
             addModifiers(PROTECTED)
@@ -118,7 +123,29 @@ class DatabaseWriter(val database: Database) : ClassWriter(database.implTypeName
             val tableNames = database.entities.joinToString(",") {
                 "\"${it.tableName}\""
             }
-            addStatement("return new $T(this, $L)", RoomTypeNames.INVALIDATION_TRACKER, tableNames)
+            val viewTablesVar = scope.getTmpVar("_viewTables")
+            val tablesType = ParameterizedTypeName.get(HashSet::class.typeName(),
+                    CommonTypeNames.STRING)
+            val viewTablesType = ParameterizedTypeName.get(HashMap::class.typeName(),
+                    CommonTypeNames.STRING,
+                    ParameterizedTypeName.get(CommonTypeNames.SET,
+                            CommonTypeNames.STRING))
+            addStatement("$T $L = new $T($L)", viewTablesType, viewTablesVar, viewTablesType,
+                    database.views.size)
+            for (view in database.views) {
+                val tablesVar = scope.getTmpVar("_tables")
+                addStatement("$T $L = new $T($L)", tablesType, tablesVar, tablesType,
+                        view.tables.size)
+                for (table in view.tables) {
+                    addStatement("$L.add($S)", tablesVar, table)
+                }
+                addStatement("$L.put($S, $L)", viewTablesVar,
+                        view.viewName.toLowerCase(Locale.US), tablesVar)
+            }
+            addStatement("return new $T(this, new String[]{$L}, $L)",
+                    RoomTypeNames.INVALIDATION_TRACKER,
+                    tableNames,
+                    viewTablesVar)
         }.build()
     }
 
