@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3d53f99_4b032a67",
+        "filename": "loader/src/main/java/androidx/loader/content/ModernAsyncTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-08-06T20:14:18Z",
+      "side": 1,
+      "message": "While cleaning up, do you want to mark @NonNull for appropriate parameters and return values? I see that you made mode return values void, so it should be easy now.",
+      "revId": "bbaeefe191ca3a8ae94cb82d6d0b177e0f9b89f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
