@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "3f36c968_79aabef8",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/RemoteMediaBrowserCompatService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T13:48:59Z",
+      "side": 1,
+      "message": "this does nothing. Let\u0027s not add APIs before there\u0027s actual usecases",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 79
+      },
+      "revId": "1911a6959724e4158ba84e89e2bca0b2bd03d52c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "96f67c1c_a281af64",
         "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/RemoteMediaBrowserCompat.java",
         "patchSetId": 2
