@@ -21,6 +21,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.integration.autovaluetestapp.dao.ParcelableEntityDao;
 import androidx.room.integration.autovaluetestapp.dao.PersonDao;
 import androidx.room.integration.autovaluetestapp.dao.PetDao;
+import androidx.room.integration.autovaluetestapp.vo.DogWithOwner;
 import androidx.room.integration.autovaluetestapp.vo.Mail;
 import androidx.room.integration.autovaluetestapp.vo.ParcelableEntity;
 import androidx.room.integration.autovaluetestapp.vo.Person;
@@ -28,6 +29,7 @@ import androidx.room.integration.autovaluetestapp.vo.Pet;
 
 @Database(entities = {Person.class, Pet.Cat.class, Pet.Dog.class, ParcelableEntity.class,
         Mail.class},
+        views = {DogWithOwner.class},
         version = 1, exportSchema = false)
 public abstract class TestDatabase extends RoomDatabase {
     public abstract PersonDao getPersonDao();

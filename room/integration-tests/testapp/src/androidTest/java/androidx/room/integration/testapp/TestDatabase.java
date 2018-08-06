@@ -41,6 +41,7 @@ import androidx.room.integration.testapp.vo.House;
 import androidx.room.integration.testapp.vo.Mail;
 import androidx.room.integration.testapp.vo.Pet;
 import androidx.room.integration.testapp.vo.PetCouple;
+import androidx.room.integration.testapp.vo.PetWithUser;
 import androidx.room.integration.testapp.vo.Product;
 import androidx.room.integration.testapp.vo.School;
 import androidx.room.integration.testapp.vo.Toy;
@@ -52,6 +53,7 @@ import java.util.Set;
 
 @Database(entities = {User.class, Pet.class, School.class, PetCouple.class, Toy.class,
         BlobEntity.class, Product.class, FunnyNamedEntity.class, House.class, Mail.class},
+        views = {PetWithUser.class},
         version = 1, exportSchema = false)
 @TypeConverters(TestDatabase.Converters.class)
 public abstract class TestDatabase extends RoomDatabase {
