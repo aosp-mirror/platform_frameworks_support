@@ -17,6 +17,7 @@
 package androidx.room.parser
 
 import androidx.room.ColumnInfo
+import androidx.room.FtsEntity
 import org.antlr.v4.runtime.ANTLRInputStream
 import org.antlr.v4.runtime.BaseErrorListener
 import org.antlr.v4.runtime.CommonTokenStream
@@ -268,6 +269,55 @@ enum class Collate {
                 ColumnInfo.LOCALIZED -> LOCALIZED
                 ColumnInfo.UNICODE -> UNICODE
                 else -> null
+            }
+        }
+    }
+}
+
+enum class FtsVersion {
+    FTS3,
+    FTS4;
+
+    companion object {
+        fun fromAnnotationValue(value: Int): FtsVersion {
+            return when (value) {
+                FtsEntity.FTS3 -> FTS3
+                FtsEntity.FTS4 -> FTS4
+                else -> FTS4 // default to FTS4 ???
+            }
+        }
+    }
+}
+
+enum class Tokenizer {
+    SIMPLE,
+    PORTER,
+    ICU,
+    UNICODE61;
+
+    companion object {
+        fun fromAnnotationValue(value: Int): Tokenizer {
+            return when (value) {
+                FtsEntity.SIMPLE -> SIMPLE
+                FtsEntity.PORTER -> PORTER
+                FtsEntity.ICU -> ICU
+                FtsEntity.UNICODE61 -> UNICODE61
+                else -> SIMPLE // default to SIMPLE ???
+            }
+        }
+    }
+}
+
+enum class FtsOrder {
+    ASC,
+    DESC;
+
+    companion object {
+        fun fromAnnotationValue(value: Int): FtsOrder {
+            return when (value) {
+                FtsEntity.ASC -> ASC
+                FtsEntity.DESC -> DESC
+                else -> ASC // default to ASC ???
             }
         }
     }

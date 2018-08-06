@@ -16,10 +16,12 @@
 
 package androidx.room.processor
 
+import androidx.room.FtsEntity
 import androidx.room.ext.getAsBoolean
 import androidx.room.ext.getAsInt
 import androidx.room.ext.getAsString
 import androidx.room.ext.getAsStringList
+import androidx.room.ext.hasAnnotation
 import androidx.room.ext.toType
 import androidx.room.parser.SQLTypeAffinity
 import androidx.room.parser.SqlParser
@@ -47,17 +49,17 @@ import javax.lang.model.type.TypeKind
 import javax.lang.model.type.TypeMirror
 import javax.lang.model.util.SimpleAnnotationValueVisitor6
 
-class EntityProcessor(
+open class EntityProcessor internal constructor(
     baseContext: Context,
     val element: TypeElement,
-    private val referenceStack: LinkedHashSet<Name> = LinkedHashSet()
+    protected val referenceStack: LinkedHashSet<Name> = LinkedHashSet()
 ) {
     val context = baseContext.fork(element)
 
-    fun process(): Entity {
-        return context.cache.entities.get(Cache.EntityKey(element), {
+    open fun process(): Entity {
+        return context.cache.entities.get(Cache.EntityKey(element)) {
             doProcess()
-        })
+        }
     }
 
     private fun doProcess(): Entity {
@@ -153,7 +155,8 @@ class EntityProcessor(
                 indices = indices,
                 primaryKey = primaryKey,
                 foreignKeys = entityForeignKeys,
-                constructor = pojo.constructor)
+                constructor = pojo.constructor,
+                shadowTableName = null)
 
         return entity
     }
@@ -506,6 +509,19 @@ class EntityProcessor(
     }
 
     companion object {
+
+        fun createFor(
+            context: Context,
+            element: TypeElement,
+            referenceStack: LinkedHashSet<Name> = LinkedHashSet()
+        ): EntityProcessor {
+            return if (element.hasAnnotation(FtsEntity::class)) {
+                FtsEntityProcessor(context, element, referenceStack)
+            } else {
+                EntityProcessor(context, element, referenceStack)
+            }
+        }
+
         fun extractTableName(element: TypeElement, annotation: AnnotationMirror): String {
             val annotationValue = AnnotationMirrors
                     .getAnnotationValue(annotation, "tableName").value.toString()

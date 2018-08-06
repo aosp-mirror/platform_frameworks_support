@@ -86,8 +86,8 @@ class RawQueryMethodProcessor(
                 }
                 .flatMap {
                     if (it.hasAnnotation(androidx.room.Entity::class)) {
-                        val entity = EntityProcessor(
-                                baseContext = context,
+                        val entity = EntityProcessor.createFor(
+                                context = context,
                                 element = it
                         ).process()
                         arrayListOf(entity.tableName)

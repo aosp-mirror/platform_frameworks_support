@@ -510,7 +510,7 @@ class PojoProcessor private constructor(
             return null
         }
 
-        val entity = EntityProcessor(context, entityElement, referenceStack).process()
+        val entity = EntityProcessor.createFor(context, entityElement, referenceStack).process()
 
         // now find the field in the entity.
         val entityColumnInput = AnnotationMirrors.getAnnotationValue(annotation, "entityColumn")

@@ -356,8 +356,10 @@ class TypeAdapterStore private constructor(
                 // we don't know what query returns. Check for entity.
                 val asElement = MoreTypes.asElement(typeMirror)
                 if (asElement.hasAnnotation(Entity::class)) {
-                    return EntityRowAdapter(EntityProcessor(context,
-                            MoreElements.asType(asElement)).process())
+                    return EntityRowAdapter(EntityProcessor.createFor(
+                            context = context,
+                            element = MoreElements.asType(asElement)
+                    ).process())
                 }
             }
 
