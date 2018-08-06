@@ -30,6 +30,7 @@ import androidx.work.impl.WorkManagerImpl;
 import androidx.work.impl.constraints.WorkConstraintsCallback;
 import androidx.work.impl.constraints.WorkConstraintsTracker;
 import androidx.work.impl.model.WorkSpec;
+import androidx.work.impl.utils.taskexecutor.WorkManagerTaskExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,10 +120,25 @@ public class GreedyScheduler implements Scheduler, WorkConstraintsCallback, Exec
     }
 
     @Override
-    public synchronized void onExecuted(@NonNull String workSpecId,
+    public synchronized void onExecuted(@NonNull final String workSpecId,
             boolean isSuccessful,
             boolean needsReschedule) {
         removeConstraintTrackingFor(workSpecId);
+        // When GreedyScheduler picks up work and executes it, then upon completion it needs to
+        // tell other schedulers to cancel the work which is already completed. Otherwise,
+        // we will exceed the Scheduling limit if the rate of enqueue >> rate of execution.
+        WorkManagerTaskExecutor.getInstance()
+                .executeOnBackgroundThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<Scheduler> schedulers = mWorkManagerImpl.getSchedulers();
+                        for (Scheduler scheduler : schedulers) {
+                            if (scheduler != GreedyScheduler.this) {
+                                scheduler.cancel(workSpecId);
+                            }
+                        }
+                    }
+                });
     }
 
     private synchronized void removeConstraintTrackingFor(@NonNull String workSpecId) {
