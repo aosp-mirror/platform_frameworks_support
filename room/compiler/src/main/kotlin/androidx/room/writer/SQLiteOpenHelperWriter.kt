@@ -25,6 +25,7 @@ import androidx.room.ext.SupportDbTypeNames
 import androidx.room.ext.T
 import androidx.room.solver.CodeGenScope
 import androidx.room.vo.Database
+import androidx.room.vo.DatabaseView
 import androidx.room.vo.Entity
 import androidx.room.vo.FtsEntity
 import com.squareup.javapoet.MethodSpec
@@ -145,6 +146,13 @@ class SQLiteOpenHelperWriter(val database: Database) {
             addAnnotation(Override::class.java)
             addParameter(SupportDbTypeNames.DB, "_db")
             addStatement("mDatabase = _db")
+            val syncViewsFormat = "$T.syncViews($L, new String[][]{\n" +
+                    ("{$S, $S},\n").repeat(database.views.size) +
+                    "})"
+            val viewsSpec = database.views.flatMap { view ->
+                listOf(view.viewName, view.createViewQuery)
+            }.toTypedArray()
+            addStatement(syncViewsFormat, RoomTypeNames.DB_UTIL, "_db", *viewsSpec)
             if (database.enableForeignKeys) {
                 addStatement("_db.execSQL($S)", "PRAGMA foreign_keys = ON")
             }
@@ -212,8 +220,13 @@ class SQLiteOpenHelperWriter(val database: Database) {
     }
 
     @VisibleForTesting
-    fun createQuery(entity: Entity): String {
+    fun createTableQuery(entity: Entity): String {
         return entity.createTableQuery
+    }
+
+    @VisibleForTesting
+    fun createViewQuery(view: DatabaseView): String {
+        return view.createViewQuery
     }
 
     @VisibleForTesting

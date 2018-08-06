@@ -28,13 +28,16 @@ import javax.lang.model.type.TypeMirror
 /**
  * Holds information about a class annotated with Database.
  */
-data class Database(val element: TypeElement,
-                    val type: TypeMirror,
-                    val entities: List<Entity>,
-                    val daoMethods: List<DaoMethod>,
-                    val version: Int,
-                    val exportSchema: Boolean,
-                    val enableForeignKeys: Boolean) {
+data class Database(
+    val element: TypeElement,
+    val type: TypeMirror,
+    val entities: List<Entity>,
+    val views: List<DatabaseView>,
+    val daoMethods: List<DaoMethod>,
+    val version: Int,
+    val exportSchema: Boolean,
+    val enableForeignKeys: Boolean
+) {
     val typeName: ClassName by lazy { ClassName.get(element) }
 
     private val implClassName by lazy {
