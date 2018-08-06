@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd0a389c_9c90e8a8",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/greedy/GreedyScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-06T23:52:47Z",
+      "side": 1,
+      "message": "Every scheduler\u0027s onexecuted should do this.  Don\u0027t special-case anything if possible.",
+      "range": {
+        "startLine": 127,
+        "startChar": 8,
+        "endLine": 141,
+        "endChar": 19
+      },
+      "revId": "88b36f7b98ea9055add8cc4e2cd2fbe9a1c7c19a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
