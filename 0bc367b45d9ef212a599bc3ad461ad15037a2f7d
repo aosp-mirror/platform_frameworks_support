@@ -22,6 +22,30 @@
       "revId": "0bc367b45d9ef212a599bc3ad461ad15037a2f7d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84cd27a0_8b246b38",
+        "filename": "car/core/res/values/dimens.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-06T18:09:36Z",
+      "side": 0,
+      "message": "Done. Migrated the end icon to car_primary_icon_size",
+      "parentUuid": "97f88818_ebf6bab2",
+      "range": {
+        "startLine": 207,
+        "startChar": 17,
+        "endLine": 207,
+        "endChar": 51
+      },
+      "revId": "0bc367b45d9ef212a599bc3ad461ad15037a2f7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
