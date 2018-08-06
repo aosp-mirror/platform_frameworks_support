@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "db833f17_010edc93",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/VersionedEnum.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-06T17:16:41Z",
+      "side": 1,
+      "message": "These fallbacks you describe are not a behavior of enum but specific to your project/API, based on that I would recommend renaming this class to something more specific and updating the description to clarify.\n\nAs to whether these should be enums or ints, I\u0027ll leave that to Alan. An int array would save space over the string array though.",
+      "parentUuid": "b295c514_769be8b0",
+      "revId": "67ef63e771ee76841ddd021ccb05b698ec134e64",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1b798186_3f3212f4",
         "filename": "versionedparcelable/annotation/src/main/java/androidx/versionedparcelable/compiler/VersionedParcelProcessor.java",
         "patchSetId": 3
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "This only indicates what sources are supported. Existing libraries should work fine.\nWithout this change, libraries using Java8 can\u0027t use this annotation processor.",
       "parentUuid": "1b798186_3f3212f4",
+      "revId": "67ef63e771ee76841ddd021ccb05b698ec134e64",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "749cbc93_20bc6d42",
+        "filename": "versionedparcelable/annotation/src/main/java/androidx/versionedparcelable/compiler/VersionedParcelProcessor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-06T17:16:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7d8d58cf_720197e5",
       "revId": "67ef63e771ee76841ddd021ccb05b698ec134e64",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -104,6 +140,24 @@
       "revId": "67ef63e771ee76841ddd021ccb05b698ec134e64",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b59db00c_74f4847d",
+        "filename": "versionedparcelable/annotation/src/main/java/androidx/versionedparcelable/compiler/VersionedParcelProcessor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-06T17:16:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "15c92218_b19b7f68",
+      "revId": "67ef63e771ee76841ddd021ccb05b698ec134e64",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
