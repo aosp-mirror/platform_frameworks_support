@@ -27,6 +27,7 @@ import androidx.room.verifier.DatabaseVerifier
 import androidx.room.vo.Dao
 import androidx.room.vo.DaoMethod
 import androidx.room.vo.Database
+import androidx.room.vo.DatabaseView
 import androidx.room.vo.Entity
 import com.google.auto.common.AnnotationMirrors
 import com.google.auto.common.MoreElements
@@ -61,6 +62,7 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
                 .getAnnotationMirror(element, androidx.room.Database::class.java)
                 .orNull()
         val entities = processEntities(dbAnnotation, element)
+        val viewsNonVerified = processDatabaseViews(dbAnnotation, null)
         validateUniqueTableNames(element, entities)
         validateForeignKeys(element, entities)
 
@@ -73,9 +75,16 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
         val dbVerifier = if (element.hasAnnotation(SkipQueryVerification::class)) {
             null
         } else {
-            DatabaseVerifier.create(context, element, entities)
+            DatabaseVerifier.create(context, element, entities, viewsNonVerified)
         }
         context.databaseVerifier = dbVerifier
+
+        val views = if (dbVerifier != null) {
+            // Reprocess with the verifier
+            processDatabaseViews(dbAnnotation, dbVerifier)
+        } else {
+            viewsNonVerified
+        }
 
         val declaredType = MoreTypes.asDeclared(element.asType())
         val daoMethods = allMembers.filter {
@@ -107,6 +116,7 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
                 element = element,
                 type = MoreElements.asType(element).asType(),
                 entities = entities,
+                views = views,
                 daoMethods = daoMethods,
                 exportSchema = exportSchema,
                 enableForeignKeys = hasForeignKeys)
@@ -246,6 +256,15 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
                 ProcessorErrors.DATABASE_ANNOTATION_MUST_HAVE_LIST_OF_ENTITIES)
         return listOfTypes.map {
             EntityProcessor(context, MoreTypes.asTypeElement(it)).process()
+        }
+    }
+
+    private fun processDatabaseViews(dbAnnotation: AnnotationMirror?,
+            dbVerifier: DatabaseVerifier?) : List<DatabaseView> {
+        val viewList = AnnotationMirrors.getAnnotationValue(dbAnnotation, "views")
+        val listOfTypes = viewList.toListOfClassTypes()
+        return listOfTypes.map {
+            DatabaseViewProcessor(context, MoreTypes.asTypeElement(it), dbVerifier).process()
         }
     }
 }

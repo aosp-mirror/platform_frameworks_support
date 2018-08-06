@@ -53,6 +53,8 @@ import org.mockito.stubbing.Answer;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
@@ -245,6 +247,28 @@ public class InvalidationTrackerTest {
         doThrow(new IllegalStateException("foo")).when(mOpenHelper).getWritableDatabase();
         mTracker.addObserver(new LatchObserver(1, "a", "b"));
         mTracker.mRefreshRunnable.run();
+    }
+
+    @Test
+    public void views() {
+        mTracker.addView("P", new String[]{"a"});
+        mTracker.addView("Q", new String[]{"P", "B"});
+        mTracker.addView("R", new String[]{"Q", "i"});
+
+        final List<String> tablesP = new ArrayList<>();
+        Collections.addAll(tablesP, mTracker.resolveViews(new String[]{"P"}));
+        assertThat(tablesP.size(), is(1));
+        assertThat(tablesP, hasItems("a"));
+
+        final List<String> tablesQ = new ArrayList<>();
+        Collections.addAll(tablesQ, mTracker.resolveViews(new String[]{"Q"}));
+        assertThat(tablesQ.size(), is(2));
+        assertThat(tablesQ, hasItems("a", "B"));
+
+        final List<String> tablesR = new ArrayList<>();
+        Collections.addAll(tablesR, mTracker.resolveViews(new String[]{"R"}));
+        assertThat(tablesR.size(), is(3));
+        assertThat(tablesR, hasItems("a", "B", "i"));
     }
 
     // @Test - disabled due to flakiness b/65257997

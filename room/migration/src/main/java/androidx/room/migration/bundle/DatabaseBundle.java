@@ -39,6 +39,8 @@ public class DatabaseBundle implements SchemaEquality<DatabaseBundle> {
     private String mIdentityHash;
     @SerializedName("entities")
     private List<EntityBundle> mEntities;
+    @SerializedName("views")
+    private List<DatabaseViewBundle> mViews;
     // then entity where we keep room information
     @SerializedName("setupQueries")
     private List<String> mSetupQueries;
@@ -49,12 +51,14 @@ public class DatabaseBundle implements SchemaEquality<DatabaseBundle> {
      * @param version Version
      * @param identityHash Identity hash
      * @param entities List of entities
-     */
+     * @param views List of views
+     * */
     public DatabaseBundle(int version, String identityHash, List<EntityBundle> entities,
-            List<String> setupQueries) {
+            List<DatabaseViewBundle> views, List<String> setupQueries) {
         mVersion = version;
         mIdentityHash = identityHash;
         mEntities = entities;
+        mViews = views;
         mSetupQueries = setupQueries;
     }
 
@@ -94,12 +98,24 @@ public class DatabaseBundle implements SchemaEquality<DatabaseBundle> {
     }
 
     /**
+     * @return List of views.
+     */
+    public List<DatabaseViewBundle> getViews() {
+        return mViews;
+    }
+
+    /**
      * @return List of SQL queries to build this database from scratch.
      */
     public List<String> buildCreateQueries() {
         List<String> result = new ArrayList<>();
         for (EntityBundle entityBundle : mEntities) {
             result.addAll(entityBundle.buildCreateQueries());
+        }
+        if (mViews != null) {
+            for (DatabaseViewBundle viewBundle : mViews) {
+                result.add(viewBundle.getCreateSql());
+            }
         }
         result.addAll(mSetupQueries);
         return result;

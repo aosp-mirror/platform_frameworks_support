@@ -98,6 +98,10 @@ public class InvalidationTracker {
 
     @NonNull
     @VisibleForTesting
+    ArrayMap<String, Set<String>> mViewTables;
+
+    @NonNull
+    @VisibleForTesting
     long[] mTableVersions;
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -138,6 +142,7 @@ public class InvalidationTracker {
         mTableIdLookup = new ArrayMap<>();
         final int size = tableNames.length;
         mTableNames = new String[size];
+        mViewTables = new ArrayMap<>();
         for (int id = 0; id < size; id++) {
             final String tableName = tableNames[id].toLowerCase(Locale.US);
             mTableIdLookup.put(tableName, id);
@@ -145,6 +150,19 @@ public class InvalidationTracker {
         }
         mTableVersions = new long[tableNames.length];
         Arrays.fill(mTableVersions, 0);
+    }
+
+    /**
+     * @param viewName The name of the view.
+     * @param tables The list of the tables that this view references.
+     * @hide
+     */
+    @SuppressWarnings("unused")
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public void addView(String viewName, String[] tables) {
+        final ArraySet<String> set = new ArraySet<>();
+        Collections.addAll(set, tables);
+        mViewTables.put(viewName.toLowerCase(Locale.US), set);
     }
 
     /**
@@ -243,7 +261,7 @@ public class InvalidationTracker {
      */
     @WorkerThread
     public void addObserver(@NonNull Observer observer) {
-        final String[] tableNames = observer.mTables;
+        final String[] tableNames = resolveViews(observer.mTables);
         int[] tableIds = new int[tableNames.length];
         final int size = tableNames.length;
         long[] versions = new long[tableNames.length];
@@ -265,6 +283,33 @@ public class InvalidationTracker {
         if (currentObserver == null && mObservedTableTracker.onAdded(tableIds)) {
             syncTriggers();
         }
+    }
+
+    /**
+     * Resolves the list of tables and views into a list of unique tables that are underlying them.
+     *
+     * @param names The names of tables or views.
+     * @return The names of the underlying tables.
+     */
+    @VisibleForTesting
+    String[] resolveViews(String[] names) {
+        Set<String> tables = new ArraySet<>();
+        Collections.addAll(tables, names);
+        tables = resolveViews(tables);
+        return tables.toArray(new String[tables.size()]);
+    }
+
+    private Set<String> resolveViews(Set<String> names) {
+        final ArraySet<String> tables = new ArraySet<>();
+        for (String name : names) {
+            final String lowercase = name.toLowerCase(Locale.US);
+            if (mViewTables.containsKey(lowercase)) {
+                tables.addAll(resolveViews(mViewTables.get(lowercase)));
+            } else {
+                tables.add(name);
+            }
+        }
+        return tables;
     }
 
     /**
@@ -606,10 +651,10 @@ public class InvalidationTracker {
         final String[] mTables;
 
         /**
-         * Observes the given list of tables.
+         * Observes the given list of tables and views.
          *
-         * @param firstTable The table name
-         * @param rest       More table names
+         * @param firstTable The name of the table or view.
+         * @param rest       More names of tables or views.
          */
         @SuppressWarnings("unused")
         protected Observer(@NonNull String firstTable, String... rest) {
@@ -618,9 +663,9 @@ public class InvalidationTracker {
         }
 
         /**
-         * Observes the given list of tables.
+         * Observes the given list of tables and views.
          *
-         * @param tables The list of tables to observe for changes.
+         * @param tables The list of tables or views to observe for changes.
          */
         public Observer(@NonNull String[] tables) {
             // copy tables in case user modifies them afterwards
@@ -631,7 +676,8 @@ public class InvalidationTracker {
          * Called when one of the observed tables is invalidated in the database.
          *
          * @param tables A set of invalidated tables. This is useful when the observer targets
-         *               multiple tables and want to know which table is invalidated.
+         *               multiple tables and you want to know which table is invalidated. This will
+         *               be names of underlying tables when you are observing views.
          */
         public abstract void onInvalidated(@NonNull Set<String> tables);
 

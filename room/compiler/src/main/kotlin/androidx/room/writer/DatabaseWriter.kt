@@ -111,6 +111,7 @@ class DatabaseWriter(val database: Database) : ClassWriter(database.implTypeName
     }
 
     private fun createCreateInvalidationTracker(): MethodSpec {
+        val scope = CodeGenScope(this)
         return MethodSpec.methodBuilder("createInvalidationTracker").apply {
             addAnnotation(Override::class.java)
             addModifiers(PROTECTED)
@@ -118,7 +119,22 @@ class DatabaseWriter(val database: Database) : ClassWriter(database.implTypeName
             val tableNames = database.entities.joinToString(",") {
                 "\"${it.tableName}\""
             }
-            addStatement("return new $T(this, $L)", RoomTypeNames.INVALIDATION_TRACKER, tableNames)
+            if (database.views.isEmpty()) {
+                addStatement("return new $T(this, $L)", RoomTypeNames.INVALIDATION_TRACKER,
+                        tableNames)
+            } else {
+                val trackerVar = scope.getTmpVar("_tracker")
+                addStatement("$T $L = new $T(this, $L)",
+                        RoomTypeNames.INVALIDATION_TRACKER,
+                        trackerVar,
+                        RoomTypeNames.INVALIDATION_TRACKER,
+                        tableNames)
+                for (view in database.views) {
+                    addStatement("$L.addView($S, new String[]{$L})", trackerVar, view.viewName,
+                            view.query.tables.joinToString(",") { "\"${it.name}\"" })
+                }
+                addStatement("return $L", trackerVar)
+            }
         }.build()
     }
 

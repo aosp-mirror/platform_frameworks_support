@@ -25,6 +25,7 @@ import androidx.room.ext.SupportDbTypeNames
 import androidx.room.ext.T
 import androidx.room.solver.CodeGenScope
 import androidx.room.vo.Database
+import androidx.room.vo.DatabaseView
 import androidx.room.vo.Entity
 import com.squareup.javapoet.MethodSpec
 import com.squareup.javapoet.ParameterSpec
@@ -165,6 +166,9 @@ class SQLiteOpenHelperWriter(val database: Database) {
             database.entities.forEach {
                 addStatement("_db.execSQL($S)", createDropTableQuery(it))
             }
+            database.views.forEach {
+                addStatement("_db.execSQL($S)", createDropViewQuery(it))
+            }
         }.build()
     }
 
@@ -182,12 +186,22 @@ class SQLiteOpenHelperWriter(val database: Database) {
     }
 
     @VisibleForTesting
-    fun createQuery(entity: Entity): String {
+    fun createTableQuery(entity: Entity): String {
         return entity.createTableQuery
+    }
+
+    @VisibleForTesting
+    fun createViewQuery(view: DatabaseView): String {
+        return view.createViewQuery
     }
 
     @VisibleForTesting
     fun createDropTableQuery(entity: Entity): String {
         return "DROP TABLE IF EXISTS `${entity.tableName}`"
+    }
+
+    @VisibleForTesting
+    fun createDropViewQuery(view: DatabaseView): String {
+        return "DROP VIEW IF EXISTS `${view.viewName}`"
     }
 }
