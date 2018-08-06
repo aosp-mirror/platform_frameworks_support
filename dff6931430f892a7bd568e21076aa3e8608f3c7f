@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3b03dbce_7cb4d9e7",
+        "filename": "samples/TextClassifierDemos/src/main/java/com/example/androidx/textclassifier/MainThreadExecutor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-06T09:59:58Z",
+      "side": 1,
+      "message": "Opps, removed, thanks!",
+      "parentUuid": "28d6e240_20a93f13",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 24
+      },
+      "revId": "dff6931430f892a7bd568e21076aa3e8608f3c7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2083208b_82e2fe2d",
         "filename": "samples/TextClassifierDemos/src/main/res/values/strings.xml",
         "patchSetId": 2
