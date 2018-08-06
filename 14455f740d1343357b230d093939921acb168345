@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ce50e194_18b36c01",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-06T07:32:59Z",
+      "side": 1,
+      "message": "Since update() checks if both mRouteForClickedMuteButton and mRouteForTouchedVolumeSlider is null, update() won\u0027t actually update UI but set mHasPendingUpdate as true so that update() can be called later (int #137).",
+      "parentUuid": "1adbb384_34512614",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 48
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9235bd29_456768b8",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-03T10:02:25Z",
       "side": 1,
       "message": "question) what if mRouteForTouchedVolumeSlider !\u003d null?",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 48
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5ca941c_f359a4c3",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-06T07:32:59Z",
+      "side": 1,
+      "message": "ditto.",
+      "parentUuid": "9235bd29_456768b8",
       "range": {
         "startLine": 137,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "89972fb8_721cb328",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-06T07:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1e139f4_0d5b4c52",
+      "range": {
+        "startLine": 153,
+        "startChar": 25,
+        "endLine": 153,
+        "endChar": 43
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d864997_c64a3896",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 7
@@ -82,6 +154,30 @@
       "writtenOn": "2018-08-03T10:02:25Z",
       "side": 1,
       "message": "question) why this check is needed to call updateVolumeByProgress()?",
+      "range": {
+        "startLine": 515,
+        "startChar": 0,
+        "endLine": 515,
+        "endChar": 87
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7710534e_4e3ae97e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-06T07:32:59Z",
+      "side": 1,
+      "message": "updateVolumeByProgress(progress) updates progress of volumeSlider and icon of mute button which is appropriate for the corresponding progress. If progress changes are made by user, only icon has to be updated (not progress since the progress of volumeSlider is already updated properly by user\u0027s finger). So, I thought it would be more effective to check if icon update is needed, and call updateVolumeByProgress only when icon update is needed.",
+      "parentUuid": "8d864997_c64a3896",
       "range": {
         "startLine": 515,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "5631fc17_e4fab57a",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-06T07:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d2af988_800327e3",
+      "range": {
+        "startLine": 570,
+        "startChar": 68,
+        "endLine": 570,
+        "endChar": 94
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa4822fa_25b6b80a",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 7
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "fa5d6e9e_72bb70be",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-06T07:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa4822fa_25b6b80a",
+      "range": {
+        "startLine": 572,
+        "startChar": 22,
+        "endLine": 572,
+        "endChar": 50
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6772216_ad92a44e",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 7
@@ -151,6 +295,30 @@
       "writtenOn": "2018-08-03T10:02:25Z",
       "side": 1,
       "message": "this feels like only used for \u0027mute()\u0027 or \u0027unmute(int volume)\u0027.\nCould you check?",
+      "range": {
+        "startLine": 581,
+        "startChar": 13,
+        "endLine": 581,
+        "endChar": 35
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92b5f81d_385e6069",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-06T07:32:59Z",
+      "side": 1,
+      "message": "Yes. It is only used when volume is muted or unmuted(either with mute button or by tracking thumb). So I change name of the method to toggleMute() and make its parameter to void.",
+      "parentUuid": "e6772216_ad92a44e",
       "range": {
         "startLine": 581,
         "startChar": 13,
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "ee1408c3_05c135ed",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-06T07:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d83ca733_184a7c97",
+      "range": {
+        "startLine": 825,
+        "startChar": 0,
+        "endLine": 825,
+        "endChar": 98
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3453a60_44d8cdce",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 7
@@ -206,6 +398,30 @@
       "revId": "14455f740d1343357b230d093939921acb168345",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da82081b_908571d6",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-06T07:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3453a60_44d8cdce",
+      "range": {
+        "startLine": 833,
+        "startChar": 39,
+        "endLine": 833,
+        "endChar": 49
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "0ded091f_2ce3b808",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-06T07:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0056af6_67e033b6",
+      "range": {
+        "startLine": 850,
+        "startChar": 12,
+        "endLine": 873,
+        "endChar": 0
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92bd997b_01146a8b",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 7
@@ -246,6 +486,24 @@
       "revId": "14455f740d1343357b230d093939921acb168345",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e015ef00_3051ebe0",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-06T07:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92bd997b_01146a8b",
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -272,6 +530,30 @@
     },
     {
       "key": {
+        "uuid": "fe181e51_3b4e1484",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-06T07:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bbcb973_7ed88760",
+      "range": {
+        "startLine": 946,
+        "startChar": 28,
+        "endLine": 946,
+        "endChar": 34
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48859f4c_5fcc0cab",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 7
@@ -292,6 +574,30 @@
       "revId": "14455f740d1343357b230d093939921acb168345",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27045aa2_6b6ee12c",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-06T07:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48859f4c_5fcc0cab",
+      "range": {
+        "startLine": 967,
+        "startChar": 12,
+        "endLine": 967,
+        "endChar": 36
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -318,6 +624,30 @@
     },
     {
       "key": {
+        "uuid": "106a4ac9_c50321de",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-06T07:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14d6fb08_b4612d37",
+      "range": {
+        "startLine": 975,
+        "startChar": 12,
+        "endLine": 975,
+        "endChar": 46
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c58e8415_11e55034",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 7
@@ -329,6 +659,30 @@
       "writtenOn": "2018-08-03T10:02:25Z",
       "side": 1,
       "message": "mBeforeMuteVolumes are in the MediaRouteCastDialog. Why you put getter API in the inner class?",
+      "range": {
+        "startLine": 982,
+        "startChar": 12,
+        "endLine": 982,
+        "endChar": 32
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0893ff2b_d3d198d0",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-06T07:32:59Z",
+      "side": 1,
+      "message": "Because it is only used in ViewHolders. However, since the volume before muted can be put to mBeforeMuteVolumes in VolumeChangeListener#onProgressChanged() which is outside of ViewHolders, I made mBeforeButeVolumes as a member variable of MediaRouteCastDialog.\nDo you have any better idea??",
+      "parentUuid": "c58e8415_11e55034",
       "range": {
         "startLine": 982,
         "startChar": 12,
