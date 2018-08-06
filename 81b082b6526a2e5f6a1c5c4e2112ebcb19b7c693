@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d255fc7_9b40edfb",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 29
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-08-06T15:42:57Z",
+      "side": 1,
+      "message": "In some cases, the latest merge commit will be newer than the latest submitted commit, because Treehugger will sometimes generate a merge commit before testing (which can happen when testing a change against another branch).\nIs this supposed to return the latest submitted commit?",
+      "range": {
+        "startLine": 185,
+        "startChar": 27,
+        "endLine": 185,
+        "endChar": 52
+      },
+      "revId": "81b082b6526a2e5f6a1c5c4e2112ebcb19b7c693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
