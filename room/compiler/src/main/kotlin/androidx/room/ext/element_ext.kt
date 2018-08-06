@@ -175,8 +175,21 @@ private val ANNOTATION_VALUE_STRING_ARR_VISITOR = object
     }
 }
 
+private val ANNOTATION_VALUE_INT_ARR_VISITOR = object
+    : SimpleAnnotationValueVisitor6<List<Int>, Void>() {
+    override fun visitArray(vals: MutableList<out AnnotationValue>?, p: Void?): List<Int> {
+        return vals?.mapNotNull {
+            ANNOTATION_VALUE_TO_INT_VISITOR.visit(it)
+        } ?: emptyList()
+    }
+}
+
 fun AnnotationValue.getAsInt(def: Int? = null): Int? {
     return ANNOTATION_VALUE_TO_INT_VISITOR.visit(this) ?: def
+}
+
+fun AnnotationValue.getAsIntList(): List<Int> {
+    return ANNOTATION_VALUE_INT_ARR_VISITOR.visit(this)
 }
 
 fun AnnotationValue.getAsString(def: String? = null): String? {
