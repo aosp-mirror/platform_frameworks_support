@@ -27,11 +27,13 @@ import androidx.room.verifier.DatabaseVerifier
 import androidx.room.vo.Dao
 import androidx.room.vo.DaoMethod
 import androidx.room.vo.Database
+import androidx.room.vo.DatabaseView
 import androidx.room.vo.Entity
 import com.google.auto.common.AnnotationMirrors
 import com.google.auto.common.MoreElements
 import com.google.auto.common.MoreTypes
 import com.squareup.javapoet.TypeName
+import java.util.Locale
 import javax.lang.model.element.AnnotationMirror
 import javax.lang.model.element.Element
 import javax.lang.model.element.ElementKind
@@ -61,6 +63,7 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
                 .getAnnotationMirror(element, androidx.room.Database::class.java)
                 .orNull()
         val entities = processEntities(dbAnnotation, element)
+        val viewsNonVerified = processDatabaseViews(dbAnnotation, null)
         validateUniqueTableNames(element, entities)
         validateForeignKeys(element, entities)
 
@@ -73,9 +76,26 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
         val dbVerifier = if (element.hasAnnotation(SkipQueryVerification::class)) {
             null
         } else {
-            DatabaseVerifier.create(context, element, entities)
+            DatabaseVerifier.create(context, element, entities, viewsNonVerified)
         }
         context.databaseVerifier = dbVerifier
+
+        val views = if (dbVerifier != null) {
+            // Reprocess with the verifier
+            processDatabaseViews(dbAnnotation, dbVerifier)
+        } else {
+            viewsNonVerified
+        }
+        try {
+            val viewTables = createViewTables(views)
+            for (view in views) {
+                val tables = viewTables[view.viewName.toLowerCase(Locale.US)]
+                        ?: throw IllegalStateException("Unexpected error in createViewTables")
+                view.tables.addAll(tables)
+            }
+        } catch (e: CircularReferenceException) {
+            context.logger.e(element, ProcessorErrors.viewCircularReferenceDetected(e.views))
+        }
 
         val declaredType = MoreTypes.asDeclared(element.asType())
         val daoMethods = allMembers.filter {
@@ -107,6 +127,7 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
                 element = element,
                 type = MoreElements.asType(element).asType(),
                 entities = entities,
+                views = views,
                 daoMethods = daoMethods,
                 exportSchema = exportSchema,
                 enableForeignKeys = hasForeignKeys)
@@ -246,6 +267,49 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
                 ProcessorErrors.DATABASE_ANNOTATION_MUST_HAVE_LIST_OF_ENTITIES)
         return listOfTypes.map {
             EntityProcessor(context, MoreTypes.asTypeElement(it)).process()
+        }
+    }
+
+    private fun processDatabaseViews(
+        dbAnnotation: AnnotationMirror?,
+        dbVerifier: DatabaseVerifier?
+    ): List<DatabaseView> {
+        val viewList = AnnotationMirrors.getAnnotationValue(dbAnnotation, "views")
+        val listOfTypes = viewList.toListOfClassTypes()
+        return listOfTypes.map {
+            DatabaseViewProcessor(context, MoreTypes.asTypeElement(it), dbVerifier).process()
+        }
+    }
+
+    companion object {
+        class CircularReferenceException(val views: List<String>) : IllegalArgumentException()
+
+        fun createViewTables(views: List<DatabaseView>): Map<String, Set<String>> {
+            if (views.isEmpty()) {
+                return emptyMap()
+            }
+            val viewNames = views.map { it.viewName }
+            fun isTable(name: String) = viewNames.none { it.equals(name, ignoreCase = true) }
+            var unresolved = views.map { v ->
+                v.viewName.toLowerCase(Locale.US) to v.query.tables.map { it.name }.toMutableSet()
+            }
+            val resolved = mutableMapOf<String, Set<String>>()
+            do {
+                for ((resolvedView, tables) in resolved) {
+                    for ((_, names) in unresolved) {
+                        if (names.removeIf { it.equals(resolvedView, ignoreCase = true) }) {
+                            names.addAll(tables)
+                        }
+                    }
+                }
+                val (r, u) = unresolved.partition { m -> m.second.all { isTable(it) } }
+                if (r.isEmpty()) {
+                    throw CircularReferenceException(u.map(Pair<String, Set<String>>::first))
+                }
+                unresolved = u
+                resolved.putAll(r)
+            } while (unresolved.isNotEmpty())
+            return resolved
         }
     }
 }

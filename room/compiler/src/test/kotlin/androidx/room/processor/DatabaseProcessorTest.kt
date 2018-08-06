@@ -18,11 +18,15 @@ package androidx.room.processor
 
 import COMMON
 import androidx.room.RoomProcessor
+import androidx.room.parser.ParsedQuery
+import androidx.room.parser.QueryType
+import androidx.room.parser.Table
 import androidx.room.solver.query.result.EntityRowAdapter
 import androidx.room.solver.query.result.PojoRowAdapter
 import androidx.room.testing.TestInvocation
 import androidx.room.testing.TestProcessor
 import androidx.room.vo.Database
+import androidx.room.vo.DatabaseView
 import androidx.room.vo.Warning
 import com.google.auto.common.MoreElements
 import com.google.common.truth.Truth
@@ -32,6 +36,7 @@ import com.google.testing.compile.JavaSourcesSubjectFactory
 import com.squareup.javapoet.ClassName
 import compileLibrarySource
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.hasItems
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.CoreMatchers.not
 import org.hamcrest.CoreMatchers.notNullValue
@@ -40,6 +45,9 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.mockito.Mockito.mock
+import javax.lang.model.element.TypeElement
+import javax.lang.model.type.DeclaredType
 import javax.tools.JavaFileObject
 import javax.tools.StandardLocation
 
@@ -715,6 +723,61 @@ class DatabaseProcessorTest {
                 .failsToCompile()
                 .withErrorContaining(ProcessorErrors
                         .daoMustHaveMatchingConstructor("foo.bar.BookDao", "foo.bar.Db2"))
+    }
+
+    @Test
+    fun createViewTables() {
+        val viewTables = DatabaseProcessor.createViewTables(listOf(
+                view("P", listOf("A")),
+                view("Q", listOf("B", "P")),
+                view("R", listOf("C", "Q")),
+                view("S", listOf("A", "Q"))
+        ))
+        assertThat(viewTables.size, `is`(4))
+        assertThat(viewTables["p"]?.size, `is`(1))
+        assertThat(viewTables["p"], hasItems("A"))
+        assertThat(viewTables["q"]?.size, `is`(2))
+        assertThat(viewTables["q"], hasItems("A", "B"))
+        assertThat(viewTables["r"]?.size, `is`(3))
+        assertThat(viewTables["r"], hasItems("A", "B", "C"))
+        assertThat(viewTables["s"]?.size, `is`(2))
+        assertThat(viewTables["s"], hasItems("A", "B"))
+    }
+
+    @Test
+    fun createViewTables_empty() {
+        val viewTables = DatabaseProcessor.createViewTables(emptyList())
+        assertThat(viewTables.size, `is`(0))
+    }
+
+    @Test
+    fun createViewTables_circularReference() {
+        var errorCaught = false
+        try {
+            DatabaseProcessor.createViewTables(listOf(
+                    view("P", listOf("Q")),
+                    view("Q", listOf("P")),
+                    view("R", listOf("A")),
+                    view("S", listOf("R", "B"))))
+        } catch (e: DatabaseProcessor.Companion.CircularReferenceException) {
+            errorCaught = true
+            assertThat(e.views.size, `is`(2))
+        }
+        assertThat(errorCaught, `is`(true))
+    }
+
+    private fun view(viewName: String, names: List<String>): DatabaseView {
+        return DatabaseView(
+                element = mock(TypeElement::class.java),
+                viewName = viewName,
+                query = ParsedQuery("", QueryType.SELECT, emptyList(),
+                        names.map { Table(it, it) }.toSet(),
+                        emptyList(), false),
+                type = mock(DeclaredType::class.java),
+                fields = emptyList(),
+                embeddedFields = emptyList(),
+                constructor = null
+        )
     }
 
     fun assertConstructor(dbs: List<JavaFileObject>, constructor: String): CompileTester {
