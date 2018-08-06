@@ -16,6 +16,24 @@
       "revId": "7584f0b5d4fa917e35da19f5cded570ca8b708e3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53ce3895_5c844036",
+        "filename": "compat/src/main/java/androidx/core/app/RemoteActionCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-06T10:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5db16e3a_d5b234de",
+      "revId": "7584f0b5d4fa917e35da19f5cded570ca8b708e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
