@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "6eb77c82_93f53d8b",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T15:13:51Z",
+      "side": 1,
+      "message": "Then what\u0027s the reason for checking volume slider outside of the update()?",
+      "parentUuid": "ce50e194_18b36c01",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 48
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9235bd29_456768b8",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 7
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "ditto.",
       "parentUuid": "9235bd29_456768b8",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 48
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1083955_a96148be",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T15:13:51Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "a5ca941c_f359a4c3",
       "range": {
         "startLine": 137,
         "startChar": 0,
@@ -187,6 +235,30 @@
       "revId": "14455f740d1343357b230d093939921acb168345",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "322da2b0_084f13ec",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T15:13:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7710534e_4e3ae97e",
+      "range": {
+        "startLine": 515,
+        "startChar": 0,
+        "endLine": 515,
+        "endChar": 87
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -331,6 +403,30 @@
     },
     {
       "key": {
+        "uuid": "eaa487ac_dd6d36c2",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T15:13:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "92b5f81d_385e6069",
+      "range": {
+        "startLine": 581,
+        "startChar": 13,
+        "endLine": 581,
+        "endChar": 35
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d83ca733_184a7c97",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 7
@@ -375,6 +471,30 @@
       "revId": "14455f740d1343357b230d093939921acb168345",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5d83f4c9_df45df71",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T15:13:51Z",
+      "side": 1,
+      "message": "Not done.",
+      "parentUuid": "ee1408c3_05c135ed",
+      "range": {
+        "startLine": 825,
+        "startChar": 0,
+        "endLine": 825,
+        "endChar": 98
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
@@ -504,6 +624,24 @@
       "revId": "14455f740d1343357b230d093939921acb168345",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bac8aab6_050de0f6",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T15:13:51Z",
+      "side": 1,
+      "message": "not done",
+      "parentUuid": "e015ef00_3051ebe0",
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
@@ -695,6 +833,30 @@
     },
     {
       "key": {
+        "uuid": "2f7ca2ef_e94f75f5",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T15:13:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0893ff2b_d3d198d0",
+      "range": {
+        "startLine": 982,
+        "startChar": 12,
+        "endLine": 982,
+        "endChar": 32
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91d6f7fb_680a88fc",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
         "patchSetId": 7
@@ -730,6 +892,30 @@
       "side": 1,
       "message": "MediaRouteChooserDialog and MediaRouteControllerDialog is using light-gray colored icons for LightTheme. But, MediaRouteDevicePickerDialog and MediaRouteCastDialog have to use dark-gray colored(or black. \u003c- this is not fixed yet. I left comment at go/dynamic to make it clear UI/UX team wants which color) icons for LightTheme.",
       "parentUuid": "91d6f7fb_680a88fc",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 0
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e9ce509_3f692f73",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T15:13:51Z",
+      "side": 1,
+      "message": "I asked this because this code only works when the DEBUG is turned on. If this code is really useful, then you should remove checking DEBUG.\n\nBesides, +1 to ask to UX. You may simply want to set volume slider disabled, so I\u0027m not seeing huge reason for this.",
+      "parentUuid": "45e39b97_933b75ae",
       "range": {
         "startLine": 77,
         "startChar": 0,

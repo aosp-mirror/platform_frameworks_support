@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac20b49e_d691a421",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T15:13:51Z",
+      "side": 1,
+      "message": "why it\u0027s public? If it needs to be, move this around other public static finals",
+      "range": {
+        "startLine": 95,
+        "startChar": 4,
+        "endLine": 95,
+        "endChar": 11
+      },
+      "revId": "fd01557ce67542a9f56d5e8b822579fab30628da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "794933fb_f97f936f",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T15:13:51Z",
+      "side": 1,
+      "message": "Once you define this, you shouldn\u0027t use 0 directly for knowing if it\u0027s muted or not.",
+      "range": {
+        "startLine": 105,
+        "startChar": 21,
+        "endLine": 105,
+        "endChar": 34
+      },
+      "revId": "fd01557ce67542a9f56d5e8b822579fab30628da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0eeffee4_eb2f595b",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T15:13:51Z",
+      "side": 1,
+      "message": "use parenthesis for readability.",
+      "range": {
+        "startLine": 517,
+        "startChar": 24,
+        "endLine": 517,
+        "endChar": 78
+      },
+      "revId": "fd01557ce67542a9f56d5e8b822579fab30628da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d90208e_f05403e0",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T15:13:51Z",
+      "side": 1,
+      "message": "check mRouteForClickedMuteButton?",
+      "range": {
+        "startLine": 523,
+        "startChar": 20,
+        "endLine": 523,
+        "endChar": 29
+      },
+      "revId": "fd01557ce67542a9f56d5e8b822579fab30628da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee5d9302_e9321710",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T15:13:51Z",
+      "side": 1,
+      "message": "Why do you move this?",
+      "range": {
+        "startLine": 563,
+        "startChar": 18,
+        "endLine": 563,
+        "endChar": 22
+      },
+      "revId": "fd01557ce67542a9f56d5e8b822579fab30628da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca5ea3eb_135196a4",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T15:13:51Z",
+      "side": 1,
+      "message": "static",
+      "range": {
+        "startLine": 563,
+        "startChar": 11,
+        "endLine": 563,
+        "endChar": 12
+      },
+      "revId": "fd01557ce67542a9f56d5e8b822579fab30628da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "235ec73b_e540a130",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T15:13:51Z",
+      "side": 1,
+      "message": "This may also implements ClickListener to also remove code duplication for clicking mute,\nor provide APIs for it.",
+      "range": {
+        "startLine": 581,
+        "startChar": 27,
+        "endLine": 581,
+        "endChar": 56
+      },
+      "revId": "fd01557ce67542a9f56d5e8b822579fab30628da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
