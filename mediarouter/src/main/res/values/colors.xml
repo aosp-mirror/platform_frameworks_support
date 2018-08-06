@@ -18,4 +18,5 @@
 <resources>
     <color name="mr_cast_meta_default_background">#212228</color>
     <color name="mr_dynamic_dialog_icon_dark">#202124</color>
+    <color name="mr_cast_dialog_metadata_background">#99000000</color>
 </resources>
