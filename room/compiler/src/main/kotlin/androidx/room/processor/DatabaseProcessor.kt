@@ -23,10 +23,12 @@ import androidx.room.ext.getAsInt
 import androidx.room.ext.hasAnnotation
 import androidx.room.ext.hasAnyOf
 import androidx.room.ext.toListOfClassTypes
+import androidx.room.verifier.DatabaseVerificaitonErrors
 import androidx.room.verifier.DatabaseVerifier
 import androidx.room.vo.Dao
 import androidx.room.vo.DaoMethod
 import androidx.room.vo.Database
+import androidx.room.vo.DatabaseView
 import androidx.room.vo.Entity
 import com.google.auto.common.AnnotationMirrors
 import com.google.auto.common.MoreElements
@@ -61,6 +63,7 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
                 .getAnnotationMirror(element, androidx.room.Database::class.java)
                 .orNull()
         val entities = processEntities(dbAnnotation, element)
+        val viewsMap = processDatabaseViews(dbAnnotation)
         validateUniqueTableNames(element, entities)
         validateForeignKeys(element, entities)
 
@@ -73,9 +76,22 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
         val dbVerifier = if (element.hasAnnotation(SkipQueryVerification::class)) {
             null
         } else {
-            DatabaseVerifier.create(context, element, entities)
+            DatabaseVerifier.create(context, element, entities, viewsMap.values.toList())
         }
         context.databaseVerifier = dbVerifier
+
+        if (dbVerifier != null) {
+            verifyDatabaseViews(viewsMap, dbVerifier)
+        }
+        val views = viewsMap.values.toList()
+        try {
+            val viewTables = resolveViewTables(views)
+            for (view in views) {
+                view.tables.addAll(viewTables[view.viewName]!!)
+            }
+        } catch (e: CircularReferenceException) {
+            context.logger.e(element, ProcessorErrors.viewCircularReferenceDetected(e.views))
+        }
 
         val declaredType = MoreTypes.asDeclared(element.asType())
         val daoMethods = allMembers.filter {
@@ -107,6 +123,7 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
                 element = element,
                 type = MoreElements.asType(element).asType(),
                 entities = entities,
+                views = views,
                 daoMethods = daoMethods,
                 exportSchema = exportSchema,
                 enableForeignKeys = hasForeignKeys)
@@ -116,7 +133,7 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
     private fun validateForeignKeys(element: TypeElement, entities: List<Entity>) {
         val byTableName = entities.associateBy { it.tableName }
         entities.forEach { entity ->
-            entity.foreignKeys.forEach foreignKeyLoop@ { foreignKey ->
+            entity.foreignKeys.forEach foreignKeyLoop@{ foreignKey ->
                 val parent = byTableName[foreignKey.parentTable]
                 if (parent == null) {
                     context.logger.e(element, ProcessorErrors
@@ -173,8 +190,11 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
                 }
     }
 
-    private fun validateUniqueDaoClasses(dbElement: TypeElement, daoMethods: List<DaoMethod>,
-                                         entities: List<Entity>) {
+    private fun validateUniqueDaoClasses(
+        dbElement: TypeElement,
+        daoMethods: List<DaoMethod>,
+        entities: List<Entity>
+    ) {
         val entityTypeNames = entities.map { it.typeName }.toSet()
         daoMethods.groupBy { it.dao.typeName }
                 .forEach {
@@ -188,8 +208,11 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
                         context.logger.e(dbElement, error)
                     }
                 }
-        val check = fun(element: Element, dao: Dao,
-                        typeName: TypeName?) {
+        val check = fun(
+            element: Element,
+            dao: Dao,
+            typeName: TypeName?
+        ) {
             typeName?.let {
                 if (!entityTypeNames.contains(typeName)) {
                     context.logger.e(element,
@@ -246,6 +269,82 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
                 ProcessorErrors.DATABASE_ANNOTATION_MUST_HAVE_LIST_OF_ENTITIES)
         return listOfTypes.map {
             EntityProcessor(context, MoreTypes.asTypeElement(it)).process()
+        }
+    }
+
+    private fun processDatabaseViews(
+        dbAnnotation: AnnotationMirror?
+    ): Map<TypeElement, DatabaseView> {
+        val viewList = AnnotationMirrors.getAnnotationValue(dbAnnotation, "views")
+        val listOfTypes = viewList.toListOfClassTypes()
+        return listOfTypes.map {
+            val viewElement = MoreTypes.asTypeElement(it)
+            viewElement to DatabaseViewProcessor(context, viewElement).process()
+        }.toMap()
+    }
+
+    fun verifyDatabaseViews(map: Map<TypeElement, DatabaseView>, dbVerifier: DatabaseVerifier) {
+        for ((viewElement, view) in map) {
+            if (viewElement.hasAnnotation(SkipQueryVerification::class)) {
+                continue
+            }
+            view.query.resultInfo = dbVerifier.analyze(view.query.original)
+            if (view.query.resultInfo?.error != null) {
+                context.logger.e(viewElement,
+                        DatabaseVerificaitonErrors.cannotVerifyQuery(
+                                view.query.resultInfo!!.error!!))
+            }
+        }
+    }
+
+    companion object {
+        class CircularReferenceException(val views: List<String>) : IllegalArgumentException()
+
+        /**
+         * Resolves all the underlying tables for each of the [DatabaseView]. All the tables
+         * including those that are indirectly referenced are included.
+         *
+         * @param views The list of [DatabaseView] to process.
+         * @return A map from view names to the lists of names of their underlying tables.
+         */
+        fun resolveViewTables(views: List<DatabaseView>): Map<String, Set<String>> {
+            if (views.isEmpty()) {
+                return emptyMap()
+            }
+            val viewNames = views.map { it.viewName }
+            fun isTable(name: String) = viewNames.none { it.equals(name, ignoreCase = true) }
+            // List of all the views and their underlying "tables", but some of them might
+            // actually be other views.
+            var unresolvedViews = views.map { v ->
+                v.viewName to v.query.tables.map { it.name }.toMutableSet()
+            }
+            // We will resolve nested views step by step, and store the results here.
+            val resolvedViews = mutableMapOf<String, Set<String>>()
+            do {
+                // Repeat for all the resolved views, and all the unresolved views.
+                for ((viewName, tables) in resolvedViews) {
+                    for ((_, names) in unresolvedViews) {
+                        // If we find a nested view, replace them with the list of concrete tables.
+                        if (names.removeIf { it.equals(viewName, ignoreCase = true) }) {
+                            names.addAll(tables)
+                        }
+                    }
+                }
+                // Separate views that have all of their underlying tables resolved.
+                val (newlyResolvedViews, stillUnresolvedViews) =
+                        unresolvedViews.partition { (_, names) -> names.all { isTable(it) } }
+                // We couldn't resolve a single view in this step. It indicates circular reference.
+                if (newlyResolvedViews.isEmpty()) {
+                    throw CircularReferenceException(
+                            stillUnresolvedViews.map(Pair<String, Set<String>>::first))
+                }
+                // Newly resolved views can be used to resolve more unresolved views at the next
+                // step.
+                unresolvedViews = stillUnresolvedViews
+                resolvedViews.putAll(newlyResolvedViews)
+                // We are done if we have resolved underlying tables for all the views.
+            } while (unresolvedViews.isNotEmpty())
+            return resolvedViews
         }
     }
 }

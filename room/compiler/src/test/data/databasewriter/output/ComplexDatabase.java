@@ -18,6 +18,7 @@ import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 import javax.annotation.Generated;
 
 @Generated("androidx.room.RoomProcessor")
@@ -31,13 +32,15 @@ public final class ComplexDatabase_Impl extends ComplexDatabase {
             @Override
             public void createAllTables(SupportSQLiteDatabase _db) {
                 _db.execSQL("CREATE TABLE IF NOT EXISTS `User` (`uid` INTEGER NOT NULL, `name` TEXT, `lastName` TEXT, `ageColumn` INTEGER NOT NULL, PRIMARY KEY(`uid`))");
+                _db.execSQL("CREATE VIEW IF NOT EXISTS `UserSummary` AS SELECT uid, name FROM User");
                 _db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-                _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"cd8098a1e968898879c194cef2dff8f7\")");
+                _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"9d1c69203ac900800807b511b9e50c1e\")");
             }
 
             @Override
             public void dropAllTables(SupportSQLiteDatabase _db) {
                 _db.execSQL("DROP TABLE IF EXISTS `User`");
+                _db.execSQL("DROP VIEW IF EXISTS `UserSummary`");
             }
 
             @Override
@@ -77,7 +80,7 @@ public final class ComplexDatabase_Impl extends ComplexDatabase {
                             + " Found:\n" + _existingUser);
                 }
             }
-        }, "cd8098a1e968898879c194cef2dff8f7", "6773601c5bcf94c71ee4eb0de04f21a4");
+        }, "9d1c69203ac900800807b511b9e50c1e", "50754794efe200f4bb4447a0efda7835");
         final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(configuration.context)
                 .name(configuration.name)
                 .callback(_openCallback)
@@ -88,7 +91,11 @@ public final class ComplexDatabase_Impl extends ComplexDatabase {
 
     @Override
     protected InvalidationTracker createInvalidationTracker() {
-        return new InvalidationTracker(this, "User");
+        HashMap<String, Set<String>> _viewTables = new HashMap<String, Set<String>>(1);
+        HashSet<String> _tables = new HashSet<String>(1);
+        _tables.add("User");
+        _viewTables.put("usersummary", _tables);
+        return new InvalidationTracker(this, new String[]{"User"}, _viewTables);
     }
 
     @Override
