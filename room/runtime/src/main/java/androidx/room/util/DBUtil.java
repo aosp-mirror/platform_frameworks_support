@@ -23,7 +23,10 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteQuery;
+
+import java.util.HashMap;
 
 /**
  * Database utilities for Room
@@ -63,6 +66,46 @@ public class DBUtil {
         }
 
         return cursor;
+    }
+
+    /**
+     * Synchronizes the database views. After calling this method, the database will have all the
+     * specified views and no other views.
+     *
+     * @param db    The database.
+     * @param views The array of views. Each view is an array of its name and CREATE VIEW SQL. The
+     *              views are created or updated in the order as they are stored in this array.
+     */
+    public static void syncViews(SupportSQLiteDatabase db, String[][] views) {
+        Cursor cursor = db.query("SELECT name, sql FROM sqlite_master WHERE type = 'view'");
+        HashMap<String, String> existingViews = new HashMap<>();
+        //noinspection TryFinallyCanBeTryWithResources
+        try {
+            while (cursor.moveToNext()) {
+                String name = cursor.getString(0);
+                String sql = cursor.getString(1);
+                existingViews.put(name, sql);
+            }
+        } finally {
+            cursor.close();
+        }
+        for (String[] view : views) {
+            String name = view[0];
+            String sql = view[1];
+            if (existingViews.containsKey(name)) {
+                String existingSql = existingViews.get(name);
+                existingViews.remove(name);
+                if (existingSql.equals(sql)) {
+                    continue;
+                } else {
+                    db.execSQL("DROP VIEW `" + name + "`");
+                }
+            }
+            db.execSQL(sql);
+        }
+        for (String name : existingViews.keySet()) {
+            db.execSQL("DROP VIEW `" + name + "`");
+        }
     }
 
     private DBUtil() {

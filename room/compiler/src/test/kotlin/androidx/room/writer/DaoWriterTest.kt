@@ -25,7 +25,7 @@ import com.google.auto.common.MoreTypes
 import com.google.common.truth.Truth
 import com.google.testing.compile.CompileTester
 import com.google.testing.compile.JavaSourcesSubjectFactory
-import createVerifierFromEntities
+import createVerifierFromEntitiesAndViews
 import loadJavaCode
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -74,8 +74,8 @@ class DaoWriterTest {
 
     fun singleDao(vararg jfo: JavaFileObject): CompileTester {
         return Truth.assertAbout(JavaSourcesSubjectFactory.javaSources())
-                .that(jfo.toList() + COMMON.USER + COMMON.MULTI_PKEY_ENTITY + COMMON.BOOK +
-                        COMMON.LIVE_DATA + COMMON.COMPUTABLE_LIVE_DATA)
+                .that(jfo.toList() + COMMON.USER + COMMON.USER_SUMMARY + COMMON.MULTI_PKEY_ENTITY +
+                        COMMON.BOOK + COMMON.LIVE_DATA + COMMON.COMPUTABLE_LIVE_DATA)
                 .processedWith(TestProcessor.builder()
                         .forAnnotations(androidx.room.Dao::class)
                         .nextRunHandler { invocation ->
@@ -97,7 +97,7 @@ class DaoWriterTest {
                                     baseContext = invocation.context,
                                     element = MoreElements.asType(dao),
                                     dbType = dbType,
-                                    dbVerifier = createVerifierFromEntities(invocation))
+                                    dbVerifier = createVerifierFromEntitiesAndViews(invocation))
                             val parsedDao = parser.process()
                             DaoWriter(parsedDao, invocation.processingEnv)
                                     .write(invocation.processingEnv)
