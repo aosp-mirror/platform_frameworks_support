@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "fa38e757_c507b288",
+        "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaControlView2Test.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-06T09:02:39Z",
+      "side": 1,
+      "message": "Let\u0027s talk offline.",
+      "parentUuid": "569451be_c0770376",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 44
+      },
+      "revId": "6e621bb7b645647e313e2d8d346b7bcf7fc29915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "35cd2294_12574fa9",
         "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaUtils2.java",
         "patchSetId": 4
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "How about just renaming it to TestUtils.java like in media2 test?",
       "parentUuid": "93ed03c2_f9b63db6",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 17
+      },
+      "revId": "6e621bb7b645647e313e2d8d346b7bcf7fc29915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ca47b45_637c8a0c",
+        "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaUtils2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-06T09:02:39Z",
+      "side": 1,
+      "message": "LGTM.",
+      "parentUuid": "5a4e70e3_72887807",
       "range": {
         "startLine": 29,
         "startChar": 6,
