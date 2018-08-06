@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9375638c_3df0ffa0",
+        "filename": "drawerlayout/src/main/java/androidx/drawerlayout/widget/DrawerLayout.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1208,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-06T19:43:39Z",
+      "side": 0,
+      "message": "Sure this is safe to discard?",
+      "range": {
+        "startLine": 1208,
+        "startChar": 32,
+        "endLine": 1208,
+        "endChar": 72
+      },
+      "revId": "92cd272d2fdd55221b5c1418f8b8a8aea76d14d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

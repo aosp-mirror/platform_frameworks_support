@@ -16,6 +16,24 @@
       "revId": "36d6015ae4890be39fe895b29f482e6f9258fca0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2c4e089_20b6d957",
+        "filename": "drawerlayout/src/main/java/androidx/drawerlayout/widget/DrawerLayout.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1598,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-06T19:43:39Z",
+      "side": 1,
+      "message": "I\u0027m guessing it is so the drawer background always blocks touch events that may otherwise occur on views behind it.  (This probably common for all Views that overlay other views?)",
+      "parentUuid": "383ab900_04cc7566",
+      "revId": "36d6015ae4890be39fe895b29f482e6f9258fca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
