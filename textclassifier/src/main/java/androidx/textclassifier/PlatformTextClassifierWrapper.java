@@ -35,119 +35,49 @@ import androidx.core.util.Preconditions;
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 @RequiresApi(Build.VERSION_CODES.O)
 public class PlatformTextClassifierWrapper extends TextClassifier {
-    private final android.view.textclassifier.TextClassifier mPlatformTextClassifier;
     private final Context mContext;
     private final TextClassifier mFallback;
 
-    @VisibleForTesting
-    PlatformTextClassifierWrapper(
-            @NonNull Context context,
-            @NonNull android.view.textclassifier.TextClassifier platformTextClassifier,
-            @NonNull SessionStrategy sessionStrategy) {
-        super(sessionStrategy);
+    public PlatformTextClassifierWrapper(@NonNull Context context) {
+        super();
         mContext = Preconditions.checkNotNull(context);
-        mPlatformTextClassifier = Preconditions.checkNotNull(platformTextClassifier);
         mFallback = LegacyTextClassifier.of(context);
     }
 
-    /**
-     * Returns a newly create instance of PlatformTextClassifierWrapper.
-     */
-    @NonNull
-    public static PlatformTextClassifierWrapper create(
-            @NonNull Context context,
-            @NonNull TextClassificationContext textClassificationContext) {
-
+    @Override
+    public TextClassifierSession createSession(
+            TextClassificationContext textClassificationContext) {
         android.view.textclassifier.TextClassificationManager textClassificationManager =
                 (android.view.textclassifier.TextClassificationManager)
-                        context.getSystemService(Context.TEXT_CLASSIFICATION_SERVICE);
-
+                        mContext.getSystemService(Context.TEXT_CLASSIFICATION_SERVICE);
         android.view.textclassifier.TextClassifier platformTextClassifier;
-        SessionStrategy sessionStrategy;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             platformTextClassifier =
                     textClassificationManager.createTextClassificationSession(
                             (android.view.textclassifier.TextClassificationContext)
                                     textClassificationContext.toPlatform());
-            sessionStrategy = new ProxySessionStrategy(platformTextClassifier);
         } else {
             // No session handling before P.
             platformTextClassifier = textClassificationManager.getTextClassifier();
-            sessionStrategy = SessionStrategy.NO_OP;
         }
 
-        return new PlatformTextClassifierWrapper(
-                context, platformTextClassifier, sessionStrategy);
-    }
-
-    /** @inheritDoc */
-    @NonNull
-    @WorkerThread
-    @Override
-    public TextSelection suggestSelection(@NonNull TextSelection.Request request) {
-        Preconditions.checkNotNull(request);
-        ensureNotOnMainThread();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            return TextSelection.fromPlatform(
-                    mPlatformTextClassifier.suggestSelection(
-                            (android.view.textclassifier.TextSelection.Request)
-                                    request.toPlatform()));
-        }
-        return TextSelection.fromPlatform(
-                mPlatformTextClassifier.suggestSelection(
-                        request.getText(),
-                        request.getStartIndex(),
-                        request.getEndIndex(),
-                        ConvertUtils.unwrapLocalListCompat(request.getDefaultLocales())));
-    }
-
-    /** @inheritDoc */
-    @NonNull
-    @WorkerThread
-    @Override
-    public TextClassification classifyText(@NonNull TextClassification.Request request) {
-        Preconditions.checkNotNull(request);
-        ensureNotOnMainThread();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            return TextClassification.fromPlatform(mContext,
-                    mPlatformTextClassifier.classifyText(
-                            (android.view.textclassifier.TextClassification.Request)
-                                    request.toPlatform()));
-        }
-        TextClassification textClassification = TextClassification.fromPlatform(mContext,
-                mPlatformTextClassifier.classifyText(
-                        request.getText(),
-                        request.getStartIndex(),
-                        request.getEndIndex(),
-                        ConvertUtils.unwrapLocalListCompat(request.getDefaultLocales())));
-        return textClassification;
-    }
-
-    /** @inheritDoc */
-    @NonNull
-    @WorkerThread
-    @Override
-    public TextLinks generateLinks(@NonNull TextLinks.Request request) {
-        Preconditions.checkNotNull(request);
-        ensureNotOnMainThread();
-        if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.P) {
-            return TextLinks.fromPlatform(mPlatformTextClassifier.generateLinks(
-                    request.toPlatform()), request.getText());
-        }
-        return mFallback.generateLinks(request);
+        SessionStrategy sessionStrategy = new ProxySessionStrategy(mContext, platformTextClassifier);
+        return new TextClassifierSession(sessionStrategy);
     }
 
     /**
      * Delegates session handling to {@link android.view.textclassifier.TextClassifier}.
      */
     @RequiresApi(Build.VERSION_CODES.P)
-    private static class ProxySessionStrategy implements SessionStrategy {
+    private class ProxySessionStrategy implements SessionStrategy {
         private final android.view.textclassifier.TextClassifier mPlatformTextClassifier;
+        private final Context mContext;
 
         ProxySessionStrategy(
+                @NonNull Context context,
                 @NonNull android.view.textclassifier.TextClassifier textClassifier) {
-            Preconditions.checkNotNull(textClassifier);
-            mPlatformTextClassifier = textClassifier;
+            mContext = Preconditions.checkNotNull(context);
+            mPlatformTextClassifier = Preconditions.checkNotNull(textClassifier);
         }
 
         @Override
@@ -165,6 +95,53 @@ public class PlatformTextClassifierWrapper extends TextClassifier {
         @Override
         public boolean isDestroyed() {
             return mPlatformTextClassifier.isDestroyed();
+        }
+
+        @Override
+        public TextClassification classifyText(TextClassification.Request request) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                return TextClassification.fromPlatform(mContext,
+                        mPlatformTextClassifier.classifyText(
+                                (android.view.textclassifier.TextClassification.Request)
+                                        request.toPlatform()));
+            }
+            TextClassification textClassification = TextClassification.fromPlatform(mContext,
+                    mPlatformTextClassifier.classifyText(
+                            request.getText(),
+                            request.getStartIndex(),
+                            request.getEndIndex(),
+                            ConvertUtils.unwrapLocalListCompat(request.getDefaultLocales())));
+            return textClassification;
+        }
+
+        @Override
+        public TextLinks generateLinks(TextLinks.Request request) {
+            if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.P) {
+                return TextLinks.fromPlatform(mPlatformTextClassifier.generateLinks(
+                        request.toPlatform()), request.getText());
+            }
+            return mFallback.generateLinks(request);
+        }
+
+        @Override
+        public TextSelection suggestSelection(TextSelection.Request request) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                return TextSelection.fromPlatform(
+                        mPlatformTextClassifier.suggestSelection(
+                                (android.view.textclassifier.TextSelection.Request)
+                                        request.toPlatform()));
+            }
+            return TextSelection.fromPlatform(
+                    mPlatformTextClassifier.suggestSelection(
+                            request.getText(),
+                            request.getStartIndex(),
+                            request.getEndIndex(),
+                            ConvertUtils.unwrapLocalListCompat(request.getDefaultLocales())));
+        }
+
+        @Override
+        public int getMaxGenerateLinksTextLength() {
+            return PlatformTextClassifierWrapper.this.getMaxGenerateLinksTextLength();
         }
     }
 }

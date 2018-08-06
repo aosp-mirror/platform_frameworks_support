@@ -32,7 +32,7 @@ public final class TextClassificationManager {
     private final Context mContext;
     @Nullable
     private static TextClassificationManager sInstance;
-    private TextClassifierFactory mTextClassifierFactory;
+    private TextClassifier mTextClassifier;
 
     /** @hide **/
     @RestrictTo(RestrictTo.Scope.LIBRARY)
@@ -60,13 +60,11 @@ public final class TextClassificationManager {
      * will be returned.
      */
     @NonNull
-    public TextClassifier createTextClassifier(
-            @NonNull TextClassificationContext textClassificationContext) {
-        Preconditions.checkNotNull(textClassificationContext);
-        if (mTextClassifierFactory != null) {
-            return mTextClassifierFactory.create(textClassificationContext);
+    public TextClassifier getTextClassifier() {
+        if (mTextClassifier != null) {
+            return mTextClassifier;
         }
-        return defaultTextClassifier(textClassificationContext);
+        return defaultTextClassifier();
     }
 
     /**
@@ -75,17 +73,16 @@ public final class TextClassificationManager {
      * To turn off the feature completely, you can set a factory that returns
      * {@link TextClassifier#NO_OP}.
      */
-    public void setTextClassifierFactory(@Nullable TextClassifierFactory factory) {
-        mTextClassifierFactory = factory;
+    public void setTextClassifier(@Nullable TextClassifier textClassifier) {
+        mTextClassifier = textClassifier;
     }
 
     /**
      * Returns the default text classifier.
      */
-    private TextClassifier defaultTextClassifier(
-            @Nullable TextClassificationContext textClassificationContext) {
+    private TextClassifier defaultTextClassifier() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            return PlatformTextClassifierWrapper.create(mContext, textClassificationContext);
+            return new PlatformTextClassifierWrapper(mContext);
         }
         return LegacyTextClassifier.of(mContext);
     }

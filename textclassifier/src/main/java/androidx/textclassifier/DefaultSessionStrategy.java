@@ -30,9 +30,9 @@ import androidx.core.util.Preconditions;
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 final class DefaultSessionStrategy implements SessionStrategy {
-    private final TextClassifier mSession;
+    private final TextClassifier mTextClassifier;
     private final SelectionEventHelper mEventHelper;
-    private final TextClassificationSessionId mSessionId;
+    private final TextClassificationSessionId mTextClassifierId;
     private final TextClassificationContext mClassificationContext;
 
     private boolean mDestroyed;
@@ -40,16 +40,17 @@ final class DefaultSessionStrategy implements SessionStrategy {
     DefaultSessionStrategy(TextClassificationContext textClassificationContext,
             TextClassifier textClassifier) {
         mClassificationContext = Preconditions.checkNotNull(textClassificationContext);
-        mSession = Preconditions.checkNotNull(textClassifier);
-        mSessionId = new TextClassificationSessionId();
-        mEventHelper = new SelectionEventHelper(mSessionId, mClassificationContext);
+        mTextClassifier = Preconditions.checkNotNull(textClassifier);
+        mTextClassifierId = new TextClassificationSessionId();
+        mEventHelper = new SelectionEventHelper(mTextClassifierId, mClassificationContext);
     }
 
     @Override
     public void reportSelectionEvent(@NonNull SelectionEvent event) {
         Preconditions.checkNotNull(event);
+        checkDestroyed();
         if (mEventHelper.sanitizeEvent(event)) {
-            mSession.onSelectionEvent(event);
+            mTextClassifier.onSelectionEvent(event);
         }
     }
 
@@ -64,6 +65,40 @@ final class DefaultSessionStrategy implements SessionStrategy {
         return mDestroyed;
     }
 
+    @Override
+    public TextClassification classifyText(TextClassification.Request request) {
+        checkDestroyed();
+        return mTextClassifier.classifyText(request);
+    }
+
+    @Override
+    public TextLinks generateLinks(TextLinks.Request request) {
+        checkDestroyed();
+        return mTextClassifier.generateLinks(request);
+    }
+
+    @Override
+    public TextSelection suggestSelection(TextSelection.Request request) {
+        checkDestroyed();
+        return mTextClassifier.suggestSelection(request);
+    }
+
+    @Override
+    public int getMaxGenerateLinksTextLength() {
+        return mTextClassifier.getMaxGenerateLinksTextLength();
+    }
+
+    /**
+     * @throws IllegalStateException if this TextClassification session has been destroyed.
+     * @see #isDestroyed()
+     * @see #destroy()
+     */
+    private void checkDestroyed() {
+        if (isDestroyed()) {
+            throw new IllegalStateException("This TextClassification session has been destroyed");
+        }
+    }
+
     /**
      * Helper class for updating SelectionEvent fields.
      */
@@ -71,7 +106,7 @@ final class DefaultSessionStrategy implements SessionStrategy {
 
         private static final boolean DEBUG_LOG_ENABLED = true;
         private static final String TAG = "SelectionEventHelper";
-        private final TextClassificationSessionId mSessionId;
+        private final TextClassificationSessionId mTextClassifierId;
         private final TextClassificationContext mContext;
 
         @SelectionEvent.InvocationMethod
@@ -81,7 +116,7 @@ final class DefaultSessionStrategy implements SessionStrategy {
 
         SelectionEventHelper(
                 TextClassificationSessionId sessionId, TextClassificationContext context) {
-            mSessionId = Preconditions.checkNotNull(sessionId);
+            mTextClassifierId = Preconditions.checkNotNull(sessionId);
             mContext = Preconditions.checkNotNull(context);
         }
 
@@ -106,7 +141,7 @@ final class DefaultSessionStrategy implements SessionStrategy {
                 case SelectionEvent.EVENT_SELECTION_STARTED:
                     Preconditions.checkArgument(
                             event.getAbsoluteEnd() == event.getAbsoluteStart() + 1);
-                    event.setSessionId(mSessionId);
+                    event.setSessionId(mTextClassifierId);
                     mStartEvent = event;
                     break;
                 case SelectionEvent.EVENT_SELECTION_MODIFIED:  // fall through

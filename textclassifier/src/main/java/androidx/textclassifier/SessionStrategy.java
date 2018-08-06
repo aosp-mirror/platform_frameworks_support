@@ -33,30 +33,11 @@ interface SessionStrategy {
 
     boolean isDestroyed();
 
-    /**
-     * Represents a session-less implementation.
-     */
-    SessionStrategy NO_OP = new SessionStrategy() {
-        /**
-         * @see {@link TextClassifier#destroy()}
-         */
-        @Override
-        public void destroy() {
-        }
+    TextClassification classifyText(@NonNull TextClassification.Request request);
 
-        /**
-         * @see {@link TextClassifier#isDestroyed()} ()}
-         */
-        @Override
-        public boolean isDestroyed() {
-            return false;
-        }
+    TextLinks generateLinks(@NonNull TextLinks.Request request);
 
-        /**
-         * @see {@link TextClassifier#reportSelectionEvent(SelectionEvent)} ()}
-         */
-        @Override
-        public void reportSelectionEvent(@NonNull SelectionEvent event) {
-        }
-    };
+    TextSelection suggestSelection(@NonNull TextSelection.Request request);
+
+    int getMaxGenerateLinksTextLength();
 }

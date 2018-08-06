@@ -195,7 +195,6 @@ public final class TextClassification {
         return builder.build();
     }
 
-
     /**
      * @hide
      */

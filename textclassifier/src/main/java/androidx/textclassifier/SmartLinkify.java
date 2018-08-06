@@ -89,7 +89,7 @@ public final class SmartLinkify {
      */
     public static void addLinksAsync(
             @NonNull final TextView textView,
-            @Nullable TextClassifierFactory classifierFactory,
+            @Nullable TextClassifier textClassifier,
             @Nullable TextLinksParams params,
             @Nullable CancellationSignal cancel,
             @Nullable Executor executor,
@@ -126,7 +126,7 @@ public final class SmartLinkify {
             }
         };
         addLinksAsync(textSupplier, textView.getContext(), widgetType,
-                classifierFactory, params, cancel, executor, callbackWrapper);
+                textClassifier, params, cancel, executor, callbackWrapper);
     }
 
     private static String getWidgetType(TextView textView) {
@@ -192,7 +192,7 @@ public final class SmartLinkify {
     public static void addLinksAsync(
             @NonNull final Spannable text,
             @NonNull final Context context,
-            @Nullable TextClassifierFactory classifierFactory,
+            @Nullable TextClassifier textClassifier,
             @Nullable TextLinksParams params,
             @Nullable CancellationSignal cancel,
             @Nullable Executor executor,
@@ -204,20 +204,20 @@ public final class SmartLinkify {
             }
         };
         addLinksAsync(textSupplier, context, TextClassifier.WIDGET_TYPE_UNKNOWN,
-                classifierFactory, params, cancel, executor, callback);
+                textClassifier, params, cancel, executor, callback);
     }
 
     private static void addLinksAsync(
             @NonNull Supplier<Spannable> textSupplier,
             @NonNull Context context,
             @NonNull String widgetType,
-            @Nullable TextClassifierFactory classifierFactory,
+            @Nullable TextClassifier textClassifier,
             @Nullable TextLinksParams params,
             @Nullable CancellationSignal cancel,
             @Nullable Executor executor,
             @Nullable Callback callback) {
         final LinkifyTask task = new LinkifyTask(
-                textSupplier, context, widgetType, classifierFactory, params, callback);
+                textSupplier, context, widgetType, textClassifier, params, callback);
         if (cancel != null) {
             cancel.setOnCancelListener(task);
         }
@@ -257,13 +257,12 @@ public final class SmartLinkify {
         private final Supplier<Spannable> mTextSupplier;
         private final Spannable mText;
         private final CharSequence mTruncatedText;
-        private final TextClassifier mClassifier;
         private final TextLinksParams mParams;
         private final Callback mCallback;
         private final TextLinks.Request mRequest;
 
         @Nullable
-        private final TextClassifierFactory mClassifierFactory;
+        private final TextClassifierSession mSession;
 
         @TextLinks.Status
         private int mStatus = TextLinks.STATUS_UNKNOWN;
@@ -271,26 +270,23 @@ public final class SmartLinkify {
         LinkifyTask(@NonNull Supplier<Spannable> textSupplier,
                     @NonNull Context context,
                     @NonNull String widgetType,
-                    @Nullable TextClassifierFactory classifierFactory,
+                    @Nullable TextClassifier textClassifier,
                     @Nullable TextLinksParams params,
                     @Nullable Callback callback) {
             mTextSupplier = Preconditions.checkNotNull(textSupplier);
             mText = mTextSupplier.get();
-            mClassifierFactory = classifierFactory;
             final TextClassificationContext classificationContext =
                     new TextClassificationContext.Builder(context.getPackageName(), widgetType)
                             .build();
-            if (mClassifierFactory != null) {
-                mClassifier = classifierFactory.create(classificationContext);
-            } else {
-                mClassifier = TextClassificationManager.of(context)
-                        .createTextClassifier(classificationContext);
+            if (textClassifier == null) {
+                textClassifier = TextClassificationManager.of(context).getTextClassifier();
             }
+            mSession = textClassifier.createSession(classificationContext);
             mParams = params != null ? params : new TextLinksParams.Builder().build();
             // TODO: If text is longer than the supported length,
             // break it down and process in parallel.
             mTruncatedText = mText.subSequence(
-                    0, Math.min(mText.length(), mClassifier.getMaxGenerateLinksTextLength()));
+                    0, Math.min(mText.length(), mSession.getMaxGenerateLinksTextLength()));
             mCallback = callback != null ? callback : NO_OP_CALLBACK;
             mRequest = new TextLinks.Request.Builder(mTruncatedText)
                     .setEntityConfig(mParams.getEntityConfig())
@@ -300,8 +296,8 @@ public final class SmartLinkify {
 
         @Override
         protected TextLinks doInBackground(Void... nil) {
-            final TextLinks textLinks = mClassifier.generateLinks(mRequest);
-            textLinks.setClassifierFactory(mClassifierFactory);
+            final TextLinks textLinks = mSession.generateLinks(mRequest);
+            textLinks.setTextClassifierSession(mSession);
             textLinks.setReferenceTime(mParams.getReferenceTime());
             return textLinks;
         }

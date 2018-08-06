@@ -141,32 +141,6 @@ public abstract class TextClassifier {
     private static final int GENERATE_LINKS_MAX_TEXT_LENGTH_DEFAULT = 100 * 1000;
 
     /**
-     * No-op TextClassifier.
-     * This may be used to turn off text classifier features.
-     */
-    public static final TextClassifier NO_OP = new TextClassifier(SessionStrategy.NO_OP) {};
-
-    @NonNull
-    private SessionStrategy mSessionStrategy;
-
-    /**
-     * Creates a {@link TextClassifier} by using default session handling.
-     */
-    public TextClassifier(@NonNull TextClassificationContext textClassificationContext) {
-        mSessionStrategy = new DefaultSessionStrategy(textClassificationContext, this);
-    }
-
-    /**
-     * Creates a {@link TextClassifier} with custom session handling.
-     *
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
-    TextClassifier(@NonNull SessionStrategy sessionStrategy) {
-        mSessionStrategy = Preconditions.checkNotNull(sessionStrategy);
-    }
-
-    /**
      * Returns suggested text selection start and end indices, recognized entity types, and their
      * associated confidence scores. The entity types are ordered from highest to lowest scoring.
      *
@@ -181,7 +155,6 @@ public abstract class TextClassifier {
     @NonNull
     public TextSelection suggestSelection(@NonNull TextSelection.Request request) {
         Preconditions.checkNotNull(request);
-        checkDestroyed();
         ensureNotOnMainThread();
         return new TextSelection.Builder(request.getStartIndex(), request.getEndIndex()).build();
     }
@@ -201,7 +174,6 @@ public abstract class TextClassifier {
     @NonNull
     public TextClassification classifyText(@NonNull TextClassification.Request request) {
         Preconditions.checkNotNull(request);
-        checkDestroyed();
         ensureNotOnMainThread();
         return TextClassification.EMPTY;
     }
@@ -223,7 +195,6 @@ public abstract class TextClassifier {
     @NonNull
     public TextLinks generateLinks(@NonNull TextLinks.Request request) {
         Preconditions.checkNotNull(request);
-        checkDestroyed();
         ensureNotOnMainThread();
         return new TextLinks.Builder(request.getText().toString()).build();
     }
@@ -238,59 +209,15 @@ public abstract class TextClassifier {
     }
 
     /**
-     * Reports a selection event.
-     *
-     * <strong>NOTE: </strong>If a TextClassifier has been destroyed, calls to this
-     * method should throw an {@link IllegalStateException}. See {@link #isDestroyed()}.
-     */
-    public final void reportSelectionEvent(@NonNull SelectionEvent event) {
-        Preconditions.checkNotNull(event);
-        checkDestroyed();
-        mSessionStrategy.reportSelectionEvent(event);
-    }
-
-    /**
      * Called when a selection event is reported.
      */
     @WorkerThread
     public void onSelectionEvent(@NonNull SelectionEvent event) {
     }
 
-    /**
-     * Destroys this TextClassifier.
-     *
-     * <strong>NOTE: </strong>If a TextClassifier has been destroyed, calls to its
-     * methods should throw an {@link IllegalStateException}. See {@link #isDestroyed()}.
-     *
-     * <p>Subsequent calls to this method are no-ops.
-     */
-    public final void destroy() {
-        mSessionStrategy.destroy();
-    }
-
-    /**
-     * Returns whether or not this TextClassifier has been destroyed.
-     *
-     * <strong>NOTE: </strong>If a TextClassifier has been destroyed, caller should not
-     * interact with the classifier and an attempt to do so would throw an
-     * {@link IllegalStateException}.
-     * However, this method should never throw an {@link IllegalStateException}.
-     *
-     * @see #destroy()
-     */
-    public final boolean isDestroyed() {
-        return mSessionStrategy.isDestroyed();
-    }
-
-    /**
-     * @throws IllegalStateException if this TextClassification session has been destroyed.
-     * @see #isDestroyed()
-     * @see #destroy()
-     */
-    private void checkDestroyed() {
-        if (isDestroyed()) {
-            throw new IllegalStateException("This TextClassification session has been destroyed");
-        }
+    public TextClassifierSession createSession(
+            TextClassificationContext textClassificationContext) {
+        return new TextClassifierSession(this, textClassificationContext);
     }
 
     static void ensureNotOnMainThread() {
