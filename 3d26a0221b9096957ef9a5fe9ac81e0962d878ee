@@ -22,6 +22,30 @@
       "revId": "3d26a0221b9096957ef9a5fe9ac81e0962d878ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8aa3dd5_862f632e",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/RelationCollector.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-06T19:48:08Z",
+      "side": 1,
+      "message": "Relationship of parent who\u0027s relation key is null are not fetched. If you look into RelationCollextor#readKey() you\u0027ll notice the generated code will use Cursor#isNull() when the parent key is nullable. This logic was already present.\n\nHowever, I still went ahead an added a PojoWithNullRelationKeyTest so we can have a better good night sleep. ;)",
+      "parentUuid": "3587c838_77e34376",
+      "range": {
+        "startLine": 248,
+        "startChar": 16,
+        "endLine": 251,
+        "endChar": 47
+      },
+      "revId": "3d26a0221b9096957ef9a5fe9ac81e0962d878ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
