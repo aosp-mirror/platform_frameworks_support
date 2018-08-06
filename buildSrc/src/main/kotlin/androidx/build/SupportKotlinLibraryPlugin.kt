@@ -16,6 +16,7 @@
 package androidx.build
 
 import androidx.build.metalava.Metalava
+import com.android.build.gradle.internal.dsl.LintOptions
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -29,6 +30,14 @@ class SupportKotlinLibraryPlugin : Plugin<Project> {
         project.configureMavenArtifactUpload(supportLibraryExtension)
         project.apply(mapOf("plugin" to "kotlin"))
         project.apply(mapOf("plugin" to "kotlin-kapt"))
+
+        project.apply(mapOf("plugin" to "com.android.lint"))
+        // Create fake variant tasks since that is what is invoked on CI and by developers.
+        project.tasks.create("lintDebug").dependsOn("lint")
+        project.tasks.create("lintRelease").dependsOn("lint")
+
+        val lintOptions = project.extensions.getByType(LintOptions::class.java)
+        project.configureLint(lintOptions, supportLibraryExtension)
 
         project.afterEvaluate {
             Metalava.registerJavaProject(project, supportLibraryExtension)
