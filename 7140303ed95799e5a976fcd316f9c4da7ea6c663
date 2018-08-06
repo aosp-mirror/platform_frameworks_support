@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a0979e7b_ddde6a89",
+        "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaControlView2Test.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-06T08:00:48Z",
+      "side": 1,
+      "message": "Talked offline.",
+      "parentUuid": "87fec2ff_b2f9fa67",
+      "range": {
+        "startLine": 157,
+        "startChar": 41,
+        "endLine": 157,
+        "endChar": 61
+      },
+      "revId": "7140303ed95799e5a976fcd316f9c4da7ea6c663",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b5675c05_722ac257",
         "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaControlView2Test.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-06T02:54:13Z",
       "side": 1,
       "message": "it does not check the codec of mHttpSchemeMediaItem",
+      "range": {
+        "startLine": 244,
+        "startChar": 12,
+        "endLine": 244,
+        "endChar": 23
+      },
+      "revId": "7140303ed95799e5a976fcd316f9c4da7ea6c663",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87bf9afe_3792c0d5",
+        "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaControlView2Test.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-06T08:00:48Z",
+      "side": 1,
+      "message": "Changed to check based on Uri parameter.",
+      "parentUuid": "b5675c05_722ac257",
       "range": {
         "startLine": 244,
         "startChar": 12,
