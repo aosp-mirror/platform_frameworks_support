@@ -67,6 +67,23 @@
       "revId": "00f86dfcea0491fa9663a993c3d5fdc6fda3c7af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55596af0_528b6a94",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-06T14:36:56Z",
+      "side": 1,
+      "message": "We will cache the session (which holds the reference of TC) or the TC directly here.\n \nI think it is fine in the sense that:\n1. We will at most have one TC.\n2. If a TextLink object is in memory, it kind of means that TC is still in active use. So it actually makes sense to me to keep the TC object in memory, and cache something (regex or whatever) to speed the thing up.",
+      "revId": "00f86dfcea0491fa9663a993c3d5fdc6fda3c7af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
