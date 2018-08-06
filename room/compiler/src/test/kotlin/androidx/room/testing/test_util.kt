@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
+import androidx.room.DatabaseView
 import androidx.room.Entity
 import androidx.room.ext.LifecyclesTypeNames
 import androidx.room.ext.PagingTypeNames
 import androidx.room.ext.ReactiveStreamsTypeNames
 import androidx.room.ext.RoomRxJava2TypeNames
 import androidx.room.ext.RxJava2TypeNames
+import androidx.room.processor.DatabaseViewProcessor
 import androidx.room.processor.EntityProcessor
 import androidx.room.solver.CodeGenScope
 import androidx.room.testing.TestInvocation
@@ -51,6 +53,9 @@ import javax.tools.StandardLocation
 object COMMON {
     val USER by lazy {
         loadJavaCode("common/input/User.java", "foo.bar.User")
+    }
+    val USER_SUMMARY by lazy {
+        loadJavaCode("common/input/UserSummary.java", "foo.bar.UserSummary")
     }
     val USER_TYPE_NAME by lazy {
         ClassName.get("foo.bar", "User")
@@ -128,12 +133,15 @@ fun loadJavaCode(fileName: String, qName: String): JavaFileObject {
     return JavaFileObjects.forSourceString(qName, contents)
 }
 
-fun createVerifierFromEntities(invocation: TestInvocation): DatabaseVerifier {
+fun createVerifierFromEntitiesAndViews(invocation: TestInvocation): DatabaseVerifier {
     val entities = invocation.roundEnv.getElementsAnnotatedWith(Entity::class.java).map {
         EntityProcessor(invocation.context, MoreElements.asType(it)).process()
     }
+    val views = invocation.roundEnv.getElementsAnnotatedWith(DatabaseView::class.java).map {
+        DatabaseViewProcessor(invocation.context, MoreElements.asType(it)).process()
+    }
     return DatabaseVerifier.create(invocation.context, Mockito.mock(Element::class.java),
-            entities)!!
+            entities, views)!!
 }
 
 /**

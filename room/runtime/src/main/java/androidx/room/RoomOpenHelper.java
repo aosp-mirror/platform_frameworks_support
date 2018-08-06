@@ -26,7 +26,10 @@ import androidx.sqlite.db.SimpleSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 /**
  * An open helper that holds a reference to the configuration until the database is opened.
@@ -48,14 +51,24 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
      */
     @NonNull // b/64290754
     private final String mLegacyHash;
+    @NonNull
+    private final Map<String, String> mViews;
 
     public RoomOpenHelper(@NonNull DatabaseConfiguration configuration, @NonNull Delegate delegate,
-            @NonNull String identityHash, @NonNull String legacyHash) {
+            @NonNull String identityHash, @NonNull String legacyHash,
+            @NonNull Map<String, String> views) {
         super(delegate.version);
         mConfiguration = configuration;
         mDelegate = delegate;
         mIdentityHash = identityHash;
         mLegacyHash = legacyHash;
+        mViews = views;
+    }
+
+    public RoomOpenHelper(@NonNull DatabaseConfiguration configuration, @NonNull Delegate delegate,
+            @NonNull String identityHash, @NonNull String legacyHash) {
+        this(configuration, delegate, identityHash, legacyHash,
+                Collections.<String, String>emptyMap());
     }
 
     public RoomOpenHelper(@NonNull DatabaseConfiguration configuration, @NonNull Delegate delegate,
@@ -114,10 +127,40 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
     @Override
     public void onOpen(SupportSQLiteDatabase db) {
         super.onOpen(db);
+        syncViews(db);
         checkIdentity(db);
         mDelegate.onOpen(db);
         // there might be too many configurations etc, just clear it.
         mConfiguration = null;
+    }
+
+    private void syncViews(SupportSQLiteDatabase db) {
+        Cursor cursor = db.query("SELECT name, sql FROM sqlite_master WHERE type = 'view'");
+        //noinspection TryFinallyCanBeTryWithResources
+        try {
+            HashSet<String> existingNames = new HashSet<>();
+            while (cursor.moveToNext()) {
+                String name = cursor.getString(0);
+                if (mViews.containsKey(name)) {
+                    String sql = cursor.getString(1);
+                    String latestSql = mViews.get(name);
+                    if (sql == null || !sql.equals(latestSql)) {
+                        db.execSQL("DROP VIEW `" + name + "`");
+                        db.execSQL(latestSql);
+                    }
+                } else {
+                    db.execSQL("DROP VIEW `" + name + "`");
+                }
+                existingNames.add(name);
+            }
+            for (Map.Entry<String, String> view : mViews.entrySet()) {
+                if (!existingNames.contains(view.getKey())) {
+                    db.execSQL(view.getValue());
+                }
+            }
+        } finally {
+            cursor.close();
+        }
     }
 
     private void checkIdentity(SupportSQLiteDatabase db) {

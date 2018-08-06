@@ -17,17 +17,21 @@
 package androidx.room.writer
 
 import androidx.annotation.VisibleForTesting
+import androidx.room.ext.CommonTypeNames
 import androidx.room.ext.L
 import androidx.room.ext.N
 import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.S
 import androidx.room.ext.SupportDbTypeNames
 import androidx.room.ext.T
+import androidx.room.ext.typeName
 import androidx.room.solver.CodeGenScope
 import androidx.room.vo.Database
+import androidx.room.vo.DatabaseView
 import androidx.room.vo.Entity
 import com.squareup.javapoet.MethodSpec
 import com.squareup.javapoet.ParameterSpec
+import com.squareup.javapoet.ParameterizedTypeName
 import com.squareup.javapoet.TypeSpec
 import java.util.ArrayDeque
 import javax.lang.model.element.Modifier.PRIVATE
@@ -48,10 +52,18 @@ class SQLiteOpenHelperWriter(val database: Database) {
         scope.builder().apply {
             val sqliteConfigVar = scope.getTmpVar("_sqliteConfig")
             val callbackVar = scope.getTmpVar("_openCallback")
-            addStatement("final $T $L = new $T($N, $L, $S, $S)",
+            val viewsVar = scope.getTmpVar("_views")
+            val viewsType = ParameterizedTypeName.get(HashMap::class.typeName(),
+                    CommonTypeNames.STRING, CommonTypeNames.STRING)
+            addStatement("final $T $L = new $T()", viewsType, viewsVar, viewsType)
+            for (view in database.views) {
+                addStatement("$L.put($S, $S)", viewsVar, view.viewName, view.createViewQuery)
+            }
+            addStatement("final $T $L = new $T($N, $L, $S, $S, $L)",
                     SupportDbTypeNames.SQLITE_OPEN_HELPER_CALLBACK,
                     callbackVar, RoomTypeNames.OPEN_HELPER, configuration,
-                    createOpenCallback(scope), database.identityHash, database.legacyIdentityHash)
+                    createOpenCallback(scope), database.identityHash, database.legacyIdentityHash,
+                    viewsVar)
             // build configuration
             addStatement(
                     """
@@ -182,8 +194,13 @@ class SQLiteOpenHelperWriter(val database: Database) {
     }
 
     @VisibleForTesting
-    fun createQuery(entity: Entity): String {
+    fun createTableQuery(entity: Entity): String {
         return entity.createTableQuery
+    }
+
+    @VisibleForTesting
+    fun createViewQuery(view: DatabaseView): String {
+        return view.createViewQuery
     }
 
     @VisibleForTesting
