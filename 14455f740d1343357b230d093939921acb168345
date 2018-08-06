@@ -718,6 +718,30 @@
     },
     {
       "key": {
+        "uuid": "45e39b97_933b75ae",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-06T07:54:38Z",
+      "side": 1,
+      "message": "MediaRouteChooserDialog and MediaRouteControllerDialog is using light-gray colored icons for LightTheme. But, MediaRouteDevicePickerDialog and MediaRouteCastDialog have to use dark-gray colored(or black. \u003c- this is not fixed yet. I left comment at go/dynamic to make it clear UI/UX team wants which color) icons for LightTheme.",
+      "parentUuid": "91d6f7fb_680a88fc",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 0
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5070a6e3_8a8667f1",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
         "patchSetId": 7
@@ -741,6 +765,30 @@
     },
     {
       "key": {
+        "uuid": "a6d2dea2_c789270e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-06T07:54:38Z",
+      "side": 1,
+      "message": "ditto. But, since it seems like nobody is using this method, I can remove this.",
+      "parentUuid": "5070a6e3_8a8667f1",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 45
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1019555f_b6c89f44",
         "filename": "mediarouter/src/main/res/drawable/ic_vol_unmute_grey.xml",
         "patchSetId": 7
@@ -758,6 +806,24 @@
     },
     {
       "key": {
+        "uuid": "8ea25050_f0f188f4",
+        "filename": "mediarouter/src/main/res/drawable/ic_vol_unmute_grey.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-06T07:54:38Z",
+      "side": 1,
+      "message": "I added this to use when volume of the route is fixed. If it doesn\u0027t make sense, I\u0027m gonna add comment to go/dynamic to check how volume slider and icon should be shown when route volume is fixed.",
+      "parentUuid": "1019555f_b6c89f44",
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3faaa7f5_55d5b584",
         "filename": "mediarouter/src/main/res/layout/mr_cast_group_volume_item.xml",
         "patchSetId": 7
@@ -772,6 +838,24 @@
       "revId": "14455f740d1343357b230d093939921acb168345",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66f599d3_854ae47c",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_group_volume_item.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-06T07:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3faaa7f5_55d5b584",
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -795,6 +879,30 @@
       "revId": "14455f740d1343357b230d093939921acb168345",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4655e7b_34e850d2",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_route_item.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-06T07:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfd8e25a_a98ae333",
+      "range": {
+        "startLine": 62,
+        "startChar": 47,
+        "endLine": 62,
+        "endChar": 81
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
