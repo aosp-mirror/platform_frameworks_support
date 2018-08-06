@@ -163,6 +163,30 @@
       "revId": "02a07eb603d8de623b49f2ca04e53c6d77a62b07",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a3bf290_480e3f97",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-06T11:30:36Z",
+      "side": 1,
+      "message": "I really don\u0027t mind for now.\nEither option sgtm.\nThanks.",
+      "parentUuid": "e819cdcb_e36ae54e",
+      "range": {
+        "startLine": 553,
+        "startChar": 28,
+        "endLine": 561,
+        "endChar": 49
+      },
+      "revId": "02a07eb603d8de623b49f2ca04e53c6d77a62b07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
