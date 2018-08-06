@@ -28,11 +28,16 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.RemoteException;
 import android.os.SystemClock;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
 import android.support.v4.media.MediaDescriptionCompat;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaControllerCompat;
@@ -44,16 +49,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.core.util.ObjectsCompat;
@@ -105,6 +111,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
 
     static final int MUTED_VOLUME = 0;
     static final int MIN_UNMUTED_VOLUME = 1;
+
+    private static final int BLUR_RADIUS = 10;
 
     final MediaRouter mRouter;
     private final MediaRouterCallback mCallback;
@@ -162,7 +170,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
     private ImageButton mCloseButton;
     private Button mStopCastingButton;
 
-    private RelativeLayout mMetadataLayout;
+    private FrameLayout mMetadataLayout;
+    private ImageView mMetadataBackground;
     private ImageView mArtView;
     private TextView mTitleView;
     private TextView mSubtitleView;
@@ -337,6 +346,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         mBeforeMuteVolumeMap = new HashMap<>();
 
         mMetadataLayout = findViewById(R.id.mr_cast_meta);
+        mMetadataBackground = findViewById(R.id.mr_cast_meta_background);
         mArtView = findViewById(R.id.mr_cast_meta_art);
         mTitleView = findViewById(R.id.mr_cast_meta_title);
         mTitleView.setTextColor(COLOR_WHITE_ON_DARK_BACKGROUND);
@@ -406,8 +416,21 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 mArtView.setVisibility(View.VISIBLE);
                 mArtView.setImageBitmap(mArtIconLoadedBitmap);
                 mArtView.setBackgroundColor(mArtIconBackgroundColor);
-                mMetadataLayout.setBackgroundDrawable(
-                        new BitmapDrawable(mArtIconLoadedBitmap));
+
+
+                // TODO: Add support for API level < 17 by using androidx.renderscript library.
+                if (Integer.valueOf(Build.VERSION.SDK) >= 17) {
+                    Bitmap blurredBitmap = blurBitmap(mArtIconLoadedBitmap, BLUR_RADIUS, mContext);
+                    mMetadataBackground.setImageBitmap(blurredBitmap);
+                    // Force height of mMetadataBackground to match height of its parent view.
+                    ViewGroup.LayoutParams params = mMetadataBackground.getLayoutParams();
+                    params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                    params.height = mMetadataLayout.getHeight();
+                    mMetadataBackground.setLayoutParams(params);
+                } else {
+                    mMetadataBackground.setBackgroundDrawable(
+                            new BitmapDrawable(mArtIconLoadedBitmap));
+                }
             }
             clearLoadedBitmap();
         } else {
@@ -543,6 +566,25 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         mRoutes.clear();
         mRoutes.addAll(routes);
         mAdapter.setItems();
+    }
+
+    @RequiresApi(17)
+    private static Bitmap blurBitmap(Bitmap bitmap, float radius, Context context) {
+        RenderScript rs = RenderScript.create(context);
+        Allocation allocation = Allocation.createFromBitmap(rs, bitmap);
+        Allocation blurAllocation = Allocation.createTyped(rs, allocation.getType());
+
+        ScriptIntrinsicBlur blurScript = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
+        blurScript.setRadius(radius);
+        blurScript.setInput(allocation);
+        blurScript.forEach(blurAllocation);
+        blurAllocation.copyTo(bitmap);
+
+        allocation.destroy();
+        blurAllocation.destroy();
+        blurScript.destroy();
+        rs.destroy();
+        return bitmap;
     }
 
     private abstract class MediaRouteVolumeSliderHolder extends RecyclerView.ViewHolder {
