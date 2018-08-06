@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2316160a_4fa98c14",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T14:35:51Z",
+      "side": 1,
+      "message": "suggestion) what about start mImpl with the dummy implementation, and keeping it non-null?\n\nBeing specific, what about\n1) Change MediaController2Impl empty class (not abstract)\n2) mImpl \u003d new MediaController2Impl() from the beginning.\n3) Reset mImpl to the original one when it\u0027s closed.\n\nWith this, you don\u0027t need to check whether controller is connected or not.",
+      "range": {
+        "startLine": 135,
+        "startChar": 12,
+        "endLine": 135,
+        "endChar": 18
+      },
+      "revId": "8d116ab869b9b8841c654d4cfb6ee458fe846598",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99dd70f7_68edfc82",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T14:35:51Z",
+      "side": 1,
+      "message": "can we do this outside of the lock, or document that MediaController2Impl#close() shouldn\u0027t call APIs of the mImpl back? This may incur deadlock.",
+      "range": {
+        "startLine": 202,
+        "startChar": 20,
+        "endLine": 202,
+        "endChar": 34
+      },
+      "revId": "8d116ab869b9b8841c654d4cfb6ee458fe846598",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c3a9c98_8aecaa1b",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T14:35:51Z",
+      "side": 1,
+      "message": "isConnected() check?",
+      "range": {
+        "startLine": 883,
+        "startChar": 15,
+        "endLine": 883,
+        "endChar": 24
+      },
+      "revId": "8d116ab869b9b8841c654d4cfb6ee458fe846598",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e542b60_b2a2c75b",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-06T14:35:51Z",
+      "side": 1,
+      "message": "isConnected() check?",
+      "range": {
+        "startLine": 887,
+        "startChar": 15,
+        "endLine": 887,
+        "endChar": 22
+      },
+      "revId": "8d116ab869b9b8841c654d4cfb6ee458fe846598",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
