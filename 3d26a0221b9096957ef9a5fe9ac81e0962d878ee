@@ -46,6 +46,30 @@
       "revId": "3d26a0221b9096957ef9a5fe9ac81e0962d878ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44bf550c_e462358a",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/RelationCollector.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-06T23:37:02Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "a8aa3dd5_862f632e",
+      "range": {
+        "startLine": 248,
+        "startChar": 16,
+        "endLine": 251,
+        "endChar": 47
+      },
+      "revId": "3d26a0221b9096957ef9a5fe9ac81e0962d878ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
