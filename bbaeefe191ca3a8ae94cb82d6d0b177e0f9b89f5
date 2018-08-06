@@ -16,6 +16,24 @@
       "revId": "bbaeefe191ca3a8ae94cb82d6d0b177e0f9b89f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "564ff0ed_2da2ee56",
+        "filename": "loader/src/main/java/androidx/loader/content/ModernAsyncTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-06T21:26:25Z",
+      "side": 1,
+      "message": "Done. This was actually the only one!",
+      "parentUuid": "e3d53f99_4b032a67",
+      "revId": "bbaeefe191ca3a8ae94cb82d6d0b177e0f9b89f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
