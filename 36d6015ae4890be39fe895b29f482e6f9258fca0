@@ -34,6 +34,24 @@
       "revId": "36d6015ae4890be39fe895b29f482e6f9258fca0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d5e5ecf_b11d1f40",
+        "filename": "drawerlayout/src/main/java/androidx/drawerlayout/widget/DrawerLayout.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1598,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-06T20:05:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c2c4e089_20b6d957",
+      "revId": "36d6015ae4890be39fe895b29f482e6f9258fca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
