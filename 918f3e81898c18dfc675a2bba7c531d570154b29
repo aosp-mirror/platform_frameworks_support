@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8140c42_cf7abd27",
+        "filename": "xsdc/test/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T06:51:54Z",
+      "side": 1,
+      "message": "you can move this module defined in the top level Android.bp",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 1
+      },
+      "revId": "918f3e81898c18dfc675a2bba7c531d570154b29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7e499f4_1852142d",
+        "filename": "xsdc/test/src/com/android/xsdc/TestCompilationResult.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T06:51:54Z",
+      "side": 1,
+      "message": "move this to com.android.xsdc.tests",
+      "range": {
+        "startLine": 1,
+        "startChar": 8,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "918f3e81898c18dfc675a2bba7c531d570154b29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32ad6029_bb3409b3",
+        "filename": "xsdc/test/src/com/android/xsdc/TestHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2018-08-06T06:51:54Z",
+      "side": 1,
+      "message": "this and the other as well",
+      "range": {
+        "startLine": 1,
+        "startChar": 8,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "918f3e81898c18dfc675a2bba7c531d570154b29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
