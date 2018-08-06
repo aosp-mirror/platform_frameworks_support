@@ -16,6 +16,24 @@
       "revId": "120f12bcc96b27a8121838318aed64a1ecbac61f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55303031_36d3bec3",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-06T23:35:26Z",
+      "side": 1,
+      "message": "I\u0027m still in the process of migrating everything. (this is just a partial view to get feedback).\nI\u0027ll send the rest today.",
+      "parentUuid": "d96ddc2f_eb10a87e",
+      "revId": "120f12bcc96b27a8121838318aed64a1ecbac61f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
