@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a724487_438e7a6a",
+        "filename": "wear/src/main/java/androidx/wear/widget/drawer/WearableDrawerLayout.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 1136238
+      },
+      "writtenOn": "2018-08-06T23:29:34Z",
+      "side": 1,
+      "message": "How did you pick the number?",
+      "revId": "4cc2ace7c18b5345b7f7e22eabcff636f93c9339",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
