@@ -22,6 +22,30 @@
       "revId": "ec8d2c75df305d88f3e3fdbe7bc4dfe10e5eef27",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f7a7fef_2ef6ece0",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-07T13:29:33Z",
+      "side": 0,
+      "message": "This method is triggered in MediaRouteCastDialog when \n1) mStopCastingButton is clicked\n2) another transferable route(for now, only static group is available) is selected \n   (since unselect() for current selected route is called before another route is actually selected)\n\nFor 1), MediaRouteCastDialog is dismissed so don\u0027t need to call update().\nFor 2), update() is called in onRouteSelected(). \nIf I missed some cases that onRouteUnselected can be triggered, please tell me.",
+      "parentUuid": "35d42603_c1d43ea7",
+      "range": {
+        "startLine": 1046,
+        "startChar": 0,
+        "endLine": 1046,
+        "endChar": 88
+      },
+      "revId": "ec8d2c75df305d88f3e3fdbe7bc4dfe10e5eef27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
