@@ -93,6 +93,30 @@
       "revId": "a0d1184d8be436f5876d6e56434c0c709202f28a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63272150_dc21e6ea",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/RelationCollectorMethodWriter.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-07T05:36:20Z",
+      "side": 1,
+      "message": "nevermind.",
+      "parentUuid": "d5de0683_5b85eac7",
+      "range": {
+        "startLine": 69,
+        "startChar": 9,
+        "endLine": 81,
+        "endChar": 13
+      },
+      "revId": "a0d1184d8be436f5876d6e56434c0c709202f28a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
