@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "255d5731_db4fae25",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-07T11:40:05Z",
+      "side": 1,
+      "message": "I started looking into this because of b/110891673 and I thought the documentation created a confusion as to how MCV2 is created.\n\nI edited the change to reflect your comments.",
+      "parentUuid": "766951d5_265f9cc5",
+      "range": {
+        "startLine": 99,
+        "startChar": 6,
+        "endLine": 99,
+        "endChar": 78
+      },
+      "revId": "1cb060c0e55b1843b13fb5f8ad773fbd8b5dae46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "54499d80_506eead6",
         "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-07T10:39:05Z",
       "side": 1,
       "message": "same here. I think the previous one describes the exact thing. any particular reason?",
+      "range": {
+        "startLine": 100,
+        "startChar": 6,
+        "endLine": 101,
+        "endChar": 46
+      },
+      "revId": "1cb060c0e55b1843b13fb5f8ad773fbd8b5dae46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c71d8fcc_5571c1d4",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-07T11:40:05Z",
+      "side": 1,
+      "message": "Ditto",
+      "parentUuid": "54499d80_506eead6",
       "range": {
         "startLine": 100,
         "startChar": 6,
