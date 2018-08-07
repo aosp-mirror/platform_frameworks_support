@@ -95,14 +95,16 @@ import java.util.concurrent.Executor;
  * adjust video quality, select audio track, mute/unmute, and adjust playback speed.
  *
  * <p>
- * <em> MediaControlView2 can be initialized in two different ways: </em>
- * 1) When initializing {@link VideoView2} a default MediaControlView2 is created.
- * 2) Initialize MediaControlView2 programmatically and add it to a {@link ViewGroup} instance.
+ * By default, MediaControlView2 will be created when {@link VideoView2} is created.
+ * In order to remove it, one needs to set the XML attribute in VideoView2
+ * "widget:enableControlView" to "true". Then, one can replace it with a different view
+ * programmatically instantiating a MediaControlView2 instance and calling
+ * {@link VideoView2#setMediaControlView2}.
  *
- * In the first option, VideoView2 automatically connects MediaControlView2 to MediaController,
- * which is necessary to communicate with MediaSession. In the second option, however, the
- * developer needs to manually retrieve a MediaController instance from MediaSession and set it to
- * MediaControlView2.
+ * When {@link VideoView2} creates MediaControlView2, it automatically connects MediaControlView2
+ * to MediaController, which is necessary to communicate with MediaSession. When the
+ * MediaControlView2 is replaced with a new instance, however, the developer needs to manually
+ * create a MediaController instance from MediaSession and set it to MediaControlView2.
  *
  * <p>
  * There is no separate method that handles the show/hide behavior for MediaControlView2. Instead,
