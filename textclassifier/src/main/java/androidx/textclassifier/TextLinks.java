@@ -19,12 +19,10 @@ package androidx.textclassifier;
 import static androidx.textclassifier.ConvertUtils.toPlatformEntityConfig;
 import static androidx.textclassifier.ConvertUtils.unwrapLocalListCompat;
 
-import android.app.PendingIntent;
 import android.os.Bundle;
 import android.text.Spanned;
 import android.text.style.ClickableSpan;
 import android.text.style.URLSpan;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -39,6 +37,7 @@ import androidx.core.os.LocaleListCompat;
 import androidx.core.util.Preconditions;
 import androidx.textclassifier.TextClassifier.EntityConfig;
 import androidx.textclassifier.TextClassifier.EntityType;
+import androidx.textclassifier.widget.ToolbarController;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -56,8 +55,6 @@ import java.util.concurrent.Executors;
  * address, url, etc) they may be.
  */
 public final class TextLinks {
-
-    private static final String LOG_TAG = "TextLinks";
 
     private static final String EXTRA_FULL_TEXT = "text";
     private static final String EXTRA_LINKS = "links";
@@ -521,14 +518,8 @@ public final class TextLinks {
                     sMainThreadExecutor.execute(new Runnable() {
                         @Override
                         public void run() {
-                            if (!classification.getActions().isEmpty()) {
-                                // TODO: Show the toolbar instead.
-                                try {
-                                    classification.getActions().get(0).getActionIntent().send();
-                                } catch (PendingIntent.CanceledException e) {
-                                    Log.e(LOG_TAG, "Error handling TextLinkSpan click", e);
-                                }
-                            }
+                            ToolbarController.getInstance(textView)
+                                    .show(classification.getActions(), start, end);
                         }
                     });
                 }

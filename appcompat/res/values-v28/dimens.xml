@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012 The Android Open Source Project
+<!-- Copyright (C) 2018 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,13 +15,6 @@
 -->
 
 <resources>
-
-    <bool name="abc_action_bar_embed_tabs">true</bool>
-
-    <!-- Whether to allow vertically stacked button bars. This is disabled for
-         configurations with a small (e.g. less than 320dp) screen height. -->
-    <bool name="abc_allow_stacked_button_bar">false</bool>
-
-    <!-- Floating toolbar booleans -->
-    <bool name="floating_toolbar_all_caps">true</bool>
+    <!-- Floating toolbar dimensions -->
+    <dimen name="floating_toolbar_corner_radius">8dp</dimen>
 </resources>

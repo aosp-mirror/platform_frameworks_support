@@ -15,16 +15,15 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <declare-styleable name="TextClassifier">
-        <attr name="packageName" format="string"/>
-        <attr name="certificate" format="string"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-        <!-- ============ -->
-        <!-- Floating toolbar styles -->
-        <!-- ============ -->
-        <eat-comment />
-        <attr name="floatingToolbarForegroundColor" format="reference|color" />
-        <attr name="floatingToolbarPopupBackgroundDrawable" format="reference" />
-    </declare-styleable>
-</resources>
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:text="Hello world!"/>
+
+</LinearLayout>
