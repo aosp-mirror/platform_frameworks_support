@@ -16,6 +16,24 @@
       "revId": "fb5000d38230a8553d86cda715ddadefaae85cec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c32be5fb_ce62a452",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-07T15:57:57Z",
+      "side": 0,
+      "message": "sg. Thanks.",
+      "parentUuid": "b9201937_9fdfc71c",
+      "revId": "fb5000d38230a8553d86cda715ddadefaae85cec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

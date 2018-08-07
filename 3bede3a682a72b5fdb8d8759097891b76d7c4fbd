@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "6344ea31_f0859527",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/DefaultSessionStrategy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-07T15:57:57Z",
+      "side": 1,
+      "message": "Can I propose we remove all session-related code and make things less complicated?\nThe only TC that should get a TCContext should be the PlatformTC.create(Context, @Nullable TCC) or equivalent.\nWe should probably not introduce any other methods that take a TCC because it will be hard to translate back to the PlatformTC. (What does it mean for one to call PlaformTC.of(tcc1).classifyText(tcc2, request) or even PlatformTC.of(tcc1).classifyText(Request.with(tcc2))?)\n\nIf in the future, we have a need for a TCC outside of the PlatformTC, we can introuduce a TCSessionWrapper (preferably a hidden class) that wraps the TC and takes a context. It can insert the context in each Request via a hidden API if necessary.\n\nLMK what you think and let\u0027s perhaps chat offline about this.\nThanks.",
+      "range": {
+        "startLine": 6,
+        "startChar": 13,
+        "endLine": 6,
+        "endChar": 35
+      },
+      "revId": "3bede3a682a72b5fdb8d8759097891b76d7c4fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a9e45af4_30061532",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/PlatformTextClassifierWrapper.java",
         "patchSetId": 1
@@ -19,6 +42,29 @@
     },
     {
       "key": {
+        "uuid": "98ab596c_b07132bf",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-07T15:57:57Z",
+      "side": 1,
+      "message": "See my comment in DefaultSessionStrategy.java above.\nI think there is no immediate need for this atm, and it could be problematic for a PlatformTC.",
+      "range": {
+        "startLine": 158,
+        "startChar": 21,
+        "endLine": 158,
+        "endChar": 46
+      },
+      "revId": "3bede3a682a72b5fdb8d8759097891b76d7c4fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1ced103c_3e79ab40",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierSession.java",
         "patchSetId": 1
@@ -30,6 +76,29 @@
       "writtenOn": "2018-08-07T09:54:41Z",
       "side": 1,
       "message": "Session here just means using Text classifier with the same \"TextClassificationContext\".\n(Let me know if there is a better name). This session never ends, again, it just means\nusing TC for the same context.\n\nThis serves a few purposes:\n1. Client can just cache the session, instead of caching both TC and context separately. \n   For example, in smart linkify, TextLinkSpan can just cache the session.\n   This also saves client from passing the same context all the time.\n2. In androidX.PlatformTC, when TC.createSession is called, we can create a new platform session and wrap that session. Though the session here and there do not have the same meaning. (Is there a problem in term of logging? Though, we don\u0027t have smart selection in support library anyway)\n3. We kind of separate client and server calls now. TextClassifierSession is the client and\n   TextClassifier is the server. Example: reportSelectionEvent is here and onSelectionEvent is\n   in TC.",
+      "revId": "3bede3a682a72b5fdb8d8759097891b76d7c4fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aab10f36_315c7478",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-07T15:57:57Z",
+      "side": 1,
+      "message": "See my comment in DefaultSessionStrategy.java above.\nI think there\u0027s no immediate need for this to be public API atm.",
+      "range": {
+        "startLine": 7,
+        "startChar": 13,
+        "endLine": 7,
+        "endChar": 34
+      },
       "revId": "3bede3a682a72b5fdb8d8759097891b76d7c4fbd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -64,6 +133,47 @@
       "writtenOn": "2018-08-07T09:54:41Z",
       "side": 1,
       "message": "Side question (and don\u0027t hate me)\n\nI still think TextLink should be @NonNull here :)\nsetSpanFactory is @hide, so we are always using DEFAULT_SPAN_FACTORY and in which case, \nTextLink really can\u0027t be null?",
+      "revId": "3bede3a682a72b5fdb8d8759097891b76d7c4fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c97c9d7_824d688d",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-07T15:57:57Z",
+      "side": 1,
+      "message": ":) -- I already hate you. Not.\n\nFeel free to make it NonNull if you feel strongly about it, but I personally dislike APIs that make me pass something when in fact it is optional for what I\u0027m trying to do.\nAlso as per my comment below, TextLinks.SpanFactory is intentional and setting it in the params should be public API.",
+      "parentUuid": "3add3fc4_de8d9e52",
+      "revId": "3bede3a682a72b5fdb8d8759097891b76d7c4fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70778f9e_9e227256",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinksParams.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-07T15:57:57Z",
+      "side": 1,
+      "message": "Actually, this is intentional and should be public API.\nIt allows apps to change the look and action of the links they generate. Something 1P apps/Dev rel have asked for.",
+      "range": {
+        "startLine": 185,
+        "startChar": 9,
+        "endLine": 187,
+        "endChar": 49
+      },
       "revId": "3bede3a682a72b5fdb8d8759097891b76d7c4fbd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
