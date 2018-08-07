@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "43f0f562_58586b44",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaSessionService2NotificationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-07T02:42:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c929b609_905116ab",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 2
+      },
+      "revId": "90d2f2fe20f9a8a65c3fac1dec6623b26eabcf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0a824bf_15e86a70",
         "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7d48509a_3d0c8c52",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-07T02:42:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0a824bf_15e86a70",
+      "range": {
+        "startLine": 912,
+        "startChar": 33,
+        "endLine": 912,
+        "endChar": 48
+      },
+      "revId": "90d2f2fe20f9a8a65c3fac1dec6623b26eabcf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f104b944_172405c6",
         "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2018-08-06T12:01:22Z",
       "side": 1,
       "message": "executor?",
+      "range": {
+        "startLine": 1005,
+        "startChar": 46,
+        "endLine": 1005,
+        "endChar": 47
+      },
+      "revId": "90d2f2fe20f9a8a65c3fac1dec6623b26eabcf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c058882_8f024d79",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1005,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-07T02:42:28Z",
+      "side": 1,
+      "message": "Done. Will be a part of callback, so using callback executor.",
+      "parentUuid": "f104b944_172405c6",
       "range": {
         "startLine": 1005,
         "startChar": 46,
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "66299976_07a2de50",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-07T02:42:28Z",
+      "side": 1,
+      "message": "Ditto. Let\u0027s separate from this CL.",
+      "parentUuid": "fc4b3a1a_e5895fbf",
+      "revId": "90d2f2fe20f9a8a65c3fac1dec6623b26eabcf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db1591c1_fb59a87e",
         "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
         "patchSetId": 2
@@ -108,6 +198,30 @@
       "revId": "90d2f2fe20f9a8a65c3fac1dec6623b26eabcf42",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "455e201f_ebce7ec1",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1422,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-07T02:42:28Z",
+      "side": 1,
+      "message": "I\u0027m not sure. Let\u0027s talk offline with Jaewan.\n\nAnyway, Let\u0027s separate it from this CL.",
+      "parentUuid": "db1591c1_fb59a87e",
+      "range": {
+        "startLine": 1412,
+        "startChar": 0,
+        "endLine": 1422,
+        "endChar": 23
+      },
+      "revId": "90d2f2fe20f9a8a65c3fac1dec6623b26eabcf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "5de19978_33fd310d",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-07T02:42:28Z",
+      "side": 1,
+      "message": "Added doc here and onUpdateNotification().\nAlso, added permission check logic inside of onCreate(). Please take another look.",
+      "parentUuid": "69f4389d_63cecf7e",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 0
+      },
+      "revId": "90d2f2fe20f9a8a65c3fac1dec6623b26eabcf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf853048_2e63fa99",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
         "patchSetId": 2
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "af19e298_bb47887e",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-07T02:42:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf853048_2e63fa99",
+      "range": {
+        "startLine": 165,
+        "startChar": 46,
+        "endLine": 165,
+        "endChar": 53
+      },
+      "revId": "90d2f2fe20f9a8a65c3fac1dec6623b26eabcf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9295e57_5fddf662",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
         "patchSetId": 2
@@ -177,6 +339,30 @@
       "revId": "90d2f2fe20f9a8a65c3fac1dec6623b26eabcf42",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "920d76d5_bb0a904b",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-07T02:42:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9295e57_5fddf662",
+      "range": {
+        "startLine": 69,
+        "startChar": 43,
+        "endLine": 69,
+        "endChar": 47
+      },
+      "revId": "90d2f2fe20f9a8a65c3fac1dec6623b26eabcf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
