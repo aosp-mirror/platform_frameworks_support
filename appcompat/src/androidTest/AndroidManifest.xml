@@ -145,6 +145,9 @@
             android:name="androidx.appcompat.widget.ToolbarTestActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
+        <activity
+            android:name="androidx.appcompat.widget.FloatingToolbarActivity"/>
+
     </application>
 
 </manifest>
