@@ -411,6 +411,13 @@
         <attr name="colorError" format="reference|color" />
 
         <attr name="viewInflaterClass" format="string" />
+
+        <!-- ============ -->
+        <!-- Floating toolbar styles -->
+        <!-- ============ -->
+        <eat-comment />
+        <attr name="floatingToolbarForegroundColor" format="reference|color" />
+        <attr name="floatingToolbarPopupBackgroundDrawable" format="reference" />
     </declare-styleable>
 
 
