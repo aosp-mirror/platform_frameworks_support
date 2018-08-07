@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3a9242da_2140c9ba",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-07T06:10:22Z",
+      "side": 1,
+      "message": "Let me keep MediaController2Impl as an interface since...\n\nclass MediaBrowser2ImplBase extends MediaController2ImplBase implements MediaBrowser2Impl\ninterface MediaBrowser2Impl extends MediaController2Impl",
+      "parentUuid": "2316160a_4fa98c14",
+      "range": {
+        "startLine": 135,
+        "startChar": 12,
+        "endLine": 135,
+        "endChar": 18
+      },
+      "revId": "8d116ab869b9b8841c654d4cfb6ee458fe846598",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99dd70f7_68edfc82",
         "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "8d116ab869b9b8841c654d4cfb6ee458fe846598",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "335e7e8d_e96278d0",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-07T06:10:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99dd70f7_68edfc82",
+      "range": {
+        "startLine": 202,
+        "startChar": 20,
+        "endLine": 202,
+        "endChar": 34
+      },
+      "revId": "8d116ab869b9b8841c654d4cfb6ee458fe846598",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "33d4762b_b2d7d849",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-07T06:10:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c3a9c98_8aecaa1b",
+      "range": {
+        "startLine": 883,
+        "startChar": 15,
+        "endLine": 883,
+        "endChar": 24
+      },
+      "revId": "8d116ab869b9b8841c654d4cfb6ee458fe846598",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e542b60_b2a2c75b",
         "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "8d116ab869b9b8841c654d4cfb6ee458fe846598",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6c0f12f_4e1270ff",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-07T06:10:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e542b60_b2a2c75b",
+      "range": {
+        "startLine": 887,
+        "startChar": 15,
+        "endLine": 887,
+        "endChar": 22
+      },
+      "revId": "8d116ab869b9b8841c654d4cfb6ee458fe846598",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
