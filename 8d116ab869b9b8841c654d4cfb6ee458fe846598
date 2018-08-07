@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "156a5c84_27ccef40",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-07T12:23:28Z",
+      "side": 1,
+      "message": "Then it\u0027s OK.\n\nJust FYI, you may do the same with the interface, by creating \u0027class MediaController2ImplDummy implements MediaController2Impl\u0027",
+      "parentUuid": "3a9242da_2140c9ba",
+      "range": {
+        "startLine": 135,
+        "startChar": 12,
+        "endLine": 135,
+        "endChar": 18
+      },
+      "revId": "8d116ab869b9b8841c654d4cfb6ee458fe846598",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99dd70f7_68edfc82",
         "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
         "patchSetId": 2
