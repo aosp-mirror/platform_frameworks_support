@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e6a57668_401a58f8",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/RemoteMediaBrowserCompatService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-07T05:18:26Z",
+      "side": 1,
+      "message": "Changed to MediaBrowserCompatProviderService.\n\nDid the same renaming to:\n- RemoteMediaControllerCompatService\n- RemoteMediaSessionCompatService\n- RemoteMediaController2Service\n- RemoteMediaSession2Service",
+      "parentUuid": "46ba12d5_83145a51",
+      "range": {
+        "startLine": 48,
+        "startChar": 13,
+        "endLine": 48,
+        "endChar": 44
+      },
+      "revId": "1911a6959724e4158ba84e89e2bca0b2bd03d52c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f36c968_79aabef8",
         "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/RemoteMediaBrowserCompatService.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "1911a6959724e4158ba84e89e2bca0b2bd03d52c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7064716a_216b1ef3",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/RemoteMediaBrowserCompatService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-07T05:18:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f36c968_79aabef8",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 79
+      },
+      "revId": "1911a6959724e4158ba84e89e2bca0b2bd03d52c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "927beb67_f954691e",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/RemoteMediaBrowserCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-07T05:18:26Z",
+      "side": 1,
+      "message": "Since there is RemoteMediaBrowser2, let\u0027s keep this as-is.",
+      "parentUuid": "96f67c1c_a281af64",
+      "range": {
+        "startLine": 47,
+        "startChar": 13,
+        "endLine": 47,
+        "endChar": 37
+      },
+      "revId": "1911a6959724e4158ba84e89e2bca0b2bd03d52c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21be12e8_87a93a21",
         "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/tests/RemoteMediaBrowserCompatTest.java",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "991d2dd3_63fa2a4d",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/tests/RemoteMediaBrowserCompatTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-07T05:18:26Z",
+      "side": 1,
+      "message": "Currently, no plan for adding more tests.",
+      "parentUuid": "21be12e8_87a93a21",
+      "range": {
+        "startLine": 56,
+        "startChar": 16,
+        "endLine": 56,
+        "endChar": 27
+      },
+      "revId": "1911a6959724e4158ba84e89e2bca0b2bd03d52c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cecfed75_35a49a04",
         "filename": "media/version-compat-tests/lib/src/main/java/androidx/media/test/lib/MediaBrowserCompatConstants.java",
         "patchSetId": 2
@@ -114,6 +210,30 @@
       "revId": "1911a6959724e4158ba84e89e2bca0b2bd03d52c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d66af48f_583c0abc",
+        "filename": "media/version-compat-tests/lib/src/main/java/androidx/media/test/lib/MediaBrowserCompatConstants.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-07T05:18:26Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "cecfed75_35a49a04",
+      "range": {
+        "startLine": 22,
+        "startChar": 13,
+        "endLine": 22,
+        "endChar": 40
+      },
+      "revId": "1911a6959724e4158ba84e89e2bca0b2bd03d52c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
