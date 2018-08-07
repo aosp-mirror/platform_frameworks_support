@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "6c0520d8_d4c205c1",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-07T05:35:09Z",
+      "side": 1,
+      "message": "I followed what MediaRouteControllerDialog is doing. And I think it\u0027s for assigning null to mRouteForTouchedVolumeSlider.",
+      "parentUuid": "6eb77c82_93f53d8b",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 48
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9235bd29_456768b8",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 7
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "ditto",
       "parentUuid": "a5ca941c_f359a4c3",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 48
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "337361be_dcb93415",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-07T05:35:09Z",
+      "side": 1,
+      "message": "ditto.",
+      "parentUuid": "b1083955_a96148be",
       "range": {
         "startLine": 137,
         "startChar": 0,
@@ -498,6 +546,30 @@
     },
     {
       "key": {
+        "uuid": "24778345_45da2846",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-07T05:35:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d83f4c9_df45df71",
+      "range": {
+        "startLine": 825,
+        "startChar": 0,
+        "endLine": 825,
+        "endChar": 98
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3453a60_44d8cdce",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 7
@@ -642,6 +714,24 @@
       "revId": "14455f740d1343357b230d093939921acb168345",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f07409b0_9dd79eaa",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-07T05:35:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bac8aab6_050de0f6",
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -916,6 +1006,30 @@
       "side": 1,
       "message": "I asked this because this code only works when the DEBUG is turned on. If this code is really useful, then you should remove checking DEBUG.\n\nBesides, +1 to ask to UX. You may simply want to set volume slider disabled, so I\u0027m not seeing huge reason for this.",
       "parentUuid": "45e39b97_933b75ae",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 0
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f83df7b_9571b35f",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-07T05:35:09Z",
+      "side": 1,
+      "message": "I added this code because MediaRouteChooser(Controller)Dialog and MediaRouteDevicePicker(Cast)Dialog are using different colors for Light Theme, but same color for Dark Theme. I\u0027m not sure what would be the best option for current situation.",
+      "parentUuid": "2e9ce509_3f692f73",
       "range": {
         "startLine": 77,
         "startChar": 0,

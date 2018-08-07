@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8a5c7ba3_7eb340f5",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-07T05:35:09Z",
+      "side": 1,
+      "message": "Oh,it\u0027s just my mistake. I\u0027m gonna change this to private.",
+      "parentUuid": "ac20b49e_d691a421",
+      "range": {
+        "startLine": 95,
+        "startChar": 4,
+        "endLine": 95,
+        "endChar": 11
+      },
+      "revId": "fd01557ce67542a9f56d5e8b822579fab30628da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "794933fb_f97f936f",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 10
@@ -45,6 +69,30 @@
       "revId": "fd01557ce67542a9f56d5e8b822579fab30628da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fb9a0cf_e2d417b3",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-07T05:35:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "794933fb_f97f936f",
+      "range": {
+        "startLine": 105,
+        "startChar": 21,
+        "endLine": 105,
+        "endChar": 34
+      },
+      "revId": "fd01557ce67542a9f56d5e8b822579fab30628da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fa389bde_8145e41d",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-07T05:35:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0eeffee4_eb2f595b",
+      "range": {
+        "startLine": 517,
+        "startChar": 24,
+        "endLine": 517,
+        "endChar": 78
+      },
+      "revId": "fd01557ce67542a9f56d5e8b822579fab30628da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d90208e_f05403e0",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 10
@@ -91,6 +163,30 @@
       "revId": "fd01557ce67542a9f56d5e8b822579fab30628da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36801925_90c8930a",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-07T05:35:09Z",
+      "side": 1,
+      "message": "Yes. If you\u0027re asking this because you think \"mRouteForClickedMuteButton !\u003d null\" would be better, I\u0027m gonna change to that. It looks better for me too.",
+      "parentUuid": "6d90208e_f05403e0",
+      "range": {
+        "startLine": 523,
+        "startChar": 20,
+        "endLine": 523,
+        "endChar": 29
+      },
+      "revId": "fd01557ce67542a9f56d5e8b822579fab30628da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -137,6 +233,54 @@
       "revId": "fd01557ce67542a9f56d5e8b822579fab30628da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab536201_ec8b70fd",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-07T05:35:09Z",
+      "side": 1,
+      "message": "ditto.",
+      "parentUuid": "ca5ea3eb_135196a4",
+      "range": {
+        "startLine": 563,
+        "startChar": 11,
+        "endLine": 563,
+        "endChar": 12
+      },
+      "revId": "fd01557ce67542a9f56d5e8b822579fab30628da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a35a6d08_c0f5d7b0",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-07T05:35:09Z",
+      "side": 1,
+      "message": "Mistake. (I was trying to refactor these, but I thought it would be better to try it later.) I\u0027m gonna move this into the Adapter like before.",
+      "parentUuid": "ee5d9302_e9321710",
+      "range": {
+        "startLine": 563,
+        "startChar": 18,
+        "endLine": 563,
+        "endChar": 22
+      },
+      "revId": "fd01557ce67542a9f56d5e8b822579fab30628da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
