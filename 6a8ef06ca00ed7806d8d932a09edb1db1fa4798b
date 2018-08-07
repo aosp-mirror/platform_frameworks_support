@@ -107,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "376cecfb_0bfe3dbf",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-07T12:47:51Z",
+      "side": 1,
+      "message": "I already renamed it to USE_SUPPORT_DYNAMIC_GROUP in patchset12. Could you check patchset12 for this comment?",
+      "parentUuid": "0922c4f4_27f79464",
+      "range": {
+        "startLine": 37,
+        "startChar": 25,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "6a8ef06ca00ed7806d8d932a09edb1db1fa4798b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d0af335_e9e4d10a",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
         "patchSetId": 11
@@ -121,6 +145,24 @@
       "revId": "6a8ef06ca00ed7806d8d932a09edb1db1fa4798b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06de6cd1_ed932589",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-07T12:47:51Z",
+      "side": 1,
+      "message": "ditto.",
+      "parentUuid": "8d0af335_e9e4d10a",
+      "revId": "6a8ef06ca00ed7806d8d932a09edb1db1fa4798b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

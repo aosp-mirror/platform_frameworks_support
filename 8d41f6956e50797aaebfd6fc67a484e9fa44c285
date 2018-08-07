@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fda72a07_fb105a68",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-07T12:47:51Z",
+      "side": 1,
+      "message": "I\u0027m little bit confused about what \u0027keep\u0027 means. \nIs it that instead of taking route, button, slider as parameters, \n1) make them local variables of the method \n2) initialize them with above abstract methods(#566, #568, #570)\n3) make method not to take any parameter(like other methods in MediaRouteVolumeSliderHolder such as updateVolume(), toggleMute(), getUnmutedVolume())? \n\nIf above are what you were aimed to, is comment in patchset11(https://android-review.googlesource.com/c/platform/frameworks/support/+/723790/11/mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java#560) still valid?",
+      "parentUuid": "2f9625fb_56b3a814",
+      "range": {
+        "startLine": 566,
+        "startChar": 8,
+        "endLine": 574,
+        "endChar": 78
+      },
+      "revId": "8d41f6956e50797aaebfd6fc67a484e9fa44c285",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3fc4095_1db10bd2",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
         "patchSetId": 12
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-07T12:04:39Z",
       "side": 1,
       "message": "Take resId instead.\nHow can an user of API know about the index?",
+      "range": {
+        "startLine": 69,
+        "startChar": 65,
+        "endLine": 69,
+        "endChar": 68
+      },
+      "revId": "8d41f6956e50797aaebfd6fc67a484e9fa44c285",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f87cbe5e_a2862294",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-07T12:47:51Z",
+      "side": 1,
+      "message": "Since getDrawableIcon() is only called by above 4 methods(getDefaultIcon, getTvDrawableIcon, getSpeakerDrawableIcon, getSpeakerGroupIcon) and actual arguments passed (0,1,2,3) are not resId(as we talked offline), I thought idx would be better. \n\nThen, How about defining static final int variables like DEFAULT_DRAWABLE_IDX \u003d 0, TV_DRAWABLE_IDX \u003d 1, ... etc\nand use them when calling getDrawableIcon(context, DEFAULT_DRAWABLE_IDX); like this.",
+      "parentUuid": "d3fc4095_1db10bd2",
       "range": {
         "startLine": 69,
         "startChar": 65,
