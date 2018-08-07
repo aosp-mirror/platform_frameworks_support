@@ -25,6 +25,9 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.core.ktx.test.R
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
 import androidx.testutils.assertThrows
 import androidx.testutils.fail
 import org.junit.Assert.assertEquals
@@ -302,5 +305,26 @@ class ViewTest {
             MarginLayoutParamsCompat.setMarginEnd(this, 10)
         }
         assertEquals(10, view.marginEnd)
+    }
+
+    @Test fun setOnClickListener() {
+        val owner = object : LifecycleOwner {
+            val lifecycleRegistry = LifecycleRegistry(this)
+            override fun getLifecycle() = lifecycleRegistry
+        }
+
+        fun test(state: Lifecycle.State, shouldBeCalled: Boolean) {
+            var wasCalled = false
+            owner.lifecycleRegistry.markState(state)
+            view.setOnClickListener(owner) { _ -> wasCalled = true }
+            view.performClick()
+            assertEquals(shouldBeCalled, wasCalled)
+        }
+
+        test(Lifecycle.State.INITIALIZED, false)
+        test(Lifecycle.State.CREATED, false)
+        test(Lifecycle.State.STARTED, true)
+        test(Lifecycle.State.RESUMED, true)
+        test(Lifecycle.State.DESTROYED, false)
     }
 }

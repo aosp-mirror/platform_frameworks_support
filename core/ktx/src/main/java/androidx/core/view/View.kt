@@ -25,6 +25,7 @@ import android.view.ViewGroup.MarginLayoutParams
 import androidx.annotation.Px
 import androidx.annotation.RequiresApi
 import androidx.core.graphics.applyCanvas
+import androidx.lifecycle.LifecycleOwner
 
 /**
  * Performs the given action when this view is next laid out.
@@ -333,3 +334,21 @@ inline val View.marginEnd: Int
         val lp = layoutParams
         return if (lp is MarginLayoutParams) MarginLayoutParamsCompat.getMarginEnd(lp) else 0
     }
+
+/**
+ * Sets the given [listener] as [View.OnClickListener] and guards it with [lifecycleOwner]:
+ * [listener] is called only when the given [lifecycleOwner] is at least [Lifecycle.State.STARTED].
+ * For example, it means that you can safely perform fragment transactions from this listener
+ * or any other changes that you want later to save with onSaveInstanceState callback.
+ *
+ * Clicks are dropped when a [lifecycleOwner] is stopped .
+ *
+ * @see ViewCompat.setOnClickLister
+ */
+inline fun View.setOnClickListener(
+    lifecycleOwner: LifecycleOwner,
+    crossinline listener: (View) -> Unit
+): View.OnClickListener {
+    return ViewCompat.setOnClickLister(this, lifecycleOwner,
+            View.OnClickListener { view -> listener(view) })
+}
