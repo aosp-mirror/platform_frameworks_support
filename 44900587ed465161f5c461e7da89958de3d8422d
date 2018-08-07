@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed16927d_58607825",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/constraints/trackers/ConstraintTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-07T20:19:15Z",
+      "side": 1,
+      "message": "Can you please add a comment here that you are creating a copy of mListeners, because add/removeListener are called from a background thread?",
+      "revId": "44900587ed465161f5c461e7da89958de3d8422d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
