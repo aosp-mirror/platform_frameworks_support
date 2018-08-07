@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7e4aad48_622877dc",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-07T09:28:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07f85b90_abad7242",
+      "range": {
+        "startLine": 560,
+        "startChar": 27,
+        "endLine": 560,
+        "endChar": 55
+      },
+      "revId": "6a8ef06ca00ed7806d8d932a09edb1db1fa4798b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "acd9f03e_ec0ccb51",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 11
@@ -39,6 +63,24 @@
       "revId": "6a8ef06ca00ed7806d8d932a09edb1db1fa4798b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed6e0dee_762fa8b4",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-07T09:28:54Z",
+      "side": 1,
+      "message": "In the same context, I\u0027m gonna change other ViewHolders\u0027 member variables to private too.",
+      "parentUuid": "acd9f03e_ec0ccb51",
+      "revId": "6a8ef06ca00ed7806d8d932a09edb1db1fa4798b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

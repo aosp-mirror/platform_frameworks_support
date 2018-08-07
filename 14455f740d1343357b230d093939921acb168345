@@ -1114,6 +1114,30 @@
     },
     {
       "key": {
+        "uuid": "2653e2db_111ec594",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-07T09:28:54Z",
+      "side": 1,
+      "message": "Talked offline.",
+      "parentUuid": "c0b385c6_8f45d3e2",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 0
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5070a6e3_8a8667f1",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
         "patchSetId": 7
