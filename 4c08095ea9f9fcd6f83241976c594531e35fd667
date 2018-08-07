@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef79d302_1027c113",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/Processor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-07T20:15:10Z",
+      "side": 1,
+      "message": "Nit: You don\u0027t really need the synchronized here.",
+      "range": {
+        "startLine": 80,
+        "startChar": 8,
+        "endLine": 80,
+        "endChar": 20
+      },
+      "revId": "4c08095ea9f9fcd6f83241976c594531e35fd667",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0df5dc98_c8244d57",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/Processor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-07T20:15:10Z",
+      "side": 1,
+      "message": "Do you need this method?",
+      "range": {
+        "startLine": 208,
+        "startChar": 4,
+        "endLine": 210,
+        "endChar": 5
+      },
+      "revId": "4c08095ea9f9fcd6f83241976c594531e35fd667",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
