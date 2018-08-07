@@ -16,6 +16,24 @@
       "revId": "c430cf135bfbdcabcde763f1d02228709f778b39",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "697caea8_afbbebe8",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-07T13:04:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f1a6e9a_69c88fd3",
+      "revId": "c430cf135bfbdcabcde763f1d02228709f778b39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
