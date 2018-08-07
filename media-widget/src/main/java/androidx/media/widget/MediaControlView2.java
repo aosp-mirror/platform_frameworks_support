@@ -71,7 +71,9 @@ import androidx.media2.DataSourceDesc2;
 import androidx.media2.MediaController2;
 import androidx.media2.MediaItem2;
 import androidx.media2.MediaMetadata2;
+import androidx.media2.MediaPlayer2;
 import androidx.media2.MediaPlayerConnector;
+import androidx.media2.MediaSession2;
 import androidx.media2.SessionCommand2;
 import androidx.media2.SessionCommandGroup2;
 import androidx.media2.SessionToken2;
@@ -89,30 +91,38 @@ import java.util.Locale;
 import java.util.concurrent.Executor;
 
 /**
- * A View that contains the controls for {@link android.media.MediaPlayer}.
+ * A View that contains the controls for {@link MediaPlayer2}.
  * It provides a wide range of buttons that serve the following functions: play/pause,
  * rewind/fast-forward, skip to next/previous, select subtitle track, enter/exit full screen mode,
  * adjust video quality, select audio track, mute/unmute, and adjust playback speed.
  *
  * <p>
- * <em> MediaControlView2 can be initialized in two different ways: </em>
- * 1) When initializing {@link VideoView2} a default MediaControlView2 is created.
- * 2) Initialize MediaControlView2 programmatically and add it to a {@link ViewGroup} instance.
+ * By default, MediaControlView2 will be created when {@link VideoView2} is created. In this case,
+ * {@link VideoView2} will also automatically connect it to {@link MediaController2}, which is
+ * necessary to communicate with {@link MediaSession2}.
  *
- * In the first option, VideoView2 automatically connects MediaControlView2 to MediaController,
- * which is necessary to communicate with MediaSession. In the second option, however, the
- * developer needs to manually retrieve a MediaController instance from MediaSession and set it to
- * MediaControlView2.
+ * MediaControlView2 can be removed by setting the XML attribute in {@link VideoView2}
+ * "widget:enableControlView" to "false". It can also be replaced with a layout that extends
+ * MediaControlView2 by calling {@link VideoView2#setMediaControlView2}.
+ *
+ * In addition, it is possible to replace MediaControlView2 with a custom control view by adding it
+ * to {@link VideoView2} as a child view. In this case, in order to communicate with
+ * {@link MediaSession2}, it is necessary to retrieve the {@link SessionToken2} via
+ * {@link VideoView2#getMediaSessionToken2()}, use it to create a {@link MediaController2}, and set
+ * it to the custom control view.
  *
  * <p>
- * There is no separate method that handles the show/hide behavior for MediaControlView2. Instead,
- * one can directly change the visibility of this view by calling {@link View#setVisibility(int)}.
- * The values supported are View.VISIBLE and View.GONE.
+ * Currently, MediaControlView2 animates off-screen in two steps:
+ *   1) Title and bottom bars slide up and down respectively and the transport controls fade out,
+ *      leaving only the progress bar at the bottom of the view.
+ *   2) Progress bar slides down off-screen.
+ * The default time for each step is 2 seconds, but it is possible to customize it by calling
+ * {@link #setShowControllerInterval(long)}
  *
  * <p>
  * In addition, the following customizations are supported:
- * 1) Set focus to the play/pause button by calling requestPlayButtonFocus().
- * 2) Set full screen mode
+ * 1) Set focus to the play/pause button by calling {@link #requestPlayButtonFocus()}.
+ * 2) Set full screen behavior by calling {@link #setOnFullScreenListener(OnFullScreenListener)}
  *
  */
 @TargetApi(Build.VERSION_CODES.P)

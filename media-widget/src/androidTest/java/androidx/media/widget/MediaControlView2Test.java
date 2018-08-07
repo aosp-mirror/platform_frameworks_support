@@ -222,6 +222,7 @@ public class MediaControlView2Test {
                     @Override
                     public void onSeekCompleted(@NonNull MediaController2 controller,
                             long position) {
+                        Log.v(TAG, "HIYA position: " + position);
                         switch ((int) latch.getCount()) {
                             case 2:
                                 if (position == FFWD_MS) {
