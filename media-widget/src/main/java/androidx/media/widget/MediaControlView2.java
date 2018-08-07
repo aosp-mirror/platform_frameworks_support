@@ -96,8 +96,9 @@ import java.util.concurrent.Executor;
  *
  * <p>
  * <em> MediaControlView2 can be initialized in two different ways: </em>
- * 1) When initializing {@link VideoView2} a default MediaControlView2 is created.
- * 2) Initialize MediaControlView2 programmatically and add it to a {@link ViewGroup} instance.
+ * 1) Set the XML attribute in VideoView2 "widget:enableControlView" to "true"
+ * 2) programatically instantiate a MediaControlView2 instance and call
+ *    {@link VideoView2#setMediaControlView2}.
  *
  * In the first option, VideoView2 automatically connects MediaControlView2 to MediaController,
  * which is necessary to communicate with MediaSession. In the second option, however, the
