@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "ab73a456_a03466eb",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-07T07:29:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6c0520d8_d4c205c1",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 48
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9235bd29_456768b8",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 7
@@ -189,6 +213,30 @@
       "revId": "14455f740d1343357b230d093939921acb168345",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55e7659b_10760916",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-07T07:29:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "337361be_dcb93415",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 48
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -1030,6 +1078,30 @@
       "side": 1,
       "message": "I added this code because MediaRouteChooser(Controller)Dialog and MediaRouteDevicePicker(Cast)Dialog are using different colors for Light Theme, but same color for Dark Theme. I\u0027m not sure what would be the best option for current situation.",
       "parentUuid": "2e9ce509_3f692f73",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 0
+      },
+      "revId": "14455f740d1343357b230d093939921acb168345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0b385c6_8f45d3e2",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-07T07:29:39Z",
+      "side": 1,
+      "message": "Again, simple question - why the setTint() is called only when the DEBUG is turned on?",
+      "parentUuid": "2f83df7b_9571b35f",
       "range": {
         "startLine": 77,
         "startChar": 0,
