@@ -32,6 +32,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
+import android.support.annotation.UiThread;
 
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
@@ -166,6 +167,7 @@ public class BatteryNotLowTrackerTest {
 
     @Test
     @SmallTest
+    @UiThread
     public void testOnBroadcastReceive_notifiesListeners() {
         mockContextReturns(
                 createBatteryChangedIntent(NOT_PLUGGED_IN, KNOWN_STATUS, AT_LOW_PERCENTAGE));

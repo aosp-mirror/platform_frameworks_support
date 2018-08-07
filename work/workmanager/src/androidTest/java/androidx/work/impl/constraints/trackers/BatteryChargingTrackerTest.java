@@ -35,6 +35,7 @@ import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.annotation.UiThread;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SdkSuppress;
@@ -148,6 +149,7 @@ public class BatteryChargingTrackerTest {
     @Test
     @SmallTest
     @SdkSuppress(maxSdkVersion = 22)
+    @UiThread
     public void testOnBroadcastReceive_notifiesListeners_beforeApi23() {
         mockContextReturns(createBatteryChangedIntent(false));
         mTracker.addListener(mListener);
@@ -162,6 +164,7 @@ public class BatteryChargingTrackerTest {
     @Test
     @SmallTest
     @SdkSuppress(minSdkVersion = 23)
+    @UiThread
     public void testOnBroadcastReceive_notifiesListeners_afterApi23() {
         mockContextReturns(null);
         mTracker.addListener(mListener);
