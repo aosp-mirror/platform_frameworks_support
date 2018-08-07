@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9e45af4_30061532",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/PlatformTextClassifierWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-07T09:54:41Z",
+      "side": 1,
+      "message": "In P+, we create a new \"text classification session\" by calling createTextClassificationSession whenever createSession is called.\n\nBut session in androidX have a different meaning from platform. So we need to make sure \nwe won\u0027t mess up the logging? (Though smart selection is not implemented in androidX)",
+      "revId": "3bede3a682a72b5fdb8d8759097891b76d7c4fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ced103c_3e79ab40",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-07T09:54:41Z",
+      "side": 1,
+      "message": "Session here just means using Text classifier with the same \"TextClassificationContext\".\n(Let me know if there is a better name). This session never ends, again, it just means\nusing TC for the same context.\n\nThis serves a few purposes:\n1. Client can just cache the session, instead of caching both TC and context separately. \n   For example, in smart linkify, TextLinkSpan can just cache the session.\n   This also saves client from passing the same context all the time.\n2. In androidX.PlatformTC, when TC.createSession is called, we can create a new platform session and wrap that session. Though the session here and there do not have the same meaning. (Is there a problem in term of logging? Though, we don\u0027t have smart selection in support library anyway)\n3. We kind of separate client and server calls now. TextClassifierSession is the client and\n   TextClassifier is the server. Example: reportSelectionEvent is here and onSelectionEvent is\n   in TC.",
+      "revId": "3bede3a682a72b5fdb8d8759097891b76d7c4fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4db1957_045f5c51",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-07T09:54:41Z",
+      "side": 1,
+      "message": "Instead of having destroy(), I think we should just have more event types, like \"toolbar is dismissed\".",
+      "revId": "3bede3a682a72b5fdb8d8759097891b76d7c4fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3add3fc4_de8d9e52",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-07T09:54:41Z",
+      "side": 1,
+      "message": "Side question (and don\u0027t hate me)\n\nI still think TextLink should be @NonNull here :)\nsetSpanFactory is @hide, so we are always using DEFAULT_SPAN_FACTORY and in which case, \nTextLink really can\u0027t be null?",
+      "revId": "3bede3a682a72b5fdb8d8759097891b76d7c4fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

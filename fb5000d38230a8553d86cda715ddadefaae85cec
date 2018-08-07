@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9201937_9fdfc71c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-07T09:54:41Z",
+      "side": 0,
+      "message": "As per the TODO, I think we always use TextLinksParams.apply() and I go ahead to remove this.",
+      "revId": "fb5000d38230a8553d86cda715ddadefaae85cec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
