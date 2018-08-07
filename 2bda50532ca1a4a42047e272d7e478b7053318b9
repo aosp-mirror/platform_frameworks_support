@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "665913ac_60e5c661",
+        "filename": "remotecallback/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1061009
+      },
+      "writtenOn": "2018-08-07T14:46:11Z",
+      "side": 1,
+      "message": "Couldn\u0027t find where the intent is generated, but note that for things that are done in response to user interaction, or where latency is otherwise critical, we really want to set \n\nintent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND)\n\notherwise we are looking at several minutes(!) of latency in bad conditions.",
+      "range": {
+        "startLine": 15,
+        "startChar": 11,
+        "endLine": 15,
+        "endChar": 17
+      },
+      "revId": "2bda50532ca1a4a42047e272d7e478b7053318b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c3cafcb4_dff4e3db",
         "filename": "remotecallback/src/main/java/androidx/remotecallback/CallbackHandlerRegistry.java",
         "patchSetId": 6
