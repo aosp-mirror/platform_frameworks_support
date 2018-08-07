@@ -22,6 +22,30 @@
       "revId": "88b36f7b98ea9055add8cc4e2cd2fbe9a1c7c19a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f0deb44_79be38ec",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/greedy/GreedyScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-07T19:57:11Z",
+      "side": 1,
+      "message": "Moved this to the Processor\u0027s onExecutionCompleted method.",
+      "parentUuid": "bd0a389c_9c90e8a8",
+      "range": {
+        "startLine": 127,
+        "startChar": 8,
+        "endLine": 141,
+        "endChar": 19
+      },
+      "revId": "88b36f7b98ea9055add8cc4e2cd2fbe9a1c7c19a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
