@@ -2141,20 +2141,21 @@ public class MediaControlView2 extends BaseLayout {
     }
 
     void seekTo(long newPosition, boolean shouldSeekNow) {
-        int positionOnProgressBar = (int) (MAX_PROGRESS * newPosition / mDuration);
-        mProgress.setProgress(positionOnProgressBar);
-        mCurrentTime.setText(stringForTime(newPosition));
-
-        if (mCurrentSeekPosition == SEEK_POSITION_NOT_SET) {
-            // If current seek position is not set, update its value and seek now if necessary.
+        if (!shouldSeekNow) {
+            // Applies only when current media item has HTTPS scheme url and the progress bar is
+            // being dragged. Instead of seeking to the new position, update current seek position
+            // and update current time text to show the time of the dragged new position.
             mCurrentSeekPosition = newPosition;
-
-            if (shouldSeekNow) {
-                mController.seekTo(mCurrentSeekPosition);
-            }
+            mCurrentTime.setText(stringForTime(newPosition));
         } else {
-            // If current seek position is already set, update the next seek position.
-            mNextSeekPosition = newPosition;
+            if (mCurrentSeekPosition == SEEK_POSITION_NOT_SET) {
+                // If current seek position is not set, update its value and seek now.
+                mCurrentSeekPosition = newPosition;
+                mController.seekTo(mCurrentSeekPosition);
+            } else {
+                // If current seek position is already set, update the next seek position.
+                mNextSeekPosition = newPosition;
+            }
         }
     }
 
