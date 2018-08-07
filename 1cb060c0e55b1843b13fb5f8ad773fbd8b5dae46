@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "766951d5_265f9cc5",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-07T10:39:05Z",
+      "side": 1,
+      "message": "Default value of widget:enableControlView is true and so the previous doc would be enough. any particular reason that you want to revise it?",
+      "range": {
+        "startLine": 99,
+        "startChar": 6,
+        "endLine": 99,
+        "endChar": 78
+      },
+      "revId": "1cb060c0e55b1843b13fb5f8ad773fbd8b5dae46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54499d80_506eead6",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-07T10:39:05Z",
+      "side": 1,
+      "message": "same here. I think the previous one describes the exact thing. any particular reason?",
+      "range": {
+        "startLine": 100,
+        "startChar": 6,
+        "endLine": 101,
+        "endChar": 46
+      },
+      "revId": "1cb060c0e55b1843b13fb5f8ad773fbd8b5dae46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
