@@ -738,6 +738,30 @@
     },
     {
       "key": {
+        "uuid": "761c8913_b07ab975",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-07T23:51:45Z",
+      "side": 1,
+      "message": "Yep, although I\u0027d reword \"estimated time of arrival\" as something like \"estimated time until reaching the step\", just because I think \"arrival\" is typically associated with arrival at an actual destination (although maybe that\u0027s just a Google Maps thing).\n\nI think we could also consider sending display data (just like we do for distance), for example a formatted string or a \"display unit\" (seconds, minutes, hours) plus \"display quantity e3\".\n\nAs to Mark\u0027s comment:\n\"While I agree semantically it\u0027s more useful to know in 5 minutes you\u0027ll need to turn left, the consumer will need to know \u00275 minutes from when?\u0027 and there may be delays in sending the info. An absolute time lets the consumer interpolate between updates more accurately.\"\n\nThat\u0027s a good point, although generally I think we should be assuming the delay is basically negligible, because at the end of the day (I think) this API is about getting the consumer to show the equivalent of what the producer would be showing, and IMO the only way to do that reliably is for the consumer to be very dumb. For example, extrapolating won\u0027t help the consumer much if the producer has to reroute, or if traffic changes.\n\nIf the delay isn\u0027t negligible then I think we should work to fix that, rather than asking the consumer to perform potentially-complex extrapolation.",
+      "parentUuid": "d2ec09cc_2a1b4edf",
+      "range": {
+        "startLine": 79,
+        "startChar": 33,
+        "endLine": 79,
+        "endChar": 46
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55cb27e8_3a9e7fcd",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/StepCue.java",
         "patchSetId": 6
