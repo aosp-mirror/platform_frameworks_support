@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a668b88_d7cb42df",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-07T03:18:31Z",
+      "side": 1,
+      "message": "Remove \"not\"",
+      "range": {
+        "startLine": 87,
+        "startChar": 7,
+        "endLine": 87,
+        "endChar": 10
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84dad8cf_333510da",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-07T03:18:31Z",
+      "side": 1,
+      "message": "How about we instead just return the Icon? That way the various utility methods are available for use.\n\nSimilarly, we could also provide a constructor taking an Icon argument",
+      "range": {
+        "startLine": 96,
+        "startChar": 63,
+        "endLine": 96,
+        "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3310c0a_bd4e0f46",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-07T03:18:31Z",
+      "side": 1,
+      "message": "I\u0027m still not convinced this will work, or even that it\u0027s a good idea. Given that the producer may only have certain image sizes available, IMO the consumer is better placed to decide which size to choose from a restricted set.",
+      "range": {
+        "startLine": 96,
+        "startChar": 50,
+        "endLine": 96,
+        "endChar": 60
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "032d0e5e_fe92665e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Lane.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-07T03:18:31Z",
+      "side": 1,
+      "message": "How about an addAllDirections too?",
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d80a0f8a_3f4e5b50",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-07T03:18:31Z",
+      "side": 1,
+      "message": "We\u0027ve got Side.UNKNOWN to represent the unknown state",
+      "range": {
+        "startLine": 87,
+        "startChar": 21,
+        "endLine": 87,
+        "endChar": 71
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfafa2e9_ae2a6218",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-07T03:18:31Z",
+      "side": 1,
+      "message": "nit: remove \"and\"",
+      "range": {
+        "startLine": 307,
+        "startChar": 76,
+        "endLine": 307,
+        "endChar": 79
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50018f98_9091af82",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-07T03:18:31Z",
+      "side": 1,
+      "message": "Any particular reason for reverting back from UNKNOWN enum values to nulls?",
+      "range": {
+        "startLine": 319,
+        "startChar": 37,
+        "endLine": 319,
+        "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4663f39c_fe1bdeda",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-07T03:18:31Z",
+      "side": 1,
+      "message": "nit: \"an\"",
+      "range": {
+        "startLine": 95,
+        "startChar": 48,
+        "endLine": 95,
+        "endChar": 49
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55cb27e8_3a9e7fcd",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/StepCue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-07T03:18:31Z",
+      "side": 1,
+      "message": "How about we switch the order of the image and the message? That might make it a bit more clear that the image is the primary content, and the text should only be used as a fallback.",
+      "range": {
+        "startLine": 60,
+        "startChar": 68,
+        "endLine": 60,
+        "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11ca0e9b_d205f695",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-07T03:18:31Z",
+      "side": 1,
+      "message": "It doesn\u0027t look as though these constructors are ever used? (because the producer never sets a Time manually, instead they just set a ZonedDateTime)",
+      "range": {
+        "startLine": 64,
+        "startChar": 65,
+        "endLine": 64,
+        "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "201a8a39_382c7892",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-07T03:18:31Z",
+      "side": 1,
+      "message": "Similarly, are these ever used?",
+      "range": {
+        "startLine": 80,
+        "startChar": 39,
+        "endLine": 80,
+        "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
