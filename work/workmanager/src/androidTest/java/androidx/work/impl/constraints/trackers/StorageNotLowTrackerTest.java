@@ -30,6 +30,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.support.annotation.UiThread;
 
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
@@ -103,6 +104,7 @@ public class StorageNotLowTrackerTest {
 
     @Test
     @SmallTest
+    @UiThread
     public void testOnBroadcastReceive_notifiesListeners() {
         mockContextReturns(new Intent("INVALID"));
         mTracker.addListener(mListener);
