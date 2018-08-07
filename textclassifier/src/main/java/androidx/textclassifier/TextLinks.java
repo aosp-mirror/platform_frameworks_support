@@ -19,7 +19,6 @@ package androidx.textclassifier;
 import static androidx.textclassifier.ConvertUtils.toPlatformEntityConfig;
 import static androidx.textclassifier.ConvertUtils.unwrapLocalListCompat;
 
-import android.app.PendingIntent;
 import android.os.Bundle;
 import android.text.Spanned;
 import android.text.style.ClickableSpan;
@@ -39,6 +38,7 @@ import androidx.core.os.LocaleListCompat;
 import androidx.core.util.Preconditions;
 import androidx.textclassifier.TextClassifier.EntityConfig;
 import androidx.textclassifier.TextClassifier.EntityType;
+import androidx.textclassifier.widget.ToolbarController;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -58,7 +58,6 @@ import java.util.concurrent.Executors;
 public final class TextLinks {
 
     private static final String LOG_TAG = "TextLinks";
-
     private static final String EXTRA_FULL_TEXT = "text";
     private static final String EXTRA_LINKS = "links";
 
@@ -502,37 +501,34 @@ public final class TextLinks {
             if (!(text instanceof Spanned)) {
                 return;
             }
+
             final Spanned spanned = (Spanned) text;
             final int start = spanned.getSpanStart(this);
             final int end = spanned.getSpanEnd(this);
-            final TextClassification.Request request =
-                    new TextClassification.Request.Builder(text, start, end)
-                            .setReferenceTime(mTextLinkSpanData.getReferenceTime())
-                            .setDefaultLocales(getLocales(textView))
-                            .build();
-            final TextClassifier classifier = mTextLinkSpanData.getTextClassifier();
-
-            // TODO: Truncate the text.
-            sWorkerExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-
-                    final TextClassification classification = classifier.classifyText(request);
-                    sMainThreadExecutor.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (!classification.getActions().isEmpty()) {
-                                // TODO: Show the toolbar instead.
-                                try {
-                                    classification.getActions().get(0).getActionIntent().send();
-                                } catch (PendingIntent.CanceledException e) {
-                                    Log.e(LOG_TAG, "Error handling TextLinkSpan click", e);
-                                }
+            if (start >= 0 && start < end && end <= text.length()) {
+                final TextClassification.Request request =
+                        new TextClassification.Request.Builder(text, start, end)
+                                .setReferenceTime(mTextLinkSpanData.getReferenceTime())
+                                .setDefaultLocales(getLocales(textView))
+                                .build();
+                final TextClassifier classifier = mTextLinkSpanData.getTextClassifier();
+                // TODO: Truncate the text.
+                sWorkerExecutor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        final TextClassification classification = classifier.classifyText(request);
+                        sMainThreadExecutor.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                ToolbarController.getInstance(textView)
+                                        .show(classification.getActions(), start, end);
                             }
-                        }
-                    });
-                }
-            });
+                        });
+                    }
+                });
+            } else {
+                Log.d(LOG_TAG, "Invalid text indices while attempting to show link toolbar");
+            }
         }
 
         private LocaleListCompat getLocales(TextView textView) {
