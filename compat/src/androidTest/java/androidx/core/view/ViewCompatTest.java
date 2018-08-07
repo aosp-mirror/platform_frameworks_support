@@ -15,6 +15,8 @@
  */
 package androidx.core.view;
 
+import static androidx.core.view.ViewCompat.createSafeClickLister;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -36,6 +38,9 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.core.test.R;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LifecycleRegistry;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.runner.AndroidJUnit4;
@@ -43,6 +48,8 @@ import androidx.test.runner.AndroidJUnit4;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -239,6 +246,35 @@ public class ViewCompatTest extends BaseInstrumentationTestCase<ViewCompatActivi
 
         // NO_ID is always invalid
         ViewCompat.requireViewById(container, View.NO_ID);
+    }
+
+    @Test
+    public void testSafeClickListener() {
+        final View.OnClickListener mockListener = Mockito.mock(View.OnClickListener.class);
+        LifecycleOwner owner = mock(LifecycleOwner.class);
+        LifecycleRegistry registry = new LifecycleRegistry(owner);
+        Mockito.when(owner.getLifecycle()).thenReturn(registry);
+        View.OnClickListener safeListener = createSafeClickLister(owner, mockListener);
+        registry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE);
+        safeListener.onClick(mView);
+        Mockito.verify(mockListener, never()).onClick(ArgumentMatchers.<View>any());
+        Mockito.reset(mockListener);
+        registry.handleLifecycleEvent(Lifecycle.Event.ON_START);
+        safeListener.onClick(mView);
+        Mockito.verify(mockListener).onClick(ArgumentMatchers.<View>any());
+        Mockito.reset(mockListener);
+        registry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);
+        safeListener.onClick(mView);
+        Mockito.verify(mockListener).onClick(ArgumentMatchers.<View>any());
+        Mockito.reset(mockListener);
+        registry.handleLifecycleEvent(Lifecycle.Event.ON_STOP);
+        safeListener.onClick(mView);
+        Mockito.verify(mockListener, never()).onClick(ArgumentMatchers.<View>any());
+        Mockito.reset(mockListener);
+        registry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY);
+        safeListener.onClick(mView);
+        Mockito.verify(mockListener, never()).onClick(ArgumentMatchers.<View>any());
+        Mockito.reset(mockListener);
     }
 
     private static boolean isViewIdGenerated(int id) {

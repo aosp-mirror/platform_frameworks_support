@@ -62,6 +62,8 @@ import androidx.core.view.AccessibilityDelegateCompat.AccessibilityDelegateAdapt
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityNodeProviderCompat;
 import androidx.core.view.accessibility.WrapperForExternalAccessibilityDelegate;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -3554,6 +3556,21 @@ public class ViewCompat {
         }
     }
 
+    /**
+     * Wraps the given {@link android.view.View.OnClickListener} so it is called only when the given
+     * {@link LifecycleOwner} is started. For example, it means that you can safely perform
+     * fragment transactions from this listener or any other changes that you want to later
+     * save with {@code onSaveInstanceState} callback.
+     * @param owner {@link LifecycleOwner} whose state will be checked
+     *                                    prior calling {@code listener}
+     * @param listener a callback to invoke when view is clicked
+     */
+    @NonNull
+    public static View.OnClickListener createSafeClickLister(@NonNull LifecycleOwner owner,
+            @NonNull View.OnClickListener listener) {
+        return new SafeClickListener(owner, listener);
+    };
+
     protected ViewCompat() {}
 
     /**
@@ -3980,6 +3997,24 @@ public class ViewCompat {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    static class SafeClickListener implements View.OnClickListener {
+        // Lifecycle has only weak reference to activity / fragment, so it is fiiiiiiine
+        private final Lifecycle mLifecycle;
+        private final View.OnClickListener mListener;
+
+        SafeClickListener(LifecycleOwner owner, View.OnClickListener listener) {
+            mLifecycle = owner.getLifecycle();
+            mListener = listener;
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (mLifecycle.getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+                mListener.onClick(view);
             }
         }
     }
