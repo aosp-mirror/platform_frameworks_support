@@ -46,6 +46,30 @@
       "revId": "ec8d2c75df305d88f3e3fdbe7bc4dfe10e5eef27",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef31e352_22ed7e30",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-07T14:02:39Z",
+      "side": 0,
+      "message": "What if connected chromecast is gone? (e.g. unplugged)",
+      "parentUuid": "8f7a7fef_2ef6ece0",
+      "range": {
+        "startLine": 1046,
+        "startChar": 0,
+        "endLine": 1046,
+        "endChar": 88
+      },
+      "revId": "ec8d2c75df305d88f3e3fdbe7bc4dfe10e5eef27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
