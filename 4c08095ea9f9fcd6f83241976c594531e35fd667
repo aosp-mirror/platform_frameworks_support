@@ -93,6 +93,30 @@
       "revId": "4c08095ea9f9fcd6f83241976c594531e35fd667",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c22033f_e81186d7",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/Processor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-07T20:23:38Z",
+      "side": 1,
+      "message": "Why don\u0027t you just make a final copy instead of adding a method?",
+      "parentUuid": "b03f66f4_f60cf104",
+      "range": {
+        "startLine": 208,
+        "startChar": 4,
+        "endLine": 210,
+        "endChar": 5
+      },
+      "revId": "4c08095ea9f9fcd6f83241976c594531e35fd667",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
