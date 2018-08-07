@@ -76,5 +76,4 @@
     <string name="abc_menu_enter_shortcut_label">enter</string>
     <!-- Displayed in place of the regular shortcut letter when a menu item has Menu+delete for the shortcut. -->
     <string name="abc_menu_delete_shortcut_label">delete</string>
-
 </resources>
