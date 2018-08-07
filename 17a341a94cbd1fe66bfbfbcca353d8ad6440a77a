@@ -690,6 +690,30 @@
     },
     {
       "key": {
+        "uuid": "eb50ffda_d1a5395c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-07T23:27:12Z",
+      "side": 1,
+      "message": "Rather than how long the step takes, I think the most useful quantity is how long until the step is reached from the user\u0027s current location, just like distance (\"in 5 minutes you\u0027ll need to turn left\"). I\u0027d be happy with either an ETA or a relative time in seconds. Probably slight preference for a relative time in seconds, since I think \"in 5 minutes you\u0027ll need to turn left\" makes slightly more sense than \"at 9:25am you\u0027ll need to turn left\".",
+      "parentUuid": "f187f5c3_c2b0556d",
+      "range": {
+        "startLine": 79,
+        "startChar": 33,
+        "endLine": 79,
+        "endChar": 46
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55cb27e8_3a9e7fcd",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/StepCue.java",
         "patchSetId": 6
