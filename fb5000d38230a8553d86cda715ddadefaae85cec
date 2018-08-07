@@ -229,6 +229,30 @@
       "revId": "fb5000d38230a8553d86cda715ddadefaae85cec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1edd4fcf_f506ebb6",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-07T16:00:44Z",
+      "side": 1,
+      "message": "And as per comment in another cl, my preference would be for mTextLink to be nullable.\nIf so, then you\u0027d need to also check that it is nonnull here.\n\nmTextLink !\u003d null \u0026\u0026 mTextLink.mTextClassifier !\u003d null ? ...",
+      "parentUuid": "45650a5a_5a7a6b76",
+      "range": {
+        "startLine": 541,
+        "startChar": 46,
+        "endLine": 541,
+        "endChar": 72
+      },
+      "revId": "fb5000d38230a8553d86cda715ddadefaae85cec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
