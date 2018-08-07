@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "7aaffcbb_3f0a39dc",
+        "filename": "xsdc/src/com/android/xsdc/descriptor/SimpleTypeInterpreter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1187124
+      },
+      "writtenOn": "2018-08-07T06:23:04Z",
+      "side": 1,
+      "message": "Add a \"Parsing Expression\" instance to constructor and then use only the TypeDescriptor class instead of multiple child classes. I think it would be better.",
+      "range": {
+        "startLine": 25,
+        "startChar": 27,
+        "endLine": 25,
+        "endChar": 47
+      },
+      "revId": "918f3e81898c18dfc675a2bba7c531d570154b29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e8140c42_cf7abd27",
         "filename": "xsdc/test/Android.bp",
         "patchSetId": 2
@@ -64,6 +87,52 @@
         "startChar": 8,
         "endLine": 1,
         "endChar": 25
+      },
+      "revId": "918f3e81898c18dfc675a2bba7c531d570154b29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9f9c1e6_2894ab0c",
+        "filename": "xsdc/test/src/com/android/xsdc/TestHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1187124
+      },
+      "writtenOn": "2018-08-07T06:23:04Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 77
+      },
+      "revId": "918f3e81898c18dfc675a2bba7c531d570154b29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fed1d1d7_3833047a",
+        "filename": "xsdc/test/src/com/android/xsdc/XmlParserTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1187124
+      },
+      "writtenOn": "2018-08-07T06:23:04Z",
+      "side": 1,
+      "message": "Why do we test xml file? Is this related to xsd parsing?",
+      "range": {
+        "startLine": 261,
+        "startChar": 84,
+        "endLine": 261,
+        "endChar": 99
       },
       "revId": "918f3e81898c18dfc675a2bba7c531d570154b29",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
