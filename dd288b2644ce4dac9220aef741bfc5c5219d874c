@@ -22,6 +22,30 @@
       "revId": "dd288b2644ce4dac9220aef741bfc5c5219d874c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eebbddf2_88db7367",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-07T11:09:41Z",
+      "side": 1,
+      "message": "The loop in the test runs on a different thread than the UI thread, in which the scroll takes place. It can happen that the RecyclerView has already positioned the page at the correct position, but the ScrollEventAdapter hasn\u0027t yet propagated this change, because the UI thread is suspended before ScrollEventAdapter.onScrolled is executed. The test thread now continues and sees that the page has landed on its final position. If there were no sleep at the end, it would immediately do the assert (which succeeds), and continue with the next targetPage. However, because the ScrollEventAdapter is still in state SETTLING, the view pager will deny the next setCurrentItem command and thus the test for scrolling to the next targetPage will fail. Hence the sleep: it allows the ScrollEventAdapter to \"finish the scroll\".\n\nAs for the assertion, that\u0027s exactly right, I want to test that the view pager stops at the correct page. I agree that it feels a bit superfluous with the same check in the while loop, but the assertion needs to be somewhere. And there is yet another reason: it tests the public API of the view pager, whereas the check in the while loop uses a test-only extension function. Both are likely to change in this stage of the project.",
+      "parentUuid": "95330848_037e6c86",
+      "range": {
+        "startLine": 480,
+        "startChar": 16,
+        "endLine": 484,
+        "endChar": 70
+      },
+      "revId": "dd288b2644ce4dac9220aef741bfc5c5219d874c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
