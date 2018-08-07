@@ -1867,6 +1867,7 @@ package androidx.core.view {
     method public static deprecated boolean canScrollVertically(android.view.View, int);
     method public static void cancelDragAndDrop(android.view.View);
     method public static deprecated int combineMeasuredStates(int, int);
+    method public static android.view.View.OnClickListener createSafeClickLister(androidx.lifecycle.LifecycleOwner, android.view.View.OnClickListener);
     method public static androidx.core.view.WindowInsetsCompat dispatchApplyWindowInsets(android.view.View, androidx.core.view.WindowInsetsCompat);
     method public static void dispatchFinishTemporaryDetach(android.view.View);
     method public static boolean dispatchNestedFling(android.view.View, float, float, boolean);
