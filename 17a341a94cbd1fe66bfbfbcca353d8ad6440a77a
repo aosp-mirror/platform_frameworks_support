@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4e69c7a4_0ac0f5de",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a668b88_d7cb42df",
+      "range": {
+        "startLine": 87,
+        "startChar": 7,
+        "endLine": 87,
+        "endChar": 10
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53bfc857_21f2f52e",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab098037_c1c2302d",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "I would argue this option can not have more values later. An image can be tinted or not. There are not other values for this option. I can see more information being added in the future, but that information would be combinable with the fact that this image is designed to be tinted.\n\nI considered the option of creating a \u0027type\u0027 enum:\nenum Type {\n   ICON,\n   IMAGE,\n}\n\nBut the API council wanted to restrict the use of the word ICON as it is very overloaded, and instead express exactly what is that we want to know about the image (in this case, that we can change its color).\n\nThoughts?",
+      "parentUuid": "53bfc857_21f2f52e",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 11
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,54 @@
     },
     {
       "key": {
+        "uuid": "f87bf4f0_36620518",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "For the sake of speed I would differ this problem to a second CL.",
+      "parentUuid": "f3310c0a_bd4e0f46",
+      "range": {
+        "startLine": 96,
+        "startChar": 50,
+        "endLine": 96,
+        "endChar": 60
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "753a945e_ab251f1f",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "Done. I\u0027ve actually switched to IconCompat which uses VersionedParcelable.",
+      "parentUuid": "84dad8cf_333510da",
+      "range": {
+        "startLine": 96,
+        "startChar": 63,
+        "endLine": 96,
+        "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "032d0e5e_fe92665e",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Lane.java",
         "patchSetId": 6
@@ -129,6 +225,24 @@
     },
     {
       "key": {
+        "uuid": "d66f3b96_d5c7ee04",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Lane.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "Changed in favor of setters. Please, check the NavigationStateTest to see how building a state looks like.",
+      "parentUuid": "2c2a5e9f_d9232252",
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d80a0f8a_3f4e5b50",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
         "patchSetId": 6
@@ -140,6 +254,30 @@
       "writtenOn": "2018-08-07T03:18:31Z",
       "side": 1,
       "message": "We\u0027ve got Side.UNKNOWN to represent the unknown state",
+      "range": {
+        "startLine": 87,
+        "startChar": 21,
+        "endLine": 87,
+        "endChar": 71
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61483a0e_1d259c8b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "I\u0027ve replied at Marks comment on this same topic.",
+      "parentUuid": "d80a0f8a_3f4e5b50",
       "range": {
         "startLine": 87,
         "startChar": 21,
@@ -172,6 +310,30 @@
       "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2b2e0ed_164adf3a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfafa2e9_ae2a6218",
+      "range": {
+        "startLine": 307,
+        "startChar": 76,
+        "endLine": 307,
+        "endChar": 79
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -222,6 +384,30 @@
     },
     {
       "key": {
+        "uuid": "7c43f10a_9f108a8d",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "I know we talked about this before, but as I was moving the API over it looked weird to me that we are adding an additional extra value to all the enums to represent \u0027no value\u0027, when the language already provides this. We are clearly indicating that this is nullable,and there are other elements of this API that are nullable, so the users of this API must manage nullability.",
+      "parentUuid": "5b9ecf80_4cfdab57",
+      "range": {
+        "startLine": 319,
+        "startChar": 37,
+        "endLine": 319,
+        "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "498fe188_ba2aa6a2",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
         "patchSetId": 6
@@ -242,6 +428,30 @@
       "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1200254_1058c099",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "Done. Changed in favor of a setter.",
+      "parentUuid": "498fe188_ba2aa6a2",
+      "range": {
+        "startLine": 97,
+        "startChar": 56,
+        "endLine": 97,
+        "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -268,6 +478,30 @@
     },
     {
       "key": {
+        "uuid": "b1b19b4c_1261c269",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c52ba21_f8e52359",
+      "range": {
+        "startLine": 113,
+        "startChar": 77,
+        "endLine": 113,
+        "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f079cae_c2a01be7",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
         "patchSetId": 6
@@ -288,6 +522,30 @@
       "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e6b3381_4d4a867a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f079cae_c2a01be7",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 12
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -314,6 +572,30 @@
     },
     {
       "key": {
+        "uuid": "50aedb05_0bdf12a1",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4663f39c_fe1bdeda",
+      "range": {
+        "startLine": 95,
+        "startChar": 48,
+        "endLine": 95,
+        "endChar": 49
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d89f8a0_45f4c13d",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Side.java",
         "patchSetId": 6
@@ -334,6 +616,30 @@
       "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71bd2827_2c706c28",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Side.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d89f8a0_45f4c13d",
+      "range": {
+        "startLine": 20,
+        "startChar": 12,
+        "endLine": 20,
+        "endChar": 24
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -360,6 +666,30 @@
     },
     {
       "key": {
+        "uuid": "f187f5c3_c2b0556d",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "Good point. Checking on the maps protos (https://cs.corp.google.com/piper///depot/google3/maps/pathfinder/client/step.proto?rcl\u003d198890032\u0026l\u003d1232) I see that in there we only care how long the step takes. \nGiven that I\u0027m not sure why we want ETA on a Step in the first place, I\u0027m leaning towards just using what is in the proto. \n\nLet me know if you think differently (you are the domain experts).",
+      "parentUuid": "55a306b9_c9e04592",
+      "range": {
+        "startLine": 79,
+        "startChar": 33,
+        "endLine": 79,
+        "endChar": 46
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55cb27e8_3a9e7fcd",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/StepCue.java",
         "patchSetId": 6
@@ -380,6 +710,30 @@
       "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cef477f2_5c56761b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/StepCue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55cb27e8_3a9e7fcd",
+      "range": {
+        "startLine": 60,
+        "startChar": 68,
+        "endLine": 60,
+        "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -406,6 +760,30 @@
     },
     {
       "key": {
+        "uuid": "ddbd92ff_45f54c5a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "When reviewing this with the API council they suggested that we could pass timezone information along with the time for better display. For example, if we are showing destinations on different timezones, Maps can already know the timezone at destination and provide this information.\nIf we only provide UTC time, then the client would either always show time at local timezone, or it would need to obtain the timezone at destination in some other way.",
+      "parentUuid": "ed9de09f_c11edec0",
+      "range": {
+        "startLine": 34,
+        "startChar": 34,
+        "endLine": 34,
+        "endChar": 42
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc1045f9_c5f2b84c",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
         "patchSetId": 6
@@ -426,6 +804,30 @@
       "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99c952ef_a9eda451",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc1045f9_c5f2b84c",
+      "range": {
+        "startLine": 41,
+        "startChar": 21,
+        "endLine": 41,
+        "endChar": 25
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -452,6 +854,30 @@
     },
     {
       "key": {
+        "uuid": "168d0265_3b86524a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11ca0e9b_d205f695",
+      "range": {
+        "startLine": 64,
+        "startChar": 65,
+        "endLine": 64,
+        "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "201a8a39_382c7892",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
         "patchSetId": 6
@@ -472,6 +898,30 @@
       "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "592162e8_f39c24da",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "201a8a39_382c7892",
+      "range": {
+        "startLine": 80,
+        "startChar": 39,
+        "endLine": 80,
+        "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -498,6 +948,30 @@
     },
     {
       "key": {
+        "uuid": "62793b1e_4231e1de",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/EnumWrapper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9053f794_d6c0a679",
+      "range": {
+        "startLine": 111,
+        "startChar": 62,
+        "endLine": 111,
+        "endChar": 64
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d86335e_bfca2d3f",
         "filename": "car/stubs/README.android",
         "patchSetId": 6
@@ -518,6 +992,30 @@
       "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57b16956_a79b5920",
+        "filename": "car/stubs/README.android",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T20:30:57Z",
+      "side": 1,
+      "message": "This refers to the \"stubs\" folder that contains only stubs of the classes and methods that are implemented by car-lib inside AOSP.",
+      "parentUuid": "6d86335e_bfca2d3f",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
