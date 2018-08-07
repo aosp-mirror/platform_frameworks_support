@@ -81,6 +81,46 @@
       "revId": "6a8ef06ca00ed7806d8d932a09edb1db1fa4798b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0922c4f4_27f79464",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-07T12:00:16Z",
+      "side": 1,
+      "message": "rename.",
+      "range": {
+        "startLine": 37,
+        "startChar": 25,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "6a8ef06ca00ed7806d8d932a09edb1db1fa4798b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d0af335_e9e4d10a",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-07T12:00:16Z",
+      "side": 1,
+      "message": "rename",
+      "revId": "6a8ef06ca00ed7806d8d932a09edb1db1fa4798b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
