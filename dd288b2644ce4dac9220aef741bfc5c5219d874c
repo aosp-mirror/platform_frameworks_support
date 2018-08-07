@@ -327,6 +327,30 @@
       "revId": "dd288b2644ce4dac9220aef741bfc5c5219d874c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c129459a_a61e2e96",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-07T16:28:58Z",
+      "side": 1,
+      "message": "Ah ok.\n\nFor the polling part, check out: androidx.testutils.PollingCheck.  For the sleep(100), it does seem necessary to leave it for now, though I do think it is on Jakub\u0027s todo list to not block setCurrentItem when an animation is in progress.",
+      "parentUuid": "eebbddf2_88db7367",
+      "range": {
+        "startLine": 480,
+        "startChar": 16,
+        "endLine": 484,
+        "endChar": 70
+      },
+      "revId": "dd288b2644ce4dac9220aef741bfc5c5219d874c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
