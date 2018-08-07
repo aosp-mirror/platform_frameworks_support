@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e3e3941_27843a35",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/worker/StopAwareWorker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-07T17:26:50Z",
+      "side": 1,
+      "message": "Let\u0027s not spam the logcat this much.",
+      "range": {
+        "startLine": 35,
+        "startChar": 12,
+        "endLine": 35,
+        "endChar": 34
+      },
+      "revId": "f7a18b9f8929bb19a2115168250778592b3d592b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
