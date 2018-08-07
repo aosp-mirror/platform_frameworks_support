@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f9625fb_56b3a814",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-07T12:04:39Z",
+      "side": 1,
+      "message": "you can keep route, button, slider from the bindRouteViewHolder()",
+      "range": {
+        "startLine": 566,
+        "startChar": 8,
+        "endLine": 574,
+        "endChar": 78
+      },
+      "revId": "8d41f6956e50797aaebfd6fc67a484e9fa44c285",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3fc4095_1db10bd2",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-07T12:04:39Z",
+      "side": 1,
+      "message": "Take resId instead.\nHow can an user of API know about the index?",
+      "range": {
+        "startLine": 69,
+        "startChar": 65,
+        "endLine": 69,
+        "endChar": 68
+      },
+      "revId": "8d41f6956e50797aaebfd6fc67a484e9fa44c285",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
