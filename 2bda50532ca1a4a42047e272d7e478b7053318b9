@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0ab0719f_797d9359",
+        "filename": "remotecallback/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-07T15:11:11Z",
+      "side": 1,
+      "message": "Done, added to RemoteCallback#toPendingIntent.",
+      "parentUuid": "665913ac_60e5c661",
+      "range": {
+        "startLine": 15,
+        "startChar": 11,
+        "endLine": 15,
+        "endChar": 17
+      },
+      "revId": "2bda50532ca1a4a42047e272d7e478b7053318b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c3cafcb4_dff4e3db",
         "filename": "remotecallback/src/main/java/androidx/remotecallback/CallbackHandlerRegistry.java",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "2bda50532ca1a4a42047e272d7e478b7053318b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9c28007_ed23c279",
+        "filename": "remotecallback/src/main/java/androidx/remotecallback/CallbackHandlerRegistry.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-07T15:11:11Z",
+      "side": 1,
+      "message": "Eventually supportlib will generate API jars and that won\u0027t work. We could tag it as hide and add annotations to ignore the restriction, but given it will break in the future, it seems like a bad idea.",
+      "parentUuid": "c3cafcb4_dff4e3db",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 95
+      },
+      "revId": "2bda50532ca1a4a42047e272d7e478b7053318b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "72cefc2a_f9f56b4c",
+        "filename": "remotecallback/src/main/java/androidx/remotecallback/CallbackHandlerRegistry.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-07T15:11:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b140a19_b9d7c7a2",
+      "range": {
+        "startLine": 51,
+        "startChar": 35,
+        "endLine": 51,
+        "endChar": 50
+      },
+      "revId": "2bda50532ca1a4a42047e272d7e478b7053318b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2cbd2ac_fd8be477",
         "filename": "remotecallback/src/main/java/androidx/remotecallback/CallbackHandlerRegistry.java",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "2bda50532ca1a4a42047e272d7e478b7053318b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d358b29a_e9f63a52",
+        "filename": "remotecallback/src/main/java/androidx/remotecallback/CallbackHandlerRegistry.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-07T15:11:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2cbd2ac_fd8be477",
+      "range": {
+        "startLine": 89,
+        "startChar": 38,
+        "endLine": 89,
+        "endChar": 55
+      },
+      "revId": "2bda50532ca1a4a42047e272d7e478b7053318b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1992187d_7f2315f8",
+        "filename": "remotecallback/src/main/java/androidx/remotecallback/RemoteCallback.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-07T15:11:11Z",
+      "side": 1,
+      "message": "Done, I like LOCAL.",
+      "parentUuid": "3ac410bf_55bddcc2",
+      "range": {
+        "startLine": 44,
+        "startChar": 39,
+        "endLine": 44,
+        "endChar": 50
+      },
+      "revId": "2bda50532ca1a4a42047e272d7e478b7053318b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d72e84c8_9e421d62",
         "filename": "remotecallback/src/main/java/androidx/remotecallback/RemoteCallback.java",
         "patchSetId": 6
@@ -137,6 +257,30 @@
       "revId": "2bda50532ca1a4a42047e272d7e478b7053318b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e88a1a8_c93da310",
+        "filename": "remotecallback/src/main/java/androidx/remotecallback/RemoteCallback.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-07T15:11:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d72e84c8_9e421d62",
+      "range": {
+        "startLine": 122,
+        "startChar": 80,
+        "endLine": 122,
+        "endChar": 81
+      },
+      "revId": "2bda50532ca1a4a42047e272d7e478b7053318b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
