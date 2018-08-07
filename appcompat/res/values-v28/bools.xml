@@ -13,19 +13,8 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
-    <item type="id" name="home"/>
-    <item type="id" name="up"/>
-    <item type="id" name="action_bar_spinner"/>
-    <item type="id" name="action_bar_activity_content"/>
-    <item type="id" name="split_action_bar"/>
-    <item type="id" name="action_menu_divider"/>
-    <item type="id" name="action_menu_presenter"/>
-    <item type="id" name="progress_circular"/>
-    <item type="id" name="progress_horizontal"/>
 
-    <!-- Floating toolbar ids -->
-    <item type="id" name="textAssist" />
-    <item type="id" name="floating_toolbar_menu_item_text" />
-    <item type="id" name="floating_toolbar_menu_item_image" />
+<resources>
+    <!-- Floating toolbar booleans -->
+    <bool name="floating_toolbar_all_caps">false</bool>
 </resources>
