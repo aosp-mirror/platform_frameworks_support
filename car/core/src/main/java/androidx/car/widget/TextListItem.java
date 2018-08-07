@@ -43,6 +43,7 @@ import androidx.car.util.CarUxRestrictionsUtils;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -160,6 +161,15 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
     private View.OnClickListener mAction2OnClickListener;
     private boolean mShowAction2Divider;
 
+    public static final int FLAT_ACTION_BUTTONS = 0;
+    public static final int RAISED_ACTION_BUTTONS = 1;
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({ FLAT_ACTION_BUTTONS, RAISED_ACTION_BUTTONS })
+    public @interface ActionButtonStyle {}
+
+    private int mActionButtonStyle;
+
     /**
      * Creates a {@link TextListItem.ViewHolder}.
      */
@@ -177,7 +187,9 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
      */
     @Override
     public int getViewType() {
-        return ListItemAdapter.LIST_ITEM_TYPE_TEXT;
+        return mActionButtonStyle == RAISED_ACTION_BUTTONS
+                ? ListItemAdapter.LIST_ITEM_TYPE_TEXT_RAISED_BUTTONS
+                : ListItemAdapter.LIST_ITEM_TYPE_TEXT_FLAT_BUTTONS;
     }
 
     /**
@@ -675,6 +687,10 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
     public void setPrimaryActionNoIcon() {
         mPrimaryActionType = PRIMARY_ACTION_TYPE_NO_ICON;
         markDirty();
+    }
+
+    public void setActionButtonStyle(@ActionButtonStyle int actionButtonStyle) {
+        mActionButtonStyle = actionButtonStyle;
     }
 
     /**

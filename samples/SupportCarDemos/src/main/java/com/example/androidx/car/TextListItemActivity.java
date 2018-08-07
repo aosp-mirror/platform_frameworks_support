@@ -131,6 +131,7 @@ public class TextListItemActivity extends Activity {
             item = new TextListItem(mContext);
             item.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon);
             item.setPrimaryActionIconSize(TextListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
+            item.setActionButtonStyle(TextListItem.RAISED_ACTION_BUTTONS);
             item.setTitle("single line with large icon and one action");
             item.setAction("Card Height", true, mGetParentHeight);
             mItems.add(item);

@@ -96,9 +96,10 @@ public class ListItemAdapter extends
     })
     private @interface ListBackgroundStyle {}
 
-    static final int LIST_ITEM_TYPE_TEXT = 1;
-    static final int LIST_ITEM_TYPE_SEEKBAR = 2;
-    static final int LIST_ITEM_TYPE_SUBHEADER = 3;
+    static final int LIST_ITEM_TYPE_TEXT_FLAT_BUTTONS = 1;
+    static final int LIST_ITEM_TYPE_TEXT_RAISED_BUTTONS = 2;
+    static final int LIST_ITEM_TYPE_SEEKBAR = 3;
+    static final int LIST_ITEM_TYPE_SUBHEADER = 4;
 
     private final SparseIntArray mViewHolderLayoutResIds = new SparseIntArray();
 
@@ -132,8 +133,10 @@ public class ListItemAdapter extends
         mItemProvider = itemProvider;
         mBackgroundStyle = backgroundStyle;
 
-        registerListItemViewTypeInternal(LIST_ITEM_TYPE_TEXT,
-                R.layout.car_list_item_text_content, TextListItem::createViewHolder);
+        registerListItemViewTypeInternal(LIST_ITEM_TYPE_TEXT_FLAT_BUTTONS,
+                R.layout.car_list_item_text_flat_content, TextListItem::createViewHolder);
+        registerListItemViewTypeInternal(LIST_ITEM_TYPE_TEXT_RAISED_BUTTONS,
+                R.layout.car_list_item_text_raised_content, TextListItem::createViewHolder);
         registerListItemViewTypeInternal(LIST_ITEM_TYPE_SEEKBAR,
                 R.layout.car_list_item_seekbar_content, SeekbarListItem::createViewHolder);
         registerListItemViewTypeInternal(LIST_ITEM_TYPE_SUBHEADER,
