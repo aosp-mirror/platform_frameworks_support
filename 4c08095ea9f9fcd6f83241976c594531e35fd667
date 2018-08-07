@@ -117,6 +117,30 @@
       "revId": "4c08095ea9f9fcd6f83241976c594531e35fd667",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80206e6a_df99e76e",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/Processor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-07T20:39:30Z",
+      "side": 1,
+      "message": "You are right. I changed it to that.",
+      "parentUuid": "7c22033f_e81186d7",
+      "range": {
+        "startLine": 208,
+        "startChar": 4,
+        "endLine": 210,
+        "endChar": 5
+      },
+      "revId": "4c08095ea9f9fcd6f83241976c594531e35fd667",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
