@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "53bfc857_21f2f52e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-07T08:15:15Z",
+      "side": 1,
+      "message": "consider an enum instead. booleans in protocols seldom hold just two values forever.\n\nhttps://engdoc.corp.google.com/eng/doc/devguide/proto/api.md?cl\u003dhead##5-never-use-booleans-for-something-that-has-two-states-now-but-might-have-more-later",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 11
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "84dad8cf_333510da",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
         "patchSetId": 6
@@ -82,6 +105,24 @@
       "writtenOn": "2018-08-07T03:18:31Z",
       "side": 1,
       "message": "How about an addAllDirections too?",
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c2a5e9f_d9232252",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Lane.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-07T08:15:15Z",
+      "side": 1,
+      "message": "I\u0027d consider setDirections method instead so we don\u0027t have to reimplement the whole List interface.\n\nOr give only \u0027getDirections\u0027 method and let callers getDirections().addAll(...)",
+      "parentUuid": "032d0e5e_fe92665e",
       "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -157,6 +198,99 @@
     },
     {
       "key": {
+        "uuid": "5b9ecf80_4cfdab57",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-07T08:15:15Z",
+      "side": 1,
+      "message": "I would prefer to map null to explicit UNKNOWN values in the proto rather than risk clients never implementing the null-handling, then getting taken down by NullPointerException whenever we start sending a new enum over the API where a fallback doesn\u0027t make sense.",
+      "parentUuid": "50018f98_9091af82",
+      "range": {
+        "startLine": 319,
+        "startChar": 37,
+        "endLine": 319,
+        "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "498fe188_ba2aa6a2",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-07T08:15:15Z",
+      "side": 1,
+      "message": "It reads a bit strange to me to have addStep, but not removeStep or clearStep. It\u0027s like we\u0027re trying to make this half-mutable half-not? I guess this is because we don\u0027t want to allow folks to setSteps(List) and give us the wrong kind of list? Is it still bad, in a versionedparcelables world, to accept any kind of List?\n\nIt\u0027s particularly weird when getSteps() returns a mutable reference to the underlying list, which may be a bit dangerous.",
+      "range": {
+        "startLine": 97,
+        "startChar": 56,
+        "endLine": 97,
+        "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c52ba21_f8e52359",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-07T08:15:15Z",
+      "side": 1,
+      "message": "as above, a bit weird to offer only add as the only list method?",
+      "range": {
+        "startLine": 113,
+        "startChar": 77,
+        "endLine": 113,
+        "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f079cae_c2a01be7",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-07T08:15:15Z",
+      "side": 1,
+      "message": "Let\u0027s just spell this OK, if it means \u0027all good\u0027. Maybe this is a weird australian cultural thing, but spelling it out all the way to \u0027Okay\u0027 makes it sound resigned, deflated, which is opposite to what we imply here, I think.",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 12
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4663f39c_fe1bdeda",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
         "patchSetId": 6
@@ -180,6 +314,52 @@
     },
     {
       "key": {
+        "uuid": "3d89f8a0_45f4c13d",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Side.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-07T08:15:15Z",
+      "side": 1,
+      "message": "At first read I thought this was about the side of the driver in the car. But I think you mean which side of the road you drive on. Maybe expand \u0027driving side\u0027 to \u0027side of the road the car drives on\u0027?",
+      "range": {
+        "startLine": 20,
+        "startChar": 12,
+        "endLine": 20,
+        "endChar": 24
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55a306b9_c9e04592",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-07T08:15:15Z",
+      "side": 1,
+      "message": "Why ZonedDateTime?",
+      "range": {
+        "startLine": 79,
+        "startChar": 33,
+        "endLine": 79,
+        "endChar": 46
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55cb27e8_3a9e7fcd",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/StepCue.java",
         "patchSetId": 6
@@ -196,6 +376,52 @@
         "startChar": 68,
         "endLine": 60,
         "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed9de09f_c11edec0",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-07T08:15:15Z",
+      "side": 1,
+      "message": "Why do we need timezone? Why not always UTC?",
+      "range": {
+        "startLine": 34,
+        "startChar": 34,
+        "endLine": 34,
+        "endChar": 42
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc1045f9_c5f2b84c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-07T08:15:15Z",
+      "side": 1,
+      "message": "why not \"\"",
+      "range": {
+        "startLine": 41,
+        "startChar": 21,
+        "endLine": 41,
+        "endChar": 25
       },
       "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -241,6 +467,52 @@
         "startLine": 80,
         "startChar": 39,
         "endLine": 80,
+        "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9053f794_d6c0a679",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/EnumWrapper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-07T08:15:15Z",
+      "side": 1,
+      "message": "of() sounds like it\u0027s expecting an argument, but this isn\u0027t. Maybe call this \u0027.empty()\u0027 or \u0027.default()\u0027, depending on what the semantics of it are?",
+      "range": {
+        "startLine": 111,
+        "startChar": 62,
+        "endLine": 111,
+        "endChar": 64
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d86335e_bfca2d3f",
+        "filename": "car/stubs/README.android",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-07T08:15:15Z",
+      "side": 1,
+      "message": "Not true, this is a support library",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 6,
         "endChar": 0
       },
       "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
