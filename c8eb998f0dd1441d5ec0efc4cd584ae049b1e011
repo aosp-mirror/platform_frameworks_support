@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b52e8dd1_95cf72f2",
+        "filename": "compat/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3571,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-07T01:13:57Z",
+      "side": 1,
+      "message": "We (Yigit/me) know that it is not compat scheme, but we don\u0027t have better ideas where to put it. Adam/Alan do you have other ideas?",
+      "revId": "c8eb998f0dd1441d5ec0efc4cd584ae049b1e011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
