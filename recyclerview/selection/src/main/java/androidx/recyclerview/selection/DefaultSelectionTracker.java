@@ -127,7 +127,7 @@ public class DefaultSelectionTracker<K> extends SelectionTracker<K> {
     }
 
     @Override
-    protected void restoreSelection(@NonNull Selection other) {
+    public void restoreSelection(@NonNull Selection other) {
         checkArgument(other != null);
         setItemsSelectedQuietly(other.mSelection, true);
         // NOTE: We intentionally don't restore provisional selection. It's provisional.
@@ -348,7 +348,7 @@ public class DefaultSelectionTracker<K> extends SelectionTracker<K> {
     }
 
     @Override
-    AdapterDataObserver getAdapterDataObserver() {
+    protected AdapterDataObserver getAdapterDataObserver() {
         return mAdapterObserver;
     }
 
