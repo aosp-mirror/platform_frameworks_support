@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3cafcb4_dff4e3db",
+        "filename": "remotecallback/src/main/java/androidx/remotecallback/CallbackHandlerRegistry.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1061009
+      },
+      "writtenOn": "2018-08-07T10:33:23Z",
+      "side": 1,
+      "message": "can we mark it @hide then? (or can generated code not reference @hidden code?)",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 95
+      },
+      "revId": "2bda50532ca1a4a42047e272d7e478b7053318b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b140a19_b9d7c7a2",
+        "filename": "remotecallback/src/main/java/androidx/remotecallback/CallbackHandlerRegistry.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1061009
+      },
+      "writtenOn": "2018-08-07T10:33:23Z",
+      "side": 1,
+      "message": "This should probably be thread-safe",
+      "range": {
+        "startLine": 51,
+        "startChar": 35,
+        "endLine": 51,
+        "endChar": 50
+      },
+      "revId": "2bda50532ca1a4a42047e272d7e478b7053318b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2cbd2ac_fd8be477",
+        "filename": "remotecallback/src/main/java/androidx/remotecallback/CallbackHandlerRegistry.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1061009
+      },
+      "writtenOn": "2018-08-07T10:33:23Z",
+      "side": 1,
+      "message": "This should probably be thread-safe",
+      "range": {
+        "startLine": 89,
+        "startChar": 38,
+        "endLine": 89,
+        "endChar": 55
+      },
+      "revId": "2bda50532ca1a4a42047e272d7e478b7053318b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ac410bf_55bddcc2",
+        "filename": "remotecallback/src/main/java/androidx/remotecallback/RemoteCallback.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1061009
+      },
+      "writtenOn": "2018-08-07T10:33:23Z",
+      "side": 1,
+      "message": "Maybe IMPL(EMENTATION) / LOCAL / STUB? (yay bikeshedding)\n\nAlso, consider making this not null, otherwise this will be pretty painful for kotlin users (and users that make use of @NotNull / @Nullable)",
+      "range": {
+        "startLine": 44,
+        "startChar": 39,
+        "endLine": 44,
+        "endChar": 50
+      },
+      "revId": "2bda50532ca1a4a42047e272d7e478b7053318b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d72e84c8_9e421d62",
+        "filename": "remotecallback/src/main/java/androidx/remotecallback/RemoteCallback.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1061009
+      },
+      "writtenOn": "2018-08-07T10:33:23Z",
+      "side": 1,
+      "message": "this should use FLAG_UPDATE_CURRENT (otherwise you run the risk of not updating the pending intent if the argument internally changed, but its toString() did not - which happens rather easily with custom Parcelables or Bundle arguments).",
+      "range": {
+        "startLine": 122,
+        "startChar": 80,
+        "endLine": 122,
+        "endChar": 81
+      },
+      "revId": "2bda50532ca1a4a42047e272d7e478b7053318b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
