@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eeea5ee7_f207e00b",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-07T15:04:32Z",
+      "side": 1,
+      "message": "maybe instead of copy paste of test_selectItemProgrammatically_smoothScroll use this page sequence there (or a mix/match), and add assertMaxShowedPages which should hold there as well?",
+      "range": {
+        "startLine": 432,
+        "startChar": 16,
+        "endLine": 432,
+        "endChar": 69
+      },
+      "revId": "4e7989fca47dce642b0589555154500022ee16d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22b31c03_164fd3cd",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-07T15:04:32Z",
+      "side": 1,
+      "message": "this is already covered by assertLastCorrect, so remove line",
+      "range": {
+        "startLine": 449,
+        "startChar": 16,
+        "endLine": 449,
+        "endChar": 71
+      },
+      "revId": "4e7989fca47dce642b0589555154500022ee16d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d314524_6e967cb8",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-07T15:04:32Z",
+      "side": 1,
+      "message": "use this assert in other tests if sensible (might not be, double check)",
+      "range": {
+        "startLine": 730,
+        "startChar": 42,
+        "endLine": 730,
+        "endChar": 62
+      },
+      "revId": "4e7989fca47dce642b0589555154500022ee16d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
