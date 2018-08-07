@@ -2,6 +2,144 @@
   "comments": [
     {
       "key": {
+        "uuid": "2dfce79a_02c3e6a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-07T14:55:19Z",
+      "side": 1,
+      "message": "Could you make this less verbose?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 71
+      },
+      "revId": "dd288b2644ce4dac9220aef741bfc5c5219d874c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1538ea47_e7c9c510",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-07T14:55:19Z",
+      "side": 1,
+      "message": "Add a small comment saying: testing that the system works without listeners - introduced after finding a regression.",
+      "range": {
+        "startLine": 445,
+        "startChar": 16,
+        "endLine": 445,
+        "endChar": 58
+      },
+      "revId": "dd288b2644ce4dac9220aef741bfc5c5219d874c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abdf8cfe_6a7bd1d8",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-07T14:55:19Z",
+      "side": 1,
+      "message": "change to: targetReached",
+      "range": {
+        "startLine": 457,
+        "startChar": 20,
+        "endLine": 457,
+        "endChar": 29
+      },
+      "revId": "dd288b2644ce4dac9220aef741bfc5c5219d874c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8230df11_2e67710e",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-07T14:55:19Z",
+      "side": 1,
+      "message": "change to: checkFunctionExecuted",
+      "range": {
+        "startLine": 458,
+        "startChar": 20,
+        "endLine": 458,
+        "endChar": 28
+      },
+      "revId": "dd288b2644ce4dac9220aef741bfc5c5219d874c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92d0516f_bd1cb84a",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-07T14:55:19Z",
+      "side": 1,
+      "message": "change to: checkTargetReached",
+      "range": {
+        "startLine": 461,
+        "startChar": 20,
+        "endLine": 461,
+        "endChar": 39
+      },
+      "revId": "dd288b2644ce4dac9220aef741bfc5c5219d874c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "624416b9_f42a39ac",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-07T14:55:19Z",
+      "side": 1,
+      "message": "change to: wait until scroll events propagate in the system",
+      "range": {
+        "startLine": 480,
+        "startChar": 30,
+        "endLine": 480,
+        "endChar": 53
+      },
+      "revId": "dd288b2644ce4dac9220aef741bfc5c5219d874c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "95330848_037e6c86",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
         "patchSetId": 2
@@ -42,6 +180,29 @@
         "startChar": 16,
         "endLine": 484,
         "endChar": 70
+      },
+      "revId": "dd288b2644ce4dac9220aef741bfc5c5219d874c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "919a2b67_338ad19d",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-07T14:55:19Z",
+      "side": 1,
+      "message": "Would it make sense to change:\nviewPager.currentItem -\u003e viewPager.currentCompletelyVisibleItem\n?\n\nThis would also answer the question (though indirectly) that we did stop scrolling at target.",
+      "range": {
+        "startLine": 484,
+        "startChar": 57,
+        "endLine": 484,
+        "endChar": 68
       },
       "revId": "dd288b2644ce4dac9220aef741bfc5c5219d874c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
