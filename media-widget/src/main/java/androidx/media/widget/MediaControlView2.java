@@ -2141,20 +2141,20 @@ public class MediaControlView2 extends BaseLayout {
     }
 
     void seekTo(long newPosition, boolean shouldSeekNow) {
-        int positionOnProgressBar = (int) (MAX_PROGRESS * newPosition / mDuration);
-        mProgress.setProgress(positionOnProgressBar);
-        mCurrentTime.setText(stringForTime(newPosition));
-
-        if (mCurrentSeekPosition == SEEK_POSITION_NOT_SET) {
-            // If current seek position is not set, update its value and seek now if necessary.
+        if (!shouldSeekNow) {
+            // If we should not seek now, replace the current seek position variable and just update
+            // the current time text.
             mCurrentSeekPosition = newPosition;
-
-            if (shouldSeekNow) {
-                mController.seekTo(mCurrentSeekPosition);
-            }
+            mCurrentTime.setText(stringForTime(newPosition));
         } else {
-            // If current seek position is already set, update the next seek position.
-            mNextSeekPosition = newPosition;
+            if (mCurrentSeekPosition == SEEK_POSITION_NOT_SET) {
+                // If current seek position is not set, update its value and seek now.
+                mCurrentSeekPosition = newPosition;
+                mController.seekTo(mCurrentSeekPosition);
+            } else {
+                // If current seek position is already set, update the next seek position.
+                mNextSeekPosition = newPosition;
+            }
         }
     }
 
