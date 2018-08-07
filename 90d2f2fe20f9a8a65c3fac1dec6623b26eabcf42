@@ -272,6 +272,30 @@
     },
     {
       "key": {
+        "uuid": "5e2196b6_1b0e4305",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-07T06:22:36Z",
+      "side": 1,
+      "message": "\u003e Added doc here and onUpdateNotification().\n\u003e Also, added permission check logic inside of onCreate(). Please take another look.\n\nThis comment is wrong. Permission check logic is not added yet.\nShould we add the logic?",
+      "parentUuid": "5de19978_33fd310d",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 0
+      },
+      "revId": "90d2f2fe20f9a8a65c3fac1dec6623b26eabcf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf853048_2e63fa99",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
         "patchSetId": 2
