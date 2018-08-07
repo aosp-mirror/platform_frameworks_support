@@ -77,4 +77,11 @@
     <!-- Displayed in place of the regular shortcut letter when a menu item has Menu+delete for the shortcut. -->
     <string name="abc_menu_delete_shortcut_label">delete</string>
 
+    <!-- Floating toolbar strings -->
+    <!-- Content description for the button that opens the floating toolbar overflow. [CHAR LIMIT=NONE] -->
+    <string name="floating_toolbar_open_overflow_description">More options</string>
+    <!-- Content description for the button that closes the floating toolbar overflow. [CHAR LIMIT=NONE] -->
+    <string name="floating_toolbar_close_overflow_description">Close overflow</string>
+    <!-- toolbar action to share the current selection [CHAR LIMIT=10] -->
+    <string name="abc_share">Share</string>
 </resources>

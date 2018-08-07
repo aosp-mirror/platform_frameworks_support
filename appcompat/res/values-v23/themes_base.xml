@@ -32,6 +32,10 @@
         <item name="actionMenuTextAppearance">?android:attr/actionMenuTextAppearance</item>
 
         <item name="controlBackground">@drawable/abc_control_background_material</item>
+
+        <!-- Floating toolbar styles -->
+        <item name="floatingToolbarForegroundColor">@color/foreground_material_dark</item>
+        <item name="floatingToolbarPopupBackgroundDrawable">@drawable/floating_popup_background</item>
     </style>
 
     <style name="Base.V23.Theme.AppCompat.Light" parent="Base.V22.Theme.AppCompat.Light">
@@ -46,6 +50,10 @@
         <item name="actionMenuTextAppearance">?android:attr/actionMenuTextAppearance</item>
 
         <item name="controlBackground">@drawable/abc_control_background_material</item>
+
+        <!-- Floating toolbar styles -->
+        <item name="floatingToolbarForegroundColor">@color/foreground_material_light</item>
+        <item name="floatingToolbarPopupBackgroundDrawable">@drawable/floating_popup_background</item>
     </style>
 
 </resources>
