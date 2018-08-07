@@ -16,6 +16,24 @@
       "revId": "44900587ed465161f5c461e7da89958de3d8422d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1543ff87_5bed8ff7",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/constraints/trackers/ConstraintTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-07T20:21:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed16927d_58607825",
+      "revId": "44900587ed465161f5c461e7da89958de3d8422d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
