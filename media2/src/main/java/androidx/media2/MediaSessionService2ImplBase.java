@@ -16,7 +16,6 @@
 
 package androidx.media2;
 
-import android.content.ComponentName;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
@@ -42,21 +41,10 @@ class MediaSessionService2ImplBase implements MediaSessionService2Impl {
 
     @Override
     public void onCreate(MediaSessionService2 service) {
-        SessionToken2 token = new SessionToken2(service,
-                new ComponentName(service, service.getClass().getName()));
-        if (token.getType() != getSessionType()) {
-            throw new RuntimeException("Expected session type " + getSessionType()
-                    + " but was " + token.getType());
-        }
-        MediaSession2 session = service.onCreateSession(token.getId());
+        // TODO: Revisit this.
+        MediaSession2 session = service.onCreateSession("");
         synchronized (mLock) {
             mSession = session;
-            if (mSession == null || !token.getId().equals(mSession.getToken().getId())
-                    || mSession.getToken().getType() != getSessionType()) {
-                mSession = null;
-                throw new RuntimeException("Expected session with id " + token.getId()
-                        + " and type " + token.getType() + ", but got " + mSession);
-            }
         }
     }
 
@@ -87,10 +75,5 @@ class MediaSessionService2ImplBase implements MediaSessionService2Impl {
         synchronized (mLock) {
             return mSession;
         }
-    }
-
-    @Override
-    public int getSessionType() {
-        return SessionToken2.TYPE_SESSION_SERVICE;
     }
 }

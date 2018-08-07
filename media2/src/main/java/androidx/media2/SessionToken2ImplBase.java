@@ -44,10 +44,8 @@ final class SessionToken2ImplBase implements SessionToken2Impl {
     @ParcelField(4)
     String mServiceName;
     @ParcelField(5)
-    String mSessionId;
-    @ParcelField(6)
     IBinder mISession2;
-    @ParcelField(7)
+    @ParcelField(6)
     ComponentName mComponentName;
 
     /**
@@ -56,7 +54,7 @@ final class SessionToken2ImplBase implements SessionToken2Impl {
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
-    SessionToken2ImplBase(@NonNull ComponentName serviceComponent, int uid, String id, int type) {
+    SessionToken2ImplBase(@NonNull ComponentName serviceComponent, int uid, int type) {
         if (serviceComponent == null) {
             throw new IllegalArgumentException("serviceComponent shouldn't be null");
         }
@@ -64,7 +62,6 @@ final class SessionToken2ImplBase implements SessionToken2Impl {
         mPackageName = serviceComponent.getPackageName();
         mServiceName = serviceComponent.getClassName();
         mUid = uid;
-        mSessionId = id;
         mType = type;
         mISession2 = null;
     }
@@ -74,14 +71,13 @@ final class SessionToken2ImplBase implements SessionToken2Impl {
      */
     @RestrictTo(LIBRARY_GROUP)
     SessionToken2ImplBase(int uid, int type, String packageName, String serviceName,
-            String sessionId, IMediaSession2 iSession2) {
+            IMediaSession2 iSession2) {
         mUid = uid;
         mType = type;
         mPackageName = packageName;
         mServiceName = serviceName;
         mComponentName = (mType == TYPE_SESSION) ? null
                 : new ComponentName(packageName, serviceName);
-        mSessionId = sessionId;
         mISession2 = iSession2.asBinder();
     }
 
@@ -96,7 +92,7 @@ final class SessionToken2ImplBase implements SessionToken2Impl {
 
     @Override
     public int hashCode() {
-        return ObjectsCompat.hash(mType, mUid, mPackageName, mSessionId, mServiceName);
+        return ObjectsCompat.hash(mType, mUid, mPackageName, mServiceName);
     }
 
     @Override
@@ -108,14 +104,13 @@ final class SessionToken2ImplBase implements SessionToken2Impl {
         return mUid == other.mUid
                 && TextUtils.equals(mPackageName, other.mPackageName)
                 && TextUtils.equals(mServiceName, other.mServiceName)
-                && TextUtils.equals(mSessionId, other.mSessionId)
                 && mType == other.mType
                 && ObjectsCompat.equals(mISession2, other.mISession2);
     }
 
     @Override
     public String toString() {
-        return "SessionToken {pkg=" + mPackageName + " id=" + mSessionId + " type=" + mType
+        return "SessionToken {pkg=" + mPackageName + " type=" + mType
                 + " service=" + mServiceName + " IMediaSession2=" + mISession2 + "}";
     }
 
@@ -147,11 +142,6 @@ final class SessionToken2ImplBase implements SessionToken2Impl {
     @Override
     public ComponentName getComponentName() {
         return mComponentName;
-    }
-
-    @Override
-    public String getSessionId() {
-        return mSessionId;
     }
 
     @Override

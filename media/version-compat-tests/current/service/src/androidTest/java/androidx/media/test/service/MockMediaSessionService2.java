@@ -24,9 +24,6 @@ import androidx.media2.SessionToken2;
  * Dummy MediaSessionService2 for testing {@link SessionToken2}.
  */
 public class MockMediaSessionService2 extends MediaSessionService2 {
-    // Keep in sync with the AndroidManifest.xml
-    public static final String ID = "TestSession";
-
     @Override
     public MediaSession2 onCreateSession(String sessionId) {
         return null;
