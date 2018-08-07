@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97327049_dc8fbb9b",
+        "filename": "compat/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3569,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-07T00:35:53Z",
+      "side": 1,
+      "message": "why not just\n\nViewCompat.setOnClickListener(LifecycleOwner, theListener) : View.OnClickListener\n\ni don\u0027t think the name safe helps.",
+      "range": {
+        "startLine": 3569,
+        "startChar": 39,
+        "endLine": 3569,
+        "endChar": 60
+      },
+      "revId": "718ae97c36ba907aed76df3270636c84de1eeff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
