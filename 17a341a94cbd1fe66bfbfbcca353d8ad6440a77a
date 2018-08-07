@@ -714,6 +714,30 @@
     },
     {
       "key": {
+        "uuid": "d2ec09cc_2a1b4edf",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-07T23:30:16Z",
+      "side": 1,
+      "message": "Does this mean that you would be okay with a Duration, but you would rather state it as estimated time of arrival?",
+      "parentUuid": "eb50ffda_d1a5395c",
+      "range": {
+        "startLine": 79,
+        "startChar": 33,
+        "endLine": 79,
+        "endChar": 46
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55cb27e8_3a9e7fcd",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/StepCue.java",
         "patchSetId": 6
