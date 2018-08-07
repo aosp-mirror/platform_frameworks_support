@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c38aa297_0802c88f",
+        "filename": "buildSrc/src/test/kotlin/androidx/build/dependencyTracker/ProjectGraphTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-07T13:31:50Z",
+      "side": 1,
+      "message": "nit: This could be `replace(\u0027/\u0027, File.separatorChar)`",
+      "revId": "3ac0c8b8982756630476b0c2ab0ca07e13010391",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
