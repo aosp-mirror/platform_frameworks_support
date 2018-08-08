@@ -167,30 +167,24 @@ public class AnimatedStateListDrawableCompatTest {
     public void testAnimatedVectorTransition() {
         AnimatedStateListDrawableCompat asld = AnimatedStateListDrawableCompat.create(mContext,
                 R.drawable.asl_heart, mContext.getTheme());
-        DrawableContainer.DrawableContainerState asldState =
-                (DrawableContainer.DrawableContainerState) asld.getConstantState();
         // Check that 4 drawables were parsed
-        assertEquals(4, asldState.getChildCount());
+        assertEquals(4, asld.getChildCount());
     }
 
     @Test
     public void testChildAnimatedVectorTransition() {
         AnimatedStateListDrawableCompat asld = AnimatedStateListDrawableCompat.create(mContext,
                 R.drawable.animated_state_list_with_avd, mContext.getTheme());
-        DrawableContainer.DrawableContainerState asldState =
-                (DrawableContainer.DrawableContainerState) asld.getConstantState();
         // Check that 6 drawables were parsed
-        assertEquals(6, asldState.getChildCount());
+        assertEquals(6, asld.getChildCount());
     }
 
     @Test
     public void testChildVectorItem() {
         AnimatedStateListDrawableCompat asld = AnimatedStateListDrawableCompat.create(mContext,
                 R.drawable.asl_heart_embedded, mContext.getTheme());
-        DrawableContainer.DrawableContainerState asldState =
-                (DrawableContainer.DrawableContainerState) asld.getConstantState();
         // Check that 4 drawables were parsed
-        assertEquals(4, asldState.getChildCount());
+        assertEquals(4, asld.getChildCount());
     }
 
     public abstract class MockTransition extends MockDrawable implements Animatable,

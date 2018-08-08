@@ -137,6 +137,10 @@ class DrawableContainer extends Drawable implements Drawable.Callback {
         }
     }
 
+    public int getChildCount() {
+        return mDrawableContainerState.getChildCount();
+    }
+
     @Override
     public void setAlpha(int alpha) {
         if (!mHasAlpha || mAlpha != alpha) {
