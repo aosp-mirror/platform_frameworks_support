@@ -16,6 +16,24 @@
       "revId": "de2f9b701d3ca45f74de0ae68c2560e12ec72823",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e56afc4c_3874dbbd",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceViewPolicy.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-08-08T18:28:08Z",
+      "side": 1,
+      "message": "Yeah, or maybe something like a SliceViewPolicyBuilder to construct one of these?\n\nThere are some aspects of it that I\u0027m not sure need to be exposed e.g. PolicyChangeListener",
+      "parentUuid": "2950f45e_8c9cbc7f",
+      "revId": "de2f9b701d3ca45f74de0ae68c2560e12ec72823",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
