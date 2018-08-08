@@ -48,8 +48,8 @@ public class GreedyScheduler implements Scheduler, WorkConstraintsCallback, Exec
 
     private WorkManagerImpl mWorkManagerImpl;
     private WorkConstraintsTracker mWorkConstraintsTracker;
-    private List<WorkSpec> mConstrainedWorkSpecs = new ArrayList<>();
     private boolean mRegisteredExecutionListener;
+    private final List<WorkSpec> mConstrainedWorkSpecs = new ArrayList<>();
 
     public GreedyScheduler(Context context, WorkManagerImpl workManagerImpl) {
         mWorkManagerImpl = workManagerImpl;
@@ -64,11 +64,9 @@ public class GreedyScheduler implements Scheduler, WorkConstraintsCallback, Exec
     }
 
     @Override
-    public synchronized void schedule(WorkSpec... workSpecs) {
+    public void schedule(WorkSpec... workSpecs) {
         registerExecutionListenerIfNeeded();
-
         int originalSize = mConstrainedWorkSpecs.size();
-
         for (WorkSpec workSpec : workSpecs) {
             if (workSpec.state == State.ENQUEUED
                     && !workSpec.isPeriodic()
@@ -93,16 +91,15 @@ public class GreedyScheduler implements Scheduler, WorkConstraintsCallback, Exec
     }
 
     @Override
-    public synchronized void cancel(@NonNull String workSpecId) {
+    public void cancel(@NonNull String workSpecId) {
         registerExecutionListenerIfNeeded();
-
         Logger.debug(TAG, String.format("Cancelling work ID %s", workSpecId));
+        // onExecutionCompleted does the cleanup.
         mWorkManagerImpl.stopWork(workSpecId);
-        removeConstraintTrackingFor(workSpecId);
     }
 
     @Override
-    public synchronized void onAllConstraintsMet(@NonNull List<String> workSpecIds) {
+    public void onAllConstraintsMet(@NonNull List<String> workSpecIds) {
         for (String workSpecId : workSpecIds) {
             Logger.debug(TAG, String.format("Constraints met: Scheduling work ID %s", workSpecId));
             mWorkManagerImpl.startWork(workSpecId);
@@ -110,7 +107,7 @@ public class GreedyScheduler implements Scheduler, WorkConstraintsCallback, Exec
     }
 
     @Override
-    public synchronized void onAllConstraintsNotMet(@NonNull List<String> workSpecIds) {
+    public void onAllConstraintsNotMet(@NonNull List<String> workSpecIds) {
         for (String workSpecId : workSpecIds) {
             Logger.debug(TAG,
                     String.format("Constraints not met: Cancelling work ID %s", workSpecId));
@@ -119,7 +116,7 @@ public class GreedyScheduler implements Scheduler, WorkConstraintsCallback, Exec
     }
 
     @Override
-    public synchronized void onExecuted(@NonNull String workSpecId,
+    public void onExecuted(@NonNull String workSpecId,
             boolean isSuccessful,
             boolean needsReschedule) {
         removeConstraintTrackingFor(workSpecId);
@@ -136,7 +133,7 @@ public class GreedyScheduler implements Scheduler, WorkConstraintsCallback, Exec
         }
     }
 
-    private void registerExecutionListenerIfNeeded() {
+    private synchronized void registerExecutionListenerIfNeeded() {
         // This method needs to be called *after* Processor is created, since Processor needs
         // Schedulers and is created after this class.
         if (!mRegisteredExecutionListener) {
