@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1d3aba8_2739911e",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/CardFragmentActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-08T20:04:42Z",
+      "side": 1,
+      "message": "I like this a lot more :)",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 28
+      },
+      "revId": "95046520dd40fc34e66483809c29ade8fd5feb45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f9c566e_2de27540",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-08T20:04:42Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 166,
+        "startChar": 4,
+        "endLine": 166,
+        "endChar": 13
+      },
+      "revId": "95046520dd40fc34e66483809c29ade8fd5feb45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7112516_e499654a",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-08T20:04:42Z",
+      "side": 1,
+      "message": "You can remove this?",
+      "range": {
+        "startLine": 251,
+        "startChar": 11,
+        "endLine": 251,
+        "endChar": 34
+      },
+      "revId": "95046520dd40fc34e66483809c29ade8fd5feb45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
