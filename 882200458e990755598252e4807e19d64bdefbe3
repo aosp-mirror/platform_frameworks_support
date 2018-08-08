@@ -94,6 +94,29 @@
     },
     {
       "key": {
+        "uuid": "85d7023e_97232b37",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/StepCue.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-08T22:25:58Z",
+      "side": 1,
+      "message": "Copying my comment from the email thread:\n\nI\u0027ve been thinking about step cues. Specifically, I\u0027ve been thinking about whether we should scale down the step cue API for v1/v0.1/vwhatever to be text-only. Reasons:\n\n - I\u0027m not sure the API (as it stands) is expressive enough to use images usefully. At the moment it\u0027s of the form \"\u003ccue\u003e\\n\u003ccue\u003e\\n\u003ccue\u003e...\", and each cue is an image xor text. But that means every image has to be on its own line, so we can\u0027t do something like \"\u003cicon for exit 10\u003e\\n towards \u003croad badge for some highway\u003e\". Similarly, a more verbose producer might want something like \"Take exit \u003cicon\u003e towards \u003croad badge\u003e\", which similarly can\u0027t be done.\n\n - we can always add images later, when we have time to build a suitably flexible API, and hopefully when we have a better sense of what types of cues different producers use.\n - having a baseline text-only API might be useful for situations in which the consumer can\u0027t display images for technical reasons.\n\n - we can remove images from the nav state API entirely (for now), which takes the pressure off for sorting out sizes and security and tinting and whatnot.\n\nThoughts?\n\n\nNote that the PRD says that sending the road badge for the next maneuver is optional.",
+      "range": {
+        "startLine": 36,
+        "startChar": 59,
+        "endLine": 36,
+        "endChar": 0
+      },
+      "revId": "882200458e990755598252e4807e19d64bdefbe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a0c5b9ce_cf3842cf",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/DurationWrapper.java",
         "patchSetId": 11
