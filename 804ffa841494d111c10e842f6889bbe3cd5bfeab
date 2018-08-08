@@ -22,6 +22,30 @@
       "revId": "804ffa841494d111c10e842f6889bbe3cd5bfeab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dca50126_7295e38c",
+        "filename": "appcompat/src/main/java/androidx/appcompat/graphics/drawable/AnimatedStateListDrawableCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 1034928
+      },
+      "writtenOn": "2018-08-08T15:14:27Z",
+      "side": 0,
+      "message": "Per chat discussion, removing this to inherit DrawableContainer behavior.",
+      "parentUuid": "0c02cb23_8d38be5c",
+      "range": {
+        "startLine": 715,
+        "startChar": 0,
+        "endLine": 718,
+        "endChar": 5
+      },
+      "revId": "804ffa841494d111c10e842f6889bbe3cd5bfeab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
