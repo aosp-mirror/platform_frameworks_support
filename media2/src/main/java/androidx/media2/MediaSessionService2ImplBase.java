@@ -19,13 +19,18 @@ package androidx.media2;
 import android.app.Notification;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
+import android.text.TextUtils;
 
 import androidx.annotation.GuardedBy;
+import androidx.collection.ArrayMap;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.media.MediaBrowserServiceCompat;
 import androidx.media2.MediaSessionService2.MediaNotification;
 import androidx.media2.MediaSessionService2.MediaSessionService2Impl;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of {@link MediaSessionService2}.
@@ -36,36 +41,32 @@ class MediaSessionService2ImplBase implements MediaSessionService2Impl {
 
     private final Object mLock = new Object();
     @GuardedBy("mLock")
-    private MediaSession2 mSession;
+    private Map<String, MediaSession2> mSessions = new ArrayMap<>();
 
     MediaSessionService2ImplBase() {
     }
 
     @Override
-    public void onCreate(final MediaSessionService2 service) {
-        MediaSession2 session;
-        synchronized (mLock) {
-            session = mSession;
+    public IBinder onBind(final MediaSessionService2 service, Intent intent) {
+        String action = intent.getAction();
+        if (!TextUtils.equals(MediaSessionService2.SERVICE_INTERFACE, action)
+                && !TextUtils.equals(MediaBrowserServiceCompat.SERVICE_INTERFACE, action)) {
+            return null;
         }
-        if (session == null) {
-            session = service.onCreateSession();
-            synchronized (mLock) {
-                mSession = session;
-            }
-        }
-
-        session.getCallback().setOnHandleForegroundServiceListener(
-                new MediaSession2.SessionCallback.OnHandleForegroundServiceListener() {
+        final MediaSession2 session = service.onGetSession();
+        addSession(session);
+        // TODO: Check whether the session is registered in multiple sessions.
+        session.getCallback().setOnHandleForegroundServiceCallback(
+                new MediaSession2.SessionCallback.OnHandleForegroundServiceCallback() {
                     @Override
-                    public void onHandleForegroundService(int state) {
+                    public void onPlayerStateChanged(int state) {
                         if (state == MediaPlayerConnector.PLAYER_STATE_IDLE
                                 || state == MediaPlayerConnector.PLAYER_STATE_ERROR) {
                             service.stopForeground(false /* removeNotification */);
                             return;
                         }
-
                         // state is PLAYER_STATE_PLAYING or PLAYER_STATE_PAUSE.
-                        MediaNotification mediaNotification = service.onUpdateNotification();
+                        MediaNotification mediaNotification = service.onUpdateNotification(session);
                         if (mediaNotification == null) {
                             return;
                         }
@@ -77,17 +78,14 @@ class MediaSessionService2ImplBase implements MediaSessionService2Impl {
                         manager.notify(notificationId, notification);
                         service.startForeground(notificationId, notification);
                     }
-                });
-    }
 
-    @Override
-    public IBinder onBind(Intent intent) {
-        final MediaSession2 session = getSession();
-        if (session == null) {
-            Log.w(TAG, "Session hasn't created");
-            return null;
-        }
-        switch (intent.getAction()) {
+                    @Override
+                    public void onSessionClosed() {
+                        removeSession(session);
+                    }
+                });
+
+        switch (action) {
             case MediaSessionService2.SERVICE_INTERFACE:
                 return session.getSessionBinder();
             case MediaBrowserServiceCompat.SERVICE_INTERFACE:
@@ -97,15 +95,43 @@ class MediaSessionService2ImplBase implements MediaSessionService2Impl {
     }
 
     @Override
-    public MediaNotification onUpdateNotification() {
+    public void addSession(MediaSession2 session) {
+        if (session == null) {
+            throw new IllegalArgumentException("session shouldn't be null");
+        }
+        synchronized (mLock) {
+            MediaSession2 old = mSessions.get(session.getId());
+            if (old != null && old != session) {
+                // TODO(b/112114183): Also check the uniqueness before sessions're returned by
+                //                    onGetSession
+                throw new IllegalArgumentException("Session ID should be unique.");
+            }
+            mSessions.put(session.getId(), session);
+        }
+    }
+
+    @Override
+    public void removeSession(MediaSession2 session) {
+        if (session == null) {
+            throw new IllegalArgumentException("session shouldn't be null");
+        }
+        synchronized (mLock) {
+            mSessions.remove(session.getId());
+        }
+    }
+
+    @Override
+    public MediaNotification onUpdateNotification(MediaSession2 session) {
         // May supply default implementation later
         return null;
     }
 
     @Override
-    public MediaSession2 getSession() {
+    public List<MediaSession2> getSessions() {
+        List<MediaSession2> list = new ArrayList<>();
         synchronized (mLock) {
-            return mSession;
+            list.addAll(mSessions.values());
         }
+        return list;
     }
 }

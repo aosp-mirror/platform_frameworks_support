@@ -331,6 +331,15 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
     }
 
     /**
+     * Gets the session Id
+     *
+     * @return
+     */
+    public @NonNull String getId() {
+        return mImpl.getId();
+    }
+
+    /**
      * Returns the {@link SessionToken2} for creating {@link MediaController2}.
      */
     public @NonNull SessionToken2 getToken() {
@@ -906,7 +915,7 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
      * default.
      */
     public abstract static class SessionCallback {
-        OnHandleForegroundServiceListener mOnHandleForegroundServiceListener;
+        OnHandleForegroundServiceCallback mOnHandleForegroundServiceCallback;
 
         /**
          * Called when a controller is created for this session. Return allowed commands for
@@ -1308,18 +1317,25 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
          * Called when the player state is changed. Used internally for setting the
          * {@link MediaSessionService2} as foreground/background.
          */
-        final void onHandleForegroundService(@PlayerState int state) {
-            if (mOnHandleForegroundServiceListener != null) {
-                mOnHandleForegroundServiceListener.onHandleForegroundService(state);
+        final void onPlayerStateChanged(@PlayerState int state) {
+            if (mOnHandleForegroundServiceCallback != null) {
+                mOnHandleForegroundServiceCallback.onPlayerStateChanged(state);
             }
         }
 
-        void setOnHandleForegroundServiceListener(OnHandleForegroundServiceListener listener) {
-            mOnHandleForegroundServiceListener = listener;
+        final void onSessionClosed() {
+            if (mOnHandleForegroundServiceCallback != null) {
+                mOnHandleForegroundServiceCallback.onSessionClosed();
+            }
         }
 
-        interface OnHandleForegroundServiceListener {
-            void onHandleForegroundService(@PlayerState int state);
+        void setOnHandleForegroundServiceCallback(OnHandleForegroundServiceCallback callback) {
+            mOnHandleForegroundServiceCallback = callback;
+        }
+
+        interface OnHandleForegroundServiceCallback {
+            void onPlayerStateChanged(@PlayerState int state);
+            void onSessionClosed();
         }
     }
 
@@ -1720,6 +1736,7 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
         @NonNull
         MediaPlayerConnector getPlayer();
         @NonNull MediaPlaylistAgent getPlaylistAgent();
+        @NonNull String getId();
         @NonNull SessionToken2 getToken();
         @NonNull List<ControllerInfo> getConnectedControllers();
         boolean isConnected(@NonNull ControllerInfo controller);

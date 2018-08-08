@@ -79,6 +79,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
     private final Executor mCallbackExecutor;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final SessionCallback mCallback;
+    private final String mSessionId;
     private final SessionToken2 mSessionToken;
     private final AudioManager mAudioManager;
     private final MediaPlayerConnector.PlayerEventCallback mPlayerEventCallback;
@@ -124,6 +125,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         mPlaylistEventCallback = new MyPlaylistEventCallback(this);
         mAudioFocusHandler = new AudioFocusHandler(context, instance);
 
+        mSessionId = id;
         mSessionToken = new SessionToken2(new SessionToken2ImplBase(Process.myUid(),
                 TYPE_SESSION, context.getPackageName(), /* serviceName */ null, mSession2Stub));
         String sessionCompatId = TextUtils.join(DEFAULT_MEDIA_SESSION_TAG_DELIM,
@@ -227,7 +229,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
                 mCallbackExecutor.execute(new Runnable() {
                     @Override
                     public void run() {
-                        mCallback.onHandleForegroundService(state);
+                        mCallback.onPlayerStateChanged(state);
                     }
                 });
                 notifyPlayerUpdatedNotLocked(oldPlayer);
@@ -316,6 +318,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
             mPlayer.unregisterPlayerEventCallback(mPlayerEventCallback);
             mPlayer = null;
             mSessionCompat.release();
+            mCallback.onSessionClosed();
             notifyToAllControllers(new NotifyRunnable() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
@@ -345,6 +348,11 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         synchronized (mLock) {
             return mPlaylistAgent;
         }
+    }
+
+    @Override
+    public String getId() {
+        return mSessionId;
     }
 
     @Override
@@ -1338,7 +1346,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
                     // Order is important here. AudioFocusHandler should be called at the first
                     // for testing purpose.
                     session.mAudioFocusHandler.onPlayerStateChanged(state);
-                    session.getCallback().onHandleForegroundService(state);
+                    session.getCallback().onPlayerStateChanged(state);
                     session.getCallback().onPlayerStateChanged(
                             session.getInstance(), player, state);
                     session.notifyToAllControllers(new NotifyRunnable() {

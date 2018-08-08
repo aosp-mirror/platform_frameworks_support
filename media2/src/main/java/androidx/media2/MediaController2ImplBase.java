@@ -210,7 +210,7 @@ class MediaController2ImplBase implements MediaController2Impl {
     }
 
     @Override
-    public SessionToken2 getSessionToken() {
+    public SessionToken2 getConnectedSessionToken() {
         return mToken;
     }
 

@@ -26,15 +26,15 @@ import androidx.media2.MediaLibraryService2.MediaLibrarySession;
  */
 class MediaLibraryService2ImplBase extends MediaSessionService2ImplBase {
     @Override
-    public IBinder onBind(Intent intent) {
+    public IBinder onBind(MediaSessionService2 service, Intent intent) {
         if (MediaLibraryService2.SERVICE_INTERFACE.equals(intent.getAction())) {
-            return getSession().getSessionBinder();
+            MediaSession2 session = service.onGetSession();
+            if (!(session instanceof MediaLibrarySession)) {
+                throw new RuntimeException("Expected MediaLibrarySession, but MediaSession2");
+            }
+            addSession(session);
+            return session.getSessionBinder();
         }
-        return super.onBind(intent);
-    }
-
-    @Override
-    public MediaLibrarySession getSession() {
-        return (MediaLibrarySession) super.getSession();
+        return super.onBind(service, intent);
     }
 }
