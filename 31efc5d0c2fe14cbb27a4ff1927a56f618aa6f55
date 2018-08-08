@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "794835b2_b829a654",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/DefaultSelectionTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1086769
+      },
+      "writtenOn": "2018-08-08T22:04:08Z",
+      "side": 1,
+      "message": "After prodding by Shep, and poking around a bit, I don\u0027t think it should be necessary to make this public. Same in SelectionTracker.\n\nIn RecyclerView-Selection the client should be calling SelectionTracker.onRestoreInstanceState. This might be a difference from the implementation in DocumentsUI.\n\nSee: https://codesearch.corp.google.com/android/frameworks/support/samples/Support7Demos/src/main/java/com/example/android/supportv7/widget/selection/fancy/FancySelectionDemoActivity.java?l\u003d112",
+      "revId": "31efc5d0c2fe14cbb27a4ff1927a56f618aa6f55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
