@@ -22,6 +22,30 @@
       "revId": "e36c65f67e49ddbfa0080542295f4a4850ae17da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97f85607_f0847e66",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/constraints/trackers/ConstraintTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-08T16:13:06Z",
+      "side": 1,
+      "message": "Yup, I actually realized this last night and put a TODO on my list to change this.  I actually have a better fix lined up so this might get partially reverted.  Thanks for catching this!",
+      "parentUuid": "0a41a34d_b9df7317",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 98,
+        "endChar": 87
+      },
+      "revId": "e36c65f67e49ddbfa0080542295f4a4850ae17da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
