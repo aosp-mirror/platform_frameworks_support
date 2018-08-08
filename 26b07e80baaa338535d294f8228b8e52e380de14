@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4558d78_56afb1f4",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/PreferenceVisibilityTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-08-08T22:04:53Z",
+      "side": 1,
+      "message": "We should not do this as it can be flaky. \n\nHave you considered using PollingCheck? Or can we somehow subscribe in preferences for some callback to know that the rebuild was done?",
+      "range": {
+        "startLine": 119,
+        "startChar": 8,
+        "endLine": 119,
+        "endChar": 31
+      },
+      "revId": "26b07e80baaa338535d294f8228b8e52e380de14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
