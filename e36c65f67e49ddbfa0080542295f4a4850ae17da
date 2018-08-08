@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a41a34d_b9df7317",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/constraints/trackers/ConstraintTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1350479
+      },
+      "writtenOn": "2018-08-08T06:32:32Z",
+      "side": 1,
+      "message": "Correct me if I\u0027m wrong, but I don\u0027t think Collections.unmodifiableSet() creates a copy of the set - it only returns a wrapper that doesn\u0027t allow changing the list through itself. addListener and removeListener can still change the actual underlying set during the iteration causing ConcurrentModificationException.\nI suggest using a plain, old ArrayList :)",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 98,
+        "endChar": 87
+      },
+      "revId": "e36c65f67e49ddbfa0080542295f4a4850ae17da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
