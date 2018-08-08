@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "c677faf0_4fd6b670",
+        "filename": "remotecallback/src/main/java/androidx/remotecallback/CallbackHandlerRegistry.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1061009
+      },
+      "writtenOn": "2018-08-08T16:44:30Z",
+      "side": 1,
+      "message": "Yeah, this seems definitely better.\n\nMaybe in the future we can have an @RestrictTo(GENERATED_CODE) that wouldn\u0027t enforce source compatibility, but would still let you build generated code against it.",
+      "parentUuid": "c9c28007_ed23c279",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 95
+      },
+      "revId": "2bda50532ca1a4a42047e272d7e478b7053318b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b140a19_b9d7c7a2",
         "filename": "remotecallback/src/main/java/androidx/remotecallback/CallbackHandlerRegistry.java",
         "patchSetId": 6
@@ -187,6 +211,29 @@
       "revId": "2bda50532ca1a4a42047e272d7e478b7053318b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33c6901f_b223f3f4",
+        "filename": "remotecallback/src/main/java/androidx/remotecallback/ProviderRelayReceiver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1061009
+      },
+      "writtenOn": "2018-08-08T16:44:30Z",
+      "side": 1,
+      "message": "this should be public since it is an entry point and must be mentioned in the manifest",
+      "range": {
+        "startLine": 33,
+        "startChar": 13,
+        "endLine": 33,
+        "endChar": 34
+      },
+      "revId": "2bda50532ca1a4a42047e272d7e478b7053318b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
