@@ -64,11 +64,9 @@ public class GreedyScheduler implements Scheduler, WorkConstraintsCallback, Exec
     }
 
     @Override
-    public synchronized void schedule(WorkSpec... workSpecs) {
+    public void schedule(WorkSpec... workSpecs) {
         registerExecutionListenerIfNeeded();
-
         int originalSize = mConstrainedWorkSpecs.size();
-
         for (WorkSpec workSpec : workSpecs) {
             if (workSpec.state == State.ENQUEUED
                     && !workSpec.isPeriodic()
@@ -93,16 +91,15 @@ public class GreedyScheduler implements Scheduler, WorkConstraintsCallback, Exec
     }
 
     @Override
-    public synchronized void cancel(@NonNull String workSpecId) {
+    public void cancel(@NonNull String workSpecId) {
         registerExecutionListenerIfNeeded();
-
         Logger.debug(TAG, String.format("Cancelling work ID %s", workSpecId));
+        // onExecutionCompleted does the cleanup.
         mWorkManagerImpl.stopWork(workSpecId);
-        removeConstraintTrackingFor(workSpecId);
     }
 
     @Override
-    public synchronized void onAllConstraintsMet(@NonNull List<String> workSpecIds) {
+    public void onAllConstraintsMet(@NonNull List<String> workSpecIds) {
         for (String workSpecId : workSpecIds) {
             Logger.debug(TAG, String.format("Constraints met: Scheduling work ID %s", workSpecId));
             mWorkManagerImpl.startWork(workSpecId);
@@ -110,7 +107,7 @@ public class GreedyScheduler implements Scheduler, WorkConstraintsCallback, Exec
     }
 
     @Override
-    public synchronized void onAllConstraintsNotMet(@NonNull List<String> workSpecIds) {
+    public void onAllConstraintsNotMet(@NonNull List<String> workSpecIds) {
         for (String workSpecId : workSpecIds) {
             Logger.debug(TAG,
                     String.format("Constraints not met: Cancelling work ID %s", workSpecId));
@@ -119,13 +116,15 @@ public class GreedyScheduler implements Scheduler, WorkConstraintsCallback, Exec
     }
 
     @Override
-    public synchronized void onExecuted(@NonNull String workSpecId,
+    public void onExecuted(@NonNull String workSpecId,
             boolean isSuccessful,
             boolean needsReschedule) {
         removeConstraintTrackingFor(workSpecId);
     }
 
     private synchronized void removeConstraintTrackingFor(@NonNull String workSpecId) {
+        // This method is synchronized because onExecuted is on the main thread.
+        // Schedulers#schedule() can modify the list of mConstrainedWorkSpecs.
         for (int i = 0, size = mConstrainedWorkSpecs.size(); i < size; ++i) {
             if (mConstrainedWorkSpecs.get(i).id.equals(workSpecId)) {
                 Logger.debug(TAG, String.format("Stopping tracking for %s", workSpecId));

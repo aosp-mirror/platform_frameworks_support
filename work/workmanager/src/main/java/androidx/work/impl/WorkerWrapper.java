@@ -210,9 +210,9 @@ public class WorkerWrapper implements Runnable {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public void onWorkFinished(@NonNull Result result) {
-        try {
-            mWorkDatabase.beginTransaction();
-            if (!tryCheckForInterruptionAndNotify()) {
+        if (!tryCheckForInterruptionAndNotify()) {
+            try {
+                mWorkDatabase.beginTransaction();
                 State state = mWorkSpecDao.getState(mWorkSpecId);
                 if (state == null) {
                     // state can be null here with a REPLACE on beginUniqueWork().
@@ -226,9 +226,9 @@ public class WorkerWrapper implements Runnable {
                     rescheduleAndNotify();
                 }
                 mWorkDatabase.setTransactionSuccessful();
+            } finally {
+                mWorkDatabase.endTransaction();
             }
-        } finally {
-            mWorkDatabase.endTransaction();
         }
 
         // Try to schedule any newly-unblocked workers, and workers requiring rescheduling (such as
@@ -237,7 +237,18 @@ public class WorkerWrapper implements Runnable {
         //
         // Further investigation: This could also happen as part of the Processor's
         // ExecutionListener callback.  Does that make more sense?
-        Schedulers.schedule(mConfiguration, mWorkDatabase, mSchedulers);
+
+        // Avoiding synthetic accessors
+        // All calls to Schedulers.schedule() should always happen on the TaskExecutor thread.
+        final Configuration configuration = mConfiguration;
+        final WorkDatabase workDatabase = mWorkDatabase;
+        final List<Scheduler> schedulers = mSchedulers;
+        WorkManagerTaskExecutor.getInstance().executeOnBackgroundThread(new Runnable() {
+            @Override
+            public void run() {
+                Schedulers.schedule(configuration, workDatabase, schedulers);
+            }
+        });
     }
 
     /**
