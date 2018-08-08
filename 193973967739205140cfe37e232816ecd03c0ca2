@@ -22,6 +22,30 @@
       "revId": "193973967739205140cfe37e232816ecd03c0ca2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "deed745f_5838f860",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-08T17:34:43Z",
+      "side": 1,
+      "message": "Oh. `assembleErrorProne` doesn\u0027t exist anymore. Will delete.",
+      "parentUuid": "2562e043_deb47b2e",
+      "range": {
+        "startLine": 116,
+        "startChar": 25,
+        "endLine": 116,
+        "endChar": 38
+      },
+      "revId": "193973967739205140cfe37e232816ecd03c0ca2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
