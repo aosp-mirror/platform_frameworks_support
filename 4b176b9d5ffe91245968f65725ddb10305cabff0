@@ -34,6 +34,24 @@
       "revId": "4b176b9d5ffe91245968f65725ddb10305cabff0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "deafa247_6fdc20f0",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/FloatingToolbarTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-08-08T23:39:18Z",
+      "side": 1,
+      "message": "Toki, please do not add code that is not tested. It is obvious that the current tests does not cover the code. \n\nif you write all the functionality covered by the code included in the CL, I will write the accurate tests for each functionality.\n\nBlocking a work is not an issue. If you like write the version that is not going to be thrashed.",
+      "parentUuid": "a9314a9c_66c444b6",
+      "revId": "4b176b9d5ffe91245968f65725ddb10305cabff0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
