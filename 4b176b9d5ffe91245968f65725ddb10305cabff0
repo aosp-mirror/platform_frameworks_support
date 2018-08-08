@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fd46d47_c0e66b13",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/FloatingToolbarTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-08-08T21:05:42Z",
+      "side": 1,
+      "message": "previously, Clara and I suggested to add tests. \nThere tests run only after M (not sure if the feature is available only after M). \nconsidering the amount of the code in here, the 10ish tests is far from being enough.",
+      "revId": "4b176b9d5ffe91245968f65725ddb10305cabff0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
