@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c141a875_dcc200be",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-08T14:09:02Z",
+      "side": 1,
+      "message": "Why do we need mCheckBoxIcon instead of setting this to the checkbox here?",
+      "range": {
+        "startLine": 939,
+        "startChar": 16,
+        "endLine": 939,
+        "endChar": 30
+      },
+      "revId": "beb30779f61ff0fccb9590a67bda423e9def5e25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
