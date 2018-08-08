@@ -137,7 +137,7 @@ public class RemoteMediaBrowserCompat {
         try {
             return mBinder.getSessionToken(mBrowserId);
         } catch (RemoteException ex) {
-            Log.e(TAG, "Failed to call getSessionToken()");
+            Log.e(TAG, "Failed to call getConnectedSessionToken()");
             return null;
         }
     }
