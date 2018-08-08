@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f9517de6_9d72d3cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-08T14:20:51Z",
+      "side": 1,
+      "message": "Yes, plan changed as per offline discussion.",
+      "parentUuid": "d2a8b303_f162dfee",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 26
+      },
+      "revId": "fb5000d38230a8553d86cda715ddadefaae85cec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32b4ce2c_cf0604bc",
         "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c32265ba_76d84902",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-08T14:20:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32b4ce2c_cf0604bc",
+      "range": {
+        "startLine": 64,
+        "startChar": 16,
+        "endLine": 64,
+        "endChar": 54
+      },
+      "revId": "fb5000d38230a8553d86cda715ddadefaae85cec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8453a79_7058f3fb",
         "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextLinkSpanTest.java",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "fb5000d38230a8553d86cda715ddadefaae85cec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dcf0142_e2ddf2e2",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextLinkSpanTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-08T14:20:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8453a79_7058f3fb",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 78,
+        "endChar": 51
+      },
+      "revId": "fb5000d38230a8553d86cda715ddadefaae85cec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -258,6 +330,54 @@
     },
     {
       "key": {
+        "uuid": "173b56cc_ec82db38",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-08T14:20:51Z",
+      "side": 1,
+      "message": "Removed the method",
+      "parentUuid": "80679b58_5f4b7238",
+      "range": {
+        "startLine": 172,
+        "startChar": 28,
+        "endLine": 172,
+        "endChar": 36
+      },
+      "revId": "fb5000d38230a8553d86cda715ddadefaae85cec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e7583bd6_a0c912ef",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-08T14:20:51Z",
+      "side": 1,
+      "message": "Removed the method",
+      "parentUuid": "9de7745d_819f5181",
+      "range": {
+        "startLine": 172,
+        "startChar": 52,
+        "endLine": 172,
+        "endChar": 59
+      },
+      "revId": "fb5000d38230a8553d86cda715ddadefaae85cec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e789a8f4_4ad504d5",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 2
@@ -278,6 +398,30 @@
       "revId": "fb5000d38230a8553d86cda715ddadefaae85cec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f563e367_d3bdbb22",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-08T14:20:51Z",
+      "side": 1,
+      "message": "Moved to TextLinkSpanData.",
+      "parentUuid": "e789a8f4_4ad504d5",
+      "range": {
+        "startLine": 240,
+        "startChar": 9,
+        "endLine": 240,
+        "endChar": 16
+      },
+      "revId": "fb5000d38230a8553d86cda715ddadefaae85cec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -325,6 +469,30 @@
       "revId": "fb5000d38230a8553d86cda715ddadefaae85cec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb17d169_9223ffab",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-08T14:20:51Z",
+      "side": 1,
+      "message": "Moved to TextLinkSpanData.",
+      "parentUuid": "1edd4fcf_f506ebb6",
+      "range": {
+        "startLine": 541,
+        "startChar": 46,
+        "endLine": 541,
+        "endChar": 72
+      },
+      "revId": "fb5000d38230a8553d86cda715ddadefaae85cec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
