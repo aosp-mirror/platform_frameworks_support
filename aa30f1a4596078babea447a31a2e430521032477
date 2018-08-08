@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ac82abd_6b8a4886",
+        "filename": "textclassifier/api/current.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-08T18:46:58Z",
+      "side": 1,
+      "message": "nit: SmartLinkify.Params?\nwdyt? :)",
+      "range": {
+        "startLine": 52,
+        "startChar": 133,
+        "endLine": 52,
+        "endChar": 151
+      },
+      "revId": "aa30f1a4596078babea447a31a2e430521032477",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6c58c18_043b4a9a",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-08T18:46:58Z",
+      "side": 1,
+      "message": "private fields?",
+      "range": {
+        "startLine": 438,
+        "startChar": 8,
+        "endLine": 443,
+        "endChar": 38
+      },
+      "revId": "aa30f1a4596078babea447a31a2e430521032477",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a38a450_bf492206",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-08T18:46:58Z",
+      "side": 1,
+      "message": "/** @hide */",
+      "range": {
+        "startLine": 445,
+        "startChar": 8,
+        "endLine": 445,
+        "endChar": 24
+      },
+      "revId": "aa30f1a4596078babea447a31a2e430521032477",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d456cc0c_26f70deb",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-08T18:46:58Z",
+      "side": 1,
+      "message": "public TextLink getTextLink()\npublic Calendar getReferenceTime(); // I think could be useful for TextLinkSpan implementations.\n/** @hide */\n@SuppressWarning(WeakerAccess) Synthentic blablabla\nTextClassifier getTextClassifier();",
+      "revId": "aa30f1a4596078babea447a31a2e430521032477",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
