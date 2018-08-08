@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2562e043_deb47b2e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-08T17:32:38Z",
+      "side": 1,
+      "message": "why do we have runErrorProne and assembleErrorProne again?",
+      "range": {
+        "startLine": 116,
+        "startChar": 25,
+        "endLine": 116,
+        "endChar": 38
+      },
+      "revId": "193973967739205140cfe37e232816ecd03c0ca2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
