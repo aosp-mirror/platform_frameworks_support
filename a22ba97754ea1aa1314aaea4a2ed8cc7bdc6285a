@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c03421b2_b339c733",
+        "filename": "slices/view/src/main/java/androidx/slice/SliceMetadata.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-08-08T18:30:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97e8e8f2_db2969c6",
+      "revId": "a22ba97754ea1aa1314aaea4a2ed8cc7bdc6285a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b5ebd13_d14f88e6",
         "filename": "slices/view/src/main/java/androidx/slice/widget/SliceView.java",
         "patchSetId": 3
@@ -54,6 +72,30 @@
       "side": 1,
       "message": "No, this is fine.",
       "parentUuid": "2b5ebd13_d14f88e6",
+      "range": {
+        "startLine": 151,
+        "startChar": 4,
+        "endLine": 152,
+        "endChar": 33
+      },
+      "revId": "a22ba97754ea1aa1314aaea4a2ed8cc7bdc6285a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de1d194c_be6ccedf",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-08-08T18:30:35Z",
+      "side": 1,
+      "message": "excellent",
+      "parentUuid": "e8ddf47a_1f7374ca",
       "range": {
         "startLine": 151,
         "startChar": 4,
