@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80d3fd67_76f11455",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/SmartLinkifyTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-08T11:46:08Z",
+      "side": 1,
+      "message": "nit:\nspan \u003d new TextLinkSpan(testObject().getTextLinks().getLinks().get(0));",
+      "range": {
+        "startLine": 319,
+        "startChar": 44,
+        "endLine": 319,
+        "endChar": 78
+      },
+      "revId": "23dd84e9eccf181fc53f917ba7fee7b0bbc785f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
