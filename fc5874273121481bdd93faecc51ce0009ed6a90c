@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38102685_dc95c3ac",
+        "filename": "\\",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-08T15:24:45Z",
+      "side": 1,
+      "message": "what is this?",
+      "revId": "fc5874273121481bdd93faecc51ce0009ed6a90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c65f0f0_40f4aae4",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-08T15:24:45Z",
+      "side": 1,
+      "message": "This code looks strange.\n\nAt this moment, mute button hasn\u0027t clicked. Why do you send message with the msage \u0027MSG_CLICK_MUTE_BUTTON\u0027 when progress is changed, instead of mute button is clicked?",
+      "revId": "fc5874273121481bdd93faecc51ce0009ed6a90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf23a769_a5dba25b",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-08T15:24:45Z",
+      "side": 1,
+      "message": "why do you need mMuteButtonIcon as member variable?\nYou can set this to the mMuteButton directly.",
+      "range": {
+        "startLine": 574,
+        "startChar": 12,
+        "endLine": 574,
+        "endChar": 77
+      },
+      "revId": "fc5874273121481bdd93faecc51ce0009ed6a90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ab970c5_f7e15d8a",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-08T15:24:45Z",
+      "side": 1,
+      "message": "either toggleMute() or setMute(!v.isActivated())\n\nSee below for setMute(boolean mute)",
+      "range": {
+        "startLine": 593,
+        "startChar": 20,
+        "endLine": 593,
+        "endChar": 35
+      },
+      "revId": "fc5874273121481bdd93faecc51ce0009ed6a90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5b1e274_1299426b",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-08T15:24:45Z",
+      "side": 1,
+      "message": "What about \u0027void setMute(boolean mute)\u0027 and remove isMuteButtonActivated()?\n\nisMuteButtonActivated() is called only once two know whether toggleMute() is needed,\nand toggleMute() starts with mMuteButton.isActivated()\nSo I don\u0027t think that isMuteButtonActivated() is necessary.",
+      "range": {
+        "startLine": 614,
+        "startChar": 8,
+        "endLine": 618,
+        "endChar": 27
+      },
+      "revId": "fc5874273121481bdd93faecc51ce0009ed6a90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79e63d63_3737e3b9",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-08T15:24:45Z",
+      "side": 1,
+      "message": "when do you clean this up?",
+      "range": {
+        "startLine": 630,
+        "startChar": 39,
+        "endLine": 630,
+        "endChar": 59
+      },
+      "revId": "fc5874273121481bdd93faecc51ce0009ed6a90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
