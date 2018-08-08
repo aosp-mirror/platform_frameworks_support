@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84ac0f26_816cb08c",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/WorkManagerImplTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1521,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-08T23:49:20Z",
+      "side": 1,
+      "message": "Nit: atLeastOnce?",
+      "range": {
+        "startLine": 1521,
+        "startChar": 31,
+        "endLine": 1521,
+        "endChar": 38
+      },
+      "revId": "5d56c27a2ce6c8e9858514aa933b1d3ef589b99f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f18d7cb7_54246900",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-08T23:49:20Z",
+      "side": 1,
+      "message": "Move this to a separate CL.  I don\u0027t want any bugs coming out of this change to be conflated with the rest of the CL.",
+      "range": {
+        "startLine": 213,
+        "startChar": 8,
+        "endLine": 213,
+        "endChar": 50
+      },
+      "revId": "5d56c27a2ce6c8e9858514aa933b1d3ef589b99f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a87296fa_26d28912",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/greedy/GreedyScheduler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-08T23:49:20Z",
+      "side": 1,
+      "message": "\"but other calls like onAllConstraintsNotMet are on background threads\".",
+      "range": {
+        "startLine": 126,
+        "startChar": 79,
+        "endLine": 126,
+        "endChar": 80
+      },
+      "revId": "5d56c27a2ce6c8e9858514aa933b1d3ef589b99f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "911ca66a_e9fc0b62",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/greedy/GreedyScheduler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-08T23:49:20Z",
+      "side": 1,
+      "message": "I\u0027m not sure what this comment means.  If it can be modified, then shouldn\u0027t we be locking in both places?",
+      "range": {
+        "startLine": 127,
+        "startChar": 11,
+        "endLine": 127,
+        "endChar": 78
+      },
+      "revId": "5d56c27a2ce6c8e9858514aa933b1d3ef589b99f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
