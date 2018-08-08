@@ -93,6 +93,30 @@
       "revId": "8d41f6956e50797aaebfd6fc67a484e9fa44c285",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ed1d1ea_6a28a6b4",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-08T03:54:14Z",
+      "side": 1,
+      "message": "Two reasons for me to change this.\n\n1. Once you define constants for IDX, then those IDX needs to be synced with the implementation of the getDrawableIcon() whenever you change list of attributes. That increases the maintenance burden.\n\n2. You\u0027re obtaining 4 attributes here, but only one of them would be used for real and rest of them will be discarded.\n\nIf you have another reason other than \u0027to minimize the change\u0027, then please tell me.",
+      "parentUuid": "f87cbe5e_a2862294",
+      "range": {
+        "startLine": 69,
+        "startChar": 65,
+        "endLine": 69,
+        "endChar": 68
+      },
+      "revId": "8d41f6956e50797aaebfd6fc67a484e9fa44c285",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
