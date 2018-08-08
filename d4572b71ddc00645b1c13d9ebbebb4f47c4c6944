@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "acaf9415_b97700b2",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-08T08:09:34Z",
+      "side": 1,
+      "message": "Then @SuppressWarnings(\"WeakerAccess\") /* synthetic access */",
+      "parentUuid": "31a565b7_d90b0ff9",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 0
+      },
+      "revId": "d4572b71ddc00645b1c13d9ebbebb4f47c4c6944",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52f5ae3c_e4fb3d14",
         "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
         "patchSetId": 3
@@ -187,6 +211,30 @@
       "revId": "d4572b71ddc00645b1c13d9ebbebb4f47c4c6944",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d281fa01_cd1c09b5",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-08T08:09:34Z",
+      "side": 1,
+      "message": "Not done for #2. Is it intended?",
+      "parentUuid": "e17dc44a_c4f540d2",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 207,
+        "endChar": 25
+      },
+      "revId": "d4572b71ddc00645b1c13d9ebbebb4f47c4c6944",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
