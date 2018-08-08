@@ -41,6 +41,7 @@ import androidx.vectordrawable.graphics.drawable.Animatable2Compat;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
@@ -167,30 +168,39 @@ public class AnimatedStateListDrawableCompatTest {
     public void testAnimatedVectorTransition() {
         AnimatedStateListDrawableCompat asld = AnimatedStateListDrawableCompat.create(mContext,
                 R.drawable.asl_heart, mContext.getTheme());
-        DrawableContainer.DrawableContainerState asldState =
-                (DrawableContainer.DrawableContainerState) asld.getConstantState();
         // Check that 4 drawables were parsed
-        assertEquals(4, asldState.getChildCount());
+        assertEquals(4, asld.getChildCount());
     }
 
     @Test
     public void testChildAnimatedVectorTransition() {
         AnimatedStateListDrawableCompat asld = AnimatedStateListDrawableCompat.create(mContext,
                 R.drawable.animated_state_list_with_avd, mContext.getTheme());
-        DrawableContainer.DrawableContainerState asldState =
-                (DrawableContainer.DrawableContainerState) asld.getConstantState();
         // Check that 6 drawables were parsed
-        assertEquals(6, asldState.getChildCount());
+        assertEquals(6, asld.getChildCount());
     }
 
     @Test
     public void testChildVectorItem() {
         AnimatedStateListDrawableCompat asld = AnimatedStateListDrawableCompat.create(mContext,
                 R.drawable.asl_heart_embedded, mContext.getTheme());
-        DrawableContainer.DrawableContainerState asldState =
-                (DrawableContainer.DrawableContainerState) asld.getConstantState();
         // Check that 4 drawables were parsed
-        assertEquals(4, asldState.getChildCount());
+        assertEquals(4, asld.getChildCount());
+    }
+
+    @Test
+    public void testConstantStateWhenChildHasNullConstantState() {
+        // Given an empty ASLD which returns a constant state
+        AnimatedStateListDrawableCompat asld = new AnimatedStateListDrawableCompat();
+        assertNotNull(asld.getConstantState());
+
+        // When a drawable who returns a null constant state is added
+        Drawable noConstantStateDrawable = mock(Drawable.class);
+        Mockito.when(noConstantStateDrawable.getConstantState()).thenReturn(null);
+        asld.addState(StateSet.WILD_CARD, noConstantStateDrawable, R.id.focused);
+
+        // Then the ASLD should also return a null constant state
+        assertNull(asld.getConstantState());
     }
 
     public abstract class MockTransition extends MockDrawable implements Animatable,
