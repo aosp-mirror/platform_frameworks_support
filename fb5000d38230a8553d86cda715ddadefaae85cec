@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "f44e12da_dd0d2832",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-08T10:53:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5919603b_c0f14214",
+      "range": {
+        "startLine": 55,
+        "startChar": 14,
+        "endLine": 55,
+        "endChar": 36
+      },
+      "revId": "fb5000d38230a8553d86cda715ddadefaae85cec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac12d361_baa05ef3",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
         "patchSetId": 2
@@ -117,6 +141,30 @@
     },
     {
       "key": {
+        "uuid": "80dc9773_df0a1d2b",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-08T10:53:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac12d361_baa05ef3",
+      "range": {
+        "startLine": 57,
+        "startChar": 71,
+        "endLine": 57,
+        "endChar": 72
+      },
+      "revId": "fb5000d38230a8553d86cda715ddadefaae85cec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed48717a_1bbec0f1",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
         "patchSetId": 2
@@ -137,6 +185,30 @@
       "revId": "fb5000d38230a8553d86cda715ddadefaae85cec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14f55c63_30e444e4",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-08T10:53:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed48717a_1bbec0f1",
+      "range": {
+        "startLine": 70,
+        "startChar": 7,
+        "endLine": 70,
+        "endChar": 86
+      },
+      "revId": "fb5000d38230a8553d86cda715ddadefaae85cec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
