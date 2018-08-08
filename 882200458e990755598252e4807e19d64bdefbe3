@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc0fd55a_8e96d206",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-08T04:54:32Z",
+      "side": 1,
+      "message": "nit: move this after mDisplayE3? The first time I read this, I thought it was associated with the mMeters, and got confused. Moving it after mDisplayE3 makes it clearer that this is associated with mDisplayE3 rather than mMeters.\n\nThis also meshes with how the units will be displayed (in english anyway): \"30km\" not \"km30\".",
+      "range": {
+        "startLine": 52,
+        "startChar": 57,
+        "endLine": 52,
+        "endChar": 0
+      },
+      "revId": "882200458e990755598252e4807e19d64bdefbe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1710585e_3abfd279",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-08T04:54:32Z",
+      "side": 1,
+      "message": "nit: as above, swap order to be meters, displayE3, displayUnit.",
+      "range": {
+        "startLine": 72,
+        "startChar": 75,
+        "endLine": 72,
+        "endChar": 0
+      },
+      "revId": "882200458e990755598252e4807e19d64bdefbe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b9708ad_10779cf4",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-08T04:54:32Z",
+      "side": 1,
+      "message": "nit: move below getDisplayE3",
+      "range": {
+        "startLine": 89,
+        "startChar": 44,
+        "endLine": 89,
+        "endChar": 0
+      },
+      "revId": "882200458e990755598252e4807e19d64bdefbe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64936654_0087ed90",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-08T04:54:32Z",
+      "side": 1,
+      "message": "Does ParcelField have any limitations as to what types of lists we\u0027re allowed to set them to? e.g. does it work with ArrayList, LinkedList, ImmutableList, MyWeirdCustomListImplementation? I can\u0027t find any ParcelField docs - is it documented anywhere?\n\nAll I found is this:\nhttps://cs.corp.google.com/android/frameworks/support/versionedparcelable/annotation/src/main/java/androidx/versionedparcelable/compiler/VersionedParcelProcessor.java?q\u003d%5CbParcelField%5Cb\u0026dr\u003dC\u0026l\u003d250-253\n\nwhich has an integration test with a list:\nhttps://cs.corp.google.com/android/frameworks/support/versionedparcelable/src/androidTest/java/androidx/versionedparcelable/VersionedParcelIntegTest.java?q\u003d%5CbParcelField%5Cb+List\u0026l\u003d513\u0026dr\u003dSs\n\nI think it works because the reader generation just uses \u003d and the writer implementation, I think, just reads the list (so should work with e.g. immutablelist).\n\nSo I think this works - just checking you\u0027re OK with this?",
+      "range": {
+        "startLine": 112,
+        "startChar": 85,
+        "endLine": 113,
+        "endChar": 0
+      },
+      "revId": "882200458e990755598252e4807e19d64bdefbe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0c5b9ce_cf3842cf",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/DurationWrapper.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-08T04:54:32Z",
+      "side": 1,
+      "message": "I\u0027m not sure this file does enough to justify its existence - but up to you, as this seems purely an internal class.\n\nConsider inlining a milliseconds field and a getDuration() setDuration() accessors (as you already have). and just inline the conversion to-from millis. It\u0027ll be the same amount of code to do duration.asMillis() as it is to do DurationWrapper.of(duration).",
+      "range": {
+        "startLine": 1,
+        "startChar": 2,
+        "endLine": 1,
+        "endChar": 0
+      },
+      "revId": "882200458e990755598252e4807e19d64bdefbe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

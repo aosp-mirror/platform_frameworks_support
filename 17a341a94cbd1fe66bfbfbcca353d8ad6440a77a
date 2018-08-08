@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "cff3852c_20c59ff7",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-08T04:54:32Z",
+      "side": 1,
+      "message": "Is there only one way to tint an image, now and into the future?\n\nenum Type {\n  RAW,\n  PORTER_DUFF_TINTABLE\n}\n\nThat leaves us open to different types in future without using ICON",
+      "parentUuid": "ab098037_c1c2302d",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 11
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "84dad8cf_333510da",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
         "patchSetId": 6
@@ -396,6 +420,30 @@
       "side": 1,
       "message": "I know we talked about this before, but as I was moving the API over it looked weird to me that we are adding an additional extra value to all the enums to represent \u0027no value\u0027, when the language already provides this. We are clearly indicating that this is nullable,and there are other elements of this API that are nullable, so the users of this API must manage nullability.",
       "parentUuid": "5b9ecf80_4cfdab57",
+      "range": {
+        "startLine": 319,
+        "startChar": 37,
+        "endLine": 319,
+        "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53b59a02_8647cd25",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-08T04:54:32Z",
+      "side": 1,
+      "message": "I agree that users of this API should manage nullability.\n\nHowever, if they\u0027re not forced to (by us sending nulls or by the java compiler), then some developers won\u0027t bother. The language allows null-checking but doesn\u0027t enforce it, and blows up spectactularly when you forget to.\n\nAnd as the number of integrations increases and we send new enums, the probability of at least one of those clients NullPointerException\u0027ing and crashing and us having to roll back (and never be able to use that bit of the API) approaches 100%.\n\nI\u0027m skeptical of the other elements of the API being nullable too, FWIW, for the same reason. We\u0027re assuming java 8 time in this API, how about java 8 Optional too? What would API council think about exposing getters as Optional\u003cType\u003e instead of @Nullable Type? That would certainly force developers to handle this correctly.\n\ngo/android-api-guidelines has nothing about Optional.",
+      "parentUuid": "7c43f10a_9f108a8d",
       "range": {
         "startLine": 319,
         "startChar": 37,
@@ -762,6 +810,30 @@
     },
     {
       "key": {
+        "uuid": "5e88d17e_b6c23ed2",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-08T04:54:32Z",
+      "side": 1,
+      "message": "I\u0027m not sure we need step ETA at all - do we? go/api-prd only says we need ETA (seconds to arrival) at the destination. Let\u0027s remove this unless it\u0027s needed. We don\u0027t surface it in our UI - we say in 100m, not in 2s.\n\nChatted with Harry, he\u0027s happy to remove too as this isn\u0027t in PRD.\n\nMaybe there\u0027s a use case for this one day, but it doesn\u0027t need to be here in the first version.",
+      "parentUuid": "761c8913_b07ab975",
+      "range": {
+        "startLine": 79,
+        "startChar": 33,
+        "endLine": 79,
+        "endChar": 46
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55cb27e8_3a9e7fcd",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/StepCue.java",
         "patchSetId": 6
@@ -856,6 +928,30 @@
     },
     {
       "key": {
+        "uuid": "284b99da_de2d9dc7",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-08T04:54:32Z",
+      "side": 1,
+      "message": "You\u0027re right - I just tried navigating to Adelaide on Google Maps, and it gave me my arrival time as \"01:00 ACST\", a different time to Sydney. Chatted with Harry, we probably do want this feature, it\u0027s going to be ambiguous otherwise.\n\nGiven that we want this feature, what\u0027s the best way to support it?\nA. Send a Zone ID (status quo)\n  - What Zone ID space? There are many. UTC+8, America/Los_Angeles, \"AEST\" are all timezone IDs of varying specificity.\n  - Will the receiver have the same set of timezones the sender has? If they\u0027re both android apps on the same system, probably.\n  - The receiver will have to format the time themselves\n  - Timezone IDs aren\u0027t necessarily stable, they change, I\u0027m a little worried about producer/consumer getting out of sync here. Especially if this data is forwarded to a different, non-android system for display.\n\nB. Send a formatted string (e.g. \"01:00 ACST\")\n  - The consumer just shows it on screen\n  - This is in line with the rest of our philosophy around doing tricky computation on the producer where possible\n  - This doesn\u0027t preclude us sending a UTC time on the side too. Though I\u0027m not yet sure if it\u0027s a good idea to send both!\n\nC. Like \u0027B\u0027 but split the formatted time and timezone into separate strings\n  - I don\u0027t like this, this sounds like it\u0027ll tempt them into using the timezone id separately and start depending on it and doing computations with it, and we\u0027ll break them one day when a timezone changes (e.g. when a new country makes a new timezone and the head unit display doesn\u0027t know about it).\n\nSo I\u0027m leaning on the side of sending a formatted string - B.\nStrawman proposal for B:\n\n// UTC unix timestamp. Prefer using formattedTime for display.\nlong mSecondsSinceEpochUTC \u003d 0;\n\n// The time of day, including timezone (if different from current timezone)\n// formatted to 12 or 24-hour settings depending on the user\u0027s preferences.\nString formattedTime \u003d \"\";\n\n\n\nNow that I\u0027ve typed that out, I\u0027m not sure we need the seconds since epoch - maybe we should just remove it?",
+      "parentUuid": "ddbd92ff_45f54c5a",
+      "range": {
+        "startLine": 34,
+        "startChar": 34,
+        "endLine": 34,
+        "endChar": 42
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc1045f9_c5f2b84c",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
         "patchSetId": 6
@@ -891,6 +987,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "bc1045f9_c5f2b84c",
+      "range": {
+        "startLine": 41,
+        "startChar": 21,
+        "endLine": 41,
+        "endChar": 25
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d6e3bce_bda7af50",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-08T04:54:32Z",
+      "side": 1,
+      "message": "looks like it\u0027s still null?",
+      "parentUuid": "99c952ef_a9eda451",
       "range": {
         "startLine": 41,
         "startChar": 21,
