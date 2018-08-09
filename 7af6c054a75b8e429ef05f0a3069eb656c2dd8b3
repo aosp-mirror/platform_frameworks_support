@@ -2,6 +2,121 @@
   "comments": [
     {
       "key": {
+        "uuid": "b574ac8f_21358e82",
+        "filename": "car/cluster/build.gradle",
+        "patchSetId": 16
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-09T07:02:30Z",
+      "side": 1,
+      "message": "inconsistent quotes",
+      "range": {
+        "startLine": 26,
+        "startChar": 40,
+        "endLine": 27,
+        "endChar": 0
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "199695e2_6f0b655b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-09T07:02:30Z",
+      "side": 1,
+      "message": "This should be EnumWrapper.of(Unit.UNKNOWN);\n\nI think we should delete EnumWrapper.empty() now if we don\u0027t want nullable enums",
+      "range": {
+        "startLine": 58,
+        "startChar": 37,
+        "endLine": 58,
+        "endChar": 56
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ea2e2a2_aba2d32f",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-09T07:02:30Z",
+      "side": 1,
+      "message": "checkNotNull",
+      "range": {
+        "startLine": 78,
+        "startChar": 32,
+        "endLine": 78,
+        "endChar": 37
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a49e9f61_750f932b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-09T07:02:30Z",
+      "side": 1,
+      "message": "checkNotNull",
+      "range": {
+        "startLine": 79,
+        "startChar": 31,
+        "endLine": 79,
+        "endChar": 35
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1d4697f_0994441e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-09T07:02:30Z",
+      "side": 1,
+      "message": "How should the consumer interpret this?",
+      "range": {
+        "startLine": 51,
+        "startChar": 54,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "654e8939_26049a1e",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
         "patchSetId": 16
@@ -18,6 +133,144 @@
         "startChar": 36,
         "endLine": 92,
         "endChar": 44
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e1126f5_660151f6",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-09T07:02:30Z",
+      "side": 1,
+      "message": "checkNotNull",
+      "range": {
+        "startLine": 93,
+        "startChar": 31,
+        "endLine": 93,
+        "endChar": 35
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fe6a95f_0a4f1d84",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-09T07:02:30Z",
+      "side": 1,
+      "message": "great comment. I\u0027m a fan of how you\u0027re telling the consumer how to interpret this. Maybe we should call this NOT_OK, if that\u0027s how they should interpret it?",
+      "range": {
+        "startLine": 36,
+        "startChar": 22,
+        "endLine": 41,
+        "endChar": 11
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1b49152_d489255d",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-09T07:02:30Z",
+      "side": 1,
+      "message": "as below, is it possible for the parcel generated code to set this to null?",
+      "range": {
+        "startLine": 74,
+        "startChar": 50,
+        "endLine": 75,
+        "endChar": 0
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0a5e2f8_0795f314",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-09T07:02:30Z",
+      "side": 1,
+      "message": "Is it possible for the parcel generated code to set this to null? I don\u0027t know. If so, we\u0027ll need to map null to empty string in the getter.",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 29
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1696b5b9_f965a843",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-09T07:02:30Z",
+      "side": 1,
+      "message": "checkNotNull",
+      "range": {
+        "startLine": 94,
+        "startChar": 31,
+        "endLine": 94,
+        "endChar": 35
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93f6fd3e_02b2f9e6",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-09T07:02:30Z",
+      "side": 1,
+      "message": "checkNotNull",
+      "range": {
+        "startLine": 95,
+        "startChar": 23,
+        "endLine": 95,
+        "endChar": 34
       },
       "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
