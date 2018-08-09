@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a93e2835_177c66c5",
+        "filename": "car/cluster/build.gradle",
+        "patchSetId": 16
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T22:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b574ac8f_21358e82",
+      "range": {
+        "startLine": 26,
+        "startChar": 40,
+        "endLine": 27,
+        "endChar": 0
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14fe07d8_563e8c6d",
         "filename": "car/cluster/src/androidTest/java/androidx/car/cluster/navigation/NavigationStateTest.java",
         "patchSetId": 16
@@ -45,6 +69,30 @@
       "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c347551b_ea999c28",
+        "filename": "car/cluster/src/androidTest/java/androidx/car/cluster/navigation/NavigationStateTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T22:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14fe07d8_563e8c6d",
+      "range": {
+        "startLine": 38,
+        "startChar": 34,
+        "endLine": 38,
+        "endChar": 0
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "698c6a22_9f5616e3",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T22:54:38Z",
+      "side": 1,
+      "message": "I\u0027ve changed the approach on null management. Over the wire, if no values are set, null will be transferred (no need to transfer a default value if the receiver will be using theirs, and if null will be handled by the receiver side anyways).\nAll @NonNull methods (enums, Lists, and Strings) will handle null content appropriately.",
+      "parentUuid": "199695e2_6f0b655b",
+      "range": {
+        "startLine": 58,
+        "startChar": 37,
+        "endLine": 58,
+        "endChar": 56
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ea2e2a2_aba2d32f",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
         "patchSetId": 16
@@ -91,6 +163,30 @@
       "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b561836b_c8f003b6",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T22:54:38Z",
+      "side": 1,
+      "message": "EnumWrapper already does checkNotNull",
+      "parentUuid": "7ea2e2a2_aba2d32f",
+      "range": {
+        "startLine": 78,
+        "startChar": 32,
+        "endLine": 78,
+        "endChar": 37
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "732379de_69949e3a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T22:54:38Z",
+      "side": 1,
+      "message": "EnumWrapper already does checkNotNull",
+      "parentUuid": "a49e9f61_750f932b",
+      "range": {
+        "startLine": 79,
+        "startChar": 31,
+        "endLine": 79,
+        "endChar": 35
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1d4697f_0994441e",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
         "patchSetId": 16
@@ -137,6 +257,30 @@
       "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4d73a17_4228e88d",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T22:54:38Z",
+      "side": 1,
+      "message": "I opted for removing this state (my suggestion was to interpret it in the same way as NOT_NAVIGATING). Thinking about it... I don\u0027t even know why we need to NavigationMode at all (either we provide steps or we don\u0027t). \n\nThoughts?",
+      "parentUuid": "a1d4697f_0994441e",
+      "range": {
+        "startLine": 51,
+        "startChar": 54,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "7e45b8b9_925fe958",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T22:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "654e8939_26049a1e",
+      "range": {
+        "startLine": 92,
+        "startChar": 36,
+        "endLine": 92,
+        "endChar": 44
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e1126f5_660151f6",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
         "patchSetId": 16
@@ -183,6 +351,30 @@
       "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2261fa7_cfa5a151",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T22:54:38Z",
+      "side": 1,
+      "message": "See: https://android-review.googlesource.com/c/platform/frameworks/support/+/725029/16/car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java#58",
+      "parentUuid": "1e1126f5_660151f6",
+      "range": {
+        "startLine": 93,
+        "startChar": 31,
+        "endLine": 93,
+        "endChar": 35
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "61ceced6_ab8807a1",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T22:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fe6a95f_0a4f1d84",
+      "range": {
+        "startLine": 36,
+        "startChar": 22,
+        "endLine": 41,
+        "endChar": 11
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1b49152_d489255d",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
         "patchSetId": 16
@@ -229,6 +445,30 @@
       "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32436713_7862e94f",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T22:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1b49152_d489255d",
+      "range": {
+        "startLine": 74,
+        "startChar": 50,
+        "endLine": 75,
+        "endChar": 0
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "67b14a9b_af684f26",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T22:54:38Z",
+      "side": 1,
+      "message": "See: https://android-review.googlesource.com/c/platform/frameworks/support/+/725029/16/car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java#58",
+      "parentUuid": "f0a5e2f8_0795f314",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 29
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1696b5b9_f965a843",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
         "patchSetId": 16
@@ -275,6 +539,30 @@
       "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dbb685b_fa00b526",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T22:54:38Z",
+      "side": 1,
+      "message": "EnumWrapper already does checkNotNull",
+      "parentUuid": "1696b5b9_f965a843",
+      "range": {
+        "startLine": 94,
+        "startChar": 31,
+        "endLine": 94,
+        "endChar": 35
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "c5c6da23_f6e124ab",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T22:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93f6fd3e_02b2f9e6",
+      "range": {
+        "startLine": 95,
+        "startChar": 23,
+        "endLine": 95,
+        "endChar": 34
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3dcf2535_1be0a49d",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
         "patchSetId": 16
@@ -321,6 +633,30 @@
       "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e8e8930_af45a20b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T22:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dcf2535_1be0a49d",
+      "range": {
+        "startLine": 99,
+        "startChar": 36,
+        "endLine": 100,
+        "endChar": 25
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
