@@ -18,6 +18,7 @@ package androidx.build.dependencyTracker
 
 import androidx.build.dependencyTracker.AffectedModuleDetector.Companion.ENABLE_ARG
 import androidx.build.gradle.isRoot
+import com.android.annotations.VisibleForTesting
 import org.gradle.BuildAdapter
 import org.gradle.api.GradleException
 import org.gradle.api.Project
@@ -74,12 +75,14 @@ abstract class AffectedModuleDetector {
                     AffectedModuleDetectorImpl(
                             rootProject = rootProject,
                             logger = logger,
-                            ignoreUnknownProjects = false
+                            ignoreUnknownProjects = true
                     ).also {
                         if (!enabled) {
+                            logger.info("swapping with accept all")
                             // doing it just for testing
                             setInstance(rootProject, AcceptAll(it))
                         } else {
+                            logger.info("using real detector")
                             setInstance(rootProject, it)
                         }
                     }
@@ -143,14 +146,16 @@ private class AcceptAll(
  *
  * When a file in a module is changed, all modules that depend on it are considered as changed.
  */
-private class AffectedModuleDetectorImpl constructor(
+@VisibleForTesting
+internal class AffectedModuleDetectorImpl constructor(
     private val rootProject: Project,
     private val logger: Logger?,
         // used for debugging purposes when we want to ignore non module files
-    private val ignoreUnknownProjects: Boolean = false
+    private val ignoreUnknownProjects: Boolean = false,
+    private val injectedGitClient: GitClient? = null
 ) : AffectedModuleDetector() {
     private val git by lazy {
-        GitClient(rootProject.projectDir, logger)
+        injectedGitClient ?: GitClientImpl(rootProject.projectDir, logger)
     }
 
     private val dependencyTracker by lazy {
@@ -186,6 +191,10 @@ private class AffectedModuleDetectorImpl constructor(
         val changedFiles = git.findChangedFilesSince(
                 sha = lastMergeSha,
                 includeUncommitted = true)
+        if (changedFiles.isEmpty()) {
+            logger?.info("Cannot find any changed files after last merge, will run all")
+            return allProjects
+        }
         val containingProjects = changedFiles
                 .map(::findContainingProject)
                 .let {
