@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4847170_26b3baea",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/greedy/GreedyScheduler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-09T16:32:57Z",
+      "side": 1,
+      "message": "For consistency, please move this log inside the lock (I realize this is going to make it slightly more work because you aren\u0027t iterating there), but we want the log to occur whenever it actually happens.  You can log the entire array together if it\u0027s easier.",
+      "range": {
+        "startLine": 87,
+        "startChar": 24,
+        "endLine": 87,
+        "endChar": 98
+      },
+      "revId": "84e5ed35afcdc7f66f2ea5c8dcc58856877ab0d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
