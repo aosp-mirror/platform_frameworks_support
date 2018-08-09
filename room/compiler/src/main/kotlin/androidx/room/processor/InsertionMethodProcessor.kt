@@ -73,6 +73,7 @@ class InsertionMethodProcessor(baseContext: Context,
                 insertionType = null
             }
         }
+
         return InsertionMethod(
                 element = executableElement,
                 name = executableElement.simpleName.toString(),
