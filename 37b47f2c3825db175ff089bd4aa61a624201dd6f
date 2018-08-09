@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ff346f42_e9d9afdc",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/ItemDetailsLookup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1320563
+      },
+      "writtenOn": "2018-08-09T17:37:21Z",
+      "side": 1,
+      "message": "Ah, this is not needed. I don\u0027t notice the usage is removed.",
+      "parentUuid": "ab8218cf_155b730c",
+      "revId": "37b47f2c3825db175ff089bd4aa61a624201dd6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "611406c7_b569a4e8",
         "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/ItemDetailsLookup.java",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "1646d1e8_4331989f",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/ItemDetailsLookup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1320563
+      },
+      "writtenOn": "2018-08-09T17:37:21Z",
+      "side": 1,
+      "message": "Yes, it works with override at here:\nhttps://googleplex-android-review.git.corp.google.com/c/platform/packages/apps/DocumentsUI/+/4396667/7/src/com/android/documentsui/DocsSelectionHelper.java#176",
+      "parentUuid": "611406c7_b569a4e8",
+      "revId": "37b47f2c3825db175ff089bd4aa61a624201dd6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "60e3bb50_3ea670f6",
         "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/SelectionTracker.java",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2018-08-09T16:57:36Z",
       "side": 1,
       "message": "Since you\u0027ll be calling this from another sub-class of SelectionTracker, I believe protected should give you sufficient access. Same goes for the changes below.",
+      "revId": "37b47f2c3825db175ff089bd4aa61a624201dd6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1dc5258_3f454417",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/SelectionTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1320563
+      },
+      "writtenOn": "2018-08-09T17:37:21Z",
+      "side": 1,
+      "message": "The main usage:\nhttps://googleplex-android-review.git.corp.google.com/c/platform/packages/apps/DocumentsUI/+/4396667/7/src/com/android/documentsui/DocsSelectionHelper.java\n\nProtected method can only be invoked from its child instance.\nOther instance inside the child class is still not able to access protected method:\nhttps://salesforce.stackexchange.com/questions/82345/protected-method-is-not-visible-in-child-class/82353\n\nAnd there are some usages outside the sub-class.\nhttps://googleplex-android-review.git.corp.google.com/c/platform/packages/apps/DocumentsUI/+/4396667/7/src/com/android/documentsui/dirlist/KeyInputHandler.java#78",
+      "parentUuid": "60e3bb50_3ea670f6",
       "revId": "37b47f2c3825db175ff089bd4aa61a624201dd6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
