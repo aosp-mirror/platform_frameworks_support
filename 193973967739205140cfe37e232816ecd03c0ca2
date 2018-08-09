@@ -46,6 +46,30 @@
       "revId": "193973967739205140cfe37e232816ecd03c0ca2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23028cb8_2b3dad72",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-09T19:40:37Z",
+      "side": 1,
+      "message": "Did you forget to upload a fix? :)",
+      "parentUuid": "deed745f_5838f860",
+      "range": {
+        "startLine": 116,
+        "startChar": 25,
+        "endLine": 116,
+        "endChar": 38
+      },
+      "revId": "193973967739205140cfe37e232816ecd03c0ca2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
