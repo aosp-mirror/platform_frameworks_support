@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "2c801c2a_6864a0de",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T01:23:42Z",
+      "side": 1,
+      "message": "This bit just indicates that image can be tinted. I wouldn\u0027t include technical details on how to tint it. As per enum values, I can only think on two: TINTABLE, NOT_TINTABLE. On other words, it indicates whether this image is a shape/icon (e.g.: an arrow), or a photo/image (e.g.: a street sign). \n\n---\n\nOn the other hand, I\u0027m agreeing with Harry that maybe we could move this discussion to a second CL for the sake of speed, leaving StepCue and Images out the table for now.",
+      "parentUuid": "cff3852c_20c59ff7",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 11
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84dad8cf_333510da",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
         "patchSetId": 6
@@ -444,6 +468,30 @@
       "side": 1,
       "message": "I agree that users of this API should manage nullability.\n\nHowever, if they\u0027re not forced to (by us sending nulls or by the java compiler), then some developers won\u0027t bother. The language allows null-checking but doesn\u0027t enforce it, and blows up spectactularly when you forget to.\n\nAnd as the number of integrations increases and we send new enums, the probability of at least one of those clients NullPointerException\u0027ing and crashing and us having to roll back (and never be able to use that bit of the API) approaches 100%.\n\nI\u0027m skeptical of the other elements of the API being nullable too, FWIW, for the same reason. We\u0027re assuming java 8 time in this API, how about java 8 Optional too? What would API council think about exposing getters as Optional\u003cType\u003e instead of @Nullable Type? That would certainly force developers to handle this correctly.\n\ngo/android-api-guidelines has nothing about Optional.",
       "parentUuid": "7c43f10a_9f108a8d",
+      "range": {
+        "startLine": 319,
+        "startChar": 37,
+        "endLine": 319,
+        "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c7b9b8d_855ae212",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T01:23:42Z",
+      "side": 1,
+      "message": "That\u0027s a great question: I\u0027ll send this to the API-council right away to get an opinion.",
+      "parentUuid": "53b59a02_8647cd25",
       "range": {
         "startLine": 319,
         "startChar": 37,
@@ -834,6 +882,30 @@
     },
     {
       "key": {
+        "uuid": "a463f366_c22dc531",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T01:23:42Z",
+      "side": 1,
+      "message": "I was about to suggest the same. Given that we don\u0027t have consensus, I\u0027ll remove it for now and we can re-introduce it in a separated CL if needed.",
+      "parentUuid": "5e88d17e_b6c23ed2",
+      "range": {
+        "startLine": 79,
+        "startChar": 33,
+        "endLine": 79,
+        "endChar": 46
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55cb27e8_3a9e7fcd",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/StepCue.java",
         "patchSetId": 6
@@ -952,6 +1024,30 @@
     },
     {
       "key": {
+        "uuid": "189ebe65_9381418d",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T01:23:42Z",
+      "side": 1,
+      "message": "The zoneId will be managed by the ZoneId class which is part of the java.time library.\nI don\u0027t think we need to do anything special here.\nThe raw string won\u0027t be exposed to the API users.",
+      "parentUuid": "284b99da_de2d9dc7",
+      "range": {
+        "startLine": 34,
+        "startChar": 34,
+        "endLine": 34,
+        "endChar": 42
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc1045f9_c5f2b84c",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
         "patchSetId": 6
@@ -1011,6 +1107,30 @@
       "side": 1,
       "message": "looks like it\u0027s still null?",
       "parentUuid": "99c952ef_a9eda451",
+      "range": {
+        "startLine": 41,
+        "startChar": 21,
+        "endLine": 41,
+        "endChar": 25
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cee65573_d76d1c75",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T01:23:42Z",
+      "side": 1,
+      "message": "This is only here for serialization. It will be null until this instance is deserialized.",
+      "parentUuid": "8d6e3bce_bda7af50",
       "range": {
         "startLine": 41,
         "startChar": 21,

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a0f5275_6309cb61",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T01:23:42Z",
+      "side": 1,
+      "message": "Done, although this is an implementation detail that is invisible to the users of this API ;-)",
+      "parentUuid": "fc0fd55a_8e96d206",
+      "range": {
+        "startLine": 52,
+        "startChar": 57,
+        "endLine": 52,
+        "endChar": 0
+      },
+      "revId": "882200458e990755598252e4807e19d64bdefbe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1710585e_3abfd279",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
         "patchSetId": 11
@@ -45,6 +69,30 @@
       "revId": "882200458e990755598252e4807e19d64bdefbe3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35da1dad_3f38741e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T01:23:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1710585e_3abfd279",
+      "range": {
+        "startLine": 72,
+        "startChar": 75,
+        "endLine": 72,
+        "endChar": 0
+      },
+      "revId": "882200458e990755598252e4807e19d64bdefbe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0356baa5_fe09e6a4",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T01:23:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b9708ad_10779cf4",
+      "range": {
+        "startLine": 89,
+        "startChar": 44,
+        "endLine": 89,
+        "endChar": 0
+      },
+      "revId": "882200458e990755598252e4807e19d64bdefbe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64936654_0087ed90",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
         "patchSetId": 11
@@ -91,6 +163,30 @@
       "revId": "882200458e990755598252e4807e19d64bdefbe3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a24d8b4_0aee3248",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T01:23:42Z",
+      "side": 1,
+      "message": "Yes, as far as I understood how it works, there are no real requirements in terms of List implementations. The VersionedParcelProcessor delegates the work to Parcel.writeList() and Parcel.readList(). The former just depends on obtaining an iterator from the provided list. The latter always returns an ArrayList.",
+      "parentUuid": "64936654_0087ed90",
+      "range": {
+        "startLine": 112,
+        "startChar": 85,
+        "endLine": 113,
+        "endChar": 0
+      },
+      "revId": "882200458e990755598252e4807e19d64bdefbe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "b41cd02e_193a90d8",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/StepCue.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T01:23:42Z",
+      "side": 1,
+      "message": "Agreed. We will remove the image for now and add it back on a separated CL.",
+      "parentUuid": "85d7023e_97232b37",
+      "range": {
+        "startLine": 36,
+        "startChar": 59,
+        "endLine": 36,
+        "endChar": 0
+      },
+      "revId": "882200458e990755598252e4807e19d64bdefbe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0c5b9ce_cf3842cf",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/DurationWrapper.java",
         "patchSetId": 11
@@ -137,6 +257,30 @@
       "revId": "882200458e990755598252e4807e19d64bdefbe3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09cba8b7_5f5bbb3b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/DurationWrapper.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-09T01:23:42Z",
+      "side": 1,
+      "message": "The main reason is to allow NOT setting a Duration (in other words, allowing for Duration to be optional). If I were to do this inline, then we would need to define an integer that signifies \"NOT SET\", which doesn\u0027t look okay to me given that the protocol already account for this.\n--\nAnyways: I\u0027ll be moving this to a separated CL to speed up review, given that we agreed that ETA for Steps is not a top priority.",
+      "parentUuid": "a0c5b9ce_cf3842cf",
+      "range": {
+        "startLine": 1,
+        "startChar": 2,
+        "endLine": 1,
+        "endChar": 0
+      },
+      "revId": "882200458e990755598252e4807e19d64bdefbe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
