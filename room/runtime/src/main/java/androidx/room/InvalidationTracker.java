@@ -71,6 +71,8 @@ public class InvalidationTracker {
     private static final String VERSION_COLUMN_NAME = "version";
 
     private static final String TABLE_ID_COLUMN_NAME = "table_id";
+    
+    private static final TEST_FIELD = "test_field";
 
     private static final String CREATE_VERSION_TABLE_SQL = "CREATE TEMP TABLE " + UPDATE_TABLE_NAME
             + "(" + VERSION_COLUMN_NAME
