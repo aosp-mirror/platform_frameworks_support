@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "67dd1757_c7a94c1b",
+        "filename": "slices/core/src/main/java/androidx/slice/compat/SliceProviderCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1146169
+      },
+      "writtenOn": "2018-08-09T15:15:41Z",
+      "side": 1,
+      "message": "I wonder if there\u0027s a way we could submit a handler + a lambda and have SliceItemHolder take care of the synchronization and removal of the handler at the end of the block to make these call sites nicer...",
+      "revId": "2971791ce1bedac7b1a555c6e71d1fc6cd217858",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "40765067_c62f9ecf",
         "filename": "slices/core/src/main/java/androidx/slice/compat/SliceProviderCompat.java",
         "patchSetId": 1
