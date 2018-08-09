@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c8499a0_bec238be",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-09T00:53:38Z",
+      "side": 1,
+      "message": "Here and elsewhere we could just use empty(), and rely on getValue(Unit.UNKNOWN) to make sure we never return null. That will save some wire size I think.",
+      "range": {
+        "startLine": 58,
+        "startChar": 49,
+        "endLine": 58,
+        "endChar": 66
+      },
+      "revId": "4a60f881f74e95bf3d9f680842985746c891eb2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1360570a_6907eacc",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-09T00:53:38Z",
+      "side": 1,
+      "message": "This can be removed (similarly for other getters)",
+      "range": {
+        "startLine": 102,
+        "startChar": 76,
+        "endLine": 103,
+        "endChar": 14
+      },
+      "revId": "4a60f881f74e95bf3d9f680842985746c891eb2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ccd65d7_d9d7b0a8",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-09T00:53:38Z",
+      "side": 1,
+      "message": "UNKNOWN",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 15
+      },
+      "revId": "4a60f881f74e95bf3d9f680842985746c891eb2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a010b1f_adffac2c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-09T00:53:38Z",
+      "side": 1,
+      "message": "NonNull",
+      "range": {
+        "startLine": 132,
+        "startChar": 12,
+        "endLine": 132,
+        "endChar": 20
+      },
+      "revId": "4a60f881f74e95bf3d9f680842985746c891eb2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
