@@ -22,6 +22,30 @@
       "revId": "7c20f59790ec91d93a323ee7cfc54ba542d49a28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc936028_28e9680f",
+        "filename": "preference/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-08-09T03:02:24Z",
+      "side": 1,
+      "message": "oops, a remnant of a failed experiment.  Removed it.",
+      "parentUuid": "6e514e38_54180dff",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 0
+      },
+      "revId": "7c20f59790ec91d93a323ee7cfc54ba542d49a28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
