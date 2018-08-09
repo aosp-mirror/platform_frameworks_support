@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "654e8939_26049a1e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-09T02:07:36Z",
+      "side": 1,
+      "message": "NonNull",
+      "range": {
+        "startLine": 92,
+        "startChar": 36,
+        "endLine": 92,
+        "endChar": 44
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dcf2535_1be0a49d",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-09T02:07:36Z",
+      "side": 1,
+      "message": "Can be removed",
+      "range": {
+        "startLine": 99,
+        "startChar": 36,
+        "endLine": 100,
+        "endChar": 25
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
