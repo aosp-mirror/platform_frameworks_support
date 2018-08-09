@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "593d24b5_f47b5574",
+        "filename": "versionedparcelable/src/androidTest/java/androidx/versionedparcelable/VersionedParcelDefaultsTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1146169
+      },
+      "writtenOn": "2018-08-09T14:56:39Z",
+      "side": 1,
+      "message": "\"my_string\" -\u003e 42\n\"my_int\" -\u003e \"42\"\n\nJust for fun?",
+      "revId": "fca3efc86132799c80ea33285c82bc05bc1e78d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
