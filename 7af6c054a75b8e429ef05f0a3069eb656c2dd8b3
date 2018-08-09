@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "14fe07d8_563e8c6d",
+        "filename": "car/cluster/src/androidTest/java/androidx/car/cluster/navigation/NavigationStateTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-09T07:22:48Z",
+      "side": 1,
+      "message": "I\u0027m not convinced that we\u0027re decoding null values correctly and converting them into NonNull getters (mostly because VersionedParcelize is completely undocumented). Can we please add two tests:\n- try decoding a completely empty Bundle. check that nonnull fields are indeed nonnull\n- try decoding a Bundle where we\u0027ve hacked the fields (not using setters, because they\u0027ll checkNotNull) to be set explicitly to null, and check that when we call a getter, we get back empty string instead of null.\n\nFurther (maybe after we have API council approval for this approach), it would be fantastic to have these serialization tests that check serialization edge cases on individual classes.",
+      "range": {
+        "startLine": 38,
+        "startChar": 34,
+        "endLine": 38,
+        "endChar": 0
+      },
+      "revId": "7af6c054a75b8e429ef05f0a3069eb656c2dd8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "199695e2_6f0b655b",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
         "patchSetId": 16
