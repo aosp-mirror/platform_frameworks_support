@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e514e38_54180dff",
+        "filename": "preference/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-08-09T00:51:56Z",
+      "side": 1,
+      "message": "What is this needed for for?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 0
+      },
+      "revId": "7c20f59790ec91d93a323ee7cfc54ba542d49a28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
