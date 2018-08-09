@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40765067_c62f9ecf",
+        "filename": "slices/core/src/main/java/androidx/slice/compat/SliceProviderCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-08-09T01:55:38Z",
+      "side": 1,
+      "message": "maybe move into own method to reduce duplicated code here and above?",
+      "range": {
+        "startLine": 444,
+        "startChar": 20,
+        "endLine": 464,
+        "endChar": 62
+      },
+      "revId": "2971791ce1bedac7b1a555c6e71d1fc6cd217858",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
