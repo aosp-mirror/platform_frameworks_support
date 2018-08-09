@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "43ed4704_18e6897c",
+        "filename": "\\",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-09T06:47:46Z",
+      "side": 1,
+      "message": "It\u0027s my mistake. I\u0027ll remove this.",
+      "parentUuid": "38102685_dc95c3ac",
+      "revId": "fc5874273121481bdd93faecc51ce0009ed6a90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c65f0f0_40f4aae4",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 15
@@ -33,6 +51,24 @@
       "revId": "fc5874273121481bdd93faecc51ce0009ed6a90c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7f9fa73_46f7eea7",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-09T06:47:46Z",
+      "side": 1,
+      "message": "I checked if mRouteForClickedMuteButton is not null(#526) to know whether mute button has been clicked or not. \n\nIf it looks strange to have logic for mute button click inside of onProgressChanged, I can move that inside of mMuteButtonClickListener.",
+      "parentUuid": "7c65f0f0_40f4aae4",
+      "revId": "fc5874273121481bdd93faecc51ce0009ed6a90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "383ffd22_7ca2a55e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-09T06:47:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf23a769_a5dba25b",
+      "range": {
+        "startLine": 574,
+        "startChar": 12,
+        "endLine": 574,
+        "endChar": 77
+      },
+      "revId": "fc5874273121481bdd93faecc51ce0009ed6a90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ab970c5_f7e15d8a",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 15
@@ -79,6 +139,30 @@
       "revId": "fc5874273121481bdd93faecc51ce0009ed6a90c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "454ad01a_b357e62e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-09T06:47:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ab970c5_f7e15d8a",
+      "range": {
+        "startLine": 593,
+        "startChar": 20,
+        "endLine": 593,
+        "endChar": 35
+      },
+      "revId": "fc5874273121481bdd93faecc51ce0009ed6a90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "d5fab9e5_ec2aac58",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-09T06:47:46Z",
+      "side": 1,
+      "message": "I agree with that it\u0027s better to have setMute(boolean mute) instead of toggleMute().\n\nBut, I think isMuteButtonActivated() is still needed to check whether setMute() has to be actually called or not, outside of the MediaRouteViewHolder(e.g VolumeChangeListener#onProgressChanged).",
+      "parentUuid": "a5b1e274_1299426b",
+      "range": {
+        "startLine": 614,
+        "startChar": 8,
+        "endLine": 618,
+        "endChar": 27
+      },
+      "revId": "fc5874273121481bdd93faecc51ce0009ed6a90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79e63d63_3737e3b9",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 15
@@ -125,6 +233,30 @@
       "revId": "fc5874273121481bdd93faecc51ce0009ed6a90c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "207169fe_4023e870",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-09T06:47:46Z",
+      "side": 1,
+      "message": "Sorry, I forgot to think of that. I think I could remove item when the volume of route is actually updated to unmuted and its progress is higher than 0.",
+      "parentUuid": "79e63d63_3737e3b9",
+      "range": {
+        "startLine": 630,
+        "startChar": 39,
+        "endLine": 630,
+        "endChar": 59
+      },
+      "revId": "fc5874273121481bdd93faecc51ce0009ed6a90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
