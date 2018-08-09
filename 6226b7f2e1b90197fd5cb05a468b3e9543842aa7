@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71a723cc_671a017c",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-09T10:34:19Z",
+      "side": 1,
+      "message": "Sorry, had to bring back the comment. It\u0027s a public API now and Gerrit complained.",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 255,
+        "endChar": 7
+      },
+      "revId": "6226b7f2e1b90197fd5cb05a468b3e9543842aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
