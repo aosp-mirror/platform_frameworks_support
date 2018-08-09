@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0de49c5a_da2d547f",
+        "filename": "textclassifier/api/current.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-09T11:17:15Z",
+      "side": 1,
+      "message": "mmm, personally, I prefer to keep static class separate, if it is not a simple class like Builder, to avoid run into a lengthy class like platform codes :/\n\nWhat do you think? :)",
+      "parentUuid": "6ac82abd_6b8a4886",
+      "range": {
+        "startLine": 52,
+        "startChar": 133,
+        "endLine": 52,
+        "endChar": 151
+      },
+      "revId": "aa30f1a4596078babea447a31a2e430521032477",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6c58c18_043b4a9a",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "aa30f1a4596078babea447a31a2e430521032477",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef7c4e7e_6fe0acf0",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-09T11:17:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6c58c18_043b4a9a",
+      "range": {
+        "startLine": 438,
+        "startChar": 8,
+        "endLine": 443,
+        "endChar": 38
+      },
+      "revId": "aa30f1a4596078babea447a31a2e430521032477",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "684b7eef_5678ff2f",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-09T11:17:15Z",
+      "side": 1,
+      "message": "I think it is @hide automatically, at least I didn\u0027t find this in the api text file.\n\nAnyway, @hide explicitly now :)",
+      "parentUuid": "0a38a450_bf492206",
+      "range": {
+        "startLine": 445,
+        "startChar": 8,
+        "endLine": 445,
+        "endChar": 24
+      },
+      "revId": "aa30f1a4596078babea447a31a2e430521032477",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d456cc0c_26f70deb",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 7
@@ -85,6 +157,24 @@
       "revId": "aa30f1a4596078babea447a31a2e430521032477",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77f632b6_be20ac2b",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-09T11:17:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d456cc0c_26f70deb",
+      "revId": "aa30f1a4596078babea447a31a2e430521032477",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
