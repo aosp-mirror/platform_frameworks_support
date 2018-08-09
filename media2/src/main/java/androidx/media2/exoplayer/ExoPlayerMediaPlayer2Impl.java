@@ -18,6 +18,7 @@ package androidx.media2.exoplayer;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.media.MediaDrm;
@@ -69,6 +70,7 @@ import java.util.concurrent.Executor;
  */
 @TargetApi(Build.VERSION_CODES.KITKAT)
 @RestrictTo(LIBRARY_GROUP)
+@SuppressLint("RestrictedApi") // TODO(b/68398926): fix groupId lint check and remove suppression
 public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
 
     private static final String USER_AGENT_NAME = "MediaPlayer2";

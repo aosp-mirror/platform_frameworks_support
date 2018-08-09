@@ -27,6 +27,7 @@ const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:1.1.0@
 const val DEXMAKER_MOCKITO = "com.linkedin.dexmaker:dexmaker-mockito:2.19.0"
 const val ESPRESSO_CONTRIB = "androidx.test.espresso:espresso-contrib:3.1.0-alpha3"
 const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core:3.1.0-alpha3"
+const val EXOPLAYER_CORE_MEDIA2 = "androidx.media2:exoplayer-core-media2:1.0.0"
 const val FINDBUGS = "com.google.code.findbugs:jsr305:2.0.1"
 const val FIREBASE_JOBDISPATCHER = "com.firebase:firebase-jobdispatcher:0.8.5@aar"
 const val GOOGLE_COMPILE_TESTING = "com.google.testing.compile:compile-testing:0.11"
