@@ -5050,10 +5050,6 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
         // Tracks if postAnimationCallback should be re-attached when it is done
         private boolean mReSchedulePostAnimationCallback = false;
 
-        ViewFlinger() {
-            mScroller = new OverScroller(getContext(), sQuinticInterpolator);
-        }
-
         @Override
         public void run() {
             if (mLayout == null) {
@@ -5062,10 +5058,8 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
             }
             disableRunOnAnimationRequests();
             consumePendingUpdateOperations();
-            // keep a local reference so that if it is changed during onAnimation method, it won't
-            // cause unexpected behaviors
-            final OverScroller scroller = mScroller;
-            final SmoothScroller smoothScroller = mLayout.mSmoothScroller;
+            OverScroller scroller = mScroller;
+            SmoothScroller smoothScroller = mLayout.mSmoothScroller;
             if (scroller.computeScrollOffset()) {
                 final int[] scrollConsumed = mScrollConsumed;
                 final int x = scroller.getCurrX();
@@ -5133,8 +5127,11 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
                         scroller.abortAnimation();
                     }
                 }
+
                 if (hresult != 0 || vresult != 0) {
                     dispatchOnScrolled(hresult, vresult);
+                    scroller = mScroller;
+                    smoothScroller = mLayout.mSmoothScroller;
                 }
 
                 if (!awakenScrollBars()) {
@@ -5148,8 +5145,13 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
                 final boolean fullyConsumedAny = (dx == 0 && dy == 0) || fullyConsumedHorizontal
                         || fullyConsumedVertical;
 
-                if (scroller.isFinished() || (!fullyConsumedAny
-                        && !hasNestedScrollingParent(TYPE_NON_TOUCH))) {
+                // At this point, it's possible that a new SmoothScroller is pending, and if that
+                // is the case, we shouldn't stop the scroll because doing so will stop the new
+                // pending SmoothScroller as well.
+                boolean smoothScrollerPending = smoothScroller != null
+                        && smoothScroller.isPendingInitialRun();
+                if (!smoothScrollerPending && (scroller.isFinished() || (!fullyConsumedAny
+                        && !hasNestedScrollingParent(TYPE_NON_TOUCH)))) {
                     // setting state to idle will stop this.
                     setScrollState(SCROLL_STATE_IDLE);
                     if (ALLOW_THREAD_GAP_WORK) {
@@ -5163,6 +5165,8 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
                     }
                 }
             }
+
+            smoothScroller = mLayout.mSmoothScroller;
             // call this after the onAnimation is complete not to have inconsistent callbacks etc.
             if (smoothScroller != null) {
                 if (smoothScroller.isPendingInitialRun()) {
@@ -5187,7 +5191,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
             }
         }
 
-        void postOnAnimation() {
+        private void postOnAnimation() {
             if (mEatRunOnAnimationRequest) {
                 mReSchedulePostAnimationCallback = true;
             } else {
@@ -5199,6 +5203,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
         public void fling(int velocityX, int velocityY) {
             setScrollState(SCROLL_STATE_SETTLING);
             mLastFlingX = mLastFlingY = 0;
+            mScroller = new OverScroller(getContext(), sQuinticInterpolator);
             mScroller.fling(0, 0, velocityX, velocityY,
                     Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE);
             postOnAnimation();
@@ -5210,6 +5215,11 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
 
         public void smoothScrollBy(int dx, int dy, int vx, int vy) {
             smoothScrollBy(dx, dy, computeScrollDuration(dx, dy, vx, vy));
+        }
+
+        public void start() {
+            mScroller = new OverScroller(getContext(), sQuinticInterpolator);
+            postOnAnimation();
         }
 
         private float distanceInfluenceForSnapDuration(float f) {
@@ -5250,17 +5260,14 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
         }
 
         public void smoothScrollBy(int dx, int dy, int duration, Interpolator interpolator) {
-            if (mInterpolator != interpolator) {
-                mInterpolator = interpolator;
-                mScroller = new OverScroller(getContext(), interpolator);
-            }
+            mScroller = new OverScroller(getContext(), interpolator);
             setScrollState(SCROLL_STATE_SETTLING);
             mLastFlingX = mLastFlingY = 0;
             mScroller.startScroll(0, 0, dx, dy, duration);
             if (Build.VERSION.SDK_INT < 23) {
                 // b/64931938 before API 23, startScroll() does not reset getCurX()/getCurY()
-                // to start values, which causes fillRemainingScrollValues() put in obsolete values
-                // for LayoutManager.onLayoutChildren().
+                // to start values, which causes fillRemainingScrollValues() to put in obsolete
+                // values for LayoutManager.onLayoutChildren().
                 mScroller.computeScrollOffset();
             }
             postOnAnimation();
@@ -5268,7 +5275,9 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
 
         public void stop() {
             removeCallbacks(this);
-            mScroller.abortAnimation();
+            if (mScroller != null) {
+                mScroller.abortAnimation();
+            }
         }
 
     }
@@ -11482,8 +11491,8 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
     }
 
     /**
-     * Base class for smooth scrolling. Handles basic tracking of the target view position and
-     * provides methods to trigger a programmatic scroll.
+     * Base class for smooth scrolling to a target position. Handles basic tracking of the target
+     * view position and provides methods to trigger a programmatic scroll.
      *
      * <p>An instance of SmoothScroller is only intended to be used once.  You should create a new
      * instance for each call to {@link LayoutManager#startSmoothScroll(SmoothScroller)}.
@@ -11493,19 +11502,12 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
     public abstract static class SmoothScroller {
 
         private int mTargetPosition = RecyclerView.NO_POSITION;
-
         private RecyclerView mRecyclerView;
-
         private LayoutManager mLayoutManager;
-
         private boolean mPendingInitialRun;
-
         private boolean mRunning;
-
         private View mTargetView;
-
         private final Action mRecyclingAction;
-
         private boolean mStarted;
 
         public SmoothScroller() {
@@ -11542,7 +11544,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
             mPendingInitialRun = true;
             mTargetView = findViewByPosition(getTargetPosition());
             onStart();
-            mRecyclerView.mViewFlinger.postOnAnimation();
+            mRecyclerView.mViewFlinger.start();
 
             mStarted = true;
         }
@@ -11680,7 +11682,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
                     // It is not stopped so needs to be restarted
                     if (mRunning) {
                         mPendingInitialRun = true;
-                        recyclerView.mViewFlinger.postOnAnimation();
+                        recyclerView.mViewFlinger.start();
                     } else {
                         // TODO(b/72745539): stop() is a no-op if mRunning is false, so this can be
                         // removed.
