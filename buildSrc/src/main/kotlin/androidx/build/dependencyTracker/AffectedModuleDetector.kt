@@ -186,6 +186,10 @@ private class AffectedModuleDetectorImpl constructor(
         val changedFiles = git.findChangedFilesSince(
                 sha = lastMergeSha,
                 includeUncommitted = true)
+        if (changedFiles.isEmpty()) {
+            logger?.info("Cannot find any changed files after last merge, will run all")
+            return allProjects
+        }
         val containingProjects = changedFiles
                 .map(::findContainingProject)
                 .let {
