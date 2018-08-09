@@ -5062,10 +5062,9 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
             }
             disableRunOnAnimationRequests();
             consumePendingUpdateOperations();
-            // keep a local reference so that if it is changed during onAnimation method, it won't
-            // cause unexpected behaviors
-            final OverScroller scroller = mScroller;
-            final SmoothScroller smoothScroller = mLayout.mSmoothScroller;
+
+            OverScroller scroller = mScroller;
+            SmoothScroller smoothScroller = mLayout.mSmoothScroller;
             if (scroller.computeScrollOffset()) {
                 final int[] scrollConsumed = mScrollConsumed;
                 final int x = scroller.getCurrX();
@@ -5135,6 +5134,10 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
                 }
                 if (hresult != 0 || vresult != 0) {
                     dispatchOnScrolled(hresult, vresult);
+
+                    // These may have changed after dispatchOnScrolled, and we should respect that.
+                    scroller = mScroller;
+                    smoothScroller = mLayout.mSmoothScroller;
                 }
 
                 if (!awakenScrollBars()) {
@@ -5148,8 +5151,13 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
                 final boolean fullyConsumedAny = (dx == 0 && dy == 0) || fullyConsumedHorizontal
                         || fullyConsumedVertical;
 
-                if (scroller.isFinished() || (!fullyConsumedAny
-                        && !hasNestedScrollingParent(TYPE_NON_TOUCH))) {
+                // At this point, it's possible that a new SmoothScroller is pending, and if that
+                // is the case, we shouldn't stop the scroll because doing so will stop the new
+                // pending SmoothScroller as well.
+                boolean smoothScrollerPending = smoothScroller != null
+                        && smoothScroller.isPendingInitialRun();
+                if (!smoothScrollerPending && (scroller.isFinished() || (!fullyConsumedAny
+                        && !hasNestedScrollingParent(TYPE_NON_TOUCH)))) {
                     // setting state to idle will stop this.
                     setScrollState(SCROLL_STATE_IDLE);
                     if (ALLOW_THREAD_GAP_WORK) {
@@ -5163,6 +5171,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
                     }
                 }
             }
+
             // call this after the onAnimation is complete not to have inconsistent callbacks etc.
             if (smoothScroller != null) {
                 if (smoothScroller.isPendingInitialRun()) {
@@ -5187,7 +5196,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
             }
         }
 
-        void postOnAnimation() {
+        private void postOnAnimation() {
             if (mEatRunOnAnimationRequest) {
                 mReSchedulePostAnimationCallback = true;
             } else {
@@ -5199,6 +5208,10 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
         public void fling(int velocityX, int velocityY) {
             setScrollState(SCROLL_STATE_SETTLING);
             mLastFlingX = mLastFlingY = 0;
+            if (mInterpolator != sQuinticInterpolator) {
+                mInterpolator = sQuinticInterpolator;
+                mScroller = new OverScroller(getContext(), sQuinticInterpolator);
+            }
             mScroller.fling(0, 0, velocityX, velocityY,
                     Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE);
             postOnAnimation();
