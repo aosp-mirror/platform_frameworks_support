@@ -22,8 +22,24 @@ package androidx.work
 /**
  * Converts a [Map] to a [Data] object.
  */
+@Deprecated("Use workDataOf() instead.")
 inline fun <V> Map<String, V>.toWorkData(): Data {
     val dataBuilder = Data.Builder()
     dataBuilder.putAll(this)
+    return dataBuilder.build()
+}
+
+/**
+ * Converts a list of pairs to a [Data] object.
+ *
+ * If multiple pairs have the same key, the resulting map will contain the value
+ * from the last of those pairs.
+ *
+ * Entries of the map are iterated in the order they were specified.
+ */
+inline fun workDataOf(vararg pairs: Pair<String, Any>): Data {
+    val valueMap = mutableMapOf(pairs = *pairs)
+    val dataBuilder = Data.Builder()
+    dataBuilder.putAll(valueMap)
     return dataBuilder.build()
 }
