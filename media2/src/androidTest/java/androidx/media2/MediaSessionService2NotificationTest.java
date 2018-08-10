@@ -16,9 +16,8 @@
 
 package androidx.media2;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Process;
 import android.widget.Toast;
@@ -44,17 +43,19 @@ import java.util.concurrent.CountDownLatch;
  * device and check whether the notification is shown/removed.
  */
 @LargeTest
-@SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
+@SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
 public class MediaSessionService2NotificationTest extends MediaSession2TestBase {
-    private static final long NOTIFICATION_SHOW_TIME_MS = 5000;
+    private static final long NOTIFICATION_SHOW_TIME_MS = 15000;
 
     MediaSession2 mSession;
     MockPlayer mPlayer;
-
+    MockPlaylistAgent mPlaylistAgent;
 
     @Before
     public void setUp() throws Exception {
         super.setUp();
+        mPlayer = new MockPlayer(true);
+        mPlaylistAgent = new MockPlaylistAgent();
         TestServiceRegistry.getInstance().setHandler(sHandler);
     }
 
@@ -73,9 +74,8 @@ public class MediaSessionService2NotificationTest extends MediaSession2TestBase 
                     @NonNull ControllerInfo controller) {
                 if (Process.myUid() == controller.getUid()) {
                     mSession = session;
-                    mPlayer = (MockPlayer) session.getPlayerConnector();
-                    assertEquals(mContext.getPackageName(), controller.getPackageName());
-                    assertFalse(controller.isTrusted());
+                    // Change the player and playlist agent with ours.
+                    session.updatePlayerConnector(mPlayer, mPlaylistAgent);
                     latch.countDown();
                 }
                 return super.onConnect(session, controller);
@@ -87,21 +87,26 @@ public class MediaSessionService2NotificationTest extends MediaSession2TestBase 
         MediaController2 controller =
                 createController(TestUtils.getServiceToken(mContext, MockMediaSessionService2.ID));
 
-        // Notification should be shown for NOTIFICATION_SHOW_TIME_MS (ms).
-        // The notification will not be removed by swiping horizontally, since the service is
-        // running as foreground.
-        showToast("Notification will be shown");
+        // Set current media item.
+        final String mediaId = "testMediaId";
+        Bitmap albumArt = BitmapFactory.decodeResource(mContext.getResources(),
+                androidx.media2.test.R.drawable.big_buck_bunny);
+        MediaMetadata2 metadata = new MediaMetadata2.Builder()
+                        .putText(MediaMetadata2.METADATA_KEY_MEDIA_ID, mediaId)
+                        .putText(MediaMetadata2.METADATA_KEY_DISPLAY_TITLE, "Test Song Name")
+                        .putText(MediaMetadata2.METADATA_KEY_ARTIST, "Test Artist Name")
+                        .putBitmap(MediaMetadata2.METADATA_KEY_ALBUM_ART, albumArt)
+                        .build();
+        mPlaylistAgent.mCurrentMediaItem = new MediaItem2.Builder(MediaItem2.FLAG_PLAYABLE)
+                        .setMediaId(mediaId)
+                        .setMetadata(metadata)
+                        .build();
+
+        // Notification should be shown. Clicking play/pause button will change the player state.
+        // When playing, the notification will not be removed by swiping horizontally.
+        // When paused, the notification can be swiped away.
         mPlayer.notifyPlaybackState(MediaPlayerConnector.PLAYER_STATE_PLAYING);
         Thread.sleep(NOTIFICATION_SHOW_TIME_MS);
-
-        // Notification will still be shown. However, one can swipe the notification horizontally
-        // to remove the notification, since the service is no longer a foreground service.
-        showToast("Notification can be removable shortly");
-        mPlayer.notifyPlaybackState(MediaPlayerConnector.PLAYER_STATE_ERROR);
-        Thread.sleep(NOTIFICATION_SHOW_TIME_MS);
-
-        // Notification will be removed since the test framework stops the test process.
-        showToast("Notification will be removed");
     }
 
     private void showToast(final String msg) {
