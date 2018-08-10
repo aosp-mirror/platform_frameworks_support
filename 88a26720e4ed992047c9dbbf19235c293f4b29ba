@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bc53a3a_db3e045d",
+        "filename": "mediarouter/src/main/res/drawable/mr_cast_mute_button.xml",
+        "patchSetId": 20
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-10T05:43:01Z",
+      "side": 1,
+      "message": "copyright format, year",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 55
+      },
+      "revId": "88a26720e4ed992047c9dbbf19235c293f4b29ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
