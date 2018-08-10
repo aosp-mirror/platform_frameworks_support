@@ -70,6 +70,30 @@
       "revId": "ec8d2c75df305d88f3e3fdbe7bc4dfe10e5eef27",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2385885d_66e30c37",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-10T04:14:57Z",
+      "side": 0,
+      "message": "I couldn\u0027t think of the case. Thank you for pointing out. I\u0027m gonna listen for onRouteUnselected() like before.",
+      "parentUuid": "ef31e352_22ed7e30",
+      "range": {
+        "startLine": 1046,
+        "startChar": 0,
+        "endLine": 1046,
+        "endChar": 88
+      },
+      "revId": "ec8d2c75df305d88f3e3fdbe7bc4dfe10e5eef27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
