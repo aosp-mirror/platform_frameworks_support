@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3028ee64_1ddf6e17",
+        "filename": "room/integration-tests/testapp/schemas/androidx.room.integration.testapp.test.PojoWithNullRelationKeyTest.NullRelationDatabase/1.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-10T21:06:18Z",
+      "side": 1,
+      "message": "instead, we should change that db not to export this. (in the db annotation)",
+      "revId": "174ac6b374a37f022f37f6e86a4f2e5a386ab2ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
