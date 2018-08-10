@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33191834_6f97cfe1",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-10T02:07:32Z",
+      "side": 1,
+      "message": "This could be null.",
+      "range": {
+        "startLine": 66,
+        "startChar": 26,
+        "endLine": 66,
+        "endChar": 33
+      },
+      "revId": "f856a6ad7f4c13f051e638819d393957150bdcbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c603746_6a2ef2cf",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-10T02:07:32Z",
+      "side": 1,
+      "message": "Should this (and the other nonNullOrEmpty) also be marked @NonNull?",
+      "range": {
+        "startLine": 39,
+        "startChar": 65,
+        "endLine": 39,
+        "endChar": 0
+      },
+      "revId": "f856a6ad7f4c13f051e638819d393957150bdcbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
