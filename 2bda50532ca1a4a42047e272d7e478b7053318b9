@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "56839ff2_aa378738",
+        "filename": "remotecallback/src/main/java/androidx/remotecallback/ProviderRelayReceiver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-10T17:58:23Z",
+      "side": 1,
+      "message": "I don\u0027t think so, we have hidden manifest entries in other supportlib projects, and the goal is for it to be an implementation detail.",
+      "parentUuid": "33c6901f_b223f3f4",
+      "range": {
+        "startLine": 33,
+        "startChar": 13,
+        "endLine": 33,
+        "endChar": 34
+      },
+      "revId": "2bda50532ca1a4a42047e272d7e478b7053318b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ac410bf_55bddcc2",
         "filename": "remotecallback/src/main/java/androidx/remotecallback/RemoteCallback.java",
         "patchSetId": 6

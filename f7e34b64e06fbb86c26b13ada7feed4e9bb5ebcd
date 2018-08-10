@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a8b3595_75103dd9",
+        "filename": "remotecallback/src/main/java/androidx/remotecallback/BroadcastReceiverWithCallbacks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-10T17:58:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1b121a2_f640bff4",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 62
+      },
+      "revId": "f7e34b64e06fbb86c26b13ada7feed4e9bb5ebcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4896b05a_d911a9be",
         "filename": "remotecallback/src/main/java/androidx/remotecallback/CallbackHandlerRegistry.java",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-08T16:44:30Z",
       "side": 1,
       "message": "it seems like we could side-step the locking here and make stubs entirely stateless if we pass the generated args bundle to toRemoteCallback() by argument",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 31
+      },
+      "revId": "f7e34b64e06fbb86c26b13ada7feed4e9bb5ebcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93dfcb02_65aa0e7c",
+        "filename": "remotecallback/src/main/java/androidx/remotecallback/CallbackHandlerRegistry.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-10T17:58:23Z",
+      "side": 1,
+      "message": "Yeah, thats much better, done.",
+      "parentUuid": "4896b05a_d911a9be",
       "range": {
         "startLine": 56,
         "startChar": 8,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a3f7334_fc2a78d5",
+        "filename": "remotecallback/src/main/java/androidx/remotecallback/CallbackHandlerRegistry.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-10T17:58:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37ce6407_a47dadb4",
+      "range": {
+        "startLine": 203,
+        "startChar": 33,
+        "endLine": 203,
+        "endChar": 49
+      },
+      "revId": "f7e34b64e06fbb86c26b13ada7feed4e9bb5ebcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "280b3802_d8d84694",
         "filename": "remotecallback/src/main/java/androidx/remotecallback/ContentProviderWithCallbacks.java",
         "patchSetId": 7
@@ -91,6 +163,30 @@
       "revId": "f7e34b64e06fbb86c26b13ada7feed4e9bb5ebcd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfe0f2db_5c6231e3",
+        "filename": "remotecallback/src/main/java/androidx/remotecallback/ContentProviderWithCallbacks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-08-10T17:58:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "280b3802_d8d84694",
+      "range": {
+        "startLine": 83,
+        "startChar": 16,
+        "endLine": 83,
+        "endChar": 52
+      },
+      "revId": "f7e34b64e06fbb86c26b13ada7feed4e9bb5ebcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
