@@ -54,7 +54,7 @@ import java.util.List;
  */
 public abstract class PreferenceGroup extends Preference {
     private static final String TAG = "PreferenceGroup";
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    /* synthetic access */
     final SimpleArrayMap<String, Long> mIdRecycleCache = new SimpleArrayMap<>();
     private final Handler mHandler = new Handler();
     /**
@@ -146,7 +146,7 @@ public abstract class PreferenceGroup extends Preference {
      */
     public void setInitialExpandedChildrenCount(int expandedCount) {
         if (expandedCount != Integer.MAX_VALUE && !hasKey()) {
-            Log.e(TAG, this.getClass().getSimpleName()
+            Log.e(TAG, getClass().getSimpleName()
                     + " should have a key defined if it contains an expandable preference");
         }
         mInitialExpandedChildrenCount = expandedCount;
@@ -269,6 +269,22 @@ public abstract class PreferenceGroup extends Preference {
         return returnValue;
     }
 
+    /**
+     * Recursively finds and removes a {@link Preference} from this group or a nested group lower
+     * down in the hierarchy.
+     *
+     * @param key The key of the preference to remove
+     * @return Whether the preference was found and removed
+     * @see #findPreference(CharSequence)
+     */
+    public boolean removePreference(CharSequence key) {
+        final Preference preference = findPreference(key);
+        if (preference == null) {
+            return false;
+        }
+        return preference.getParent().removePreference(preference);
+    }
+
     private boolean removePreferenceInt(Preference preference) {
         synchronized (this) {
             preference.onPrepareForRemoval();
@@ -389,7 +405,7 @@ public abstract class PreferenceGroup extends Preference {
      * Sets the callback to be invoked when the expand button is clicked.
      *
      * @param onExpandButtonClickListener The callback to be invoked
-     * @see PreferenceGroup#setInitialExpandedChildrenCount(int)
+     * @see #setInitialExpandedChildrenCount(int)
      * @hide
      * @pending
      */
@@ -528,7 +544,7 @@ public abstract class PreferenceGroup extends Preference {
 
     /**
      * Definition for a callback to be invoked when the expand button is clicked.
-     * @see PreferenceGroup#setInitialExpandedChildrenCount(int)
+     * @see #setInitialExpandedChildrenCount(int)
      * @hide
      * @pending
      */
