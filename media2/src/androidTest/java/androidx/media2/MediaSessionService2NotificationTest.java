@@ -42,7 +42,6 @@ import java.util.concurrent.CountDownLatch;
  * device and check whether the notification is shown/removed.
  */
 @LargeTest
-@SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
 public class MediaSessionService2NotificationTest extends MediaSession2TestBase {
     private static final long NOTIFICATION_SHOW_TIME_MS = 5000;
 

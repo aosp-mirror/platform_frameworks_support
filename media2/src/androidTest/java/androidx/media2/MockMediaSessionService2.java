@@ -74,23 +74,4 @@ public class MockMediaSessionService2 extends MediaSessionService2 {
         super.onDestroy();
         TestServiceRegistry.getInstance().cleanUp();
     }
-
-    @Override
-    public MediaNotification onUpdateNotification() {
-        // TODO: Branch this logic according to the build version, since the APIs for using
-        // Notification differs. (e.g. NotificationChannel is introduced from Android O).
-        if (mDefaultNotificationChannel == null) {
-            mDefaultNotificationChannel = new NotificationChannel(
-                    DEFAULT_MEDIA_NOTIFICATION_CHANNEL_ID,
-                    DEFAULT_MEDIA_NOTIFICATION_CHANNEL_ID,
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            mNotificationManager.createNotificationChannel(mDefaultNotificationChannel);
-        }
-        Notification notification = new Notification.Builder(
-                this, DEFAULT_MEDIA_NOTIFICATION_CHANNEL_ID)
-                .setContentTitle(getPackageName())
-                .setContentText("Dummy test notification")
-                .setSmallIcon(android.R.drawable.sym_def_app_icon).build();
-        return new MediaNotification(DEFAULT_MEDIA_NOTIFICATION_ID, notification);
-    }
 }
