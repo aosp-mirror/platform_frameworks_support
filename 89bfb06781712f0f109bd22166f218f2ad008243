@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a102025d_12def56c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-10T20:03:50Z",
+      "side": 1,
+      "message": "Done, although I wonder if it wouldn\u0027t be safer to just let this be nullable (see comment below about nullability).",
+      "parentUuid": "8e133aa6_49a0d005",
+      "range": {
+        "startLine": 122,
+        "startChar": 48,
+        "endLine": 122,
+        "endChar": 67
+      },
+      "revId": "89bfb06781712f0f109bd22166f218f2ad008243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff2ad1eb_fc23d8f3",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
         "patchSetId": 21
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "17794755_03644d5b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-10T20:03:50Z",
+      "side": 1,
+      "message": "Given the latest comments from the API council, I would leave this as is.\n\nOn my personal opinion, asking developers to call \"hasX\" before \"getX\" is as error prone as not checking for nulls. I prefer a fail-fast approach than having instrument clusters showing wrong data just because we are not longer sending something (I can already see a car showing \"1/1/1970\" in the display, or \"in 0 unknown, turn left\").\n\nIn the particular case of \"Segment\", today an empty string would do, but if we want to add more fields in the future we might find ourselves in a position where there are no good defaults (think time, distance, etc.).\n\nLets cover null management with proper testing support.",
+      "parentUuid": "5779f88f_1422c046",
+      "range": {
+        "startLine": 147,
+        "startChar": 24,
+        "endLine": 148,
+        "endChar": 0
+      },
+      "revId": "89bfb06781712f0f109bd22166f218f2ad008243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ff31c3c_1ddab686",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
         "patchSetId": 21
@@ -114,6 +162,54 @@
       "revId": "89bfb06781712f0f109bd22166f218f2ad008243",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac3f0294_c7dfa188",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-10T20:03:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aef96892_4f5b8c8f",
+      "range": {
+        "startLine": 66,
+        "startChar": 16,
+        "endLine": 66,
+        "endChar": 31
+      },
+      "revId": "89bfb06781712f0f109bd22166f218f2ad008243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6dc29fd8_2117fee8",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-10T20:03:50Z",
+      "side": 1,
+      "message": "Given that we are assuming the OEMs will just take this and display it, I feel that showing time in UTC is not a good default. I would rather use the local timezone of the device (in this case, the car). \n\nTruth is, this is just a defense mechanism in case the message is corrupted. Time will be either be provided in full, or not provided. If we ever change the representation of time, we will need to create a new object \u0026 field.",
+      "parentUuid": "9ff31c3c_1ddab686",
+      "range": {
+        "startLine": 66,
+        "startChar": 55,
+        "endLine": 66,
+        "endChar": 77
+      },
+      "revId": "89bfb06781712f0f109bd22166f218f2ad008243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
