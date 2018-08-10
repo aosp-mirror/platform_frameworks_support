@@ -370,6 +370,7 @@ package androidx.preference {
     method protected boolean onPrepareAddPreference(androidx.preference.Preference);
     method public void removeAll();
     method public boolean removePreference(androidx.preference.Preference);
+    method public boolean removePreference(java.lang.CharSequence);
     method public void setInitialExpandedChildrenCount(int);
     method public void setOrderingAsAdded(boolean);
   }
