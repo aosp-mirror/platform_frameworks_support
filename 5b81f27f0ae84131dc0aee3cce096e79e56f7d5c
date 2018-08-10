@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fe57742b_1e544d20",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-10T02:02:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1f65bc7_e9e6835a",
+      "range": {
+        "startLine": 142,
+        "startChar": 49,
+        "endLine": 142,
+        "endChar": 55
+      },
+      "revId": "5b81f27f0ae84131dc0aee3cce096e79e56f7d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "362e6bb0_bdc97b8a",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 19
@@ -45,6 +69,30 @@
       "revId": "5b81f27f0ae84131dc0aee3cce096e79e56f7d5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0c8b63c_0919209a",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-10T02:02:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "362e6bb0_bdc97b8a",
+      "range": {
+        "startLine": 524,
+        "startChar": 20,
+        "endLine": 527,
+        "endChar": 45
+      },
+      "revId": "5b81f27f0ae84131dc0aee3cce096e79e56f7d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "8b26c879_a65a2264",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-10T02:02:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9270f639_5df0aeb9",
+      "range": {
+        "startLine": 52,
+        "startChar": 29,
+        "endLine": 52,
+        "endChar": 46
+      },
+      "revId": "5b81f27f0ae84131dc0aee3cce096e79e56f7d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01588136_4155dee6",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
         "patchSetId": 19
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "192976cd_4801de27",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-10T02:02:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01588136_4155dee6",
+      "range": {
+        "startLine": 57,
+        "startChar": 38,
+        "endLine": 64,
+        "endChar": 36
+      },
+      "revId": "5b81f27f0ae84131dc0aee3cce096e79e56f7d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "817a82f8_1cda6ec7",
         "filename": "mediarouter/src/main/res/values/themes.xml",
         "patchSetId": 19
@@ -114,6 +210,30 @@
       "revId": "5b81f27f0ae84131dc0aee3cce096e79e56f7d5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "182c3818_22bd31cc",
+        "filename": "mediarouter/src/main/res/values/themes.xml",
+        "patchSetId": 19
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-10T02:02:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "817a82f8_1cda6ec7",
+      "range": {
+        "startLine": 63,
+        "startChar": 30,
+        "endLine": 68,
+        "endChar": 31
+      },
+      "revId": "5b81f27f0ae84131dc0aee3cce096e79e56f7d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
