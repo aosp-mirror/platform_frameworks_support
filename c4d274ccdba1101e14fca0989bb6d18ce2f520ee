@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6fe88dad_1228ad62",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2018-08-10T21:46:40Z",
+      "side": 1,
+      "message": "What does \"velocity millis\" mean? Can you add some kind of documentation about these parameters?",
+      "range": {
+        "startLine": 27,
+        "startChar": 25,
+        "endLine": 27,
+        "endChar": 39
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "029afb72_173f233a",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2018-08-10T21:46:40Z",
+      "side": 1,
+      "message": "nit: average? (x + y) / 2 ?",
+      "range": {
+        "startLine": 42,
+        "startChar": 32,
+        "endLine": 42,
+        "endChar": 92
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1741571d_c4497a7d",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2018-08-10T21:46:40Z",
+      "side": 1,
+      "message": "Looks like there are only 3 (2 distinct and 1 up) events per gesture. But a normal gesture (even a short one) would consist of many more events. Do we need to worry about that here?\nAlso, touchscreens are normally 100 Hz or so, so you would get an event every 10 ms, no matter what. So in other code bases the events are chopped up into 10 ms chunks. Not sure if important, but wanted to mention just in case.",
+      "range": {
+        "startLine": 73,
+        "startChar": 19,
+        "endLine": 73,
+        "endChar": 33
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e17d61a_f9655b2d",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2018-08-10T21:46:40Z",
+      "side": 1,
+      "message": "I am not sure, but would it be better to generate the motion events here, and pass in the array of coordinates / times only?\n\nThe reason I ask is that the downTime / eventTime are hardcoded right now. Down time is set to zero, and eventtime is set during generateFlingMotionEvents, not during dispatch.\n\nSo that means the view will receive incorrect data. That probably doesnt matter because the view does not care, or looks only at relative timestamps (time differences). Still, if correctness is important, maybe it is best to generate the eventtimes based on uptimeMillis, and doing that at the point of dispatch.",
+      "range": {
+        "startLine": 79,
+        "startChar": 9,
+        "endLine": 79,
+        "endChar": 35
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d08b9deb_cae64b47",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2018-08-10T21:46:40Z",
+      "side": 1,
+      "message": "Not super obvious to me, but how are timings achieved? Is there any kind of explicit delay between the events?",
+      "range": {
+        "startLine": 81,
+        "startChar": 13,
+        "endLine": 81,
+        "endChar": 31
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
