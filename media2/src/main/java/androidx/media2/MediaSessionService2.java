@@ -208,6 +208,11 @@ public abstract class MediaSessionService2 extends Service {
         return mImpl.onBind(intent);
     }
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return mImpl.onStartCommand(intent, flags, startId);
+    }
+
     /**
      * Returned by {@link #onUpdateNotification()} for making session service foreground service
      * to keep playback running in the background. It's highly recommended to show media style
@@ -254,6 +259,7 @@ public abstract class MediaSessionService2 extends Service {
 
     interface MediaSessionService2Impl {
         void onCreate(MediaSessionService2 service);
+        int onStartCommand(Intent intent, int flags, int startId);
         IBinder onBind(Intent intent);
         MediaNotification onUpdateNotification();
         MediaSession2 getSession();
