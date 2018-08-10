@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e133aa6_49a0d005",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-10T08:06:47Z",
+      "side": 1,
+      "message": "safe default to OK would be safer if we were to remove this field one day, rather than as written defaulting to not OK.\n\n() -\u003e new ProducerStatus(ProducerStatus.Code.OK, \"\")",
+      "range": {
+        "startLine": 122,
+        "startChar": 48,
+        "endLine": 122,
+        "endChar": 67
+      },
+      "revId": "89bfb06781712f0f109bd22166f218f2ad008243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff2ad1eb_fc23d8f3",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-10T08:06:47Z",
+      "side": 1,
+      "message": "good safe default",
+      "range": {
+        "startLine": 130,
+        "startChar": 74,
+        "endLine": 131,
+        "endChar": 0
+      },
+      "revId": "89bfb06781712f0f109bd22166f218f2ad008243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5779f88f_1422c046",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-10T08:06:47Z",
+      "side": 1,
+      "message": "Let\u0027s make this return a safe default non-null segment if we can. A segment with empty string would do the trick, perhaps?\n\nThis is my feedback throughout, that I\u0027m worried about using null to represent bad states, because after one client begins crashing on a null, we won\u0027t be able to ever represent \u0027not present\u0027 without breaking that client.\n\nI\u0027ve got to run, sorry I didn\u0027t give this a more thorough review today, but my broad goal for reviewing this on monday is to try and rework this so that we can signal not-present without using nulls.\n\nMy strawman plan is to basically copy how proto3 does this:\n- offer \u0027boolean hasX\u0027 getters that clients can use to tell if there is or isn\u0027t a segment being currently driven\n- offer \u0027@NonNull Message getX\u0027 getters that, even if the submessage isn\u0027t present, return a \u0027safe default\u0027 that won\u0027t hurt the client to use\n\nand do that throughout. If that sounds good to you, you could get started, otherwise fine to wait",
+      "range": {
+        "startLine": 147,
+        "startChar": 24,
+        "endLine": 148,
+        "endChar": 0
+      },
+      "revId": "89bfb06781712f0f109bd22166f218f2ad008243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ff31c3c_1ddab686",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-10T08:06:47Z",
+      "side": 1,
+      "message": "UTC may be a more sensible default than the system\u0027s default if no zone is sent",
+      "range": {
+        "startLine": 66,
+        "startChar": 55,
+        "endLine": 66,
+        "endChar": 77
+      },
+      "revId": "89bfb06781712f0f109bd22166f218f2ad008243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aef96892_4f5b8c8f",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-10T08:06:47Z",
+      "side": 1,
+      "message": "handle both null and empty here?",
+      "range": {
+        "startLine": 66,
+        "startChar": 16,
+        "endLine": 66,
+        "endChar": 31
+      },
+      "revId": "89bfb06781712f0f109bd22166f218f2ad008243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
