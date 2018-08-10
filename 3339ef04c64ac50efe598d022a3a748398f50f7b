@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "591579e7_c9f29bf5",
+        "filename": "media2/src/main/java/androidx/media2/SessionToken2ImplLegacy.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-10T06:16:03Z",
+      "side": 1,
+      "message": "It would be nice if we add \u0027in order to send extra binder.\u0027 here.",
+      "range": {
+        "startLine": 58,
+        "startChar": 48,
+        "endLine": 58,
+        "endChar": 49
+      },
+      "revId": "3339ef04c64ac50efe598d022a3a748398f50f7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bdf12190_341bea91",
         "filename": "media2/src/main/java/androidx/media2/SessionToken2ImplLegacy.java",
         "patchSetId": 5
