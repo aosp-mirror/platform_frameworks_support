@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0e628db_1d31d7a0",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-10T05:30:38Z",
+      "side": 1,
+      "message": "What about removing this method?",
+      "range": {
+        "startLine": 985,
+        "startChar": 0,
+        "endLine": 989,
+        "endChar": 0
+      },
+      "revId": "a11625f31006076841e1a71fb91b1e4e7bd8eb98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08785ea4_15721ab0",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 992,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-10T05:30:38Z",
+      "side": 1,
+      "message": "Can it be null?",
+      "revId": "a11625f31006076841e1a71fb91b1e4e7bd8eb98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "004009ef_ac9a7f1e",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-10T05:30:38Z",
+      "side": 1,
+      "message": "sessionIdHint?\n\nDo you need this?",
+      "range": {
+        "startLine": 135,
+        "startChar": 76,
+        "endLine": 135,
+        "endChar": 85
+      },
+      "revId": "a11625f31006076841e1a71fb91b1e4e7bd8eb98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d91e5ee7_23436339",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-10T05:30:38Z",
+      "side": 1,
+      "message": "Do you mean,\n\"Revisit here for sessionIdHint.\"?",
+      "range": {
+        "startLine": 46,
+        "startChar": 25,
+        "endLine": 46,
+        "endChar": 29
+      },
+      "revId": "a11625f31006076841e1a71fb91b1e4e7bd8eb98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
