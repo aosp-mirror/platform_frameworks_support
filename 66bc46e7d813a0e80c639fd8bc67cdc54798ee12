@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e508facf_f047ddec",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-10T05:44:25Z",
+      "side": 1,
+      "message": "you may want to define a common private class for this.",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 76,
+        "endChar": 28
+      },
+      "revId": "66bc46e7d813a0e80c639fd8bc67cdc54798ee12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4627ddc5_44cf327d",
+        "filename": "mediarouter/src/main/res/drawable/mr_cast_checkbox.xml",
+        "patchSetId": 14
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-10T05:44:25Z",
+      "side": 1,
+      "message": "copyright?",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 55
+      },
+      "revId": "66bc46e7d813a0e80c639fd8bc67cdc54798ee12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
