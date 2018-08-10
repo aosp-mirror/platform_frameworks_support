@@ -1166,12 +1166,6 @@ package androidx.core.os {
     field public static final java.lang.String MEDIA_UNKNOWN = "unknown";
   }
 
-  public final class HandlerCompat {
-    method public static android.os.Handler createAsync(android.os.Looper);
-    method public static android.os.Handler createAsync(android.os.Looper, android.os.Handler.Callback);
-    method public static boolean postDelayed(android.os.Handler, java.lang.Runnable, java.lang.Object, long);
-  }
-
   public final class LocaleListCompat {
     method public static androidx.core.os.LocaleListCompat create(java.util.Locale...);
     method public static androidx.core.os.LocaleListCompat forLanguageTags(java.lang.String);
@@ -1187,11 +1181,6 @@ package androidx.core.os {
     method public java.lang.Object unwrap();
     method public static deprecated androidx.core.os.LocaleListCompat wrap(java.lang.Object);
     method public static androidx.core.os.LocaleListCompat wrap(android.os.LocaleList);
-  }
-
-  public final class MessageCompat {
-    method public static boolean isAsynchronous(android.os.Message);
-    method public static void setAsynchronous(android.os.Message, boolean);
   }
 
   public class OperationCanceledException extends java.lang.RuntimeException {

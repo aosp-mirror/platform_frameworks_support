@@ -32,6 +32,7 @@ object LibraryGroups {
     const val CONTENTPAGER = "androidx.contentpager"
     const val COORDINATORLAYOUT = "androidx.coordinatorlayout"
     const val CORE = "androidx.core"
+    const val HANDLER = "androidx.handler"
     const val CURSORADAPTER = "androidx.cursoradapter"
     const val CUSTOMVIEW = "androidx.customview"
     const val DOCUMENTFILE = "androidx.documentfile"

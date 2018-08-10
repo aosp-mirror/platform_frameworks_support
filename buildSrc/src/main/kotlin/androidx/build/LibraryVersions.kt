@@ -122,6 +122,11 @@ object LibraryVersions {
     val CORE = Version("1.1.0-alpha01")
 
     /**
+     * Version code for Core
+     */
+    val HANDLER = Version("1.0.0-alpha01")
+
+    /**
      * Version code for media2
      */
     val MEDIA2 = Version("1.0.0-alpha02")
