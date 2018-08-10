@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9defaf7a_678ccb62",
+        "filename": "core/ktx/src/main/java/androidx/core/view/View.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-10T21:09:59Z",
+      "side": 1,
+      "message": "remove space before .",
+      "range": {
+        "startLine": 344,
+        "startChar": 56,
+        "endLine": 344,
+        "endChar": 57
+      },
+      "revId": "88caa2d71ffa7b2b52fcfea2b6f9e70e3544ac40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
