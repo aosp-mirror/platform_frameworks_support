@@ -38,6 +38,7 @@
         <!-- Keep the test services synced together with the MockMediaSessionService2 -->
         <service android:name="androidx.media2.MockMediaSessionService2">
             <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
                 <action android:name="android.media.MediaSessionService2" />
                 <action android:name="android.media.browse.MediaBrowserService" />
             </intent-filter>
