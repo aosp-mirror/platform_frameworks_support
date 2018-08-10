@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7832bbbf_71895971",
+        "filename": "room/integration-tests/testapp/schemas/androidx.room.integration.testapp.test.PojoWithNullRelationKeyTest.NullRelationDatabase/1.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-10T18:03:00Z",
+      "side": 1,
+      "message": "should this be committed?",
+      "revId": "fb4c0f4d5c818623030749e8f9babbb1efb18dd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
