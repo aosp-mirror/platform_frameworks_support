@@ -550,11 +550,23 @@ public abstract class PagedList<T> extends AbstractList<T> {
     /**
      * Returns size of the list, including any not-yet-loaded null padding.
      *
-     * @return Current total size of the list.
+     * @return Current total size of the list, including placeholders.
      */
     @Override
     public int size() {
         return mStorage.size();
+    }
+
+    /**
+     * Returns the number of items loaded in the PagedList.
+     *
+     * If placeholders are {@link Config#enablePlaceholders disabled}, this method is equivalent to
+     * {@link #size()}.
+     *
+     * @return Number of items currently loaded.
+     */
+    public int getLoadedCount() {
+        return mStorage.getLoadedCount();
     }
 
     /**
