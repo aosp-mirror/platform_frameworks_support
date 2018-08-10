@@ -25,11 +25,8 @@ import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.DimenRes;
@@ -47,9 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class to build a list item of text.
- *
- * <p>An item supports primary action and supplemental action(s).
+ * Class to build a list item that has up to two action buttons.
  *
  * <p>An item visually composes of 3 parts; each part may contain multiple views.
  * <ul>
@@ -64,26 +59,17 @@ import java.util.List;
  *         <li>Title
  *         <li>Body
  *     </ul>
- *     <li>{@code Supplemental Action}: represented by one of the following types; aligned toward
- *     the end of item.
- *     <ul>
- *         <li>Supplemental Icon
- *         <li>One Action Button
- *         <li>Two Action Buttons
- *         <li>Switch
- *     </ul>
+ *     <li>{@code Supplemental Action}: Up to two action buttons.
  * </ul>
  *
- * <p>{@code TextListItem} binds data to {@link ViewHolder} based on components selected.
+ * <p>{@code ActionButtonListItem} binds data to {@link ViewHolder} based on components selected.
  *
  * <p>When conflicting setter methods are called (e.g. setting primary action to both primary icon
  * and no icon), the last called method wins.
  */
-public class TextListItem extends ListItem<TextListItem.ViewHolder> {
-
+public class ActionButtonListItem extends ListItem<ActionButtonListItem.ViewHolder> {
     @Retention(SOURCE)
-    @IntDef({
-            PRIMARY_ACTION_ICON_SIZE_SMALL, PRIMARY_ACTION_ICON_SIZE_MEDIUM,
+    @IntDef({PRIMARY_ACTION_ICON_SIZE_SMALL, PRIMARY_ACTION_ICON_SIZE_MEDIUM,
             PRIMARY_ACTION_ICON_SIZE_LARGE})
     private @interface PrimaryActionIconSize {}
 
@@ -113,45 +99,25 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
     private static final int PRIMARY_ACTION_TYPE_ICON = 2;
 
     @Retention(SOURCE)
-    @IntDef({SUPPLEMENTAL_ACTION_NO_ACTION, SUPPLEMENTAL_ACTION_SUPPLEMENTAL_ICON,
-            SUPPLEMENTAL_ACTION_ONE_ACTION, SUPPLEMENTAL_ACTION_TWO_ACTIONS,
-            SUPPLEMENTAL_ACTION_SWITCH})
+    @IntDef({ SUPPLEMENTAL_ACTION_ONE_ACTION, SUPPLEMENTAL_ACTION_TWO_ACTIONS })
     private @interface SupplementalActionType {}
 
-    private static final int SUPPLEMENTAL_ACTION_NO_ACTION = 0;
-    private static final int SUPPLEMENTAL_ACTION_SUPPLEMENTAL_ICON = 1;
-    private static final int SUPPLEMENTAL_ACTION_ONE_ACTION = 2;
-    private static final int SUPPLEMENTAL_ACTION_TWO_ACTIONS = 3;
-    private static final int SUPPLEMENTAL_ACTION_SWITCH = 4;
-
-    private final Context mContext;
-    private boolean mIsEnabled = true;
-
-    private final List<ViewBinder<ViewHolder>> mBinders = new ArrayList<>();
-
-    private View.OnClickListener mOnClickListener;
+    private static final int SUPPLEMENTAL_ACTION_ONE_ACTION = 0;
+    private static final int SUPPLEMENTAL_ACTION_TWO_ACTIONS = 1;
 
     @PrimaryActionType private int mPrimaryActionType = PRIMARY_ACTION_TYPE_NO_ICON;
     private Drawable mPrimaryActionIconDrawable;
     @PrimaryActionIconSize private int mPrimaryActionIconSize = PRIMARY_ACTION_ICON_SIZE_SMALL;
 
-    private CharSequence mTitle;
-    private CharSequence mBody;
+    private final Context mContext;
+    private boolean mIsEnabled = true;
+    private final List<ViewBinder<ViewHolder>> mBinders = new ArrayList<>();
+
+    private String mTitle;
+    private String mBody;
     private boolean mIsBodyPrimary;
 
-    @SupplementalActionType private int mSupplementalActionType = SUPPLEMENTAL_ACTION_NO_ACTION;
-    private Drawable mSupplementalIconDrawable;
-    private View.OnClickListener mSupplementalIconOnClickListener;
-    private boolean mShowSupplementalIconDivider;
-
-    private boolean mSwitchChecked;
-    /**
-     * {@code true} if the checked state of the switch has changed programmatically and
-     * {@link #mSwitchOnCheckedChangeListener} needs to be notified.
-     */
-    private boolean mShouldNotifySwitchChecked;
-    private boolean mShowSwitchDivider;
-    private CompoundButton.OnCheckedChangeListener mSwitchOnCheckedChangeListener;
+    @SupplementalActionType private int mSupplementalActionType = SUPPLEMENTAL_ACTION_ONE_ACTION;
 
     private String mAction1Text;
     private View.OnClickListener mAction1OnClickListener;
@@ -160,14 +126,16 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
     private View.OnClickListener mAction2OnClickListener;
     private boolean mShowAction2Divider;
 
+    private View.OnClickListener mOnClickListener;
+
     /**
-     * Creates a {@link TextListItem.ViewHolder}.
+     * Creates a {@link ActionButtonListItem.ViewHolder}.
      */
     public static ViewHolder createViewHolder(View itemView) {
         return new ViewHolder(itemView);
     }
 
-    public TextListItem(Context context) {
+    public ActionButtonListItem(Context context) {
         mContext = context;
         markDirty();
     }
@@ -177,37 +145,24 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
      */
     @Override
     public int getViewType() {
-        return ListItemAdapter.LIST_ITEM_TYPE_TEXT;
+        return ListItemAdapter.LIST_ITEM_TYPE_ACTION_BUTTONS;
     }
 
     /**
-     * Calculates the layout params for views in {@link ViewHolder}.
+     * Hides all views in {@link ActionButtonListItem.ViewHolder} then applies ViewBinders to
+     * adjust view layout params.
      */
     @Override
-    protected void resolveDirtyState() {
-        mBinders.clear();
-
-        // Create binders that adjust layout params of each view.
-        setPrimaryAction();
-        setText();
-        setSupplementalActions();
-        setOnClickListener();
-    }
-
-    /**
-     * Hides all views in {@link ViewHolder} then applies ViewBinders to adjust view layout params.
-     */
-    @Override
-    public void onBind(ViewHolder viewHolder) {
+    public void onBind(ActionButtonListItem.ViewHolder viewHolder) {
         hideSubViews(viewHolder);
-        for (ViewBinder binder : mBinders) {
+        for (ViewBinder<ViewHolder> binder : mBinders) {
             binder.bind(viewHolder);
         }
 
         for (View v : viewHolder.getWidgetViews()) {
             v.setEnabled(mIsEnabled);
         }
-        // TextListItem supports clicking on the item so we also update the entire itemView.
+        // ActionButtonListItem supports clicking on the item so we also update the entire itemView.
         viewHolder.itemView.setEnabled(mIsEnabled);
     }
 
@@ -230,10 +185,18 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
         mIsEnabled = enabled;
     }
 
-    private void hideSubViews(ViewHolder vh) {
-        for (View v : vh.getWidgetViews()) {
-            v.setVisibility(View.GONE);
-        }
+    /**
+     * Calculates the layout params for views in {@link ViewHolder}.
+     */
+    @Override
+    protected void resolveDirtyState() {
+        mBinders.clear();
+
+        // Create binders that adjust layout params of each view.
+        setPrimaryAction();
+        setText();
+        setSupplementalActions();
+        setOnClickListener();
     }
 
     private void setPrimaryAction() {
@@ -245,7 +208,6 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
         setTextContent();
         setTextVerticalMargin();
         setTextStartMargin();
-        setTextEndMargin();
     }
 
     private void setOnClickListener() {
@@ -394,31 +356,15 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
         }
         int startMargin = mContext.getResources().getDimensionPixelSize(startMarginResId);
         mBinders.add(vh -> {
-            MarginLayoutParams titleLayoutParams =
-                    (MarginLayoutParams) vh.getTitle().getLayoutParams();
+            ViewGroup.MarginLayoutParams titleLayoutParams =
+                    (ViewGroup.MarginLayoutParams) vh.getTitle().getLayoutParams();
             titleLayoutParams.setMarginStart(startMargin);
             vh.getTitle().requestLayout();
 
-            MarginLayoutParams bodyLayoutParams =
-                    (MarginLayoutParams) vh.getBody().getLayoutParams();
+            ViewGroup.MarginLayoutParams bodyLayoutParams =
+                    (ViewGroup.MarginLayoutParams) vh.getBody().getLayoutParams();
             bodyLayoutParams.setMarginStart(startMargin);
             vh.getBody().requestLayout();
-        });
-    }
-
-    private void setTextEndMargin() {
-        int endMargin = mSupplementalActionType == SUPPLEMENTAL_ACTION_NO_ACTION
-                ? mContext.getResources().getDimensionPixelSize(R.dimen.car_keyline_1)
-                : mContext.getResources().getDimensionPixelSize(R.dimen.car_padding_4);
-
-        mBinders.add(vh -> {
-            MarginLayoutParams titleLayoutParams =
-                    (MarginLayoutParams) vh.getTitle().getLayoutParams();
-            titleLayoutParams.setMarginEnd(endMargin);
-
-            MarginLayoutParams bodyLayoutParams =
-                    (MarginLayoutParams) vh.getBody().getLayoutParams();
-            bodyLayoutParams.setMarginEnd(endMargin);
         });
     }
 
@@ -431,8 +377,8 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
         if (!TextUtils.isEmpty(mTitle) && TextUtils.isEmpty(mBody)) {
             // Title only - view is aligned center vertically by itself.
             mBinders.add(vh -> {
-                MarginLayoutParams layoutParams =
-                        (MarginLayoutParams) vh.getTitle().getLayoutParams();
+                ViewGroup.MarginLayoutParams layoutParams =
+                        (ViewGroup.MarginLayoutParams) vh.getTitle().getLayoutParams();
                 layoutParams.topMargin = 0;
                 vh.getTitle().requestLayout();
             });
@@ -440,9 +386,9 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
             mBinders.add(vh -> {
                 // Body uses top and bottom margin.
                 int margin = mContext.getResources().getDimensionPixelSize(
-                         R.dimen.car_padding_3);
-                MarginLayoutParams layoutParams =
-                        (MarginLayoutParams) vh.getBody().getLayoutParams();
+                        R.dimen.car_padding_3);
+                ViewGroup.MarginLayoutParams layoutParams =
+                        (ViewGroup.MarginLayoutParams) vh.getBody().getLayoutParams();
                 layoutParams.topMargin = margin;
                 layoutParams.bottomMargin = margin;
                 vh.getBody().requestLayout();
@@ -453,14 +399,14 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
                 int padding2 = resources.getDimensionPixelSize(R.dimen.car_padding_2);
 
                 // Title has a top margin
-                MarginLayoutParams titleLayoutParams =
-                        (MarginLayoutParams) vh.getTitle().getLayoutParams();
+                ViewGroup.MarginLayoutParams titleLayoutParams =
+                        (ViewGroup.MarginLayoutParams) vh.getTitle().getLayoutParams();
                 titleLayoutParams.topMargin = padding2;
                 vh.getTitle().requestLayout();
 
                 // Body is below title with no margin and has bottom margin.
-                MarginLayoutParams bodyLayoutParams =
-                        (MarginLayoutParams) vh.getBody().getLayoutParams();
+                ViewGroup.MarginLayoutParams bodyLayoutParams =
+                        (ViewGroup.MarginLayoutParams) vh.getBody().getLayoutParams();
                 bodyLayoutParams.topMargin = 0;
                 bodyLayoutParams.bottomMargin = padding2;
                 vh.getBody().requestLayout();
@@ -473,24 +419,6 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
      */
     private void setSupplementalActions() {
         switch (mSupplementalActionType) {
-            case SUPPLEMENTAL_ACTION_SUPPLEMENTAL_ICON:
-                mBinders.add(vh -> {
-                    vh.getSupplementalIcon().setVisibility(View.VISIBLE);
-                    if (mShowSupplementalIconDivider) {
-                        vh.getSupplementalIconDivider().setVisibility(View.VISIBLE);
-                    }
-
-                    vh.getSupplementalIcon().setImageDrawable(mSupplementalIconDrawable);
-                    vh.getSupplementalIcon().setOnClickListener(
-                            mSupplementalIconOnClickListener);
-
-                    boolean hasClickListener = mSupplementalIconOnClickListener != null;
-                    vh.getSupplementalIcon().setClickable(hasClickListener);
-                    vh.getClickInterceptView().setClickable(hasClickListener);
-                    vh.getClickInterceptView().setVisibility(
-                            hasClickListener ? View.VISIBLE : View.GONE);
-                });
-                break;
             case SUPPLEMENTAL_ACTION_TWO_ACTIONS:
                 mBinders.add(vh -> {
                     vh.getAction2().setVisibility(View.VISIBLE);
@@ -500,8 +428,16 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
 
                     vh.getAction2().setText(mAction2Text);
                     vh.getAction2().setOnClickListener(mAction2OnClickListener);
+
+                    vh.getAction1().setVisibility(View.VISIBLE);
+                    if (mShowAction1Divider) {
+                        vh.getAction1Divider().setVisibility(View.VISIBLE);
+                    }
+
+                    vh.getAction1().setText(mAction1Text);
+                    vh.getAction1().setOnClickListener(mAction1OnClickListener);
                 });
-                // Fall through
+                break;
             case SUPPLEMENTAL_ACTION_ONE_ACTION:
                 mBinders.add(vh -> {
                     vh.getAction1().setVisibility(View.VISIBLE);
@@ -511,41 +447,6 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
 
                     vh.getAction1().setText(mAction1Text);
                     vh.getAction1().setOnClickListener(mAction1OnClickListener);
-
-                    // Buttons are always clickable, so activate the intercept view.
-                    vh.getClickInterceptView().setClickable(true);
-                    vh.getClickInterceptView().setVisibility(View.VISIBLE);
-                });
-                break;
-            case SUPPLEMENTAL_ACTION_NO_ACTION:
-                // If there's not action, then no need for the intercept view to stop touches.
-                mBinders.add(vh -> vh.getClickInterceptView().setClickable(false));
-                break;
-            case SUPPLEMENTAL_ACTION_SWITCH:
-                mBinders.add(vh -> {
-                    vh.getSwitch().setVisibility(View.VISIBLE);
-                    vh.getSwitch().setOnCheckedChangeListener(null);
-                    vh.getSwitch().setChecked(mSwitchChecked);
-                    vh.getSwitch().setOnCheckedChangeListener((buttonView, isChecked) -> {
-                        if (mSwitchOnCheckedChangeListener != null) {
-                            // The checked state changed via user interaction with the switch.
-                            mSwitchOnCheckedChangeListener.onCheckedChanged(buttonView, isChecked);
-                        }
-                        mSwitchChecked = isChecked;
-                    });
-                    if (mShouldNotifySwitchChecked && mSwitchOnCheckedChangeListener != null) {
-                        // The checked state was changed programmatically.
-                        mSwitchOnCheckedChangeListener.onCheckedChanged(vh.getSwitch(),
-                                mSwitchChecked);
-                        mShouldNotifySwitchChecked = false;
-                    }
-                    if (mShowSwitchDivider) {
-                        vh.getSwitchDivider().setVisibility(View.VISIBLE);
-                    }
-
-                    // The switch is always touch-able, so activate the intercept view.
-                    vh.getClickInterceptView().setClickable(true);
-                    vh.getClickInterceptView().setVisibility(View.VISIBLE);
                 });
                 break;
             default:
@@ -554,7 +455,7 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
     }
 
     /**
-     * Sets {@link View.OnClickListener} of {@code TextListItem}.
+     * Sets {@link View.OnClickListener} of {@code ActionButtonListItem}.
      */
     public void setOnClickListener(View.OnClickListener listener) {
         mOnClickListener = listener;
@@ -565,78 +466,8 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
      * Sets {@code Primary Action} to be represented by an icon.
      *
      * @param iconResId the resource identifier of the drawable.
-     * @param useLargeIcon the size of primary icon. Large Icon is a square as tall as an item.
-     *
-     * @deprecated use {@link #setPrimaryActionIcon(int, int)} instead.
-     */
-    @Deprecated
-    public void setPrimaryActionIcon(@DrawableRes int iconResId, boolean useLargeIcon) {
-        setPrimaryActionIcon(iconResId,
-                useLargeIcon ? PRIMARY_ACTION_ICON_SIZE_LARGE : PRIMARY_ACTION_ICON_SIZE_SMALL);
-    }
-
-    /**
-     * Sets {@code Primary Action} to be represented by an icon.
-     *
-     * @param drawable the Drawable to set, or null to clear the content.
-     * @param useLargeIcon the size of primary icon. Large Icon is a square as tall as an item.
-     *
-     * @deprecated use {@link #setPrimaryActionIcon(int, int)} instead.
-     */
-    @Deprecated
-    public void setPrimaryActionIcon(Drawable drawable, boolean useLargeIcon) {
-        setPrimaryActionIcon(drawable,
-                useLargeIcon ? PRIMARY_ACTION_ICON_SIZE_LARGE : PRIMARY_ACTION_ICON_SIZE_SMALL);
-    }
-
-    /**
-     * Sets {@code Primary Action} to be represented by an icon.
-     *
-     * @param iconResId the resource identifier of the drawable.
-     *
-     * @deprecated use {@link #setPrimaryActionIcon(int, int)} instead.
-     */
-    @Deprecated
-    public void setPrimaryActionIcon(@DrawableRes int iconResId) {
-        setPrimaryActionIcon(mContext.getDrawable(iconResId));
-    }
-
-    /**
-     * Sets {@code Primary Action} to be represented by an icon.
-     *
-     * @param drawable the Drawable to set, or null to clear the content.
-     *
-     * @deprecated use {@link #setPrimaryActionIcon(int, int)} instead.
-     */
-    @Deprecated
-    public void setPrimaryActionIcon(@Nullable Drawable drawable) {
-        mPrimaryActionType = PRIMARY_ACTION_TYPE_ICON;
-        mPrimaryActionIconDrawable = drawable;
-
-        markDirty();
-    }
-
-    /**
-     * Sets the size of {@code Primary Action Icon}.
-     *
-     * @param size small/medium/large. Available as {@link #PRIMARY_ACTION_ICON_SIZE_SMALL},
-     *             {@link #PRIMARY_ACTION_ICON_SIZE_MEDIUM},
-     *             {@link #PRIMARY_ACTION_ICON_SIZE_LARGE}.
-     *
-     * @deprecated use {@link #setPrimaryActionIcon(int, int)} instead.
-     */
-    @Deprecated
-    public void setPrimaryActionIconSize(@PrimaryActionIconSize int size) {
-        mPrimaryActionIconSize = size;
-        markDirty();
-    }
-
-    /**
-     * Sets {@code Primary Action} to be represented by an icon.
-     *
-     * @param iconResId the resource identifier of the drawable.
-     * @param size small/medium/large. Available as {@link #PRIMARY_ACTION_ICON_SIZE_SMALL},
-     *             {@link #PRIMARY_ACTION_ICON_SIZE_MEDIUM},
+     * @param size The size of the icon. Must be one of {@link #PRIMARY_ACTION_ICON_SIZE_SMALL},
+     *             {@link #PRIMARY_ACTION_ICON_SIZE_MEDIUM}, or
      *             {@link #PRIMARY_ACTION_ICON_SIZE_LARGE}.
      */
     public void setPrimaryActionIcon(@DrawableRes int iconResId, @PrimaryActionIconSize int size) {
@@ -647,8 +478,8 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
      * Sets {@code Primary Action} to be represented by an icon.
      *
      * @param drawable the Drawable to set, or null to clear the content.
-     * @param size small/medium/large. Available as {@link #PRIMARY_ACTION_ICON_SIZE_SMALL},
-     *             {@link #PRIMARY_ACTION_ICON_SIZE_MEDIUM},
+     * @param size The size of the icon. Must be one of {@link #PRIMARY_ACTION_ICON_SIZE_SMALL},
+     *             {@link #PRIMARY_ACTION_ICON_SIZE_MEDIUM}, or
      *             {@link #PRIMARY_ACTION_ICON_SIZE_LARGE}.
      */
     public void setPrimaryActionIcon(@Nullable Drawable drawable, @PrimaryActionIconSize int size) {
@@ -681,13 +512,13 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
      * Sets the title of item.
      *
      * <p>Primary text is {@code Title} by default. It can be set by
-     * {@link #setBody(CharSequence, boolean)}
+     * {@link #setBody(String, boolean)}
      *
      * <p>{@code Title} text is limited to one line, and ellipses at the end.
      *
      * @param title text to display as title.
      */
-    public void setTitle(CharSequence title) {
+    public void setTitle(String title) {
         mTitle = title;
         markDirty();
     }
@@ -699,7 +530,7 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
      * text as the primary.
      * @param body text to be displayed.
      */
-    public void setBody(CharSequence body) {
+    public void setBody(String body) {
         setBody(body, false);
     }
 
@@ -709,63 +540,10 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
      * @param body text to be displayed.
      * @param asPrimary sets {@code Body Text} as primary text of item.
      */
-    public void setBody(CharSequence body, boolean asPrimary) {
+    public void setBody(String body, boolean asPrimary) {
         mBody = body;
         mIsBodyPrimary = asPrimary;
 
-        markDirty();
-    }
-
-    /**
-     * Sets {@code Supplemental Action} to be represented by an {@code Supplemental Icon}.
-     *
-     * @param iconResId drawable resource id.
-     * @param showDivider whether to display a vertical bar that separates {@code text} and
-     *                    {@code Supplemental Icon}.
-     */
-    public void setSupplementalIcon(int iconResId, boolean showDivider) {
-        setSupplementalIcon(mContext.getDrawable(iconResId), showDivider, null);
-    }
-
-    /**
-     * Sets {@code Supplemental Action} to be represented by an {@code Supplemental Icon}.
-     *
-     * @param drawable the Drawable to set, or null to clear the content.
-     * @param showDivider whether to display a vertical bar that separates {@code text} and
-     *                    {@code Supplemental Icon}.
-     */
-    public void setSupplementalIcon(Drawable drawable, boolean showDivider) {
-        setSupplementalIcon(drawable, showDivider, null);
-    }
-
-    /**
-     * Sets {@code Supplemental Action} to be represented by an {@code Supplemental Icon}.
-     *
-     * @param iconResId drawable resource id.
-     * @param showDivider whether to display a vertical bar that separates {@code text} and
-     *                    {@code Supplemental Icon}.
-     * @param listener the callback that will run when icon is clicked.
-     */
-    public void setSupplementalIcon(int iconResId, boolean showDivider,
-            View.OnClickListener listener) {
-        setSupplementalIcon(mContext.getDrawable(iconResId), showDivider, listener);
-    }
-
-    /**
-     * Sets {@code Supplemental Action} to be represented by an {@code Supplemental Icon}.
-     *
-     * @param drawable the Drawable to set, or null to clear the content.
-     * @param showDivider whether to display a vertical bar that separates {@code text} and
-     *                    {@code Supplemental Icon}.
-     * @param listener the callback that will run when icon is clicked.
-     */
-    public void setSupplementalIcon(Drawable drawable, boolean showDivider,
-            View.OnClickListener listener) {
-        mSupplementalActionType = SUPPLEMENTAL_ACTION_SUPPLEMENTAL_ICON;
-
-        mSupplementalIconDrawable = drawable;
-        mSupplementalIconOnClickListener = listener;
-        mShowSupplementalIconDivider = showDivider;
         markDirty();
     }
 
@@ -776,9 +554,7 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
      * @param showDivider whether to display a vertical bar that separates {@code Text} and
      *                    {@code Action Button}.
      * @param listener the callback that will run when action button is clicked.
-     * @deprecated Use {@link ActionButtonListItem} for a {@code ListItem} with action buttons.
      */
-    @Deprecated
     public void setAction(String text, boolean showDivider, View.OnClickListener listener) {
         if (TextUtils.isEmpty(text)) {
             throw new IllegalArgumentException("Action text cannot be empty.");
@@ -802,9 +578,7 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
      *
      * @param action1Text button text to display - this button will be closer to item end.
      * @param action2Text button text to display.
-     * @deprecated Use {@link ActionButtonListItem} for a {@code ListItem} with action buttons.
      */
-    @Deprecated
     public void setActions(String action1Text, boolean showAction1Divider,
             View.OnClickListener action1OnClickListener,
             String action2Text, boolean showAction2Divider,
@@ -827,59 +601,22 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
         markDirty();
     }
 
-    /**
-     * Sets {@code Supplemental Action} to be represented by a {@link android.widget.Switch}.
-     *
-     * @param checked initial value for switched.
-     * @param showDivider whether to display a vertical bar between switch and text.
-     * @param listener callback to be invoked when the checked state shown in the UI changes.
-     */
-    public void setSwitch(boolean checked, boolean showDivider,
-            CompoundButton.OnCheckedChangeListener listener) {
-        mSupplementalActionType = SUPPLEMENTAL_ACTION_SWITCH;
-
-        mSwitchChecked = checked;
-        // This method invalidates any previous listener and state changes. Reset so that we *only*
-        // notify when the checked state changes and not on the initial bind.
-        mShouldNotifySwitchChecked = false;
-        mShowSwitchDivider = showDivider;
-        mSwitchOnCheckedChangeListener = listener;
-
-        markDirty();
-    }
-
-    /**
-     * Sets the state of {@code Switch}. For this method to take effect,
-     * {@link #setSwitch(boolean, boolean, CompoundButton.OnCheckedChangeListener)} must be called
-     * first to set {@code Supplemental Action} as a {@code Switch}.
-     *
-     * @param isChecked sets the "checked/unchecked, namely on/off" state of switch.
-     */
-    public void setSwitchState(boolean isChecked) {
-        if (mSwitchChecked == isChecked) {
-            return;
+    private void hideSubViews(ViewHolder vh) {
+        for (View v : vh.getWidgetViews()) {
+            v.setVisibility(View.GONE);
         }
-        mSwitchChecked = isChecked;
-        mShouldNotifySwitchChecked = true;
-        markDirty();
     }
 
     /**
-     * Holds views of TextListItem.
+     * Holds the children views of {@link ActionButtonListItem}.
      */
     public static class ViewHolder extends ListItem.ViewHolder {
-
         private final View[] mWidgetViews;
-
-        private ViewGroup mContainerLayout;
 
         private ImageView mPrimaryIcon;
 
         private TextView mTitle;
         private TextView mBody;
-
-        private View mSupplementalIconDivider;
-        private ImageView mSupplementalIcon;
 
         private Button mAction1;
         private View mAction1Divider;
@@ -887,25 +624,15 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
         private Button mAction2;
         private View mAction2Divider;
 
-        private Switch mSwitch;
-        private View mSwitchDivider;
         private View mClickInterceptor;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            mContainerLayout = itemView.findViewById(R.id.container);
-
             mPrimaryIcon = itemView.findViewById(R.id.primary_icon);
 
             mTitle = itemView.findViewById(R.id.title);
             mBody = itemView.findViewById(R.id.body);
-
-            mSupplementalIcon = itemView.findViewById(R.id.supplemental_icon);
-            mSupplementalIconDivider = itemView.findViewById(R.id.supplemental_icon_divider);
-
-            mSwitch = itemView.findViewById(R.id.switch_widget);
-            mSwitchDivider = itemView.findViewById(R.id.switch_divider);
 
             mAction1 = itemView.findViewById(R.id.action1);
             mAction1Divider = itemView.findViewById(R.id.action1_divider);
@@ -914,12 +641,6 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
 
             mClickInterceptor = itemView.findViewById(R.id.click_interceptor);
 
-            int minTouchSize = itemView.getContext().getResources()
-                    .getDimensionPixelSize(R.dimen.car_touch_target_size);
-
-            MinTouchTargetHelper.ensureThat(mSupplementalIcon)
-                    .hasMinTouchSize(minTouchSize);
-
             // Each line groups relevant child views in an effort to help keep this view array
             // updated with actual child views in the ViewHolder.
             mWidgetViews = new View[] {
@@ -927,30 +648,14 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
                     mPrimaryIcon,
                     // Text.
                     mTitle, mBody,
-                    // Supplemental actions include icon, action button, and switch.
-                    mSupplementalIcon, mSupplementalIconDivider,
+                    // Supplemental actions
                     mAction1, mAction1Divider, mAction2, mAction2Divider,
-                    mSwitch, mSwitchDivider,
-                    // Click intercept view that is underneath any supplemental actions
-                    mClickInterceptor
             };
         }
 
-        /**
-         * Applies car UX restrictions to child views.
-         *
-         * <p>{@code Body} text might be truncated to meet length limit required by regulation.
-         *
-         * @param restrictions current car UX restrictions.
-         */
         @Override
         protected void applyUxRestrictions(@NonNull CarUxRestrictions restrictions) {
             CarUxRestrictionsUtils.apply(itemView.getContext(), restrictions, getBody());
-        }
-
-        @NonNull
-        public ViewGroup getContainerLayout() {
-            return mContainerLayout;
         }
 
         @NonNull
@@ -966,26 +671,6 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
         @NonNull
         public TextView getBody() {
             return mBody;
-        }
-
-        @NonNull
-        public ImageView getSupplementalIcon() {
-            return mSupplementalIcon;
-        }
-
-        @NonNull
-        public View getSupplementalIconDivider() {
-            return mSupplementalIconDivider;
-        }
-
-        @NonNull
-        public View getSwitchDivider() {
-            return mSwitchDivider;
-        }
-
-        @NonNull
-        public Switch getSwitch() {
-            return mSwitch;
         }
 
         @NonNull
