@@ -19,14 +19,14 @@ package androidx.media2;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import android.os.Build;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Process;
 
 import androidx.annotation.NonNull;
 import androidx.media2.MediaLibraryService2.MediaLibrarySession.MediaLibrarySessionCallback;
 import androidx.media2.MediaSession2.ControllerInfo;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SdkSuppress;
 
 import org.junit.After;
 import org.junit.Before;
@@ -42,13 +42,12 @@ import java.util.concurrent.CountDownLatch;
  * device and check whether the notification is shown/removed.
  */
 @LargeTest
-@SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
 public class MediaSessionService2NotificationTest extends MediaSession2TestBase {
     private static final long NOTIFICATION_SHOW_TIME_MS = 5000;
 
     MediaSession2 mSession;
     MockPlayer mPlayer;
-
+    MockPlaylistAgent mPlaylistAgent;
 
     @Before
     public void setUp() throws Exception {
@@ -72,6 +71,7 @@ public class MediaSessionService2NotificationTest extends MediaSession2TestBase 
                 if (Process.myUid() == controller.getUid()) {
                     mSession = session;
                     mPlayer = (MockPlayer) session.getPlayerConnector();
+                    mPlaylistAgent = (MockPlaylistAgent) session.getPlaylistAgent();
                     assertEquals(mContext.getPackageName(), controller.getPackageName());
                     assertFalse(controller.isTrusted());
                     latch.countDown();
@@ -85,17 +85,33 @@ public class MediaSessionService2NotificationTest extends MediaSession2TestBase 
         MediaController2 controller =
                 createController(TestUtils.getServiceToken(mContext, MockMediaSessionService2.ID));
 
-        // Notification should be shown for NOTIFICATION_SHOW_TIME_MS (ms).
-        // The notification will not be removed by swiping horizontally, since the service is
-        // running as foreground.
+        // Set current media item.
+        final String mediaId = "testMediaId";
+        Bitmap albumArt = BitmapFactory.decodeResource(mContext.getResources(),
+                androidx.media2.test.R.drawable.spider_man);
+        MediaMetadata2 metadata = new MediaMetadata2.Builder()
+                .putText(MediaMetadata2.METADATA_KEY_MEDIA_ID, mediaId)
+                .putText(MediaMetadata2.METADATA_KEY_DISPLAY_TITLE, "Test Song Name")
+                .putText(MediaMetadata2.METADATA_KEY_ARTIST, "Test Artist Name")
+                .putBitmap(MediaMetadata2.METADATA_KEY_ALBUM_ART, albumArt)
+                .build();
+        mPlaylistAgent.mCurrentMediaItem = new MediaItem2.Builder(MediaItem2.FLAG_PLAYABLE)
+                .setMediaId(mediaId)
+                .setMetadata(metadata)
+                .build();
+
+        // Notification should be shown. The notification will not be removed by
+        // swiping horizontally, since the service is running as foreground.
         mPlayer.notifyPlaybackState(MediaPlayerConnector.PLAYER_STATE_PLAYING);
         Thread.sleep(NOTIFICATION_SHOW_TIME_MS);
 
         // Notification will still be shown. However, one can swipe the notification horizontally
         // to remove the notification, since the service is no longer a foreground service.
-        mPlayer.notifyPlaybackState(MediaPlayerConnector.PLAYER_STATE_ERROR);
+        mPlayer.notifyPlaybackState(MediaPlayerConnector.PLAYER_STATE_PAUSED);
         Thread.sleep(NOTIFICATION_SHOW_TIME_MS);
 
-        // Notification will be removed since the test framework stops the test process.
+        // Notification will be removed.
+        mPlayer.notifyPlaybackState(MediaPlayerConnector.PLAYER_STATE_ERROR);
+        Thread.sleep(NOTIFICATION_SHOW_TIME_MS);
     }
 }
