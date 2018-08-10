@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0629525f_57343e73",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-10T06:16:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5de27114_3b05daef",
+      "range": {
+        "startLine": 506,
+        "startChar": 21,
+        "endLine": 506,
+        "endChar": 67
+      },
+      "revId": "6a06b8cbaf76eb387b46a3a05df695f9b80382dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25672e59_2afbc352",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 21
@@ -45,6 +69,30 @@
       "revId": "6a06b8cbaf76eb387b46a3a05df695f9b80382dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85f4e68a_8c9d26ac",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-10T06:16:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25672e59_2afbc352",
+      "range": {
+        "startLine": 566,
+        "startChar": 12,
+        "endLine": 567,
+        "endChar": 57
+      },
+      "revId": "6a06b8cbaf76eb387b46a3a05df695f9b80382dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "479c0cb3_bcbe506b",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-10T06:16:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2381bbd5_1eff5f8b",
+      "range": {
+        "startLine": 586,
+        "startChar": 0,
+        "endLine": 586,
+        "endChar": 94
+      },
+      "revId": "6a06b8cbaf76eb387b46a3a05df695f9b80382dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b42696d_f2892abe",
         "filename": "mediarouter/src/main/res/drawable/mr_cast_mute_button.xml",
         "patchSetId": 21
@@ -91,6 +163,30 @@
       "revId": "6a06b8cbaf76eb387b46a3a05df695f9b80382dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11ac074d_d59819fe",
+        "filename": "mediarouter/src/main/res/drawable/mr_cast_mute_button.xml",
+        "patchSetId": 21
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-10T06:16:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b42696d_f2892abe",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 55
+      },
+      "revId": "6a06b8cbaf76eb387b46a3a05df695f9b80382dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
