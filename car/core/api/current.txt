@@ -158,6 +158,40 @@ package androidx.car.widget {
   public static abstract class ActionBar.SlotPosition implements java.lang.annotation.Annotation {
   }
 
+  public class ActionButtonListItem extends androidx.car.widget.ListItem {
+    ctor public ActionButtonListItem(android.content.Context);
+    method public static androidx.car.widget.ActionButtonListItem.ViewHolder createViewHolder(android.view.View);
+    method public int getViewType();
+    method public void onBind(androidx.car.widget.ActionButtonListItem.ViewHolder);
+    method protected void resolveDirtyState();
+    method public void setAction(java.lang.String, boolean, android.view.View.OnClickListener);
+    method public void setActions(java.lang.String, boolean, android.view.View.OnClickListener, java.lang.String, boolean, android.view.View.OnClickListener);
+    method public void setBody(java.lang.String);
+    method public void setBody(java.lang.String, boolean);
+    method public void setEnabled(boolean);
+    method public void setOnClickListener(android.view.View.OnClickListener);
+    method public void setPrimaryActionEmptyIcon();
+    method public void setPrimaryActionIcon(int, int);
+    method public void setPrimaryActionIcon(android.graphics.drawable.Drawable, int);
+    method public void setPrimaryActionNoIcon();
+    method public void setTitle(java.lang.String);
+    field public static final int PRIMARY_ACTION_ICON_SIZE_LARGE = 2; // 0x2
+    field public static final int PRIMARY_ACTION_ICON_SIZE_MEDIUM = 1; // 0x1
+    field public static final int PRIMARY_ACTION_ICON_SIZE_SMALL = 0; // 0x0
+  }
+
+  public static class ActionButtonListItem.ViewHolder extends androidx.car.widget.ListItem.ViewHolder {
+    ctor public ActionButtonListItem.ViewHolder(android.view.View);
+    method protected void applyUxRestrictions(android.car.drivingstate.CarUxRestrictions);
+    method public android.widget.Button getAction1();
+    method public android.view.View getAction1Divider();
+    method public android.widget.Button getAction2();
+    method public android.view.View getAction2Divider();
+    method public android.widget.TextView getBody();
+    method public android.widget.ImageView getPrimaryIcon();
+    method public android.widget.TextView getTitle();
+  }
+
   public class AlphaJumpBucketer {
     ctor public AlphaJumpBucketer();
     ctor public AlphaJumpBucketer(androidx.car.widget.AlphaJumpBucketer.Bucket[]);
@@ -442,8 +476,8 @@ package androidx.car.widget {
     method public int getViewType();
     method public void onBind(androidx.car.widget.TextListItem.ViewHolder);
     method protected void resolveDirtyState();
-    method public void setAction(java.lang.String, boolean, android.view.View.OnClickListener);
-    method public void setActions(java.lang.String, boolean, android.view.View.OnClickListener, java.lang.String, boolean, android.view.View.OnClickListener);
+    method public deprecated void setAction(java.lang.String, boolean, android.view.View.OnClickListener);
+    method public deprecated void setActions(java.lang.String, boolean, android.view.View.OnClickListener, java.lang.String, boolean, android.view.View.OnClickListener);
     method public void setBody(java.lang.String);
     method public void setBody(java.lang.String, boolean);
     method public void setEnabled(boolean);
