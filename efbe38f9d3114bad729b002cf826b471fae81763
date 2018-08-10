@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "166a20fa_56458041",
+        "filename": "compat/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1870,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-10T21:07:59Z",
+      "side": 1,
+      "message": "does not seem like it came from here?",
+      "range": {
+        "startLine": 1869,
+        "startChar": 3,
+        "endLine": 1870,
+        "endChar": 151
+      },
+      "revId": "efbe38f9d3114bad729b002cf826b471fae81763",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
