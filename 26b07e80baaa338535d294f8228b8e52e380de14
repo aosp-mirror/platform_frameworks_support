@@ -22,6 +22,30 @@
       "revId": "26b07e80baaa338535d294f8228b8e52e380de14",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13e9309b_d7a6235a",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/PreferenceVisibilityTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-08-10T17:04:25Z",
+      "side": 1,
+      "message": "We don\u0027t have a callback right now, but we can hook into the RecyclerView and check when a child view is added or removed. In the future this listener can be moved into its own file, but no other use cases for it now. WDYT?",
+      "parentUuid": "a4558d78_56afb1f4",
+      "range": {
+        "startLine": 119,
+        "startChar": 8,
+        "endLine": 119,
+        "endChar": 31
+      },
+      "revId": "26b07e80baaa338535d294f8228b8e52e380de14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
