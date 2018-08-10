@@ -16,6 +16,24 @@
       "revId": "174ac6b374a37f022f37f6e86a4f2e5a386ab2ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58f160a9_4cd836b3",
+        "filename": "room/integration-tests/testapp/schemas/androidx.room.integration.testapp.test.PojoWithNullRelationKeyTest.NullRelationDatabase/1.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-10T21:19:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3028ee64_1ddf6e17",
+      "revId": "174ac6b374a37f022f37f6e86a4f2e5a386ab2ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

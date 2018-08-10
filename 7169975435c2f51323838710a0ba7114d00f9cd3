@@ -22,6 +22,30 @@
       "revId": "7169975435c2f51323838710a0ba7114d00f9cd3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec90e006_dcb731fe",
+        "filename": "room/integration-tests/testapp/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-10T21:19:40Z",
+      "side": 0,
+      "message": "They were never used in the impl, only in androidTest, and they\u0027re already there in androidTest.",
+      "parentUuid": "8541fb0e_f0a43533",
+      "range": {
+        "startLine": 47,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 47
+      },
+      "revId": "7169975435c2f51323838710a0ba7114d00f9cd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
