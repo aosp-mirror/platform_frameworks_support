@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bdf12190_341bea91",
+        "filename": "media2/src/main/java/androidx/media2/SessionToken2ImplLegacy.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-10T05:14:33Z",
+      "side": 1,
+      "message": "doesn\u0027t look necessary",
+      "range": {
+        "startLine": 189,
+        "startChar": 8,
+        "endLine": 189,
+        "endChar": 39
+      },
+      "revId": "3339ef04c64ac50efe598d022a3a748398f50f7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58912a73_99959d28",
+        "filename": "media2/src/main/java/androidx/media2/SessionToken2ImplLegacy.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-10T05:14:33Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 198,
+        "startChar": 7,
+        "endLine": 198,
+        "endChar": 32
+      },
+      "revId": "3339ef04c64ac50efe598d022a3a748398f50f7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
