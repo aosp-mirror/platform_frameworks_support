@@ -104,6 +104,24 @@
       "revId": "37b47f2c3825db175ff089bd4aa61a624201dd6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a4eb88f_189b8c4f",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/SelectionTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1086769
+      },
+      "writtenOn": "2018-08-11T15:28:08Z",
+      "side": 1,
+      "message": "Oh, man. I thought I was right so much I went and wrote up a test. Bummer. Public+@hide it is. Thanks.",
+      "parentUuid": "b1dc5258_3f454417",
+      "revId": "37b47f2c3825db175ff089bd4aa61a624201dd6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

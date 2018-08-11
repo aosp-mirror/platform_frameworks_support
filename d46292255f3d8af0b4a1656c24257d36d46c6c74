@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17883216_744e3eef",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/DefaultSelectionTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1086769
+      },
+      "writtenOn": "2018-08-11T15:28:08Z",
+      "side": 1,
+      "message": "Can you confirm why you need to increase visibility here? getAdapterObserver is only used by EventBridge, which is only used by SelectionTracker.Builder, so I think you shouldn\u0027t need to change visibility here.",
+      "revId": "d46292255f3d8af0b4a1656c24257d36d46c6c74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
