@@ -351,7 +351,7 @@ public class LargeSliceAdapter extends RecyclerView.Adapter<LargeSliceAdapter.Sl
             int[] info = new int[2];
             info[0] = ListContent.getRowType(item, isHeader, mSliceActions);
             info[1] = position;
-            mSliceChildView.setTag(info);
+            mSliceChildView.mRootBinder.setTag(info);
         }
 
         @Override
