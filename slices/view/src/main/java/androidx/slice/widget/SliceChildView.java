@@ -28,6 +28,7 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.slice.SliceItem;
 import androidx.slice.core.SliceAction;
+import androidx.slice.view.R;
 
 import java.util.List;
 import java.util.Set;
@@ -38,8 +39,9 @@ import java.util.Set;
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 @RequiresApi(19)
-public abstract class SliceChildView extends FrameLayout {
+public abstract class SliceChildView {
 
+    private final Context mContext;
     protected SliceView.OnSliceActionListener mObserver;
     protected int mMode;
     protected int mTintColor = -1;
@@ -52,13 +54,15 @@ public abstract class SliceChildView extends FrameLayout {
     protected SliceActionView.SliceActionLoadingListener mLoadingListener;
     protected SliceStyle mSliceStyle;
     protected SliceViewPolicy mViewPolicy;
+    protected final ViewBinder mRootBinder;
 
     public SliceChildView(@NonNull Context context) {
-        super(context);
+        mContext = context;
+        mRootBinder = new ViewBinder(mContext, R.layout.abc_root_frame);
     }
 
-    public SliceChildView(Context context, AttributeSet attributeSet) {
-        this(context);
+    protected Context getContext() {
+        return mContext;
     }
 
     /**

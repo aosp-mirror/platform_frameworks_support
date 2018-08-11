@@ -28,6 +28,7 @@ import android.graphics.drawable.shapes.OvalShape;
 import android.net.Uri;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.RequiresApi;
@@ -61,7 +62,7 @@ public class ShortcutView extends SliceChildView {
 
     public ShortcutView(Context context) {
         super(context);
-        final Resources res = getResources();
+        final Resources res = context.getResources();
         mSmallIconSize = res.getDimensionPixelSize(R.dimen.abc_slice_icon_size);
         mLargeIconSize = res.getDimensionPixelSize(R.dimen.abc_slice_shortcut_size);
     }
@@ -80,63 +81,43 @@ public class ShortcutView extends SliceChildView {
         boolean tintable = shortcutAction.getImageMode() == ICON_IMAGE;
         int color = mListContent.getAccentColor();
         final int accentColor = color != -1 ? color : SliceViewUtil.getColorAccent(getContext());
-        Drawable circle = DrawableCompat.wrap(new ShapeDrawable(new OvalShape()));
-        DrawableCompat.setTint(circle, accentColor);
-        ImageView iv = new ImageView(getContext());
+        ViewBinder iv = mRootBinder.createChildWithTintableBg(R.layout.abc_shortcut_imageview,
+                R.layout.abc_shortcut_bg);
         if (mIcon != null && tintable) {
             // Only set the background if we're tintable
-            iv.setBackground(circle);
+            iv.setBackgroundTint(accentColor);
         }
-        addView(iv);
         if (mIcon != null) {
             final int iconSize = tintable ? mSmallIconSize : mLargeIconSize;
             SliceViewUtil.createCircledIcon(getContext(), iconSize, mIcon,
-                    !tintable, this /* parent */);
+                    !tintable, mRootBinder);
             mUri = sliceContent.getSliceItem().getSlice().getUri();
-            setClickable(true);
+            mRootBinder.setClickable(true);
         } else {
-            setClickable(false);
+            mRootBinder.setClickable(false);
         }
-
-        // Set the parent layout gravity to center in order to align icons.
-        LayoutParams lp = (LayoutParams) iv.getLayoutParams();
-        lp.gravity = Gravity.CENTER;
-        setLayoutParams(lp);
-    }
-
-    @Override
-    public @SliceView.SliceMode int getMode() {
-        return SliceView.MODE_SHORTCUT;
-    }
-
-    @Override
-    public boolean performClick() {
-        if (mListContent == null) {
-            return false;
-        }
-        if (!callOnClick()) {
-            try {
-                if (mActionItem != null) {
-                    mActionItem.fireAction(null, null);
-                } else {
+        if (mActionItem != null) {
+            EventInfo ei = new EventInfo(SliceView.MODE_SHORTCUT,
+                    EventInfo.ACTION_TYPE_BUTTON,
+                    EventInfo.ROW_TYPE_SHORTCUT, 0 /* rowIndex */);
+            mRootBinder.setClickListener(mObserver, mActionItem, ei);
+        } else {
+            mRootBinder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
                     Intent intent = new Intent(Intent.ACTION_VIEW).setData(mUri);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     getContext().startActivity(intent);
                 }
-                if (mObserver != null) {
-                    EventInfo ei = new EventInfo(SliceView.MODE_SHORTCUT,
-                            EventInfo.ACTION_TYPE_BUTTON,
-                            EventInfo.ROW_TYPE_SHORTCUT, 0 /* rowIndex */);
-                    SliceItem interactedItem = mActionItem != null
-                            ? mActionItem
-                            : mListContent.getSliceItem();
-                    mObserver.onSliceAction(ei, interactedItem);
-                }
-            } catch (CanceledException e) {
-                Log.e(TAG, "PendingIntent for slice cannot be sent", e);
-            }
+            });
         }
-        return true;
+
+    }
+
+    @Override
+    public @SliceView.SliceMode
+    int getMode() {
+        return SliceView.MODE_SHORTCUT;
     }
 
     @Override
@@ -156,7 +137,6 @@ public class ShortcutView extends SliceChildView {
         mActionItem = null;
         mLabel = null;
         mIcon = null;
-        setBackground(null);
-        removeAllViews();
+        mRootBinder.removeAllViews();
     }
 }

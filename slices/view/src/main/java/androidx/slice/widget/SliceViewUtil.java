@@ -30,12 +30,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.format.DateUtils;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
@@ -159,26 +154,19 @@ public class SliceViewUtil {
     /**
      */
     public static void createCircledIcon(@NonNull Context context, int iconSizePx,
-            IconCompat icon, boolean isLarge, ViewGroup parent) {
-        ImageView v = new ImageView(context);
-        v.setImageDrawable(icon.loadDrawable(context));
-        v.setScaleType(isLarge ? ImageView.ScaleType.CENTER_CROP
-                : ImageView.ScaleType.CENTER_INSIDE);
-        parent.addView(v);
-        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) v.getLayoutParams();
+            IconCompat icon, boolean isLarge, ViewBinder parent) {
+        Drawable drawable = icon.loadDrawable(context);
         if (isLarge) {
-            // XXX better way to convert from icon -> bitmap or crop an icon (?)
+            ViewBinder v = parent.addChild(R.layout.abc_slice_circle_image_large);
             Bitmap iconBm = Bitmap.createBitmap(iconSizePx, iconSizePx, Config.ARGB_8888);
             Canvas iconCanvas = new Canvas(iconBm);
-            v.layout(0, 0, iconSizePx, iconSizePx);
-            v.draw(iconCanvas);
+            drawable.setBounds(0, 0, iconSizePx, iconSizePx);
+            drawable.draw(iconCanvas);
             v.setImageBitmap(getCircularBitmap(iconBm));
         } else {
-            v.setColorFilter(Color.WHITE);
+            ViewBinder v = parent.addChild(R.layout.abc_slice_circle_image);
+            v.setImageDrawable(drawable);
         }
-        lp.width = iconSizePx;
-        lp.height = iconSizePx;
-        lp.gravity = Gravity.CENTER;
     }
 
     /**
@@ -227,14 +215,17 @@ public class SliceViewUtil {
 
     /**
      */
-    public static void tintIndeterminateProgressBar(Context context, ProgressBar bar) {
+    public static void tintIndeterminateProgressBar(Context context, ViewBinder bar) {
         int color = SliceViewUtil.getColorAttr(context, R.attr.colorControlHighlight);
         Drawable progressDrawable = DrawableCompat.wrap(
-                bar.getIndeterminateDrawable());
+                getIndeterminateDrawable(context));
         if (progressDrawable != null && color != 0) {
             progressDrawable.setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY);
             bar.setProgressDrawable(progressDrawable);
         }
+    }
+
+    private static Drawable getIndeterminateDrawable(Context context) {
     }
 
     private SliceViewUtil() {

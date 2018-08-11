@@ -14,26 +14,12 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:gravity="center_vertical"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
-              android:paddingEnd="@dimen/abc_slice_grid_gutter">
+              android:gravity="center_horizontal">
 
-    <TextView android:id="@+id/text_see_more_count"
-              android:layout_width="@dimen/abc_slice_small_image_size"
-              android:layout_height="@dimen/abc_slice_small_image_size"
-              android:gravity="center"
-              android:layout_gravity="center_horizontal"
-              android:textAppearance="?android:attr/textAppearanceMedium"
-              android:background="@drawable/abc_slice_see_more_bg"/>
-
-    <TextView android:id="@+id/text_see_more"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:gravity="center_horizontal"
-              android:paddingTop="@dimen/abc_slice_grid_text_padding"
-              android:text="@string/abc_slice_more"/>
 </LinearLayout>

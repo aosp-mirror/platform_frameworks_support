@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.slice.SliceItem;
 import androidx.slice.core.SliceAction;
+import androidx.slice.view.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,13 +43,12 @@ public class LargeTemplateView extends SliceChildView implements
         SliceViewPolicy.PolicyChangeListener {
 
     private SliceView mParent;
-    private final View mForeground;
+    private final ViewBinder mForeground;
     private final LargeSliceAdapter mAdapter;
     private final RecyclerView mRecyclerView;
     private ListContent mListContent;
     private ArrayList<SliceContent> mDisplayedItems = new ArrayList<>();
     private int mDisplayedItemsHeight = 0;
-    private int[] mLoc = new int[2];
 
     public LargeTemplateView(Context context) {
         super(context);
@@ -58,64 +58,30 @@ public class LargeTemplateView extends SliceChildView implements
         mRecyclerView.setAdapter(mAdapter);
         addView(mRecyclerView);
 
-        mForeground = new View(getContext());
-        mForeground.setBackground(SliceViewUtil.getDrawable(getContext(),
-                android.R.attr.selectableItemBackground));
-        addView(mForeground);
-
-        FrameLayout.LayoutParams lp = (LayoutParams) mForeground.getLayoutParams();
-        lp.width = LayoutParams.MATCH_PARENT;
-        lp.height = LayoutParams.MATCH_PARENT;
-        mForeground.setLayoutParams(lp);
+        mForeground = mRootBinder.addChild(R.layout.abc_foreground);
+        mForeground.setForegroundTouches();
+        mRootBinder.addSizeListener(mSizeListener);
     }
 
-    @Override
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        mParent = (SliceView) getParent();
-        mAdapter.setParents(mParent, this);
-    }
+//    @Override
+//    public void onAttachedToWindow() {
+//        super.onAttachedToWindow();
+//        mParent = (SliceView) getParent();
+//        mAdapter.setParents(mParent, this);
+//    }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int height = MeasureSpec.getSize(heightMeasureSpec);
+    protected void updateSize() {
+        int height = mRootBinder.getHeight();
         if (!mViewPolicy.isScrollable() && mDisplayedItems.size() > 0
                 && mDisplayedItemsHeight != height) {
             updateDisplayedItems(height);
         }
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     @Override
     public void setInsets(int l, int t, int r, int b) {
         super.setInsets(l, t, r, b);
         mAdapter.setInsets(l, t, r, b);
-    }
-
-    /**
-     * Called when the foreground view handling touch feedback should be activated.
-     * @param event the event to handle.
-     */
-    public void onForegroundActivated(MotionEvent event) {
-        if (mParent != null && !mParent.isSliceViewClickable()) {
-            // Only show highlight if clickable
-            mForeground.setPressed(false);
-            return;
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mForeground.getLocationOnScreen(mLoc);
-            final int x = (int) (event.getRawX() - mLoc[0]);
-            final int y = (int) (event.getRawY() - mLoc[1]);
-            mForeground.getBackground().setHotspot(x, y);
-        }
-        int action = event.getActionMasked();
-        if (action == MotionEvent.ACTION_DOWN) {
-            mForeground.setPressed(true);
-        } else if (action == MotionEvent.ACTION_CANCEL
-                || action == MotionEvent.ACTION_UP
-                || action == MotionEvent.ACTION_MOVE) {
-            mForeground.setPressed(false);
-        }
     }
 
     @Override
@@ -143,7 +109,7 @@ public class LargeTemplateView extends SliceChildView implements
     @Override
     public void setTint(int tint) {
         super.setTint(tint);
-        updateDisplayedItems(getMeasuredHeight());
+        updateDisplayedItems(mRootBinder.getHeight());
     }
 
     @Override
@@ -202,7 +168,7 @@ public class LargeTemplateView extends SliceChildView implements
     }
 
     private void updateOverscroll() {
-        boolean scrollable = mDisplayedItemsHeight > getMeasuredHeight();
+        boolean scrollable = mDisplayedItemsHeight > mRootBinder.getHeight();
         mRecyclerView.setOverScrollMode(mViewPolicy.isScrollable() && scrollable
                 ? View.OVER_SCROLL_IF_CONTENT_SCROLLS
                 : View.OVER_SCROLL_NEVER);
@@ -243,4 +209,11 @@ public class LargeTemplateView extends SliceChildView implements
             updateDisplayedItems(mListContent.getHeight(mSliceStyle, mViewPolicy));
         }
     }
+
+    private final Runnable mSizeListener = new Runnable() {
+        @Override
+        public void run() {
+            updateSize();
+        }
+    };
 }

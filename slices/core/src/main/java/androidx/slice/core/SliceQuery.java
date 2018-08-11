@@ -260,8 +260,8 @@ public class SliceQuery {
             @Override
             public SliceItem next() {
                 SliceItem item = items.remove(0);
-                if (FORMAT_SLICE.equals(item.getFormat())
-                        || FORMAT_ACTION.equals(item.getFormat())) {
+                if (item != null && (FORMAT_SLICE.equals(item.getFormat())
+                        || FORMAT_ACTION.equals(item.getFormat()))) {
                     items.addAll(item.getSlice().getItems());
                 }
                 return item;
@@ -300,6 +300,9 @@ public class SliceQuery {
             private T findNext() {
                 while (input.hasNext()) {
                     T i = input.next();
+                    if (i == null) {
+                        continue;
+                    }
                     if (f.filter(i)) {
                         return i;
                     }

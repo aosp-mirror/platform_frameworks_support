@@ -100,19 +100,19 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     private static final boolean sCanSpecifyLargerRangeBarHeight =
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
 
-    private LinearLayout mRootView;
-    private LinearLayout mStartContainer;
-    private LinearLayout mContent;
-    private TextView mPrimaryText;
-    private TextView mSecondaryText;
-    private TextView mLastUpdatedText;
-    private View mDivider;
+    private ViewBinder mRootView;
+    private ViewBinder mStartContainer;
+    private ViewBinder mContent;
+    private ViewBinder mPrimaryText;
+    private ViewBinder mSecondaryText;
+    private ViewBinder mLastUpdatedText;
+    private ViewBinder mDivider;
     private ArrayMap<SliceActionImpl, SliceActionView> mToggles = new ArrayMap<>();
     private ArrayMap<SliceActionImpl, SliceActionView> mActions = new ArrayMap<>();
-    private LinearLayout mEndContainer;
+    private ViewBinder mEndContainer;
     private View mSeeMoreView;
     private ProgressBar mRangeBar;
-    private ProgressBar mActionSpinner;
+    private ViewBinder mActionSpinner;
     protected Set<SliceItem> mLoadingActions = new HashSet<>();
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     boolean mShowActionSpinner;
@@ -160,19 +160,18 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         mIconSize = getContext().getResources().getDimensionPixelSize(R.dimen.abc_slice_icon_size);
         mImageSize = getContext().getResources().getDimensionPixelSize(
                 R.dimen.abc_slice_small_image_size);
-        mRootView = (LinearLayout) LayoutInflater.from(context).inflate(
-                R.layout.abc_slice_small_template, this, false);
-        addView(mRootView);
+        mRootView = mRootBinder.addChild(
+                R.layout.abc_slice_small_template);
 
-        mStartContainer = (LinearLayout) findViewById(R.id.icon_frame);
-        mContent = (LinearLayout) findViewById(android.R.id.content);
-        mPrimaryText = (TextView) findViewById(android.R.id.title);
-        mSecondaryText = (TextView) findViewById(android.R.id.summary);
-        mLastUpdatedText = (TextView) findViewById(R.id.last_updated);
-        mDivider = findViewById(R.id.divider);
-        mActionSpinner = findViewById(R.id.action_sent_indicator);
+        mStartContainer = mRootBinder.findViewById(R.id.icon_frame);
+        mContent = mRootBinder.findViewById(android.R.id.content);
+        mPrimaryText = mRootBinder.findViewById(android.R.id.title);
+        mSecondaryText = mRootBinder.findViewById(android.R.id.summary);
+        mLastUpdatedText = mRootBinder.findViewById(R.id.last_updated);
+        mDivider = mRootBinder.findViewById(R.id.divider);
+        mActionSpinner = mRootBinder.findViewById(R.id.action_sent_indicator);
         SliceViewUtil.tintIndeterminateProgressBar(getContext(), mActionSpinner);
-        mEndContainer = (LinearLayout) findViewById(android.R.id.widget_frame);
+        mEndContainer = mRootBinder.findViewById(android.R.id.widget_frame);
 
         mIdealRangeHeight = context.getResources().getDimensionPixelSize(
                 R.dimen.abc_slice_row_range_height);
