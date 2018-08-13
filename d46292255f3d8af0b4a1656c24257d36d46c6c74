@@ -34,6 +34,24 @@
       "revId": "d46292255f3d8af0b4a1656c24257d36d46c6c74",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e82af55_96cc4303",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/DefaultSelectionTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1086769
+      },
+      "writtenOn": "2018-08-13T22:52:03Z",
+      "side": 1,
+      "message": "Oh. Got it. And you can\u0027t reduce visibility here.",
+      "parentUuid": "e4c80315_e2dea4c5",
+      "revId": "d46292255f3d8af0b4a1656c24257d36d46c6c74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
