@@ -16,6 +16,24 @@
       "revId": "d46292255f3d8af0b4a1656c24257d36d46c6c74",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4c80315_e2dea4c5",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/DefaultSelectionTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1320563
+      },
+      "writtenOn": "2018-08-13T17:48:25Z",
+      "side": 1,
+      "message": "If this method (abstract in SelectionTracker) keeps as package-private, the class SelectionTracker cannot be extended from other package.",
+      "parentUuid": "17883216_744e3eef",
+      "revId": "d46292255f3d8af0b4a1656c24257d36d46c6c74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
