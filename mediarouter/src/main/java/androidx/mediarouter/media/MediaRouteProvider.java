@@ -30,6 +30,9 @@ import androidx.annotation.RestrictTo;
 import androidx.core.util.ObjectsCompat;
 import androidx.mediarouter.media.MediaRouter.ControlRequestCallback;
 
+import java.util.List;
+import java.util.concurrent.Executor;
+
 /**
  * Media route providers are used to publish additional media routes for
  * use within an application.  Media route providers may also be declared
@@ -289,6 +292,28 @@ public abstract class MediaRouteProvider {
     }
 
     /**
+     * Creates a {@link DynamicRouteController}.
+     * <p>
+     * It will be called when a single route or a single static group is selected.
+     * </p>
+     *
+     * @param initialMemberRouteId initially selected route's id.
+     * @return {@link DynamicRouteController}. Returns null if there is no such route or
+     * if the route cannot be controlled using the dynamic route controller interface.
+     *
+     * @hide  TODO unhide this method and updateApi
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Nullable
+    public DynamicRouteController onCreateDynamicRouteController(
+            @NonNull String initialMemberRouteId) {
+        if (initialMemberRouteId == null) {
+            throw new IllegalArgumentException("initialMemberRouteId cannot be null.");
+        }
+        return null;
+    }
+
+    /**
      * Describes properties of the route provider's implementation.
      * <p>
      * This object is immutable once created.
@@ -417,11 +442,92 @@ public abstract class MediaRouteProvider {
     }
 
     /**
+     * Provides control over a dynamic route.
+     *
+     * @hide  TODO unhide this class and updateApi
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public abstract static class DynamicRouteController extends MediaRouteProvider.RouteController {
+        /**
+         * Returns the ID of the dynamic route. Note that the route may have not been published
+         * yet by the time the DynamicRouteController is created.
+         */
+        @NonNull
+        public abstract String getDynamicRouteId();
+
+        /**
+         * e.g. "Add a device."
+         */
+        @Nullable
+        public String getGroupableSelectionTitle() {
+            return null;
+        }
+
+        /**
+         * e.g. "Play on group."
+         */
+        @Nullable
+        public String getTransferableSectionTitle() {
+            return null;
+        }
+
+        /**
+         * Called when a user selects a new set of routes s/he wants the session to be played.
+         */
+        public void onUpdateMemberRoutes(@Nullable List<String> routeIds) {
+        }
+
+        /**
+         * Called when a user adds a route into the casting session.
+         */
+        public void onAddMemberRoute(@NonNull String routeId) {
+        }
+
+        /**
+         * Called when a user removes a route from casting session.
+         */
+        public void onRemoveMemberRoute(String routeId) {
+        }
+
+        /**
+         * Called by {@link MediaRouter} to set the listener.
+         */
+        public void setOnMemberRoutesChangedListener(
+                @NonNull Executor executor,
+                @NonNull OnMemberRoutesChangedListener listener) {
+
+        }
+
+        /**
+         * Used to notify media router each route's property changes regarding this
+         * {@link DynamicRouteController} instance.
+         * <p> Here are some examples when this notification is called :
+         * <ul>
+         *     <li> a route is newly turned on and it can be grouped with this dynamic route.</li>
+         *     <li> a route is selecting as a member of this dynamic route.</li>
+         *     <li> a route is selected as a member of this dynamic route.</li>
+         *     <li> a route is unselecting.</li>
+         *     <li> a route is unselected.</li>
+         *     <li> a route is turned off.</li>
+         * </ul>
+         * </p>
+         */
+        interface OnMemberRoutesChangedListener {
+            /**
+             * @param routes the list of routes contains seleted routes (can be unselectable or not)
+             *               and unselected routes (can be groupable or transferable or not).
+             */
+            void onMemberRoutesChanged(List<DynamicMemberRouteDescriptor> routes);
+        }
+    }
+
+
+    /**
      * Callback which is invoked when route information becomes available or changes.
      */
     public static abstract class Callback {
         /**
-         * Called when information about a route provider and its routes changes.
+         * Called when information about a route provider and its routes change.
          *
          * @param provider The media route provider that changed, never null.
          * @param descriptor The new media route provider descriptor, or null if none.
