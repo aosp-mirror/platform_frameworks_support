@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80dce034_cd8da7b5",
+        "filename": "animation/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-13T23:30:08Z",
+      "side": 1,
+      "message": "\u003d false",
+      "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7b5b7dd_f14b4d46",
+        "filename": "animation/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-13T23:30:08Z",
+      "side": 1,
+      "message": "You\u0027ll eventually need your own version, but it doesn\u0027t matter until you switch to publish \u003d true\n\n(no action needed)",
+      "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13fefd5c_ab4cf7ce",
+        "filename": "animation/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-13T23:30:08Z",
+      "side": 1,
+      "message": "Write a description",
+      "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "800492e3_17a8e178",
+        "filename": "animation/src/main/java/androidx/animation/AccelerateInterpolator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-13T23:30:08Z",
+      "side": 1,
+      "message": "Why LIBRARY? Just curious - I\u0027m only familiar with LIBRARY_GROUP.\n\nMy guess would be LIBRARY is basically equivalent to just making it package protected",
+      "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
