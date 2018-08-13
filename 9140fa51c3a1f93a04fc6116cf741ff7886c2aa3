@@ -16,6 +16,24 @@
       "revId": "9140fa51c3a1f93a04fc6116cf741ff7886c2aa3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5fff8ea_76dda5d9",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ErrorProneConfiguration.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-13T22:20:27Z",
+      "side": 1,
+      "message": "Nevermind. Moved to next commit with other cleanups for ktlint failure.",
+      "parentUuid": "5ec55f93_d233afb2",
+      "revId": "9140fa51c3a1f93a04fc6116cf741ff7886c2aa3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
