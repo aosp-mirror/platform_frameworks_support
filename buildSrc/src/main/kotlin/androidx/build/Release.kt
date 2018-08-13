@@ -48,6 +48,10 @@ open class GMavenZipTask : Zip() {
      */
     var includeReleased = false
     /**
+     * Set to true to include maven-metadata.xml
+     */
+    var includeMetadata: Boolean = false
+    /**
      * List of artifacts that might be included in the generated zip.
      */
     val candidates = arrayListOf<Artifact>()
@@ -61,6 +65,10 @@ open class GMavenZipTask : Zip() {
              * Maven group for the task. "" if for all projects
              */
             val mavenGroup: String,
+            /**
+             * Set to true to include maven-metadata.xml
+             */
+            var includeMetadata: Boolean,
             /**
              * The out folder for uploadArchives.
              */
@@ -146,6 +154,27 @@ open class GMavenZipTask : Zip() {
         includes.forEach {
             include(it)
         }
+        if (includeMetadata) {
+            var includesMetadata = candidates.mapNotNull {
+                val mavenGroupPath = it.mavenGroup.replace('.', '/')
+                when {
+                    includeReleased -> "$mavenGroupPath/${it.projectName}" + "/maven-metadata.*"
+                    versionChecker.isReleased(it.mavenGroup, it.projectName, it.version) -> {
+                        // query maven.google to check if it is released.
+                        logger.info("looks like $it is released, skipping matadata")
+                        null
+                    }
+                    else -> {
+                        logger.info("adding $it to partial maven zip because it cannot be found " +
+                                "on maven.google.com")
+                        "$mavenGroupPath/${it.projectName}/" + "/maven-metadata.*"
+                    }
+                }
+            }
+            includesMetadata.forEach {
+                include(it)
+            }
+        }
         return includes.isNotEmpty()
     }
 }
@@ -206,11 +235,13 @@ object Release {
      */
     private fun getParams(
         project: Project,
-        group: String? = null
+        group: String? = null,
+        includeMetadata: Boolean = false
     ): GMavenZipTask.ConfigAction.Params {
         val projectDist = project.rootProject.property("distDir") as File
         val params = configActionParams ?: GMavenZipTask.ConfigAction.Params(
                 mavenGroup = "",
+                includeMetadata = includeMetadata,
                 supportRepoOut = project.property("supportRepoOut") as File,
                 gMavenVersionChecker =
                 project.property("versionChecker") as GMavenVersionChecker,
@@ -267,7 +298,7 @@ object Release {
         return project.rootProject.tasks.findByName(taskName) as? GMavenZipTask
                 ?: project.rootProject.tasks.create(
                         taskName, GMavenZipTask::class.java,
-                        GMavenZipTask.ConfigAction(getParams(project, group))
+                        GMavenZipTask.ConfigAction(getParams(project, group, true))
                 )
     }
 }
