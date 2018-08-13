@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f5580a85_732009e8",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/ActionButtonListItemTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:18:32Z",
+      "side": 1,
+      "message": "I\u0027ll add a parameter comment instead.",
+      "parentUuid": "0c703899_364ac967",
+      "range": {
+        "startLine": 172,
+        "startChar": 31,
+        "endLine": 172,
+        "endChar": 35
+      },
+      "revId": "c146fb764a07dcb626072040a3cbd3e4c91229f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4a0ad26_016d8958",
         "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-13T22:09:58Z",
       "side": 1,
       "message": "much of the logic seem to be duplicate of that of TextListItem. \n\nif we were to add more widgets, a clean up may be necessary.",
+      "range": {
+        "startLine": 70,
+        "startChar": 13,
+        "endLine": 70,
+        "endChar": 33
+      },
+      "revId": "c146fb764a07dcb626072040a3cbd3e4c91229f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d67cab2_915b5365",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:18:32Z",
+      "side": 1,
+      "message": "I think they\u0027re similar, but will be different once I remove the action button code from TextListItem (which I\u0027ll do once all clients have migrated off).\n\nEssentially, the text logic in ActionButtonListItem will be a simplified version of the ones in TextListItem. We could create a common class, but I feel that\u0027d have a lot of branches. It\u0027d clearer if we confine the logic to just this class.\n\nLet me know if you feel differently.",
+      "parentUuid": "c4a0ad26_016d8958",
       "range": {
         "startLine": 70,
         "startChar": 13,
