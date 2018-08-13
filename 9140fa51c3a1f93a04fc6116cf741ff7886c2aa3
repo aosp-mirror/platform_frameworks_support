@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ec55f93_d233afb2",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ErrorProneConfiguration.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-13T21:58:41Z",
+      "side": 1,
+      "message": "No effect. Just a drive-by Kotlin-ization of the pattern.",
+      "revId": "9140fa51c3a1f93a04fc6116cf741ff7886c2aa3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
