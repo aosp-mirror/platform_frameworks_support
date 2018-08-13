@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "12414d19_f7286959",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-13T17:31:37Z",
+      "side": 1,
+      "message": "Again, I think you are too hang to the nullability concern. I would rather make the API explicit on whether a distance was given vs. a distance had a unit we don\u0027t understand (similar to other objects). If we don\u0027t trust the developer will check for nulls, we can\u0027t trust the developer we will check for UNKNOWN. In such case, we will have cars showing \"0 unknown\" in their Instrument Clusters, and our test won\u0027t be able to cover this (as the instrument cluster won\u0027t crash). I would rather cover nullability with tests, as mentioned before.\n\nI have to start pushing on this as I believe we are running short on time, and we haven\u0027t gotten back to the API council yet.",
+      "parentUuid": "698cc8ae_f6f0980b",
+      "range": {
+        "startLine": 128,
+        "startChar": 63,
+        "endLine": 128,
+        "endChar": 94
+      },
+      "revId": "98b37d07f521e5a60840a368596a3b0f7d0ef0ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "418abcbc_375cadf4",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
         "patchSetId": 22
@@ -45,6 +69,30 @@
       "revId": "98b37d07f521e5a60840a368596a3b0f7d0ef0ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18d7b27a_0124a976",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-13T17:31:37Z",
+      "side": 1,
+      "message": "I think the first bullet doesn\u0027t need to be documented ;-).",
+      "parentUuid": "418abcbc_375cadf4",
+      "range": {
+        "startLine": 42,
+        "startChar": 1,
+        "endLine": 43,
+        "endChar": 20
+      },
+      "revId": "98b37d07f521e5a60840a368596a3b0f7d0ef0ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1db56e86_08a2a8d5",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-13T17:31:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b780511_c094a852",
+      "range": {
+        "startLine": 41,
+        "startChar": 1,
+        "endLine": 43,
+        "endChar": 11
+      },
+      "revId": "98b37d07f521e5a60840a368596a3b0f7d0ef0ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d84c018_4f0f0078",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
         "patchSetId": 22
@@ -91,6 +163,30 @@
       "revId": "98b37d07f521e5a60840a368596a3b0f7d0ef0ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ea62a80_e32f62b0",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-13T17:31:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d84c018_4f0f0078",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 52
+      },
+      "revId": "98b37d07f521e5a60840a368596a3b0f7d0ef0ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "fde4e377_999601af",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-13T17:31:37Z",
+      "side": 1,
+      "message": "I believe the example would be redundant. I would be repeating the same text, replacing counter-clockwise with clockwise and left with right. Let\u0027s get to the API council review first. We can adjust this comment later.",
+      "parentUuid": "48a4a037_1664926b",
+      "range": {
+        "startLine": 332,
+        "startChar": 1,
+        "endLine": 335,
+        "endChar": 0
+      },
+      "revId": "98b37d07f521e5a60840a368596a3b0f7d0ef0ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d45d08c_731206f6",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
         "patchSetId": 22
@@ -137,6 +257,30 @@
       "revId": "98b37d07f521e5a60840a368596a3b0f7d0ef0ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3eaa71d_d16b6c5f",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-13T17:31:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d45d08c_731206f6",
+      "range": {
+        "startLine": 358,
+        "startChar": 34,
+        "endLine": 358,
+        "endChar": 0
+      },
+      "revId": "98b37d07f521e5a60840a368596a3b0f7d0ef0ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

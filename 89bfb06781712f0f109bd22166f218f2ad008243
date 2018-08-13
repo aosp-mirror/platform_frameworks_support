@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "a6c5470f_ed4e2201",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-13T17:31:37Z",
+      "side": 1,
+      "message": "Yes, we can enforce the testing as part of CTS/CDD if the OEM wants to use GAS.\nI would rather exercise all the corner cases and see failures during tests, than having instrument cluster code pass the tests, without realizing that is showing wrong data on the display.\n\nIf you don\u0027t mind, I would rather move this problem to the API-council that deals with this type of situations more often than we do.",
+      "parentUuid": "5f8340ba_2ac9d880",
+      "range": {
+        "startLine": 147,
+        "startChar": 24,
+        "endLine": 148,
+        "endChar": 0
+      },
+      "revId": "89bfb06781712f0f109bd22166f218f2ad008243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ff31c3c_1ddab686",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
         "patchSetId": 21
