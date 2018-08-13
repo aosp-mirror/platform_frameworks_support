@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "af00f16a_7de63967",
+        "filename": "animation/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-13T23:38:15Z",
+      "side": 1,
+      "message": "Add copyright header.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 58
+      },
+      "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "877a5240_a6ebbea2",
+        "filename": "animation/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-13T23:38:15Z",
+      "side": 1,
+      "message": "I am guessing you are not exposing any of the core classes as your API? if so you can make this implementation instead of api.",
+      "range": {
+        "startLine": 11,
+        "startChar": 4,
+        "endLine": 11,
+        "endChar": 7
+      },
+      "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8237b043_3827d694",
+        "filename": "animation/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-13T23:38:15Z",
+      "side": 1,
+      "message": "Remove as discussed offline.",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 31
+      },
+      "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "80dce034_cd8da7b5",
         "filename": "animation/build.gradle",
         "patchSetId": 3
@@ -64,6 +133,29 @@
       "writtenOn": "2018-08-13T23:30:08Z",
       "side": 1,
       "message": "Why LIBRARY? Just curious - I\u0027m only familiar with LIBRARY_GROUP.\n\nMy guess would be LIBRARY is basically equivalent to just making it package protected",
+      "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df6c76bd_6847fd2d",
+        "filename": "animation/src/main/java/androidx/animation/AndroidResources.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-13T23:38:15Z",
+      "side": 1,
+      "message": "Why did you go with this Class instead of using these inline as android.R.attr.fooBar?",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 22
+      },
       "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
