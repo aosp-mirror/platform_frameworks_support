@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "909ef1eb_9d8e7aea",
+        "filename": "preference/src/main/java/androidx/preference/PreferenceGroup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-08-13T13:14:48Z",
+      "side": 1,
+      "message": "Shall we maybe clarify that this is not recursive? And maybe add @see removePreference(CharSequence)?",
+      "range": {
+        "startLine": 266,
+        "startChar": 19,
+        "endLine": 266,
+        "endChar": 35
+      },
+      "revId": "1c61f5f3d48284c2bf195659192573defe5692c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
