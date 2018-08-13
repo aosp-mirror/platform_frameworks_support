@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad9c3298_35bbadce",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/Release.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-13T23:17:26Z",
+      "side": 1,
+      "message": "we don\u0027t want everything in it, we only want the stuff in the project.\n\nalso, \n\nwhy do we even want the metadata there? it does not mean anything since it gets merged into the full repo.\n\nmaybe it is a problem in the script which wants to have it there ?",
+      "range": {
+        "startLine": 133,
+        "startChar": 17,
+        "endLine": 133,
+        "endChar": 78
+      },
+      "revId": "b3a2f9cfd8a8e20ef0303856a41ce47efa0c8ea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
