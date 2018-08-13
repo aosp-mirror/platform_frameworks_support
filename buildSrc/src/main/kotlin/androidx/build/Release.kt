@@ -130,17 +130,17 @@ open class GMavenZipTask : Zip() {
         val includes = candidates.mapNotNull {
             val mavenGroupPath = it.mavenGroup.replace('.', '/')
             when {
-                includeReleased -> "$mavenGroupPath/${it.projectName}/${it.version}" + "/**"
-                versionChecker.isReleased(it.mavenGroup, it.projectName, it.version) -> {
-                    // query maven.google to check if it is released.
-                    logger.info("looks like $it is released, skipping")
-                    null
-                }
-                else -> {
-                    logger.info("adding $it to partial maven zip because it cannot be found " +
+                includeReleased -> "$mavenGroupPath/${it.projectName}" + "/**"
+                else ->
+                    if (versionChecker.isReleased(it.mavenGroup, it.projectName, it.version)) {
+                        // query maven.google to check if it is released.
+                        logger.info("looks like $it is released, skipping")
+                        null
+                    } else {
+                        logger.info("adding $it to partial maven zip because it cannot be found " +
                             "on maven.google.com")
-                    "$mavenGroupPath/${it.projectName}/${it.version}" + "/**"
-                }
+                        "$mavenGroupPath/${it.projectName}/${it.version}" + "/**"
+                    }
             }
         }
         includes.forEach {
