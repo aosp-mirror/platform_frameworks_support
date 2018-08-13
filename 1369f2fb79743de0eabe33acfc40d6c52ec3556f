@@ -16,6 +16,24 @@
       "revId": "1369f2fb79743de0eabe33acfc40d6c52ec3556f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b02fab9d_e54a789f",
+        "filename": "compat/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3901,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-08-13T20:47:45Z",
+      "side": 1,
+      "message": "If this is going to be a small map that doesn\u0027t change size frequently, we should avoid the overhead of HashMap and use ArrayMap or ArrayList anyway. Avoiding the iterator creation might be overkill, but if we\u0027re using an ArrayList it\u0027s an easy win.",
+      "parentUuid": "24db6c18_8a869812",
+      "revId": "1369f2fb79743de0eabe33acfc40d6c52ec3556f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
