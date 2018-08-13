@@ -21,6 +21,7 @@ package androidx.build
  */
 object LibraryGroups {
     const val ANNOTATION = "androidx.annotation"
+    const val ANIMATION = "androidx.animation"
     const val APPCOMPAT = "androidx.appcompat"
     const val ASYNCLAYOUTINFLATER = "androidx.asynclayoutinflater"
     const val BIOMETRIC = "androidx.biometric"
