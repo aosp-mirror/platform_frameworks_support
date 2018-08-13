@@ -1,0 +1,466 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "975a46e8_ddfdef50",
+        "filename": "car/cluster/build.gradle",
+        "patchSetId": 24
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "Wanted to double check: did maps need a lower SDK version? I remember that they had wanted the car support library one lowered (although that might be difficult)",
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b66829f6_5ad55db4",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "I know you document what \"null\" means in the getter methods, but could you also add that into the setter method javadoc?",
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c479eca4_7828aed6",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "For the \"set\" methods, I believe you should include a @param tag like you did for setAddress().\n\nI\u0027m also not sure it\u0027s helpful to add the @see tag for the getter method, but I\u0027ll leave that up to you.",
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d07103f1_0a650895",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "nit: for all the javadocs of the getters, could you word as \"Returns ...\"\n\nSame for the getters in the other files.",
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e74a43ef_cf323e3e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "Missing the closing bracket on this toString()",
+      "range": {
+        "startLine": 132,
+        "startChar": 73,
+        "endLine": 132,
+        "endChar": 74
+      },
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c5a3bc7_b028e29b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Lane.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "I would prefer you have a javadoc here even though it might mirror the getter\u0027s very closely. My reasoning is that it would make reading the javadocs easier when published.",
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5427f6e_e3e22f1e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Lane.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "If the highlighted direction is excluded, I feel you the method\u0027s name should reflect this more clearly.\n\nMaybe getNonHighlightedDirections()?\n\nSame for the setter method. I\u0027m sure you can come up with a better name.",
+      "range": {
+        "startLine": 65,
+        "startChar": 65,
+        "endLine": 66,
+        "endChar": 42
+      },
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6384dbfc_ffad2451",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "This isn\u0027t necessary for all Maneuver types, but is a required constructor parameter. I feel the majority of Maneuvers won\u0027t use this.\n\nI would document what a good value would be to pass here if it\u0027s not required.\n\nOr, I\u0027d remove it as a required parameter and instead, add a setter method for it.",
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bccbaa86_a8258429",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "What happens if there\u0027s no fallback that could capture the given type? Would UNKNOWN be the default in this case?\n\nIf so, I think it\u0027d be helpful to document in the javadoc.",
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e75d8ac_2e87ad1e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Segment.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "Javadoc references \"road\" but it doesn\u0027t match the name of the java class. Update one or the other so that the language is consistent.",
+      "range": {
+        "startLine": 32,
+        "startChar": 27,
+        "endLine": 32,
+        "endChar": 31
+      },
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7382e31c_29bbb741",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Segment.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "You should specify this in the constructor that the name passed will be displayed as is.",
+      "range": {
+        "startLine": 58,
+        "startChar": 7,
+        "endLine": 58,
+        "endChar": 47
+      },
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c080d320_285bc4de",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/StepCue.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "Missing toString()?",
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e0ec5a8_a1027aa4",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "I think getId() will always return a non-null value.",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 67,
+        "endChar": 32
+      },
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d73fd4f_0c8de107",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "Fix the formatting of this method to match your other classes.",
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f79c7a6c_89754ccb",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "I feel it\u0027d be clearer if you just inlined the tertiary statement",
+      "range": {
+        "startLine": 47,
+        "startChar": 15,
+        "endLine": 47,
+        "endChar": 52
+      },
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc6e5c99_cb25390a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "Same here",
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f174e4be_5e030856",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/EnumWrapper.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "Do we intend this parameter to be modifiable?",
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd5c6ebb_7443489f",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/EnumWrapper.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "Throw an error if value is null instead",
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44f9fa1b_1f3aa42f",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/EnumWrapper.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "none*",
+      "range": {
+        "startLine": 70,
+        "startChar": 46,
+        "endLine": 70,
+        "endChar": 49
+      },
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f96aa7b_43ebff0a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/EnumWrapper.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "This should go above the method:\n\n  @NonNull\n  public static ...",
+      "range": {
+        "startLine": 72,
+        "startChar": 18,
+        "endLine": 72,
+        "endChar": 27
+      },
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53b5b4be_ec680eb8",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/EnumWrapper.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "Add @Nullable annotation",
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f45b9a9_a4d8dfa2",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/EnumWrapper.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "Format this correctly.",
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30e5f576_c80142be",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/EnumWrapper.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "I think you\u0027d want to print out each of the values instead.",
+      "range": {
+        "startLine": 109,
+        "startChar": 45,
+        "endLine": 109,
+        "endChar": 52
+      },
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7a47389_65fef24d",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/EnumWrapper.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T22:39:35Z",
+      "side": 1,
+      "message": "Each annotation should be on its own line.",
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
