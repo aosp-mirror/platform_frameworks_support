@@ -1,0 +1,77 @@
+package androidx.animation {
+
+  public class AccelerateDecelerateInterpolator implements androidx.animation.Interpolator {
+    ctor public AccelerateDecelerateInterpolator();
+    method public float getInterpolation(float);
+  }
+
+  public class AccelerateInterpolator implements androidx.animation.Interpolator {
+    ctor public AccelerateInterpolator();
+    ctor public AccelerateInterpolator(float);
+    ctor public AccelerateInterpolator(android.content.Context, android.util.AttributeSet);
+    method public float getInterpolation(float);
+  }
+
+  public class AnticipateInterpolator implements androidx.animation.Interpolator {
+    ctor public AnticipateInterpolator();
+    ctor public AnticipateInterpolator(float);
+    ctor public AnticipateInterpolator(android.content.Context, android.util.AttributeSet);
+    method public float getInterpolation(float);
+  }
+
+  public class AnticipateOvershootInterpolator implements androidx.animation.Interpolator {
+    ctor public AnticipateOvershootInterpolator();
+    ctor public AnticipateOvershootInterpolator(float);
+    ctor public AnticipateOvershootInterpolator(float, float);
+    ctor public AnticipateOvershootInterpolator(android.content.Context, android.util.AttributeSet);
+    method public float getInterpolation(float);
+  }
+
+  public class BounceInterpolator implements androidx.animation.Interpolator {
+    ctor public BounceInterpolator();
+    method public float getInterpolation(float);
+  }
+
+  public class CycleInterpolator implements androidx.animation.Interpolator {
+    ctor public CycleInterpolator(float);
+    ctor public CycleInterpolator(android.content.Context, android.util.AttributeSet);
+    method public float getInterpolation(float);
+  }
+
+  public class DecelerateInterpolator implements androidx.animation.Interpolator {
+    ctor public DecelerateInterpolator();
+    ctor public DecelerateInterpolator(float);
+    ctor public DecelerateInterpolator(android.content.Context, android.util.AttributeSet);
+    method public float getInterpolation(float);
+  }
+
+  public abstract interface Interpolator implements androidx.animation.TimeInterpolator {
+  }
+
+  public class LinearInterpolator implements androidx.animation.Interpolator {
+    ctor public LinearInterpolator();
+    ctor public LinearInterpolator(android.content.Context, android.util.AttributeSet);
+    method public float getInterpolation(float);
+  }
+
+  public class OvershootInterpolator implements androidx.animation.Interpolator {
+    ctor public OvershootInterpolator();
+    ctor public OvershootInterpolator(float);
+    ctor public OvershootInterpolator(android.content.Context, android.util.AttributeSet);
+    method public float getInterpolation(float);
+  }
+
+  public class PathInterpolator implements androidx.animation.Interpolator {
+    ctor public PathInterpolator(android.graphics.Path);
+    ctor public PathInterpolator(float, float);
+    ctor public PathInterpolator(float, float, float, float);
+    ctor public PathInterpolator(android.content.Context, android.util.AttributeSet);
+    method public float getInterpolation(float);
+  }
+
+  public abstract interface TimeInterpolator {
+    method public abstract float getInterpolation(float);
+  }
+
+}
+
