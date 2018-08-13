@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b99d4ed3_a3e5915d",
+        "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T23:34:55Z",
+      "side": 1,
+      "message": "Can you update this variable name?",
+      "range": {
+        "startLine": 247,
+        "startChar": 15,
+        "endLine": 247,
+        "endChar": 47
+      },
+      "revId": "e618c8794f1cacae7d878bc2ed9353db0a8fee49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f4f2503_3060ef0a",
+        "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T23:34:55Z",
+      "side": 1,
+      "message": "nit: can you wrap these in {@code}? e.g. {@code true}\n\nSame for false.",
+      "range": {
+        "startLine": 403,
+        "startChar": 15,
+        "endLine": 403,
+        "endChar": 19
+      },
+      "revId": "e618c8794f1cacae7d878bc2ed9353db0a8fee49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc8b4a14_9be75ff8",
+        "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T23:34:55Z",
+      "side": 1,
+      "message": "Let\u0027s just shorten this to \"isSame\"",
+      "range": {
+        "startLine": 405,
+        "startChar": 19,
+        "endLine": 405,
+        "endChar": 37
+      },
+      "revId": "e618c8794f1cacae7d878bc2ed9353db0a8fee49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fdb3d92_064b1546",
+        "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-13T23:34:55Z",
+      "side": 1,
+      "message": "nit: can you remove the extra new lines at the end of this file?",
+      "revId": "e618c8794f1cacae7d878bc2ed9353db0a8fee49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
