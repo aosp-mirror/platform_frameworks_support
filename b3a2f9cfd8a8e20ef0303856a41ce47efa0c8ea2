@@ -22,6 +22,30 @@
       "revId": "b3a2f9cfd8a8e20ef0303856a41ce47efa0c8ea2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b767743_33b0d705",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/Release.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2018-08-13T23:38:33Z",
+      "side": 1,
+      "message": "The workflow of updating fullsdk will need maven-metadata.xml\n\nFor example, annotation currently has this maven-metadata.xml\n\nhttps://googleplex-android.git.corp.google.com/platform/prebuilts/fullsdk/extras/android/+/master/m2repository/androidx/annotation/annotation \n\nwhen run https://googleplex-android.git.corp.google.com/platform/prebuilts/fullsdk/extras/android/+/master/update_extras.py,  it will extract  maven-metadata.xml from fullzip and merge it into existing maven-metadata.xml.  So that the fullsdk will maintain a list of history versions in maven-metadata.xml",
+      "parentUuid": "ad9c3298_35bbadce",
+      "range": {
+        "startLine": 133,
+        "startChar": 17,
+        "endLine": 133,
+        "endChar": 78
+      },
+      "revId": "b3a2f9cfd8a8e20ef0303856a41ce47efa0c8ea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
