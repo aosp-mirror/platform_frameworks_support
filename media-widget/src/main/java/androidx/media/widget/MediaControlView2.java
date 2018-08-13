@@ -610,11 +610,14 @@ public class MediaControlView2 extends BaseLayout {
             mPrevWidth = currWidth;
 
             // By default, show the full view when view size is changed.
-            if (mUxState != UX_STATE_FULL) {
-                removeCallbacks(mHideMainBars);
-                removeCallbacks(mHideProgressBar);
-                post(mShowMainBars);
-            }
+            showFullUxState();
+        }
+
+        // By default, show the full view when view orientation is changed.
+        int currOrientation = retrieveOrientation();
+        if (currOrientation != mPrevOrientation) {
+            showFullUxState();
+            mPrevOrientation = currOrientation;
         }
     }
 
@@ -2145,6 +2148,15 @@ public class MediaControlView2 extends BaseLayout {
         } else {
             // If current seek position is already set, update the next seek position.
             mNextSeekPosition = newPosition;
+        }
+    }
+
+    private void showFullUxState() {
+        if (mUxState != UX_STATE_FULL) {
+            mUxState = UX_STATE_FULL;
+            removeCallbacks(mHideMainBars);
+            removeCallbacks(mHideProgressBar);
+            post(mShowMainBars);
         }
     }
 
