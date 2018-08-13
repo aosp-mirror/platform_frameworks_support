@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "698cc8ae_f6f0980b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-13T08:01:10Z",
+      "side": 1,
+      "message": "how about returning new Distance(0, 0, UNKNOWN) if unknown? We already have a state inside distance for unknown the consumer has to handle. That would collapse the states together and make this @NonNull.",
+      "range": {
+        "startLine": 128,
+        "startChar": 63,
+        "endLine": 128,
+        "endChar": 94
+      },
+      "revId": "98b37d07f521e5a60840a368596a3b0f7d0ef0ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "418abcbc_375cadf4",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-13T08:01:10Z",
+      "side": 1,
+      "message": "Add:\n\nConsumers receiving this:\n- should not crash\n- should not display the distance (neither meters nor displayE3)",
+      "range": {
+        "startLine": 42,
+        "startChar": 1,
+        "endLine": 43,
+        "endChar": 20
+      },
+      "revId": "98b37d07f521e5a60840a368596a3b0f7d0ef0ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b780511_c094a852",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-13T08:01:10Z",
+      "side": 1,
+      "message": "Add:\n\nConsumers receiving this:\n- Should not crash\n- Should not use this entire LaneDirection",
+      "range": {
+        "startLine": 41,
+        "startChar": 1,
+        "endLine": 43,
+        "endChar": 11
+      },
+      "revId": "98b37d07f521e5a60840a368596a3b0f7d0ef0ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d84c018_4f0f0078",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-13T08:01:10Z",
+      "side": 1,
+      "message": "Provide guidance about how to handle this:\n- the receiver should not crash\n- the receiver should not show any maneuver icon",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 52
+      },
+      "revId": "98b37d07f521e5a60840a368596a3b0f7d0ef0ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48a4a037_1664926b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-13T08:01:10Z",
+      "side": 1,
+      "message": "Add a clockwise example just to make it crystal-clear ?",
+      "range": {
+        "startLine": 332,
+        "startChar": 1,
+        "endLine": 335,
+        "endChar": 0
+      },
+      "revId": "98b37d07f521e5a60840a368596a3b0f7d0ef0ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d45d08c_731206f6",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-13T08:01:10Z",
+      "side": 1,
+      "message": "Add comment why the lint is suppressed (i\u0027m not sure if this matters)",
+      "range": {
+        "startLine": 358,
+        "startChar": 34,
+        "endLine": 358,
+        "endChar": 0
+      },
+      "revId": "98b37d07f521e5a60840a368596a3b0f7d0ef0ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

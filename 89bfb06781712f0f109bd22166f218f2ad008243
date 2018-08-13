@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5f8340ba_2ac9d880",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-13T08:01:10Z",
+      "side": 1,
+      "message": "Sure, let\u0027s drop the has calls, and instead return messages with ways to indicate if they\u0027re invalid (reusing the UNKNOWN types we have throughout). Consumers already have to handle the UNKNOWN types by assuming the entire containing message is invalid. I\u0027ll leave individual comments.\n\nI\u0027m all for fail-fast, but I don\u0027t know what \u0027fail-fast\u0027 means for an API where the car might fail months later when we try to stop sending a field a consumer expects. That sounds like failing (to show any data) late, rather than failing fast.\n\nI\u0027d like us to spell out what proper testing means too - where do we test the consumer\u0027s code, and how? Can we enforce testing?\n\nI\u0027m much happier for a car to see 1/1/1970 in one field than the whole car\u0027s navstate (and maybe even other parts of the system, if the OEM bundled them into the same app) to be unusable due to a NPE.",
+      "parentUuid": "17794755_03644d5b",
+      "range": {
+        "startLine": 147,
+        "startChar": 24,
+        "endLine": 148,
+        "endChar": 0
+      },
+      "revId": "89bfb06781712f0f109bd22166f218f2ad008243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9ff31c3c_1ddab686",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
         "patchSetId": 21
