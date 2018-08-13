@@ -22,6 +22,30 @@
       "revId": "d26adfd12fa7aaff85e4f19b08c4f096c30a3248",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "110ba62a_ef37e214",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-13T06:17:09Z",
+      "side": 1,
+      "message": "Sorry, I didn\u0027t catch it\u0027s failing. Fixed failure.",
+      "parentUuid": "89a5482c_170a0510",
+      "range": {
+        "startLine": 10,
+        "startChar": 6,
+        "endLine": 10,
+        "endChar": 19
+      },
+      "revId": "d26adfd12fa7aaff85e4f19b08c4f096c30a3248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
