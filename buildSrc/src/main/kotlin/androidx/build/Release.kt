@@ -130,7 +130,7 @@ open class GMavenZipTask : Zip() {
         val includes = candidates.mapNotNull {
             val mavenGroupPath = it.mavenGroup.replace('.', '/')
             when {
-                includeReleased -> "$mavenGroupPath/${it.projectName}/${it.version}" + "/**"
+                includeReleased -> "$mavenGroupPath/${it.projectName}" + "/**"
                 versionChecker.isReleased(it.mavenGroup, it.projectName, it.version) -> {
                     // query maven.google to check if it is released.
                     logger.info("looks like $it is released, skipping")
