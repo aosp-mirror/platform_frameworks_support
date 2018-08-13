@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c703899_364ac967",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/ActionButtonListItemTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-08-13T22:09:58Z",
+      "side": 1,
+      "message": "perhaps add a boolean var showDivider for better readability - similar for some of the following tests.",
+      "range": {
+        "startLine": 172,
+        "startChar": 31,
+        "endLine": 172,
+        "endChar": 35
+      },
+      "revId": "c146fb764a07dcb626072040a3cbd3e4c91229f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4a0ad26_016d8958",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-08-13T22:09:58Z",
+      "side": 1,
+      "message": "much of the logic seem to be duplicate of that of TextListItem. \n\nif we were to add more widgets, a clean up may be necessary.",
+      "range": {
+        "startLine": 70,
+        "startChar": 13,
+        "endLine": 70,
+        "endChar": 33
+      },
+      "revId": "c146fb764a07dcb626072040a3cbd3e4c91229f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
