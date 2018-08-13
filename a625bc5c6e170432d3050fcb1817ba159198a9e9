@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a503178_a7116125",
+        "filename": "work/workmanager-ktx/src/main/java/androidx/work/Data.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-13T15:38:09Z",
+      "side": 1,
+      "message": "The previous method allowed nullable values (implicit V bound of Any?). Should this be `Any?` to match?",
+      "revId": "a625bc5c6e170432d3050fcb1817ba159198a9e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d46fef7_0e987a76",
+        "filename": "work/workmanager-ktx/src/main/java/androidx/work/Data.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-13T15:38:09Z",
+      "side": 1,
+      "message": "This is a shame. Is it worth having an individual `put(String, Object)` method on the builder so we can avoid the heavy copying.",
+      "revId": "a625bc5c6e170432d3050fcb1817ba159198a9e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
