@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a637ae8c_489008e5",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-13T21:25:04Z",
+      "side": 1,
+      "message": "Yeah, that was not clear at all.  Refactored and documented.",
+      "parentUuid": "6fe88dad_1228ad62",
+      "range": {
+        "startLine": 27,
+        "startChar": 25,
+        "endLine": 27,
+        "endChar": 39
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "029afb72_173f233a",
         "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e6a62b57_6cc69f00",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-13T21:25:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "029afb72_173f233a",
+      "range": {
+        "startLine": 42,
+        "startChar": 32,
+        "endLine": 42,
+        "endChar": 92
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1741571d_c4497a7d",
         "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
         "patchSetId": 7
@@ -59,6 +107,30 @@
       "writtenOn": "2018-08-10T21:46:40Z",
       "side": 1,
       "message": "Looks like there are only 3 (2 distinct and 1 up) events per gesture. But a normal gesture (even a short one) would consist of many more events. Do we need to worry about that here?\nAlso, touchscreens are normally 100 Hz or so, so you would get an event every 10 ms, no matter what. So in other code bases the events are chopped up into 10 ms chunks. Not sure if important, but wanted to mention just in case.",
+      "range": {
+        "startLine": 73,
+        "startChar": 19,
+        "endLine": 73,
+        "endChar": 33
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2c38247_adbb8595",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-13T21:25:04Z",
+      "side": 1,
+      "message": "Ok, refactored to chop events into 10ms chunks.  It wasn\u0027t currently important, but it does seem like the sort of thing that should emulate the environment as accurately as possible so no harmful assumptions are made.",
+      "parentUuid": "1741571d_c4497a7d",
       "range": {
         "startLine": 73,
         "startChar": 19,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "49fd7972_c7d76f25",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-13T21:25:04Z",
+      "side": 1,
+      "message": "Yeah, sounded like a good idea.  Done.",
+      "parentUuid": "0e17d61a_f9655b2d",
+      "range": {
+        "startLine": 79,
+        "startChar": 9,
+        "endLine": 79,
+        "endChar": 35
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d08b9deb_cae64b47",
         "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
         "patchSetId": 7
@@ -105,6 +201,30 @@
       "writtenOn": "2018-08-10T21:46:40Z",
       "side": 1,
       "message": "Not super obvious to me, but how are timings achieved? Is there any kind of explicit delay between the events?",
+      "range": {
+        "startLine": 81,
+        "startChar": 13,
+        "endLine": 81,
+        "endChar": 31
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16e23b5d_d289f2f0",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-13T21:25:04Z",
+      "side": 1,
+      "message": "The time deltas are being set up in generateFlingMotionEvents.  The delay is computed via the ViewConfiguration\u0027s touch slop and fling velocity information.  Let me know if I should do anything to increase clarity.",
+      "parentUuid": "d08b9deb_cae64b47",
       "range": {
         "startLine": 81,
         "startChar": 13,
