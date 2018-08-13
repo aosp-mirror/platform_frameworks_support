@@ -613,7 +613,7 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         MediaPlayer player = src.getPlayer();
         if (dsd instanceof CallbackDataSourceDesc2) {
             player.setDataSource(new MediaDataSource() {
-                CallbackDataSource2 mDataSource =
+                DataSourceCallback2 mDataSource =
                         ((CallbackDataSourceDesc2) dsd).getCallbackDataSource2();
 
                 @Override
