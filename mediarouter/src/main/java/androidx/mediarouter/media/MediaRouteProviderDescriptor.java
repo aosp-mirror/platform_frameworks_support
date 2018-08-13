@@ -15,7 +15,11 @@
  */
 package androidx.mediarouter.media;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.os.Bundle;
+
+import androidx.annotation.RestrictTo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,15 +35,23 @@ import java.util.List;
  */
 public final class MediaRouteProviderDescriptor {
     private static final String KEY_ROUTES = "routes";
+    private static final String KEY_SUPPORTS_DYNAMIC_ROUTE = "supportsDynamicRoute";
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final Bundle mBundle;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     List<MediaRouteDescriptor> mRoutes;
+    boolean mSupportsDynamicRoute;
 
     MediaRouteProviderDescriptor(Bundle bundle, List<MediaRouteDescriptor> routes) {
+        this(bundle, routes, false);
+    }
+
+    MediaRouteProviderDescriptor(Bundle bundle, List<MediaRouteDescriptor> routes,
+                                 boolean supportsDynamicRoute) {
         mBundle = bundle;
         mRoutes = routes;
+        mSupportsDynamicRoute = supportsDynamicRoute;
     }
 
     /**
@@ -86,6 +98,16 @@ public final class MediaRouteProviderDescriptor {
         return true;
     }
 
+    /**
+     * Indicates whether a {@link MediaRouteProvider} supports dynamic route.
+     *
+     * @hide TODO unhide this method and updateApi
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public boolean supportsDynamicRoute() {
+        return mSupportsDynamicRoute;
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
@@ -103,6 +125,9 @@ public final class MediaRouteProviderDescriptor {
      * @return The contents of the object represented as a bundle.
      */
     public Bundle asBundle() {
+        if (mBundle.getBoolean(KEY_SUPPORTS_DYNAMIC_ROUTE) != mSupportsDynamicRoute) {
+            mBundle.putBoolean(KEY_SUPPORTS_DYNAMIC_ROUTE, mSupportsDynamicRoute);
+        }
         return mBundle;
     }
 
@@ -117,7 +142,7 @@ public final class MediaRouteProviderDescriptor {
     }
 
     /**
-     * Builder for {@link MediaRouteProviderDescriptor media route provider descriptors}.
+     * Builder for {@link MediaRouteProviderDescriptor}.
      */
     public static final class Builder {
         private final Bundle mBundle;
@@ -140,9 +165,7 @@ public final class MediaRouteProviderDescriptor {
             }
 
             mBundle = new Bundle(descriptor.mBundle);
-
-            descriptor.ensureRoutes();
-            if (!descriptor.mRoutes.isEmpty()) {
+            if (!descriptor.getRoutes().isEmpty()) {
                 mRoutes = new ArrayList<MediaRouteDescriptor>(descriptor.mRoutes);
             }
         }
@@ -194,7 +217,7 @@ public final class MediaRouteProviderDescriptor {
         }
 
         /**
-         * Builds the {@link MediaRouteProviderDescriptor media route provider descriptor}.
+         * Builds the {@link MediaRouteProviderDescriptor}.
          */
         public MediaRouteProviderDescriptor build() {
             if (mRoutes != null) {
