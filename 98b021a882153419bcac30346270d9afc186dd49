@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec3f64ad_2ea7151a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-14T16:40:29Z",
+      "side": 1,
+      "message": "This is problematic.\nAn app might give us a spannable that is currently attached to the UI in which case, this will fail.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 34
+      },
+      "revId": "98b021a882153419bcac30346270d9afc186dd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46867bed_b839f5ad",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-14T16:40:29Z",
+      "side": 1,
+      "message": "nit: Just addLinks(...) or addLinksSync(...)? I don\u0027t think \"ToSpannable\" is adding much description here.",
+      "range": {
+        "startLine": 60,
+        "startChar": 23,
+        "endLine": 60,
+        "endChar": 42
+      },
+      "revId": "98b021a882153419bcac30346270d9afc186dd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06db99ed_ae9c4e89",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-14T16:40:29Z",
+      "side": 1,
+      "message": "FYI: The only reason I had suggested SmartLinkify.Params instead of SmartLinkifyParams is because:\n1. It is consistent with things like TextSelection.Request, etc. Not necessarily a better style, it\u0027s a matter of picking one approach or the other.\n2. Because we can have private fields in SmartLinkify.Params for use in SmartLinkify without making the field available to other files in the package. Not like I can think of something right now.",
+      "range": {
+        "startLine": 79,
+        "startChar": 27,
+        "endLine": 79,
+        "endChar": 45
+      },
+      "revId": "98b021a882153419bcac30346270d9afc186dd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8880408_78da4092",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-14T16:40:29Z",
+      "side": 1,
+      "message": "@WorkerThread",
+      "revId": "98b021a882153419bcac30346270d9afc186dd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0243e9d6_6d365a58",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-14T16:40:29Z",
+      "side": 1,
+      "message": "nit: If we\u0027re adding this method, then we should probably also add one for spannable too. i.e.\n\naddLinksAsync(Spannable, Context, TextClassifier, SmartLinkifyParams)",
+      "range": {
+        "startLine": 115,
+        "startChar": 23,
+        "endLine": 115,
+        "endChar": 36
+      },
+      "revId": "98b021a882153419bcac30346270d9afc186dd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c169b1f3_2aa68ddc",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-14T16:40:29Z",
+      "side": 1,
+      "message": "remove.",
+      "range": {
+        "startLine": 116,
+        "startChar": 21,
+        "endLine": 116,
+        "endChar": 26
+      },
+      "revId": "98b021a882153419bcac30346270d9afc186dd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02abd059_7c835d11",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-14T16:40:29Z",
+      "side": 1,
+      "message": "I think we still need this method to be public API.\nThe fact that an app gives us a spannable does not mean they want us to run on the current thread.",
+      "range": {
+        "startLine": 204,
+        "startChar": 3,
+        "endLine": 204,
+        "endChar": 10
+      },
+      "revId": "98b021a882153419bcac30346270d9afc186dd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "807544aa_26cab0dc",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-14T16:40:29Z",
+      "side": 1,
+      "message": "remove.",
+      "range": {
+        "startLine": 206,
+        "startChar": 21,
+        "endLine": 206,
+        "endChar": 26
+      },
+      "revId": "98b021a882153419bcac30346270d9afc186dd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
