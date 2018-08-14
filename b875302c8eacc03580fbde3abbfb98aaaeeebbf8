@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6052b964_e6430358",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/migration/MigrationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-14T18:33:10Z",
+      "side": 0,
+      "message": "multiple values in insert weren\u0027t supported in API 15",
+      "range": {
+        "startLine": 541,
+        "startChar": 65,
+        "endLine": 541,
+        "endChar": 71
+      },
+      "revId": "b875302c8eacc03580fbde3abbfb98aaaeeebbf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
