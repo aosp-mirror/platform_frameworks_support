@@ -16,6 +16,8 @@
 
 package androidx.car.widget;
 
+import static androidx.annotation.Dimension.PX;
+
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 import android.car.drivingstate.CarUxRestrictions;
@@ -24,7 +26,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.DimenRes;
+import androidx.annotation.Dimension;
 import androidx.annotation.IntDef;
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.car.R;
 import androidx.car.util.CarUxRestrictionsUtils;
@@ -54,43 +58,78 @@ public class SubheaderListItem extends ListItem<SubheaderListItem.ViewHolder> {
     private final List<ViewBinder<ViewHolder>> mBinders = new ArrayList<>();
 
     private String mText;
-
-    public SubheaderListItem(Context context, String text) {
-
-        mContext = context;
-        mText = text;
-        mTextStartMarginType = TEXT_START_MARGIN_TYPE_NONE;
-
-        markDirty();
-    }
+    private int mTextStartMargin;
 
     @IntDef({
             TEXT_START_MARGIN_TYPE_NONE, TEXT_START_MARGIN_TYPE_LARGE,
             TEXT_START_MARGIN_TYPE_SMALL})
     @Retention(SOURCE)
-    public @interface TextStartMarginType {}
+    private @interface TextStartMarginType {}
 
     /**
      * Sets start margin of text the same as {@link TextListItem#setPrimaryActionNoIcon()}.
+     *
+     * @deprecated use {@link #setTextStartMargin(int)}
      */
+    @Deprecated
     public static final int TEXT_START_MARGIN_TYPE_NONE = 0;
     /**
      * Sets start margin of text the same as {@link TextListItem#setPrimaryActionIcon(int)}
      * with {@code useLargeIcon} set to {@code false}.
+     *
+     * @deprecated use {@link #setTextStartMargin(int)}
      */
+    @Deprecated
     public static final int TEXT_START_MARGIN_TYPE_SMALL = 1;
     /**
      * Sets start margin of text the same as {@link TextListItem#setPrimaryActionIcon(int)}
      * with {@code useLargeIcon} set to {@code true}.
+     *
+     * @deprecated use {@link #setTextStartMargin(int)}
      */
+    @Deprecated
     public static final int TEXT_START_MARGIN_TYPE_LARGE = 2;
-    @TextStartMarginType private int mTextStartMarginType;
+
+    public SubheaderListItem(Context context, String text) {
+        mContext = context;
+        mText = text;
+        mTextStartMargin = context.getResources().getDimensionPixelSize(
+                R.dimen.car_list_item_text_start_margin_none);
+        markDirty();
+    }
 
     /**
      * Sets the start margin of text. Defaults to {@link #TEXT_START_MARGIN_TYPE_NONE}.
+     *
+     * @deprecated use {@link #setTextStartMargin(int)}.
      */
+    @Deprecated
     public void setTextStartMarginType(@TextStartMarginType int type) {
-        mTextStartMarginType = type;
+        @DimenRes int marginRes;
+        switch (type) {
+            case TEXT_START_MARGIN_TYPE_NONE:
+                marginRes = R.dimen.car_list_item_text_start_margin_none;
+                break;
+            case TEXT_START_MARGIN_TYPE_SMALL:
+                marginRes = R.dimen.car_list_item_text_start_margin_small;
+                break;
+            case TEXT_START_MARGIN_TYPE_LARGE:
+                marginRes = R.dimen.car_list_item_text_start_margin_large;
+                break;
+            default:
+                throw new IllegalStateException("Unknown text start margin type.");
+        }
+        setTextStartMargin(mContext.getResources().getDimensionPixelSize(marginRes));
+    }
+
+    /**
+     * Sets the start margin of text. Defaults to
+     * {@code R.dimen.car_list_item_text_start_margin_none}.
+     *
+     * @param startMargin Start margin of text in pixels
+     */
+    public void setTextStartMargin(@Dimension(unit = PX) @IntRange(from = 0) int startMargin) {
+        mTextStartMargin = startMargin;
         markDirty();
     }
 
@@ -137,26 +176,9 @@ public class SubheaderListItem extends ListItem<SubheaderListItem.ViewHolder> {
     }
 
     private void setText() {
-        @DimenRes int textStartPadding;
-        switch (mTextStartMarginType) {
-            case TEXT_START_MARGIN_TYPE_NONE:
-                textStartPadding = R.dimen.car_keyline_1;
-                break;
-            case TEXT_START_MARGIN_TYPE_LARGE:
-                textStartPadding = R.dimen.car_keyline_4;
-                break;
-            case TEXT_START_MARGIN_TYPE_SMALL:
-                textStartPadding = R.dimen.car_keyline_3;
-                break;
-            default:
-                throw new IllegalStateException("Unknown text start margin type.");
-        }
-
-        int startMargin = mContext.getResources().getDimensionPixelSize(textStartPadding);
-
         mBinders.add(vh -> {
             vh.getText().setText(mText);
-            vh.getText().setPaddingRelative(startMargin, 0, 0, 0);
+            vh.getText().setPaddingRelative(mTextStartMargin, 0, 0, 0);
             vh.getText().requestLayout();
         });
     }

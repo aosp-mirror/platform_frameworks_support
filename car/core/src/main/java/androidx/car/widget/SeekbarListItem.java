@@ -342,10 +342,12 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
     private int getSeekBarAndTextMarginStart() {
         switch (mPrimaryActionType) {
             case PRIMARY_ACTION_TYPE_NO_ICON:
-                return mContext.getResources().getDimensionPixelSize(R.dimen.car_keyline_1);
+                return mContext.getResources().getDimensionPixelSize(
+                        R.dimen.car_list_item_text_start_margin_none);
             case PRIMARY_ACTION_TYPE_EMPTY_ICON:
             case PRIMARY_ACTION_TYPE_SMALL_ICON:
-                return mContext.getResources().getDimensionPixelSize(R.dimen.car_keyline_3);
+                return mContext.getResources().getDimensionPixelSize(
+                        R.dimen.car_list_item_text_start_margin_small);
             default:
                 throw new IllegalStateException("Unknown primary action type.");
         }

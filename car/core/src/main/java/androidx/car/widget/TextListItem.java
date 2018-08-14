@@ -379,15 +379,17 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
         @DimenRes int startMarginResId;
         switch (mPrimaryActionType) {
             case PRIMARY_ACTION_TYPE_NO_ICON:
-                startMarginResId = R.dimen.car_keyline_1;
+                startMarginResId = R.dimen.car_list_item_text_start_margin_none;
                 break;
             case PRIMARY_ACTION_TYPE_EMPTY_ICON:
-                startMarginResId = R.dimen.car_keyline_3;
+                // Empty icon offsets text as if there was a small icon.
+                startMarginResId = R.dimen.car_list_item_text_start_margin_small;
                 break;
             case PRIMARY_ACTION_TYPE_ICON:
                 startMarginResId = mPrimaryActionIconSize == PRIMARY_ACTION_ICON_SIZE_LARGE
-                        ? R.dimen.car_keyline_4
-                        : R.dimen.car_keyline_3;  // Small and medium sized icon.
+                        ? R.dimen.car_list_item_text_start_margin_large
+                        // Small and medium sized icon.
+                        : R.dimen.car_list_item_text_start_margin_small;
                 break;
             default:
                 throw new IllegalStateException("Unknown primary action type.");

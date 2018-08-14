@@ -138,4 +138,9 @@
 
     <!-- Drawer max width -->
     <public type="dimen" name="car_drawer_max_width" />
+
+    <!-- List item -->
+    <public type="dimen" name="car_list_item_text_start_margin_none" />
+    <public type="dimen" name="car_list_item_text_start_margin_small" />
+    <public type="dimen" name="car_list_item_text_start_margin_large" />
 </resources>
