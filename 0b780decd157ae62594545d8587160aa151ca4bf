@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f552b99_73372b5c",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2153,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-14T09:47:47Z",
+      "side": 1,
+      "message": "Q) sounds a little bit awkward. makeAllBarsVisible or showAllBars?",
+      "range": {
+        "startLine": 2153,
+        "startChar": 17,
+        "endLine": 2153,
+        "endChar": 38
+      },
+      "revId": "0b780decd157ae62594545d8587160aa151ca4bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29abc492_ad933330",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2155,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-14T09:47:47Z",
+      "side": 1,
+      "message": "It seems like that we don\u0027t need to update mUxState here.",
+      "range": {
+        "startLine": 2155,
+        "startChar": 12,
+        "endLine": 2155,
+        "endChar": 44
+      },
+      "revId": "0b780decd157ae62594545d8587160aa151ca4bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
