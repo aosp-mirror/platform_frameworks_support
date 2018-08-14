@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5141cf7_edfd89ae",
+        "filename": "viewpager/src/main/java/androidx/viewpager/widget/ViewPager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1602,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-14T20:25:51Z",
+      "side": 1,
+      "message": "mark them final too?",
+      "range": {
+        "startLine": 1602,
+        "startChar": 8,
+        "endLine": 1602,
+        "endChar": 11
+      },
+      "revId": "a90b9090fbc6fe64ce3476e79e58ddb65ce07a15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
