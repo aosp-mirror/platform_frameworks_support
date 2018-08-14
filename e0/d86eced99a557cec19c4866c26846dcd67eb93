@@ -1,0 +1,10 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Adam Powell <adamp@google.com>
+Code-Review+2: Ian Lake <ilake@google.com>
+API-Review+1: Adam Powell <adamp@google.com>
+Autosubmit+1: Jake Wharton <jakew@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Tue, 14 Aug 2018 03:14:38 +0000
+Reviewed-on: https://android-review.googlesource.com/730308
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
