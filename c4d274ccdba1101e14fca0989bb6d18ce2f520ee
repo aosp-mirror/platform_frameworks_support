@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "f547ddf0_bef6f159",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-14T22:59:44Z",
+      "side": 1,
+      "message": "Renamed to generateFlingData because when calling from java, you get SimpleGestureGeneratorKt.FlingData(context), which looks real ugly to me.",
+      "parentUuid": "9ecc9adc_48bb1b58",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 11
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88d67fde_8d971101",
         "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
         "patchSetId": 7
@@ -92,6 +116,30 @@
       "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62680eb2_8158300f",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-14T22:59:44Z",
+      "side": 1,
+      "message": "Oh yeah, the local variable piece was me just being very sloppy.",
+      "parentUuid": "88d67fde_8d971101",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 24
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -156,6 +204,24 @@
       "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63629492_dd47bd3c",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-14T22:59:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc36b3a3_a2628431",
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -299,6 +365,54 @@
     },
     {
       "key": {
+        "uuid": "8b842017_c5954f85",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-14T22:59:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "417c772a_dea9fe92",
+      "range": {
+        "startLine": 79,
+        "startChar": 50,
+        "endLine": 79,
+        "endChar": 55
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "28ee6978_248f1eb9",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-14T22:59:44Z",
+      "side": 1,
+      "message": "Done.  However, note that the parameters don\u0027t have parity... so I feel like this is actually kind of confusing.",
+      "parentUuid": "5d630779_239db7c6",
+      "range": {
+        "startLine": 79,
+        "startChar": 4,
+        "endLine": 79,
+        "endChar": 8
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d08b9deb_cae64b47",
         "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
         "patchSetId": 7
@@ -393,6 +507,54 @@
     },
     {
       "key": {
+        "uuid": "3533fbe5_30a27db6",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-14T22:59:44Z",
+      "side": 1,
+      "message": "As discussed, there isn\u0027t an actual delay in when the MotionEvent\u0027s get fired.  They all get fired one after the next in real \"code time\" in an ordered sequence.",
+      "parentUuid": "2b08d9d2_6d56d111",
+      "range": {
+        "startLine": 81,
+        "startChar": 13,
+        "endLine": 81,
+        "endChar": 31
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15896fd9_def09d72",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-14T22:59:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f4e6781_b8ce9e5f",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 12
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7cf495b_ce08c498",
         "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
         "patchSetId": 7
@@ -416,6 +578,30 @@
     },
     {
       "key": {
+        "uuid": "c67706b3_d7731be8",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-14T22:59:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7cf495b_ce08c498",
+      "range": {
+        "startLine": 88,
+        "startChar": 23,
+        "endLine": 88,
+        "endChar": 39
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a700f0e6_55bb9718",
         "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
         "patchSetId": 7
@@ -436,6 +622,30 @@
       "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5747d210_919bb165",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-14T22:59:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a700f0e6_55bb9718",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 89,
+        "endChar": 8
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

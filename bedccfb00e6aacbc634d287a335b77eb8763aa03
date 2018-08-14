@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "730a62fa_a8354583",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewNestedScrollingChildTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-14T22:59:44Z",
+      "side": 1,
+      "message": "As discussed, going to leave it outside of SimpleGestureGeneratorKt to keep SimpleGestureGeneratorKt from having an opinion.",
+      "parentUuid": "b0f52378_7134b9a8",
+      "range": {
+        "startLine": 342,
+        "startChar": 25,
+        "endLine": 343,
+        "endChar": 0
+      },
+      "revId": "bedccfb00e6aacbc634d287a335b77eb8763aa03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8489156b_861468ed",
         "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
         "patchSetId": 12
@@ -45,6 +69,30 @@
       "revId": "bedccfb00e6aacbc634d287a335b77eb8763aa03",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08653c66_e46a7524",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-14T22:59:44Z",
+      "side": 1,
+      "message": "Nope!  Good catch!  Removed.",
+      "parentUuid": "8489156b_861468ed",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 16
+      },
+      "revId": "bedccfb00e6aacbc634d287a335b77eb8763aa03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
