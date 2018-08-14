@@ -36,6 +36,7 @@ import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
@@ -149,4 +150,14 @@ public class SubheaderListItemTest {
         SubheaderListItem.ViewHolder viewHolder = getViewHolderAtPosition(0);
         assertFalse(viewHolder.getText().isEnabled());
     }
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetTextThrowsExceptionOnNull() {
+        SubheaderListItem item = new SubheaderListItem(mActivity, "text");
+        item.setText(null);
+    }
+
 }
