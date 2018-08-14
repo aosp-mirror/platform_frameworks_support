@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b91ebda9_938f4f0a",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T12:54:52Z",
+      "side": 1,
+      "message": "well, since there\u0027s no issue if onRouteUnselected() is called after onRouteSelected(),\nso it would be better to mention about it explicitly.",
+      "range": {
+        "startLine": 389,
+        "startChar": 82,
+        "endLine": 391,
+        "endChar": 38
+      },
+      "revId": "97617bbc60b95c57c5ef0fd1934a6fb52b085d7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
