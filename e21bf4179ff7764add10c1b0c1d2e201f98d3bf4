@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0170404c_7ba95ac6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T06:59:55Z",
+      "side": 1,
+      "message": "MediaSessionService2NotificationTest",
+      "range": {
+        "startLine": 12,
+        "startChar": 10,
+        "endLine": 12,
+        "endChar": 26
+      },
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13601c1e_ea6c3b32",
+        "filename": "media2/src/androidTest/res/drawable/spider_man.jpg",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T06:59:55Z",
+      "side": 1,
+      "message": "Replace this image with something else. You\u0027re violating copyright.",
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e07d647d_06589379",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T06:59:55Z",
+      "side": 1,
+      "message": "why do we need this?",
+      "range": {
+        "startLine": 96,
+        "startChar": 26,
+        "endLine": 96,
+        "endChar": 32
+      },
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1672e5cd_31b392ab",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T06:59:55Z",
+      "side": 1,
+      "message": "question) false always?",
+      "range": {
+        "startLine": 122,
+        "startChar": 51,
+        "endLine": 122,
+        "endChar": 55
+      },
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2121587e_a10f76c3",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T06:59:55Z",
+      "side": 1,
+      "message": "Why not compat?",
+      "range": {
+        "startLine": 197,
+        "startChar": 8,
+        "endLine": 197,
+        "endChar": 20
+      },
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00cd28cb_52362fbb",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T06:59:55Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be better to borrow application icon?",
+      "range": {
+        "startLine": 201,
+        "startChar": 41,
+        "endLine": 201,
+        "endChar": 54
+      },
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf45480a_e9b1c43d",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T06:59:55Z",
+      "side": 1,
+      "message": "This indirectly requires to define MEDIA_BUTTON in AndroidManifest.xml and needs documentation",
+      "range": {
+        "startLine": 230,
+        "startChar": 15,
+        "endLine": 230,
+        "endChar": 64
+      },
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "932e2b64_aca268e0",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T06:59:55Z",
+      "side": 1,
+      "message": "These are called only once -- what about combining all and only add ensureNotificationChannel?",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 0
+      },
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "894fccb1_71f1c648",
+        "filename": "media2/src/main/res/drawable/ic_music_note.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T06:59:55Z",
+      "side": 1,
+      "message": "If media style notif exists, could you double check if the same resources are also available in the notif compat?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 4
+      },
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dedaa10_3967407b",
+        "filename": "media2/src/main/res/values/strings.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T06:59:55Z",
+      "side": 1,
+      "message": "I expect this for all xmls you\u0027ve created.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 38
+      },
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2626b47f_b43947fa",
+        "filename": "media2/src/main/res/values/strings.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T06:59:55Z",
+      "side": 1,
+      "message": "1. what is these for?\n2. need CHAR LIMIT and description for translations.",
+      "range": {
+        "startLine": 21,
+        "startChar": 3,
+        "endLine": 24,
+        "endChar": 63
+      },
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

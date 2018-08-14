@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66a81926_38c8f7cf",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaSessionService2NotificationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T06:59:55Z",
+      "side": 0,
+      "message": "question) why do you remove this?",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 51
+      },
+      "revId": "0681d4bbf06d58a8439e0a3b1d06cefb12b9c06c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
