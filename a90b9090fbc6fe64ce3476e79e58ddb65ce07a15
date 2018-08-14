@@ -22,6 +22,30 @@
       "revId": "a90b9090fbc6fe64ce3476e79e58ddb65ce07a15",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "304191bb_92c66702",
+        "filename": "viewpager/src/main/java/androidx/viewpager/widget/ViewPager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1602,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-14T20:42:25Z",
+      "side": 1,
+      "message": "Is that a thing we do? I moved away from this because of noise it creates when you do it everywhere. IntelliJ IDEA 2018.2 and AS 3.3 will visually distinguish between mutable and read-only values similar to how it does with Kotlin using control-flow analysis.\n\nSo like I\u0027m happy to add them here, but I don\u0027t want to put them on every local and every parameter which is a larger debate.",
+      "parentUuid": "c5141cf7_edfd89ae",
+      "range": {
+        "startLine": 1602,
+        "startChar": 8,
+        "endLine": 1602,
+        "endChar": 11
+      },
+      "revId": "a90b9090fbc6fe64ce3476e79e58ddb65ce07a15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
