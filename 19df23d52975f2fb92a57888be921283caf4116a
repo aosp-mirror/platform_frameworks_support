@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3133e137_7c27029e",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-14T06:52:00Z",
+      "side": 1,
+      "message": "In this case, the app will need to create a {@link MediaSession2} instance and set {@link SessionToken2 its token} inside MediaControlView2 by calling {@link #setMediaSessionToken2(SessionToken2)}. Then MediaControlView2 will create {@link MediaController2} and could send commands to the connected {@link MediaSession2 session}.",
+      "range": {
+        "startLine": 105,
+        "startChar": 9,
+        "endLine": 107,
+        "endChar": 85
+      },
+      "revId": "19df23d52975f2fb92a57888be921283caf4116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eba5567a_ed415deb",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-14T06:52:00Z",
+      "side": 1,
+      "message": "the",
+      "range": {
+        "startLine": 108,
+        "startChar": 76,
+        "endLine": 108,
+        "endChar": 83
+      },
+      "revId": "19df23d52975f2fb92a57888be921283caf4116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9579503c_6b2ea2eb",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-14T06:52:00Z",
+      "side": 1,
+      "message": "For more details, refer to {@link MediaSession2}.",
+      "range": {
+        "startLine": 109,
+        "startChar": 49,
+        "endLine": 113,
+        "endChar": 17
+      },
+      "revId": "19df23d52975f2fb92a57888be921283caf4116a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
