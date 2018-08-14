@@ -97,8 +97,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
     private static final int PROGRESS_BAR_DISPLAY_MS = 400;
 
     static final int MSG_UPDATE_ROUTES = 1;
-    static final int MSG_STOP_TRACKING_TOUCH = 2;
-    static final int MSG_CLICK_MUTE_BUTTON = 3;
+    static final int MSG_UPDATE_ROUTE_VOLUME_BY_USER = 2;
 
     // TODO (b/111731099): Remove this once dark theme is implemented inside MediaRouterThemeHelper.
     static final int COLOR_WHITE_ON_DARK_BACKGROUND = Color.WHITE;
@@ -124,17 +123,9 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 case MSG_UPDATE_ROUTES:
                     updateRoutes((List<MediaRouter.RouteInfo>) message.obj);
                     break;
-                case MSG_STOP_TRACKING_TOUCH:
-                    if (mRouteForTouchedVolumeSlider != null) {
-                        mRouteForTouchedVolumeSlider = null;
-                        if (mHasPendingUpdate) {
-                            update();
-                        }
-                    }
-                    break;
-                case MSG_CLICK_MUTE_BUTTON:
-                    if (mRouteForClickedMuteButton != null) {
-                        mRouteForClickedMuteButton = null;
+                case MSG_UPDATE_ROUTE_VOLUME_BY_USER:
+                    if (mRouteForVolumeUpdatingByUser != null) {
+                        mRouteForVolumeUpdatingByUser = null;
                         if (mHasPendingUpdate) {
                             update();
                         }
@@ -153,9 +144,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     Map<String, Integer> mBeforeMuteVolumeMap;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    MediaRouter.RouteInfo mRouteForTouchedVolumeSlider;
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    MediaRouter.RouteInfo mRouteForClickedMuteButton;
+    MediaRouter.RouteInfo mRouteForVolumeUpdatingByUser;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     boolean mHasPendingUpdate;
     boolean mIsSelectingRoute;
@@ -386,8 +375,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
     }
 
     void update() {
-        if (mRouteForTouchedVolumeSlider != null || mRouteForClickedMuteButton != null
-                || mIsSelectingRoute) {
+        if (mRouteForVolumeUpdatingByUser != null || mIsSelectingRoute) {
             mHasPendingUpdate = true;
             return;
         }
@@ -494,10 +482,10 @@ public class MediaRouteCastDialog extends AppCompatDialog {
 
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
-            if (mRouteForTouchedVolumeSlider != null) {
-                mHandler.removeMessages(MSG_STOP_TRACKING_TOUCH);
+            if (mRouteForVolumeUpdatingByUser != null) {
+                mHandler.removeMessages(MSG_UPDATE_ROUTE_VOLUME_BY_USER);
             }
-            mRouteForTouchedVolumeSlider = (MediaRouter.RouteInfo) seekBar.getTag();
+            mRouteForVolumeUpdatingByUser = (MediaRouter.RouteInfo) seekBar.getTag();
         }
 
         @Override
@@ -505,7 +493,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             // Defer resetting mRouteForTouchedVolumeSlider to allow the media route provider
             // a little time to settle into its new state and publish the final
             // volume update.
-            mHandler.sendEmptyMessageDelayed(MSG_STOP_TRACKING_TOUCH, UPDATE_VOLUME_DELAY_MS);
+            mHandler.sendEmptyMessageDelayed(MSG_UPDATE_ROUTE_VOLUME_BY_USER,
+                    UPDATE_VOLUME_DELAY_MS);
         }
 
         @Override
@@ -571,10 +560,10 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             mMuteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mRouteForClickedMuteButton != null) {
-                        mHandler.removeMessages(MSG_CLICK_MUTE_BUTTON);
+                    if (mRouteForVolumeUpdatingByUser != null) {
+                        mHandler.removeMessages(MSG_UPDATE_ROUTE_VOLUME_BY_USER);
                     }
-                    mRouteForClickedMuteButton = mRoute;
+                    mRouteForVolumeUpdatingByUser = mRoute;
 
                     boolean mute = !v.isActivated();
                     int volume = mute ? MUTED_VOLUME : getUnmutedVolume();
@@ -585,7 +574,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                     // Defer resetting mRouteForClickedMuteButton to allow the media route provider
                     // a little time to settle into its new state and publish the final
                     // volume update.
-                    mHandler.sendEmptyMessageDelayed(MSG_CLICK_MUTE_BUTTON, UPDATE_VOLUME_DELAY_MS);
+                    mHandler.sendEmptyMessageDelayed(MSG_UPDATE_ROUTE_VOLUME_BY_USER,
+                            UPDATE_VOLUME_DELAY_MS);
                 }
             });
 
@@ -1012,8 +1002,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
 
         @Override
         public void onRouteChanged(MediaRouter router, MediaRouter.RouteInfo route) {
-            // Call refreshRoutes only when there's no updating volume.
-            if (mRouteForTouchedVolumeSlider == null && mRouteForClickedMuteButton == null) {
+            // Call refreshRoutes only when there's no route for volume updating by user.
+            if (mRouteForVolumeUpdatingByUser == null) {
                 refreshRoutes();
             }
         }
@@ -1024,7 +1014,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             if (DEBUG) {
                 Log.d(TAG, "onRouteVolumeChanged(), route.getVolume:" + volume);
             }
-            if (mRouteForTouchedVolumeSlider != route && mRouteForClickedMuteButton != route) {
+            if (mRouteForVolumeUpdatingByUser != route) {
                 MediaRouteVolumeSliderHolder holder = mVolumeSliderHolderMap.get(route.getId());
                 if (holder != null) {
                     holder.updateVolume();
