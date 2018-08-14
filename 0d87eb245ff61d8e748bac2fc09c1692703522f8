@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba2d0e3c_8df8fb9d",
+        "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-14T01:57:52Z",
+      "side": 1,
+      "message": "they cannot really update because userLiveData is declared as LiveData.\n\nI suggest:\n\nmake uesrLiveData private final and declare it as MutableLiveData\n\ncreate a getter that returns live data:\n\npublic LiveData\u003cUser\u003e getUser() {\n  return userLiveData;\n}",
+      "range": {
+        "startLine": 82,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 26
+      },
+      "revId": "0d87eb245ff61d8e748bac2fc09c1692703522f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
