@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17fee012_93032578",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T09:18:20Z",
+      "side": 1,
+      "message": "Document why we shouldn\u0027t update UI while selecting routes.",
+      "range": {
+        "startLine": 390,
+        "startChar": 19,
+        "endLine": 390,
+        "endChar": 36
+      },
+      "revId": "622810ea492a902b4a41ed9607e61875f0cb1920",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
