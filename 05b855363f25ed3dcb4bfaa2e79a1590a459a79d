@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac8b200_56b35879",
+        "filename": "car/core/res/values/dimens.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-14T21:54:02Z",
+      "side": 1,
+      "message": "I think we should name this so that they\u0027re subheader specific",
+      "range": {
+        "startLine": 211,
+        "startChar": 17,
+        "endLine": 211,
+        "endChar": 53
+      },
+      "revId": "05b855363f25ed3dcb4bfaa2e79a1590a459a79d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ba4f753_ccd740f9",
+        "filename": "car/core/src/main/java/androidx/car/widget/SeekbarListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-14T21:54:02Z",
+      "side": 1,
+      "message": "I think you should keep this as car_keyline_* values. \n\nKeep the starting margin values that you\u0027ve added here as specific to Subheader.",
+      "range": {
+        "startLine": 346,
+        "startChar": 32,
+        "endLine": 346,
+        "endChar": 68
+      },
+      "revId": "05b855363f25ed3dcb4bfaa2e79a1590a459a79d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e1b5947_1ebc0267",
+        "filename": "car/core/src/main/java/androidx/car/widget/SubheaderListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-14T21:54:02Z",
+      "side": 1,
+      "message": "Add javadoc about the recommended values to use here (i.e. car_list_item_text_start_margin_*)",
+      "revId": "05b855363f25ed3dcb4bfaa2e79a1590a459a79d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9900858_130c09df",
+        "filename": "car/core/src/main/java/androidx/car/widget/TextListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-14T21:54:02Z",
+      "side": 1,
+      "message": "Same here. Just use the car_keyline_* values as before.",
+      "range": {
+        "startLine": 382,
+        "startChar": 43,
+        "endLine": 382,
+        "endChar": 79
+      },
+      "revId": "05b855363f25ed3dcb4bfaa2e79a1590a459a79d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
