@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea44e367_1177166c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-14T02:53:54Z",
+      "side": 1,
+      "message": "Bug: 111246858",
+      "range": {
+        "startLine": 18,
+        "startChar": 16,
+        "endLine": 18,
+        "endChar": 25
+      },
+      "revId": "90a999b13341b379d19f72149cb3c6d9aa2e85db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c257e02_76aec64e",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1737,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-14T02:53:54Z",
+      "side": 1,
+      "message": "What is this bug for? Does this CL fix the bug?",
+      "range": {
+        "startLine": 1736,
+        "startChar": 0,
+        "endLine": 1737,
+        "endChar": 28
+      },
+      "revId": "90a999b13341b379d19f72149cb3c6d9aa2e85db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
