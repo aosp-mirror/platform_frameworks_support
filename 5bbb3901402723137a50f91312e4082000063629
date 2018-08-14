@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89dbc863_f669029b",
+        "filename": "paging/runtime/src/androidTest/java/androidx/paging/AsyncPagedListDifferTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-14T02:18:28Z",
+      "side": 1,
+      "message": ":)",
+      "range": {
+        "startLine": 429,
+        "startChar": 52,
+        "endLine": 429,
+        "endChar": 63
+      },
+      "revId": "5bbb3901402723137a50f91312e4082000063629",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
