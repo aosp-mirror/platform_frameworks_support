@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75e189c2_7a6ae188",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/DynamicRouteDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-14T06:36:51Z",
+      "side": 1,
+      "message": "This class will be only used inside of DynmicRouteController.\nWhat about making it inner class of DynmicRouteController?",
+      "range": {
+        "startLine": 32,
+        "startChar": 19,
+        "endLine": 32,
+        "endChar": 41
+      },
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "398030bc_5f2454b2",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/DynamicRouteDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-14T06:36:51Z",
+      "side": 1,
+      "message": "Let\u0027s change the order.\nUNSELECTING, UNSELECTED, SELECTING, SELECTED.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 20
+      },
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4102fc4a_7de11ec4",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/DynamicRouteDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-14T06:36:51Z",
+      "side": 1,
+      "message": "javadoc",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 43
+      },
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a1f3be6_b6f9a675",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/DynamicRouteDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-14T06:36:51Z",
+      "side": 1,
+      "message": "javadoc",
+      "range": {
+        "startLine": 58,
+        "startChar": 28,
+        "endLine": 58,
+        "endChar": 36
+      },
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a718deb_27ee02e6",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-14T06:36:51Z",
+      "side": 1,
+      "message": "DYNAMIC_GROUP_ROUTE?",
+      "range": {
+        "startLine": 50,
+        "startChar": 31,
+        "endLine": 50,
+        "endChar": 44
+      },
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3010c37_478127a3",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-14T06:36:51Z",
+      "side": 1,
+      "message": "dynamic group route, and for other places.",
+      "range": {
+        "startLine": 141,
+        "startChar": 34,
+        "endLine": 141,
+        "endChar": 47
+      },
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce70160e_d2c3902c",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-14T06:36:51Z",
+      "side": 1,
+      "message": "isDynamicGroupRoute?",
+      "range": {
+        "startLine": 159,
+        "startChar": 19,
+        "endLine": 159,
+        "endChar": 33
+      },
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b02ddfa_4f3ac75a",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-14T06:36:51Z",
+      "side": 1,
+      "message": "Could you elaborate more?",
+      "range": {
+        "startLine": 461,
+        "startChar": 11,
+        "endLine": 461,
+        "endChar": 31
+      },
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2b601be_8e3748c5",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-14T06:36:51Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 469,
+        "startChar": 11,
+        "endLine": 469,
+        "endChar": 32
+      },
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a9ebc08_2a861f27",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-14T06:36:51Z",
+      "side": 1,
+      "message": "onDynamicRoutesChanged",
+      "range": {
+        "startLine": 518,
+        "startChar": 17,
+        "endLine": 518,
+        "endChar": 32
+      },
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "caa80c58_d7752540",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteProviderDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-14T06:36:51Z",
+      "side": 1,
+      "message": "Please update mSupportsDynamicRoute.",
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
