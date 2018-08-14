@@ -46,6 +46,30 @@
       "revId": "b3a2f9cfd8a8e20ef0303856a41ce47efa0c8ea2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79fd2bb1_9316230f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/Release.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-14T01:02:51Z",
+      "side": 1,
+      "message": "lets make sure this happens only in full zip, not per-group zips.\n\nfor that, you should use `mavenGroup \u003d\u003d \"\"` not include released. (see docs for mavenGroup)\n\nbut even then, there is a problem in including everyhing where it might include stale files (e.g. if you build, change version, build; you\u0027ll end up including everything.)\n\nso if you really want this:\na) use mavenGroup to check for full relesae\nb) explicitly include metadata xml instead of including everything in group path.",
+      "parentUuid": "1b767743_33b0d705",
+      "range": {
+        "startLine": 133,
+        "startChar": 17,
+        "endLine": 133,
+        "endChar": 78
+      },
+      "revId": "b3a2f9cfd8a8e20ef0303856a41ce47efa0c8ea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
