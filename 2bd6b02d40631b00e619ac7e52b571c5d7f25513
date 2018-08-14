@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6c65a0d_8a5506ba",
+        "filename": "media2/src/main/java/androidx/media2/SessionToken2ImplBase.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-14T08:05:34Z",
+      "side": 1,
+      "message": "It seems this is only used when the token is created inside of a session2 with TYPE_SESSION.\nLet\u0027s remove the argument \u0027String servicename\u0027.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 5
+      },
+      "revId": "2bd6b02d40631b00e619ac7e52b571c5d7f25513",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
