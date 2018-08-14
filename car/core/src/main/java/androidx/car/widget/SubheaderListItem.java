@@ -53,14 +53,12 @@ public class SubheaderListItem extends ListItem<SubheaderListItem.ViewHolder> {
 
     private final List<ViewBinder<ViewHolder>> mBinders = new ArrayList<>();
 
-    private String mText;
+    private CharSequence mText;
 
-    public SubheaderListItem(Context context, String text) {
-
+    public SubheaderListItem(Context context, CharSequence text) {
         mContext = context;
         mText = text;
         mTextStartMarginType = TEXT_START_MARGIN_TYPE_NONE;
-
         markDirty();
     }
 
@@ -97,7 +95,7 @@ public class SubheaderListItem extends ListItem<SubheaderListItem.ViewHolder> {
     /**
      * Sets the text to be displayed.
      */
-    public void setText(String text) {
+    public void setText(CharSequence text) {
         mText = text;
         markDirty();
     }
