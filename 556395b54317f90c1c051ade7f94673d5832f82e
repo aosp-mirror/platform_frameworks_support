@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4e0d75a_0113a126",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-08-14T22:12:14Z",
+      "side": 1,
+      "message": "getter needs to be renamed as well",
+      "range": {
+        "startLine": 4,
+        "startChar": 57,
+        "endLine": 4,
+        "endChar": 76
+      },
+      "revId": "556395b54317f90c1c051ade7f94673d5832f82e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
