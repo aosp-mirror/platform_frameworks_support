@@ -28,8 +28,6 @@ import androidx.textclassifier.TextLinks.SpanFactory;
 import androidx.textclassifier.TextLinks.TextLink;
 import androidx.textclassifier.TextLinks.TextLinkSpan;
 
-import java.util.Calendar;
-
 /**
  * Used to specify how to generate and apply links when using SmartLinkify APIs.
  */
@@ -51,14 +49,14 @@ public final class SmartLinkifyParams {
     private final SpanFactory mSpanFactory;
     @Nullable private final TextClassifier.EntityConfig mEntityConfig;
     @Nullable private final LocaleListCompat mDefaultLocales;
-    @Nullable private final Calendar mReferenceTime;
+    @Nullable private final Long mReferenceTime;
 
     SmartLinkifyParams(
             @TextLinks.ApplyStrategy int applyStrategy,
             SpanFactory spanFactory,
             @Nullable TextClassifier.EntityConfig entityConfig,
             @Nullable LocaleListCompat defaultLocales,
-            @Nullable Calendar referenceTime) {
+            @Nullable Long referenceTime) {
         mApplyStrategy = applyStrategy;
         mSpanFactory = spanFactory;
         mEntityConfig = entityConfig;
@@ -145,7 +143,7 @@ public final class SmartLinkifyParams {
     // TODO: Make public API.
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     @Nullable
-    public Calendar getReferenceTime() {
+    public Long getReferenceTime() {
         return mReferenceTime;
     }
 
@@ -167,7 +165,7 @@ public final class SmartLinkifyParams {
         private SpanFactory mSpanFactory = DEFAULT_SPAN_FACTORY;
         @Nullable private TextClassifier.EntityConfig mEntityConfig;
         @Nullable private LocaleListCompat mDefaultLocales;
-        @Nullable private Calendar mReferenceTime;
+        @Nullable private Long mReferenceTime;
 
         /**
          * Sets the apply strategy used to determine how to apply links to text.
@@ -223,15 +221,14 @@ public final class SmartLinkifyParams {
         /**
          * @param referenceTime reference time based on which relative dates (e.g. "tomorrow"
          *      should be interpreted. This should usually be the time when the text was
-         *      originally composed. If no reference time is set, now is used.
+         *      originally composed and this should be milliseconds from the epoch of
+         *      1970-01-01T00:00:00Z(UTC timezone). If no reference time is set, now is used.
          *
          * @return this builder
-         * @hide
          */
-        // TODO: Make public API.
         @RestrictTo(RestrictTo.Scope.LIBRARY)
         @NonNull
-        public Builder setReferenceTime(@Nullable Calendar referenceTime) {
+        public Builder setReferenceTime(@Nullable Long referenceTime) {
             mReferenceTime = referenceTime;
             return this;
         }
