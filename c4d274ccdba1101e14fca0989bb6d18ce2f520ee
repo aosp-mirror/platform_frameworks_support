@@ -234,6 +234,30 @@
       "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b08d9d2_6d56d111",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2018-08-14T18:55:38Z",
+      "side": 1,
+      "message": "What I meant is, where is the waiting being done? Between the events?\n\nSo if I call dispatchMotionEventsToView(now,[event1, event1 + 20 ms, event1 + 40 ms]), how long will this call take? And will the view actually receive them 20 ms apart?",
+      "parentUuid": "16e23b5d_d289f2f0",
+      "range": {
+        "startLine": 81,
+        "startChar": 13,
+        "endLine": 81,
+        "endChar": 31
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }

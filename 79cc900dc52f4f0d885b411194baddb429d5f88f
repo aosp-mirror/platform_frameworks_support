@@ -22,6 +22,30 @@
       "revId": "79cc900dc52f4f0d885b411194baddb429d5f88f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "434c7492_ecae38e4",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewNestedScrollingChildTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2018-08-14T18:55:38Z",
+      "side": 1,
+      "message": "Bumping up this comment",
+      "parentUuid": "5c920c90_fa698ff9",
+      "range": {
+        "startLine": 177,
+        "startChar": 4,
+        "endLine": 177,
+        "endChar": 5
+      },
+      "revId": "79cc900dc52f4f0d885b411194baddb429d5f88f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }

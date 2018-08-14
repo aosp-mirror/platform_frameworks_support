@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0f52378_7134b9a8",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewNestedScrollingChildTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2018-08-14T18:55:38Z",
+      "side": 1,
+      "message": "Suggest to move this into simulateFling(). In this case, you may still have to acquire it twice, but in other cases, you will no longer need to pass startTime to the function.",
+      "range": {
+        "startLine": 342,
+        "startChar": 25,
+        "endLine": 343,
+        "endChar": 0
+      },
+      "revId": "bedccfb00e6aacbc634d287a335b77eb8763aa03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8489156b_861468ed",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2018-08-14T18:55:38Z",
+      "side": 1,
+      "message": "Is this used?",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 16
+      },
+      "revId": "bedccfb00e6aacbc634d287a335b77eb8763aa03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
