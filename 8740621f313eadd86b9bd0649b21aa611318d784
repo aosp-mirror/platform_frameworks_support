@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2aa88a7_90bf5f70",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/IdGenerator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-14T16:37:34Z",
+      "side": 1,
+      "message": "Nit: loadPreferencesIfNeeded.",
+      "range": {
+        "startLine": 59,
+        "startChar": 12,
+        "endLine": 59,
+        "endChar": 27
+      },
+      "revId": "8740621f313eadd86b9bd0649b21aa611318d784",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
