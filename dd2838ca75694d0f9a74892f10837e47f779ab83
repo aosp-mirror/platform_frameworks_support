@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5588bfcc_e5e687f8",
+        "filename": "animation/src/androidTest/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-14T21:02:30Z",
+      "side": 1,
+      "message": "Remove this file, unless it\u0027s needed (for some sort of manifest override).\n\nYou shouldn\u0027t need to specify targetSdkVersion here",
+      "revId": "dd2838ca75694d0f9a74892f10837e47f779ab83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc395530_4ea12c5f",
+        "filename": "animation/src/androidTest/java/androidx/animation/InterpolatorTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-14T21:02:30Z",
+      "side": 1,
+      "message": "these should be small - I\u0027d be very surprised if any take \u003e 200ms (note studio timing output inflates first test)",
+      "range": {
+        "startLine": 31,
+        "startChar": 1,
+        "endLine": 31,
+        "endChar": 11
+      },
+      "revId": "dd2838ca75694d0f9a74892f10837e47f779ab83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a00f106_aacaedb8",
+        "filename": "animation/src/androidTest/java/androidx/animation/InterpolatorTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-14T21:02:30Z",
+      "side": 1,
+      "message": "nit: \u0027Test\u0027 singular is used these days",
+      "range": {
+        "startLine": 33,
+        "startChar": 13,
+        "endLine": 33,
+        "endChar": 30
+      },
+      "revId": "dd2838ca75694d0f9a74892f10837e47f779ab83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
