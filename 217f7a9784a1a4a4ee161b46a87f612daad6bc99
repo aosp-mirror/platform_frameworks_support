@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d2ec4d42_7d0410ac",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-14T07:47:04Z",
+      "side": 1,
+      "message": "Good idea!\nChanged:\nUX_STATE_FULL -\u003e UX_STATE_ALL_VISIBLE\nUX_STATE_PROGRESS_BAR -\u003e UX_STATE_ONLY_PROGRESS_VISIBLE\nUX_STATE_EMPTY -\u003e UX_STATE_NONE_VISIBLE",
+      "parentUuid": "ec857634_f4236219",
+      "range": {
+        "startLine": 257,
+        "startChar": 29,
+        "endLine": 257,
+        "endChar": 42
+      },
+      "revId": "217f7a9784a1a4a4ee161b46a87f612daad6bc99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a00d6e85_0a3b9b6b",
         "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-14T02:53:36Z",
       "side": 1,
       "message": "what\u0027s the difference between mShowMainBars mShowAllBars? shouldn\u0027t it be mShowAllBars to be ux_state_full?",
+      "range": {
+        "startLine": 2159,
+        "startChar": 17,
+        "endLine": 2159,
+        "endChar": 30
+      },
+      "revId": "217f7a9784a1a4a4ee161b46a87f612daad6bc99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7633c20_4dcee738",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2159,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-14T07:47:04Z",
+      "side": 1,
+      "message": "As discussed offline, there is not much difference between mShowMainBars \u0026 mShowAllBars in terms of UX.\nKeeping this change but added bug to change this so that we do not animate but show all the bars immediately.",
+      "parentUuid": "a00d6e85_0a3b9b6b",
       "range": {
         "startLine": 2159,
         "startChar": 17,
