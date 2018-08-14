@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6f95fdb6_2a59e138",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaSessionService2NotificationTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T07:41:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a62d5074_ba3a49a1",
+      "range": {
+        "startLine": 99,
+        "startChar": 40,
+        "endLine": 99,
+        "endChar": 47
+      },
+      "revId": "32f90db3edee219f5f11566aff8bb5ddac64cb46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ec53c25_a9f93880",
         "filename": "media2/src/main/java/androidx/media2/MediaController2ImplBase.java",
         "patchSetId": 6
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "5c28ab4d_42e5429b",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T07:41:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d5f6642_431ddf70",
+      "range": {
+        "startLine": 1153,
+        "startChar": 83,
+        "endLine": 1154,
+        "endChar": 44
+      },
+      "revId": "32f90db3edee219f5f11566aff8bb5ddac64cb46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00931c61_a6ec38b0",
         "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
         "patchSetId": 6
@@ -91,6 +139,30 @@
       "revId": "32f90db3edee219f5f11566aff8bb5ddac64cb46",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "333447bb_bab445e1",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T07:41:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00931c61_a6ec38b0",
+      "range": {
+        "startLine": 128,
+        "startChar": 56,
+        "endLine": 128,
+        "endChar": 60
+      },
+      "revId": "32f90db3edee219f5f11566aff8bb5ddac64cb46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "75048ed5_1ba8b9b6",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T07:41:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b00edfb_b190c2fd",
+      "range": {
+        "startLine": 36,
+        "startChar": 7,
+        "endLine": 36,
+        "endChar": 9
+      },
+      "revId": "32f90db3edee219f5f11566aff8bb5ddac64cb46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88cb396b_b4d7991d",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
         "patchSetId": 6
@@ -137,6 +233,30 @@
       "revId": "32f90db3edee219f5f11566aff8bb5ddac64cb46",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a76a3b7_fffef238",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T07:41:04Z",
+      "side": 1,
+      "message": "Done. Nice catch.",
+      "parentUuid": "88cb396b_b4d7991d",
+      "range": {
+        "startLine": 65,
+        "startChar": 22,
+        "endLine": 65,
+        "endChar": 29
+      },
+      "revId": "32f90db3edee219f5f11566aff8bb5ddac64cb46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "4dbf0398_0f57d6d4",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T07:41:04Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "d315ef00_774f6d1b",
+      "range": {
+        "startLine": 82,
+        "startChar": 82,
+        "endLine": 82,
+        "endChar": 89
+      },
+      "revId": "32f90db3edee219f5f11566aff8bb5ddac64cb46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc76a36e_8bc0e62a",
         "filename": "media2/src/main/java/androidx/media2/SessionToken2.java",
         "patchSetId": 6
@@ -183,6 +327,30 @@
       "revId": "32f90db3edee219f5f11566aff8bb5ddac64cb46",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f125f33f_dfaf325f",
+        "filename": "media2/src/main/java/androidx/media2/SessionToken2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-14T07:41:04Z",
+      "side": 1,
+      "message": "Given that it\u0027s done in one place and such method would be called in other places,\nI rather keep it as is.",
+      "parentUuid": "bc76a36e_8bc0e62a",
+      "range": {
+        "startLine": 125,
+        "startChar": 8,
+        "endLine": 133,
+        "endChar": 47
+      },
+      "revId": "32f90db3edee219f5f11566aff8bb5ddac64cb46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
