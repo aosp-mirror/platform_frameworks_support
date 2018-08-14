@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "79ab378d_9d314753",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-14T17:01:48Z",
+      "side": 1,
+      "message": "I know and thus I explicitly mention that in the javadoc it is not allowed.\n\nAre you saying apps have a need to do so, rather than just doing this accidentally?\nIf the answer is the former, ya, it is problematic :(",
+      "parentUuid": "ec3f64ad_2ea7151a",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 34
+      },
+      "revId": "98b021a882153419bcac30346270d9afc186dd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "46867bed_b839f5ad",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
         "patchSetId": 1
@@ -59,6 +83,30 @@
       "writtenOn": "2018-08-14T16:40:29Z",
       "side": 1,
       "message": "FYI: The only reason I had suggested SmartLinkify.Params instead of SmartLinkifyParams is because:\n1. It is consistent with things like TextSelection.Request, etc. Not necessarily a better style, it\u0027s a matter of picking one approach or the other.\n2. Because we can have private fields in SmartLinkify.Params for use in SmartLinkify without making the field available to other files in the package. Not like I can think of something right now.",
+      "range": {
+        "startLine": 79,
+        "startChar": 27,
+        "endLine": 79,
+        "endChar": 45
+      },
+      "revId": "98b021a882153419bcac30346270d9afc186dd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d260894_9b046335",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-14T17:01:48Z",
+      "side": 1,
+      "message": "And the reasons I want to keep it separate is :)\n\nI have seen a lot of files in platform grow into an unmanageable size because one file\nontains a few static inner class \n\nAnd re 2:\nIMHO, we should fix this by putting classes in separate packages, rather than putting all of\nthem in a single package, which effectively make package \u003d\u003d public.\n\nSo, my preference is to use static inner class only if the class is super simple, like Builder.\n\nBtw, similar discussion happened in android chatty :)\nhttps://groups.google.com/a/google.com/d/msg/android-chatty-eng/l8PKWXnFcwA/LFmLfpEiAAAJ",
+      "parentUuid": "06db99ed_ae9c4e89",
       "range": {
         "startLine": 79,
         "startChar": 27,
@@ -145,6 +193,30 @@
       "writtenOn": "2018-08-14T16:40:29Z",
       "side": 1,
       "message": "I think we still need this method to be public API.\nThe fact that an app gives us a spannable does not mean they want us to run on the current thread.",
+      "range": {
+        "startLine": 204,
+        "startChar": 3,
+        "endLine": 204,
+        "endChar": 10
+      },
+      "revId": "98b021a882153419bcac30346270d9afc186dd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81aa4c07_86084b9e",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-14T17:01:48Z",
+      "side": 1,
+      "message": "This is tied to the previous comment:\nDo apps have a need to pass a Spannable that is already set in the UI widget?\nIf the answer is yes, then we will need this API.\n\nIf the answer is no, and we can just make the API blocking in the caller thread, and devs can easily run it in whatever thread they want (using executor or whatever means) without we provide an extra API.",
+      "parentUuid": "02abd059_7c835d11",
       "range": {
         "startLine": 204,
         "startChar": 3,
