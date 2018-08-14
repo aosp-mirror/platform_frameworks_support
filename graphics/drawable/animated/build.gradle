@@ -8,7 +8,7 @@ plugins {
 
 dependencies {
     api(project(":vectordrawable"))
-    api(project(":legacy-support-core-ui"))
+    implementation(project(":interpolator"))
 
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)

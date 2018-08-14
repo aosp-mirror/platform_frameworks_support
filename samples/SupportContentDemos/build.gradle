@@ -29,6 +29,8 @@ dependencies {
     implementation(project(":appcompat"))
     implementation(project(":contentpager"))
     implementation(project(":cardview"))
+    implementation(project(":coordinatorlayout"))
+    implementation(project(":contentpager"))
 }
 
 android {
