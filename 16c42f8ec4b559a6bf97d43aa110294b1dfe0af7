@@ -22,6 +22,30 @@
       "revId": "16c42f8ec4b559a6bf97d43aa110294b1dfe0af7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c8c74f6_062e059b",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-14T05:47:27Z",
+      "side": 1,
+      "message": "Good point! Removed.",
+      "parentUuid": "8391cc6f_24603b3a",
+      "range": {
+        "startLine": 120,
+        "startChar": 1,
+        "endLine": 120,
+        "endChar": 43
+      },
+      "revId": "16c42f8ec4b559a6bf97d43aa110294b1dfe0af7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
