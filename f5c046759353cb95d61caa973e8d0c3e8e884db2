@@ -22,6 +22,30 @@
       "revId": "f5c046759353cb95d61caa973e8d0c3e8e884db2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "513debc5_85755593",
+        "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1274868
+      },
+      "writtenOn": "2018-08-14T23:34:57Z",
+      "side": 1,
+      "message": "Ah, right, you still need those parentheses. Thanks!",
+      "parentUuid": "f4b7135e_b257ebe0",
+      "range": {
+        "startLine": 75,
+        "startChar": 90,
+        "endLine": 75,
+        "endChar": 92
+      },
+      "revId": "f5c046759353cb95d61caa973e8d0c3e8e884db2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
