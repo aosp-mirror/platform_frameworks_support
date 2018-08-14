@@ -22,6 +22,30 @@
       "revId": "2a5ca8662c05b217d2aa19a33c0341a59fff4a54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc676e4f_d9908b1e",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkifyParams.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-14T17:13:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7dd18504_8d17554d",
+      "range": {
+        "startLine": 35,
+        "startChar": 3,
+        "endLine": 35,
+        "endChar": 47
+      },
+      "revId": "2a5ca8662c05b217d2aa19a33c0341a59fff4a54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
