@@ -49,6 +49,52 @@
     },
     {
       "key": {
+        "uuid": "9ecc9adc_48bb1b58",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-08-14T21:40:24Z",
+      "side": 1,
+      "message": "We discourage writing extension functions on `Context` just for things that require one as a dependency. A factory method would be more appropriate here. Some emerging styles would recommend declaring this as:\n\n    fun FlingData(context: Context): FlingData\n\nan \"extension constructor\" so to speak.",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 11
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88d67fde_8d971101",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-08-14T21:40:24Z",
+      "side": 1,
+      "message": "don\u0027t use the \"m\" prefix in kotlin, definitely not as a local variable as it\u0027s confusing for people used to reading the AOSP style",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 24
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "029afb72_173f233a",
         "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
         "patchSetId": 7
@@ -93,6 +139,23 @@
       "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dc36b3a3_a2628431",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-08-14T21:40:24Z",
+      "side": 1,
+      "message": "Prefer List\u003cT\u003e to Array\u003cT\u003e",
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
@@ -190,6 +253,52 @@
     },
     {
       "key": {
+        "uuid": "417c772a_dea9fe92",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-08-14T21:40:24Z",
+      "side": 1,
+      "message": "Prefer List\u003cT\u003e to Array\u003cT\u003e",
+      "range": {
+        "startLine": 79,
+        "startChar": 50,
+        "endLine": 79,
+        "endChar": 55
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d630779_239db7c6",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-08-14T21:40:24Z",
+      "side": 1,
+      "message": "Consider `fun View.dispatchTouchEvents` as the name here. This is already an extension function on `View` so `ToView` is redundant, and this specifically dispatches to the touch event path, so parity there is nice.",
+      "range": {
+        "startLine": 79,
+        "startChar": 4,
+        "endLine": 79,
+        "endChar": 8
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d08b9deb_cae64b47",
         "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
         "patchSetId": 7
@@ -254,6 +363,75 @@
         "startChar": 13,
         "endLine": 81,
         "endChar": 31
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f4e6781_b8ce9e5f",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-08-14T21:40:24Z",
+      "side": 1,
+      "message": "Explicit `this` not needed",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 12
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7cf495b_ce08c498",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-08-14T21:40:24Z",
+      "side": 1,
+      "message": "Prefer the View\u0027s own context here instead of accepting a separate parameter",
+      "range": {
+        "startLine": 88,
+        "startChar": 23,
+        "endLine": 88,
+        "endChar": 39
+      },
+      "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a700f0e6_55bb9718",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-08-14T21:40:24Z",
+      "side": 1,
+      "message": "explicit `this` not needed",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 89,
+        "endChar": 8
       },
       "revId": "c4d274ccdba1101e14fca0989bb6d18ce2f520ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
