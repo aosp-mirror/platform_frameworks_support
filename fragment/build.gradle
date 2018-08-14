@@ -7,11 +7,10 @@ plugins {
 }
 
 dependencies {
-    api(project(":core"))
-    api(project(":legacy-support-core-ui"))
-    api(project(":legacy-support-core-utils"))
     api(project(":annotation"))
+    api(project(":core"))
     api(project(":loader"))
+    api(project(":viewpager"))
     api(ARCH_LIFECYCLE_VIEWMODEL, libs.exclude_annotations_transitive)
 
     androidTestImplementation(TEST_RUNNER)
