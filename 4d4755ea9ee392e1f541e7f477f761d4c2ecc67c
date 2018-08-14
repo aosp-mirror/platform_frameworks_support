@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f92d8097_932fec2e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/DynamicRouteDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-14T09:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75e189c2_7a6ae188",
+      "range": {
+        "startLine": 32,
+        "startChar": 19,
+        "endLine": 32,
+        "endChar": 41
+      },
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "398030bc_5f2454b2",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/media/DynamicRouteDescriptor.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66f419a2_0b16050e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/DynamicRouteDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-14T09:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "398030bc_5f2454b2",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 20
+      },
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "65649063_dfea1015",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/DynamicRouteDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-14T09:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4102fc4a_7de11ec4",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 43
+      },
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a1f3be6_b6f9a675",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/media/DynamicRouteDescriptor.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb8dae1f_80d9acf3",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/DynamicRouteDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-14T09:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a1f3be6_b6f9a675",
+      "range": {
+        "startLine": 58,
+        "startChar": 28,
+        "endLine": 58,
+        "endChar": 36
+      },
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "dda1e5f4_2302a6c4",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-14T09:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a718deb_27ee02e6",
+      "range": {
+        "startLine": 50,
+        "startChar": 31,
+        "endLine": 50,
+        "endChar": 44
+      },
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3010c37_478127a3",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteDescriptor.java",
         "patchSetId": 2
@@ -137,6 +257,30 @@
       "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "652b4b0a_bb743925",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-14T09:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3010c37_478127a3",
+      "range": {
+        "startLine": 141,
+        "startChar": 34,
+        "endLine": 141,
+        "endChar": 47
+      },
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "a3940926_686e750b",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-14T09:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce70160e_d2c3902c",
+      "range": {
+        "startLine": 159,
+        "startChar": 19,
+        "endLine": 159,
+        "endChar": 33
+      },
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b02ddfa_4f3ac75a",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteProvider.java",
         "patchSetId": 2
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "7ceed50d_17ef557e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-14T09:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b02ddfa_4f3ac75a",
+      "range": {
+        "startLine": 461,
+        "startChar": 11,
+        "endLine": 461,
+        "endChar": 31
+      },
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2b601be_8e3748c5",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteProvider.java",
         "patchSetId": 2
@@ -206,6 +398,30 @@
       "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c27a6fb_758f84d8",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-14T09:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2b601be_8e3748c5",
+      "range": {
+        "startLine": 469,
+        "startChar": 11,
+        "endLine": 469,
+        "endChar": 32
+      },
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -246,6 +462,24 @@
       "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea64a5a2_e98b5eb8",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteProviderDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-14T09:05:54Z",
+      "side": 1,
+      "message": "Oops!!! Sorry! I just realized that I totally missed this part. Done.",
+      "parentUuid": "caa80c58_d7752540",
+      "revId": "4d4755ea9ee392e1f541e7f477f761d4c2ecc67c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
