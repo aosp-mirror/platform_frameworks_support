@@ -149,4 +149,12 @@ public class SubheaderListItemTest {
         SubheaderListItem.ViewHolder viewHolder = getViewHolderAtPosition(0);
         assertFalse(viewHolder.getText().isEnabled());
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetTextThrowsExceptionOnNull() {
+        SubheaderListItem item = new SubheaderListItem(mActivity, "text");
+        setupPagedListView(Arrays.asList(item));
+
+        item.setText(null);
+    }
 }
