@@ -8,10 +8,10 @@ plugins {
 
 dependencies {
     api(project(":core"))
-    api(project(":legacy-support-core-ui"))
     api(project(":media"))
     api(project(":fragment"))
     api(project(":recyclerview"))
+    implementation(project(":interpolator"))
 
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
