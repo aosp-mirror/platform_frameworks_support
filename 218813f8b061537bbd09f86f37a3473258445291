@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c07258cd_4788c23c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/Release.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-14T02:30:22Z",
+      "side": 1,
+      "message": "this duplicate does not look good :/\n\nhow about change the one above to be, flatMap {\n}\n\nwhere each one returns an arrayListOf() and the other ones will return emptylist instead of null.",
+      "range": {
+        "startLine": 158,
+        "startChar": 12,
+        "endLine": 158,
+        "endChar": 58
+      },
+      "revId": "218813f8b061537bbd09f86f37a3473258445291",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c54be706_46699fd0",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/Release.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-14T02:30:22Z",
+      "side": 1,
+      "message": "isn\u0027t this just amven-metadata.xml ?",
+      "range": {
+        "startLine": 161,
+        "startChar": 94,
+        "endLine": 161,
+        "endChar": 95
+      },
+      "revId": "218813f8b061537bbd09f86f37a3473258445291",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
