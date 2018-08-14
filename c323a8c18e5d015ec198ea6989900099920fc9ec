@@ -351,6 +351,30 @@
       "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7666f110_8502a373",
+        "filename": "animation/src/main/java/androidx/animation/AndroidResources.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-14T21:44:07Z",
+      "side": 1,
+      "message": "Good point. I\u0027ll remove them and use the attrs directly.",
+      "parentUuid": "89bd29c5_d4c41a68",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 22
+      },
+      "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }

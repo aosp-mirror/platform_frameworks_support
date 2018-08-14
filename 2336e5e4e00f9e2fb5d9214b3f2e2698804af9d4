@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a9b095e0_55eca369",
+        "filename": "animation/src/main/java/androidx/animation/AccelerateInterpolator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-14T21:44:07Z",
+      "side": 1,
+      "message": "This is gonna be needed in the inflation class, which I have in store for the next CL or the CL after that. But since you feel strongly about it, I can mark them as private for now.",
+      "parentUuid": "fbf7c6f3_14ddd81d",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 33
+      },
+      "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a46c8bb0_c3d79aa4",
         "filename": "animation/src/main/java/androidx/animation/AnticipateInterpolator.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d843c1a_cb35a648",
+        "filename": "animation/src/main/java/androidx/animation/AnticipateInterpolator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-14T21:44:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a46c8bb0_c3d79aa4",
+      "range": {
+        "startLine": 51,
+        "startChar": 3,
+        "endLine": 52,
+        "endChar": 33
+      },
+      "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f2f87cb1_803ac2e6",
+        "filename": "animation/src/main/java/androidx/animation/AnticipateOvershootInterpolator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-14T21:44:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c507af09_af6d7c46",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 41
+      },
+      "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89c3e942_fd1c24d7",
         "filename": "animation/src/main/java/androidx/animation/AnticipateOvershootInterpolator.java",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2018-08-14T21:15:01Z",
       "side": 1,
       "message": "Which line is causing a warning? If lint is wrong, please file a lint bug.",
+      "range": {
+        "startLine": 66,
+        "startChar": 3,
+        "endLine": 66,
+        "endChar": 33
+      },
+      "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05b627cd_ca15333f",
+        "filename": "animation/src/main/java/androidx/animation/AnticipateOvershootInterpolator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-14T21:44:07Z",
+      "side": 1,
+      "message": "Good catch. I added the suppressLint for a change, undid the change and forgot to remove it.",
+      "parentUuid": "89c3e942_fd1c24d7",
       "range": {
         "startLine": 66,
         "startChar": 3,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "c0a54969_81465d44",
+        "filename": "animation/src/main/java/androidx/animation/CycleInterpolator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-14T21:44:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d53255e8_5e37213f",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 28
+      },
+      "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7bfdea1f_58290095",
         "filename": "animation/src/main/java/androidx/animation/DecelerateInterpolator.java",
         "patchSetId": 4
@@ -137,6 +257,30 @@
       "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90be09ae_f353e173",
+        "filename": "animation/src/main/java/androidx/animation/DecelerateInterpolator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-14T21:44:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bfdea1f_58290095",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 10
+      },
+      "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "6c462c59_af0fe5ff",
+        "filename": "animation/src/main/java/androidx/animation/OvershootInterpolator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-14T21:44:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eabd8c4b_3a32c552",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 10
+      },
+      "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41c186b6_adb29598",
         "filename": "animation/src/main/java/androidx/animation/PathInterpolator.java",
         "patchSetId": 4
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "edf99aa9_b1a001c3",
+        "filename": "animation/src/main/java/androidx/animation/PathInterpolator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-14T21:44:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41c186b6_adb29598",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 10
+      },
+      "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0fd0e19b_0734f2d2",
         "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryGroups.kt",
         "patchSetId": 4
@@ -206,6 +398,30 @@
       "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "467ab576_3019e221",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryGroups.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-14T21:44:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fd0e19b_0734f2d2",
+      "range": {
+        "startLine": 24,
+        "startChar": 14,
+        "endLine": 24,
+        "endChar": 46
+      },
+      "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
