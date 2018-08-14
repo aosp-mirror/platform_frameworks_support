@@ -22,6 +22,30 @@
       "revId": "c9b3ac89f82501f9e86e920736a5e7dca14c6d5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea10a477_c389fe2d",
+        "filename": "paging/common/src/main/java/androidx/paging/PagedList.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-14T17:56:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b7b100f_bc8ec251",
+      "range": {
+        "startLine": 566,
+        "startChar": 41,
+        "endLine": 566,
+        "endChar": 47
+      },
+      "revId": "c9b3ac89f82501f9e86e920736a5e7dca14c6d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
