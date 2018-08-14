@@ -206,4 +206,12 @@ limitations under the License.
     <!-- list margin won't be necessary after PagedListView is brought in -->
     <dimen name="car_preference_list_margin">8dp</dimen>
 
+    <!-- List item spacing. -->
+    <!-- Sets start margin of text the same as if there were no icon. -->
+    <dimen name="car_list_item_text_start_margin_none">@dimen/car_keyline_1</dimen>
+    <!-- Sets start margin of text the same as if primary icon size was small. -->
+    <dimen name="car_list_item_text_start_margin_small">@dimen/car_keyline_3</dimen>
+    <!-- Sets start margin of text the same as if primary icon size was large. -->
+    <dimen name="car_list_item_text_start_margin_large">@dimen/car_keyline_4</dimen>
+
 </resources>

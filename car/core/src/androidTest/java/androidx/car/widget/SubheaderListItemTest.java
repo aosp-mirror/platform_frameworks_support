@@ -94,6 +94,30 @@ public class SubheaderListItemTest {
     }
 
     @Test
+    public void testDefaultTextStartMarginIsNone() {
+        SubheaderListItem subheader = new SubheaderListItem(mActivity, "text");
+
+        TextListItem item = new TextListItem(mActivity);
+        item.setTitle("title");
+        item.setPrimaryActionNoIcon();
+
+        setupPagedListView(Arrays.asList(subheader, item));
+        assertThat(getViewHolderAtPosition(0).getText().getPaddingStart(),
+                is(equalTo(getTextViewHolderAtPosition(1).getTitle().getLeft())));
+    }
+
+    @Test
+    public void testSetTextStartMargin() {
+        // arbitrary start margin.
+        int margin = 30;
+        SubheaderListItem subheader = new SubheaderListItem(mActivity, "text");
+        subheader.setTextStartMargin(margin);
+
+        setupPagedListView(Arrays.asList(subheader));
+        assertThat(getViewHolderAtPosition(0).getText().getPaddingStart(), is(equalTo(margin)));
+    }
+
+    @Test
     public void testEmptyStartMargin() {
         SubheaderListItem subheader = new SubheaderListItem(mActivity, "text");
         subheader.setTextStartMarginType(SubheaderListItem.TEXT_START_MARGIN_TYPE_NONE);
