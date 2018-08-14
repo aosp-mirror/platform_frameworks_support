@@ -40,7 +40,6 @@ import org.hamcrest.Matchers.allOf
 import org.junit.Assert.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit.MILLISECONDS
 import java.util.concurrent.TimeUnit.SECONDS
 import java.util.concurrent.atomic.AtomicBoolean
@@ -269,10 +268,8 @@ class PageChangeListenerTest : BaseTest() {
     private fun test_peekOnAdjacentPage_previous(@Orientation orientation: Int) {
         // given
         setUpTest(3, orientation).apply {
-            // get to page 1
-            val latch0 = viewPager.addWaitForScrolledLatch(2, false)
-            runOnUiThread { viewPager.setCurrentItem(2, false) }
-            latch0.await(200, MILLISECONDS)
+            // get to page 3
+            gotoPage(2, false, 200, MILLISECONDS)
 
             // set up test listeners
             viewPager.clearOnPageChangeListeners()
@@ -350,23 +347,8 @@ class PageChangeListenerTest : BaseTest() {
                 val currentPage = viewPager.currentItem
                 viewPager.clearOnPageChangeListeners()
                 val listener = viewPager.addNewRecordingListener()
-                val latch = viewPager.addWaitForScrolledLatch(targetPage)
 
-                // temporary hack to stop the tests from failing
-                // this most likely shows a bug in PageChangeListener - communicating IDLE before
-                // RecyclerView is ready; TODO: investigate further and fix
-                val latchRV = CountDownLatch(1)
-                val rv = viewPager.getChildAt(0) as RecyclerView
-                rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                        if (newState == 0) {
-                            latchRV.countDown()
-                        }
-                    }
-                })
-                runOnUiThread { viewPager.setCurrentItem(targetPage, true) }
-                latch.await(2, SECONDS)
-                latchRV.await(2, SECONDS)
+                gotoPage(targetPage, true, 2, SECONDS)
 
                 // then
                 val pageIxDelta = targetPage - currentPage
@@ -429,10 +411,8 @@ class PageChangeListenerTest : BaseTest() {
                 val currentPage = viewPager.currentItem
                 viewPager.clearOnPageChangeListeners()
                 val listener = viewPager.addNewRecordingListener()
-                val latch = viewPager.addWaitForScrolledLatch(targetPage, false)
 
-                runOnUiThread { viewPager.setCurrentItem(targetPage, false) }
-                latch.await(200, MILLISECONDS)
+                gotoPage(targetPage, false, 200, MILLISECONDS)
 
                 // then
                 val pageIxDelta = targetPage - currentPage
