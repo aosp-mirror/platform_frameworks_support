@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7dd18504_8d17554d",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkifyParams.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-14T16:45:55Z",
+      "side": 1,
+      "message": "This will ship in docs. Just add it as a non javadoc comment next to this javadoc.",
+      "range": {
+        "startLine": 35,
+        "startChar": 3,
+        "endLine": 35,
+        "endChar": 47
+      },
+      "revId": "2a5ca8662c05b217d2aa19a33c0341a59fff4a54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
