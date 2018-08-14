@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d25e8138_250e2300",
+        "filename": "animation/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-14T20:51:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af00f16a_7de63967",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 58
+      },
+      "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "877a5240_a6ebbea2",
         "filename": "animation/build.gradle",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ceb6df76_75b82e02",
+        "filename": "animation/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-14T20:51:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "877a5240_a6ebbea2",
+      "range": {
+        "startLine": 11,
+        "startChar": 4,
+        "endLine": 11,
+        "endChar": 7
+      },
+      "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b5178f82_ced6c82f",
+        "filename": "animation/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-14T20:51:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8237b043_3827d694",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 31
+      },
+      "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80dce034_cd8da7b5",
         "filename": "animation/build.gradle",
         "patchSetId": 3
@@ -85,6 +157,24 @@
       "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1913b80d_bb23c485",
+        "filename": "animation/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-14T20:51:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80dce034_cd8da7b5",
+      "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "050bbb44_02898480",
+        "filename": "animation/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-14T20:51:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b7b5b7dd_f14b4d46",
+      "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "13fefd5c_ab4cf7ce",
         "filename": "animation/build.gradle",
         "patchSetId": 3
@@ -119,6 +227,24 @@
       "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82b9333a_9b4d4d32",
+        "filename": "animation/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-14T20:51:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13fefd5c_ab4cf7ce",
+      "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -139,6 +265,24 @@
     },
     {
       "key": {
+        "uuid": "2c55fdfa_a23eec72",
+        "filename": "animation/src/main/java/androidx/animation/AccelerateInterpolator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-14T20:51:48Z",
+      "side": 1,
+      "message": "There\u0027s no library group for the animation lib yet, so I\u0027m restricting the hidden APIs to the library (i.e. tightest restrictions as possible) for now.",
+      "parentUuid": "800492e3_17a8e178",
+      "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "df6c76bd_6847fd2d",
         "filename": "animation/src/main/java/androidx/animation/AndroidResources.java",
         "patchSetId": 3
@@ -150,6 +294,30 @@
       "writtenOn": "2018-08-13T23:38:15Z",
       "side": 1,
       "message": "Why did you go with this Class instead of using these inline as android.R.attr.fooBar?",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 22
+      },
+      "revId": "c323a8c18e5d015ec198ea6989900099920fc9ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5f95917_c2c00ab1",
+        "filename": "animation/src/main/java/androidx/animation/AndroidResources.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-14T20:51:48Z",
+      "side": 1,
+      "message": "Because theme.obtainStyledAttributes requires an array of *sorted* attrs. So we have a class here to define the attributes arrays where the attrs are pre-sorted.",
+      "parentUuid": "df6c76bd_6847fd2d",
       "range": {
         "startLine": 20,
         "startChar": 6,
