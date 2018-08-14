@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbf7c6f3_14ddd81d",
+        "filename": "animation/src/main/java/androidx/animation/AccelerateInterpolator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-14T21:15:01Z",
+      "side": 1,
+      "message": "Only used from the same class. Mark it private for now. We can open it up if needed later.",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 33
+      },
+      "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a46c8bb0_c3d79aa4",
+        "filename": "animation/src/main/java/androidx/animation/AnticipateInterpolator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-14T21:15:01Z",
+      "side": 1,
+      "message": "Only used from the same class. Mark it private for now. We can open it up if needed later.",
+      "range": {
+        "startLine": 51,
+        "startChar": 3,
+        "endLine": 52,
+        "endChar": 33
+      },
+      "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c507af09_af6d7c46",
+        "filename": "animation/src/main/java/androidx/animation/AnticipateOvershootInterpolator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-14T21:15:01Z",
+      "side": 1,
+      "message": "Only used from the same class. Mark it private for now. We can open it up if needed later.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 41
+      },
+      "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89c3e942_fd1c24d7",
+        "filename": "animation/src/main/java/androidx/animation/AnticipateOvershootInterpolator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-14T21:15:01Z",
+      "side": 1,
+      "message": "Which line is causing a warning? If lint is wrong, please file a lint bug.",
+      "range": {
+        "startLine": 66,
+        "startChar": 3,
+        "endLine": 66,
+        "endChar": 33
+      },
+      "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d53255e8_5e37213f",
+        "filename": "animation/src/main/java/androidx/animation/CycleInterpolator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-14T21:15:01Z",
+      "side": 1,
+      "message": "Only used from the same class. Mark it private for now. We can open it up if needed later.",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 28
+      },
+      "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bfdea1f_58290095",
+        "filename": "animation/src/main/java/androidx/animation/DecelerateInterpolator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-14T21:15:01Z",
+      "side": 1,
+      "message": "Only used from the same class. Mark it private for now. We can open it up if needed later.",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 10
+      },
+      "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eabd8c4b_3a32c552",
+        "filename": "animation/src/main/java/androidx/animation/OvershootInterpolator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-14T21:15:01Z",
+      "side": 1,
+      "message": "Only used from the same class. Mark it private for now. We can open it up if needed later.",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 10
+      },
+      "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41c186b6_adb29598",
+        "filename": "animation/src/main/java/androidx/animation/PathInterpolator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-14T21:15:01Z",
+      "side": 1,
+      "message": "This is only used from the same class. Mark it private for now. We can make it more open when needed.",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 10
+      },
+      "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fd0e19b_0734f2d2",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryGroups.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-14T21:15:01Z",
+      "side": 1,
+      "message": "alphabetically, this should be above annotation.",
+      "range": {
+        "startLine": 24,
+        "startChar": 14,
+        "endLine": 24,
+        "endChar": 46
+      },
+      "revId": "2336e5e4e00f9e2fb5d9214b3f2e2698804af9d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
