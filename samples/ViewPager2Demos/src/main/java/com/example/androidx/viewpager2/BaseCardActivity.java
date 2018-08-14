@@ -45,6 +45,9 @@ public abstract class BaseCardActivity extends FragmentActivity {
     private Spinner mValueSelector;
     private Spinner mSuitSelector;
     private CheckBox mSmoothScrollCheckBox;
+    private CheckBox mRotateCheckBox;
+    private CheckBox mTranslateCheckBox;
+    private CheckBox mScaleCheckBox;
     private Button mGotoPage;
 
     @Override
@@ -56,11 +59,15 @@ public abstract class BaseCardActivity extends FragmentActivity {
         mValueSelector = findViewById(R.id.value_spinner);
         mSuitSelector = findViewById(R.id.suit_spinner);
         mSmoothScrollCheckBox = findViewById(R.id.smooth_scroll_checkbox);
+        mRotateCheckBox = findViewById(R.id.rotate_checkbox);
+        mTranslateCheckBox = findViewById(R.id.translate_checkbox);
+        mScaleCheckBox = findViewById(R.id.scale_checkbox);
         mGotoPage = findViewById(R.id.jump_button);
 
         mValueSelector.setAdapter(createAdapter(Card.VALUES));
         mSuitSelector.setAdapter(createAdapter(Card.SUITS));
 
+        mViewPager.setPageTransformer(mAnimator);
         mGotoPage.setOnClickListener(view -> {
             int suit = mSuitSelector.getSelectedItemPosition();
             int value = mValueSelector.getSelectedItemPosition();
@@ -76,5 +83,27 @@ public abstract class BaseCardActivity extends FragmentActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         return adapter;
     }
+
+    private final ViewPager2.PageTransformer mAnimator = (page, position) -> {
+        float absPos = Math.abs(position);
+        if (mRotateCheckBox.isChecked()) {
+            page.setRotation(position * 360);
+        } else {
+            page.setRotation(0);
+        }
+        if (mTranslateCheckBox.isChecked()) {
+            page.setTranslationY(absPos * 500);
+        } else {
+            page.setTranslationY(0);
+        }
+        if (mScaleCheckBox.isChecked()) {
+            float scale = absPos > 1 ? 0 : 1 - absPos;
+            page.setScaleX(scale);
+            page.setScaleY(scale);
+        } else {
+            page.setScaleX(1);
+            page.setScaleY(1);
+        }
+    };
 
 }
