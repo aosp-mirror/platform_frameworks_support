@@ -22,6 +22,30 @@
       "revId": "0d87eb245ff61d8e748bac2fc09c1692703522f8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e96113fb_09904f69",
+        "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1274868
+      },
+      "writtenOn": "2018-08-14T19:59:50Z",
+      "side": 1,
+      "message": "Fixed -- thanks Yigit!",
+      "parentUuid": "ba2d0e3c_8df8fb9d",
+      "range": {
+        "startLine": 82,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 26
+      },
+      "revId": "0d87eb245ff61d8e748bac2fc09c1692703522f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
