@@ -1,0 +1,268 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac33087b_8a089bec",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseViewProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-15T02:20:56Z",
+      "side": 1,
+      "message": "we should document this.",
+      "range": {
+        "startLine": 62,
+        "startChar": 12,
+        "endLine": 64,
+        "endChar": 13
+      },
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2846f9b7_09820c0d",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/verifier/DatabaseVerifier.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-15T02:20:56Z",
+      "side": 1,
+      "message": "1 line for each",
+      "range": {
+        "startLine": 38,
+        "startChar": 7,
+        "endLine": 39,
+        "endChar": 37
+      },
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88b7bb08_81a3c1ce",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/verifier/DatabaseVerifier.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-15T02:20:56Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 71,
+        "startChar": 19,
+        "endLine": 72,
+        "endChar": 41
+      },
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22db8140_11e048ed",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/DatabaseWriter.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-15T02:20:56Z",
+      "side": 1,
+      "message": "lets overload the constructor and pass these there. you can just pass Map\u003cVIEW_NAME, List\u003cREFERENCED_TABLES\u003e\u003e",
+      "range": {
+        "startLine": 132,
+        "startChar": 16,
+        "endLine": 135,
+        "endChar": 17
+      },
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d9b5912_785a8ae9",
+        "filename": "room/compiler/src/test/data/common/input/UserSummary.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-15T02:20:56Z",
+      "side": 1,
+      "message": "no start imports",
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2b410dc_cae5791e",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/DatabaseViewProcessorTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-15T02:20:56Z",
+      "side": 1,
+      "message": "does invalidation tracker resolve these recursively?",
+      "range": {
+        "startLine": 136,
+        "startChar": 8,
+        "endLine": 136,
+        "endChar": 26
+      },
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b4a6c3c_a8be71f1",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/writer/SQLiteOpenHelperWriterTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-15T02:20:56Z",
+      "side": 1,
+      "message": "rm",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 0
+      },
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2aae0537_2007ad29",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/DatabaseViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-15T02:20:56Z",
+      "side": 1,
+      "message": "god i hate this :/ i don\u0027t like expanding sqlite dialict but maybe, maybe we should consider doing something here to  make this easy (not related to this CL, just wanted to see if you have ideas)",
+      "range": {
+        "startLine": 111,
+        "startChar": 11,
+        "endLine": 115,
+        "endChar": 53
+      },
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c79409f9_c3e4d279",
+        "filename": "room/migration/src/main/java/androidx/room/migration/bundle/DatabaseBundle.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-15T02:20:56Z",
+      "side": 1,
+      "message": "is this created by generated code? if so,we would need to keep the previous constructor for backwards compatibility.",
+      "range": {
+        "startLine": 57,
+        "startChar": 12,
+        "endLine": 57,
+        "endChar": 42
+      },
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "663138b0_1a6dcc18",
+        "filename": "room/migration/src/main/java/androidx/room/migration/bundle/DatabaseViewBundle.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-15T02:20:56Z",
+      "side": 1,
+      "message": "are these non-null? maybe better to use ObjectsCompat.equals",
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54910677_a34adfb6",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-15T02:20:56Z",
+      "side": 1,
+      "message": "as mentioned in the other file, lets do this as an overloaded constructor.",
+      "range": {
+        "startLine": 161,
+        "startChar": 3,
+        "endLine": 162,
+        "endChar": 59
+      },
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b5a34a9_e845931a",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-15T02:20:56Z",
+      "side": 1,
+      "message": "seems like there is re-resolution here multiple times. why don\u0027t we just cache all of this in the constructor, that could be cleaner ?",
+      "range": {
+        "startLine": 305,
+        "startChar": 12,
+        "endLine": 310,
+        "endChar": 13
+      },
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
