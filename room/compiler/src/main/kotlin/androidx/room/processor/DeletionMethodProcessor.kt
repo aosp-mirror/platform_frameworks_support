@@ -22,9 +22,11 @@ import com.squareup.javapoet.TypeName
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.DeclaredType
 
-class DeletionMethodProcessor(baseContext: Context,
-                              val containing: DeclaredType,
-                              val executableElement: ExecutableElement) {
+class DeletionMethodProcessor(
+    baseContext: Context,
+    val containing: DeclaredType,
+    val executableElement: ExecutableElement
+) {
     val context = baseContext.fork(executableElement)
 
     fun process(): DeletionMethod {
@@ -43,12 +45,16 @@ class DeletionMethodProcessor(baseContext: Context,
                         .DELETION_MISSING_PARAMS
         )
 
+        val methodBinder = context.typeAdapterStore
+                .findShortcutMethodBinder(executableElement.returnType)
+
         return DeletionMethod(
                 element = delegate.executableElement,
                 name = delegate.executableElement.simpleName.toString(),
                 entities = entities,
                 returnCount = returnTypeName == TypeName.INT,
-                parameters = params
+                parameters = params,
+                methodBinder = methodBinder
         )
     }
 }

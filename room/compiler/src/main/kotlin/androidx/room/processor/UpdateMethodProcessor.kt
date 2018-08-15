@@ -26,9 +26,10 @@ import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.DeclaredType
 
 class UpdateMethodProcessor(
-        baseContext: Context,
-        val containing: DeclaredType,
-        val executableElement: ExecutableElement) {
+    baseContext: Context,
+    val containing: DeclaredType,
+    val executableElement: ExecutableElement
+) {
     val context = baseContext.fork(executableElement)
 
     fun process(): UpdateMethod {
@@ -52,12 +53,16 @@ class UpdateMethodProcessor(
                         .UPDATE_MISSING_PARAMS
         )
 
+        val methodBinder = context.typeAdapterStore
+                .findShortcutMethodBinder(executableElement.returnType)
+
         return UpdateMethod(
                 element = delegate.executableElement,
                 name = delegate.executableElement.simpleName.toString(),
                 entities = entities,
                 onConflictStrategy = onConflict,
                 returnCount = returnTypeName == TypeName.INT,
+                methodBinder = methodBinder,
                 parameters = params
         )
     }

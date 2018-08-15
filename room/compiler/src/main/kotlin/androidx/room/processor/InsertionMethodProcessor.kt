@@ -34,9 +34,11 @@ import javax.lang.model.type.TypeKind.LONG
 import javax.lang.model.type.TypeKind.VOID
 import javax.lang.model.type.TypeMirror
 
-class InsertionMethodProcessor(baseContext: Context,
-                               val containing: DeclaredType,
-                               val executableElement: ExecutableElement) {
+class InsertionMethodProcessor(
+    baseContext: Context,
+    val containing: DeclaredType,
+    val executableElement: ExecutableElement
+) {
     val context = baseContext.fork(executableElement)
     fun process(): InsertionMethod {
         val delegate = ShortcutMethodProcessor(context, containing, executableElement)
@@ -73,6 +75,9 @@ class InsertionMethodProcessor(baseContext: Context,
                 insertionType = null
             }
         }
+
+        val methodBinder = context.typeAdapterStore
+                .findShortcutMethodBinder(executableElement.returnType)
         return InsertionMethod(
                 element = executableElement,
                 name = executableElement.simpleName.toString(),
@@ -80,7 +85,8 @@ class InsertionMethodProcessor(baseContext: Context,
                 entities = entities,
                 parameters = params,
                 onConflict = onConflict,
-                insertionType = insertionType
+                insertionType = insertionType,
+                methodBinder = methodBinder
         )
     }
 
@@ -108,8 +114,8 @@ class InsertionMethodProcessor(baseContext: Context,
             } else {
                 null
             }
-        } else if (MoreTypes.isType(returnType)
-                && MoreTypes.isTypeOf(List::class.java, returnType)) {
+        } else if (MoreTypes.isType(returnType) &&
+                MoreTypes.isTypeOf(List::class.java, returnType)) {
             val declared = MoreTypes.asDeclared(returnType)
             val param = declared.typeArguments.first()
             if (isLongBoxType(param)) {
