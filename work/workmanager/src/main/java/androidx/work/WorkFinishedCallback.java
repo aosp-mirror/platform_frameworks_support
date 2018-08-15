@@ -17,15 +17,12 @@
 package androidx.work;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
 import android.support.annotation.WorkerThread;
 
 /**
  * The callback interface which signals work completion for a NonBlockingWorker.
  *
- * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public interface WorkFinishedCallback {
 
     /**
