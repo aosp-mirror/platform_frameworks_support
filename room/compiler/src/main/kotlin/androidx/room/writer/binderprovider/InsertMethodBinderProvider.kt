@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,24 @@
  * limitations under the License.
  */
 
-package androidx.room.vo
+package androidx.room.writer.binderprovider
 
-import androidx.room.OnConflictStrategy
+import androidx.room.writer.InsertMethodAdapter
 import androidx.room.writer.binder.InsertMethodBinder
-import javax.lang.model.element.ExecutableElement
-import javax.lang.model.type.TypeMirror
+import javax.lang.model.type.DeclaredType
 
-data class InsertionMethod(
-    val element: ExecutableElement,
-    val name: String,
-    @OnConflictStrategy val onConflict: Int,
-    val entities: Map<String, Entity>,
-    val returnType: TypeMirror,
-    val parameters: List<ShortcutQueryParameter>,
-    val methodBinder: InsertMethodBinder
-)
+/**
+ * Provider for insert method binders.
+ */
+interface InsertMethodBinderProvider {
+
+    /**
+     * Check whether the [DeclaredType] can be handled by the [InsertMethodBinder]
+     */
+    fun matches(declared: DeclaredType): Boolean
+
+    /**
+     * Provider of [InsertMethodBinder], based on the [DeclaredType]
+     */
+    fun provide(declared: DeclaredType, adapter: InsertMethodAdapter?): InsertMethodBinder
+}

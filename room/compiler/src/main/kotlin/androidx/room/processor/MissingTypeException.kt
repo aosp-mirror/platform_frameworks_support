@@ -23,4 +23,6 @@ package androidx.room.processor
  * This exception should be thrown to abandon processing a class since it requires types that are
  * not present. This case is specially handled by deferring processing the class to a later round.
  */
-class MissingTypeException(val typeName: String) : RuntimeException("Type $typeName is not present")
+class MissingTypeException(
+    val typeName: String
+) : RuntimeException("InsertionType $typeName is not present")
