@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5954c160_290ebdc2",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-15T23:27:22Z",
+      "side": 1,
+      "message": "I guess... I still feel this is an over-reaction to NPE that will bite us in a different way in the future. For the sake of getting something to the API council this week, I\u0027ll go ahead with the change. \n\nTrying to be a bit more generic than just random names and values in each class, what about this?:\n- All these classes will have a public NOT_SET constant value that can be used to indicate that no value was sent.\n- This value will be used in all cases where Null would have been used.",
+      "parentUuid": "2694ca4d_fd369dcc",
+      "range": {
+        "startLine": 79,
+        "startChar": 70,
+        "endLine": 80,
+        "endChar": 14
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d3d3c6d_8c0ef3ae",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 25
@@ -45,6 +69,30 @@
       "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce21fe1e_d641971a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-15T23:27:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d3d3c6d_8c0ef3ae",
+      "range": {
+        "startLine": 82,
+        "startChar": 36,
+        "endLine": 82,
+        "endChar": 44
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2ea598e3_2ff447f1",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-15T23:27:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a58e131_c9656580",
+      "range": {
+        "startLine": 93,
+        "startChar": 31,
+        "endLine": 93,
+        "endChar": 39
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82c9a999_e92c603f",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 25
@@ -91,6 +163,30 @@
       "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d306e45_1317a996",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-15T23:27:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82c9a999_e92c603f",
+      "range": {
+        "startLine": 103,
+        "startChar": 36,
+        "endLine": 103,
+        "endChar": 44
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "a035c5bb_ae44d705",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-15T23:27:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08be1159_bc6bbd35",
+      "range": {
+        "startLine": 127,
+        "startChar": 75,
+        "endLine": 130,
+        "endChar": 13
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d1af670_da1efab2",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 25
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "4b53d0bb_437f4fdf",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-15T23:27:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d1af670_da1efab2",
+      "range": {
+        "startLine": 136,
+        "startChar": 66,
+        "endLine": 136,
+        "endChar": 28
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2dbe9634_da7fdd9a",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 25
@@ -151,6 +295,30 @@
       "writtenOn": "2018-08-15T07:44:29Z",
       "side": 1,
       "message": "@NonNull\n\nreturn mEta !\u003d null ? mEta : new Time();\n\nI also left a comment in Time.java, that I think we can hide the existence of Time.java, and only get/set ZonedDateTimes here.",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 13
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "919f0afe_ae793676",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-15T23:27:22Z",
+      "side": 1,
+      "message": "How is the consumer going to know that they shouldn\u0027t show the time, because it was not provided?",
+      "parentUuid": "2dbe9634_da7fdd9a",
       "range": {
         "startLine": 139,
         "startChar": 0,
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "f8a455de_1c4a1229",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-15T23:27:22Z",
+      "side": 1,
+      "message": "If we are making this for one field, then why aren\u0027t we making this for all?",
+      "parentUuid": "24795633_df113dd2",
+      "range": {
+        "startLine": 145,
+        "startChar": 53,
+        "endLine": 145,
+        "endChar": 31
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d0d2896c_b4dc3b50",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 25
@@ -197,6 +389,30 @@
       "writtenOn": "2018-08-15T07:44:29Z",
       "side": 1,
       "message": "@NonNull\n\nreturn mLocation !\u003d null ? mLocation : new Location(\"NavigationState\"); ?",
+      "range": {
+        "startLine": 149,
+        "startChar": 15,
+        "endLine": 149,
+        "endChar": 24
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85955191_8cd16ed0",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-15T23:27:22Z",
+      "side": 1,
+      "message": "What do you mean by: Location(\u0027NavigationState\u0027)?",
+      "parentUuid": "d0d2896c_b4dc3b50",
       "range": {
         "startLine": 149,
         "startChar": 15,
@@ -510,6 +726,30 @@
     },
     {
       "key": {
+        "uuid": "fccda258_d7d03d48",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-15T23:27:22Z",
+      "side": 1,
+      "message": "The purpose of this class (ProducerStatus) is to allow the producer to send a status to the consumer for it to be displayed. The consumer doesn\u0027t need to do anything special about any of these values. All it needs to do is to display this to the user in whichever way matches their UX design.\n\nThis class was the \"Notice\" string before (e.g. \"Re-routing\"). By making this an enum the consumer has better opportunity to understand what they mean and represent this signal in the most convenient way (or completely ignore it if they wish). \n\nIn any case: I agree with Harry, for the sake of speed I\u0027m removing this enum from the CL.",
+      "parentUuid": "61f2a425_1e626d73",
+      "range": {
+        "startLine": 48,
+        "startChar": 11,
+        "endLine": 51,
+        "endChar": 11
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "afff671e_f6115778",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
         "patchSetId": 25
@@ -622,6 +862,30 @@
       "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f5e419b_dcdb0765",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Side.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-15T23:27:22Z",
+      "side": 1,
+      "message": "Moved inside LaneDirection.",
+      "parentUuid": "873c117c_e9379c6a",
+      "range": {
+        "startLine": 20,
+        "startChar": 3,
+        "endLine": 20,
+        "endChar": 90
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -763,6 +1027,30 @@
     },
     {
       "key": {
+        "uuid": "e42e3e21_4d8bb592",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/StepCue.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-15T23:27:22Z",
+      "side": 1,
+      "message": "I would ask you to check this with Harry. I\u0027m not sure what the examples would be and you guys are the domain experts here ;-).\nIn my opinion, this object is useless as is. The proto on path finder has a lot more interesting data for rendering: https://cs.corp.google.com/piper///depot/google3/maps/pathfinder/client/step.proto?rcl\u003d198890032\u0026l\u003d127.\n\nPlease let\u0027s take advantage that you and Harry are in the same timezone to set this questions within the same day.\n\nAnother class to drop until we have more details on what we want?",
+      "parentUuid": "5ea41491_21e1c096",
+      "range": {
+        "startLine": 32,
+        "startChar": 78,
+        "endLine": 32,
+        "endChar": 96
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4c91674f_c1375b86",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
         "patchSetId": 25
@@ -809,6 +1097,30 @@
     },
     {
       "key": {
+        "uuid": "908eb1f7_8711719e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-15T23:27:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c91674f_c1375b86",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 12
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da814b7b_449fcfcd",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
         "patchSetId": 25
@@ -832,6 +1144,30 @@
     },
     {
       "key": {
+        "uuid": "972a7029_07e4ac71",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-15T23:27:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da814b7b_449fcfcd",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 12
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39d064a8_e2aba4c5",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
         "patchSetId": 25
@@ -852,6 +1188,30 @@
       "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63b0c56f_cfff6d94",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-15T23:27:22Z",
+      "side": 1,
+      "message": "If there are null values in the list, that would mean that we received a corrupted message.\nWould it be safe to return the rest of the elements?\nFor example: if this is a list of navigation steps, would it be safe to show all the other steps? Or if this is a list of lanes, would it be safe to show all the other lanes?\n\nI\u0027ll just run Precondition.checkNotNull() on all the elements.",
+      "parentUuid": "39d064a8_e2aba4c5",
+      "range": {
+        "startLine": 54,
+        "startChar": 71,
+        "endLine": 54,
+        "endChar": 0
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
