@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ea46c381_808d175f",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseViewProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-15T11:32:16Z",
+      "side": 1,
+      "message": "Done. Added mention to @DatabaseView in @SkipQueryVerification.",
+      "parentUuid": "ac33087b_8a089bec",
+      "range": {
+        "startLine": 62,
+        "startChar": 12,
+        "endLine": 64,
+        "endChar": 13
+      },
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2846f9b7_09820c0d",
         "filename": "room/compiler/src/main/kotlin/androidx/room/verifier/DatabaseVerifier.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "54a2363ca36553a495a4745f267637082c29389e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35656435_6bf85474",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/verifier/DatabaseVerifier.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-15T11:32:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2846f9b7_09820c0d",
+      "range": {
+        "startLine": 38,
+        "startChar": 7,
+        "endLine": 39,
+        "endChar": 37
+      },
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ec6e816f_fcc06f01",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/verifier/DatabaseVerifier.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-15T11:32:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88b7bb08_81a3c1ce",
+      "range": {
+        "startLine": 71,
+        "startChar": 19,
+        "endLine": 72,
+        "endChar": 41
+      },
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22db8140_11e048ed",
         "filename": "room/compiler/src/main/kotlin/androidx/room/writer/DatabaseWriter.kt",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "03376a73_e70c0277",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/DatabaseWriter.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-15T11:32:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22db8140_11e048ed",
+      "range": {
+        "startLine": 132,
+        "startChar": 16,
+        "endLine": 135,
+        "endChar": 17
+      },
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d9b5912_785a8ae9",
         "filename": "room/compiler/src/test/data/common/input/UserSummary.java",
         "patchSetId": 1
@@ -108,6 +204,24 @@
       "revId": "54a2363ca36553a495a4745f267637082c29389e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd7e9de0_a0de891f",
+        "filename": "room/compiler/src/test/data/common/input/UserSummary.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-15T11:32:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d9b5912_785a8ae9",
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "922785a5_12dbece4",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/DatabaseViewProcessorTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-15T11:32:16Z",
+      "side": 1,
+      "message": "Yes, it does. The tests are in InvalidationTrackerTest and DatabaseViewTest.",
+      "parentUuid": "d2b410dc_cae5791e",
+      "range": {
+        "startLine": 136,
+        "startChar": 8,
+        "endLine": 136,
+        "endChar": 26
+      },
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b4a6c3c_a8be71f1",
         "filename": "room/compiler/src/test/kotlin/androidx/room/writer/SQLiteOpenHelperWriterTest.kt",
         "patchSetId": 1
@@ -154,6 +292,30 @@
       "revId": "54a2363ca36553a495a4745f267637082c29389e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02ac5d53_d31c77e4",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/writer/SQLiteOpenHelperWriterTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-15T11:32:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b4a6c3c_a8be71f1",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 0
+      },
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "1b3832ea_257aedf8",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/DatabaseViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-15T11:32:16Z",
+      "side": 1,
+      "message": "One thing people can do is to make the column names unique and do \"SELECT employee.*, team.* FROM...\" (see PetWithUser.java), but yes, I think there should be a way to make this easier.",
+      "parentUuid": "2aae0537_2007ad29",
+      "range": {
+        "startLine": 111,
+        "startChar": 11,
+        "endLine": 115,
+        "endChar": 53
+      },
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c79409f9_c3e4d279",
         "filename": "room/migration/src/main/java/androidx/room/migration/bundle/DatabaseBundle.java",
         "patchSetId": 1
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "f090754d_4b697981",
+        "filename": "room/migration/src/main/java/androidx/room/migration/bundle/DatabaseBundle.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-15T11:32:16Z",
+      "side": 1,
+      "message": "The only use of this constructor is in Database.kt. The migration tester does create this class, but only through JSON deserialization.",
+      "parentUuid": "c79409f9_c3e4d279",
+      "range": {
+        "startLine": 57,
+        "startChar": 12,
+        "endLine": 57,
+        "endChar": 42
+      },
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "663138b0_1a6dcc18",
         "filename": "room/migration/src/main/java/androidx/room/migration/bundle/DatabaseViewBundle.java",
         "patchSetId": 1
@@ -217,6 +427,24 @@
       "revId": "54a2363ca36553a495a4745f267637082c29389e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc6165a6_3a421509",
+        "filename": "room/migration/src/main/java/androidx/room/migration/bundle/DatabaseViewBundle.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-15T11:32:16Z",
+      "side": 1,
+      "message": "Added null-checks. ObjectsCompat is not available here as this is used from both compiler and runtime.",
+      "parentUuid": "663138b0_1a6dcc18",
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -243,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "109d771f_5968ed8c",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-15T11:32:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54910677_a34adfb6",
+      "range": {
+        "startLine": 161,
+        "startChar": 3,
+        "endLine": 162,
+        "endChar": 59
+      },
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b5a34a9_e845931a",
         "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
         "patchSetId": 1
@@ -263,6 +515,30 @@
       "revId": "54a2363ca36553a495a4745f267637082c29389e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "848ebf16_30dd8a97",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-15T11:32:16Z",
+      "side": 1,
+      "message": "I moved this resolution logic to the compiler, in DatabaseProcessor.",
+      "parentUuid": "9b5a34a9_e845931a",
+      "range": {
+        "startLine": 305,
+        "startChar": 12,
+        "endLine": 310,
+        "endChar": 13
+      },
+      "revId": "54a2363ca36553a495a4745f267637082c29389e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
