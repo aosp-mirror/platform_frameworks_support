@@ -111,6 +111,8 @@ public class NavControllerTest {
         navController.restoreState(savedState);
         assertThat(navController.getCurrentDestination().getId(), is(R.id.second_test));
         assertThat(navigator.mBackStack.size(), is(2));
+        // Save state should be called on the navigator exactly once
+        assertThat(navigator.mSaveStateCount, is(1));
     }
 
     @Test

@@ -33,8 +33,11 @@ import java.util.ArrayDeque;
 @Navigator.Name("test")
 public class TestNavigator extends Navigator<TestNavigator.Destination> {
 
+    private static final String STATE_SAVED_COUNT = "saved_count";
+
     @NonNull
     public final ArrayDeque<Pair<Destination, Bundle>> mBackStack = new ArrayDeque<>();
+    public int mSaveStateCount = 0;
 
     @NonNull
     @Override
@@ -54,6 +57,21 @@ public class TestNavigator extends Navigator<TestNavigator.Destination> {
             mBackStack.add(new Pair<>(destination, args));
             dispatchOnNavigatorNavigated(destination.getId(), BACK_STACK_DESTINATION_ADDED);
         }
+    }
+
+    @Nullable
+    @Override
+    public Bundle onSaveState() {
+        mSaveStateCount += 1;
+        Bundle state = new Bundle();
+        state.putInt(STATE_SAVED_COUNT, mSaveStateCount);
+        return state;
+    }
+
+    @Override
+    public void onRestoreState(@NonNull Bundle savedState) {
+        super.onRestoreState(savedState);
+        mSaveStateCount = savedState.getInt(STATE_SAVED_COUNT);
     }
 
     @Override
