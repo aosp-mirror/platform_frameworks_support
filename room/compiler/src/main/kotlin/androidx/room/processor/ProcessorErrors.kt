@@ -131,6 +131,15 @@ object ProcessorErrors {
     val DELETION_MISSING_PARAMS = "Method annotated with" +
             " @Delete but does not have any parameters to delete."
 
+    val CANNOT_FIND_DELETE_RESULT_ADAPTER = "Not sure how to handle delete method's " +
+            "return type"
+
+    val CANNOT_FIND_UPDATE_RESULT_ADAPTER = "Not sure how to handle update method's " +
+            "return type"
+
+    val CANNOT_FIND_INSERT_RESULT_ADAPTER = "Not sure how to handle insert method's " +
+            "return type"
+
     val UPDATE_MISSING_PARAMS = "Method annotated with" +
             " @Update but does not have any parameters to update."
 

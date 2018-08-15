@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,24 @@
  * limitations under the License.
  */
 
-package androidx.room.vo
+package androidx.room.writer.binderprovider
 
+import androidx.room.writer.DeleteOrUpdateAdapter
 import androidx.room.writer.binder.DeleteOrUpdateMethodBinder
-import javax.lang.model.element.ExecutableElement
+import javax.lang.model.type.DeclaredType
 
 /**
- * Base class for shortcut methods in @DAO.
+ * Provider for delete or update binders
  */
-abstract class ShortcutMethod(
-    val element: ExecutableElement,
-    val name: String,
-    val entities: Map<String, Entity>,
-    val returnCount: Boolean,
-    val parameters: List<ShortcutQueryParameter>,
-    val methodBinder: DeleteOrUpdateMethodBinder?
-)
+interface DeleteOrUpdateMethodBinderProvider {
+
+    /**
+     * Check whether the [DeclaredType] can be handled by the [DeleteOrUpdateMethodBinder]
+     */
+    fun matches(declared: DeclaredType): Boolean
+
+    /**
+     * Provider of [DeleteOrUpdateAdapter], based on the [DeclaredType]
+     */
+    fun provide(declared: DeclaredType, adapter: DeleteOrUpdateAdapter?): DeleteOrUpdateMethodBinder
+}
