@@ -22,6 +22,30 @@
       "revId": "fb3ea2f6225f3f92a88d2488fe5b03e8e32b0aab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc983944_6a00612c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-15T14:39:12Z",
+      "side": 0,
+      "message": "Let\u0027s put it back.\n\n(Was meant to reduce API surface if we find that most people would process the Spannable before setting it to any UI widget)",
+      "parentUuid": "a3f8a27c_0f5c6145",
+      "range": {
+        "startLine": 149,
+        "startChar": 23,
+        "endLine": 149,
+        "endChar": 36
+      },
+      "revId": "fb3ea2f6225f3f92a88d2488fe5b03e8e32b0aab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "ea5f858e_3b50823b",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-15T14:39:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46867bed_b839f5ad",
+      "range": {
+        "startLine": 60,
+        "startChar": 23,
+        "endLine": 60,
+        "endChar": 42
+      },
+      "revId": "98b021a882153419bcac30346270d9afc186dd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06db99ed_ae9c4e89",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
         "patchSetId": 1
@@ -167,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "c3357471_38910d5e",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-15T14:39:12Z",
+      "side": 1,
+      "message": "Yes, both options have their own supporters, I think.\n\nGoing to keep it as is, don\u0027t hate me :)",
+      "parentUuid": "579e1ddf_62172f5e",
+      "range": {
+        "startLine": 79,
+        "startChar": 27,
+        "endLine": 79,
+        "endChar": 45
+      },
+      "revId": "98b021a882153419bcac30346270d9afc186dd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8880408_78da4092",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
         "patchSetId": 1
@@ -181,6 +229,24 @@
       "revId": "98b021a882153419bcac30346270d9afc186dd49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6370babc_357fe7c1",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-15T14:39:12Z",
+      "side": 1,
+      "message": "Dropped.",
+      "parentUuid": "f8880408_78da4092",
+      "revId": "98b021a882153419bcac30346270d9afc186dd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -207,6 +273,30 @@
     },
     {
       "key": {
+        "uuid": "a3b7853d_61ba7e34",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-15T14:39:12Z",
+      "side": 1,
+      "message": "Going to drop this, and let\u0027s add this when someone asked for it.",
+      "parentUuid": "0243e9d6_6d365a58",
+      "range": {
+        "startLine": 115,
+        "startChar": 23,
+        "endLine": 115,
+        "endChar": 36
+      },
+      "revId": "98b021a882153419bcac30346270d9afc186dd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c169b1f3_2aa68ddc",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
         "patchSetId": 1
@@ -227,6 +317,30 @@
       "revId": "98b021a882153419bcac30346270d9afc186dd49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd160824_d57bf19a",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-15T14:39:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c169b1f3_2aa68ddc",
+      "range": {
+        "startLine": 116,
+        "startChar": 21,
+        "endLine": 116,
+        "endChar": 26
+      },
+      "revId": "98b021a882153419bcac30346270d9afc186dd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -301,6 +415,30 @@
     },
     {
       "key": {
+        "uuid": "e4b79a84_d1b8a9c2",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-15T14:39:12Z",
+      "side": 1,
+      "message": "Let\u0027s put it back.",
+      "parentUuid": "963d4a70_64ebc8d2",
+      "range": {
+        "startLine": 204,
+        "startChar": 3,
+        "endLine": 204,
+        "endChar": 10
+      },
+      "revId": "98b021a882153419bcac30346270d9afc186dd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "807544aa_26cab0dc",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
         "patchSetId": 1
@@ -321,6 +459,30 @@
       "revId": "98b021a882153419bcac30346270d9afc186dd49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f08f336_b659d26c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-15T14:39:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "807544aa_26cab0dc",
+      "range": {
+        "startLine": 206,
+        "startChar": 21,
+        "endLine": 206,
+        "endChar": 26
+      },
+      "revId": "98b021a882153419bcac30346270d9afc186dd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
