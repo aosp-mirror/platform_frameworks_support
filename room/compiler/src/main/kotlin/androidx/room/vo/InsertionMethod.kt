@@ -18,17 +18,23 @@ package androidx.room.vo
 
 import androidx.room.OnConflictStrategy
 import androidx.room.ext.typeName
+import androidx.room.writer.binder.ShortcutMethodBinder
 import com.squareup.javapoet.ArrayTypeName
 import com.squareup.javapoet.ParameterizedTypeName
 import com.squareup.javapoet.TypeName
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.TypeMirror
 
-data class InsertionMethod(val element: ExecutableElement, val name: String,
-                           @OnConflictStrategy val onConflict: Int,
-                           val entities: Map<String, Entity>, val returnType: TypeMirror,
-                           val insertionType: Type?,
-                           val parameters: List<ShortcutQueryParameter>) {
+data class InsertionMethod(
+    val element: ExecutableElement,
+    val name: String,
+    @OnConflictStrategy val onConflict: Int,
+    val entities: Map<String, Entity>,
+    val returnType: TypeMirror,
+    val insertionType: Type?,
+    val parameters: List<ShortcutQueryParameter>,
+    val methodBinder: ShortcutMethodBinder
+) {
     fun insertMethodTypeFor(param: ShortcutQueryParameter): Type {
         return if (insertionType == Type.INSERT_VOID || insertionType == null) {
             Type.INSERT_VOID
@@ -41,7 +47,9 @@ data class InsertionMethod(val element: ExecutableElement, val name: String,
 
     enum class Type(
             // methodName matches EntityInsertionAdapter methods
-            val methodName: String, val returnTypeName: TypeName) {
+        val methodName: String,
+        val returnTypeName: TypeName
+    ) {
         INSERT_VOID("insert", TypeName.VOID), // return void
         INSERT_SINGLE_ID("insertAndReturnId", TypeName.LONG), // return long
         INSERT_ID_ARRAY("insertAndReturnIdsArray",

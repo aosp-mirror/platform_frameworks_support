@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,16 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package androidx.room.vo
 
-import androidx.room.writer.binder.ShortcutMethodBinder
-import javax.lang.model.element.ExecutableElement
+package androidx.room.writer.binderprovider
 
-class DeletionMethod(
-    element: ExecutableElement,
-    name: String,
-    entities: Map<String, Entity>,
-    returnCount: Boolean,
-    parameters: List<ShortcutQueryParameter>,
-    methodBinder: ShortcutMethodBinder
-) : ShortcutMethod(element, name, entities, returnCount, parameters, methodBinder)
+import androidx.room.writer.ShortcutMethodWriter
+import androidx.room.writer.binder.InstantShortcutMethodBinder
+import javax.lang.model.type.DeclaredType
+
+class InstantShortcutMethodBinderProvider : ShortcutMethodBinderProvider {
+
+    override fun matches(declared: DeclaredType) = true
+
+    override fun provide(declared: DeclaredType): InstantShortcutMethodBinder {
+        return InstantShortcutMethodBinder(ShortcutMethodWriter())
+    }
+}
