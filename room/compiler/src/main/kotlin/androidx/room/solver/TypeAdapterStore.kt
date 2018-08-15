@@ -66,6 +66,10 @@ import androidx.room.solver.types.PrimitiveColumnTypeAdapter
 import androidx.room.solver.types.StatementValueBinder
 import androidx.room.solver.types.StringColumnTypeAdapter
 import androidx.room.solver.types.TypeConverter
+import androidx.room.writer.ShortcutMethodWriter
+import androidx.room.writer.binder.InstantShortcutMethodBinder
+import androidx.room.writer.binder.ShortcutMethodBinder
+import androidx.room.writer.binderprovider.InstantShortcutMethodBinderProvider
 import com.google.auto.common.MoreElements
 import com.google.auto.common.MoreTypes
 import com.google.common.annotations.VisibleForTesting
@@ -147,6 +151,10 @@ class TypeAdapterStore private constructor(
             DataSourceQueryResultBinderProvider(context),
             DataSourceFactoryQueryResultBinderProvider(context),
             InstantQueryResultBinderProvider(context)
+    )
+
+    val shortcutMethodBinderProviders = listOf(
+            InstantShortcutMethodBinderProvider()
     )
 
     // type mirrors that be converted into columns w/o an extra converter
@@ -262,6 +270,17 @@ class TypeAdapterStore private constructor(
 
     fun findTypeConverter(input: TypeMirror, output: TypeMirror): TypeConverter? {
         return findTypeConverter(listOf(input), listOf(output))
+    }
+
+    fun findShortcutMethodBinder(typeMirror: TypeMirror): ShortcutMethodBinder {
+        return if (typeMirror.kind == TypeKind.DECLARED) {
+            val declared = MoreTypes.asDeclared(typeMirror)
+            shortcutMethodBinderProviders.first {
+                it.matches(declared)
+            }.provide(declared)
+        } else {
+            InstantShortcutMethodBinder(ShortcutMethodWriter())
+        }
     }
 
     fun findQueryResultBinder(typeMirror: TypeMirror, query: ParsedQuery): QueryResultBinder {
