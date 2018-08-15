@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,12 @@
  * limitations under the License.
  */
 
-package androidx.room.vo
+package androidx.room.writer.binderprovider
 
-import androidx.room.OnConflictStrategy
 import androidx.room.writer.binder.ShortcutMethodBinder
-import javax.lang.model.element.ExecutableElement
+import javax.lang.model.type.DeclaredType
 
-class UpdateMethod(
-    element: ExecutableElement,
-    name: String,
-    entities: Map<String, Entity>,
-    returnCount: Boolean,
-    parameters: List<ShortcutQueryParameter>,
-    methodBinder: ShortcutMethodBinder,
-    @OnConflictStrategy val onConflictStrategy: Int
-) : ShortcutMethod(element, name, entities, returnCount, parameters, methodBinder)
+interface ShortcutMethodBinderProvider {
+    fun provide(declared: DeclaredType): ShortcutMethodBinder
+    fun matches(declared: DeclaredType): Boolean
+}
