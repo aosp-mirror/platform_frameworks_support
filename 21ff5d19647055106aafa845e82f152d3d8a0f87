@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb2147a2_6ac6f676",
+        "filename": "samples/SupportEmojiDemos/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-15T23:01:23Z",
+      "side": 1,
+      "message": "I eventually want to make this plugin viral so you apply it once at the root and it auto-applies to all child projects. I don\u0027t think we can do that yet because of ordering problems though.",
+      "revId": "21ff5d19647055106aafa845e82f152d3d8a0f87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
