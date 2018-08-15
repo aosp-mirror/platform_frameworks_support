@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "ffc58982_e5443b6d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-15T15:33:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa47f03a_34ad9ebb",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 34
+      },
+      "revId": "98b021a882153419bcac30346270d9afc186dd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46867bed_b839f5ad",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
         "patchSetId": 1
@@ -203,6 +227,30 @@
       "side": 1,
       "message": "Yes, both options have their own supporters, I think.\n\nGoing to keep it as is, don\u0027t hate me :)",
       "parentUuid": "579e1ddf_62172f5e",
+      "range": {
+        "startLine": 79,
+        "startChar": 27,
+        "endLine": 79,
+        "endChar": 45
+      },
+      "revId": "98b021a882153419bcac30346270d9afc186dd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a59629e7_b8f35a57",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-15T15:33:31Z",
+      "side": 1,
+      "message": "sgtm. :)",
+      "parentUuid": "c3357471_38910d5e",
       "range": {
         "startLine": 79,
         "startChar": 27,
