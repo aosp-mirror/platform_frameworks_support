@@ -47,6 +47,18 @@ package androidx.textclassifier {
     field public static final int INVOCATION_UNKNOWN = 0; // 0x0
   }
 
+  public final class SmartLinkify {
+    method public static void addLinksAsync(android.widget.TextView, androidx.textclassifier.SmartLinkifyParams);
+    method public static void addLinksAsync(android.widget.TextView, androidx.textclassifier.TextClassifier, androidx.textclassifier.SmartLinkifyParams, android.os.CancellationSignal, java.util.concurrent.Executor, androidx.textclassifier.SmartLinkify.Callback);
+    method public static void addLinksAsync(android.text.Spannable, android.content.Context, androidx.textclassifier.SmartLinkifyParams);
+    method public static void addLinksAsync(android.text.Spannable, android.content.Context, androidx.textclassifier.TextClassifier, androidx.textclassifier.SmartLinkifyParams, android.os.CancellationSignal, java.util.concurrent.Executor, androidx.textclassifier.SmartLinkify.Callback);
+    method public static void addLinksSync(android.text.Spannable, android.content.Context, androidx.textclassifier.TextClassifier, androidx.textclassifier.SmartLinkifyParams);
+  }
+
+  public static abstract interface SmartLinkify.Callback {
+    method public abstract void onLinkify(android.text.Spannable, int);
+  }
+
   public final class SmartLinkifyParams {
   }
 
