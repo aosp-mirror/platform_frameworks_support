@@ -22,6 +22,30 @@
       "revId": "556395b54317f90c1c051ade7f94673d5832f82e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0a7cfd0_88b455d2",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-15T01:36:11Z",
+      "side": 1,
+      "message": "nice catch! Done.",
+      "parentUuid": "a4e0d75a_0113a126",
+      "range": {
+        "startLine": 4,
+        "startChar": 57,
+        "endLine": 4,
+        "endChar": 76
+      },
+      "revId": "556395b54317f90c1c051ade7f94673d5832f82e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
