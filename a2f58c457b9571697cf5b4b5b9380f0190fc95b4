@@ -22,6 +22,30 @@
       "revId": "a2f58c457b9571697cf5b4b5b9380f0190fc95b4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e41c29e_07b321cb",
+        "filename": "preference/src/main/java/androidx/preference/PreferenceGroup.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-08-15T18:55:23Z",
+      "side": 1,
+      "message": "It\u0027s simple to implement but the existing behaviour isn\u0027t obvious for developers - you can find any nested preference with #findPreference(key) but #removePreference(preference) only removes it if it exists in this exact group - so calling removePreference(findPreference(...)) can fail without an error.\n\nThe other option would be making the existing removePreference(preference) recursive, but developers would still have to first find the preference and then remove it.\n\nWhat would you think of also making removePreference(preference) recursive, so there are two methods for removing preferences, both are recursive, the only difference is one takes a preference object and the other takes a key?",
+      "parentUuid": "3eb4e418_1a66ddc7",
+      "range": {
+        "startLine": 278,
+        "startChar": 7,
+        "endLine": 278,
+        "endChar": 36
+      },
+      "revId": "a2f58c457b9571697cf5b4b5b9380f0190fc95b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
