@@ -46,6 +46,29 @@
       "revId": "efbe38f9d3114bad729b002cf826b471fae81763",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de392efb_2d4c8c71",
+        "filename": "compat/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3562,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-08-15T17:59:56Z",
+      "side": 1,
+      "message": "neat\n\ncould you add a sample code block in the javadoc?",
+      "range": {
+        "startLine": 3562,
+        "startChar": 7,
+        "endLine": 3562,
+        "endChar": 84
+      },
+      "revId": "efbe38f9d3114bad729b002cf826b471fae81763",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
