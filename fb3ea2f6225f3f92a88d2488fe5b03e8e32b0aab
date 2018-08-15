@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f01c1f6b_5c77a198",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/ConvertUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-15T15:02:40Z",
+      "side": 1,
+      "message": "I guess you\u0027re using Long rather than \"long\" so that null can represent \"not set\". How about we just use 0 to represent \"not set\"? Avoids autoboxing.\n\nIf you do so, please define what 0 implies in the javadoc.\n\nThanks.",
+      "range": {
+        "startLine": 72,
+        "startChar": 12,
+        "endLine": 72,
+        "endChar": 28
+      },
+      "revId": "fb3ea2f6225f3f92a88d2488fe5b03e8e32b0aab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edb956a0_27011e38",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkifyParams.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-15T15:02:40Z",
+      "side": 1,
+      "message": "update javadoc.",
+      "range": {
+        "startLine": 233,
+        "startChar": 40,
+        "endLine": 233,
+        "endChar": 68
+      },
+      "revId": "fb3ea2f6225f3f92a88d2488fe5b03e8e32b0aab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38e6a57a_14238144",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-15T15:02:40Z",
+      "side": 1,
+      "message": "Let\u0027s also make it clear this is milliseconds since epoch. Replace with the following:\n\n\"It is milliseconds from the epoch of 1970-01-01T00:00:00Z.\"\n\nThe Z at the end implies UTC timezone. If you think folks won\u0027t understand that, just make it clear in brackets. e.g. \"...:00Z (UTC timezone).\" Although I think it\u0027s redundant :/",
+      "range": {
+        "startLine": 438,
+        "startChar": 29,
+        "endLine": 438,
+        "endChar": 55
+      },
+      "revId": "fb3ea2f6225f3f92a88d2488fe5b03e8e32b0aab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
