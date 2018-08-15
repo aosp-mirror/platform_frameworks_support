@@ -278,6 +278,30 @@
     },
     {
       "key": {
+        "uuid": "eff317f4_9e2a1a13",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-15T17:41:20Z",
+      "side": 1,
+      "message": "I think that would be very dangerous. \n\nIf the consumer is not able to interprete the shape of one lane, it means it might be missing to display an arrow which can throw a driver off. The missing lane direction could be the one the driver needs to take.\nGiven that the consumer can\u0027t accurately represent the complete lane confirmation, I believe is better that they don\u0027t show any lane information at all.",
+      "parentUuid": "5582ecd1_a7064e2b",
+      "range": {
+        "startLine": 42,
+        "startChar": 75,
+        "endLine": 43,
+        "endChar": 34
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc846c22_ada4e5c7",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
         "patchSetId": 25
@@ -827,6 +851,30 @@
       "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3990af1a_5dd2c6b5",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/EnumWrapper.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-15T17:41:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0cf47287_4997bd90",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 12
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
