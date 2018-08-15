@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe8c5bf2_d8cca084",
+        "filename": "navigation/testing/src/main/java/androidx/navigation/testing/TestNavigator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-08-15T23:45:09Z",
+      "side": 1,
+      "message": "Can you move this logic into a separate subclass of TestNavigator that is used only for the one test? TestNavigator is used in a lot of tests and is part of the public API surface for navigation-testing.",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 35
+      },
+      "revId": "1908c6f8b32001c2971ba2342b65b4c3b3065d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34e23dfa_8bbcd999",
+        "filename": "navigation/testing/src/main/java/androidx/navigation/testing/TestNavigator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-08-15T23:45:09Z",
+      "side": 1,
+      "message": "This isn\u0027t necessary (the default implementation does nothing).",
+      "range": {
+        "startLine": 73,
+        "startChar": 8,
+        "endLine": 73,
+        "endChar": 41
+      },
+      "revId": "1908c6f8b32001c2971ba2342b65b4c3b3065d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
