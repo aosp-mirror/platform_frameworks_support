@@ -110,6 +110,8 @@ public class DelayMetCommandHandler implements
         cleanUp();
 
         if (mHasConstraints) {
+            Logger.debug(TAG,
+                    String.format("Creating a constraint changed intent for %s.", mWorkSpecId));
             // The WorkSpec had constraints. Once the execution of the worker is complete,
             // we might need to disable constraint proxies which were previously enabled for
             // this WorkSpec. Hence, trigger a constraints changed command.
