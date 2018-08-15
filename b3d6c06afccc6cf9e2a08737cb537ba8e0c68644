@@ -302,6 +302,30 @@
     },
     {
       "key": {
+        "uuid": "8901b90b_c88de887",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T23:13:10Z",
+      "side": 1,
+      "message": "It might be hinder wayfinding, but I wouldn\u0027t say dangerous. A driver may miss their turn, but that\u0027s not dangerous in itself. Having no lane information would be even more unhelpful.\n\nIf we say an unknown value wipes out all lane information, then we can\u0027t evolve this API in the future without wiping out all lane information - so, in practice, no senders will ever be able to send a new value using this enum.\n\nMaybe that\u0027s OK though - maybe if we ever evolve this API, we should introduce a new version alongside the old and send both. Given this is a pretty simple enum, I\u0027d be OK with that.\n\nIn any case, I still want some way to show highlighted direction without using null. I was thinking of using highlightedDirection \u003d LaneDirection(UNKNOWN, UNKNOWN), but this comment as-written rules that out (a not-present highlight on a lane tells folks to not show any lane info at all). Perhaps it\u0027s worth splitting UNKNOWN and NOT_PRESENT then, if we should handle them differently.\n\nOr, thinking differently, we could have LaneDirection have a HIGHLIGHTED/NOT_HIGHLIGHTED field, and just have Lane be a List\u003cLaneDirection\u003e without a highlightedDirection.",
+      "parentUuid": "eff317f4_9e2a1a13",
+      "range": {
+        "startLine": 42,
+        "startChar": 75,
+        "endLine": 43,
+        "endChar": 34
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc846c22_ada4e5c7",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
         "patchSetId": 25
