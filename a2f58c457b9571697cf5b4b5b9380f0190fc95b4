@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3eb4e418_1a66ddc7",
+        "filename": "preference/src/main/java/androidx/preference/PreferenceGroup.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-08-15T17:53:41Z",
+      "side": 1,
+      "message": "Adding an overload with different behavior is likely to confuse developers.\n\nIs this method necessary given how simple it is to implement?",
+      "range": {
+        "startLine": 278,
+        "startChar": 7,
+        "endLine": 278,
+        "endChar": 36
+      },
+      "revId": "a2f58c457b9571697cf5b4b5b9380f0190fc95b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
