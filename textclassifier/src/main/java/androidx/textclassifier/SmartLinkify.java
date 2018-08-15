@@ -18,7 +18,6 @@ package androidx.textclassifier;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.CancellationSignal;
-import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
@@ -29,6 +28,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.UiThread;
+import androidx.annotation.WorkerThread;
 import androidx.core.util.Preconditions;
 import androidx.core.util.Supplier;
 
@@ -36,16 +36,48 @@ import java.util.concurrent.Executor;
 
 /**
  * Provides {@link android.text.util.Linkify} functionality using a {@link TextClassifier}.
- * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY)
 public final class SmartLinkify {
 
     private SmartLinkify() {}
 
     /**
+     * Scans provided spannable and turns all occurrences of the entity types
+     * specified by {@link SmartLinkifyParams} into clickable links. If links are found, this
+     * method removes any pre-existing {@link TextLinks.TextLinkSpan} attached to the text (to
+     * avoid problems if you call it repeatedly on the same text).
+     *
+     * <p><strong>Note:</strong> This method is blocking and it should be called in the worker
+     * thread. The provided spannable should not be set to any UI widget yet.
+     *
+     * @param text Spannable whose text is to be marked-up with links
+     * @param textClassifier text classifier used to generate and handle the links.
+     *      If null, a text classifier returned by
+     *      {@link TextClassificationManager#getTextClassifier()} is used
+     * @param params optional parameters to specify how to generate the links
+     */
+    @WorkerThread
+    @TextLinks.Status
+    public static int addLinksSync(
+            @NonNull final Spannable text,
+            @NonNull Context context,
+            @Nullable TextClassifier textClassifier,
+            @Nullable SmartLinkifyParams params) {
+        final Supplier<Spannable> textSupplier = new Supplier<Spannable>() {
+            @Override
+            public Spannable get() {
+                return text;
+            }
+        };
+        LinkifyTask linkifyTask =
+                new LinkifyTask(textSupplier, context, textClassifier, params, null);
+        TextLinks textLinks = linkifyTask.generateLinks();
+        return linkifyTask.applyLinks(textLinks);
+    }
+
+    /**
      * Scans the text of the provided TextView and turns all occurrences of the entity types
-     * specified by {@code options} into clickable links. If links are found, this method
+     * specified by {@code params} into clickable links. If links are found, this method
      * removes any pre-existing {@link TextLinks.TextLinkSpan} attached to the text (to avoid
      * problems if you call it repeatedly on the same text) and sets the movement method for the
      * TextView to LinkMovementMethod.
@@ -66,7 +98,7 @@ public final class SmartLinkify {
 
     /**
      * Scans the text of the provided TextView and turns all occurrences of the entity types
-     * specified by {@code options} into clickable links. If links are found, this method
+     * specified by {@code params} into clickable links. If links are found, this method
      * removes any pre-existing {@link TextLinks.TextLinkSpan} attached to the text (to avoid
      * problems if you call it repeatedly on the same text) and sets the movement method for the
      * TextView to LinkMovementMethod.
@@ -125,15 +157,9 @@ public final class SmartLinkify {
                 textClassifier, params, cancel, executor, callbackWrapper);
     }
 
-    private static boolean isTextEditable(TextView textView) {
-        return textView.getText() instanceof Editable
-                && textView.onCheckIsTextEditor()
-                && textView.isEnabled();
-    }
-
     /**
-     * Scans the text of the provided TextView and turns all occurrences of the entity types
-     * specified by {@code options} into clickable links. If links are found, this method
+     * Scans the provided text and turns all occurrences of the entity types
+     * specified by {@code params} into clickable links. If links are found, this method
      * removes any pre-existing {@link TextLinks.TextLinkSpan} attached to the text to avoid
      * problems if you call it repeatedly on the same text.
      *
@@ -154,8 +180,8 @@ public final class SmartLinkify {
     }
 
     /**
-     * Scans the text of the provided TextView and turns all occurrences of the entity types
-     * specified by {@code options} into clickable links. If links are found, this method
+     * Scans the provided text and turns all occurrences of the entity types
+     * specified by {@code params} into clickable links. If links are found, this method
      * removes any pre-existing {@link TextLinks.TextLinkSpan} attached to the text to avoid
      * problems if you call it repeatedly on the same text.
      *
@@ -175,7 +201,7 @@ public final class SmartLinkify {
      */
     public static void addLinksAsync(
             @NonNull final Spannable text,
-            @NonNull final Context context,
+            @NonNull Context context,
             @Nullable TextClassifier textClassifier,
             @Nullable SmartLinkifyParams params,
             @Nullable CancellationSignal cancel,
@@ -237,7 +263,6 @@ public final class SmartLinkify {
             public void onLinkify(Spannable text, int status) {}
         };
 
-        private final Supplier<Spannable> mTextSupplier;
         private final Spannable mText;
         private final CharSequence mTruncatedText;
         private final SmartLinkifyParams mParams;
@@ -246,16 +271,13 @@ public final class SmartLinkify {
         @NonNull
         private final TextClassifier mTextClassifier;
 
-        @TextLinks.Status
-        private int mStatus = TextLinks.STATUS_UNKNOWN;
-
         LinkifyTask(@NonNull Supplier<Spannable> textSupplier,
-                    @NonNull Context context,
-                    @Nullable TextClassifier textClassifier,
-                    @Nullable SmartLinkifyParams params,
-                    @Nullable Callback callback) {
-            mTextSupplier = Preconditions.checkNotNull(textSupplier);
-            mText = mTextSupplier.get();
+                @NonNull Context context,
+                @Nullable TextClassifier textClassifier,
+                @Nullable SmartLinkifyParams params,
+                @Nullable Callback callback) {
+            Preconditions.checkNotNull(textSupplier);
+            mText = textSupplier.get();
             if (textClassifier != null) {
                 mTextClassifier = textClassifier;
             } else {
@@ -275,34 +297,40 @@ public final class SmartLinkify {
 
         @Override
         protected TextLinks doInBackground(Void... nil) {
-            return mTextClassifier.generateLinks(mRequest);
+            return generateLinks();
         }
 
         @Override
         @UiThread
         protected void onPostExecute(TextLinks links) {
-            if (links.getLinks().isEmpty()) {
-                mStatus = TextLinks.STATUS_NO_LINKS_FOUND;
-                mCallback.onLinkify(mText, mStatus);
-                return;
-            }
-
-            final Spannable text = mTextSupplier.get();
-            if (mParams.canApply(text, links)) {
-                // Remove old spans only for the part of the text we generated links for.
-                final TextLinks.TextLinkSpan[] old =
-                        text.getSpans(0, mTruncatedText.length(), TextLinks.TextLinkSpan.class);
-                for (int i = old.length - 1; i >= 0; i--) {
-                    text.removeSpan(old[i]);
-                }
-            }
-            mStatus = mParams.apply(text, links, mTextClassifier);
-            mCallback.onLinkify(text, mStatus);
+            @TextLinks.Status int status = applyLinks(links);
+            mCallback.onLinkify(mText, status);
         }
 
         @Override
         public void onCancel() {
             cancel(true);
+        }
+
+        TextLinks generateLinks() {
+            return mTextClassifier.generateLinks(mRequest);
+        }
+
+        @TextLinks.Status
+        int applyLinks(@NonNull TextLinks links) {
+            if (links.getLinks().isEmpty()) {
+                return TextLinks.STATUS_NO_LINKS_FOUND;
+            }
+
+            if (mParams.canApply(mText, links)) {
+                // Remove old spans only for the part of the text we generated links for.
+                final TextLinks.TextLinkSpan[] old =
+                        mText.getSpans(0, mTruncatedText.length(), TextLinks.TextLinkSpan.class);
+                for (int i = old.length - 1; i >= 0; i--) {
+                    mText.removeSpan(old[i]);
+                }
+            }
+            return mParams.apply(mText, links, mTextClassifier);
         }
     }
 }

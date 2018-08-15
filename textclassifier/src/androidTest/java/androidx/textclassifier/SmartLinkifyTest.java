@@ -82,6 +82,29 @@ public class SmartLinkifyTest {
     }
 
     @Test
+    public void addLinksSync() {
+        final TestLinks testObject = new TestLinks.Builder()
+                .addText("Contact: ")
+                .addEntity("email@android.com", TextClassifier.TYPE_EMAIL)
+                .addText(" © 2018")
+                .build();
+
+        when(mClassifier.generateLinks(any(TextLinks.Request.class)))
+                .thenReturn(testObject.getTextLinks());
+        final Spannable text = testObject.getText();
+
+        int status = SmartLinkify.addLinksSync(text, mContext, mClassifier, PARAMS);
+
+        final TextLinks.TextLinkSpan[] spans =
+                text.getSpans(0, text.length(), TextLinks.TextLinkSpan.class);
+        assertThat(spans).asList().hasSize(1);
+        final TextLinks.TextLinkSpan span = spans[0];
+        assertThat(text.getSpanStart(span)).isEqualTo(testObject.getStart(span));
+        assertThat(text.getSpanEnd(span)).isEqualTo(testObject.getEnd(span));
+        assertThat(status).isEqualTo(TextLinks.STATUS_LINKS_APPLIED);
+    }
+
+    @Test
     public void addLinksAsync() {
         final TestLinks testObject = new TestLinks.Builder()
                 .addText("Contact: ")
