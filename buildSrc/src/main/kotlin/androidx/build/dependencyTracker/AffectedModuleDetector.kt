@@ -169,7 +169,7 @@ internal class AffectedModuleDetectorImpl constructor(
     }
 
     private val projectGraph by lazy {
-        ProjectGraph(rootProject)
+        ProjectGraph(rootProject, logger)
     }
 
     val affectedProjects by lazy {
