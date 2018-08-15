@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "47e47cbc_873a21d7",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemalarm/CommandHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-15T22:58:40Z",
+      "side": 1,
+      "message": "I am not sure I understand the question but, HANDLE_EXECUTION_COMPLETED occurs once per command. So at the end of every command we submit a request to dequeue the completed command, and check for completion. The DequeueAndCheckForCompletion Runnable is only executed on the main thread. \n\nThe HANDLE_EXECUTION_COMPLETED command must be handled by the CommandHandler on the command executor service thread which is a single threaded executor.",
+      "parentUuid": "043025be_1155d07d",
+      "range": {
+        "startLine": 296,
+        "startChar": 42,
+        "endLine": 296,
+        "endChar": 70
+      },
+      "revId": "3ae39a75b7d2f646b6ad4a977da31a9b16403908",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "026337cb_b17d19c3",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemalarm/SystemAlarmDispatcher.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "3ae39a75b7d2f646b6ad4a977da31a9b16403908",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2d57e3c_7030b095",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemalarm/SystemAlarmDispatcher.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-15T22:58:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "026337cb_b17d19c3",
+      "range": {
+        "startLine": 213,
+        "startChar": 16,
+        "endLine": 213,
+        "endChar": 48
+      },
+      "revId": "3ae39a75b7d2f646b6ad4a977da31a9b16403908",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
