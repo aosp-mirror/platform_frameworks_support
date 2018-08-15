@@ -1,0 +1,832 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2694ca4d_fd369dcc",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 79,
+        "startChar": 70,
+        "endLine": 80,
+        "endChar": 14
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d3d3c6d_8c0ef3ae",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "@NonNull and a checkNotNull?",
+      "range": {
+        "startLine": 82,
+        "startChar": 36,
+        "endLine": 82,
+        "endChar": 44
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a58e131_c9656580",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "@NonNull and a checkNotNull?",
+      "range": {
+        "startLine": 93,
+        "startChar": 31,
+        "endLine": 93,
+        "endChar": 39
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82c9a999_e92c603f",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "@NonNull and a checkNotNull?",
+      "range": {
+        "startLine": 103,
+        "startChar": 36,
+        "endLine": 103,
+        "endChar": 44
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08be1159_bc6bbd35",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "or a Distance with a NOT_SET unit if unknown.\n\nor just leave off this bit of the javadoc, we don\u0027t have to repeat it if it\u0027s already in the Distance class.\n\n@NonNull\n\nreturn mDistance !\u003d null ? mDistance : new Distance();",
+      "range": {
+        "startLine": 127,
+        "startChar": 75,
+        "endLine": 130,
+        "endChar": 13
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d1af670_da1efab2",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "or a ZonedDateTime with zdt.toEpochSecond() \u003d\u003d 0 if unknown\n\nOptional: add a hasEta() method that checks for this so our clients don\u0027t have to",
+      "range": {
+        "startLine": 136,
+        "startChar": 66,
+        "endLine": 136,
+        "endChar": 28
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dbe9634_da7fdd9a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "@NonNull\n\nreturn mEta !\u003d null ? mEta : new Time();\n\nI also left a comment in Time.java, that I think we can hide the existence of Time.java, and only get/set ZonedDateTimes here.",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 13
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24795633_df113dd2",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "or an empty Location if unknown\n\noptional: add a hasLocation() method that checks for latitude \u003d 0, longitude \u003d 0 so our clients don\u0027t have to copy this code",
+      "range": {
+        "startLine": 145,
+        "startChar": 53,
+        "endLine": 145,
+        "endChar": 31
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0d2896c_b4dc3b50",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "@NonNull\n\nreturn mLocation !\u003d null ? mLocation : new Location(\"NavigationState\"); ?",
+      "range": {
+        "startLine": 149,
+        "startChar": 15,
+        "endLine": 149,
+        "endChar": 24
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e5f877a_8f8bea08",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Lane.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "@NonNull + checkNotNull ?",
+      "range": {
+        "startLine": 52,
+        "startChar": 42,
+        "endLine": 52,
+        "endChar": 50
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63bf58fe_2f36f567",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Lane.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "Or a LaneDirection with Shape \u003d NO_LANE_DIRECTION if the driver shouldn\u0027t be using this lane.\n\n@NonNull\n\nreturn mHighlightedDirection !\u003d null ? mHighlightedDirection : new LaneDirection();",
+      "range": {
+        "startLine": 77,
+        "startChar": 14,
+        "endLine": 80,
+        "endChar": 24
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5582ecd1_a7064e2b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "More precise: \"shouldn\u0027t show this LaneDirection.\"\n\nMaybe one of the lanes is UNKNOWN, we can still show the other lane directions in this lane, and the other lanes.",
+      "range": {
+        "startLine": 42,
+        "startChar": 75,
+        "endLine": 43,
+        "endChar": 34
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc846c22_ada4e5c7",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "Let\u0027s rename to NO_LANE_DIRECTION to make it really clear that if this is present, the client should ignore this LaneDirection.",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 15
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c16b187_9bbd7080",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "Let\u0027s make this NO_MANEUVER or BLANK or EMPTY (just to make it clear how the consumer should handle this - e.g. by showing nothing).",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 15
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef9aa43f_5ede7bcf",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "Maybe we should be more precise here, because they are kinda giving guidance (if you could call the map, current road, and current speed limit \u0027guidance\u0027).\n\nHow about \"The user is has not entered a destination, so is not getting turn-by-turn guidance\"?",
+      "range": {
+        "startLine": 51,
+        "startChar": 39,
+        "endLine": 51,
+        "endChar": 66
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3bddaa0_6d0b72db",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "It makes me a bit uneasy having these two enums that seem to both overlap meaning and also have some states that are redundant/invalid.\n\nI\u0027m somewhat unclear about how these two enums interact and whether we need the full cross-product of both of them. I wonder if it\u0027d be clearer to combine these two? e.g. NavigationMode.TURN_BY_TURN +ProducerStatus.Code.NO_ROUTE seems an invalid combination (or is it? maybe we should be in TURN_BY_TURN but failing because we have no route?)",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 38
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3914147_06c488cb",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "@NonNull and a precondition please",
+      "range": {
+        "startLine": 105,
+        "startChar": 39,
+        "endLine": 105,
+        "endChar": 47
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "101ddec6_f0679a13",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "Extremely Optional: it\u0027s not clear to me whether this nonNullOrDefault function is pulling its weight, given that\n\nreturn mStatus !\u003d null ? mStatus : new ProducerStatus(ProducerStatus.Code.OK, \"\");\n\nis both pure Java (so more obvious to the reader what\u0027s happening, who doesn\u0027t have to check the method) and shorter.\n\nBut I don\u0027t really mind either way.",
+      "range": {
+        "startLine": 124,
+        "startChar": 15,
+        "endLine": 125,
+        "endChar": 64
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00114301_486b149a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "@NonNull\n\nreturn mSegment !\u003d null ? mSegment : new Segment()\n\n\"or a segment with an empty name if the segment being driven is unknown.\"\n\nOr you can just leave off this bit - the segment docs already say it\u0027s empty string if unknown, we don\u0027t have to reproduce that here if it\u0027s just repeating ourselves.",
+      "range": {
+        "startLine": 146,
+        "startChar": 52,
+        "endLine": 148,
+        "endChar": 13
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61f2a425_1e626d73",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "I\u0027m unclear on this\n\nWhat should a consumer do here, I wonder. We should probably give guidance.\n\nSometimes we have no GPS (e.g. you\u0027re in a tunnel) but you still have turn-by-turn guidance and the map can extrapolate where you are.\n\nOr is this something the producer should only use as a \u0027hard error\u0027 condition, when the producer is unable to give any guidance at all?",
+      "range": {
+        "startLine": 48,
+        "startChar": 11,
+        "endLine": 51,
+        "endChar": 11
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afff671e_f6115778",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "Completely unable to function, or partially unable to function? e.g. Google Maps has offline routing, where we lose some functionality (e.g. satellite mode) but not all functionality.",
+      "range": {
+        "startLine": 54,
+        "startChar": 34,
+        "endLine": 54,
+        "endChar": 94
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17657e7c_f4c9b16e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "As above, is this only to be used for catastrophic errors? Often we can ride this out with offline or cached data.",
+      "range": {
+        "startLine": 56,
+        "startChar": 28,
+        "endLine": 59,
+        "endChar": 11
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71c41a81_05a5ae8a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "This can intersect with not having network access, e.g. we have offline re-calculating. Maybe this should be a separate field? Not sure.",
+      "range": {
+        "startLine": 60,
+        "startChar": 26,
+        "endLine": 63,
+        "endChar": 11
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db1208cd_66ac8480",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ProducerStatus.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "Is this the same as NOT_OK ?",
+      "range": {
+        "startLine": 68,
+        "startChar": 17,
+        "endLine": 72,
+        "endChar": 28
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "873c117c_e9379c6a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Side.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "This seems to only be used for turning direction. Let\u0027s remove the reference to driving-side. (or have I missed something?)",
+      "range": {
+        "startLine": 20,
+        "startChar": 3,
+        "endLine": 20,
+        "endChar": 90
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d12a6bba_2b40441a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "NonNull, as below, with a checkNotNull too",
+      "range": {
+        "startLine": 55,
+        "startChar": 29,
+        "endLine": 55,
+        "endChar": 37
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2cc85d6_ebbf1dde",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "NonNull, as below, with a checkNotNull too",
+      "range": {
+        "startLine": 63,
+        "startChar": 29,
+        "endLine": 63,
+        "endChar": 37
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d2df923_537fd9c2",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "Optional/nit: Can we assert also that all lanes inside the list are non-null? I usually do this by copying to an guava ImmutableList but we probably don\u0027t have access to that here, maybe a loop will be needed to do it properly.\n\nIf you think this is a good idea, let\u0027s do it throughout on all list setters",
+      "range": {
+        "startLine": 72,
+        "startChar": 51,
+        "endLine": 72,
+        "endChar": 0
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fd14b5e_f065cb6a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "let\u0027s return new Distance(NOT_SET, 0, 0) if empty. The docs for not_set already say folks receiving the message should not use the distance.\n\nThis will make it easier for implementers, rather than a null-check and a switch statement, they now only need the switch statement.",
+      "range": {
+        "startLine": 86,
+        "startChar": 17,
+        "endLine": 88,
+        "endChar": 13
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ed715e4_4fc143c8",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "Let\u0027s make this NonNull and if not present,\n\n  return new Maneuver(UNKNOWN/NO_MANEUVER/EMPTY/BLANK, 0)\n\nI think this will actually make it clearer to the implementer: they\u0027ll just need one switch statement when selecting the icon to show, and one of those icons should be blank, whereas now they needed a null check + a switch statement.",
+      "range": {
+        "startLine": 94,
+        "startChar": 50,
+        "endLine": 94,
+        "endChar": 48
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ea41491_21e1c096",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/StepCue.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "Could we give some more examples - maybe 3? I\u0027m not sure I completely understand what I should put in here, or as a user, what this might mean.",
+      "range": {
+        "startLine": 32,
+        "startChar": 78,
+        "endLine": 32,
+        "endChar": 96
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c91674f_c1375b86",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 12
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1ab4821_db7acada",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Time.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "I think we could hide this entire class as an implementation detail and only expose ZonedDateTime getters and setters. It\u0027d make it easier for callers, who wouldn\u0027t have to call destination.getEta().getTime(), and could rather only call destination.getEta().\n\nWhat do you think? Not totally sure if this is a good idea.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 6
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da814b7b_449fcfcd",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 12
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39d064a8_e2aba4c5",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "Can this also filter out nulls from the returned list?",
+      "range": {
+        "startLine": 54,
+        "startChar": 71,
+        "endLine": 54,
+        "endChar": 0
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cf47287_4997bd90",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/EnumWrapper.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-15T07:44:29Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 12
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
