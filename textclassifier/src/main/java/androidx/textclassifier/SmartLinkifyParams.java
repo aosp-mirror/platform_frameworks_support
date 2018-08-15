@@ -29,7 +29,7 @@ import androidx.textclassifier.TextLinks.TextLink;
 import androidx.textclassifier.TextLinks.TextLinkSpan;
 
 /**
- * Used to specify how to generate and apply links when using SmartLinkify APIs.
+ * Used to specify how to generate and apply links when using {@link SmartLinkify} APIs.
  */
 public final class SmartLinkifyParams {
 
