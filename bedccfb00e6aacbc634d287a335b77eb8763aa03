@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "61a56c82_4457aa06",
+        "filename": "compat/src/androidTest/java/androidx/core/widget/NestedScrollViewNestedScrollingChildTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-15T01:45:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef9aa2e4_b4ea9521",
+      "range": {
+        "startLine": 334,
+        "startChar": 40,
+        "endLine": 334,
+        "endChar": 41
+      },
+      "revId": "bedccfb00e6aacbc634d287a335b77eb8763aa03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0f52378_7134b9a8",
         "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewNestedScrollingChildTest.java",
         "patchSetId": 12

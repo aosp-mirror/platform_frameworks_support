@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "197d9462_c1e54d0c",
+        "filename": "core/src/androidTest/java/androidx/core/widget/NestedScrollViewNestedScrollingChildTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-15T01:45:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7e88804_f60b3c79",
+      "range": {
+        "startLine": 261,
+        "startChar": 8,
+        "endLine": 261,
+        "endChar": 12
+      },
+      "revId": "631f1c562b448063709bda7905054b43ed669a62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "398b64a4_d2567333",
         "filename": "core/src/androidTest/java/androidx/core/widget/NestedScrollViewNestedScrollingChildTest.java",
         "patchSetId": 14
@@ -45,6 +69,30 @@
       "revId": "631f1c562b448063709bda7905054b43ed669a62",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f33a787_a116c5ef",
+        "filename": "core/src/androidTest/java/androidx/core/widget/NestedScrollViewNestedScrollingChildTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-15T01:45:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "398b64a4_d2567333",
+      "range": {
+        "startLine": 343,
+        "startChar": 40,
+        "endLine": 343,
+        "endChar": 41
+      },
+      "revId": "631f1c562b448063709bda7905054b43ed669a62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "41fd19e3_aede864e",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-15T01:45:00Z",
+      "side": 1,
+      "message": "Hehe. Done.",
+      "parentUuid": "d0a0e578_bbcc8058",
+      "range": {
+        "startLine": 572,
+        "startChar": 35,
+        "endLine": 572,
+        "endChar": 36
+      },
+      "revId": "631f1c562b448063709bda7905054b43ed669a62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "384757c6_b7407549",
         "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
         "patchSetId": 14
@@ -91,6 +163,30 @@
       "revId": "631f1c562b448063709bda7905054b43ed669a62",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a538e40_0540ec6a",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-15T01:45:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "384757c6_b7407549",
+      "range": {
+        "startLine": 25,
+        "startChar": 63,
+        "endLine": 25,
+        "endChar": 64
+      },
+      "revId": "631f1c562b448063709bda7905054b43ed669a62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "6ac94f8d_12778198",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-15T01:45:00Z",
+      "side": 1,
+      "message": "Yeesh, totally right.  Whoops.\n\nAlright, now it should work correctly.  I also put in some extra work to make sure the x and y coordinates were divided up evenly (they are floats now) and that any incoming target fling data is rounded up to fit within 10 ms intervals.  Previously the last MotionEvent would likely end up at a time where time % 10 !\u003d 0, which kind of broke the simulation aspect.",
+      "parentUuid": "7100b270_9d988bfd",
+      "range": {
+        "startLine": 108,
+        "startChar": 8,
+        "endLine": 110,
+        "endChar": 84
+      },
+      "revId": "631f1c562b448063709bda7905054b43ed669a62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "22634935_d6b6d60f",
         "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
         "patchSetId": 14
@@ -128,6 +248,30 @@
       "writtenOn": "2018-08-14T23:26:46Z",
       "side": 1,
       "message": "Maybe expand the comment a bit?\n\nAll touch events are sent to the view immediately one after another, without any explicit delays. If someone were to observe the view during the test, they may not see a realistic gesture because all of the events would happen \"at once\".",
+      "range": {
+        "startLine": 117,
+        "startChar": 51,
+        "endLine": 117,
+        "endChar": 52
+      },
+      "revId": "631f1c562b448063709bda7905054b43ed669a62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2bbee5a_506757b2",
+        "filename": "testutils/src/main/java/androidx/testutils/SimpleGestureGenerator.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-15T01:45:00Z",
+      "side": 1,
+      "message": "Done. Look Good?",
+      "parentUuid": "22634935_d6b6d60f",
       "range": {
         "startLine": 117,
         "startChar": 51,
