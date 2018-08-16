@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0565daaf_1908264f",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binderprovider/InstantShortcutMethodBinderProvider.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-16T00:22:21Z",
+      "side": 1,
+      "message": "You need to migrate the return type checks out of InsertionMethodProcessor, DeletionMethodProcessor, etc... and possibly into here.",
+      "range": {
+        "startLine": 25,
+        "startChar": 51,
+        "endLine": 25,
+        "endChar": 55
+      },
+      "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
