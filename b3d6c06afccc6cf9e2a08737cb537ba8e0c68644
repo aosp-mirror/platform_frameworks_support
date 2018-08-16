@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e6b82c2e_f4f633a8",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-16T01:28:30Z",
+      "side": 1,
+      "message": "I agree we will be bitten by clients interpreting these null values incorrectly, but that\u0027s so much better off than the client crashing entirely (and maybe never restarting, because Maps will send this data once a second - we could DoS the entire package if the receiver crashes, it could crashloop). It\u0027s a tradeoff, returning present-values is the least bad option :-)\n\nSounds good to use NOT_SET constants as long as the NOT_SET constants are immutable. We don\u0027t want constants that aren\u0027t actually constants, that could accidentally get mutated and break everything.\n\nGiven that not all our hot-nulls are immutable classes (e.g. Location is not), perhaps it\u0027s safer+more consistent to add boolean hasX() methods instead. It\u0027s what proto2+proto3 does, and it\u0027s worked well for them.",
+      "parentUuid": "5954c160_290ebdc2",
+      "range": {
+        "startLine": 79,
+        "startChar": 70,
+        "endLine": 80,
+        "endChar": 14
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d3d3c6d_8c0ef3ae",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 25
