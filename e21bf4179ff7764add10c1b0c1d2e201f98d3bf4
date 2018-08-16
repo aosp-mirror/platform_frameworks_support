@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "76410a11_60667667",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-16T11:56:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0170404c_7ba95ac6",
+      "range": {
+        "startLine": 12,
+        "startChar": 10,
+        "endLine": 12,
+        "endChar": 26
+      },
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "13601c1e_ea6c3b32",
         "filename": "media2/src/androidTest/res/drawable/spider_man.jpg",
         "patchSetId": 3
@@ -39,6 +63,24 @@
       "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "798c536e_802a5f3a",
+        "filename": "media2/src/androidTest/res/drawable/spider_man.jpg",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-16T11:56:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13601c1e_ea6c3b32",
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "7a9dc09d_069c3c0e",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-16T11:56:21Z",
+      "side": 1,
+      "message": "We don\u0027t need it. Changed the hashCode() to a static final int.",
+      "parentUuid": "e07d647d_06589379",
+      "range": {
+        "startLine": 96,
+        "startChar": 26,
+        "endLine": 96,
+        "endChar": 32
+      },
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1672e5cd_31b392ab",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
         "patchSetId": 3
@@ -85,6 +151,30 @@
       "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ffd58af_78282a2a",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-16T11:56:21Z",
+      "side": 1,
+      "message": "Changed to stopForeground(false) so that apps can update notification also in error/idle state.",
+      "parentUuid": "1672e5cd_31b392ab",
+      "range": {
+        "startLine": 122,
+        "startChar": 51,
+        "endLine": 122,
+        "endChar": 55
+      },
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "b74bfc94_862f09f9",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-16T11:56:21Z",
+      "side": 1,
+      "message": "Notification.Builder#build() returns Notification.",
+      "parentUuid": "2121587e_a10f76c3",
+      "range": {
+        "startLine": 197,
+        "startChar": 8,
+        "endLine": 197,
+        "endChar": 20
+      },
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00cd28cb_52362fbb",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
         "patchSetId": 3
@@ -131,6 +245,30 @@
       "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0469fb6e_932b5434",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-16T11:56:21Z",
+      "side": 1,
+      "message": "Done. Using ic_music_note only when there is no app icon.",
+      "parentUuid": "00cd28cb_52362fbb",
+      "range": {
+        "startLine": 201,
+        "startChar": 41,
+        "endLine": 201,
+        "endChar": 54
+      },
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "be5f3803_608d3677",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-16T11:56:21Z",
+      "side": 1,
+      "message": "Changed the code. Now the manifest doesn\u0027t need ACTION_MEDIA_BUTTON since the intent is explicit.",
+      "parentUuid": "bf45480a_e9b1c43d",
+      "range": {
+        "startLine": 230,
+        "startChar": 15,
+        "endLine": 230,
+        "endChar": 64
+      },
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "932e2b64_aca268e0",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
         "patchSetId": 3
@@ -177,6 +339,30 @@
       "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a37c4c08_1f72473f",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-16T11:56:21Z",
+      "side": 1,
+      "message": "Good suggestion. Done.",
+      "parentUuid": "932e2b64_aca268e0",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 0
+      },
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "8c6e7d86_9f7a41f0",
+        "filename": "media2/src/main/res/drawable/ic_music_note.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-16T11:56:21Z",
+      "side": 1,
+      "message": "Done. Checked resources and they don\u0027t exist.",
+      "parentUuid": "894fccb1_71f1c648",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 4
+      },
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1dedaa10_3967407b",
         "filename": "media2/src/main/res/values/strings.xml",
         "patchSetId": 3
@@ -226,6 +436,30 @@
     },
     {
       "key": {
+        "uuid": "aa08e806_38fc7956",
+        "filename": "media2/src/main/res/values/strings.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-16T11:56:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1dedaa10_3967407b",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 38
+      },
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2626b47f_b43947fa",
         "filename": "media2/src/main/res/values/strings.xml",
         "patchSetId": 3
@@ -246,6 +480,30 @@
       "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b87ea30d_f4b500e9",
+        "filename": "media2/src/main/res/values/strings.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-16T11:56:21Z",
+      "side": 1,
+      "message": "1. These are notification actions\u0027 titles. These are used as content description as for accessibility. Changed their name to be more intuitive.\n2. Done.",
+      "parentUuid": "2626b47f_b43947fa",
+      "range": {
+        "startLine": 21,
+        "startChar": 3,
+        "endLine": 24,
+        "endChar": 63
+      },
+      "revId": "e21bf4179ff7764add10c1b0c1d2e201f98d3bf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

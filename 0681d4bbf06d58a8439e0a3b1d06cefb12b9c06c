@@ -22,6 +22,30 @@
       "revId": "0681d4bbf06d58a8439e0a3b1d06cefb12b9c06c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74c3b0b7_8a3ebb7a",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaSessionService2NotificationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-16T11:56:21Z",
+      "side": 0,
+      "message": "Changed to kitkat.",
+      "parentUuid": "66a81926_38c8f7cf",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 51
+      },
+      "revId": "0681d4bbf06d58a8439e0a3b1d06cefb12b9c06c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
