@@ -36,7 +36,7 @@
                          android:layout_height="match_parent"
                          android:indeterminate="true"
                          android:visibility="invisible"
-                         style="?android:attr/progressBarStyle" />
+                         style="?android:attr/progressBarStyle"/>
         </FrameLayout>
         <TextView android:id="@+id/mr_cast_route_name"
                   android:layout_width="0dp"
@@ -66,7 +66,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_centerVertical="true"
-            android:contentDescription="@string/mr_controller_volume_slider" />
+            android:contentDescription="@string/mr_controller_volume_slider"
+            android:progressDrawable="?attr/mediaRouteSeekBarDrawable"
+            android:thumb="?attr/mediaRouteThumbDrawable"
+            android:splitTrack="false" />
         <View android:id="@+id/mr_cast_divider"
               android:layout_width="match_parent"
               android:layout_height="1dp"

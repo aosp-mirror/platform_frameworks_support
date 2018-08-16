@@ -30,6 +30,8 @@ import androidx.appcompat.widget.AppCompatSeekBar;
  */
 class MediaRouteVolumeSlider extends AppCompatSeekBar {
     private static final String TAG = "MediaRouteVolumeSlider";
+    private static final boolean USE_SUPPORT_DYNAMIC_GROUP =
+            Log.isLoggable("UseSupportDynamicGroup", Log.DEBUG);
 
     private final float mDisabledAlpha;
 
@@ -53,6 +55,13 @@ class MediaRouteVolumeSlider extends AppCompatSeekBar {
     @Override
     protected void drawableStateChanged() {
         super.drawableStateChanged();
+
+        // Do not call setColorFilter for MediaRouteCastDialog because it manually sets
+        // progressDrawable and thumb with layout xml file.
+        if (USE_SUPPORT_DYNAMIC_GROUP) {
+            return;
+        }
+
         int alpha = isEnabled() ? 0xFF : (int) (0xFF * mDisabledAlpha);
 
         // The thumb drawable is a collection of drawables and its current drawables are changed per
