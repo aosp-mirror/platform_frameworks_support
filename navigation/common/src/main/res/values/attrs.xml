@@ -42,6 +42,7 @@
         <attr name="clearTask" format="boolean" />
         <attr name="popUpTo" format="reference" />
         <attr name="popUpToInclusive" format="boolean" />
+        <attr name="addOnTop" format="boolean" />
         <attr name="enterAnim" format="reference" />
         <attr name="exitAnim" format="reference" />
         <attr name="popEnterAnim" format="reference" />

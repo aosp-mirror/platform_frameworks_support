@@ -165,7 +165,14 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
             ft.setCustomAnimations(enterAnim, exitAnim, popEnterAnim, popExitAnim);
         }
 
-        ft.replace(mContainerId, frag);
+        final boolean shouldAddOnTop = navOptions != null && navOptions.shouldAddOnTop();
+
+        if (shouldAddOnTop) {
+            ft.add(mContainerId, frag);
+        } else {
+            ft.replace(mContainerId, frag);
+        }
+
         ft.setPrimaryNavigationFragment(frag);
 
         final @IdRes int destId = destination.getId();
