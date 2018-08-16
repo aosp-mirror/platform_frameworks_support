@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2abdec68_01155945",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemalarm/SystemAlarmDispatcher.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-16T00:12:41Z",
+      "side": 1,
+      "message": "if (!mIntents.remove(0).equals(mCurrentIntent))",
+      "range": {
+        "startLine": 213,
+        "startChar": 16,
+        "endLine": 216,
+        "endChar": 48
+      },
+      "revId": "b361e944e10e794cde7aa8cdaa13569639d428ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
