@@ -31,7 +31,7 @@ import androidx.core.content.res.TypedArrayUtils;
  *
  * <p>This preference saves a string value.
  */
-public class EditTextPreference extends DialogPreference {
+public class EditTextPreference extends DialogPreference<String> {
     private String mText;
 
     public EditTextPreference(Context context, AttributeSet attrs, int defStyleAttr,
@@ -80,13 +80,13 @@ public class EditTextPreference extends DialogPreference {
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray a, int index) {
+    protected String onGetDefaultValue(TypedArray a, int index) {
         return a.getString(index);
     }
 
     @Override
-    protected void onSetInitialValue(Object defaultValue) {
-        setText(getPersistedString((String) defaultValue));
+    protected void onSetInitialValue(String defaultValue) {
+        setText(getPersistedString(defaultValue));
     }
 
     @Override

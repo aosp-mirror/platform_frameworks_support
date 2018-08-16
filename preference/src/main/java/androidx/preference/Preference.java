@@ -89,8 +89,10 @@ import java.util.Set;
  * @attr name android:shouldDisableView
  * @attr name android:singleLineTitle
  * @attr name android:iconSpaceReserved
+ *
+ * @param <T> The type of value persisted by this Preference
  */
-public class Preference implements Comparable<Preference> {
+public class Preference<T> implements Comparable<Preference> {
     /**
      * Specify for {@link #setOrder(int)} if a specific order is not required.
      */
@@ -145,7 +147,7 @@ public class Preference implements Comparable<Preference> {
     private boolean mRequiresKey;
     private boolean mPersistent = true;
     private String mDependencyKey;
-    private Object mDefaultValue;
+    private T mDefaultValue;
     private boolean mDependencyMet = true;
     private boolean mParentDependencyMet = true;
     private boolean mVisible = true;
@@ -335,7 +337,7 @@ public class Preference implements Comparable<Preference> {
      * @param index The index of the default value attribute
      * @return The default value of this preference type
      */
-    protected Object onGetDefaultValue(TypedArray a, int index) {
+    protected T onGetDefaultValue(TypedArray a, int index) {
         return null;
     }
 
@@ -387,7 +389,7 @@ public class Preference implements Comparable<Preference> {
      * @param dataStore The {@link PreferenceDataStore} to be used by this preference
      * @see PreferenceManager#setPreferenceDataStore(PreferenceDataStore)
      */
-    public void setPreferenceDataStore(PreferenceDataStore dataStore) {
+    public void setPreferenceDataStore(@Nullable PreferenceDataStore dataStore) {
         mPreferenceDataStore = dataStore;
     }
 
@@ -891,7 +893,7 @@ public class Preference implements Comparable<Preference> {
     /**
      * Processes a click on the preference. This includes saving the value to
      * the {@link SharedPreferences}. However, the overridden method should
-     * call {@link #callChangeListener(Object)} to make sure the client wants to
+     * call {@link #callChangeListener(T)} to make sure the client wants to
      * update the preference's state with the new value.
      */
     protected void onClick() {}
@@ -1063,7 +1065,7 @@ public class Preference implements Comparable<Preference> {
      * @return {@code true} if the user value should be set as the preference
      * value (and persisted).
      */
-    public boolean callChangeListener(Object newValue) {
+    public boolean callChangeListener(T newValue) {
         return mOnChangeListener == null || mOnChangeListener.onPreferenceChange(this, newValue);
     }
 
@@ -1238,6 +1240,7 @@ public class Preference implements Comparable<Preference> {
      *
      * @return The {@link PreferenceManager}
      */
+    @Nullable
     public PreferenceManager getPreferenceManager() {
         return mPreferenceManager;
     }
@@ -1515,7 +1518,7 @@ public class Preference implements Comparable<Preference> {
      *
      * @param defaultValue The default value
      */
-    public void setDefaultValue(Object defaultValue) {
+    public void setDefaultValue(T defaultValue) {
         mDefaultValue = defaultValue;
     }
 
@@ -1555,10 +1558,10 @@ public class Preference implements Comparable<Preference> {
      * @param defaultValue          The default value for this preference. Only use this
      *                              if <var>restorePersistedValue</var> is false.
      *
-     * @deprecated Use {@link #onSetInitialValue(Object)} instead.
+     * @deprecated Use {@link #onSetInitialValue(T)} instead.
      */
     @Deprecated
-    protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
+    protected void onSetInitialValue(boolean restorePersistedValue, T defaultValue) {
         onSetInitialValue(defaultValue);
     }
 
@@ -1573,7 +1576,7 @@ public class Preference implements Comparable<Preference> {
      *
      * @param defaultValue The default value for the preference if set, otherwise {@code null}.
      */
-    protected void onSetInitialValue(@Nullable Object defaultValue) {}
+    protected void onSetInitialValue(@Nullable T defaultValue) {}
 
     private void tryCommit(@NonNull SharedPreferences.Editor editor) {
         if (mPreferenceManager.shouldCommit()) {

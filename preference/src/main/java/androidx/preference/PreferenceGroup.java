@@ -61,7 +61,7 @@ public abstract class PreferenceGroup extends Preference {
      * The container for child {@link Preference}s. This is sorted based on the ordering, please
      * use {@link #addPreference(Preference)} instead of adding to this directly.
      */
-    private List<Preference> mPreferenceList;
+    private List<Preference<?>> mPreferenceList;
     private boolean mOrderingAsAdded = true;
     private int mCurrentPreferenceOrder = 0;
     private boolean mAttachedToHierarchy = false;
@@ -329,7 +329,7 @@ public abstract class PreferenceGroup extends Preference {
      */
     public void removeAll() {
         synchronized (this) {
-            List<Preference> preferenceList = mPreferenceList;
+            List<Preference<?>> preferenceList = mPreferenceList;
             for (int i = preferenceList.size() - 1; i >= 0; i--) {
                 removePreferenceInt(preferenceList.get(0));
             }
@@ -369,7 +369,7 @@ public abstract class PreferenceGroup extends Preference {
             final Preference preference = getPreference(i);
             final String curKey = preference.getKey();
 
-            if (curKey != null && curKey.equals(key)) {
+            if (curKey != null && curKey.contentEquals(key)) {
                 return preference;
             }
 
