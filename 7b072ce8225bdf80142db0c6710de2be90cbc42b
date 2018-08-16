@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5fd08a6_429edb11",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-08-16T16:30:51Z",
+      "side": 1,
+      "message": "Can you split this into a short title followed by the paragraph of details?",
+      "revId": "7b072ce8225bdf80142db0c6710de2be90cbc42b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "758fdb6c_1a445845",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentTransactionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-08-16T16:30:51Z",
+      "side": 1,
+      "message": "This seems like something better handled by a CountdownLatch",
+      "range": {
+        "startLine": 382,
+        "startChar": 8,
+        "endLine": 382,
+        "endChar": 38
+      },
+      "revId": "7b072ce8225bdf80142db0c6710de2be90cbc42b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
