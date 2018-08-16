@@ -140,6 +140,29 @@
     },
     {
       "key": {
+        "uuid": "624ca611_2e55dfb0",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-16T03:23:20Z",
+      "side": 1,
+      "message": "nit: Collections.emptyList() will avoid an allocation",
+      "range": {
+        "startLine": 56,
+        "startChar": 19,
+        "endLine": 56,
+        "endChar": 36
+      },
+      "revId": "62a86a0464fbfb8a7569dd25eb8dcca4f4e5ceb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f13873f_0c08bd01",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
         "patchSetId": 27

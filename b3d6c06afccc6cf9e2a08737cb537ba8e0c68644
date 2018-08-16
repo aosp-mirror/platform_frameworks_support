@@ -1624,6 +1624,30 @@
     },
     {
       "key": {
+        "uuid": "4b34c545_5e320927",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-16T03:23:20Z",
+      "side": 1,
+      "message": "I don\u0027t see it yet - maybe reupload?",
+      "parentUuid": "972a7029_07e4ac71",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 12
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "39d064a8_e2aba4c5",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
         "patchSetId": 25
@@ -1683,6 +1707,30 @@
       "side": 1,
       "message": "Update, I\u0027m returning an empty list if such case happens.",
       "parentUuid": "63b0c56f_cfff6d94",
+      "range": {
+        "startLine": 54,
+        "startChar": 71,
+        "endLine": 54,
+        "endChar": 0
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16681964_0f2021de",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-16T03:23:20Z",
+      "side": 1,
+      "message": "Returning empty in the case of corrupted sounds reasonable to me. NPE\u0027ing on bad user input would be scary (we could get the receiver crashlooping every second with a bad update)",
+      "parentUuid": "25f78958_896e5248",
       "range": {
         "startLine": 54,
         "startChar": 71,
