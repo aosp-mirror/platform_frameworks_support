@@ -259,6 +259,13 @@ public class TextListItemActivity extends Activity {
 
             item = new TextListItem(mContext);
             item.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
+                    TextListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
+            item.setBody("Only body - no title is set");
+            item.setAction("Card Height", true, mGetParentHeight);
+            mItems.add(item);
+
+            item = new TextListItem(mContext);
+            item.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                     TextListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
             item.setBody("Only body - no title. " + mContext.getString(R.string.long_text));
             mItems.add(item);
