@@ -331,6 +331,30 @@
     },
     {
       "key": {
+        "uuid": "c6432739_d9b80ec8",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-16T16:53:20Z",
+      "side": 1,
+      "message": "Even better, thanks!",
+      "parentUuid": "b97913d6_d5f14eb5",
+      "range": {
+        "startLine": 305,
+        "startChar": 20,
+        "endLine": 305,
+        "endChar": 26
+      },
+      "revId": "14e255735f9f48e20fa472b875d6450a682dfbee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5108c976_326056f9",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
         "patchSetId": 2
