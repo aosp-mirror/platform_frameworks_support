@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2e9c9ef_7c9af3af",
+        "filename": "samples/SupportPreferenceDemos/src/main/res/values-v21/styles.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-08-16T21:44:21Z",
+      "side": 1,
+      "message": "Feel free to remove these if you would rather show the default colours - or is there a specific reason this is commented out?",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 59
+      },
+      "revId": "822e174a83a97a5574099b7322df877054601b37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
