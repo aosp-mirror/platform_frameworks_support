@@ -583,7 +583,6 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             });
 
             mVolumeSlider.setTag(mRoute);
-            mVolumeSlider.setColor(mVolumeSliderColor);
             mVolumeSlider.setMax(route.getVolumeMax());
             mVolumeSlider.setProgress(volume);
             mVolumeSlider.setOnSeekBarChangeListener(mVolumeChangeListener);
@@ -924,7 +923,9 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 mTextView = itemView.findViewById(R.id.mr_cast_route_name);
                 mVolumeSliderLayout = itemView.findViewById(R.id.mr_cast_volume_layout);
                 mCheckBox = itemView.findViewById(R.id.mr_cast_checkbox);
+
                 mCheckBox.setButtonDrawable(checkBoxIcon);
+                MediaRouterThemeHelper.setIndeterminateProgressBarColor(mContext, mProgressBar);
             }
 
             public void bindRouteViewHolder(Item item) {

@@ -19,11 +19,13 @@ package androidx.mediarouter.app;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.annotation.IntDef;
 import androidx.core.content.ContextCompat;
@@ -231,6 +233,16 @@ final class MediaRouterThemeHelper {
             controllerColor = ColorUtils.compositeColors(controllerColor, backgroundColor);
         }
         volumeSlider.setColor(controllerColor);
+    }
+
+    static void setIndeterminateProgressBarColor(Context context, ProgressBar progressBar) {
+        if (!progressBar.isIndeterminate()) {
+            return;
+        }
+        int progressBarColor = ContextCompat.getColor(context, isLightTheme(context)
+                ? R.color.mr_cast_progressbar_light : R.color.mr_cast_progressbar_dark);
+        progressBar.getIndeterminateDrawable().setColorFilter(
+                progressBarColor, PorterDuff.Mode.SRC_IN);
     }
 
     private static boolean isLightTheme(Context context) {
