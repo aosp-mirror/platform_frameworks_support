@@ -65,6 +65,29 @@
     },
     {
       "key": {
+        "uuid": "a2e57f41_25fb7fca",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binder/InstantShortcutMethodBinder.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2018-08-16T21:36:38Z",
+      "side": 1,
+      "message": "Being able to return the previous value in an Update or Delete method, or the put value in a Create is useful for chaining.\n\nIt might be worth separating the three cases now, so that that flexibility is there.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 94
+      },
+      "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0565daaf_1908264f",
         "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binderprovider/InstantShortcutMethodBinderProvider.kt",
         "patchSetId": 4
