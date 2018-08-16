@@ -2635,7 +2635,7 @@ public class MediaControlView2 extends BaseLayout {
                                 ? args.getStringArrayList(KEY_SUBTITLE_TRACK_LANGUAGE_LIST) : null;
                         mSubtitleDescriptionsList = new ArrayList<String>();
                         if (mSubtitleTrackCount > 0) {
-                            mSubtitleButton.setVisibility(View.VISIBLE);
+                            mSubtitleButton.setAlpha(1.0f);
                             mSubtitleButton.setEnabled(true);
                             mSubtitleDescriptionsList.add(mResources.getString(
                                     R.string.MediaControlView2_subtitle_off_text));
@@ -2655,7 +2655,7 @@ public class MediaControlView2 extends BaseLayout {
                                 mSubtitleDescriptionsList.add(track);
                             }
                         } else {
-                            mSubtitleButton.setVisibility(View.GONE);
+                            mSubtitleButton.setAlpha(0.5f);
                             mSubtitleButton.setEnabled(false);
                         }
                         break;
@@ -2962,7 +2962,7 @@ public class MediaControlView2 extends BaseLayout {
                         mSubtitleTrackCount = extras.getInt(KEY_SUBTITLE_TRACK_COUNT);
                         mSubtitleDescriptionsList = new ArrayList<String>();
                         if (mSubtitleTrackCount > 0) {
-                            mSubtitleButton.setVisibility(View.VISIBLE);
+                            mSubtitleButton.setAlpha(1.0f);
                             mSubtitleButton.setEnabled(true);
                             mSubtitleDescriptionsList.add(mResources.getString(
                                     R.string.MediaControlView2_subtitle_off_text));
@@ -2973,7 +2973,7 @@ public class MediaControlView2 extends BaseLayout {
                                 mSubtitleDescriptionsList.add(track);
                             }
                         } else {
-                            mSubtitleButton.setVisibility(View.GONE);
+                            mSubtitleButton.setAlpha(0.5f);
                             mSubtitleButton.setEnabled(false);
                         }
                         break;
