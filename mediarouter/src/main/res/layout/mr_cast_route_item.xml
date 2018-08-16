@@ -18,11 +18,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:paddingStart="16dp"
-              android:paddingEnd="16dp"
               android:orientation="vertical">
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="48dp"
+                  android:paddingStart="16dp"
+                  android:paddingEnd="16dp"
                   android:gravity="center_vertical"
                   android:orientation="horizontal">
         <FrameLayout android:layout_width="24dp"
@@ -50,20 +50,5 @@
                   android:layout_height="24dp"
                   android:background="?attr/selectableItemBackgroundBorderless" />
     </LinearLayout>
-    <LinearLayout android:id="@+id/mr_cast_volume_layout"
-                  android:layout_width="match_parent"
-                  android:layout_height="48dp"
-                  android:gravity="center_vertical"
-                  android:orientation="horizontal">
-        <ImageButton android:id="@+id/mr_cast_mute_button"
-                     android:layout_width="24dp"
-                     android:layout_height="24dp"
-                     android:layout_gravity="center_vertical"
-                     android:background="?attr/selectableItemBackgroundBorderless" />
-        <androidx.mediarouter.app.MediaRouteVolumeSlider
-            android:id="@+id/mr_cast_volume_slider"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/mr_controller_volume_slider" />
-    </LinearLayout>
+    <include layout="@layout/mr_cast_volume_layout" />
 </LinearLayout>

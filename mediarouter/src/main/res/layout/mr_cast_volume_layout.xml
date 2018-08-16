@@ -16,17 +16,21 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/mr_cast_volume_layout"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
-    <TextView android:id="@+id/mr_group_volume_route_name"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:paddingTop="16dp"
+              android:layout_height="48dp"
               android:paddingStart="16dp"
               android:paddingEnd="16dp"
               android:gravity="center_vertical"
-              android:textSize="11sp"
-              android:textColor="#80868B" />
-    <include layout="@layout/mr_cast_volume_layout" />
+              android:orientation="horizontal">
+    <ImageButton android:id="@+id/mr_cast_mute_button"
+                 android:layout_width="24dp"
+                 android:layout_height="24dp"
+                 android:layout_gravity="center_vertical"
+                 android:background="?attr/selectableItemBackgroundBorderless" />
+    <androidx.mediarouter.app.MediaRouteVolumeSlider
+        android:id="@+id/mr_cast_volume_slider"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/mr_controller_volume_slider" />
 </LinearLayout>
