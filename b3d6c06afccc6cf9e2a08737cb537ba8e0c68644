@@ -403,6 +403,30 @@
     },
     {
       "key": {
+        "uuid": "5e975c60_48685c91",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-16T01:09:27Z",
+      "side": 1,
+      "message": "We could add a hasEta() too, to save the client from manually checking if the supplied time is zero.",
+      "parentUuid": "919f0afe_ae793676",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 13
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "24795633_df113dd2",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 25
@@ -474,6 +498,30 @@
     },
     {
       "key": {
+        "uuid": "f10b3b10_a3a69209",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-16T01:09:27Z",
+      "side": 1,
+      "message": "I was just suggesting for the most complex ones, but sure, I\u0027d be happy to do it for all.",
+      "parentUuid": "f8a455de_1c4a1229",
+      "range": {
+        "startLine": 145,
+        "startChar": 53,
+        "endLine": 145,
+        "endChar": 31
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d0d2896c_b4dc3b50",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 25
@@ -542,6 +590,30 @@
       "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43f7659a_763abc4b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-16T01:09:27Z",
+      "side": 1,
+      "message": "I mean literally call the \"new android.location.Location(String)\" constructor with an arbitrary string. This gives back a zero-state location (almost the same as a location.reset() would give you).",
+      "parentUuid": "85955191_8cd16ed0",
+      "range": {
+        "startLine": 149,
+        "startChar": 15,
+        "endLine": 149,
+        "endChar": 24
+      },
+      "revId": "b3d6c06afccc6cf9e2a08737cb537ba8e0c68644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
