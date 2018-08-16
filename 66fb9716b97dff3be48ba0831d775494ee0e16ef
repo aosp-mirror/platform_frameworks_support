@@ -22,6 +22,30 @@
       "revId": "66fb9716b97dff3be48ba0831d775494ee0e16ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e3fa374_6826a162",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/utils/RepeatRule.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-16T20:25:39Z",
+      "side": 1,
+      "message": "Sorry, misread.",
+      "parentUuid": "bc8d2b07_88109100",
+      "range": {
+        "startLine": 53,
+        "startChar": 13,
+        "endLine": 53,
+        "endChar": 23
+      },
+      "revId": "66fb9716b97dff3be48ba0831d775494ee0e16ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
