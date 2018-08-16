@@ -37,6 +37,7 @@ public class NavOptions {
     private static final String KEY_LAUNCH_MODE = "launchMode";
     private static final String KEY_POP_UP_TO = "popUpTo";
     private static final String KEY_POP_UP_TO_INCLUSIVE = "popUpToInclusive";
+    private static final String KEY_ADD_ON_TOP = "addOnTop";
     private static final String KEY_ENTER_ANIM = "enterAnim";
     private static final String KEY_EXIT_ANIM = "exitAnim";
     private static final String KEY_POP_ENTER_ANIM = "popEnterAnim";
@@ -94,6 +95,7 @@ public class NavOptions {
     @IdRes
     private int mPopUpTo;
     private boolean mPopUpToInclusive;
+    private boolean mAddOnTop;
     @AnimRes @AnimatorRes
     private int mEnterAnim;
     @AnimRes @AnimatorRes
@@ -103,12 +105,13 @@ public class NavOptions {
     @AnimRes @AnimatorRes
     private int mPopExitAnim;
 
-    NavOptions(int launchMode, @IdRes int popUpTo, boolean popUpToInclusive,
+    NavOptions(int launchMode, @IdRes int popUpTo, boolean popUpToInclusive, boolean addOnTop,
             @AnimRes @AnimatorRes int enterAnim, @AnimRes @AnimatorRes int exitAnim,
             @AnimRes @AnimatorRes int popEnterAnim, @AnimRes @AnimatorRes int popExitAnim) {
         mLaunchMode = launchMode;
         mPopUpTo = popUpTo;
         mPopUpToInclusive = popUpToInclusive;
+        mAddOnTop = addOnTop;
         mEnterAnim = enterAnim;
         mExitAnim = exitAnim;
         mPopEnterAnim = popEnterAnim;
@@ -175,6 +178,15 @@ public class NavOptions {
     }
 
     /**
+     * Whether this navigation action should display the specified navigation destination on top
+     * of the previous one or it should replace it.
+     * @see Builder#setAddOnTop
+     */
+    public boolean shouldAddOnTop() {
+        return mAddOnTop;
+    }
+
+    /**
      * The custom enter Animation/Animator that should be run.
      * @return the resource id of a Animation or Animator or -1 if none.
      */
@@ -220,6 +232,7 @@ public class NavOptions {
         b.putInt(KEY_LAUNCH_MODE, mLaunchMode);
         b.putInt(KEY_POP_UP_TO, mPopUpTo);
         b.putBoolean(KEY_POP_UP_TO_INCLUSIVE, mPopUpToInclusive);
+        b.putBoolean(KEY_ADD_ON_TOP, mAddOnTop);
         b.putInt(KEY_ENTER_ANIM, mEnterAnim);
         b.putInt(KEY_EXIT_ANIM, mExitAnim);
         b.putInt(KEY_POP_ENTER_ANIM, mPopEnterAnim);
@@ -231,8 +244,9 @@ public class NavOptions {
     private static NavOptions fromBundle(@NonNull Bundle b) {
         return new NavOptions(b.getInt(KEY_LAUNCH_MODE, 0),
                 b.getInt(KEY_POP_UP_TO, 0), b.getBoolean(KEY_POP_UP_TO_INCLUSIVE, false),
-                b.getInt(KEY_ENTER_ANIM, -1), b.getInt(KEY_EXIT_ANIM, -1),
-                b.getInt(KEY_POP_ENTER_ANIM, -1), b.getInt(KEY_POP_EXIT_ANIM, -1));
+                b.getBoolean(KEY_ADD_ON_TOP, false), b.getInt(KEY_ENTER_ANIM, -1),
+                b.getInt(KEY_EXIT_ANIM, -1), b.getInt(KEY_POP_ENTER_ANIM, -1),
+                b.getInt(KEY_POP_EXIT_ANIM, -1));
     }
 
     /**
@@ -243,6 +257,7 @@ public class NavOptions {
         @IdRes
         int mPopUpTo;
         boolean mPopUpToInclusive;
+        boolean mAddOnTop;
         @AnimRes @AnimatorRes
         int mEnterAnim = -1;
         @AnimRes @AnimatorRes
@@ -338,6 +353,20 @@ public class NavOptions {
         }
 
         /**
+         * Specify whether the fragment should be added on top of the previous fragment instead of
+         * replacing it.
+         *
+         * @param addOnTop true if the fragment should be added on top.
+         * @return this Builder
+         * @see NavOptions#shouldAddOnTop
+         */
+        @NonNull
+        public Builder setAddOnTop(boolean addOnTop) {
+            mAddOnTop = addOnTop;
+            return this;
+        }
+
+        /**
          * Sets a custom Animation or Animator resource for the enter animation.
          *
          * <p>Note: Animator resources are not supported for navigating to a new Activity</p>
@@ -400,7 +429,7 @@ public class NavOptions {
          */
         @NonNull
         public NavOptions build() {
-            return new NavOptions(mLaunchMode, mPopUpTo, mPopUpToInclusive,
+            return new NavOptions(mLaunchMode, mPopUpTo, mPopUpToInclusive, mAddOnTop,
                     mEnterAnim, mExitAnim, mPopEnterAnim, mPopExitAnim);
         }
     }

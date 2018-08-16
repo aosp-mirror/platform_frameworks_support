@@ -133,6 +133,56 @@ public class FragmentNavigatorTest {
                 is(CoreMatchers.<Fragment>instanceOf(EmptyFragment.class)));
         assertThat("Replacement Fragment should be the primary navigation Fragment",
                 mFragmentManager.getPrimaryNavigationFragment(), is(replacementFragment));
+        assertThat("Initial Fragment is removed", mFragmentManager.getFragments().size(), is(1));
+
+        verifyNoMoreInteractions(listener);
+    }
+
+    @UiThreadTest
+    @Test
+    public void testNavigateTwiceAddSecondFragment() {
+        FragmentNavigator fragmentNavigator = new FragmentNavigator(mEmptyActivity,
+                mFragmentManager, R.id.container);
+        Navigator.OnNavigatorNavigatedListener listener =
+                mock(Navigator.OnNavigatorNavigatedListener.class);
+        fragmentNavigator.addOnNavigatorNavigatedListener(listener);
+        FragmentNavigator.Destination destination = fragmentNavigator.createDestination();
+        destination.setId(INITIAL_FRAGMENT);
+        destination.setFragmentClass(EmptyFragment.class);
+
+        fragmentNavigator.navigate(destination, null, null);
+        mFragmentManager.executePendingTransactions();
+        verify(listener).onNavigatorNavigated(
+                fragmentNavigator,
+                INITIAL_FRAGMENT,
+                Navigator.BACK_STACK_DESTINATION_ADDED);
+        Fragment fragment = mFragmentManager.findFragmentById(R.id.container);
+        assertThat("Fragment should be added", fragment, is(notNullValue()));
+        assertThat("Fragment should be the correct type", fragment,
+                is(CoreMatchers.<Fragment>instanceOf(EmptyFragment.class)));
+        assertThat("Fragment should be the primary navigation Fragment",
+                mFragmentManager.getPrimaryNavigationFragment(), is(fragment));
+
+        // Now push a second fragment
+        destination.setId(SECOND_FRAGMENT);
+        fragmentNavigator.navigate(destination, null,
+                new NavOptions.Builder().setAddOnTop(true).build());
+        mFragmentManager.executePendingTransactions();
+        verify(listener).onNavigatorNavigated(
+                fragmentNavigator,
+                SECOND_FRAGMENT,
+                Navigator.BACK_STACK_DESTINATION_ADDED);
+        Fragment replacementFragment = mFragmentManager.findFragmentById(R.id.container);
+        assertThat("Replacement Fragment should be added", replacementFragment,
+                is(notNullValue()));
+        assertThat("Replacement Fragment should be the correct type", replacementFragment,
+                is(CoreMatchers.<Fragment>instanceOf(EmptyFragment.class)));
+        assertThat("Replacement Fragment should be the primary navigation Fragment",
+                mFragmentManager.getPrimaryNavigationFragment(), is(replacementFragment));
+        assertThat("Initial Fragment is not removed",
+                mFragmentManager.getFragments().size(), is(2));
+        assertThat("Initial Fragment is correct type",
+                mFragmentManager.getFragments().get(0), is(fragment));
 
         verifyNoMoreInteractions(listener);
     }
