@@ -45,7 +45,7 @@ import android.widget.TextView;
  * max})
  * can be set directly on the preference widget layout.
  */
-public class SeekBarPreference extends Preference {
+public class SeekBarPreference extends Preference<Integer> {
 
     private static final String TAG = "SeekBarPreference";
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -188,15 +188,15 @@ public class SeekBarPreference extends Preference {
     }
 
     @Override
-    protected void onSetInitialValue(Object defaultValue) {
+    protected void onSetInitialValue(Integer defaultValue) {
         if (defaultValue == null) {
             defaultValue = 0;
         }
-        setValue(getPersistedInt((Integer) defaultValue));
+        setValue(getPersistedInt(defaultValue));
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray a, int index) {
+    protected Integer onGetDefaultValue(TypedArray a, int index) {
         return a.getInt(index, 0);
     }
 

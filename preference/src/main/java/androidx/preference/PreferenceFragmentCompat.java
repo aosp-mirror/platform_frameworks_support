@@ -816,7 +816,8 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
         DividerDecoration() {}
 
         @Override
-        public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+        public void onDrawOver(@NonNull Canvas c, @NonNull RecyclerView parent,
+                @NonNull RecyclerView.State state) {
             if (mDivider == null) {
                 return;
             }
@@ -833,8 +834,8 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
         }
 
         @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-                RecyclerView.State state) {
+        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
+                @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
             if (shouldDrawDividerBelow(view, parent)) {
                 outRect.bottom = mDividerHeight;
             }
