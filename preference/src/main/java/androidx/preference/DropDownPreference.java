@@ -35,7 +35,7 @@ import androidx.annotation.RestrictTo;
 public class DropDownPreference extends ListPreference {
 
     private final Context mContext;
-    private final ArrayAdapter mAdapter;
+    private final ArrayAdapter<String> mAdapter;
 
     private Spinner mSpinner;
 
@@ -97,7 +97,7 @@ public class DropDownPreference extends ListPreference {
      *
      * @return The custom {@link ArrayAdapter} that needs to be used with this class
      */
-    protected ArrayAdapter createAdapter() {
+    protected ArrayAdapter<String> createAdapter() {
         return new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item);
     }
 

@@ -21,6 +21,7 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
@@ -44,7 +45,9 @@ public class PreferenceRecyclerViewAccessibilityDelegate
         mRecyclerView = recyclerView;
     }
 
+
     @Override
+    @NonNull
     public AccessibilityDelegateCompat getItemDelegate() {
         return mItemDelegate;
     }

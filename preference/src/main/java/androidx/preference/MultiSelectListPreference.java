@@ -192,7 +192,7 @@ public class MultiSelectListPreference extends AbstractMultiSelectListPreference
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray a, int index) {
+    protected Set<String> onGetDefaultValue(TypedArray a, int index) {
         final CharSequence[] defaultValues = a.getTextArray(index);
         final Set<String> result = new HashSet<>();
 
@@ -203,10 +203,9 @@ public class MultiSelectListPreference extends AbstractMultiSelectListPreference
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    protected void onSetInitialValue(Object defaultValue) {
-        setValues(getPersistedStringSet((Set<String>) defaultValue));
+    protected void onSetInitialValue(Set<String> defaultValue) {
+        setValues(getPersistedStringSet(defaultValue));
     }
 
     @Override
@@ -269,7 +268,7 @@ public class MultiSelectListPreference extends AbstractMultiSelectListPreference
         public void writeToParcel(@NonNull Parcel dest, int flags) {
             super.writeToParcel(dest, flags);
             dest.writeInt(mValues.size());
-            dest.writeStringArray(mValues.toArray(new String[mValues.size()]));
+            dest.writeStringArray(mValues.toArray(new String[0]));
         }
     }
 }

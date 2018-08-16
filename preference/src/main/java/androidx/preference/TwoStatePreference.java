@@ -34,7 +34,7 @@ import androidx.annotation.RestrictTo;
  * may have dependent preferences that are enabled/disabled based on the
  * current state.
  */
-public abstract class TwoStatePreference extends Preference {
+public abstract class TwoStatePreference extends Preference<Boolean> {
 
     protected boolean mChecked;
     private CharSequence mSummaryOn;
@@ -99,7 +99,7 @@ public abstract class TwoStatePreference extends Preference {
 
     @Override
     public boolean shouldDisableDependents() {
-        boolean shouldDisable = mDisableDependentsState ? mChecked : !mChecked;
+        boolean shouldDisable = mDisableDependentsState == mChecked;
         return shouldDisable || super.shouldDisableDependents();
     }
 
@@ -183,16 +183,16 @@ public abstract class TwoStatePreference extends Preference {
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray a, int index) {
+    protected Boolean onGetDefaultValue(TypedArray a, int index) {
         return a.getBoolean(index, false);
     }
 
     @Override
-    protected void onSetInitialValue(Object defaultValue) {
+    protected void onSetInitialValue(Boolean defaultValue) {
         if (defaultValue == null) {
             defaultValue = false;
         }
-        setChecked(getPersistedBoolean((Boolean) defaultValue));
+        setChecked(getPersistedBoolean(defaultValue));
     }
 
     /**

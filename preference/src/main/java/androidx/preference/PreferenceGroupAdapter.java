@@ -26,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -230,7 +231,7 @@ public class PreferenceGroupAdapter extends RecyclerView.Adapter<PreferenceViewH
         if (!hasStableIds()) {
             return RecyclerView.NO_ID;
         }
-        return this.getItem(position).getId();
+        return getItem(position).getId();
     }
 
     @Override
@@ -256,7 +257,7 @@ public class PreferenceGroupAdapter extends RecyclerView.Adapter<PreferenceViewH
 
     @Override
     public int getItemViewType(int position) {
-        final Preference preference = this.getItem(position);
+        final Preference preference = getItem(position);
 
         mTempPreferenceLayout = createPreferenceLayout(preference, mTempPreferenceLayout);
 
@@ -271,7 +272,8 @@ public class PreferenceGroupAdapter extends RecyclerView.Adapter<PreferenceViewH
     }
 
     @Override
-    public PreferenceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @NonNull
+    public PreferenceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final PreferenceLayout pl = mPreferenceLayouts.get(viewType);
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         TypedArray a
@@ -289,7 +291,7 @@ public class PreferenceGroupAdapter extends RecyclerView.Adapter<PreferenceViewH
             ViewCompat.setBackground(view, background);
         }
 
-        final ViewGroup widgetFrame = (ViewGroup) view.findViewById(android.R.id.widget_frame);
+        final ViewGroup widgetFrame = view.findViewById(android.R.id.widget_frame);
         if (widgetFrame != null) {
             if (pl.mWidgetResId != 0) {
                 inflater.inflate(pl.mWidgetResId, widgetFrame);
@@ -302,7 +304,7 @@ public class PreferenceGroupAdapter extends RecyclerView.Adapter<PreferenceViewH
     }
 
     @Override
-    public void onBindViewHolder(PreferenceViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder, int position) {
         final Preference preference = getItem(position);
         preference.onBindViewHolder(holder);
     }

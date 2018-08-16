@@ -33,7 +33,7 @@ import java.util.Set;
  * @hide
  */
 @RestrictTo(LIBRARY_GROUP)
-public abstract class AbstractMultiSelectListPreference extends DialogPreference {
+public abstract class AbstractMultiSelectListPreference extends DialogPreference<Set<String>> {
     public AbstractMultiSelectListPreference(Context context, AttributeSet attrs, int defStyleAttr,
             int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);

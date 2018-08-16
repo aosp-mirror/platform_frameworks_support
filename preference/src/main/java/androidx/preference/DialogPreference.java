@@ -35,8 +35,10 @@ import androidx.core.content.res.TypedArrayUtils;
  * @attr name android:dialogLayout
  * @attr name android:positiveButtonText
  * @attr name android:negativeButtonText
+ *
+ * @param <T> The type of value persisted by this Preference
  */
-public abstract class DialogPreference extends Preference {
+public abstract class DialogPreference<T> extends Preference<T> {
 
     private CharSequence mDialogTitle;
     private CharSequence mDialogMessage;

@@ -36,7 +36,7 @@ import androidx.core.content.res.TypedArrayUtils;
  * @attr name android:entries
  * @attr name android:entryValues
  */
-public class ListPreference extends DialogPreference {
+public class ListPreference extends DialogPreference<String> {
     private CharSequence[] mEntries;
     private CharSequence[] mEntryValues;
     private String mValue;
@@ -242,13 +242,13 @@ public class ListPreference extends DialogPreference {
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray a, int index) {
+    protected String onGetDefaultValue(TypedArray a, int index) {
         return a.getString(index);
     }
 
     @Override
-    protected void onSetInitialValue(Object defaultValue) {
-        setValue(getPersistedString((String) defaultValue));
+    protected void onSetInitialValue(String defaultValue) {
+        setValue(getPersistedString(defaultValue));
     }
 
     @Override
