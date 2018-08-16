@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4ec7da12_54d9853d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-16T20:06:43Z",
+      "side": 1,
+      "message": "Ha! Gerrit should add a fox emoji to the bug when that happens. Oh, and done.",
+      "parentUuid": "196015af_1dd9f2fa",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 5
+      },
+      "revId": "3fa13ee53ca29e09f3cc789e5daabce4fc7d9439",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56c17c7c_5a3694c2",
         "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewLayoutTest.java",
         "patchSetId": 5
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "aff3f397_96a60a1e",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewLayoutTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3065,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-16T20:06:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56c17c7c_5a3694c2",
+      "revId": "3fa13ee53ca29e09f3cc789e5daabce4fc7d9439",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2479cae5_1ae628ff",
         "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewLayoutTest.java",
         "patchSetId": 5
@@ -56,6 +98,24 @@
       "revId": "3fa13ee53ca29e09f3cc789e5daabce4fc7d9439",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f030652_384ed499",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewLayoutTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3072,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-16T20:06:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2479cae5_1ae628ff",
+      "revId": "3fa13ee53ca29e09f3cc789e5daabce4fc7d9439",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
