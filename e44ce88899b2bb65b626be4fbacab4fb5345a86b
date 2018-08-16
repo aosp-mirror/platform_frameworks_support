@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0edda526_f891d0b4",
+        "filename": "navigation/ui/src/main/java/androidx/navigation/ui/NavigationUI.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-16T14:18:25Z",
+      "side": 1,
+      "message": "Let\u0027s add null check, I know that you check it in OnNavigated, but there is no strong guarantee that gc won\u0027t happen in the middle.",
+      "range": {
+        "startLine": 494,
+        "startChar": 12,
+        "endLine": 494,
+        "endChar": 49
+      },
+      "revId": "e44ce88899b2bb65b626be4fbacab4fb5345a86b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
