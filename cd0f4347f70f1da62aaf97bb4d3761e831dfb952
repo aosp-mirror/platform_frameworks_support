@@ -16,6 +16,24 @@
       "revId": "cd0f4347f70f1da62aaf97bb4d3761e831dfb952",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0887c0ca_129f7278",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewLayoutTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3079,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-16T20:11:33Z",
+      "side": 1,
+      "message": "A-whoops! Done.",
+      "parentUuid": "3c7589e2_922bd5c5",
+      "revId": "cd0f4347f70f1da62aaf97bb4d3761e831dfb952",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
