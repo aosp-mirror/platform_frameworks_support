@@ -2,6 +2,69 @@
   "comments": [
     {
       "key": {
+        "uuid": "5d762a7b_d11675ed",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/InsertionMethod.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-16T00:24:49Z",
+      "side": 1,
+      "message": "should this go to the binder? where do we read this from the insertion method ?",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 5
+      },
+      "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "163984e1_af540ebc",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binder/InstantShortcutMethodBinder.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-16T00:24:49Z",
+      "side": 1,
+      "message": "lets used named parameters for clarity.",
+      "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e04c8f4c_6b39e28f",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binder/InstantShortcutMethodBinder.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-08-16T00:24:49Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 47,
+        "startChar": 22,
+        "endLine": 47,
+        "endChar": 52
+      },
+      "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0565daaf_1908264f",
         "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binderprovider/InstantShortcutMethodBinderProvider.kt",
         "patchSetId": 4
