@@ -302,10 +302,7 @@ public abstract class MediaRouteProvider {
      * @param initialMemberRouteId initially selected route's id.
      * @return {@link DynamicGroupRouteController}. Returns null if there is no such route or
      * if the route cannot be controlled using the {@link DynamicGroupRouteController} interface.
-     *
-     * @hide  TODO unhide this method and updateApi
      */
-    @RestrictTo(LIBRARY_GROUP)
     @Nullable
     public DynamicGroupRouteController onCreateDynamicGroupRouteController(
             @NonNull String initialMemberRouteId) {
@@ -446,10 +443,7 @@ public abstract class MediaRouteProvider {
 
     /**
      * Provides control over a dynamic group route.
-     *
-     * @hide  TODO unhide this class and updateApi
      */
-    @RestrictTo(LIBRARY_GROUP)
     public abstract static class DynamicGroupRouteController extends RouteController {
         /**
          * Gets the ID of the dynamic group route. Note that the route may have not been
@@ -527,9 +521,7 @@ public abstract class MediaRouteProvider {
 
         /**
          * Contains a route, its selection state and its capabilities.
-         * This is used in DynamicGroupRouteController#OnRoutesChangedListener.
-         *
-         * @hide TODO unhide this class and updateApi
+         * This is used in {@link DynamicGroupRouteController.OnDynamicRoutesChangedListener}.
          */
         @RestrictTo(LIBRARY_GROUP)
         public static final class DynamicRouteDescriptor {
