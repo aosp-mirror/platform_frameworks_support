@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "797699ce_b9b3d025",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-08-16T16:43:15Z",
+      "side": 1,
+      "message": "sorry that I missed this earlier, but the artifact ID should be prefixed with media2 for consistency with AndroidX Maven format, so androidx.media2:media2-exoplayer-core",
+      "range": {
+        "startLine": 30,
+        "startChar": 51,
+        "endLine": 30,
+        "endChar": 72
+      },
+      "revId": "096a694e0b617165eb465987bc9e9a0aeb9332b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
