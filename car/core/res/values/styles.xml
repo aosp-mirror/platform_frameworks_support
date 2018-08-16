@@ -274,7 +274,7 @@ limitations under the License.
     </style>
 
     <style name="Widget.Car.EditText" parent="Widget.AppCompat.EditText">
-        <item name="android:textColor">?attr/editTextColor</item>
+        <item name="android:textSize">@dimen/car_body1_size</item>
         <item name="android:textAppearance">@style/TextAppearance.Car.Body1</item>
     </style>
 
@@ -501,6 +501,7 @@ limitations under the License.
     <style name="CarPreference.DialogPreference.EditTextPreference">
         <item name="android:layout">@layout/preference_material_car</item>
         <item name="android:dialogLayout">@layout/preference_dialog_edittext</item>
+        <item name="android:textAppearance">@style/TextAppearance.Car.Body1</item>
     </style>
 
     <style name="CarPreference.DropDown">
@@ -517,4 +518,29 @@ limitations under the License.
         <item name="android:paddingLeft">0dp</item>
         <item name="android:paddingRight">0dp</item>
     </style>
+
+    <!-- ============== -->
+    <!-- Spinner Styles -->
+    <!-- ============== -->
+    <eat-comment />
+
+    <style name="SpinnerDropDownItem">
+        <item name="android:textAppearance">@style/TextAppearance.Car.Body2</item>
+        <item name="android:divider">@drawable/car_preference_divider</item>
+        <item name="android:paddingLeft">@dimen/car_keyline_1</item>
+        <item name="android:paddingRight">@dimen/car_keyline_1</item>
+        <item name="android:height">@dimen/car_double_line_list_item_height</item>
+        <item name="android:minHeight">@dimen/car_double_line_list_item_height</item>
+    </style>
+
+    <!-- ====================== -->
+    <!-- CheckedTextView Styles -->
+    <!-- ====================== -->
+    <eat-comment />
+
+    <style name="CheckedTextView">
+        <item name="android:textAppearance">@style/TextAppearance.Car.Body2</item>
+        <item name="android:checkboxStyle">@style/Widget.Car.CheckBox</item>
+    </style>
+
 </resources>
