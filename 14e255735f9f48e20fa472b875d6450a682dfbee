@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8afdddb1_78e085c5",
+        "filename": "room/common/src/main/java/androidx/room/DatabaseView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-16T05:09:10Z",
+      "side": 1,
+      "message": "Maybe say the class will behave like a normal @Entity class but it can\u0027t be used with INSERT, DELETE and UPDATE queries.",
+      "range": {
+        "startLine": 29,
+        "startChar": 3,
+        "endLine": 29,
+        "endChar": 74
+      },
+      "revId": "14e255735f9f48e20fa472b875d6450a682dfbee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "362a8790_80c6ddd9",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-16T05:09:10Z",
+      "side": 1,
+      "message": "Why call processDatabaseViews again? Maybe create a \u0027verifyDatabaseViews\u0027 function and move the verify code in DatabaseViewProcessor to there, removing the dbVerifier param from the DatabaseViewProcessor.",
+      "range": {
+        "startLine": 85,
+        "startChar": 12,
+        "endLine": 85,
+        "endChar": 58
+      },
+      "revId": "14e255735f9f48e20fa472b875d6450a682dfbee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18c4a5cf_e4ee57ee",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-16T05:09:10Z",
+      "side": 1,
+      "message": "I say either use double bang \u0027!!\u0027 that will throw an NPE or change the exception message to something more meaningful, like \"Unable to resolve tables for view XYZ\".",
+      "range": {
+        "startLine": 93,
+        "startChar": 24,
+        "endLine": 93,
+        "endChar": 94
+      },
+      "revId": "14e255735f9f48e20fa472b875d6450a682dfbee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0e81f30_eafa8687",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-16T05:09:10Z",
+      "side": 1,
+      "message": "Plz document method and maybe rename to \u0027resolveViewTables\u0027.",
+      "range": {
+        "startLine": 287,
+        "startChar": 12,
+        "endLine": 287,
+        "endChar": 28
+      },
+      "revId": "14e255735f9f48e20fa472b875d6450a682dfbee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5be3c03b_71e051cf",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-16T05:09:10Z",
+      "side": 1,
+      "message": "Rename to viewName or resolvedViewName ?",
+      "range": {
+        "startLine": 298,
+        "startChar": 22,
+        "endLine": 298,
+        "endChar": 34
+      },
+      "revId": "14e255735f9f48e20fa472b875d6450a682dfbee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "076196d5_0f6d2861",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-16T05:09:10Z",
+      "side": 1,
+      "message": "Maybe change to \u0027{ (_, tables) -\u003e tables.all { isTable(it) } }\u0027",
+      "range": {
+        "startLine": 305,
+        "startChar": 50,
+        "endLine": 305,
+        "endChar": 87
+      },
+      "revId": "14e255735f9f48e20fa472b875d6450a682dfbee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be3cdc43_b3412065",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-16T05:09:10Z",
+      "side": 1,
+      "message": "Either rename this r and u to resolveViews and unresolvedViews or the other way around, renaming the outer ones to add Views and these to resolved and unresolved. Just something more than a single letter. \u003d]",
+      "range": {
+        "startLine": 305,
+        "startChar": 20,
+        "endLine": 305,
+        "endChar": 26
+      },
+      "revId": "14e255735f9f48e20fa472b875d6450a682dfbee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5108c976_326056f9",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-16T05:09:10Z",
+      "side": 1,
+      "message": "Instead of throwing can you try to report the circular reference and continue so that if another circular reference is found we also report it, providing the user with as most errors as possible so they can fix them in one iteration.",
+      "range": {
+        "startLine": 307,
+        "startChar": 20,
+        "endLine": 307,
+        "endChar": 93
+      },
+      "revId": "14e255735f9f48e20fa472b875d6450a682dfbee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7bc6755_08498290",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/DatabaseView.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-16T05:09:10Z",
+      "side": 1,
+      "message": "Combine comment style. Move the \u0027//\u0027 ones to \u0027/**\u0027",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 6
+      },
+      "revId": "14e255735f9f48e20fa472b875d6450a682dfbee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4200af0_1a633bdb",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/DatabaseWriter.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-16T05:09:10Z",
+      "side": 1,
+      "message": "Create the HashSet even if nothing gets added to it (no views in the DB) so that the InvalidationTracker gets created with non-null params.",
+      "range": {
+        "startLine": 125,
+        "startChar": 12,
+        "endLine": 125,
+        "endChar": 43
+      },
+      "revId": "14e255735f9f48e20fa472b875d6450a682dfbee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae47a6f1_28713053",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/DatabaseProcessorTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-16T05:09:10Z",
+      "side": 1,
+      "message": "Instead of having this boolean you can invoke fail() inside the try to fail the test if the exception is not caught.",
+      "range": {
+        "startLine": 755,
+        "startChar": 8,
+        "endLine": 755,
+        "endChar": 31
+      },
+      "revId": "14e255735f9f48e20fa472b875d6450a682dfbee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14279b75_bfdc36b4",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/DatabaseProcessorTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-16T05:09:10Z",
+      "side": 1,
+      "message": "Rename to referenceTableNames or tableNames",
+      "range": {
+        "startLine": 769,
+        "startChar": 39,
+        "endLine": 769,
+        "endChar": 44
+      },
+      "revId": "14e255735f9f48e20fa472b875d6450a682dfbee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "819c8af6_d6fba8e7",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/DatabaseViewProcessorTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-16T05:09:10Z",
+      "side": 1,
+      "message": "Add tests cases for empty query and missing @DatabaseView annotation",
+      "range": {
+        "startLine": 38,
+        "startChar": 6,
+        "endLine": 38,
+        "endChar": 31
+      },
+      "revId": "14e255735f9f48e20fa472b875d6450a682dfbee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a10689c_efb7d5e8",
+        "filename": "room/migration/src/main/java/androidx/room/migration/bundle/DatabaseBundle.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-16T05:09:10Z",
+      "side": 1,
+      "message": "Is this null check needed? If no view is defined we should have an empty list and avoid nullable.",
+      "range": {
+        "startLine": 115,
+        "startChar": 12,
+        "endLine": 115,
+        "endChar": 26
+      },
+      "revId": "14e255735f9f48e20fa472b875d6450a682dfbee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2910be9_e65ba7bd",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-16T05:09:10Z",
+      "side": 1,
+      "message": "Is this null check needed? If the DB has no views I would expect an empty set, to avoid nullables.",
+      "range": {
+        "startLine": 157,
+        "startChar": 12,
+        "endLine": 157,
+        "endChar": 30
+      },
+      "revId": "14e255735f9f48e20fa472b875d6450a682dfbee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
