@@ -20,6 +20,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
 import android.util.Log;
 
@@ -30,12 +31,12 @@ import androidx.appcompat.widget.AppCompatSeekBar;
  */
 class MediaRouteVolumeSlider extends AppCompatSeekBar {
     private static final String TAG = "MediaRouteVolumeSlider";
-
     private final float mDisabledAlpha;
 
     private boolean mHideThumb;
     private Drawable mThumb;
-    private int mColor;
+    private int mProgressAndThumbColor;
+    private int mBackgroundColor;
 
     public MediaRouteVolumeSlider(Context context) {
         this(context, null);
@@ -53,15 +54,23 @@ class MediaRouteVolumeSlider extends AppCompatSeekBar {
     @Override
     protected void drawableStateChanged() {
         super.drawableStateChanged();
+
         int alpha = isEnabled() ? 0xFF : (int) (0xFF * mDisabledAlpha);
+
+        LayerDrawable ld = (LayerDrawable) getProgressDrawable().mutate();
+        Drawable progressDrawable = ld.findDrawableByLayerId(android.R.id.progress);
+        Drawable backgroundDrawable = ld.findDrawableByLayerId(android.R.id.background);
 
         // The thumb drawable is a collection of drawables and its current drawables are changed per
         // state. Apply the color filter and alpha on every state change.
-        mThumb.setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
-        mThumb.setAlpha(alpha);
+        setDrawableColor(mThumb, mProgressAndThumbColor, alpha);
+        setDrawableColor(progressDrawable, mProgressAndThumbColor, alpha);
+        setDrawableColor(backgroundDrawable, mBackgroundColor, alpha);
+    }
 
-        getProgressDrawable().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
-        getProgressDrawable().setAlpha(alpha);
+    private void setDrawableColor(Drawable drawable, int color, int alpha) {
+        drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+        drawable.setAlpha(alpha);
     }
 
     @Override
@@ -82,19 +91,48 @@ class MediaRouteVolumeSlider extends AppCompatSeekBar {
     }
 
     /**
-     * Sets the volume slider color. The change takes effect next time drawable state is changed.
+     * Sets color of thumb and progressbar.
+     */
+    public void setColor(int color) {
+        setProgressAndThumbColor(color);
+        setBackgroundColor(color);
+    }
+
+    /**
+     * Sets theme color of the volume slider which fills both progress part of the prgressbar and
+     * thumb. The change takes effect next time drawable state is changed.
      * <p>
      * The color cannot be translucent, otherwise the underlying progress bar will be seen through
      * the thumb.
      * </p>
      */
-    public void setColor(int color) {
-        if (mColor == color) {
+    public void setProgressAndThumbColor(int progressAndThumbColor) {
+        if (mProgressAndThumbColor == progressAndThumbColor) {
             return;
         }
-        if (Color.alpha(color) != 0xFF) {
-            Log.e(TAG, "Volume slider color cannot be translucent: #" + Integer.toHexString(color));
+        if (Color.alpha(progressAndThumbColor) != 0xFF) {
+            Log.e(TAG, "Volume slider progress color cannot be translucent: #"
+                    + Integer.toHexString(progressAndThumbColor));
         }
-        mColor = color;
+        mProgressAndThumbColor = progressAndThumbColor;
+    }
+
+    /**
+     * Sets background color of the volume slider. The change takes effect next time drawable state
+     * is changed.
+     * <p>
+     * The color cannot be translucent, otherwise the underlying background view will be seen
+     * through the progressbar.
+     * </p>
+     */
+    public void setBackgroundColor(int backgroundColor) {
+        if (mBackgroundColor == backgroundColor) {
+            return;
+        }
+        if (Color.alpha(backgroundColor) != 0xFF) {
+            Log.e(TAG, "Volume slider background color cannot be translucent: #"
+                    + Integer.toHexString(backgroundColor));
+        }
+        mBackgroundColor = backgroundColor;
     }
 }
