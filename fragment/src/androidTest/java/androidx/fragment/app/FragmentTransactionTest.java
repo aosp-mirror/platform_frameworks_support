@@ -362,7 +362,10 @@ public class FragmentTransactionTest {
 
         // We can't force concurrency, but we can do it lots of times and hope that
         // we hit it.
-        for (int i = 0; i < 100; i++) {
+        // Reset count here to verify afterwards
+        final int transactionCount = 100;
+        mOnBackStackChangedTimes = 0;
+        for (int i = 0; i < transactionCount; i++) {
             Fragment fragment2 = new CorrectFragment();
             fm.beginTransaction()
                     .add(R.id.content, fragment2)
@@ -373,6 +376,10 @@ public class FragmentTransactionTest {
             fm.popBackStack();
             getFragmentsUntilSize(0);
         }
+
+        // Wait until we receive a OnBackStackChange callback for the total number of times
+        // specified by transactionCount times 2 (1 for adding, 1 for removal)
+        blockUntilBackStackChangeCount(transactionCount * 2);
     }
 
     /**
@@ -454,6 +461,14 @@ public class FragmentTransactionTest {
         do {
             assertTrue(SystemClock.uptimeMillis() < endTime);
         } while (mActivity.getSupportFragmentManager().getFragments().size() != expectedSize);
+    }
+
+    private void blockUntilBackStackChangeCount(int count) {
+        final long endTime = SystemClock.uptimeMillis() + 3000;
+
+        do {
+            assertTrue(SystemClock.uptimeMillis() < endTime);
+        } while(mOnBackStackChangedTimes != count);
     }
 
     public static class CorrectFragment extends Fragment {}
