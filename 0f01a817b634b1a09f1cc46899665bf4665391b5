@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbac3a77_d4c034ed",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/ConvertUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-16T15:12:38Z",
+      "side": 1,
+      "message": "We should really have an annotation for time as a long. Can you file a bug to androidx component to add that and note the methods that should be annotated?",
+      "range": {
+        "startLine": 71,
+        "startChar": 52,
+        "endLine": 71,
+        "endChar": 56
+      },
+      "revId": "0f01a817b634b1a09f1cc46899665bf4665391b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e037a8b0_bb0b98f7",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkifyParams.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-16T15:12:38Z",
+      "side": 1,
+      "message": "Please expand on the docs. How does this affect linkify? Maybe give an example.",
+      "range": {
+        "startLine": 222,
+        "startChar": 32,
+        "endLine": 222,
+        "endChar": 76
+      },
+      "revId": "0f01a817b634b1a09f1cc46899665bf4665391b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4dfab07_8b9d5351",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-16T15:12:38Z",
+      "side": 1,
+      "message": "we keep switching between saying UTC milliseconds and \"This should be milliseconds from the epoch of 1970-01-01T00:00:00Z\". Please pick one and just use that in every javadoc.",
+      "range": {
+        "startLine": 507,
+        "startChar": 40,
+        "endLine": 507,
+        "endChar": 76
+      },
+      "revId": "0f01a817b634b1a09f1cc46899665bf4665391b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
