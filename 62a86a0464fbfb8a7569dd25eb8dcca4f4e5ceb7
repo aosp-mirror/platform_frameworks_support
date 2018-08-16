@@ -137,6 +137,29 @@
       "revId": "62a86a0464fbfb8a7569dd25eb8dcca4f4e5ceb7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f13873f_0c08bd01",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-16T01:30:56Z",
+      "side": 1,
+      "message": "This should be ZoneOffset.UTC to match the dummy NOT_SET value?",
+      "range": {
+        "startLine": 71,
+        "startChar": 26,
+        "endLine": 71,
+        "endChar": 48
+      },
+      "revId": "62a86a0464fbfb8a7569dd25eb8dcca4f4e5ceb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
