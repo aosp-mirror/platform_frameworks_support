@@ -35,6 +35,7 @@ import org.gradle.api.JavaVersion.VERSION_1_7
 import org.gradle.api.JavaVersion.VERSION_1_8
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.Task
 import org.gradle.api.plugins.JavaLibraryPlugin
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.plugins.JavaPluginConvention
@@ -107,23 +108,11 @@ class AndroidXPlugin : Plugin<Project> {
             }
         }
         subprojects { project ->
-            if (project.path == ":docs-fake") {
-                return@subprojects
-            }
-            project.tasks.all { task ->
-                // TODO remove androidTest from buildOnServer once test runners do not
-                // expect them anymore. (wait for master)
-                if ("assembleAndroidTest" == task.name ||
-                        "assembleDebug" == task.name ||
-                        ERROR_PRONE_TASK == task.name ||
-                        "lintDebug" == task.name) {
-                    buildOnServerTask.dependsOn(task)
-                }
-                if ("assembleAndroidTest" == task.name ||
-                        "assembleDebug" == task.name) {
-                    buildTestApksTask.dependsOn(task)
-                }
-            }
+            configureServerBuildTasks(project, buildOnServerTask, buildTestApksTask)
+        }
+
+        subprojects.forEach {
+            configureServerBuildTasks(project, buildOnServerTask, buildTestApksTask)
         }
 
         val createCoverageJarTask = Jacoco.createCoverageJarTask(this)
@@ -142,6 +131,30 @@ class AndroidXPlugin : Plugin<Project> {
         project.createClockLockTasks()
 
         AffectedModuleDetector.configure(gradle, this)
+    }
+
+    private fun configureServerBuildTasks(
+        project: Project,
+        buildOnServerTask: Task,
+        buildTestApksTask: Task
+    ) {
+        if (project.path == ":docs-fake") {
+            return
+        }
+        project.tasks.all { task ->
+            // TODO remove androidTest from buildOnServer once test runners do not
+            // expect them anymore. (wait for master)
+            if ("assembleAndroidTest" == task.name ||
+                    "assembleDebug" == task.name ||
+                    ERROR_PRONE_TASK == task.name ||
+                    "lintDebug" == task.name) {
+                buildOnServerTask.dependsOn(task)
+            }
+            if ("assembleAndroidTest" == task.name ||
+                    "assembleDebug" == task.name) {
+                buildTestApksTask.dependsOn(task)
+            }
+        }
     }
 
     private fun Project.configureAndroidCommonOptions(extension: BaseExtension) {
