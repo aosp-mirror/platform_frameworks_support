@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "6a8287d8_2c80ef0f",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemalarm/CommandHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-16T20:20:08Z",
+      "side": 1,
+      "message": "I agree this is a bit confusing. We should revisit this.\n\nThe reason why we introduced the HANDLE_EXECUTION_COMPLETED is that, prior to alpha03, we were releasing wake locks for Workers on the same thread as the execution completed listener. This is problematic because there is a chance that the app is trying to schedule too many workers, and we end up doing too much on the main thread causing an ANR. Therefore we introduced the HANDLE_EXECUTION_COMPLETED command which does things on the command executor service thread instead.",
+      "parentUuid": "4a7142df_b71f4d6a",
+      "range": {
+        "startLine": 296,
+        "startChar": 42,
+        "endLine": 296,
+        "endChar": 70
+      },
+      "revId": "3ae39a75b7d2f646b6ad4a977da31a9b16403908",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "026337cb_b17d19c3",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemalarm/SystemAlarmDispatcher.java",
         "patchSetId": 5
