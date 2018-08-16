@@ -28,5 +28,28 @@
               android:gravity="center_vertical"
               android:textSize="11sp"
               android:textColor="#80868B" />
-    <include layout="@layout/mr_cast_volume_layout" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/mr_cast_volume_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+        <ImageButton android:id="@+id/mr_cast_mute_button"
+                     android:layout_width="24dp"
+                     android:layout_height="24dp"
+                     android:layout_marginStart="16dp"
+                     android:layout_centerVertical="true"
+                     android:background="?attr/selectableItemBackgroundBorderless" />
+        <androidx.mediarouter.app.MediaRouteVolumeSlider
+            android:id="@+id/mr_cast_volume_slider"
+            android:layout_toRightOf="@id/mr_cast_mute_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/mr_controller_volume_slider" />
+        <View android:id="@+id/mr_cast_divider"
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_alignParentBottom="true"
+              android:background="?attr/mediaRouteDividerColor" />
+    </RelativeLayout>
 </LinearLayout>
