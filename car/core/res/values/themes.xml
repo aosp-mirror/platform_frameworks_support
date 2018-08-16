@@ -64,12 +64,13 @@ limitations under the License.
         <item name="checkboxStyle">@style/Widget.Car.CheckBox.Light</item>
         <item name="toolbarNavigationButtonStyle">@style/Widget.Car.Toolbar.Button.Navigation</item>
         <item name="toolbarStyle">@style/Widget.Car.Toolbar.Light</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
     </style>
 
     <!-- Light theme for the Car. This theme has light colors for card backgrounds and dark
          text. These colors will invert for night. -->
     <style name="Theme.Car.Light.NoActionBar" parent="Theme.Car.NoActionBar">
-        <item name="android:alertDialogTheme">@style/Theme.Car.Light.Dialog.Alert</item>
+        <item name="android:alertDialogTheme">@style/Theme.Car.Dialog.Alert</item>
         <item name="android:colorAccent">@color/car_accent</item>
         <item name="android:colorButtonNormal">@color/car_accent</item>
         <item name="android:colorControlHighlight">@color/car_card_ripple_background</item>
@@ -107,6 +108,7 @@ limitations under the License.
         <item name="checkboxStyle">@style/Widget.Car.CheckBox</item>
         <item name="toolbarNavigationButtonStyle">@style/Widget.Car.Toolbar.Button.Navigation</item>
         <item name="toolbarStyle">@style/Widget.Car.Toolbar</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
     </style>
 
     <!-- Theme that is a pass-through for Theme.Car.NoActionBar. -->
