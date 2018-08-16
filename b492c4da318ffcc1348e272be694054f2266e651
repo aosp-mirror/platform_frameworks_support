@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3810a335_383d06b8",
+        "filename": "preference/src/main/java/androidx/preference/EditTextPreference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-08-16T23:21:55Z",
+      "side": 1,
+      "message": "I\u0027m wondering if this will break the developers. Because right now they are overriding onSetInitialValue with Object not String. I think this needs two phases. One is adding a typesafe methods and deprecating the old ones and later deleting the old methods entirely.",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 0
+      },
+      "revId": "b492c4da318ffcc1348e272be694054f2266e651",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
