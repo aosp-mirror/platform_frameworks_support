@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "688c9b10_05a50de7",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/view/menu/ActionMenuItemTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-17T13:00:25Z",
+      "side": 1,
+      "message": "setShowAsActionNever looks good to me, thanks!",
+      "parentUuid": "d90010c1_f6f48b25",
+      "revId": "b2c78e7099fafc6c3f4d9f739e9178616a8fd379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "536cf42a_70402c83",
         "filename": "appcompat/src/androidTest/java/androidx/appcompat/view/menu/MenuItemImplTest.java",
         "patchSetId": 9
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "requiresActionButton() and requiresOverflow() are mutually exclusive. If one is true, the other must be false.\n\nWhat I\u0027m trying to test here is the results of these 2 methods when I set a showAs action. Would you suggest I name the tests setShowAsActionAlways() and setShowAsActionNever(), or do you have any other suggestions?\n\nThanks.",
       "parentUuid": "536cf42a_70402c83",
+      "revId": "b2c78e7099fafc6c3f4d9f739e9178616a8fd379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1b30356_b6a86b48",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/view/menu/MenuItemImplTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-17T13:00:25Z",
+      "side": 1,
+      "message": "setShowAsActionAlways() and setShowAsActionNever look good to me, thanks!",
+      "parentUuid": "9929f24a_d68a228b",
       "revId": "b2c78e7099fafc6c3f4d9f739e9178616a8fd379",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -136,6 +172,24 @@
       "side": 1,
       "message": "This won\u0027t actually happen in practice.\nMenuBuilder already sorts items by order so you can argue that this is redundant code or simply being defensive, depending on how you look at it.",
       "parentUuid": "205bcb52_228f0c6f",
+      "revId": "b2c78e7099fafc6c3f4d9f739e9178616a8fd379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df592f3b_a9539af1",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/FloatingToolbar.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-17T13:00:25Z",
+      "side": 1,
+      "message": "got it.",
+      "parentUuid": "cdfcc462_d26e2233",
       "revId": "b2c78e7099fafc6c3f4d9f739e9178616a8fd379",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
