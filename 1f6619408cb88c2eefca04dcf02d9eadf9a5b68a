@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9606c9dc_9ad52620",
+        "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-17T16:52:16Z",
+      "side": 1,
+      "message": "Parcelable types should be `final`",
+      "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78b003dd_dd54cf2d",
+        "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-17T16:52:16Z",
+      "side": 1,
+      "message": "@hide",
+      "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d28460f_ab2ba0d6",
+        "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-17T16:52:16Z",
+      "side": 1,
+      "message": "nit: could be final",
+      "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1430819_1c317930",
+        "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-17T16:52:16Z",
+      "side": 1,
+      "message": "Parameter names should match method names on the enclosing class rather than abbreviations of them.\n\nAlso do you need to validate these inputs and throw IllegalStateException when violated?",
+      "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f256c28_00bfdbad",
+        "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-17T16:52:16Z",
+      "side": 1,
+      "message": "All 4 methods should be annotated @NonNull",
+      "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17674753_f76e6aa5",
+        "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-17T16:52:16Z",
+      "side": 1,
+      "message": "Timestamp, while originally a compound word, is pretty universally a single word now, so this should be cased getTimestamp",
+      "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c6bff70_6bb8377f",
+        "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-17T16:52:16Z",
+      "side": 1,
+      "message": "Add equals and hashCode? This is a pure value type.",
+      "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d21fe688_b943144f",
+        "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-17T16:52:16Z",
+      "side": 1,
+      "message": "I\u0027m not sure this method name conveys the behavior. Maybe `hasSameRestrictionsAs`? Or a static method `hasSameRestrictions` which takes two parameters?",
+      "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
