@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d90010c1_f6f48b25",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/view/menu/ActionMenuItemTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-17T12:51:17Z",
+      "side": 1,
+      "message": "I am really trying to test that ActionMenuItem always requiresActionButton no matter what you set the showAs action to.\n\nHow about I name the test setShowAsActionNever()?",
+      "parentUuid": "8689c854_93f1db1b",
+      "revId": "b2c78e7099fafc6c3f4d9f739e9178616a8fd379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "536cf42a_70402c83",
         "filename": "appcompat/src/androidTest/java/androidx/appcompat/view/menu/MenuItemImplTest.java",
         "patchSetId": 9
@@ -30,6 +48,24 @@
       "writtenOn": "2018-08-17T12:36:32Z",
       "side": 1,
       "message": "mmm, the test name does not reflect what it testing?\n\nrequiresActionButton and requiresOverflow are both tested in these two tests.",
+      "revId": "b2c78e7099fafc6c3f4d9f739e9178616a8fd379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9929f24a_d68a228b",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/view/menu/MenuItemImplTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-17T12:51:17Z",
+      "side": 1,
+      "message": "requiresActionButton() and requiresOverflow() are mutually exclusive. If one is true, the other must be false.\n\nWhat I\u0027m trying to test here is the results of these 2 methods when I set a showAs action. Would you suggest I name the tests setShowAsActionAlways() and setShowAsActionNever(), or do you have any other suggestions?\n\nThanks.",
+      "parentUuid": "536cf42a_70402c83",
       "revId": "b2c78e7099fafc6c3f4d9f739e9178616a8fd379",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "413d4a10_b808402e",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/FloatingToolbarTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-17T12:51:17Z",
+      "side": 1,
+      "message": "mActivityTestRule.getActivity() starts a new activity each time in setup() so we always get a new context for each test run.",
+      "parentUuid": "6925450b_f7f2fc8b",
+      "revId": "b2c78e7099fafc6c3f4d9f739e9178616a8fd379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "205bcb52_228f0c6f",
         "filename": "appcompat/src/main/java/androidx/appcompat/widget/FloatingToolbar.java",
         "patchSetId": 9
@@ -64,6 +118,24 @@
       "writtenOn": "2018-08-17T12:36:32Z",
       "side": 1,
       "message": "nit: so you did catch a bug  :)",
+      "revId": "b2c78e7099fafc6c3f4d9f739e9178616a8fd379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cdfcc462_d26e2233",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/FloatingToolbar.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-17T12:51:17Z",
+      "side": 1,
+      "message": "This won\u0027t actually happen in practice.\nMenuBuilder already sorts items by order so you can argue that this is redundant code or simply being defensive, depending on how you look at it.",
+      "parentUuid": "205bcb52_228f0c6f",
       "revId": "b2c78e7099fafc6c3f4d9f739e9178616a8fd379",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
