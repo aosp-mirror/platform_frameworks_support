@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "31f67c3c_f18987a3",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-08-17T00:45:31Z",
+      "side": 1,
+      "message": "The API should be consistent within itself. If you introduce a has here, then you should do a has everywhere. and yeah having a public invalid object and comparing against it is ugly.",
+      "parentUuid": "0d1102bf_799c4b59",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 10
+      },
+      "revId": "62a86a0464fbfb8a7569dd25eb8dcca4f4e5ceb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b0b342a_7111f7eb",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
         "patchSetId": 27
