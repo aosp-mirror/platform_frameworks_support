@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0dbf079f_97712cff",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-08-17T22:09:45Z",
+      "side": 1,
+      "message": "Thanks! TIL.\n\nThis class is a mirror class of the framework version, which implements Parcelable. Originally I wanted to keep parity so I kept the interface. Now I realized this class is never intended to be used as Parcelable. So now the interface is removed.",
+      "parentUuid": "8c91ca08_83b8448b",
+      "range": {
+        "startLine": 145,
+        "startChar": 33,
+        "endLine": 145,
+        "endChar": 65
+      },
+      "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9606c9dc_9ad52620",
         "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
         "patchSetId": 7
@@ -39,6 +63,24 @@
       "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2464d49_7cc69728",
+        "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-08-17T22:09:45Z",
+      "side": 1,
+      "message": "No longer implements Parcelable. Explanation in reply to alanv@\u0027s comment.",
+      "parentUuid": "9606c9dc_9ad52620",
+      "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "e499567e_08716765",
+        "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-08-17T22:09:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78b003dd_dd54cf2d",
+      "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d28460f_ab2ba0d6",
         "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
         "patchSetId": 7
@@ -73,6 +133,24 @@
       "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66ca0197_06bf9e85",
+        "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-08-17T22:09:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d28460f_ab2ba0d6",
+      "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "7a4d4bc9_24094aad",
+        "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-08-17T22:09:45Z",
+      "side": 1,
+      "message": "\u003e Parameter names should match method names on the enclosing class rather than abbreviations of them.\nDone.\n\n\u003e Also do you need to validate these inputs and throw IllegalStateException when violated?\nI don\u0027t think validation is necessary. I expected this constructor to be only used for testing. Clients should not need to construct UXR themselves - it should always come in through listener.",
+      "parentUuid": "f1430819_1c317930",
+      "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f256c28_00bfdbad",
         "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
         "patchSetId": 7
@@ -107,6 +203,24 @@
       "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb646a7f_e831b2a1",
+        "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-08-17T22:09:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f256c28_00bfdbad",
+      "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -127,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "dddc9c0e_ae3cb8cd",
+        "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-08-17T22:09:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17674753_f76e6aa5",
+      "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c6bff70_6bb8377f",
         "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
         "patchSetId": 7
@@ -144,6 +276,24 @@
     },
     {
       "key": {
+        "uuid": "11e4d170_4d47a163",
+        "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-08-17T22:09:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c6bff70_6bb8377f",
+      "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d21fe688_b943144f",
         "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
         "patchSetId": 7
@@ -158,6 +308,24 @@
       "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1fa2996_c2b5d5da",
+        "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-08-17T22:09:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d21fe688_b943144f",
+      "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
