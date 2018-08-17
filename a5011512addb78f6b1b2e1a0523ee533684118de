@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ecd9cb01_affd92b6",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2156,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-17T06:36:07Z",
+      "side": 1,
+      "message": "Reset hide callback timer so that the views do not disappear right after the size or orientation has changed.",
+      "range": {
+        "startLine": 2156,
+        "startChar": 0,
+        "endLine": 2156,
+        "endChar": 33
+      },
+      "revId": "a5011512addb78f6b1b2e1a0523ee533684118de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
