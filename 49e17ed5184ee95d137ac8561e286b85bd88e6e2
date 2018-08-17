@@ -22,6 +22,30 @@
       "revId": "49e17ed5184ee95d137ac8561e286b85bd88e6e2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b24c07a2_66b67a68",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-17T09:27:59Z",
+      "side": 1,
+      "message": "I changed it to make sense with name of drawable resources.\nIf drawable resource\u0027s name ends with xxxx_dark, it means that the drawable is for dark theme (not that its color is dark)which means that its color is light.\nIn that context, I thought that color name should match with that too.",
+      "parentUuid": "ac8ce867_625b9130",
+      "range": {
+        "startLine": 50,
+        "startChar": 20,
+        "endLine": 50,
+        "endChar": 48
+      },
+      "revId": "49e17ed5184ee95d137ac8561e286b85bd88e6e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
