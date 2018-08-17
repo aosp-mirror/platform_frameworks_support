@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "8c91ca08_83b8448b",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-08-17T18:07:30Z",
+      "side": 1,
+      "message": "Use VersionedParcelable -- libraries should never expose Parcelable directly, as it is not safe to add/remove APIs to a Parcelable class. See go/versionedparcelable.",
+      "range": {
+        "startLine": 145,
+        "startChar": 33,
+        "endLine": 145,
+        "endChar": 65
+      },
+      "revId": "1f6619408cb88c2eefca04dcf02d9eadf9a5b68a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9606c9dc_9ad52620",
         "filename": "car/core/src/main/java/androidx/car/uxrestrictions/CarUxRestrictions.java",
         "patchSetId": 7
