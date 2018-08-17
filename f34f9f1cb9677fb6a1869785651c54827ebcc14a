@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9c1ad1d2_985bfe49",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-17T18:35:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29c23fdc_9c77e35c",
+      "range": {
+        "startLine": 533,
+        "startChar": 24,
+        "endLine": 533,
+        "endChar": 36
+      },
+      "revId": "f34f9f1cb9677fb6a1869785651c54827ebcc14a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5656aeb9_b077810b",
         "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "f34f9f1cb9677fb6a1869785651c54827ebcc14a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa0bbbd0_f3707597",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-17T18:35:21Z",
+      "side": 1,
+      "message": "Removed this. I ported this over from TextListItem, but it\u0027s not necessary to keep it for ActionListItem. (It can probably be removed from TextListItem, but I\u0027ll do that in a separate CL).\n\nWhat this used to do was indicate that the body text was to be styled as the primary text. But like you said, this is UX detail that the ActionListItem shouldn\u0027t care about.\n\nIf a user wants to change the styling of text, they can already do so by adding a ViewBinder.",
+      "parentUuid": "5656aeb9_b077810b",
+      "range": {
+        "startLine": 541,
+        "startChar": 11,
+        "endLine": 541,
+        "endChar": 71
+      },
+      "revId": "f34f9f1cb9677fb6a1869785651c54827ebcc14a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "08942630_22a858ff",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-17T18:35:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0dbfe91b_c5350e84",
+      "range": {
+        "startLine": 543,
+        "startChar": 24,
+        "endLine": 543,
+        "endChar": 36
+      },
+      "revId": "f34f9f1cb9677fb6a1869785651c54827ebcc14a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18f20409_bf2ed01e",
         "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
         "patchSetId": 7
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "cc72c8c6_40a8190b",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-17T18:35:21Z",
+      "side": 1,
+      "message": "Done. Also added this to other public methods.",
+      "parentUuid": "18f20409_bf2ed01e",
+      "range": {
+        "startLine": 558,
+        "startChar": 26,
+        "endLine": 558,
+        "endChar": 32
+      },
+      "revId": "f34f9f1cb9677fb6a1869785651c54827ebcc14a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee3fd8d5_bc26cbbd",
         "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
         "patchSetId": 7
@@ -105,6 +201,30 @@
       "writtenOn": "2018-08-17T16:41:35Z",
       "side": 1,
       "message": "Can we keep this class package private? Do we expect people to extend ActionButtonListItem?",
+      "range": {
+        "startLine": 613,
+        "startChar": 3,
+        "endLine": 613,
+        "endChar": 64
+      },
+      "revId": "f34f9f1cb9677fb6a1869785651c54827ebcc14a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbd23dde_f7b7e7cb",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-17T18:35:21Z",
+      "side": 1,
+      "message": "It unfortunately has to be public due to how ViewHolders and RecyclerViews work. The ViewHolder is the interface through which users are expected to interact with and bind data to the views in the RecyclerView.\n\nI don\u0027t see a reason to necessarily disallow extensions, but I can make these classes final for now until there becomes a use-case for extending.\n\nWhat do you think?",
+      "parentUuid": "ee3fd8d5_bc26cbbd",
       "range": {
         "startLine": 613,
         "startChar": 3,
@@ -137,6 +257,30 @@
       "revId": "f34f9f1cb9677fb6a1869785651c54827ebcc14a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad75b92c_649e4781",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-17T18:35:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa981f1d_db8521f3",
+      "range": {
+        "startLine": 629,
+        "startChar": 27,
+        "endLine": 629,
+        "endChar": 39
+      },
+      "revId": "f34f9f1cb9677fb6a1869785651c54827ebcc14a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
