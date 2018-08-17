@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fd739feb_cb364f32",
+        "filename": "animation/src/main/java/androidx/animation/FloatEvaluator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-17T20:52:03Z",
+      "side": 1,
+      "message": "Because Number generates confusion when the name strongly indicates that it\u0027s float type, and the implementation treats the Number as a float.\n\nAlso checked with the original author and there was no particular reason to use Number as opposed to Float here. Since there\u0027s also an IntEvaluator that implements TypeEvaluator\u003cInteger\u003e, changing the generic type here from Number to Float makes more sense.",
+      "parentUuid": "3c396ffa_78b15318",
+      "range": {
+        "startLine": 22,
+        "startChar": 53,
+        "endLine": 22,
+        "endChar": 59
+      },
+      "revId": "cae898410d66a9aa50442525847247ff9935f126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "17e61f16_92ddcd1d",
         "filename": "animation/src/main/java/androidx/animation/Keyframe.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "cae898410d66a9aa50442525847247ff9935f126",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a886167d_d2f7cf99",
+        "filename": "animation/src/main/java/androidx/animation/Keyframe.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-17T20:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17e61f16_92ddcd1d",
+      "range": {
+        "startLine": 196,
+        "startChar": 20,
+        "endLine": 196,
+        "endChar": 26
+      },
+      "revId": "cae898410d66a9aa50442525847247ff9935f126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -114,6 +162,78 @@
       "revId": "cae898410d66a9aa50442525847247ff9935f126",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2861c66_abc63f4a",
+        "filename": "animation/src/main/java/androidx/animation/TypeEvaluator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-17T20:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "692871e5_592acb4a",
+      "range": {
+        "startLine": 42,
+        "startChar": 12,
+        "endLine": 42,
+        "endChar": 13
+      },
+      "revId": "cae898410d66a9aa50442525847247ff9935f126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70018101_cc99ab05",
+        "filename": "animation/src/main/java/androidx/animation/TypeEvaluator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-17T20:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "536b1ce7_3938b287",
+      "range": {
+        "startLine": 42,
+        "startChar": 37,
+        "endLine": 42,
+        "endChar": 54
+      },
+      "revId": "cae898410d66a9aa50442525847247ff9935f126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd8a5c3d_205bf891",
+        "filename": "animation/src/main/java/androidx/animation/TypeEvaluator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-17T20:52:03Z",
+      "side": 1,
+      "message": "The fraction can go outside of [0, 1] depending on the interpolator that animators use.",
+      "parentUuid": "8bf2efb4_c6463724",
+      "range": {
+        "startLine": 42,
+        "startChar": 22,
+        "endLine": 42,
+        "endChar": 36
+      },
+      "revId": "cae898410d66a9aa50442525847247ff9935f126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

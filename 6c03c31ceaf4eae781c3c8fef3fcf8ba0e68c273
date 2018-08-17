@@ -1341,6 +1341,30 @@
     },
     {
       "key": {
+        "uuid": "bbd35497_6bf7e511",
+        "filename": "animation/src/main/java/androidx/animation/Keyframe.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-17T20:52:03Z",
+      "side": 1,
+      "message": "Marking as resolved",
+      "parentUuid": "b9fce83d_1883fcc9",
+      "range": {
+        "startLine": 233,
+        "startChar": 11,
+        "endLine": 233,
+        "endChar": 27
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c90da72e_acab6532",
         "filename": "animation/src/main/java/androidx/animation/Keyframe.java",
         "patchSetId": 8
