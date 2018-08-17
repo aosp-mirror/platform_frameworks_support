@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c396ffa_78b15318",
+        "filename": "animation/src/main/java/androidx/animation/FloatEvaluator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "Why are we moving away from number?",
+      "range": {
+        "startLine": 22,
+        "startChar": 53,
+        "endLine": 22,
+        "endChar": 59
+      },
+      "revId": "cae898410d66a9aa50442525847247ff9935f126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17e61f16_92ddcd1d",
+        "filename": "animation/src/main/java/androidx/animation/Keyframe.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NotNull? here and all the other below.",
+      "range": {
+        "startLine": 196,
+        "startChar": 20,
+        "endLine": 196,
+        "endChar": 26
+      },
+      "revId": "cae898410d66a9aa50442525847247ff9935f126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "536b1ce7_3938b287",
+        "filename": "animation/src/main/java/androidx/animation/TypeEvaluator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNUll",
+      "range": {
+        "startLine": 42,
+        "startChar": 37,
+        "endLine": 42,
+        "endChar": 54
+      },
+      "revId": "cae898410d66a9aa50442525847247ff9935f126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bf2efb4_c6463724",
+        "filename": "animation/src/main/java/androidx/animation/TypeEvaluator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "Do we want to define a range for this fraction?",
+      "range": {
+        "startLine": 42,
+        "startChar": 22,
+        "endLine": 42,
+        "endChar": 36
+      },
+      "revId": "cae898410d66a9aa50442525847247ff9935f126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "692871e5_592acb4a",
+        "filename": "animation/src/main/java/androidx/animation/TypeEvaluator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 42,
+        "startChar": 12,
+        "endLine": 42,
+        "endChar": 13
+      },
+      "revId": "cae898410d66a9aa50442525847247ff9935f126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

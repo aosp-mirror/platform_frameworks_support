@@ -1,0 +1,809 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "050d669d_207a89b3",
+        "filename": "animation/src/main/java/androidx/animation/ArgbEvaluator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "Should this class be final? Do we expect people to override this instead of overriding typeevaluator directly?",
+      "range": {
+        "startLine": 23,
+        "startChar": 13,
+        "endLine": 23,
+        "endChar": 26
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0286c4a4_2af5d7bd",
+        "filename": "animation/src/main/java/androidx/animation/ArgbEvaluator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 33,
+        "startChar": 18,
+        "endLine": 33,
+        "endChar": 31
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcb38596_e33de51b",
+        "filename": "animation/src/main/java/androidx/animation/BidirectionalTypeConverter.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "Both @NonNull?",
+      "range": {
+        "startLine": 38,
+        "startChar": 37,
+        "endLine": 38,
+        "endChar": 74
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8aad7626_d3b8c428",
+        "filename": "animation/src/main/java/androidx/animation/BidirectionalTypeConverter.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 58,
+        "startChar": 11,
+        "endLine": 58,
+        "endChar": 37
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dfb970f_9ed160ef",
+        "filename": "animation/src/main/java/androidx/animation/FloatArrayEvaluator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "Should this be final?",
+      "range": {
+        "startLine": 26,
+        "startChar": 13,
+        "endLine": 26,
+        "endChar": 32
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3138d7da_aa362e0b",
+        "filename": "animation/src/main/java/androidx/animation/FloatArrayEvaluator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 48,
+        "startChar": 31,
+        "endLine": 48,
+        "endChar": 36
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47ffde64_aec95fe1",
+        "filename": "animation/src/main/java/androidx/animation/FloatArrayEvaluator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 65,
+        "startChar": 11,
+        "endLine": 65,
+        "endChar": 16
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e91bacf8_b0f44016",
+        "filename": "animation/src/main/java/androidx/animation/FloatArrayEvaluator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 65,
+        "startChar": 64,
+        "endLine": 65,
+        "endChar": 69
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4d6a6ad_5a95303e",
+        "filename": "animation/src/main/java/androidx/animation/FloatArrayEvaluator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 65,
+        "startChar": 44,
+        "endLine": 65,
+        "endChar": 51
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19abbeed_9f43aab5",
+        "filename": "animation/src/main/java/androidx/animation/FloatEvaluator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 39,
+        "startChar": 60,
+        "endLine": 39,
+        "endChar": 65
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbb89231_e391669a",
+        "filename": "animation/src/main/java/androidx/animation/FloatEvaluator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 39,
+        "startChar": 11,
+        "endLine": 39,
+        "endChar": 16
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2069fc64_1d14730f",
+        "filename": "animation/src/main/java/androidx/animation/FloatEvaluator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 39,
+        "startChar": 42,
+        "endLine": 39,
+        "endChar": 47
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67be49d1_59d09ee1",
+        "filename": "animation/src/main/java/androidx/animation/FloatProperty.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 31,
+        "startChar": 25,
+        "endLine": 31,
+        "endChar": 31
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e94f55a_83155c33",
+        "filename": "animation/src/main/java/androidx/animation/FloatProperty.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "Javadoc",
+      "range": {
+        "startLine": 31,
+        "startChar": 11,
+        "endLine": 31,
+        "endChar": 24
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efe1e99f_2510eeb7",
+        "filename": "animation/src/main/java/androidx/animation/FloatProperty.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 39,
+        "startChar": 34,
+        "endLine": 39,
+        "endChar": 35
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69da4d92_e9131e16",
+        "filename": "animation/src/main/java/androidx/animation/FloatProperty.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 42,
+        "startChar": 27,
+        "endLine": 42,
+        "endChar": 28
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "618a1172_3f4ac506",
+        "filename": "animation/src/main/java/androidx/animation/IntArrayEvaluator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 47,
+        "startChar": 29,
+        "endLine": 47,
+        "endChar": 32
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b683670d_5bbf1f5b",
+        "filename": "animation/src/main/java/androidx/animation/IntArrayEvaluator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 63,
+        "startChar": 42,
+        "endLine": 63,
+        "endChar": 65
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb1cb351_9b87e3eb",
+        "filename": "animation/src/main/java/androidx/animation/IntArrayEvaluator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 63,
+        "startChar": 11,
+        "endLine": 63,
+        "endChar": 14
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec24de78_412ff321",
+        "filename": "animation/src/main/java/androidx/animation/IntEvaluator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@FloatRange? or is it ok to overshoot and go beyond [0,1]?",
+      "range": {
+        "startLine": 39,
+        "startChar": 28,
+        "endLine": 39,
+        "endChar": 33
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c9d21c8_ec62fbe2",
+        "filename": "animation/src/main/java/androidx/animation/IntEvaluator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "NonNull",
+      "range": {
+        "startLine": 39,
+        "startChar": 44,
+        "endLine": 39,
+        "endChar": 71
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab0e8eb2_b1d5eea2",
+        "filename": "animation/src/main/java/androidx/animation/IntProperty.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 31,
+        "startChar": 23,
+        "endLine": 31,
+        "endChar": 29
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c975931_a614a643",
+        "filename": "animation/src/main/java/androidx/animation/IntProperty.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 39,
+        "startChar": 34,
+        "endLine": 39,
+        "endChar": 35
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "929e5877_115e7bd3",
+        "filename": "animation/src/main/java/androidx/animation/Keyframe.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@FloatRange",
+      "range": {
+        "startLine": 100,
+        "startChar": 36,
+        "endLine": 100,
+        "endChar": 41
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d17f8685_777d81a5",
+        "filename": "animation/src/main/java/androidx/animation/Keyframe.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@FloatRange",
+      "range": {
+        "startLine": 213,
+        "startChar": 11,
+        "endLine": 213,
+        "endChar": 16
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d280a1a5_31c469b3",
+        "filename": "animation/src/main/java/androidx/animation/Keyframe.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 233,
+        "startChar": 11,
+        "endLine": 233,
+        "endChar": 27
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c90da72e_acab6532",
+        "filename": "animation/src/main/java/androidx/animation/Keyframe.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 241,
+        "startChar": 49,
+        "endLine": 241,
+        "endChar": 61
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf51b33a_02aa5c86",
+        "filename": "animation/src/main/java/androidx/animation/PointFEvaluator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 50,
+        "startChar": 27,
+        "endLine": 50,
+        "endChar": 33
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "093ac70c_27264cfc",
+        "filename": "animation/src/main/java/androidx/animation/PointFEvaluator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 72,
+        "startChar": 43,
+        "endLine": 72,
+        "endChar": 69
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24370346_5fb6cdaf",
+        "filename": "animation/src/main/java/androidx/animation/PropertyValuesHolder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "Make this suppression more narrowly scoped to the method where we do unchecked casting.",
+      "range": {
+        "startLine": 35,
+        "startChar": 1,
+        "endLine": 35,
+        "endChar": 17
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a54075af_a405e3c9",
+        "filename": "animation/src/main/java/androidx/animation/TypeConverter.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "final?",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 30
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a97e1a0_d6e968a2",
+        "filename": "animation/src/main/java/androidx/animation/TypeConverter.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 38,
+        "startChar": 26,
+        "endLine": 38,
+        "endChar": 53
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7e5421b_27e7730f",
+        "filename": "animation/src/main/java/androidx/animation/TypeConverter.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 30
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "012837b8_dec9817f",
+        "filename": "animation/src/main/java/androidx/animation/TypeConverter.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "NonNull",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 9
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50baed69_f1594fd5",
+        "filename": "animation/src/main/java/androidx/animation/TypeConverter.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T03:05:01Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 64,
+        "startChar": 20,
+        "endLine": 64,
+        "endChar": 31
+      },
+      "revId": "6c03c31ceaf4eae781c3c8fef3fcf8ba0e68c273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
