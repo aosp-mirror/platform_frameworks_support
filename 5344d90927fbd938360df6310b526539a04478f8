@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b835a83e_796a3267",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-17T14:36:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ba0ccf9_201e9d5d",
+      "range": {
+        "startLine": 315,
+        "startChar": 8,
+        "endLine": 316,
+        "endChar": 45
+      },
+      "revId": "5344d90927fbd938360df6310b526539a04478f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eede2987_5e3bea6e",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "5344d90927fbd938360df6310b526539a04478f8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "278c9645_06ab38d9",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-17T14:36:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eede2987_5e3bea6e",
+      "range": {
+        "startLine": 321,
+        "startChar": 8,
+        "endLine": 322,
+        "endChar": 45
+      },
+      "revId": "5344d90927fbd938360df6310b526539a04478f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
