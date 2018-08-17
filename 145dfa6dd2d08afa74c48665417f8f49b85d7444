@@ -25,6 +25,121 @@
     },
     {
       "key": {
+        "uuid": "2ba26b4c_b3b5ad96",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/ShortcutMethodWriter.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2018-08-17T22:10:24Z",
+      "side": 1,
+      "message": "The transaction boilerplate is pretty endemic. A single writer that emits the control flow for transactions would be a good idea. I\u0027ve already fixed one issue with the way that a transaction works in the generated code...",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 80
+      },
+      "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f22164b_f03d1a6a",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/ShortcutMethodWriter.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2018-08-17T22:10:24Z",
+      "side": 1,
+      "message": "After working with it, I think it\u0027s a good idea to split these two.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 39
+      },
+      "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9030e58_83a6847b",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/ShortcutMethodWriter.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2018-08-17T22:10:24Z",
+      "side": 1,
+      "message": "The caller might pass in the return statement, if this is to be flexible. Right now it can only handle no return statement or returning an int.",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 29
+      },
+      "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e92c6542_2472bf04",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binder/InstantShortcutMethodBinder.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2018-08-17T22:10:24Z",
+      "side": 1,
+      "message": "Defining what an instant shortcut method is would be more useful.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 59
+      },
+      "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8979781_ac458f3e",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binder/InstantShortcutMethodBinder.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2018-08-17T22:10:24Z",
+      "side": 1,
+      "message": "s/Instant/Blocking/\n\n\"Synchronous\" might also work. Both of those match the Java words for the way the methods work a bit better.",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 13
+      },
+      "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "163984e1_af540ebc",
         "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binder/InstantShortcutMethodBinder.kt",
         "patchSetId": 4
@@ -81,6 +196,29 @@
         "startChar": 0,
         "endLine": 47,
         "endChar": 94
+      },
+      "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c292361_ed8a0551",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binder/ShortcutMethodBinder.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2018-08-17T22:10:24Z",
+      "side": 1,
+      "message": "These methods don\u0027t write the code, they return a new CodeBlock containing the code.\n\nDocumenting what the CodeBlock should resemble would be helpful.\n\nThe QueryResultBinder factors this as \"convertAndReturn\", which is quite different from this one.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 38
       },
       "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
