@@ -22,6 +22,30 @@
       "revId": "822e174a83a97a5574099b7322df877054601b37",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca01958a_1fca5080",
+        "filename": "samples/SupportPreferenceDemos/src/main/res/values-v21/styles.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-08-17T18:10:14Z",
+      "side": 1,
+      "message": "ah yes, when I was showing it to UX, I would remove these lines so we can see our colors.  I just removed them now.",
+      "parentUuid": "b2e9c9ef_7c9af3af",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 59
+      },
+      "revId": "822e174a83a97a5574099b7322df877054601b37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
