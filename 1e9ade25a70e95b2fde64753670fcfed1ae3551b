@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "186097e1_131bfa31",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/DialogFragmentTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-08-17T21:42:30Z",
+      "side": 1,
+      "message": "This should be moved right before the assertNull() call to make it clear that the first latch controls these first two checks and this latch covers the last check.",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 29
+      },
+      "revId": "1e9ade25a70e95b2fde64753670fcfed1ae3551b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
