@@ -22,6 +22,30 @@
       "revId": "096a694e0b617165eb465987bc9e9a0aeb9332b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca54997c_c52a2378",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-08-17T08:02:46Z",
+      "side": 1,
+      "message": "Done and sent http://aosp/733847 for renaming the artifact in the prebuilt branch.",
+      "parentUuid": "797699ce_b9b3d025",
+      "range": {
+        "startLine": 30,
+        "startChar": 51,
+        "endLine": 30,
+        "endChar": 72
+      },
+      "revId": "096a694e0b617165eb465987bc9e9a0aeb9332b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
