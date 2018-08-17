@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">SupportAppCompatDemos</string>
+    <string name="controls_activity">ControlsActivity</string>
+    <string name="controls_activity_light_themed">ControlsActivityLightThemed</string>
+    <string name="controls_activity_day_night_themed">ControlsActivityDaynightThemed</string>
+    <string name="normal_theme">Normal Theme</string>
+    <string name="light_theme">Light Theme</string>
+    <string name="day_night_theme">DayNight Theme</string>
+    <string name="enabled_control">Enabled</string>
+    <string name="disabled_control">Disabled</string>
+    <string name="enabled_button_notification">The enabled button was not clicked</string>
+    <string name="disabled_button_notification">The disabled button was not clicked</string>
+    <string name="enabled_switch_off_notification">The enabled switch is off</string>
+    <string name="disabled_switch_off_notification">The disabled switch is off</string>
+    <string name="checkbox">Checkbox</string>
+    <string name="checkbox_unchecked_notification">Checkbox is unchecked</string>
+    <string name="edittext_empty">The EditText box is empty</string>
+    <string name="rb1">RadioButton 1</string>
+    <string name="rb2">RadioButton 2</string>
+    <string name="rb1_unchecked_notification">RadioButton1 is unchecked</string>
+    <string name="rb2_unchecked_notification">RadioButton2 is unchecked</string>
+    <string name="star">Star</string>
+    <string name="star_unchecked_notification">Star is unchecked</string>
+    <string name="toggle_button_off_notification">ToggleButton is off</string>
+    <string name="enabled_button_clicked_notification">The enabled button was clicked!</string>
+    <string name="disabled_button_clicked_notification">The disabled button was clicked!</string>
+    <string name="enabled_switch_on_notification">The enabled switch is on</string>
+    <string name="disabled_switch_on_notification">The disabled switch is on</string>
+    <string name="checkbox_checked_notification">Checkbox is checked</string>
+    <string name="rb1_checked_notification">RadioButton1 is checked</string>
+    <string name="rb2_checked_notification">RadioButton2 is checked</string>
+    <string name="editbox_contains">The EditText says "</string>
+    <string name="star_checked_notification">Star is checked</string>
+    <string name="toggle_button_on_notification">ToggleButton is on</string>
+    <string name="is_selected"> is selected on the spinner</string>
+
+
+
+    <!-- Shouldn't be localized -->
+    <string name="textColorPrimary">textColorPrimary</string>
+    <string name="textColorSecondary">textColorSecondary</string>
+    <string name="textColorTertiary">textColorTertiary</string>
+    <string name="listSeparatorTextViewStyle">listSeparatorTextViewStyle</string>
+
+
+</resources>
