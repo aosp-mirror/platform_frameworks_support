@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e5ad2b49_247f4079",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-17T22:08:01Z",
+      "side": 1,
+      "message": "These setters just return the same object to allow chaining (e.g.: \"destionation.setDistance(X).setAddress(Y)\"). As such this method will never return null (it just return this).\nIf you feel this is an anti-pattern (setters should return void), I can update this (although I believe it makes this class less practical to use).",
+      "parentUuid": "05a865a2_77f2c93d",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 89,
+        "endChar": 10
+      },
+      "revId": "6caf7ff3669e63a22a5ab2a2570463681627c662",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c38ea116_b135dbdc",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
         "patchSetId": 30
@@ -45,6 +69,30 @@
       "revId": "6caf7ff3669e63a22a5ab2a2570463681627c662",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bbd5e5b_4bfec0ba",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-17T22:08:01Z",
+      "side": 1,
+      "message": "See my comment on the Destination class.",
+      "parentUuid": "c38ea116_b135dbdc",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 10
+      },
+      "revId": "6caf7ff3669e63a22a5ab2a2570463681627c662",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
