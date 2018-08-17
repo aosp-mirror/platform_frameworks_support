@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29c23fdc_9c77e35c",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T16:41:35Z",
+      "side": 1,
+      "message": "NonNull?",
+      "range": {
+        "startLine": 533,
+        "startChar": 24,
+        "endLine": 533,
+        "endChar": 36
+      },
+      "revId": "f34f9f1cb9677fb6a1869785651c54827ebcc14a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5656aeb9_b077810b",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T16:41:35Z",
+      "side": 1,
+      "message": "What does this mean? I dont follow what asPrimary\u003dtrue means.",
+      "range": {
+        "startLine": 541,
+        "startChar": 11,
+        "endLine": 541,
+        "endChar": 71
+      },
+      "revId": "f34f9f1cb9677fb6a1869785651c54827ebcc14a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dbfe91b_c5350e84",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T16:41:35Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 543,
+        "startChar": 24,
+        "endLine": 543,
+        "endChar": 36
+      },
+      "revId": "f34f9f1cb9677fb6a1869785651c54827ebcc14a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18f20409_bf2ed01e",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T16:41:35Z",
+      "side": 1,
+      "message": "Nullability for all other params in this class.",
+      "range": {
+        "startLine": 558,
+        "startChar": 26,
+        "endLine": 558,
+        "endChar": 32
+      },
+      "revId": "f34f9f1cb9677fb6a1869785651c54827ebcc14a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee3fd8d5_bc26cbbd",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T16:41:35Z",
+      "side": 1,
+      "message": "Can we keep this class package private? Do we expect people to extend ActionButtonListItem?",
+      "range": {
+        "startLine": 613,
+        "startChar": 3,
+        "endLine": 613,
+        "endChar": 64
+      },
+      "revId": "f34f9f1cb9677fb6a1869785651c54827ebcc14a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa981f1d_db8521f3",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T16:41:35Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 629,
+        "startChar": 27,
+        "endLine": 629,
+        "endChar": 39
+      },
+      "revId": "f34f9f1cb9677fb6a1869785651c54827ebcc14a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da325267_784a961d",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T16:41:35Z",
+      "side": 1,
+      "message": "Should this be called getPrimaryAction? You call it that way in the outer class.",
+      "range": {
+        "startLine": 677,
+        "startChar": 22,
+        "endLine": 677,
+        "endChar": 32
+      },
+      "revId": "f34f9f1cb9677fb6a1869785651c54827ebcc14a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c1303d0_0cce8ae1",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-17T16:41:35Z",
+      "side": 1,
+      "message": "Should this be getSecondaryAction()?",
+      "range": {
+        "startLine": 687,
+        "startChar": 22,
+        "endLine": 687,
+        "endChar": 32
+      },
+      "revId": "f34f9f1cb9677fb6a1869785651c54827ebcc14a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
