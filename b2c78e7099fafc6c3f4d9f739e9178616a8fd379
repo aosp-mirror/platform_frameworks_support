@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8689c854_93f1db1b",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/view/menu/ActionMenuItemTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-17T12:36:32Z",
+      "side": 1,
+      "message": "so we are testing SHOW_AS_ACTION_NEVER has no effect in requiresActionButton and requiresOverflow?\n\nIf so, we better rename this test to reflect this?",
+      "revId": "b2c78e7099fafc6c3f4d9f739e9178616a8fd379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "536cf42a_70402c83",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/view/menu/MenuItemImplTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-17T12:36:32Z",
+      "side": 1,
+      "message": "mmm, the test name does not reflect what it testing?\n\nrequiresActionButton and requiresOverflow are both tested in these two tests.",
+      "revId": "b2c78e7099fafc6c3f4d9f739e9178616a8fd379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6925450b_f7f2fc8b",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/FloatingToolbarTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-17T12:36:32Z",
+      "side": 1,
+      "message": "Q: I assume it is not necessary to revert after the test, as we are just changing the flag in the local copy of the application info, right?",
+      "revId": "b2c78e7099fafc6c3f4d9f739e9178616a8fd379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "205bcb52_228f0c6f",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/FloatingToolbar.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-17T12:36:32Z",
+      "side": 1,
+      "message": "nit: so you did catch a bug  :)",
+      "revId": "b2c78e7099fafc6c3f4d9f739e9178616a8fd379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
