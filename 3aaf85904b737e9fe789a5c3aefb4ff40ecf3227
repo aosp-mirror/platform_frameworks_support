@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed851de9_ed0f6b42",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1939,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-08-17T19:48:36Z",
+      "side": 1,
+      "message": "We\u0027re allocating here but using the cached array mReusableIntPair above? Should we consistently do one or the other?",
+      "range": {
+        "startLine": 1939,
+        "startChar": 25,
+        "endLine": 1939,
+        "endChar": 35
+      },
+      "revId": "3aaf85904b737e9fe789a5c3aefb4ff40ecf3227",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bcbd5ca_0607343c",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 5108,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-08-17T19:48:36Z",
+      "side": 1,
+      "message": "Can we resolve this?",
+      "range": {
+        "startLine": 5108,
+        "startChar": 19,
+        "endLine": 5108,
+        "endChar": 98
+      },
+      "revId": "3aaf85904b737e9fe789a5c3aefb4ff40ecf3227",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4472ea74_7edacf5a",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 5168,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-08-17T19:48:36Z",
+      "side": 1,
+      "message": "Can we resolve this?",
+      "range": {
+        "startLine": 5168,
+        "startChar": 23,
+        "endLine": 5168,
+        "endChar": 88
+      },
+      "revId": "3aaf85904b737e9fe789a5c3aefb4ff40ecf3227",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
