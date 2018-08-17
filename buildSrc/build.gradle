@@ -1,12 +1,7 @@
 buildscript {
-    def supportRootFolder = project.projectDir.getParentFile()
-    apply from: "unbundled_check.gradle"
     repositories {
         maven {
-            url "${supportRootFolder}/../../prebuilts/androidx/external"
-        }
-        if (isUnbundledBuild(supportRootFolder)) {
-            jcenter()
+            url "${project.projectDir.getParentFile()}/../../prebuilts/androidx/external"
         }
     }
 
