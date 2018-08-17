@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90d5484c_1da70e91",
+        "filename": "animation/src/main/java/androidx/animation/Keyframe.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-17T22:11:57Z",
+      "side": 1,
+      "message": "why is this nullable? when would the value be null?\n\ngiven that animators and interpolators work on nonnull values, shouldn\u0027t this be nonnull?",
+      "revId": "28ec2fb0b1b65ca662206dd8e86a6e84b99031e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fc8f6ce_778220d3",
+        "filename": "animation/src/main/java/androidx/animation/PropertyValuesHolder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-17T22:11:57Z",
+      "side": 1,
+      "message": "why are several of the below similar methods not also SafeVarargs?",
+      "revId": "28ec2fb0b1b65ca662206dd8e86a6e84b99031e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28e71997_4cce007a",
+        "filename": "animation/src/main/java/androidx/animation/TypeConverter.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-17T22:11:57Z",
+      "side": 1,
+      "message": "param nonnull",
+      "revId": "28ec2fb0b1b65ca662206dd8e86a6e84b99031e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
