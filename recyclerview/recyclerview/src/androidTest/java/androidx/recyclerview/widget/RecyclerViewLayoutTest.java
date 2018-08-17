@@ -1746,57 +1746,65 @@ public class RecyclerViewLayoutTest extends BaseRecyclerViewInstrumentationTest 
 
     @Test
     public void scrollInBothDirectionEqual() throws Throwable {
-        scrollInBothDirection(3, 3, 1000, 1000);
+        scrollInBothDirection(3, 3, 1, 1);
     }
 
     @Test
     public void scrollInBothDirectionMoreVertical() throws Throwable {
-        scrollInBothDirection(2, 3, 1000, 1000);
+        scrollInBothDirection(2, 3, 1, 1);
     }
 
     @Test
     public void scrollInBothDirectionMoreHorizontal() throws Throwable {
-        scrollInBothDirection(3, 2, 1000, 1000);
+        scrollInBothDirection(3, 2, 1, 1);
     }
 
     @Test
     public void scrollHorizontalOnly() throws Throwable {
-        scrollInBothDirection(3, 0, 1000, 0);
+        scrollInBothDirection(3, 0, 1, 0);
     }
 
     @Test
     public void scrollVerticalOnly() throws Throwable {
-        scrollInBothDirection(0, 3, 0, 1000);
+        scrollInBothDirection(0, 3, 0, 1);
     }
 
     @Test
     public void scrollInBothDirectionEqualReverse() throws Throwable {
-        scrollInBothDirection(3, 3, -1000, -1000);
+        scrollInBothDirection(3, 3, -1, -1);
     }
 
     @Test
     public void scrollInBothDirectionMoreVerticalReverse() throws Throwable {
-        scrollInBothDirection(2, 3, -1000, -1000);
+        scrollInBothDirection(2, 3, -1, -1);
     }
 
     @Test
     public void scrollInBothDirectionMoreHorizontalReverse() throws Throwable {
-        scrollInBothDirection(3, 2, -1000, -1000);
+        scrollInBothDirection(3, 2, -1, -1);
     }
 
     @Test
     public void scrollHorizontalOnlyReverse() throws Throwable {
-        scrollInBothDirection(3, 0, -1000, 0);
+        scrollInBothDirection(3, 0, -1, 0);
     }
 
     @Test
     public void scrollVerticalOnlyReverse() throws Throwable {
-        scrollInBothDirection(0, 3, 0, -1000);
+        scrollInBothDirection(0, 3, 0, -1);
     }
 
     public void scrollInBothDirection(int horizontalScrollCount, int verticalScrollCount,
-            int horizontalVelocity, int verticalVelocity)
+            int horizontalDirection, int verticalDirection)
             throws Throwable {
+
+        ViewConfiguration viewConfiguration = ViewConfiguration.get(getActivity());
+        int minFlingVelocity = viewConfiguration.getScaledMinimumFlingVelocity();
+        int maxFlingVelocity = viewConfiguration.getScaledMaximumFlingVelocity();
+        int averageVelocity = (minFlingVelocity + maxFlingVelocity) / 2;
+        int horizontalVelocity = averageVelocity * horizontalDirection;
+        int verticalVelocity = averageVelocity * verticalDirection;
+
         RecyclerView recyclerView = new RecyclerView(getActivity());
         final AtomicInteger horizontalCounter = new AtomicInteger(horizontalScrollCount);
         final AtomicInteger verticalCounter = new AtomicInteger(verticalScrollCount);
