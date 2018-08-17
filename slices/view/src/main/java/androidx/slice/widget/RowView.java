@@ -153,7 +153,6 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     private int mIdealRangeHeight;
     // How big mRangeBar wants to be.
     private int mMeasuredRangeHeight;
-    private int mMaxSmallHeight;
 
     public RowView(Context context) {
         super(context);
@@ -334,15 +333,17 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         if (titleItem != null) {
             mPrimaryText.setText(titleItem.getText());
         }
+        boolean useHeaderStyling = mIsHeader
+                || (mRowIndex == 0 && mViewPolicy.enforceHeaderStyling());
         if (mSliceStyle != null) {
-            mPrimaryText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mIsHeader
+            mPrimaryText.setTextSize(TypedValue.COMPLEX_UNIT_PX, useHeaderStyling
                     ? mSliceStyle.getHeaderTitleSize()
                     : mSliceStyle.getTitleSize());
             mPrimaryText.setTextColor(mSliceStyle.getTitleColor());
         }
         mPrimaryText.setVisibility(titleItem != null ? View.VISIBLE : View.GONE);
 
-        addSubtitle(titleItem != null /* hasTitle */);
+        addSubtitle(titleItem != null /* hasTitle */, useHeaderStyling);
 
         SliceItem primaryAction = mRowContent.getPrimaryAction();
         if (primaryAction != null && primaryAction != mStartItem) {
@@ -446,11 +447,12 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         super.setLastUpdated(lastUpdated);
         if (mRowContent != null) {
             addSubtitle(mRowContent.getTitleItem() != null
-                    && TextUtils.isEmpty(mRowContent.getTitleItem().getText()));
+                    && TextUtils.isEmpty(mRowContent.getTitleItem().getText()),
+                        mIsHeader || (mViewPolicy.enforceHeaderStyling() && mRowIndex == 0));
         }
     }
 
-    private void addSubtitle(boolean hasTitle) {
+    private void addSubtitle(boolean hasTitle, boolean useHeaderStyling) {
         if (mRowContent == null) {
             return;
         }
@@ -471,11 +473,11 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         if (subtitleExists) {
             mSecondaryText.setText(subtitle);
             if (mSliceStyle != null) {
-                mSecondaryText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mIsHeader
+                mSecondaryText.setTextSize(TypedValue.COMPLEX_UNIT_PX, useHeaderStyling
                         ? mSliceStyle.getHeaderSubtitleSize()
                         : mSliceStyle.getSubtitleSize());
                 mSecondaryText.setTextColor(mSliceStyle.getSubtitleColor());
-                int verticalPadding = mIsHeader
+                int verticalPadding = useHeaderStyling
                         ? mSliceStyle.getVerticalHeaderTextPadding()
                         : mSliceStyle.getVerticalTextPadding();
                 mSecondaryText.setPadding(0, verticalPadding, 0, 0);
@@ -489,7 +491,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             sp.setSpan(new StyleSpan(Typeface.ITALIC), 0, subtitleTimeString.length(), 0);
             mLastUpdatedText.setText(sp);
             if (mSliceStyle != null) {
-                mLastUpdatedText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mIsHeader
+                mLastUpdatedText.setTextSize(TypedValue.COMPLEX_UNIT_PX, useHeaderStyling
                         ? mSliceStyle.getHeaderSubtitleSize() : mSliceStyle.getSubtitleSize());
                 mLastUpdatedText.setTextColor(mSliceStyle.getSubtitleColor());
             }

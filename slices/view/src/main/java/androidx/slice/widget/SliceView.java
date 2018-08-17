@@ -610,6 +610,22 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
     }
 
     /**
+     * Sets whether the first row should always be styled like a header regardless of the first
+     * item being constructed via a HeaderBuilder or not.
+     */
+    public void enforceHeaderStyling(boolean enforce) {
+        mViewPolicy.setEnforceHeaderStyling(enforce);
+    }
+
+    /**
+     * @return Whether the first row is style like a header regardless of the first item being
+     * constructed via a HeaderBuilder or not.
+     */
+    public boolean getEnforceHeaderStyling() {
+        return mViewPolicy.enforceHeaderStyling();
+    }
+
+    /**
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)

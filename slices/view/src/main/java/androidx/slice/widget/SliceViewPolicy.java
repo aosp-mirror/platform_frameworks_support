@@ -50,6 +50,10 @@ public class SliceViewPolicy {
          * Notified when mode changes.
          */
         void onModeChanged(@SliceView.SliceMode int newMode);
+        /**
+         * Notified when the styling of the header changes.
+         */
+        void onHeaderStylingChanged(boolean newEnforceHeaderStyling);
     }
 
     private int mMaxHeight = 0;
@@ -57,6 +61,7 @@ public class SliceViewPolicy {
     private boolean mScrollable = true;
     private @SliceView.SliceMode int mMode = MODE_LARGE;
     private PolicyChangeListener mListener;
+    private boolean mEnforceHeaderStyling = false;
 
     /**
      * @param listener the listener to notify for policy changes.
@@ -91,6 +96,14 @@ public class SliceViewPolicy {
      */
     public @SliceView.SliceMode int getMode() {
         return mMode;
+    }
+
+    /**
+     * @return whether header styling should be enforced on the first row regardless of it being
+     * a row or a header.
+     */
+    public boolean enforceHeaderStyling() {
+        return mEnforceHeaderStyling;
     }
 
     /**
@@ -137,6 +150,19 @@ public class SliceViewPolicy {
             mMode = mode;
             if (mListener != null) {
                 mListener.onModeChanged(mode);
+            }
+        }
+    }
+
+    /**
+     * Sets whether the first row should always be styled like a header regardless if the the first
+     * item is a row or a header.
+     */
+    public void setEnforceHeaderStyling(boolean enforceHeaderStyling) {
+        if (mEnforceHeaderStyling != enforceHeaderStyling) {
+            mEnforceHeaderStyling = enforceHeaderStyling;
+            if (mListener != null) {
+                mListener.onHeaderStylingChanged(mEnforceHeaderStyling);
             }
         }
     }

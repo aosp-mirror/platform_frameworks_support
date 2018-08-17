@@ -359,6 +359,14 @@ public class SliceViewTest {
         mSliceView.setSliceActions(actionsToSet);
     }
 
+    @Test
+    public void testEnforceHeaderStyling() {
+        assertFalse(mSliceView.getEnforceHeaderStyling());
+
+        mSliceView.enforceHeaderStyling(true);
+        assertTrue(mSliceView.getEnforceHeaderStyling());
+    }
+
     private SliceAction getAction(String actionName) {
         Bitmap b = Bitmap.createBitmap(50, 25, Bitmap.Config.ARGB_8888);
         new Canvas(b).drawColor(0xffff0000);

@@ -243,4 +243,11 @@ public class LargeTemplateView extends SliceChildView implements
             updateDisplayedItems(mListContent.getHeight(mSliceStyle, mViewPolicy));
         }
     }
+
+    @Override
+    public void onHeaderStylingChanged(boolean newEnforceHeaderStyling) {
+        if (mAdapter != null) {
+            mAdapter.notifyHeaderChanged();
+        }
+    }
 }

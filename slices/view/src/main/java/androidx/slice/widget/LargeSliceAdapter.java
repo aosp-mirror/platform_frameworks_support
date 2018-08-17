@@ -17,12 +17,11 @@
 package androidx.slice.widget;
 
 import static android.app.slice.Slice.HINT_HORIZONTAL;
+import static android.app.slice.Slice.HINT_LIST_ITEM;
 import static android.app.slice.Slice.SUBTYPE_MESSAGE;
 import static android.app.slice.Slice.SUBTYPE_SOURCE;
 import static android.app.slice.SliceItem.FORMAT_ACTION;
 import static android.app.slice.SliceItem.FORMAT_SLICE;
-
-import static androidx.slice.widget.SliceView.MODE_LARGE;
 
 import android.app.slice.Slice;
 import android.content.Context;
@@ -333,23 +332,24 @@ public class LargeSliceAdapter extends RecyclerView.Adapter<LargeSliceAdapter.Sl
             mSliceChildView.setOnTouchListener(this);
             mSliceChildView.setSliceActionLoadingListener(LargeSliceAdapter.this);
 
-            final boolean isHeader = position == HEADER_INDEX;
-            int mode = mParent != null ? mParent.getMode() : MODE_LARGE;
+            final boolean isFirstPosition = position == HEADER_INDEX;
+            final boolean isRealHeader = !item.getSliceItem().hasAnyHints(HINT_LIST_ITEM);
             mSliceChildView.setLoadingActions(mLoadingActions);
             mSliceChildView.setPolicy(mPolicy);
             mSliceChildView.setTint(mColor);
             mSliceChildView.setStyle(mSliceStyle);
-            mSliceChildView.setShowLastUpdated(isHeader && mShowLastUpdated);
-            mSliceChildView.setLastUpdated(isHeader ? mLastUpdated : -1);
+            mSliceChildView.setShowLastUpdated(isFirstPosition && mShowLastUpdated);
+            mSliceChildView.setLastUpdated(isFirstPosition ? mLastUpdated : -1);
             // Only apply top / bottom insets to first / last rows
             int top = position == 0 ? mInsetTop : 0;
             int bottom = position == getItemCount() - 1 ? mInsetBottom : 0;
             mSliceChildView.setInsets(mInsetStart, top, mInsetEnd, bottom);
             mSliceChildView.setAllowTwoLines(mAllowTwoLines);
-            mSliceChildView.setSliceActions(isHeader ? mSliceActions : null);
-            mSliceChildView.setSliceItem(item, isHeader, position, getItemCount(), mSliceObserver);
+            mSliceChildView.setSliceActions(isFirstPosition ? mSliceActions : null);
+            mSliceChildView.setSliceItem(item, isRealHeader, position, getItemCount(),
+                    mSliceObserver);
             int[] info = new int[2];
-            info[0] = ListContent.getRowType(item, isHeader, mSliceActions);
+            info[0] = ListContent.getRowType(item, isFirstPosition, mSliceActions);
             info[1] = position;
             mSliceChildView.setTag(info);
         }
