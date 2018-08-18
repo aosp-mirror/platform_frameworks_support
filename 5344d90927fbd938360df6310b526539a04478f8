@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "71172be7_8937a76f",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-18T05:30:10Z",
+      "side": 1,
+      "message": "Add a come snippet example of how someone would use this.",
+      "revId": "5344d90927fbd938360df6310b526539a04478f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4ba0ccf9_201e9d5d",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
         "patchSetId": 8
@@ -49,6 +66,29 @@
     },
     {
       "key": {
+        "uuid": "6867459d_c12c0d69",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-18T05:30:10Z",
+      "side": 1,
+      "message": "Why do you need @hide on this? It is a method on a private inner class.",
+      "range": {
+        "startLine": 315,
+        "startChar": 8,
+        "endLine": 316,
+        "endChar": 45
+      },
+      "revId": "5344d90927fbd938360df6310b526539a04478f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eede2987_5e3bea6e",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
         "patchSetId": 8
@@ -93,6 +133,29 @@
       "revId": "5344d90927fbd938360df6310b526539a04478f8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6652c7d4_c09b1d69",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-18T05:30:10Z",
+      "side": 1,
+      "message": "same as above. why does this need @hide?",
+      "range": {
+        "startLine": 321,
+        "startChar": 8,
+        "endLine": 322,
+        "endChar": 45
+      },
+      "revId": "5344d90927fbd938360df6310b526539a04478f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
