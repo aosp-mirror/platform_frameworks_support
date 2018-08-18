@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a1a2187_bd80edd1",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-08-18T19:39:28Z",
+      "side": 1,
+      "message": "Can drop the `let` and replace `it` with `distDir`.",
+      "revId": "546e1913ee22eddb879da218500e6a1c0caab4f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
