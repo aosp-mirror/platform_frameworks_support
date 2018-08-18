@@ -588,8 +588,8 @@ private fun createDistDocsTask(
     description = "Generates distribution artifact for d.android.com-style documentation."
     from(generateDocs.destinationDir)
     baseName = "android-support-$ruleName-docs"
-    version = project.buildNumber()
-    destinationDir = project.distDir()
+    version = getBuildId()
+    destinationDir = project.getDistributionDirectory()
     doLast {
         logger.lifecycle("'Wrote API reference to $archivePath")
     }
@@ -808,10 +808,6 @@ private fun Project.docsDir(): File = properties["docsDir"] as File
 private fun Project.sdkPath(): File = getSdkPath(rootProject.projectDir)
 
 private fun Project.version() = Version(project.version as String)
-
-private fun Project.buildNumber() = properties["buildNumber"] as String
-
-private fun Project.distDir(): File = rootProject.properties["distDir"] as File
 
 private fun Project.processProperty(name: String) =
         if (hasProperty(name)) {

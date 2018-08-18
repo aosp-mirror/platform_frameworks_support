@@ -1,3 +1,5 @@
+import androidx.build.BuildServerConfigurationKt
+
 /*
  * Copyright (C) 2017 The Android Open Source Project
  *
@@ -29,7 +31,7 @@ dependencies {
 task dist(type: Copy) {
   from project.tasks.findByPath("distZip") // defined by application plugin
 
-  destinationDir rootProject.distDir // defined by support library plugin
+  destinationDir BuildServerConfigurationKt.getDistributionDirectory(rootProject)
 }
 rootProject.tasks["createArchive"].dependsOn(dist)
 
