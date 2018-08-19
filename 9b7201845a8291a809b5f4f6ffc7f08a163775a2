@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2088ebfa_5cb3c014",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-08-19T16:03:14Z",
+      "side": 1,
+      "message": "Interesting. Do we know why databinding goes into \u0027external\u0027?\nI don\u0027t know the reason for the existing split between \u0027internal\u0027 and \u0027external\u0027; I assumed it was to help keep things organized by separating things we\u0027ve authored from things we haven\u0027t",
+      "revId": "9b7201845a8291a809b5f4f6ffc7f08a163775a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c14dcf52_db407f6e",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-08-19T16:03:14Z",
+      "side": 1,
+      "message": "If the user doesn\u0027t specify a value for artifactName, what happens? Does it declare a dependency on \"\" (probably want a usage message)?",
+      "revId": "9b7201845a8291a809b5f4f6ffc7f08a163775a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9b84f48_3fb4d531",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-08-19T16:03:14Z",
+      "side": 1,
+      "message": "Suggest supporting multiple artifacts at once by splitting on \",\" (in which case, probably want to rename the variable to \"artifactNames\")",
+      "range": {
+        "startLine": 43,
+        "startChar": 12,
+        "endLine": 43,
+        "endChar": 24
+      },
+      "revId": "9b7201845a8291a809b5f4f6ffc7f08a163775a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdf79288_2b5a1c47",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-08-19T16:03:14Z",
+      "side": 1,
+      "message": "Could we extract this into a helper function and put it near the definition of forceExternal? It seems to me that it\u0027d be easier to know the meaning of the three variables (internalArtifacts, potentialInternalArtifacts, and forceExternal) and the reason for having all of them if their usage was nearby (and then we could even move their definitions into that helper function to clarify that they\u0027re only used there)",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 29
+      },
+      "revId": "9b7201845a8291a809b5f4f6ffc7f08a163775a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "286f36e0_a76195bd",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-08-19T16:03:14Z",
+      "side": 1,
+      "message": "I think that we had a use case where we wanted to include *-sources.jar files too. Does this copy those (when they exist) too?",
+      "revId": "9b7201845a8291a809b5f4f6ffc7f08a163775a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
