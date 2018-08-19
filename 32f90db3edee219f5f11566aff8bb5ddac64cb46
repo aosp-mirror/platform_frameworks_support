@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "5ee15638_0069f04e",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-19T23:10:12Z",
+      "side": 1,
+      "message": "No, bounded is correct here. Bound service means can be bounded, and \u0027keeping running\u0027 needs \u0027foreground service or bounded service\u0027",
+      "parentUuid": "1f016015_4577621c",
+      "range": {
+        "startLine": 802,
+        "startChar": 14,
+        "endLine": 802,
+        "endChar": 21
+      },
+      "revId": "32f90db3edee219f5f11566aff8bb5ddac64cb46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d5f6642_431ddf70",
         "filename": "media2/src/main/java/androidx/media2/MediaController2ImplBase.java",
         "patchSetId": 6
