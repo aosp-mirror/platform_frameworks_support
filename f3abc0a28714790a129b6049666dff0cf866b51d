@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8349d96d_1664e7aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-19T10:14:19Z",
+      "side": 1,
+      "message": "This should be 112290073",
+      "range": {
+        "startLine": 9,
+        "startChar": 16,
+        "endLine": 9,
+        "endChar": 30
+      },
+      "revId": "f3abc0a28714790a129b6049666dff0cf866b51d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4701c8b6_838e9a4f",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlaylistAgentImplBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-19T10:14:19Z",
+      "side": 1,
+      "message": "How does this fixes the flakiness? (i.e. Why was the previous code flaky?)",
+      "range": {
+        "startLine": 186,
+        "startChar": 12,
+        "endLine": 186,
+        "endChar": 46
+      },
+      "revId": "f3abc0a28714790a129b6049666dff0cf866b51d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
