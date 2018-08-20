@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "889a4467_3162e871",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/ListBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-08-20T18:30:17Z",
+      "side": 1,
+      "message": "This was an erroneous \"organize imports\"; I\u0027ll revert it in the next patch set.",
+      "revId": "538203566c645fcb611e749a1640707b4028989b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
