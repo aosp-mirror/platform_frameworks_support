@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9979ac54_4d48ed5e",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/InsertionMethod.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2018-08-20T19:42:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d762a7b_d11675ed",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 5
+      },
+      "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ba26b4c_b3b5ad96",
         "filename": "room/compiler/src/main/kotlin/androidx/room/writer/ShortcutMethodWriter.kt",
         "patchSetId": 4
@@ -94,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "f6a96fe1_a8e596e8",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/ShortcutMethodWriter.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2018-08-20T19:42:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9030e58_83a6847b",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 29
+      },
+      "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e92c6542_2472bf04",
         "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binder/InstantShortcutMethodBinder.kt",
         "patchSetId": 4
@@ -140,6 +188,30 @@
     },
     {
       "key": {
+        "uuid": "8c8a29e7_6334e162",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binder/InstantShortcutMethodBinder.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2018-08-20T19:42:13Z",
+      "side": 1,
+      "message": "Keeping this as Instant for now since the query related classes are also `Instant`",
+      "parentUuid": "e8979781_ac458f3e",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 13
+      },
+      "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "163984e1_af540ebc",
         "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binder/InstantShortcutMethodBinder.kt",
         "patchSetId": 4
@@ -154,6 +226,24 @@
       "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f6bdab7_5c5e1505",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binder/InstantShortcutMethodBinder.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2018-08-20T19:42:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "163984e1_af540ebc",
+      "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -203,6 +293,54 @@
     },
     {
       "key": {
+        "uuid": "f969d417_e5293e3b",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binder/InstantShortcutMethodBinder.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2018-08-20T19:42:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e04c8f4c_6b39e28f",
+      "range": {
+        "startLine": 47,
+        "startChar": 22,
+        "endLine": 47,
+        "endChar": 52
+      },
+      "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8045ba82_44a2969b",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binder/InstantShortcutMethodBinder.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2018-08-20T19:42:13Z",
+      "side": 1,
+      "message": "Separated into 2 cases, since update and delete are very similar",
+      "parentUuid": "a2e57f41_25fb7fca",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 94
+      },
+      "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6c292361_ed8a0551",
         "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binder/ShortcutMethodBinder.kt",
         "patchSetId": 4
@@ -223,6 +361,30 @@
       "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73910157_1a267922",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binder/ShortcutMethodBinder.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2018-08-20T19:42:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c292361_ed8a0551",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 38
+      },
+      "revId": "145dfa6dd2d08afa74c48665417f8f49b85d7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
