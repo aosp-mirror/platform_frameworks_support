@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40745557_46cdeb54",
+        "filename": "car/core/src/main/java/androidx/car/widget/SeekbarListItem.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-20T21:03:53Z",
+      "side": 1,
+      "message": "@NonNull? @Nullable?",
+      "range": {
+        "startLine": 177,
+        "startChar": 24,
+        "endLine": 177,
+        "endChar": 36
+      },
+      "revId": "f4380480ea57fb82d4b90ab4087a461d631e6a51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b83dff8e_ab04fa98",
+        "filename": "car/core/src/main/java/androidx/car/widget/SubheaderListItem.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-20T21:03:53Z",
+      "side": 1,
+      "message": "@NonNull? @Nullable?",
+      "range": {
+        "startLine": 58,
+        "startChar": 46,
+        "endLine": 58,
+        "endChar": 58
+      },
+      "revId": "f4380480ea57fb82d4b90ab4087a461d631e6a51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c090c720_3ed9e6f6",
+        "filename": "car/core/src/main/java/androidx/car/widget/SubheaderListItem.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-20T21:03:53Z",
+      "side": 1,
+      "message": "@NonNull? @Nullable?",
+      "range": {
+        "startLine": 58,
+        "startChar": 29,
+        "endLine": 58,
+        "endChar": 36
+      },
+      "revId": "f4380480ea57fb82d4b90ab4087a461d631e6a51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4455a040_bd879fb1",
+        "filename": "car/core/src/main/java/androidx/car/widget/SubheaderListItem.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-20T21:03:53Z",
+      "side": 1,
+      "message": "@NonNull? @Nullable?",
+      "range": {
+        "startLine": 98,
+        "startChar": 24,
+        "endLine": 98,
+        "endChar": 36
+      },
+      "revId": "f4380480ea57fb82d4b90ab4087a461d631e6a51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
