@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c36f8a28_8fcf9b3d",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_volume_layout.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-20T10:58:53Z",
+      "side": 0,
+      "message": "question) why did you remove this layout? Previously I asked about \u003cmerge\u003e tag and didn\u0027t asked to merge two layout files.",
+      "revId": "1c11f02b8e9d878401a6aeb571fd71d213a4105a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
