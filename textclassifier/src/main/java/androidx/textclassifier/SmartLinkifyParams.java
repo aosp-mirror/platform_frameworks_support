@@ -18,55 +18,60 @@ package androidx.textclassifier;
 
 import android.text.Spannable;
 import android.text.style.ClickableSpan;
+import android.util.ArrayMap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.core.os.LocaleListCompat;
+import androidx.core.util.Function;
 import androidx.core.util.Preconditions;
-import androidx.textclassifier.TextLinks.SpanFactory;
+import androidx.textclassifier.TextClassifier.EntityType;
 import androidx.textclassifier.TextLinks.TextLink;
 import androidx.textclassifier.TextLinks.TextLinkSpan;
+import androidx.textclassifier.TextLinks.TextLinkSpanData;
+
+import java.util.Collections;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * Used to specify how to generate and apply links when using SmartLinkify APIs.
  */
 public final class SmartLinkifyParams {
 
-    /**
-     * A function to create spans from TextLinks.
-     */
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    static final SpanFactory DEFAULT_SPAN_FACTORY = new SpanFactory() {
-        @Override
-        public TextLinkSpan createSpan(@NonNull TextLinks.TextLinkSpanData textLinkSpan) {
-            return new TextLinkSpan(textLinkSpan);
-        }
-    };
-
     @TextLinks.ApplyStrategy
     private final int mApplyStrategy;
-    private final SpanFactory mSpanFactory;
+    private final Function<TextLinkSpanData, TextLinkSpan> mSpanFactory;
     @Nullable private final TextClassifier.EntityConfig mEntityConfig;
     @Nullable private final LocaleListCompat mDefaultLocales;
     @Nullable private final Long mReferenceTime;
+    private final Map<Pattern, String> mPatternsMap;
+    private MatchMaker mMatchMaker;
 
     SmartLinkifyParams(
             @TextLinks.ApplyStrategy int applyStrategy,
-            SpanFactory spanFactory,
+            Function<TextLinkSpanData, TextLinkSpan> spanFactory,
             @Nullable TextClassifier.EntityConfig entityConfig,
             @Nullable LocaleListCompat defaultLocales,
-            @Nullable Long referenceTime) {
+            @Nullable Long referenceTime,
+            Map<Pattern, String> patternsMap,
+            MatchMaker matchMaker) {
         mApplyStrategy = applyStrategy;
         mSpanFactory = spanFactory;
         mEntityConfig = entityConfig;
         mDefaultLocales = defaultLocales;
         mReferenceTime = referenceTime;
+        mPatternsMap = Collections.unmodifiableMap(patternsMap);
+        mMatchMaker = matchMaker;
     }
 
     /**
      * Returns the entity config used to determine what entity types to generate.
+     *
+     * @hide
      */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     @Nullable
     TextClassifier.EntityConfig getEntityConfig() {
         return mEntityConfig;
@@ -74,11 +79,30 @@ public final class SmartLinkifyParams {
 
     /**
      * Returns an ordered list of locale preferences that can be used to disambiguate
-     * the provided text
+     * the provided text.
+     *
+     * @hide
      */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     @Nullable
     LocaleListCompat getDefaultLocales() {
         return mDefaultLocales;
+    }
+
+    /**
+     * Returns mappings of regex pattern to entity type.
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    Map<Pattern, String> getPatterns() {
+        return mPatternsMap;
+    }
+
+    /** @hide */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    MatchMaker getMatchMaker() {
+        return mMatchMaker;
     }
 
     /**
@@ -89,7 +113,10 @@ public final class SmartLinkifyParams {
      * @param textLinks the links to apply to the text
      *
      * @return a status code indicating whether or not the links were successfully applied
+     *
+     * @hide
      */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     @TextLinks.Status
     int apply(@NonNull Spannable text,
             @NonNull TextLinks textLinks,
@@ -107,9 +134,9 @@ public final class SmartLinkifyParams {
 
         int applyCount = 0;
         for (TextLink link : textLinks.getLinks()) {
-            TextLinks.TextLinkSpanData textLinkSpanData =
-                    new TextLinks.TextLinkSpanData(link, textClassifier, mReferenceTime);
-            final TextLinkSpan span = mSpanFactory.createSpan(textLinkSpanData);
+            TextLinkSpanData textLinkSpanData = new TextLinkSpanData(
+                    link, textClassifier, mMatchMaker, mReferenceTime);
+            final TextLinkSpan span = mSpanFactory.apply(textLinkSpanData);
             if (span != null) {
                 final ClickableSpan[] existingSpans = text.getSpans(
                         link.getStart(), link.getEnd(), ClickableSpan.class);
@@ -136,21 +163,12 @@ public final class SmartLinkifyParams {
     }
 
     /**
-     * @return reference time based on which relative dates (e.g. "tomorrow") should be
-     *      interpreted.
-     * @hide
-     */
-    // TODO: Make public API.
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
-    @Nullable
-    public Long getReferenceTime() {
-        return mReferenceTime;
-    }
-
-    /**
      * Returns true if it is possible to apply the specified textLinks to the specified text.
      * Otherwise, returns false.
+     *
+     * @hide
      */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     boolean canApply(@NonNull Spannable text, @NonNull TextLinks textLinks) {
         return text.toString().startsWith(textLinks.getText().toString());
     }
@@ -160,12 +178,22 @@ public final class SmartLinkifyParams {
      */
     public static final class Builder {
 
+        private static final Function<TextLinkSpanData, TextLinkSpan> DEFAULT_SPAN_FACTORY =
+                new Function<TextLinkSpanData, TextLinkSpan>() {
+                    @Override
+                    public TextLinkSpan apply(TextLinkSpanData data) {
+                        return new TextLinkSpan(data);
+                    }
+                };
+
         @TextLinks.ApplyStrategy
         private int mApplyStrategy = TextLinks.APPLY_STRATEGY_IGNORE;
-        private SpanFactory mSpanFactory = DEFAULT_SPAN_FACTORY;
+        private Function<TextLinkSpanData, TextLinkSpan> mSpanFactory = DEFAULT_SPAN_FACTORY;
         @Nullable private TextClassifier.EntityConfig mEntityConfig;
         @Nullable private LocaleListCompat mDefaultLocales;
         @Nullable private Long mReferenceTime;
+        private final Map<Pattern, String> mPatternsMap = new ArrayMap<>();
+        private MatchMaker mMatchMaker = MatchMaker.NO_OP;
 
         /**
          * Sets the apply strategy used to determine how to apply links to text.
@@ -182,12 +210,12 @@ public final class SmartLinkifyParams {
          * Sets a custom span factory for converting TextLinks to TextLinkSpans.
          * Set to {@code null} to use the default span factory.
          *
-         * @return this builder
+         * <strong>NOTE: </strong> the span factory must never return {@code null}.
          *
-         * @hide
+         * @return this builder
          */
-        @RestrictTo(RestrictTo.Scope.LIBRARY)
-        public Builder setSpanFactory(@Nullable SpanFactory spanFactory) {
+        public Builder setSpanFactory(
+                @Nullable Function<TextLinkSpanData, TextLinkSpan> spanFactory) {
             mSpanFactory = spanFactory == null ? DEFAULT_SPAN_FACTORY : spanFactory;
             return this;
         }
@@ -236,23 +264,75 @@ public final class SmartLinkifyParams {
         }
 
         /**
+         * Maps a regex pattern to an entity type.
+         * This indicates that sections of the text that match the specified pattern should be
+         * treated as the specified entity type.
+         *
+         * @param pattern the regex pattern
+         * @param entityType the entity type that the matching subsequence should be treated as
+         *
+         * @return this builder
+         */
+        @NonNull
+        public Builder addPattern(
+                @NonNull Pattern pattern, @NonNull @EntityType String entityType) {
+            mPatternsMap.put(
+                    Preconditions.checkNotNull(pattern), Preconditions.checkNotNull(entityType));
+            return this;
+        }
+
+        /**
+         * Sets the matchmaker which returns a list of ordered actions for a specified entity type.
+         *
+         * <ul>
+         *  <li>Use to include custom actions when handling links.
+         *  <li>Use with {@link #addPattern(Pattern, String)} to customize generating and handling
+         *      of links based on regex patterns.
+         * </ul>
+         *
+         * <p>e.g.
+         * <pre>{@code
+         *      new SmartLinkifyParams.Builder()
+         *          .addPattern(myDatePattern, TextClassifier.TYPE_DATE)
+         *          .addPattern(customPattern1, "com.myapp.entitytype.custom1")
+         *          .setMatchMaker((entityType, text) -> {
+         *              if (isMyCustomEntityType(entityType)) {
+         *                  return createActions(entityType, text);
+         *              }
+         *              return Collections.emptyList();
+         *          })
+         *          .build();
+         * }</pre>
+         *
+         * @param matchMaker the actions generator
+         *
+         * @return this builder
+         */
+        @NonNull
+        public Builder setMatchMaker(@Nullable MatchMaker matchMaker) {
+            mMatchMaker = matchMaker == null ? MatchMaker.NO_OP : matchMaker;
+            return this;
+        }
+
+        /**
          * Builds and returns a SmartLinkifyParams object.
          */
         public SmartLinkifyParams build() {
             return new SmartLinkifyParams(
-                    mApplyStrategy, mSpanFactory, mEntityConfig, mDefaultLocales, mReferenceTime);
+                    mApplyStrategy, mSpanFactory, mEntityConfig, mDefaultLocales, mReferenceTime,
+                    mPatternsMap, mMatchMaker);
         }
-    }
 
-    /** @throws IllegalArgumentException if the value is invalid */
-    @TextLinks.ApplyStrategy
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    static int checkApplyStrategy(int applyStrategy) {
-        if (applyStrategy != TextLinks.APPLY_STRATEGY_IGNORE
-                && applyStrategy != TextLinks.APPLY_STRATEGY_REPLACE) {
-            throw new IllegalArgumentException(
-                    "Invalid apply strategy. See SmartLinkifyParams.ApplyStrategy for options.");
+        /** @throws IllegalArgumentException if the value is invalid */
+        @TextLinks.ApplyStrategy
+        private static int checkApplyStrategy(int applyStrategy) {
+            if (applyStrategy != TextLinks.APPLY_STRATEGY_IGNORE
+                    && applyStrategy != TextLinks.APPLY_STRATEGY_REPLACE) {
+                throw new IllegalArgumentException(
+                        "Invalid apply strategy. "
+                                + "See SmartLinkifyParams.ApplyStrategy for options.");
+            }
+            return applyStrategy;
         }
-        return applyStrategy;
     }
 }

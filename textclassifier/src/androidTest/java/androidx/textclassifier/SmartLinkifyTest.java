@@ -39,6 +39,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.os.LocaleListCompat;
+import androidx.core.util.Function;
 import androidx.core.util.Preconditions;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
@@ -135,7 +136,7 @@ public class SmartLinkifyTest {
     @Test
     public void noLinksFound() {
         final Spannable text = new SpannableString("This is some random text.");
-        final TextLinks noLinks = new TextLinks.Builder(text.toString()).build();
+        final TextLinks noLinks = new TextLinks.Builder(text).build();
         when(mClassifier.generateLinks(any(TextLinks.Request.class))).thenReturn(noLinks);
 
         SmartLinkify.addLinksAsync(text, mContext, mClassifier, PARAMS,
@@ -306,9 +307,9 @@ public class SmartLinkifyTest {
         final SmartLinkifyParams params = new SmartLinkifyParams.Builder()
                 .setEntityConfig(new TextClassifier.EntityConfig.Builder().build())
                 .setDefaultLocales(LocaleListCompat.create(Locale.CANADA_FRENCH))
-                .setSpanFactory(new TextLinks.SpanFactory() {
+                .setSpanFactory(new Function<TextLinks.TextLinkSpanData, TextLinks.TextLinkSpan>() {
                     @Override
-                    public TextLinks.TextLinkSpan createSpan(
+                    public TextLinks.TextLinkSpan apply(
                             TextLinks.TextLinkSpanData textLinkSpanData) {
                         return span;
                     }
@@ -390,7 +391,7 @@ public class SmartLinkifyTest {
         assertThat(text.getSpanEnd(span)).isEqualTo(testObject.getEnd(span));
     }
 
-    // @Test   Disable this test for now.
+    @Test
     public void differentText() {
         final TestLinks testObject = new TestLinks.Builder()
                 .addEntity("email@android.com", TextClassifier.TYPE_EMAIL)
@@ -428,7 +429,7 @@ public class SmartLinkifyTest {
 
     private TextLinks.TextLinkSpan createTextLinkSpan(TextLinks.TextLink textLink) {
         return new TextLinks.TextLinkSpan(
-                new TextLinks.TextLinkSpanData(textLink, mClassifier, null));
+                new TextLinks.TextLinkSpanData(textLink, mClassifier, MatchMaker.NO_OP, null));
     }
 
     /**
@@ -513,7 +514,7 @@ public class SmartLinkifyTest {
             }
 
             TestLinks build() {
-                final TextLinks.Builder textLinks = new TextLinks.Builder(mText.toString());
+                final TextLinks.Builder textLinks = new TextLinks.Builder(mText);
                 for (TextLinks.TextLink link : mLinks) {
                     textLinks.addLink(link);
                 }

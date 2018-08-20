@@ -20,14 +20,24 @@ import androidx.annotation.RestrictTo;
 import androidx.core.app.RemoteActionCompat;
 import androidx.textclassifier.TextClassifier.EntityType;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Returns actions for a specified entity type.
- * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY)
+// TODO: Rename?
 interface MatchMaker {
+
+    /** @hide */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    MatchMaker NO_OP = new MatchMaker() {
+        @Override
+        public List<RemoteActionCompat> getActions(String entityType, CharSequence text) {
+            return Collections.emptyList();
+        }
+    };
+
     /**
      * Returns an ordered list of actions for the specified entityType. Clients should expect
      * that the actions will be ordered based on how important the matchmaker thinks the action

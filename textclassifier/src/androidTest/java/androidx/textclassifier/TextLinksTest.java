@@ -80,7 +80,7 @@ public final class TextLinksTest {
 
     @Test
     public void testBundle() {
-        final TextLinks reference = new TextLinks.Builder(FULL_TEXT.toString())
+        final TextLinks reference = new TextLinks.Builder(FULL_TEXT)
                 .addLink(0, 4, getEntityScores(0.f, 0.f, 1.f))
                 .addLink(5, 12, getEntityScores(.8f, .1f, .5f))
                 .build();
@@ -136,7 +136,7 @@ public final class TextLinksTest {
     @Test
     public void testTextLinksWithUrlSpan() {
         final String url = "http://www.google.com";
-        final TextLinks textLinks = new TextLinks.Builder(FULL_TEXT.toString())
+        final TextLinks textLinks = new TextLinks.Builder(FULL_TEXT)
                 .addLink(0, 4, getEntityScores(0.f, 0.f, 1.f), new URLSpan(url))
                 .build();
 

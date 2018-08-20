@@ -191,14 +191,18 @@ public abstract class TextClassifier {
     public TextLinks generateLinks(@NonNull TextLinks.Request request) {
         Preconditions.checkNotNull(request);
         ensureNotOnMainThread();
-        return new TextLinks.Builder(request.getText().toString()).build();
+        return new TextLinks.Builder(request.getText()).build();
     }
 
     /**
      * Returns the maximal length of text that can be processed by generateLinks.
      *
      * @see #generateLinks(TextLinks.Request)
+     *
+     * @hide
      */
+    // TODO: Remove?
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     public int getMaxGenerateLinksTextLength() {
         return GENERATE_LINKS_MAX_TEXT_LENGTH_DEFAULT;
     }
