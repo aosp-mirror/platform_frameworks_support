@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "521a63b1_e9db0616",
+        "filename": "media2/src/main/java/androidx/media2/MediaNotificationHandler.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-20T10:30:41Z",
+      "side": 1,
+      "message": "new ComponentName(mServiceInstance, mServiceInstance.getClass()) would be easier",
+      "range": {
+        "startLine": 186,
+        "startChar": 28,
+        "endLine": 187,
+        "endChar": 99
+      },
+      "revId": "1b16a50cfbe23479af26c5fbb0ea6210ea6c8813",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70171098_ad8dfd74",
+        "filename": "media2/src/main/java/androidx/media2/MediaNotificationHandler.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-20T10:30:41Z",
+      "side": 1,
+      "message": "Why? Other keys such as KEYCODE_MEDIA_PLAY_PAUSE / KEYCODE_MEDIA_SKIP_TO_NEXT / ... can also start foreground service.",
+      "range": {
+        "startLine": 190,
+        "startChar": 62,
+        "endLine": 190,
+        "endChar": 91
+      },
+      "revId": "1b16a50cfbe23479af26c5fbb0ea6210ea6c8813",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24ec7b0a_11ec6f91",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-20T10:30:41Z",
+      "side": 1,
+      "message": "document about the thread",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 0
+      },
+      "revId": "1b16a50cfbe23479af26c5fbb0ea6210ea6c8813",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f80888ea_a486794a",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-20T10:30:41Z",
+      "side": 1,
+      "message": "@CallSuper as well",
+      "range": {
+        "startLine": 184,
+        "startChar": 5,
+        "endLine": 184,
+        "endChar": 13
+      },
+      "revId": "1b16a50cfbe23479af26c5fbb0ea6210ea6c8813",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99c88aea_c0e6cb96",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-20T10:30:41Z",
+      "side": 1,
+      "message": "when do you clean this up?",
+      "range": {
+        "startLine": 60,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 28
+      },
+      "revId": "1b16a50cfbe23479af26c5fbb0ea6210ea6c8813",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c5a82f9_879c80f9",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-20T10:30:41Z",
+      "side": 1,
+      "message": "question) why don\u0027t you make this extends MediaSession2.SessionCallback.OnHandleForegroundServiceListener\nnror, notification handler registers this?",
+      "range": {
+        "startLine": 66,
+        "startChar": 24,
+        "endLine": 66,
+        "endChar": 43
+      },
+      "revId": "1b16a50cfbe23479af26c5fbb0ea6210ea6c8813",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
