@@ -16,6 +16,24 @@
       "revId": "eda6698f659db9118921d339543be796f084cd45",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "522786e7_ac633834",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/SmartLinkifyTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-20T21:47:25Z",
+      "side": 1,
+      "message": "Just to clarify, before this change, we already have a bunch of @hide APIs in the SmartLinkify class and their tests. In this change, we just add one more API and unhide the rest.\nSo, the test you see here is for the new API added in this change, all other APIs already have tests here.\n\nRe \"I will be adding comments about the API and interface.\"\nHappy to. But let\u0027s finalize the APIs surface first? Seems like you folks have some opinions on it :)",
+      "parentUuid": "403ff963_77c14144",
+      "revId": "eda6698f659db9118921d339543be796f084cd45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
