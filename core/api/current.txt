@@ -1433,6 +1433,10 @@ package androidx.core.util {
     method public abstract void accept(T);
   }
 
+  public abstract interface Function<T, R> {
+    method public abstract R apply(T);
+  }
+
   public class ObjectsCompat {
     method public static boolean equals(java.lang.Object, java.lang.Object);
     method public static int hash(java.lang.Object...);

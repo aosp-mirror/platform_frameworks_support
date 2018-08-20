@@ -23,6 +23,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
+import android.util.ArrayMap;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,7 +33,13 @@ import androidx.annotation.UiThread;
 import androidx.core.util.Preconditions;
 import androidx.core.util.Supplier;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
 import java.util.concurrent.Executor;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Provides {@link android.text.util.Linkify} functionality using a {@link TextClassifier}.
@@ -275,7 +282,20 @@ public final class SmartLinkify {
 
         @Override
         protected TextLinks doInBackground(Void... nil) {
-            return mTextClassifier.generateLinks(mRequest);
+            final TextLinks links = mTextClassifier.generateLinks(mRequest);
+            final Collection<TextLinks.TextLink> patternLinks = generatePatternLinks();
+            final TextLinks.Builder builder = new TextLinks.Builder(links.getText());
+            for (TextLinks.TextLink link : patternLinks) {
+                if (link.getEnd() > link.getStart()) {
+                    builder.addLink(link);
+                }
+            }
+            for (TextLinks.TextLink link : links.getLinks()) {
+                if (link.getEnd() > link.getStart() && !collide(link, patternLinks)) {
+                    builder.addLink(link);
+                }
+            }
+            return builder.build();
         }
 
         @Override
@@ -303,6 +323,42 @@ public final class SmartLinkify {
         @Override
         public void onCancel() {
             cancel(true);
+        }
+
+        private Collection<TextLinks.TextLink> generatePatternLinks() {
+            final Map<Pattern, EntityRecognizer> patternsMap = mParams.getPatternsMap();
+            if (patternsMap.isEmpty()) {
+                return Collections.emptyList();
+            }
+            final Collection<TextLinks.TextLink> links = new ArrayList<>();
+            for (Pattern pattern : patternsMap.keySet()) {
+                final Matcher matcher = pattern.matcher(mTruncatedText);
+                while (matcher.find()) {
+                    final EntityRecognizer recognizer = patternsMap.get(pattern);
+                    final String entityType = recognizer.getEntityType(
+                            pattern, mTruncatedText, matcher.start(), matcher.end());
+                    if (entityType != null) {
+                        final Map<String, Float> score = new ArrayMap<>();
+                        score.put(entityType, 1f);
+                        links.add(new TextLinks.TextLink(
+                                matcher.start(), matcher.end(), score, null));
+                    }
+                }
+            }
+            return links;
+        }
+
+        private boolean collide(TextLinks.TextLink link, Collection<TextLinks.TextLink> links) {
+            for (TextLinks.TextLink link1 : links) {
+                final boolean a = link.getStart() >= link1.getStart()
+                        && link.getStart() <= link1.getEnd();
+                final boolean b = link1.getStart() >= link.getStart()
+                        && link1.getStart() <= link.getEnd();
+                if (a || b) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
