@@ -1,0 +1,435 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4812fad_fc19abf7",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:30:31Z",
+      "side": 1,
+      "message": "Header format different that in other pages",
+      "range": {
+        "startLine": 2,
+        "startChar": 3,
+        "endLine": 2,
+        "endChar": 49
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f717cefc_99c3d7c1",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:30:31Z",
+      "side": 1,
+      "message": "Missing annotations:\n* RunWith\n* LargeTest",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 40
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88741476_4c313662",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:30:31Z",
+      "side": 1,
+      "message": "nit: redundant empty line",
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "916082b6_3e2d3785",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:30:31Z",
+      "side": 1,
+      "message": "Style. See SwipeTest for example.",
+      "range": {
+        "startLine": 42,
+        "startChar": 16,
+        "endLine": 42,
+        "endChar": 23
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "406780bd_ecbfea08",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:30:31Z",
+      "side": 1,
+      "message": "we should test vertical as well",
+      "range": {
+        "startLine": 47,
+        "startChar": 23,
+        "endLine": 47,
+        "endChar": 33
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c215cf1a_ebfe6ae6",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:30:31Z",
+      "side": 1,
+      "message": "random testing is great, but we generally keep it to local runs\nsee SwipeTest for an example",
+      "range": {
+        "startLine": 50,
+        "startChar": 26,
+        "endLine": 50,
+        "endChar": 36
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c25e334_f69297c5",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:30:31Z",
+      "side": 1,
+      "message": "why those two?",
+      "range": {
+        "startLine": 50,
+        "startChar": 49,
+        "endLine": 50,
+        "endChar": 62
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5aa1b480_69f3771b",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:30:31Z",
+      "side": 1,
+      "message": "you set length to zero here, so always an empty random list?",
+      "range": {
+        "startLine": 50,
+        "startChar": 41,
+        "endLine": 50,
+        "endChar": 42
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7710e9f0_b6508bd4",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:30:31Z",
+      "side": 1,
+      "message": "Isn\u0027t this just smoothScrollToPage? Or smoothScrollToCompletion?\nIf so, is there a generalised concept reused in other tests that we can push to BaseTest?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 17
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b3f7087_92b3f37c",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:30:31Z",
+      "side": 1,
+      "message": "should gotoPageWithCommand above be executed if this is true?",
+      "range": {
+        "startLine": 61,
+        "startChar": 16,
+        "endLine": 61,
+        "endChar": 39
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27014112_c0ab9bd9",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:30:31Z",
+      "side": 1,
+      "message": "let\u0027s not have comments for things that are self-explanatory; just creates noise; ideally you\u0027d have self-commenting code and no need for comments\n\nit\u0027s especially important in a large function like this\ndelegate complex logic to smaller functions and keep this one short\nsee test_swipeBetweenPages for an example",
+      "range": {
+        "startLine": 65,
+        "startChar": 20,
+        "endLine": 65,
+        "endChar": 75
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c456b79_e1ca16e1",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:30:31Z",
+      "side": 1,
+      "message": "I\u0027m not sure why most of those assertions. Could you provide sample logs as a method comment, similarly to tests in PageChangeListenerTest?",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 91
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69a2e15d_fa71f5c2",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:30:31Z",
+      "side": 1,
+      "message": "no commented out code please :)",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 64
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb59177b_ca7dbd56",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:30:31Z",
+      "side": 1,
+      "message": "why lazy? test code is not performance critical, and it\u0027s better to keep it simple",
+      "range": {
+        "startLine": 151,
+        "startChar": 22,
+        "endLine": 151,
+        "endChar": 26
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e371b4c_e9766ca5",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:30:31Z",
+      "side": 1,
+      "message": "this only returns TransformPageEvent, but an event could also be OnPageScrolledEvent, so it sounds like a misnomer",
+      "range": {
+        "startLine": 167,
+        "startChar": 12,
+        "endLine": 167,
+        "endChar": 20
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edeeea89_46d3de25",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:30:31Z",
+      "side": 1,
+      "message": "this is a very specific signature, is this necessary?",
+      "range": {
+        "startLine": 245,
+        "startChar": 23,
+        "endLine": 245,
+        "endChar": 58
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa3bc746_3d6a6d26",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:30:31Z",
+      "side": 1,
+      "message": "lhs \u003d left hand side?\ncan you name it more self-explaining?",
+      "range": {
+        "startLine": 247,
+        "startChar": 17,
+        "endLine": 247,
+        "endChar": 20
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "645600db_283ee4eb",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:30:31Z",
+      "side": 1,
+      "message": "this formatting looks off; is it consistent with other places?",
+      "range": {
+        "startLine": 250,
+        "startChar": 8,
+        "endLine": 250,
+        "endChar": 10
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c88c9d5_15c6fd6d",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/PageTransformAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:30:31Z",
+      "side": 1,
+      "message": "PageTransformerAdapter?",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
