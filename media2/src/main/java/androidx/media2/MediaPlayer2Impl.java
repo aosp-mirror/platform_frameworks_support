@@ -710,7 +710,7 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         addTask(new Task(CALL_COMPLETED_SET_PLAYBACK_PARAMS, false) {
             @Override
             void process() {
-                setPlaybackParamsInternal(params.getPlaybackParams());
+                mPlayer.setPlaybackParams(params.getPlaybackParams());
             }
         });
     }
@@ -1367,25 +1367,6 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
             mPlayer.setDrmPropertyString(propertyName, value);
         } catch (MediaPlayer.NoDrmSchemeException e) {
             throw new NoDrmSchemeException(e.getMessage());
-        }
-    }
-
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    void setPlaybackParamsInternal(final PlaybackParams params) {
-        PlaybackParams current = null;
-        try {
-            current = mPlayer.getPlaybackParams();
-        } catch (IllegalStateException e) {
-            // Do nothing.
-        }
-        mPlayer.setPlaybackParams(params);
-        if (current != null && current.getSpeed() != params.getSpeed()) {
-            notifyPlayerEvent(new PlayerEventNotifier() {
-                @Override
-                public void notify(PlayerEventCallback cb) {
-                    cb.onPlaybackSpeedChanged(mMediaPlayerConnectorImpl, params.getSpeed());
-                }
-            });
         }
     }
 
@@ -2364,15 +2345,38 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
             mLooping = loop;
         }
 
-        synchronized void setPlaybackParams(PlaybackParams playbackParams) {
+        synchronized void setPlaybackParams(final PlaybackParams params) {
+            PlaybackParams current = null;
             try {
-                getCurrentPlayer().setPlaybackParams(playbackParams);
+                current = getPlaybackParams();
+            } catch (IllegalStateException e) {
+                // Do nothing.
+            }
+            MediaPlayer currentPlayer = getCurrentPlayer();
+            try {
+                currentPlayer.setPlaybackParams(params);
+                mPlaybackParams = params;
             } catch (IllegalStateException e) {
                 // Keep the value so that it can be set later.
-                mPlaybackParamsToSetAfterSetDataSource = playbackParams;
-                return;
+                mPlaybackParamsToSetAfterSetDataSource = params;
             }
-            mPlaybackParams = playbackParams;
+
+            if (current != null && current.getSpeed() != params.getSpeed()) {
+                notifyPlayerEvent(new PlayerEventNotifier() {
+                    @Override
+                    public void notify(PlayerEventCallback cb) {
+                        cb.onPlaybackSpeedChanged(mMediaPlayerConnectorImpl, params.getSpeed());
+                    }
+                });
+                final int currentState = mPlayer.getFirst().mMp2State;
+                if (currentState != PLAYER_STATE_IDLE && currentState != PLAYER_STATE_ERROR) {
+                    if (params.getSpeed() == 0f) {
+                        setMp2State(currentPlayer, PLAYER_STATE_PAUSED);
+                    } else {
+                        setMp2State(currentPlayer, PLAYER_STATE_PLAYING);
+                    }
+                }
+            }
         }
 
         synchronized float getVolume() {

@@ -1180,7 +1180,6 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
             Thread.sleep(1000);
             int playTime = 4000;  // The testing clip is about 10 second long.
             mPlayer.setPlaybackParams(new PlaybackParams2.Builder().setSpeed(playbackRate).build());
-            mPlayer.play();
             Thread.sleep(playTime);
 
             labelReached.reset();
