@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3c30119_96ddefde",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-20T21:39:03Z",
+      "side": 1,
+      "message": "Should we document that this list shouldn\u0027t be mutated by the caller? Otherwise surprising behaviour might ensue.",
+      "range": {
+        "startLine": 58,
+        "startChar": 46,
+        "endLine": 58,
+        "endChar": 0
+      },
+      "revId": "28558cb7e1d9350ee613a8770f4fe927e7008280",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a367077f_87537870",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-20T21:39:03Z",
+      "side": 1,
+      "message": "Are we guaranteed that this call will succeed if mZoneId is non-empty?",
+      "range": {
+        "startLine": 70,
+        "startChar": 44,
+        "endLine": 70,
+        "endChar": 0
+      },
+      "revId": "28558cb7e1d9350ee613a8770f4fe927e7008280",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
