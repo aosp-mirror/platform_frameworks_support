@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "26f25143_15dc6486",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-20T04:59:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8349d96d_1664e7aa",
+      "range": {
+        "startLine": 9,
+        "startChar": 16,
+        "endLine": 9,
+        "endChar": 30
+      },
+      "revId": "f3abc0a28714790a129b6049666dff0cf866b51d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4701c8b6_838e9a4f",
         "filename": "media2/src/main/java/androidx/media2/SessionPlaylistAgentImplBase.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "f3abc0a28714790a129b6049666dff0cf866b51d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1228f83_4a8246a9",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlaylistAgentImplBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-20T04:59:35Z",
+      "side": 1,
+      "message": "unmodifiableList holds the reference of mPlaylist, but mPlaylist can be changed.",
+      "parentUuid": "4701c8b6_838e9a4f",
+      "range": {
+        "startLine": 186,
+        "startChar": 12,
+        "endLine": 186,
+        "endChar": 46
+      },
+      "revId": "f3abc0a28714790a129b6049666dff0cf866b51d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
