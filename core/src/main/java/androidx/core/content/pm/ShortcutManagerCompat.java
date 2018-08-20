@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.os.Build;
 import android.text.TextUtils;
@@ -31,6 +32,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Helper for accessing features in {@link android.content.pm.ShortcutManager}.
@@ -140,5 +145,64 @@ public class ShortcutManagerCompat {
             result = new Intent();
         }
         return shortcut.addToIntent(result);
+    }
+
+    public static boolean addDynamicShortcuts(@NonNull Context context,
+            @NonNull List<ShortcutInfoCompat> shortcutInfoList) {
+
+        // TODO: Verify SDK 25 is the right level to check (ShortcutManager is added in SDK 25)
+        // TODO: Why all the previous APIs in this file check for SDK 26?
+        if (Build.VERSION.SDK_INT >= 25) {
+            ArrayList<ShortcutInfo> shortcuts = new ArrayList<>();
+            for (ShortcutInfoCompat item : shortcutInfoList) {
+                shortcuts.add(item.toShortcutInfo());
+            }
+            return context.getSystemService(ShortcutManager.class)
+                    .addDynamicShortcuts(shortcuts);
+        } else {
+            // TODO: Add support for dynamic shortcuts(share target use-case) for SDK >= 23
+        }
+
+        return false;
+    }
+
+    @NonNull
+    public static List<ShortcutInfoCompat> getDynamicShortcuts(@NonNull Context context) {
+        List<ShortcutInfoCompat> shortcuts = new ArrayList<>();
+
+        // TODO: Verify SDK 25 is the right level to check (ShortcutManager is added in SDK 25)
+        // TODO: Why all the previous APIs in this file check for SDK 26?
+        if (Build.VERSION.SDK_INT >= 25) {
+            List<ShortcutInfo> dynamicShortcuts = context.getSystemService(ShortcutManager.class)
+                    .getDynamicShortcuts();
+            for (ShortcutInfo item : dynamicShortcuts) {
+                shortcuts.add(ShortcutInfoCompat.fromShortcutInfo(context, item));
+            }
+        } else {
+            // TODO: Add support for dynamic shortcuts(share targets use-case) for SDK >= 23
+        }
+
+        return shortcuts;
+    }
+
+    public void removeDynamicShortcuts(@NonNull Context context,
+            @NonNull List<String> shortcutIds) {
+        // TODO: Verify SDK 25 is the right level to check (ShortcutManager is added in SDK 25)
+        // TODO: Why all the previous APIs in this file check for SDK 26?
+        if (Build.VERSION.SDK_INT >= 25) {
+            context.getSystemService(ShortcutManager.class).removeDynamicShortcuts(shortcutIds);
+        } else {
+            // TODO: Add support for dynamic shortcuts(share targets use-case) for SDK >= 23
+        }
+    }
+
+    public static void removeAllDynamicShortcuts(@NonNull Context context) {
+        // TODO: Verify SDK 25 is the right level to check (ShortcutManager is added in SDK 25)
+        // TODO: Why all the previous APIs in this file check for SDK 26?
+        if (Build.VERSION.SDK_INT >= 25) {
+            context.getSystemService(ShortcutManager.class).removeAllDynamicShortcuts();
+        } else {
+            // TODO: Add support for dynamic shortcuts(share targets use-case) for SDK >= 23
+        }
     }
 }
