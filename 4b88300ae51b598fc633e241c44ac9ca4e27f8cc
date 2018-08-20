@@ -22,6 +22,30 @@
       "revId": "4b88300ae51b598fc633e241c44ac9ca4e27f8cc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92dd044f_f96f819d",
+        "filename": "car/core/res/values/themes.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-08-20T18:17:22Z",
+      "side": 1,
+      "message": "Yeah this is intended. The goal was to bump everything up to at least Body2 since textAppearanceLarge is used a lot for the dialog text which for our specs is Body2. I\u0027m open to modifying this in the future if this is causing problems.",
+      "parentUuid": "8ce2138e_88a668b0",
+      "range": {
+        "startLine": 203,
+        "startChar": 20,
+        "endLine": 203,
+        "endChar": 47
+      },
+      "revId": "4b88300ae51b598fc633e241c44ac9ca4e27f8cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
