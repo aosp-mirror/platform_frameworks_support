@@ -17,7 +17,7 @@
 package androidx.room.vo
 
 import androidx.room.ext.typeName
-import androidx.room.processor.EntityProcessor
+import androidx.room.processor.BaseEntityProcessor
 import com.google.auto.common.MoreElements
 import com.squareup.javapoet.TypeName
 import javax.lang.model.element.TypeElement
@@ -27,12 +27,13 @@ import javax.lang.model.type.DeclaredType
  * A class is turned into a Pojo if it is used in a query response.
  */
 open class Pojo(
-        val element: TypeElement,
-        val type: DeclaredType,
-        val fields: List<Field>,
-        val embeddedFields: List<EmbeddedField>,
-        val relations: List<Relation>,
-        val constructor: Constructor? = null) {
+    val element: TypeElement,
+    val type: DeclaredType,
+    val fields: List<Field>,
+    val embeddedFields: List<EmbeddedField>,
+    val relations: List<Relation>,
+    val constructor: Constructor? = null
+) {
     val typeName: TypeName by lazy { type.typeName() }
 
     /**
@@ -41,9 +42,10 @@ open class Pojo(
      */
     fun accessedTableNames(): List<String> {
         val entityAnnotation = MoreElements.getAnnotationMirror(element,
-                androidx.room.Entity::class.java).orNull()
+                androidx.room.Entity::class.java).or(MoreElements.getAnnotationMirror(element,
+                androidx.room.FtsEntity::class.java)).orNull()
         return if (entityAnnotation != null) {
-            listOf(EntityProcessor.extractTableName(element, entityAnnotation))
+            listOf(BaseEntityProcessor.extractTableName(element, entityAnnotation))
         } else {
             embeddedFields.flatMap {
                 it.pojo.accessedTableNames()
