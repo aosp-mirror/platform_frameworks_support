@@ -22,6 +22,30 @@
       "revId": "1800e10f759af25f5ff786822933a5a80ae5fd9e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2494156_0080d249",
+        "filename": "car/core/src/main/java/androidx/car/widget/SeekbarListItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-08-20T22:35:55Z",
+      "side": 1,
+      "message": "Thanks for the reminder for tests :) \nI added some tests for behavior annotated by Nullable/NonNull.\n\nIf I understood the comment correctly: the interface change is that we are now expecting the param as its parent class (String -\u003e CharSequence), so existing tests all work as we were passing in String.",
+      "parentUuid": "bcd068e5_0ced2457",
+      "range": {
+        "startLine": 179,
+        "startChar": 16,
+        "endLine": 179,
+        "endChar": 23
+      },
+      "revId": "1800e10f759af25f5ff786822933a5a80ae5fd9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
