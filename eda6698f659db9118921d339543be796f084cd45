@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "403ff963_77c14144",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/SmartLinkifyTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-08-20T21:23:15Z",
+      "side": 1,
+      "message": "I will be adding comments about the API and interface. However please add proper tests that touches on the public functions you have added. You have added a good number of public functions and as far as I can see used only one in the tests.",
+      "revId": "eda6698f659db9118921d339543be796f084cd45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
