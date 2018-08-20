@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22dde090_87551c64",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/cards/CardView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:36:28Z",
+      "side": 1,
+      "message": "does this match our code style? also, is it not replaceable by a modulo of value? or of page index?",
+      "range": {
+        "startLine": 67,
+        "startChar": 34,
+        "endLine": 67,
+        "endChar": 0
+      },
+      "revId": "77f07a6195751c35eb9a82716da0260cd45b643e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a214eae4_5e90796a",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/cards/CardView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:36:28Z",
+      "side": 1,
+      "message": "throw an IllegalStateException here, or better create a default case in the switch with an exception",
+      "range": {
+        "startLine": 83,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 17
+      },
+      "revId": "77f07a6195751c35eb9a82716da0260cd45b643e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67c92e40_089d950e",
+        "filename": "samples/ViewPager2Demos/src/main/res/values/colors.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T18:36:28Z",
+      "side": 1,
+      "message": "Make sure the header matches other headers",
+      "range": {
+        "startLine": 3,
+        "startChar": 4,
+        "endLine": 3,
+        "endChar": 18
+      },
+      "revId": "77f07a6195751c35eb9a82716da0260cd45b643e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
