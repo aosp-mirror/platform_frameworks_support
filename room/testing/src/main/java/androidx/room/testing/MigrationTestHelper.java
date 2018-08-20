@@ -31,8 +31,10 @@ import androidx.room.migration.bundle.DatabaseBundle;
 import androidx.room.migration.bundle.EntityBundle;
 import androidx.room.migration.bundle.FieldBundle;
 import androidx.room.migration.bundle.ForeignKeyBundle;
+import androidx.room.migration.bundle.FtsEntityBundle;
 import androidx.room.migration.bundle.IndexBundle;
 import androidx.room.migration.bundle.SchemaBundle;
+import androidx.room.util.TableCreateInfo;
 import androidx.room.util.TableInfo;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
@@ -318,6 +320,11 @@ public class MigrationTestHelper extends TestWatcher {
                 toForeignKeys(entityBundle.getForeignKeys()), toIndices(entityBundle.getIndices()));
     }
 
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    static TableCreateInfo toTableCreateInfo(FtsEntityBundle ftsEntityBundle) {
+        return new TableCreateInfo(ftsEntityBundle.getTableName(), ftsEntityBundle.createTable());
+    }
+
     private static Set<TableInfo.Index> toIndices(List<IndexBundle> indices) {
         if (indices == null) {
             return Collections.emptySet();
@@ -388,19 +395,47 @@ public class MigrationTestHelper extends TestWatcher {
         protected void validateMigration(SupportSQLiteDatabase db) {
             final Map<String, EntityBundle> tables = mDatabaseBundle.getEntitiesByTableName();
             for (EntityBundle entity : tables.values()) {
-                final TableInfo expected = toTableInfo(entity);
-                final TableInfo found = TableInfo.read(db, entity.getTableName());
-                if (!expected.equals(found)) {
-                    throw new IllegalStateException(
-                            "Migration failed. expected:" + expected + " , found:" + found);
+                if (entity instanceof FtsEntityBundle) {
+                    final TableCreateInfo expected = toTableCreateInfo((FtsEntityBundle) entity);
+                    final TableCreateInfo found = TableCreateInfo.read(db, entity.getTableName());
+                    if (!expected.equals(found)) {
+                        throw new IllegalStateException(
+                                "Migration failed.\nExpected:" + expected + "\nFound:" + found);
+                    }
+                } else {
+                    final TableInfo expected = toTableInfo(entity);
+                    final TableInfo found = TableInfo.read(db, entity.getTableName());
+                    if (!expected.equals(found)) {
+                        throw new IllegalStateException(
+                                "Migration failed.\nExpected:" + expected + " \nfound:" + found);
+                    }
                 }
             }
             if (mVerifyDroppedTables) {
-                // now ensure tables that should be removed are removed.
-                Cursor cursor = db.query("SELECT name FROM sqlite_master WHERE type='table'"
-                                + " AND name NOT IN(?, ?, ?)",
-                        new String[]{Room.MASTER_TABLE_NAME, "android_metadata",
-                                "sqlite_sequence"});
+                List<String> excludeList = new ArrayList<>();
+                excludeList.add(Room.MASTER_TABLE_NAME);
+                excludeList.add("android_metadata");
+                excludeList.add("sqlite_sequence");
+                for (EntityBundle entity : mDatabaseBundle.getEntities()) {
+                    // add fts shadow table names to the excluded list
+                    if (entity instanceof FtsEntityBundle) {
+                        excludeList.addAll(((FtsEntityBundle) entity).getShadowTableNames());
+                    }
+                }
+
+                // now ensure tables that should be removed are removed, expect for those in the
+                // excluded list.
+                StringBuilder query = new StringBuilder("SELECT name FROM sqlite_master "
+                        + "WHERE type='table' AND name NOT IN (");
+                for (int i = 0; i < excludeList.size(); i++) {
+                    if (i == 0) {
+                        query.append("?");
+                    } else {
+                        query.append(",?");
+                    }
+                }
+                query.append(")");
+                Cursor cursor = db.query(query.toString(), excludeList.toArray(new String[0]));
                 //noinspection TryFinallyCanBeTryWithResources
                 try {
                     while (cursor.moveToNext()) {
