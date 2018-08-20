@@ -16,6 +16,24 @@
       "revId": "bef575342f5cd756fb56b0d9830411b0bbec217c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36b97ee9_1431d27c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-08-20T20:26:51Z",
+      "side": 1,
+      "message": "This seems to be a consistent issue with all of the benchmark libraries, filed b/112852624 to track the more general issue.",
+      "parentUuid": "b704c19a_75d6da82",
+      "revId": "bef575342f5cd756fb56b0d9830411b0bbec217c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
