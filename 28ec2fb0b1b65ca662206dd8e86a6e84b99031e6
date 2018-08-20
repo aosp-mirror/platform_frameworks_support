@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d40d5fde_ec7c79d3",
+        "filename": "animation/src/main/java/androidx/animation/Keyframe.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-20T17:49:55Z",
+      "side": 1,
+      "message": "In cases where animation only has an end value specified, the start value is obtained based on the value of the property at the time of start()\u0027ing the animation. As a result, before the start of the animation, the first keyframe will be null. See hasValue() on L#184.",
+      "parentUuid": "90d5484c_1da70e91",
+      "revId": "28ec2fb0b1b65ca662206dd8e86a6e84b99031e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9fc8f6ce_778220d3",
         "filename": "animation/src/main/java/androidx/animation/PropertyValuesHolder.java",
         "patchSetId": 11
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "199ac473_79967512",
+        "filename": "animation/src/main/java/androidx/animation/PropertyValuesHolder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-20T17:49:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fc8f6ce_778220d3",
+      "revId": "28ec2fb0b1b65ca662206dd8e86a6e84b99031e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "28e71997_4cce007a",
         "filename": "animation/src/main/java/androidx/animation/TypeConverter.java",
         "patchSetId": 11
@@ -50,6 +86,24 @@
       "revId": "28ec2fb0b1b65ca662206dd8e86a6e84b99031e6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06ca1c6c_ea45e3c4",
+        "filename": "animation/src/main/java/androidx/animation/TypeConverter.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-20T17:49:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28e71997_4cce007a",
+      "revId": "28ec2fb0b1b65ca662206dd8e86a6e84b99031e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
