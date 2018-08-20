@@ -18,12 +18,14 @@ package androidx.core.graphics
 
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
+import androidx.test.filters.SmallTest
 import org.junit.Assert.assertEquals
 import org.junit.BeforeClass
 import org.junit.Test
 import java.io.ByteArrayOutputStream
 import java.nio.ByteBuffer
 
+@SmallTest
 class ImageDecoderTest {
 
     @Test fun decodeBitmap() {
