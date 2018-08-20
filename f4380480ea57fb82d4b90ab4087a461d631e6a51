@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6f67a022_140a23ec",
+        "filename": "car/core/src/main/java/androidx/car/widget/SeekbarListItem.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-08-20T21:19:08Z",
+      "side": 1,
+      "message": "Thanks! Added annotation to param and its member var.",
+      "parentUuid": "40745557_46cdeb54",
+      "range": {
+        "startLine": 177,
+        "startChar": 24,
+        "endLine": 177,
+        "endChar": 36
+      },
+      "revId": "f4380480ea57fb82d4b90ab4087a461d631e6a51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b83dff8e_ab04fa98",
         "filename": "car/core/src/main/java/androidx/car/widget/SubheaderListItem.java",
         "patchSetId": 3
@@ -71,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "5aae55f9_beb5514b",
+        "filename": "car/core/src/main/java/androidx/car/widget/SubheaderListItem.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-08-20T21:19:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b83dff8e_ab04fa98",
+      "range": {
+        "startLine": 58,
+        "startChar": 46,
+        "endLine": 58,
+        "endChar": 58
+      },
+      "revId": "f4380480ea57fb82d4b90ab4087a461d631e6a51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d4c9dcf7_da1ee953",
+        "filename": "car/core/src/main/java/androidx/car/widget/SubheaderListItem.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-08-20T21:19:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c090c720_3ed9e6f6",
+      "range": {
+        "startLine": 58,
+        "startChar": 29,
+        "endLine": 58,
+        "endChar": 36
+      },
+      "revId": "f4380480ea57fb82d4b90ab4087a461d631e6a51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4455a040_bd879fb1",
         "filename": "car/core/src/main/java/androidx/car/widget/SubheaderListItem.java",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "f4380480ea57fb82d4b90ab4087a461d631e6a51",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5fd8e25_b68b5612",
+        "filename": "car/core/src/main/java/androidx/car/widget/SubheaderListItem.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-08-20T21:19:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4455a040_bd879fb1",
+      "range": {
+        "startLine": 98,
+        "startChar": 24,
+        "endLine": 98,
+        "endChar": 36
+      },
+      "revId": "f4380480ea57fb82d4b90ab4087a461d631e6a51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
