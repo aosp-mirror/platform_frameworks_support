@@ -430,6 +430,75 @@
       "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0f09343_1c6c66c2",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/PageTransformAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-20T23:53:23Z",
+      "side": 1,
+      "message": "It seems a bit odd to me to provide paths to unimplemented functionality.  I assume there is a note somewhere to keep track of the fact that this still has to be implemented... and if that is the case... why is any part of it actually implemented to begin with?  If there is no note, this is especially dangerous... right?\n\nCan we remove the boolean reverseDrawingOrder?  If you want something in the code to remind you, add a TODO with a reference to a bug?",
+      "range": {
+        "startLine": 43,
+        "startChar": 33,
+        "endLine": 44,
+        "endChar": 19
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "127c07f0_fb3990c7",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/PageTransformAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-20T23:53:23Z",
+      "side": 1,
+      "message": "This can happen huh?  Is this an RV/LinearLayoutManager bug?",
+      "range": {
+        "startLine": 69,
+        "startChar": 12,
+        "endLine": 71,
+        "endChar": 13
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4a5d77a_a9c74a39",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-20T23:53:23Z",
+      "side": 1,
+      "message": "Isn\u0027t offsetPix \u003d start?  What you\u0027ve done here will always result in offestPix \u003e\u003d 0.  Right?",
+      "range": {
+        "startLine": 133,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 42
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
