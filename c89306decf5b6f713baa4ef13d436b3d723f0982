@@ -1,0 +1,450 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6da02027_70413c6d",
+        "filename": "car/core/res/layout/car_toolbar.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "Where are these tags used?",
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f47200ed_eb76bcc4",
+        "filename": "car/core/res/values/attrs.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "What\u0027s the intended usecase of this? I\u0027m assuming it\u0027s for the ripple. Maybe instead we can expose an attribute just to set the ripple color",
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd7e2768_5eb19f6d",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "Think this should be Body1",
+      "range": {
+        "startLine": 210,
+        "startChar": 67,
+        "endLine": 210,
+        "endChar": 72
+      },
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "524efcc5_fb4c4fe1",
+        "filename": "car/core/src/androidTest/res/layout/activity_car_toolbar.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "FrameLayout",
+      "range": {
+        "startLine": 17,
+        "startChar": 1,
+        "endLine": 17,
+        "endChar": 15
+      },
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41345a60_c1ecf575",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "Reword as: \"A toolbar for building car applications.\"",
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c13cf311_7ecc1388",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "You can leave off the closing tags for \u003cli\u003e",
+      "range": {
+        "startLine": 50,
+        "startChar": 54,
+        "endLine": 50,
+        "endChar": 59
+      },
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a64fbd8_dd4c25d8",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "Needs a \u003cp\u003e tag",
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25d4ba07_8d6431a4",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "You should mention something about the minimum height of this toolbar.",
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35072b82_68abab80",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "I think these can be final.",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 31
+      },
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d4f78fe_e7644c89",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "Doesn\u0027t seem like it\u0027s necessary to hold onto this.",
+      "range": {
+        "startLine": 72,
+        "startChar": 16,
+        "endLine": 72,
+        "endChar": 36
+      },
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea9122b9_978b50ad",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "Maybe we should specify a default textAppearance rather than the hasValue() check. To just call getResourceId and pass some default value.\n\nSame for the other values.",
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "244499ac_8432613c",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "We should probably support RTL. Should be able to call getLayoutDirection() on the view.",
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8be4ad9_520897fc",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "You can leave off the ending \u003c/p\u003e tag. Same for the other javadocs.",
+      "range": {
+        "startLine": 185,
+        "startChar": 47,
+        "endLine": 185,
+        "endChar": 51
+      },
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00716acf_a1f54baf",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "nit: could we make the @params complete sentences with periods? Here and for the other public methods.",
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f88c7203_8171cb22",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "{@code null}",
+      "range": {
+        "startLine": 201,
+        "startChar": 39,
+        "endLine": 201,
+        "endChar": 43
+      },
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b803406b_567d7ed3",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "This should only need to be done once I think. When you retrieve the mNavButtonView.",
+      "range": {
+        "startLine": 214,
+        "startChar": 8,
+        "endLine": 216,
+        "endChar": 86
+      },
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ae7264a_daf33c16",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "Add @param for the parameter",
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0195c0a_4996f3e5",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "I think you can just inline this method and only check for visibility. The views that you\u0027re checking right now should be non-null and attached to the parent. \n\nIf we get into the business of allowing custom views to be added, then we can add this method back.",
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "611e5902_5c60d345",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "No \"final\" for local variables",
+      "range": {
+        "startLine": 343,
+        "startChar": 8,
+        "endLine": 343,
+        "endChar": 13
+      },
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ba76908_565d683d",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "Can you add some javadoc to at least explain the \"widthUsed\"/\"heightUsed\" parameters?",
+      "range": {
+        "startLine": 348,
+        "startChar": 67,
+        "endLine": 348,
+        "endChar": 76
+      },
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31e5df17_1d0fe0e4",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "Same",
+      "range": {
+        "startLine": 350,
+        "startChar": 8,
+        "endLine": 350,
+        "endChar": 13
+      },
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d361d86f_75574668",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_car_toolbar.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "FrameLayout",
+      "range": {
+        "startLine": 17,
+        "startChar": 1,
+        "endLine": 17,
+        "endChar": 13
+      },
+      "revId": "c89306decf5b6f713baa4ef13d436b3d723f0982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

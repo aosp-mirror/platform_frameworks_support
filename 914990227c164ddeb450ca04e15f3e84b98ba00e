@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aaa9ec30_50db9c23",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T21:53:36Z",
+      "side": 1,
+      "message": "I think we should just return mToolbarHeight here",
+      "revId": "914990227c164ddeb450ca04e15f3e84b98ba00e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
