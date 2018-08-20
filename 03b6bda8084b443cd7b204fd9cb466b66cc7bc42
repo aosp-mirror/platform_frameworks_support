@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd702aa8_0a918c92",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-20T16:11:16Z",
+      "side": 1,
+      "message": "I think you can simplify further by dropping \"checkFunctionExecuted\".\n\nSo the whole test would be\n\n```\n    private fun test_selectItemProgrammatically_noListener(\n        @Orientation orientation: Int,\n        smoothScroll: Boolean\n    ) {\n        // given\n        setUpTest(3, orientation).apply {\n\n            // when\n            listOf(2, 2, 0, 0, 1, 2, 1, 0).forEach { targetPage -\u003e\n                runOnUiThread { viewPager.setCurrentItem(targetPage, smoothScroll) }\n\n                // poll the viewpager on the ui thread\n                val targetReached \u003d AtomicBoolean(false)\n                PollingCheck.waitFor(2000) {\n                    runOnUiThread {\n                        targetReached.set(targetPage \u003d\u003d viewPager.currentCompletelyVisibleItem)\n                    }\n                    targetReached.get()\n                }\n\n                // wait until scroll events have propagated in the system\n                sleep(100)\n\n                // then\n                assertThat(targetPage, equalTo(viewPager.currentItem))\n                assertThat(targetPage, equalTo(viewPager.currentCompletelyVisibleItem))\n            }\n        }\n    }\n```",
+      "range": {
+        "startLine": 491,
+        "startChar": 33,
+        "endLine": 491,
+        "endChar": 40
+      },
+      "revId": "03b6bda8084b443cd7b204fd9cb466b66cc7bc42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
