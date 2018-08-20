@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.WorkerThread;
+import androidx.arch.core.util.Function;
 
 import java.lang.ref.WeakReference;
 import java.util.AbstractList;
@@ -30,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Lazy loading list that pages in immutable content from a {@link DataSource}.
@@ -190,29 +193,29 @@ public abstract class PagedList<T> extends AbstractList<T> {
      * @param boundaryCallback Optional boundary callback to attach to the list.
      * @param config PagedList Config, which defines how the PagedList will load data.
      * @param <K> Key type that indicates to the DataSource what data to load.
-     * @param <T> Type of items to be held and loaded by the PagedList.
+     * @param <V> Type of items to be held and loaded by the PagedList.
      *
      * @return Newly created PagedList, which will page in data from the DataSource as needed.
      */
     @NonNull
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    static <K, T> PagedList<T> create(@NonNull DataSource<K, T> dataSource,
+    static <K, V> PagedList<V> create(@NonNull DataSource<K, V> dataSource,
             @NonNull Executor notifyExecutor,
             @NonNull Executor fetchExecutor,
-            @Nullable BoundaryCallback<T> boundaryCallback,
+            @Nullable BoundaryCallback<V> boundaryCallback,
             @NonNull Config config,
             @Nullable K key) {
         if (dataSource.isContiguous() || !config.enablePlaceholders) {
             int lastLoad = ContiguousPagedList.LAST_LOAD_UNSPECIFIED;
             if (!dataSource.isContiguous()) {
                 //noinspection unchecked
-                dataSource = (DataSource<K, T>) ((PositionalDataSource<T>) dataSource)
+                dataSource = (DataSource<K, V>) ((PositionalDataSource<V>) dataSource)
                         .wrapAsContiguousWithoutPlaceholders();
                 if (key != null) {
                     lastLoad = (Integer) key;
                 }
             }
-            ContiguousDataSource<K, T> contigDataSource = (ContiguousDataSource<K, T>) dataSource;
+            ContiguousDataSource<K, V> contigDataSource = (ContiguousDataSource<K, V>) dataSource;
             return new ContiguousPagedList<>(contigDataSource,
                     notifyExecutor,
                     fetchExecutor,
@@ -221,7 +224,7 @@ public abstract class PagedList<T> extends AbstractList<T> {
                     key,
                     lastLoad);
         } else {
-            return new TiledPagedList<>((PositionalDataSource<T>) dataSource,
+            return new TiledPagedList<>((PositionalDataSource<V>) dataSource,
                     notifyExecutor,
                     fetchExecutor,
                     boundaryCallback,
@@ -289,6 +292,7 @@ public abstract class PagedList<T> extends AbstractList<T> {
         public Builder(@NonNull DataSource<Key, Value> dataSource, int pageSize) {
             this(dataSource, new PagedList.Config.Builder().setPageSize(pageSize).build());
         }
+
         /**
          * The executor defining where page loading updates are dispatched.
          *
@@ -793,6 +797,55 @@ public abstract class PagedList<T> extends AbstractList<T> {
             @NonNull Callback callback);
 
     abstract void loadAroundInternal(int index);
+
+    public static <BaseType, CurrentItemType extends BaseType, SeparatorType extends BaseType> StageTwoBuilder<BaseType> inject(
+            StageOneBuilder<CurrentItemType> builder,
+            SeparatorGenerator<CurrentItemType, SeparatorType> generator) {
+        throw new NotImplementedException();
+    }
+
+    public static class StageOneBuilder<CurrentItemType> extends StageTwoBuilder<CurrentItemType> {
+        @NonNull
+        private final List<Transform> mTransforms = new ArrayList<>();
+
+        public StageOneBuilder(PagedList<CurrentItemType> src) {
+            super(src);
+        }
+
+        StageOneBuilder<CurrentItemType> filter(@NonNull Function<CurrentItemType, Boolean> shouldRemain) {
+            mTransforms.add(new Transform.Filter<>(shouldRemain));
+            return this;
+        }
+
+        <NewItemType> StageOneBuilder<NewItemType> map(
+                @NonNull Function<CurrentItemType, NewItemType> function) {
+            mTransforms.add(new Transform.Mapper<>(function));
+            //noinspection unchecked
+            return (StageOneBuilder<NewItemType>) this;
+        }
+
+        @Override
+        PagedList<CurrentItemType> build() {
+            return new TransformedPagedList<CurrentItemType>(mSrc, mTransforms);
+        }
+    }
+
+    public static class StageTwoBuilder<T> {
+        final PagedList mSrc;
+
+        public StageTwoBuilder(PagedList src) {
+            mSrc = src;
+        }
+
+        PagedList<T> build() {
+            throw new NotImplementedException();
+        }
+    }
+
+    public StageOneBuilder<T> transform() {
+        return new StageOneBuilder<>(this);
+    }
+
 
     /**
      * Callback signaling when content is loaded into the list.

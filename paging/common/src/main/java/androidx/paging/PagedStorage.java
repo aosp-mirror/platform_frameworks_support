@@ -118,7 +118,7 @@ final class PagedStorage<T> extends AbstractList<T> {
         mLoadedCount = page.size();
         mStorageCount = mLoadedCount;
 
-                // initialized as tiled. There may be 3 nulls, 2 items, but we still call this tiled
+        // initialized as tiled. There may be 3 nulls, 2 items, but we still call this tiled
         // even if it will break if nulls convert.
         mPageSize = page.size();
 

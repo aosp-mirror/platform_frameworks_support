@@ -17,6 +17,7 @@
 package androidx.paging.integration.testapp.custom;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -41,6 +42,12 @@ class PagedListItemAdapter extends PagedListAdapter<Item, RecyclerView.ViewHolde
                 new TextView(parent.getContext())) {};
         holder.itemView.setMinimumHeight(400);
         return holder;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        Log.d("System.out","getItemViewType", new Exception());
+        return super.getItemViewType(position);
     }
 
     @Override
