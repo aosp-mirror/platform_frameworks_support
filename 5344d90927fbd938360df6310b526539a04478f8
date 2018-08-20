@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1466c8ce_4b4bfe31",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-20T12:39:00Z",
+      "side": 1,
+      "message": "Will address this together with Adam\u0027s comment, thanks.",
+      "parentUuid": "71172be7_8937a76f",
+      "revId": "5344d90927fbd938360df6310b526539a04478f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4ba0ccf9_201e9d5d",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
         "patchSetId": 8
@@ -89,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "c504e549_b7fd4b1d",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-20T12:39:00Z",
+      "side": 1,
+      "message": "Removed in last patch set.",
+      "parentUuid": "6867459d_c12c0d69",
+      "range": {
+        "startLine": 315,
+        "startChar": 8,
+        "endLine": 316,
+        "endChar": 45
+      },
+      "revId": "5344d90927fbd938360df6310b526539a04478f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eede2987_5e3bea6e",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
         "patchSetId": 8
@@ -156,6 +198,30 @@
       "revId": "5344d90927fbd938360df6310b526539a04478f8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3309c9ad_888f31bd",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-20T12:39:00Z",
+      "side": 1,
+      "message": "Removed in last patch set.",
+      "parentUuid": "6652c7d4_c09b1d69",
+      "range": {
+        "startLine": 321,
+        "startChar": 8,
+        "endLine": 322,
+        "endChar": 45
+      },
+      "revId": "5344d90927fbd938360df6310b526539a04478f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
