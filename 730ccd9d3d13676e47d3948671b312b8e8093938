@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "226bc472_872a56a1",
+        "filename": "development/importMaven/.gitignore",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-20T20:43:27Z",
+      "side": 1,
+      "message": "You don\u0027t have buildSrc? why do we need this?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 14
+      },
+      "revId": "730ccd9d3d13676e47d3948671b312b8e8093938",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0307bf3d_92e27656",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-20T20:43:27Z",
+      "side": 1,
+      "message": "Add copyright header.",
+      "revId": "730ccd9d3d13676e47d3948671b312b8e8093938",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1f0e685_793c3a5f",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-20T20:43:27Z",
+      "side": 1,
+      "message": "Why do we need this, you have no java?",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 0
+      },
+      "revId": "730ccd9d3d13676e47d3948671b312b8e8093938",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24798661_7a8e6dc0",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 5
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-20T20:43:27Z",
+      "side": 1,
+      "message": "The old script stripped all the maven-metadata.xml files. Can you update your script to do the same?\n\nhttps://googleplex-android.googlesource.com/platform/prebuilts/androidx/internal/+/master/import-maven-artifacts.sh#179",
+      "revId": "730ccd9d3d13676e47d3948671b312b8e8093938",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdec14c7_2d9973b0",
+        "filename": "development/importMaven/gradlew",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-20T20:43:27Z",
+      "side": 1,
+      "message": "make this a symbolic link to frameworks/support/gradlew",
+      "revId": "730ccd9d3d13676e47d3948671b312b8e8093938",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d21a420_d3f4eff2",
+        "filename": "development/importMaven/gradlew.bat",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-20T20:43:27Z",
+      "side": 1,
+      "message": "We don\u0027t really support windows anyway, just drop it.",
+      "revId": "730ccd9d3d13676e47d3948671b312b8e8093938",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
