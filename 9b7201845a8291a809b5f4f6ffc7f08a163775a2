@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3ca23258_6ea46b3e",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-20T18:05:41Z",
+      "side": 1,
+      "message": "The comment in import_from_maven.sh says that we treat databinding as external because it existed before we formally defined androidx. I am just making sure things stay consistent.",
+      "parentUuid": "2088ebfa_5cb3c014",
+      "revId": "9b7201845a8291a809b5f4f6ffc7f08a163775a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c14dcf52_db407f6e",
         "filename": "development/importMaven/build.gradle.kts",
         "patchSetId": 4
@@ -59,6 +77,48 @@
     },
     {
       "key": {
+        "uuid": "a72cb366_67fd96e5",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-20T18:05:41Z",
+      "side": 1,
+      "message": "This is the error message we have now. We can make this nicer by using a wrapper python script which has all the parameter validation \u0026 messaging.\n\n* What went wrong:\nCannot get non-null property \u0027artifactName\u0027 on root project \u0027importMaven\u0027 as it does not exist",
+      "parentUuid": "c14dcf52_db407f6e",
+      "revId": "9b7201845a8291a809b5f4f6ffc7f08a163775a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4bc9da71_b9ba10a5",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-20T18:05:41Z",
+      "side": 1,
+      "message": "I am open to doing that as a follow up. My first goal was to replace the script we have now :)",
+      "parentUuid": "c9b84f48_3fb4d531",
+      "range": {
+        "startLine": 43,
+        "startChar": 12,
+        "endLine": 43,
+        "endChar": 24
+      },
+      "revId": "9b7201845a8291a809b5f4f6ffc7f08a163775a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdf79288_2b5a1c47",
         "filename": "development/importMaven/build.gradle.kts",
         "patchSetId": 4
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "8316f021_bea94e50",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-20T18:05:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdf79288_2b5a1c47",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 29
+      },
+      "revId": "9b7201845a8291a809b5f4f6ffc7f08a163775a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "286f36e0_a76195bd",
         "filename": "development/importMaven/build.gradle.kts",
         "patchSetId": 4
@@ -96,6 +180,24 @@
       "revId": "9b7201845a8291a809b5f4f6ffc7f08a163775a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b245f41_a0d27326",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-20T18:05:41Z",
+      "side": 1,
+      "message": "Added a fetch for the sources artifact as well. When they are available they will get copied.",
+      "parentUuid": "286f36e0_a76195bd",
+      "revId": "9b7201845a8291a809b5f4f6ffc7f08a163775a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
