@@ -386,6 +386,7 @@ public class MediaControlView2 extends BaseLayout {
     List<String> mVideoQualityList;
     List<String> mPlaybackSpeedTextList;
     List<Float> mPlaybackSpeedList;
+    int mCustomPlaybackSpeedIndex;
 
     AnimatorSet mHideMainBarsAnimator;
     AnimatorSet mHideProgressBarAnimator;
@@ -1979,6 +1980,7 @@ public class MediaControlView2 extends BaseLayout {
             float speed = (float) speeds[i] / 100.0f;
             mPlaybackSpeedList.add(speed);
         }
+        mCustomPlaybackSpeedIndex = -1;
     }
 
     boolean isHttpSchemeUrl(MediaItem2 currentMediaItem) {
@@ -2169,6 +2171,19 @@ public class MediaControlView2 extends BaseLayout {
             return mCurrentSeekPosition;
         }
         return getCurrentPosition();
+    }
+
+    private void removeCustomSpeedFromList() {
+        mPlaybackSpeedList.remove(mCustomPlaybackSpeedIndex);
+        mPlaybackSpeedTextList.remove(mCustomPlaybackSpeedIndex);
+        mCustomPlaybackSpeedIndex = -1;
+    }
+
+    private void updateSelectedSpeed(int selectedSpeedIndex, String selectedSpeedText) {
+        mSelectedSpeedIndex = selectedSpeedIndex;
+        mSettingsSubTextsList.set(SETTINGS_MODE_PLAYBACK_SPEED, selectedSpeedText);
+        mSubSettingsAdapter.setTexts(mPlaybackSpeedTextList);
+        mSubSettingsAdapter.setCheckPosition(mSelectedSpeedIndex);
     }
 
     private class SettingsAdapter extends BaseAdapter {
@@ -2595,6 +2610,53 @@ public class MediaControlView2 extends BaseLayout {
                 updateDuration();
                 updateTitle();
                 updateAudioMetadata();
+            }
+
+            @Override
+            public void onPlaybackSpeedChanged(@NonNull MediaController2 controller, float speed) {
+                float roundedPlaybackSpeed = Math.round(speed * 100.0f) / 100.0f;
+                // An application may set a custom playback speed that is not included in the
+                // default playback speed list. The code below handles adding/removing the custom
+                // playback speed to the default list.
+                if (mPlaybackSpeedList.contains(roundedPlaybackSpeed)) {
+                    // Remove existing custom playback speed and update
+                    if (mCustomPlaybackSpeedIndex != -1) {
+                        removeCustomSpeedFromList();
+
+                        for (int i = 0; i < mPlaybackSpeedList.size(); i++) {
+                            if (roundedPlaybackSpeed == mPlaybackSpeedList.get(i)) {
+                                updateSelectedSpeed(i, mPlaybackSpeedTextList.get(i));
+                                break;
+                            }
+                        }
+                    }
+                } else {
+                    if (mCustomPlaybackSpeedIndex != -1) {
+                        // Remove existing custom playback speed
+                        removeCustomSpeedFromList();
+                    }
+
+                    float customPlaybackSpeed = roundedPlaybackSpeed;
+                    String customPlaybackSpeedText = Float.toString(roundedPlaybackSpeed) + "x";
+
+                    for (int i = 0; i < mPlaybackSpeedList.size(); i++) {
+                        if (customPlaybackSpeed < mPlaybackSpeedList.get(i)) {
+                            mPlaybackSpeedList.add(i, customPlaybackSpeed);
+                            mPlaybackSpeedTextList.add(i, customPlaybackSpeedText);
+                            updateSelectedSpeed(i, customPlaybackSpeedText);
+                            break;
+                        }
+                        // Add to end of list if the custom speed value is greater than all the
+                        // value in the default speed list.
+                        if (i == mPlaybackSpeedList.size() - 1
+                                && customPlaybackSpeed > mPlaybackSpeedList.get(i)) {
+                            mPlaybackSpeedList.add(customPlaybackSpeed);
+                            mPlaybackSpeedTextList.add(customPlaybackSpeedText);
+                            updateSelectedSpeed(i + 1, customPlaybackSpeedText);
+                        }
+                    }
+                    mCustomPlaybackSpeedIndex = mSelectedSpeedIndex;
+                }
             }
 
             @Override
