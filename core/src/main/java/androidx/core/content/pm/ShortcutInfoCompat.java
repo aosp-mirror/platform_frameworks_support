@@ -21,19 +21,26 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ShortcutInfo;
 import android.graphics.drawable.Drawable;
+import android.os.PersistableBundle;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.Person;
 import androidx.core.graphics.drawable.IconCompat;
 
 import java.util.Arrays;
+import java.util.Set;
 
 /**
  * Helper for accessing features in {@link ShortcutInfo}.
  */
 public class ShortcutInfoCompat {
+
+    public static final String EXTRA_PERSON_COUNT = "extraPersonCount";
+    public static final String EXTRA_PERSON_ = "extraPerson_";
+    public static final String EXTRA_LONG_LIVED = "extraLongLived";
 
     Context mContext;
     String mId;
@@ -47,6 +54,12 @@ public class ShortcutInfoCompat {
 
     IconCompat mIcon;
     boolean mIsAlwaysBadged;
+
+    Person[] mPersons;
+    Set<String> mCategories;
+
+    // TODO: support |auto| for long lived, when the value is not set by the app
+    boolean mIsLongLived;
 
     ShortcutInfoCompat() { }
 
@@ -70,7 +83,25 @@ public class ShortcutInfoCompat {
         if (mActivity != null) {
             builder.setActivity(mActivity);
         }
+        if (mCategories != null) {
+            builder.setCategories(mCategories);
+        }
+        builder.setExtras(getExtrasBundle());
         return builder.build();
+    }
+
+    @RequiresApi(21)
+    private PersistableBundle getExtrasBundle() {
+        PersistableBundle bundle = new PersistableBundle();
+        if (mPersons != null && mPersons.length > 0) {
+            bundle.putInt(EXTRA_PERSON_COUNT, mPersons.length);
+            for (int i = 0; i < mPersons.length; i++) {
+                // TODO: need to cache the icon locally on the client side
+                bundle.putPersistableBundle(EXTRA_PERSON_ + (i + 1), mPersons[i].toPersistableBundle());
+            }
+        }
+        bundle.putBoolean(EXTRA_LONG_LIVED, mIsLongLived);
+        return bundle;
     }
 
     Intent addToIntent(Intent outIntent) {
@@ -173,6 +204,23 @@ public class ShortcutInfoCompat {
     public Intent[] getIntents() {
         return Arrays.copyOf(mIntents, mIntents.length);
     }
+
+    @Nullable
+    public Person getPerson() {
+        if (mPersons == null || mPersons.length == 0) {
+            return null;
+        } else {
+            return mPersons[mPersons.length - 1];
+        }
+    }
+
+    @Nullable
+    public Person[] getPersons() { return mPersons; }
+
+    @Nullable
+    public Set<String> getCategories() { return mCategories; }
+
+    public boolean getLongLived() { return mIsLongLived; }
 
     /**
      * Builder class for {@link ShortcutInfoCompat} objects.
@@ -290,6 +338,25 @@ public class ShortcutInfoCompat {
          */
         public Builder setAlwaysBadged() {
             mInfo.mIsAlwaysBadged = true;
+            return this;
+        }
+
+        public Builder setPerson(Person person) {
+            return setPersons(new Person[]{person});
+        }
+
+        public Builder setPersons(Person[] persons) {
+            mInfo.mPersons = persons;
+            return this;
+        }
+
+        public Builder setCategories(Set<String> categories) {
+            mInfo.mCategories = categories;
+            return this;
+        }
+
+        public Builder setLongLived(boolean isLongLived) {
+            mInfo.mIsLongLived = isLongLived;
             return this;
         }
 
