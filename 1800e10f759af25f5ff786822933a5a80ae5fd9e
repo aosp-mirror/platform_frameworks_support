@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bcd068e5_0ced2457",
+        "filename": "car/core/src/main/java/androidx/car/widget/SeekbarListItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-20T21:32:19Z",
+      "side": 1,
+      "message": "are we testing these somewhere? I find it a bit suspicious that you changed a public interface and you did not have to change any tests.",
+      "range": {
+        "startLine": 179,
+        "startChar": 16,
+        "endLine": 179,
+        "endChar": 23
+      },
+      "revId": "1800e10f759af25f5ff786822933a5a80ae5fd9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
