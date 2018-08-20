@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4c9ce890_066c9f43",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-20T02:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a3f60ab_2d667b56",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 49
+      },
+      "revId": "3624ab79a1a639ee06f222a60f1c6f154608ad54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1c0219c_2aa78560",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "3624ab79a1a639ee06f222a60f1c6f154608ad54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daa8622f_7a97c7ef",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-20T02:19:49Z",
+      "side": 1,
+      "message": "This method is for coloring spinner(indeterminate progressbar) which is not volume slider. I think the name of method makes confusion, so I\u0027m gonna change it to setIndeterminateProgressBarColor.",
+      "parentUuid": "c1c0219c_2aa78560",
+      "range": {
+        "startLine": 241,
+        "startChar": 9,
+        "endLine": 245,
+        "endChar": 58
+      },
+      "revId": "3624ab79a1a639ee06f222a60f1c6f154608ad54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
