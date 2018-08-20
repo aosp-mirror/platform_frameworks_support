@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "330d1ede_5f19a53a",
+        "filename": "animation/src/main/java/androidx/animation/AnimationUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-20T22:40:20Z",
+      "side": 1,
+      "message": "why isn\u0027t this on Interpolator?",
+      "revId": "8234de25aecd72ec7d2af806eaa1aa4797e9c09b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
