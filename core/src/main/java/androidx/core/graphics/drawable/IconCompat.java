@@ -363,6 +363,19 @@ public class IconCompat extends CustomVersionedParcelable {
         return mInt1;
     }
 
+    public Bitmap getBitmap() {
+        if (mType == TYPE_UNKNOWN && Build.VERSION.SDK_INT >= 23) {
+            if (mObj1 instanceof Bitmap) {
+                return (Bitmap) mObj1;
+            }
+            return null;
+        }
+        if (mType != TYPE_BITMAP) {
+            throw new IllegalStateException("called getBitmap() on " + this);
+        }
+        return (Bitmap) mObj1;
+    }
+
     /**
      * Gets the uri used to create this icon.
      * <p>
