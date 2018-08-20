@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e1162e0_a21aa1b1",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/BaseEntityProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-20T23:10:44Z",
+      "side": 1,
+      "message": "I guess that EntityProcessor is almost never accessed and you just do BaseEntityProcessor::createFor in most of the places. If it is true, it may be nice to:\n1. rename EntityProcessor to NonFtsEntityProcessor / RegularEntityProcessor or smth like this.\n2. rename BaseEntityProcessor -\u003e EntityProcessor \n3. create top level function EntityProcessor(...) that returns either RegularEntityProcessor or FtsEntityProcessor\n\nSo caller side looks way nicer",
+      "range": {
+        "startLine": 27,
+        "startChar": 10,
+        "endLine": 27,
+        "endChar": 29
+      },
+      "revId": "34b4608d879e9ec83b20b74011108a0bf8313758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6134430_d3687e53",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FtsEntityProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-20T23:10:44Z",
+      "side": 1,
+      "message": "twice twice",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 0
+      },
+      "revId": "34b4608d879e9ec83b20b74011108a0bf8313758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e96fd470_e610ccf6",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FtsEntityProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-20T23:10:44Z",
+      "side": 1,
+      "message": "should be throw if anyone use @Index / @ForeignKey in those entities?",
+      "revId": "34b4608d879e9ec83b20b74011108a0bf8313758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9fac603_1bad3fe0",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FtsEntityProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-20T23:10:44Z",
+      "side": 1,
+      "message": "can we generalize this boiler plate?",
+      "range": {
+        "startLine": 141,
+        "startChar": 24,
+        "endLine": 143,
+        "endChar": 68
+      },
+      "revId": "34b4608d879e9ec83b20b74011108a0bf8313758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba65849d_f92ef257",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/RawQueryMethodProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-20T23:10:44Z",
+      "side": 1,
+      "message": "let\u0027s have isEntityElement instead of copying it everywhere",
+      "range": {
+        "startLine": 89,
+        "startChar": 24,
+        "endLine": 89,
+        "endChar": 96
+      },
+      "revId": "34b4608d879e9ec83b20b74011108a0bf8313758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f4f837c_a028a233",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/FtsEntity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-20T23:10:44Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 3
+      },
+      "revId": "34b4608d879e9ec83b20b74011108a0bf8313758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f969ab6_6f92fd68",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/FtsOptions.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-20T23:10:44Z",
+      "side": 1,
+      "message": "/*\n * Copyright 2018 The Android Open Source Project\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */",
+      "revId": "34b4608d879e9ec83b20b74011108a0bf8313758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
