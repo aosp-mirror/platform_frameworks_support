@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import androidx.annotation.NonNull
 import androidx.room.Embedded
 import androidx.room.testing.TestInvocation
 import androidx.room.testing.TestProcessor
-import androidx.room.vo.Entity
+import androidx.room.vo.FtsEntity
 import com.google.auto.common.MoreElements
 import com.google.common.truth.Truth
 import com.google.testing.compile.CompileTester
@@ -28,14 +28,14 @@ import com.google.testing.compile.JavaFileObjects
 import com.google.testing.compile.JavaSourcesSubjectFactory
 import javax.tools.JavaFileObject
 
-abstract class BaseEntityParserTest {
+abstract class BaseFtsEntityParserTest {
     companion object {
         const val ENTITY_PREFIX = """
             package foo.bar;
             import androidx.room.*;
             import androidx.annotation.NonNull;
             import java.util.*;
-            @Entity%s
+            @FtsEntity%s
             public class MyEntity %s {
             """
         const val ENTITY_SUFFIX = "}"
@@ -47,7 +47,7 @@ abstract class BaseEntityParserTest {
         baseClass: String = "",
         jfos: List<JavaFileObject> = emptyList(),
         classLoader: ClassLoader = javaClass.classLoader,
-        handler: (Entity, TestInvocation) -> Unit
+        handler: (FtsEntity, TestInvocation) -> Unit
     ): CompileTester {
         val attributesReplacement: String
         if (attributes.isEmpty()) {
@@ -71,6 +71,7 @@ abstract class BaseEntityParserTest {
                 .withClasspathFrom(classLoader)
                 .processedWith(TestProcessor.builder()
                         .forAnnotations(androidx.room.Entity::class,
+                                androidx.room.FtsEntity::class,
                                 androidx.room.PrimaryKey::class,
                                 androidx.room.Ignore::class,
                                 Embedded::class,
@@ -79,9 +80,9 @@ abstract class BaseEntityParserTest {
                         .nextRunHandler { invocation ->
                             val entity = invocation.roundEnv
                                     .getElementsAnnotatedWith(
-                                            androidx.room.Entity::class.java)
+                                            androidx.room.FtsEntity::class.java)
                                     .first { it.toString() == "foo.bar.MyEntity" }
-                            val parser = TableEntityProcessor(invocation.context,
+                            val parser = FtsTableEntityProcessor(invocation.context,
                                     MoreElements.asType(entity))
                             val parsedQuery = parser.process()
                             handler(parsedQuery, invocation)
