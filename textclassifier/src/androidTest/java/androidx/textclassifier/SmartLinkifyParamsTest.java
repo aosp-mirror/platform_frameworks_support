@@ -28,7 +28,10 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.collection.ArrayMap;
+import androidx.core.util.Function;
 import androidx.test.filters.SmallTest;
+import androidx.textclassifier.TextLinks.TextLinkSpan;
+import androidx.textclassifier.TextLinks.TextLinkSpanData;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -60,15 +63,15 @@ public class SmartLinkifyParamsTest {
         }
     }
 
-    private static class CustomTextLinkSpan extends TextLinks.TextLinkSpan {
-        CustomTextLinkSpan(@Nullable TextLinks.TextLinkSpanData textLinkSpanData) {
+    private static class CustomTextLinkSpan extends TextLinkSpan {
+        CustomTextLinkSpan(@Nullable TextLinkSpanData textLinkSpanData) {
             super(textLinkSpanData);
         }
     }
 
-    private static class CustomSpanFactory implements TextLinks.SpanFactory {
+    private static class CustomSpanFactory implements Function<TextLinkSpanData, TextLinkSpan> {
         @Override
-        public TextLinks.TextLinkSpan createSpan(TextLinks.TextLinkSpanData textLinkSpanData) {
+        public TextLinkSpan apply(TextLinkSpanData textLinkSpanData) {
             return new CustomTextLinkSpan(textLinkSpanData);
         }
     }
@@ -88,7 +91,7 @@ public class SmartLinkifyParamsTest {
     @Test
     public void testApplyNoLinks() {
         SpannableString text = new SpannableString("foo");
-        TextLinks links = new TextLinks.Builder(text.toString()).build();
+        TextLinks links = new TextLinks.Builder(text).build();
         SmartLinkifyParams smartLinkifyParams =
                 new SmartLinkifyParams.Builder()
                         .setApplyStrategy(TextLinks.APPLY_STRATEGY_REPLACE)
@@ -101,7 +104,7 @@ public class SmartLinkifyParamsTest {
     public void testApplyNoApplied() {
         SpannableString text = new SpannableString("foo");
         text.setSpan(new NoOpSpan(), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        TextLinks links = new TextLinks.Builder(text.toString()).addLink(
+        TextLinks links = new TextLinks.Builder(text).addLink(
                 0, 3, mDummyEntityScores).build();
         SmartLinkifyParams smartLinkifyParams =
                 new SmartLinkifyParams.Builder()
@@ -114,7 +117,7 @@ public class SmartLinkifyParamsTest {
     @Test
     public void testApplyAppliedDefaultSpanFactory() {
         SpannableString text = new SpannableString("foo");
-        TextLinks links = new TextLinks.Builder(text.toString()).addLink(
+        TextLinks links = new TextLinks.Builder(text).addLink(
                 0, 3, mDummyEntityScores).build();
 
         SmartLinkifyParams smartLinkifyParams =
@@ -125,7 +128,7 @@ public class SmartLinkifyParamsTest {
                 .isEqualTo(TextLinks.STATUS_LINKS_APPLIED);
 
 
-        TextLinks.TextLinkSpan[] spans = text.getSpans(0, 3, TextLinks.TextLinkSpan.class);
+        TextLinkSpan[] spans = text.getSpans(0, 3, TextLinkSpan.class);
         assertThat(spans).hasLength(1);
         assertThat(links.getLinks()).contains(spans[0].getTextLinkSpanData().getTextLink());
     }
@@ -134,7 +137,7 @@ public class SmartLinkifyParamsTest {
     public void testApplyAppliedDefaultSpanFactoryReplace() {
         SpannableString text = new SpannableString("foo");
         text.setSpan(new NoOpSpan(), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        TextLinks links = new TextLinks.Builder(text.toString()).addLink(
+        TextLinks links = new TextLinks.Builder(text).addLink(
                 0, 3, mDummyEntityScores).build();
 
         SmartLinkifyParams smartLinkifyParams =
@@ -144,7 +147,7 @@ public class SmartLinkifyParamsTest {
         assertThat(smartLinkifyParams.apply(text, links, mTextClassifier))
                 .isEqualTo(TextLinks.STATUS_LINKS_APPLIED);
 
-        TextLinks.TextLinkSpan[] spans = text.getSpans(0, 3, TextLinks.TextLinkSpan.class);
+        TextLinkSpan[] spans = text.getSpans(0, 3, TextLinkSpan.class);
         assertThat(spans).hasLength(1);
         assertThat(links.getLinks()).contains(spans[0].getTextLinkSpanData().getTextLink());
     }
@@ -152,7 +155,7 @@ public class SmartLinkifyParamsTest {
     @Test
     public void testApplyAppliedCustomSpanFactory() {
         SpannableString text = new SpannableString("foo");
-        TextLinks links = new TextLinks.Builder(text.toString()).addLink(
+        TextLinks links = new TextLinks.Builder(text).addLink(
                 0, 3, mDummyEntityScores).build();
 
         SmartLinkifyParams smartLinkifyParams =
@@ -163,7 +166,7 @@ public class SmartLinkifyParamsTest {
         assertThat(smartLinkifyParams.apply(text, links, mTextClassifier))
                 .isEqualTo(TextLinks.STATUS_LINKS_APPLIED);
 
-        TextLinks.TextLinkSpan[] spans = text.getSpans(0, 3, TextLinks.TextLinkSpan.class);
+        TextLinkSpan[] spans = text.getSpans(0, 3, TextLinkSpan.class);
         assertThat(spans).hasLength(1);
         assertThat(links.getLinks()).contains(spans[0].getTextLinkSpanData().getTextLink());
     }

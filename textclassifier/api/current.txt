@@ -1,5 +1,13 @@
 package androidx.textclassifier {
 
+  public abstract interface EntityRecognizer {
+    method public abstract java.lang.String getEntityType(java.util.regex.Pattern, java.lang.CharSequence, int, int);
+  }
+
+  public abstract interface MatchMaker {
+    method public abstract java.util.List<androidx.core.app.RemoteActionCompat> getActions(java.lang.String, java.lang.CharSequence);
+  }
+
   public final class SelectionEvent {
     method public static androidx.textclassifier.SelectionEvent createFromBundle(android.os.Bundle);
     method public static androidx.textclassifier.SelectionEvent createSelectionActionEvent(int, int, int);
@@ -52,11 +60,15 @@ package androidx.textclassifier {
 
   public static final class SmartLinkifyParams.Builder {
     ctor public SmartLinkifyParams.Builder();
+    method public androidx.textclassifier.SmartLinkifyParams.Builder addPattern(java.util.regex.Pattern, java.lang.String);
+    method public androidx.textclassifier.SmartLinkifyParams.Builder addPattern(java.util.regex.Pattern, androidx.textclassifier.EntityRecognizer);
     method public androidx.textclassifier.SmartLinkifyParams build();
     method public androidx.textclassifier.SmartLinkifyParams.Builder setApplyStrategy(int);
     method public androidx.textclassifier.SmartLinkifyParams.Builder setDefaultLocales(androidx.core.os.LocaleListCompat);
     method public androidx.textclassifier.SmartLinkifyParams.Builder setEntityConfig(androidx.textclassifier.TextClassifier.EntityConfig);
+    method public androidx.textclassifier.SmartLinkifyParams.Builder setMatchMaker(androidx.textclassifier.MatchMaker);
     method public androidx.textclassifier.SmartLinkifyParams.Builder setReferenceTime(java.lang.Long);
+    method public androidx.textclassifier.SmartLinkifyParams.Builder setSpanFactory(androidx.core.util.Function<androidx.textclassifier.TextLinks.TextLinkSpanData, androidx.textclassifier.TextLinks.TextLinkSpan>);
   }
 
   public final class TextClassification {
@@ -125,7 +137,6 @@ package androidx.textclassifier {
     ctor public TextClassifier();
     method public androidx.textclassifier.TextClassification classifyText(androidx.textclassifier.TextClassification.Request);
     method public androidx.textclassifier.TextLinks generateLinks(androidx.textclassifier.TextLinks.Request);
-    method public int getMaxGenerateLinksTextLength();
     method public void onSelectionEvent(androidx.textclassifier.SelectionEvent);
     method public final void reportSelectionEvent(androidx.textclassifier.SelectionEvent);
     method public androidx.textclassifier.TextSelection suggestSelection(androidx.textclassifier.TextSelection.Request);
@@ -183,7 +194,7 @@ package androidx.textclassifier {
   }
 
   public static final class TextLinks.Builder {
-    ctor public TextLinks.Builder(java.lang.String);
+    ctor public TextLinks.Builder(java.lang.CharSequence);
     method public androidx.textclassifier.TextLinks.Builder addLink(int, int, java.util.Map<java.lang.String, java.lang.Float>);
     method public androidx.textclassifier.TextLinks build();
     method public androidx.textclassifier.TextLinks.Builder clearTextLinks();

@@ -34,7 +34,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
-import androidx.annotation.VisibleForTesting;
+import androidx.core.app.RemoteActionCompat;
 import androidx.core.os.LocaleListCompat;
 import androidx.core.util.Preconditions;
 import androidx.textclassifier.TextClassifier.EntityConfig;
@@ -176,7 +176,6 @@ public final class TextLinks {
          * @throws IllegalArgumentException if entityScores is null or empty.
          * @hide
          */
-        @VisibleForTesting
         @RestrictTo(RestrictTo.Scope.LIBRARY)
         TextLink(
                 int start, int end,
@@ -417,29 +416,13 @@ public final class TextLinks {
     }
 
     /**
-     * A function to create spans from TextLinks.
-     *
-     * Hidden until we convinced we want it to be part of the public API.
-     *
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
-    public interface SpanFactory {
-
-        /** Creates a span from a text link. */
-        TextLinkSpan createSpan(@NonNull TextLinkSpanData textLinkSpanData);
-    }
-
-    /**
      * Contains necessary data for {@link TextLinkSpan}.
      */
     public static class TextLinkSpanData {
-        @NonNull
-        private final TextLink mTextLink;
-        @NonNull
-        private final TextClassifier mTextClassifier;
-        @Nullable
-        private final Long mReferenceTime;
+        @NonNull private final TextLink mTextLink;
+        @NonNull private final TextClassifier mTextClassifier;
+        @Nullable private final Long mReferenceTime;
+        @NonNull private final MatchMaker mMatchMaker;
 
         /**
          * @hide
@@ -448,10 +431,13 @@ public final class TextLinks {
         TextLinkSpanData(
                 @NonNull TextLink textLink,
                 @NonNull TextClassifier textClassifier,
+                @NonNull MatchMaker matchMaker,
                 @Nullable Long referenceTime) {
             mTextLink = Preconditions.checkNotNull(textLink);
             mTextClassifier = Preconditions.checkNotNull(textClassifier);
+            mMatchMaker = Preconditions.checkNotNull(matchMaker);
             mReferenceTime = referenceTime;
+
         }
 
         @NonNull
@@ -469,12 +455,16 @@ public final class TextLinks {
             return mReferenceTime;
         }
 
-        /**
-         * @hide
-         */
+        /** @hide */
         @RestrictTo(RestrictTo.Scope.LIBRARY)
         TextClassifier getTextClassifier() {
             return mTextClassifier;
+        }
+
+        /** @hide */
+        @RestrictTo(RestrictTo.Scope.LIBRARY)
+        MatchMaker getMatchMaker() {
+            return mMatchMaker;
         }
     }
 
@@ -511,20 +501,29 @@ public final class TextLinks {
                             .setDefaultLocales(getLocales(textView))
                             .build();
             final TextClassifier classifier = mTextLinkSpanData.getTextClassifier();
+            final TextLink textLink = mTextLinkSpanData.getTextLink();
+            final CharSequence linkText = text.subSequence(textLink.getStart(), textLink.getEnd());
+            final MatchMaker matchMaker = mTextLinkSpanData.getMatchMaker();
 
             // TODO: Truncate the text.
             sWorkerExecutor.execute(new Runnable() {
                 @Override
                 public void run() {
+                    final List<RemoteActionCompat> customActions =
+                            matchMaker.getActions(textLink.getEntity(0), linkText);
+                    final List<RemoteActionCompat> classifierActions =
+                            classifier.classifyText(request).getActions();
+                    final List<RemoteActionCompat> actions = new ArrayList<>();
+                    actions.addAll(customActions);
+                    actions.addAll(classifierActions);
 
-                    final TextClassification classification = classifier.classifyText(request);
                     sMainThreadExecutor.execute(new Runnable() {
                         @Override
                         public void run() {
-                            if (!classification.getActions().isEmpty()) {
+                            if (!actions.isEmpty()) {
                                 // TODO: Show the toolbar instead.
                                 try {
-                                    classification.getActions().get(0).getActionIntent().send();
+                                    actions.get(0).getActionIntent().send();
                                 } catch (PendingIntent.CanceledException e) {
                                     Log.e(LOG_TAG, "Error handling TextLinkSpan click", e);
                                 }
@@ -561,8 +560,7 @@ public final class TextLinks {
          *
          * @param fullText The full text to annotate with links.
          */
-        // TODO: Change API to take a CharSequence instead.
-        public Builder(@NonNull String fullText) {
+        public Builder(@NonNull CharSequence fullText) {
             mFullText = Preconditions.checkNotNull(fullText);
             mLinks = new ArrayList<>();
         }

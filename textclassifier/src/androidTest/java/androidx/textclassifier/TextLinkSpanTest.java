@@ -129,6 +129,6 @@ public final class TextLinkSpanTest {
 
     private TextLinks.TextLinkSpan createTextLinkSpan(TextLinks.TextLink textLink) {
         return new TextLinks.TextLinkSpan(
-                new TextLinks.TextLinkSpanData(textLink, mTextClassifier, null));
+                new TextLinks.TextLinkSpanData(textLink, mTextClassifier, MatchMaker.EMPTY, null));
     }
 }
