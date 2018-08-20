@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ce2138e_88a668b0",
+        "filename": "car/core/res/values/themes.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-20T18:11:04Z",
+      "side": 1,
+      "message": "Large is the same size as the regular TextAppearance. Is this intended? Or did we just not have specs for the larger size?",
+      "range": {
+        "startLine": 203,
+        "startChar": 20,
+        "endLine": 203,
+        "endChar": 47
+      },
+      "revId": "4b88300ae51b598fc633e241c44ac9ca4e27f8cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
