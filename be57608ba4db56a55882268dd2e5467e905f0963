@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "438428d8_a9d2bf0c",
+        "filename": "car/core/res/values/themes.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-08-20T21:19:33Z",
+      "side": 0,
+      "message": "@ajchen, thought about what you said and since I didn\u0027t need to override textAppearance, decided to remove the override to avoid confusion between textAppearanceLarge and textAppearance",
+      "range": {
+        "startLine": 204,
+        "startChar": 8,
+        "endLine": 204,
+        "endChar": 82
+      },
+      "revId": "be57608ba4db56a55882268dd2e5467e905f0963",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
