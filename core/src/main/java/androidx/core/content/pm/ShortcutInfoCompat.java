@@ -26,9 +26,11 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.Person;
 import androidx.core.graphics.drawable.IconCompat;
 
 import java.util.Arrays;
+import java.util.Set;
 
 /**
  * Helper for accessing features in {@link ShortcutInfo}.
@@ -290,6 +292,18 @@ public class ShortcutInfoCompat {
          */
         public Builder setAlwaysBadged() {
             mInfo.mIsAlwaysBadged = true;
+            return this;
+        }
+
+        public Builder setPersons(Person[] persons) {
+            return this;
+        }
+
+        public Builder setCategories(Set<String> categories) {
+            return this;
+        }
+
+        public Builder setLongLived(boolean isLongLived) {
             return this;
         }
 

@@ -32,6 +32,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
 
+import java.util.Set;
+
 /**
  * Helper for accessing features in {@link android.content.pm.ShortcutManager}.
  */
@@ -140,5 +142,9 @@ public class ShortcutManagerCompat {
             result = new Intent();
         }
         return shortcut.addToIntent(result);
+    }
+
+    public static void deleteShortcuts(Set<String> id) {
+
     }
 }
