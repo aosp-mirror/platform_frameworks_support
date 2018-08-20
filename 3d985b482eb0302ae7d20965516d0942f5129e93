@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4021635c_6e227760",
+        "filename": "textclassifier/integration-tests/testapp/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-20T17:03:31Z",
+      "side": 1,
+      "message": "Why do you need multidex? It does not seem that you are including that many libraries.",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 27
+      },
+      "revId": "3d985b482eb0302ae7d20965516d0942f5129e93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ef749ab_f728fbeb",
+        "filename": "textclassifier/integration-tests/testapp/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-20T17:03:31Z",
+      "side": 1,
+      "message": "These are not needed, remove.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 30
+      },
+      "revId": "3d985b482eb0302ae7d20965516d0942f5129e93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60400ec8_fda6cc7a",
+        "filename": "textclassifier/integration-tests/testapp/src/main/res/drawable/android.png",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-20T17:03:31Z",
+      "side": 1,
+      "message": "Where is this used?",
+      "revId": "3d985b482eb0302ae7d20965516d0942f5129e93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d61005c2_b2e4c3e2",
+        "filename": "textclassifier/integration-tests/testapp/src/main/res/values/strings.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-20T17:03:31Z",
+      "side": 1,
+      "message": "Update the copyrights on the new files to be 2018",
+      "range": {
+        "startLine": 2,
+        "startChar": 19,
+        "endLine": 2,
+        "endChar": 23
+      },
+      "revId": "3d985b482eb0302ae7d20965516d0942f5129e93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
