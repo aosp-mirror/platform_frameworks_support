@@ -17,15 +17,16 @@
 package androidx.core.content
 
 import android.content.ContextWrapper
+import androidx.core.getAttributeSet
 import androidx.test.InstrumentationRegistry
 import androidx.test.filters.SdkSuppress
-import androidx.core.ktx.test.R
-import androidx.core.getAttributeSet
+import androidx.test.filters.SmallTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
+@SmallTest
 class ContextTest {
     private val context = InstrumentationRegistry.getContext()
 

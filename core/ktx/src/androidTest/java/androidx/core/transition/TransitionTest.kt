@@ -16,9 +16,6 @@
 
 package androidx.core.transition
 
-import androidx.test.InstrumentationRegistry
-import androidx.test.filters.SdkSuppress
-import androidx.test.rule.ActivityTestRule
 import android.transition.Fade
 import android.transition.Transition
 import android.transition.TransitionManager
@@ -26,7 +23,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.TestActivity
-import androidx.core.ktx.test.R
+import androidx.test.InstrumentationRegistry
+import androidx.test.filters.LargeTest
+import androidx.test.filters.SdkSuppress
+import androidx.test.rule.ActivityTestRule
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
@@ -36,6 +36,7 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 
 @SdkSuppress(minSdkVersion = 19)
+@LargeTest
 class TransitionTest {
     @JvmField @Rule val rule = ActivityTestRule<TestActivity>(TestActivity::class.java)
 

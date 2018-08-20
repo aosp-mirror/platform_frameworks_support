@@ -17,16 +17,17 @@
 package androidx.core.content.res
 
 import android.graphics.Color
+import androidx.core.getAttributeSet
 import androidx.test.InstrumentationRegistry
 import androidx.test.filters.SdkSuppress
-import androidx.core.ktx.test.R
+import androidx.test.filters.SmallTest
 import androidx.testutils.assertThrows
-import androidx.core.getAttributeSet
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
+@SmallTest
 class TypedArrayTest {
     private val context = InstrumentationRegistry.getContext()
 
