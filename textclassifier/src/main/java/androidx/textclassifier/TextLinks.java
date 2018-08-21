@@ -20,11 +20,16 @@ import static androidx.textclassifier.ConvertUtils.toPlatformEntityConfig;
 import static androidx.textclassifier.ConvertUtils.unwrapLocalListCompat;
 
 import android.app.PendingIntent;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Selection;
+import android.text.Spannable;
 import android.text.Spanned;
 import android.text.style.ClickableSpan;
 import android.text.style.URLSpan;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -35,6 +40,12 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.widget.FloatingToolbarConstants;
+import androidx.appcompat.widget.TextViewFloatingToolbarHelper;
+import androidx.collection.ArrayMap;
+import androidx.core.app.RemoteActionCompat;
+import androidx.core.internal.view.SupportMenu;
 import androidx.core.os.LocaleListCompat;
 import androidx.core.util.Preconditions;
 import androidx.textclassifier.TextClassifier.EntityConfig;
@@ -521,13 +532,20 @@ public final class TextLinks {
                     sMainThreadExecutor.execute(new Runnable() {
                         @Override
                         public void run() {
+                            final List<RemoteActionCompat> actions = classification.getActions();
                             if (!classification.getActions().isEmpty()) {
                                 // TODO: Show the toolbar instead.
-                                try {
-                                    classification.getActions().get(0).getActionIntent().send();
-                                } catch (PendingIntent.CanceledException e) {
-                                    Log.e(LOG_TAG, "Error handling TextLinkSpan click", e);
-                                }
+                                Selection.setSelection((Spannable) textView.getText(), start, end);
+                                final SupportMenu menu = createMenu(textView, actions);
+                                System.out.println(menu.size());
+                                new TextViewFloatingToolbarHelper(textView)
+                                        .show(start, end, menu, true);
+
+//                                try {
+//                                    classification.getActions().get(0).getActionIntent().send();
+//                                } catch (PendingIntent.CanceledException e) {
+//                                    Log.e(LOG_TAG, "Error handling TextLinkSpan click", e);
+//                                }
                             }
                         }
                     });
@@ -541,6 +559,66 @@ public final class TextLinks {
             } else {
                 return LocaleListCompat.create(textView.getTextLocale());
             }
+        }
+
+        private static final int ORDER_START = 50;
+
+        private SupportMenu createMenu(final TextView textView, List<RemoteActionCompat> actions) {
+            final MenuBuilder menu = new MenuBuilder(textView.getContext());
+            final Map<MenuItem, RemoteActionCompat> mMenuActions = new ArrayMap<>();
+            if (textView.hasSelection()) {
+                final CharSequence text = textView.getText();
+                if (text instanceof Spannable) {
+                    final int size = actions.size();
+                    for (int i = 0; i < size; i++) {
+                        final RemoteActionCompat action = actions.get(i);
+                        final MenuItem item = menu.add(
+                                FloatingToolbarConstants.MENU_ID_ASSIST  /* groupId */,
+                                i == 0 ? FloatingToolbarConstants.MENU_ID_ASSIST : i  /* itemId */,
+                                i == 0 ? 0 : ORDER_START + i  /* order */,
+                                action.getTitle()  /* title */);
+                        if (action.shouldShowIcon()) {
+                            item.setIcon(action.getIcon().loadDrawable(textView.getContext()));
+                        }
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            item.setContentDescription(action.getContentDescription());
+                        }
+                        item.setShowAsAction(i == 0
+                                ? MenuItem.SHOW_AS_ACTION_ALWAYS
+                                : MenuItem.SHOW_AS_ACTION_NEVER);
+                        mMenuActions.put(item, action);
+                    }
+                    menu.add(Menu.NONE, android.R.id.copy, 1,
+                            android.R.string.copy)
+                            .setAlphabeticShortcut('c')
+                            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                    menu.add(Menu.NONE, android.R.id.shareText, 2,
+                            R.string.abc_share)
+                            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+                    menu.setCallback(new MenuBuilder.Callback() {
+                        @Override
+                        public boolean onMenuItemSelected(MenuBuilder menu, MenuItem item) {
+                            final RemoteActionCompat action = mMenuActions != null
+                                    ? mMenuActions.get(item) : null;
+                            if (action != null) {
+                                try {
+                                    action.getActionIntent().send();
+                                } catch (PendingIntent.CanceledException e) {
+                                    Log.e(LOG_TAG, "Error performing smart action", e);
+                                }
+                                return true;
+                            }
+                            final boolean ret = textView.onTextContextMenuItem(item.getItemId());
+                            return ret;
+                        }
+
+                        @Override
+                        public void onMenuModeChange(MenuBuilder menu) {}
+                    });
+                }
+            }
+            return menu;
         }
 
         @NonNull
