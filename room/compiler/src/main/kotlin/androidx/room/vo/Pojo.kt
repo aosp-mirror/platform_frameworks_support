@@ -17,7 +17,7 @@
 package androidx.room.vo
 
 import androidx.room.ext.typeName
-import androidx.room.processor.BaseEntityProcessor
+import androidx.room.processor.EntityProcessor
 import com.google.auto.common.MoreElements
 import com.squareup.javapoet.TypeName
 import javax.lang.model.element.TypeElement
@@ -45,7 +45,7 @@ open class Pojo(
                 androidx.room.Entity::class.java).or(MoreElements.getAnnotationMirror(element,
                 androidx.room.FtsEntity::class.java)).orNull()
         return if (entityAnnotation != null) {
-            listOf(BaseEntityProcessor.extractTableName(element, entityAnnotation))
+            listOf(EntityProcessor.extractTableName(element, entityAnnotation))
         } else {
             embeddedFields.flatMap {
                 it.pojo.accessedTableNames()

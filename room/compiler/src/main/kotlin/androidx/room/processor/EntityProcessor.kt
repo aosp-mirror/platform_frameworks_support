@@ -24,7 +24,7 @@ import javax.lang.model.element.AnnotationMirror
 import javax.lang.model.element.Name
 import javax.lang.model.element.TypeElement
 
-interface BaseEntityProcessor {
+interface EntityProcessor {
     fun process(): Entity
 
     companion object {
@@ -44,7 +44,7 @@ fun EntityProcessor(
     context: Context,
     element: TypeElement,
     referenceStack: LinkedHashSet<Name> = LinkedHashSet()
-): BaseEntityProcessor {
+): EntityProcessor {
     return if (element.hasAnnotation(FtsEntity::class)) {
         FtsTableEntityProcessor(context, element, referenceStack)
     } else {
