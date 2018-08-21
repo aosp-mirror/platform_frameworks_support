@@ -18,7 +18,10 @@ package androidx.preference;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.Build.VERSION_CODES;
 import android.util.AttributeSet;
+import android.util.TypedValue;
+import android.widget.TextView;
 
 import androidx.core.content.res.TypedArrayUtils;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
@@ -68,8 +71,24 @@ public class PreferenceCategory extends PreferenceGroup {
     @Override
     public void onBindViewHolder(PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
-        if (Build.VERSION.SDK_INT >= 28) {
+        if (Build.VERSION.SDK_INT >= VERSION_CODES.P) {
             holder.itemView.setAccessibilityHeading(true);
+        }
+        // We can't set colorAccent in XML below Lollipop, as it only exists within AppCompat,
+        // and will crash PreferenceFragment on inflation. We should still try and parse the
+        // attribute here in case we are running inside PreferenceFragmentCompat, in which case
+        // we might have access to this attribute and should attempt to set the category title
+        // accordingly.
+        else if (Build.VERSION.SDK_INT <= 21) {
+            final TypedValue value = new TypedValue();
+            // Return if the attribute could not be resolved
+            if (!getContext().getTheme().resolveAttribute(R.attr.colorAccent, value, true)) {
+                return;
+            }
+            final TextView titleView = (TextView) holder.findViewById(android.R.id.title);
+            if (titleView != null) {
+                titleView.setTextColor(value.data);
+            }
         }
     }
 
