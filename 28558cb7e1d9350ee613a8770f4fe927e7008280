@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "a4ebff08_3083477f",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-21T20:13:03Z",
+      "side": 1,
+      "message": "Taking Mark\u0027s idea of using builders, I decided to stop accepting lists, which avoids this problem altogether. Still I\u0027ve added a comment on the getters.",
+      "parentUuid": "4ea89690_931b2b1a",
+      "range": {
+        "startLine": 58,
+        "startChar": 46,
+        "endLine": 58,
+        "endChar": 0
+      },
+      "revId": "28558cb7e1d9350ee613a8770f4fe927e7008280",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a367077f_87537870",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
         "patchSetId": 31
