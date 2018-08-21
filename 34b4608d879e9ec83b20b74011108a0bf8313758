@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "adc9c270_5df5cae2",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/BaseEntityProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-21T18:39:50Z",
+      "side": 1,
+      "message": "Done - But had to move the rename to a separate commit so that Git doesn\u0027t show a huge add / delete.",
+      "parentUuid": "6e1162e0_a21aa1b1",
+      "range": {
+        "startLine": 27,
+        "startChar": 10,
+        "endLine": 27,
+        "endChar": 29
+      },
+      "revId": "34b4608d879e9ec83b20b74011108a0bf8313758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6134430_d3687e53",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FtsEntityProcessor.kt",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a6be9981_40a1c23e",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FtsEntityProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-21T18:39:50Z",
+      "side": 1,
+      "message": "Ugh - I clearly have some copyright template problem.",
+      "parentUuid": "f6134430_d3687e53",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 0
+      },
+      "revId": "34b4608d879e9ec83b20b74011108a0bf8313758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e96fd470_e610ccf6",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FtsEntityProcessor.kt",
         "patchSetId": 1
@@ -62,6 +110,24 @@
       "revId": "34b4608d879e9ec83b20b74011108a0bf8313758",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcc2bca1_8931dddd",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FtsEntityProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-21T18:39:50Z",
+      "side": 1,
+      "message": "No need to, @Index \u0026 @ForeignKey can\u0027t be placed in fields nor classes. Only inside the @Entity",
+      "parentUuid": "e96fd470_e610ccf6",
+      "revId": "34b4608d879e9ec83b20b74011108a0bf8313758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "9d73d77c_6ee3a067",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FtsEntityProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-21T18:39:50Z",
+      "side": 1,
+      "message": "Couldn\u0027t quite generalize due to diff return types, but made call-site \u0027nicer\u0027 by moving the getAnnotationValue to the companion obj fun",
+      "parentUuid": "d9fac603_1bad3fe0",
+      "range": {
+        "startLine": 141,
+        "startChar": 24,
+        "endLine": 143,
+        "endChar": 68
+      },
+      "revId": "34b4608d879e9ec83b20b74011108a0bf8313758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba65849d_f92ef257",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/RawQueryMethodProcessor.kt",
         "patchSetId": 1
@@ -108,6 +198,30 @@
       "revId": "34b4608d879e9ec83b20b74011108a0bf8313758",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15ef9c45_a82f0c55",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/RawQueryMethodProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-21T18:39:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba65849d_f92ef257",
+      "range": {
+        "startLine": 89,
+        "startChar": 24,
+        "endLine": 89,
+        "endChar": 96
+      },
+      "revId": "34b4608d879e9ec83b20b74011108a0bf8313758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "aa87b78d_02e240c5",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/FtsEntity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-21T18:39:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f4f837c_a028a233",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 3
+      },
+      "revId": "34b4608d879e9ec83b20b74011108a0bf8313758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f969ab6_6f92fd68",
         "filename": "room/compiler/src/main/kotlin/androidx/room/vo/FtsOptions.kt",
         "patchSetId": 1
@@ -148,6 +286,24 @@
       "revId": "34b4608d879e9ec83b20b74011108a0bf8313758",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e965cbf9_961558aa",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/FtsOptions.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-21T18:39:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f969ab6_6f92fd68",
+      "revId": "34b4608d879e9ec83b20b74011108a0bf8313758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
