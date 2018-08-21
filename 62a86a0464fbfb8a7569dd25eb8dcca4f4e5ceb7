@@ -187,6 +187,30 @@
     },
     {
       "key": {
+        "uuid": "206b257e_9b763ba1",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-21T05:53:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "624ca611_2e55dfb0",
+      "range": {
+        "startLine": 56,
+        "startChar": 19,
+        "endLine": 56,
+        "endChar": 36
+      },
+      "revId": "62a86a0464fbfb8a7569dd25eb8dcca4f4e5ceb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f13873f_0c08bd01",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
         "patchSetId": 27

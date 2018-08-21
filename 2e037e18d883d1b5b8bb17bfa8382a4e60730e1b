@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f059f5d8_3a389c42",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-21T05:53:25Z",
+      "side": 1,
+      "message": "make this class have an immutable API?\n\n- add constructor parameter or\n- add a builder",
+      "range": {
+        "startLine": 312,
+        "startChar": 0,
+        "endLine": 326,
+        "endChar": 0
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0ab47e3_1d428e4c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-21T05:53:25Z",
+      "side": 1,
+      "message": "As in other comments, make this class have an immutable API?",
+      "range": {
+        "startLine": 60,
+        "startChar": 7,
+        "endLine": 92,
+        "endChar": 0
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f22fc400_c344db15",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-21T05:53:25Z",
+      "side": 1,
+      "message": "I think I\u0027ve still got an outstanding comment about this, but we should probably use equals on the getters rather than the raw fields. Otherwise objects that look the same from the outside won\u0027t be treated as equal(), which might ruin some lookups.\n\nAnd throughout all equals() methods?",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 69
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a09b5400_0d820f69",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-21T05:53:25Z",
+      "side": 1,
+      "message": "as above, hash on getters too\n\nAnd throughout?",
+      "range": {
+        "startLine": 116,
+        "startChar": 27,
+        "endLine": 117,
+        "endChar": 51
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9081adb_996d7f1c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-21T05:53:25Z",
+      "side": 1,
+      "message": "as above, use getters, not members, otherwise there\u0027s a mismatch between public api (empty list) and this (null)\n\nAnd throughout?",
+      "range": {
+        "startLine": 122,
+        "startChar": 62,
+        "endLine": 124,
+        "endChar": 0
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b790e88f_e7c688ef",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-21T05:53:25Z",
+      "side": 1,
+      "message": "Feedback from api council on b/111877789 said schema objects should be immutable.\n\nI see that we can\u0027t make these objects have final fields (because VersionedParcelize) but we can make the API surface of these classes immutable.\n\nOptions:\n- Take these through a public constructor (easy)\n- Add an inner builder class for each method (harder, more self-documenting, similar to what you\u0027re doing here).\n\nExample: a builder that proxies through to the underlying data\nhttps://cs.corp.google.com/piper///depot/google3/java/com/google/android/gmscore/dev/client/wallet/src/com/google/android/gms/wallet/IsReadyToPayRequest.java?q\u003dIsReadyToPayRequest\u0026sq\u003dpackage:piper+file://depot/google3+-file:google3/experimental\u0026dr\u003dCSs\u0026l\u003d161\n\nEither sounds reasonable to me.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 0
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1597e470_dd8c7754",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-21T05:53:25Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 12
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ccf94a2_060a6774",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-21T05:53:25Z",
+      "side": 1,
+      "message": "Doesn\u0027t need to be public",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 10
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60322208_16ba080c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-21T05:53:25Z",
+      "side": 1,
+      "message": "Update doc - this also now returns empty if any element of the list is null",
+      "range": {
+        "startLine": 51,
+        "startChar": 67,
+        "endLine": 52,
+        "endChar": 0
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8d7c6d9_26e34358",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-21T05:53:25Z",
+      "side": 1,
+      "message": "Doesn\u0027t need to be public",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 10
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "953ebf8e_f67113cc",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-21T05:53:25Z",
+      "side": 1,
+      "message": "doesn\u0027t need to be public any more, can be package-private",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 6
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96c4b80c_94f952b1",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-21T05:53:25Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 40,
+        "startChar": 7,
+        "endLine": 40,
+        "endChar": 12
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
