@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "72c5ec1a_a0f1b8bf",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/MissingTypeException.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2018-08-21T22:41:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09bf8751_e6b8ef70",
+      "range": {
+        "startLine": 28,
+        "startChar": 22,
+        "endLine": 28,
+        "endChar": 35
+      },
+      "revId": "6b368cab43bf9c7c804bce49a42b2d5cb1fe44ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d51a5de7_023adb26",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/ProcessorErrors.kt",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "6b368cab43bf9c7c804bce49a42b2d5cb1fe44ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d988620b_1a857813",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/ProcessorErrors.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2018-08-21T22:41:56Z",
+      "side": 1,
+      "message": "Done and updated the delete and update text also",
+      "parentUuid": "d51a5de7_023adb26",
+      "range": {
+        "startLine": 140,
+        "startChar": 8,
+        "endLine": 140,
+        "endChar": 41
+      },
+      "revId": "6b368cab43bf9c7c804bce49a42b2d5cb1fe44ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "837f742c_de3620bf",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/DeleteOrUpdateMethodAdapter.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2018-08-21T22:41:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63b8ac87_1981fb89",
+      "range": {
+        "startLine": 31,
+        "startChar": 52,
+        "endLine": 31,
+        "endChar": 58
+      },
+      "revId": "6b368cab43bf9c7c804bce49a42b2d5cb1fe44ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f9399d3_e351a5c8",
         "filename": "room/compiler/src/main/kotlin/androidx/room/writer/InsertMethodAdapter.kt",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "6b368cab43bf9c7c804bce49a42b2d5cb1fe44ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e81c853_465624bb",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/InsertMethodAdapter.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2018-08-21T22:41:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f9399d3_e351a5c8",
+      "range": {
+        "startLine": 36,
+        "startChar": 59,
+        "endLine": 36,
+        "endChar": 72
+      },
+      "revId": "6b368cab43bf9c7c804bce49a42b2d5cb1fe44ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "99442695_12e459f7",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binder/DeleteOrUpdateMethodBinder.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2018-08-21T22:41:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d090600_3ba42a8c",
+      "range": {
+        "startLine": 38,
+        "startChar": 7,
+        "endLine": 38,
+        "endChar": 10
+      },
+      "revId": "6b368cab43bf9c7c804bce49a42b2d5cb1fe44ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0169e42_52e695cb",
         "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binder/DeleteOrUpdateMethodBinder.kt",
         "patchSetId": 6
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "331228ba_3d174836",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/binder/DeleteOrUpdateMethodBinder.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2018-08-21T22:41:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0169e42_52e695cb",
+      "range": {
+        "startLine": 46,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 13
+      },
+      "revId": "6b368cab43bf9c7c804bce49a42b2d5cb1fe44ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "974b800c_423ad4c8",
         "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/dao/BooksDao.kt",
         "patchSetId": 6
@@ -151,6 +295,30 @@
       "writtenOn": "2018-08-20T23:23:17Z",
       "side": 1,
       "message": "Remember to add test cases with @Query, i.e.:\n\n@Query(\"INSERT INTO products (name) VALUES (:name)\")\nvoid insert(String name);\n\nIts OK if you don\u0027t tackle those cases immediately but can do so in a follow-up change.",
+      "range": {
+        "startLine": 43,
+        "startChar": 10,
+        "endLine": 43,
+        "endChar": 18
+      },
+      "revId": "6b368cab43bf9c7c804bce49a42b2d5cb1fe44ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d7d86e9_9a70fc06",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/dao/BooksDao.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2018-08-21T22:41:56Z",
+      "side": 1,
+      "message": "We already have test cases in `QueryMethodProcessorTest` that cover this",
+      "parentUuid": "974b800c_423ad4c8",
       "range": {
         "startLine": 43,
         "startChar": 10,
