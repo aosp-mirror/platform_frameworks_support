@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e00a7d6_32d39edb",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer2Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2348,
+      "author": {
+        "id": 1060405
+      },
+      "writtenOn": "2018-08-21T00:20:04Z",
+      "side": 1,
+      "message": "according to MP2 design doc, setPlaybackParams doesn\u0027t change state. It just change the playback speed parameters/configuration. That also implies PlaybackParams.speed cannot be zero.",
+      "range": {
+        "startLine": 2348,
+        "startChar": 26,
+        "endLine": 2348,
+        "endChar": 43
+      },
+      "revId": "11398336b858b531ec92302c7528172e26df8e40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de09ad04_6730ea37",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer2Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2364,
+      "author": {
+        "id": 1060405
+      },
+      "writtenOn": "2018-08-21T00:20:04Z",
+      "side": 1,
+      "message": "also check params !\u003d null ?",
+      "range": {
+        "startLine": 2364,
+        "startChar": 57,
+        "endLine": 2364,
+        "endChar": 63
+      },
+      "revId": "11398336b858b531ec92302c7528172e26df8e40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
