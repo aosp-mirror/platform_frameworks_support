@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "4316297e_f1ab94c2",
+        "filename": "car/cluster/src/androidTest/java/androidx/car/cluster/navigation/NavigationStateTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-21T06:24:07Z",
+      "side": 1,
+      "message": "Add test for list with a null element in the list",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 7
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f059f5d8_3a389c42",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
         "patchSetId": 32
@@ -41,6 +64,29 @@
         "startChar": 7,
         "endLine": 92,
         "endChar": 0
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4f0f750_5ef496cf",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-21T06:24:07Z",
+      "side": 1,
+      "message": "There are a lot of untested hashCode and equals methods in this commit.\n\nIs it possible to use http://go/java-testing/test_utilities#equalstester? I\u0027ve used that to simplify testing my equals and hashcode methods in the past (though usually I try to use AutoValue or a proto to avoid having to ever test it).\n\nEqualsTester is part of guava, not sure if it\u0027s legit to depend on guava from tests for a support library, or if there\u0027s a way to have separate test dependencies vs prod dependencies (is there?)",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 37
       },
       "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -271,6 +317,99 @@
         "startChar": 7,
         "endLine": 40,
         "endChar": 12
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e96c67dd_cf754200",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-21T06:24:07Z",
+      "side": 1,
+      "message": "Oh, I see this is in a util package.\n\nLet\u0027s move these \u0027util\u0027s to the parent package, then they don\u0027t need to be public, so they can be package-private? I\u0027m usually not a fan of \u0027util\u0027 directories, the name is so vague it tells you nothing about what\u0027s inside, and they grow without bound.",
+      "parentUuid": "953ebf8e_f67113cc",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 6
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14d6ffee_2181cafb",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-21T06:24:07Z",
+      "side": 1,
+      "message": "Add test for null timezoneId?",
+      "range": {
+        "startLine": 73,
+        "startChar": 19,
+        "endLine": 73,
+        "endChar": 34
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cb72e10_49d80f1c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-21T06:24:07Z",
+      "side": 1,
+      "message": "Add test for empty timezone id?",
+      "range": {
+        "startLine": 73,
+        "startChar": 39,
+        "endLine": 73,
+        "endChar": 54
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f6bd4d3_fdeaa3d3",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-21T06:24:07Z",
+      "side": 1,
+      "message": "Add test that tickles this path? Invalid timezone id?",
+      "range": {
+        "startLine": 75,
+        "startChar": 17,
+        "endLine": 75,
+        "endChar": 37
       },
       "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
