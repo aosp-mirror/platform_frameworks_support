@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "39e9f907_cfd414d3",
+        "filename": "development/importMaven/.gitignore",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-21T00:43:00Z",
+      "side": 1,
+      "message": "AFAICT, the build.gradle.kts files get compiled and placed in the buildSrc/build directory.",
+      "parentUuid": "226bc472_872a56a1",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 14
+      },
+      "revId": "730ccd9d3d13676e47d3948671b312b8e8093938",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0307bf3d_92e27656",
         "filename": "development/importMaven/build.gradle.kts",
         "patchSetId": 5
@@ -39,6 +63,24 @@
       "revId": "730ccd9d3d13676e47d3948671b312b8e8093938",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2685d603_93b9f0db",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-21T00:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0307bf3d_92e27656",
+      "revId": "730ccd9d3d13676e47d3948671b312b8e8093938",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "6dbc71ef_3c140284",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-21T00:43:00Z",
+      "side": 1,
+      "message": "Essentially this gradle script is pretending to be a java application which depends on the said artifact, so we can use `configurations.compile` to fetch the transitive closure of dependencies.",
+      "parentUuid": "e1f0e685_793c3a5f",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 0
+      },
+      "revId": "730ccd9d3d13676e47d3948671b312b8e8093938",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24798661_7a8e6dc0",
         "filename": "development/importMaven/build.gradle.kts",
         "patchSetId": 5
@@ -79,6 +145,24 @@
       "revId": "730ccd9d3d13676e47d3948671b312b8e8093938",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2140a899_85199647",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 5
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-21T00:43:00Z",
+      "side": 1,
+      "message": "I don\u0027t download the maven-metadata.xml files at all. The only files I get explicitly are the pom files, the actual artifact and the sources if available.",
+      "parentUuid": "24798661_7a8e6dc0",
+      "revId": "730ccd9d3d13676e47d3948671b312b8e8093938",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "68cc166c_a264d8c8",
+        "filename": "development/importMaven/gradlew",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-21T00:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fdec14c7_2d9973b0",
+      "revId": "730ccd9d3d13676e47d3948671b312b8e8093938",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d21a420_d3f4eff2",
         "filename": "development/importMaven/gradlew.bat",
         "patchSetId": 5
@@ -113,6 +215,24 @@
       "revId": "730ccd9d3d13676e47d3948671b312b8e8093938",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c807763_650df347",
+        "filename": "development/importMaven/gradlew.bat",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-21T00:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d21a420_d3f4eff2",
+      "revId": "730ccd9d3d13676e47d3948671b312b8e8093938",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
