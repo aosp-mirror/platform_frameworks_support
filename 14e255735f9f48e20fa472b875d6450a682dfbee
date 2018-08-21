@@ -426,6 +426,30 @@
     },
     {
       "key": {
+        "uuid": "522c71d0_92d9d445",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-21T03:59:59Z",
+      "side": 1,
+      "message": "Added a processor test for the error message.",
+      "parentUuid": "604da7eb_9861d0b6",
+      "range": {
+        "startLine": 307,
+        "startChar": 20,
+        "endLine": 307,
+        "endChar": 93
+      },
+      "revId": "14e255735f9f48e20fa472b875d6450a682dfbee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7bc6755_08498290",
         "filename": "room/compiler/src/main/kotlin/androidx/room/vo/DatabaseView.kt",
         "patchSetId": 2
