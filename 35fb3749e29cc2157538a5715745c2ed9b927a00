@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20a921fd_f9c328ee",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteVolumeSlider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-21T09:33:43Z",
+      "side": 1,
+      "message": "mutate is needed only once",
+      "range": {
+        "startLine": 60,
+        "startChar": 65,
+        "endLine": 60,
+        "endChar": 73
+      },
+      "revId": "35fb3749e29cc2157538a5715745c2ed9b927a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b399afd6_175001ce",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteVolumeSlider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-21T09:33:43Z",
+      "side": 1,
+      "message": "should we do this for individual drawables?",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 0
+      },
+      "revId": "35fb3749e29cc2157538a5715745c2ed9b927a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c18aed44_ed9097dc",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-21T09:33:43Z",
+      "side": 1,
+      "message": "For public / protected / package private member/variable/classes, prefer following format.\n\n/**\n *\n */",
+      "range": {
+        "startLine": 226,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 0
+      },
+      "revId": "35fb3749e29cc2157538a5715745c2ed9b927a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04897b7f_f484c9c3",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-21T09:33:43Z",
+      "side": 1,
+      "message": "what about setColor(int progressAndThumbColor, int backgroundColor) if they alway need to be set together?",
+      "range": {
+        "startLine": 256,
+        "startChar": 21,
+        "endLine": 256,
+        "endChar": 45
+      },
+      "revId": "35fb3749e29cc2157538a5715745c2ed9b927a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc9a320b_9b903558",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_group_volume_item.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-21T09:33:43Z",
+      "side": 1,
+      "message": "only available in API21+\nIs it OK?",
+      "range": {
+        "startLine": 50,
+        "startChar": 12,
+        "endLine": 50,
+        "endChar": 30
+      },
+      "revId": "35fb3749e29cc2157538a5715745c2ed9b927a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05c9e9db_5094fa7f",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_route_item.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-21T09:33:43Z",
+      "side": 1,
+      "message": "it\u0027s only avaialble in API 21+\nIs it OK for older API?",
+      "range": {
+        "startLine": 72,
+        "startChar": 12,
+        "endLine": 72,
+        "endChar": 30
+      },
+      "revId": "35fb3749e29cc2157538a5715745c2ed9b927a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dae4523_937d584a",
+        "filename": "mediarouter/src/main/res/values/attrs.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-21T09:33:43Z",
+      "side": 1,
+      "message": "revert",
+      "revId": "35fb3749e29cc2157538a5715745c2ed9b927a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16ec46ce_bed5ea5f",
+        "filename": "mediarouter/src/main/res/values/themes.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-21T09:33:43Z",
+      "side": 1,
+      "message": "revert",
+      "revId": "35fb3749e29cc2157538a5715745c2ed9b927a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
