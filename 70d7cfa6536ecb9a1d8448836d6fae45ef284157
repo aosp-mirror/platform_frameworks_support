@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c41e123_9c676d82",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-08-21T16:38:40Z",
+      "side": 1,
+      "message": "sp",
+      "range": {
+        "startLine": 508,
+        "startChar": 78,
+        "endLine": 508,
+        "endChar": 84
+      },
+      "revId": "70d7cfa6536ecb9a1d8448836d6fae45ef284157",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
