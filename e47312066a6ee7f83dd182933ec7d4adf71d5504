@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "66fe8516_72a6dc93",
+        "filename": "animation/src/main/java/androidx/animation/Animator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-21T23:29:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c9d10e2c_e7d7133e",
+      "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c855638_0ccf1aa6",
         "filename": "animation/src/main/java/androidx/animation/Animator.java",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f783dfd8_92a0979b",
+        "filename": "animation/src/main/java/androidx/animation/Animator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-21T23:29:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c855638_0ccf1aa6",
+      "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "ae696a23_cc0b90dd",
+        "filename": "animation/src/main/java/androidx/animation/Animator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-21T23:29:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3c85e29_926d164b",
+      "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33951a29_681891cb",
         "filename": "animation/src/main/java/androidx/animation/Animator.java",
         "patchSetId": 8
@@ -67,6 +121,24 @@
       "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4c4a8ce_e7024718",
+        "filename": "animation/src/main/java/androidx/animation/Animator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-21T23:29:36Z",
+      "side": 1,
+      "message": "Good point. Done.",
+      "parentUuid": "33951a29_681891cb",
+      "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "55326d51_dac90246",
+        "filename": "animation/src/main/java/androidx/animation/AnimatorSet.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-21T23:29:36Z",
+      "side": 1,
+      "message": "playSequentially(..) is intended as a convenient method for play(B).before(C).after(A), since having all the animations playing sequentially is a fairly common case",
+      "parentUuid": "d8e756a2_2e43b1ae",
+      "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "84b6051f_82a04b67",
         "filename": "animation/src/main/java/androidx/animation/AnimatorSet.java",
         "patchSetId": 8
@@ -98,6 +188,24 @@
       "writtenOn": "2018-08-21T22:00:40Z",
       "side": 1,
       "message": "This comment doesn\u0027t seem to match the code\n\n1) Does getTotalDuration return infinite even if a child has a start delay?\n\nExplain here, and in docs for getTotalDuration/mTotalDuration\n\n2) why does a sequential animation prevent reverse? isn\u0027t reverse(a, then b) reversable as (reverse(b), then reverse(a)) ?",
+      "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02032ded_4591103e",
+        "filename": "animation/src/main/java/androidx/animation/AnimatorSet.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-21T23:29:36Z",
+      "side": 1,
+      "message": "This doc is outdated. Sequential animation only prevents reverse before reverse was properly implemented. Docs updated.",
+      "parentUuid": "84b6051f_82a04b67",
       "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -127,6 +235,30 @@
     },
     {
       "key": {
+        "uuid": "a46452cb_c551ac6d",
+        "filename": "animation/src/main/java/androidx/animation/TestHandler.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-21T23:29:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b19f14e9_edd1b528",
+      "range": {
+        "startLine": 21,
+        "startChar": 26,
+        "endLine": 21,
+        "endChar": 27
+      },
+      "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cac644d_04d84d8f",
         "filename": "animation/src/main/java/androidx/animation/TimeAnimator.java",
         "patchSetId": 8
@@ -147,6 +279,30 @@
       "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14fde37c_ee1b8345",
+        "filename": "animation/src/main/java/androidx/animation/TimeAnimator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-21T23:29:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cac644d_04d84d8f",
+      "range": {
+        "startLine": 99,
+        "startChar": 26,
+        "endLine": 99,
+        "endChar": 38
+      },
+      "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
