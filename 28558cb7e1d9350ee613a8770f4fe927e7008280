@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4ea89690_931b2b1a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-21T02:50:55Z",
+      "side": 1,
+      "message": "I\u0027ve added a comment on the NavigationState javadoc.",
+      "parentUuid": "d3c30119_96ddefde",
+      "range": {
+        "startLine": 58,
+        "startChar": 46,
+        "endLine": 58,
+        "endChar": 0
+      },
+      "revId": "28558cb7e1d9350ee613a8770f4fe927e7008280",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a367077f_87537870",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
         "patchSetId": 31
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-20T21:39:03Z",
       "side": 1,
       "message": "Are we guaranteed that this call will succeed if mZoneId is non-empty?",
+      "range": {
+        "startLine": 70,
+        "startChar": 44,
+        "endLine": 70,
+        "endChar": 0
+      },
+      "revId": "28558cb7e1d9350ee613a8770f4fe927e7008280",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5e850ef_51bf7e85",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-21T02:50:55Z",
+      "side": 1,
+      "message": "Good call. Updated.",
+      "parentUuid": "a367077f_87537870",
       "range": {
         "startLine": 70,
         "startChar": 44,
