@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "772e1ff0_bdc9ce93",
+        "filename": "room/common/src/main/java/androidx/room/FtsEntity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-21T18:38:59Z",
+      "side": 1,
+      "message": "People us both, no reason not to support v3 given how similar it is to v4.",
+      "parentUuid": "e263aaa3_6108298d",
+      "range": {
+        "startLine": 29,
+        "startChar": 45,
+        "endLine": 29,
+        "endChar": 50
+      },
+      "revId": "9418d40066f0d15c5ffa2a09b4c0612c7f81b70c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ee0a017_3ed488bd",
         "filename": "room/common/src/main/java/androidx/room/FtsEntity.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "dff5dfce_ea25fd7f",
+        "filename": "room/common/src/main/java/androidx/room/FtsEntity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-21T18:38:59Z",
+      "side": 1,
+      "message": "We need to allow it and enforce it otherwise what does it mean to have a field named \u0027rowid\u0027 but no @PrimaryKey ? Having the annotation makes it clear. It also helps when they want to have a different name for the field and thus use @ColumnInfo. Note that they can omit the field completely and that is OK.",
+      "parentUuid": "5ee0a017_3ed488bd",
+      "range": {
+        "startLine": 34,
+        "startChar": 17,
+        "endLine": 34,
+        "endChar": 36
+      },
+      "revId": "9418d40066f0d15c5ffa2a09b4c0612c7f81b70c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c72f47e_9b75c912",
         "filename": "room/common/src/main/java/androidx/room/FtsEntity.java",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "9418d40066f0d15c5ffa2a09b4c0612c7f81b70c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e85b76e5_8b77980b",
+        "filename": "room/common/src/main/java/androidx/room/FtsEntity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-21T18:38:59Z",
+      "side": 1,
+      "message": "Updated to hopefully something more clear.",
+      "parentUuid": "2c72f47e_9b75c912",
+      "range": {
+        "startLine": 145,
+        "startChar": 2,
+        "endLine": 155,
+        "endChar": 7
+      },
+      "revId": "9418d40066f0d15c5ffa2a09b4c0612c7f81b70c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
