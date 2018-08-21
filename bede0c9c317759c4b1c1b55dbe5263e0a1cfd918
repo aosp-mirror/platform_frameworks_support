@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de4b80fd_442ea41e",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/Scheduler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-21T20:12:19Z",
+      "side": 1,
+      "message": "You also need to change the Javadoc in Configuration.setMaxSchedulerLimit which says 100 (update it to 50).",
+      "range": {
+        "startLine": 34,
+        "startChar": 30,
+        "endLine": 34,
+        "endChar": 32
+      },
+      "revId": "bede0c9c317759c4b1c1b55dbe5263e0a1cfd918",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
