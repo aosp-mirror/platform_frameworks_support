@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49a3c962_925cf60f",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-21T17:25:51Z",
+      "side": 1,
+      "message": "Maybe we should enforce end \u003e start in TextLink.Builder instead?",
+      "revId": "25c3b140a7f24838497b8e4a084630f4bf6bc8af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cad992e1_05b7b2a7",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-21T17:25:51Z",
+      "side": 1,
+      "message": "(Assume we will clean up all the names here eventually ) :)",
+      "revId": "25c3b140a7f24838497b8e4a084630f4bf6bc8af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "54278b2f_92c86492",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkifyParams.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-21T17:25:51Z",
+      "side": 1,
+      "message": "Do devs need a different recognizer for different pattern?\nIn theory, a single recognizer can handle all the patterns?",
+      "revId": "25c3b140a7f24838497b8e4a084630f4bf6bc8af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33e23b9c_8af80f12",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkifyParams.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-21T17:25:51Z",
+      "side": 1,
+      "message": "mmm, that would be pretty weird to have a no-op link :)\n\nI am thinking should we combine the EntityRecognizer and MatchMaker into one.\nSaying that because the intermediate entity type seems not much interesting to the developers, what they really want is just pattern -\u003e action. And unlike generateLinks, it sounds not necessary to split it into two phases (pattern -\u003e entity types -\u003e action)\n\n[Not sure, just brainstorming]\nHow about just store the action in the TextLink, so we can start it right away if it exists?\nThe another option is to use the URLSpan, like we did for the leagcyTC. \n\nAnd btw, do we really need to have LegacyTc.classifyText? Can\u0027t we just trigger urlspan.onclick?\n\nThanks!",
+      "revId": "25c3b140a7f24838497b8e4a084630f4bf6bc8af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
