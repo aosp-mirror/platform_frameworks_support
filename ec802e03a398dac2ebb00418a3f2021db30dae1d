@@ -19,6 +19,47 @@
     },
     {
       "key": {
+        "uuid": "24ff2ad6_9500c064",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-21T06:21:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acdded72_052d39bf",
+      "revId": "ec802e03a398dac2ebb00418a3f2021db30dae1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7887e45e_8db83feb",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-21T06:21:08Z",
+      "side": 1,
+      "message": "Removed since API level \u003c 17 will not support blur. Instead the background image will be darkened.",
+      "range": {
+        "startLine": 421,
+        "startChar": 19,
+        "endLine": 421,
+        "endChar": 76
+      },
+      "revId": "ec802e03a398dac2ebb00418a3f2021db30dae1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f1e71b32_96c8c923",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 1
@@ -30,6 +71,30 @@
       "writtenOn": "2018-08-17T04:18:43Z",
       "side": 1,
       "message": "You don\u0027t need this. see .xml",
+      "range": {
+        "startLine": 425,
+        "startChar": 19,
+        "endLine": 430,
+        "endChar": 64
+      },
+      "revId": "ec802e03a398dac2ebb00418a3f2021db30dae1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35edd046_72e10864",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-21T06:21:08Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "f1e71b32_96c8c923",
       "range": {
         "startLine": 425,
         "startChar": 19,
@@ -59,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "63698afb_40990ede",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-21T06:21:08Z",
+      "side": 1,
+      "message": "1. We need a black view with 60% alpha value on top of the blurred image. But if we use the parent view as the black view, it will affect the color of the components in the RelativeView (the album image, title text, stop casting button etc).\n\n2. Because we need to show two separate layouts at the same location?\n2.1. Done.",
+      "parentUuid": "c2389cc3_70e243b9",
+      "revId": "ec802e03a398dac2ebb00418a3f2021db30dae1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "00958899_20ebc755",
         "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
         "patchSetId": 1
@@ -70,6 +153,30 @@
       "writtenOn": "2018-08-17T04:18:43Z",
       "side": 1,
       "message": "Either use fixed height or set adjustViewBounds",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 0
+      },
+      "revId": "ec802e03a398dac2ebb00418a3f2021db30dae1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19cbf148_6f24dd33",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-21T06:21:08Z",
+      "side": 1,
+      "message": "Added fixed height but we need to keep centerCrop--otherwise the image will shrink in height to fit into the given height of the view.",
+      "parentUuid": "00958899_20ebc755",
       "range": {
         "startLine": 28,
         "startChar": 0,
