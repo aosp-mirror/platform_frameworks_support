@@ -46,6 +46,30 @@
       "revId": "a2f58c457b9571697cf5b4b5b9380f0190fc95b4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06209ec9_3901ee99",
+        "filename": "preference/src/main/java/androidx/preference/PreferenceGroup.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-08-21T16:50:39Z",
+      "side": 1,
+      "message": "Making removePreference recursive would be a breaking behavior change, so that\u0027s out.\n\nRemove only operating at a single level of the hierarchy while find is recursive is consistent with other classes (ex. ViewGroup).\n\nIf you needed to provide a single method to do both operations, findAndRemovePreference() could work as a naming scheme.",
+      "parentUuid": "1e41c29e_07b321cb",
+      "range": {
+        "startLine": 278,
+        "startChar": 7,
+        "endLine": 278,
+        "endChar": 36
+      },
+      "revId": "a2f58c457b9571697cf5b4b5b9380f0190fc95b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
