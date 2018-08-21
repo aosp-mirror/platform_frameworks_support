@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "492d8c3a_918e016f",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-08-21T16:56:20Z",
+      "side": 1,
+      "message": "Alan - Does this class belongs here, or in ViewCompat?",
+      "range": {
+        "startLine": 46,
+        "startChar": 22,
+        "endLine": 46,
+        "endChar": 46
+      },
+      "revId": "70d7cfa6536ecb9a1d8448836d6fae45ef284157",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a847436f_043e0f57",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-08-21T16:56:20Z",
+      "side": 1,
+      "message": "nit: extra space",
+      "range": {
+        "startLine": 46,
+        "startChar": 21,
+        "endLine": 46,
+        "endChar": 22
+      },
+      "revId": "70d7cfa6536ecb9a1d8448836d6fae45ef284157",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07289dcd_733304e8",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-08-21T16:56:20Z",
+      "side": 1,
+      "message": "Hey Alan - we\u0027ve gone back and forth on this API. This will likely be implemented as a lambda, so having three arguments is unfortunate.\n\nThe Bundle, while it\u0027s only used for a few actions, needs to be there is it is used by some actions.\n\nThe view could also be eliminated, but that will mean that each view needs its own callback. If RecyclerView adds a dismiss action on every view, it will need to keep track of which callback applies to which view. That seems like a big enough mess that we should just deal with the extra argument.\n\nThe actionId could be eliminated, but that will mean that each action will need its own A11yViewCmd. That will be a bit silly for things like scroll up/down/left/right, but we\u0027d have a simpler API.",
+      "range": {
+        "startLine": 56,
+        "startChar": 35,
+        "endLine": 56,
+        "endChar": 47
+      },
+      "revId": "70d7cfa6536ecb9a1d8448836d6fae45ef284157",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0c41e123_9c676d82",
         "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
         "patchSetId": 5
