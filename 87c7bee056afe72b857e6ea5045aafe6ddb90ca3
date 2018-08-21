@@ -39,6 +39,24 @@
       "revId": "87c7bee056afe72b857e6ea5045aafe6ddb90ca3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f72f94ec_5b76618d",
+        "filename": "car/core/res/layout/car_preference_alert_dialog_title.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-08-21T22:46:00Z",
+      "side": 1,
+      "message": "discussed offline, unfortunately because I\u0027m applying an xml overlay, I need to maintain this structure.  Added a comment to clarify.",
+      "parentUuid": "fd7deeaf_74129772",
+      "revId": "87c7bee056afe72b857e6ea5045aafe6ddb90ca3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
