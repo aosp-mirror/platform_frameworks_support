@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee2a170d_049aae5b",
+        "filename": "car/core/res/layout/car_preference_alert_dialog_button_bar.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-21T21:27:27Z",
+      "side": 1,
+      "message": "Necessary to be a ScrollView? If it is, can you add a comment about it",
+      "range": {
+        "startLine": 18,
+        "startChar": 1,
+        "endLine": 18,
+        "endChar": 11
+      },
+      "revId": "87c7bee056afe72b857e6ea5045aafe6ddb90ca3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd7deeaf_74129772",
+        "filename": "car/core/res/layout/car_preference_alert_dialog_title.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-21T21:27:27Z",
+      "side": 1,
+      "message": "Is the custom title added as a direct child of topPanel? If so, it might not be possible to do the following change I\u0027m going to suggest.\n\nBut if not, then is it possible to make the top-level parent a RelativeLayout? That way we can reduce the nesting. Currently, you have 3 LinearLayouts nested within each other.",
+      "revId": "87c7bee056afe72b857e6ea5045aafe6ddb90ca3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
