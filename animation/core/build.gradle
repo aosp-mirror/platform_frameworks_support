@@ -25,16 +25,19 @@ plugins {
 dependencies {
     implementation(project(":annotation"))
     implementation(project(":core"))
+    androidTestImplementation(project(":animation:animation-testing")) {
+        exclude group: 'androidx.animation', module: 'animation-core'
+    }
 
     androidTestImplementation(TEST_RUNNER, libs.exclude_for_espresso)
     androidTestImplementation(TEST_RULES, libs.exclude_for_espresso)
 }
 
 supportLibrary {
-    name = "Android Support Animation"
+    name = "Android Support Animation Testing"
     publish = false
     mavenVersion = LibraryVersions.SUPPORT_LIBRARY
     mavenGroup = LibraryGroups.ANIMATION
     inceptionYear = "2018"
-    description = "This library provides functionalities for creating and manipulating animations for API 14 and above."
+    description = "This library provides functionalities for testing animations for API 14 and above."
 }
