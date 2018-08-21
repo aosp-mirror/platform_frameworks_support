@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a37937c_28721a95",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-21T19:23:48Z",
+      "side": 1,
+      "message": "Yeah. We used to have that in the platform. I can\u0027t remember anymore why I moved away from that. I\u0027ll revisit.",
+      "parentUuid": "49a3c962_925cf60f",
+      "revId": "25c3b140a7f24838497b8e4a084630f4bf6bc8af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cad992e1_05b7b2a7",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "25c3b140a7f24838497b8e4a084630f4bf6bc8af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1602cea4_3d12650a",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-21T19:23:48Z",
+      "side": 1,
+      "message": ":)",
+      "parentUuid": "cad992e1_05b7b2a7",
+      "revId": "25c3b140a7f24838497b8e4a084630f4bf6bc8af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "aaf8b648_b4736ce9",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkifyParams.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-21T19:23:48Z",
+      "side": 1,
+      "message": "The API allows you to assign one or many patterns to a recognizer. Similar to the way listeners work. I don\u0027t want to force developers to do either.",
+      "parentUuid": "54278b2f_92c86492",
+      "revId": "25c3b140a7f24838497b8e4a084630f4bf6bc8af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "33e23b9c_8af80f12",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkifyParams.java",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2018-08-21T17:25:51Z",
       "side": 1,
       "message": "mmm, that would be pretty weird to have a no-op link :)\n\nI am thinking should we combine the EntityRecognizer and MatchMaker into one.\nSaying that because the intermediate entity type seems not much interesting to the developers, what they really want is just pattern -\u003e action. And unlike generateLinks, it sounds not necessary to split it into two phases (pattern -\u003e entity types -\u003e action)\n\n[Not sure, just brainstorming]\nHow about just store the action in the TextLink, so we can start it right away if it exists?\nThe another option is to use the URLSpan, like we did for the leagcyTC. \n\nAnd btw, do we really need to have LegacyTc.classifyText? Can\u0027t we just trigger urlspan.onclick?\n\nThanks!",
+      "revId": "25c3b140a7f24838497b8e4a084630f4bf6bc8af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd856014_984e82af",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkifyParams.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-21T19:23:48Z",
+      "side": 1,
+      "message": "A. You could have a no-op link if you wanted anyway. There is ClickSpan.onClick and LinkMovementMethod that help developers do that -- both which apply to TextLinks.\n\nBut Matchmaker is only adding additional links. If you recognize a pattern as one of the standard entity types, the TC will add actions for you.\n\nB. We could combine EntityRecognizer and MatchMaker but then how would the code look like for developers to recognize a pattern as a system supported entity? I\u0027m open to suggestions.\n\nC. We want multiple actions on click, not a single action.\n\nD. Overall, my goals for the cl are:\n- Recognize custom entity types using regex patterns. e.g. customPattern1.\n- Recognize standard entity types using regex patterns. e.g. myDatePattern. \n- Specify action(s) for custom entity types.\n- Add custom action(s) to standard entity types.\nBasically, this code is to make it easy for app developers to specify custom entity types and actions without needing to implement their own TextClassifier.\n\nI\u0027m open to ideas and alternatives for accomplishing the above.",
+      "parentUuid": "33e23b9c_8af80f12",
       "revId": "25c3b140a7f24838497b8e4a084630f4bf6bc8af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
