@@ -22,6 +22,30 @@
       "revId": "bede0c9c317759c4b1c1b55dbe5263e0a1cfd918",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c039b42f_fbaca511",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/Scheduler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-21T20:15:08Z",
+      "side": 1,
+      "message": "Updated the Javadoc as well. Thanks !",
+      "parentUuid": "de4b80fd_442ea41e",
+      "range": {
+        "startLine": 34,
+        "startChar": 30,
+        "endLine": 34,
+        "endChar": 32
+      },
+      "revId": "bede0c9c317759c4b1c1b55dbe5263e0a1cfd918",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
