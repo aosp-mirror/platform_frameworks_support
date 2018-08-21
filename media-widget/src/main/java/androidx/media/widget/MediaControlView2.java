@@ -236,7 +236,7 @@ public class MediaControlView2 extends BaseLayout {
     private static final int MEDIA_TYPE_MUSIC = 1;
     private static final int MEDIA_TYPE_ADVERTISEMENT = 2;
 
-    private static final int BOTTOM_BAR_RIGHT_VIEW_MAX_ICON_NUM_DEFAULT = 4;
+    private static final int BOTTOM_BAR_RIGHT_VIEW_MAX_ICON_NUM_DEFAULT = 3;
     private static final int BOTTOM_BAR_RIGHT_VIEW_MAX_ICON_NUM_MUSIC = 2;
 
     private static final int SIZE_TYPE_EMBEDDED = 0;
@@ -784,9 +784,7 @@ public class MediaControlView2 extends BaseLayout {
         mTimeView = v.findViewById(R.id.time);
         // Save the width of the initial time view since it represents the maximum width that this
         // class supports (00:00:00 · 00:00:00).
-        if (mTimeView != null) {
-            mMaxTimeViewWidth = mTimeView.getWidth();
-        }
+
         mEndTime = v.findViewById(R.id.time_end);
         mCurrentTime = v.findViewById(R.id.time_current);
         mAdSkipView = v.findViewById(R.id.ad_skip_time);
@@ -1599,6 +1597,7 @@ public class MediaControlView2 extends BaseLayout {
 
     void updateDuration() {
         if (mController != null && mController.hasMetadata()) {
+            mTimeView.setVisibility(View.VISIBLE);
             mDuration = mController.getDurationMs();
             setProgress();
         }
@@ -1676,6 +1675,9 @@ public class MediaControlView2 extends BaseLayout {
 
     private void updateLayout(int maxIconNum, int currWidth, int currHeight, int screenWidth,
             int screenHeight) {
+        if (mMaxTimeViewWidth == 0) {
+            mMaxTimeViewWidth = mTimeView.getWidth();
+        }
         int bottomBarRightWidthMax = mIconSize * maxIconNum;
         int fullWidth = mTransportControls.getWidth() + mTimeView.getWidth()
                 + bottomBarRightWidthMax;
