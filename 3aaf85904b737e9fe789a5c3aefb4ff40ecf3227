@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "81408960_64b807df",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1939,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-21T18:26:17Z",
+      "side": 1,
+      "message": "Definitely.  Nice catch!",
+      "parentUuid": "ed851de9_ed0f6b42",
+      "range": {
+        "startLine": 1939,
+        "startChar": 25,
+        "endLine": 1939,
+        "endChar": 35
+      },
+      "revId": "3aaf85904b737e9fe789a5c3aefb4ff40ecf3227",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5bcbd5ca_0607343c",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
         "patchSetId": 16
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b0a8bfc5_0eedd17a",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 5108,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-21T18:26:17Z",
+      "side": 1,
+      "message": "This is working at intended. TODO removed.",
+      "parentUuid": "5bcbd5ca_0607343c",
+      "range": {
+        "startLine": 5108,
+        "startChar": 19,
+        "endLine": 5108,
+        "endChar": 98
+      },
+      "revId": "3aaf85904b737e9fe789a5c3aefb4ff40ecf3227",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4472ea74_7edacf5a",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
         "patchSetId": 16
@@ -59,6 +107,30 @@
       "writtenOn": "2018-08-17T19:48:36Z",
       "side": 1,
       "message": "Can we resolve this?",
+      "range": {
+        "startLine": 5168,
+        "startChar": 23,
+        "endLine": 5168,
+        "endChar": 88
+      },
+      "revId": "3aaf85904b737e9fe789a5c3aefb4ff40ecf3227",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "495a7738_3d7f42c5",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 5168,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-21T18:26:17Z",
+      "side": 1,
+      "message": "Thanks for asking me to resolve this and dig in further.  Some of this code was a bit mysterious, but I believe I was able to collapse the functionality down into the rest of the refactored code so it all is much easier to follow.\n\nNow the absorb stuff is nested in the code that runs when we know we are stopping the scroll, and the scroller.abortAnimation stuff is handled in the existing code path.",
+      "parentUuid": "4472ea74_7edacf5a",
       "range": {
         "startLine": 5168,
         "startChar": 23,
