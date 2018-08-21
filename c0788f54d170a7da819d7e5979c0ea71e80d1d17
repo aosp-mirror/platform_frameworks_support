@@ -1,0 +1,245 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec5690e7_8076ea0c",
+        "filename": "car/core/res/layout/car_toolbar.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-21T22:31:25Z",
+      "side": 1,
+      "message": "Let\u0027s rename this so that it\u0027s obvious it\u0027s just for the back button in the toolbar",
+      "range": {
+        "startLine": 24,
+        "startChar": 38,
+        "endLine": 24,
+        "endChar": 59
+      },
+      "revId": "c0788f54d170a7da819d7e5979c0ea71e80d1d17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97664dda_526c9cc2",
+        "filename": "car/core/res/values/attrs.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-21T22:31:25Z",
+      "side": 1,
+      "message": "Can this be removed now?",
+      "revId": "c0788f54d170a7da819d7e5979c0ea71e80d1d17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52dd2ea5_82bbf325",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-21T22:31:25Z",
+      "side": 1,
+      "message": "testConstructors_doNotThrowError()\n\nOr something similar.",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 67,
+        "endChar": 31
+      },
+      "revId": "c0788f54d170a7da819d7e5979c0ea71e80d1d17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6a4f452_6c0e6eee",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-21T22:31:25Z",
+      "side": 1,
+      "message": "Update this name since height is now fixed.",
+      "range": {
+        "startLine": 79,
+        "startChar": 16,
+        "endLine": 79,
+        "endChar": 33
+      },
+      "revId": "c0788f54d170a7da819d7e5979c0ea71e80d1d17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a022624f_13f4af36",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-21T22:31:25Z",
+      "side": 1,
+      "message": "equalTo",
+      "range": {
+        "startLine": 87,
+        "startChar": 44,
+        "endLine": 87,
+        "endChar": 64
+      },
+      "revId": "c0788f54d170a7da819d7e5979c0ea71e80d1d17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ef88d0d_dfe1afcb",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-21T22:31:25Z",
+      "side": 1,
+      "message": "testSetTitleContent*",
+      "range": {
+        "startLine": 91,
+        "startChar": 16,
+        "endLine": 91,
+        "endChar": 32
+      },
+      "revId": "c0788f54d170a7da819d7e5979c0ea71e80d1d17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e13e767_f211f6b8",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-21T22:31:25Z",
+      "side": 1,
+      "message": "Since you\u0027re only checking that it doesn\u0027t crash, then update this method name to be include that information",
+      "range": {
+        "startLine": 104,
+        "startChar": 16,
+        "endLine": 104,
+        "endChar": 42
+      },
+      "revId": "c0788f54d170a7da819d7e5979c0ea71e80d1d17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "176f8a99_a5c2487f",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-21T22:31:25Z",
+      "side": 1,
+      "message": "This name doesn\u0027t really match what\u0027s happening. \n\nYou don\u0027t check that the toolbar is hidden; instead, you\u0027re checking that the nav button shows up. Either update the test name or the test content.",
+      "range": {
+        "startLine": 112,
+        "startChar": 16,
+        "endLine": 112,
+        "endChar": 50
+      },
+      "revId": "c0788f54d170a7da819d7e5979c0ea71e80d1d17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aea4febc_2b40edb3",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-21T22:31:25Z",
+      "side": 1,
+      "message": "Update to include information that you\u0027re testing for no crashes.",
+      "range": {
+        "startLine": 119,
+        "startChar": 16,
+        "endLine": 119,
+        "endChar": 37
+      },
+      "revId": "c0788f54d170a7da819d7e5979c0ea71e80d1d17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2e28477_2a7b9168",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-21T22:31:25Z",
+      "side": 1,
+      "message": "Javadoc",
+      "revId": "c0788f54d170a7da819d7e5979c0ea71e80d1d17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aafb54e_1d03e383",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-21T22:31:25Z",
+      "side": 1,
+      "message": "The CarToolbar has a fixed height of {@code ...}\n\nAnd replace it with the value of the height.",
+      "range": {
+        "startLine": 56,
+        "startChar": 6,
+        "endLine": 56,
+        "endChar": 37
+      },
+      "revId": "c0788f54d170a7da819d7e5979c0ea71e80d1d17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
