@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "cb0741b2_0a31ecd5",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-21T21:45:27Z",
+      "side": 1,
+      "message": "SGTM. As long as we have that information somewhere. My concern before was just that the description was sparse.",
+      "parentUuid": "b9520581_e56452d6",
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d07103f1_0a650895",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 24

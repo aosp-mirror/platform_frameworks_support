@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96d843d5_f130eb21",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-21T21:45:27Z",
+      "side": 1,
+      "message": "Could we add a private constructor?",
+      "revId": "9c107898cdc501f0200637d5d5b2c034c729120a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7bc4516_58be3340",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-21T21:45:27Z",
+      "side": 1,
+      "message": "private constructor? \n\nAnd for the other Builders",
+      "revId": "9c107898cdc501f0200637d5d5b2c034c729120a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1275e9cb_acd98cdb",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-21T21:45:27Z",
+      "side": 1,
+      "message": "This list is immutable. Might be worth it to call out in the javadoc.",
+      "range": {
+        "startLine": 57,
+        "startChar": 31,
+        "endLine": 57,
+        "endChar": 40
+      },
+      "revId": "9c107898cdc501f0200637d5d5b2c034c729120a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
