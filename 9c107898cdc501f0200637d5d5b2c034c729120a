@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fc29d5b7_6c83d916",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-21T22:34:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96d843d5_f130eb21",
+      "revId": "9c107898cdc501f0200637d5d5b2c034c729120a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7bc4516_58be3340",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
         "patchSetId": 33
@@ -33,6 +51,24 @@
       "revId": "9c107898cdc501f0200637d5d5b2c034c729120a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7b6ae11_c9adc624",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-21T22:34:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7bc4516_58be3340",
+      "revId": "9c107898cdc501f0200637d5d5b2c034c729120a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -56,6 +92,30 @@
       "revId": "9c107898cdc501f0200637d5d5b2c034c729120a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bc0b9e5_de1acd2f",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-21T22:34:18Z",
+      "side": 1,
+      "message": "Good call.",
+      "parentUuid": "1275e9cb_acd98cdb",
+      "range": {
+        "startLine": 57,
+        "startChar": 31,
+        "endLine": 57,
+        "endChar": 40
+      },
+      "revId": "9c107898cdc501f0200637d5d5b2c034c729120a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
