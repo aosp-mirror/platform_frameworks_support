@@ -25,7 +25,11 @@ plugins {
 dependencies {
     implementation(project(":annotation"))
     implementation(project(":core"))
+<<<<<<< HEAD
     implementation(project(":animation:animation"))
+=======
+    implementation(project(":animation:animation-core"))
+>>>>>>> New animation test rule and tests
     implementation(TEST_RUNNER)
 }
 
