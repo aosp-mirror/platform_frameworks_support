@@ -16,6 +16,24 @@
       "revId": "8234de25aecd72ec7d2af806eaa1aa4797e9c09b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b91f42ca_180527d9",
+        "filename": "animation/src/main/java/androidx/animation/AnimationUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-21T20:04:07Z",
+      "side": 1,
+      "message": "Interpolator is an interface. I don\u0027t think loading interpolator belongs in the interface. But now that you mention it, I think it makes sense to have this be a part of AnimatorInflater class, which is not a part of this CL. Let me remove AnimationUtils from this CL and merge the interpolator loading in the AnimatorInflater class.",
+      "parentUuid": "330d1ede_5f19a53a",
+      "revId": "8234de25aecd72ec7d2af806eaa1aa4797e9c09b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
