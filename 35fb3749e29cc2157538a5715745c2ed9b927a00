@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "953cecca_48cbe4dc",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteVolumeSlider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-21T11:31:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20a921fd_f9c328ee",
+      "range": {
+        "startLine": 60,
+        "startChar": 65,
+        "endLine": 60,
+        "endChar": 73
+      },
+      "revId": "35fb3749e29cc2157538a5715745c2ed9b927a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b399afd6_175001ce",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteVolumeSlider.java",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "35fb3749e29cc2157538a5715745c2ed9b927a00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "399d311c_24cc7209",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteVolumeSlider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-21T11:31:44Z",
+      "side": 1,
+      "message": "It would be enough to call setAlpha to LayerDrawable ld which will call setAlpha for all of its child drawables.",
+      "parentUuid": "b399afd6_175001ce",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 0
+      },
+      "revId": "35fb3749e29cc2157538a5715745c2ed9b927a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5c06e55f_33e30f98",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-21T11:31:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c18aed44_ed9097dc",
+      "range": {
+        "startLine": 226,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 0
+      },
+      "revId": "35fb3749e29cc2157538a5715745c2ed9b927a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04897b7f_f484c9c3",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
         "patchSetId": 9
@@ -91,6 +163,30 @@
       "revId": "35fb3749e29cc2157538a5715745c2ed9b927a00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3789d42_6d468710",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-21T11:31:44Z",
+      "side": 1,
+      "message": "That would be better for consistency. I\u0027m gonna change to that.",
+      "parentUuid": "04897b7f_f484c9c3",
+      "range": {
+        "startLine": 256,
+        "startChar": 21,
+        "endLine": 256,
+        "endChar": 45
+      },
+      "revId": "35fb3749e29cc2157538a5715745c2ed9b927a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "ce9e7220_2d4b9989",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_group_volume_item.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-21T11:31:44Z",
+      "side": 1,
+      "message": "Its default value is false at lower level. So it\u0027s fine to use this.",
+      "parentUuid": "cc9a320b_9b903558",
+      "range": {
+        "startLine": 50,
+        "startChar": 12,
+        "endLine": 50,
+        "endChar": 30
+      },
+      "revId": "35fb3749e29cc2157538a5715745c2ed9b927a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05c9e9db_5094fa7f",
         "filename": "mediarouter/src/main/res/layout/mr_cast_route_item.xml",
         "patchSetId": 9
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "92ed0753_80343684",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_route_item.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-21T11:31:44Z",
+      "side": 1,
+      "message": "ditto.",
+      "parentUuid": "05c9e9db_5094fa7f",
+      "range": {
+        "startLine": 72,
+        "startChar": 12,
+        "endLine": 72,
+        "endChar": 30
+      },
+      "revId": "35fb3749e29cc2157538a5715745c2ed9b927a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5dae4523_937d584a",
         "filename": "mediarouter/src/main/res/values/attrs.xml",
         "patchSetId": 9
@@ -157,6 +301,24 @@
     },
     {
       "key": {
+        "uuid": "33d0c663_2ae82bd9",
+        "filename": "mediarouter/src/main/res/values/attrs.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-21T11:31:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5dae4523_937d584a",
+      "revId": "35fb3749e29cc2157538a5715745c2ed9b927a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16ec46ce_bed5ea5f",
         "filename": "mediarouter/src/main/res/values/themes.xml",
         "patchSetId": 9
@@ -171,6 +333,24 @@
       "revId": "35fb3749e29cc2157538a5715745c2ed9b927a00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53ccc4f7_f8bdf7b0",
+        "filename": "mediarouter/src/main/res/values/themes.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-21T11:31:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16ec46ce_bed5ea5f",
+      "revId": "35fb3749e29cc2157538a5715745c2ed9b927a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
