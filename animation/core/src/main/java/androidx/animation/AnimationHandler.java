@@ -73,8 +73,13 @@ class AnimationHandler {
     private AnimationFrameCallbackProvider mProvider;
     private long mCurrentFrameTime = 0;
     private boolean mListDirty = false;
+    private static AnimationHandler sTestHandler = null;
 
     public static AnimationHandler getInstance() {
+        if (sTestHandler != null) {
+            // TODO: sTestHandler needs to be synchornized.
+            return sTestHandler.getInstance();
+        }
         if (sAnimatorHandler.get() == null) {
             sAnimatorHandler.set(new AnimationHandler());
         }
@@ -86,6 +91,10 @@ class AnimationHandler {
             return 0;
         }
         return sAnimatorHandler.get().mCurrentFrameTime;
+    }
+
+    static void setTestHandler(AnimationHandler handler) {
+        sTestHandler = handler;
     }
 
     void setFrameDelay(long frameDelay) {
