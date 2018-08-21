@@ -1,0 +1,152 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9d10e2c_e7d7133e",
+        "filename": "animation/src/main/java/androidx/animation/Animator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-21T22:00:40Z",
+      "side": 1,
+      "message": "first sentence of doc should be its own paragraph (here and elsewhere)\n\nsince you\u0027re copying, it\u0027s fine to punt, but something to pay attention to in new code.",
+      "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c855638_0ccf1aa6",
+        "filename": "animation/src/main/java/androidx/animation/Animator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-21T22:00:40Z",
+      "side": 1,
+      "message": "nullability",
+      "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3c85e29_926d164b",
+        "filename": "animation/src/main/java/androidx/animation/Animator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-21T22:00:40Z",
+      "side": 1,
+      "message": "nullable param",
+      "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33951a29_681891cb",
+        "filename": "animation/src/main/java/androidx/animation/Animator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-21T22:00:40Z",
+      "side": 1,
+      "message": "this seems dangerous - does this need to be public? The app may modify the list arbitrarily and break things\n\nYou\u0027re also leaking the impl detail that this is an arraylist.",
+      "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8e756a2_2e43b1ae",
+        "filename": "animation/src/main/java/androidx/animation/AnimatorSet.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-21T22:00:40Z",
+      "side": 1,
+      "message": "why does \u0027play\u0027 return a builder, but e.g. playSequentially is void?",
+      "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84b6051f_82a04b67",
+        "filename": "animation/src/main/java/androidx/animation/AnimatorSet.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-21T22:00:40Z",
+      "side": 1,
+      "message": "This comment doesn\u0027t seem to match the code\n\n1) Does getTotalDuration return infinite even if a child has a start delay?\n\nExplain here, and in docs for getTotalDuration/mTotalDuration\n\n2) why does a sequential animation prevent reverse? isn\u0027t reverse(a, then b) reversable as (reverse(b), then reverse(a)) ?",
+      "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b19f14e9_edd1b528",
+        "filename": "animation/src/main/java/androidx/animation/TestHandler.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-21T22:00:40Z",
+      "side": 1,
+      "message": "nit: extra space",
+      "range": {
+        "startLine": 21,
+        "startChar": 26,
+        "endLine": 21,
+        "endChar": 27
+      },
+      "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cac644d_04d84d8f",
+        "filename": "animation/src/main/java/androidx/animation/TimeAnimator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-08-21T22:00:40Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 99,
+        "startChar": 26,
+        "endLine": 99,
+        "endChar": 38
+      },
+      "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
