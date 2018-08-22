@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "274300fa_6f8e9d62",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/cards/CardView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:59Z",
+      "side": 1,
+      "message": "1) No, it doesn\u0027t, but in some cases (like this), I find custom formatting much more readable then following the rules.\n2) I could add it for [2-9], but 10-A would still need their own cases.\n3) I don\u0027t know how to get page index here",
+      "parentUuid": "22dde090_87551c64",
+      "range": {
+        "startLine": 67,
+        "startChar": 34,
+        "endLine": 67,
+        "endChar": 0
+      },
+      "revId": "77f07a6195751c35eb9a82716da0260cd45b643e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a214eae4_5e90796a",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/cards/CardView.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "493b9679_68a76dcf",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/cards/CardView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:59Z",
+      "side": 1,
+      "message": "Done (also applied to getShade())",
+      "parentUuid": "a214eae4_5e90796a",
+      "range": {
+        "startLine": 83,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 17
+      },
+      "revId": "77f07a6195751c35eb9a82716da0260cd45b643e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67c92e40_089d950e",
         "filename": "samples/ViewPager2Demos/src/main/res/values/colors.xml",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "77f07a6195751c35eb9a82716da0260cd45b643e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45643459_c646a893",
+        "filename": "samples/ViewPager2Demos/src/main/res/values/colors.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67c92e40_089d950e",
+      "range": {
+        "startLine": 3,
+        "startChar": 4,
+        "endLine": 3,
+        "endChar": 18
+      },
+      "revId": "77f07a6195751c35eb9a82716da0260cd45b643e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
