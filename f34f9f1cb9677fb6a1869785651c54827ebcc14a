@@ -307,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "4bb36c08_82ac8b72",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-22T02:58:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da325267_784a961d",
+      "range": {
+        "startLine": 677,
+        "startChar": 22,
+        "endLine": 677,
+        "endChar": 32
+      },
+      "revId": "f34f9f1cb9677fb6a1869785651c54827ebcc14a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c1303d0_0cce8ae1",
         "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
         "patchSetId": 7
@@ -327,6 +351,30 @@
       "revId": "f34f9f1cb9677fb6a1869785651c54827ebcc14a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0485ca78_ad582be2",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-22T02:58:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c1303d0_0cce8ae1",
+      "range": {
+        "startLine": 687,
+        "startChar": 22,
+        "endLine": 687,
+        "endChar": 32
+      },
+      "revId": "f34f9f1cb9677fb6a1869785651c54827ebcc14a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
