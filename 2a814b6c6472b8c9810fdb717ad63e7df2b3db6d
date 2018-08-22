@@ -16,6 +16,24 @@
       "revId": "2a814b6c6472b8c9810fdb717ad63e7df2b3db6d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a5f0b77_6a7a226c",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-22T01:47:26Z",
+      "side": 1,
+      "message": "0 is not permitted to avoid possible unclear state like 0f speed with PLAYING state.",
+      "parentUuid": "50d22dc6_4e695c6d",
+      "revId": "2a814b6c6472b8c9810fdb717ad63e7df2b3db6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
