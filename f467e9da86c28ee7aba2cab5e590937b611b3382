@@ -22,6 +22,30 @@
       "revId": "f467e9da86c28ee7aba2cab5e590937b611b3382",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "885fd408_9d5796b1",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FtsTableEntityProcessor.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-22T21:01:52Z",
+      "side": 1,
+      "message": "Uuuuuuuuups. Fixed.",
+      "parentUuid": "c3ce8eee_c4222847",
+      "range": {
+        "startLine": 76,
+        "startChar": 12,
+        "endLine": 76,
+        "endChar": 72
+      },
+      "revId": "f467e9da86c28ee7aba2cab5e590937b611b3382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
