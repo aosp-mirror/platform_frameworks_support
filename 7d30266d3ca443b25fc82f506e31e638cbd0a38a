@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "caa21688_db8e9b1e",
+        "filename": "car/core/res/layout/car_switch_widget.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-22T23:22:27Z",
+      "side": 1,
+      "message": "We might want to investigate if the style should be something that\u0027s configurable via a theme.\n\nWe can do that in a follow-up CL though.",
+      "revId": "7d30266d3ca443b25fc82f506e31e638cbd0a38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
