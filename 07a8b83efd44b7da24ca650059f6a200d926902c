@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1ac0f86b_44cb2a7f",
+        "filename": "media2/src/main/java/androidx/media2/MainHandlerExecutor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-22T08:59:33Z",
+      "side": 1,
+      "message": "Talked offline. Decided to keep. We may move this later.",
+      "parentUuid": "22f1ba66_b4530273",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ccdee6c6_a12cbfef",
         "filename": "media2/src/main/java/androidx/media2/MediaController2ImplBase.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-22T06:07:26Z",
       "side": 1,
       "message": "I may forget the reason.\nWhy is this needed?",
+      "range": {
+        "startLine": 102,
+        "startChar": 26,
+        "endLine": 102,
+        "endChar": 41
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18c97c65_8ba67f9f",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-22T08:59:33Z",
+      "side": 1,
+      "message": "When a controller is connected through the service token,\ncontroller only connects to the session inside of the service,\nand knowing \u0027which session\u0027 would be use for the case.",
+      "parentUuid": "ccdee6c6_a12cbfef",
       "range": {
         "startLine": 102,
         "startChar": 26,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "21ad5447_426a3cec",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-22T08:59:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e1b72e6_b279d0f8",
+      "range": {
+        "startLine": 175,
+        "startChar": 15,
+        "endLine": 175,
+        "endChar": 19
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e03bb94f_b0da8fe3",
         "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2018-08-22T06:07:26Z",
       "side": 1,
       "message": "Shouldn\u0027t it return null when not connected?",
+      "range": {
+        "startLine": 235,
+        "startChar": 15,
+        "endLine": 235,
+        "endChar": 21
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d509edbe_f113303f",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-22T08:59:33Z",
+      "side": 1,
+      "message": "Question) MediaController2 codes calls this only when it\u0027s connected. Isn\u0027t it sufficient?",
+      "parentUuid": "e03bb94f_b0da8fe3",
       "range": {
         "startLine": 235,
         "startChar": 15,
@@ -108,6 +204,24 @@
       "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ed4d2ab_3614fc14",
+        "filename": "media2/src/main/java/androidx/media2/MediaLibrarySessionImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-22T08:59:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a326f223_849db1d8",
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -154,6 +268,54 @@
       "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b00fb3d_c25878e5",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1342,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-22T08:59:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ed11b04_09416710",
+      "range": {
+        "startLine": 1342,
+        "startChar": 8,
+        "endLine": 1342,
+        "endChar": 17
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53e2f894_bbdb953f",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1342,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-22T08:59:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75539c1b_1a0cf82d",
+      "range": {
+        "startLine": 1342,
+        "startChar": 18,
+        "endLine": 1342,
+        "endChar": 51
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
