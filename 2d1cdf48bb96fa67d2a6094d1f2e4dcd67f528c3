@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "350978c5_a95452fe",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-08-22T16:49:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "340d6c1e_93ab8dab",
+      "range": {
+        "startLine": 67,
+        "startChar": 56,
+        "endLine": 67,
+        "endChar": 73
+      },
+      "revId": "2d1cdf48bb96fa67d2a6094d1f2e4dcd67f528c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fd795023_2a2b085d",
         "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
         "patchSetId": 4
@@ -36,6 +60,24 @@
       "writtenOn": "2018-08-22T13:47:02Z",
       "side": 1,
       "message": "Can you add a version that takes a RemoteCallback? I\u0027ll be taking a pass through soon and adding RemoteCallback versions for all existing methods.",
+      "revId": "2d1cdf48bb96fa67d2a6094d1f2e4dcd67f528c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dabd9a7d_a830374e",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-08-22T16:49:23Z",
+      "side": 1,
+      "message": "Do you have a draft of that change so I can see what it\u0027s supposed to look like?",
+      "parentUuid": "fd795023_2a2b085d",
       "revId": "2d1cdf48bb96fa67d2a6094d1f2e4dcd67f528c3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -62,6 +104,30 @@
       "revId": "2d1cdf48bb96fa67d2a6094d1f2e4dcd67f528c3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0d3a0d0_24b7ce23",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-08-22T16:49:23Z",
+      "side": 1,
+      "message": "Yes, it is; I\u0027m not sure what the use case is for a list of radio buttons where different items have different icons. I feel like consistency would be better.",
+      "parentUuid": "b13aa976_3ca9f44a",
+      "range": {
+        "startLine": 112,
+        "startChar": 7,
+        "endLine": 113,
+        "endChar": 15
+      },
+      "revId": "2d1cdf48bb96fa67d2a6094d1f2e4dcd67f528c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
