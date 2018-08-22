@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "6274d44d_693aff9c",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/cards/CardView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-22T20:07:31Z",
+      "side": 1,
+      "message": "From my perspective, this is just a demo so \"nit\", but \n\ncase \u00272\u0027: \ncase \u00276\u0027: \ncase \u0027⒑\u0027: \ncase \u0027A\u0027: \n  return 2;\ncase \u00273\u0027: \ncase \u00277\u0027: \ncase \u0027J\u0027:           \n  return 3;\ncase \u00274\u0027: \ncase \u00278\u0027: \ncase \u0027Q\u0027:           \n  return 0;\ncase \u00275\u0027: \ncase \u00279\u0027: \ncase \u0027K\u0027:           \n  return 1;\n\nSeems easy to parse...",
+      "parentUuid": "274300fa_6f8e9d62",
+      "range": {
+        "startLine": 67,
+        "startChar": 34,
+        "endLine": 67,
+        "endChar": 0
+      },
+      "revId": "77f07a6195751c35eb9a82716da0260cd45b643e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a214eae4_5e90796a",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/cards/CardView.java",
         "patchSetId": 1
