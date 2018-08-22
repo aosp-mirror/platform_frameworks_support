@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "7d43cbd3_14718a7d",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/EntityRecognizer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-22T21:18:36Z",
+      "side": 1,
+      "message": "This replaces: https://developer.android.com/reference/android/text/util/Linkify.MatchFilter",
+      "range": {
+        "startLine": 40,
+        "startChar": 25,
+        "endLine": 40,
+        "endChar": 94
+      },
+      "revId": "25c3b140a7f24838497b8e4a084630f4bf6bc8af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5a40e58_b340dc8c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/MatchMaker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-22T21:18:36Z",
+      "side": 1,
+      "message": "This replaces https://developer.android.com/reference/android/text/util/Linkify.TransformFilter\nIn legacy Linkify we only need the url because we only have one action (i.e. fire the url). For SmartLinkify, we return multiple actions.",
+      "range": {
+        "startLine": 36,
+        "startChar": 15,
+        "endLine": 36,
+        "endChar": 88
+      },
+      "revId": "25c3b140a7f24838497b8e4a084630f4bf6bc8af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "49a3c962_925cf60f",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkify.java",
         "patchSetId": 3
