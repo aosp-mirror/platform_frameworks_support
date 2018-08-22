@@ -16,6 +16,24 @@
       "revId": "7d30266d3ca443b25fc82f506e31e638cbd0a38a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f99c76c_24f6848a",
+        "filename": "car/core/res/layout/car_switch_widget.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-08-22T23:34:08Z",
+      "side": 1,
+      "message": "Discussed offline: Since our theme is app compat, the switchstyle is not being applied since it\u0027s not an appcompat switch.  Need to figure out a way to apply this otherwise.",
+      "parentUuid": "caa21688_db8e9b1e",
+      "revId": "7d30266d3ca443b25fc82f506e31e638cbd0a38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
