@@ -128,6 +128,30 @@
       "revId": "2d1cdf48bb96fa67d2a6094d1f2e4dcd67f528c3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "086a81b5_28233dea",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-08-22T18:12:43Z",
+      "side": 1,
+      "message": "(I\u0027ve clarified the Javadocs.)",
+      "parentUuid": "e0d3a0d0_24b7ce23",
+      "range": {
+        "startLine": 112,
+        "startChar": 7,
+        "endLine": 113,
+        "endChar": 15
+      },
+      "revId": "2d1cdf48bb96fa67d2a6094d1f2e4dcd67f528c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
