@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2aaf59f2_c76a844a",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FtsTableEntityProcessor.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-22T20:40:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03a9374a_6b137bb0",
+      "range": {
+        "startLine": 66,
+        "startChar": 7,
+        "endLine": 74,
+        "endChar": 9
+      },
+      "revId": "5dc180ac2f255ef2d9e387fe56912ca17fef1f05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cb15edf_fe32405a",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FtsTableEntityProcessor.kt",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "3e199c1a_401e1803",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FtsTableEntityProcessor.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-22T20:40:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cb15edf_fe32405a",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 93,
+        "endChar": 67
+      },
+      "revId": "5dc180ac2f255ef2d9e387fe56912ca17fef1f05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "756fe045_9ab745a3",
         "filename": "room/compiler/src/main/kotlin/androidx/room/vo/FtsEntity.kt",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "5dc180ac2f255ef2d9e387fe56912ca17fef1f05",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61e9b493_f54f2d95",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/FtsEntity.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-22T20:40:39Z",
+      "side": 1,
+      "message": "Wanna leave it like this to be consistent with the Entity class that also doesn\u0027t inline it.",
+      "parentUuid": "756fe045_9ab745a3",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 35
+      },
+      "revId": "5dc180ac2f255ef2d9e387fe56912ca17fef1f05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
