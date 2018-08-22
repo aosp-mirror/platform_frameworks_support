@@ -200,4 +200,9 @@ object LibraryVersions {
      * Version code for Fragment
      */
     val FRAGMENT = Version("1.1.0-alpha01")
+
+    /**
+     * Version code for CoordinatorLayout
+     */
+    val COORDINATORLAYOUT = Version("1.1.0-alpha01")
 }
