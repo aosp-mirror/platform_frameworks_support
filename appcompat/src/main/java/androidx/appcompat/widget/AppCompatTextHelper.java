@@ -16,6 +16,10 @@
 
 package androidx.appcompat.widget;
 
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
+import static android.os.Build.VERSION_CODES.P;
+
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.core.widget.AutoSizeableTextView.PLATFORM_SUPPORTS_AUTOSIZE;
 
@@ -25,7 +29,6 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -55,7 +58,8 @@ class AppCompatTextHelper {
     private TintInfo mDrawableStartTint;
     private TintInfo mDrawableEndTint;
 
-    private final @NonNull AppCompatTextViewAutoSizeHelper mAutoSizeTextHelper;
+    @NonNull
+    private final AppCompatTextViewAutoSizeHelper mAutoSizeTextHelper;
 
     private int mStyle = Typeface.NORMAL;
     private Typeface mFontTypeface;
@@ -93,14 +97,14 @@ class AppCompatTextHelper {
                     a.getResourceId(R.styleable.AppCompatTextHelper_android_drawableBottom, 0));
         }
 
-        if (Build.VERSION.SDK_INT >= 17) {
+        if (SDK_INT >= 17) {
             if (a.hasValue(R.styleable.AppCompatTextHelper_android_drawableStart)) {
                 mDrawableStartTint = createTintInfo(context, drawableManager,
-                    a.getResourceId(R.styleable.AppCompatTextHelper_android_drawableStart, 0));
+                        a.getResourceId(R.styleable.AppCompatTextHelper_android_drawableStart, 0));
             }
             if (a.hasValue(R.styleable.AppCompatTextHelper_android_drawableEnd)) {
                 mDrawableEndTint = createTintInfo(context, drawableManager,
-                    a.getResourceId(R.styleable.AppCompatTextHelper_android_drawableEnd, 0));
+                        a.getResourceId(R.styleable.AppCompatTextHelper_android_drawableEnd, 0));
             }
         }
 
@@ -126,7 +130,7 @@ class AppCompatTextHelper {
             }
 
             updateTypefaceAndStyle(context, a);
-            if (Build.VERSION.SDK_INT < 23) {
+            if (SDK_INT < 23) {
                 // If we're running on < API 23, the text color may contain theme references
                 // so let's re-set using our own inflater
                 if (a.hasValue(R.styleable.TextAppearance_android_textColor)) {
@@ -151,7 +155,7 @@ class AppCompatTextHelper {
             allCapsSet = true;
             allCaps = a.getBoolean(R.styleable.TextAppearance_textAllCaps, false);
         }
-        if (Build.VERSION.SDK_INT < 23) {
+        if (SDK_INT < 23) {
             // If we're running on < API 23, the text color may contain theme references
             // so let's re-set using our own inflater
             if (a.hasValue(R.styleable.TextAppearance_android_textColor)) {
@@ -167,7 +171,7 @@ class AppCompatTextHelper {
             }
         }
         // In P, when the text size attribute is 0, this would not be set. Fix this here.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+        if (SDK_INT >= P
                 && a.hasValue(R.styleable.TextAppearance_android_textSize)) {
             if (a.getDimensionPixelSize(R.styleable.TextAppearance_android_textSize, -1) == 0) {
                 mView.setTextSize(TypedValue.COMPLEX_UNIT_PX, 0.0f);
@@ -220,12 +224,50 @@ class AppCompatTextHelper {
 
         // Read line and baseline heights attributes.
         a = TintTypedArray.obtainStyledAttributes(context, attrs, R.styleable.AppCompatTextView);
+
+        // Load compat compound drawables, allowing vector backport
+        Drawable drawableLeft = null, drawableTop = null, drawableRight = null,
+                drawableBottom = null, drawableStart = null, drawableEnd = null;
+        final int drawableLeftId = a.getResourceId(
+                R.styleable.AppCompatTextView_drawableLeftCompat, -1);
+        if (drawableLeftId != -1) {
+            drawableLeft = drawableManager.getDrawable(context, drawableLeftId);
+        }
+        final int drawableTopId = a.getResourceId(
+                R.styleable.AppCompatTextView_drawableTopCompat, -1);
+        if (drawableTopId != -1) {
+            drawableTop = drawableManager.getDrawable(context, drawableTopId);
+        }
+        final int drawableRightId = a.getResourceId(
+                R.styleable.AppCompatTextView_drawableRightCompat, -1);
+        if (drawableRightId != -1) {
+            drawableRight = drawableManager.getDrawable(context, drawableRightId);
+        }
+        final int drawableBottomId = a.getResourceId(
+                R.styleable.AppCompatTextView_drawableBottomCompat, -1);
+        if (drawableBottomId != -1) {
+            drawableBottom = drawableManager.getDrawable(context, drawableBottomId);
+        }
+        final int drawableStartId = a.getResourceId(
+                R.styleable.AppCompatTextView_drawableStartCompat, -1);
+        if (drawableStartId != -1) {
+            drawableStart = drawableManager.getDrawable(context, drawableStartId);
+        }
+        final int drawableEndId = a.getResourceId(
+                R.styleable.AppCompatTextView_drawableEndCompat, -1);
+        if (drawableEndId != -1) {
+            drawableEnd = drawableManager.getDrawable(context, drawableEndId);
+        }
+        setCompoundDrawables(drawableLeft, drawableTop, drawableRight, drawableBottom,
+                drawableStart, drawableEnd);
+
         final int firstBaselineToTopHeight = a.getDimensionPixelSize(
                 R.styleable.AppCompatTextView_firstBaselineToTopHeight, -1);
         final int lastBaselineToBottomHeight = a.getDimensionPixelSize(
                 R.styleable.AppCompatTextView_lastBaselineToBottomHeight, -1);
         final int lineHeight = a.getDimensionPixelSize(
                 R.styleable.AppCompatTextView_lineHeight, -1);
+
         a.recycle();
         if (firstBaselineToTopHeight != -1) {
             TextViewCompat.setFirstBaselineToTopHeight(mView, firstBaselineToTopHeight);
@@ -320,7 +362,7 @@ class AppCompatTextHelper {
             // app:textAllCaps has the chance to override it
             setAllCaps(a.getBoolean(R.styleable.TextAppearance_textAllCaps, false));
         }
-        if (Build.VERSION.SDK_INT < 23
+        if (SDK_INT < 23
                 && a.hasValue(R.styleable.TextAppearance_android_textColor)) {
             // If we're running on < API 23, the text color may contain theme references
             // so let's re-set using our own inflater
@@ -357,7 +399,7 @@ class AppCompatTextHelper {
             applyCompoundDrawableTint(compoundDrawables[2], mDrawableRightTint);
             applyCompoundDrawableTint(compoundDrawables[3], mDrawableBottomTint);
         }
-        if (Build.VERSION.SDK_INT >= 17) {
+        if (SDK_INT >= 17) {
             if (mDrawableStartTint != null || mDrawableEndTint != null) {
                 final Drawable[] compoundDrawables = mView.getCompoundDrawablesRelative();
                 applyCompoundDrawableTint(compoundDrawables[0], mDrawableStartTint);
@@ -455,5 +497,44 @@ class AppCompatTextHelper {
 
     int[] getAutoSizeTextAvailableSizes() {
         return mAutoSizeTextHelper.getAutoSizeTextAvailableSizes();
+    }
+
+    private void setCompoundDrawables(Drawable drawableLeft, Drawable drawableTop,
+            Drawable drawableRight, Drawable drawableBottom, Drawable drawableStart,
+            Drawable drawableEnd) {
+        // Mirror TextView logic, if any relative drawables supplied, ignore absolute hz.
+        if (SDK_INT >= JELLY_BEAN_MR1 && (drawableStart != null || drawableEnd != null)) {
+            final Drawable[] existingRel = mView.getCompoundDrawablesRelative();
+            mView.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    drawableStart != null ? drawableStart : existingRel[0],
+                    drawableTop != null ? drawableTop : existingRel[1],
+                    drawableEnd != null ? drawableEnd : existingRel[2],
+                    drawableBottom != null ? drawableBottom : existingRel[3]
+            );
+        } else if (drawableLeft != null || drawableTop != null
+                || drawableRight != null || drawableBottom != null) {
+            final Drawable[] existingAbs = mView.getCompoundDrawables();
+
+            // If have non-compat relative drawables, then ignore horizontal
+            if (SDK_INT >= JELLY_BEAN_MR1) {
+                final Drawable[] existingRel = mView.getCompoundDrawablesRelative();
+                if (existingRel[0] != null || existingRel[2] != null) {
+                    mView.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                            existingRel[0],
+                            drawableTop != null ? drawableTop : existingRel[1],
+                            existingRel[2],
+                            drawableBottom != null ? drawableBottom : existingRel[3]
+                    );
+                    return;
+                }
+            }
+
+            mView.setCompoundDrawablesWithIntrinsicBounds(
+                    drawableLeft != null ? drawableLeft : existingAbs[0],
+                    drawableTop != null ? drawableTop : existingAbs[1],
+                    drawableRight != null ? drawableRight : existingAbs[2],
+                    drawableBottom != null ? drawableBottom : existingAbs[3]
+            );
+        }
     }
 }

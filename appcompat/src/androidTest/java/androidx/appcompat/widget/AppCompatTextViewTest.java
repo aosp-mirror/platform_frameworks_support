@@ -15,6 +15,10 @@
  */
 package androidx.appcompat.widget;
 
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.JELLY_BEAN;
+import static android.os.Build.VERSION_CODES.LOLLIPOP;
+
 import static androidx.appcompat.testutils.TestUtilsActions.setEnabled;
 import static androidx.appcompat.testutils.TestUtilsActions.setTextAppearance;
 import static androidx.appcompat.testutils.TestUtilsMatchers.isBackground;
@@ -25,6 +29,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -32,7 +37,8 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.text.Layout;
 import android.text.PrecomputedText;
 import android.view.View;
@@ -50,6 +56,7 @@ import androidx.test.annotation.UiThreadTest;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import org.junit.Test;
 
@@ -146,20 +153,20 @@ public class AppCompatTextViewTest
     public void testAppCompatAllCapsFalseOnButton() {
         final String text = mResources.getString(R.string.sample_text2);
         final AppCompatTextView textView =
-                 mContainer.findViewById(R.id.text_view_app_allcaps_false);
+                mContainer.findViewById(R.id.text_view_app_allcaps_false);
 
         assertEquals("Text view is not in all caps", text, textView.getLayout().getText());
     }
 
     @Test
     public void testTextColorSetHex() {
-        final TextView textView =  mContainer.findViewById(R.id.view_text_color_hex);
+        final TextView textView = mContainer.findViewById(R.id.view_text_color_hex);
         assertEquals(Color.RED, textView.getCurrentTextColor());
     }
 
     @Test
     public void testTextColorSetColorStateList() {
-        final TextView textView =  mContainer.findViewById(R.id.view_text_color_csl);
+        final TextView textView = mContainer.findViewById(R.id.view_text_color_csl);
 
         onView(withId(R.id.view_text_color_csl)).perform(setEnabled(true));
         assertEquals(ContextCompat.getColor(textView.getContext(), R.color.ocean_default),
@@ -172,13 +179,13 @@ public class AppCompatTextViewTest
 
     @Test
     public void testTextColorSetThemeAttrHex() {
-        final TextView textView =  mContainer.findViewById(R.id.view_text_color_primary);
+        final TextView textView = mContainer.findViewById(R.id.view_text_color_primary);
         assertEquals(Color.BLUE, textView.getCurrentTextColor());
     }
 
     @Test
     public void testTextColorSetThemeAttrColorStateList() {
-        final TextView textView =  mContainer.findViewById(R.id.view_text_color_secondary);
+        final TextView textView = mContainer.findViewById(R.id.view_text_color_secondary);
 
         onView(withId(R.id.view_text_color_secondary)).perform(setEnabled(true));
         assertEquals(ContextCompat.getColor(textView.getContext(), R.color.sand_default),
@@ -192,9 +199,9 @@ public class AppCompatTextViewTest
     private void verifyTextLinkColor(TextView textView) {
         ColorStateList linkColorStateList = textView.getLinkTextColors();
         assertEquals(ContextCompat.getColor(textView.getContext(), R.color.lilac_default),
-                linkColorStateList.getColorForState(new int[] { android.R.attr.state_enabled}, 0));
+                linkColorStateList.getColorForState(new int[]{android.R.attr.state_enabled}, 0));
         assertEquals(ContextCompat.getColor(textView.getContext(), R.color.lilac_disabled),
-                linkColorStateList.getColorForState(new int[] { -android.R.attr.state_enabled}, 0));
+                linkColorStateList.getColorForState(new int[]{-android.R.attr.state_enabled}, 0));
     }
 
     @Test
@@ -205,7 +212,7 @@ public class AppCompatTextViewTest
 
     @Test
     @UiThreadTest
-    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.JELLY_BEAN)
+    @SdkSuppress(minSdkVersion = JELLY_BEAN)
     public void testTextSize_canBeZero() {
         final TextView textView = mContainer.findViewById(R.id.textview_zero_text_size);
         // text size should be 0 as set in xml, rather than the text view default (15.0)
@@ -225,12 +232,12 @@ public class AppCompatTextViewTest
         assertNotNull(textView.getTypeface());
         // Pre-L, Typeface always resorts to native for a Typeface object, hence giving you a
         // different one each call.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (SDK_INT >= LOLLIPOP) {
             assertEquals(Typeface.SANS_SERIF, textView.getTypeface());
         }
         textView = mContainer.findViewById(R.id.textview_fontresource_fontfamily_string_direct);
         assertNotNull(textView.getTypeface());
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (SDK_INT >= LOLLIPOP) {
             assertEquals(Typeface.SANS_SERIF, textView.getTypeface());
         }
     }
@@ -434,7 +441,6 @@ public class AppCompatTextViewTest
 
         /**
          * Synchronously execute the i-th runnable
-         * @param i
          */
         public void doExecution(int i) {
             getRunnableAt(i).run();
@@ -490,7 +496,7 @@ public class AppCompatTextViewTest
                 // setText may wrap the given text with SpannedString. Check the contents by casting
                 // to String.
                 assertEquals(SAMPLE_TEXT_1, tv.getText().toString());
-                if (Build.VERSION.SDK_INT >= 28) {
+                if (SDK_INT >= 28) {
                     assertTrue(tv.getText() instanceof PrecomputedText);
                 }
             }
@@ -510,7 +516,7 @@ public class AppCompatTextViewTest
                 tv.measure(UNLIMITED_MEASURE_SPEC, UNLIMITED_MEASURE_SPEC);
                 assertNotEquals(0.0f, tv.getMeasuredWidth());
                 assertEquals(SAMPLE_TEXT_1, tv.getText().toString());
-                if (Build.VERSION.SDK_INT >= 28) {
+                if (SDK_INT >= 28) {
                     assertTrue(tv.getText() instanceof PrecomputedText);
                 }
             }
@@ -542,7 +548,7 @@ public class AppCompatTextViewTest
                 // setText may wrap the given text with SpannedString. Check the contents by casting
                 // to String.
                 assertEquals(SAMPLE_TEXT_2, tv.getText().toString());
-                if (Build.VERSION.SDK_INT >= 28) {
+                if (SDK_INT >= 28) {
                     assertTrue(tv.getText() instanceof PrecomputedText);
                 }
             }
@@ -557,7 +563,7 @@ public class AppCompatTextViewTest
                 // setText may wrap the given text with SpannedString. Check the contents by casting
                 // to String.
                 assertEquals(SAMPLE_TEXT_2, tv.getText().toString());
-                if (Build.VERSION.SDK_INT >= 28) {
+                if (SDK_INT >= 28) {
                     assertTrue(tv.getText() instanceof PrecomputedText);
                 }
             }
@@ -656,6 +662,122 @@ public class AppCompatTextViewTest
         final AppCompatTextView textView = mActivity.findViewById(
                 R.id.text_view_hyphen_break_override);
         assertEquals(Layout.BREAK_STRATEGY_BALANCED, textView.getBreakStrategy());
+    }
+
+    @Test
+    public void testCompoundDrawablesCompat() {
+        // Given an ACTV with drawable[Left,Top,Right,Bottom]Compat set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat);
+        // Then all 4 drawables should be present
+        final Drawable[] compoundDrawables = textView.getCompoundDrawables();
+        assertNotNull(compoundDrawables[0]);
+        assertNotNull(compoundDrawables[1]);
+        assertNotNull(compoundDrawables[2]);
+        assertNotNull(compoundDrawables[3]);
+    }
+
+    @SdkSuppress(minSdkVersion = 17)
+    @Test
+    public void testCompoundDrawablesCompat_relative() {
+        // Given an ACTV with both drawableStartCompat and drawableEndCompat set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_relative);
+        // Then both should be present
+        final Drawable[] compoundDrawablesRelative = textView.getCompoundDrawablesRelative();
+        assertNotNull(compoundDrawablesRelative[0]);
+        assertNotNull(compoundDrawablesRelative[2]);
+    }
+
+    @SdkSuppress(maxSdkVersion = 16)
+    @Test
+    public void testCompoundDrawablesCompat_relativeIgnoredPre17() {
+        // Given an ACTV with both drawableStartCompat and drawableEndCompat set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_relative);
+        // Then both should be ignored before API17
+        final Drawable[] compoundDrawables = textView.getCompoundDrawables();
+        assertNull(compoundDrawables[0]);
+        assertNull(compoundDrawables[2]);
+    }
+
+    @SdkSuppress(minSdkVersion = 17)
+    @Test
+    public void testCompoundDrawablesCompat_relativeAndAbsolute() {
+        // Given an ACTV with both drawableStartCompat and drawableRightCompat set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_relative_and_absolute);
+        // Then the start drawable should be present
+        assertNotNull(textView.getCompoundDrawablesRelative()[0]);
+        // Then the absolute right drawable should be ignored
+        assertNull(textView.getCompoundDrawables()[2]);
+    }
+
+    @Test
+    public void testCompoundDrawablesCompat_overridesPlatform() {
+        // Given an ACTV with both a raster android:drawableLeft & a vector app:drawableLeftCompat
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_and_platform_same);
+        boolean isVector = false;
+        // Then the left drawable should be present & should be a vector i.e. from the compat attr
+        final Drawable drawableLeft = textView.getCompoundDrawables()[0];
+        assertNotNull(drawableLeft);
+        if (SDK_INT >= LOLLIPOP) {
+            isVector = drawableLeft instanceof VectorDrawableCompat
+                    || drawableLeft instanceof VectorDrawable;
+        } else {
+            isVector = drawableLeft instanceof VectorDrawableCompat;
+        }
+        assertTrue(isVector);
+    }
+
+    @Test
+    public void testCompoundDrawablesCompat_coexistPlatform() {
+        // Given an ACTV with app:drawableTopCompat & android:drawableBottom set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_and_platform_mix);
+        // Then both should be present
+        final Drawable[] compoundDrawables = textView.getCompoundDrawables();
+        assertNotNull(compoundDrawables[1]);
+        assertNotNull(compoundDrawables[3]);
+    }
+
+    @SdkSuppress(minSdkVersion = 17)
+    @Test
+    public void testCompoundDrawablesRelative_platformCompatCoexist() {
+        // Given an ACTV with app:drawableStartCompat & android:drawableEnd set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_and_platform_relative_mix);
+        // Then both should be present
+        final Drawable[] compoundDrawables = textView.getCompoundDrawablesRelative();
+        assertNotNull(compoundDrawables[0]);
+        assertNotNull(compoundDrawables[2]);
+    }
+
+    @SdkSuppress(minSdkVersion = 17)
+    @Test
+    public void testCompoundDrawables_relativePlatform_ignoresCompatAbsolute() {
+        // Given an ACTV with app:drawableLeftCompat & android:drawableEnd set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_abs_platform_relative);
+        // Then the relative drawable is present
+        assertNotNull(textView.getCompoundDrawablesRelative()[2]);
+        // Then the absolute drawable is ignored
+        assertNull(textView.getCompoundDrawablesRelative()[0]);
+        assertNull(textView.getCompoundDrawables()[0]);
+    }
+
+    @SdkSuppress(minSdkVersion = 17)
+    @Test
+    public void testCompoundDrawables_relativeCompat_ignoresPlatformAbsolute() {
+        // Given an ACTV with app:drawableStartCompat & android:drawableRight set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_relative_platform_abs);
+        // Then the relative drawable is present
+        assertNotNull(textView.getCompoundDrawablesRelative()[0]);
+        // Then the absolute drawable is ignored
+        assertNull(textView.getCompoundDrawablesRelative()[2]);
+        assertNull(textView.getCompoundDrawables()[2]);
     }
 
 }
