@@ -17,6 +17,7 @@
 package androidx.appcompat.widget;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.core.view.ViewCompat.LAYOUT_DIRECTION_LTR;
 import static androidx.core.widget.AutoSizeableTextView.PLATFORM_SUPPORTS_AUTOSIZE;
 
 import android.annotation.SuppressLint;
@@ -34,7 +35,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.R;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.ViewCompat;
 import androidx.core.widget.TextViewCompat;
 
 import java.lang.ref.WeakReference;
@@ -226,6 +229,71 @@ class AppCompatTextHelper {
                 R.styleable.AppCompatTextView_lastBaselineToBottomHeight, -1);
         final int lineHeight = a.getDimensionPixelSize(
                 R.styleable.AppCompatTextView_lineHeight, -1);
+
+        // Load compat compound drawables, allowing vector backport
+        Drawable drawableLeft = null;
+        final int drawableLeftId = a.getResourceId(R.styleable.AppCompatTextView_drawableLeftCompat,
+                -1);
+        if (drawableLeftId != -1) {
+            drawableLeft = AppCompatResources.getDrawable(context, drawableLeftId);
+        }
+        Drawable drawableTop = null;
+        final int drawableTopId = a.getResourceId(R.styleable.AppCompatTextView_drawableTopCompat,
+                -1);
+        if (drawableTopId != -1) {
+            drawableTop = AppCompatResources.getDrawable(context, drawableTopId);
+        }
+        Drawable drawableRight = null;
+        final int drawableRightId = a.getResourceId(
+                R.styleable.AppCompatTextView_drawableRightCompat, -1);
+        if (drawableRightId != -1) {
+            drawableRight = AppCompatResources.getDrawable(context, drawableRightId);
+        }
+        Drawable drawableBottom = null;
+        final int drawableBottomId = a.getResourceId(
+                R.styleable.AppCompatTextView_drawableBottomCompat, -1);
+        if (drawableBottomId != -1) {
+            drawableBottom = AppCompatResources.getDrawable(context, drawableBottomId);
+        }
+        Drawable drawableStart = null;
+        final int drawableStartId = a.getResourceId(
+                R.styleable.AppCompatTextView_drawableStartCompat, -1);
+        if (drawableStartId != -1) {
+            drawableStart = AppCompatResources.getDrawable(context, drawableStartId);
+        }
+        Drawable drawableEnd = null;
+        final int drawableEndId = a.getResourceId(R.styleable.AppCompatTextView_drawableEndCompat,
+                -1);
+        if (drawableEndId != -1) {
+            drawableEnd = AppCompatResources.getDrawable(context, drawableEndId);
+        }
+
+        final Drawable[] existing = mView.getCompoundDrawablesRelative();
+        final boolean ltr = ViewCompat.getLayoutDirection(mView) == LAYOUT_DIRECTION_LTR;
+
+        Drawable start = existing[0];
+        if (drawableStart != null) {
+            start = drawableStart;
+        } else if (ltr && drawableLeft != null) {
+            start = drawableLeft;
+        } else if (!ltr && drawableRight != null) {
+            start = drawableRight;
+        }
+        Drawable end = existing[2];
+        if (drawableEnd != null) {
+            end = drawableEnd;
+        } else if (ltr && drawableRight != null) {
+            end = drawableRight;
+        } else if (!ltr && drawableLeft != null) {
+            end = drawableLeft;
+        }
+        mView.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                start,
+                drawableTop != null ? drawableTop : existing[1],
+                end,
+                drawableBottom != null ? drawableBottom : existing[3]
+        );
+
         a.recycle();
         if (firstBaselineToTopHeight != -1) {
             TextViewCompat.setFirstBaselineToTopHeight(mView, firstBaselineToTopHeight);
