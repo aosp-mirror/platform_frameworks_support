@@ -930,6 +930,30 @@
     },
     {
       "key": {
+        "uuid": "7bf46333_597b983f",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/PageTransformAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-22T20:03:20Z",
+      "side": 1,
+      "message": "thx!",
+      "parentUuid": "c9028f99_ed9d0f5d",
+      "range": {
+        "startLine": 43,
+        "startChar": 33,
+        "endLine": 44,
+        "endChar": 19
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "127c07f0_fb3990c7",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/PageTransformAdapter.java",
         "patchSetId": 1
@@ -977,6 +1001,30 @@
     },
     {
       "key": {
+        "uuid": "5f2befb7_192666a4",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/PageTransformAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-22T20:03:20Z",
+      "side": 1,
+      "message": "Ah, I see.  For some reason it didn\u0027t occur to me that RecyclerView.LayoutManager.getChildAt was @nullable (but of course it is).\n\nHowever, in the situation where you are calling it (you get the count, and then get each child at each index), we know it should never be null, so maybe throw an Exception.  \n\njakew@ suggested using AssertionError() and @ilake suggested adding enough of an error message such that if we get a bug filed about it, it is easy to track down.",
+      "parentUuid": "b97ba2ba_b65a6a8b",
+      "range": {
+        "startLine": 69,
+        "startChar": 12,
+        "endLine": 71,
+        "endChar": 13
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a4a5d77a_a9c74a39",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
         "patchSetId": 1
@@ -1012,6 +1060,30 @@
       "side": 1,
       "message": "Correct. I tried not to change the behavior as compared to the previous implementation, but you\u0027re right that it makes more sense to have offsetPx change sign if the view is offset towards the end.\n\nIf we want to change this, we have to adjust the contract of the OnPageChangeListener though, as it currently does not allow negative offsets (\"positionOffset, float: Value from [0, 1) indicating the offset from the page at position.\").\n\nAlso note that the only situation where it occurs is when the first visible view is offset towards the end, leaving a gap at the start. Is that possible in a RecyclerView?",
       "parentUuid": "a4a5d77a_a9c74a39",
+      "range": {
+        "startLine": 133,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 42
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddaed1cc_fac74952",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-22T20:03:20Z",
+      "side": 1,
+      "message": "Ah, good point.  Some hours later, at home, while not working, it occured to me that I was probably wrong in this comment.  :).  Given that you are wrapping the RV and LayoutManager, and thus have full control over both, I think you are correct that you can guarantee that the offset is always positive.\n\nHowever, we should still definitely do offestPx \u003d start... and then probably assert that it isn\u0027t negative.  The existing code rolls with the possibility that the offset is negative, and just pretends it\u0027s positive, which seems real bad.  Right?\n\njakew@ suggested using AssertionError() and @ilake suggested adding enough of an error message such that if we get a bug filed about it, it is easy to track down.",
+      "parentUuid": "4c49e0cd_c0986f8e",
       "range": {
         "startLine": 133,
         "startChar": 8,
