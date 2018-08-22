@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e236327e_65f1572e",
+        "filename": "animation/src/main/java/androidx/animation/AnimationHandler.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-22T23:27:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d57e094f_03349048",
+      "range": {
+        "startLine": 241,
+        "startChar": 37,
+        "endLine": 241,
+        "endChar": 71
+      },
+      "revId": "b6d1e6f2d857195e78a40d2a4856c8668dae9af1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9262fbce_7e830638",
         "filename": "animation/src/main/java/androidx/animation/TestHandler.java",
         "patchSetId": 9
@@ -39,6 +63,24 @@
       "revId": "b6d1e6f2d857195e78a40d2a4856c8668dae9af1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af3f2be8_d404c3d8",
+        "filename": "animation/src/main/java/androidx/animation/TestHandler.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-22T23:27:07Z",
+      "side": 1,
+      "message": "Good point. Will put it in the testing module in the next CL. Removing for now...",
+      "parentUuid": "9262fbce_7e830638",
+      "revId": "b6d1e6f2d857195e78a40d2a4856c8668dae9af1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
