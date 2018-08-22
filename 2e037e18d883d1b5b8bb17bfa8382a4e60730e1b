@@ -450,6 +450,30 @@
     },
     {
       "key": {
+        "uuid": "12dd3630_c48423cb",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-22T01:02:15Z",
+      "side": 1,
+      "message": "I see your point, but also, reusing builders is an anti-pattern (you are thinking that the builder is actually a factory). Builders are supposed to be discarded as soon as the \"build()\" method is invoked. You can\u0027t assume anything about the builder state after the object has been built (would the builder keep its state? would it reset itself?). I can update the documentation to make this more clear.\n\nBut before that, can you and Mark get in sync? (Mark was the one using this approach which we already have in other parts of the code-base).",
+      "parentUuid": "c0df0508_ed38a9f1",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 0
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1597e470_dd8c7754",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
         "patchSetId": 32
