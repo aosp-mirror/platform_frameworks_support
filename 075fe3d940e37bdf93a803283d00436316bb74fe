@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "088afdda_527319cc",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteVolumeSlider.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-22T05:35:30Z",
+      "side": 1,
+      "message": "remove this.",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 12
+      },
+      "revId": "075fe3d940e37bdf93a803283d00436316bb74fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
