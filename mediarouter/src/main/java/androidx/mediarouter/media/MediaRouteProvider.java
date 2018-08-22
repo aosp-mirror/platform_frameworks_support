@@ -638,6 +638,13 @@ public abstract class MediaRouteProvider {
                 private boolean mIsTransferable = false;
 
                 /**
+                 * A constructor with {@link MediaRouteDescriptor}.
+                 */
+                public Builder(MediaRouteDescriptor descriptor) {
+                    mRouteDescriptor = descriptor;
+                }
+
+                /**
                  * Copies the properties from the given {@link DynamicRouteDescriptor}
                  */
                 public Builder(DynamicRouteDescriptor dynamicRouteDescriptor) {

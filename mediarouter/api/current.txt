@@ -262,6 +262,7 @@ package androidx.mediarouter.media {
   }
 
   public static final class MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor.Builder {
+    ctor public MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor.Builder(androidx.mediarouter.media.MediaRouteDescriptor);
     ctor public MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor.Builder(androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor);
     method public androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor build();
     method public androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor.Builder setIsGroupable(boolean);

@@ -160,9 +160,10 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
     private void publishRoutes() {
         Resources r = getContext().getResources();
         Intent settingsIntent = new Intent(Intent.ACTION_MAIN);
-        settingsIntent.setClass(getContext(), SampleMediaRouteSettingsActivity.class);
+        settingsIntent.setClass(getContext(), SampleMediaRouteSettingsActivity.class)
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         IntentSender is = PendingIntent.getActivity(getContext(), 99, settingsIntent,
-                Intent.FLAG_ACTIVITY_NEW_TASK).getIntentSender();
+                PendingIntent.FLAG_UPDATE_CURRENT).getIntentSender();
 
         MediaRouteDescriptor routeDescriptor1 = new MediaRouteDescriptor.Builder(
                 FIXED_VOLUME_ROUTE_ID,
