@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "09f525bb_ec4374e8",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/RemoteMediaBrowserCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-22T10:42:32Z",
+      "side": 1,
+      "message": "Would you change here to getConnectedSessionToken?",
+      "range": {
+        "startLine": 136,
+        "startChar": 18,
+        "endLine": 136,
+        "endChar": 33
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95d55d20_fbdc330d",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/RemoteMediaBrowserCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-22T10:42:32Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 138,
+        "startChar": 27,
+        "endLine": 138,
+        "endChar": 42
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed4a0786_7cf7fddd",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaSessionService2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-22T10:42:32Z",
+      "side": 1,
+      "message": "What should happen when all controllers are disconnected? Can we have a test for that case?",
+      "range": {
+        "startLine": 41,
+        "startChar": 13,
+        "endLine": 41,
+        "endChar": 37
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7670d421_a7bb0e30",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaSessionService2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-22T10:42:32Z",
+      "side": 1,
+      "message": "This should be 2.",
+      "range": {
+        "startLine": 62,
+        "startChar": 56,
+        "endLine": 62,
+        "endChar": 57
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "22f1ba66_b4530273",
         "filename": "media2/src/main/java/androidx/media2/MainHandlerExecutor.java",
         "patchSetId": 3
@@ -46,6 +138,30 @@
       "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "065bc06b_975ee1de",
+        "filename": "media2/src/main/java/androidx/media2/MainHandlerExecutor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-22T10:42:32Z",
+      "side": 1,
+      "message": "+1. \n\nIt seems there is also MainHandlerExecutor.java in media-widget, and it uses context.getMainExecutor() from Android 28.",
+      "parentUuid": "22f1ba66_b4530273",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
@@ -143,6 +259,52 @@
     },
     {
       "key": {
+        "uuid": "b8da7544_1961bbbc",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-22T10:42:32Z",
+      "side": 1,
+      "message": "Not related to this CL, but isn\u0027t it the \u0027bound service\u0027 is the right expression?\n\nhttps://cs.corp.google.com/search/?q\u003d%22bound+service%22\u0026sq\u003dpackage:android\u0026type\u003dcs\nhttps://cs.corp.google.com/search/?q\u003d%22bounded+service%22\u0026sq\u003dpackage:android\u0026type\u003dcs",
+      "range": {
+        "startLine": 806,
+        "startChar": 14,
+        "endLine": 806,
+        "endChar": 21
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dab47c1f_4a19fc3a",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1171,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-22T10:42:32Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 1171,
+        "startChar": 58,
+        "endLine": 1171,
+        "endChar": 62
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e03bb94f_b0da8fe3",
         "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
         "patchSetId": 3
@@ -190,6 +352,53 @@
     },
     {
       "key": {
+        "uuid": "7aca94b3_4f5a6175",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-22T10:42:32Z",
+      "side": 1,
+      "message": "+1. Rename may be needed",
+      "parentUuid": "e03bb94f_b0da8fe3",
+      "range": {
+        "startLine": 235,
+        "startChar": 15,
+        "endLine": 235,
+        "endChar": 21
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46096c57_24684d53",
+        "filename": "media2/src/main/java/androidx/media2/MediaLibraryService2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-22T10:42:32Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 51,
+        "startChar": 80,
+        "endLine": 51,
+        "endChar": 86
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a326f223_849db1d8",
         "filename": "media2/src/main/java/androidx/media2/MediaLibrarySessionImplBase.java",
         "patchSetId": 3
@@ -222,6 +431,98 @@
       "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6c509b7a_67f94391",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-22T10:42:32Z",
+      "side": 1,
+      "message": "ID",
+      "range": {
+        "startLine": 332,
+        "startChar": 24,
+        "endLine": 332,
+        "endChar": 26
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4343a0ca_ab7fcfb1",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-22T10:42:32Z",
+      "side": 1,
+      "message": "Could not understand this sentence. Who does connect to the session? \n\nThis method seems to make MediaController2 connected to MediaSessionService2 interact with (i.e. connect to) this session.\n\nHow about renaming to something else, something like:\n  void handleControllerConnectionFromService() {}\n  void connectControllerGivenByService() {}\n  ...",
+      "range": {
+        "startLine": 877,
+        "startChar": 7,
+        "endLine": 877,
+        "endChar": 31
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afe19bcf_98cfbf93",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-22T10:42:32Z",
+      "side": 1,
+      "message": "controller (or similar explanation is needed)",
+      "range": {
+        "startLine": 879,
+        "startChar": 21,
+        "endLine": 879,
+        "endChar": 27
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a9baa94_cad52e40",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-22T10:42:32Z",
+      "side": 1,
+      "message": "All caller should be \u0027controller\u0027",
+      "range": {
+        "startLine": 880,
+        "startChar": 27,
+        "endLine": 882,
+        "endChar": 28
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
@@ -316,6 +617,121 @@
       "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d239c61a_b628872c",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-22T10:42:32Z",
+      "side": 1,
+      "message": "Q) Why this is changed?",
+      "range": {
+        "startLine": 994,
+        "startChar": 0,
+        "endLine": 1001,
+        "endChar": 52
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d45808ad_2eea19ec",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-22T10:42:32Z",
+      "side": 1,
+      "message": "This also may need modification for explaining multiple sessions case.",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 25
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c7fb6bb_ef56fc1f",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-22T10:42:32Z",
+      "side": 1,
+      "message": "This may need modification for explaining multiple sessions.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 68
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e123d99_12831e5e",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-22T10:42:32Z",
+      "side": 1,
+      "message": "How about mInstance?",
+      "range": {
+        "startLine": 50,
+        "startChar": 25,
+        "endLine": 50,
+        "endChar": 33
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f136f1f6_4775e3c0",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-22T10:42:32Z",
+      "side": 1,
+      "message": "Now this logic may need to change. \nIf you have no plan to do this in this CL (I may do this work, possibly), \nplease leave TODO for changing the logic for making the service fore(back)ground.",
+      "range": {
+        "startLine": 140,
+        "startChar": 32,
+        "endLine": 140,
+        "endChar": 87
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
