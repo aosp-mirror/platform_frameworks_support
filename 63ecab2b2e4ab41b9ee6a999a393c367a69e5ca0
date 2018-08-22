@@ -22,6 +22,30 @@
       "revId": "63ecab2b2e4ab41b9ee6a999a393c367a69e5ca0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1046fea7_ef081b1c",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomOpenHelper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-22T06:20:10Z",
+      "side": 1,
+      "message": "Done\nThe list of views and create SQLs are now generated in onOpen of Delegate, and it is passed to a protected method there. Instead of a map, it is now an array because the order matters.",
+      "parentUuid": "c03719ae_ac59f8f1",
+      "range": {
+        "startLine": 59,
+        "startChar": 11,
+        "endLine": 59,
+        "endChar": 46
+      },
+      "revId": "63ecab2b2e4ab41b9ee6a999a393c367a69e5ca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
