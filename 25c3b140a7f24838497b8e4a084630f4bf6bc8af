@@ -157,6 +157,24 @@
       "revId": "25c3b140a7f24838497b8e4a084630f4bf6bc8af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc432e78_f3e5f4f7",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkifyParams.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-22T21:10:53Z",
+      "side": 1,
+      "message": "I think this doesn\u0027t need long comments on a cl.\nWe should just discuss this in person. I\u0027ll explain what we\u0027re trying to accomplish here.",
+      "parentUuid": "8f2a0320_d8943968",
+      "revId": "25c3b140a7f24838497b8e4a084630f4bf6bc8af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
