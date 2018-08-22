@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35c0db3a_2cc42a68",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-22T19:50:57Z",
+      "side": 0,
+      "message": "onResumeFragments calls mFragments.dispatchResume(), that calls dispatchStateChange, that always calls execPendingActions in the end",
+      "revId": "ce18f5f605796091592d78dbc84367a84af9b663",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
