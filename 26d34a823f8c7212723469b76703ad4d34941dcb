@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa2383b8_5f4bf9fa",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/DatabaseWriter.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-22T22:52:14Z",
+      "side": 1,
+      "message": "filterNonNull()",
+      "range": {
+        "startLine": 127,
+        "startChar": 52,
+        "endLine": 129,
+        "endChar": 13
+      },
+      "revId": "26d34a823f8c7212723469b76703ad4d34941dcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52532c78_5fe56cd7",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/DatabaseWriter.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-22T22:52:14Z",
+      "side": 1,
+      "message": "$S",
+      "range": {
+        "startLine": 135,
+        "startChar": 37,
+        "endLine": 135,
+        "endChar": 43
+      },
+      "revId": "26d34a823f8c7212723469b76703ad4d34941dcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1584739e_5804610f",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-22T22:52:14Z",
+      "side": 1,
+      "message": "we need to keep previous constructor, because new runtime should be compatible with old codegen",
+      "revId": "26d34a823f8c7212723469b76703ad4d34941dcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7488fe9b_84713aca",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-22T22:52:14Z",
+      "side": 1,
+      "message": "make it nullable or at least new SparseArrayCompat\u003c\u003e(0), because otherwise it allocates to arrays with 10 elements",
+      "range": {
+        "startLine": 144,
+        "startChar": 33,
+        "endLine": 144,
+        "endChar": 50
+      },
+      "revId": "26d34a823f8c7212723469b76703ad4d34941dcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
