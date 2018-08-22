@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "28687514_973788de",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4812fad_fc19abf7",
+      "range": {
+        "startLine": 2,
+        "startChar": 3,
+        "endLine": 2,
+        "endChar": 49
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f717cefc_99c3d7c1",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "65124de1_3aa6ff9c",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f717cefc_99c3d7c1",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 40
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88741476_4c313662",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
         "patchSetId": 1
@@ -62,6 +110,24 @@
       "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8602901_c4d4fa87",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88741476_4c313662",
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "37deade8_9464ce68",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "916082b6_3e2d3785",
+      "range": {
+        "startLine": 42,
+        "startChar": 16,
+        "endLine": 42,
+        "endChar": 23
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "406780bd_ecbfea08",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
         "patchSetId": 1
@@ -108,6 +198,30 @@
       "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f4c3ab4_d17a8192",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "406780bd_ecbfea08",
+      "range": {
+        "startLine": 47,
+        "startChar": 23,
+        "endLine": 47,
+        "endChar": 33
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +294,78 @@
     },
     {
       "key": {
+        "uuid": "33464e72_42e0d976",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "5aa1b480_69f3771b",
+      "range": {
+        "startLine": 50,
+        "startChar": 41,
+        "endLine": 50,
+        "endChar": 42
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bdac1f19_db547fca",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "To cover a large distance \u0026 to visit the first and last page",
+      "parentUuid": "3c25e334_f69297c5",
+      "range": {
+        "startLine": 50,
+        "startChar": 49,
+        "endLine": 50,
+        "endChar": 62
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eec5c955_0707fb63",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c215cf1a_ebfe6ae6",
+      "range": {
+        "startLine": 50,
+        "startChar": 26,
+        "endLine": 50,
+        "endChar": 36
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7710e9f0_b6508bd4",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
         "patchSetId": 1
@@ -200,6 +386,30 @@
       "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dbbce40_a7a31526",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "Yes, I was planning to move this to BaseTest in a later CL, but maybe it\u0027s better to do it now",
+      "parentUuid": "7710e9f0_b6508bd4",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 17
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -226,6 +436,30 @@
     },
     {
       "key": {
+        "uuid": "a8aa85d7_800f6590",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "Ideally I would like to check that either no transform events are fired, or only one transform event is fired for the final/current state. However, this requires solving the halting problem.\n\nMaybe it\u0027s better to don\u0027t execute gotoPageWithCommand if pageIxDelta \u003d\u003d 0.",
+      "parentUuid": "5b3f7087_92b3f37c",
+      "range": {
+        "startLine": 61,
+        "startChar": 16,
+        "endLine": 61,
+        "endChar": 39
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27014112_c0ab9bd9",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
         "patchSetId": 1
@@ -246,6 +480,30 @@
       "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73a7f4c1_c0749e34",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27014112_c0ab9bd9",
+      "range": {
+        "startLine": 65,
+        "startChar": 20,
+        "endLine": 65,
+        "endChar": 75
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -272,6 +530,30 @@
     },
     {
       "key": {
+        "uuid": "8e7aee37_401cee70",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "I\u0027ll add a log and describe the patterns I want to see in the transform events generated by the code under test. The patterns are chosen to ensure a valid animation, but allow flexibility in implementation. Each of the assertions here check one of these patterns.",
+      "parentUuid": "3c456b79_e1ca16e1",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 91
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69a2e15d_fa71f5c2",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
         "patchSetId": 1
@@ -295,6 +577,30 @@
     },
     {
       "key": {
+        "uuid": "1de5e0ae_df40a657",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69a2e15d_fa71f5c2",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 64
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb59177b_ca7dbd56",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
         "patchSetId": 1
@@ -306,6 +612,30 @@
       "writtenOn": "2018-08-20T18:30:31Z",
       "side": 1,
       "message": "why lazy? test code is not performance critical, and it\u0027s better to keep it simple",
+      "range": {
+        "startLine": 151,
+        "startChar": 22,
+        "endLine": 151,
+        "endChar": 26
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11120313_02356ffe",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "Consider the difference:\n\n val frames by lazy {\n }\n\nvs\n\n val frames get() {\n }\n\nSurely that doesn\u0027t make it complicated? It\u0027s just simple standard Kotlin, there\u0027s no extra logic at all.",
+      "parentUuid": "eb59177b_ca7dbd56",
       "range": {
         "startLine": 151,
         "startChar": 22,
@@ -341,6 +671,30 @@
     },
     {
       "key": {
+        "uuid": "cb9b8b3e_e6265b06",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "Renamed the method",
+      "parentUuid": "5e371b4c_e9766ca5",
+      "range": {
+        "startLine": 167,
+        "startChar": 12,
+        "endLine": 167,
+        "endChar": 20
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "edeeea89_46d3de25",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
         "patchSetId": 1
@@ -361,6 +715,30 @@
       "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "479ec6ee_db2920d5",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "Yes. I don\u0027t see what else it should be?",
+      "parentUuid": "edeeea89_46d3de25",
+      "range": {
+        "startLine": 245,
+        "startChar": 23,
+        "endLine": 245,
+        "endChar": 58
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -387,6 +765,30 @@
     },
     {
       "key": {
+        "uuid": "042e4ee2_c71bd45b",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "lhs and rhs are by far the most widely used variable names in comparisons, right?\n\nAnyway, I gave it a new try, see if this reads more intuitively",
+      "parentUuid": "aa3bc746_3d6a6d26",
+      "range": {
+        "startLine": 247,
+        "startChar": 17,
+        "endLine": 247,
+        "endChar": 20
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "645600db_283ee4eb",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
         "patchSetId": 1
@@ -407,6 +809,30 @@
       "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58b754d0_ebd42f54",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "Yes, see for example PageFillTest#assertPositionSorted or PageChangeListenerTest#assertOffsetSorted",
+      "parentUuid": "645600db_283ee4eb",
+      "range": {
+        "startLine": 250,
+        "startChar": 8,
+        "endLine": 250,
+        "endChar": 10
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -433,6 +859,30 @@
     },
     {
       "key": {
+        "uuid": "ded4263e_47acc8c6",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/PageTransformAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c88c9d5_15c6fd6d",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0f09343_1c6c66c2",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/PageTransformAdapter.java",
         "patchSetId": 1
@@ -453,6 +903,30 @@
       "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9028f99_ed9d0f5d",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/PageTransformAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0f09343_1c6c66c2",
+      "range": {
+        "startLine": 43,
+        "startChar": 33,
+        "endLine": 44,
+        "endChar": 19
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -479,6 +953,30 @@
     },
     {
       "key": {
+        "uuid": "b97ba2ba_b65a6a8b",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/PageTransformAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "I think it\u0027s a limitation of the compiler. It doesn\u0027t understand that it can\u0027t happen and marks it as a warning. Should I have dealt with the warning differently?",
+      "parentUuid": "127c07f0_fb3990c7",
+      "range": {
+        "startLine": 69,
+        "startChar": 12,
+        "endLine": 71,
+        "endChar": 13
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a4a5d77a_a9c74a39",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
         "patchSetId": 1
@@ -490,6 +988,30 @@
       "writtenOn": "2018-08-20T23:53:23Z",
       "side": 1,
       "message": "Isn\u0027t offsetPix \u003d start?  What you\u0027ve done here will always result in offestPix \u003e\u003d 0.  Right?",
+      "range": {
+        "startLine": 133,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 42
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c49e0cd_c0986f8e",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-22T17:47:47Z",
+      "side": 1,
+      "message": "Correct. I tried not to change the behavior as compared to the previous implementation, but you\u0027re right that it makes more sense to have offsetPx change sign if the view is offset towards the end.\n\nIf we want to change this, we have to adjust the contract of the OnPageChangeListener though, as it currently does not allow negative offsets (\"positionOffset, float: Value from [0, 1) indicating the offset from the page at position.\").\n\nAlso note that the only situation where it occurs is when the first visible view is offset towards the end, leaving a gap at the start. Is that possible in a RecyclerView?",
+      "parentUuid": "a4a5d77a_a9c74a39",
       "range": {
         "startLine": 133,
         "startChar": 8,
