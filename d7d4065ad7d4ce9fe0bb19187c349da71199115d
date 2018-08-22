@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7b115ea_a60ab055",
+        "filename": "preference/src/main/java/androidx/preference/PreferenceCategory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-08-22T12:43:58Z",
+      "side": 1,
+      "message": "Why not referencing the version code constant from here?",
+      "range": {
+        "startLine": 82,
+        "startChar": 42,
+        "endLine": 82,
+        "endChar": 44
+      },
+      "revId": "d7d4065ad7d4ce9fe0bb19187c349da71199115d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
