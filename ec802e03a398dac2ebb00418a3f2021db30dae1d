@@ -142,6 +142,93 @@
     },
     {
       "key": {
+        "uuid": "9bdd78a1_de0d695b",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-22T01:02:27Z",
+      "side": 1,
+      "message": "1. I mentioned about the necessity of LinearLayout that contains ImageView. Why don\u0027t you set background/alpha directly to the ImageView? You can even set color filter when you blur it.\n\nIn addition to that, I\u0027m not sure why the FrameLayout shouldn\u0027t have background with black scrim. If I understand correctly, if you set \u0027background\u0027 it should be shown under the children. Could you double check my understanding? You may temporarily place a dummy view for the test.",
+      "parentUuid": "63698afb_40990ede",
+      "revId": "ec802e03a398dac2ebb00418a3f2021db30dae1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d792b2d6_e0856eab",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-22T01:02:27Z",
+      "side": 1,
+      "message": "question) Isn\u0027t it fixed height?",
+      "range": {
+        "startLine": 21,
+        "startChar": 39,
+        "endLine": 21,
+        "endChar": 51
+      },
+      "revId": "ec802e03a398dac2ebb00418a3f2021db30dae1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b40faece_3686d27d",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-22T01:02:27Z",
+      "side": 1,
+      "message": "This is scrim so needs to be shown on top of the image, but you\u0027re putting it parent that would be shown under the image.",
+      "range": {
+        "startLine": 22,
+        "startChar": 5,
+        "endLine": 22,
+        "endChar": 17
+      },
+      "revId": "ec802e03a398dac2ebb00418a3f2021db30dae1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4252b4fe_1e3fd9bb",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-22T01:02:27Z",
+      "side": 1,
+      "message": "Is wrap_content here intended? This sounds like that we may not fill the parent view with the mr_cast_metada_background fully.",
+      "range": {
+        "startLine": 23,
+        "startChar": 41,
+        "endLine": 23,
+        "endChar": 53
+      },
+      "revId": "ec802e03a398dac2ebb00418a3f2021db30dae1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "00958899_20ebc755",
         "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
         "patchSetId": 1
@@ -182,6 +269,29 @@
         "startChar": 0,
         "endLine": 29,
         "endChar": 0
+      },
+      "revId": "ec802e03a398dac2ebb00418a3f2021db30dae1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13546e67_c0839c7f",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-22T01:02:27Z",
+      "side": 1,
+      "message": "ditto.\n\nIs wrap_content here intended? This sounds like that we may not fill the parent view with the mr_cast_metada_background fully.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 56
       },
       "revId": "ec802e03a398dac2ebb00418a3f2021db30dae1d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
