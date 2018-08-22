@@ -184,14 +184,11 @@ class AppCompatTextViewAutoSizeHelper {
      * within the layout bounds by using the default auto-size configuration.
      *
      * @param autoSizeTextType the type of auto-size. Must be one of
-     *        {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_NONE} or
-     *        {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_UNIFORM}
-     *
+     *                         {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_NONE} or
+     *                         {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_UNIFORM}
      * @attr ref R.styleable#AppCompatTextView_autoSizeTextType
-     *
-     * @see #getAutoSizeTextType()
-     *
      * @hide
+     * @see #getAutoSizeTextType()
      */
     @RestrictTo(LIBRARY_GROUP)
     void setAutoSizeTextTypeWithDefaults(@TextViewCompat.AutoSizeTextType int autoSizeTextType) {
@@ -232,29 +229,26 @@ class AppCompatTextViewAutoSizeHelper {
      * within the layout bounds. If all the configuration params are valid the type of auto-size is
      * set to {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_UNIFORM}.
      *
-     * @param autoSizeMinTextSize the minimum text size available for auto-size
-     * @param autoSizeMaxTextSize the maximum text size available for auto-size
+     * @param autoSizeMinTextSize     the minimum text size available for auto-size
+     * @param autoSizeMaxTextSize     the maximum text size available for auto-size
      * @param autoSizeStepGranularity the auto-size step granularity. It is used in conjunction with
      *                                the minimum and maximum text size in order to build the set of
      *                                text sizes the system uses to choose from when auto-sizing
-     * @param unit the desired dimension unit for all sizes above. See {@link TypedValue} for the
-     *             possible dimension units
-     *
+     * @param unit                    the desired dimension unit for all sizes above. See
+     *                                {@link TypedValue} for the
+     *                                possible dimension units
      * @throws IllegalArgumentException if any of the configuration params are invalid.
-     *
      * @attr ref R.styleable#AppCompatTextView_autoSizeTextType
      * @attr ref R.styleable#AppCompatTextView_autoSizeMinTextSize
      * @attr ref R.styleable#AppCompatTextView_autoSizeMaxTextSize
      * @attr ref R.styleable#AppCompatTextView_autoSizeStepGranularity
-     *
+     * @hide
      * @see #setAutoSizeTextTypeWithDefaults(int)
      * @see #setAutoSizeTextTypeUniformWithPresetSizes(int[], int)
      * @see #getAutoSizeMinTextSize()
      * @see #getAutoSizeMaxTextSize()
      * @see #getAutoSizeStepGranularity()
      * @see #getAutoSizeTextAvailableSizes()
-     *
-     * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
     void setAutoSizeTextTypeUniformWithConfiguration(
@@ -286,21 +280,19 @@ class AppCompatTextViewAutoSizeHelper {
      * then the type of auto-size is set to {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_UNIFORM}.
      *
      * @param presetSizes an {@code int} array of sizes in pixels
-     * @param unit the desired dimension unit for the preset sizes above. See {@link TypedValue} for
-     *             the possible dimension units
-     *
+     * @param unit        the desired dimension unit for the preset sizes above. See
+     *                    {@link TypedValue} for
+     *                    the possible dimension units
      * @throws IllegalArgumentException if all of the <code>presetSizes</code> are invalid.
-     *_
+     *                                  _
      * @attr ref R.styleable#AppCompatTextView_autoSizeTextType
      * @attr ref R.styleable#AppCompatTextView_autoSizePresetSizes
-     *
+     * @hide
      * @see #setAutoSizeTextTypeWithDefaults(int)
      * @see #setAutoSizeTextTypeUniformWithConfiguration(int, int, int, int)
      * @see #getAutoSizeMinTextSize()
      * @see #getAutoSizeMaxTextSize()
      * @see #getAutoSizeTextAvailableSizes()
-     *
-     * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
     void setAutoSizeTextTypeUniformWithPresetSizes(@NonNull int[] presetSizes, int unit)
@@ -341,16 +333,13 @@ class AppCompatTextViewAutoSizeHelper {
      * Returns the type of auto-size set for this widget.
      *
      * @return an {@code int} corresponding to one of the auto-size types:
-     *         {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_NONE} or
-     *         {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_UNIFORM}
-     *
+     * {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_NONE} or
+     * {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_UNIFORM}
      * @attr ref R.styleable#AppCompatTextView_autoSizeTextType
-     *
+     * @hide
      * @see #setAutoSizeTextTypeWithDefaults(int)
      * @see #setAutoSizeTextTypeUniformWithConfiguration(int, int, int, int)
      * @see #setAutoSizeTextTypeUniformWithPresetSizes(int[], int)
-     *
-     * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
     @TextViewCompat.AutoSizeTextType
@@ -360,12 +349,9 @@ class AppCompatTextViewAutoSizeHelper {
 
     /**
      * @return the current auto-size step granularity in pixels.
-     *
      * @attr ref R.styleable#AppCompatTextView_autoSizeStepGranularity
-     *
-     * @see #setAutoSizeTextTypeUniformWithConfiguration(int, int, int, int)
-     *
      * @hide
+     * @see #setAutoSizeTextTypeUniformWithConfiguration(int, int, int, int)
      */
     @RestrictTo(LIBRARY_GROUP)
     int getAutoSizeStepGranularity() {
@@ -374,14 +360,11 @@ class AppCompatTextViewAutoSizeHelper {
 
     /**
      * @return the current auto-size minimum text size in pixels (the default is 12sp). Note that
-     *         if auto-size has not been configured this function returns {@code -1}.
-     *
+     * if auto-size has not been configured this function returns {@code -1}.
      * @attr ref R.styleable#AppCompatTextView_autoSizeMinTextSize
-     *
+     * @hide
      * @see #setAutoSizeTextTypeUniformWithConfiguration(int, int, int, int)
      * @see #setAutoSizeTextTypeUniformWithPresetSizes(int[], int)
-     *
-     * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
     int getAutoSizeMinTextSize() {
@@ -390,14 +373,11 @@ class AppCompatTextViewAutoSizeHelper {
 
     /**
      * @return the current auto-size maximum text size in pixels (the default is 112sp). Note that
-     *         if auto-size has not been configured this function returns {@code -1}.
-     *
+     * if auto-size has not been configured this function returns {@code -1}.
      * @attr ref R.styleable#AppCompatTextView_autoSizeMaxTextSize
-     *
+     * @hide
      * @see #setAutoSizeTextTypeUniformWithConfiguration(int, int, int, int)
      * @see #setAutoSizeTextTypeUniformWithPresetSizes(int[], int)
-     *
-     * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
     int getAutoSizeMaxTextSize() {
@@ -406,11 +386,9 @@ class AppCompatTextViewAutoSizeHelper {
 
     /**
      * @return the current auto-size {@code int} sizes array (in pixels).
-     *
+     * @hide
      * @see #setAutoSizeTextTypeUniformWithConfiguration(int, int, int, int)
      * @see #setAutoSizeTextTypeUniformWithPresetSizes(int[], int)
-     *
-     * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
     int[] getAutoSizeTextAvailableSizes() {
@@ -484,7 +462,7 @@ class AppCompatTextViewAutoSizeHelper {
         // First validate.
         if (autoSizeMinTextSizeInPx <= 0) {
             throw new IllegalArgumentException("Minimum auto-size text size ("
-                    + autoSizeMinTextSizeInPx  + "px) is less or equal to (0px)");
+                    + autoSizeMinTextSizeInPx + "px) is less or equal to (0px)");
         }
 
         if (autoSizeMaxTextSizeInPx <= autoSizeMinTextSizeInPx) {
@@ -679,7 +657,7 @@ class AppCompatTextViewAutoSizeHelper {
                 mTextView, "getLayoutAlignment", Layout.Alignment.ALIGN_NORMAL);
         final StaticLayout layout = Build.VERSION.SDK_INT >= 23
                 ? createStaticLayoutForMeasuring(
-                        text, alignment, Math.round(availableSpace.right), maxLines)
+                text, alignment, Math.round(availableSpace.right), maxLines)
                 : createStaticLayoutForMeasuringPre23(
                         text, alignment, Math.round(availableSpace.right));
         // Lines overflow.
@@ -706,7 +684,7 @@ class AppCompatTextViewAutoSizeHelper {
                 TextDirectionHeuristics.FIRSTSTRONG_LTR);
 
         final StaticLayout.Builder layoutBuilder = StaticLayout.Builder.obtain(
-                text, 0, text.length(),  mTempTextPaint, availableWidth);
+                text, 0, text.length(), mTempTextPaint, availableWidth);
 
         return layoutBuilder.setAlignment(alignment)
                 .setLineSpacing(
@@ -796,7 +774,6 @@ class AppCompatTextViewAutoSizeHelper {
     /**
      * @return {@code true} if this widget supports auto-sizing text and has been configured to
      * auto-size.
-     *
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)

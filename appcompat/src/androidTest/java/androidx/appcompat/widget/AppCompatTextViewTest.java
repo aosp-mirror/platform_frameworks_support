@@ -25,6 +25,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -32,6 +33,8 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.os.Build;
 import android.text.Layout;
 import android.text.PrecomputedText;
@@ -50,6 +53,7 @@ import androidx.test.annotation.UiThreadTest;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import org.junit.Test;
 
@@ -146,20 +150,20 @@ public class AppCompatTextViewTest
     public void testAppCompatAllCapsFalseOnButton() {
         final String text = mResources.getString(R.string.sample_text2);
         final AppCompatTextView textView =
-                 mContainer.findViewById(R.id.text_view_app_allcaps_false);
+                mContainer.findViewById(R.id.text_view_app_allcaps_false);
 
         assertEquals("Text view is not in all caps", text, textView.getLayout().getText());
     }
 
     @Test
     public void testTextColorSetHex() {
-        final TextView textView =  mContainer.findViewById(R.id.view_text_color_hex);
+        final TextView textView = mContainer.findViewById(R.id.view_text_color_hex);
         assertEquals(Color.RED, textView.getCurrentTextColor());
     }
 
     @Test
     public void testTextColorSetColorStateList() {
-        final TextView textView =  mContainer.findViewById(R.id.view_text_color_csl);
+        final TextView textView = mContainer.findViewById(R.id.view_text_color_csl);
 
         onView(withId(R.id.view_text_color_csl)).perform(setEnabled(true));
         assertEquals(ContextCompat.getColor(textView.getContext(), R.color.ocean_default),
@@ -172,13 +176,13 @@ public class AppCompatTextViewTest
 
     @Test
     public void testTextColorSetThemeAttrHex() {
-        final TextView textView =  mContainer.findViewById(R.id.view_text_color_primary);
+        final TextView textView = mContainer.findViewById(R.id.view_text_color_primary);
         assertEquals(Color.BLUE, textView.getCurrentTextColor());
     }
 
     @Test
     public void testTextColorSetThemeAttrColorStateList() {
-        final TextView textView =  mContainer.findViewById(R.id.view_text_color_secondary);
+        final TextView textView = mContainer.findViewById(R.id.view_text_color_secondary);
 
         onView(withId(R.id.view_text_color_secondary)).perform(setEnabled(true));
         assertEquals(ContextCompat.getColor(textView.getContext(), R.color.sand_default),
@@ -192,9 +196,9 @@ public class AppCompatTextViewTest
     private void verifyTextLinkColor(TextView textView) {
         ColorStateList linkColorStateList = textView.getLinkTextColors();
         assertEquals(ContextCompat.getColor(textView.getContext(), R.color.lilac_default),
-                linkColorStateList.getColorForState(new int[] { android.R.attr.state_enabled}, 0));
+                linkColorStateList.getColorForState(new int[]{android.R.attr.state_enabled}, 0));
         assertEquals(ContextCompat.getColor(textView.getContext(), R.color.lilac_disabled),
-                linkColorStateList.getColorForState(new int[] { -android.R.attr.state_enabled}, 0));
+                linkColorStateList.getColorForState(new int[]{-android.R.attr.state_enabled}, 0));
     }
 
     @Test
@@ -434,7 +438,6 @@ public class AppCompatTextViewTest
 
         /**
          * Synchronously execute the i-th runnable
-         * @param i
          */
         public void doExecution(int i) {
             getRunnableAt(i).run();
@@ -657,5 +660,87 @@ public class AppCompatTextViewTest
                 R.id.text_view_hyphen_break_override);
         assertEquals(Layout.BREAK_STRATEGY_BALANCED, textView.getBreakStrategy());
     }
+
+    @Test
+    public void testCompoundDrawablesCompat() {
+        // Given an ACTV with drawable[Left,Top,Right,Bottom]Compat set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat);
+        // Then all 4 drawables should be present
+        final Drawable[] compoundDrawables = textView.getCompoundDrawables();
+        assertNotNull(compoundDrawables[0]);
+        assertNotNull(compoundDrawables[1]);
+        assertNotNull(compoundDrawables[2]);
+        assertNotNull(compoundDrawables[3]);
+    }
+
+    @Test
+    public void testCompoundDrawablesCompat_relative() {
+        // Given an ACTV with both drawableStartCompat and drawableEndCompat set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_relative);
+        // Then both should be present
+        final Drawable[] compoundDrawablesRelative = textView.getCompoundDrawablesRelative();
+        assertNotNull(compoundDrawablesRelative[0]);
+        assertNotNull(compoundDrawablesRelative[2]);
+    }
+
+    @Test
+    public void testCompoundDrawablesCompat_relativeAndAbsolute() {
+        // Given an ACTV with both drawableStartCompat and drawableRightCompat set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_relative_and_absolute);
+        // Then the start drawable should be present
+        assertNotNull(textView.getCompoundDrawablesRelative()[0]);
+        // Then the absolute right drawable should be ignored
+        assertNull(textView.getCompoundDrawables()[2]);
+    }
+
+    @Test
+    public void testCompoundDrawablesCompat_overridesPlatform() {
+        // Given an ACTV with both android:drawableLeft & app:drawableLeftCompat set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_and_platform_same);
+        // Then the left drawable should be present & of the type specified by the compat attr
+        final Drawable drawableLeft = textView.getCompoundDrawables()[0];
+        assertNotNull(drawableLeft);
+        final boolean isVector = drawableLeft instanceof VectorDrawable
+                || drawableLeft instanceof VectorDrawableCompat;
+        assertTrue(isVector);
+    }
+
+    @Test
+    public void testCompoundDrawablesCompat_coexistPlatform() {
+        // Given an ACTV with app:drawableTopCompat & android:drawableBottom set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_and_platform_mix);
+        // Then both should be present
+        final Drawable[] compoundDrawables = textView.getCompoundDrawables();
+        assertNotNull(compoundDrawables[1]);
+        assertNotNull(compoundDrawables[3]);
+    }
+
+    @Test
+    public void testCompoundDrawablesRelative_platformCompatCoexist() {
+        // Given an ACTV with app:drawableStartCompat & android:drawableEnd set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_and_platform_relative_mix);
+        // Then both should be present
+        final Drawable[] compoundDrawables = textView.getCompoundDrawablesRelative();
+        assertNotNull(compoundDrawables[0]);
+        assertNotNull(compoundDrawables[2]);
+    }
+
+    /*@Test
+    public void testCompoundDrawables_relativeBeatsAbsolute() {
+        // Given an ACTV with app:drawableLeftCompat & android:drawableEnd set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_and_platform_relative_and_abs);
+        // Then the relative drawable is present
+        assertNotNull(textView.getCompoundDrawablesRelative()[2]);
+        // Then the absolute drawable is ignored
+        assertNull(textView.getCompoundDrawablesRelative()[0]);
+        assertNull(textView.getCompoundDrawables()[0]);
+    }*/
 
 }
