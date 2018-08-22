@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ae93ec1_98d67a64",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2407,
+      "author": {
+        "id": 1060405
+      },
+      "writtenOn": "2018-08-22T01:00:02Z",
+      "side": 1,
+      "message": "please add comment for this copying",
+      "range": {
+        "startLine": 2402,
+        "startChar": 12,
+        "endLine": 2407,
+        "endChar": 23
+      },
+      "revId": "bf5e47d58403aeb77e0edcd03eb55b99189d9e8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
