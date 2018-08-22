@@ -139,6 +139,24 @@
       "revId": "25c3b140a7f24838497b8e4a084630f4bf6bc8af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f2a0320_d8943968",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SmartLinkifyParams.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-22T16:35:47Z",
+      "side": 1,
+      "message": "TBH, I don\u0027t really have a clean solution now :/\n\nMy major concern is:\nWe are introducing two new concepts (MatchMaker and EntityRecognizer) in parallel to TC, while they are pretty similar in some sense. For example, EntityRecognizer is basically TC.classifyText. I am afraid it makes things complicated.\n\nJust think out loudly...\nCan we abstract away TC in SmartLinkify completely, it can be done by implementing MatchMaker and EntityRecognizer with a TC? Of course, we provide the default MatchMaker and EntityRecognizer that is backed by a TC.\n\nThe another way around is, just use the TC interface. Then we need to think: what is the hardest part to implement their own TC by wrapping ours. classifyText seems like the easy part, they can easily augment the action list. The  most challenging part is possibly to resolve the conflict? If so, can SmartLinkify takes multiple TC and thus SmartLinkify can still help developers to resolve all the conflicts. Maybe we can also provide PatternTC?\n \nOr just keep it simple? :)\naddPattern(pattern, actions);\nIt seems this matches all the above use cases as long as we always aggregate the result of classifyText and the actions that matched with the pattern?\n\nAnyway, as you know, adamp@ is interested into the SmartLinkify APIs, let\u0027s keep him in the loop when he is looking into our another SmartLinkify change?\n\nThanks!",
+      "parentUuid": "fd856014_984e82af",
+      "revId": "25c3b140a7f24838497b8e4a084630f4bf6bc8af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
