@@ -328,6 +328,30 @@
       "revId": "6b368cab43bf9c7c804bce49a42b2d5cb1fe44ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17fcbc9c_f20a9cd2",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/dao/BooksDao.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-22T17:16:06Z",
+      "side": 1,
+      "message": "I guess I meant it more as a way to look into also using the shortcut binders \u0026 adapters in those @Query(\"INSERT/DELETE\") so that reactive return types can also be added there, but I think we agreed to tackle that later in the chat :)",
+      "parentUuid": "3d7d86e9_9a70fc06",
+      "range": {
+        "startLine": 43,
+        "startChar": 10,
+        "endLine": 43,
+        "endChar": 18
+      },
+      "revId": "6b368cab43bf9c7c804bce49a42b2d5cb1fe44ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
