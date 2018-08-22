@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03a9374a_6b137bb0",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FtsTableEntityProcessor.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-22T18:51:15Z",
+      "side": 1,
+      "message": "use destructing declaration: \nval (ftsVersion, annotation) \u003d if (...) { FTS3 to bla } else {FTS4 to bla}",
+      "range": {
+        "startLine": 66,
+        "startChar": 7,
+        "endLine": 74,
+        "endChar": 9
+      },
+      "revId": "5dc180ac2f255ef2d9e387fe56912ca17fef1f05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cb15edf_fe32405a",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FtsTableEntityProcessor.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-22T18:51:15Z",
+      "side": 1,
+      "message": "you can do setC: Set\u003cFoo\u003e \u003d setA - setB in Kotlin",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 93,
+        "endChar": 67
+      },
+      "revId": "5dc180ac2f255ef2d9e387fe56912ca17fef1f05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "756fe045_9ab745a3",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/FtsEntity.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-22T18:51:15Z",
+      "side": 1,
+      "message": "inline?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 35
+      },
+      "revId": "5dc180ac2f255ef2d9e387fe56912ca17fef1f05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
