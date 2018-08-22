@@ -195,4 +195,9 @@ object LibraryVersions {
      * Version code for RecyclerView
      */
     val RECYCLERVIEW = Version("1.1.0-alpha01")
+
+    /**
+     * Version code for RecyclerView
+     */
+    val COORDINATORLAYOUT = Version("1.1.0-alpha01")
 }
