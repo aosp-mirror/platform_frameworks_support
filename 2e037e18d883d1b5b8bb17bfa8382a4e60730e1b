@@ -426,6 +426,30 @@
     },
     {
       "key": {
+        "uuid": "c0df0508_ed38a9f1",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-22T00:28:21Z",
+      "side": 1,
+      "message": "I\u0027m worried about a class like this (which is exactly the pattern I\u0027d plan to use for the GMM integration with this API):\n\nclass DistanceUpdater {\n  private final Distance.Builder distanceBuilder \u003d Distance.newBuilder();\n  \n  public void updateDistance(int newDistanceMeters) {\n    distanceBuilder.setDistanceMeters(newDistanceMeters);\n    Distance distance \u003d distanceBuilder.build();\n    // send \"distance\" somewhere, but that object will get mutated next time somebody calls updateDistance.\n  }\n}",
+      "parentUuid": "b4542608_9e96e6f8",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 0
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1597e470_dd8c7754",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
         "patchSetId": 32
