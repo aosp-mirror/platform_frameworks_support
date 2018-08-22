@@ -378,6 +378,30 @@
     },
     {
       "key": {
+        "uuid": "1db18225_7bea8d95",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-22T00:05:32Z",
+      "side": 1,
+      "message": "FWIW that particular builder pattern seems pretty scary to me.\n\nI common pattern I\u0027ve seen is to keep track of a builder in some state-tracking class, and to call adders/setters on the builder as the state changes. Then, when it\u0027s time to fire off an update, you call build() to get an immutable snapshot of the state, and broadcast that wherever you want. But you continue to mutate the original builder object as the state continues to change.\n\nWith the current builder approach, that latter mutating will also mutate the state of the previously-built snapshot, which I would find very surprising.\n\nWe can\u0027t create immutable snapshots of the state, but we could at least create new instances each time build() is called.",
+      "parentUuid": "f104d1c8_cd1ae491",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 0
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1597e470_dd8c7754",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
         "patchSetId": 32
