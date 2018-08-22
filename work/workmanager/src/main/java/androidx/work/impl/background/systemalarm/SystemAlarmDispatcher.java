@@ -216,15 +216,15 @@ public class SystemAlarmDispatcher implements ExecutionListener {
                 mCurrentIntent = null;
             }
 
-            // if there are no more intents to process, and the command handler
-            // has no more pending commands, stop the service.
             if (!mCommandHandler.hasPendingCommands() && mIntents.isEmpty()) {
+                // If there are no more intents to process, and the command handler
+                // has no more pending commands, stop the service.
                 Logger.debug(TAG, "No more commands & intents.");
                 if (mCompletedListener != null) {
                     mCompletedListener.onAllCommandsCompleted();
                 }
-            } else {
-                // process the next command
+            } else if (!mIntents.isEmpty()) {
+                // Only process the next command if we have more commands.
                 processCommand();
             }
         }
@@ -266,7 +266,12 @@ public class SystemAlarmDispatcher implements ExecutionListener {
                             wakeLock.acquire();
                             mCommandHandler.onHandleIntent(mCurrentIntent, startId,
                                     SystemAlarmDispatcher.this);
-                        } finally {
+                        } catch (Throwable throwable) {
+                            Logger.error(TAG,
+                                    "This is unexpected. Please file a bug in the issue tracker "
+                                            + "at (https://issuetracker.google.com/issues/new?component=409906)",
+                                    throwable);
+                        }  finally {
                             Logger.debug(TAG, String.format(
                                     "Releasing operation wake lock (%s) %s",
                                     action,
