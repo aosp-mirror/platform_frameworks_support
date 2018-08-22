@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58c14350_63f77491",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2617,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-22T09:02:32Z",
+      "side": 1,
+      "message": "Q) What is this for? For example?",
+      "revId": "93ccf0f9d1a874f1492a23817e5732f2d96162f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "529fab27_7577fda5",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2624,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-22T09:02:32Z",
+      "side": 1,
+      "message": "it should be done regardless 2621 condition, i guess.",
+      "range": {
+        "startLine": 2622,
+        "startChar": 0,
+        "endLine": 2624,
+        "endChar": 52
+      },
+      "revId": "93ccf0f9d1a874f1492a23817e5732f2d96162f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb20bb87_fff2df8c",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2631,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-22T09:02:32Z",
+      "side": 1,
+      "message": "Shouldn\u0027t it be done even when there is no existing custom playback?",
+      "range": {
+        "startLine": 2626,
+        "startChar": 0,
+        "endLine": 2631,
+        "endChar": 25
+      },
+      "revId": "93ccf0f9d1a874f1492a23817e5732f2d96162f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "037ca679_5f680b1b",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2640,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-22T09:02:32Z",
+      "side": 1,
+      "message": "Please consider localization. Is this safe way for various languages?",
+      "range": {
+        "startLine": 2640,
+        "startChar": 20,
+        "endLine": 2640,
+        "endChar": 96
+      },
+      "revId": "93ccf0f9d1a874f1492a23817e5732f2d96162f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
