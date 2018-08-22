@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22f1ba66_b4530273",
+        "filename": "media2/src/main/java/androidx/media2/MainHandlerExecutor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-22T06:07:26Z",
+      "side": 1,
+      "message": "Could you move this in ContextCompat.java?\nhttps://cs.corp.google.com/android/frameworks/support/core/src/main/java/androidx/core/content/ContextCompat.java",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccdee6c6_a12cbfef",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-22T06:07:26Z",
+      "side": 1,
+      "message": "I may forget the reason.\nWhy is this needed?",
+      "range": {
+        "startLine": 102,
+        "startChar": 26,
+        "endLine": 102,
+        "endChar": 41
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e1b72e6_b279d0f8",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-22T06:07:26Z",
+      "side": 1,
+      "message": "What does \u0027This\u0027 denote?",
+      "range": {
+        "startLine": 175,
+        "startChar": 15,
+        "endLine": 175,
+        "endChar": 19
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e03bb94f_b0da8fe3",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-22T06:07:26Z",
+      "side": 1,
+      "message": "Shouldn\u0027t it return null when not connected?",
+      "range": {
+        "startLine": 235,
+        "startChar": 15,
+        "endLine": 235,
+        "endChar": 21
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a326f223_849db1d8",
+        "filename": "media2/src/main/java/androidx/media2/MediaLibrarySessionImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-22T06:07:26Z",
+      "side": 1,
+      "message": "Please do not include unrelated changes when the CL size is bigger than 100 line changes.",
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ed11b04_09416710",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1342,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-22T06:07:26Z",
+      "side": 1,
+      "message": "abstract class",
+      "range": {
+        "startLine": 1342,
+        "startChar": 8,
+        "endLine": 1342,
+        "endChar": 17
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75539c1b_1a0cf82d",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1342,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-22T06:07:26Z",
+      "side": 1,
+      "message": "What about ForegroundServiceEventCallback or other?",
+      "range": {
+        "startLine": 1342,
+        "startChar": 18,
+        "endLine": 1342,
+        "endChar": 51
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
