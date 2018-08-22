@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b771e52d_c606a005",
+        "filename": "room/common/src/main/java/androidx/room/Database.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-22T16:48:58Z",
+      "side": 1,
+      "message": "Now that you added view syncing, document the behaviour on what happens on upgrade / downgrades with regards to views being removed if not defined here. You can document it here or in the DatabaseView annotation.",
+      "range": {
+        "startLine": 74,
+        "startChar": 7,
+        "endLine": 75,
+        "endChar": 23
+      },
+      "revId": "ca6efc213d43e0370ab6edfcac4348ddb01cc05b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c5798a2_1b5a2e75",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-22T16:48:58Z",
+      "side": 1,
+      "message": "This clear doesn\u0027t seem necessary.",
+      "range": {
+        "startLine": 318,
+        "startChar": 12,
+        "endLine": 318,
+        "endChar": 31
+      },
+      "revId": "ca6efc213d43e0370ab6edfcac4348ddb01cc05b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cda5d19a_18d518fe",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/DatabaseView.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-22T16:48:58Z",
+      "side": 1,
+      "message": "This seems throwaway data during the validation, why have it in the value object ?",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 22
+      },
+      "revId": "ca6efc213d43e0370ab6edfcac4348ddb01cc05b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e1d5c7a_4ec1b5ef",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/SQLiteOpenHelperWriter.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-22T16:48:58Z",
+      "side": 1,
+      "message": "Are these views correctly ordered? Sorry if I\u0027m missing something obvious, but I don\u0027t see where the views list was sorted. I see changes in resolveDatabaseViews() to expand views that depend on other views and to find circular dependency of views, but I don\u0027t see where we order the views list such that if view A depend on B then B gets synced first.",
+      "range": {
+        "startLine": 145,
+        "startChar": 28,
+        "endLine": 145,
+        "endChar": 43
+      },
+      "revId": "ca6efc213d43e0370ab6edfcac4348ddb01cc05b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7f353d6_890b129f",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/DatabaseViewSyncTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-22T16:48:58Z",
+      "side": 1,
+      "message": "Instead of creating 2 DB with the same name, why not use the MigrationTestHelper and the schema jsons?",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 5
+      },
+      "revId": "ca6efc213d43e0370ab6edfcac4348ddb01cc05b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c3befc4_be9fcb52",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomOpenHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-22T16:48:58Z",
+      "side": 1,
+      "message": "Keep the delegate lean, abstract methods only. You can move the impl to DBUtil or maybe a new ViewsUtil class in room-runtime and call that from the generated onOpen()",
+      "range": {
+        "startLine": 190,
+        "startChar": 23,
+        "endLine": 190,
+        "endChar": 32
+      },
+      "revId": "ca6efc213d43e0370ab6edfcac4348ddb01cc05b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
