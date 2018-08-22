@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "f04b4719_d138c7e1",
+        "filename": "animation/src/main/java/androidx/animation/AnimationHandler.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-22T22:13:22Z",
+      "side": 1,
+      "message": "looks like you can simple call doAnimationFrame",
+      "range": {
+        "startLine": 57,
+        "startChar": 30,
+        "endLine": 57,
+        "endChar": 46
+      },
+      "revId": "e47312066a6ee7f83dd182933ec7d4adf71d5504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c9d10e2c_e7d7133e",
         "filename": "animation/src/main/java/androidx/animation/Animator.java",
         "patchSetId": 8

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d57e094f_03349048",
+        "filename": "animation/src/main/java/androidx/animation/AnimationHandler.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-22T22:13:22Z",
+      "side": 1,
+      "message": "can FrameCallbackProvider16 implement this FrameCallback? (So we decrease a method count for a bit:   we avoid new class and its methods)",
+      "range": {
+        "startLine": 241,
+        "startChar": 37,
+        "endLine": 241,
+        "endChar": 71
+      },
+      "revId": "b6d1e6f2d857195e78a40d2a4856c8668dae9af1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9262fbce_7e830638",
+        "filename": "animation/src/main/java/androidx/animation/TestHandler.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-22T22:13:22Z",
+      "side": 1,
+      "message": "should be in test artifact only, you can something like static setDelegate() that is package private.",
+      "revId": "b6d1e6f2d857195e78a40d2a4856c8668dae9af1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
