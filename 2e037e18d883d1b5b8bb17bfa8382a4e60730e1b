@@ -474,6 +474,30 @@
     },
     {
       "key": {
+        "uuid": "b9f5e5dc_d13197e8",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-22T18:33:44Z",
+      "side": 1,
+      "message": "Modified as agreed with Mark and Harry.",
+      "parentUuid": "12dd3630_c48423cb",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 0
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1597e470_dd8c7754",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
         "patchSetId": 32
@@ -732,6 +756,54 @@
     },
     {
       "key": {
+        "uuid": "63fac50f_7a67a18f",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-22T18:33:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96c4b80c_94f952b1",
+      "range": {
+        "startLine": 40,
+        "startChar": 7,
+        "endLine": 40,
+        "endChar": 12
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1acf9fb_c908ee9e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-22T18:33:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e96c67dd_cf754200",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 6
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14d6ffee_2181cafb",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
         "patchSetId": 32
@@ -778,6 +850,54 @@
     },
     {
       "key": {
+        "uuid": "3d7f9773_c166db03",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-22T18:33:44Z",
+      "side": 1,
+      "message": "Idem as above.",
+      "parentUuid": "14d6ffee_2181cafb",
+      "range": {
+        "startLine": 73,
+        "startChar": 19,
+        "endLine": 73,
+        "endChar": 34
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "abb41561_8987c49c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-22T18:33:44Z",
+      "side": 1,
+      "message": "Pushed for a subsequent CL (b/113040558)",
+      "parentUuid": "5cb72e10_49d80f1c",
+      "range": {
+        "startLine": 73,
+        "startChar": 39,
+        "endLine": 73,
+        "endChar": 54
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f6bd4d3_fdeaa3d3",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
         "patchSetId": 32
@@ -798,6 +918,30 @@
       "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78220597_661f42d0",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-22T18:33:44Z",
+      "side": 1,
+      "message": "Sounds good. Added to the bug mentioned above.",
+      "parentUuid": "8f6bd4d3_fdeaa3d3",
+      "range": {
+        "startLine": 75,
+        "startChar": 17,
+        "endLine": 75,
+        "endChar": 37
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

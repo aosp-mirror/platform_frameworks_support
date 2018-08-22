@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "db3bd77d_37f0be4b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/VersionedEnum.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-22T18:33:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db833f17_010edc93",
+      "revId": "67ef63e771ee76841ddd021ccb05b698ec134e64",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b798186_3f3212f4",
         "filename": "versionedparcelable/annotation/src/main/java/androidx/versionedparcelable/compiler/VersionedParcelProcessor.java",
         "patchSetId": 3

@@ -338,6 +338,30 @@
     },
     {
       "key": {
+        "uuid": "72ac4a99_976045cf",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-22T18:33:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "61483a0e_1d259c8b",
+      "range": {
+        "startLine": 87,
+        "startChar": 21,
+        "endLine": 87,
+        "endChar": 71
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dfafa2e9_ae2a6218",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
         "patchSetId": 6
@@ -501,6 +525,30 @@
       "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "577a821d_f04fe8f5",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-22T18:33:44Z",
+      "side": 1,
+      "message": "Based on all the conversations we had, we will now go with just using nulls to indicate \"not-set\".",
+      "parentUuid": "5c7b9b8d_855ae212",
+      "range": {
+        "startLine": 319,
+        "startChar": 37,
+        "endLine": 319,
+        "endChar": 0
+      },
+      "revId": "17a341a94cbd1fe66bfbfbcca353d8ad6440a77a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {

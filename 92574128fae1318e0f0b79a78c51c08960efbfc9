@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "84d29b5b_b5dfa59b",
+        "filename": "car/cluster/build.gradle",
+        "patchSetId": 24
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-22T18:33:44Z",
+      "side": 1,
+      "message": "For Harry/Mark to reply.",
+      "parentUuid": "975a46e8_ddfdef50",
+      "revId": "92574128fae1318e0f0b79a78c51c08960efbfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b66829f6_5ad55db4",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 24

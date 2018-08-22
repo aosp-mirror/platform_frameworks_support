@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "27cdb1ff_fb6f4710",
+        "filename": "car/cluster/src/androidTest/java/androidx/car/cluster/navigation/NavigationStateTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-22T18:33:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b07fe62c_a753cbb0",
+      "range": {
+        "startLine": 76,
+        "startChar": 45,
+        "endLine": 78,
+        "endChar": 35
+      },
+      "revId": "62a86a0464fbfb8a7569dd25eb8dcca4f4e5ceb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2681c6b1_883bbb06",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 27
@@ -68,6 +92,54 @@
       "revId": "62a86a0464fbfb8a7569dd25eb8dcca4f4e5ceb7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "335aa2a1_ebf852fd",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-22T18:33:44Z",
+      "side": 1,
+      "message": "We opted out from this action path.",
+      "parentUuid": "f7d269f4_6a1d3e5d",
+      "range": {
+        "startLine": 47,
+        "startChar": 38,
+        "endLine": 47,
+        "endChar": 52
+      },
+      "revId": "62a86a0464fbfb8a7569dd25eb8dcca4f4e5ceb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "808c2201_5e25a2c1",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-22T18:33:44Z",
+      "side": 1,
+      "message": "We opted out from this action path.",
+      "parentUuid": "2681c6b1_883bbb06",
+      "range": {
+        "startLine": 47,
+        "startChar": 12,
+        "endLine": 47,
+        "endChar": 36
+      },
+      "revId": "62a86a0464fbfb8a7569dd25eb8dcca4f4e5ceb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -118,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "27081c61_3428108c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-22T18:33:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "31f67c3c_f18987a3",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 10
+      },
+      "revId": "62a86a0464fbfb8a7569dd25eb8dcca4f4e5ceb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b0b342a_7111f7eb",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
         "patchSetId": 27
@@ -141,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "9252c463_300f33e2",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-22T18:33:44Z",
+      "side": 1,
+      "message": "We opted out from this action path.",
+      "parentUuid": "6b0b342a_7111f7eb",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 52
+      },
+      "revId": "62a86a0464fbfb8a7569dd25eb8dcca4f4e5ceb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2bfa0917_97ea0877",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
         "patchSetId": 27
@@ -161,6 +281,30 @@
       "revId": "62a86a0464fbfb8a7569dd25eb8dcca4f4e5ceb7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81f279d8_6977c251",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-22T18:33:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bfa0917_97ea0877",
+      "range": {
+        "startLine": 360,
+        "startChar": 15,
+        "endLine": 361,
+        "endChar": 57
+      },
+      "revId": "62a86a0464fbfb8a7569dd25eb8dcca4f4e5ceb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -231,6 +375,30 @@
       "revId": "62a86a0464fbfb8a7569dd25eb8dcca4f4e5ceb7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "950955e5_c51df502",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Time.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-22T18:33:44Z",
+      "side": 1,
+      "message": "We opted out from this action path.",
+      "parentUuid": "1f13873f_0c08bd01",
+      "range": {
+        "startLine": 71,
+        "startChar": 26,
+        "endLine": 71,
+        "endChar": 48
+      },
+      "revId": "62a86a0464fbfb8a7569dd25eb8dcca4f4e5ceb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
