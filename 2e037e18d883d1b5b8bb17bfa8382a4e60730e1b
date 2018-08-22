@@ -402,6 +402,30 @@
     },
     {
       "key": {
+        "uuid": "b4542608_9e96e6f8",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-22T00:21:32Z",
+      "side": 1,
+      "message": "The net result of this implementation is exactly the same as you describe:\n1) Distance.newBuilder() gives you a Builder object (at this point you don\u0027t have a \u0027Distance\u0027 yet).\n2) You add anything you need through the Builder (but you still can\u0027t use \u0027Distance\u0027).\n3) When you are done, you call Builder.build() and this is when you get a \u0027Distance\u0027 instance, which doesn\u0027t have any setters, so it is as immutable as we can make it.\n\nThe current implementation saves us from repeating the same code 2 extra times (on the internal state of the Builder, and then on copying this data into the actual object).\n\nOther versions I\u0027ve seen consist on the actual object (Distance) accessing data from the Builder instance that created it (kind of the opposite of this). We can\u0027t use such pattern here because the state needs to be available at the actual object (Distance) for VersionedParcelable to work.\n\nI agree with Mark that Builder pattern is exactly what we need, but a full implementation like you suggest means that adding one more field requires updating a total of 5 places (actual object state, actual object getter, builder state, builder setter, builder build method). This attempts to reduce such verbose implementation to just 3 places (actual object state, builder setter, actual object getter).",
+      "parentUuid": "1db18225_7bea8d95",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 0
+      },
+      "revId": "2e037e18d883d1b5b8bb17bfa8382a4e60730e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1597e470_dd8c7754",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/util/Common.java",
         "patchSetId": 32
