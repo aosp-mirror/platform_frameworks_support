@@ -143,9 +143,10 @@ limitations under the License.
     <dimen name="car_sub_header_height">76dp</dimen>
 
     <!-- Seekbar -->
-    <dimen name="car_seekbar_height">6dp</dimen>
+    <dimen name="car_seekbar_height">24dp</dimen>
     <dimen name="car_seekbar_padding">10dp</dimen>
     <dimen name="car_seekbar_thumb_size">24dp</dimen>
+    <dimen name="car_seekbar_thumb_radius">12dp</dimen>
     <dimen name="car_seekbar_thumb_stroke">1dp</dimen>
 
     <!-- Scroll Bar Thumb -->
