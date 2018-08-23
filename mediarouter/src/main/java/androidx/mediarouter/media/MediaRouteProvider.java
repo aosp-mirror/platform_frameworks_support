@@ -574,6 +574,9 @@ public abstract class MediaRouteProvider {
             boolean mIsGroupable;
             boolean mIsTransferable;
 
+            protected DynamicRouteDescriptor() {
+            }
+
             /**
              * Gets this route's {@link MediaRouteDescriptor}. i.e. which route this info is for.
              */
@@ -631,11 +634,18 @@ public abstract class MediaRouteProvider {
              * Builder for {@link DynamicRouteDescriptor}
              */
             public static final class  Builder {
-                private MediaRouteDescriptor mRouteDescriptor;
+                private final MediaRouteDescriptor mRouteDescriptor;
                 private @SelectionState int mSelectionState = UNSELECTED;
                 private boolean mIsUnselectable = false;
                 private boolean mIsGroupable = false;
                 private boolean mIsTransferable = false;
+
+                /**
+                 * A constructor with {@link MediaRouteDescriptor}.
+                 */
+                public Builder(MediaRouteDescriptor descriptor) {
+                    mRouteDescriptor = descriptor;
+                }
 
                 /**
                  * Copies the properties from the given {@link DynamicRouteDescriptor}
@@ -646,14 +656,6 @@ public abstract class MediaRouteProvider {
                     mIsUnselectable = dynamicRouteDescriptor.isUnselectable();
                     mIsGroupable = dynamicRouteDescriptor.isGroupable();
                     mIsTransferable = dynamicRouteDescriptor.isTransferable();
-                }
-
-                /**
-                 * Sets corresponding {@link MediaRouteDescriptor} to this route.
-                 */
-                public Builder setRouteDescriptor(MediaRouteDescriptor routeDescriptor) {
-                    mRouteDescriptor = routeDescriptor;
-                    return this;
                 }
 
                 /**
