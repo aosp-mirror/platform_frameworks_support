@@ -22,6 +22,30 @@
       "revId": "c8fc1dccccce1072bdb93e6187c17a8966371437",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42a5456c_81d0f1dc",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatTextViewTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1034928
+      },
+      "writtenOn": "2018-08-23T21:52:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5aa06d7a_4cd06964",
+      "range": {
+        "startLine": 736,
+        "startChar": 11,
+        "endLine": 736,
+        "endChar": 78
+      },
+      "revId": "c8fc1dccccce1072bdb93e6187c17a8966371437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
