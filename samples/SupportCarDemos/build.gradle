@@ -5,6 +5,7 @@ plugins {
 
 dependencies {
     implementation(project(":car"))
+    implementation(project(":recyclerview-selection"))
 
     compileOnly fileTree(dir: '../../car/core/car-stubs', include: ['android.car.jar'])
 }
