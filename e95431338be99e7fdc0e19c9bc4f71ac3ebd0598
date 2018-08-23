@@ -22,6 +22,30 @@
       "revId": "e95431338be99e7fdc0e19c9bc4f71ac3ebd0598",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dee2dc4_fcfc8f04",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemalarm/SystemAlarmDispatcher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-23T17:19:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c57cf6b1_e2f5ec7b",
+      "range": {
+        "startLine": 271,
+        "startChar": 35,
+        "endLine": 272,
+        "endChar": 113
+      },
+      "revId": "e95431338be99e7fdc0e19c9bc4f71ac3ebd0598",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
