@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,19 +39,22 @@ import androidx.mediarouter.media.MediaSessionStatus;
 import com.example.android.supportv7.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Executor;
 
 /**
  * Demonstrates how to create a custom media route provider.
  *
- * @see SampleMediaRouteProviderService
+ * @see SampleDynamicGroupMrpService
  */
-final class SampleMediaRouteProvider extends MediaRouteProvider {
-    private static final String TAG = "SampleMediaRouteProvider";
+final class SampleDynamicGroupMrp extends MediaRouteProvider {
+    private static final String TAG = "SampleDynamicGroupMrp";
 
     private static final String FIXED_VOLUME_ROUTE_ID = "fixed";
     private static final String VARIABLE_VOLUME_BASIC_ROUTE_ID = "variable_basic";
     private static final String VARIABLE_VOLUME_QUEUING_ROUTE_ID = "variable_queuing";
-    private static final String VARIABLE_VOLUME_SESSION_ROUTE_ID = "variable_session";
 
     private static final int VOLUME_MAX = 10;
 
@@ -146,18 +149,47 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
 
     private int mVolume = 5;
 
-    public SampleMediaRouteProvider(Context context) {
-        super(context);
+    private Map<String, MediaRouteDescriptor> mRouteDescriptors = new HashMap<>();
 
+    SampleDynamicGroupMrp(Context context) {
+        super(context);
+        initializeRoutes();
         publishRoutes();
     }
 
     @Override
     public RouteController onCreateRouteController(String routeId) {
-        return new SampleRouteController(routeId);
+        return new SampleDynamicGroupRouteController(routeId);
     }
 
-    private void publishRoutes() {
+    @Override
+    public DynamicGroupRouteController onCreateDynamicGroupRouteController(
+            String initialMemberRouteId) {
+        String dynamicGroupRouteId = "DG_" + initialMemberRouteId;
+
+        // Create a new media route descriptor for dynamic group route, if it does not exist.
+        if (!mRouteDescriptors.containsKey(dynamicGroupRouteId)) {
+            MediaRouteDescriptor initMemberDescriptor = mRouteDescriptors.get(initialMemberRouteId);
+            if (initMemberDescriptor != null || !initMemberDescriptor.isValid()) {
+                Log.w(TAG, "initial route doesn't exist or isn't valid : " + initialMemberRouteId);
+                return null;
+            }
+            MediaRouteDescriptor descriptor = new MediaRouteDescriptor.Builder(initMemberDescriptor)
+                    .setId(dynamicGroupRouteId)
+                    .setIsDynamicGroupRoute(true)
+                    .setName(initMemberDescriptor.getName() + " (Group)")
+                    .build();
+            mRouteDescriptors.put(dynamicGroupRouteId, descriptor);
+        }
+
+        DynamicGroupRouteController controller =
+                new SampleDynamicGroupRouteController(dynamicGroupRouteId);
+        // Add initial member route.
+        controller.onAddMemberRoute(initialMemberRouteId);
+        return controller;
+    }
+
+    private void initializeRoutes() {
         Resources r = getContext().getResources();
         Intent settingsIntent = new Intent(Intent.ACTION_MAIN);
         settingsIntent.setClass(getContext(), SampleMediaRouteSettingsActivity.class)
@@ -167,7 +199,7 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
 
         MediaRouteDescriptor routeDescriptor1 = new MediaRouteDescriptor.Builder(
                 FIXED_VOLUME_ROUTE_ID,
-                r.getString(R.string.fixed_volume_route_name))
+                r.getString(R.string.dg_fixed_volume_route_name))
                 .setDescription(r.getString(R.string.sample_route_description))
                 .addControlFilters(CONTROL_FILTERS_BASIC)
                 .setPlaybackStream(AudioManager.STREAM_MUSIC)
@@ -180,7 +212,7 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
 
         MediaRouteDescriptor routeDescriptor2 = new MediaRouteDescriptor.Builder(
                 VARIABLE_VOLUME_BASIC_ROUTE_ID,
-                r.getString(R.string.variable_volume_basic_route_name))
+                r.getString(R.string.dg_variable_volume_route_name))
                 .setDescription(r.getString(R.string.sample_route_description))
                 .addControlFilters(CONTROL_FILTERS_BASIC)
                 .setPlaybackStream(AudioManager.STREAM_MUSIC)
@@ -191,9 +223,11 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
                 .setSettingsActivity(is)
                 .build();
 
+        Uri iconUri = Uri.parse("android.resource://com.example.android.supportv7/"
+                + R.drawable.ic_android);
         MediaRouteDescriptor routeDescriptor3 = new MediaRouteDescriptor.Builder(
                 VARIABLE_VOLUME_QUEUING_ROUTE_ID,
-                r.getString(R.string.variable_volume_queuing_route_name))
+                r.getString(R.string.dg_not_groupable_route_name))
                 .setDescription(r.getString(R.string.sample_route_description))
                 .addControlFilters(CONTROL_FILTERS_QUEUING)
                 .setPlaybackStream(AudioManager.STREAM_MUSIC)
@@ -202,40 +236,49 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
                 .setVolumeMax(VOLUME_MAX)
                 .setVolume(mVolume)
                 .setCanDisconnect(true)
-                .build();
-
-        Uri iconUri = Uri.parse("android.resource://com.example.android.supportv7/"
-                + R.drawable.ic_android);
-        MediaRouteDescriptor routeDescriptor4 = new MediaRouteDescriptor.Builder(
-                VARIABLE_VOLUME_SESSION_ROUTE_ID,
-                r.getString(R.string.variable_volume_session_route_name))
-                .setDescription(r.getString(R.string.sample_route_description))
-                .addControlFilters(CONTROL_FILTERS_SESSION)
-                .setPlaybackStream(AudioManager.STREAM_MUSIC)
-                .setPlaybackType(MediaRouter.RouteInfo.PLAYBACK_TYPE_REMOTE)
-                .setVolumeHandling(MediaRouter.RouteInfo.PLAYBACK_VOLUME_VARIABLE)
-                .setVolumeMax(VOLUME_MAX)
-                .setVolume(mVolume)
                 .setIconUri(iconUri)
                 .build();
 
+        mRouteDescriptors.put(routeDescriptor1.getId(), routeDescriptor1);
+        mRouteDescriptors.put(routeDescriptor2.getId(), routeDescriptor2);
+        mRouteDescriptors.put(routeDescriptor3.getId(), routeDescriptor3);
+    }
+
+    private void publishRoutes() {
         MediaRouteProviderDescriptor providerDescriptor = new MediaRouteProviderDescriptor.Builder()
-                .addRoute(routeDescriptor1)
-                .addRoute(routeDescriptor2)
-                .addRoute(routeDescriptor3)
-                .addRoute(routeDescriptor4)
+                .setSupportsDynamicGroupRoute(true)
+                .addRoutes(mRouteDescriptors.values())
                 .build();
         setDescriptor(providerDescriptor);
     }
 
-    private final class SampleRouteController extends MediaRouteProvider.RouteController {
+    private final class SampleDynamicGroupRouteController
+            extends MediaRouteProvider.DynamicGroupRouteController {
         private final String mRouteId;
         private final SessionManager mSessionManager = new SessionManager("mrp");
         private final Player mPlayer;
         private PendingIntent mSessionReceiver;
+        private List<String> mMemberRouteIds = new ArrayList<>();
+        private Map<String, DynamicRouteDescriptor> mDynamicRouteDescriptors = new HashMap<>();
+        private DynamicGroupRouteController.OnDynamicRoutesChangedListener
+                mDynamicRoutesChangedListener;
+        private Executor mListenerExecutor;
 
-        public SampleRouteController(String routeId) {
-            mRouteId = routeId;
+        SampleDynamicGroupRouteController(String dynamicGroupRouteId) {
+            mRouteId = dynamicGroupRouteId;
+
+            // Initialize DynamicRouteDescriptor with all the route descriptors.
+            List<MediaRouteDescriptor> routeDescriptors = getDescriptor().getRoutes();
+            if (routeDescriptors != null && !routeDescriptors.isEmpty()) {
+                for (MediaRouteDescriptor descriptor: routeDescriptors) {
+                    String routeId = descriptor.getId();
+                    DynamicRouteDescriptor.Builder builder =
+                            new DynamicRouteDescriptor.Builder(descriptor);
+                    builder.setSelectionState(DynamicRouteDescriptor.UNSELECTED);
+                    mDynamicRouteDescriptors.put(routeId, builder.build());
+                }
+            }
+
             mPlayer = Player.create(getContext(), null, null);
             mSessionManager.setPlayer(mPlayer);
             mSessionManager.setCallback(new SessionManager.Callback() {
@@ -249,8 +292,103 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
                 }
             });
             setVolumeInternal(mVolume);
-            Log.d(TAG, mRouteId + ": Controller created");
+            Log.d(TAG, mRouteId + ": Controller created.");
         }
+
+        //////////////////////////////////////////////
+        // Overrides DynamicGroupRouteController
+        //////////////////////////////////////////////
+
+        @Override
+        public String getDynamicGroupRouteId() {
+            return mRouteId;
+        }
+
+        @Override
+        public String getGroupableSelectionTitle() {
+            return "Add a device";
+        }
+
+        @Override
+        public String getTransferableSectionTitle() {
+            return "Play on tv";
+        }
+
+        @Override
+        public void onUpdateMemberRoutes(List<String> routeIds) {
+            mMemberRouteIds = routeIds;
+        }
+
+        @Override
+        public void onAddMemberRoute(String routeId) {
+            DynamicRouteDescriptor dynamicDescriptor = mDynamicRouteDescriptors.get(routeId);
+            if (dynamicDescriptor == null || !dynamicDescriptor.isGroupable()
+                    || mMemberRouteIds.contains(routeId)) {
+                Log.d(TAG, "onAddMemberRoute: Ignored for routeId: " + routeId);
+                return;
+            }
+            DynamicRouteDescriptor.Builder builder =
+                    new DynamicRouteDescriptor.Builder(dynamicDescriptor)
+                            .setSelectionState(DynamicRouteDescriptor.SELECTED);
+            // Initial member shouldn't be unselected.
+            if (mMemberRouteIds.isEmpty()) {
+                builder.setIsUnselectable(true);
+            }
+            mDynamicRouteDescriptors.put(routeId, builder.build());
+            mMemberRouteIds.add(routeId);
+
+            MediaRouteDescriptor groupDescriptor =
+                    new MediaRouteDescriptor.Builder(mRouteDescriptors.get(mRouteId))
+                    .addGroupMemberId(routeId)
+                    .build();
+            mRouteDescriptors.put(mRouteId, groupDescriptor);
+            publishRoutes();
+            mListenerExecutor.execute(() -> mDynamicRoutesChangedListener.onRoutesChanged(
+                    new ArrayList<>(mDynamicRouteDescriptors.values())));
+        }
+
+        @Override
+        public void onRemoveMemberRoute(String routeId) {
+            DynamicRouteDescriptor dynamicDescriptor = mDynamicRouteDescriptors.get(routeId);
+            if (dynamicDescriptor == null || !dynamicDescriptor.isUnselectable()
+                    || !mMemberRouteIds.remove(routeId)) {
+                Log.d(TAG, "onRemoveMemberRoute: Ignored for routeId: " + routeId);
+                return;
+            }
+
+            MediaRouteDescriptor descriptor = dynamicDescriptor.getRouteDescriptor();
+            DynamicRouteDescriptor.Builder builder =
+                    new DynamicRouteDescriptor.Builder(dynamicDescriptor);
+            if (descriptor.getDeviceType() == MediaRouter.RouteInfo.DEVICE_TYPE_TV) {
+                builder.setIsTransferable(true);
+                builder.setIsGroupable(false);
+            } else {
+                builder.setIsTransferable(true);
+                builder.setIsGroupable(true);
+            }
+            builder.setSelectionState(DynamicRouteDescriptor.UNSELECTED);
+            mDynamicRouteDescriptors.put(routeId, builder.build());
+
+            MediaRouteDescriptor groupDescriptor =
+                    new MediaRouteDescriptor.Builder(mRouteDescriptors.get(mRouteId))
+                            .removeGroupMemberId(routeId)
+                            .build();
+            mRouteDescriptors.put(mRouteId, groupDescriptor);
+            publishRoutes();
+            mListenerExecutor.execute(() -> mDynamicRoutesChangedListener.onRoutesChanged(
+                    new ArrayList<>(mDynamicRouteDescriptors.values())));
+        }
+
+        @Override
+        public void setOnDynamicRoutesChangedListener(
+                Executor executor, OnDynamicRoutesChangedListener listener) {
+            mDynamicRoutesChangedListener = listener;
+            mListenerExecutor = executor;
+        }
+
+        //////////////////////////////////////////////
+        // Overrides RouteController
+        //////////////////////////////////////////////
 
         @Override
         public void onRelease() {
@@ -268,6 +406,10 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
         public void onUnselect() {
             Log.d(TAG, mRouteId + ": Unselected");
             mPlayer.release();
+            if (mRouteDescriptors.get(mRouteId).isDynamicGroupRoute()) {
+                mRouteDescriptors.remove(mRouteId);
+            }
+            publishRoutes();
         }
 
         @Override
@@ -338,7 +480,7 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
                 mVolume = volume;
                 Log.d(TAG, mRouteId + ": New volume is " + mVolume);
                 AudioManager audioManager =
-                        (AudioManager)getContext().getSystemService(Context.AUDIO_SERVICE);
+                        (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
                 publishRoutes();
             }
@@ -347,7 +489,7 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
         private boolean handlePlay(Intent intent, ControlRequestCallback callback) {
             String sid = intent.getStringExtra(MediaControlIntent.EXTRA_SESSION_ID);
             if (sid != null && !sid.equals(mSessionManager.getSessionId())) {
-                Log.d(TAG, "handlePlay fails because of bad sid="+sid);
+                Log.d(TAG, "handlePlay fails because of bad sid=" + sid);
                 return false;
             }
             if (mSessionManager.hasSession()) {
@@ -359,13 +501,13 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
         private boolean handleEnqueue(Intent intent, ControlRequestCallback callback) {
             String sid = intent.getStringExtra(MediaControlIntent.EXTRA_SESSION_ID);
             if (sid != null && !sid.equals(mSessionManager.getSessionId())) {
-                Log.d(TAG, "handleEnqueue fails because of bad sid="+sid);
+                Log.d(TAG, "handleEnqueue fails because of bad sid=" + sid);
                 return false;
             }
 
             Uri uri = intent.getData();
             if (uri == null) {
-                Log.d(TAG, "handleEnqueue fails because of bad uri="+uri);
+                Log.d(TAG, "handleEnqueue fails because of bad uri=" + uri);
                 return false;
             }
 
@@ -374,10 +516,10 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
             long pos = intent.getLongExtra(MediaControlIntent.EXTRA_ITEM_CONTENT_POSITION, 0);
             Bundle metadata = intent.getBundleExtra(MediaControlIntent.EXTRA_ITEM_METADATA);
             Bundle headers = intent.getBundleExtra(MediaControlIntent.EXTRA_ITEM_HTTP_HEADERS);
-            PendingIntent receiver = (PendingIntent)intent.getParcelableExtra(
+            PendingIntent receiver = (PendingIntent) intent.getParcelableExtra(
                     MediaControlIntent.EXTRA_ITEM_STATUS_UPDATE_RECEIVER);
 
-            Log.d(TAG, mRouteId + ": Received " + (enqueue?"enqueue":"play") + " request"
+            Log.d(TAG, mRouteId + ": Received " + (enqueue ? "enqueue" : "play") + " request"
                     + ", uri=" + uri
                     + ", mime=" + mime
                     + ", sid=" + sid
@@ -416,8 +558,7 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
                             item.getStatus().asBundle());
                     callback.onResult(result);
                 } else {
-                    callback.onError("Failed to remove" +
-                            ", sid=" + sid + ", iid=" + iid, null);
+                    callback.onError("Failed to remove" + ", sid=" + sid + ", iid=" + iid, null);
                 }
             }
             return (item != null);
@@ -440,8 +581,8 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
                             item.getStatus().asBundle());
                     callback.onResult(result);
                 } else {
-                    callback.onError("Failed to seek" +
-                            ", sid=" + sid + ", iid=" + iid + ", pos=" + pos, null);
+                    callback.onError("Failed to seek" + ", sid=" + sid + ", iid=" + iid
+                            + ", pos=" + pos, null);
                 }
             }
             return (item != null);
@@ -459,8 +600,8 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
                             item.getStatus().asBundle());
                     callback.onResult(result);
                 } else {
-                    callback.onError("Failed to get status" +
-                            ", sid=" + sid + ", iid=" + iid, null);
+                    callback.onError("Failed to get status" + ", sid=" + sid
+                            + ", iid=" + iid, null);
                 }
             }
             return (item != null);
@@ -513,7 +654,7 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
 
         private boolean handleStartSession(Intent intent, ControlRequestCallback callback) {
             String sid = mSessionManager.startSession();
-            Log.d(TAG, "StartSession returns sessionId "+sid);
+            Log.d(TAG, "StartSession returns sessionId " + sid);
             if (callback != null) {
                 if (sid != null) {
                     Bundle result = new Bundle();
@@ -521,7 +662,7 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
                     result.putBundle(MediaControlIntent.EXTRA_SESSION_STATUS,
                             mSessionManager.getSessionStatus(sid).asBundle());
                     callback.onResult(result);
-                    mSessionReceiver = (PendingIntent)intent.getParcelableExtra(
+                    mSessionReceiver = (PendingIntent) intent.getParcelableExtra(
                             MediaControlIntent.EXTRA_SESSION_STATUS_UPDATE_RECEIVER);
                     handleSessionStatusChange(sid);
                 } else {
@@ -557,7 +698,8 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
                     Bundle result = new Bundle();
                     MediaSessionStatus sessionStatus = new MediaSessionStatus.Builder(
                             MediaSessionStatus.SESSION_STATE_ENDED).build();
-                    result.putBundle(MediaControlIntent.EXTRA_SESSION_STATUS, sessionStatus.asBundle());
+                    result.putBundle(MediaControlIntent.EXTRA_SESSION_STATUS,
+                            sessionStatus.asBundle());
                     callback.onResult(result);
                     handleSessionStatusChange(sid);
                     mSessionReceiver = null;
