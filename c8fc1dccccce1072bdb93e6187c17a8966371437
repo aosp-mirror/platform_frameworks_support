@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aa06d7a_4cd06964",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatTextViewTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1034928
+      },
+      "writtenOn": "2018-08-23T17:37:12Z",
+      "side": 1,
+      "message": "This seems like a valid case to test but currently this fails. Will work on this some more to get this right.",
+      "range": {
+        "startLine": 736,
+        "startChar": 11,
+        "endLine": 736,
+        "endChar": 78
+      },
+      "revId": "c8fc1dccccce1072bdb93e6187c17a8966371437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
