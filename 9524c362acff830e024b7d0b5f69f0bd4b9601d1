@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fec51c20_bc3830aa",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2018-08-23T00:22:40Z",
+      "side": 1,
+      "message": "This will ignore left/right here (they won\u0027t be returned by getCompoundDrawablesRelative)",
+      "range": {
+        "startLine": 271,
+        "startChar": 42,
+        "endLine": 271,
+        "endChar": 70
+      },
+      "revId": "9524c362acff830e024b7d0b5f69f0bd4b9601d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db4e64b7_3e60138b",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2018-08-23T00:22:40Z",
+      "side": 1,
+      "message": "@RequiresApi",
+      "range": {
+        "startLine": 526,
+        "startChar": 5,
+        "endLine": 526,
+        "endChar": 14
+      },
+      "revId": "9524c362acff830e024b7d0b5f69f0bd4b9601d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7a18858_30560737",
+        "filename": "samples/Support7Demos/src/main/res/layout/appcompat_widgets_text_views.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2018-08-23T00:22:40Z",
+      "side": 1,
+      "message": "Weird formatting",
+      "revId": "9524c362acff830e024b7d0b5f69f0bd4b9601d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6931e76e_ee459bfa",
+        "filename": "samples/Support7Demos/src/main/res/values/styles.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2018-08-23T00:22:40Z",
+      "side": 1,
+      "message": "??",
+      "revId": "9524c362acff830e024b7d0b5f69f0bd4b9601d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
