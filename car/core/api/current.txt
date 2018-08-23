@@ -204,6 +204,7 @@ package androidx.car.widget {
     method public void onBind(androidx.car.widget.ActionListItem.ViewHolder);
     method protected void resolveDirtyState();
     method public void setAction(java.lang.String, boolean, android.view.View.OnClickListener);
+    method public void setActionBorderless(boolean);
     method public void setActions(java.lang.String, boolean, android.view.View.OnClickListener, java.lang.String, boolean, android.view.View.OnClickListener);
     method public void setBody(java.lang.CharSequence);
     method public void setEnabled(boolean);
@@ -221,6 +222,8 @@ package androidx.car.widget {
   public static final class ActionListItem.ViewHolder extends androidx.car.widget.ListItem.ViewHolder {
     ctor public ActionListItem.ViewHolder(android.view.View);
     method public android.widget.TextView getBody();
+    method public android.widget.Button getBorderlessPrimaryAction();
+    method public android.widget.Button getBorderlessSecondaryAction();
     method public android.widget.Button getPrimaryAction();
     method public android.view.View getPrimaryActionDivider();
     method public android.widget.ImageView getPrimaryIcon();
