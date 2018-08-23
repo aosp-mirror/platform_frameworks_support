@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "deb3583a_0b562307",
+        "filename": "navigation/runtime/src/androidTest/java/androidx/navigation/ActivityNavigatorTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-23T17:46:55Z",
+      "side": 1,
+      "message": "All tests have these three lines, maybe move them to @Before and have them vals as fields?",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 78
+      },
+      "revId": "ac176be9a46153ff76b675bc60aaee9e567d963d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
