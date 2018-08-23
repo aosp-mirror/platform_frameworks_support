@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16d22c5f_6071f3c4",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-08-23T21:12:29Z",
+      "side": 1,
+      "message": "We have an @Px annotation that can be used on this parameter to help with static analysis for developers",
+      "range": {
+        "startLine": 230,
+        "startChar": 48,
+        "endLine": 230,
+        "endChar": 57
+      },
+      "revId": "c8123a997edb8d856a1f44a9bc91ef315983332d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a599715_a21c79f4",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-08-23T21:12:29Z",
+      "side": 1,
+      "message": "Do you want this to check for MarginLayoutParams?",
+      "range": {
+        "startLine": 299,
+        "startChar": 28,
+        "endLine": 299,
+        "endChar": 40
+      },
+      "revId": "c8123a997edb8d856a1f44a9bc91ef315983332d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
