@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34ba9b65_da9f76d3",
+        "filename": "fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2674,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-08-23T22:38:06Z",
+      "side": 1,
+      "message": "Do you have to do the same thing here?",
+      "range": {
+        "startLine": 2673,
+        "startChar": 0,
+        "endLine": 2674,
+        "endChar": 0
+      },
+      "revId": "7ab5ead154f7d10f80af381a59dd2244e0770ae4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
