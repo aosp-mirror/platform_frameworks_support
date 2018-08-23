@@ -104,6 +104,30 @@
       "revId": "f33a35e534e73b4187ef3eeeeb204c07fb5ef1a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f04a708d_4e1f6779",
+        "filename": "animation/src/main/java/androidx/animation/AnimatorSet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-08-23T01:29:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d6ef82b_976bda68",
+      "range": {
+        "startLine": 204,
+        "startChar": 8,
+        "endLine": 204,
+        "endChar": 23
+      },
+      "revId": "f33a35e534e73b4187ef3eeeeb204c07fb5ef1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
