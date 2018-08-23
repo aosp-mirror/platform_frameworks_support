@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd81a9f6_878687d8",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-23T20:19:49Z",
+      "side": 1,
+      "message": "In my sweet dreams I remove this one as well, because fragmentmanager will call onActivityCreated anyway, however it will change ordering between children:\nBefore: ch1.onActivityCreated / ch2.onActivityCreated / ch1.onStart / ch2.onStart\nAfter:  ch1.onActivityCreated / ch1.onStart / ch2.onActivityCreated / ch2.onStart",
+      "range": {
+        "startLine": 82,
+        "startChar": 12,
+        "endLine": 82,
+        "endChar": 20
+      },
+      "revId": "851d3bc72f94e765ac4452f5d018e81825091852",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
