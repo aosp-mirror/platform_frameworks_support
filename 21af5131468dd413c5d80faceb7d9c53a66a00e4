@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a6af36a_dc2bef20",
+        "filename": "leanback-preference/src/main/java/androidx/leanback/preference/LeanbackListPreferenceDialogFragmentCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2018-08-23T18:03:55Z",
+      "side": 1,
+      "message": "TextUtils.equals()",
+      "range": {
+        "startLine": 181,
+        "startChar": 20,
+        "endLine": 181,
+        "endChar": 56
+      },
+      "revId": "21af5131468dd413c5d80faceb7d9c53a66a00e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
