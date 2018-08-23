@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "dea484c9_4aa8e800",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/DatabaseWriter.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-23T00:55:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f1b551d9_c06a0160",
+      "range": {
+        "startLine": 127,
+        "startChar": 52,
+        "endLine": 129,
+        "endChar": 13
+      },
+      "revId": "26d34a823f8c7212723469b76703ad4d34941dcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52532c78_5fe56cd7",
         "filename": "room/compiler/src/main/kotlin/androidx/room/writer/DatabaseWriter.kt",
         "patchSetId": 6
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "tableName is a String already, does it make any difference? I get confused a lot by L (literal) and S (String) and I don\u0027t think we have a consistent pattern.",
       "parentUuid": "52532c78_5fe56cd7",
+      "range": {
+        "startLine": 135,
+        "startChar": 37,
+        "endLine": 135,
+        "endChar": 43
+      },
+      "revId": "26d34a823f8c7212723469b76703ad4d34941dcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8f40aca1_8299b6aa",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/DatabaseWriter.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-23T00:55:30Z",
+      "side": 1,
+      "message": "so you don\u0027t have to put quotes:\nhttps://github.com/square/javapoet#s-for-strings\n\nI hope that we properly use it in our code with consistent pattern, but I didn\u0027t check",
+      "parentUuid": "71a018ea_2990f095",
       "range": {
         "startLine": 135,
         "startChar": 37,
