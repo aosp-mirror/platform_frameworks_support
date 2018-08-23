@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "d533a937_a2e1c3f6",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/cards/CardView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-23T10:32:23Z",
+      "side": 1,
+      "message": "OK, ran the formatter on the file. Done",
+      "parentUuid": "6274d44d_693aff9c",
+      "range": {
+        "startLine": 67,
+        "startChar": 34,
+        "endLine": 67,
+        "endChar": 0
+      },
+      "revId": "77f07a6195751c35eb9a82716da0260cd45b643e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a214eae4_5e90796a",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/cards/CardView.java",
         "patchSetId": 1
