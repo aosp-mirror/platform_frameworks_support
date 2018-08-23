@@ -31,6 +31,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.IntDef;
 import androidx.annotation.IntRange;
 import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
 import androidx.car.R;
 import androidx.car.util.CarUxRestrictionsHelper;
@@ -100,6 +101,7 @@ public class ListItemAdapter extends
     static final int LIST_ITEM_TYPE_SEEKBAR = 2;
     static final int LIST_ITEM_TYPE_SUBHEADER = 3;
     static final int LIST_ITEM_TYPE_ACTION = 4;
+    static final int LIST_ITEM_TYPE_RADIO = 5;
 
     private final SparseIntArray mViewHolderLayoutResIds = new SparseIntArray();
 
@@ -123,11 +125,11 @@ public class ListItemAdapter extends
     /**
      * Defaults {@link BackgroundStyle} to {@link BackgroundStyle#NONE}.
      */
-    public ListItemAdapter(Context context, ListItemProvider itemProvider) {
+    public ListItemAdapter(@NonNull Context context, ListItemProvider itemProvider) {
         this(context, itemProvider, BackgroundStyle.NONE);
     }
 
-    public ListItemAdapter(Context context, ListItemProvider itemProvider,
+    public ListItemAdapter(@NonNull Context context, ListItemProvider itemProvider,
             @ListBackgroundStyle int backgroundStyle) {
         mContext = context;
         mItemProvider = itemProvider;
@@ -141,12 +143,19 @@ public class ListItemAdapter extends
                 R.layout.car_list_item_subheader_content, SubheaderListItem::createViewHolder);
         registerListItemViewTypeInternal(LIST_ITEM_TYPE_ACTION,
                 R.layout.car_list_item_action_content, ActionListItem::createViewHolder);
+        registerListItemViewTypeInternal(LIST_ITEM_TYPE_RADIO,
+                R.layout.car_list_item_radio_content, RadioButtonListItem::createViewHolder);
 
         mUxRestrictionsHelper =
                 new CarUxRestrictionsHelper(context, carUxRestrictions -> {
                     mCurrentUxRestrictions = new CarUxRestrictions(carUxRestrictions);
                     notifyDataSetChanged();
                 });
+    }
+
+    @NonNull
+    public Context getContext() {
+        return mContext;
     }
 
     /**
