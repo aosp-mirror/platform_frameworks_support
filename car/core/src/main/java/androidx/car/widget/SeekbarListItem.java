@@ -525,7 +525,7 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
     /**
      * Holds views of SeekbarListItem.
      */
-    public static class ViewHolder extends ListItem.ViewHolder implements
+    public static final class ViewHolder extends ListItem.ViewHolder implements
             OnUxRestrictionsChangedListener {
 
         private final View[] mWidgetViews;

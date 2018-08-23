@@ -172,7 +172,7 @@ public class SubheaderListItem extends ListItem<SubheaderListItem.ViewHolder> {
     /**
      * Holds views of SubHeaderListItem.
      */
-    public static class ViewHolder extends ListItem.ViewHolder {
+    public static final class ViewHolder extends ListItem.ViewHolder {
         private TextView mText;
 
         public ViewHolder(View itemView) {
