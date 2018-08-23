@@ -167,7 +167,7 @@ public final class TextViewFloatingToolbarHelper {
                 mHighlight = new BackgroundSpan(changeAlpha(color, 20));
             }
         } else {
-            mHighlight = BackgroundSpan.TRANSPARENT;
+            mHighlight = BackgroundSpan.TRANSPARENT; 
         }
     }
 
