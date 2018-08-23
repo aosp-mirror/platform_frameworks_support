@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c71bfe74_b72e54c0",
+        "filename": "animation/src/main/java/androidx/animation/AnimationHandler.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-23T00:46:50Z",
+      "side": 1,
+      "message": "2018",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "f33a35e534e73b4187ef3eeeeb204c07fb5ef1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f49d019f_20dc473f",
+        "filename": "animation/src/main/java/androidx/animation/AnimationHandler.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-23T00:46:50Z",
+      "side": 1,
+      "message": "you can do the same trick as in FrameCallbackProvider16",
+      "revId": "f33a35e534e73b4187ef3eeeeb204c07fb5ef1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d6ef82b_976bda68",
+        "filename": "animation/src/main/java/androidx/animation/AnimatorSet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-23T00:46:50Z",
+      "side": 1,
+      "message": "isn\u0027t it always true now?",
+      "range": {
+        "startLine": 204,
+        "startChar": 8,
+        "endLine": 204,
+        "endChar": 23
+      },
+      "revId": "f33a35e534e73b4187ef3eeeeb204c07fb5ef1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
