@@ -21,14 +21,20 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.test.FragmentTestActivity;
 import androidx.fragment.test.R;
+import androidx.lifecycle.GenericLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
@@ -157,6 +163,100 @@ public class FragmentViewLifecycleTest {
     }
 
     @Test
+    public void testViewLifecycleInFragmentLifecycle() throws Throwable {
+        final FragmentTestActivity activity = mActivityRule.getActivity();
+        final FragmentManager fm = activity.getSupportFragmentManager();
+
+        final CountDownLatch upwardCountDownLatch = new CountDownLatch(2);
+        final CountDownLatch downwardCountDownLatch = new CountDownLatch(2);
+        final StrictViewFragment fragment = new StrictViewFragment();
+        fragment.setLayoutId(R.layout.fragment_a);
+        final Lifecycle.State[] state = new Lifecycle.State[4];
+        final GenericLifecycleObserver onStartObserver = mock(GenericLifecycleObserver.class);
+        final GenericLifecycleObserver onResumeObserver = mock(GenericLifecycleObserver.class);
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                fragment.getLifecycle().addObserver(new GenericLifecycleObserver() {
+                    private Lifecycle.State getViewLifecyleState() {
+                        return fragment.getViewLifecycleOwner().getLifecycle().getCurrentState();
+                    }
+
+                    @Override
+                    public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
+                        if (event == Lifecycle.Event.ON_START) {
+                            state[0] = getViewLifecyleState();
+                            upwardCountDownLatch.countDown();
+                            // The Fragment view lifecycle changes after the Fragment lifecycle
+                            // so attach a listener to ensure we get the ON_START event there
+                            fragment.getViewLifecycleOwner().getLifecycle()
+                                    .addObserver(onStartObserver);
+                        } else if (event == Lifecycle.Event.ON_RESUME) {
+                            // Remove the listener so we only capture events up to this point
+                            fragment.getViewLifecycleOwner().getLifecycle()
+                                    .removeObserver(onStartObserver);
+                            state[1] = getViewLifecyleState();
+                            upwardCountDownLatch.countDown();
+                            // The Fragment view lifecycle changes after the Fragment lifecycle
+                            // so attach a listener to ensure we get the ON_RESUME event there
+                            fragment.getViewLifecycleOwner().getLifecycle()
+                                    .addObserver(onResumeObserver);
+                        } else if (event == Lifecycle.Event.ON_PAUSE) {
+                            state[2] = getViewLifecyleState();
+                            downwardCountDownLatch.countDown();
+                        } else if (event == Lifecycle.Event.ON_STOP) {
+                            state[3] = getViewLifecyleState();
+                            downwardCountDownLatch.countDown();
+                        }
+                    }
+                });
+                fm.beginTransaction().add(R.id.content, fragment).commitNow();
+            }
+        });
+
+        upwardCountDownLatch.await(1, TimeUnit.SECONDS);
+
+        // Confirm we are still created when the Fragment's onStart happens
+        assertEquals("View Lifecycle should still be created when the Fragment is started",
+                state[0], Lifecycle.State.CREATED);
+        // Now check to see if our onStartObserver got a ON_START event before onResume
+        verify(onStartObserver)
+                .onStateChanged(fragment.getViewLifecycleOwner(), Lifecycle.Event.ON_CREATE);
+        verify(onStartObserver)
+                .onStateChanged(fragment.getViewLifecycleOwner(), Lifecycle.Event.ON_START);
+        verifyNoMoreInteractions(onStartObserver);
+
+        // Confirm we are still started when the Fragment's onResume happens
+        assertEquals("View Lifecycle should still be started when the Fragment is resumed",
+                state[1], Lifecycle.State.STARTED);
+        // Now check to see if our onResumeObserver got a ON_RESUME event after the
+        // Fragment was resumed
+        verify(onResumeObserver, timeout(1000))
+                .onStateChanged(fragment.getViewLifecycleOwner(), Lifecycle.Event.ON_CREATE);
+        verify(onResumeObserver, timeout(1000))
+                .onStateChanged(fragment.getViewLifecycleOwner(), Lifecycle.Event.ON_START);
+        verify(onResumeObserver, timeout(1000))
+                .onStateChanged(fragment.getViewLifecycleOwner(), Lifecycle.Event.ON_RESUME);
+        verifyNoMoreInteractions(onResumeObserver);
+
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                fragment.getViewLifecycleOwner().getLifecycle()
+                        .removeObserver(onResumeObserver);
+                // Now remove the Fragment to trigger the destruction of the view
+                fm.beginTransaction().remove(fragment).commitNow();
+            }
+        });
+
+        downwardCountDownLatch.await(1, TimeUnit.SECONDS);
+        assertEquals("View Lifecycle should be started when the Fragment is paused",
+                state[2], Lifecycle.State.STARTED);
+        assertEquals("View Lifecycle should be created when the Fragment is stopped",
+                state[3], Lifecycle.State.CREATED);
+    }
+
+    @Test
     @UiThreadTest
     public void testFragmentViewLifecycleDetach() {
         final FragmentTestActivity activity = mActivityRule.getActivity();
@@ -224,7 +324,7 @@ public class FragmentViewLifecycleTest {
         };
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             mLiveData.observe(getViewLifecycleOwner(), mOnCreateViewObserver);
             assertTrue("LiveData should have observers after onCreateView observe",

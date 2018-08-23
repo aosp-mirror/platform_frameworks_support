@@ -2654,6 +2654,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     void performStop() {
+        if (mView != null) {
+            mViewLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP);
+        }
         mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP);
         if (mChildFragmentManager != null) {
             mChildFragmentManager.dispatchStop();
