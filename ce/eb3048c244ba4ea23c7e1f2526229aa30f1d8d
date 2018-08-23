@@ -1,0 +1,9 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Adam Powell <adamp@google.com>
+Code-Review+2: Siarhei Vishniakou <svv@google.com>
+API-Review+1: Adam Powell <adamp@google.com>
+Submitted-by: Shep Shapard <shepshapard@google.com>
+Submitted-at: Thu, 23 Aug 2018 21:48:18 +0000
+Reviewed-on: https://android-review.googlesource.com/723649
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
