@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cca9e773_10fb8745",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-23T14:59:21Z",
+      "side": 1,
+      "message": "gotoPage -\u003e goToPage .. but I like ViewPager2::setCurrentItemSync better",
+      "range": {
+        "startLine": 177,
+        "startChar": 16,
+        "endLine": 177,
+        "endChar": 24
+      },
+      "revId": "c54d8f9789666d979e2c795f163f6cdec8fdccfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d033657_5d8e9005",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-23T14:59:21Z",
+      "side": 1,
+      "message": "Maybe it\u0027s possible to register it as ViewPager2::setCurrentItemSync. Eventually we might develop a Kotlin Extension Library (ktx) that simplifies most common cases of ViewPager2 usage. The tests are a good way of identifying those.",
+      "range": {
+        "startLine": 177,
+        "startChar": 8,
+        "endLine": 177,
+        "endChar": 24
+      },
+      "revId": "c54d8f9789666d979e2c795f163f6cdec8fdccfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff3cf3ca_49679efa",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-23T14:59:21Z",
+      "side": 1,
+      "message": "This is now fixed by Shep, right? So no need for the temporary hack?",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 56
+      },
+      "revId": "c54d8f9789666d979e2c795f163f6cdec8fdccfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33208824_296bc123",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-23T14:59:21Z",
+      "side": 1,
+      "message": "remove comment",
+      "range": {
+        "startLine": 271,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 0
+      },
+      "revId": "c54d8f9789666d979e2c795f163f6cdec8fdccfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b019a0bc_171130be",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-23T14:59:21Z",
+      "side": 1,
+      "message": "can inline with the line below gone?",
+      "range": {
+        "startLine": 120,
+        "startChar": 20,
+        "endLine": 120,
+        "endChar": 31
+      },
+      "revId": "c54d8f9789666d979e2c795f163f6cdec8fdccfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3a598aa_2bba65b2",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-23T14:59:21Z",
+      "side": 1,
+      "message": "that\u0027s never true, right?\nif you\u0027re sanity validating the test, use an assertThat(targetPage, not(equalTo(currentPage)))",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 39
+      },
+      "revId": "c54d8f9789666d979e2c795f163f6cdec8fdccfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49bf1a54_0e2b8fc8",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/PageTransformAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-23T14:59:21Z",
+      "side": 1,
+      "message": "Transform-\u003eTransformer for consistency with PageTransformer",
+      "range": {
+        "startLine": 29,
+        "startChar": 17,
+        "endLine": 29,
+        "endChar": 27
+      },
+      "revId": "c54d8f9789666d979e2c795f163f6cdec8fdccfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e043a99_5f0f98a4",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-23T14:59:21Z",
+      "side": 1,
+      "message": "nit: We mostly use IllegalStateException for those. I know it\u0027s arbitrary, but would be consistent.\n\nsupport☸️🐬$ grep -r --include \"*.java\" --include \"*.kt\" IllegalStateException . | grep -v test | wc -l\n893\nsupport☸️🐬$ grep -r --include \"*.java\" --include \"*.kt\" AssertionError . | grep -v test | wc -l\n76",
+      "revId": "c54d8f9789666d979e2c795f163f6cdec8fdccfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cff0ead_b0a825ec",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-23T14:59:21Z",
+      "side": 1,
+      "message": "I think we typically don\u0027t format it this way, but whatever is consistent with the rest of the VP2 codebase.",
+      "range": {
+        "startLine": 488,
+        "startChar": 0,
+        "endLine": 488,
+        "endChar": 86
+      },
+      "revId": "c54d8f9789666d979e2c795f163f6cdec8fdccfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
