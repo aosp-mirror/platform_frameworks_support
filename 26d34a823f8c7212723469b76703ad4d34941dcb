@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f1b551d9_c06a0160",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/DatabaseWriter.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-23T00:28:58Z",
+      "side": 1,
+      "message": "Can\u0027t use since its entities with shadowTableName null that I want to filter out and not null entities. I also want to make a a collection of pairs so if I do entities.map { it.shadowTableName }.filterNotNull() then I just end up with a list of non-null shadowTableName but I want a list of entities table and shadow table name.\n\nI did however changed from associate() (returns a map) to map() (returns a list).",
+      "parentUuid": "aa2383b8_5f4bf9fa",
+      "range": {
+        "startLine": 127,
+        "startChar": 52,
+        "endLine": 129,
+        "endChar": 13
+      },
+      "revId": "26d34a823f8c7212723469b76703ad4d34941dcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52532c78_5fe56cd7",
         "filename": "room/compiler/src/main/kotlin/androidx/room/writer/DatabaseWriter.kt",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "71a018ea_2990f095",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/DatabaseWriter.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-23T00:28:58Z",
+      "side": 1,
+      "message": "tableName is a String already, does it make any difference? I get confused a lot by L (literal) and S (String) and I don\u0027t think we have a consistent pattern.",
+      "parentUuid": "52532c78_5fe56cd7",
+      "range": {
+        "startLine": 135,
+        "startChar": 37,
+        "endLine": 135,
+        "endChar": 43
+      },
+      "revId": "26d34a823f8c7212723469b76703ad4d34941dcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1584739e_5804610f",
         "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
         "patchSetId": 6
@@ -62,6 +110,24 @@
       "revId": "26d34a823f8c7212723469b76703ad4d34941dcb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9217e77_892452e2",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-23T00:28:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1584739e_5804610f",
+      "revId": "26d34a823f8c7212723469b76703ad4d34941dcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -85,6 +151,30 @@
       "revId": "26d34a823f8c7212723469b76703ad4d34941dcb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e31e8101_74daf2cf",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-23T00:28:58Z",
+      "side": 1,
+      "message": "Changed to be init with same size as the passed shadowTablesMap - which is zero if there is no fts entities in the DB.",
+      "parentUuid": "7488fe9b_84713aca",
+      "range": {
+        "startLine": 144,
+        "startChar": 33,
+        "endLine": 144,
+        "endChar": 50
+      },
+      "revId": "26d34a823f8c7212723469b76703ad4d34941dcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
