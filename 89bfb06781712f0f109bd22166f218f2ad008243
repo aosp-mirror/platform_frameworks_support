@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "7584a013_c63c4336",
+        "filename": "car/cluster/api/current.txt",
+        "patchSetId": 21
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-08-23T21:15:31Z",
+      "side": 1,
+      "message": "Match the type for setEta",
+      "range": {
+        "startLine": 7,
+        "startChar": 18,
+        "endLine": 7,
+        "endChar": 54
+      },
+      "revId": "89bfb06781712f0f109bd22166f218f2ad008243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8e133aa6_49a0d005",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
         "patchSetId": 21
