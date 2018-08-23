@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a179953e_aa034661",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-23T08:04:55Z",
+      "side": 1,
+      "message": "package private?\n\n@SuppressWarnings(\"WeakerAccess\") /* synthetic access */",
+      "range": {
+        "startLine": 577,
+        "startChar": 12,
+        "endLine": 577,
+        "endChar": 21
+      },
+      "revId": "eeced8bb9e2098860b816e3714ba8234cff49c1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
