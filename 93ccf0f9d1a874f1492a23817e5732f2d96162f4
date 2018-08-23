@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "c3eed49c_f350aff3",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2617,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-23T05:30:36Z",
+      "side": 1,
+      "message": "I see. Hm, well, now I think it would be a little bit better for keeping the speed list in integer and reduce comparison cost.. since arithmetic operation for integer is less than float.\nWhat do you think? \n\nhttps://stackoverflow.com/questions/39719364/what-is-the-computational-cost-of-floating-point-multiplication-vs-addition",
+      "parentUuid": "eb4646dd_c761293e",
+      "revId": "93ccf0f9d1a874f1492a23817e5732f2d96162f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "529fab27_7577fda5",
         "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
         "patchSetId": 2
