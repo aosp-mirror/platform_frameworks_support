@@ -954,6 +954,30 @@
     },
     {
       "key": {
+        "uuid": "3fc5367b_7880d409",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/PageTransformAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-23T10:30:13Z",
+      "side": 1,
+      "message": "Woops, I actually forgot to remove the comment. Done.",
+      "parentUuid": "7bf46333_597b983f",
+      "range": {
+        "startLine": 43,
+        "startChar": 33,
+        "endLine": 44,
+        "endChar": 19
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "127c07f0_fb3990c7",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/PageTransformAdapter.java",
         "patchSetId": 1
@@ -1022,6 +1046,30 @@
       "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da407a70_48142d4b",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/PageTransformAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-23T10:30:13Z",
+      "side": 1,
+      "message": "Sounds like a good thing to do. Done",
+      "parentUuid": "5f2befb7_192666a4",
+      "range": {
+        "startLine": 69,
+        "startChar": 12,
+        "endLine": 71,
+        "endChar": 13
+      },
+      "revId": "535c9ac4e9ef579447624209f2f2fdb1794b4578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
