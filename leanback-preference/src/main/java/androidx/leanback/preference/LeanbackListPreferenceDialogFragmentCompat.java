@@ -176,6 +176,14 @@ public class LeanbackListPreferenceDialogFragmentCompat extends
         verticalGridView.setWindowAlignment(VerticalGridView.WINDOW_ALIGN_BOTH_EDGE);
         verticalGridView.setFocusScrollStrategy(VerticalGridView.FOCUS_SCROLL_ALIGNED);
         verticalGridView.setAdapter(onCreateAdapter());
+        if (!mMulti && mEntryValues != null) {
+            for (int i = 0; i < mEntryValues.length; i++) {
+                if (mEntryValues[i] == mInitialSelection) {
+                    verticalGridView.getLayoutManager().scrollToPosition(i);
+                    break;
+                }
+            }
+        }
         verticalGridView.requestFocus();
 
         final CharSequence title = mDialogTitle;
