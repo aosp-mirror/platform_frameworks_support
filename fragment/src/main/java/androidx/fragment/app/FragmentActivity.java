@@ -80,8 +80,6 @@ public class FragmentActivity extends ComponentActivity implements
     private ViewModelStore mViewModelStore;
 
     boolean mCreated;
-    boolean mResumed;
-    boolean mStopped = true;
 
     boolean mRequestedPermissionsFromFragment;
 
@@ -302,6 +300,7 @@ public class FragmentActivity extends ComponentActivity implements
      * @return The lifecycle of the provider.
      */
     @Override
+    @NonNull
     public Lifecycle getLifecycle() {
         return super.getLifecycle();
     }
@@ -450,7 +449,6 @@ public class FragmentActivity extends ComponentActivity implements
     @Override
     protected void onPause() {
         super.onPause();
-        mResumed = false;
         mFragments.dispatchPause();
     }
 
@@ -490,7 +488,6 @@ public class FragmentActivity extends ComponentActivity implements
     @Override
     protected void onResume() {
         super.onResume();
-        mResumed = true;
         mFragments.execPendingActions();
     }
 
@@ -588,8 +585,6 @@ public class FragmentActivity extends ComponentActivity implements
     protected void onStart() {
         super.onStart();
 
-        mStopped = false;
-
         if (!mCreated) {
             mCreated = true;
             mFragments.dispatchActivityCreated();
@@ -610,7 +605,6 @@ public class FragmentActivity extends ComponentActivity implements
     protected void onStop() {
         super.onStop();
 
-        mStopped = true;
         markFragmentsCreated();
 
         mFragments.dispatchStop();
@@ -667,16 +661,11 @@ public class FragmentActivity extends ComponentActivity implements
     public void dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
         super.dump(prefix, fd, writer, args);
         writer.print(prefix); writer.print("Local FragmentActivity ");
-                writer.print(Integer.toHexString(System.identityHashCode(this)));
-                writer.println(" State:");
-        String innerPrefix = prefix + "  ";
-        writer.print(innerPrefix); writer.print("mCreated=");
-                writer.print(mCreated); writer.print(" mResumed=");
-                writer.print(mResumed); writer.print(" mStopped=");
-                writer.print(mStopped);
+        writer.print(Integer.toHexString(System.identityHashCode(this)));
+        writer.println(" State:" + getLifecycle().getCurrentState());
 
         if (getApplication() != null) {
-            LoaderManager.getInstance(this).dump(innerPrefix, fd, writer, args);
+            LoaderManager.getInstance(this).dump(prefix + "  ", fd, writer, args);
         }
         mFragments.getSupportFragmentManager().dump(prefix, fd, writer, args);
     }
