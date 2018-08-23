@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "fbbff31d_c5b09220",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/DatabaseWriter.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-23T01:13:09Z",
+      "side": 1,
+      "message": "Ooooooh, \"$S to emit a string, complete with wrapping quotation marks ..\", how the hell have I never read that part of java poets docs? Anyway, changed to $S, thanks!",
+      "parentUuid": "8f40aca1_8299b6aa",
+      "range": {
+        "startLine": 135,
+        "startChar": 37,
+        "endLine": 135,
+        "endChar": 43
+      },
+      "revId": "26d34a823f8c7212723469b76703ad4d34941dcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1584739e_5804610f",
         "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
         "patchSetId": 6
