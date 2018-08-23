@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c34ffb41_773201c4",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/utils/LiveDataUtilsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-23T18:45:58Z",
+      "side": 1,
+      "message": "Do you need to remove this @Rule ?",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 5
+      },
+      "revId": "8df18fe172e35c7103cfdbf70ddff918087246eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
