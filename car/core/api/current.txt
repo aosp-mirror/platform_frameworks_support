@@ -165,6 +165,7 @@ package androidx.car.widget {
     method public void onBind(androidx.car.widget.ActionListItem.ViewHolder);
     method protected void resolveDirtyState();
     method public void setAction(java.lang.String, boolean, android.view.View.OnClickListener);
+    method public void setActionBorderless(boolean);
     method public void setActions(java.lang.String, boolean, android.view.View.OnClickListener, java.lang.String, boolean, android.view.View.OnClickListener);
     method public void setBody(java.lang.CharSequence);
     method public void setEnabled(boolean);
@@ -184,9 +185,11 @@ package androidx.car.widget {
     method protected void applyUxRestrictions(android.car.drivingstate.CarUxRestrictions);
     method public android.widget.TextView getBody();
     method public android.widget.Button getPrimaryAction();
+    method public android.widget.Button getPrimaryActionBorderless();
     method public android.view.View getPrimaryActionDivider();
     method public android.widget.ImageView getPrimaryIcon();
     method public android.widget.Button getSecondaryAction();
+    method public android.widget.Button getSecondaryActionBorderless();
     method public android.view.View getSecondaryActionDivider();
     method public android.widget.TextView getTitle();
   }
