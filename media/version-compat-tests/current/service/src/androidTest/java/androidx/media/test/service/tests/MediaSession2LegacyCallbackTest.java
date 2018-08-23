@@ -54,7 +54,6 @@ import androidx.media.test.service.MockPlaylistAgent;
 import androidx.media.test.service.MockRemotePlayerConnector;
 import androidx.media.test.service.RemoteMediaControllerCompat;
 import androidx.media2.MediaItem2;
-import androidx.media2.MediaMetadata2;
 import androidx.media2.MediaPlayerConnector;
 import androidx.media2.MediaPlaylistAgent;
 import androidx.media2.MediaSession2;
@@ -66,7 +65,6 @@ import androidx.media2.SessionCommand2;
 import androidx.media2.SessionCommandGroup2;
 import androidx.test.filters.FlakyTest;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
@@ -83,11 +81,14 @@ import java.util.concurrent.TimeUnit;
 /**
  * Tests {@link SessionCallback} working with {@link MediaControllerCompat}.
  */
-@SdkSuppress(minSdkVersion = Build.VERSION_CODES.P)
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
     private static final String TAG = "MediaSession2LegacyCallbackTest";
+
+    private static final String EXPECTED_CONTROLLER_PACKAGE_NAME =
+            (Build.VERSION.SDK_INT >= 28 || Build.VERSION.SDK_INT < 21)
+                    ? CLIENT_PACKAGE_NAME : LEGACY_CONTROLLER;
 
     PendingIntent mIntent;
     MediaSession2 mSession;
@@ -113,17 +114,10 @@ public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
                     @Override
                     public SessionCommandGroup2 onConnect(MediaSession2 session,
                             ControllerInfo controller) {
-                        if (CLIENT_PACKAGE_NAME.equals(controller.getPackageName())) {
+                        if (EXPECTED_CONTROLLER_PACKAGE_NAME.equals(controller.getPackageName())) {
                             return super.onConnect(session, controller);
                         }
                         return null;
-                    }
-
-                    @Override
-                    public void onPlaylistMetadataChanged(MediaSession2 session,
-                            MediaPlaylistAgent playlistAgent,
-                            MediaMetadata2 metadata) {
-                        super.onPlaylistMetadataChanged(session, playlistAgent, metadata);
                     }
                 })
                 .setSessionActivity(mIntent)
@@ -482,11 +476,7 @@ public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
             @Override
             public void onCustomCommand(MediaSession2 session, ControllerInfo controller,
                     SessionCommand2 customCommand, Bundle args, ResultReceiver cb) {
-                if (Build.VERSION.SDK_INT >= 28) {
-                    assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
-                } else {
-                    assertEquals(LEGACY_CONTROLLER, controller.getPackageName());
-                }
+                assertEquals(EXPECTED_CONTROLLER_PACKAGE_NAME, controller.getPackageName());
                 assertEquals(testCommand, customCommand.getCustomCommand());
                 assertTrue(TestUtils.equals(testArgs, args));
                 assertNull(cb);
@@ -535,11 +525,7 @@ public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
         final SessionCallback callback = new SessionCallback() {
             @Override
             public void onFastForward(MediaSession2 session, ControllerInfo controller) {
-                if (Build.VERSION.SDK_INT >= 28) {
-                    assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
-                } else {
-                    assertEquals(LEGACY_CONTROLLER, controller.getPackageName());
-                }
+                assertEquals(EXPECTED_CONTROLLER_PACKAGE_NAME, controller.getPackageName());
                 latch.countDown();
             }
         };
@@ -561,11 +547,7 @@ public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
         final SessionCallback callback = new SessionCallback() {
             @Override
             public void onRewind(MediaSession2 session, ControllerInfo controller) {
-                if (Build.VERSION.SDK_INT >= 28) {
-                    assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
-                } else {
-                    assertEquals(LEGACY_CONTROLLER, controller.getPackageName());
-                }
+                assertEquals(EXPECTED_CONTROLLER_PACKAGE_NAME, controller.getPackageName());
                 latch.countDown();
             }
         };
@@ -592,11 +574,7 @@ public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
             public void onPlayFromSearch(MediaSession2 session, ControllerInfo controller,
                     String query, Bundle extras) {
                 super.onPlayFromSearch(session, controller, query, extras);
-                if (Build.VERSION.SDK_INT >= 28) {
-                    assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
-                } else {
-                    assertEquals(LEGACY_CONTROLLER, controller.getPackageName());
-                }
+                assertEquals(EXPECTED_CONTROLLER_PACKAGE_NAME, controller.getPackageName());
                 assertEquals(request, query);
                 assertTrue(TestUtils.equals(bundle, extras));
                 latch.countDown();
@@ -624,11 +602,7 @@ public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
             @Override
             public void onPlayFromUri(MediaSession2 session, ControllerInfo controller, Uri uri,
                     Bundle extras) {
-                if (Build.VERSION.SDK_INT >= 28) {
-                    assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
-                } else {
-                    assertEquals(LEGACY_CONTROLLER, controller.getPackageName());
-                }
+                assertEquals(EXPECTED_CONTROLLER_PACKAGE_NAME, controller.getPackageName());
                 assertEquals(request, uri);
                 assertTrue(TestUtils.equals(bundle, extras));
                 latch.countDown();
@@ -656,11 +630,7 @@ public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
             @Override
             public void onPlayFromMediaId(MediaSession2 session, ControllerInfo controller,
                     String mediaId, Bundle extras) {
-                if (Build.VERSION.SDK_INT >= 28) {
-                    assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
-                } else {
-                    assertEquals(LEGACY_CONTROLLER, controller.getPackageName());
-                }
+                assertEquals(EXPECTED_CONTROLLER_PACKAGE_NAME, controller.getPackageName());
                 assertEquals(request, mediaId);
                 assertTrue(TestUtils.equals(bundle, extras));
                 latch.countDown();
@@ -688,11 +658,7 @@ public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
             @Override
             public void onPrepareFromSearch(MediaSession2 session, ControllerInfo controller,
                     String query, Bundle extras) {
-                if (Build.VERSION.SDK_INT >= 28) {
-                    assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
-                } else {
-                    assertEquals(LEGACY_CONTROLLER, controller.getPackageName());
-                }
+                assertEquals(EXPECTED_CONTROLLER_PACKAGE_NAME, controller.getPackageName());
                 assertEquals(request, query);
                 assertTrue(TestUtils.equals(bundle, extras));
                 latch.countDown();
@@ -720,11 +686,7 @@ public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
             @Override
             public void onPrepareFromUri(MediaSession2 session, ControllerInfo controller, Uri uri,
                     Bundle extras) {
-                if (Build.VERSION.SDK_INT >= 28) {
-                    assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
-                } else {
-                    assertEquals(LEGACY_CONTROLLER, controller.getPackageName());
-                }
+                assertEquals(EXPECTED_CONTROLLER_PACKAGE_NAME, controller.getPackageName());
                 assertEquals(request, uri);
                 assertTrue(TestUtils.equals(bundle, extras));
                 latch.countDown();
@@ -752,11 +714,7 @@ public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
             @Override
             public void onPrepareFromMediaId(MediaSession2 session, ControllerInfo controller,
                     String mediaId, Bundle extras) {
-                if (Build.VERSION.SDK_INT >= 28) {
-                    assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
-                } else {
-                    assertEquals(LEGACY_CONTROLLER, controller.getPackageName());
-                }
+                assertEquals(EXPECTED_CONTROLLER_PACKAGE_NAME, controller.getPackageName());
                 assertEquals(request, mediaId);
                 assertTrue(TestUtils.equals(bundle, extras));
                 latch.countDown();
@@ -786,11 +744,7 @@ public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
             @Override
             public void onSetRating(MediaSession2 session, ControllerInfo controller,
                     String mediaIdOut, Rating2 ratingOut) {
-                if (Build.VERSION.SDK_INT >= 28) {
-                    assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
-                } else {
-                    assertEquals(LEGACY_CONTROLLER, controller.getPackageName());
-                }
+                assertEquals(EXPECTED_CONTROLLER_PACKAGE_NAME, controller.getPackageName());
                 assertEquals(mediaId, mediaIdOut);
                 assertEquals(MediaUtils2.convertToRating2(rating), ratingOut);
                 latch.countDown();
@@ -820,7 +774,7 @@ public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
             @Override
             public boolean onCommandRequest(MediaSession2 session, ControllerInfo controllerInfo,
                     SessionCommand2 command) {
-                assertEquals(CLIENT_PACKAGE_NAME, controllerInfo.getPackageName());
+                assertEquals(EXPECTED_CONTROLLER_PACKAGE_NAME, controllerInfo.getPackageName());
                 assertFalse(controllerInfo.isTrusted());
                 commands.add(command);
                 if (command.getCommandCode() == SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE) {
