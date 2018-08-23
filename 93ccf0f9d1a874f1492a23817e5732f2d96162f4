@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "eb4646dd_c761293e",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2617,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-23T04:37:16Z",
+      "side": 1,
+      "message": "The returned speed value is sometimes 1.19999999 or 1.20000001",
+      "parentUuid": "58c14350_63f77491",
+      "revId": "93ccf0f9d1a874f1492a23817e5732f2d96162f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "529fab27_7577fda5",
         "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "93ccf0f9d1a874f1492a23817e5732f2d96162f4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b77928c_8d6ce211",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2624,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-23T04:37:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "529fab27_7577fda5",
+      "range": {
+        "startLine": 2622,
+        "startChar": 0,
+        "endLine": 2624,
+        "endChar": 52
+      },
+      "revId": "93ccf0f9d1a874f1492a23817e5732f2d96162f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "cfe32562_d3f87a6b",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2631,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-23T04:37:16Z",
+      "side": 1,
+      "message": "If the new speed is in the default speed list and not a custom speed, the logic of updating selected speed was in L1611. But removed that part and changed code here for consistency.",
+      "parentUuid": "bb20bb87_fff2df8c",
+      "range": {
+        "startLine": 2626,
+        "startChar": 0,
+        "endLine": 2631,
+        "endChar": 25
+      },
+      "revId": "93ccf0f9d1a874f1492a23817e5732f2d96162f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "037ca679_5f680b1b",
         "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
         "patchSetId": 2
@@ -76,6 +142,30 @@
       "writtenOn": "2018-08-22T09:02:32Z",
       "side": 1,
       "message": "Please consider localization. Is this safe way for various languages?",
+      "range": {
+        "startLine": 2640,
+        "startChar": 20,
+        "endLine": 2640,
+        "endChar": 96
+      },
+      "revId": "93ccf0f9d1a874f1492a23817e5732f2d96162f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bca0f4bf_6c1b4e5c",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2640,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-23T04:37:16Z",
+      "side": 1,
+      "message": "Talked offline and will not translate \"x\". Moved logic to strings.xml.",
+      "parentUuid": "037ca679_5f680b1b",
       "range": {
         "startLine": 2640,
         "startChar": 20,
