@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec2f54f3_56dadcd4",
+        "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/media/SampleDynamicGroupMrp.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-23T02:43:27Z",
+      "side": 1,
+      "message": "This is copied from SampleMediaRouteProvider.java.\nYou can compare from PS1 to see the changes.",
+      "revId": "9be61ffb5cb3dcba6a432a5283752ab530e45e7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
