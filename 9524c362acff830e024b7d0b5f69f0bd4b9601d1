@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f4cd80c1_3da4e199",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1034928
+      },
+      "writtenOn": "2018-08-23T17:27:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fec51c20_bc3830aa",
+      "range": {
+        "startLine": 271,
+        "startChar": 42,
+        "endLine": 271,
+        "endChar": 70
+      },
+      "revId": "9524c362acff830e024b7d0b5f69f0bd4b9601d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db4e64b7_3e60138b",
         "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextView.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "6c27a95e_4ac38296",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1034928
+      },
+      "writtenOn": "2018-08-23T17:27:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db4e64b7_3e60138b",
+      "range": {
+        "startLine": 526,
+        "startChar": 5,
+        "endLine": 526,
+        "endChar": 14
+      },
+      "revId": "9524c362acff830e024b7d0b5f69f0bd4b9601d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7a18858_30560737",
         "filename": "samples/Support7Demos/src/main/res/layout/appcompat_widgets_text_views.xml",
         "patchSetId": 1
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "0570cd6f_a1eeb3c2",
+        "filename": "samples/Support7Demos/src/main/res/layout/appcompat_widgets_text_views.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1034928
+      },
+      "writtenOn": "2018-08-23T17:27:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7a18858_30560737",
+      "revId": "9524c362acff830e024b7d0b5f69f0bd4b9601d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6931e76e_ee459bfa",
         "filename": "samples/Support7Demos/src/main/res/values/styles.xml",
         "patchSetId": 1
@@ -76,6 +142,24 @@
       "writtenOn": "2018-08-23T00:22:40Z",
       "side": 1,
       "message": "??",
+      "revId": "9524c362acff830e024b7d0b5f69f0bd4b9601d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ac5b70f_b27bfeaa",
+        "filename": "samples/Support7Demos/src/main/res/values/styles.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1034928
+      },
+      "writtenOn": "2018-08-23T17:27:21Z",
+      "side": 1,
+      "message": "Activity was crashing (before my changes) with this. Commented for now but will investigate.",
+      "parentUuid": "6931e76e_ee459bfa",
       "revId": "9524c362acff830e024b7d0b5f69f0bd4b9601d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
