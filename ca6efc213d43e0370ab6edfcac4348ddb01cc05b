@@ -117,6 +117,29 @@
     },
     {
       "key": {
+        "uuid": "a3d78785_4f55d317",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-23T00:14:11Z",
+      "side": 1,
+      "message": "I just learned that we need to be backward compatible with older generated code so we\u0027ll need to make a new constructor here and keep the old one so that old room generated code works with newer runtime version.\n\nAlso, I had to introduce a similar change to support FTSTable observing. i.e. I also pass a map to the invalidation tracker that gets used when observing / creating, we seem to be doing the same so we should combine the strategy so that we don\u0027t overload too much the constructor. My CL is aosp/735154",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 50
+      },
+      "revId": "ca6efc213d43e0370ab6edfcac4348ddb01cc05b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5c3befc4_be9fcb52",
         "filename": "room/runtime/src/main/java/androidx/room/RoomOpenHelper.java",
         "patchSetId": 5
