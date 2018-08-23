@@ -45,6 +45,30 @@
       "revId": "c8123a997edb8d856a1f44a9bc91ef315983332d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7059a02f_cb023d46",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-08-23T21:32:04Z",
+      "side": 1,
+      "message": "Thanks! Indeed.",
+      "parentUuid": "9a599715_a21c79f4",
+      "range": {
+        "startLine": 299,
+        "startChar": 28,
+        "endLine": 299,
+        "endChar": 40
+      },
+      "revId": "c8123a997edb8d856a1f44a9bc91ef315983332d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
