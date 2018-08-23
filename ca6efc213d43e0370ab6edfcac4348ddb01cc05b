@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "43210dad_7fe48b29",
+        "filename": "room/common/src/main/java/androidx/room/Database.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-23T05:47:36Z",
+      "side": 1,
+      "message": "Done\nAdded description in @DatabaseView.",
+      "parentUuid": "b771e52d_c606a005",
+      "range": {
+        "startLine": 74,
+        "startChar": 7,
+        "endLine": 75,
+        "endChar": 23
+      },
+      "revId": "ca6efc213d43e0370ab6edfcac4348ddb01cc05b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c5798a2_1b5a2e75",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "ca6efc213d43e0370ab6edfcac4348ddb01cc05b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14c2b5c8_5fbae6d9",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-23T05:47:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c5798a2_1b5a2e75",
+      "range": {
+        "startLine": 318,
+        "startChar": 12,
+        "endLine": 318,
+        "endChar": 31
+      },
+      "revId": "ca6efc213d43e0370ab6edfcac4348ddb01cc05b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "dbb5e1d8_dfb000c5",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/DatabaseView.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-23T05:47:36Z",
+      "side": 1,
+      "message": "Sorry, this was supposed to be used in DatabaseWriter.",
+      "parentUuid": "cda5d19a_18d518fe",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 22
+      },
+      "revId": "ca6efc213d43e0370ab6edfcac4348ddb01cc05b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e1d5c7a_4ec1b5ef",
         "filename": "room/compiler/src/main/kotlin/androidx/room/writer/SQLiteOpenHelperWriter.kt",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "ca6efc213d43e0370ab6edfcac4348ddb01cc05b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6d952e7_6d1e8b7b",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/SQLiteOpenHelperWriter.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-23T05:47:36Z",
+      "side": 1,
+      "message": "Oops, it seems I somehow removed the sorting here before uploading. Thank you for catching this.",
+      "parentUuid": "5e1d5c7a_4ec1b5ef",
+      "range": {
+        "startLine": 145,
+        "startChar": 28,
+        "endLine": 145,
+        "endChar": 43
+      },
+      "revId": "ca6efc213d43e0370ab6edfcac4348ddb01cc05b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "e4742108_37fac46e",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/DatabaseViewSyncTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-23T05:47:36Z",
+      "side": 1,
+      "message": "Because views are now synchronized without migration. Users don\u0027t need to increment DB version or provide migration. The query in @DatabaseView can be changed like that in @Query. View1/2 and View1/2Database simulate it.",
+      "parentUuid": "e7f353d6_890b129f",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 5
+      },
+      "revId": "ca6efc213d43e0370ab6edfcac4348ddb01cc05b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3d78785_4f55d317",
         "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
         "patchSetId": 5
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "b5985115_48b8c5b6",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-23T05:47:36Z",
+      "side": 1,
+      "message": "Yes, the old constructor is kept above.\nI changed \"String...\" to \"String[]\" in the new one, and it seems you kept \"String...\" in your CL. It works either way, but I will adjust this to your way.\n\nWhen we are merging whichever CL we are merging later, I think the constructor will be like this.\nInvalidationTracker(RoomDatabase database, Map\u003cString, String\u003e shadowTablesMap, Map\u003cString, Set\u003cString\u003e\u003e viewTables, String... tableNames)\nAs far as we can release the 2 features at the same time, we can remove a new constructor from the earlier CL whichever that is.",
+      "parentUuid": "a3d78785_4f55d317",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 50
+      },
+      "revId": "ca6efc213d43e0370ab6edfcac4348ddb01cc05b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c3befc4_be9fcb52",
         "filename": "room/runtime/src/main/java/androidx/room/RoomOpenHelper.java",
         "patchSetId": 5
@@ -160,6 +304,30 @@
       "revId": "ca6efc213d43e0370ab6edfcac4348ddb01cc05b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc4a1cbf_cbb604f6",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomOpenHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-23T05:47:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c3befc4_be9fcb52",
+      "range": {
+        "startLine": 190,
+        "startChar": 23,
+        "endLine": 190,
+        "endChar": 32
+      },
+      "revId": "ca6efc213d43e0370ab6edfcac4348ddb01cc05b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
