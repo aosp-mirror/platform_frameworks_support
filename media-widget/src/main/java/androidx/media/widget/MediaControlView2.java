@@ -28,7 +28,9 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Point;
-import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ScaleDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -261,6 +263,7 @@ public class MediaControlView2 extends BaseLayout {
     private static final long HIDE_TIME_MS = 250;
     private static final long SHOW_TIME_MS = 250;
     private static final int MAX_PROGRESS = 1000;
+    private static final int MAX_SCALE_LEVEL = 10000;
     private static final int RESOURCE_NON_EXISTENT = -1;
     private static final int SEEK_POSITION_NOT_SET = -1;
     private static final String RESOURCE_EMPTY = "";
@@ -770,6 +773,7 @@ public class MediaControlView2 extends BaseLayout {
                 seeker.setOnSeekBarChangeListener(mSeekListener);
                 seeker.setProgressDrawable(mResources.getDrawable(R.drawable.custom_progress));
                 seeker.setThumb(mResources.getDrawable(R.drawable.custom_progress_thumb));
+                seeker.setThumbOffset(0);
             }
             mProgress.setMax(MAX_PROGRESS);
         }
@@ -857,12 +861,13 @@ public class MediaControlView2 extends BaseLayout {
                 float alpha = (float) animation.getAnimatedValue();
                 SeekBar seekBar = (SeekBar) mProgress;
                 if (mSizeType != SIZE_TYPE_MINIMAL) {
-                    GradientDrawable thumb = (GradientDrawable)
-                            mResources.getDrawable(R.drawable.custom_progress_thumb);
-                    int newSize = (int) (mResources.getDimensionPixelSize(
-                            R.dimen.mcv2_custom_progress_thumb_size) * alpha);
-                    thumb.setSize(newSize, newSize);
-                    seekBar.setThumb(thumb);
+                    LayerDrawable thumb = (LayerDrawable) seekBar.getThumb();
+                    if (thumb != null) {
+                        Drawable drawable = thumb.getDrawable(0);
+                        if (drawable instanceof ScaleDrawable) {
+                            thumb.setLevel((int) (MAX_SCALE_LEVEL * alpha));
+                        }
+                    }
                 }
 
                 mTransportControls.setAlpha(alpha);
@@ -890,13 +895,13 @@ public class MediaControlView2 extends BaseLayout {
                 float alpha = (float) animation.getAnimatedValue();
                 SeekBar seekBar = (SeekBar) mProgress;
                 if (mSizeType != SIZE_TYPE_MINIMAL) {
-                    GradientDrawable thumb =
-                            (GradientDrawable) mResources.getDrawable(
-                                    R.drawable.custom_progress_thumb);
-                    int newSize = (int) (mResources.getDimensionPixelSize(
-                            R.dimen.mcv2_custom_progress_thumb_size) * alpha);
-                    thumb.setSize(newSize, newSize);
-                    seekBar.setThumb(thumb);
+                    LayerDrawable thumb = (LayerDrawable) seekBar.getThumb();
+                    if (thumb != null) {
+                        Drawable drawable = thumb.getDrawable(0);
+                        if (drawable instanceof ScaleDrawable) {
+                            thumb.setLevel((int) (MAX_SCALE_LEVEL * alpha));
+                        }
+                    }
                 }
 
                 mTransportControls.setAlpha(alpha);
@@ -1745,14 +1750,9 @@ public class MediaControlView2 extends BaseLayout {
                 mCenterView.addView(mTransportControls);
 
                 // Relating to Progress Bar
-                GradientDrawable thumb = (GradientDrawable) mResources.getDrawable(
-                        R.drawable.custom_progress_thumb);
-                if (mUxState == UX_STATE_ALL_VISIBLE) {
-                    int originalSize = mResources.getDimensionPixelSize(
-                            R.dimen.mcv2_custom_progress_thumb_size);
-                    thumb.setSize(originalSize, originalSize);
-                }
-                seeker.setThumb(thumb);
+                seeker.setThumb(mResources.getDrawable(R.drawable.custom_progress_thumb));
+                seeker.setThumbOffset(0);
+                seeker.invalidate();
                 mProgressBuffer.setVisibility(View.VISIBLE);
 
                 // Relating to Bottom Bar
@@ -1788,6 +1788,8 @@ public class MediaControlView2 extends BaseLayout {
 
                 // Relating to Progress Bar
                 seeker.setThumb(mResources.getDrawable(R.drawable.custom_progress_thumb));
+                seeker.setThumbOffset(0);
+                seeker.invalidate();
                 mProgressBuffer.setVisibility(View.VISIBLE);
 
                 // Relating to Bottom Bar
