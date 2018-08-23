@@ -118,9 +118,11 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
 
     @SupplementalActionType private int mSupplementalActionType = SUPPLEMENTAL_ACTION_ONE_ACTION;
 
+    private boolean mIsActionBorderless = true;
     private String mPrimaryActionText;
     private View.OnClickListener mPrimaryActionOnClickListener;
     private boolean mShowPrimaryActionDivider;
+
     private String mSecondaryActionText;
     private View.OnClickListener mSecondaryActionOnClickListener;
     private boolean mShowSecondaryActionDivider;
@@ -410,32 +412,44 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
         switch (mSupplementalActionType) {
             case SUPPLEMENTAL_ACTION_TWO_ACTIONS:
                 mBinders.add(vh -> {
-                    vh.getSecondaryAction().setVisibility(View.VISIBLE);
+                    Button secondaryAction = mIsActionBorderless
+                            ? vh.getSecondaryActionBorderless()
+                            : vh.getSecondaryAction();
+
+                    secondaryAction.setVisibility(View.VISIBLE);
                     if (mShowSecondaryActionDivider) {
                         vh.getSecondaryActionDivider().setVisibility(View.VISIBLE);
                     }
 
-                    vh.getSecondaryAction().setText(mSecondaryActionText);
-                    vh.getSecondaryAction().setOnClickListener(mSecondaryActionOnClickListener);
+                    secondaryAction.setText(mSecondaryActionText);
+                    secondaryAction.setOnClickListener(mSecondaryActionOnClickListener);
 
-                    vh.getPrimaryAction().setVisibility(View.VISIBLE);
+                    Button primaryAction = mIsActionBorderless
+                            ? vh.getPrimaryActionBorderless()
+                            : vh.getPrimaryAction();
+
+                    primaryAction.setVisibility(View.VISIBLE);
                     if (mShowPrimaryActionDivider) {
                         vh.getPrimaryActionDivider().setVisibility(View.VISIBLE);
                     }
 
-                    vh.getPrimaryAction().setText(mPrimaryActionText);
-                    vh.getPrimaryAction().setOnClickListener(mPrimaryActionOnClickListener);
+                    primaryAction.setText(mPrimaryActionText);
+                    primaryAction.setOnClickListener(mPrimaryActionOnClickListener);
                 });
                 break;
             case SUPPLEMENTAL_ACTION_ONE_ACTION:
                 mBinders.add(vh -> {
-                    vh.getPrimaryAction().setVisibility(View.VISIBLE);
+                    Button primaryAction = mIsActionBorderless
+                            ? vh.getPrimaryActionBorderless()
+                            : vh.getPrimaryAction();
+
+                    primaryAction.setVisibility(View.VISIBLE);
                     if (mShowPrimaryActionDivider) {
                         vh.getPrimaryActionDivider().setVisibility(View.VISIBLE);
                     }
 
-                    vh.getPrimaryAction().setText(mPrimaryActionText);
-                    vh.getPrimaryAction().setOnClickListener(mPrimaryActionOnClickListener);
+                    primaryAction.setText(mPrimaryActionText);
+                    primaryAction.setOnClickListener(mPrimaryActionOnClickListener);
                 });
                 break;
             default:
@@ -581,6 +595,16 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
         markDirty();
     }
 
+    /**
+     * Sets whether or not the actions should be styled as borderless.
+     *
+     * @param isActionBorderless {@code true} if the actions should be borderless. {@code false}
+     *                           otherwise.
+     */
+    public void setActionBorderless(boolean isActionBorderless) {
+        mIsActionBorderless = isActionBorderless;
+    }
+
     private void hideSubViews(ViewHolder vh) {
         for (View v : vh.getWidgetViews()) {
             v.setVisibility(View.GONE);
@@ -598,9 +622,11 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
         private TextView mTitle;
         private TextView mBody;
 
+        private Button mPrimaryActionBorderless;
         private Button mPrimaryAction;
         private View mPrimaryActionDivider;
 
+        private Button mSecondaryActionBorderless;
         private Button mSecondaryAction;
         private View mSecondaryActionDivider;
 
@@ -615,8 +641,10 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
             mBody = itemView.findViewById(R.id.body);
 
             mPrimaryAction = itemView.findViewById(R.id.primary_action);
+            mPrimaryActionBorderless = itemView.findViewById(R.id.primary_action_borderless);
             mPrimaryActionDivider = itemView.findViewById(R.id.primary_action_divider);
             mSecondaryAction = itemView.findViewById(R.id.secondary_action);
+            mSecondaryActionBorderless = itemView.findViewById(R.id.secondary_action_borderless);
             mSecondaryActionDivider = itemView.findViewById(R.id.secondary_action_divider);
 
             mClickInterceptor = itemView.findViewById(R.id.click_interceptor);
@@ -629,7 +657,11 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
                     // Text.
                     mTitle, mBody,
                     // Supplemental actions
-                    mPrimaryAction, mPrimaryActionDivider, mSecondaryAction,
+                    mPrimaryAction,
+                    mPrimaryActionBorderless,
+                    mPrimaryActionDivider,
+                    mSecondaryAction,
+                    mSecondaryActionBorderless,
                     mSecondaryActionDivider
             };
         }
@@ -660,6 +692,11 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
         }
 
         @NonNull
+        public Button getPrimaryActionBorderless() {
+            return mPrimaryActionBorderless;
+        }
+
+        @NonNull
         public View getPrimaryActionDivider() {
             return mPrimaryActionDivider;
         }
@@ -667,6 +704,11 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
         @NonNull
         public Button getSecondaryAction() {
             return mSecondaryAction;
+        }
+
+        @NonNull
+        public Button getSecondaryActionBorderless() {
+            return mSecondaryActionBorderless;
         }
 
         @NonNull

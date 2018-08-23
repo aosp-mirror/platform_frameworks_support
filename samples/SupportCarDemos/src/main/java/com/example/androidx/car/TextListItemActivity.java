@@ -136,6 +136,14 @@ public class TextListItemActivity extends Activity {
             actionItem.setTitle("single line with large icon and one action");
             actionItem.setAction("Card Height", true, mGetParentHeight);
             mItems.add(actionItem);
+            actionItem = new ActionListItem(mContext);
+
+            actionItem.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
+                    ActionListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
+            actionItem.setTitle("single line with large icon and one raised action");
+            actionItem.setAction("Card Height", true, mGetParentHeight);
+            actionItem.setActionBorderless(false);
+            mItems.add(actionItem);
 
             item = new TextListItem(mContext);
             item.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
@@ -195,6 +203,18 @@ public class TextListItemActivity extends Activity {
                     "Action 2", false,
                     v -> Toast.makeText(
                             v.getContext(), "Action 2", Toast.LENGTH_SHORT).show());
+            mItems.add(actionItem);
+
+            actionItem = new ActionListItem(mContext);
+            actionItem.setPrimaryActionNoIcon();
+            actionItem.setTitle("single line with two actions and no divider");
+            actionItem.setActions("Action 1", false,
+                    v -> Toast.makeText(
+                            v.getContext(), "Action 1", Toast.LENGTH_SHORT).show(),
+                    "Action 2", false,
+                    v -> Toast.makeText(
+                            v.getContext(), "Action 2", Toast.LENGTH_SHORT).show());
+            actionItem.setActionBorderless(false);
             mItems.add(actionItem);
 
             actionItem = new ActionListItem(mContext);
