@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab01ea02_a536bc56",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-23T18:20:23Z",
+      "side": 1,
+      "message": "Still unnecessary?",
+      "range": {
+        "startLine": 318,
+        "startChar": 12,
+        "endLine": 318,
+        "endChar": 31
+      },
+      "revId": "505e3cc54271d771a8fc6efaf62e0f7c7cf4972e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

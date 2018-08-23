@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "42430c62_1580870c",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/DatabaseViewSyncTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-23T18:20:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e4742108_37fac46e",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 5
+      },
+      "revId": "ca6efc213d43e0370ab6edfcac4348ddb01cc05b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3d78785_4f55d317",
         "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
         "patchSetId": 5
