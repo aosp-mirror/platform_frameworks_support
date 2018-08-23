@@ -21,6 +21,7 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -36,6 +37,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.Px;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.R;
+import androidx.appcompat.widget.OnTextViewStatusChangeListener.ActionModeStatusChangeData;
+import androidx.appcompat.widget.OnTextViewStatusChangeListener.CompositeOnTextViewStatusChangeListener;
 import androidx.core.text.PrecomputedTextCompat;
 import androidx.core.view.TintableBackgroundView;
 import androidx.core.widget.AutoSizeableTextView;
@@ -503,4 +506,38 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
+    // TODO: Move to where fields are declared.
+    private final CompositeOnTextViewStatusChangeListener mStatusChangeListener =
+            new CompositeOnTextViewStatusChangeListener();
+
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP)
+    public void registerOnTextViewStatusChangeListener(OnTextViewStatusChangeListener listener) {
+        mStatusChangeListener.add(listener);
+    }
+
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP)
+    public void unregisterOnTextViewStatusChangeListener(OnTextViewStatusChangeListener listener) {
+        mStatusChangeListener.remove(listener);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasWindowFocus) {
+        mStatusChangeListener.onWindowFocusChanged(this, hasWindowFocus);
+        super.onWindowFocusChanged(hasWindowFocus);
+    }
+
+    @Override
+    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        mStatusChangeListener.onFocusChanged(this, focused);
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+    }
+
+    @Override
+    public ActionMode startActionMode(ActionMode.Callback callback) {
+        mStatusChangeListener.onActionModeStatusChanged(
+                this, ActionModeStatusChangeData.STATUS_STARTED);
+        return super.startActionMode(callback);
+    }
 }
