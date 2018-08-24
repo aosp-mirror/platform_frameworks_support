@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "f72f0271_ad6037cd",
+        "filename": "appcompat/res/values/styles_base.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1034928
+      },
+      "writtenOn": "2018-08-24T13:43:06Z",
+      "side": 1,
+      "message": "`@null` this? Otherwise we\u0027re loading one button in the `AppCompatCheckBox` constructor super call and then immediately discarding it and loading our animated drawable.",
+      "range": {
+        "startLine": 379,
+        "startChar": 36,
+        "endLine": 379,
+        "endChar": 77
+      },
+      "revId": "5cd6586c3c8e522228d5dde7459e0bd4fcfc8146",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6de15bd2_63d46c8d",
         "filename": "appcompat/res/values/styles_base.xml",
         "patchSetId": 1
@@ -41,6 +64,53 @@
         "startChar": 34,
         "endLine": 380,
         "endChar": 71
+      },
+      "revId": "5cd6586c3c8e522228d5dde7459e0bd4fcfc8146",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4b40b5a_ec455e7f",
+        "filename": "appcompat/res/values/styles_base.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1034928
+      },
+      "writtenOn": "2018-08-24T13:43:06Z",
+      "side": 1,
+      "message": "This seems like a good idea to make it public API in case other widgets want to use it. Perhaps `listChoiceIndicatorMultipleAnimated`?",
+      "parentUuid": "6de15bd2_63d46c8d",
+      "range": {
+        "startLine": 380,
+        "startChar": 34,
+        "endLine": 380,
+        "endChar": 71
+      },
+      "revId": "5cd6586c3c8e522228d5dde7459e0bd4fcfc8146",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be42b4b1_59eb6125",
+        "filename": "appcompat/res/values/styles_base.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1034928
+      },
+      "writtenOn": "2018-08-24T13:43:06Z",
+      "side": 1,
+      "message": "ditto above.",
+      "range": {
+        "startLine": 385,
+        "startChar": 8,
+        "endLine": 386,
+        "endChar": 78
       },
       "revId": "5cd6586c3c8e522228d5dde7459e0bd4fcfc8146",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
