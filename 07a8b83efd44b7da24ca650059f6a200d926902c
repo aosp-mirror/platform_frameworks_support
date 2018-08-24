@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ed2e4f0e_0e9f42ba",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/RemoteMediaBrowserCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-24T09:08:34Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "09f525bb_ec4374e8",
+      "range": {
+        "startLine": 136,
+        "startChar": 18,
+        "endLine": 136,
+        "endChar": 33
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95d55d20_fbdc330d",
         "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/RemoteMediaBrowserCompat.java",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5a270ffb_6b5f696f",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/RemoteMediaBrowserCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-24T09:08:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95d55d20_fbdc330d",
+      "range": {
+        "startLine": 138,
+        "startChar": 27,
+        "endLine": 138,
+        "endChar": 42
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed4a0786_7cf7fddd",
         "filename": "media2/src/androidTest/java/androidx/media2/MediaSessionService2Test.java",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2018-08-22T10:42:32Z",
       "side": 1,
       "message": "What should happen when all controllers are disconnected? Can we have a test for that case?",
+      "range": {
+        "startLine": 41,
+        "startChar": 13,
+        "endLine": 41,
+        "endChar": 37
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6612eeab_018a2231",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaSessionService2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-24T09:08:34Z",
+      "side": 1,
+      "message": "Added",
+      "parentUuid": "ed4a0786_7cf7fddd",
       "range": {
         "startLine": 41,
         "startChar": 13,
@@ -91,6 +163,30 @@
       "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c92d4ce1_8117a271",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaSessionService2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-24T09:08:34Z",
+      "side": 1,
+      "message": "Just removed, because latch isn\u0027t necessary here.",
+      "parentUuid": "7670d421_a7bb0e30",
+      "range": {
+        "startLine": 62,
+        "startChar": 56,
+        "endLine": 62,
+        "endChar": 57
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -162,6 +258,30 @@
       "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "767cc20c_ce3ff273",
+        "filename": "media2/src/main/java/androidx/media2/MainHandlerExecutor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-24T09:08:34Z",
+      "side": 1,
+      "message": "Yes, but let me move it later.",
+      "parentUuid": "065bc06b_975ee1de",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -282,6 +402,30 @@
     },
     {
       "key": {
+        "uuid": "fd69c558_f5bc9ee1",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-24T09:08:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8da7544_1961bbbc",
+      "range": {
+        "startLine": 806,
+        "startChar": 14,
+        "endLine": 806,
+        "endChar": 21
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dab47c1f_4a19fc3a",
         "filename": "media2/src/main/java/androidx/media2/MediaController2ImplBase.java",
         "patchSetId": 3
@@ -302,6 +446,30 @@
       "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42bb9f70_d434c597",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1171,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-24T09:08:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dab47c1f_4a19fc3a",
+      "range": {
+        "startLine": 1171,
+        "startChar": 58,
+        "endLine": 1171,
+        "endChar": 62
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -376,6 +544,30 @@
     },
     {
       "key": {
+        "uuid": "e4209f82_dc840dc3",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-24T09:08:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7aca94b3_4f5a6175",
+      "range": {
+        "startLine": 235,
+        "startChar": 15,
+        "endLine": 235,
+        "endChar": 21
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46096c57_24684d53",
         "filename": "media2/src/main/java/androidx/media2/MediaLibraryService2.java",
         "patchSetId": 3
@@ -396,6 +588,30 @@
       "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8daaa6a_80d56fc1",
+        "filename": "media2/src/main/java/androidx/media2/MediaLibraryService2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-24T09:08:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46096c57_24684d53",
+      "range": {
+        "startLine": 51,
+        "startChar": 80,
+        "endLine": 51,
+        "endChar": 86
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -457,6 +673,30 @@
     },
     {
       "key": {
+        "uuid": "66ebaf42_cc71e8ad",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-24T09:08:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c509b7a_67f94391",
+      "range": {
+        "startLine": 332,
+        "startChar": 24,
+        "endLine": 332,
+        "endChar": 26
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4343a0ca_ab7fcfb1",
         "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
         "patchSetId": 3
@@ -477,6 +717,30 @@
       "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60376a43_e25ce231",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-24T09:08:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4343a0ca_ab7fcfb1",
+      "range": {
+        "startLine": 877,
+        "startChar": 7,
+        "endLine": 877,
+        "endChar": 31
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -503,6 +767,30 @@
     },
     {
       "key": {
+        "uuid": "24d2c811_40965d1c",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-24T09:08:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afe19bcf_98cfbf93",
+      "range": {
+        "startLine": 879,
+        "startChar": 21,
+        "endLine": 879,
+        "endChar": 27
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a9baa94_cad52e40",
         "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
         "patchSetId": 3
@@ -523,6 +811,30 @@
       "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab518585_054d8643",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-24T09:08:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a9baa94_cad52e40",
+      "range": {
+        "startLine": 880,
+        "startChar": 27,
+        "endLine": 882,
+        "endChar": 28
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -643,6 +955,30 @@
     },
     {
       "key": {
+        "uuid": "d1f23af9_c8efd3e0",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-24T09:08:34Z",
+      "side": 1,
+      "message": "Previously session had created legacy browser service always, and it needs to be called on the thread that has prepared looper.\nI thought that it\u0027s unnecessary requirement for us. So creating browser service in the getter of the service binder, which is now always called by the main thread.",
+      "parentUuid": "d239c61a_b628872c",
+      "range": {
+        "startLine": 994,
+        "startChar": 0,
+        "endLine": 1001,
+        "endChar": 52
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d45808ad_2eea19ec",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
         "patchSetId": 3
@@ -663,6 +999,30 @@
       "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6b4182c_a203f451",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-24T09:08:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d45808ad_2eea19ec",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 25
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -689,6 +1049,30 @@
     },
     {
       "key": {
+        "uuid": "8c964599_8eb881f8",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-24T09:08:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c7fb6bb_ef56fc1f",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 68
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e123d99_12831e5e",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
         "patchSetId": 3
@@ -712,6 +1096,30 @@
     },
     {
       "key": {
+        "uuid": "7e638373_91db4a4f",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-24T09:08:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e123d99_12831e5e",
+      "range": {
+        "startLine": 50,
+        "startChar": 25,
+        "endLine": 50,
+        "endChar": 33
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f136f1f6_4775e3c0",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
         "patchSetId": 3
@@ -723,6 +1131,30 @@
       "writtenOn": "2018-08-22T10:42:32Z",
       "side": 1,
       "message": "Now this logic may need to change. \nIf you have no plan to do this in this CL (I may do this work, possibly), \nplease leave TODO for changing the logic for making the service fore(back)ground.",
+      "range": {
+        "startLine": 140,
+        "startChar": 32,
+        "endLine": 140,
+        "endChar": 87
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "542bda62_871be1bf",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-24T09:08:34Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "f136f1f6_4775e3c0",
       "range": {
         "startLine": 140,
         "startChar": 32,
