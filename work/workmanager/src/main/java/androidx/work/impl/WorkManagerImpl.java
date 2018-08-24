@@ -285,6 +285,10 @@ public class WorkManagerImpl extends WorkManager implements SynchronousWorkManag
 
     @Override
     public @NonNull WorkContinuation beginWith(@NonNull List<OneTimeWorkRequest> work) {
+        if (work.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "WorkContinuation needs at least one OneTimeWorkRequest.");
+        }
         return new WorkContinuationImpl(this, work);
     }
 
@@ -293,6 +297,10 @@ public class WorkManagerImpl extends WorkManager implements SynchronousWorkManag
             @NonNull String uniqueWorkName,
             @NonNull ExistingWorkPolicy existingWorkPolicy,
             @NonNull List<OneTimeWorkRequest> work) {
+        if (work.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "WorkContinuation needs at least one OneTimeWorkRequest.");
+        }
         return new WorkContinuationImpl(this, uniqueWorkName, existingWorkPolicy, work);
     }
 
