@@ -1034,6 +1034,8 @@
 
     <declare-styleable name="CompoundButton">
         <attr name="android:button"/>
+        <!-- Compat attr to load backported drawable types -->
+        <attr name="buttonCompat" format="reference"/>
         <!-- Tint to apply to the button drawable. -->
         <attr name="buttonTint" format="color" />
 
