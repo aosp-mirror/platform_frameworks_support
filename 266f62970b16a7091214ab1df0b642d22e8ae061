@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f462e33a_a7b7c40f",
+        "filename": "coordinatorlayout/src/main/java/androidx/coordinatorlayout/widget/CoordinatorLayout.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1825,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-08-24T16:59:16Z",
+      "side": 1,
+      "message": "Is there any expectation of the initial values here and how they might be treated?",
+      "range": {
+        "startLine": 1825,
+        "startChar": 39,
+        "endLine": 1825,
+        "endChar": 51
+      },
+      "revId": "266f62970b16a7091214ab1df0b642d22e8ae061",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
