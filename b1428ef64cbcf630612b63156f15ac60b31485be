@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "239ef191_5e948a22",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-08-24T17:44:35Z",
+      "side": 1,
+      "message": "We\u0027re actively going to be deprecating this entire interface over next ~few releases of Fragment, so please don\u0027t add more functionality to it.\n\nSeems like moving getThemedContext() to FragmentActivity and using that in onGetLayoutInflater() would save you from making this and the above method public.",
+      "range": {
+        "startLine": 944,
+        "startChar": 11,
+        "endLine": 944,
+        "endChar": 74
+      },
+      "revId": "b1428ef64cbcf630612b63156f15ac60b31485be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
