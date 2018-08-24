@@ -60,7 +60,7 @@ public class ToolbarTest {
 
     @Test
     public void testCollapseConfiguration() {
-        // Inflate menu with action view to display the collapse button.
+        // Inflate menu with action view to display the collapse mButton.
         mInstrumentation.runOnMainSync(new Runnable() {
             @Override
             public void run() {
