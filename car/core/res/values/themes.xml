@@ -194,7 +194,8 @@ limitations under the License.
         <item name="android:background">@color/car_card</item>
         <item name="android:borderlessButtonStyle">@style/Widget.Car.Button.Borderless.Colored</item>
         <item name="android:colorButtonNormal">@color/car_accent</item>
-        <item name="android:listDividerAlertDialog">@drawable/car_list_divider</item>
+        <item name="listDividerAlertDialog">@drawable/car_preference_divider</item>
+        <item name="android:listDividerAlertDialog">@drawable/car_preference_divider</item>
         <item name="android:textColorPrimary">@color/car_body2</item>
         <item name="android:windowTitleStyle">@style/Widget.Car.Dialog.Title</item>
         <item name="buttonBarNeutralButtonStyle">@style/Widget.Car.Button.Borderless.Colored</item>
