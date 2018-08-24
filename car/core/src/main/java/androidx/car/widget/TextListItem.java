@@ -30,20 +30,20 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.DimenRes;
 import androidx.annotation.Dimension;
 import androidx.annotation.DrawableRes;
+import androidx.annotation.IdRes;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.R;
 import androidx.car.util.CarUxRestrictionsUtils;
 import androidx.car.uxrestrictions.CarUxRestrictions;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.Guideline;
 
 import java.lang.annotation.Retention;
 import java.util.ArrayList;
@@ -167,7 +167,7 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
     public TextListItem(@NonNull Context context) {
         mContext = context;
         mSupplementalGuidelineBegin = mContext.getResources().getDimensionPixelSize(
-                R.dimen.car_list_item_supplemental_guideline_top);
+                R.dimen.car_list_item_supplemental_top_margin);
         markDirty();
     }
 
@@ -315,19 +315,19 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
         }
 
         mBinders.add(vh -> {
-            ConstraintLayout.LayoutParams layoutParams =
-                    (ConstraintLayout.LayoutParams) vh.getPrimaryIcon().getLayoutParams();
+            RelativeLayout.LayoutParams layoutParams =
+                    (RelativeLayout.LayoutParams) vh.getPrimaryIcon().getLayoutParams();
             layoutParams.height = layoutParams.width = iconSize;
             layoutParams.setMarginStart(startMargin);
 
             if (mPrimaryActionIconSize == PRIMARY_ACTION_ICON_SIZE_LARGE) {
                 // A large icon is always vertically centered.
-                layoutParams.verticalBias = 0.5f;
+                layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
                 layoutParams.topMargin = 0;
             } else {
                 // Align the icon to the top of the parent. This allows the topMargin to shift it
                 // down relative to the top.
-                layoutParams.verticalBias = 0f;
+                layoutParams.removeRule(RelativeLayout.CENTER_VERTICAL);
 
                 // For all other icon sizes, the icon should be centered within the height of
                 // car_double_line_list_item_height. Note: the actual height of the item can be
@@ -360,18 +360,28 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
                 vh.getBody().setText(mBody);
             }
 
+            RelativeLayout.LayoutParams iconLayoutParams =
+                    (RelativeLayout.LayoutParams) vh.mSupplementalIconContainer.getLayoutParams();
+            RelativeLayout.LayoutParams switchLayoutParams =
+                    (RelativeLayout.LayoutParams) vh.mSwitchContainer.getLayoutParams();
+
             if (hasTitle && !hasBody) {
                 // If only title, then center the supplemental actions.
-                vh.getSupplementalGuideline().setGuidelineBegin(
-                        ConstraintLayout.LayoutParams.UNSET);
-                vh.getSupplementalGuideline().setGuidelinePercent(0.5f);
+                iconLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
+                iconLayoutParams.topMargin = 0;
+
+                switchLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
+                switchLayoutParams.topMargin = 0;
             } else {
-                // Otherwise, position it a fixed distance from the top.
-                vh.getSupplementalGuideline().setGuidelinePercent(
-                        ConstraintLayout.LayoutParams.UNSET);
-                vh.getSupplementalGuideline().setGuidelineBegin(
-                        mSupplementalGuidelineBegin);
+                iconLayoutParams.removeRule(RelativeLayout.CENTER_VERTICAL);
+                iconLayoutParams.topMargin = mSupplementalGuidelineBegin;
+
+                switchLayoutParams.removeRule(RelativeLayout.CENTER_VERTICAL);
+                switchLayoutParams.topMargin = mSupplementalGuidelineBegin;
             }
+
+            vh.mSupplementalIconContainer.requestLayout();
+            vh.mSwitchContainer.requestLayout();
         });
     }
 
@@ -410,19 +420,55 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
     }
 
     private void setTextEndMargin() {
-        int endMargin = mSupplementalActionType == SUPPLEMENTAL_ACTION_NO_ACTION
-                ? mContext.getResources().getDimensionPixelSize(R.dimen.car_keyline_1)
-                : mContext.getResources().getDimensionPixelSize(R.dimen.car_padding_4);
+        // Figure out which view the text should align to.
+        @IdRes int leadingViewId = getSupplementalActionLeadingView();
 
-        mBinders.add(vh -> {
-            MarginLayoutParams titleLayoutParams =
-                    (MarginLayoutParams) vh.getTitle().getLayoutParams();
-            titleLayoutParams.setMarginEnd(endMargin);
+        if (leadingViewId == 0) {
+            // There is no supplemental action. Text should align to parent end with KL1 padding.
+            mBinders.add(vh -> {
+                Resources resources = mContext.getResources();
+                int padding = resources.getDimensionPixelSize(R.dimen.car_keyline_1);
 
-            MarginLayoutParams bodyLayoutParams =
-                    (MarginLayoutParams) vh.getBody().getLayoutParams();
-            bodyLayoutParams.setMarginEnd(endMargin);
-        });
+                RelativeLayout.LayoutParams textLayoutParams =
+                        (RelativeLayout.LayoutParams) vh.getTextContainer().getLayoutParams();
+                textLayoutParams.setMarginEnd(padding);
+                textLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+                textLayoutParams.removeRule(RelativeLayout.START_OF);
+                vh.getTextContainer().requestLayout();
+            });
+        } else {
+            // Text align to start of leading supplemental view with padding.
+            mBinders.add(vh -> {
+                Resources resources = mContext.getResources();
+                int padding = resources.getDimensionPixelSize(R.dimen.car_padding_4);
+
+                RelativeLayout.LayoutParams textLayoutParams =
+                        (RelativeLayout.LayoutParams) vh.getTextContainer().getLayoutParams();
+                textLayoutParams.setMarginEnd(padding);
+                textLayoutParams.removeRule(RelativeLayout.ALIGN_PARENT_END);
+                textLayoutParams.addRule(RelativeLayout.START_OF, leadingViewId);
+                vh.getTextContainer().requestLayout();
+            });
+        }
+    }
+
+    /**
+     * Returns the id of the leading (left most in LTR) view of supplemental actions.
+     * The view could be one of the supplemental actions (icon, button, switch), or their divider.
+     * Returns 0 if none is enabled.
+     */
+    @IdRes
+    private int getSupplementalActionLeadingView() {
+        switch (mSupplementalActionType) {
+            case SUPPLEMENTAL_ACTION_NO_ACTION:
+                return 0;
+            case SUPPLEMENTAL_ACTION_SUPPLEMENTAL_ICON:
+                return R.id.supplemental_icon_container;
+            case SUPPLEMENTAL_ACTION_SWITCH:
+                return R.id.switch_container;
+            default:
+                throw new IllegalStateException("Unknown supplemental action type.");
+        }
     }
 
     /**
@@ -435,38 +481,20 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
             // Title only - view is aligned center vertically by itself.
             mBinders.add(vh -> {
                 MarginLayoutParams layoutParams =
-                        (MarginLayoutParams) vh.getTitle().getLayoutParams();
+                        (MarginLayoutParams) vh.getTextContainer().getLayoutParams();
                 layoutParams.topMargin = 0;
-                vh.getTitle().requestLayout();
-            });
-        } else if (TextUtils.isEmpty(mTitle) && !TextUtils.isEmpty(mBody)) {
-            mBinders.add(vh -> {
-                // Body uses top and bottom margin.
-                int margin = mContext.getResources().getDimensionPixelSize(
-                         R.dimen.car_padding_3);
-                MarginLayoutParams layoutParams =
-                        (MarginLayoutParams) vh.getBody().getLayoutParams();
-                layoutParams.topMargin = margin;
-                layoutParams.bottomMargin = margin;
-                vh.getBody().requestLayout();
+                vh.getTextContainer().requestLayout();
             });
         } else {
             mBinders.add(vh -> {
-                Resources resources = mContext.getResources();
-                int padding2 = resources.getDimensionPixelSize(R.dimen.car_padding_2);
-
-                // Title has a top margin
-                MarginLayoutParams titleLayoutParams =
-                        (MarginLayoutParams) vh.getTitle().getLayoutParams();
-                titleLayoutParams.topMargin = padding2;
-                vh.getTitle().requestLayout();
-
-                // Body is below title with no margin and has bottom margin.
-                MarginLayoutParams bodyLayoutParams =
-                        (MarginLayoutParams) vh.getBody().getLayoutParams();
-                bodyLayoutParams.topMargin = 0;
-                bodyLayoutParams.bottomMargin = padding2;
-                vh.getBody().requestLayout();
+                // Body uses top and bottom margin.
+                int margin = mContext.getResources().getDimensionPixelSize(
+                         R.dimen.car_padding_2);
+                MarginLayoutParams layoutParams =
+                        (MarginLayoutParams) vh.getTextContainer().getLayoutParams();
+                layoutParams.topMargin = margin;
+                layoutParams.bottomMargin = margin;
+                vh.getTextContainer().requestLayout();
             });
         }
     }
@@ -780,13 +808,15 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
 
         private ImageView mPrimaryIcon;
 
+        private View mTextContainer;
         private TextView mTitle;
         private TextView mBody;
 
-        private Guideline mSupplementalGuideline;
+        View mSupplementalIconContainer;
         private View mSupplementalIconDivider;
         private ImageView mSupplementalIcon;
 
+        View mSwitchContainer;
         private Switch mSwitch;
         private View mSwitchDivider;
         private View mClickInterceptor;
@@ -798,13 +828,15 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
 
             mPrimaryIcon = itemView.findViewById(R.id.primary_icon);
 
+            mTextContainer = itemView.findViewById(R.id.text_container);
             mTitle = itemView.findViewById(R.id.title);
             mBody = itemView.findViewById(R.id.body);
 
-            mSupplementalGuideline = itemView.findViewById(R.id.supplemental_actions_guideline);
+            mSupplementalIconContainer = itemView.findViewById(R.id.supplemental_icon_container);
             mSupplementalIcon = itemView.findViewById(R.id.supplemental_icon);
             mSupplementalIconDivider = itemView.findViewById(R.id.supplemental_icon_divider);
 
+            mSwitchContainer = itemView.findViewById(R.id.switch_container);
             mSwitch = itemView.findViewById(R.id.switch_widget);
             mSwitchDivider = itemView.findViewById(R.id.switch_divider);
 
@@ -854,6 +886,11 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
         }
 
         @NonNull
+        View getTextContainer() {
+            return mTextContainer;
+        }
+
+        @NonNull
         public TextView getTitle() {
             return mTitle;
         }
@@ -881,11 +918,6 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
         @NonNull
         public Switch getSwitch() {
             return mSwitch;
-        }
-
-        @NonNull
-        Guideline getSupplementalGuideline() {
-            return mSupplementalGuideline;
         }
 
         @NonNull
