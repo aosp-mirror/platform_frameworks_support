@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -41,8 +42,6 @@ import androidx.annotation.Nullable;
 import androidx.car.R;
 import androidx.car.util.CarUxRestrictionsUtils;
 import androidx.car.uxrestrictions.CarUxRestrictions;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.Guideline;
 
 import java.lang.annotation.Retention;
 import java.util.ArrayList;
@@ -144,7 +143,7 @@ public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
     public SwitchListItem(@NonNull Context context) {
         mContext = context;
         mSupplementalGuidelineBegin = mContext.getResources().getDimensionPixelSize(
-                R.dimen.car_list_item_supplemental_guideline_top);
+                R.dimen.car_list_item_supplemental_top_margin);
         markDirty();
     }
 
@@ -412,19 +411,19 @@ public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
         }
 
         mBinders.add(vh -> {
-            ConstraintLayout.LayoutParams layoutParams =
-                    (ConstraintLayout.LayoutParams) vh.getPrimaryIcon().getLayoutParams();
+            RelativeLayout.LayoutParams layoutParams =
+                    (RelativeLayout.LayoutParams) vh.getPrimaryIcon().getLayoutParams();
             layoutParams.height = layoutParams.width = iconSize;
             layoutParams.setMarginStart(startMargin);
 
             if (mPrimaryActionIconSize == PRIMARY_ACTION_ICON_SIZE_LARGE) {
                 // A large icon is always vertically centered.
-                layoutParams.verticalBias = 0.5f;
+                layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
                 layoutParams.topMargin = 0;
             } else {
                 // Align the icon to the top of the parent. This allows the topMargin to shift it
                 // down relative to the top.
-                layoutParams.verticalBias = 0f;
+                layoutParams.removeRule(RelativeLayout.CENTER_VERTICAL);
 
                 // For all other icon sizes, the icon should be centered within the height of
                 // car_double_line_list_item_height. Note: the actual height of the item can be
@@ -457,18 +456,19 @@ public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
                 vh.getBody().setText(mBody);
             }
 
+            RelativeLayout.LayoutParams switchLayoutParams =
+                    (RelativeLayout.LayoutParams) vh.mSwitchContainer.getLayoutParams();
+
             if (hasTitle && !hasBody) {
                 // If only title, then center the supplemental actions.
-                vh.getSupplementalGuideline().setGuidelineBegin(
-                        ConstraintLayout.LayoutParams.UNSET);
-                vh.getSupplementalGuideline().setGuidelinePercent(0.5f);
+                switchLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
+                switchLayoutParams.topMargin = 0;
             } else {
-                // Otherwise, position it a fixed distance from the top.
-                vh.getSupplementalGuideline().setGuidelinePercent(
-                        ConstraintLayout.LayoutParams.UNSET);
-                vh.getSupplementalGuideline().setGuidelineBegin(
-                        mSupplementalGuidelineBegin);
+                switchLayoutParams.removeRule(RelativeLayout.CENTER_VERTICAL);
+                switchLayoutParams.topMargin = mSupplementalGuidelineBegin;
             }
+
+            vh.mSwitchContainer.requestLayout();
         });
     }
 
@@ -614,8 +614,7 @@ public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
         private TextView mTitle;
         private TextView mBody;
 
-        private Guideline mSupplementalGuideline;
-
+        View mSwitchContainer;
         private Switch mSwitch;
         private View mSwitchDivider;
 
@@ -630,8 +629,7 @@ public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
             mTitle = itemView.findViewById(R.id.title);
             mBody = itemView.findViewById(R.id.body);
 
-            mSupplementalGuideline = itemView.findViewById(R.id.supplemental_actions_guideline);
-
+            mSwitchContainer = itemView.findViewById(R.id.switch_container);
             mSwitch = itemView.findViewById(R.id.switch_widget);
             mSwitchDivider = itemView.findViewById(R.id.switch_divider);
 
@@ -683,11 +681,6 @@ public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
         @NonNull
         public Switch getSwitch() {
             return mSwitch;
-        }
-
-        @NonNull
-        Guideline getSupplementalGuideline() {
-            return mSupplementalGuideline;
         }
 
         @NonNull

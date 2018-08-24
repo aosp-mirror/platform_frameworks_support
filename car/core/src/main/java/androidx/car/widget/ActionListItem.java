@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.DimenRes;
@@ -38,8 +39,6 @@ import androidx.annotation.VisibleForTesting;
 import androidx.car.R;
 import androidx.car.util.CarUxRestrictionsUtils;
 import androidx.car.uxrestrictions.CarUxRestrictions;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.Guideline;
 
 import java.lang.annotation.Retention;
 import java.util.ArrayList;
@@ -112,7 +111,7 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
     private CharSequence mBody;
 
     @Dimension
-    private final int mSupplementalGuidelineBegin;
+    private final int mSupplementalMarginTop;
 
     private boolean mIsActionBorderless = true;
     private String mPrimaryActionText;
@@ -135,8 +134,8 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
 
     public ActionListItem(@NonNull Context context) {
         mContext = context;
-        mSupplementalGuidelineBegin = mContext.getResources().getDimensionPixelSize(
-                R.dimen.car_list_item_supplemental_guideline_top);
+        mSupplementalMarginTop = mContext.getResources().getDimensionPixelSize(
+                R.dimen.car_list_item_supplemental_top_margin);
         markDirty();
     }
 
@@ -200,6 +199,7 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
         setTextContent();
         setTextVerticalMargin();
         setTextStartMargin();
+        setTextEndMargin();
     }
 
     private void setOnClickListener() {
@@ -273,19 +273,19 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
         }
 
         mBinders.add(vh -> {
-            ConstraintLayout.LayoutParams layoutParams =
-                    (ConstraintLayout.LayoutParams) vh.getPrimaryIcon().getLayoutParams();
+            RelativeLayout.LayoutParams layoutParams =
+                    (RelativeLayout.LayoutParams) vh.getPrimaryIcon().getLayoutParams();
             layoutParams.height = layoutParams.width = iconSize;
             layoutParams.setMarginStart(startMargin);
 
             if (mPrimaryActionIconSize == PRIMARY_ACTION_ICON_SIZE_LARGE) {
                 // A large icon is always vertically centered.
-                layoutParams.verticalBias = 0.5f;
+                layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
                 layoutParams.topMargin = 0;
             } else {
                 // Align the icon to the top of the parent. This allows the topMargin to shift it
                 // down relative to the top.
-                layoutParams.verticalBias = 0f;
+                layoutParams.removeRule(RelativeLayout.CENTER_VERTICAL);
 
                 // For all other icon sizes, the icon should be centered within the height of
                 // car_double_line_list_item_height. Note: the actual height of the item can be
@@ -318,18 +318,28 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
                 vh.getBody().setText(mBody);
             }
 
+            RelativeLayout.LayoutParams primaryActionLayoutParams =
+                    (RelativeLayout.LayoutParams) vh.mPrimaryActionContainer.getLayoutParams();
+            RelativeLayout.LayoutParams secondaryActionLayoutParams =
+                    (RelativeLayout.LayoutParams) vh.mSecondaryActionContainer.getLayoutParams();
+
             if (hasTitle && !hasBody) {
                 // If only title, then center the supplemental actions.
-                vh.getSupplementalGuideline().setGuidelineBegin(
-                        ConstraintLayout.LayoutParams.UNSET);
-                vh.getSupplementalGuideline().setGuidelinePercent(0.5f);
+                primaryActionLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
+                primaryActionLayoutParams.topMargin = 0;
+
+                secondaryActionLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
+                secondaryActionLayoutParams.topMargin = 0;
             } else {
-                // Otherwise, position it a fixed distance from the top.
-                vh.getSupplementalGuideline().setGuidelinePercent(
-                        ConstraintLayout.LayoutParams.UNSET);
-                vh.getSupplementalGuideline().setGuidelineBegin(
-                        mSupplementalGuidelineBegin);
+                primaryActionLayoutParams.removeRule(RelativeLayout.CENTER_VERTICAL);
+                primaryActionLayoutParams.topMargin = mSupplementalMarginTop;
+
+                secondaryActionLayoutParams.removeRule(RelativeLayout.CENTER_VERTICAL);
+                secondaryActionLayoutParams.topMargin = mSupplementalMarginTop;
             }
+
+            vh.mPrimaryActionContainer.requestLayout();
+            vh.mSecondaryActionContainer.requestLayout();
         });
     }
 
@@ -377,38 +387,55 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
             // Title only - view is aligned center vertically by itself.
             mBinders.add(vh -> {
                 ViewGroup.MarginLayoutParams layoutParams =
-                        (ViewGroup.MarginLayoutParams) vh.getTitle().getLayoutParams();
+                        (ViewGroup.MarginLayoutParams) vh.getTextContainer().getLayoutParams();
                 layoutParams.topMargin = 0;
-                vh.getTitle().requestLayout();
-            });
-        } else if (TextUtils.isEmpty(mTitle) && !TextUtils.isEmpty(mBody)) {
-            mBinders.add(vh -> {
-                // Body uses top and bottom margin.
-                int margin = mContext.getResources().getDimensionPixelSize(
-                        R.dimen.car_padding_3);
-                ViewGroup.MarginLayoutParams layoutParams =
-                        (ViewGroup.MarginLayoutParams) vh.getBody().getLayoutParams();
-                layoutParams.topMargin = margin;
-                layoutParams.bottomMargin = margin;
-                vh.getBody().requestLayout();
+                vh.getTextContainer().requestLayout();
             });
         } else {
             mBinders.add(vh -> {
+                // Body uses top and bottom margin.
+                int margin = mContext.getResources().getDimensionPixelSize(
+                        R.dimen.car_padding_2);
+                ViewGroup.MarginLayoutParams layoutParams =
+                        (ViewGroup.MarginLayoutParams) vh.getTextContainer().getLayoutParams();
+                layoutParams.topMargin = margin;
+                layoutParams.bottomMargin = margin;
+                vh.getTextContainer().requestLayout();
+            });
+        }
+    }
+
+    private void setTextEndMargin() {
+        boolean hasSecondaryAction = !TextUtils.isEmpty(mSecondaryActionText);
+        boolean hasPrimaryAction = !TextUtils.isEmpty(mPrimaryActionText);
+
+        if (!hasSecondaryAction && !hasPrimaryAction) {
+            // There is no supplemental action. Text should align to parent end with KL1 padding.
+            mBinders.add(vh -> {
                 Resources resources = mContext.getResources();
-                int padding2 = resources.getDimensionPixelSize(R.dimen.car_padding_2);
+                int padding = resources.getDimensionPixelSize(R.dimen.car_keyline_1);
 
-                // Title has a top margin
-                ViewGroup.MarginLayoutParams titleLayoutParams =
-                        (ViewGroup.MarginLayoutParams) vh.getTitle().getLayoutParams();
-                titleLayoutParams.topMargin = padding2;
-                vh.getTitle().requestLayout();
+                RelativeLayout.LayoutParams textLayoutParams =
+                        (RelativeLayout.LayoutParams) vh.getTextContainer().getLayoutParams();
+                textLayoutParams.setMarginEnd(padding);
+                textLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+                textLayoutParams.removeRule(RelativeLayout.START_OF);
+                vh.getTextContainer().requestLayout();
+            });
+        } else {
+            // Text align to start of leading supplemental view with padding.
+            mBinders.add(vh -> {
+                Resources resources = mContext.getResources();
+                int padding = resources.getDimensionPixelSize(R.dimen.car_padding_4);
 
-                // Body is below title with no margin and has bottom margin.
-                ViewGroup.MarginLayoutParams bodyLayoutParams =
-                        (ViewGroup.MarginLayoutParams) vh.getBody().getLayoutParams();
-                bodyLayoutParams.topMargin = 0;
-                bodyLayoutParams.bottomMargin = padding2;
-                vh.getBody().requestLayout();
+                RelativeLayout.LayoutParams textLayoutParams =
+                        (RelativeLayout.LayoutParams) vh.getTextContainer().getLayoutParams();
+                textLayoutParams.setMarginEnd(padding);
+                textLayoutParams.removeRule(RelativeLayout.ALIGN_PARENT_END);
+                textLayoutParams.addRule(RelativeLayout.START_OF, hasSecondaryAction
+                        ? R.id.secondary_action_container
+                        : R.id.primary_action_container);
+                vh.getTextContainer().requestLayout();
             });
         }
     }
@@ -417,48 +444,47 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
      * Sets up view(s) for supplemental action.
      */
     private void setSupplementalActions() {
-        boolean hasPrimaryAction = !TextUtils.isEmpty(mPrimaryActionText);
         boolean hasSecondaryAction = !TextUtils.isEmpty(mSecondaryActionText);
-
-        if (!hasPrimaryAction && !hasSecondaryAction) {
-            return;
-        }
+        boolean hasPrimaryAction = !TextUtils.isEmpty(mPrimaryActionText);
 
         mBinders.add(vh -> {
             vh.setActionBorderless(mIsActionBorderless);
 
-            if (hasSecondaryAction) {
-                Button secondaryAction = vh.getSecondaryAction();
-
-                secondaryAction.setVisibility(View.VISIBLE);
-                if (mShowSecondaryActionDivider) {
-                    vh.getSecondaryActionDivider().setVisibility(View.VISIBLE);
-                }
-
-                secondaryAction.setText(mSecondaryActionText);
-                secondaryAction.setOnClickListener(mSecondaryActionOnClickListener);
-
-                // Add spacing between the buttons if there is a primary action.
-                int endMargin = hasPrimaryAction
-                        ? mContext.getResources().getDimensionPixelSize(R.dimen.car_padding_4)
-                        : 0;
-
-                ViewGroup.MarginLayoutParams layoutParams =
-                        (ViewGroup.MarginLayoutParams) secondaryAction.getLayoutParams();
-                layoutParams.setMarginEnd(endMargin);
-                secondaryAction.requestLayout();
-            }
-
             if (hasPrimaryAction) {
                 Button primaryAction = vh.getPrimaryAction();
-
                 primaryAction.setVisibility(View.VISIBLE);
+
                 if (mShowPrimaryActionDivider) {
                     vh.getPrimaryActionDivider().setVisibility(View.VISIBLE);
                 }
 
                 primaryAction.setText(mPrimaryActionText);
                 primaryAction.setOnClickListener(mPrimaryActionOnClickListener);
+            }
+
+            if (hasSecondaryAction) {
+                Button secondaryAction = vh.getSecondaryAction();
+                secondaryAction.setVisibility(View.VISIBLE);
+
+                if (mShowPrimaryActionDivider) {
+                    vh.getPrimaryActionDivider().setVisibility(View.VISIBLE);
+                }
+
+                secondaryAction.setText(mSecondaryActionText);
+                secondaryAction.setOnClickListener(mSecondaryActionOnClickListener);
+
+                RelativeLayout.LayoutParams secondaryActionLayoutParams =
+                        (RelativeLayout.LayoutParams) vh.mSecondaryActionContainer
+                                .getLayoutParams();
+
+                if (hasPrimaryAction) {
+                    secondaryActionLayoutParams.removeRule(RelativeLayout.ALIGN_PARENT_END);
+                    secondaryActionLayoutParams.addRule(RelativeLayout.START_OF,
+                            R.id.primary_action_container);
+                } else {
+                    secondaryActionLayoutParams.removeRule(RelativeLayout.START_OF);
+                    secondaryActionLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+                }
             }
         });
     }
@@ -661,17 +687,18 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
 
         private ImageView mPrimaryIcon;
 
+        private View mTextContainer;
         private TextView mTitle;
         private TextView mBody;
 
         private boolean mIsActionBorderless = true;
 
-        private Guideline mSupplementalGuideline;
-
+        View mPrimaryActionContainer;
         private Button mPrimaryActionBorderless;
         private Button mPrimaryAction;
         private View mPrimaryActionDivider;
 
+        View mSecondaryActionContainer;
         private Button mSecondaryActionBorderless;
         private Button mSecondaryAction;
         private View mSecondaryActionDivider;
@@ -683,14 +710,16 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
 
             mPrimaryIcon = itemView.findViewById(R.id.primary_icon);
 
+            mTextContainer = itemView.findViewById(R.id.action_text_container);
             mTitle = itemView.findViewById(R.id.title);
             mBody = itemView.findViewById(R.id.body);
 
-            mSupplementalGuideline = itemView.findViewById(R.id.actions_guideline);
-
+            mPrimaryActionContainer = itemView.findViewById(R.id.primary_action_container);
             mPrimaryAction = itemView.findViewById(R.id.primary_action);
             mPrimaryActionBorderless = itemView.findViewById(R.id.primary_action_borderless);
             mPrimaryActionDivider = itemView.findViewById(R.id.primary_action_divider);
+
+            mSecondaryActionContainer = itemView.findViewById(R.id.secondary_action_container);
             mSecondaryAction = itemView.findViewById(R.id.secondary_action);
             mSecondaryActionBorderless = itemView.findViewById(R.id.secondary_action_borderless);
             mSecondaryActionDivider = itemView.findViewById(R.id.secondary_action_divider);
@@ -733,6 +762,11 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
         @NonNull
         public ImageView getPrimaryIcon() {
             return mPrimaryIcon;
+        }
+
+        @NonNull
+        View getTextContainer() {
+            return mTextContainer;
         }
 
         @NonNull
@@ -792,12 +826,6 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
         @NonNull
         View[] getWidgetViews() {
             return mWidgetViews;
-        }
-
-        /** Returns the Guideline that the actions should be centered upon. */
-        @NonNull
-        Guideline getSupplementalGuideline() {
-            return mSupplementalGuideline;
         }
 
         /**
