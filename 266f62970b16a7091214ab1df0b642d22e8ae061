@@ -46,6 +46,30 @@
       "revId": "266f62970b16a7091214ab1df0b642d22e8ae061",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5420e2c6_e2918f6b",
+        "filename": "coordinatorlayout/src/main/java/androidx/coordinatorlayout/widget/CoordinatorLayout.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1825,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-08-24T17:31:46Z",
+      "side": 1,
+      "message": "Zeroing it here before making the call may be sufficient.",
+      "parentUuid": "2053e1d9_ca7a40a1",
+      "range": {
+        "startLine": 1825,
+        "startChar": 39,
+        "endLine": 1825,
+        "endChar": 51
+      },
+      "revId": "266f62970b16a7091214ab1df0b642d22e8ae061",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
