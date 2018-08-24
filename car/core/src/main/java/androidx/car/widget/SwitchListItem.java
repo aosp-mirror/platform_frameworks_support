@@ -30,7 +30,6 @@ import androidx.car.R;
 import androidx.car.util.CarUxRestrictionsUtils;
 import androidx.car.uxrestrictions.CarUxRestrictions;
 import androidx.car.widget.ListItemAdapter.ListItemType;
-import androidx.constraintlayout.widget.Guideline;
 
 /**
  * Class to build a list item with {@link Switch}.
@@ -131,12 +130,12 @@ public final class SwitchListItem extends CompoundButtonListItem<SwitchListItem.
 
         private ViewGroup mContainerLayout;
 
+        private View mButtonContainerView;
+
         private ImageView mPrimaryIcon;
 
         private TextView mTitle;
         private TextView mBody;
-
-        private Guideline mSupplementalGuideline;
 
         private CompoundButton mCompoundButton;
         private View mCompoundButtonDivider;
@@ -156,10 +155,9 @@ public final class SwitchListItem extends CompoundButtonListItem<SwitchListItem.
             mTitle = itemView.findViewById(R.id.title);
             mBody = itemView.findViewById(R.id.body);
 
-            mSupplementalGuideline = itemView.findViewById(R.id.supplemental_actions_guideline);
-
             mCompoundButton = itemView.findViewById(R.id.switch_widget);
             mCompoundButtonDivider = itemView.findViewById(R.id.switch_divider);
+            mButtonContainerView = itemView.findViewById(R.id.switch_container);
 
             int minTouchSize = itemView.getContext().getResources()
                     .getDimensionPixelSize(R.dimen.car_touch_target_size);
@@ -255,14 +253,13 @@ public final class SwitchListItem extends CompoundButtonListItem<SwitchListItem.
 
         @NonNull
         @Override
-        Guideline getSupplementalGuideline() {
-            return mSupplementalGuideline;
+        View[] getWidgetViews() {
+            return mWidgetViews;
         }
 
         @NonNull
-        @Override
-        View[] getWidgetViews() {
-            return mWidgetViews;
+        View getButtonContainerView() {
+            return mButtonContainerView;
         }
 
         /**
