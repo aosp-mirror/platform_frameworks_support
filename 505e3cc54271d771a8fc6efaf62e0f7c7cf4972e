@@ -22,6 +22,30 @@
       "revId": "505e3cc54271d771a8fc6efaf62e0f7c7cf4972e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4906abb2_93348855",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-08-24T01:44:10Z",
+      "side": 1,
+      "message": "Done\nThis time for real. Sorry.",
+      "parentUuid": "ab01ea02_a536bc56",
+      "range": {
+        "startLine": 318,
+        "startChar": 12,
+        "endLine": 318,
+        "endChar": 31
+      },
+      "revId": "505e3cc54271d771a8fc6efaf62e0f7c7cf4972e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
