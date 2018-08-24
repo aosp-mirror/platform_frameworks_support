@@ -70,6 +70,53 @@
       "revId": "851d3bc72f94e765ac4452f5d018e81825091852",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de44ca0e_f2002624",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-08-24T21:45:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "51ce1632_e90e888f",
+      "range": {
+        "startLine": 82,
+        "startChar": 12,
+        "endLine": 82,
+        "endChar": 20
+      },
+      "revId": "851d3bc72f94e765ac4452f5d018e81825091852",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9e9f554_15f8ad98",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-08-24T21:45:06Z",
+      "side": 1,
+      "message": "Can you move this onto its own line (i.e., bring back innerPrefix) to mirror what the previous format had?\n\nwriter.print(innerPrefix); writer.println(\"Lifecycle\u003d\" + getLifecycle().getCurrentState()));",
+      "range": {
+        "startLine": 665,
+        "startChar": 35,
+        "endLine": 665,
+        "endChar": 67
+      },
+      "revId": "851d3bc72f94e765ac4452f5d018e81825091852",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
