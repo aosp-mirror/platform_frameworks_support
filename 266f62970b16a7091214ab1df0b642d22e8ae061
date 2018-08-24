@@ -22,6 +22,30 @@
       "revId": "266f62970b16a7091214ab1df0b642d22e8ae061",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2053e1d9_ca7a40a1",
+        "filename": "coordinatorlayout/src/main/java/androidx/coordinatorlayout/widget/CoordinatorLayout.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1825,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-24T17:27:35Z",
+      "side": 1,
+      "message": "I know this looks weird (tried to encapsulate the weirdness in the preceding comment).  This is safe because:\n\n1. The \u0027int[] consumed\u0027 parameter in the v3 version of onNestedScroll is only ever written to, and not read from.\n2. The v2 version of onNestedScroll doesn\u0027t actually read mTempIntPair after it has been mutated.\n3. When mTempIntPair is otherwise used, accidental mutation is avoided.\n\nThat being said, I do admit that the code is more brittle than it needs to be.  Do you think I should create another independent temp array to be used where you\u0027ve highlighted to avoid the brittleness?",
+      "parentUuid": "f462e33a_a7b7c40f",
+      "range": {
+        "startLine": 1825,
+        "startChar": 39,
+        "endLine": 1825,
+        "endChar": 51
+      },
+      "revId": "266f62970b16a7091214ab1df0b642d22e8ae061",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
