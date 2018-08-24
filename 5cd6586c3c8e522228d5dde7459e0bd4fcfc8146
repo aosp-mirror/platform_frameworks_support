@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33e74aa9_3b9972cb",
+        "filename": "appcompat/res/values/attrs.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 1034928
+      },
+      "writtenOn": "2018-08-24T11:25:38Z",
+      "side": 1,
+      "message": "Is there a better approach than introducing this attr?\n\nWe can\u0027t just set `android:listChoiceIndicator[Single|Multiple]` to our \u003canimated-selector\u003e drawables as this crashes when calling through to super in `AppCompat[CheckBox|RadioButton]` constructors on older platforms.",
+      "range": {
+        "startLine": 1038,
+        "startChar": 8,
+        "endLine": 1038,
+        "endChar": 54
+      },
+      "revId": "5cd6586c3c8e522228d5dde7459e0bd4fcfc8146",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6de15bd2_63d46c8d",
+        "filename": "appcompat/res/values/styles_base.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1034928
+      },
+      "writtenOn": "2018-08-24T11:25:38Z",
+      "side": 1,
+      "message": "Should we introduce a `listChoiceIndicatorMultipleCompat` attr?",
+      "range": {
+        "startLine": 380,
+        "startChar": 34,
+        "endLine": 380,
+        "endChar": 71
+      },
+      "revId": "5cd6586c3c8e522228d5dde7459e0bd4fcfc8146",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
