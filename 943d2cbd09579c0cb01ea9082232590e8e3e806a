@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1eee19e6_f0b81cad",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/SafeTransactionInOnResumeTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-24T01:49:41Z",
+      "side": 1,
+      "message": "Anecdotally, this test worked on M even before my patch, because we have special onStateNotSaved method in platform.",
+      "range": {
+        "startLine": 40,
+        "startChar": 39,
+        "endLine": 40,
+        "endChar": 54
+      },
+      "revId": "943d2cbd09579c0cb01ea9082232590e8e3e806a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
