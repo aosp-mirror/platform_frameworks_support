@@ -16,6 +16,24 @@
       "revId": "c93aed9884a8f31e978e6b2e266141e3e26f8e29",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4469028a_2c9e23b9",
+        "filename": "development/importMaven/import_maven_artifacts.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-24T23:02:04Z",
+      "side": 1,
+      "message": "Now it does. :)",
+      "parentUuid": "53a400e6_e8bbb68f",
+      "revId": "c93aed9884a8f31e978e6b2e266141e3e26f8e29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
