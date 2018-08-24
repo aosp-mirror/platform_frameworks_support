@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "084c3c02_80ca0102",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-08-24T18:13:07Z",
+      "side": 1,
+      "message": "since there is a builder already, hide the constructor.",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 15
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "586e2634_8c979741",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-08-24T18:13:07Z",
+      "side": 1,
+      "message": "is E3 to indicate it is multiplied by 1000? why are we always returning a result multiplied by 1000?",
+      "range": {
+        "startLine": 97,
+        "startChar": 27,
+        "endLine": 97,
+        "endChar": 28
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12834ae4_154cf85d",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-08-24T18:13:07Z",
+      "side": 1,
+      "message": "can you be precise here? is 45 included or excluded.",
+      "range": {
+        "startLine": 64,
+        "startChar": 46,
+        "endLine": 64,
+        "endChar": 48
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35c03408_434794db",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-08-24T18:13:07Z",
+      "side": 1,
+      "message": "do you want to separate potentially confusing case from not confusing case with a different enum?",
+      "range": {
+        "startLine": 255,
+        "startChar": 6,
+        "endLine": 258,
+        "endChar": 17
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "505211ae_21cc414a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-08-24T18:13:07Z",
+      "side": 1,
+      "message": "should we have a separate case for road simply finishes :)",
+      "range": {
+        "startLine": 259,
+        "startChar": 7,
+        "endLine": 266,
+        "endChar": 20
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e21af593_99ec2e3d",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-08-24T18:13:07Z",
+      "side": 1,
+      "message": "hide since you already have a builder.",
+      "range": {
+        "startLine": 299,
+        "startChar": 4,
+        "endLine": 299,
+        "endChar": 12
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c853210b_360810a5",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-08-24T18:13:07Z",
+      "side": 1,
+      "message": "@hide",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 19
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5611a510_71ec80a3",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-08-24T18:13:07Z",
+      "side": 1,
+      "message": "@hide",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 8
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
