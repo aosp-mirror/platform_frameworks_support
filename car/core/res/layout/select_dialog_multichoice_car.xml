@@ -26,5 +26,6 @@
     android:paddingEnd="@dimen/car_keyline_1"
     android:paddingTop="@dimen/car_padding_4"
     android:paddingBottom="@dimen/car_padding_4"
-    android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+    android:checkMark="@drawable/car_checkbox"
+    android:checkMarkTint="?android:attr/colorControlActivated"
     android:ellipsize="end" />
