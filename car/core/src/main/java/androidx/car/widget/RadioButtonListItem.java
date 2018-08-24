@@ -29,7 +29,6 @@ import androidx.car.R;
 import androidx.car.util.CarUxRestrictionsUtils;
 import androidx.car.uxrestrictions.CarUxRestrictions;
 import androidx.car.widget.ListItemAdapter.ListItemType;
-import androidx.constraintlayout.widget.Guideline;
 
 /**
  * Class to build a list item with {@link RadioButton}.
@@ -97,12 +96,12 @@ public final class RadioButtonListItem extends
 
         private ViewGroup mContainerLayout;
 
+        private View mButtonContainerView;
+
         private ImageView mPrimaryIcon;
 
         private TextView mTitle;
         private TextView mBody;
-
-        private Guideline mSupplementalGuideline;
 
         private CompoundButton mCompoundButton;
         private View mCompoundButtonDivider;
@@ -122,7 +121,7 @@ public final class RadioButtonListItem extends
             mTitle = itemView.findViewById(R.id.title);
             mBody = itemView.findViewById(R.id.body);
 
-            mSupplementalGuideline = itemView.findViewById(R.id.supplemental_actions_guideline);
+            mButtonContainerView = itemView.findViewById(R.id.radiobutton_container);
 
             mCompoundButton = itemView.findViewById(R.id.radiobutton_widget);
             mCompoundButtonDivider = itemView.findViewById(R.id.radiobutton_divider);
@@ -203,8 +202,8 @@ public final class RadioButtonListItem extends
         }
 
         @NonNull
-        Guideline getSupplementalGuideline() {
-            return mSupplementalGuideline;
+        View getButtonContainerView() {
+            return mButtonContainerView;
         }
 
         @NonNull
