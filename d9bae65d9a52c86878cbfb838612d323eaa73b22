@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47cc8d2b_e9b288a2",
+        "filename": "core/src/main/java/androidx/core/app/RemoteInput.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-24T16:34:14Z",
+      "side": 1,
+      "message": "Is this a constant we use in framework? If not make it something like \"androidx.core.app.RemoteInput.resourceSource\"",
+      "range": {
+        "startLine": 57,
+        "startChar": 56,
+        "endLine": 57,
+        "endChar": 89
+      },
+      "revId": "d9bae65d9a52c86878cbfb838612d323eaa73b22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b452dfb2_be78257b",
+        "filename": "core/src/main/java/androidx/core/app/RemoteInput.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-24T16:34:14Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 456,
+        "startChar": 40,
+        "endLine": 456,
+        "endChar": 46
+      },
+      "revId": "d9bae65d9a52c86878cbfb838612d323eaa73b22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7baa5c74_6a83919a",
+        "filename": "core/src/main/java/androidx/core/app/RemoteInput.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-24T16:34:14Z",
+      "side": 1,
+      "message": "Please remove the warning log. This is not actionable to developers. Simply add a note into javadoc. Do the same for all the methods in this class.",
+      "range": {
+        "startLine": 466,
+        "startChar": 10,
+        "endLine": 468,
+        "endChar": 9
+      },
+      "revId": "d9bae65d9a52c86878cbfb838612d323eaa73b22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97d947d3_a7a1562f",
+        "filename": "core/src/main/java/androidx/core/app/RemoteInput.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-24T16:34:14Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 483,
+        "startChar": 39,
+        "endLine": 483,
+        "endChar": 45
+      },
+      "revId": "d9bae65d9a52c86878cbfb838612d323eaa73b22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
