@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "99143a18_58f3f294",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2617,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-24T02:09:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3eed49c_f350aff3",
+      "revId": "93ccf0f9d1a874f1492a23817e5732f2d96162f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "529fab27_7577fda5",
         "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
         "patchSetId": 2
