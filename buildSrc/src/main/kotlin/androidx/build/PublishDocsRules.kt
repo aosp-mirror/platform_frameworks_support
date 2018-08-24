@@ -25,7 +25,7 @@ import androidx.build.Strategy.Prebuilts
 import androidx.build.Strategy.TipOfTree
 
 val RELEASE_RULE = docsRules("public", false) {
-    val defaultVersion = "1.0.0-rc01"
+    val defaultVersion = "1.0.0-rc02"
     prebuilts(LibraryGroups.ANNOTATION, defaultVersion)
     prebuilts(LibraryGroups.APPCOMPAT, defaultVersion)
     prebuilts(LibraryGroups.ASYNCLAYOUTINFLATER, defaultVersion)
@@ -57,7 +57,7 @@ val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.MEDIA, "media-widget", "1.0.0-alpha5")
     ignore(LibraryGroups.MEDIA2, "media2-exoplayer")
     prebuilts(LibraryGroups.MEDIA2, "1.0.0-alpha02")
-    prebuilts(LibraryGroups.MEDIAROUTER, "1.0.0-alpha5")
+    prebuilts(LibraryGroups.MEDIAROUTER, "1.0.0-beta01")
     prebuilts(LibraryGroups.PALETTE, defaultVersion)
     prebuilts(LibraryGroups.PERCENTLAYOUT, defaultVersion)
     prebuilts(LibraryGroups.PREFERENCE, defaultVersion)
