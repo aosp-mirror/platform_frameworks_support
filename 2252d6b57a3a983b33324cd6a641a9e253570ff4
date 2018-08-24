@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e44e6cdc_1eea87d8",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-24T20:38:39Z",
+      "side": 1,
+      "message": "beginWith",
+      "range": {
+        "startLine": 298,
+        "startChar": 21,
+        "endLine": 298,
+        "endChar": 37
+      },
+      "revId": "2252d6b57a3a983b33324cd6a641a9e253570ff4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5c43c96_e537b7b2",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-24T20:38:39Z",
+      "side": 1,
+      "message": "beginUniqueWork",
+      "range": {
+        "startLine": 310,
+        "startChar": 21,
+        "endLine": 310,
+        "endChar": 37
+      },
+      "revId": "2252d6b57a3a983b33324cd6a641a9e253570ff4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
