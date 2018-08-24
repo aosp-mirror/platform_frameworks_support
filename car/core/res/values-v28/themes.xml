@@ -24,8 +24,6 @@
         <item name="android:colorControlNormal">@color/car_body2</item>
         <item name="android:colorControlActivated">@color/car_accent</item>
         <item name="android:dialogCornerRadius">@dimen/car_radius_3</item>
-        <item name="android:listChoiceIndicatorMultiple">@drawable/car_checkbox</item>
-        <item name="android:listChoiceIndicatorSingle">@drawable/car_radio_button</item>
         <item name="android:listDividerAlertDialog">@drawable/car_preference_divider</item>
         <item name="android:listPreferredItemHeightSmall">@dimen/car_single_line_list_item_height</item>
         <item name="android:listPreferredItemPaddingStart">@dimen/car_keyline_1</item>
