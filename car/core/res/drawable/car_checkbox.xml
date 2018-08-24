@@ -15,16 +15,8 @@
   ~ limitations under the License.
   -->
 
-<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/text1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="@dimen/car_single_line_list_item_height"
-    android:textAppearance="@style/TextAppearance.Car.Body2"
-    android:gravity="center_vertical"
-    android:paddingStart="@dimen/car_keyline_1"
-    android:paddingEnd="@dimen/car_keyline_1"
-    android:paddingTop="@dimen/car_padding_4"
-    android:paddingBottom="@dimen/car_padding_4"
-    android:checkMark="@drawable/car_checkbox"
-    android:ellipsize="end" />
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:width="@dimen/car_primary_icon_size"
+        android:height="@dimen/car_primary_icon_size"
+        android:drawable="@drawable/abc_btn_check_material_anim"/>
+</layer-list>
