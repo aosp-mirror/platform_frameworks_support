@@ -70,6 +70,30 @@
       "revId": "266f62970b16a7091214ab1df0b642d22e8ae061",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50550994_1ca53c64",
+        "filename": "coordinatorlayout/src/main/java/androidx/coordinatorlayout/widget/CoordinatorLayout.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1825,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-24T19:28:04Z",
+      "side": 1,
+      "message": "As per our offline discussion, added a new reusable int[2] to prevent possible future mutation bugs.",
+      "parentUuid": "5420e2c6_e2918f6b",
+      "range": {
+        "startLine": 1825,
+        "startChar": 39,
+        "endLine": 1825,
+        "endChar": 51
+      },
+      "revId": "266f62970b16a7091214ab1df0b642d22e8ae061",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
