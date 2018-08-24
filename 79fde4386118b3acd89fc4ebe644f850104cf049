@@ -22,6 +22,30 @@
       "revId": "79fde4386118b3acd89fc4ebe644f850104cf049",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a77aec20_c6392ec4",
+        "filename": "core/src/main/java/androidx/core/app/RemoteInput.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1061011
+      },
+      "writtenOn": "2018-08-24T13:33:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b82f70ae_cc9f48f3",
+      "range": {
+        "startLine": 456,
+        "startChar": 4,
+        "endLine": 456,
+        "endChar": 20
+      },
+      "revId": "79fde4386118b3acd89fc4ebe644f850104cf049",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
