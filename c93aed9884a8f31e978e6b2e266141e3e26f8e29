@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53a400e6_e8bbb68f",
+        "filename": "development/importMaven/import_maven_artifacts.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-24T22:48:06Z",
+      "side": 1,
+      "message": "Add copyright.\n\nDoes this pass gpylint or pylint?",
+      "revId": "c93aed9884a8f31e978e6b2e266141e3e26f8e29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
