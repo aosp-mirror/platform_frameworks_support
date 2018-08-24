@@ -16,6 +16,9 @@
 
 package androidx.navigation.safe.args.generator
 
+import androidx.navigation.safe.args.generator.ext.BEGIN_STMT
+import androidx.navigation.safe.args.generator.ext.END_STMT
+import androidx.navigation.safe.args.generator.ext.L
 import androidx.navigation.safe.args.generator.ext.N
 import androidx.navigation.safe.args.generator.ext.S
 import androidx.navigation.safe.args.generator.ext.T
@@ -208,6 +211,22 @@ private class ClassWithArgsSpecs(
         returns(TypeName.INT)
     }.build()
 
+    fun toStringMethod(
+        className: ClassName
+    ) = MethodSpec.methodBuilder("toString").apply {
+        addAnnotation(Override::class.java)
+        addModifiers(Modifier.PUBLIC)
+        addCode(CodeBlock.builder().apply {
+            add("${BEGIN_STMT}return $S", "${className.simpleName()}{")
+            args.forEachIndexed { index, (_, _, _, _, sanitizedName) ->
+                val prefix = if (index == 0) "" else ", "
+                add("\n+ $S + $L", "$prefix$sanitizedName=", sanitizedName)
+            }
+            add("\n+ $S;\n$END_STMT", "}")
+        }.build())
+        returns(ClassName.get(String::class.java))
+    }.build()
+
     private fun generateParameterSpec(arg: Argument): ParameterSpec {
         return ParameterSpec.builder(arg.type.typeName(), arg.sanitizedName).apply {
             if (arg.type.allowsNullable()) {
@@ -284,6 +303,7 @@ fun generateDirectionsTypeSpec(action: Action, useAndroidX: Boolean): TypeSpec {
             .addMethod(getDestIdMethod)
             .addMethod(specs.equalsMethod(className, additionalEqualsBlock))
             .addMethod(specs.hashCodeMethod(additionalHashCodeBlock))
+            .addMethod(specs.toStringMethod(className))
             .build()
 }
 
@@ -358,6 +378,7 @@ internal fun generateArgsJavaFile(destination: Destination, useAndroidX: Boolean
             .addMethod(specs.toBundleMethod("toBundle"))
             .addMethod(specs.equalsMethod(className))
             .addMethod(specs.hashCodeMethod())
+            .addMethod(specs.toStringMethod(className))
             .addType(builderTypeSpec)
             .build()
 
