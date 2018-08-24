@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,8 @@
  */
 package androidx.appcompat.widget;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import android.graphics.Typeface;
 import android.graphics.drawable.AnimatedStateListDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -26,7 +24,6 @@ import android.view.ViewGroup;
 
 import androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat;
 import androidx.appcompat.test.R;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
@@ -37,16 +34,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * Provides tests specific to {@link AppCompatRadioButton} class.
+ * Provides tests specific to {@link AppCompatCheckBox} class.
  */
 @SmallTest
 @RunWith(AndroidJUnit4.class)
-public class AppCompatRadioButtonTest {
+public class AppCompatCheckBoxTest {
 
     @Rule
-    public final ActivityTestRule<AppCompatRadioButtonActivity> mActivityTestRule =
-            new ActivityTestRule(AppCompatRadioButtonActivity.class);
-    private AppCompatRadioButtonActivity mActivity;
+    public final ActivityTestRule<AppCompatCheckBoxActivity> mActivityTestRule =
+            new ActivityTestRule(AppCompatCheckBoxActivity.class);
+    private AppCompatCheckBoxActivity mActivity;
     private ViewGroup mContainer;
 
     @Before
@@ -56,21 +53,12 @@ public class AppCompatRadioButtonTest {
     }
 
     @Test
-    public void testFontResources() {
-        AppCompatRadioButton radioButton = mContainer.findViewById(R.id.radiobutton_fontresource);
-        Typeface expected = ResourcesCompat.getFont(mActivity, R.font.samplefont);
-
-        assertEquals(expected, radioButton.getTypeface());
-    }
-
-    @Test
     public void testDefaultButton_isAnimated() {
-        // Given an ACRB with the theme's button drawable
-        final AppCompatRadioButtonSpy radio = mContainer.findViewById(
-                R.id.radiobutton_button_compat);
+        // Given an ACCB with the theme's button drawable
+        final AppCompatCheckBoxSpy checkBox = mContainer.findViewById(R.id.checkbox_button_compat);
         boolean isAnimated = false;
         // Then this drawable should be an animated-selector
-        final Drawable button = radio.mButton;
+        final Drawable button = checkBox.mButton;
         if (Build.VERSION.SDK_INT >= 21) {
             isAnimated = button instanceof AnimatedStateListDrawableCompat
                     || button instanceof AnimatedStateListDrawable;
