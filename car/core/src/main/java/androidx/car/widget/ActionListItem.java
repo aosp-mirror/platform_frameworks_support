@@ -26,10 +26,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.DimenRes;
 import androidx.annotation.DrawableRes;
+import androidx.annotation.IdRes;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,7 +39,6 @@ import androidx.annotation.StyleRes;
 import androidx.car.R;
 import androidx.car.util.CarUxRestrictionsUtils;
 import androidx.car.uxrestrictions.CarUxRestrictions;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.lang.annotation.Retention;
 import java.util.ArrayList;
@@ -212,6 +213,7 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
         setTextContent();
         setTextVerticalMargin();
         setTextStartMargin();
+        setTextEndMargin();
     }
 
     private void setOnClickListener() {
@@ -285,19 +287,19 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
         }
 
         mBinders.add(vh -> {
-            ConstraintLayout.LayoutParams layoutParams =
-                    (ConstraintLayout.LayoutParams) vh.getPrimaryIcon().getLayoutParams();
+            RelativeLayout.LayoutParams layoutParams =
+                    (RelativeLayout.LayoutParams) vh.getPrimaryIcon().getLayoutParams();
             layoutParams.height = layoutParams.width = iconSize;
             layoutParams.setMarginStart(startMargin);
 
             if (mPrimaryActionIconSize == PRIMARY_ACTION_ICON_SIZE_LARGE) {
                 // A large icon is always vertically centered.
-                layoutParams.verticalBias = 0.5f;
+                layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
                 layoutParams.topMargin = 0;
             } else {
                 // Align the icon to the top of the parent. This allows the topMargin to shift it
                 // down relative to the top.
-                layoutParams.verticalBias = 0f;
+                layoutParams.removeRule(RelativeLayout.CENTER_VERTICAL);
 
                 // For all other icon sizes, the icon should be centered within the height of
                 // car_double_line_list_item_height. Note: the actual height of the item can be
@@ -372,40 +374,80 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
             // Title only - view is aligned center vertically by itself.
             mBinders.add(vh -> {
                 ViewGroup.MarginLayoutParams layoutParams =
-                        (ViewGroup.MarginLayoutParams) vh.getTitle().getLayoutParams();
+                        (ViewGroup.MarginLayoutParams) vh.getTextContainer().getLayoutParams();
                 layoutParams.topMargin = 0;
-                vh.getTitle().requestLayout();
-            });
-        } else if (TextUtils.isEmpty(mTitle) && !TextUtils.isEmpty(mBody)) {
-            mBinders.add(vh -> {
-                // Body uses top and bottom margin.
-                int margin = mContext.getResources().getDimensionPixelSize(
-                        R.dimen.car_padding_3);
-                ViewGroup.MarginLayoutParams layoutParams =
-                        (ViewGroup.MarginLayoutParams) vh.getBody().getLayoutParams();
-                layoutParams.topMargin = margin;
-                layoutParams.bottomMargin = margin;
-                vh.getBody().requestLayout();
+                vh.getTextContainer().requestLayout();
             });
         } else {
             mBinders.add(vh -> {
-                Resources resources = mContext.getResources();
-                int padding2 = resources.getDimensionPixelSize(R.dimen.car_padding_2);
-
-                // Title has a top margin
-                ViewGroup.MarginLayoutParams titleLayoutParams =
-                        (ViewGroup.MarginLayoutParams) vh.getTitle().getLayoutParams();
-                titleLayoutParams.topMargin = padding2;
-                vh.getTitle().requestLayout();
-
-                // Body is below title with no margin and has bottom margin.
-                ViewGroup.MarginLayoutParams bodyLayoutParams =
-                        (ViewGroup.MarginLayoutParams) vh.getBody().getLayoutParams();
-                bodyLayoutParams.topMargin = 0;
-                bodyLayoutParams.bottomMargin = padding2;
-                vh.getBody().requestLayout();
+                // Body uses top and bottom margin.
+                int margin = mContext.getResources().getDimensionPixelSize(
+                        R.dimen.car_padding_2);
+                ViewGroup.MarginLayoutParams layoutParams =
+                        (ViewGroup.MarginLayoutParams) vh.getTextContainer().getLayoutParams();
+                layoutParams.topMargin = margin;
+                layoutParams.bottomMargin = margin;
+                vh.getTextContainer().requestLayout();
             });
         }
+    }
+
+    private void setTextEndMargin() {
+        // Figure out which view the text should align to.
+        @IdRes int leadingViewId = getSupplementalActionLeadingView();
+
+        if (leadingViewId == 0) {
+            // There is no supplemental action. Text should align to parent end with KL1 padding.
+            mBinders.add(vh -> {
+                Resources resources = mContext.getResources();
+                int padding = resources.getDimensionPixelSize(R.dimen.car_keyline_1);
+
+                RelativeLayout.LayoutParams textLayoutParams =
+                        (RelativeLayout.LayoutParams) vh.getTextContainer().getLayoutParams();
+                textLayoutParams.setMarginEnd(padding);
+                textLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+                textLayoutParams.removeRule(RelativeLayout.START_OF);
+                vh.getTextContainer().requestLayout();
+            });
+        } else {
+            // Text align to start of leading supplemental view with padding.
+            mBinders.add(vh -> {
+                Resources resources = mContext.getResources();
+                int padding = resources.getDimensionPixelSize(R.dimen.car_padding_4);
+
+                RelativeLayout.LayoutParams textLayoutParams =
+                        (RelativeLayout.LayoutParams) vh.getTextContainer().getLayoutParams();
+                textLayoutParams.setMarginEnd(padding);
+                textLayoutParams.removeRule(RelativeLayout.ALIGN_PARENT_END);
+                textLayoutParams.addRule(RelativeLayout.START_OF, leadingViewId);
+                vh.getTextContainer().requestLayout();
+            });
+        }
+    }
+
+    /**
+     * Returns the id of the leading (left most in LTR) view of supplemental actions.
+     * The view could be one of the supplemental actions (icon, button, switch), or their divider.
+     * Returns 0 if none is enabled.
+     */
+    @IdRes
+    private int getSupplementalActionLeadingView() {
+        int leadingViewId;
+        switch (mSupplementalActionType) {
+            case SUPPLEMENTAL_ACTION_ONE_ACTION:
+                leadingViewId = mShowPrimaryActionDivider
+                        ? R.id.primary_action_divider
+                        : R.id.primary_action;
+                break;
+            case SUPPLEMENTAL_ACTION_TWO_ACTIONS:
+                leadingViewId = mShowSecondaryActionDivider
+                        ? R.id.secondary_action_divider
+                        : R.id.secondary_action;
+                break;
+            default:
+                throw new IllegalStateException("Unknown supplemental action type.");
+        }
+        return leadingViewId;
     }
 
     /**
@@ -600,6 +642,7 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
 
         private ImageView mPrimaryIcon;
 
+        private View mTextContainer;
         private TextView mTitle;
         private TextView mBody;
 
@@ -616,6 +659,7 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
 
             mPrimaryIcon = itemView.findViewById(R.id.primary_icon);
 
+            mTextContainer = itemView.findViewById(R.id.action_text_container);
             mTitle = itemView.findViewById(R.id.title);
             mBody = itemView.findViewById(R.id.body);
 
@@ -647,6 +691,11 @@ public final class ActionListItem extends ListItem<ActionListItem.ViewHolder> {
         @NonNull
         public ImageView getPrimaryIcon() {
             return mPrimaryIcon;
+        }
+
+        @NonNull
+        View getTextContainer() {
+            return mTextContainer;
         }
 
         @NonNull

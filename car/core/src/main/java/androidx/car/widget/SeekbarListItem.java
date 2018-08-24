@@ -25,6 +25,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -36,7 +37,6 @@ import androidx.car.R;
 import androidx.car.util.CarUxRestrictionsUtils;
 import androidx.car.uxrestrictions.CarUxRestrictions;
 import androidx.car.uxrestrictions.OnUxRestrictionsChangedListener;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.lang.annotation.Retention;
 import java.util.ArrayList;
@@ -242,27 +242,19 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
                 break;
             case PRIMARY_ACTION_TYPE_SMALL_ICON:
                 mBinders.add(vh -> {
-                    ConstraintLayout.LayoutParams layoutParams =
-                            (ConstraintLayout.LayoutParams) vh.getPrimaryIcon().getLayoutParams();
+                    RelativeLayout.LayoutParams layoutParams =
+                            (RelativeLayout.LayoutParams) vh.getPrimaryIcon().getLayoutParams();
 
                     if (TextUtils.isEmpty(mText)) {
-                        // If there is no text, then the icon should be vertically centered.
-                        layoutParams.verticalBias = 0.5f;
+                        layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
                         layoutParams.topMargin = 0;
                     } else {
-                        // Align the icon to  the opt of the parent. This allows the topMargin to
-                        // shift it down relative to the top.
-                        layoutParams.verticalBias = 0f;
-
                         Resources res = mContext.getResources();
-
-                        // Set icon top margin so that the icon remains in the same position it
-                        // would've been in for non-long-text item, namely so that the center
-                        // line of icon matches that of line item.
                         int itemHeight = res.getDimensionPixelSize(
                                 R.dimen.car_double_line_list_item_height);
                         int iconSize = res.getDimensionPixelSize(R.dimen.car_primary_icon_size);
                         layoutParams.topMargin = (itemHeight - iconSize) / 2;
+                        layoutParams.removeRule(RelativeLayout.CENTER_VERTICAL);
                     }
 
                     vh.getPrimaryIcon().requestLayout();
@@ -312,34 +304,13 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
     private void setSeekBarAndTextLayout() {
         mBinders.add(vh -> {
             // Set start and end margin of text and seek bar.
-            int marginStart = getSeekBarAndTextMarginStart();
-            int marginEnd = getSeekBarAndTextMarginEnd();
-
             ViewGroup.MarginLayoutParams textLayoutParams =
-                    (ViewGroup.MarginLayoutParams) vh.getText().getLayoutParams();
-            textLayoutParams.setMarginStart(marginStart);
-            textLayoutParams.setMarginEnd(marginEnd);
-            vh.getText().requestLayout();
+                    (ViewGroup.MarginLayoutParams) vh.getSeekBarContainer().getLayoutParams();
+            textLayoutParams.setMarginStart(getSeekBarAndTextMarginStart());
 
-            ConstraintLayout.LayoutParams seekBarLayoutParams =
-                    (ConstraintLayout.LayoutParams) vh.getSeekBar().getLayoutParams();
-            seekBarLayoutParams.setMarginStart(marginStart);
-            seekBarLayoutParams.setMarginEnd(marginEnd);
+            setSeekBarAndTextMarginEnd(vh.getSeekBarContainer());
 
-            if (TextUtils.isEmpty(mText)) {
-                // If there is no text, set the vertical bias to 0.5 so that the seekbar is
-                // vertically centered.
-                seekBarLayoutParams.verticalBias = 0.5f;
-                seekBarLayoutParams.bottomMargin = 0;
-            } else {
-                // If there is text, set the vertical bias to 1 so that it is aligned to the bottom
-                // of the parent view, allowing the bottom margin to take effect.
-                seekBarLayoutParams.verticalBias = 1f;
-                seekBarLayoutParams.bottomMargin =
-                        mContext.getResources().getDimensionPixelSize(R.dimen.car_padding_1);
-            }
-
-            vh.getSeekBar().requestLayout();
+            vh.getSeekBarContainer().requestLayout();
         });
     }
 
@@ -363,31 +334,42 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
      * Returns the end margin that should be used for the text and seekbar views. This value
      * will depend on whether or not supplemental icons are visible.
      */
-    private int getSeekBarAndTextMarginEnd() {
+    private void setSeekBarAndTextMarginEnd(View seekbarContainer) {
+        RelativeLayout.LayoutParams layoutParams =
+                (RelativeLayout.LayoutParams) seekbarContainer.getLayoutParams();
+
+        Resources res = mContext.getResources();
         int endMargin = 0;
         switch (mSupplementalActionType) {
             case SUPPLEMENTAL_ACTION_NO_ACTION:
-                // Aligned to parent end.
-                return 0;
+                // Aligned to parent end with margin.
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+                layoutParams.removeRule(RelativeLayout.START_OF);
+                break;
             case SUPPLEMENTAL_ACTION_SUPPLEMENTAL_ICON:
-                // Add padding to account for the supplemental icon.
-                return mContext.getResources().getDimensionPixelSize(R.dimen.car_padding_4);
+                // Align to start of divider with padding.
+                layoutParams.addRule(RelativeLayout.START_OF, R.id.supplemental_icon_divider);
+                layoutParams.removeRule(RelativeLayout.ALIGN_PARENT_END);
+                layoutParams.setMarginEnd(res.getDimensionPixelSize(R.dimen.car_padding_4));
+                break;
             case SUPPLEMENTAL_ACTION_SUPPLEMENTAL_EMPTY_ICON_WITH_DIVIDER:
                 // Align to parent end with a margin as if the icon and an optional divider were
-                // present. We do this by adding the divider padding to icon, and width of divider.
-                endMargin += mContext.getResources().getDimensionPixelSize(
-                         R.dimen.car_padding_4);
-                endMargin += mContext.getResources().getDimensionPixelSize(
-                         R.dimen.car_vertical_line_divider_width);
+                // present. We do this by setting
+
+                // Add divider padding to icon, and width of divider.
+                endMargin += res.getDimensionPixelSize(R.dimen.car_padding_4);
+                endMargin += res.getDimensionPixelSize(R.dimen.car_vertical_line_divider_width);
                 // Fall through.
             case SUPPLEMENTAL_ACTION_SUPPLEMENTAL_EMPTY_ICON:
                 // Add view padding, width of icon, and icon end margin.
-                endMargin += mContext.getResources().getDimensionPixelSize(
-                         R.dimen.car_padding_4);
-                endMargin += mContext.getResources().getDimensionPixelSize(
-                         R.dimen.car_primary_icon_size);
+                endMargin += res.getDimensionPixelSize(R.dimen.car_padding_4);
+                endMargin += res.getDimensionPixelSize(R.dimen.car_primary_icon_size);
+                endMargin += res.getDimensionPixelSize(R.dimen.car_keyline_1);
 
-                return endMargin;
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+                layoutParams.removeRule(RelativeLayout.START_OF);
+                layoutParams.setMarginEnd(endMargin);
+                break;
             default:
                 throw new IllegalStateException("Unknown supplemental action type.");
         }
@@ -517,6 +499,7 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
 
         private ImageView mPrimaryIcon;
 
+        private View mSeekBarContainer;
         private TextView mText;
         private SeekBar mSeekBar;
 
@@ -530,6 +513,7 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
 
             mPrimaryIcon = itemView.findViewById(R.id.primary_icon);
 
+            mSeekBarContainer = itemView.findViewById(R.id.seek_bar_container);
             mText = itemView.findViewById(R.id.seek_bar_text);
             mSeekBar = itemView.findViewById(R.id.seek_bar);
 
@@ -570,6 +554,11 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
         @NonNull
         public ImageView getPrimaryIcon() {
             return mPrimaryIcon;
+        }
+
+        @NonNull
+        View getSeekBarContainer() {
+            return mSeekBarContainer;
         }
 
         @NonNull
