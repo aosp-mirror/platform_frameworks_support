@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1af96543_1fd549da",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2ImplBase.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-24T10:27:26Z",
+      "side": 1,
+      "message": "Session shouldn\u0027t be null",
+      "range": {
+        "startLine": 55,
+        "startChar": 44,
+        "endLine": 55,
+        "endChar": 59
+      },
+      "revId": "35cf528f5d1c9a74a3cb59c37b36996b006f8d7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
