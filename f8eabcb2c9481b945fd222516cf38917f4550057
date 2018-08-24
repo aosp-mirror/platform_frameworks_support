@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f767799_02d129f8",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2018-08-24T00:35:47Z",
+      "side": 1,
+      "message": "We don\u0027t tend to static import this. I\u0027d remove these",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 47
+      },
+      "revId": "f8eabcb2c9481b945fd222516cf38917f4550057",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23d3bf0f_55533507",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextViewAutoSizeHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2018-08-24T00:35:47Z",
+      "side": 1,
+      "message": "Reset this file. Doesn\u0027t look like any of the changes are needed, plus some of the formatting is weird.",
+      "revId": "f8eabcb2c9481b945fd222516cf38917f4550057",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
