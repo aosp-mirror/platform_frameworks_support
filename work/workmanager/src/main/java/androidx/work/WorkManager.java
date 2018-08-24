@@ -164,6 +164,7 @@ public abstract class WorkManager {
      * Enqueues one or more items for background processing.
      *
      * @param workRequests One or more {@link WorkRequest} to enqueue
+     * @throws IllegalArgumentException when there are no {@link WorkRequest}s.
      */
     public final void enqueue(@NonNull WorkRequest... workRequests) {
         enqueue(Arrays.asList(workRequests));
@@ -173,6 +174,7 @@ public abstract class WorkManager {
      * Enqueues one or more items for background processing.
      *
      * @param workRequests One or more {@link WorkRequest} to enqueue
+     * @throws IllegalArgumentException when the list of {@link WorkRequest}s is empty.
      */
     public abstract void enqueue(@NonNull List<? extends WorkRequest> workRequests);
 
@@ -183,6 +185,7 @@ public abstract class WorkManager {
      * @param work One or more {@link OneTimeWorkRequest} to start a chain of work
      * @return A {@link WorkContinuation} that allows for further chaining of dependent
      *         {@link OneTimeWorkRequest}
+     * @throws IllegalArgumentException when the list of {@link OneTimeWorkRequest}s is empty.
      */
     public final @NonNull WorkContinuation beginWith(@NonNull OneTimeWorkRequest...work) {
         return beginWith(Arrays.asList(work));
@@ -195,6 +198,7 @@ public abstract class WorkManager {
      * @param work One or more {@link OneTimeWorkRequest} to start a chain of work
      * @return A {@link WorkContinuation} that allows for further chaining of dependent
      *         {@link OneTimeWorkRequest}
+     * @throws IllegalArgumentException when the list of {@link OneTimeWorkRequest}s is empty.
      */
     public abstract @NonNull WorkContinuation beginWith(@NonNull List<OneTimeWorkRequest> work);
 
@@ -220,6 +224,7 @@ public abstract class WorkManager {
      *             existing work with {@code uniqueWorkName}; otherwise, {@code work} will be added
      *             as a child of all leaf nodes labelled with {@code uniqueWorkName}.
      * @return A {@link WorkContinuation} that allows further chaining
+     * @throws IllegalArgumentException when there are no {@link OneTimeWorkRequest}s.
      */
     public final @NonNull WorkContinuation beginUniqueWork(
             @NonNull String uniqueWorkName,
@@ -250,6 +255,7 @@ public abstract class WorkManager {
      *             existing work with {@code uniqueWorkName}; otherwise, {@code work} will be added
      *             as a child of all leaf nodes labelled with {@code uniqueWorkName}.
      * @return A {@link WorkContinuation} that allows further chaining
+     * @throws IllegalArgumentException when the list of {@link OneTimeWorkRequest}s is empty.
      */
     public abstract @NonNull WorkContinuation beginUniqueWork(
             @NonNull String uniqueWorkName,
