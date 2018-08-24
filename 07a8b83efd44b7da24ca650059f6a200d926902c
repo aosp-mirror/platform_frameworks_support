@@ -979,6 +979,30 @@
     },
     {
       "key": {
+        "uuid": "a12a1180_2b90b2a5",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-24T10:32:58Z",
+      "side": 1,
+      "message": "That\u0027s a good reason.",
+      "parentUuid": "d1f23af9_c8efd3e0",
+      "range": {
+        "startLine": 994,
+        "startChar": 0,
+        "endLine": 1001,
+        "endChar": 52
+      },
+      "revId": "07a8b83efd44b7da24ca650059f6a200d926902c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d45808ad_2eea19ec",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
         "patchSetId": 3
