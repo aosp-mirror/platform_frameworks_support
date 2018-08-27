@@ -22,6 +22,30 @@
       "revId": "b1428ef64cbcf630612b63156f15ac60b31485be",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c868ca54_2e907078",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2018-08-27T00:53:46Z",
+      "side": 1,
+      "message": "Cool, good to know. I was going to speak to you about the fragment changes anyway. 👍",
+      "parentUuid": "239ef191_5e948a22",
+      "range": {
+        "startLine": 944,
+        "startChar": 11,
+        "endLine": 944,
+        "endChar": 74
+      },
+      "revId": "b1428ef64cbcf630612b63156f15ac60b31485be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
