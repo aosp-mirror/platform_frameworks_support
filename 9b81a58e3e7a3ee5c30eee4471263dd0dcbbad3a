@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "61b3d412_769b545a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-27T23:30:52Z",
+      "side": 1,
+      "message": "FWIW in the projected version of this API they explicitly switched from float to e3 (see cl/123455792). Unfortunately there\u0027s zero context given, so I don\u0027t know the reasons.",
+      "parentUuid": "fbcbc2b1_1e738cf5",
+      "range": {
+        "startLine": 97,
+        "startChar": 27,
+        "endLine": 97,
+        "endChar": 28
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "12834ae4_154cf85d",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
         "patchSetId": 41
