@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8bdefc57_eddb3240",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/tests/MediaSession2LegacyCallbackTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-27T02:47:30Z",
+      "side": 1,
+      "message": "Here, @SdkSuppress is not removed because this test class was failing in API 21~27.\nThis will be removed when we change the implementation of MediaSessionImplApi21#getCurrentControllerInfo() - which currently just returns null.",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 51
+      },
+      "revId": "1c4f483455b20f2ba965378928319e8777799e57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
