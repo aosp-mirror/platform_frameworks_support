@@ -38,10 +38,17 @@ import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.Interpolator;
+import android.view.animation.Transformation;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
@@ -893,13 +900,21 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             final TextView mTextView;
             final RelativeLayout mVolumeSliderLayout;
             final CheckBox mCheckBox;
+
+            final int mExpandedLayoutHeight;
+            final int mCollapsedLayoutHegiht;
+            private final int mLayoutAnimationDurationMs;
+            private Interpolator mLinearOutSlowInInterpolator;
+            private Interpolator mFastOutSlowInInterpolator;
+            private Interpolator mAccelerateDecelerateInterpolator;
+
             final Runnable mSelectRoute = new Runnable() {
                 @Override
                 public void run() {
                     mImageView.setVisibility(View.VISIBLE);
                     mProgressBar.setVisibility(View.INVISIBLE);
                     mCheckBox.setEnabled(true);
-                    mVolumeSliderLayout.setVisibility(View.VISIBLE);
+                    animateLayoutHeight(mVolumeSliderLayout, mExpandedLayoutHeight);
                 }
             };
             final View.OnClickListener mCheckBoxClickListener = new View.OnClickListener() {
@@ -910,11 +925,38 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                         mProgressBar.setVisibility(View.VISIBLE);
                         mCheckBox.postDelayed(mSelectRoute, PROGRESS_BAR_DISPLAY_MS);
                     } else {
-                        mVolumeSliderLayout.setVisibility(View.GONE);
                         mCheckBox.removeCallbacks(mSelectRoute);
+                        animateLayoutHeight(mVolumeSliderLayout, mCollapsedLayoutHegiht);
                     }
                 }
             };
+
+            void animateLayoutHeight(final View view, int targetHeight) {
+                final ViewGroup.LayoutParams lp = view.getLayoutParams();
+
+                final int startValue = lp.height;
+                final int endValue = targetHeight;
+                Animation anim = new Animation() {
+                    @Override
+                    protected void applyTransformation(float interpolatedTime, Transformation t) {
+                        int deltaHeight = (int) ((endValue - startValue) * interpolatedTime);
+                        lp.height = startValue + deltaHeight;
+                        view.setLayoutParams(lp);
+                    }
+                };
+
+                boolean isLayoutExpanded = (startValue == mExpandedLayoutHeight);
+                Interpolator interpolator;
+                if (android.os.Build.VERSION.SDK_INT >= 21) {
+                    interpolator = isLayoutExpanded ? mLinearOutSlowInInterpolator
+                            : mFastOutSlowInInterpolator;
+                } else {
+                    interpolator = mAccelerateDecelerateInterpolator;
+                }
+                anim.setDuration(mLayoutAnimationDurationMs);
+                anim.setInterpolator(interpolator);
+                view.startAnimation(anim);
+            }
 
             RouteViewHolder(View itemView) {
                 super(itemView, (ImageButton) itemView.findViewById(R.id.mr_cast_mute_button),
@@ -928,6 +970,22 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 Drawable checkBoxIcon = MediaRouterThemeHelper.getCheckBoxDrawableIcon(mContext);
                 MediaRouterThemeHelper.setIndeterminateProgressBarColor(mContext, mProgressBar);
                 mCheckBox.setButtonDrawable(checkBoxIcon);
+
+                Resources res = mContext.getResources();
+                DisplayMetrics metrics = res.getDisplayMetrics();
+                TypedValue value = new TypedValue();
+                res.getValue(R.dimen.mr_cast_row_height, value, true);
+                mExpandedLayoutHeight = (int) value.getDimension(metrics);
+                mCollapsedLayoutHegiht = 0;
+                mLayoutAnimationDurationMs = res.getInteger(
+                        R.integer.mr_cast_volume_slider_layout_animation_duration_ms);
+                if (android.os.Build.VERSION.SDK_INT >= 21) {
+                    mLinearOutSlowInInterpolator = AnimationUtils.loadInterpolator(mContext,
+                            R.interpolator.mr_linear_out_slow_in);
+                    mFastOutSlowInInterpolator = AnimationUtils.loadInterpolator(mContext,
+                            R.interpolator.mr_fast_out_slow_in);
+                }
+                mAccelerateDecelerateInterpolator = new AccelerateDecelerateInterpolator();
             }
 
             public void bindRouteViewHolder(Item item) {
