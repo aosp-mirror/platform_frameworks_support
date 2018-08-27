@@ -22,6 +22,30 @@
       "revId": "2a9fe25a7e60a4f54a418a361c57a715373bc5d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2229b1f9_8625c3a1",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2018-08-27T23:58:09Z",
+      "side": 1,
+      "message": "No one should be doing an instanceof on a View\u0027s context. If they are they\u0027re doing it wrong, and they can use `getActivity()` on Fragment.\n\nContextThemeWrapper is just the example I\u0027m using in the test. Night mode is actually using a configuration context, which it not a wrapper but a brand new ContextImpl.",
+      "parentUuid": "34686177_3fdf049c",
+      "range": {
+        "startLine": 219,
+        "startChar": 34,
+        "endLine": 219,
+        "endChar": 65
+      },
+      "revId": "2a9fe25a7e60a4f54a418a361c57a715373bc5d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
