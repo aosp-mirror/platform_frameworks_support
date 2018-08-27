@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "fbcbc2b1_1e738cf5",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-27T23:29:01Z",
+      "side": 1,
+      "message": "So you have the full picture, I considered a float here but went with fixed point because:\n\n- Float can\u0027t represent 0.1, 0.2, 0.3, or 0.4 without rounding error\n- Don\u0027t want to see 0.30000000000000004 on a car screen\n- It\u0027s easier to use assertEquals(0) in tests rather than assertCloseTo(0, epsilon)\n- Avoids infinity (positive+negative), NaN, and -0\n\nAs an example, Maps uses LatE7 and LngE7 to store latlngs as ints.\n\nHowever, maybe I overshot. Maybe using fixed point is making it harder for our developers: if we use floating point, devs can use String.format directly to convert the answer to a String.\n\nAnd given that we\u0027re not doing arithmetic on these distances, maybe it\u0027s OK that we can\u0027t represent 0.1 without rounding error, as rounding error won\u0027t accumulate.\n\nSo in the end, I\u0027m not so convinced that intE7 is the best way any more, I\u0027d be happy with either.",
+      "parentUuid": "857d60fc_286c5442",
+      "range": {
+        "startLine": 97,
+        "startChar": 27,
+        "endLine": 97,
+        "endChar": 28
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "12834ae4_154cf85d",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
         "patchSetId": 41
