@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74db813d_7892cfec",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1170,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-27T15:33:48Z",
+      "side": 1,
+      "message": "Q) why did you change this? What\u0027s the difference?\nI can see other places that uses mContext instead of getContext()?",
+      "range": {
+        "startLine": 1170,
+        "startChar": 50,
+        "endLine": 1170,
+        "endChar": 62
+      },
+      "revId": "194d117420b5021e7d19f73af3cc7bd02a93c7b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
