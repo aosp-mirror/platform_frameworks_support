@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b57549da_ea465b19",
+        "filename": "car/cluster/build.gradle",
+        "patchSetId": 42
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-08-27T19:14:41Z",
+      "side": 1,
+      "message": "The rest of car is 24, is this intentional?",
+      "range": {
+        "startLine": 44,
+        "startChar": 22,
+        "endLine": 44,
+        "endChar": 24
+      },
+      "revId": "141a7ba0d97bc512f69ef84282c7ce38e8d5cbdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a484963_0ba89055",
+        "filename": "versionedparcelable/annotation/src/main/java/androidx/versionedparcelable/compiler/VersionedParcelProcessor.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-08-27T19:14:41Z",
+      "side": 1,
+      "message": "Can I get a short explanation of why these changes were necessary?",
+      "range": {
+        "startLine": 227,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 56
+      },
+      "revId": "141a7ba0d97bc512f69ef84282c7ce38e8d5cbdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
