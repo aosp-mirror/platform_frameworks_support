@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "330594f9_30e1988d",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAnimationsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2018-08-27T22:57:27Z",
+      "side": 1,
+      "message": "the test is trying to test if the animation is automatically stopped when remove the view,  so it should not need call endAnimations(),  can you figure out what is going on there on API 15?",
+      "revId": "5bd0ee766dcb35ffe41595b0b40ccb7b03978fa3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
