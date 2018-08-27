@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "3c20b93c_92454f46",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-27T23:36:42Z",
+      "side": 1,
+      "message": "As we talked verbally, the API guidelines don\u0027t require to include a @return, it just indicates that the @return text should be short. In order to avoid being redundant I would prefer to avoid adding a @return in these getters. \n\nRegarding the value itself, given the comments above, I prefer leaving the API as is for now.",
+      "parentUuid": "857d60fc_286c5442",
+      "range": {
+        "startLine": 97,
+        "startChar": 27,
+        "endLine": 97,
+        "endChar": 28
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12834ae4_154cf85d",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
         "patchSetId": 41

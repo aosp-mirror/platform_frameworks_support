@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f0798dc2_0b44e668",
+        "filename": "car/cluster/build.gradle",
+        "patchSetId": 42
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-27T23:36:42Z",
+      "side": 1,
+      "message": "Switched to 24.",
+      "parentUuid": "b57549da_ea465b19",
+      "range": {
+        "startLine": 44,
+        "startChar": 22,
+        "endLine": 44,
+        "endChar": 24
+      },
+      "revId": "141a7ba0d97bc512f69ef84282c7ce38e8d5cbdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a484963_0ba89055",
         "filename": "versionedparcelable/annotation/src/main/java/androidx/versionedparcelable/compiler/VersionedParcelProcessor.java",
         "patchSetId": 42
@@ -45,6 +69,30 @@
       "revId": "141a7ba0d97bc512f69ef84282c7ce38e8d5cbdb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20e605f5_98f43c9a",
+        "filename": "versionedparcelable/annotation/src/main/java/androidx/versionedparcelable/compiler/VersionedParcelProcessor.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-27T23:36:42Z",
+      "side": 1,
+      "message": "Sure. As part of this CL we have a generic EnumWrapper class that we want to serialize using VersionedParcelable annotation.\nWhen running the annotation processor, the generated parcelizer code for this class was causing an \"unchecked conversion\" warning as it doesn\u0027t deal with the generic parameter types. As these generic parameters types are erased anyways, I believe it is safe to just ignore this warning.",
+      "parentUuid": "8a484963_0ba89055",
+      "range": {
+        "startLine": 227,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 56
+      },
+      "revId": "141a7ba0d97bc512f69ef84282c7ce38e8d5cbdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
