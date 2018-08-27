@@ -22,6 +22,30 @@
       "revId": "ca05c6f32c112fe54e90e20f9fe5bdbdc9090558",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b157dd2c_c677eb5a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-27T18:41:03Z",
+      "side": 1,
+      "message": "Yes, this is a bug. Fixed.",
+      "parentUuid": "224f07d5_f8321544",
+      "range": {
+        "startLine": 63,
+        "startChar": 7,
+        "endLine": 63,
+        "endChar": 16
+      },
+      "revId": "ca05c6f32c112fe54e90e20f9fe5bdbdc9090558",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

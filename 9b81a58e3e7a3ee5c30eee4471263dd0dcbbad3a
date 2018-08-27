@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4ec979a4_66a5936c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-27T18:41:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "084c3c02_80ca0102",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 15
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "586e2634_8c979741",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
         "patchSetId": 41
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-24T18:13:07Z",
       "side": 1,
       "message": "is E3 to indicate it is multiplied by 1000? why are we always returning a result multiplied by 1000?",
+      "range": {
+        "startLine": 97,
+        "startChar": 27,
+        "endLine": 97,
+        "endChar": 28
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f45e3d28_95b792a5",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-27T18:41:03Z",
+      "side": 1,
+      "message": "This is a fixed-point value. This distance is for display only and they are approximate, optimizing for readability. As indicated in the example, we are intending to use this to present values like \"1.2 km\".\n\nDo you feel strongly about making this as a floating-point value?",
+      "parentUuid": "586e2634_8c979741",
       "range": {
         "startLine": 97,
         "startChar": 27,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "be0c0c79_834cb2b7",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-27T18:41:03Z",
+      "side": 1,
+      "message": "Degrees here are just descriptive. These values won\u0027t be used for actual computation, but to tell designers what type of icon they might want to use in order to represent this maneuver.",
+      "parentUuid": "12834ae4_154cf85d",
+      "range": {
+        "startLine": 64,
+        "startChar": 46,
+        "endLine": 64,
+        "endChar": 48
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35c03408_434794db",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
         "patchSetId": 41
@@ -91,6 +163,30 @@
       "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6eb1c0d_af8808c5",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-27T18:41:03Z",
+      "side": 1,
+      "message": "Actually, this applies in all cases where we want to indicate that the driver needs to keep going straight. I\u0027ll update the Javadoc.",
+      "parentUuid": "35c03408_434794db",
+      "range": {
+        "startLine": 255,
+        "startChar": 6,
+        "endLine": 258,
+        "endChar": 17
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1473e585_f6757f59",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-27T18:41:03Z",
+      "side": 1,
+      "message": "That would be one of the variations of Type#DESTINATION.\nMaybe more precise description here would be \"Drive into a boat ferry\". Changed.",
+      "parentUuid": "505211ae_21cc414a",
+      "range": {
+        "startLine": 259,
+        "startChar": 7,
+        "endLine": 266,
+        "endChar": 20
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e21af593_99ec2e3d",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
         "patchSetId": 41
@@ -137,6 +257,30 @@
       "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14446327_90321e1b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-27T18:41:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e21af593_99ec2e3d",
+      "range": {
+        "startLine": 299,
+        "startChar": 4,
+        "endLine": 299,
+        "endChar": 12
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "7e1d41ec_5ba38f52",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-27T18:41:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c853210b_360810a5",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 19
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5611a510_71ec80a3",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
         "patchSetId": 41
@@ -183,6 +351,30 @@
       "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3772f5dc_b3b5dcdb",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-27T18:41:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5611a510_71ec80a3",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 8
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
