@@ -22,6 +22,30 @@
       "revId": "34e8fa905cdc67785023e27da25642b2607cfecf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea928bbf_39d70d53",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2101,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-27T02:20:30Z",
+      "side": 1,
+      "message": "I am not sure there will be many usages of RemoteUserInfo which is VersionedParcelable.\nLet\u0027s do that when we need to send RemoteUserInfo between process.",
+      "parentUuid": "170c78a9_a5091511",
+      "range": {
+        "startLine": 2101,
+        "startChar": 23,
+        "endLine": 2101,
+        "endChar": 43
+      },
+      "revId": "34e8fa905cdc67785023e27da25642b2607cfecf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
