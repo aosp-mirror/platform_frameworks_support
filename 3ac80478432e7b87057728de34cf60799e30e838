@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18793bb9_2c0e9a79",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/FtsTableInfoValidationWriter.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-27T22:46:12Z",
+      "side": 1,
+      "message": "I guess it can $S instead of $L",
+      "range": {
+        "startLine": 38,
+        "startChar": 20,
+        "endLine": 38,
+        "endChar": 52
+      },
+      "revId": "3ac80478432e7b87057728de34cf60799e30e838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "944530ec_990ca5ab",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/ValidationWriter.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-27T22:46:12Z",
+      "side": 1,
+      "message": "nanananah. it won\u0027t scale. everyone will forget to update that count,\n\nAs possible solution: you have codegenscope - have a special wrapper around it, so it knows how many statements you added.",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 22
+      },
+      "revId": "3ac80478432e7b87057728de34cf60799e30e838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
