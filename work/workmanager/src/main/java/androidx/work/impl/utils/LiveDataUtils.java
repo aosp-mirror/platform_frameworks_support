@@ -59,9 +59,9 @@ public class LiveDataUtils {
                 workTaskExecutor.executeOnBackgroundThread(new Runnable() {
                     @Override
                     public void run() {
+                        final Out previousOutput = outputLiveData.getValue();
                         synchronized (outputLiveData) {
                             Out newOutput = mappingMethod.apply(input);
-                            Out previousOutput = outputLiveData.getValue();
                             if (previousOutput == null && newOutput != null) {
                                 outputLiveData.postValue(newOutput);
                             } else if (
