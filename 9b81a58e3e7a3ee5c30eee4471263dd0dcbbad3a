@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "857d60fc_286c5442",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-08-27T19:01:21Z",
+      "side": 1,
+      "message": "I think using a float and returning a value in the expected units (rather than multiplying by 1000) is a cleaner API that removes one more potential place for a bug. \n\nby doing so, the API user will be forced (by the compiler) to deal with this properly.\n\nAlso please see the API guidelines for writing the JavaDoc. In particular, see the rule #4. \nuse a @returns in a single sentence to describe what returns in summary.",
+      "parentUuid": "f45e3d28_95b792a5",
+      "range": {
+        "startLine": 97,
+        "startChar": 27,
+        "endLine": 97,
+        "endChar": 28
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "12834ae4_154cf85d",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
         "patchSetId": 41
