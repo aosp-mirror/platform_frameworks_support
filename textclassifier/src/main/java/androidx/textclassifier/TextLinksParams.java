@@ -31,7 +31,7 @@ import androidx.textclassifier.TextLinks.TextLinkSpan;
 /**
  * Used to specify how to generate and apply links when using SmartLinkify APIs.
  */
-public final class SmartLinkifyParams {
+public final class TextLinksParams {
 
     /**
      * A function to create spans from TextLinks.
@@ -44,6 +44,8 @@ public final class SmartLinkifyParams {
         }
     };
 
+    static final TextLinksParams DEFAULT_PARAMS = new TextLinksParams.Builder().build();
+
     @TextLinks.ApplyStrategy
     private final int mApplyStrategy;
     private final SpanFactory mSpanFactory;
@@ -51,7 +53,7 @@ public final class SmartLinkifyParams {
     @Nullable private final LocaleListCompat mDefaultLocales;
     @Nullable private final Long mReferenceTime;
 
-    SmartLinkifyParams(
+    TextLinksParams(
             @TextLinks.ApplyStrategy int applyStrategy,
             SpanFactory spanFactory,
             @Nullable TextClassifier.EntityConfig entityConfig,
@@ -156,7 +158,7 @@ public final class SmartLinkifyParams {
     }
 
     /**
-     * A builder for building SmartLinkifyParams.
+     * A builder for building TextLinksParams.
      */
     public static final class Builder {
 
@@ -236,10 +238,10 @@ public final class SmartLinkifyParams {
         }
 
         /**
-         * Builds and returns a SmartLinkifyParams object.
+         * Builds and returns a TextLinksParams object.
          */
-        public SmartLinkifyParams build() {
-            return new SmartLinkifyParams(
+        public TextLinksParams build() {
+            return new TextLinksParams(
                     mApplyStrategy, mSpanFactory, mEntityConfig, mDefaultLocales, mReferenceTime);
         }
     }
@@ -251,7 +253,7 @@ public final class SmartLinkifyParams {
         if (applyStrategy != TextLinks.APPLY_STRATEGY_IGNORE
                 && applyStrategy != TextLinks.APPLY_STRATEGY_REPLACE) {
             throw new IllegalArgumentException(
-                    "Invalid apply strategy. See SmartLinkifyParams.ApplyStrategy for options.");
+                    "Invalid apply strategy. See TextLinksParams.ApplyStrategy for options.");
         }
         return applyStrategy;
     }
