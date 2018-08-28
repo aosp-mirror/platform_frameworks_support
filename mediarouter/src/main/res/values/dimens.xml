@@ -54,4 +54,9 @@
     <dimen name="mr_cast_group_volume_seekbar_height">4dp</dimen>
     <!-- Size of a seekbar thumb for both route volume and group volume. -->
     <dimen name="mr_cast_seekbar_thumb_size">8dp</dimen>
+
+    <!-- Text sizes of MediaRouteDevicePickerDialog/MediaRouteCastDialog -->
+    <dimen name="mr_cast_meta_subtitle_text_size">13sp</dimen>
+    <dimen name="mr_dynamic_dialog_header_text_size">11sp</dimen>
+    <dimen name="mr_dynamic_dialog_route_text_size">12sp</dimen>
 </resources>
