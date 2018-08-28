@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27033a8a_3acf8455",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-08-28T18:57:33Z",
+      "side": 1,
+      "message": "Any reason this isn\u0027t simply an override for equals()?",
+      "range": {
+        "startLine": 152,
+        "startChar": 4,
+        "endLine": 152,
+        "endChar": 95
+      },
+      "revId": "0731339cc8262769854b999f065fdf42ed82aac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
