@@ -46,6 +46,30 @@
       "revId": "2a9fe25a7e60a4f54a418a361c57a715373bc5d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ddc7ac4_c1b950ac",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-08-28T16:12:10Z",
+      "side": 1,
+      "message": "Are you saying that this never worked with AppCompatActivity at all or that it *did* work prior to this change but no developer should be relying on it?",
+      "parentUuid": "2229b1f9_8625c3a1",
+      "range": {
+        "startLine": 219,
+        "startChar": 34,
+        "endLine": 219,
+        "endChar": 65
+      },
+      "revId": "2a9fe25a7e60a4f54a418a361c57a715373bc5d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
