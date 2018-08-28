@@ -37,7 +37,7 @@ public class DrawerItemViewHolder extends RecyclerView.ViewHolder {
     private final TextView mBody;
     private final ImageView mEndIcon;
 
-    DrawerItemViewHolder(View view) {
+    public DrawerItemViewHolder(View view) {
         super(view);
         mIcon = view.findViewById(R.id.icon);
         if (mIcon == null) {
