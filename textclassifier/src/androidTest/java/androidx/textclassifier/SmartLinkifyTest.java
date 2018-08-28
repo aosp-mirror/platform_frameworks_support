@@ -65,7 +65,7 @@ import java.util.concurrent.TimeUnit;
 @SmallTest
 public class SmartLinkifyTest {
 
-    private static final SmartLinkifyParams PARAMS = new SmartLinkifyParams.Builder().build();
+    private static final TextLinksParams PARAMS = new TextLinksParams.Builder().build();
 
     @Mock
     private TextClassifier mClassifier;
@@ -303,7 +303,7 @@ public class SmartLinkifyTest {
 
         final TextLinks.TextLinkSpan span =
                 createTextLinkSpan(testObject.getTextLinks().getLinks().iterator().next());
-        final SmartLinkifyParams params = new SmartLinkifyParams.Builder()
+        final TextLinksParams params = new TextLinksParams.Builder()
                 .setEntityConfig(new TextClassifier.EntityConfig.Builder().build())
                 .setDefaultLocales(LocaleListCompat.create(Locale.CANADA_FRENCH))
                 .setSpanFactory(new TextLinks.SpanFactory() {
@@ -344,7 +344,7 @@ public class SmartLinkifyTest {
         text.setSpan(urlSpan, 0, text.length(), 0);
         final URLSpan[] urlSpans = text.getSpans(0, text.length(), URLSpan.class);
         assertThat(urlSpans).asList().hasSize(1);
-        final SmartLinkifyParams params = new SmartLinkifyParams.Builder()
+        final TextLinksParams params = new TextLinksParams.Builder()
                 .setApplyStrategy(TextLinks.APPLY_STRATEGY_IGNORE)
                 .build();
 
@@ -373,7 +373,7 @@ public class SmartLinkifyTest {
         text.setSpan(urlSpan, 0, text.length(), 0);
         final URLSpan[] urlSpans = text.getSpans(0, text.length(), URLSpan.class);
         assertThat(urlSpans).asList().hasSize(1);
-        final SmartLinkifyParams params = new SmartLinkifyParams.Builder()
+        final TextLinksParams params = new TextLinksParams.Builder()
                 .setApplyStrategy(TextLinks.APPLY_STRATEGY_REPLACE)
                 .build();
 
