@@ -22,6 +22,30 @@
       "revId": "f839e0ec3c40916053e7029dfd91ee204f5b043e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3812595d_60fb7b1c",
+        "filename": "leanback/src/main/java/androidx/leanback/widget/picker/DatePicker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1344924
+      },
+      "writtenOn": "2018-08-28T16:58:16Z",
+      "side": 1,
+      "message": "Done.\nThanks!",
+      "parentUuid": "68646b6a_0e097f2d",
+      "range": {
+        "startLine": 418,
+        "startChar": 8,
+        "endLine": 418,
+        "endChar": 16
+      },
+      "revId": "f839e0ec3c40916053e7029dfd91ee204f5b043e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
