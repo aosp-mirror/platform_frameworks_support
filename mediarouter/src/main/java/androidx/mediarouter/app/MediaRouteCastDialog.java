@@ -138,16 +138,15 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 case MSG_UPDATE_ROUTE_VOLUME_BY_USER:
                     if (mRouteForVolumeUpdatingByUser != null) {
                         mRouteForVolumeUpdatingByUser = null;
-                        if (mHasPendingUpdate) {
-                            update();
-                        }
+                        updateRouteViews();
                     }
                     break;
             }
         }
     };
     private RecyclerView mRecyclerView;
-    private RecyclerAdapter mAdapter;
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    RecyclerAdapter mAdapter;
     VolumeChangeListener mVolumeChangeListener;
     int mVolumeSliderColor;
 
@@ -157,8 +156,6 @@ public class MediaRouteCastDialog extends AppCompatDialog {
     Map<String, Integer> mBeforeMuteVolumeMap;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     MediaRouter.RouteInfo mRouteForVolumeUpdatingByUser;
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    boolean mHasPendingUpdate;
     boolean mIsSelectingRoute;
 
     private ImageButton mCloseButton;
@@ -228,7 +225,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 : mMediaController.getMetadata();
         mDescription = metadata == null ? null : metadata.getDescription();
         updateArtIconIfNeeded();
-        update();
+        updateMetadataViews();
     }
 
     /**
@@ -364,7 +361,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         mArtIconBitmap = null;
         mArtIconUri = null;
         updateArtIconIfNeeded();
-        update();
+        updateMetadataViews();
+        updateRouteViews();
     }
 
     @Override
@@ -385,52 +383,6 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         mRouter.removeCallback(mCallback);
         mHandler.removeMessages(MSG_UPDATE_ROUTES);
         setMediaSession(null);
-    }
-
-    void update() {
-        // Defer dialog updates when user is adjusting volume or selecting route.
-        // Since onRouteUnselected is triggered before onRouteSelected when transferring to another
-        // route, pending update if mIsSelectingRoute is true to prevent dialog from being dismissed
-        // in the process of selecting route.
-        if (mRouteForVolumeUpdatingByUser != null || mIsSelectingRoute) {
-            mHasPendingUpdate = true;
-            return;
-        }
-        mHasPendingUpdate = false;
-        if (!mSelectedRoute.isSelected() || mSelectedRoute.isDefaultOrBluetooth()) {
-            dismiss();
-            return;
-        }
-        if (!mCreated) {
-            return;
-        }
-
-        if (mArtIconIsLoaded && !isBitmapRecycled(mArtIconLoadedBitmap)
-                && mArtIconLoadedBitmap != null) {
-            mArtView.setVisibility(View.VISIBLE);
-            mArtView.setImageBitmap(mArtIconLoadedBitmap);
-            mArtView.setBackgroundColor(mArtIconBackgroundColor);
-
-            // Blur will not be supported for SDK < 17 devices to avoid unnecessarily bloating
-            // the size of this package (approximately two-fold). Instead, only the black scrim
-            // will be placed on top of the metadata background.
-            mMetadataBlackScrim.setVisibility(View.VISIBLE);
-            if (Build.VERSION.SDK_INT >= 17) {
-                Bitmap blurredBitmap = blurBitmap(mArtIconLoadedBitmap, BLUR_RADIUS, mContext);
-                mMetadataBackground.setImageBitmap(blurredBitmap);
-            } else {
-                mMetadataBackground.setImageBitmap(Bitmap.createBitmap(mArtIconLoadedBitmap));
-            }
-        } else {
-            if (isBitmapRecycled(mArtIconLoadedBitmap)) {
-                Log.w(TAG, "Can't set artwork image with recycled bitmap: " + mArtIconLoadedBitmap);
-            }
-            mArtView.setVisibility(View.GONE);
-            mMetadataBlackScrim.setVisibility(View.GONE);
-            mMetadataBackground.setImageBitmap(null);
-        }
-        clearLoadedBitmap();
-        updateMetadataLayout();
     }
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -482,7 +434,33 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         return false;
     }
 
-    private void updateMetadataLayout() {
+    void updateMetadataViews() {
+        if (mArtIconIsLoaded && !isBitmapRecycled(mArtIconLoadedBitmap)
+                && mArtIconLoadedBitmap != null) {
+            mArtView.setVisibility(View.VISIBLE);
+            mArtView.setImageBitmap(mArtIconLoadedBitmap);
+            mArtView.setBackgroundColor(mArtIconBackgroundColor);
+
+            // Blur will not be supported for SDK < 17 devices to avoid unnecessarily bloating
+            // the size of this package (approximately two-fold). Instead, only the black scrim
+            // will be placed on top of the metadata background.
+            mMetadataBlackScrim.setVisibility(View.VISIBLE);
+            if (Build.VERSION.SDK_INT >= 17) {
+                Bitmap blurredBitmap = blurBitmap(mArtIconLoadedBitmap, BLUR_RADIUS, mContext);
+                mMetadataBackground.setImageBitmap(blurredBitmap);
+            } else {
+                mMetadataBackground.setImageBitmap(Bitmap.createBitmap(mArtIconLoadedBitmap));
+            }
+        } else {
+            if (isBitmapRecycled(mArtIconLoadedBitmap)) {
+                Log.w(TAG, "Can't set artwork image with recycled bitmap: " + mArtIconLoadedBitmap);
+            }
+            mArtView.setVisibility(View.GONE);
+            mMetadataBlackScrim.setVisibility(View.GONE);
+            mMetadataBackground.setImageBitmap(null);
+        }
+        clearLoadedBitmap();
+
         CharSequence title = mDescription == null ? null : mDescription.getTitle();
         boolean hasTitle = !TextUtils.isEmpty(title);
 
@@ -506,6 +484,25 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         ViewGroup.LayoutParams lp = view.getLayoutParams();
         lp.height = height;
         view.setLayoutParams(lp);
+    }
+
+    void updateRouteViews() {
+        // Defer dialog updates when user is adjusting volume or selecting route.
+        // Since onRouteUnselected is triggered before onRouteSelected when transferring to another
+        // route, pending update if mIsSelectingRoute is true to prevent dialog from being dismissed
+        // in the process of selecting route.
+        if (mRouteForVolumeUpdatingByUser != null || mIsSelectingRoute) {
+            return;
+        }
+        if (!mSelectedRoute.isSelected() || mSelectedRoute.isDefaultOrBluetooth()) {
+            dismiss();
+            return;
+        }
+        if (!mCreated) {
+            return;
+        }
+
+        mAdapter.notifyDataSetChanged();
     }
 
     private class VolumeChangeListener implements SeekBar.OnSeekBarChangeListener {
@@ -768,6 +765,23 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 }
             }
             notifyDataSetChanged();
+        }
+
+        int getAdapterPositionByRoute(MediaRouter.RouteInfo route) {
+            String routeId = route.getId();
+
+            for (int i = 0; i < mItems.size(); i++) {
+                Item item = mItems.get(i);
+                if (item.getType() == ITEM_TYPE_HEADER) {
+                    continue;
+                }
+
+                MediaRouter.RouteInfo itemRoute = (MediaRouter.RouteInfo) item.getData();
+                if (routeId.equals(itemRoute.getId())) {
+                    return i;
+                }
+            }
+            return RecyclerView.NO_POSITION;
         }
 
         @Override
@@ -1074,19 +1088,22 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         public void onRouteSelected(MediaRouter router, MediaRouter.RouteInfo route) {
             mSelectedRoute = route;
             mIsSelectingRoute = false;
-            update();
+            updateRouteViews();
         }
 
         @Override
         public void onRouteUnselected(MediaRouter router, MediaRouter.RouteInfo route) {
-            update();
+            updateRouteViews();
         }
 
         @Override
         public void onRouteChanged(MediaRouter router, MediaRouter.RouteInfo route) {
-            // Call refreshRoutes only when there's no route for volume updating by user.
-            if (mRouteForVolumeUpdatingByUser == null) {
-                refreshRoutes();
+            if (mRouteForVolumeUpdatingByUser != null) {
+                return;
+            }
+            int pos = mAdapter.getAdapterPositionByRoute(route);
+            if (pos != RecyclerView.NO_POSITION) {
+                mAdapter.notifyItemChanged(pos);
             }
         }
 
@@ -1121,7 +1138,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         public void onMetadataChanged(MediaMetadataCompat metadata) {
             mDescription = metadata == null ? null : metadata.getDescription();
             updateArtIconIfNeeded();
-            update();
+            updateMetadataViews();
         }
     }
 
@@ -1227,7 +1244,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 mArtIconBackgroundColor = mBackgroundColor;
                 mArtIconIsLoaded = true;
                 // Loaded bitmap will be applied on the next update
-                update();
+                updateMetadataViews();
             }
         }
 
