@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4fc98e81_ecbda79f",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Lane.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-28T04:48:15Z",
+      "side": 1,
+      "message": "As per the other comments, should this be directions?",
+      "range": {
+        "startLine": 34,
+        "startChar": 83,
+        "endLine": 34,
+        "endChar": 92
+      },
+      "revId": "a4a3c213767de9c84c9b08c6e7f0d451c97a7f86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "654a369b_1b39aea6",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-28T04:48:15Z",
+      "side": 1,
+      "message": "I think we discussed this on the other CL, but could there be multiple highlighted directions? I think there probably should be, in which case we should probably change this to \"a\"",
+      "range": {
+        "startLine": 115,
+        "startChar": 31,
+        "endLine": 115,
+        "endChar": 34
+      },
+      "revId": "a4a3c213767de9c84c9b08c6e7f0d451c97a7f86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
