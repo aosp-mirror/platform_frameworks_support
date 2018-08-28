@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28011193_84a53f23",
+        "filename": "animation/testing/src/main/java/androidx/animation/AnimationTestRule.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-28T16:26:37Z",
+      "side": 1,
+      "message": "Mention units.",
+      "range": {
+        "startLine": 48,
+        "startChar": 14,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "472ec6123e20bb096b32155ddc521a22a7f69eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9002e92_851322c1",
+        "filename": "animation/testing/src/main/java/androidx/animation/AnimationTestRule.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-28T16:26:37Z",
+      "side": 1,
+      "message": "@LongDef",
+      "range": {
+        "startLine": 50,
+        "startChar": 30,
+        "endLine": 50,
+        "endChar": 34
+      },
+      "revId": "472ec6123e20bb096b32155ddc521a22a7f69eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9711f867_e6f150ee",
+        "filename": "animation/testing/src/main/java/androidx/animation/AnimationTestRule.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-28T16:26:37Z",
+      "side": 1,
+      "message": "Mention return units.",
+      "range": {
+        "startLine": 57,
+        "startChar": 7,
+        "endLine": 57,
+        "endChar": 11
+      },
+      "revId": "472ec6123e20bb096b32155ddc521a22a7f69eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f19b6b03_a6c49c5a",
+        "filename": "animation/testing/src/main/java/androidx/animation/AnimationTestRule.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-28T16:26:37Z",
+      "side": 1,
+      "message": "@LongDef",
+      "range": {
+        "startLine": 59,
+        "startChar": 11,
+        "endLine": 59,
+        "endChar": 15
+      },
+      "revId": "472ec6123e20bb096b32155ddc521a22a7f69eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8056466e_21ac650b",
+        "filename": "settings.gradle",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-28T16:26:37Z",
+      "side": 1,
+      "message": "If you expect this to be the default library developers will include, please don\u0027t call it call, just leave it as animation.",
+      "range": {
+        "startLine": 37,
+        "startChar": 27,
+        "endLine": 37,
+        "endChar": 41
+      },
+      "revId": "472ec6123e20bb096b32155ddc521a22a7f69eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
