@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea593756_da193ec3",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 44
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-08-28T00:47:36Z",
+      "side": 1,
+      "message": "KILOMETERS?",
+      "range": {
+        "startLine": 99,
+        "startChar": 54,
+        "endLine": 99,
+        "endChar": 59
+      },
+      "revId": "a1ca4b2ca47a2a24989aff6561feeed0a3c185cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
