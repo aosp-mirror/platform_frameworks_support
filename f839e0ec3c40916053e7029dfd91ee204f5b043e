@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68646b6a_0e097f2d",
+        "filename": "leanback/src/main/java/androidx/leanback/widget/picker/DatePicker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2018-08-28T13:57:07Z",
+      "side": 1,
+      "message": "use mTempDate",
+      "range": {
+        "startLine": 418,
+        "startChar": 8,
+        "endLine": 418,
+        "endChar": 16
+      },
+      "revId": "f839e0ec3c40916053e7029dfd91ee204f5b043e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
