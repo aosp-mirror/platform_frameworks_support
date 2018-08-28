@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61c54c90_6184ff4f",
+        "filename": "gradlew",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-28T21:12:13Z",
+      "side": 1,
+      "message": "Should we make this have some sort of minimum? Maybe if core count is 4, keep it at 4? I worry that on low end machines this will make it worse.",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 69
+      },
+      "revId": "44b8d9a9f51c1d3f242618a4a2f9c2ec5141edba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
