@@ -22,6 +22,30 @@
       "revId": "5ace63e99c15f539b988cedf52cae7a6d10840c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb9af488_911d9ee6",
+        "filename": "car/core/src/main/java/androidx/car/drawer/DrawerItemViewHolder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-08-28T22:08:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "170d9be2_1f093bad",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 43,
+        "endChar": 25
+      },
+      "revId": "5ace63e99c15f539b988cedf52cae7a6d10840c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
