@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "415e35b4_211fc547",
+        "filename": "car/core/src/main/java/androidx/car/drawer/DrawerItemViewHolder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-08-28T20:10:37Z",
+      "side": 1,
+      "message": "If this is now becoming public we need javadocs, if it is for testing make it clear in the doc and add VisibleForTesting. Also need @NonNull?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 0
+      },
+      "revId": "02eb8a89c73f5766cc9e98a71fc31d34cb910ab9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
