@@ -124,6 +124,16 @@ public final class MediaSessionManager {
          */
         public static final String LEGACY_CONTROLLER = "android.media.session.MediaController";
 
+        /**
+         * Represents an unknown pid of an application.
+         */
+        public static final int UNKNOWN_PID = -1;
+
+        /**
+         * Represents an unknown uid of an application.
+         */
+        public static final int UNKNOWN_UID = -1;
+
         RemoteUserInfoImpl mImpl;
 
         /**
@@ -171,14 +181,14 @@ public final class MediaSessionManager {
         }
 
         /**
-         * @return pid of the controller
+         * @return pid of the controller. Can be {@link #UNKNOWN_PID} if the pid cannot be obtained.
          */
         public int getPid() {
             return mImpl.getPid();
         }
 
         /**
-         * @return uid of the controller
+         * @return uid of the controller. Can be {@link #UNKNOWN_UID} if the uid cannot be obtained.
          */
         public int getUid() {
             return mImpl.getUid();

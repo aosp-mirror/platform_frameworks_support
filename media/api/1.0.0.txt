@@ -613,6 +613,8 @@ package androidx.media {
     method public int getPid();
     method public int getUid();
     field public static final java.lang.String LEGACY_CONTROLLER = "android.media.session.MediaController";
+    field public static final int UNKNOWN_PID = -1; // 0xffffffff
+    field public static final int UNKNOWN_UID = -1; // 0xffffffff
   }
 
   public abstract class VolumeProviderCompat {
