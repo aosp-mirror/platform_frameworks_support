@@ -22,6 +22,30 @@
       "revId": "0731339cc8262769854b999f065fdf42ed82aac9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acd619a9_b5602ce1",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-08-28T20:11:56Z",
+      "side": 1,
+      "message": "hasSameRestrictionsAs() only compares fields related to driving restrictions. It ignores other public methods/fields exposed, e.g. timestamp.",
+      "parentUuid": "27033a8a_3acf8455",
+      "range": {
+        "startLine": 152,
+        "startChar": 4,
+        "endLine": 152,
+        "endChar": 95
+      },
+      "revId": "0731339cc8262769854b999f065fdf42ed82aac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
