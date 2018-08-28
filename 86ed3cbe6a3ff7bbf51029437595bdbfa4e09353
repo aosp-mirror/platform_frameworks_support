@@ -128,6 +128,24 @@
       "revId": "86ed3cbe6a3ff7bbf51029437595bdbfa4e09353",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "481c84a3_e255d16a",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-28T17:20:52Z",
+      "side": 1,
+      "message": "sgtm.\n\nThe usecase is:\n\nmyCustomTC.generateLinks(genReq).apply(text, applyParams, myCustomTC);\n\nRight now the code reads as:\n\nmyCustomTC.generateLinks(genReq).apply(text, applyParams, defaultTC);\n\nSo except you\u0027ve set myCustomTC as your default TC in TCM, you\u0027d generate links with one TC and classify the text with a different TC. Think when a client wants to handle custom entities like hashtags or mentions.\nI\u0027m okay if we leave as is for now. We can always add a new API later if necessary after we\u0027ve figured out how to handle rotations.",
+      "parentUuid": "752d643a_049e13f0",
+      "revId": "86ed3cbe6a3ff7bbf51029437595bdbfa4e09353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
