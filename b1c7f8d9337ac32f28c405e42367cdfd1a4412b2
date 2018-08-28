@@ -46,6 +46,30 @@
       "revId": "b1c7f8d9337ac32f28c405e42367cdfd1a4412b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2153d85d_ae58d228",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-28T16:58:28Z",
+      "side": 1,
+      "message": "I would rather move this discussion to a separated CL. \nI\u0027m only waiting for a OWNERS approval for the VersionedParcelable change in order to be able to submit this. By submitting this change we can unblock other work and keep more focused discussions moving.\n\nWe can follow up this on b/113330835",
+      "parentUuid": "27e28d67_51f13cad",
+      "range": {
+        "startLine": 46,
+        "startChar": 14,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "b1c7f8d9337ac32f28c405e42367cdfd1a4412b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
