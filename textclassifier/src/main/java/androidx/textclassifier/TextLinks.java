@@ -20,8 +20,13 @@ import static androidx.textclassifier.ConvertUtils.toPlatformEntityConfig;
 import static androidx.textclassifier.ConvertUtils.unwrapLocalListCompat;
 
 import android.app.PendingIntent;
+import android.content.Context;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.method.MovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.URLSpan;
 import android.util.Log;
@@ -34,6 +39,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
+import androidx.annotation.UiThread;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.os.LocaleListCompat;
 import androidx.core.util.Preconditions;
@@ -50,6 +56,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.function.Function;
 
 /**
  * A collection of links, representing subsequences of text and the entity types (phone number,
@@ -153,6 +160,45 @@ public final class TextLinks {
         return new TextLinks(
                 bundle.getString(EXTRA_FULL_TEXT),
                 BundleUtils.getTextLinkListOrThrow(bundle, EXTRA_LINKS));
+    }
+
+    @Status
+    @UiThread
+    public int apply(@NonNull Context context, @NonNull TextView textView) {
+
+        final MovementMethod method = textView.getMovementMethod();
+        if (!(method instanceof LinkMovementMethod)) {
+            if (textView.getLinksClickable()) {
+                textView.setMovementMethod(LinkMovementMethod.getInstance());
+            }
+        }
+
+        SpannableString spannableString = new SpannableString(textView.getText());
+        int status = apply(context, spannableString, new TextLinksParams.Builder().build());
+        if (status == TextLinks.STATUS_LINKS_APPLIED) {
+            textView.setText(spannableString);
+        }
+        return status;
+    }
+
+    @Status
+    public int apply(@NonNull Context context, @NonNull Spannable text) {
+        return apply(context, text, new TextLinksParams.Builder().build());
+    }
+
+    @Status
+    public int apply(
+            @NonNull Context context,
+            @NonNull Spannable text,
+            @NonNull TextLinksParams textLinksParams) {
+        Preconditions.checkNotNull(text);
+
+        TextClassifier textClassifier = TextClassificationManager.of(context).getTextClassifier();
+        // TODO: If text is longer than the supported length, break it down and process them.
+        SpannableString truncatedText = SpannableString.valueOf(text.subSequence(
+                0, Math.min(text.length(), textClassifier.getMaxGenerateLinksTextLength())));
+
+        return textLinksParams.apply(truncatedText, this, textClassifier);
     }
 
     /**
