@@ -16,6 +16,24 @@
       "revId": "5bd0ee766dcb35ffe41595b0b40ccb7b03978fa3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b0f2798_778ac70f",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAnimationsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-08-28T00:18:57Z",
+      "side": 1,
+      "message": "The test actually works correctly.  The issue is that lingering animations in DummyItemAnimator that aren\u0027t actually under test (the move animations that come along with the add animation) are still in DummyItemAnimator, and therefore it continues to report that animations are running.\n\n(As discussed in person).",
+      "parentUuid": "330594f9_30e1988d",
+      "revId": "5bd0ee766dcb35ffe41595b0b40ccb7b03978fa3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
