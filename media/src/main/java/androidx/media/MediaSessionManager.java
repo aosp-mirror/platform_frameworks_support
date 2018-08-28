@@ -124,6 +124,17 @@ public final class MediaSessionManager {
          */
         public static final String LEGACY_CONTROLLER = "android.media.session.MediaController";
 
+        /**
+         * Represents an unknown pid of an application.
+         */
+        public static final int UNKNOWN_PID = -1;
+
+        /**
+         * Represents an unknown uid of an application.
+         */
+        public static final int UNKNOWN_UID = -1;
+
+
         RemoteUserInfoImpl mImpl;
 
         /**
