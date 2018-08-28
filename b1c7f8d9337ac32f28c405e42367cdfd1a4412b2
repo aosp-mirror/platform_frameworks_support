@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c9689f5_d15a8d39",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-28T04:46:54Z",
+      "side": 1,
+      "message": "Hi, late-breaking change here, I\u0027m so sorry, but I thought I\u0027d get this in before this is checked in and becomes hard to change.\n\nWhat we want in the API to send to the car:\n- latitude\n- longitude\n\nWhat android.location.Location is:\n- latitude\n- longitude\n- accuracy\n- altitude\n- bearing\n- bearingAccuracyDegrees\n- elapsedRealtimeNanos\n- an extras Bundle(!)\n- provider string\n- speed m/s\n- speed accuracy m/s\n- UTC time\n- vertical accuracy\n- isFromMockProvider\n\nI can see arguments for reusing this - it\u0027s the android standard for getting locations from GPS. But we\u0027re not getting locations from GPS. Our destinations don\u0027t have time, nor speed, nor bearing. These are fundamentally different things.\n\nThis is a lot of things we don\u0027t want to support in this API - Especially the Bundle! Someone will start reading this, someone will start writing this, API consumers will be confused about which bits of Location they should read vs not.\n\nAs we\u0027re defining a new protocol, we should try to constrain the set of things that are sent over the protocol to be the things we think are useful for readers and writers.\n\nI think we should use our own LatLng class with double latitude, double longitude (or simply inline double lat, double lng in this class - I\u0027d be fine with that too - set both to 0 for no latlng).\n\nI chatted to Harry and Caleb about this (didn\u0027t want to make a last minute change lightly) and they both agree this would be a good change, and that it\u0027s easiest to make API changes early.",
+      "range": {
+        "startLine": 46,
+        "startChar": 14,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "b1c7f8d9337ac32f28c405e42367cdfd1a4412b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
