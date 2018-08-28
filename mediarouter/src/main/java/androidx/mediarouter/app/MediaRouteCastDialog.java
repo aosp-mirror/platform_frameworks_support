@@ -73,6 +73,7 @@ import androidx.mediarouter.media.MediaRouter;
 import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -101,12 +102,12 @@ public class MediaRouteCastDialog extends AppCompatDialog {
     static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 
     // Do not update the route list immediately to avoid unnatural dialog change.
-    private static final int UPDATE_ROUTES_DELAY_MS = 300;
+    private static final int UPDATE_ROUTES_VIEW_DELAY_MS = 300;
     private static final int CONNECTION_TIMEOUT_MS = 30000;
     private static final int UPDATE_VOLUME_DELAY_MS = 500;
     private static final int PROGRESS_BAR_DISPLAY_MS = 400;
 
-    static final int MSG_UPDATE_ROUTES = 1;
+    static final int MSG_UPDATE_ROUTES_VIEW = 1;
     static final int MSG_UPDATE_ROUTE_VOLUME_BY_USER = 2;
 
     // TODO (b/111731099): Remove this once dark theme is implemented inside MediaRouterThemeHelper.
@@ -132,14 +133,15 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         @Override
         public void handleMessage(Message message) {
             switch (message.what) {
-                case MSG_UPDATE_ROUTES:
-                    updateRoutes((List<MediaRouter.RouteInfo>) message.obj);
+                case MSG_UPDATE_ROUTES_VIEW:
+                    updateRoutesView();
                     break;
                 case MSG_UPDATE_ROUTE_VOLUME_BY_USER:
                     if (mRouteForVolumeUpdatingByUser != null) {
                         mRouteForVolumeUpdatingByUser = null;
-                        if (mHasPendingUpdate) {
-                            update();
+                        if (mHasChangedRoute) {
+                            mHasChangedRoute = false;
+                            refreshRoutesView();
                         }
                     }
                     break;
@@ -147,7 +149,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         }
     };
     private RecyclerView mRecyclerView;
-    private RecyclerAdapter mAdapter;
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    RecyclerAdapter mAdapter;
     VolumeChangeListener mVolumeChangeListener;
     int mVolumeSliderColor;
 
@@ -157,8 +160,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
     Map<String, Integer> mBeforeMuteVolumeMap;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     MediaRouter.RouteInfo mRouteForVolumeUpdatingByUser;
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    boolean mHasPendingUpdate;
+    boolean mHasChangedRoute;
     boolean mIsSelectingRoute;
 
     private ImageButton mCloseButton;
@@ -228,7 +230,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 : mMediaController.getMetadata();
         mDescription = metadata == null ? null : metadata.getDescription();
         updateArtIconIfNeeded();
-        update();
+        updateMetadataViews();
     }
 
     /**
@@ -268,7 +270,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 mRouter.addCallback(selector, mCallback,
                         MediaRouter.CALLBACK_FLAG_PERFORM_ACTIVE_SCAN);
             }
-            refreshRoutes();
+            updateRoutes();
         }
     }
 
@@ -334,6 +336,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         mRecyclerView = findViewById(R.id.mr_cast_list);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        // Disable change animation.
+        ((SimpleItemAnimator) mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         mVolumeChangeListener = new VolumeChangeListener();
         mVolumeSliderColor = MediaRouterThemeHelper.getControllerColor(mContext, 0);
         mVolumeSliderHolderMap = new HashMap<>();
@@ -364,7 +368,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         mArtIconBitmap = null;
         mArtIconUri = null;
         updateArtIconIfNeeded();
-        update();
+        updateMetadataViews();
+        updateRoutesView();
     }
 
     @Override
@@ -373,7 +378,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         mAttachedToWindow = true;
 
         mRouter.addCallback(mSelector, mCallback, MediaRouter.CALLBACK_FLAG_PERFORM_ACTIVE_SCAN);
-        refreshRoutes();
+        updateRoutes();
         setMediaSession(mRouter.getMediaSessionToken());
     }
 
@@ -383,54 +388,9 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         mAttachedToWindow = false;
 
         mRouter.removeCallback(mCallback);
-        mHandler.removeMessages(MSG_UPDATE_ROUTES);
+        mHandler.removeMessages(MSG_UPDATE_ROUTES_VIEW);
+        mHandler.removeMessages(MSG_UPDATE_ROUTE_VOLUME_BY_USER);
         setMediaSession(null);
-    }
-
-    void update() {
-        // Defer dialog updates when user is adjusting volume or selecting route.
-        // Since onRouteUnselected is triggered before onRouteSelected when transferring to another
-        // route, pending update if mIsSelectingRoute is true to prevent dialog from being dismissed
-        // in the process of selecting route.
-        if (mRouteForVolumeUpdatingByUser != null || mIsSelectingRoute) {
-            mHasPendingUpdate = true;
-            return;
-        }
-        mHasPendingUpdate = false;
-        if (!mSelectedRoute.isSelected() || mSelectedRoute.isDefaultOrBluetooth()) {
-            dismiss();
-            return;
-        }
-        if (!mCreated) {
-            return;
-        }
-
-        if (mArtIconIsLoaded && !isBitmapRecycled(mArtIconLoadedBitmap)
-                && mArtIconLoadedBitmap != null) {
-            mArtView.setVisibility(View.VISIBLE);
-            mArtView.setImageBitmap(mArtIconLoadedBitmap);
-            mArtView.setBackgroundColor(mArtIconBackgroundColor);
-
-            // Blur will not be supported for SDK < 17 devices to avoid unnecessarily bloating
-            // the size of this package (approximately two-fold). Instead, only the black scrim
-            // will be placed on top of the metadata background.
-            mMetadataBlackScrim.setVisibility(View.VISIBLE);
-            if (Build.VERSION.SDK_INT >= 17) {
-                Bitmap blurredBitmap = blurBitmap(mArtIconLoadedBitmap, BLUR_RADIUS, mContext);
-                mMetadataBackground.setImageBitmap(blurredBitmap);
-            } else {
-                mMetadataBackground.setImageBitmap(Bitmap.createBitmap(mArtIconLoadedBitmap));
-            }
-        } else {
-            if (isBitmapRecycled(mArtIconLoadedBitmap)) {
-                Log.w(TAG, "Can't set artwork image with recycled bitmap: " + mArtIconLoadedBitmap);
-            }
-            mArtView.setVisibility(View.GONE);
-            mMetadataBlackScrim.setVisibility(View.GONE);
-            mMetadataBackground.setImageBitmap(null);
-        }
-        clearLoadedBitmap();
-        updateMetadataLayout();
     }
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -482,7 +442,33 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         return false;
     }
 
-    private void updateMetadataLayout() {
+    void updateMetadataViews() {
+        if (mArtIconIsLoaded && !isBitmapRecycled(mArtIconLoadedBitmap)
+                && mArtIconLoadedBitmap != null) {
+            mArtView.setVisibility(View.VISIBLE);
+            mArtView.setImageBitmap(mArtIconLoadedBitmap);
+            mArtView.setBackgroundColor(mArtIconBackgroundColor);
+
+            // Blur will not be supported for SDK < 17 devices to avoid unnecessarily bloating
+            // the size of this package (approximately two-fold). Instead, only the black scrim
+            // will be placed on top of the metadata background.
+            mMetadataBlackScrim.setVisibility(View.VISIBLE);
+            if (Build.VERSION.SDK_INT >= 17) {
+                Bitmap blurredBitmap = blurBitmap(mArtIconLoadedBitmap, BLUR_RADIUS, mContext);
+                mMetadataBackground.setImageBitmap(blurredBitmap);
+            } else {
+                mMetadataBackground.setImageBitmap(Bitmap.createBitmap(mArtIconLoadedBitmap));
+            }
+        } else {
+            if (isBitmapRecycled(mArtIconLoadedBitmap)) {
+                Log.w(TAG, "Can't set artwork image with recycled bitmap: " + mArtIconLoadedBitmap);
+            }
+            mArtView.setVisibility(View.GONE);
+            mMetadataBlackScrim.setVisibility(View.GONE);
+            mMetadataBackground.setImageBitmap(null);
+        }
+        clearLoadedBitmap();
+
         CharSequence title = mDescription == null ? null : mDescription.getTitle();
         boolean hasTitle = !TextUtils.isEmpty(title);
 
@@ -506,6 +492,32 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         ViewGroup.LayoutParams lp = view.getLayoutParams();
         lp.height = height;
         view.setLayoutParams(lp);
+    }
+
+    void updateRouteView(MediaRouter.RouteInfo route) {
+        int pos = mAdapter.getAdapterPositionByRoute(route);
+        if (pos != RecyclerView.NO_POSITION) {
+            mAdapter.notifyItemChanged(pos);
+        }
+    }
+
+    void updateRoutesView() {
+        // Defer dialog updates when user is adjusting volume or selecting route.
+        // Since onRouteUnselected is triggered before onRouteSelected when transferring to another
+        // route, pending update if mIsSelectingRoute is true to prevent dialog from being dismissed
+        // in the process of selecting route.
+        if (mRouteForVolumeUpdatingByUser != null || mIsSelectingRoute) {
+            return;
+        }
+        if (!mSelectedRoute.isSelected() || mSelectedRoute.isDefaultOrBluetooth()) {
+            dismiss();
+            return;
+        }
+        if (!mCreated) {
+            return;
+        }
+        mLastUpdateTime = SystemClock.uptimeMillis();
+        mAdapter.notifyDataSetChanged();
     }
 
     private class VolumeChangeListener implements SeekBar.OnSeekBarChangeListener {
@@ -544,28 +556,30 @@ public class MediaRouteCastDialog extends AppCompatDialog {
     }
 
     /**
-     * Refreshes the list of routes that are shown in the chooser dialog.
+     * Refreshes the routes view that are shown in the cast dialog.
      */
-    public void refreshRoutes() {
+    public void refreshRoutesView() {
         if (mAttachedToWindow) {
-            ArrayList<MediaRouter.RouteInfo> routes = new ArrayList<>(mRouter.getRoutes());
-            onFilterRoutes(routes);
-            Collections.sort(routes, MediaRouteChooserDialog.RouteComparator.sInstance);
-            if (SystemClock.uptimeMillis() - mLastUpdateTime >= UPDATE_ROUTES_DELAY_MS) {
-                updateRoutes(routes);
+            if (SystemClock.uptimeMillis() - mLastUpdateTime >= UPDATE_ROUTES_VIEW_DELAY_MS) {
+                updateRoutesView();
             } else {
-                mHandler.removeMessages(MSG_UPDATE_ROUTES);
-                mHandler.sendMessageAtTime(mHandler.obtainMessage(MSG_UPDATE_ROUTES, routes),
-                        mLastUpdateTime + UPDATE_ROUTES_DELAY_MS);
+                mHandler.removeMessages(MSG_UPDATE_ROUTES_VIEW);
+                mHandler.sendEmptyMessageAtTime(MSG_UPDATE_ROUTES_VIEW,
+                        mLastUpdateTime + UPDATE_ROUTES_VIEW_DELAY_MS);
             }
         }
     }
 
-    void updateRoutes(List<MediaRouter.RouteInfo> routes) {
-        mLastUpdateTime = SystemClock.uptimeMillis();
+    void updateRoutes() {
+        ArrayList<MediaRouter.RouteInfo> routes = new ArrayList<>(mRouter.getRoutes());
+        onFilterRoutes(routes);
+        Collections.sort(routes, MediaRouteChooserDialog.RouteComparator.sInstance);
         mRoutes.clear();
         mRoutes.addAll(routes);
-        mAdapter.setItems();
+
+        if (mAttachedToWindow) {
+            mAdapter.setItems();
+        }
     }
 
     @RequiresApi(17)
@@ -768,6 +782,23 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 }
             }
             notifyDataSetChanged();
+        }
+
+        int getAdapterPositionByRoute(MediaRouter.RouteInfo route) {
+            String routeId = route.getId();
+
+            for (int i = 0; i < mItems.size(); i++) {
+                Item item = mItems.get(i);
+                if (item.getType() == ITEM_TYPE_HEADER) {
+                    continue;
+                }
+
+                MediaRouter.RouteInfo itemRoute = (MediaRouter.RouteInfo) item.getData();
+                if (routeId.equals(itemRoute.getId())) {
+                    return i;
+                }
+            }
+            return RecyclerView.NO_POSITION;
         }
 
         @Override
@@ -1062,32 +1093,33 @@ public class MediaRouteCastDialog extends AppCompatDialog {
 
         @Override
         public void onRouteAdded(MediaRouter router, MediaRouter.RouteInfo info) {
-            refreshRoutes();
+            refreshRoutesView();
         }
 
         @Override
         public void onRouteRemoved(MediaRouter router, MediaRouter.RouteInfo info) {
-            refreshRoutes();
+            refreshRoutesView();
         }
 
         @Override
         public void onRouteSelected(MediaRouter router, MediaRouter.RouteInfo route) {
             mSelectedRoute = route;
             mIsSelectingRoute = false;
-            update();
+            updateRoutes();
         }
 
         @Override
         public void onRouteUnselected(MediaRouter router, MediaRouter.RouteInfo route) {
-            update();
+            refreshRoutesView();
         }
 
         @Override
         public void onRouteChanged(MediaRouter router, MediaRouter.RouteInfo route) {
-            // Call refreshRoutes only when there's no route for volume updating by user.
-            if (mRouteForVolumeUpdatingByUser == null) {
-                refreshRoutes();
+            if (mRouteForVolumeUpdatingByUser != null) {
+                mHasChangedRoute = true;
+                return;
             }
+            refreshRoutesView();
         }
 
         @Override
@@ -1121,7 +1153,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         public void onMetadataChanged(MediaMetadataCompat metadata) {
             mDescription = metadata == null ? null : metadata.getDescription();
             updateArtIconIfNeeded();
-            update();
+            updateMetadataViews();
         }
     }
 
@@ -1227,7 +1259,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 mArtIconBackgroundColor = mBackgroundColor;
                 mArtIconIsLoaded = true;
                 // Loaded bitmap will be applied on the next update
-                update();
+                updateMetadataViews();
             }
         }
 
