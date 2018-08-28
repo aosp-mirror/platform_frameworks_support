@@ -19,6 +19,8 @@
     <style name="Theme.MediaRouter" parent="ThemeOverlay.AppCompat.Dark">
         <item name="windowNoTitle">true</item>
         <item name="mediaRouteButtonStyle">@style/Widget.MediaRouter.MediaRouteButton</item>
+        <item name="mediaRouteHeaderItemTextAppearance">@style/TextAppearance.MediaRouter.Dynamic.HeaderItem</item>
+        <item name="mediaRouteRouteItemTextAppearance">@style/TextAppearance.MediaRouter.Dynamic.RouteItem</item>
 
         <item name="mediaRouteCloseDrawable">@drawable/mr_dialog_close_dark</item>
         <item name="mediaRoutePlayDrawable">@drawable/mr_media_play_dark</item>
@@ -41,6 +43,8 @@
     <style name="Theme.MediaRouter.Light" parent="ThemeOverlay.AppCompat.Light">
         <item name="windowNoTitle">true</item>
         <item name="mediaRouteButtonStyle">@style/Widget.MediaRouter.Light.MediaRouteButton</item>
+        <item name="mediaRouteHeaderItemTextAppearance">@style/TextAppearance.MediaRouter.Dynamic.HeaderItem.Light</item>
+        <item name="mediaRouteRouteItemTextAppearance">@style/TextAppearance.MediaRouter.Dynamic.RouteItem.Light</item>
 
         <item name="mediaRouteCloseDrawable">@drawable/mr_dialog_close_light</item>
         <item name="mediaRoutePlayDrawable">@drawable/mr_media_play_light</item>
