@@ -152,6 +152,17 @@ public class NavigationStateTest {
                         .setManeuver(new Maneuver.Builder()
                                 .setType(Maneuver.Type.DEPART).build())
                         .setDistance(new Distance(10, "10", Distance.Unit.METERS))
+                        .addLane(new Lane.Builder()
+                                .addDirection(new LaneDirection(LaneDirection.Shape.NORMAL_LEFT,
+                                        false))
+                                .addDirection(new LaneDirection(LaneDirection.Shape.STRAIGHT, true))
+                                .build())
+                        .addLane(new Lane.Builder()
+                                .addDirection(new LaneDirection(LaneDirection.Shape.SHARP_LEFT,
+                                        false))
+                                .addDirection(new LaneDirection(LaneDirection.Shape.NORMAL_LEFT,
+                                        false))
+                                .build())
                         .build())
                 .addStep(new Step.Builder()
                         .setManeuver(new Maneuver.Builder()
