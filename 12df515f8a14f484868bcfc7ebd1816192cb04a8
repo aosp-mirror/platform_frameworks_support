@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae6036d8_479b419d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-08-28T15:20:55Z",
+      "side": 1,
+      "message": "If you add a newline and replace this text with \"Bug: 112827566\", then I think there will be a comment automatically added to the bug when this is submitted\n\n(And if you then replace \"Bug:\" with \"Fixes:\" I think the bug will be automatically marked as fixed when this is submitted)",
+      "range": {
+        "startLine": 7,
+        "startChar": 55,
+        "endLine": 8,
+        "endChar": 31
+      },
+      "revId": "12df515f8a14f484868bcfc7ebd1816192cb04a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
