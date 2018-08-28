@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cda2b136_3aff3637",
+        "filename": "concurrent/listenable-future/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-28T18:09:42Z",
+      "side": 1,
+      "message": "2018",
+      "range": {
+        "startLine": 38,
+        "startChar": 21,
+        "endLine": 38,
+        "endChar": 25
+      },
+      "revId": "b1e60716a7cab6cc46ad13c05515dea7f51bc67a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7954984e_bea2e832",
+        "filename": "concurrent/listenable-future/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-28T18:09:42Z",
+      "side": 1,
+      "message": "Nit: AndroidX",
+      "range": {
+        "startLine": 39,
+        "startChar": 19,
+        "endLine": 39,
+        "endChar": 27
+      },
+      "revId": "b1e60716a7cab6cc46ad13c05515dea7f51bc67a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f5a80f1_bc5aa5af",
+        "filename": "concurrent/listenable-future/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-28T18:09:42Z",
+      "side": 1,
+      "message": "Nit: Guava\u0027s",
+      "range": {
+        "startLine": 39,
+        "startChar": 46,
+        "endLine": 39,
+        "endChar": 53
+      },
+      "revId": "b1e60716a7cab6cc46ad13c05515dea7f51bc67a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
