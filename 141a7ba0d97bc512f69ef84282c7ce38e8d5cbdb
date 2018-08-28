@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "6fc6891d_35926fe9",
+        "filename": "car/cluster/build.gradle",
+        "patchSetId": 42
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-28T00:45:09Z",
+      "side": 1,
+      "message": "Reverted back to 26. I\u0027ve forgot we switched to 26 because we are using java.time.ZonedDateTime (and related classes) which are only available starting on API 26.",
+      "parentUuid": "f0798dc2_0b44e668",
+      "range": {
+        "startLine": 44,
+        "startChar": 22,
+        "endLine": 44,
+        "endChar": 24
+      },
+      "revId": "141a7ba0d97bc512f69ef84282c7ce38e8d5cbdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a484963_0ba89055",
         "filename": "versionedparcelable/annotation/src/main/java/androidx/versionedparcelable/compiler/VersionedParcelProcessor.java",
         "patchSetId": 42

@@ -216,6 +216,30 @@
     },
     {
       "key": {
+        "uuid": "280281c3_0e927554",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-28T00:45:09Z",
+      "side": 1,
+      "message": "After some more conversation, we concluded that rather than describing the number we want to display in terms of intE3 or float-value + precision information, we would just pass it as a String, already internationalized and ready for display.",
+      "parentUuid": "75ae12b1_edfb71aa",
+      "range": {
+        "startLine": 97,
+        "startChar": 27,
+        "endLine": 97,
+        "endChar": 28
+      },
+      "revId": "9b81a58e3e7a3ee5c30eee4471263dd0dcbbad3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12834ae4_154cf85d",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
         "patchSetId": 41
