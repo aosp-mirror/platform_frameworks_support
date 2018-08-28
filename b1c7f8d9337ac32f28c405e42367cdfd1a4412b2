@@ -70,6 +70,30 @@
       "revId": "b1c7f8d9337ac32f28c405e42367cdfd1a4412b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4239cd47_35163c96",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-08-28T17:36:21Z",
+      "side": 1,
+      "message": "I agree with Mark\u0027s arguments however I am fine with doing this or later.",
+      "parentUuid": "2153d85d_ae58d228",
+      "range": {
+        "startLine": 46,
+        "startChar": 14,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "b1c7f8d9337ac32f28c405e42367cdfd1a4412b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
