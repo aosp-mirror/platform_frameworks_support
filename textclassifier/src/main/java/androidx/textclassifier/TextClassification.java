@@ -538,7 +538,9 @@ public final class TextClassification {
             bundle.putInt(EXTRA_START_INDEX, mStartIndex);
             bundle.putInt(EXTRA_END_INDEX, mEndIndex);
             BundleUtils.putLocaleList(bundle, EXTRA_DEFAULT_LOCALES, mDefaultLocales);
-            bundle.putLong(EXTRA_REFERENCE_TIME, mReferenceTime);
+            if (mReferenceTime != null) {
+                bundle.putLong(EXTRA_REFERENCE_TIME, mReferenceTime);
+            }
             return bundle;
         }
 
@@ -550,10 +552,11 @@ public final class TextClassification {
                     bundle.getCharSequence(EXTRA_TEXT),
                     bundle.getInt(EXTRA_START_INDEX),
                     bundle.getInt(EXTRA_END_INDEX))
-                    .setDefaultLocales(BundleUtils.getLocaleList(bundle, EXTRA_DEFAULT_LOCALES))
-                    .setReferenceTime(bundle.getLong(EXTRA_REFERENCE_TIME));
-            final Request request = builder.build();
-            return request;
+                    .setDefaultLocales(BundleUtils.getLocaleList(bundle, EXTRA_DEFAULT_LOCALES));
+            if (bundle.containsKey(EXTRA_REFERENCE_TIME)) {
+                builder.setReferenceTime(bundle.getLong(EXTRA_REFERENCE_TIME));
+            }
+            return builder.build();
         }
     }
 }
