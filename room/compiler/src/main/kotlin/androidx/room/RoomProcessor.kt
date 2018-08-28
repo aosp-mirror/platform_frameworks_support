@@ -70,11 +70,12 @@ class RoomProcessor : BasicAnnotationProcessor() {
                             null
                         }
                     }
-            val allDaoMethods = databases?.flatMap { it.daoMethods }
-            allDaoMethods?.let {
-                prepareDaosForWriting(databases, it)
-                it.forEach {
-                    DaoWriter(it.dao, context.processingEnv).write(context.processingEnv)
+            val daoMethodsMap = databases?.flatMap { db -> db.daoMethods.map { it to db } }?.toMap()
+            daoMethodsMap?.let {
+                prepareDaosForWriting(databases, it.keys)
+                it.forEach { daoMethod, db ->
+                    DaoWriter(daoMethod.dao, db, context.processingEnv)
+                            .write(context.processingEnv)
                 }
             }
 
@@ -110,7 +111,7 @@ class RoomProcessor : BasicAnnotationProcessor() {
          */
         private fun prepareDaosForWriting(
             databases: List<androidx.room.vo.Database>,
-            daoMethods: List<DaoMethod>
+            daoMethods: Set<DaoMethod>
         ) {
             daoMethods.groupBy { it.dao.typeName }
                     // if used only in 1 database, nothing to do.

@@ -26,6 +26,7 @@ import androidx.room.parser.QueryType
 import androidx.room.processor.OnConflictProcessor
 import androidx.room.solver.CodeGenScope
 import androidx.room.vo.Dao
+import androidx.room.vo.Database
 import androidx.room.vo.Entity
 import androidx.room.vo.InsertionMethod
 import androidx.room.vo.QueryMethod
@@ -54,7 +55,7 @@ import javax.lang.model.type.TypeKind
 /**
  * Creates the implementation for a class annotated with Dao.
  */
-class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
+class DaoWriter(val dao: Dao, val database: Database, val processingEnv: ProcessingEnvironment)
     : ClassWriter(dao.typeName) {
     private val declaredDao = MoreTypes.asDeclared(dao.element.asType())
 
@@ -94,6 +95,7 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
                 createPreparedQueries(preparedQueries)
 
         builder.apply {
+            addOriginatingElement(database.element)
             addModifiers(PUBLIC)
             addModifiers(FINAL)
             if (dao.element.kind == ElementKind.INTERFACE) {
