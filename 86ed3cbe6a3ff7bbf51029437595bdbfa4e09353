@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64baf2b8_db32141c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-28T17:00:47Z",
+      "side": 1,
+      "message": "nit: Can we get the context from the textView?",
+      "range": {
+        "startLine": 167,
+        "startChar": 21,
+        "endLine": 167,
+        "endChar": 47
+      },
+      "revId": "86ed3cbe6a3ff7bbf51029437595bdbfa4e09353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3066d89_63f96fbc",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-28T17:00:47Z",
+      "side": 1,
+      "message": "nit: TextLinksParams.DEFAULT or TextLinksParams.EMPTY?",
+      "range": {
+        "startLine": 177,
+        "startChar": 53,
+        "endLine": 177,
+        "endChar": 90
+      },
+      "revId": "86ed3cbe6a3ff7bbf51029437595bdbfa4e09353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c426cca3_9c17ef4e",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-28T17:00:47Z",
+      "side": 1,
+      "message": "nit: Can we consider passing the TextClassifier here so the client would have explicitly told us what TextClassifier they want us to use to classify the text when the link is clicked?",
+      "revId": "86ed3cbe6a3ff7bbf51029437595bdbfa4e09353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
