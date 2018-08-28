@@ -59,7 +59,7 @@ public final class SmartLinkify {
      */
     public static void addLinksAsync(
             @NonNull TextView textView,
-            @Nullable SmartLinkifyParams params) {
+            @Nullable TextLinksParams params) {
         addLinksAsync(textView, null /* classifier */, params,
                 null /* cancel */, null /* executor */, null /* callback */);
     }
@@ -87,7 +87,7 @@ public final class SmartLinkify {
     public static void addLinksAsync(
             @NonNull final TextView textView,
             @Nullable TextClassifier textClassifier,
-            @Nullable SmartLinkifyParams params,
+            @Nullable TextLinksParams params,
             @Nullable CancellationSignal cancel,
             @Nullable Executor executor,
             @Nullable final Callback callback) {
@@ -148,7 +148,7 @@ public final class SmartLinkify {
      */
     public static void addLinksAsync(
             @NonNull Spannable text, @NonNull Context context,
-            @Nullable SmartLinkifyParams params) {
+            @Nullable TextLinksParams params) {
         addLinksAsync(text, context, null /* classifier */,
                 params, null /* cancel */, null /* executor */, null /* callback */);
     }
@@ -177,7 +177,7 @@ public final class SmartLinkify {
             @NonNull final Spannable text,
             @NonNull final Context context,
             @Nullable TextClassifier textClassifier,
-            @Nullable SmartLinkifyParams params,
+            @Nullable TextLinksParams params,
             @Nullable CancellationSignal cancel,
             @Nullable Executor executor,
             @Nullable Callback callback) {
@@ -195,7 +195,7 @@ public final class SmartLinkify {
             @NonNull Supplier<Spannable> textSupplier,
             @NonNull Context context,
             @Nullable TextClassifier textClassifier,
-            @Nullable SmartLinkifyParams params,
+            @Nullable TextLinksParams params,
             @Nullable CancellationSignal cancel,
             @Nullable Executor executor,
             @Nullable Callback callback) {
@@ -240,7 +240,7 @@ public final class SmartLinkify {
         private final Supplier<Spannable> mTextSupplier;
         private final Spannable mText;
         private final CharSequence mTruncatedText;
-        private final SmartLinkifyParams mParams;
+        private final TextLinksParams mParams;
         private final Callback mCallback;
         private final TextLinks.Request mRequest;
         @NonNull
@@ -252,7 +252,7 @@ public final class SmartLinkify {
         LinkifyTask(@NonNull Supplier<Spannable> textSupplier,
                     @NonNull Context context,
                     @Nullable TextClassifier textClassifier,
-                    @Nullable SmartLinkifyParams params,
+                    @Nullable TextLinksParams params,
                     @Nullable Callback callback) {
             mTextSupplier = Preconditions.checkNotNull(textSupplier);
             mText = mTextSupplier.get();
@@ -261,7 +261,7 @@ public final class SmartLinkify {
             } else {
                 mTextClassifier = TextClassificationManager.of(context).getTextClassifier();
             }
-            mParams = params != null ? params : new SmartLinkifyParams.Builder().build();
+            mParams = params != null ? params : new TextLinksParams.Builder().build();
             // TODO: If text is longer than the supported length,
             // break it down and process in parallel.
             mTruncatedText = mText.subSequence(
