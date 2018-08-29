@@ -55,6 +55,11 @@ public class ListPreference extends DialogPreference {
         mEntryValues = TypedArrayUtils.getTextArray(a, R.styleable.ListPreference_entryValues,
                 R.styleable.ListPreference_android_entryValues);
 
+        if (TypedArrayUtils.getBoolean(a, R.styleable.ListPreference_setDefaultSummaryProvider,
+                R.styleable.ListPreference_setDefaultSummaryProvider, false)) {
+            setSummaryProvider(DefaultProvider.getInstance());
+        }
+
         a.recycle();
 
         //Retrieve the Preference summary attribute since it's private in the Preference class.
@@ -164,6 +169,9 @@ public class ListPreference extends DialogPreference {
      */
     @Override
     public CharSequence getSummary() {
+        if (getSummaryProvider() != null) {
+            return getSummaryProvider().provideSummary(this);
+        }
         final CharSequence entry = getEntry();
         if (mSummary == null) {
             return super.getSummary();
@@ -309,4 +317,38 @@ public class ListPreference extends DialogPreference {
         }
     }
 
+    /**
+     * A default {@link SummaryProvider} implementation for a {@link ListPreference}.
+     * If no value has been set, the summary displayed will be 'Not set', otherwise the summary
+     * displayed will be the entry set for this preference.
+     */
+    public static final class DefaultProvider implements SummaryProvider<ListPreference> {
+
+        private static DefaultProvider sDefaultProvider;
+
+        private DefaultProvider(){}
+
+        /**
+         * Retrieve a singleton instance of the default {@link SummaryProvider} for a
+         * {@link ListPreference}.
+         *
+         * @return a singleton instance of the default {@link SummaryProvider} for a
+         * {@link ListPreference}
+         */
+        public static DefaultProvider getInstance() {
+            if (sDefaultProvider == null) {
+                sDefaultProvider = new DefaultProvider();
+            }
+            return sDefaultProvider;
+        }
+
+        @Override
+        public CharSequence provideSummary(ListPreference preference) {
+            if (TextUtils.isEmpty(preference.getEntry())) {
+                return (preference.getContext().getString(R.string.not_set));
+            } else {
+                return preference.getEntry();
+            }
+        }
+    }
 }
