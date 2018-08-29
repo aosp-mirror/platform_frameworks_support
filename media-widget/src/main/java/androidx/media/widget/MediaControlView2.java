@@ -1322,11 +1322,7 @@ public class MediaControlView2 extends BaseLayout {
             // Check if playback is currently stopped. In this case, update the pause button to
             // show the play image instead of the replay image.
             if (mIsStopped) {
-                mPlayPauseButton.setImageDrawable(
-                        mResources.getDrawable(R.drawable.ic_play_circle_filled, null));
-                mPlayPauseButton.setContentDescription(
-                        mResources.getString(R.string.mcv2_play_button_desc));
-                mIsStopped = false;
+                updateForStoppedState(false);
             }
 
             if (isHttpSchemeUrl(mController.getCurrentMediaItem()) && mController.isPlaying()) {
@@ -1393,7 +1389,14 @@ public class MediaControlView2 extends BaseLayout {
             removeCallbacks(mUpdateProgress);
 
             long latestSeekPosition = getLatestSeekPosition();
-            seekTo(Math.max(latestSeekPosition - REWIND_TIME_MS, 0), true);
+            if (mIsStopped && mDuration != 0) {
+                // If the media is currently stopped, rewinding will start the media from the
+                // beginning. Instead, seek to 10 seconds before the end of the media.
+                seekTo(mDuration - REWIND_TIME_MS, true);
+                updateForStoppedState(false);
+            } else {
+                seekTo(Math.max(latestSeekPosition - REWIND_TIME_MS, 0), true);
+            }
         }
     };
 
@@ -1820,17 +1823,9 @@ public class MediaControlView2 extends BaseLayout {
         }
         mTimeView.setLayoutParams(timeViewParams);
 
-        if (isPlaying()) {
-            mPlayPauseButton.setImageDrawable(
-                    mResources.getDrawable(R.drawable.ic_pause_circle_filled, null));
-            mPlayPauseButton.setContentDescription(
-                    mResources.getString(R.string.mcv2_pause_button_desc));
-        } else {
-            mPlayPauseButton.setImageDrawable(
-                    mResources.getDrawable(R.drawable.ic_play_circle_filled, null));
-            mPlayPauseButton.setContentDescription(
-                    mResources.getString(R.string.mcv2_play_button_desc));
-        }
+        // Update play/pause and ffwd buttons based on whether the media is currently stopped or
+        // not.
+        updateForStoppedState(mIsStopped);
 
         if (mIsFullScreen) {
             mFullScreenButton.setImageDrawable(
@@ -2119,6 +2114,41 @@ public class MediaControlView2 extends BaseLayout {
         mSettingsSubTextsList.set(SETTINGS_MODE_PLAYBACK_SPEED, selectedSpeedText);
         mSubSettingsAdapter.setTexts(mPlaybackSpeedTextList);
         mSubSettingsAdapter.setCheckPosition(mSelectedSpeedIndex);
+    }
+
+    void updateForStoppedState(boolean isStopped) {
+        if (isStopped) {
+            mIsStopped = true;
+            if (mPlayPauseButton != null) {
+                mPlayPauseButton.setImageDrawable(
+                        mResources.getDrawable(R.drawable.ic_replay_circle_filled, null));
+                mPlayPauseButton.setContentDescription(
+                        mResources.getString(R.string.mcv2_replay_button_desc));
+            }
+            if (mFfwdButton != null) {
+                mFfwdButton.setAlpha(0.5f);
+                mFfwdButton.setEnabled(false);
+            }
+        } else {
+            mIsStopped = false;
+            if (mPlayPauseButton != null) {
+                if (mController.isPlaying()) {
+                    mPlayPauseButton.setImageDrawable(
+                            mResources.getDrawable(R.drawable.ic_pause_circle_filled, null));
+                    mPlayPauseButton.setContentDescription(
+                            mResources.getString(R.string.mcv2_pause_button_desc));
+                } else {
+                    mPlayPauseButton.setImageDrawable(
+                            mResources.getDrawable(R.drawable.ic_play_circle_filled, null));
+                    mPlayPauseButton.setContentDescription(
+                            mResources.getString(R.string.mcv2_play_button_desc));
+                }
+            }
+            if (mFfwdButton != null) {
+                mFfwdButton.setAlpha(1.0f);
+                mFfwdButton.setEnabled(true);
+            }
+        }
     }
 
     private class SettingsAdapter extends BaseAdapter {
@@ -2437,15 +2467,10 @@ public class MediaControlView2 extends BaseLayout {
                 if (mPlaybackState != mPrevState) {
                     switch (mPlaybackState) {
                         case MediaPlayerConnector.PLAYER_STATE_PLAYING:
-                            mPlayPauseButton.setImageDrawable(
-                                    mResources.getDrawable(
-                                            R.drawable.ic_pause_circle_filled, null));
-                            mPlayPauseButton.setContentDescription(
-                                    mResources.getString(R.string.mcv2_pause_button_desc));
                             removeCallbacks(mUpdateProgress);
                             post(mUpdateProgress);
                             resetHideCallbacks();
-                            mIsStopped = false;
+                            updateForStoppedState(false);
                             break;
                         case MediaPlayerConnector.PLAYER_STATE_PAUSED:
                             mPlayPauseButton.setImageDrawable(
@@ -2496,12 +2521,7 @@ public class MediaControlView2 extends BaseLayout {
                     Log.d(TAG, "onCurrentMediaItemChanged(): " + mediaItem);
                 }
                 if (mediaItem == null) {
-                    mPlayPauseButton.setImageDrawable(
-                            mResources.getDrawable(
-                                    R.drawable.ic_replay_circle_filled, null));
-                    mPlayPauseButton.setContentDescription(
-                            mResources.getString(R.string.mcv2_replay_button_desc));
-                    mIsStopped = true;
+                    updateForStoppedState(true);
                     // The progress bar and current time text may not have been updated.
                     mProgress.setProgress(MAX_PROGRESS);
                     mCurrentTime.setText(stringForTime(mDuration));
@@ -2818,15 +2838,10 @@ public class MediaControlView2 extends BaseLayout {
                 if (mPlaybackState.getState() != mPrevState) {
                     switch (mPlaybackState.getState()) {
                         case PlaybackStateCompat.STATE_PLAYING:
-                            mPlayPauseButton.setImageDrawable(
-                                    mResources.getDrawable(
-                                            R.drawable.ic_pause_circle_filled, null));
-                            mPlayPauseButton.setContentDescription(
-                                    mResources.getString(R.string.mcv2_pause_button_desc));
                             removeCallbacks(mUpdateProgress);
                             post(mUpdateProgress);
                             resetHideCallbacks();
-                            mIsStopped = false;
+                            updateForStoppedState(false);
                             break;
                         case PlaybackStateCompat.STATE_PAUSED:
                             mPlayPauseButton.setImageDrawable(
@@ -2835,12 +2850,7 @@ public class MediaControlView2 extends BaseLayout {
                                     mResources.getString(R.string.mcv2_play_button_desc));
                             break;
                         case PlaybackStateCompat.STATE_STOPPED:
-                            mPlayPauseButton.setImageDrawable(
-                                    mResources.getDrawable(
-                                            R.drawable.ic_replay_circle_filled, null));
-                            mPlayPauseButton.setContentDescription(
-                                    mResources.getString(R.string.mcv2_replay_button_desc));
-                            mIsStopped = true;
+                            updateForStoppedState(true);
                             // The progress bar and current time text may not have been updated.
                             mProgress.setProgress(MAX_PROGRESS);
                             mCurrentTime.setText(stringForTime(mDuration));
