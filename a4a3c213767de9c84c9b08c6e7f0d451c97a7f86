@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "05ad96a4_b378b395",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Lane.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-29T02:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fc98e81_ecbda79f",
+      "range": {
+        "startLine": 34,
+        "startChar": 83,
+        "endLine": 34,
+        "endChar": 92
+      },
+      "revId": "a4a3c213767de9c84c9b08c6e7f0d451c97a7f86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "654a369b_1b39aea6",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "a4a3c213767de9c84c9b08c6e7f0d451c97a7f86",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdb44c5f_4824ce46",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-29T02:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "654a369b_1b39aea6",
+      "range": {
+        "startLine": 115,
+        "startChar": 31,
+        "endLine": 115,
+        "endChar": 34
+      },
+      "revId": "a4a3c213767de9c84c9b08c6e7f0d451c97a7f86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
