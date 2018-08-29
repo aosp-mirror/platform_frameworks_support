@@ -4,7 +4,7 @@
     <string name="v7_preference_off">OFF</string>
     <!-- Title for the preference expand button [CHAR LIMIT=30] -->
     <string name="expand_button_title">Advanced</string>
-    <!-- Summary for the preference expand button. This is used to format preference summaries as a list. [CHAR_LIMIT=NONE] -->
+    <!-- Summary for the preference expand button. This is used to provideSummary preference summaries as a list. [CHAR_LIMIT=NONE] -->
     <string name="summary_collapsed_preference_list"><xliff:g id="current_items">%1$s</xliff:g>, <xliff:g id="added_items">%2$s</xliff:g></string>
     <!-- Action in a preference's context menu. This action is used to copy the preference's summary to the clipboard. -->
     <string name="copy">Copy</string>
@@ -12,4 +12,6 @@
     <string name="preference_copied">
         \"<xliff:g id="summary" example="Version 1.1">%1$s</xliff:g>\" copied to clipboard.
     </string>
+    <!-- Summary for a preference that is displayed to the user when they have not set a value for this preference. -->
+    <string name="not_set">Not set</string>
 </resources>
