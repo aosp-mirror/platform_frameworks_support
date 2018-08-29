@@ -1094,16 +1094,6 @@ public class MediaSessionCompat {
             return false;
         }
 
-        void handleMediaPlayPauseKeySingleTapIfPending(RemoteUserInfo info) {
-            MediaSessionImpl impl = mSessionImpl.get();
-            if (impl == null) {
-                return;
-            }
-            impl.setCurrentControllerInfo(info);
-            handleMediaPlayPauseKeySingleTapIfPending();
-            impl.setCurrentControllerInfo(null);
-        }
-
         void handleMediaPlayPauseKeySingleTapIfPending() {
             if (!mMediaPlayPauseKeyPending) {
                 return;
@@ -1368,7 +1358,16 @@ public class MediaSessionCompat {
             @Override
             public void handleMessage(Message msg) {
                 if (msg.what == MSG_MEDIA_PLAY_PAUSE_KEY_DOUBLE_TAP_TIMEOUT) {
-                    handleMediaPlayPauseKeySingleTapIfPending((RemoteUserInfo) msg.obj);
+                    // Here we manually set the caller info, since this is not directly called from
+                    // the session callback. This is triggered by timeout.
+                    MediaSessionImpl impl = mSessionImpl.get();
+                    if (impl == null) {
+                        return;
+                    }
+                    RemoteUserInfo info = (RemoteUserInfo) msg.obj;
+                    impl.setCurrentControllerInfo(info);
+                    handleMediaPlayPauseKeySingleTapIfPending();
+                    impl.setCurrentControllerInfo(null);
                 }
             }
         }
