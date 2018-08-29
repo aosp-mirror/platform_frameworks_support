@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3ac5c621_a1933f7e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 905,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-29T05:41:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b3c5024_d1178079",
+      "range": {
+        "startLine": 905,
+        "startChar": 22,
+        "endLine": 905,
+        "endChar": 44
+      },
+      "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8925c418_6edb0f22",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 2
@@ -71,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "bc99bd72_39c451fb",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-29T05:41:18Z",
+      "side": 1,
+      "message": "Thanks! I\u0027m gonna disable checkbox while selecting route, so mSelectRoute can\u0027t be removed instantly.",
+      "parentUuid": "8925c418_6edb0f22",
+      "range": {
+        "startLine": 928,
+        "startChar": 23,
+        "endLine": 929,
+        "endChar": 89
+      },
+      "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0bd25ef0_5abe2e50",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-29T05:41:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5d540c7_77eca9e4",
+      "range": {
+        "startLine": 929,
+        "startChar": 65,
+        "endLine": 929,
+        "endChar": 87
+      },
+      "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0043e358_a9d93c2e",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1bf9dde_6d30c27c",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-29T05:41:18Z",
+      "side": 1,
+      "message": "I think it\u0027s because checkbox is disabled if it\u0027s not initially selected route. Since it\u0027s disabled now, not only spinning wheel doesn\u0027t show but also checkbox isn\u0027t checked. \nI\u0027m gonna enable it for demo.",
+      "parentUuid": "0043e358_a9d93c2e",
+      "range": {
+        "startLine": 924,
+        "startChar": 0,
+        "endLine": 930,
+        "endChar": 0
+      },
+      "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "d3e0dced_b6ba9e2d",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-29T05:41:18Z",
+      "side": 1,
+      "message": "Thanks for pointing out. \nThen, I\u0027m gonna use only AccelerateDecelerateInterpolator for interpolator and that will also make isLayoutExpanded unnecessary.",
+      "parentUuid": "630d9f5d_f3fe47df",
+      "range": {
+        "startLine": 948,
+        "startChar": 0,
+        "endLine": 948,
+        "endChar": 81
+      },
+      "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5411aa29_2fd3dbca",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 2
@@ -137,6 +257,30 @@
       "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73c3ea11_05a8ad6a",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-29T05:41:18Z",
+      "side": 1,
+      "message": "It will stop after mLayoutAnimationDuraionMs. Since MediaRouteControllerDilaog uses same method like this, I think it will be OK. If \"remove\" means when user unselects route while view is expanding, the height of view will be calculated appropriately.",
+      "parentUuid": "5411aa29_2fd3dbca",
+      "range": {
+        "startLine": 958,
+        "startChar": 21,
+        "endLine": 958,
+        "endChar": 35
+      },
+      "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "a54f399a_8aafb0d7",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-29T05:41:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "487cfa39_c89bed9b",
+      "range": {
+        "startLine": 979,
+        "startChar": 16,
+        "endLine": 979,
+        "endChar": 38
+      },
+      "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5728336f_88f4cd95",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 2
@@ -183,6 +351,30 @@
       "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "982bd562_a79e42a7",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-29T05:41:18Z",
+      "side": 1,
+      "message": "It seems that previous dialog(MRControllerDialog) uses these interpolators to follow material guideline(https://material.io/design/motion/speed.html#easing). But as you commented, we haven\u0027t got the exact spec so it is better to use AccelerateDecelerateInterpolator(which seems also good to me).",
+      "parentUuid": "5728336f_88f4cd95",
+      "range": {
+        "startLine": 984,
+        "startChar": 43,
+        "endLine": 986,
+        "endChar": 62
+      },
+      "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "42824079_21de321d",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-29T05:41:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9eb2a746_8f0a3926",
+      "range": {
+        "startLine": 991,
+        "startChar": 24,
+        "endLine": 991,
+        "endChar": 43
+      },
+      "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b47158a_f79ef511",
         "filename": "mediarouter/src/main/res/values/dimens.xml",
         "patchSetId": 2
@@ -229,6 +445,30 @@
       "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fb084cd_195a30e7",
+        "filename": "mediarouter/src/main/res/values/dimens.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-29T05:41:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b47158a_f79ef511",
+      "range": {
+        "startLine": 59,
+        "startChar": 17,
+        "endLine": 59,
+        "endChar": 35
+      },
+      "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
