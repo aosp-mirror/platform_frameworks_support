@@ -645,6 +645,22 @@ public class NavController {
      */
     @SuppressWarnings("deprecation")
     public void navigate(@IdRes int resId, @Nullable Bundle args, @Nullable NavOptions navOptions) {
+        navigate(resId, args, navOptions, null);
+    }
+
+    /**
+     * Navigate to a destination from the current navigation graph. This supports both navigating
+     * via an {@link NavDestination#getAction(int) action} and directly navigating to a destination.
+     *
+     * @param resId an {@link NavDestination#getAction(int) action} id or a destination id to
+     *              navigate to
+     * @param args arguments to pass to the destination
+     * @param navOptions special options for this navigation operation
+     * @param navigatorExtras extras to pass to the Navigator
+     */
+    @SuppressWarnings("deprecation")
+    public void navigate(@IdRes int resId, @Nullable Bundle args, @Nullable NavOptions navOptions,
+            @Nullable NavigatorExtras navigatorExtras) {
         NavDestination currentNode = mBackStack.isEmpty() ? mGraph : mBackStack.peekLast();
         if (currentNode == null) {
             throw new IllegalStateException("no current navigation node");
@@ -656,6 +672,12 @@ public class NavController {
                 navOptions = navAction.getNavOptions();
             }
             destId = navAction.getDestinationId();
+        }
+        if (navigatorExtras != null) {
+            if (navOptions == null) {
+                navOptions = new NavOptions.Builder().build();
+            }
+            navOptions = navOptions.withNavigatorExtras(navigatorExtras);
         }
         if (destId == 0 && navOptions != null && navOptions.getPopUpTo() != 0) {
             popBackStack(navOptions.getPopUpTo(), navOptions.isPopUpToInclusive());
@@ -700,10 +722,23 @@ public class NavController {
      * Navigate via the given {@link NavDirections}
      *
      * @param directions directions that describe this navigation operation
+     * @param navOptions special options for this navigation operation
      */
     public void navigate(@NonNull NavDirections directions, @Nullable NavOptions navOptions) {
         navigate(directions.getActionId(), directions.getArguments(), navOptions);
     }
+
+    /**
+     * Navigate via the given {@link NavDirections}
+     *
+     * @param directions directions that describe this navigation operation
+     * @param navigatorExtras extras to pass to the {@link Navigator}
+     */
+    public void navigate(@NonNull NavDirections directions,
+            @NonNull NavigatorExtras navigatorExtras) {
+        navigate(directions.getActionId(), directions.getArguments(), null, navigatorExtras);
+    }
+
     /**
      * Create a deep link to a destination within this NavController.
      *
