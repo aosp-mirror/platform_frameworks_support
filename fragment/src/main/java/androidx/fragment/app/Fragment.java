@@ -382,7 +382,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     /**
-     * Thrown by {@link Fragment#instantiate(Context, String, Bundle)} when
+     * Thrown by {@link FragmentFactory#instantiate(ClassLoader, String)} when
      * there is an instantiation failure.
      */
     @SuppressWarnings("JavaLangClash")
@@ -411,16 +411,53 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     /**
+     * Parse a Fragment Class from the given class name. The resulting Class is kept in a global
+     * cache, bypassing the {@link ClassLoader#loadClass(String)} calls when passed the same
+     * class name again.
+     *
+     * @param classLoader The default classloader to use for loading the Class
+     * @param className The class name of the fragment to parse.
+     * @return Returns a new fragment instance.
+     * @throws InstantiationException If there is a failure in parsing
+     * the given fragment class.  This is a runtime exception; it is not
+     * normally expected to happen.
+     */
+    @SuppressWarnings("unchecked")
+    public static Class<? extends Fragment> parseFragmentClass(@NonNull ClassLoader classLoader,
+            @NonNull String className) {
+        try {
+            Class<?> clazz = sClassMap.get(className);
+            if (clazz == null) {
+                // Class not found in the cache, see if it's real, and try to add it
+                clazz = classLoader.loadClass(className);
+                sClassMap.put(className, clazz);
+            }
+            return (Class<? extends Fragment>) clazz;
+        } catch (ClassNotFoundException e) {
+            throw new InstantiationException("Unable to instantiate fragment " + className
+                    + ": make sure class name exists", e);
+        } catch (ClassCastException e) {
+            throw new InstantiationException("Unable to instantiate fragment " + className
+                    + ": make sure class is a valid subclass of Fragment", e);
+        }
+    }
+
+    /**
      * Like {@link #instantiate(Context, String, Bundle)} but with a null
      * argument Bundle.
+     * @deprecated Use {@link FragmentManager#getFragmentFactory()} and
+     * {@link FragmentFactory#instantiate(ClassLoader, String)}
      */
+    @SuppressWarnings("deprecation")
+    @Deprecated
     public static Fragment instantiate(Context context, String fname) {
         return instantiate(context, fname, null);
     }
 
     /**
      * Create a new instance of a Fragment with the given class name.  This is
-     * the same as calling its empty constructor.
+     * the same as calling its empty constructor, setting the {@link ClassLoader} on the
+     * supplied arguments, then calling {@link #setArguments(Bundle)}.
      *
      * @param context The calling context being used to instantiate the fragment.
      * This is currently just used to get its ClassLoader.
@@ -431,25 +468,20 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * @throws InstantiationException If there is a failure in instantiating
      * the given fragment class.  This is a runtime exception; it is not
      * normally expected to happen.
+     * @deprecated Use {@link FragmentManager#getFragmentFactory()} and
+     * {@link FragmentFactory#instantiate(ClassLoader, String)}, manually calling
+     * {@link #setArguments(Bundle)} on the returned Fragment.
      */
+    @Deprecated
     public static Fragment instantiate(Context context, String fname, @Nullable Bundle args) {
         try {
-            Class<?> clazz = sClassMap.get(fname);
-            if (clazz == null) {
-                // Class not found in the cache, see if it's real, and try to add it
-                clazz = context.getClassLoader().loadClass(fname);
-                sClassMap.put(fname, clazz);
-            }
-            Fragment f = (Fragment) clazz.getConstructor().newInstance();
+            Class<? extends Fragment> clazz = parseFragmentClass(context.getClassLoader(), fname);
+            Fragment f = clazz.getConstructor().newInstance();
             if (args != null) {
                 args.setClassLoader(f.getClass().getClassLoader());
                 f.setArguments(args);
             }
             return f;
-        } catch (ClassNotFoundException e) {
-            throw new InstantiationException("Unable to instantiate fragment " + fname
-                    + ": make sure class name exists, is public, and has an"
-                    + " empty constructor that is public", e);
         } catch (java.lang.InstantiationException e) {
             throw new InstantiationException("Unable to instantiate fragment " + fname
                     + ": make sure class name exists, is public, and has an"
@@ -2397,11 +2429,6 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             @Override
             public boolean onHasView() {
                 return (mView != null);
-            }
-
-            @Override
-            public Fragment instantiate(Context context, String className, Bundle arguments) {
-                return mHost.instantiate(context, className, arguments);
             }
         }, this);
     }
