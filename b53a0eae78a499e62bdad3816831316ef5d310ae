@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a6427c0_7b2c980d",
+        "filename": "media-widget/src/main/res/layout/media_controller.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-29T04:20:57Z",
+      "side": 1,
+      "message": "Not related to this CL but adds padding to title view.",
+      "range": {
+        "startLine": 53,
+        "startChar": 16,
+        "endLine": 53,
+        "endChar": 70
+      },
+      "revId": "b53a0eae78a499e62bdad3816831316ef5d310ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
