@@ -35,7 +35,7 @@ open class SupportLibraryExtension(val project: Project) {
     var failOnUncheckedWarnings = true
     var failOnDeprecationWarnings = true
 
-    var useMetalava = false
+    var useMetalava = true
 
     /**
      * It disables docs generation and api tracking for tooling modules like annotation processors.
