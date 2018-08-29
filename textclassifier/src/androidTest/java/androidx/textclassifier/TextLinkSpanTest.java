@@ -18,6 +18,7 @@ package androidx.textclassifier;
 
 import android.app.PendingIntent;
 import android.content.Context;
+import android.os.Build;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.View;
@@ -28,6 +29,7 @@ import androidx.collection.ArrayMap;
 import androidx.core.app.RemoteActionCompat;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.test.InstrumentationRegistry;
+import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 import androidx.textclassifier.TextLinks.TextLink;
@@ -42,6 +44,7 @@ import java.util.Map;
 /** Unit tests for {@link TextLinkSpan}. */
 @SmallTest
 @RunWith(AndroidJUnit4.class)
+@SdkSuppress(maxSdkVersion = Build.VERSION_CODES.LOLLIPOP_MR1)
 public final class TextLinkSpanTest {
 
     private static final IconCompat ICON = IconCompat.createWithData(new byte[0], 0, 0);
