@@ -1064,7 +1064,11 @@ public class Preference implements Comparable<Preference> {
      * value (and persisted).
      */
     public boolean callChangeListener(Object newValue) {
-        return mOnChangeListener == null || mOnChangeListener.onPreferenceChange(this, newValue);
+        if (mOnChangeListener == null || mOnChangeListener.onPreferenceChange(this, newValue)) {
+            onUpdateSummary();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -1300,6 +1304,7 @@ public class Preference implements Comparable<Preference> {
         // At this point, the hierarchy that this preference is in is connected
         // with all other preferences.
         registerDependency();
+        onUpdateSummary();
     }
 
     /**
@@ -2043,6 +2048,24 @@ public class Preference implements Comparable<Preference> {
     @CallSuper
     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfoCompat info) {}
 
+    /**
+     * Hook allowing a preference to update its summary when the state of the preference changes.
+     * Called either when the preference has been added to the hierarchy, or when the value of
+     * the preference has been updated.
+     *
+     * <p>An implementation for a custom {@link EditTextPreference} may look something like this:
+     * <pre>
+     * {@literal @}Override
+     * public void onUpdateSummary() {
+     *     // The current value saved for this EditTextPreference - may be null
+     *     String summary = getText();
+     *     setSummary(TextUtils.isEmpty(summary) ? getContext().getString(R.string.not_set) : summary);
+     * }</pre>
+     *
+     * @see #onAttached()
+     * @see OnPreferenceChangeListener#onPreferenceChange(Preference, Object)
+     */
+    public void onUpdateSummary() {}
     /**
      * Interface definition for a callback to be invoked when the value of this
      * {@link Preference} has been changed by the user and is about to be set and/or persisted.
