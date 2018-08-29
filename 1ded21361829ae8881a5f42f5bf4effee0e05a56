@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0803f9b_87229295",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-29T15:56:29Z",
+      "side": 1,
+      "message": "I think text should come before context here and below.\nhttps://docs.google.com/document/d/1GAzXERdykuhyubY-KEXNcaNB1KW-Vw4Qen8_4DulrT0/edit#heading\u003dh.jug4vpnj4ntj",
+      "range": {
+        "startLine": 192,
+        "startChar": 29,
+        "endLine": 192,
+        "endChar": 78
+      },
+      "revId": "1ded21361829ae8881a5f42f5bf4effee0e05a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a77d50b4_a8072a5d",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-29T15:56:29Z",
+      "side": 1,
+      "message": "I\u0027m not sure about this. Why exactly do we want to do this?\nIMO, I really think we should modify the spannable instead. This is a blocking call after all and the caller can expect their text to be modified by the end of the call.\nI foresee a few issues with making a copy here. e.g. the text is too large and the links only annotate a portion of the text; or the client could already have a copy of the text because they want to apply on a background thread and set the text to the widget on the UI thread.\nI\u0027d suggest we should leave it up to the client if they want to make a copy of the text.",
+      "range": {
+        "startLine": 199,
+        "startChar": 7,
+        "endLine": 200,
+        "endChar": 69
+      },
+      "revId": "1ded21361829ae8881a5f42f5bf4effee0e05a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb76643e_82d6e348",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-29T15:56:29Z",
+      "side": 1,
+      "message": "Can we collapse apply(context, text) into this method?\nIt\u0027s not clear to me that it adds much to the API. Folks can as easily do apply(context, text, TextLinksParams.DEFAULT_PARAMS).",
+      "range": {
+        "startLine": 213,
+        "startChar": 23,
+        "endLine": 213,
+        "endChar": 28
+      },
+      "revId": "1ded21361829ae8881a5f42f5bf4effee0e05a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1c630cc_0db5ecda",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-29T15:56:29Z",
+      "side": 1,
+      "message": "I\u0027m okay with an ApplyResult class (in case we grow what we want to return) but I\u0027m a bit uneasy about holding this spannable here. See related comments above. If you conclude that we should still make and return a copy, then disregard this comment.\n\nOverall, I think, as a developer, I\u0027d prefer an API like:\n\napply(text);\nto\n.set(apply(text).getSpannable());",
+      "range": {
+        "startLine": 245,
+        "startChar": 32,
+        "endLine": 245,
+        "endChar": 42
+      },
+      "revId": "1ded21361829ae8881a5f42f5bf4effee0e05a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b93c785_20bd0fb6",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-29T15:56:29Z",
+      "side": 1,
+      "message": "Thanks!",
+      "range": {
+        "startLine": 674,
+        "startChar": 32,
+        "endLine": 674,
+        "endChar": 44
+      },
+      "revId": "1ded21361829ae8881a5f42f5bf4effee0e05a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
