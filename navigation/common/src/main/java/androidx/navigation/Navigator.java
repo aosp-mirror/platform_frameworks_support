@@ -119,13 +119,13 @@ public abstract class Navigator<D extends NavDestination> {
      *
      * <p>Implementations should {@link #dispatchOnNavigatorNavigated} to notify
      * listeners of the resulting navigation destination.</p>
-     *
-     * @param destination destination node to navigate to
+     *  @param destination destination node to navigate to
      * @param args arguments to use for navigation
      * @param navOptions additional options for navigation
+     * @param navigatorExtras extras unique to your Navigator.
      */
     public abstract void navigate(@NonNull D destination, @Nullable Bundle args,
-                                     @Nullable NavOptions navOptions);
+            @Nullable NavOptions navOptions, @Nullable Extras navigatorExtras);
 
     /**
      * Attempt to pop this navigator's back stack, performing the appropriate navigation.
@@ -150,7 +150,7 @@ public abstract class Navigator<D extends NavDestination> {
 
     /**
      * Restore any state previously saved in {@link #onSaveState()}. This will be called before
-     * any calls to {@link #navigate(NavDestination, Bundle, NavOptions)} or
+     * any calls to {@link #navigate(NavDestination, Bundle, NavOptions, Navigator.Extras)} or
      * {@link #popBackStack()}.
      * <p>
      * Calls to {@link #createDestination()} should not be dependent on any state restored here as
@@ -232,5 +232,12 @@ public abstract class Navigator<D extends NavDestination> {
          */
         void onNavigatorNavigated(@NonNull Navigator navigator, @IdRes int destId,
                 @BackStackEffect int backStackEffect);
+    }
+
+    /**
+     * Interface indicating that this class should be passed to its respective
+     * {@link Navigator} to enable Navigator specific behavior.
+     */
+    public interface Extras {
     }
 }
