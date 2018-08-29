@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4fbeb70f_93d0a57f",
+        "filename": "coordinatorlayout/src/main/java/androidx/coordinatorlayout/widget/CoordinatorLayout.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1830,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-08-29T16:24:36Z",
+      "side": 1,
+      "message": "outdated comment",
+      "range": {
+        "startLine": 1830,
+        "startChar": 19,
+        "endLine": 1830,
+        "endChar": 31
+      },
+      "revId": "29891112554d02307097f5fb0fa4ab753dd96482",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
