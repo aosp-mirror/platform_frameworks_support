@@ -212,6 +212,24 @@
       "revId": "86ed3cbe6a3ff7bbf51029437595bdbfa4e09353",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3163b98c_b95fba30",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-29T13:28:47Z",
+      "side": 1,
+      "message": "To ensure TC used in generateLinks is the same one that is used in classifyText, how about we have generateLinks in TCM?\n\nTCM.generateLinks(...).apply(...);\n\nSo TC.generateLinks is the \"server\" while TCM.generateLinks is the client. And TCM.gerenateLinks will use the TC returned via TC.generateLinks. We can also consider to make TC protected.\n\nWDYT?",
+      "parentUuid": "297f7102_18e711a3",
+      "revId": "86ed3cbe6a3ff7bbf51029437595bdbfa4e09353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
