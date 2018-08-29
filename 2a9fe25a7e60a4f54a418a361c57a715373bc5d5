@@ -94,6 +94,30 @@
       "revId": "2a9fe25a7e60a4f54a418a361c57a715373bc5d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7bad123_d2d6aff2",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-08-29T23:24:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3682dc45_06918cfd",
+      "range": {
+        "startLine": 219,
+        "startChar": 34,
+        "endLine": 219,
+        "endChar": 65
+      },
+      "revId": "2a9fe25a7e60a4f54a418a361c57a715373bc5d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
