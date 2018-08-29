@@ -230,6 +230,24 @@
       "revId": "86ed3cbe6a3ff7bbf51029437595bdbfa4e09353",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d9230f0_6d59aa30",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-08-29T14:26:23Z",
+      "side": 1,
+      "message": "I\u0027m not sure we should move TC methods to TCM. I think generateLinks() really belongs to the TC. Also, I don\u0027t feel it\u0027s compulsory to ensure that the TC that generates the links is the same to classify the links -- that assumption will fall apart pretty quickly. e.g. Developer swaps the TC behind the TCM between generateLinks() and apply() calls. Let\u0027s instead decide later in the future about what the higher level APIs here will be (like we hope to do with the SmartLinkify APIs) when it\u0027s clearer how developers will like to use the APIs.\n\nAlso what do you think about a single apply() method?:\n\ntextLinks.apply(new Params.Builder(textView).build()); // tv.getText() \u0026 TCM.of(tv.getContext())\ntextLinks.apply(new Params.Builder(textView, tc).build()); // tv.getText() \u0026 tc\ntextLinks.apply(new Params.Builder(text, context).build()); // text \u0026 TCM.of(context)\ntextLinks.apply(new Params.Builder(text, tc).build()); // text \u0026 tc\n\nThe apply params don\u0027t need to be parcelable.\n\nI\u0027ll let you decide. We can always revisit based on alpha release feedback.\nThanks.",
+      "parentUuid": "3163b98c_b95fba30",
+      "revId": "86ed3cbe6a3ff7bbf51029437595bdbfa4e09353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
