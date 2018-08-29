@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a67b340_77d3d49c",
+        "filename": "concurrent/listenable-future/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-29T16:59:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cda2b136_3aff3637",
+      "range": {
+        "startLine": 38,
+        "startChar": 21,
+        "endLine": 38,
+        "endChar": 25
+      },
+      "revId": "b1e60716a7cab6cc46ad13c05515dea7f51bc67a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7954984e_bea2e832",
         "filename": "concurrent/listenable-future/build.gradle",
         "patchSetId": 1
@@ -68,6 +92,54 @@
       "revId": "b1e60716a7cab6cc46ad13c05515dea7f51bc67a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3d7f0b3_9b6b2801",
+        "filename": "concurrent/listenable-future/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-29T16:59:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7954984e_bea2e832",
+      "range": {
+        "startLine": 39,
+        "startChar": 19,
+        "endLine": 39,
+        "endChar": 27
+      },
+      "revId": "b1e60716a7cab6cc46ad13c05515dea7f51bc67a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c09e165d_ae00e709",
+        "filename": "concurrent/listenable-future/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-29T16:59:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f5a80f1_bc5aa5af",
+      "range": {
+        "startLine": 39,
+        "startChar": 46,
+        "endLine": 39,
+        "endChar": 53
+      },
+      "revId": "b1e60716a7cab6cc46ad13c05515dea7f51bc67a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
