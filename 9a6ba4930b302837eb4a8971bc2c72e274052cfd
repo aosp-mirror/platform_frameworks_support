@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1cf28f37_eb46dab0",
+        "filename": "media2/src/main/java/androidx/media2/CommandResult2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-29T17:29:41Z",
+      "side": 1,
+      "message": "sungsoo@ do you know what was decision around exception vs result code?",
+      "range": {
+        "startLine": 43,
+        "startChar": 22,
+        "endLine": 43,
+        "endChar": 33
+      },
+      "revId": "9a6ba4930b302837eb4a8971bc2c72e274052cfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5f869a7_611761b8",
+        "filename": "media2/src/main/java/androidx/media2/MediaItemDesc2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-29T17:29:41Z",
+      "side": 1,
+      "message": "can you also change sub classes of DSD, Uri|File|CallbackDSD?",
+      "range": {
+        "startLine": 52,
+        "startChar": 13,
+        "endLine": 52,
+        "endChar": 27
+      },
+      "revId": "9a6ba4930b302837eb4a8971bc2c72e274052cfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e9c0177_eb06d8d0",
+        "filename": "media2/src/main/java/androidx/media2/MediaItemDesc2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-29T17:29:41Z",
+      "side": 1,
+      "message": "can you also change sub classes of DSD, Uri|File|CallbackDSD? without that, xMediaPlayer can not be implemented.",
+      "range": {
+        "startLine": 52,
+        "startChar": 13,
+        "endLine": 52,
+        "endChar": 27
+      },
+      "revId": "9a6ba4930b302837eb4a8971bc2c72e274052cfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5c1832b_ab29e724",
+        "filename": "media2/src/main/java/androidx/media2/MediaItemDesc2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-29T17:29:41Z",
+      "side": 1,
+      "message": "this \"playable\" would be confusing to users who want to use mediaplayer just for local playback. would it make sense to have more explanation on the use case? what\u0027s the example of non-playable item?",
+      "range": {
+        "startLine": 77,
+        "startChar": 40,
+        "endLine": 77,
+        "endChar": 48
+      },
+      "revId": "9a6ba4930b302837eb4a8971bc2c72e274052cfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9abcbab9_e0492882",
+        "filename": "media2/src/main/java/androidx/media2/MediaItemDesc2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-29T17:29:41Z",
+      "side": 1,
+      "message": "nit: could you be consistent with \u0027s\u0027 within the file?",
+      "range": {
+        "startLine": 146,
+        "startChar": 10,
+        "endLine": 146,
+        "endChar": 11
+      },
+      "revId": "9a6ba4930b302837eb4a8971bc2c72e274052cfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae9e8a6f_2b3626f2",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-29T17:29:41Z",
+      "side": 1,
+      "message": "What\u0027s the xMediaPlayer2\u0027s expected behavior of this mode?",
+      "range": {
+        "startLine": 150,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 50
+      },
+      "revId": "9a6ba4930b302837eb4a8971bc2c72e274052cfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c292dea_3dd021f5",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-29T17:29:41Z",
+      "side": 1,
+      "message": "As I mentioned, it would be nicer if we can have this code with implementation after landing SPlayer \u0026 XMP first.",
+      "range": {
+        "startLine": 309,
+        "startChar": 4,
+        "endLine": 317,
+        "endChar": 68
+      },
+      "revId": "9a6ba4930b302837eb4a8971bc2c72e274052cfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90a4d0d6_0a94e439",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-29T17:29:41Z",
+      "side": 1,
+      "message": "We already have PlaybackParams2 which is not VersionedParcelable. Is there any reason to have additional one?",
+      "range": {
+        "startLine": 369,
+        "startChar": 24,
+        "endLine": 369,
+        "endChar": 38
+      },
+      "revId": "9a6ba4930b302837eb4a8971bc2c72e274052cfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
