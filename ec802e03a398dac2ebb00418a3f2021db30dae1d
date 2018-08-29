@@ -160,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "16443f36_6ecced5e",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-29T08:48:34Z",
+      "side": 1,
+      "message": "Thanks for the feedback.\nI tried the following options but they didn\u0027t create the desired result:\n1. Setting background color to FrameLayout --\u003e doesn\u0027t show the black scrim\n2. Setting background color to ImageView --\u003e ditto\n3. Setting color filter to ImageView --\u003e creates a bluish hue, not just black (I\u0027m not sure why this is so)\n\nThus, I opted for the option of creating a LinearLayout between the ImageView and the RelativeLayout. Let me know what you think of this option.",
+      "parentUuid": "9bdd78a1_de0d695b",
+      "revId": "ec802e03a398dac2ebb00418a3f2021db30dae1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d792b2d6_e0856eab",
         "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
         "patchSetId": 1
@@ -171,6 +189,30 @@
       "writtenOn": "2018-08-22T01:02:27Z",
       "side": 1,
       "message": "question) Isn\u0027t it fixed height?",
+      "range": {
+        "startLine": 21,
+        "startChar": 39,
+        "endLine": 21,
+        "endChar": 51
+      },
+      "revId": "ec802e03a398dac2ebb00418a3f2021db30dae1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ee62d74_24c4bb8d",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-29T08:48:34Z",
+      "side": 1,
+      "message": "changed to 116dp",
+      "parentUuid": "d792b2d6_e0856eab",
       "range": {
         "startLine": 21,
         "startChar": 39,
@@ -206,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "b572274c_43ea75f2",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-29T08:48:34Z",
+      "side": 1,
+      "message": "Separated this layout from ImageView",
+      "parentUuid": "b40faece_3686d27d",
+      "range": {
+        "startLine": 22,
+        "startChar": 5,
+        "endLine": 22,
+        "endChar": 17
+      },
+      "revId": "ec802e03a398dac2ebb00418a3f2021db30dae1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4252b4fe_1e3fd9bb",
         "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
         "patchSetId": 1
@@ -217,6 +283,30 @@
       "writtenOn": "2018-08-22T01:02:27Z",
       "side": 1,
       "message": "Is wrap_content here intended? This sounds like that we may not fill the parent view with the mr_cast_metada_background fully.",
+      "range": {
+        "startLine": 23,
+        "startChar": 41,
+        "endLine": 23,
+        "endChar": 53
+      },
+      "revId": "ec802e03a398dac2ebb00418a3f2021db30dae1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34f436b3_47fca0ac",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-29T08:48:34Z",
+      "side": 1,
+      "message": "Changed to match_parent",
+      "parentUuid": "4252b4fe_1e3fd9bb",
       "range": {
         "startLine": 23,
         "startChar": 41,
@@ -287,6 +377,30 @@
       "writtenOn": "2018-08-22T01:02:27Z",
       "side": 1,
       "message": "ditto.\n\nIs wrap_content here intended? This sounds like that we may not fill the parent view with the mr_cast_metada_background fully.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 56
+      },
+      "revId": "ec802e03a398dac2ebb00418a3f2021db30dae1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f517434_3d71ccac",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-29T08:48:34Z",
+      "side": 1,
+      "message": "Changed to match_parent",
+      "parentUuid": "13546e67_c0839c7f",
       "range": {
         "startLine": 32,
         "startChar": 0,

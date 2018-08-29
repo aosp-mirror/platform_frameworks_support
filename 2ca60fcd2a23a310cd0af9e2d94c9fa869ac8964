@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e0c2bdc8_9ffc0dd1",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-29T08:48:34Z",
+      "side": 1,
+      "message": "Added comment here.",
+      "parentUuid": "f3f28f45_d5047019",
+      "range": {
+        "startLine": 414,
+        "startChar": 20,
+        "endLine": 414,
+        "endChar": 54
+      },
+      "revId": "2ca60fcd2a23a310cd0af9e2d94c9fa869ac8964",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "95ea01ff_24e5eefe",
         "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "65e0097b_82528625",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-29T08:48:34Z",
+      "side": 1,
+      "message": "That was my mistake. Removed \"layout_gravity\" attribute.",
+      "parentUuid": "95ea01ff_24e5eefe",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 0
+      },
+      "revId": "2ca60fcd2a23a310cd0af9e2d94c9fa869ac8964",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b0d0075d_aa694e7c",
         "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2018-08-22T01:02:27Z",
       "side": 1,
       "message": "ditto about zorder",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 48
+      },
+      "revId": "2ca60fcd2a23a310cd0af9e2d94c9fa869ac8964",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "622c1c2f_1f758944",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-29T08:48:34Z",
+      "side": 1,
+      "message": "Ditto.  Removed \"layout_gravity\" attribute.",
+      "parentUuid": "b0d0075d_aa694e7c",
       "range": {
         "startLine": 33,
         "startChar": 0,
