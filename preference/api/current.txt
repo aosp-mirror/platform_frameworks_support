@@ -50,6 +50,7 @@ package androidx.preference {
     ctor public EditTextPreference(android.content.Context);
     method public java.lang.String getText();
     method public void setText(java.lang.String);
+    method public void useDefaultSummaryFormatter();
   }
 
   public deprecated class EditTextPreferenceDialogFragment extends androidx.preference.PreferenceDialogFragment {
@@ -81,6 +82,7 @@ package androidx.preference {
     method public void setEntryValues(int);
     method public void setValue(java.lang.String);
     method public void setValueIndex(int);
+    method public void useDefaultSummaryFormatter();
   }
 
   public deprecated class ListPreferenceDialogFragment extends androidx.preference.PreferenceDialogFragment {
@@ -235,6 +237,10 @@ package androidx.preference {
 
   public static abstract interface Preference.OnPreferenceClickListener {
     method public abstract boolean onPreferenceClick(androidx.preference.Preference);
+  }
+
+  public static abstract interface Preference.SummaryFormatter<T extends androidx.preference.Preference> {
+    method public abstract java.lang.CharSequence format(T);
   }
 
   public class PreferenceCategory extends androidx.preference.PreferenceGroup {
