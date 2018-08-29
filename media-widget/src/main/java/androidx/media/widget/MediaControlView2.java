@@ -1329,13 +1329,7 @@ public class MediaControlView2 extends BaseLayout {
 
             // Check if playback is currently stopped. In this case, update the pause button to
             // show the play image instead of the replay image.
-            if (mIsStopped) {
-                mPlayPauseButton.setImageDrawable(
-                        mResources.getDrawable(R.drawable.ic_play_circle_filled, null));
-                mPlayPauseButton.setContentDescription(
-                        mResources.getString(R.string.mcv2_play_button_desc));
-                mIsStopped = false;
-            }
+            updateForPlayingOrStoppedState(false);
 
             if (isHttpSchemeUrl(mController.getCurrentMediaItem()) && mController.isPlaying()) {
                 mWasPlaying = true;
@@ -1402,6 +1396,13 @@ public class MediaControlView2 extends BaseLayout {
 
             long latestSeekPosition = getLatestSeekPosition();
             seekTo(Math.max(latestSeekPosition - REWIND_TIME_MS, 0), true);
+
+            if (mIsStopped && mDuration != 0) {
+                // If the media is currently stopped, rewinding will start the media from the
+                // beginning. Instead, seek to 10 seconds before the end of the media.
+                seekTo(mDuration - REWIND_TIME_MS, true);
+            }
+            updateForPlayingOrStoppedState(false);
         }
     };
 
@@ -2129,6 +2130,44 @@ public class MediaControlView2 extends BaseLayout {
         mSubSettingsAdapter.setCheckPosition(mSelectedSpeedIndex);
     }
 
+    void updateForPlayingOrStoppedState(boolean isStopped) {
+        if (mIsStopped == isStopped) {
+            return;
+        }
+        mIsStopped = isStopped;
+
+        if (mIsStopped) {
+            if (mPlayPauseButton != null) {
+                mPlayPauseButton.setImageDrawable(
+                        mResources.getDrawable(R.drawable.ic_replay_circle_filled, null));
+                mPlayPauseButton.setContentDescription(
+                        mResources.getString(R.string.mcv2_replay_button_desc));
+            }
+            if (mFfwdButton != null) {
+                mFfwdButton.setAlpha(0.5f);
+                mFfwdButton.setEnabled(false);
+            }
+        } else {
+            if (mPlayPauseButton != null) {
+                if (mController.isPlaying()) {
+                    mPlayPauseButton.setImageDrawable(
+                            mResources.getDrawable(R.drawable.ic_pause_circle_filled, null));
+                    mPlayPauseButton.setContentDescription(
+                            mResources.getString(R.string.mcv2_pause_button_desc));
+                } else {
+                    mPlayPauseButton.setImageDrawable(
+                            mResources.getDrawable(R.drawable.ic_play_circle_filled, null));
+                    mPlayPauseButton.setContentDescription(
+                            mResources.getString(R.string.mcv2_play_button_desc));
+                }
+            }
+            if (mFfwdButton != null) {
+                mFfwdButton.setAlpha(1.0f);
+                mFfwdButton.setEnabled(true);
+            }
+        }
+    }
+
     private class SettingsAdapter extends BaseAdapter {
         private List<Integer> mIconIds;
         private List<String> mMainTexts;
@@ -2445,15 +2484,10 @@ public class MediaControlView2 extends BaseLayout {
                 if (mPlaybackState != mPrevState) {
                     switch (mPlaybackState) {
                         case MediaPlayerConnector.PLAYER_STATE_PLAYING:
-                            mPlayPauseButton.setImageDrawable(
-                                    mResources.getDrawable(
-                                            R.drawable.ic_pause_circle_filled, null));
-                            mPlayPauseButton.setContentDescription(
-                                    mResources.getString(R.string.mcv2_pause_button_desc));
                             removeCallbacks(mUpdateProgress);
                             post(mUpdateProgress);
                             resetHideCallbacks();
-                            mIsStopped = false;
+                            updateForPlayingOrStoppedState(false);
                             break;
                         case MediaPlayerConnector.PLAYER_STATE_PAUSED:
                             mPlayPauseButton.setImageDrawable(
@@ -2504,12 +2538,7 @@ public class MediaControlView2 extends BaseLayout {
                     Log.d(TAG, "onCurrentMediaItemChanged(): " + mediaItem);
                 }
                 if (mediaItem == null) {
-                    mPlayPauseButton.setImageDrawable(
-                            mResources.getDrawable(
-                                    R.drawable.ic_replay_circle_filled, null));
-                    mPlayPauseButton.setContentDescription(
-                            mResources.getString(R.string.mcv2_replay_button_desc));
-                    mIsStopped = true;
+                    updateForPlayingOrStoppedState(true);
                     // The progress bar and current time text may not have been updated.
                     mProgress.setProgress(MAX_PROGRESS);
                     mCurrentTime.setText(stringForTime(mDuration));
@@ -2826,15 +2855,10 @@ public class MediaControlView2 extends BaseLayout {
                 if (mPlaybackState.getState() != mPrevState) {
                     switch (mPlaybackState.getState()) {
                         case PlaybackStateCompat.STATE_PLAYING:
-                            mPlayPauseButton.setImageDrawable(
-                                    mResources.getDrawable(
-                                            R.drawable.ic_pause_circle_filled, null));
-                            mPlayPauseButton.setContentDescription(
-                                    mResources.getString(R.string.mcv2_pause_button_desc));
                             removeCallbacks(mUpdateProgress);
                             post(mUpdateProgress);
                             resetHideCallbacks();
-                            mIsStopped = false;
+                            updateForPlayingOrStoppedState(false);
                             break;
                         case PlaybackStateCompat.STATE_PAUSED:
                             mPlayPauseButton.setImageDrawable(
@@ -2843,12 +2867,7 @@ public class MediaControlView2 extends BaseLayout {
                                     mResources.getString(R.string.mcv2_play_button_desc));
                             break;
                         case PlaybackStateCompat.STATE_STOPPED:
-                            mPlayPauseButton.setImageDrawable(
-                                    mResources.getDrawable(
-                                            R.drawable.ic_replay_circle_filled, null));
-                            mPlayPauseButton.setContentDescription(
-                                    mResources.getString(R.string.mcv2_replay_button_desc));
-                            mIsStopped = true;
+                            updateForPlayingOrStoppedState(true);
                             // The progress bar and current time text may not have been updated.
                             mProgress.setProgress(MAX_PROGRESS);
                             mCurrentTime.setText(stringForTime(mDuration));
