@@ -175,6 +175,8 @@ public class Preference implements Comparable<Preference> {
 
     private OnPreferenceCopyListener mOnCopyListener;
 
+    private SummaryFormatter mSummaryFormatter;
+
     private final View.OnClickListener mClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -711,6 +713,9 @@ public class Preference implements Comparable<Preference> {
      * @see #setSummary(CharSequence)
      */
     public CharSequence getSummary() {
+        if (getSummaryFormatter() != null) {
+            return getSummaryFormatter().format(this);
+        }
         return mSummary;
     }
 
@@ -720,6 +725,9 @@ public class Preference implements Comparable<Preference> {
      * @param summary The summary for the preference
      */
     public void setSummary(CharSequence summary) {
+        if (getSummaryFormatter() != null) {
+            return;
+        }
         if ((summary == null && mSummary != null)
                 || (summary != null && !summary.equals(mSummary))) {
             mSummary = summary;
@@ -1030,7 +1038,7 @@ public class Preference implements Comparable<Preference> {
      * Sets whether the summary of this preference can be copied to the clipboard by
      * long pressing on the preference.
      *
-     * @param enabled Set true to enable copying the summary of this preference.
+     * @param enabled Set true to enable copying the summary of this preference
      * @hide
      * @pending
      */
@@ -1046,7 +1054,7 @@ public class Preference implements Comparable<Preference> {
      * Returns whether the summary of this preference can be copied to the clipboard by
      * long pressing on the preference.
      *
-     * @return True if copying is enabled, false otherwise.
+     * @return {@code true} if copying is enabled, false otherwise
      * @hide
      * @pending
      */
@@ -1056,12 +1064,37 @@ public class Preference implements Comparable<Preference> {
     }
 
     /**
+     * Set a {@link SummaryFormatter} that will be invoked whenever the summary of this preference
+     * is requested. Set {@code null} to remove the existing SummaryFormatter.
+     *
+     * @param summaryFormatter The {@link SummaryFormatter} that will be invoked whenever the
+     *                         summary of this preference is requested
+     * @see SummaryFormatter
+     */
+    public void setSummaryFormatter(@Nullable SummaryFormatter summaryFormatter) {
+        mSummaryFormatter = summaryFormatter;
+        notifyChanged();
+    }
+
+
+    /**
+     * Returns the {@link SummaryFormatter} used to configure the summary of this preference.
+     *
+     * @return The {@link SummaryFormatter} used to configure the summary of this preference, or
+     * {@code null} if there is no SummaryFormatter set
+     * @see SummaryFormatter
+     */
+    @Nullable
+    public SummaryFormatter getSummaryFormatter() {
+        return mSummaryFormatter;
+    }
+
+    /**
      * Call this method after the user changes the preference, but before the internal state is
      * set. This allows the client to ignore the user value.
      *
      * @param newValue The new value of this preference
-     * @return {@code true} if the user value should be set as the preference
-     * value (and persisted).
+     * @return {@code true} if the user value should be set as the preference value (and persisted)
      */
     public boolean callChangeListener(Object newValue) {
         return mOnChangeListener == null || mOnChangeListener.onPreferenceChange(this, newValue);
@@ -2099,6 +2132,33 @@ public class Preference implements Comparable<Preference> {
          * @param preference This preference
          */
         void onPreferenceVisibilityChange(Preference preference);
+    }
+
+    /**
+     * Interface definition for a callback to be invoked when the summary of this
+     * {@link Preference} is requested. Implement this to allow dynamically configuring a summary.
+     *
+     * <p> If a SummaryFormatter is set, {@link #setSummary(CharSequence)} will do nothing, and
+     * the existing value for the summary will not be used. The value returned by the
+     * SummaryFormatter will be used instead whenever {@link #getSummary()} is called on this
+     * preference.
+     *
+     * <p> Default implementations are provided for {@link EditTextPreference} and
+     * {@link ListPreference}. To enable these default implementations, see
+     * {@link EditTextPreference#useDefaultSummaryFormatter()} and
+     * {@link ListPreference#useDefaultSummaryFormatter()}.
+     *
+     * @param <T> The Preference class being formatted
+     */
+    public interface SummaryFormatter<T extends Preference> {
+
+        /**
+         * Called whenever {@link #getSummary()} is called on this preference.
+         *
+         * @param preference This preference
+         * @return A CharSequence that will be displayed as the summary for this preference
+         */
+        CharSequence format(T preference);
     }
 
     /**

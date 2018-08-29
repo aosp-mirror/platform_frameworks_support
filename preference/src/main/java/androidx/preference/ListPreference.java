@@ -55,6 +55,11 @@ public class ListPreference extends DialogPreference {
         mEntryValues = TypedArrayUtils.getTextArray(a, R.styleable.ListPreference_entryValues,
                 R.styleable.ListPreference_android_entryValues);
 
+        if (TypedArrayUtils.getBoolean(a, R.styleable.ListPreference_useDefaultSummaryFormatter,
+                R.styleable.ListPreference_useDefaultSummaryFormatter, false)) {
+            useDefaultSummaryFormatter();
+        }
+
         a.recycle();
 
         //Retrieve the Preference summary attribute since it's private in the Preference class.
@@ -164,12 +169,26 @@ public class ListPreference extends DialogPreference {
      */
     @Override
     public CharSequence getSummary() {
+        if (getSummaryFormatter() != null) {
+            return getSummaryFormatter().format(this);
+        }
         final CharSequence entry = getEntry();
         if (mSummary == null) {
             return super.getSummary();
         } else {
             return String.format(mSummary, entry == null ? "" : entry);
         }
+    }
+
+    /**
+     * Sets a default {@link Preference.SummaryFormatter} for this preference. When set, the
+     * summary of this preference will show the entry selected by the user. If no entry has been
+     * chosen, the summary will display 'Not set'.
+     *
+     * @attr ref R.styleable.ListPreference_useDefaultSummaryFormatter
+     */
+    public void useDefaultSummaryFormatter() {
+        setSummaryFormatter(new DefaultFormatter());
     }
 
     /**
@@ -309,4 +328,20 @@ public class ListPreference extends DialogPreference {
         }
     }
 
+    /**
+     * A default {@link Preference.SummaryFormatter} implementation for a {@link ListPreference}.
+     * If no value has been set, the summary displayed will be 'Not set', otherwise the summary
+     * displayed will be the value set for this preference.
+     */
+    private static final class DefaultFormatter implements SummaryFormatter<ListPreference> {
+
+        @Override
+        public CharSequence format(ListPreference preference) {
+            if (TextUtils.isEmpty(preference.getEntry())) {
+                return (preference.getContext().getString(R.string.not_set));
+            } else {
+                return preference.getEntry();
+            }
+        }
+    }
 }
