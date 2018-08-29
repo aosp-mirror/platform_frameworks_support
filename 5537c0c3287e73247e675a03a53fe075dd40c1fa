@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ae23b74_44d5376b",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-29T11:26:40Z",
+      "side": 1,
+      "message": "do we need swipe tests as well as smooth scroll tests?",
+      "range": {
+        "startLine": 142,
+        "startChar": 8,
+        "endLine": 142,
+        "endChar": 48
+      },
+      "revId": "5537c0c3287e73247e675a03a53fe075dd40c1fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f1e4022_f2fcbc6f",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-08-29T11:26:40Z",
+      "side": 1,
+      "message": "Is there a chance to save this, so it is preserved after a config change (e.g. rotation?). I assume we can\u0027t and ViewPager1 does not, but might be worth checking and confirming.\n\nAlso, this will affect PageChangeListeners, if you\u0027re checking for PageTransformer, could you check for PageChangeListener as well?",
+      "range": {
+        "startLine": 426,
+        "startChar": 16,
+        "endLine": 426,
+        "endChar": 34
+      },
+      "revId": "5537c0c3287e73247e675a03a53fe075dd40c1fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
