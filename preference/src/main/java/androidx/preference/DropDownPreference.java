@@ -134,7 +134,11 @@ public class DropDownPreference extends ListPreference {
     @Override
     protected void notifyChanged() {
         super.notifyChanged();
-        mAdapter.notifyDataSetChanged();
+        // When setting the default SummaryFormatter for this Preference, this will be called
+        // before mAdapter has been set in ListPreference's constructor
+        if (mAdapter != null) {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

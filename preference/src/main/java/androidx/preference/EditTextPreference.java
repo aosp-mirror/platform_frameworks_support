@@ -37,6 +37,16 @@ public class EditTextPreference extends DialogPreference {
     public EditTextPreference(Context context, AttributeSet attrs, int defStyleAttr,
             int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+
+        TypedArray a = context.obtainStyledAttributes(
+                attrs, R.styleable.EditTextPreference, defStyleAttr, defStyleRes);
+
+        if (TypedArrayUtils.getBoolean(a, R.styleable.EditTextPreference_useDefaultSummaryFormatter,
+                R.styleable.EditTextPreference_useDefaultSummaryFormatter, false)) {
+            useDefaultSummaryFormatter();
+        }
+
+        a.recycle();
     }
 
     public EditTextPreference(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -68,6 +78,8 @@ public class EditTextPreference extends DialogPreference {
         if (isBlocking != wasBlocking) {
             notifyDependencyChange(isBlocking);
         }
+
+        notifyChanged();
     }
 
     /**
@@ -120,6 +132,17 @@ public class EditTextPreference extends DialogPreference {
         setText(myState.mText);
     }
 
+    /**
+     * Sets a default {@link Preference.SummaryFormatter} for this preference. When set, the
+     * summary of this preference will show the text entered by the user. If no text has been
+     * entered, the summary will display 'Not set'.
+     *
+     * @attr ref R.styleable.EditTextPreference_useDefaultSummaryFormatter
+     */
+    public void useDefaultSummaryFormatter() {
+        setSummaryFormatter(new DefaultFormatter());
+    }
+
     private static class SavedState extends BaseSavedState {
         public static final Parcelable.Creator<SavedState> CREATOR =
                 new Parcelable.Creator<SavedState>() {
@@ -149,6 +172,23 @@ public class EditTextPreference extends DialogPreference {
         public void writeToParcel(Parcel dest, int flags) {
             super.writeToParcel(dest, flags);
             dest.writeString(mText);
+        }
+    }
+
+    /**
+     * A default {@link Preference.SummaryFormatter} implementation for an
+     * {@link EditTextPreference}. If no value has been set, the summary displayed will be 'Not
+     * set', otherwise the summary displayed will be the value set for this preference.
+     */
+    private static final class DefaultFormatter implements SummaryFormatter<EditTextPreference> {
+
+        @Override
+        public CharSequence format(EditTextPreference preference) {
+            if (TextUtils.isEmpty(preference.getText())) {
+                return (preference.getContext().getString(R.string.not_set));
+            } else {
+                return preference.getText();
+            }
         }
     }
 
