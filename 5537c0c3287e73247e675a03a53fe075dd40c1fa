@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bf2e52ba_f1518a59",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-29T15:39:55Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "0ae23b74_44d5376b",
+      "range": {
+        "startLine": 142,
+        "startChar": 8,
+        "endLine": 142,
+        "endChar": 48
+      },
+      "revId": "5537c0c3287e73247e675a03a53fe075dd40c1fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f1e4022_f2fcbc6f",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "5537c0c3287e73247e675a03a53fe075dd40c1fa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e74150ca_2faebc0d",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-08-29T15:39:55Z",
+      "side": 1,
+      "message": "Listeners may have references to (or in fact _are_) the old context (it is not uncommon to let your Activity or Fragment implement the callback interface), so we can\u0027t preserve the listener.\n\nSame for PageChangeListener (and any callback in general)",
+      "parentUuid": "1f1e4022_f2fcbc6f",
+      "range": {
+        "startLine": 426,
+        "startChar": 16,
+        "endLine": 426,
+        "endChar": 34
+      },
+      "revId": "5537c0c3287e73247e675a03a53fe075dd40c1fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
