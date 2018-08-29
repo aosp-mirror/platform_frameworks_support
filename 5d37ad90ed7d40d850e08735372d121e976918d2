@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e71caf0_e2d65f6d",
+        "filename": "settings.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-29T00:29:28Z",
+      "side": 1,
+      "message": "lets get rid of \"core\" folder as well. So code will be in top-level folder as well. We have a precedent of that with ktx modukes. For example fragment\u0027s code live in fragment/ and fragment-ktx lives in fragment/ktxx",
+      "range": {
+        "startLine": 37,
+        "startChar": 50,
+        "endLine": 37,
+        "endChar": 54
+      },
+      "revId": "5d37ad90ed7d40d850e08735372d121e976918d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
