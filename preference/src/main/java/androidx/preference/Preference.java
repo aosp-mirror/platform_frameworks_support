@@ -1030,7 +1030,7 @@ public class Preference implements Comparable<Preference> {
      * Sets whether the summary of this preference can be copied to the clipboard by
      * long pressing on the preference.
      *
-     * @param enabled Set true to enable copying the summary of this preference.
+     * @param enabled Set true to enable copying the summary of this preference
      * @hide
      * @pending
      */
@@ -1046,7 +1046,7 @@ public class Preference implements Comparable<Preference> {
      * Returns whether the summary of this preference can be copied to the clipboard by
      * long pressing on the preference.
      *
-     * @return True if copying is enabled, false otherwise.
+     * @return {@code true} if copying is enabled, false otherwise
      * @hide
      * @pending
      */
@@ -1060,8 +1060,7 @@ public class Preference implements Comparable<Preference> {
      * set. This allows the client to ignore the user value.
      *
      * @param newValue The new value of this preference
-     * @return {@code true} if the user value should be set as the preference
-     * value (and persisted).
+     * @return {@code true} if the user value should be set as the preference value (and persisted)
      */
     public boolean callChangeListener(Object newValue) {
         return mOnChangeListener == null || mOnChangeListener.onPreferenceChange(this, newValue);
@@ -1300,6 +1299,7 @@ public class Preference implements Comparable<Preference> {
         // At this point, the hierarchy that this preference is in is connected
         // with all other preferences.
         registerDependency();
+        onUpdateSummary();
     }
 
     /**
@@ -2042,6 +2042,27 @@ public class Preference implements Comparable<Preference> {
      */
     @CallSuper
     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfoCompat info) {}
+
+    /**
+     * Hook allowing a preference to update its summary when the state of the preference changes.
+     * Called either when the preference has been added to the hierarchy, or when the value of
+     * the preference has been updated. Subclasses are responsible for calling this method when
+     * they change their value.
+     *
+     * <p>An implementation for a custom {@link EditTextPreference} may look something like this:
+     * <pre>
+     * {@literal @}Override
+     * public void onUpdateSummary() {
+     *     // The current value saved for this EditTextPreference - may be null
+     *     String summary = getText();
+     *     setSummary(TextUtils.isEmpty(summary) ? getContext().getString(R.string.not_set) : summary);
+     * }</pre>
+     *
+     * @attr ref R.styleable#EditTextPreference_dynamicSummary
+     * @attr ref R.styleable#ListPreference_dynamicSummary
+     * @see #onAttached()
+     */
+    public void onUpdateSummary() {}
 
     /**
      * Interface definition for a callback to be invoked when the value of this

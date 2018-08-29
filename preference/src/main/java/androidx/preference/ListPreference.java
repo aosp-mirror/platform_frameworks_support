@@ -16,6 +16,8 @@
 
 package androidx.preference;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcel;
@@ -25,6 +27,7 @@ import android.util.AttributeSet;
 
 import androidx.annotation.ArrayRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 import androidx.core.content.res.TypedArrayUtils;
 
 /**
@@ -42,6 +45,7 @@ public class ListPreference extends DialogPreference {
     private String mValue;
     private String mSummary;
     private boolean mValueSet;
+    private boolean mDynamicSummary;
 
     public ListPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -54,6 +58,9 @@ public class ListPreference extends DialogPreference {
 
         mEntryValues = TypedArrayUtils.getTextArray(a, R.styleable.ListPreference_entryValues,
                 R.styleable.ListPreference_android_entryValues);
+
+        mDynamicSummary = TypedArrayUtils.getBoolean(a, R.styleable.ListPreference_dynamicSummary,
+                R.styleable.ListPreference_dynamicSummary, false);
 
         a.recycle();
 
@@ -173,6 +180,45 @@ public class ListPreference extends DialogPreference {
     }
 
     /**
+     * Sets whether this preference should automatically set its summary to display its value, and
+     * update the summary when the value changes. If no value is saved, the summary will display
+     * 'Not Set'.
+     *
+     * @param dynamicSummary Set true to allow this preference to dynamically update its summary
+     * @hide
+     * @pending
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public void setDynamicSummary(boolean dynamicSummary) {
+        mDynamicSummary = dynamicSummary;
+    }
+
+
+    /**
+     * Returns whether the summary of this preference will be automatically updated to display
+     * its value.
+     *
+     * @return {@code true} if the summary will be automatically updated, false otherwise.
+     * @hide
+     * @pending
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public boolean hasDynamicSummary() {
+        return mDynamicSummary;
+    }
+
+    @Override
+    public void onUpdateSummary() {
+        if (mDynamicSummary) {
+            if (TextUtils.isEmpty(getEntry())) {
+                setSummary(getContext().getString(R.string.not_set));
+            } else {
+                setSummary(getEntry());
+            }
+        }
+    }
+
+    /**
      * Sets the value of the key. This should be one of the entries in {@link #getEntryValues()}.
      *
      * @param value The value to set for the key
@@ -186,6 +232,7 @@ public class ListPreference extends DialogPreference {
             persistString(value);
             if (changed) {
                 notifyChanged();
+                onUpdateSummary();
             }
         }
     }

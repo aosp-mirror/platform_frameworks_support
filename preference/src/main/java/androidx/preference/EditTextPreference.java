@@ -16,6 +16,8 @@
 
 package androidx.preference;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcel;
@@ -24,6 +26,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
+import androidx.annotation.RestrictTo;
 import androidx.core.content.res.TypedArrayUtils;
 
 /**
@@ -33,10 +36,20 @@ import androidx.core.content.res.TypedArrayUtils;
  */
 public class EditTextPreference extends DialogPreference {
     private String mText;
+    private boolean mDynamicSummary;
 
     public EditTextPreference(Context context, AttributeSet attrs, int defStyleAttr,
             int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+
+        TypedArray a = context.obtainStyledAttributes(
+                attrs, R.styleable.EditTextPreference, defStyleAttr, defStyleRes);
+
+        mDynamicSummary = TypedArrayUtils.getBoolean(a,
+                R.styleable.EditTextPreference_dynamicSummary,
+                R.styleable.EditTextPreference_dynamicSummary, false);
+
+        a.recycle();
     }
 
     public EditTextPreference(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -63,6 +76,7 @@ public class EditTextPreference extends DialogPreference {
         mText = text;
 
         persistString(text);
+        onUpdateSummary();
 
         final boolean isBlocking = shouldDisableDependents();
         if (isBlocking != wasBlocking) {
@@ -118,6 +132,45 @@ public class EditTextPreference extends DialogPreference {
         SavedState myState = (SavedState) state;
         super.onRestoreInstanceState(myState.getSuperState());
         setText(myState.mText);
+    }
+
+    /**
+     * Sets whether this preference should automatically set its summary to display its value, and
+     * update the summary when the value changes. If no value is saved, the summary will display
+     * 'Not Set'.
+     *
+     * @param dynamicSummary Set true to allow this preference to dynamically update its summary
+     * @hide
+     * @pending
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public void setDynamicSummary(boolean dynamicSummary) {
+        mDynamicSummary = dynamicSummary;
+    }
+
+
+    /**
+     * Returns whether the summary of this preference will be automatically updated to display
+     * its value.
+     *
+     * @return {@code true} if the summary will be automatically updated, false otherwise.
+     * @hide
+     * @pending
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public boolean hasDynamicSummary() {
+        return mDynamicSummary;
+    }
+
+    @Override
+    public void onUpdateSummary() {
+        if (mDynamicSummary) {
+            if (TextUtils.isEmpty(mText)) {
+                setSummary(getContext().getString(R.string.not_set));
+            } else {
+                setSummary(mText);
+            }
+        }
     }
 
     private static class SavedState extends BaseSavedState {
