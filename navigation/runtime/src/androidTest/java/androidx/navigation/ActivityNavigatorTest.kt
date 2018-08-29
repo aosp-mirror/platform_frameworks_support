@@ -18,10 +18,16 @@ package androidx.navigation
 
 import android.app.Activity
 import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
+import android.view.View
+import androidx.test.annotation.UiThreadTest
 import androidx.test.filters.MediumTest
+import androidx.test.filters.SdkSuppress
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import org.junit.After
@@ -34,6 +40,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.refEq
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.spy
 import org.mockito.Mockito.timeout
@@ -234,6 +241,30 @@ class ActivityNavigatorTest {
             // Expected
         }
         verifyNoMoreInteractions(onNavigatedListener)
+    }
+
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.LOLLIPOP)
+    @Test
+    @UiThreadTest
+    fun navigateWithExtras() {
+        val context = mock(Context::class.java)
+        val view = mock(View::class.java)
+        val activityNavigator = ActivityNavigator(context)
+        val activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                activityRule.activity,
+                view,
+                "test")
+        val extras = ActivityNavigator.Extras(activityOptions)
+
+        val targetDestination = activityNavigator.createDestination().apply {
+            id = TARGET_ID
+            setComponentName(ComponentName(activityRule.activity, TargetActivity::class.java))
+        }
+        activityNavigator.navigate(targetDestination, null,
+                NavOptions.Builder().build().withNavigatorExtras(extras))
+        // Just verify that the ActivityOptions got passed through, there's
+        // CTS tests to ensure that the ActivityOptions do the right thing
+        verify(context).startActivity(any(), refEq(activityOptions.toBundle()))
     }
 
     private fun waitForActivity(): TargetActivity {
