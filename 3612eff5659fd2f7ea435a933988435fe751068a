@@ -22,6 +22,30 @@
       "revId": "3612eff5659fd2f7ea435a933988435fe751068a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "433ea51b_9c241518",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-29T12:42:03Z",
+      "side": 1,
+      "message": "Yes. MRControllerDialog is doing similar things like this.",
+      "parentUuid": "4b32426d_0deb7d3b",
+      "range": {
+        "startLine": 975,
+        "startChar": 56,
+        "endLine": 975,
+        "endChar": 88
+      },
+      "revId": "3612eff5659fd2f7ea435a933988435fe751068a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
