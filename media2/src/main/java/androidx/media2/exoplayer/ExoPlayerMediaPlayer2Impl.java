@@ -134,7 +134,9 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
                 new DefaultLoadControl(),
                 /* drmSessionManager= */ null,
                 looper);
-        mPlayer.addListener(new ComponentListener());
+        ComponentListener listener = new ComponentListener();
+        mPlayer.addListener(listener);
+        mPlayer.addVideoListener(listener);
         mPlayerLock = new Object();
 
         mExecutorByPlayerEventCallback = new ArrayMap<>();
@@ -603,14 +605,21 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
 
         @Override
         public void onVideoSizeChanged(
-                int width,
-                int height,
+                final int width,
+                final int height,
                 int unappliedRotationDegrees,
                 float pixelWidthHeightRatio) {
-            synchronized (mLock) {
-                mVideoWidth = width;
-                mVideoHeight = height;
-            }
+            notifyMediaPlayer2Event(new Mp2EventNotifier() {
+                @Override
+                public void notify(EventCallback callback) {
+                    synchronized (mLock) {
+                        mVideoWidth = width;
+                        mVideoHeight = height;
+                    }
+                    callback.onVideoSizeChanged(
+                            ExoPlayerMediaPlayer2Impl.this, mDataSourceDescription, width, height);
+                }
+            });
         }
 
         @Override
