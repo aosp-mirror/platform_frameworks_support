@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d29f92ce_84f8cd89",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-29T16:53:15Z",
+      "side": 1,
+      "message": "Yeah, I realized that. \n\nBut in practice, I always find Context come first though, I suppose Context is the exception case?...\n\nJust did a little statistic in the current.txt.\nThere are 157 APIs that takes Context as the first argument, while only 9 APIs is not the case.",
+      "parentUuid": "a0803f9b_87229295",
+      "range": {
+        "startLine": 192,
+        "startChar": 29,
+        "endLine": 192,
+        "endChar": 78
+      },
+      "revId": "1ded21361829ae8881a5f42f5bf4effee0e05a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a77d50b4_a8072a5d",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "1ded21361829ae8881a5f42f5bf4effee0e05a56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b77b802_c501a5cc",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-29T16:53:15Z",
+      "side": 1,
+      "message": "Ok, let\u0027s leave it to developers.\nRemoved.",
+      "parentUuid": "a77d50b4_a8072a5d",
+      "range": {
+        "startLine": 199,
+        "startChar": 7,
+        "endLine": 200,
+        "endChar": 69
+      },
+      "revId": "1ded21361829ae8881a5f42f5bf4effee0e05a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "8426a9b7_bccf77b9",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-29T16:53:15Z",
+      "side": 1,
+      "message": "Was meant to provide a handy method, removed.",
+      "parentUuid": "fb76643e_82d6e348",
+      "range": {
+        "startLine": 213,
+        "startChar": 23,
+        "endLine": 213,
+        "endChar": 28
+      },
+      "revId": "1ded21361829ae8881a5f42f5bf4effee0e05a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1c630cc_0db5ecda",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 7
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "0452666b_43653aed",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-29T16:53:15Z",
+      "side": 1,
+      "message": "Ditto, reverted the ApplyResult.",
+      "parentUuid": "b1c630cc_0db5ecda",
+      "range": {
+        "startLine": 245,
+        "startChar": 32,
+        "endLine": 245,
+        "endChar": 42
+      },
+      "revId": "1ded21361829ae8881a5f42f5bf4effee0e05a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b93c785_20bd0fb6",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 7
@@ -114,6 +210,30 @@
       "revId": "1ded21361829ae8881a5f42f5bf4effee0e05a56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7b07010_d0f47874",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-29T16:53:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b93c785_20bd0fb6",
+      "range": {
+        "startLine": 674,
+        "startChar": 32,
+        "endLine": 674,
+        "endChar": 44
+      },
+      "revId": "1ded21361829ae8881a5f42f5bf4effee0e05a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
