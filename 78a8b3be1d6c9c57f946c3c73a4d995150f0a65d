@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64e34937_4f240b61",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-08-29T15:29:33Z",
+      "side": 1,
+      "message": "gradlew works on Windows? I thought that gradlew.bat was for Windows. Is this running within Cygwin or within cmd ?",
+      "revId": "78a8b3be1d6c9c57f946c3c73a4d995150f0a65d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
