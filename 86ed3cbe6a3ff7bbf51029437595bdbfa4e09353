@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "8a436d9b_19cf1205",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-29T12:20:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b740aa6f_56a66b2d",
+      "range": {
+        "startLine": 167,
+        "startChar": 21,
+        "endLine": 167,
+        "endChar": 47
+      },
+      "revId": "86ed3cbe6a3ff7bbf51029437595bdbfa4e09353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3066d89_63f96fbc",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 3
@@ -93,6 +117,30 @@
       "revId": "86ed3cbe6a3ff7bbf51029437595bdbfa4e09353",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad33c3d8_f5c70afa",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-29T12:20:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f308471_d358723a",
+      "range": {
+        "startLine": 177,
+        "startChar": 53,
+        "endLine": 177,
+        "endChar": 90
+      },
+      "revId": "86ed3cbe6a3ff7bbf51029437595bdbfa4e09353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -146,6 +194,24 @@
       "revId": "86ed3cbe6a3ff7bbf51029437595bdbfa4e09353",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "297f7102_18e711a3",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-29T12:20:37Z",
+      "side": 1,
+      "message": "Let\u0027s add it later if necessary.\n\nRe \"Think when a client wants to handle custom entities like hashtags or mentions.\"\nThey can use entity type in the request object to specify extra entities like hashtags, I think.\n\nThanks!",
+      "parentUuid": "481c84a3_e255d16a",
+      "revId": "86ed3cbe6a3ff7bbf51029437595bdbfa4e09353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
