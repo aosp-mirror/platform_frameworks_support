@@ -16,6 +16,24 @@
       "revId": "d7fc16b48cdc360d23c933d7c76b8ed8af3b64f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04e7232c_608f6de0",
+        "filename": "mediarouter/src/main/res/values/colors.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-29T13:29:38Z",
+      "side": 1,
+      "message": "Thank you for pointing this out. Done.",
+      "parentUuid": "ee2e2562_b7e42f7b",
+      "revId": "d7fc16b48cdc360d23c933d7c76b8ed8af3b64f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
