@@ -248,6 +248,24 @@
       "revId": "86ed3cbe6a3ff7bbf51029437595bdbfa4e09353",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "effcae9d_e36b0e77",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-08-29T15:16:44Z",
+      "side": 1,
+      "message": "Re moving to TCM.\nAgreed, never mind.\n\nRe moving textview and spannable to Params.\nA bit hesitant to do so, as they have different running thread requirement.\nThe TextView one requires to run in UI thread, so separating them sounds like a little bit more clear to users, IMO.\n\nBut agree if we take TC as argument later, it should be in params.\n\nThanks.",
+      "parentUuid": "0d9230f0_6d59aa30",
+      "revId": "86ed3cbe6a3ff7bbf51029437595bdbfa4e09353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
