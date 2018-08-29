@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b32426d_0deb7d3b",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-29T11:20:53Z",
+      "side": 1,
+      "message": "Question) Can we reuse this after a animation is finished?",
+      "range": {
+        "startLine": 975,
+        "startChar": 56,
+        "endLine": 975,
+        "endChar": 88
+      },
+      "revId": "3612eff5659fd2f7ea435a933988435fe751068a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
