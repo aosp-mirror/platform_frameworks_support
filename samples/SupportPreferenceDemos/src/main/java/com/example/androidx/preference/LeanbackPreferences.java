@@ -58,8 +58,9 @@ public class LeanbackPreferences extends FragmentActivity {
 
         @Override
         public boolean onPreferenceStartFragment(PreferenceFragmentCompat caller, Preference pref) {
-            final Fragment f =
-                    Fragment.instantiate(getActivity(), pref.getFragment(), pref.getExtras());
+            final Fragment f = getChildFragmentManager().getFragmentFactory().instantiate(
+                    requireActivity().getClassLoader(), pref.getFragment());
+            f.setArguments(pref.getExtras());
             f.setTargetFragment(caller, 0);
             if (f instanceof PreferenceFragmentCompat
                     || f instanceof PreferenceDialogFragmentCompat) {
