@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "7b3c5024_d1178079",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 905,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-29T05:15:58Z",
+      "side": 1,
+      "message": "mCollapsedLayoutHeight",
+      "range": {
+        "startLine": 905,
+        "startChar": 22,
+        "endLine": 905,
+        "endChar": 44
+      },
+      "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8925c418_6edb0f22",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-29T05:15:58Z",
+      "side": 1,
+      "message": "Currently, there is a bug where clicking the checkbox twice in a row when it is unselected causes the loading icon to be stuck since mSelectRoute is removed instantly. Could you take a look at it?",
+      "range": {
+        "startLine": 928,
+        "startChar": 23,
+        "endLine": 929,
+        "endChar": 89
+      },
+      "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5d540c7_77eca9e4",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-29T05:15:58Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 929,
+        "startChar": 65,
+        "endLine": 929,
+        "endChar": 87
+      },
+      "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0043e358_a9d93c2e",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 2
@@ -64,6 +133,29 @@
         "startChar": 21,
         "endLine": 958,
         "endChar": 35
+      },
+      "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "487cfa39_c89bed9b",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-29T05:15:58Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 979,
+        "startChar": 16,
+        "endLine": 979,
+        "endChar": 38
       },
       "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
