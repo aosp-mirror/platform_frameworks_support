@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc9f6399_6120b9e3",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-29T15:13:59Z",
+      "side": 1,
+      "message": "There is a chance that this is not called if there is no callback registered. Could you move this block to L612?",
+      "range": {
+        "startLine": 615,
+        "startChar": 0,
+        "endLine": 621,
+        "endChar": 21
+      },
+      "revId": "f638fe91c615a4223cf7599c4a8500a085a3f020",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
