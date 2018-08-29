@@ -102,10 +102,20 @@ public class NavOptions {
     private int mPopEnterAnim;
     @AnimRes @AnimatorRes
     private int mPopExitAnim;
+    private final Navigator.Extras mNavigatorExtras;
 
     NavOptions(int launchMode, @IdRes int popUpTo, boolean popUpToInclusive,
             @AnimRes @AnimatorRes int enterAnim, @AnimRes @AnimatorRes int exitAnim,
             @AnimRes @AnimatorRes int popEnterAnim, @AnimRes @AnimatorRes int popExitAnim) {
+        this(launchMode, popUpTo, popUpToInclusive,
+                enterAnim, exitAnim, popEnterAnim, popExitAnim,
+                null);
+    }
+
+    NavOptions(int launchMode, @IdRes int popUpTo, boolean popUpToInclusive,
+            @AnimRes @AnimatorRes int enterAnim, @AnimRes @AnimatorRes int exitAnim,
+            @AnimRes @AnimatorRes int popEnterAnim, @AnimRes @AnimatorRes int popExitAnim,
+            Navigator.Extras navigatorExtras) {
         mLaunchMode = launchMode;
         mPopUpTo = popUpTo;
         mPopUpToInclusive = popUpToInclusive;
@@ -113,6 +123,7 @@ public class NavOptions {
         mExitAnim = exitAnim;
         mPopEnterAnim = popEnterAnim;
         mPopExitAnim = popExitAnim;
+        mNavigatorExtras = navigatorExtras;
     }
 
     /**
@@ -212,6 +223,28 @@ public class NavOptions {
     @AnimRes @AnimatorRes
     public int getPopExitAnim() {
         return mPopExitAnim;
+    }
+
+    /**
+     * The {@link Navigator.Extras} attached to the NavOptions via
+     * {@link #withNavigatorExtras}.
+     */
+    @Nullable
+    public Navigator.Extras getNavigatorExtras() {
+        return mNavigatorExtras;
+    }
+
+    /**
+     * Create a copy of these NavOptions with the specified {@link Navigator.Extras} attached.
+     *
+     * @param navigatorExtras extras to pass onto the {@link Navigator}
+     * @return a copy of these NavOptions with the specified Extras attached
+     */
+    @NonNull
+    public NavOptions withNavigatorExtras(@NonNull Navigator.Extras navigatorExtras) {
+        return new NavOptions(mLaunchMode, mPopUpTo, mPopUpToInclusive,
+                mEnterAnim, mExitAnim, mPopEnterAnim, mPopExitAnim,
+                navigatorExtras);
     }
 
     @NonNull

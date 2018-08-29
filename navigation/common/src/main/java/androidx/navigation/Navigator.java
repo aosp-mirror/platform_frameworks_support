@@ -233,4 +233,11 @@ public abstract class Navigator<D extends NavDestination> {
         void onNavigatorNavigated(@NonNull Navigator navigator, @IdRes int destId,
                 @BackStackEffect int backStackEffect);
     }
+
+    /**
+     * Interface indicating that this class should be passed to its respective
+     * {@link Navigator} to enable Navigator specific behavior.
+     */
+    public interface Extras {
+    }
 }
