@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7d654ee_89966369",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-29T11:32:40Z",
+      "side": 1,
+      "message": "how does the the current user info set in this case? It\u0027s not clearly visible with this change.",
+      "range": {
+        "startLine": 1069,
+        "startChar": 24,
+        "endLine": 1069,
+        "endChar": 65
+      },
+      "revId": "6806c536669811a5bbcae96c00d226d77cdd79a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6aa3cf0d_0401ec27",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1091,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-29T11:32:40Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1091,
+        "startChar": 20,
+        "endLine": 1091,
+        "endChar": 61
+      },
+      "revId": "6806c536669811a5bbcae96c00d226d77cdd79a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
