@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0043e358_a9d93c2e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-29T00:29:36Z",
+      "side": 1,
+      "message": "question) when sungsoo cherry-picked this CL, checking the unselected route (i.e. tried to add to dynamic grouping) didn\u0027t show spinning wheel. Could you double check if it\u0027s intended?",
+      "range": {
+        "startLine": 924,
+        "startChar": 0,
+        "endLine": 930,
+        "endChar": 0
+      },
+      "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "630d9f5d_f3fe47df",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-29T00:29:36Z",
+      "side": 1,
+      "message": "This may not be true if the previously animation is canceled and height is in the between expanded and shruken.",
+      "range": {
+        "startLine": 948,
+        "startChar": 0,
+        "endLine": 948,
+        "endChar": 81
+      },
+      "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5411aa29_2fd3dbca",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-29T00:29:36Z",
+      "side": 1,
+      "message": "when it\u0027s stopped? view may be removed while animating, and I\u0027m not sure whether it\u0027s OK with it.",
+      "range": {
+        "startLine": 958,
+        "startChar": 21,
+        "endLine": 958,
+        "endChar": 35
+      },
+      "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5728336f_88f4cd95",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-29T00:29:36Z",
+      "side": 1,
+      "message": "Are they android standard (i.e. written in the material guideline) or specific to media router?\nIf it\u0027s media router specific, then let\u0027s just use AccelerateDecelerateInterpolator() to make code simple -- we haven\u0027t got the exact spec so it may be OK.",
+      "range": {
+        "startLine": 984,
+        "startChar": 43,
+        "endLine": 986,
+        "endChar": 62
+      },
+      "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9eb2a746_8f0a3926",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-29T00:29:36Z",
+      "side": 1,
+      "message": "This should reset volume slider height",
+      "range": {
+        "startLine": 991,
+        "startChar": 24,
+        "endLine": 991,
+        "endChar": 43
+      },
+      "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b47158a_f79ef511",
+        "filename": "mediarouter/src/main/res/values/dimens.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-29T00:29:36Z",
+      "side": 1,
+      "message": "this should be also used by view layout",
+      "range": {
+        "startLine": 59,
+        "startChar": 17,
+        "endLine": 59,
+        "endChar": 35
+      },
+      "revId": "750898ebd1f580721e33623ca3d28c4943f89393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
