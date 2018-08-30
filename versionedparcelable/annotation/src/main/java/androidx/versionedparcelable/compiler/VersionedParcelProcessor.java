@@ -427,7 +427,8 @@ public class VersionedParcelProcessor extends AbstractProcessor {
                             return;
                         }
                         if (takenIds.contains(valStr)) {
-                            error("Id " + valStr + " already taken on " + element);
+                            error("Id " + valStr + " already taken on " + element + " in "
+                                    + clsName);
                             return;
                         }
                         takenIds.add(valStr);
