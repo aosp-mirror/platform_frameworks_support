@@ -22,6 +22,9 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.net.Uri;
 import android.os.Build;
+import android.system.ErrnoException;
+import android.system.Os;
+import android.system.OsConstants;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
@@ -29,6 +32,7 @@ import androidx.media2.exoplayer.external.C;
 import androidx.media2.exoplayer.external.upstream.BaseDataSource;
 import androidx.media2.exoplayer.external.upstream.DataSource;
 import androidx.media2.exoplayer.external.upstream.DataSpec;
+import androidx.media2.exoplayer.external.util.Util;
 
 import java.io.EOFException;
 import java.io.FileDescriptor;
@@ -86,6 +90,12 @@ public class FileDescriptorDataSource extends BaseDataSource {
     public long open(DataSpec dataSpec) throws IOException {
         mUri = dataSpec.uri;
         transferInitializing(dataSpec);
+        // TODO(b/80232248): Seek the file descriptor to the skip position below, and find a way to
+        // seek the file descriptor before Android L (maybe using reflection to access
+        // ParcelFileDescriptor's constructor and seekTo method).
+        if (Util.SDK_INT >= 21) {
+            resetFdV21(mFileDescriptor);
+        }
         mInputStream = new FileInputStream(mFileDescriptor);
         long skipped = mInputStream.skip(mOffset + dataSpec.position) - mOffset;
         if (skipped != dataSpec.position) {
@@ -153,4 +163,14 @@ public class FileDescriptorDataSource extends BaseDataSource {
             }
         }
     }
+
+    @TargetApi(21)
+    private static void resetFdV21(FileDescriptor fileDescriptor) throws IOException {
+        try {
+            Os.lseek(fileDescriptor, /* offset= */ 0L, OsConstants.SEEK_SET);
+        } catch (ErrnoException e) {
+            throw new IOException(e);
+        }
+    }
+
 }
