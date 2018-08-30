@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package androidx.media2;
+package androidx.media.test.service.tests;
 
 import static org.junit.Assert.assertTrue;
 
@@ -22,6 +22,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.os.Build;
 
+import androidx.media2.*;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
@@ -39,7 +40,7 @@ import java.util.List;
 @SdkSuppress(minSdkVersion = Build.VERSION_CODES.P)
 @RunWith(AndroidJUnit4.class)
 @SmallTest
-public class MediaSessionManager2Test extends MediaTestBase {
+public class MediaSessionManager2Test extends androidx.media2.MediaTestBase {
     private Context mContext;
 
     private static final String TEST_PACKAGE_NAME = "androidx.media2.test";
