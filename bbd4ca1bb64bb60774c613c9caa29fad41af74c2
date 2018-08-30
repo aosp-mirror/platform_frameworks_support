@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9303ea6_d02f6422",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-30T20:52:47Z",
+      "side": 1,
+      "message": "A timeline here means a DataSourceDesc, right? (We shouldn\u0027t send multiple PREPARED events for one DataSourceDesc.)",
+      "range": {
+        "startLine": 654,
+        "startChar": 33,
+        "endLine": 654,
+        "endChar": 41
+      },
+      "revId": "bbd4ca1bb64bb60774c613c9caa29fad41af74c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
