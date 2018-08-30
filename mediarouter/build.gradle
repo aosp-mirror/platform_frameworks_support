@@ -8,6 +8,7 @@ plugins {
 
 dependencies {
     api(project(":media2"))
+    api(project(':versionedparcelable'))
     api(project(":appcompat"))
     api(project(":palette"))
     api(project(":recyclerview"))
@@ -15,6 +16,7 @@ dependencies {
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
+    annotationProcessor(project(":versionedparcelable-annotation"))
 }
 
 android {
