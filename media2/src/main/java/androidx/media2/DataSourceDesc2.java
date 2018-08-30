@@ -16,14 +16,20 @@
 
 package androidx.media2;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 
 /**
  * Structure for data source descriptor. Used by {@link MediaItem2}.
  *
  * @see MediaItem2
+ * @hide
  */
+// TODO: Remove this because MediaItem2 also handles this.
+@RestrictTo(LIBRARY_GROUP)
 public abstract class DataSourceDesc2 {
 
     // intentionally less than long.MAX_VALUE.
