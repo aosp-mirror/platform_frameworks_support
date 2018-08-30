@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3477fb4b_2da94136",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-30T18:37:40Z",
+      "side": 1,
+      "message": "You should also provide resources for RTL language instead.\n\nI\u0027ve took a quick look and handling it in the source seemed to be easier option.\nPlease investigate possible options and pick the simplest one.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 11
+      },
+      "revId": "85cc01d2f6c654222aecebdafa053239da060866",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
