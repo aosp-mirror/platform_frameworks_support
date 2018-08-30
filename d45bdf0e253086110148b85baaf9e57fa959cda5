@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ba4e14d_191157f5",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-08-30T23:42:55Z",
+      "side": 1,
+      "message": "It seems like the parseFragmentClass() might want to live in FragmentFactory rather than in Fragment? Maybe?",
+      "range": {
+        "startLine": 46,
+        "startChar": 53,
+        "endLine": 46,
+        "endChar": 71
+      },
+      "revId": "d45bdf0e253086110148b85baaf9e57fa959cda5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
