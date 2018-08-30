@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7647165_8eb35aec",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-30T20:40:16Z",
+      "side": 1,
+      "message": "I don\u0027t see a method which matches to setDataSource. Is user expected to use one of the methods below from MediaPlaylistAgent?",
+      "range": {
+        "startLine": 188,
+        "startChar": 4,
+        "endLine": 188,
+        "endChar": 41
+      },
+      "revId": "2544ce3e851e9a384d801d557eef7faac08a7564",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72e22ab6_3f35bebd",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-30T20:40:16Z",
+      "side": 1,
+      "message": "Let\u0027s use DSD for now as discussed offline.",
+      "range": {
+        "startLine": 217,
+        "startChar": 78,
+        "endLine": 217,
+        "endChar": 88
+      },
+      "revId": "2544ce3e851e9a384d801d557eef7faac08a7564",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
