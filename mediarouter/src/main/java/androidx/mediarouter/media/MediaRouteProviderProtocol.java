@@ -118,10 +118,48 @@ abstract class MediaRouteProviderProtocol {
      */
     public static final int CLIENT_MSG_SET_DISCOVERY_REQUEST = 10;
 
+    /** (client v3)
+     * Create dynamic group route controller.
+     * - replyTo : client messenger
+     * - arg1    : request id
+     * - arg2    : route controller id
+     * - CLIENT_DATA_MEMBER_ROUTE_ID : initial member route id string
+     */
+    public static final int CLIENT_MSG_CREATE_DYNAMIC_GROUP_ROUTE_CONTROLLER = 11;
+
+    /** (client v3)
+     * Adds a member route to a dynamic group route.
+     * - replyTo : client messenger
+     * - arg1    : request id
+     * - arg2    : route controller id
+     * - CLIENT_DATA_MEMBER_ROUTE_ID : member route id to be added
+     */
+    public static final int CLIENT_MSG_ADD_MEMBER_ROUTE = 12;
+
+    /** (client v3)
+     * Removes a member route from a dynamic group route.
+     * - replyTo : client messenger
+     * - arg1    : request id
+     * - arg2    : route controller id
+     * - CLIENT_DATA_MEMBER_ROUTE_ID : member route id to be removed
+     */
+    public static final int CLIENT_MSG_REMOVE_MEMBER_ROUTE = 13;
+
+    /** (client v3)
+     * Updates member routes of a dynamic group route.
+     * - replyTo : client messenger
+     * - arg1    : request id
+     * - arg2    : route controller id
+     * - CLIENT_DATA_MEMBER_ROUTE_IDS : array list of member route ids
+     */
+    public static final int CLIENT_MSG_UPDATE_MEMBER_ROUTES = 14;
+
     public static final String CLIENT_DATA_ROUTE_ID = "routeId";
     public static final String CLIENT_DATA_ROUTE_LIBRARY_GROUP = "routeGroupId";
     public static final String CLIENT_DATA_VOLUME = "volume";
     public static final String CLIENT_DATA_UNSELECT_REASON = "unselectReason";
+    public static final String CLIENT_DATA_MEMBER_ROUTE_IDS = "memberRouteIds";
+    public static final String CLIENT_DATA_MEMBER_ROUTE_ID = "memberRouteId";
 
     /*
      * Messages sent from the service to the client.
@@ -188,9 +226,14 @@ abstract class MediaRouteProviderProtocol {
     public static final int CLIENT_VERSION_2 = 2;
 
     /**
+     * The client version used from androidx 1.0.0.
+     */
+    public static final int CLIENT_VERSION_3 = 3;
+
+    /**
      * The current client version.
      */
-    public static final int CLIENT_VERSION_CURRENT = CLIENT_VERSION_2;
+    public static final int CLIENT_VERSION_CURRENT = CLIENT_VERSION_3;
 
     /*
      * Recognized server version numbers.  (Reserved for future use.)

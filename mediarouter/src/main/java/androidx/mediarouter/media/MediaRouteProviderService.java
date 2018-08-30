@@ -16,15 +16,21 @@
 
 package androidx.mediarouter.media;
 
+import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_DATA_MEMBER_ROUTE_ID;
+import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_DATA_MEMBER_ROUTE_IDS;
 import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_DATA_ROUTE_ID;
 import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_DATA_ROUTE_LIBRARY_GROUP;
 import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_DATA_UNSELECT_REASON;
 import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_DATA_VOLUME;
+import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_MSG_ADD_MEMBER_ROUTE;
 import static androidx.mediarouter.media.MediaRouteProviderProtocol
         .CLIENT_MSG_CREATE_ROUTE_CONTROLLER;
+import static androidx.mediarouter.media.MediaRouteProviderProtocol
+        .CLIENT_MSG_CREATE_DYNAMIC_GROUP_ROUTE_CONTROLLER;
 import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_MSG_REGISTER;
 import static androidx.mediarouter.media.MediaRouteProviderProtocol
         .CLIENT_MSG_RELEASE_ROUTE_CONTROLLER;
+import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_MSG_REMOVE_MEMBER_ROUTE;
 import static androidx.mediarouter.media.MediaRouteProviderProtocol
         .CLIENT_MSG_ROUTE_CONTROL_REQUEST;
 import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_MSG_SELECT_ROUTE;
@@ -33,6 +39,7 @@ import static androidx.mediarouter.media.MediaRouteProviderProtocol
 import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_MSG_SET_ROUTE_VOLUME;
 import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_MSG_UNREGISTER;
 import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_MSG_UNSELECT_ROUTE;
+import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_MSG_UPDATE_MEMBER_ROUTES;
 import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_MSG_UPDATE_ROUTE_VOLUME;
 import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_VERSION_1;
 import static androidx.mediarouter.media.MediaRouteProviderProtocol.SERVICE_DATA_ERROR;
@@ -65,6 +72,7 @@ import androidx.core.util.ObjectsCompat;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Base class for media route provider services.
@@ -238,6 +246,79 @@ public abstract class MediaRouteProviderService extends Service {
                 if (DEBUG) {
                     Log.d(TAG, client + ": Route controller created, controllerId=" + controllerId
                             + ", routeId=" + routeId + ", routeGroupId=" + routeGroupId);
+                }
+                sendGenericSuccess(messenger, requestId);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    boolean onCreateDynamicGroupRouteController(Messenger messenger, int requestId,
+            int controllerId, String initialMemberRouteId) {
+        ClientRecord client = getClient(messenger);
+        if (client != null) {
+            if (client.createDynamicGroupRouteController(initialMemberRouteId, controllerId)) {
+                if (DEBUG) {
+                    Log.d(TAG, client + ": Route controller created, controllerId=" + controllerId
+                            + ", initialMemberRouteId=" + initialMemberRouteId);
+                }
+                sendGenericSuccess(messenger, requestId);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    boolean onAddMemberRoute(Messenger messenger, int requestId, int controllerId,
+            String memberId) {
+        ClientRecord client = getClient(messenger);
+        if (client != null) {
+            MediaRouteProvider.RouteController controller = client.getRouteController(controllerId);
+            if (controller instanceof MediaRouteProvider.DynamicGroupRouteController) {
+                ((MediaRouteProvider.DynamicGroupRouteController) controller)
+                        .onAddMemberRoute(memberId);
+                if (DEBUG) {
+                    Log.d(TAG, client + ": Added a member route"
+                            + ", controllerId=" + controllerId + ", memberId=" + memberId);
+                }
+                sendGenericSuccess(messenger, requestId);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    boolean onRemoveMemberRoute(Messenger messenger, int requestId, int controllerId,
+                             String memberId) {
+        ClientRecord client = getClient(messenger);
+        if (client != null) {
+            MediaRouteProvider.RouteController controller = client.getRouteController(controllerId);
+            if (controller instanceof MediaRouteProvider.DynamicGroupRouteController) {
+                ((MediaRouteProvider.DynamicGroupRouteController) controller)
+                        .onRemoveMemberRoute(memberId);
+                if (DEBUG) {
+                    Log.d(TAG, client + ": Removed a member route"
+                            + ", controllerId=" + controllerId + ", memberId=" + memberId);
+                }
+                sendGenericSuccess(messenger, requestId);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    boolean onUpdateMemberRoutes(Messenger messenger, int requestId, int controllerId,
+                                List<String> memberIds) {
+        ClientRecord client = getClient(messenger);
+        if (client != null) {
+            MediaRouteProvider.RouteController controller = client.getRouteController(controllerId);
+            if (controller instanceof MediaRouteProvider.DynamicGroupRouteController) {
+                ((MediaRouteProvider.DynamicGroupRouteController) controller)
+                        .onUpdateMemberRoutes(memberIds);
+                if (DEBUG) {
+                    Log.d(TAG, client + ": Updated list of member routes"
+                            + ", controllerId=" + controllerId + ", memberIds=" + memberIds);
                 }
                 sendGenericSuccess(messenger, requestId);
                 return true;
@@ -600,6 +681,19 @@ public abstract class MediaRouteProviderService extends Service {
             return false;
         }
 
+        public boolean createDynamicGroupRouteController(
+                String initialMemberRouteId, int controllerId) {
+            if (mControllers.indexOfKey(controllerId) < 0) {
+                MediaRouteProvider.DynamicGroupRouteController controller =
+                        mProvider.onCreateDynamicGroupRouteController(initialMemberRouteId);
+                if (controller != null) {
+                    mControllers.put(controllerId, controller);
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public boolean releaseRouteController(int controllerId) {
             MediaRouteProvider.RouteController controller = mControllers.get(controllerId);
             if (controller != null) {
@@ -695,6 +789,38 @@ public abstract class MediaRouteProviderService extends Service {
                                     messenger, requestId, arg, routeId, routeGroupId);
                         }
                         break;
+                    }
+
+                    case CLIENT_MSG_CREATE_DYNAMIC_GROUP_ROUTE_CONTROLLER: {
+                        String initialMemberId = data.getString(CLIENT_DATA_MEMBER_ROUTE_ID);
+                        if (initialMemberId != null) {
+                            return service.onCreateDynamicGroupRouteController(
+                                    messenger, requestId, arg, initialMemberId);
+                        }
+                        break;
+                    }
+
+                    case CLIENT_MSG_ADD_MEMBER_ROUTE: {
+                        String memberId = data.getString(CLIENT_DATA_MEMBER_ROUTE_ID);
+                        if (memberId != null) {
+                            return service.onAddMemberRoute(messenger, requestId, arg, memberId);
+                        }
+                    }
+
+                    case CLIENT_MSG_REMOVE_MEMBER_ROUTE: {
+                        String memberId = data.getString(CLIENT_DATA_MEMBER_ROUTE_ID);
+                        if (memberId != null) {
+                            return service.onRemoveMemberRoute(messenger, requestId, arg, memberId);
+                        }
+                    }
+
+                    case CLIENT_MSG_UPDATE_MEMBER_ROUTES: {
+                        ArrayList<String> memberIds =
+                                data.getStringArrayList(CLIENT_DATA_MEMBER_ROUTE_IDS);
+                        if (memberIds != null) {
+                            return service.onUpdateMemberRoutes(
+                                    messenger, requestId, arg, memberIds);
+                        }
                     }
 
                     case CLIENT_MSG_RELEASE_ROUTE_CONTROLLER:
