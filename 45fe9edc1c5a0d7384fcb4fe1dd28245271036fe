@@ -22,6 +22,30 @@
       "revId": "45fe9edc1c5a0d7384fcb4fe1dd28245271036fe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ec992d7_080303ee",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/futures/FutureExtras.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-30T23:14:18Z",
+      "side": 1,
+      "message": "Done. Moved these methods into the tests so they can be used as helper methods.",
+      "parentUuid": "8d5f304d_f51f7e59",
+      "range": {
+        "startLine": 36,
+        "startChar": 3,
+        "endLine": 53,
+        "endChar": 5
+      },
+      "revId": "45fe9edc1c5a0d7384fcb4fe1dd28245271036fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
