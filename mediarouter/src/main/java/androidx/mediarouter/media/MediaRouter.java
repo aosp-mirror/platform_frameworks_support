@@ -1515,6 +1515,26 @@ public final class MediaRouter {
             sGlobal.selectRoute(this);
         }
 
+        /**
+         * Selects this media route as a member of current dynamic group.
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public void selectIntoGroup() {
+            checkCallingThread();
+            sGlobal.selectRouteIntoGroup(this);
+        }
+
+        /**
+         * Unselects this media route from current dynamic group.
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public void unselectFromGroup() {
+            checkCallingThread();
+            sGlobal.unselectRouteFromGroup(this);
+        }
+
         @Override
         public String toString() {
             return "MediaRouter.RouteInfo{ uniqueId=" + mUniqueId
@@ -1714,6 +1734,7 @@ public final class MediaRouter {
 
         void updateDescriptors(
                 Collection<DynamicRouteDescriptor> dynamicDescriptors) {
+            mRoutes.clear();
             mMemberRoutes.clear();
             mUnselectableRoutes.clear();
             mGroupableRoutes.clear();
@@ -1738,6 +1759,7 @@ public final class MediaRouter {
                         == DynamicRouteDescriptor.SELECTED)) {
                     RouteInfo route = findRouteByDynamicRouteDescriptor(dynamicDescriptor);
                     if (route != null) {
+                        mRoutes.add(route);
                         mMemberRoutes.add(route.getId());
                         if (dynamicDescriptor.isUnselectable()) {
                             mUnselectableRoutes.add(route.getId());
@@ -2234,6 +2256,37 @@ public final class MediaRouter {
 
         void selectRoute(@NonNull RouteInfo route) {
             selectRoute(route, MediaRouter.UNSELECT_REASON_ROUTE_CHANGED);
+        }
+
+        void selectRouteIntoGroup(@NonNull RouteInfo route) {
+            if (!(mSelectedRoute instanceof DynamicGroupInfo)
+                    || (!(mSelectedRouteController instanceof DynamicGroupRouteController))) {
+                throw new IllegalStateException("There is no currently selected "
+                        + "dynamic group route.");
+            }
+            DynamicGroupInfo groupInfo = (DynamicGroupInfo) mSelectedRoute;
+            if (groupInfo.getMemberRoutes().contains(route.getId())
+                    || !groupInfo.getGroupableRoutes().contains(route.getId())) {
+                // route is already a member or not groupable to the current dynamic group.
+                return;
+            }
+            ((DynamicGroupRouteController) mSelectedRouteController)
+                    .onAddMemberRoute(route.getId());
+        }
+
+        void unselectRouteFromGroup(@NonNull RouteInfo route) {
+            if (!(mSelectedRoute instanceof DynamicGroupInfo)
+                    || (!(mSelectedRouteController instanceof DynamicGroupRouteController))) {
+                throw new IllegalStateException("There is no currently selected "
+                        + "dynamic group route.");
+            }
+            DynamicGroupInfo groupInfo = (DynamicGroupInfo) mSelectedRoute;
+            if (!groupInfo.getMemberRoutes().contains(route.getId())
+                    || groupInfo.getUnselectableRoutes().contains(route.getId())) {
+                return;
+            }
+            ((DynamicGroupRouteController) mSelectedRouteController)
+                    .onRemoveMemberRoute(route.getId());
         }
 
         void selectRoute(@NonNull RouteInfo route, int unselectReason) {
@@ -2743,8 +2796,8 @@ public final class MediaRouter {
                             MainHandlerExecutor.getExecutor(mApplicationContext),
                             mDynamicRoutesListener);
                     mSelectedRouteController = controller;
-                    mSelectedRoute = new DynamicGroupInfo(mSelectedRoute.getProvider(),
-                            route.mDescriptorId, uniqueId);
+                    mSelectedRoute = new DynamicGroupInfo(route.getProvider(),
+                            controller.getDynamicGroupRouteId(), uniqueId);
                 } else {
                     mSelectedRouteController = route.getProviderInstance().onCreateRouteController(
                             route.mDescriptorId);
@@ -2769,7 +2822,6 @@ public final class MediaRouter {
                         mRouteControllerMap.put(r.mUniqueId, controller);
                     }
                 }
-
                 updatePlaybackInfoFromSelectedRoute();
             }
         }
