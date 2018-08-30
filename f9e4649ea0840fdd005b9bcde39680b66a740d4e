@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2838c3c2_f2f134dc",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-30T22:05:32Z",
+      "side": 1,
+      "message": "can you elaborate this? I thought metadata is part of MediaItem?",
+      "range": {
+        "startLine": 226,
+        "startChar": 12,
+        "endLine": 226,
+        "endChar": 35
+      },
+      "revId": "f9e4649ea0840fdd005b9bcde39680b66a740d4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
