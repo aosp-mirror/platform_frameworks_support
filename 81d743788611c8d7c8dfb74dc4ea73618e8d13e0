@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f45114fe_8dae1b92",
+        "filename": "concurrent/listenable-future/src/main/java/androidx/concurrent/listenablefuture/AbstractFuture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-08-30T20:07:28Z",
+      "side": 1,
+      "message": "Nit: for @Nullable and @NonNull, leave variable declaration as-is.",
+      "range": {
+        "startLine": 258,
+        "startChar": 8,
+        "endLine": 259,
+        "endChar": 22
+      },
+      "revId": "81d743788611c8d7c8dfb74dc4ea73618e8d13e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
