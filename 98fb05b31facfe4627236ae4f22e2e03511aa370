@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f52426d_17a96745",
+        "filename": "media2/src/main/java/androidx/media2/CommandResult2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-30T06:07:05Z",
+      "side": 1,
+      "message": "We can hide this class for now, can\u0027t we?\nSince we don\u0027t have any clear feedback from JM yet how we will handle ListenableFuture.",
+      "revId": "98fb05b31facfe4627236ae4f22e2e03511aa370",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
