@@ -1,0 +1,7 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Alan Viverette <alanv@google.com>
+Submitted-by: Jeff Gaston <jeffrygaston@google.com>
+Submitted-at: Thu, 30 Aug 2018 00:12:05 +0000
+Reviewed-on: https://android-review.googlesource.com/740762
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
