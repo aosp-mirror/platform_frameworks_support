@@ -24,6 +24,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import androidx.annotation.RestrictTo;
+import androidx.versionedparcelable.NonParcelField;
+import androidx.versionedparcelable.ParcelField;
+import androidx.versionedparcelable.VersionedParcelable;
+import androidx.versionedparcelable.VersionedParcelize;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,7 +44,8 @@ import java.util.List;
  * This object is immutable once created using a {@link Builder} instance.
  * </p>
  */
-public final class MediaRouteDescriptor {
+@VersionedParcelize
+public final class MediaRouteDescriptor implements VersionedParcelable{
     static final String KEY_ID = "id";
     static final String KEY_GROUP_MEMBER_IDS = "groupMemberIds";
     static final String KEY_NAME = "name";
@@ -64,8 +69,15 @@ public final class MediaRouteDescriptor {
     static final String KEY_MIN_CLIENT_VERSION = "minClientVersion";
     static final String KEY_MAX_CLIENT_VERSION = "maxClientVersion";
 
-    final Bundle mBundle;
+    @ParcelField(1)
+    Bundle mBundle;
+
+    @NonParcelField
     List<IntentFilter> mControlFilters;
+
+    // Used for VersionedParcelable
+    MediaRouteDescriptor() {
+    }
 
     MediaRouteDescriptor(Bundle bundle, List<IntentFilter> controlFilters) {
         mBundle = bundle;

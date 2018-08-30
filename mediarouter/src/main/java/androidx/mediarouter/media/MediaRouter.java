@@ -849,6 +849,7 @@ public final class MediaRouter {
         private Uri mIconUri;
         boolean mEnabled;
         private @ConnectionState int mConnectionState;
+        private @DynamicRouteDescriptor.SelectionState int mSelectionState;
         private boolean mCanDisconnect;
         private final ArrayList<IntentFilter> mControlFilters = new ArrayList<>();
         private int mPlaybackType;
@@ -1088,12 +1089,24 @@ public final class MediaRouter {
         }
 
         /**
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public int getSelectionState() {
+            return mSelectionState;
+        }
+
+        /**
          * Returns true if this route is currently selected.
          *
          * @return True if this route is currently selected.
          *
          * @see MediaRouter#getSelectedRoute
          */
+        // Note: Only one representative route can return true. For instance:
+        //   - If this route is a selected (non-group) route, it returns true.
+        //   - If this route is a selected group route, it returns true.
+        //   - If this route is a selected member route of a group, it returns false.
         public boolean isSelected() {
             checkCallingThread();
             return sGlobal.getSelectedRoute() == this;
@@ -1728,33 +1741,40 @@ public final class MediaRouter {
             mUnselectableRoutes.clear();
             mGroupableRoutes.clear();
             mTransferableRoutes.clear();
+            boolean changed = false;
 
             for (DynamicRouteDescriptor dynamicDescriptor :
                     dynamicDescriptors) {
+                RouteInfo route = findRouteByDynamicRouteDescriptor(dynamicDescriptor);
+                if (route == null) {
+                    continue;
+                }
+                int previousState = route.getSelectionState();
+                if (dynamicDescriptor.getSelectionState() != previousState) {
+                    route.mSelectionState = dynamicDescriptor.getSelectionState();
+                    changed |= true;
+                }
                 if (dynamicDescriptor.isGroupable()) {
-                    RouteInfo route = findRouteByDynamicRouteDescriptor(dynamicDescriptor);
-                    if (route != null) {
-                        mGroupableRoutes.add(route.getId());
-                    }
+                    mGroupableRoutes.add(route.getId());
                 }
                 if (dynamicDescriptor.isTransferable()) {
-                    RouteInfo route = findRouteByDynamicRouteDescriptor(dynamicDescriptor);
-                    if (route != null) {
-                        mTransferableRoutes.add(route.getId());
-                    }
+                    mTransferableRoutes.add(route.getId());
                 }
                 if ((dynamicDescriptor.getSelectionState() == DynamicRouteDescriptor.SELECTING)
                         || (dynamicDescriptor.getSelectionState()
                         == DynamicRouteDescriptor.SELECTED)) {
-                    RouteInfo route = findRouteByDynamicRouteDescriptor(dynamicDescriptor);
-                    if (route != null) {
-                        mMemberRoutes.add(route.getId());
-                        if (dynamicDescriptor.isUnselectable()) {
-                            mUnselectableRoutes.add(route.getId());
-                        }
+                    mMemberRoutes.add(route.getId());
+                    if (dynamicDescriptor.isUnselectable()) {
+                        mUnselectableRoutes.add(route.getId());
                     }
                 }
+                if (changed) {
+                    sGlobal.mCallbackHandler.post(
+                            GlobalMediaRouter.CallbackHandler.MSG_ROUTE_CHANGED, route);
+                }
             }
+            sGlobal.mCallbackHandler.post(
+                    GlobalMediaRouter.CallbackHandler.MSG_ROUTE_CHANGED, this);
         }
 
         public List<String> getMemberRoutes() {
