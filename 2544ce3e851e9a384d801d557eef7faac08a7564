@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "33470c7d_8bd786e2",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-30T21:25:35Z",
+      "side": 1,
+      "message": "setDataSource() equivalent wouldn\u0027t be in the SessionPlayer2.\n\nHowever, setPlaylist() and setMediaItem() will be added for SessionPlayer2.\nIn this patchset, I mistakenly added setPlayItemDesc() instead of setMediaItem(). Let me fix it.",
+      "parentUuid": "f7647165_8eb35aec",
+      "range": {
+        "startLine": 188,
+        "startChar": 4,
+        "endLine": 188,
+        "endChar": 41
+      },
+      "revId": "2544ce3e851e9a384d801d557eef7faac08a7564",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72e22ab6_3f35bebd",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "2544ce3e851e9a384d801d557eef7faac08a7564",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae649374_feb900df",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-30T21:25:35Z",
+      "side": 1,
+      "message": "Next CL has it.\n\nSince using DataSourceDesc2 in SessionPlayer2 is the intermediate solution not to touch MediaItem2, I\u0027d like to making it MediaItem2 in this CL.",
+      "parentUuid": "72e22ab6_3f35bebd",
+      "range": {
+        "startLine": 217,
+        "startChar": 78,
+        "endLine": 217,
+        "endChar": 88
+      },
+      "revId": "2544ce3e851e9a384d801d557eef7faac08a7564",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
