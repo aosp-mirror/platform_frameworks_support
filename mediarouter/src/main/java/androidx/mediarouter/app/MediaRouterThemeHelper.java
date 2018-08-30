@@ -205,6 +205,13 @@ final class MediaRouterThemeHelper {
         return styledAttributes;
     }
 
+    static void setDialogBackgroundColor(Context context, View view) {
+        int backgroundColor = ContextCompat.getColor(context, isLightTheme(context)
+                ? R.color.mr_dynamic_dialog_background_light
+                : R.color.mr_dynamic_dialog_background_dark);
+        view.setBackgroundColor(backgroundColor);
+    }
+
     static void setMediaControlsBackgroundColor(
             Context context, View mainControls, View groupControls, boolean hasGroup) {
         int primaryColor = getThemeColor(context, 0,
