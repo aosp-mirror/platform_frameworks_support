@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c650ee34_adf5da1a",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-30T08:49:35Z",
+      "side": 1,
+      "message": "It\u0027s available in older SDK.\nI\u0027ve found that setTextAppearance(Context context, int resId) is added in API 1 and deprecated in API 23. \nsetTextAppearance that is added in API 23 has new signature which takes only resId.",
+      "parentUuid": "c8f17191_f7c21314",
+      "range": {
+        "startLine": 55,
+        "startChar": 22,
+        "endLine": 55,
+        "endChar": 44
+      },
+      "revId": "9005889dfabc0fd1f94acba84b12b34afb8a31eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "272e8bb7_69e755e9",
         "filename": "mediarouter/src/main/res/values/styles.xml",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-30T07:17:57Z",
       "side": 1,
       "message": "Text style has postfix \u0027Text\u0027.\nSee above, and change here and other places.",
+      "range": {
+        "startLine": 35,
+        "startChar": 52,
+        "endLine": 35,
+        "endChar": 60
+      },
+      "revId": "9005889dfabc0fd1f94acba84b12b34afb8a31eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c51956c_8615a32f",
+        "filename": "mediarouter/src/main/res/values/styles.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-30T08:49:35Z",
+      "side": 1,
+      "message": "There are many files which don\u0027t have \u0027Text\u0027 prefix for text style.\nFor example, leanback library has text style named TextAppearance.Leanback.PlaybackControlsTime, TextAppearance.Leanback.SearchTextEdit etc. Furthermore, TextAppearance.MediaRouter.Title doesn\u0027t have \u0027Text\u0027 prefix either.\n\nHowever, using \u0027Text\u0027 prefix for Metadata style would be better. For example, TextAppearance.MediaRouter.Dynamic.Metadata.PrimaryText/SecondaryText. \n\nAnd also it would be better to rename TextAppearance.MediaRouter.Dynamic.HeaderItem and TextAppearance.MediaRouter.Dynamic.RouteItem to more generic ones. Sorry for changing my mind. \nThanks!",
+      "parentUuid": "272e8bb7_69e755e9",
       "range": {
         "startLine": 35,
         "startChar": 52,
@@ -68,6 +116,30 @@
       "revId": "9005889dfabc0fd1f94acba84b12b34afb8a31eb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50a4eb68_5f7848d1",
+        "filename": "mediarouter/src/main/res/values/styles.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-30T08:49:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "275fcfb5_ea3664da",
+      "range": {
+        "startLine": 38,
+        "startChar": 3,
+        "endLine": 38,
+        "endChar": 4
+      },
+      "revId": "9005889dfabc0fd1f94acba84b12b34afb8a31eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
