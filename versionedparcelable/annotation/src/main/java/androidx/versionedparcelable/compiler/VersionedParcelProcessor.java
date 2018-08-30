@@ -427,7 +427,8 @@ public class VersionedParcelProcessor extends AbstractProcessor {
                             return;
                         }
                         if (takenIds.contains(valStr)) {
-                            error("Id " + valStr + " already taken on " + element);
+                            error("Id " + valStr + " already taken on " + element + " in "
+                                    + clsName);
                             return;
                         }
                         takenIds.add(valStr);
@@ -444,29 +445,30 @@ public class VersionedParcelProcessor extends AbstractProcessor {
                 }
             }
         } else if (element.getKind() == ElementKind.CLASS) {
-            TypeElement te = (TypeElement) mEnv.getTypeUtils().asElement(
-                    element.asType());
-            if (te != null && te.getSuperclass() != null) {
-                Element e = (TypeElement) mEnv.getTypeUtils().asElement(te.getSuperclass());
-                if (e != null) {
-                    checkClass(clsName, e, takenIds);
-                }
+            Element s = getSuperClass(element);
+            if (s != null) {
+                checkClass(clsName, s, takenIds);
             }
         }
         for (Element e: element.getEnclosedElements()) {
             if (e.getKind() != ElementKind.CLASS) {
                 checkClass(clsName, e, takenIds);
             } else {
-                TypeElement te = (TypeElement) mEnv.getTypeUtils().asElement(
-                        element.asType());
-                if (te != null && te.getSuperclass() != null) {
-                    Element s = (TypeElement) mEnv.getTypeUtils().asElement(te.getSuperclass());
-                    if (s != null) {
-                        checkClass(clsName, s, takenIds);
-                    }
+                Element s = getSuperClass(e);
+                if (s != null) {
+                    checkClass(clsName, s, takenIds);
                 }
             }
         }
+    }
+
+    private Element getSuperClass(Element element) {
+        TypeElement te = (TypeElement) mEnv.getTypeUtils().asElement(
+                element.asType());
+        if (te != null && te.getSuperclass() != null) {
+            return (TypeElement) mEnv.getTypeUtils().asElement(te.getSuperclass());
+        }
+        return null;
     }
 
     private AnnotationMirror getAnnotation(Element e) {
