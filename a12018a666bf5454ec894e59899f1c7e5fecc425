@@ -22,6 +22,30 @@
       "revId": "a12018a666bf5454ec894e59899f1c7e5fecc425",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f18b5273_886d705b",
+        "filename": "room/runtime/src/main/java/androidx/room/util/FtsTableInfo.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-08-30T16:13:23Z",
+      "side": 1,
+      "message": "Ugh, lol, now I\u0027m just being silly at this point. Alright, changed to String[]. And yeah we do need to do startsWith and not contains.",
+      "parentUuid": "c2a1e501_2b5171d1",
+      "range": {
+        "startLine": 41,
+        "startChar": 65,
+        "endLine": 41,
+        "endChar": 71
+      },
+      "revId": "a12018a666bf5454ec894e59899f1c7e5fecc425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
