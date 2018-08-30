@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "d3bc4655_022f6ba9",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-30T08:10:27Z",
+      "side": 1,
+      "message": "Q) this is not related with this CL, but why you used getAnimatedValue instead of getAnimatedFraction()?",
+      "range": {
+        "startLine": 860,
+        "startChar": 48,
+        "endLine": 860,
+        "endChar": 64
+      },
+      "revId": "b53a0eae78a499e62bdad3816831316ef5d310ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25502b94_3e3511bf",
+        "filename": "media-widget/src/main/res/drawable/custom_progress_thumb.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-30T08:10:27Z",
+      "side": 1,
+      "message": "Q) why is LayerDrawable needed?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 10
+      },
+      "revId": "b53a0eae78a499e62bdad3816831316ef5d310ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0a6427c0_7b2c980d",
         "filename": "media-widget/src/main/res/layout/media_controller.xml",
         "patchSetId": 1
