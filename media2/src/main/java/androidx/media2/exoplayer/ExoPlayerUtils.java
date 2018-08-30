@@ -31,6 +31,7 @@ import android.os.Build;
 import androidx.annotation.RestrictTo;
 import androidx.media.AudioAttributesCompat;
 import androidx.media2.DataSourceDesc2;
+import androidx.media2.FileDataSourceDesc2;
 import androidx.media2.MediaPlayer2;
 import androidx.media2.UriDataSourceDesc2;
 import androidx.media2.common.TrackInfoImpl;
@@ -44,6 +45,7 @@ import androidx.media2.exoplayer.external.source.TrackGroupArray;
 import androidx.media2.exoplayer.external.upstream.DataSource;
 import androidx.media2.exoplayer.external.util.MimeTypes;
 
+import java.io.FileDescriptor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,11 +62,19 @@ import java.util.List;
     /** Returns an ExoPlayer media source for the given data source description. */
     public static MediaSource createMediaSource(
             DataSource.Factory dataSourceFactory, DataSourceDesc2 dataSourceDescription) {
-        // TODO(b/111150876): Add support for HLS streams and file descriptors.
+        // TODO(b/111150876): Add support for HLS streams.
         if (dataSourceDescription instanceof UriDataSourceDesc2) {
             Uri uri = ((UriDataSourceDesc2) dataSourceDescription).getUri();
             return new ExtractorMediaSource.Factory(dataSourceFactory)
                     .setTag(dataSourceDescription).createMediaSource(uri);
+        } else if (dataSourceDescription instanceof FileDataSourceDesc2) {
+            FileDataSourceDesc2 fileDataSourceDescription =
+                    (FileDataSourceDesc2) dataSourceDescription;
+            FileDescriptor fileDescriptor = fileDataSourceDescription.getFileDescriptor();
+            long offset = fileDataSourceDescription.getFileDescriptorOffset();
+            long length = fileDataSourceDescription.getFileDescriptorLength();
+            dataSourceFactory = FileDescriptorDataSource.getFactory(fileDescriptor, offset, length);
+            return new ExtractorMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.EMPTY);
         } else {
             throw new UnsupportedOperationException();
         }
