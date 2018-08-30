@@ -43,6 +43,22 @@ class FtsEntity(
         createTableQuery(tableName)
     }
 
+    val nonHiddenFields by lazy {
+        fields.filterNot {
+            // 'rowid' primary key column and language id column are hidden columns
+            primaryKey.fields.isNotEmpty() && primaryKey.fields.first() == it ||
+                    ftsOptions.languageIdColumnName == it.columnName
+        }
+    }
+
+    private val contentSyncCreateTriggerQueries by lazy {
+        if (ftsOptions.contentEntity != null) {
+            createSyncTriggers(ftsOptions.contentEntity.tableName)
+        } else {
+            emptyList()
+        }
+    }
+
     override fun getIdKey(): String {
         val identityKey = SchemaIdentityKey()
         identityKey.append(tableName)
@@ -53,18 +69,45 @@ class FtsEntity(
     }
 
     private fun createTableQuery(tableName: String): String {
-        val definitions = fields.mapNotNull {
-            when {
-                // 'rowid' primary key column is omitted from create statement
-                primaryKey.fields.isNotEmpty() && primaryKey.fields.first() == it -> null
-                // language id column is omitted from create statement
-                ftsOptions.languageIdColumnName == it.columnName -> null
-                else -> it.databaseDefinition(false)
-            }
-        } + ftsOptions.databaseDefinition()
+        val definitions = nonHiddenFields.map { it.databaseDefinition(false) } +
+                ftsOptions.databaseDefinition()
         return "CREATE VIRTUAL TABLE IF NOT EXISTS `$tableName` " +
                 "USING ${ftsVersion.name}(${definitions.joinToString(", ")})"
     }
+
+    private fun createSyncTriggers(contentTable: String): List<String> {
+        val contentColumnNames = nonHiddenFields.map { it.columnName }
+        return arrayOf("UPDATE", "DELETE").map { triggerType ->
+            createBeforeTrigger(triggerType, tableName, contentTable)
+        } + arrayOf("UPDATE", "INSERT").map { triggerType ->
+            createAfterTrigger(triggerType, tableName, contentTable, contentColumnNames)
+        }
+    }
+
+    private fun createBeforeTrigger(
+        trigger: String,
+        tableName: String,
+        contentTableName: String
+    ) = "CREATE TRIGGER IF NOT EXISTS ${createTriggerName(tableName, trigger)} " +
+            "BEFORE $trigger ON `$contentTableName` BEGIN " +
+            "DELETE FROM `$tableName` WHERE `docid`=OLD.`rowid`; " +
+            "END"
+
+    private fun createAfterTrigger(
+        trigger: String,
+        tableName: String,
+        contentTableName: String,
+        columnNames: List<String>
+    ) = "CREATE TRIGGER IF NOT EXISTS ${createTriggerName(tableName, trigger)} " +
+            "AFTER $trigger ON `$contentTableName` BEGIN " +
+            "INSERT INTO `$tableName`(" +
+            (listOf("docid") + columnNames).joinToString(separator = ", ") { "`$it`" } + ") " +
+            "VALUES (" +
+            (listOf("rowid") + columnNames).joinToString(separator = ", ") { "NEW.`$it`" } + "); " +
+            "END"
+
+    private fun createTriggerName(tableName: String, triggerType: String) =
+            "room_fts_content_sync_trigger_${tableName}_$triggerType"
 
     override fun toBundle() = FtsEntityBundle(
             tableName,
@@ -72,5 +115,6 @@ class FtsEntity(
             fields.map { it.toBundle() },
             primaryKey.toBundle(),
             ftsVersion.name,
-            ftsOptions.toBundle())
+            ftsOptions.toBundle(),
+            contentSyncCreateTriggerQueries)
 }
