@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63f41f41_3218fd7a",
+        "filename": "core/api/1.0.0.ignore",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-08-30T19:51:55Z",
+      "side": 1,
+      "message": "I can\u0027t interpret this. I was expecting the ignore stuff to be one line in an already-existing file.",
+      "revId": "ae70cf53ce6ece889ae76dd95f2f74ecd940cd1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c88c49d7_598626ef",
+        "filename": "core/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 1863,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-08-30T19:51:55Z",
+      "side": 1,
+      "message": "Where are replace and the new argument classes? Or are they all ignored?",
+      "range": {
+        "startLine": 1863,
+        "startChar": 29,
+        "endLine": 1863,
+        "endChar": 32
+      },
+      "revId": "ae70cf53ce6ece889ae76dd95f2f74ecd940cd1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99ba8305_0757bf4f",
+        "filename": "core/src/androidTest/java/androidx/core/view/AccessibilityDelegateCompatTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-08-30T19:51:55Z",
+      "side": 1,
+      "message": "I was under the impression that you weren\u0027t going to support pre-21, since so service we know of is still supporting pre-21. But if it\u0027s all working, I guess it isn\u0027t hurting anything.\n\nBut does it actually work pre-21 to perform a custom action from a service?",
+      "range": {
+        "startLine": 175,
+        "startChar": 34,
+        "endLine": 175,
+        "endChar": 39
+      },
+      "revId": "ae70cf53ce6ece889ae76dd95f2f74ecd940cd1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6977fbe_28392e5e",
+        "filename": "core/src/androidTest/java/androidx/core/view/AccessibilityDelegateCompatTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-08-30T19:51:55Z",
+      "side": 1,
+      "message": "final. throughout",
+      "range": {
+        "startLine": 233,
+        "startChar": 12,
+        "endLine": 233,
+        "endChar": 16
+      },
+      "revId": "ae70cf53ce6ece889ae76dd95f2f74ecd940cd1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f65f6856_52f7d81b",
+        "filename": "core/src/main/java/androidx/core/view/AccessibilityDelegateCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-08-30T19:51:55Z",
+      "side": 1,
+      "message": "Can the above code do anything useful below API 16?",
+      "range": {
+        "startLine": 335,
+        "startChar": 46,
+        "endLine": 335,
+        "endChar": 52
+      },
+      "revId": "ae70cf53ce6ece889ae76dd95f2f74ecd940cd1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ded1b1b6_c53db9f1",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-08-30T19:51:55Z",
+      "side": 1,
+      "message": "node? What\u0027s a node? Developers shouldn\u0027t need to know about a11yNodeInfo to use this method.\n\nAre you trying to say that there\u0027s no way to remove a standard action already added to the View? That seems like a case you can, and should, handle.",
+      "range": {
+        "startLine": 1234,
+        "startChar": 50,
+        "endLine": 1234,
+        "endChar": 54
+      },
+      "revId": "ae70cf53ce6ece889ae76dd95f2f74ecd940cd1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d89eb545_81152e3a",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1246,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-08-30T19:51:55Z",
+      "side": 1,
+      "message": "Do you need this? If there isn\u0027t a compat object adding actions, it seems like there\u0027s nothing to do.",
+      "range": {
+        "startLine": 1246,
+        "startChar": 12,
+        "endLine": 1246,
+        "endChar": 57
+      },
+      "revId": "ae70cf53ce6ece889ae76dd95f2f74ecd940cd1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd644329_2245cdde",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityViewCommand.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-08-30T19:51:55Z",
+      "side": 1,
+      "message": "Should these be final?",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 63,
+        "endChar": 9
+      },
+      "revId": "ae70cf53ce6ece889ae76dd95f2f74ecd940cd1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
