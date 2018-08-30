@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2ed653ea_9d3ef975",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-30T09:01:24Z",
+      "side": 1,
+      "message": "I\u0027m not sure I understood exactly what you wanted, but could you take a look and see if the change makes sense?",
+      "parentUuid": "5fba303c_b55846dd",
+      "range": {
+        "startLine": 410,
+        "startChar": 16,
+        "endLine": 410,
+        "endChar": 36
+      },
+      "revId": "48b55154c3e3493956592a020ddda7e84707d880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9e984bd5_c85eb345",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 9
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ba68374d_3003bdcd",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-30T09:01:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e984bd5_c85eb345",
+      "range": {
+        "startLine": 424,
+        "startChar": 36,
+        "endLine": 424,
+        "endChar": 53
+      },
+      "revId": "48b55154c3e3493956592a020ddda7e84707d880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20c0eaef_9497ae3a",
         "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
         "patchSetId": 9
@@ -59,6 +107,30 @@
       "writtenOn": "2018-08-30T07:39:14Z",
       "side": 1,
       "message": "Could you move this to the mr_cast_meta_background\u0027s image?\n\nThis will be shown if the album art has transparent area,\nand I think that this color is used only when the artwork is missing.",
+      "range": {
+        "startLine": 21,
+        "startChar": 19,
+        "endLine": 21,
+        "endChar": 77
+      },
+      "revId": "48b55154c3e3493956592a020ddda7e84707d880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dcd553e_fba0b796",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_media_metadata.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-30T09:01:24Z",
+      "side": 1,
+      "message": "Good point. Moved to mr_cast_meta_background",
+      "parentUuid": "20c0eaef_9497ae3a",
       "range": {
         "startLine": 21,
         "startChar": 19,
