@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e3602e1b_72c530d7",
+        "filename": "core/src/main/java/androidx/core/app/RemoteInput.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1061011
+      },
+      "writtenOn": "2018-08-30T17:02:34Z",
+      "side": 1,
+      "message": "It is the constant used in the framework.",
+      "parentUuid": "47cc8d2b_e9b288a2",
+      "range": {
+        "startLine": 57,
+        "startChar": 56,
+        "endLine": 57,
+        "endChar": 89
+      },
+      "revId": "d9bae65d9a52c86878cbfb838612d323eaa73b22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b452dfb2_be78257b",
         "filename": "core/src/main/java/androidx/core/app/RemoteInput.java",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "d9bae65d9a52c86878cbfb838612d323eaa73b22",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d10a071_d574cf65",
+        "filename": "core/src/main/java/androidx/core/app/RemoteInput.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1061011
+      },
+      "writtenOn": "2018-08-30T17:02:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b452dfb2_be78257b",
+      "range": {
+        "startLine": 456,
+        "startChar": 40,
+        "endLine": 456,
+        "endChar": 46
+      },
+      "revId": "d9bae65d9a52c86878cbfb838612d323eaa73b22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "cbf55da9_bad82d76",
+        "filename": "core/src/main/java/androidx/core/app/RemoteInput.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1061011
+      },
+      "writtenOn": "2018-08-30T17:02:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7baa5c74_6a83919a",
+      "range": {
+        "startLine": 466,
+        "startChar": 10,
+        "endLine": 468,
+        "endChar": 9
+      },
+      "revId": "d9bae65d9a52c86878cbfb838612d323eaa73b22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97d947d3_a7a1562f",
         "filename": "core/src/main/java/androidx/core/app/RemoteInput.java",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "d9bae65d9a52c86878cbfb838612d323eaa73b22",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8fc7a3c_6fa6f657",
+        "filename": "core/src/main/java/androidx/core/app/RemoteInput.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1061011
+      },
+      "writtenOn": "2018-08-30T17:02:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97d947d3_a7a1562f",
+      "range": {
+        "startLine": 483,
+        "startChar": 39,
+        "endLine": 483,
+        "endChar": 45
+      },
+      "revId": "d9bae65d9a52c86878cbfb838612d323eaa73b22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
