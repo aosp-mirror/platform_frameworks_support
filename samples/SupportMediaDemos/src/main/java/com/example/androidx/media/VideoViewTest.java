@@ -43,7 +43,6 @@ import androidx.media.widget.VideoView2;
 import androidx.media2.MediaController2;
 import androidx.media2.MediaItem2;
 import androidx.media2.SessionToken2;
-import androidx.media2.UriDataSourceDesc2;
 
 import java.util.concurrent.Executor;
 
