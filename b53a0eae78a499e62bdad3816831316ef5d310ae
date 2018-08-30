@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d7f4e203_17065ebb",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-30T12:12:28Z",
+      "side": 1,
+      "message": "I didn\u0027t really consider getAnimatedFraction() because it would always show values from 0.0f to 1.0f and it isn\u0027t possible to customize those min/max values?\nIs it a better way to handle this function?",
+      "parentUuid": "d3bc4655_022f6ba9",
+      "range": {
+        "startLine": 860,
+        "startChar": 48,
+        "endLine": 860,
+        "endChar": 64
+      },
+      "revId": "b53a0eae78a499e62bdad3816831316ef5d310ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "25502b94_3e3511bf",
         "filename": "media-widget/src/main/res/drawable/custom_progress_thumb.xml",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-30T08:10:27Z",
       "side": 1,
       "message": "Q) why is LayerDrawable needed?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 10
+      },
+      "revId": "b53a0eae78a499e62bdad3816831316ef5d310ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19c00c7a_3336696f",
+        "filename": "media-widget/src/main/res/drawable/custom_progress_thumb.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-08-30T12:12:28Z",
+      "side": 1,
+      "message": "I misunderstood that I needed to put the ScaleDrawable in a layer list. Removed.",
+      "parentUuid": "25502b94_3e3511bf",
       "range": {
         "startLine": 16,
         "startChar": 0,
