@@ -28,6 +28,7 @@ import android.util.Log;
 
 import androidx.mediarouter.media.MediaRouteDescriptor;
 import androidx.mediarouter.media.MediaRouteProvider;
+import androidx.mediarouter.media.MediaRouteProviderDescriptor;
 import androidx.mediarouter.media.MediaRouter.ControlRequestCallback;
 
 import com.example.android.supportv7.R;
@@ -141,6 +142,15 @@ final class SampleDynamicGroupMrp extends SampleMediaRouteProvider {
         mRouteDescriptors.put(routeDescriptor1.getId(), routeDescriptor1);
         mRouteDescriptors.put(routeDescriptor2.getId(), routeDescriptor2);
         mRouteDescriptors.put(routeDescriptor3.getId(), routeDescriptor3);
+    }
+
+    @Override
+    protected void publishRoutes() {
+        MediaRouteProviderDescriptor providerDescriptor = new MediaRouteProviderDescriptor.Builder()
+                .setSupportsDynamicGroupRoute(false)
+                .addRoutes(mRouteDescriptors.values())
+                .build();
+        setDescriptor(providerDescriptor);
     }
 
     final class SampleDynamicGroupRouteController
