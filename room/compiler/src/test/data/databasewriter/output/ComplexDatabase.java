@@ -61,6 +61,14 @@ public final class ComplexDatabase_Impl extends ComplexDatabase {
             }
 
             @Override
+            public void onPreMigrate(SupportSQLiteDatabase _db) {
+            }
+
+            @Override
+            public void onPostMigrate(SupportSQLiteDatabase _db) {
+            }
+
+            @Override
             protected void validateMigration(SupportSQLiteDatabase _db) {
                 final HashMap<String, TableInfo.Column> _columnsUser = new HashMap<String, TableInfo.Column>(4);
                 _columnsUser.put("uid", new TableInfo.Column("uid", "INTEGER", true, 1));

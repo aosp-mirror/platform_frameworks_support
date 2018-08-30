@@ -26,9 +26,12 @@ import android.os.Build;
 
 import androidx.room.Dao;
 import androidx.room.Database;
+import androidx.room.Embedded;
+import androidx.room.Entity;
 import androidx.room.Fts4Entity;
 import androidx.room.FtsOptions;
 import androidx.room.Insert;
+import androidx.room.PrimaryKey;
 import androidx.room.Query;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -57,7 +60,7 @@ public class FtsMigrationTest {
                 FtsMigrationDb.class.getCanonicalName());
     }
 
-    @Database(entities = {Book.class}, version = 2)
+    @Database(entities = {Book.class, Person.class, AddressFts.class}, version = 3)
     abstract static class FtsMigrationDb extends RoomDatabase {
         abstract BookDao getBookDao();
     }
@@ -80,6 +83,29 @@ public class FtsMigrationTest {
         public String author;
         public int numOfPages;
         public String text;
+    }
+
+    @Entity
+    static class Person {
+        @PrimaryKey
+        public long id;
+        public String firstName;
+        public String lastName;
+        @Embedded
+        public Address address;
+    }
+
+    @Fts4Entity(contentEntity = Person.class)
+    static class AddressFts {
+        @Embedded
+        public Address address;
+    }
+
+    static class Address {
+        public String line1;
+        public String line2;
+        public String state;
+        public int zipcode;
     }
 
     @Test
@@ -107,7 +133,7 @@ public class FtsMigrationTest {
         try {
             Context targetContext = InstrumentationRegistry.getTargetContext();
             FtsMigrationDb db = Room.databaseBuilder(targetContext, FtsMigrationDb.class, TEST_DB)
-                    .addMigrations(BAD_MIGRATION_1_2)
+                    .addMigrations(BAD_MIGRATION_1_2, MIGRATION_2_3)
                     .build();
             helper.closeWhenFinished(db);
             db.getBookDao().getAllBooks();
@@ -139,6 +165,19 @@ public class FtsMigrationTest {
         }
     };
 
+    private static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `Person` (`id` INTEGER NOT NULL, "
+                            + "`firstName` TEXT, `lastName` TEXT, `line1` TEXT, `line2` TEXT, "
+                            + "`state` TEXT, `zipcode` INTEGER, PRIMARY KEY(`id`))");
+            database.execSQL(
+                    "CREATE VIRTUAL TABLE IF NOT EXISTS `AddressFts` USING FTS4(`line1` TEXT, "
+                            + "`line2` TEXT, `state` TEXT, `zipcode` INTEGER, content=`Person`)");
+        }
+    };
+
     private static final Migration BAD_MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
@@ -148,5 +187,5 @@ public class FtsMigrationTest {
         }
     };
 
-    private static final Migration[] ALL_MIGRATIONS = new Migration[]{MIGRATION_1_2};
+    private static final Migration[] ALL_MIGRATIONS = new Migration[]{MIGRATION_1_2, MIGRATION_2_3};
 }
