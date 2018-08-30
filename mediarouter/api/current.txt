@@ -157,7 +157,7 @@ package androidx.mediarouter.media {
     method public androidx.mediarouter.media.MediaItemStatus.Builder setTimestamp(long);
   }
 
-  public final class MediaRouteDescriptor {
+  public final class MediaRouteDescriptor implements androidx.versionedparcelable.VersionedParcelable {
     method public android.os.Bundle asBundle();
     method public boolean canDisconnectAndKeepPlaying();
     method public static androidx.mediarouter.media.MediaRouteDescriptor fromBundle(android.os.Bundle);
@@ -248,7 +248,7 @@ package androidx.mediarouter.media {
     method public abstract void setOnDynamicRoutesChangedListener(java.util.concurrent.Executor, androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.OnDynamicRoutesChangedListener);
   }
 
-  public static final class MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor {
+  public static final class MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor implements androidx.versionedparcelable.VersionedParcelable {
     method public androidx.mediarouter.media.MediaRouteDescriptor getRouteDescriptor();
     method public int getSelectionState();
     method public boolean isGroupable();
