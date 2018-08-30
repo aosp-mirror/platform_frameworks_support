@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "ad2be51e_3e513779",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-08-30T12:31:01Z",
+      "side": 1,
+      "message": "Oh, right. Now I remember that I asked the same thing before. ;) Thanks for the explanation.",
+      "parentUuid": "d7f4e203_17065ebb",
+      "range": {
+        "startLine": 860,
+        "startChar": 48,
+        "endLine": 860,
+        "endChar": 64
+      },
+      "revId": "b53a0eae78a499e62bdad3816831316ef5d310ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "25502b94_3e3511bf",
         "filename": "media-widget/src/main/res/drawable/custom_progress_thumb.xml",
         "patchSetId": 1
