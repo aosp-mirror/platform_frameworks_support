@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "669322f4_77b436bc",
+        "filename": "media2/src/main/java/androidx/media2/MediaItemDesc2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-30T17:39:34Z",
+      "side": 1,
+      "message": "Sorry, I\u0027m not catching your point. Could you be more specific?\n\nTalking about general thing, subclasses can mark their member variables with @NonParcelField annotation and members in this class can be transformed to Parcelable.",
+      "parentUuid": "090dee33_fc6949ac",
+      "range": {
+        "startLine": 39,
+        "startChar": 25,
+        "endLine": 39,
+        "endChar": 45
+      },
+      "revId": "b1901d634ba91d6900738486c96d1f16650267ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a17547c6_9b958b53",
         "filename": "media2/src/main/java/androidx/media2/MediaItemDesc2.java",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "63bd4b2f_38e075c2",
+        "filename": "media2/src/main/java/androidx/media2/MediaItemDesc2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-30T17:39:34Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "a17547c6_9b958b53",
+      "range": {
+        "startLine": 40,
+        "startChar": 35,
+        "endLine": 40,
+        "endChar": 49
+      },
+      "revId": "b1901d634ba91d6900738486c96d1f16650267ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0a83aab_8389ba15",
         "filename": "media2/src/main/java/androidx/media2/MediaItemDesc2.java",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2018-08-30T16:40:23Z",
       "side": 1,
       "message": "I am not sure if this conforms to API guideline.",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 13
+      },
+      "revId": "b1901d634ba91d6900738486c96d1f16650267ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9765ca1c_08ef372d",
+        "filename": "media2/src/main/java/androidx/media2/MediaItemDesc2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-30T17:39:34Z",
+      "side": 1,
+      "message": "Some APIs are protected and added in P. (I forgot the name)\nIf you take a look at MediaPlayerlistAgent, then you\u0027ll see some protected methods.",
+      "parentUuid": "a0a83aab_8389ba15",
       "range": {
         "startLine": 102,
         "startChar": 4,
