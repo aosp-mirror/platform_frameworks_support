@@ -30,6 +30,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.core.util.ObjectsCompat;
 import androidx.mediarouter.media.MediaRouter.ControlRequestCallback;
+import androidx.versionedparcelable.ParcelField;
+import androidx.versionedparcelable.VersionedParcelable;
+import androidx.versionedparcelable.VersionedParcelize;
 
 import java.util.Collection;
 import java.util.List;
@@ -530,7 +533,8 @@ public abstract class MediaRouteProvider {
          * Contains a route, its selection state and its capabilities.
          * This is used in {@link OnDynamicRoutesChangedListener}.
          */
-        public static final class DynamicRouteDescriptor {
+        @VersionedParcelize
+        public static final class DynamicRouteDescriptor implements VersionedParcelable{
             /**
              * @hide
              */
@@ -572,11 +576,16 @@ public abstract class MediaRouteProvider {
              */
             public static final int SELECTED = 3;
 
+            @ParcelField(1)
             MediaRouteDescriptor mMediaRouteDescriptor;
+            @ParcelField(2)
             @SelectionState
             int mSelectionState;
+            @ParcelField(3)
             boolean mIsUnselectable;
+            @ParcelField(4)
             boolean mIsGroupable;
+            @ParcelField(5)
             boolean mIsTransferable;
 
             DynamicRouteDescriptor() {

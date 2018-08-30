@@ -849,6 +849,7 @@ public final class MediaRouter {
         private Uri mIconUri;
         boolean mEnabled;
         private @ConnectionState int mConnectionState;
+        private @DynamicRouteDescriptor.SelectionState int mSelectionState;
         private boolean mCanDisconnect;
         private final ArrayList<IntentFilter> mControlFilters = new ArrayList<>();
         private int mPlaybackType;
@@ -1088,12 +1089,24 @@ public final class MediaRouter {
         }
 
         /**
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public int getSelectionState() {
+            return mSelectionState;
+        }
+
+        /**
          * Returns true if this route is currently selected.
          *
          * @return True if this route is currently selected.
          *
          * @see MediaRouter#getSelectedRoute
          */
+        // Note: Only one representative route can return true. For instance:
+        //   - If this route is a selected (non-group) route, it returns true.
+        //   - If this route is a selected group route, it returns true.
+        //   - If this route is a selected member route of a group, it returns false.
         public boolean isSelected() {
             checkCallingThread();
             return sGlobal.getSelectedRoute() == this;
@@ -1739,34 +1752,40 @@ public final class MediaRouter {
             mUnselectableRoutes.clear();
             mGroupableRoutes.clear();
             mTransferableRoutes.clear();
+            boolean changed = false;
 
             for (DynamicRouteDescriptor dynamicDescriptor :
                     dynamicDescriptors) {
+                RouteInfo route = findRouteByDynamicRouteDescriptor(dynamicDescriptor);
+                if (route == null) {
+                    continue;
+                }
+                int previousState = route.getSelectionState();
+                if (dynamicDescriptor.getSelectionState() != previousState) {
+                    route.mSelectionState = dynamicDescriptor.getSelectionState();
+                    changed |= true;
+                }
                 if (dynamicDescriptor.isGroupable()) {
-                    RouteInfo route = findRouteByDynamicRouteDescriptor(dynamicDescriptor);
-                    if (route != null) {
-                        mGroupableRoutes.add(route.getId());
-                    }
+                    mGroupableRoutes.add(route.getId());
                 }
                 if (dynamicDescriptor.isTransferable()) {
-                    RouteInfo route = findRouteByDynamicRouteDescriptor(dynamicDescriptor);
-                    if (route != null) {
-                        mTransferableRoutes.add(route.getId());
-                    }
+                    mTransferableRoutes.add(route.getId());
                 }
                 if ((dynamicDescriptor.getSelectionState() == DynamicRouteDescriptor.SELECTING)
                         || (dynamicDescriptor.getSelectionState()
                         == DynamicRouteDescriptor.SELECTED)) {
-                    RouteInfo route = findRouteByDynamicRouteDescriptor(dynamicDescriptor);
-                    if (route != null) {
-                        mRoutes.add(route);
-                        mMemberRoutes.add(route.getId());
-                        if (dynamicDescriptor.isUnselectable()) {
-                            mUnselectableRoutes.add(route.getId());
-                        }
+                    mMemberRoutes.add(route.getId());
+                    if (dynamicDescriptor.isUnselectable()) {
+                        mUnselectableRoutes.add(route.getId());
                     }
                 }
+                if (changed) {
+                    sGlobal.mCallbackHandler.post(
+                            GlobalMediaRouter.CallbackHandler.MSG_ROUTE_CHANGED, route);
+                }
             }
+            sGlobal.mCallbackHandler.post(
+                    GlobalMediaRouter.CallbackHandler.MSG_ROUTE_CHANGED, this);
         }
 
         public List<String> getMemberRoutes() {
@@ -2469,11 +2488,22 @@ public final class MediaRouter {
                     final String id = routeDescriptor.getId();
                     final int sourceIndex = provider.findRouteIndexByDescriptorId(id);
                     boolean isGroup = routeDescriptor.getGroupMemberIds() != null;
+                    boolean isDynamicGroup =
+                            (mSelectedRouteController instanceof DynamicGroupRouteController)
+                            && id.equals(((DynamicGroupRouteController) mSelectedRouteController)
+                                    .getDynamicGroupRouteId());
                     if (sourceIndex < 0) {
                         // 1. Add the route to the list.
                         String uniqueId = assignRouteUniqueId(provider, id);
-                        RouteInfo route = isGroup ? new RouteGroup(provider, id, uniqueId) :
-                                new RouteInfo(provider, id, uniqueId);
+                        RouteInfo route;
+                        if (isDynamicGroup) {
+                            route = new DynamicGroupInfo(provider, id, uniqueId);
+                            mSelectedRoute = route;
+                        } else if (isGroup) {
+                            route = new RouteGroup(provider, id, uniqueId);
+                        } else {
+                            route = new RouteInfo(provider, id, uniqueId);
+                        }
                         provider.mRoutes.add(targetIndex++, route);
                         mRoutes.add(route);
                         // 2. Create the route's contents.
@@ -2667,7 +2697,7 @@ public final class MediaRouter {
             }
 
             // Update selected route.
-            if (mSelectedRoute == null || !mSelectedRoute.isSelectable()) {
+            if (mSelectedRoute == null || !mSelectedRoute.isEnabled()) {
                 Log.i(TAG, "Unselecting the current route because it "
                         + "is no longer selectable: " + mSelectedRoute);
                 setSelectedRouteInternal(chooseFallbackRoute(),
@@ -2788,16 +2818,15 @@ public final class MediaRouter {
                     MediaRouteProvider.DynamicGroupRouteController controller =
                             route.getProviderInstance().onCreateDynamicGroupRouteController(
                                     route.mDescriptorId);
-                    // Controller has the new route's id which MediaRouteDescriptor might not be
-                    // published yet.
-                    String uniqueId = assignRouteUniqueId(
-                            route.getProvider(), controller.getDynamicGroupRouteId());
+                    // Note: Controller doesn't have a valid route id yet.
+                    // It will be informed with updated provider's route descriptors.
                     controller.setOnDynamicRoutesChangedListener(
                             MainHandlerExecutor.getExecutor(mApplicationContext),
                             mDynamicRoutesListener);
                     mSelectedRouteController = controller;
-                    mSelectedRoute = new DynamicGroupInfo(route.getProvider(),
-                            controller.getDynamicGroupRouteId(), uniqueId);
+                    // Select the initial member route for now. It is replaced with dynamic group
+                    // route once MRP publishes corresponding route descriptor.
+                    mSelectedRoute = route;
                 } else {
                     mSelectedRouteController = route.getProviderInstance().onCreateRouteController(
                             route.mDescriptorId);

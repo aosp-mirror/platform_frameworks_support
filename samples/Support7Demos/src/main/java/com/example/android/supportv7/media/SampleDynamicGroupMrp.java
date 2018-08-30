@@ -230,9 +230,11 @@ final class SampleDynamicGroupMrp extends SampleMediaRouteProvider {
                     .build();
             mRouteDescriptors.put(mRouteId, groupDescriptor);
             publishRoutes();
-            mListenerExecutor.execute(() -> mDynamicRoutesChangedListener.onRoutesChanged(
-                    SampleDynamicGroupRouteController.this,
-                    mDynamicRouteDescriptors.values()));
+            if (mListenerExecutor != null) {
+                mListenerExecutor.execute(() -> mDynamicRoutesChangedListener.onRoutesChanged(
+                        SampleDynamicGroupRouteController.this,
+                        mDynamicRouteDescriptors.values()));
+            }
         }
 
         @Override
@@ -263,9 +265,11 @@ final class SampleDynamicGroupMrp extends SampleMediaRouteProvider {
                             .build();
             mRouteDescriptors.put(mRouteId, groupDescriptor);
             publishRoutes();
-            mListenerExecutor.execute(() -> mDynamicRoutesChangedListener.onRoutesChanged(
-                    SampleDynamicGroupRouteController.this,
-                    mDynamicRouteDescriptors.values()));
+            if (mListenerExecutor != null) {
+                mListenerExecutor.execute(() -> mDynamicRoutesChangedListener.onRoutesChanged(
+                        SampleDynamicGroupRouteController.this,
+                        mDynamicRouteDescriptors.values()));
+            }
         }
 
         @Override
@@ -273,6 +277,9 @@ final class SampleDynamicGroupMrp extends SampleMediaRouteProvider {
                 Executor executor, OnDynamicRoutesChangedListener listener) {
             mDynamicRoutesChangedListener = listener;
             mListenerExecutor = executor;
+            mListenerExecutor.execute(() -> mDynamicRoutesChangedListener.onRoutesChanged(
+                    SampleDynamicGroupRouteController.this,
+                    mDynamicRouteDescriptors.values()));
         }
 
         //////////////////////////////////////////////
