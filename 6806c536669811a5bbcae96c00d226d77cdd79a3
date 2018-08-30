@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "340cfa1d_3bdd221b",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-30T07:20:56Z",
+      "side": 1,
+      "message": "The reason I changed \u0027handleMediaPlayPauseKeySingleTapIfPending\u0027 is that this method has a problem that it sets the current info as null when it ends.\n\nIf we look at L3182, the current user info should remain, until the fallback callback is processed. We should not set the controller info in this method.",
+      "parentUuid": "631f07b5_9f75ba83",
+      "range": {
+        "startLine": 1069,
+        "startChar": 24,
+        "endLine": 1069,
+        "endChar": 65
+      },
+      "revId": "6806c536669811a5bbcae96c00d226d77cdd79a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6aa3cf0d_0401ec27",
         "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
         "patchSetId": 5
