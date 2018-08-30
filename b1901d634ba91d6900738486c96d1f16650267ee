@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "090dee33_fc6949ac",
+        "filename": "media2/src/main/java/androidx/media2/MediaItemDesc2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-30T16:40:23Z",
+      "side": 1,
+      "message": "how will this be handled with subclasses? e.g. FD, uri, and callbacks",
+      "range": {
+        "startLine": 39,
+        "startChar": 25,
+        "endLine": 39,
+        "endChar": 45
+      },
+      "revId": "b1901d634ba91d6900738486c96d1f16650267ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a17547c6_9b958b53",
+        "filename": "media2/src/main/java/androidx/media2/MediaItemDesc2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-30T16:40:23Z",
+      "side": 1,
+      "message": "you meant MediaItem2?",
+      "range": {
+        "startLine": 40,
+        "startChar": 35,
+        "endLine": 40,
+        "endChar": 49
+      },
+      "revId": "b1901d634ba91d6900738486c96d1f16650267ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0a83aab_8389ba15",
+        "filename": "media2/src/main/java/androidx/media2/MediaItemDesc2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-30T16:40:23Z",
+      "side": 1,
+      "message": "I am not sure if this conforms to API guideline.",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 13
+      },
+      "revId": "b1901d634ba91d6900738486c96d1f16650267ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
