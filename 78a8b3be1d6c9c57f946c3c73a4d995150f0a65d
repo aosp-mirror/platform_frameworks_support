@@ -16,6 +16,24 @@
       "revId": "78a8b3be1d6c9c57f946c3c73a4d995150f0a65d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82ce4106_5db4c9de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-30T00:18:34Z",
+      "side": 1,
+      "message": "Yes. I\u0027ve run this inside of the mingw64 that is bundled with git-for-windows.\nI needed extra setup for git/repo/build-tool/aapt2 but it\u0027s working after that.",
+      "parentUuid": "64e34937_4f240b61",
+      "revId": "78a8b3be1d6c9c57f946c3c73a4d995150f0a65d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
