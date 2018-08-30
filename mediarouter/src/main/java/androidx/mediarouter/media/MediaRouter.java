@@ -1515,6 +1515,16 @@ public final class MediaRouter {
             sGlobal.selectRoute(this);
         }
 
+        /**
+         * Selects this media route as a member of current dynamic group.
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public void selectIntoGroup() {
+            checkCallingThread();
+            sGlobal.selectRouteIntoGroup(this);
+        }
+
         @Override
         public String toString() {
             return "MediaRouter.RouteInfo{ uniqueId=" + mUniqueId
@@ -2234,6 +2244,16 @@ public final class MediaRouter {
 
         void selectRoute(@NonNull RouteInfo route) {
             selectRoute(route, MediaRouter.UNSELECT_REASON_ROUTE_CHANGED);
+        }
+
+        void selectRouteIntoGroup(@NonNull RouteInfo route) {
+            if (!(mSelectedRoute instanceof DynamicGroupInfo)
+                    || (!(mSelectedRouteController instanceof DynamicGroupRouteController))) {
+                throw new IllegalStateException("There is no currently selected "
+                        + "dynamic group route.");
+            }
+            ((DynamicGroupRouteController) mSelectedRouteController)
+                    .onAddMemberRoute(route.getId());
         }
 
         void selectRoute(@NonNull RouteInfo route, int unselectReason) {
