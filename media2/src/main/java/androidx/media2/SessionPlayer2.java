@@ -209,34 +209,34 @@ public abstract class SessionPlayer2 implements AutoCloseable {
     public abstract float getPlaybackSpeed();
 
     // APIs from the MediaPlaylistAgent
-    public abstract @NonNull ListenableFuture<CommandResult2> setPlaylist(List<MediaItem2> list,
-            MediaMetadata2 metadata);
+    public abstract @NonNull ListenableFuture<CommandResult2> setPlaylist(
+            List<DataSourceDesc2> list, MediaMetadata2 metadata);
 
     /**
-     * Sets a {@link MediaItem2} for playback. This is helper method for
+     * Sets a {@link DataSourceDesc2} for playback. This is helper method for
      * {@link #setPlaylist(List, MediaMetadata2)} to set playlist without creating a {@link List}
      * and doesn't specify playlist metadata.
      *
      * @param item
      * @return
      */
-    public abstract @NonNull ListenableFuture<CommandResult2> setMediaItem(MediaItem2 item);
+    public abstract @NonNull ListenableFuture<CommandResult2> setMediaItem(DataSourceDesc2 item);
 
     public abstract @NonNull ListenableFuture<CommandResult2> addPlaylistItem(int index,
-            @NonNull MediaItem2 item);
+            @NonNull DataSourceDesc2 item);
 
     public abstract @NonNull ListenableFuture<CommandResult2> removePlaylistItem(
-            @NonNull MediaItem2 item);
+            @NonNull DataSourceDesc2 item);
 
     public abstract @NonNull ListenableFuture<CommandResult2> replacePlaylistItem(int index,
-            @NonNull MediaItem2 item);
+            @NonNull DataSourceDesc2 item);
 
     public abstract @NonNull ListenableFuture<CommandResult2> skipToPreviousItem();
 
     public abstract @NonNull ListenableFuture<CommandResult2> skipToNextItem();
 
     public abstract @NonNull ListenableFuture<CommandResult2> skipToPlaylistItem(
-            @NonNull MediaItem2 desc);
+            @NonNull DataSourceDesc2 desc);
 
     public abstract @NonNull ListenableFuture<CommandResult2> updatePlaylistMetadata(
             @Nullable MediaMetadata2 metadata);
@@ -247,7 +247,7 @@ public abstract class SessionPlayer2 implements AutoCloseable {
     public abstract @NonNull ListenableFuture<CommandResult2> setShuffleMode(
             @ShuffleMode int shuffleMode);
 
-    public abstract @Nullable List<MediaItem2> getPlaylist();
+    public abstract @Nullable List<DataSourceDesc2> getPlaylist();
 
     public abstract @Nullable MediaMetadata2 getPlaylistMetadata();
 
@@ -256,7 +256,7 @@ public abstract class SessionPlayer2 implements AutoCloseable {
     public abstract @ShuffleMode int getShuffleMode();
 
     // APIs previously in the grey area (neither player connector / playlist agent)
-    public abstract @Nullable MediaItem2 getCurrentMediaItem();
+    public abstract @Nullable DataSourceDesc2 getCurrentMediaItem();
 
     // Listeners / Callback related
     // Intentionally final not to allow developers to change the behavior
@@ -318,7 +318,7 @@ public abstract class SessionPlayer2 implements AutoCloseable {
         }
 
         public void onBufferingStateChanged(@NonNull SessionPlayer2 player,
-                @Nullable MediaItem2 desc, @BuffState int buffState) {
+                @Nullable DataSourceDesc2 desc, @BuffState int buffState) {
         }
 
         public void onPlaybackSpeedChanged(@NonNull SessionPlayer2 player,
@@ -329,7 +329,7 @@ public abstract class SessionPlayer2 implements AutoCloseable {
         }
 
         // Callbacks from MediaPlaylistAgent
-        public void onPlaylistChanged(@NonNull SessionPlayer2 player, List<MediaItem2> list,
+        public void onPlaylistChanged(@NonNull SessionPlayer2 player, List<DataSourceDesc2> list,
                 @Nullable MediaMetadata2 metadata) {
         }
 
