@@ -24,6 +24,7 @@ import static androidx.versionedparcelable.ParcelUtils.toParcelable;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -455,6 +456,16 @@ public class VersionedParcelIntegTest {
         assertEquals(obj.mGenericType.mValue, other.mGenericType.mValue);
     }
 
+    @Test
+    public void testInheritance() {
+        ParcelizableImplSub obj = new ParcelizableImplSub();
+        obj.mChildParcelField = 12;
+        obj.mChildNonParcelField = 34;
+        ParcelizableImplSub other = (ParcelizableImplSub) parcelCopy(obj);
+        assertEquals(obj.mChildParcelField, other.mChildParcelField);
+        assertNotEquals(obj.mChildNonParcelField, other.mChildNonParcelField);
+    }
+
     @VersionedParcelize(allowSerialization = true,
             ignoreParcelables = true,
             isCustom = true,
@@ -544,6 +555,15 @@ public class VersionedParcelIntegTest {
         public void onPostParceling() {
             mPostParcelled = true;
         }
+    }
+
+    @VersionedParcelize
+    public static class ParcelizableImplSub extends ParcelizableImpl {
+        @ParcelField(1000)
+        public int mChildParcelField;
+
+        @NonParcelField
+        public int mChildNonParcelField;
     }
 
     @VersionedParcelize(allowSerialization = true)
