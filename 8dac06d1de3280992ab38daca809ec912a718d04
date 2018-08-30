@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "905ead65_6e062636",
+        "filename": "room/runtime/src/main/java/androidx/room/util/FtsTableInfo.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-30T02:06:51Z",
+      "side": 1,
+      "message": "We have Set for things like this",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 6
+      },
+      "revId": "8dac06d1de3280992ab38daca809ec912a718d04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89612d1a_10690e42",
+        "filename": "room/testing/src/main/java/androidx/room/testing/MigrationTestHelper.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-30T02:06:51Z",
+      "side": 1,
+      "message": "instead of exclusion here, add shadow tables have a \"expectedTables\" set that has keys from tables and shadow tables",
+      "range": {
+        "startLine": 425,
+        "startChar": 6,
+        "endLine": 445,
+        "endChar": 17
+      },
+      "revId": "8dac06d1de3280992ab38daca809ec912a718d04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
