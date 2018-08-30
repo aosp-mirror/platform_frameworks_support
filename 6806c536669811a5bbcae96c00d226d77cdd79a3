@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "631f07b5_9f75ba83",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-30T07:16:36Z",
+      "side": 1,
+      "message": "In L1435 and L3164, the info is set before calling onMediaButtonEvent().",
+      "parentUuid": "b7d654ee_89966369",
+      "range": {
+        "startLine": 1069,
+        "startChar": 24,
+        "endLine": 1069,
+        "endChar": 65
+      },
+      "revId": "6806c536669811a5bbcae96c00d226d77cdd79a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6aa3cf0d_0401ec27",
         "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "6806c536669811a5bbcae96c00d226d77cdd79a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "743c7236_6453e00c",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1091,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-08-30T07:16:36Z",
+      "side": 1,
+      "message": "Explained above",
+      "parentUuid": "6aa3cf0d_0401ec27",
+      "range": {
+        "startLine": 1091,
+        "startChar": 20,
+        "endLine": 1091,
+        "endChar": 61
+      },
+      "revId": "6806c536669811a5bbcae96c00d226d77cdd79a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
