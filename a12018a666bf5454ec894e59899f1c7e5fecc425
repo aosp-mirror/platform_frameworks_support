@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2a1e501_2b5171d1",
+        "filename": "room/runtime/src/main/java/androidx/room/util/FtsTableInfo.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-08-30T05:20:06Z",
+      "side": 1,
+      "message": "lol, arrays is good enough, I didn\u0027t notice initially that you do startsWith.",
+      "range": {
+        "startLine": 41,
+        "startChar": 65,
+        "endLine": 41,
+        "endChar": 71
+      },
+      "revId": "a12018a666bf5454ec894e59899f1c7e5fecc425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
