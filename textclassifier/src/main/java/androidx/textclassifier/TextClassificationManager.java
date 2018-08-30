@@ -67,10 +67,28 @@ public final class TextClassificationManager {
     /**
      * Sets a preferred text classifier.
      * <p>
-     * To turn off the feature completely, you can set a {@link TextClassifier#NO_OP}.
+     * To turn off the feature completely, you can set a {@link TextClassifier#NO_OP}. If
+     * @{code null} is set, default text classifier is used.
      */
     public void setTextClassifier(@Nullable TextClassifier textClassifier) {
         mTextClassifier = textClassifier;
+    }
+
+    /**
+     * TODO: Make it public.
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public void init(Context context) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            return;
+        }
+        android.view.textclassifier.TextClassificationManager textClassificationManager =
+                context.getSystemService(
+                        android.view.textclassifier.TextClassificationManager.class);
+        final PlatformTextClassifier platformTextClassifier =
+                new PlatformTextClassifier(getTextClassifier());
+        textClassificationManager.setTextClassifier(platformTextClassifier);
     }
 
     /**
