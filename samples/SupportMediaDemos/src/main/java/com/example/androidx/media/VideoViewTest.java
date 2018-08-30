@@ -40,11 +40,14 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.media.widget.MediaControlView2;
 import androidx.media.widget.VideoView2;
+import androidx.media2.FileDataSourceDesc2;
 import androidx.media2.MediaController2;
 import androidx.media2.MediaItem2;
 import androidx.media2.SessionToken2;
-import androidx.media2.UriDataSourceDesc2;
 
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.concurrent.Executor;
 
 /**
@@ -70,6 +73,8 @@ public class VideoViewTest extends FragmentActivity {
     private int mPrevWidth;
     private int mPrevHeight;
 
+    private FileInputStream mFis;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +97,17 @@ public class VideoViewTest extends FragmentActivity {
             if (mUseTextureView) {
                 mVideoView.setViewType(VideoView2.VIEW_TYPE_TEXTUREVIEW);
             }
-            UriDataSourceDesc2.Builder dsdBuilder = new UriDataSourceDesc2.Builder(this, videoUri);
+            FileDescriptor fd;
+            try {
+                mFis = new FileInputStream("/sdcard/play-720p.mp4");
+                fd = mFis.getFD();
+            } catch (IOException e) {
+                Log.w("DEBUG", "Failed to open -------", e);
+                throw new IllegalStateException(e);
+            }
+            FileDataSourceDesc2.Builder dsdBuilder = new FileDataSourceDesc2.Builder(fd);
+            // UriDataSourceDesc2.Builder dsdBuilder =
+            //     new UriDataSourceDesc2.Builder(this, videoUri);
             MediaItem2 mediaItem = new MediaItem2.Builder(MediaItem2.FLAG_PLAYABLE)
                     .setDataSourceDesc(dsdBuilder.build())
                     .build();
