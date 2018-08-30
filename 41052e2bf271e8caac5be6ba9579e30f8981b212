@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50a3c701_b9d85ae7",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-30T21:31:38Z",
+      "side": 1,
+      "message": "Could you keep the logging for recycled bitmap?",
+      "range": {
+        "startLine": 424,
+        "startChar": 0,
+        "endLine": 425,
+        "endChar": 0
+      },
+      "revId": "41052e2bf271e8caac5be6ba9579e30f8981b212",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
