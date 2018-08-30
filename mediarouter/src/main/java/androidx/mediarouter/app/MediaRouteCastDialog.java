@@ -300,6 +300,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        MediaRouterThemeHelper.setDialogBackgroundColor(mContext, this);
         setContentView(R.layout.mr_cast_dialog);
 
         mCloseButton = findViewById(R.id.mr_cast_close_button);
