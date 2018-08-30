@@ -270,13 +270,16 @@ public final class TextClassification {
      */
     @SuppressLint("WrongConstant") // Lint does not know @EntityType in platform and here are same.
     @RestrictTo(RestrictTo.Scope.LIBRARY)
-    @RequiresApi(28)
+    @RequiresApi(26)
     @NonNull
     Object toPlatform() {
         android.view.textclassifier.TextClassification.Builder builder =
                 new android.view.textclassifier.TextClassification.Builder()
-                        .setText(getText() == null ? null : getText().toString())
-                        .setId(getId());
+                        .setText(getText() == null ? null : getText().toString());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            builder.setId(getId());
+        }
 
         final int entityCount = getEntityTypeCount();
         for (int i = 0; i < entityCount; i++) {
@@ -284,9 +287,16 @@ public final class TextClassification {
             builder.setEntityType(entity, getConfidenceScore(entity));
         }
 
-        List<RemoteActionCompat> actions = getActions();
-        for (RemoteActionCompat action : actions) {
-            builder.addAction(action.toRemoteAction());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            List<RemoteActionCompat> actions = getActions();
+            for (RemoteActionCompat action : actions) {
+                builder.addAction(action.toRemoteAction());
+            }
+        }
+
+        if (!getActions().isEmpty()) {
+            RemoteActionCompat firstAction = getActions().get(0);
+            // TODO: How can we convert PendingIntent to intent...
         }
 
         return builder.build();
@@ -441,6 +451,21 @@ public final class TextClassification {
         @Nullable
         public Long getReferenceTime() {
             return mReferenceTime;
+        }
+
+        /**
+         * @hide
+         */
+        @RestrictTo(RestrictTo.Scope.LIBRARY)
+        @RequiresApi(28)
+        @NonNull
+        static TextClassification.Request fromPlatform(
+                @NonNull android.view.textclassifier.TextClassification.Request request) {
+            return new TextClassification.Request.Builder(
+                    request.getText(), request.getStartIndex(), request.getEndIndex())
+                    .setReferenceTime(ConvertUtils.zonedDateTimeToUtcMs(request.getReferenceTime()))
+                    .setDefaultLocales(LocaleListCompat.wrap(request.getDefaultLocales()))
+                    .build();
         }
 
         /**

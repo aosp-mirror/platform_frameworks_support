@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         mTextClassificationManager = TextClassificationManager.of(this);
+        mTextClassificationManager.init(this);
         mTextClassifier = mTextClassificationManager.getTextClassifier();
 
         setContentView(R.layout.activity_main);
