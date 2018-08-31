@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a543323c_8b75843e",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1397,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-31T23:30:00Z",
+      "side": 1,
+      "message": "Please make seekTo() be called once. (See L1392 and L1397)",
+      "revId": "cc132952335bb29a174ed9fe04ddb3ec4af4a4b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9eb5b05_96659975",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1829,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-31T23:30:00Z",
+      "side": 1,
+      "message": "It looks we can merge the two method into one.\nupdateForStoppedState(boolean isStopped)",
+      "range": {
+        "startLine": 1826,
+        "startChar": 0,
+        "endLine": 1829,
+        "endChar": 37
+      },
+      "revId": "cc132952335bb29a174ed9fe04ddb3ec4af4a4b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
