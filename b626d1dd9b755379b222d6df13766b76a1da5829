@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2f7d6970_cebbe740",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-31T12:32:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e9646b1_aaafbdde",
+      "range": {
+        "startLine": 470,
+        "startChar": 9,
+        "endLine": 470,
+        "endChar": 27
+      },
+      "revId": "b626d1dd9b755379b222d6df13766b76a1da5829",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c982dcfa_97caab81",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-31T02:13:53Z",
       "side": 1,
       "message": "why not \u0027updateRecyclerView\u0027?",
+      "range": {
+        "startLine": 1066,
+        "startChar": 12,
+        "endLine": 1069,
+        "endChar": 13
+      },
+      "revId": "b626d1dd9b755379b222d6df13766b76a1da5829",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07a5b215_efd2b53a",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-31T12:32:47Z",
+      "side": 1,
+      "message": "updateRecyclerView calls notifyDatasetChanged which will bind all of the views showing in screen. Since onRouteChanged get changed route as a parameter, only binding a viewholder which is holding changed parameter seems more efficient to me.",
+      "parentUuid": "c982dcfa_97caab81",
       "range": {
         "startLine": 1066,
         "startChar": 12,
