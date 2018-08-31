@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38db69a7_f58a3ff3",
+        "filename": "mediarouter/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-31T18:23:45Z",
+      "side": 1,
+      "message": "I think versioned parcelable is still buggy. If it is not mandatory, I prefer not to use it.",
+      "range": {
+        "startLine": 160,
+        "startChar": 53,
+        "endLine": 160,
+        "endChar": 101
+      },
+      "revId": "0af814c8358389231e5b245e67ad0a7e45527490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40921a55_123fb7a7",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1785,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-31T18:23:45Z",
+      "side": 1,
+      "message": "Q) What kind of info is changed for the \"RouteInfo route\"? If the change is only related with dynamic route, I think you shouldn\u0027t notify RouteInfo changed.",
+      "range": {
+        "startLine": 1785,
+        "startChar": 81,
+        "endLine": 1785,
+        "endChar": 86
+      },
+      "revId": "0af814c8358389231e5b245e67ad0a7e45527490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbb69745_945176b0",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2824,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-31T18:23:45Z",
+      "side": 1,
+      "message": "Q) What\u0027s your concern for doing this?",
+      "range": {
+        "startLine": 2823,
+        "startChar": 20,
+        "endLine": 2824,
+        "endChar": 85
+      },
+      "revId": "0af814c8358389231e5b245e67ad0a7e45527490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5ec9b9f_6725e758",
+        "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/media/SampleDynamicGroupMrp.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-31T18:23:45Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 277,
+        "startChar": 16,
+        "endLine": 277,
+        "endChar": 33
+      },
+      "revId": "0af814c8358389231e5b245e67ad0a7e45527490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a30c9922_dcdd713b",
+        "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/media/SampleDynamicGroupMrp.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-31T18:23:45Z",
+      "side": 1,
+      "message": "Is it okay not to check nullity?",
+      "range": {
+        "startLine": 279,
+        "startChar": 12,
+        "endLine": 279,
+        "endChar": 41
+      },
+      "revId": "0af814c8358389231e5b245e67ad0a7e45527490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
