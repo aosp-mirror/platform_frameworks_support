@@ -45,6 +45,29 @@
       "revId": "5db6fce611028cf2b72f2168b560c5a9198b662f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fbed9a0_4d719b26",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-31T23:36:34Z",
+      "side": 1,
+      "message": "Why don\u0027t you use \"import\"?",
+      "range": {
+        "startLine": 105,
+        "startChar": 11,
+        "endLine": 105,
+        "endChar": 39
+      },
+      "revId": "5db6fce611028cf2b72f2168b560c5a9198b662f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
