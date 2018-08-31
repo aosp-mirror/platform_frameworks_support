@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0131cab4_715c384c",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-31T05:14:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ead8ef0_bc8c75d0",
+      "range": {
+        "startLine": 197,
+        "startChar": 69,
+        "endLine": 197,
+        "endChar": 72
+      },
+      "revId": "075ba4bedc7760a3135ed8c4edf9d096785785d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e9eda99_a108a590",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
         "patchSetId": 10
@@ -45,6 +69,30 @@
       "revId": "075ba4bedc7760a3135ed8c4edf9d096785785d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2393b47f_bf93b275",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-31T05:14:28Z",
+      "side": 1,
+      "message": "Two reasons\n\n1. It\u0027s for session. session player can be controlled directly, and session needs to monitor it\n2. Currently we\u0027ll return CommandResult for all methods here (maybe PlayerResult instead?) and we wouldn\u0027t return position/speed from there.",
+      "parentUuid": "4e9eda99_a108a590",
+      "range": {
+        "startLine": 326,
+        "startChar": 8,
+        "endLine": 331,
+        "endChar": 9
+      },
+      "revId": "075ba4bedc7760a3135ed8c4edf9d096785785d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

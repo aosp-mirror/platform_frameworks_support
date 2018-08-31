@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6dbb2465_53a0856f",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-31T05:14:28Z",
+      "side": 1,
+      "message": "My bad. I\u0027ll remove this because session doesn\u0027t need it.",
+      "parentUuid": "44f8502e_8f67503f",
+      "range": {
+        "startLine": 195,
+        "startChar": 20,
+        "endLine": 195,
+        "endChar": 61
+      },
+      "revId": "f9e4649ea0840fdd005b9bcde39680b66a740d4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2838c3c2_f2f134dc",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
         "patchSetId": 8
