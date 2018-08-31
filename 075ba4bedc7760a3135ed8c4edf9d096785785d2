@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ead8ef0_bc8c75d0",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-31T02:47:59Z",
+      "side": 1,
+      "message": "long?",
+      "range": {
+        "startLine": 197,
+        "startChar": 69,
+        "endLine": 197,
+        "endChar": 72
+      },
+      "revId": "075ba4bedc7760a3135ed8c4edf9d096785785d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
