@@ -22,6 +22,30 @@
       "revId": "63146e1e048828e6e823c05224ef3ec3cd179389",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a3bee93_a767f6b6",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-08-31T10:22:57Z",
+      "side": 1,
+      "message": "I couldn\u0027t find other ways to set background color of dialog such as setColor, setBackgroundColor like other color setters.\nAnd, MediaRouteControllerDialog is calling same method but to make dialog transparent. \nAlso, I found other codes in code search that use same method. Is there any other way to set background color of Dialog programmatically?",
+      "parentUuid": "227582ab_36e98670",
+      "range": {
+        "startLine": 209,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 74
+      },
+      "revId": "63146e1e048828e6e823c05224ef3ec3cd179389",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
