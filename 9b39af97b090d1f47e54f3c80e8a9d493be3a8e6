@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ed3d289_8bd7f6b4",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/workers/ConstraintTrackingWorker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-08-31T00:42:25Z",
+      "side": 1,
+      "message": "Nit: Update comments to mDelegate#onStartWork()",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 41
+      },
+      "revId": "9b39af97b090d1f47e54f3c80e8a9d493be3a8e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
