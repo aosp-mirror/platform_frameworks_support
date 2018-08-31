@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "090fdb59_c934b1f3",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-31T21:19:38Z",
+      "side": 1,
+      "message": "onCurrentDataSourceChanged and onMediaPrepared are missing compared to MediaPlayerConnector.",
+      "range": {
+        "startLine": 314,
+        "startChar": 33,
+        "endLine": 314,
+        "endChar": 47
+      },
+      "revId": "9e42ade83388073fcf37521e257b987339994957",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
