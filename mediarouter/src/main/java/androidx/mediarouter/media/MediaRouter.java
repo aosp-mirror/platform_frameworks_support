@@ -42,6 +42,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.core.app.ActivityManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.hardware.display.DisplayManagerCompat;
 import androidx.core.util.ObjectsCompat;
 import androidx.core.util.Pair;
@@ -2740,7 +2741,7 @@ public final class MediaRouter {
                     String uniqueId = assignRouteUniqueId(
                             route.getProvider(), controller.getDynamicGroupRouteId());
                     controller.setOnDynamicRoutesChangedListener(
-                            MainHandlerExecutor.getExecutor(mApplicationContext),
+                            ContextCompat.getMainExecutor(mApplicationContext),
                             mDynamicRoutesListener);
                     mSelectedRouteController = controller;
                     mSelectedRoute = new DynamicGroupInfo(mSelectedRoute.getProvider(),
