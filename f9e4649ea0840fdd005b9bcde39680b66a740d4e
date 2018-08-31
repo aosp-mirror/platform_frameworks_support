@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "44f8502e_8f67503f",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-08-31T02:46:22Z",
+      "side": 1,
+      "message": "reset is a blocking call in MP2.",
+      "range": {
+        "startLine": 195,
+        "startChar": 20,
+        "endLine": 195,
+        "endChar": 61
+      },
+      "revId": "f9e4649ea0840fdd005b9bcde39680b66a740d4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2838c3c2_f2f134dc",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
         "patchSetId": 8
