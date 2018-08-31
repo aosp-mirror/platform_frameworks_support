@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "227582ab_36e98670",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-31T08:46:02Z",
+      "side": 1,
+      "message": "Why don\u0027t you follow pattern of other color setters?\nsetBackgroundDrawableResource() looks wierd to me.",
+      "range": {
+        "startLine": 209,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 74
+      },
+      "revId": "63146e1e048828e6e823c05224ef3ec3cd179389",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
