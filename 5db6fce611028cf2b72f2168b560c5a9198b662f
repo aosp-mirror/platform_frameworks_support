@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2271023_0a8da776",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-31T23:36:08Z",
+      "side": 1,
+      "message": "what about moving this to the SessionPlayer2? I think that these are pretty generic",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 0
+      },
+      "revId": "5db6fce611028cf2b72f2168b560c5a9198b662f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6ca7237_52edc15f",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-08-31T23:36:08Z",
+      "side": 1,
+      "message": "question) Shouldn\u0027t we format as follows?\n\n/**\n * comment\n */",
+      "range": {
+        "startLine": 83,
+        "startChar": 3,
+        "endLine": 86,
+        "endChar": 7
+      },
+      "revId": "5db6fce611028cf2b72f2168b560c5a9198b662f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
