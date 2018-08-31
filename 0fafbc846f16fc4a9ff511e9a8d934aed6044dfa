@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "441d83c8_b537fb97",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-08-31T04:55:27Z",
+      "side": 1,
+      "message": "a bit hard to tell from calling this what the true/false in the second parameter means in the test\n\nWe have a few options:\n- go with a builder like in other places - good for consistency\n- static factories (e.g. LaneDirection.highlighted(Shape), LaneDirection.notHighlighted(Shape) (I don\u0027t like this option as much)\n- just say use android studio and get the hints in your IDE",
+      "range": {
+        "startLine": 101,
+        "startChar": 47,
+        "endLine": 101,
+        "endChar": 66
+      },
+      "revId": "0fafbc846f16fc4a9ff511e9a8d934aed6044dfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
