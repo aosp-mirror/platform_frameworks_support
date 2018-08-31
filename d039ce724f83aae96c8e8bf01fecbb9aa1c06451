@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea9f5644_8b400a7b",
+        "filename": "samples/SupportMediaDemos/src/main/java/com/example/androidx/media/MainHandlerExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-31T02:26:40Z",
+      "side": 1,
+      "message": "What do you think about adding a method, \"Executor getMainExecutor()\", in ContextCompat.java?\nWe have multiple copy of this class in different places.\nI\u0027m fine for doing this in a different CL.",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 26
+      },
+      "revId": "d039ce724f83aae96c8e8bf01fecbb9aa1c06451",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
