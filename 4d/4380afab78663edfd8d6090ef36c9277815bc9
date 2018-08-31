@@ -1,0 +1,7 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Jaewan Kim <jaewan@google.com>
+Submitted-by: Jin Seok Park <jinpark@google.com>
+Submitted-at: Fri, 31 Aug 2018 06:17:18 +0000
+Reviewed-on: https://android-review.googlesource.com/733014
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
