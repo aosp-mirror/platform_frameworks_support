@@ -46,7 +46,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.accessibility.AccessibilityManager;
 import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
@@ -269,7 +268,6 @@ public class MediaControlView2 extends BaseLayout {
     Resources mResources;
     ControllerInterface mController;
     OnFullScreenListener mOnFullScreenListener;
-    private AccessibilityManager mAccessibilityManager;
     SessionCommandGroup2 mAllowedCommands;
     private WindowManager mWindowManager;
     int mPrevState;
@@ -400,8 +398,6 @@ public class MediaControlView2 extends BaseLayout {
         mRoot = makeControllerView();
         addView(mRoot);
         mShowControllerIntervalMs = DEFAULT_SHOW_CONTROLLER_INTERVAL_MS;
-        mAccessibilityManager = (AccessibilityManager) context.getSystemService(
-                Context.ACCESSIBILITY_SERVICE);
     }
 
     /**
@@ -1221,7 +1217,6 @@ public class MediaControlView2 extends BaseLayout {
 
     private void toggleMediaControlViewVisibility() {
         if (shouldNotHideBars() || mShowControllerIntervalMs == 0
-                || mAccessibilityManager.isTouchExplorationEnabled()
                 || mUxState == UX_STATE_ANIMATING) {
             return;
         }
