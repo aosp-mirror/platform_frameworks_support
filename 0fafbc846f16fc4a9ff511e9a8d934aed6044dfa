@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3dedfce3_ca75c592",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-31T18:12:19Z",
+      "side": 1,
+      "message": "We don\u0027t have examples of those yet (at least GMM protos don\u0027t include that information). That would be additional information on the Lane itself, rather then a LaneDirection. \nWe can introduce this information later as we learn more about it.",
+      "parentUuid": "75936a86_b32d7769",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 21
+      },
+      "revId": "0fafbc846f16fc4a9ff511e9a8d934aed6044dfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "441d83c8_b537fb97",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
         "patchSetId": 4
@@ -69,6 +93,30 @@
       "revId": "0fafbc846f16fc4a9ff511e9a8d934aed6044dfa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab0a2b62_2ef3a348",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-08-31T18:12:19Z",
+      "side": 1,
+      "message": "I agree: I\u0027ll make this a builder.",
+      "parentUuid": "5a69c6ad_2a6bc036",
+      "range": {
+        "startLine": 101,
+        "startChar": 47,
+        "endLine": 101,
+        "endChar": 66
+      },
+      "revId": "0fafbc846f16fc4a9ff511e9a8d934aed6044dfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
