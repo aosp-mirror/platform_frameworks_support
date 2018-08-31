@@ -1,0 +1,222 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d465c24_d86995bd",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteProviderService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-31T05:30:05Z",
+      "side": 1,
+      "message": "\u003e 100",
+      "range": {
+        "startLine": 46,
+        "startChar": 67,
+        "endLine": 46,
+        "endChar": 104
+      },
+      "revId": "c382f3217c7636287b9d24904f462e58647dd6c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61362bbe_3efd8339",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteProviderService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-31T05:30:05Z",
+      "side": 1,
+      "message": "\u003e 100",
+      "range": {
+        "startLine": 53,
+        "startChar": 67,
+        "endLine": 53,
+        "endChar": 102
+      },
+      "revId": "c382f3217c7636287b9d24904f462e58647dd6c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fb31f63_89f8d7fe",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1659,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-31T05:30:05Z",
+      "side": 1,
+      "message": "s/mRoutes/mMemberRoutes",
+      "revId": "c382f3217c7636287b9d24904f462e58647dd6c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02776272_1435face",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1670,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-31T05:30:05Z",
+      "side": 1,
+      "message": "s/getRoutes/getMemberRoutes",
+      "range": {
+        "startLine": 1670,
+        "startChar": 31,
+        "endLine": 1670,
+        "endChar": 40
+      },
+      "revId": "c382f3217c7636287b9d24904f462e58647dd6c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ed628b6_92299931",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1727,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-31T05:30:05Z",
+      "side": 1,
+      "message": "What about using RouteInfo instead of route id for all xxxRoutes?",
+      "range": {
+        "startLine": 1727,
+        "startChar": 21,
+        "endLine": 1727,
+        "endChar": 27
+      },
+      "revId": "c382f3217c7636287b9d24904f462e58647dd6c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edf0d67e_e181ad06",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2273,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-31T05:30:05Z",
+      "side": 1,
+      "message": "Q) Do we need to have selectRouteIntoGroup() methods? Can\u0027t route dialogues directly access to the DynamicGroupRouteController?",
+      "range": {
+        "startLine": 2273,
+        "startChar": 43,
+        "endLine": 2273,
+        "endChar": 67
+      },
+      "revId": "c382f3217c7636287b9d24904f462e58647dd6c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03079a53_8a7b8adf",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2274,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-31T05:30:05Z",
+      "side": 1,
+      "message": "getDescriptorId?",
+      "range": {
+        "startLine": 2274,
+        "startChar": 44,
+        "endLine": 2274,
+        "endChar": 49
+      },
+      "revId": "c382f3217c7636287b9d24904f462e58647dd6c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04e985d6_6399f9a1",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2289,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-31T05:30:05Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "c382f3217c7636287b9d24904f462e58647dd6c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ca84b4c_f00791fc",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/RegisteredMediaRouteProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-31T05:30:05Z",
+      "side": 1,
+      "message": "DynamicGroupRouteController?",
+      "range": {
+        "startLine": 305,
+        "startChar": 20,
+        "endLine": 305,
+        "endChar": 31
+      },
+      "revId": "c382f3217c7636287b9d24904f462e58647dd6c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a050bea3_30329fa2",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/RegisteredMediaRouteProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-08-31T05:30:05Z",
+      "side": 1,
+      "message": "Consider to rename the class name or methods.",
+      "range": {
+        "startLine": 388,
+        "startChar": 14,
+        "endLine": 388,
+        "endChar": 24
+      },
+      "revId": "c382f3217c7636287b9d24904f462e58647dd6c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
