@@ -28,6 +28,7 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.concurrent.listenablefuture.ListenableFuture;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -35,7 +36,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
-import java.util.concurrent.Future;
 
 /**
  * Base interface for all media players that want media session
@@ -185,15 +185,15 @@ public abstract class SessionPlayer2 implements AutoCloseable {
     private final Map<PlayerCallback, Executor> mCallbacks = new HashMap<>();
 
     // APIs from the MediaPlayerConnector
-    public abstract @NonNull Future<CommandResult2> play();
+    public abstract @NonNull ListenableFuture<CommandResult2> play();
 
-    public abstract @NonNull Future<CommandResult2> pause();
+    public abstract @NonNull ListenableFuture<CommandResult2> pause();
 
-    public abstract @NonNull Future<CommandResult2> prepare();
+    public abstract @NonNull ListenableFuture<CommandResult2> prepare();
 
-    public abstract @NonNull Future<CommandResult2> seekTo(long position);
+    public abstract @NonNull ListenableFuture<CommandResult2> seekTo(long position);
 
-    public abstract @NonNull Future<CommandResult2> setPlaybackSpeed(float playbackSpeed);
+    public abstract @NonNull ListenableFuture<CommandResult2> setPlaybackSpeed(float playbackSpeed);
 
     public abstract @PlayerState int getPlayerState();
 
@@ -208,8 +208,8 @@ public abstract class SessionPlayer2 implements AutoCloseable {
     public abstract float getPlaybackSpeed();
 
     // APIs from the MediaPlaylistAgent
-    public abstract @NonNull Future<CommandResult2> setPlaylist(List<DataSourceDesc2> list,
-            MediaMetadata2 metadata);
+    public abstract @NonNull ListenableFuture<CommandResult2> setPlaylist(
+            List<DataSourceDesc2> list, MediaMetadata2 metadata);
 
     /**
      * Sets a {@link DataSourceDesc2} for playback. This is helper method for
@@ -219,31 +219,31 @@ public abstract class SessionPlayer2 implements AutoCloseable {
      * @param item
      * @return
      */
-    public abstract @NonNull Future<CommandResult2> setMediaItem(DataSourceDesc2 item);
+    public abstract @NonNull ListenableFuture<CommandResult2> setMediaItem(DataSourceDesc2 item);
 
-    public abstract @NonNull Future<CommandResult2> addPlaylistItem(int index,
+    public abstract @NonNull ListenableFuture<CommandResult2> addPlaylistItem(int index,
             @NonNull DataSourceDesc2 item);
 
-    public abstract @NonNull Future<CommandResult2> removePlaylistItem(
+    public abstract @NonNull ListenableFuture<CommandResult2> removePlaylistItem(
             @NonNull DataSourceDesc2 item);
 
-    public abstract @NonNull Future<CommandResult2> replacePlaylistItem(int index,
+    public abstract @NonNull ListenableFuture<CommandResult2> replacePlaylistItem(int index,
             @NonNull DataSourceDesc2 item);
 
-    public abstract @NonNull Future<CommandResult2> skipToPreviousItem();
+    public abstract @NonNull ListenableFuture<CommandResult2> skipToPreviousItem();
 
-    public abstract @NonNull Future<CommandResult2> skipToNextItem();
+    public abstract @NonNull ListenableFuture<CommandResult2> skipToNextItem();
 
-    public abstract @NonNull Future<CommandResult2> skipToPlaylistItem(
+    public abstract @NonNull ListenableFuture<CommandResult2> skipToPlaylistItem(
             @NonNull DataSourceDesc2 item);
 
-    public abstract @NonNull Future<CommandResult2> updatePlaylistMetadata(
+    public abstract @NonNull ListenableFuture<CommandResult2> updatePlaylistMetadata(
             @Nullable MediaMetadata2 metadata);
 
-    public abstract @NonNull Future<CommandResult2> setRepeatMode(
+    public abstract @NonNull ListenableFuture<CommandResult2> setRepeatMode(
             @RepeatMode int repeatMode);
 
-    public abstract @NonNull Future<CommandResult2> setShuffleMode(
+    public abstract @NonNull ListenableFuture<CommandResult2> setShuffleMode(
             @ShuffleMode int shuffleMode);
 
     public abstract @Nullable List<DataSourceDesc2> getPlaylist();
