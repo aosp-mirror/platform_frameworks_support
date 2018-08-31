@@ -22,6 +22,30 @@
       "revId": "bbd4ca1bb64bb60774c613c9caa29fad41af74c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80df8481_edf11162",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-08-31T07:32:40Z",
+      "side": 1,
+      "message": "onTimelineChanged can be called repeatedly when the structure of the media changes (e.g., the live window moves) but it should happen only once with TIMELINE_CHANGE_REASON_PREPARED. Queues aren\u0027t supported yet but this code will need to change once that functionality is added.",
+      "parentUuid": "f9303ea6_d02f6422",
+      "range": {
+        "startLine": 654,
+        "startChar": 33,
+        "endLine": 654,
+        "endChar": 41
+      },
+      "revId": "bbd4ca1bb64bb60774c613c9caa29fad41af74c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
