@@ -33,6 +33,7 @@ def includeProject(name, filePath) {
 //
 /////////////////////////////
 
+includeProject(":activity", "activity")
 includeProject(":annotation", "annotations")
 includeProject(":animation", "animation")
 includeProject(":appcompat", "appcompat")
