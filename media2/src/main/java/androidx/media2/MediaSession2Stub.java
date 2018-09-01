@@ -921,7 +921,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
         }
 
         @Override
-        void onBufferingStateChanged(MediaItem2 item, int bufferingState, long bufferedPositionMs)
+        void onBufferingStateChanged(DataSourceDesc2 item, int bufferingState, long bufferedPositionMs)
                 throws RemoteException {
             mIControllerCallback.onBufferingStateChanged(
                     (ParcelImpl) ParcelUtils.toParcelable(item),

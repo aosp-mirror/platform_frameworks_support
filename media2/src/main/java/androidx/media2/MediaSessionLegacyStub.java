@@ -590,8 +590,8 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         }
 
         @Override
-        void onBufferingStateChanged(MediaItem2 item, int bufferingState, long bufferedPositionMs)
-                throws RemoteException {
+        void onBufferingStateChanged(DataSourceDesc2 item, int bufferingState,
+                long bufferedPositionMs) throws RemoteException {
             throw new AssertionError("This shouldn't be called.");
         }
 
@@ -607,12 +607,12 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         }
 
         @Override
-        void onCurrentMediaItemChanged(MediaItem2 item) throws RemoteException {
+        void onCurrentMediaItemChanged(DataSourceDesc2 item) throws RemoteException {
             throw new AssertionError("This shouldn't be called.");
         }
 
         @Override
-        void onPlaylistChanged(List<MediaItem2> playlist, MediaMetadata2 metadata)
+        void onPlaylistChanged(List<DataSourceDesc2> playlist, MediaMetadata2 metadata)
                 throws RemoteException {
             throw new AssertionError("This shouldn't be called.");
         }
@@ -721,8 +721,8 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         }
 
         @Override
-        void onBufferingStateChanged(MediaItem2 item, int bufferingState, long bufferedPositionMs)
-                throws RemoteException {
+        void onBufferingStateChanged(DataSourceDesc2 item, int bufferingState,
+                long bufferedPositionMs) throws RemoteException {
             // Note: This method does not use any of the given arguments.
             mSessionImpl.getSessionCompat().setPlaybackState(
                     mSessionImpl.createPlaybackStateCompat());
@@ -750,13 +750,13 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         }
 
         @Override
-        void onCurrentMediaItemChanged(MediaItem2 item) throws RemoteException {
+        void onCurrentMediaItemChanged(DataSourceDesc2 item) throws RemoteException {
             mSessionImpl.getSessionCompat().setMetadata(item == null ? null
                     : MediaUtils2.convertToMediaMetadataCompat(item.getMetadata()));
         }
 
         @Override
-        void onPlaylistChanged(List<MediaItem2> playlist, MediaMetadata2 metadata)
+        void onPlaylistChanged(List<DataSourceDesc2> playlist, MediaMetadata2 metadata)
                 throws RemoteException {
             mSessionImpl.getSessionCompat().setQueue(MediaUtils2.convertToQueueItemList(playlist));
             onPlaylistMetadataChanged(metadata);

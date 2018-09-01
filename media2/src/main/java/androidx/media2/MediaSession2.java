@@ -16,6 +16,7 @@
 
 package androidx.media2;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.annotation.TargetApi;
@@ -180,6 +181,7 @@ import java.util.concurrent.Executor;
  * </table>
  * @see MediaSessionService2
  */
+// TODO(jaewan): Remove all duplicated APIs, callbacks with SessionPlayer2.
 @TargetApi(Build.VERSION_CODES.P)
 public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseable {
     /**
@@ -265,17 +267,15 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
 
     private final MediaSession2Impl mImpl;
 
-    MediaSession2(Context context, String id, MediaPlayerConnector player,
-            MediaPlaylistAgent playlistAgent, PendingIntent sessionActivity,
-            Executor callbackExecutor, SessionCallback callback) {
-        mImpl = createImpl(context, id, player, playlistAgent, sessionActivity, callbackExecutor,
+    MediaSession2(Context context, String id, SessionPlayer2 player,
+            PendingIntent sessionActivity, Executor callbackExecutor, SessionCallback callback) {
+        mImpl = createImpl(context, id, player, sessionActivity, callbackExecutor,
                 callback);
     }
 
-    MediaSession2Impl createImpl(Context context, String id, MediaPlayerConnector player,
-            MediaPlaylistAgent playlistAgent, PendingIntent sessionActivity,
-            Executor callbackExecutor, MediaSession2.SessionCallback callback) {
-        return new MediaSession2ImplBase(this, context, id, player, playlistAgent, sessionActivity,
+    MediaSession2Impl createImpl(Context context, String id, SessionPlayer2 player,
+            PendingIntent sessionActivity, Executor callbackExecutor, SessionCallback callback) {
+        return new MediaSession2ImplBase(this, context, id, player, sessionActivity,
                 callbackExecutor, callback);
     }
 
@@ -305,6 +305,25 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
         mImpl.updatePlayer(player, playlistAgent);
     }
 
+    /**
+     * Sets the underlying {@link MediaPlayerConnector} and {@link MediaPlaylistAgent} for this
+     * session to dispatch incoming event to.
+     * <p>
+     * When a {@link MediaPlaylistAgent} is specified here, the playlist agent should manage
+     * {@link MediaPlayerConnector} for calling
+     * {@link MediaPlayerConnector#setNextDataSources(List)}.
+     * <p>
+     * If the {@link MediaPlaylistAgent} isn't set, session will recreate the default playlist
+     * agent.
+     *
+     * @param player a player that handles actual media playback in your app
+     */
+    // TODO(jaewan): Unhide this
+    @RestrictTo(LIBRARY)
+    public void updatePlayer(@NonNull SessionPlayer2 player) {
+        mImpl.updatePlayer(player);
+    }
+
     @Override
     public void close() {
         try {
@@ -318,7 +337,7 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
      * @return player. Can be {@code null} if and only if the session is released.
      */
     public @Nullable MediaPlayerConnector getPlayerConnector() {
-        return mImpl.getPlayer();
+        return mImpl.getPlayerConnector();
     }
 
     /**
@@ -326,6 +345,16 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
      */
     public @NonNull MediaPlaylistAgent getPlaylistAgent() {
         return mImpl.getPlaylistAgent();
+    }
+
+    /**
+     * @return player. Can be {@code null} if and only if the session is released.
+     * @hide
+     */
+    // TODO(Unhide this)
+    @RestrictTo(LIBRARY)
+    public @Nullable SessionPlayer2 getPlayer() {
+        return mImpl.getPlayer();
     }
 
     /**
@@ -1220,6 +1249,7 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
          * @param player the player for this event
          * @param item the media item for which buffering is happening
          */
+        // TODO(jaewan): Remove this -- SessionPlayer2 wouldn't have these
         public void onMediaPrepared(@NonNull MediaSession2 session,
                 @NonNull MediaPlayerConnector player, @NonNull MediaItem2 item) { }
 
@@ -1357,6 +1387,18 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
             super(context);
         }
 
+        /**
+         * @hide
+         * @param player
+         * @return
+         */
+        // TODO(jaewan): Unhide this
+        @RestrictTo(LIBRARY)
+        @Override
+        public @NonNull Builder setPlayer(@NonNull SessionPlayer2 player) {
+            return super.setPlayer(player);
+        }
+
         @Override
         public @NonNull Builder setPlayer(@NonNull MediaPlayerConnector player) {
             return super.setPlayer(player);
@@ -1391,8 +1433,8 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
             if (mCallback == null) {
                 mCallback = new SessionCallback() {};
             }
-            return new MediaSession2(mContext, mId, mPlayer, mPlaylistAgent, mSessionActivity,
-                    mCallbackExecutor, mCallback);
+            return new MediaSession2(mContext, mId, mPlayer, mSessionActivity, mCallbackExecutor,
+                    mCallback);
         }
     }
 
@@ -1704,14 +1746,15 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
                 throws RemoteException;
         abstract void onPlaybackSpeedChanged(long eventTimeMs, long positionMs, float speed)
                 throws RemoteException;
-        abstract void onBufferingStateChanged(@NonNull MediaItem2 item,
+        abstract void onBufferingStateChanged(@NonNull DataSourceDesc2 item,
                 @BuffState int bufferingState, long bufferedPositionMs) throws RemoteException;
         abstract void onSeekCompleted(long eventTimeMs, long positionMs, long position)
                 throws RemoteException;
         abstract void onError(@ErrorCode int errorCode, @Nullable Bundle extras)
                 throws RemoteException;
-        abstract void onCurrentMediaItemChanged(@Nullable MediaItem2 item) throws RemoteException;
-        abstract void onPlaylistChanged(@NonNull List<MediaItem2> playlist,
+        abstract void onCurrentMediaItemChanged(@Nullable DataSourceDesc2 item)
+                throws RemoteException;
+        abstract void onPlaylistChanged(@NonNull List<DataSourceDesc2> playlist,
                 @Nullable MediaMetadata2 metadata) throws RemoteException;
         abstract void onPlaylistMetadataChanged(@Nullable MediaMetadata2 metadata)
                 throws RemoteException;
@@ -1740,8 +1783,9 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
     interface MediaSession2Impl extends MediaInterface2.SessionPlayer, AutoCloseable {
         void updatePlayer(@NonNull MediaPlayerConnector player,
                 @Nullable MediaPlaylistAgent playlistAgent);
-        @NonNull
-        MediaPlayerConnector getPlayer();
+        void updatePlayer(@NonNull SessionPlayer2 player);
+        @NonNull SessionPlayer2 getPlayer();
+        @NonNull MediaPlayerConnector getPlayerConnector();
         @NonNull MediaPlaylistAgent getPlaylistAgent();
         @NonNull String getId();
         @NonNull SessionToken2 getToken();
@@ -1795,11 +1839,10 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
     abstract static class BuilderBase
             <T extends MediaSession2, U extends BuilderBase<T, U, C>, C extends SessionCallback> {
         final Context mContext;
-        MediaPlayerConnector mPlayer;
+        SessionPlayer2 mPlayer;
         String mId;
         Executor mCallbackExecutor;
         C mCallback;
-        MediaPlaylistAgent mPlaylistAgent;
         PendingIntent mSessionActivity;
 
         BuilderBase(Context context) {
@@ -1812,6 +1855,21 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
         }
 
         /**
+         * Sets the underlying {@link SessionPlayer2} for this session to dispatch incoming event
+         * to.
+         *
+         * @param player a {@link SessionPlayer2} that handles actual media playback in your
+         *               app.
+         */
+        @NonNull U setPlayer(@NonNull SessionPlayer2 player) {
+            if (player == null) {
+                throw new IllegalArgumentException("player shouldn't be null");
+            }
+            mPlayer = player;
+            return (U) this;
+        }
+
+        /**
          * Sets the underlying {@link MediaPlayerConnector} for this session to dispatch incoming
          * event to.
          *
@@ -1819,10 +1877,6 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
          *               app.
          */
         @NonNull U setPlayer(@NonNull MediaPlayerConnector player) {
-            if (player == null) {
-                throw new IllegalArgumentException("player shouldn't be null");
-            }
-            mPlayer = player;
             return (U) this;
         }
 
@@ -1839,10 +1893,6 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
          *                      {@code player}
          */
         U setPlaylistAgent(@NonNull MediaPlaylistAgent playlistAgent) {
-            if (playlistAgent == null) {
-                throw new IllegalArgumentException("playlistAgent shouldn't be null");
-            }
-            mPlaylistAgent = playlistAgent;
             return (U) this;
         }
 

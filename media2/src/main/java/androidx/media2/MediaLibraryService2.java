@@ -259,22 +259,22 @@ public abstract class MediaLibraryService2 extends MediaSessionService2 {
                 if (mCallback == null) {
                     mCallback = new MediaLibrarySession.MediaLibrarySessionCallback() {};
                 }
-                return new MediaLibrarySession(mContext, mId, mPlayer, mPlaylistAgent,
+                return new MediaLibrarySession(mContext, mId, mPlayer,
                         mSessionActivity, mCallbackExecutor, mCallback);
             }
         }
 
-        MediaLibrarySession(Context context, String id, MediaPlayerConnector player,
-                MediaPlaylistAgent playlistAgent, PendingIntent sessionActivity,
-                Executor callbackExecutor, MediaSession2.SessionCallback callback) {
-            super(context, id, player, playlistAgent, sessionActivity, callbackExecutor, callback);
+        MediaLibrarySession(Context context, String id, SessionPlayer2 player,
+                PendingIntent sessionActivity, Executor callbackExecutor,
+                MediaSession2.SessionCallback callback) {
+            super(context, id, player, sessionActivity, callbackExecutor, callback);
         }
 
         @Override
-        MediaLibrarySessionImpl createImpl(Context context, String id, MediaPlayerConnector player,
-                MediaPlaylistAgent playlistAgent, PendingIntent sessionActivity,
-                Executor callbackExecutor, MediaSession2.SessionCallback callback) {
-            return new MediaLibrarySessionImplBase(this, context, id, player, playlistAgent,
+        MediaLibrarySessionImpl createImpl(Context context, String id, SessionPlayer2 player,
+                PendingIntent sessionActivity, Executor callbackExecutor,
+                MediaSession2.SessionCallback callback) {
+            return new MediaLibrarySessionImplBase(this, context, id, player,
                     sessionActivity, callbackExecutor, callback);
         }
 
