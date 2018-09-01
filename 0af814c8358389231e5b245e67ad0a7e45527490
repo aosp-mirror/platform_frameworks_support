@@ -25,6 +25,40 @@
     },
     {
       "key": {
+        "uuid": "453f3612_d635832f",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1770,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-01T05:53:07Z",
+      "side": 1,
+      "message": "Since mGroupableRoutes is a Collection of RouteInfo, route.getId() has to be just route.",
+      "revId": "0af814c8358389231e5b245e67ad0a7e45527490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aba85d3_65a6a966",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1773,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-01T05:53:07Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "0af814c8358389231e5b245e67ad0a7e45527490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "40921a55_123fb7a7",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
         "patchSetId": 4
