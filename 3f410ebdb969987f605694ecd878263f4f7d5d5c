@@ -1,0 +1,343 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f91e2de_abdde4ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T09:54:15Z",
+      "side": 1,
+      "message": "no dot.",
+      "range": {
+        "startLine": 7,
+        "startChar": 40,
+        "endLine": 7,
+        "endChar": 41
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79905dd9_7f98fd3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T09:54:15Z",
+      "side": 1,
+      "message": "Could you be more specific?\n\nJust FYI, AudioFocusRequest is granted per user (instead of per package),\nso you can write test for it.",
+      "range": {
+        "startLine": 10,
+        "startChar": 6,
+        "endLine": 10,
+        "endChar": 20
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "216c7921_97187f65",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T09:54:15Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 2,
+        "startChar": 13,
+        "endLine": 2,
+        "endChar": 16
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bf3aaae_00a2e122",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T09:54:15Z",
+      "side": 1,
+      "message": "we normally say \u0027framework\u0027",
+      "range": {
+        "startLine": 90,
+        "startChar": 13,
+        "endLine": 90,
+        "endChar": 21
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31049232_2a6ddcc4",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T09:54:15Z",
+      "side": 1,
+      "message": "Gets, here and other places\n\nhttps://developers.google.com/style/api-reference-comments#description",
+      "range": {
+        "startLine": 104,
+        "startChar": 7,
+        "endLine": 104,
+        "endChar": 15
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d29b78b3_2f99bf04",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T09:54:15Z",
+      "side": 1,
+      "message": "question) why not link?",
+      "range": {
+        "startLine": 177,
+        "startChar": 17,
+        "endLine": 177,
+        "endChar": 22
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce26fe18_865ac876",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T09:54:15Z",
+      "side": 1,
+      "message": "AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE may not be valid in older platform, so developers need to care about SDK version although they\u0027re using compat library.\nWhat about not throwing exception for it?",
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5ec54c0_99c8fffe",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T09:54:15Z",
+      "side": 1,
+      "message": "nullcheck?",
+      "range": {
+        "startLine": 287,
+        "startChar": 0,
+        "endLine": 287,
+        "endChar": 53
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "098926f8_5c198b40",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T09:54:15Z",
+      "side": 1,
+      "message": "question) can\u0027t we set this from framework?",
+      "range": {
+        "startLine": 289,
+        "startChar": 12,
+        "endLine": 289,
+        "endChar": 40
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afab7b4b_51f7e29a",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T09:54:15Z",
+      "side": 1,
+      "message": "minor comment, you may ignore) extends from Handler is more common if it doesn\u0027t needs to extends another handler",
+      "range": {
+        "startLine": 394,
+        "startChar": 25,
+        "endLine": 394,
+        "endChar": 64
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0d3c795_60ebb5b3",
+        "filename": "media/src/main/java/androidx/media/AudioManagerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T09:54:15Z",
+      "side": 1,
+      "message": "Remove this.",
+      "range": {
+        "startLine": 2,
+        "startChar": 12,
+        "endLine": 2,
+        "endChar": 17
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00643ade_74a221e4",
+        "filename": "media/src/main/java/androidx/media/AudioManagerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T09:54:15Z",
+      "side": 1,
+      "message": "Requests.\n\nSee: https://developers.google.com/style/api-reference-comments#description\n(The link is from go/android-api-guidelines)",
+      "range": {
+        "startLine": 30,
+        "startChar": 7,
+        "endLine": 30,
+        "endChar": 15
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5fb9e59_7dbea5a6",
+        "filename": "media/src/main/java/androidx/media/AudioManagerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T09:54:15Z",
+      "side": 1,
+      "message": "also check this",
+      "range": {
+        "startLine": 45,
+        "startChar": 21,
+        "endLine": 45,
+        "endChar": 46
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "690ec1ae_1d776cdd",
+        "filename": "media/src/main/java/androidx/media/AudioManagerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T09:54:15Z",
+      "side": 1,
+      "message": "also check this",
+      "range": {
+        "startLine": 70,
+        "startChar": 34,
+        "endLine": 70,
+        "endChar": 46
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "827fea4c_3722a74b",
+        "filename": "media/src/main/java/androidx/media/AudioManagerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T09:54:15Z",
+      "side": 1,
+      "message": "question) why don\u0027t you create getInstance()?\nPlease tell me if there\u0027s a reason because MediaSessionManager is doing so.\n\nNote that I prefer to have getInstance() and obtain the framework instance of AudioManager prepared in the main thread. (not sure *how*. may not be possible and you may ignore in that case)\nIt\u0027s because AudioManager considers initially initialized thread as main thread, and leading tricky issue. see: b/78617702",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 35
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
