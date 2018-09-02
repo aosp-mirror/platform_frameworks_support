@@ -93,6 +93,30 @@
       "revId": "b626d1dd9b755379b222d6df13766b76a1da5829",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "160588f8_f52baaf4",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T11:07:31Z",
+      "side": 1,
+      "message": "Note that previously it was refreshRoutes() that updates all views, plus doesn\u0027t update within the timeline..\n\nGiven the logic above, I suspect that there\u0027s reason for it. (e.g. some route change events that calls multiple onRouteChanged() for a single event)\n\nCould you double check for the reason (use \u0027git blame\u0027) and explain the reason?",
+      "parentUuid": "07a5b215_efd2b53a",
+      "range": {
+        "startLine": 1066,
+        "startChar": 12,
+        "endLine": 1069,
+        "endChar": 13
+      },
+      "revId": "b626d1dd9b755379b222d6df13766b76a1da5829",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }

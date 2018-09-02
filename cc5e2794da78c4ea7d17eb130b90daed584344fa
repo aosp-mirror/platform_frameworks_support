@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e878f8c_7b5a04aa",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T11:07:31Z",
+      "side": 1,
+      "message": "updateRoutesView",
+      "range": {
+        "startLine": 489,
+        "startChar": 9,
+        "endLine": 489,
+        "endChar": 25
+      },
+      "revId": "cc5e2794da78c4ea7d17eb130b90daed584344fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
