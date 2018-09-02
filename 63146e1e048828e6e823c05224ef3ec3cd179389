@@ -46,6 +46,30 @@
       "revId": "63146e1e048828e6e823c05224ef3ec3cd179389",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9038c874_03dfa940",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T10:03:30Z",
+      "side": 1,
+      "message": "Why don\u0027t you take top level view, specified by Dialog#setContentView(), instead of taking dialog?",
+      "parentUuid": "4a3bee93_a767f6b6",
+      "range": {
+        "startLine": 209,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 74
+      },
+      "revId": "63146e1e048828e6e823c05224ef3ec3cd179389",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
