@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56c7d867_0f04bcdd",
+        "filename": "mediarouter/src/main/res/layout/mr_picker_route_item.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T09:59:22Z",
+      "side": 1,
+      "message": "why did you change margin to padding?",
+      "range": {
+        "startLine": 32,
+        "startChar": 14,
+        "endLine": 32,
+        "endChar": 39
+      },
+      "revId": "1a89c80a788a7e53f18ab9d5ffb0478b77d4d1e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
