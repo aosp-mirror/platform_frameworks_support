@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "fb558089_82374dea",
+        "filename": "mediarouter/src/main/res/values/styles.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T09:56:40Z",
+      "side": 1,
+      "message": "Mark resolved when you\u0027re done.",
+      "parentUuid": "0c51956c_8615a32f",
+      "range": {
+        "startLine": 35,
+        "startChar": 52,
+        "endLine": 35,
+        "endChar": 60
+      },
+      "revId": "9005889dfabc0fd1f94acba84b12b34afb8a31eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "275fcfb5_ea3664da",
         "filename": "mediarouter/src/main/res/values/styles.xml",
         "patchSetId": 2
