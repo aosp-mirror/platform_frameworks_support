@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4667b208_bc8b8fb6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T10:01:34Z",
+      "side": 1,
+      "message": "I couldn\u0027t find any example of this.",
+      "range": {
+        "startLine": 12,
+        "startChar": 20,
+        "endLine": 12,
+        "endChar": 39
+      },
+      "revId": "5b6a7b850ef1074c9967c68b10d7ab0677b874ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72747497_3fa0b28e",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_route_item.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T10:01:34Z",
+      "side": 1,
+      "message": "you still have this",
+      "range": {
+        "startLine": 60,
+        "startChar": 21,
+        "endLine": 60,
+        "endChar": 47
+      },
+      "revId": "5b6a7b850ef1074c9967c68b10d7ab0677b874ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9f625b1_1e9699f5",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_route_item.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T10:01:34Z",
+      "side": 1,
+      "message": "you still have this",
+      "range": {
+        "startLine": 69,
+        "startChar": 12,
+        "endLine": 69,
+        "endChar": 36
+      },
+      "revId": "5b6a7b850ef1074c9967c68b10d7ab0677b874ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36c62fe9_89b932a5",
+        "filename": "mediarouter/src/main/res/layout/mr_picker_dialog.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T10:01:34Z",
+      "side": 1,
+      "message": "you still have this",
+      "range": {
+        "startLine": 26,
+        "startChar": 18,
+        "endLine": 26,
+        "endChar": 38
+      },
+      "revId": "5b6a7b850ef1074c9967c68b10d7ab0677b874ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
