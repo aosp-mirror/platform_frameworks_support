@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "2eec1d08_5d363b9b",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-02T09:06:38Z",
+      "side": 1,
+      "message": "Great bug finding. Could you also write test? It doesn\u0027t necessarily to be in this CL. If current CL already covers it when we lower the API level, you can simply say done.\n\n\nHowever, I\u0027m bit more confused with 1097, where handleMediaPlayerPauseKeySingleTapIfPending(void) still resets the callback. I\u0027m opposing this CL because next maintainer may call handleMediaPlayerPauseKeySingleTapIfPending(void) and it would cause another bug here.\n\nI\u0027ve enfoced handleMediaPlayerPauseKeySingleTapIfPending() to take RemoteUserInfo to make it clear that calling it strictly needs RemoteUserInfo.\n\nGiven my concerns, what about following options instead? You may pick any of these, and you can even propose another, or fine to have VC. I\u0027ll follow your decision?\n\n1. handleMediaPlayerPauseKeySingleTapIfPending() keeps the previously current user, and resets with it.\nPros: less change\nCons: less straightforward\n\n2. caller of handleMediaPlayerPauseKeySingleTapIfPending() (e.g. 1371L) set/reset callback.\nIf so, we may need to find a way to make it more visible\nPros: more match with calling callbacks methods\nCons: someone may forget to do this.",
+      "parentUuid": "340cfa1d_3bdd221b",
+      "range": {
+        "startLine": 1069,
+        "startChar": 24,
+        "endLine": 1069,
+        "endChar": 65
+      },
+      "revId": "6806c536669811a5bbcae96c00d226d77cdd79a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6aa3cf0d_0401ec27",
         "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
         "patchSetId": 5
