@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "52a79190_13b4db3e",
+        "filename": "mediarouter/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-03T07:18:07Z",
+      "side": 1,
+      "message": "It is not mandatory, but let me revise it in the separate CL.",
+      "parentUuid": "38db69a7_f58a3ff3",
+      "range": {
+        "startLine": 160,
+        "startChar": 53,
+        "endLine": 160,
+        "endChar": 101
+      },
+      "revId": "0af814c8358389231e5b245e67ad0a7e45527490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "453f3612_d635832f",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
         "patchSetId": 4
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "a6c3338c_ffcf1682",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1770,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-03T07:18:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "453f3612_d635832f",
+      "revId": "0af814c8358389231e5b245e67ad0a7e45527490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3aba85d3_65a6a966",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
         "patchSetId": 4
@@ -56,6 +98,24 @@
       "revId": "0af814c8358389231e5b245e67ad0a7e45527490",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2e12193_d023a841",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1773,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-03T07:18:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3aba85d3_65a6a966",
+      "revId": "0af814c8358389231e5b245e67ad0a7e45527490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "f1169378_0b214d7a",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1785,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-03T07:18:07Z",
+      "side": 1,
+      "message": "Removed this block.\n\n\nYes.. my intention was to make it easy to inform each member\u0027s selection state change, but it might produce too much calls.\nLine 1788 might be enough to inform dynamic route change (including individual selection state change).\nSo I removed this block.",
+      "parentUuid": "40921a55_123fb7a7",
+      "range": {
+        "startLine": 1785,
+        "startChar": 81,
+        "endLine": 1785,
+        "endChar": 86
+      },
+      "revId": "0af814c8358389231e5b245e67ad0a7e45527490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fbb69745_945176b0",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
         "patchSetId": 4
@@ -93,6 +177,30 @@
       "writtenOn": "2018-08-31T18:23:45Z",
       "side": 1,
       "message": "Q) What\u0027s your concern for doing this?",
+      "range": {
+        "startLine": 2823,
+        "startChar": 20,
+        "endLine": 2824,
+        "endChar": 85
+      },
+      "revId": "0af814c8358389231e5b245e67ad0a7e45527490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fcdf79a_6fe8c964",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2824,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-03T07:18:07Z",
+      "side": 1,
+      "message": "onCreateDynamicGroupRouteController returns a controller (which is ResgisteredDynamicRouteController) usually having valid route id, since the connection to the MRPservice would be already ready in most cases.\n\nHowever, assigning a valid route id for dynamic group route might not be guaranteed at this moment. Please correct me if I am wrong.",
+      "parentUuid": "fbb69745_945176b0",
       "range": {
         "startLine": 2823,
         "startChar": 20,
@@ -128,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "337c30c3_25ee2c3b",
+        "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/media/SampleDynamicGroupMrp.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-03T07:18:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5ec9b9f_6725e758",
+      "range": {
+        "startLine": 277,
+        "startChar": 16,
+        "endLine": 277,
+        "endChar": 33
+      },
+      "revId": "0af814c8358389231e5b245e67ad0a7e45527490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a30c9922_dcdd713b",
         "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/media/SampleDynamicGroupMrp.java",
         "patchSetId": 4
@@ -148,6 +280,30 @@
       "revId": "0af814c8358389231e5b245e67ad0a7e45527490",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45a45157_5a1f3ad2",
+        "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/media/SampleDynamicGroupMrp.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-03T07:18:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a30c9922_dcdd713b",
+      "range": {
+        "startLine": 279,
+        "startChar": 12,
+        "endLine": 279,
+        "endChar": 41
+      },
+      "revId": "0af814c8358389231e5b245e67ad0a7e45527490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
