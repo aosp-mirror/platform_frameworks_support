@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "2916f922_218e853f",
+        "filename": "preference/src/main/java/androidx/preference/EditTextPreference.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-09-03T12:29:10Z",
+      "side": 1,
+      "message": "I meant more as in if a developer wants to implement this themselves, they implement this, and then in onCreatePreferences they would need to do something like:\n\nEditTextPreference et \u003d ((EditTextPreference) findPreference(\"key\"));\net.setFormatter(...)\n\nListPreference list \u003d ((ListPreference) findPreference(\"key2\"));\net.setFormatter(...)\n\n....\n\nEditTextFormatter : PreferenceFormatter\u003cEditText\u003e {\n\n  String format(EditTextPreference preference) {\n    .. do my job\n  }\n}\n\nListFormatter : PreferenceFormatter\u003cListPreference\u003e {\n\n  String format(ListPreference preference) {\n    .. do my job\n  }\n}\n\n\nAnd that\u0027s a ton of boilerplate - doesn\u0027t seem to be much of an improvement over using onPreferenceChange.\n\nAnd the other problem is that if we configure this in onCreatePreferences, this would only work if the Preference is created dynamically, instead of just findPreference(...) - because after we set the preferences from XML, they get inflated and attached, so we would miss the hook to set the initial summary. So for that to work we would also probably have to call format(...) when the interface is set.",
+      "parentUuid": "09cdc160_f4e66f0d",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 173,
+        "endChar": 9
+      },
+      "revId": "5aeed43fe6c5bc0d32bb55d7ccbe69a9f35cd6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "518c325c_47538341",
         "filename": "preference/src/main/java/androidx/preference/Preference.java",
         "patchSetId": 3
