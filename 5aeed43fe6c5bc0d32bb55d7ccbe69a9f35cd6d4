@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "09cdc160_f4e66f0d",
+        "filename": "preference/src/main/java/androidx/preference/EditTextPreference.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-03T12:19:49Z",
+      "side": 1,
+      "message": "What about this one?\n\nPreferenceFormatter\u003cT : Preference\u003e {\n\n  String format(T preference) {\n\n  }\n}\n\nEditTextFormatter : PreferenceFormatter\u003cEditText\u003e {\n\n  String format(EditTextPreference preference) {\n    .. do my job\n  }\n}\n\nQuestion is how XML will work here.",
+      "parentUuid": "1dca2d4c_719457c4",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 173,
+        "endChar": 9
+      },
+      "revId": "5aeed43fe6c5bc0d32bb55d7ccbe69a9f35cd6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "518c325c_47538341",
         "filename": "preference/src/main/java/androidx/preference/Preference.java",
         "patchSetId": 3
