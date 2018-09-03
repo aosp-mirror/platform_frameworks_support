@@ -21,11 +21,12 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.ext.CommonTypeNames
+import androidx.room.ext.RxJava2TypeNames
 import androidx.room.ext.typeName
+import androidx.room.solver.shortcut.result.InsertMethodAdapter
 import androidx.room.testing.TestInvocation
 import androidx.room.testing.TestProcessor
 import androidx.room.vo.InsertionMethod
-import androidx.room.solver.shortcut.result.InsertMethodAdapter
 import com.google.auto.common.MoreElements
 import com.google.auto.common.MoreTypes
 import com.google.common.truth.Truth.assertAbout
@@ -364,7 +365,17 @@ class InsertionMethodProcessorTest {
                 Pair("long", InsertMethodAdapter.InsertionType.INSERT_SINGLE_ID),
                 Pair("long[]", InsertMethodAdapter.InsertionType.INSERT_ID_ARRAY),
                 Pair("Long[]", InsertMethodAdapter.InsertionType.INSERT_ID_ARRAY_BOX),
-                Pair("List<Long>", InsertMethodAdapter.InsertionType.INSERT_ID_LIST)
+                Pair("List<Long>", InsertMethodAdapter.InsertionType.INSERT_ID_LIST),
+                Pair(RxJava2TypeNames.COMPLETABLE,
+                        InsertMethodAdapter.InsertionType.INSERT_VOID_OBJECT),
+                Pair("${RxJava2TypeNames.SINGLE}<Long>",
+                        InsertMethodAdapter.InsertionType.INSERT_SINGLE_ID),
+                Pair("${RxJava2TypeNames.SINGLE}<List<Long>>",
+                        InsertMethodAdapter.InsertionType.INSERT_ID_LIST),
+                Pair("${RxJava2TypeNames.MAYBE}<Long>",
+                        InsertMethodAdapter.InsertionType.INSERT_SINGLE_ID),
+                Pair("${RxJava2TypeNames.MAYBE}<List<Long>>",
+                        InsertMethodAdapter.InsertionType.INSERT_ID_LIST)
         ).forEach { pair ->
             val dots = if (pair.second in setOf(
                             InsertMethodAdapter.InsertionType.INSERT_ID_LIST,
@@ -391,8 +402,10 @@ class InsertionMethodProcessorTest {
     ): CompileTester {
         return assertAbout(JavaSourcesSubjectFactory.javaSources())
                 .that(listOf(JavaFileObjects.forSourceString("foo.bar.MyClass",
-                        DAO_PREFIX + input.joinToString("\n") + DAO_SUFFIX
-                ), COMMON.USER, COMMON.BOOK, COMMON.NOT_AN_ENTITY))
+                        DAO_PREFIX + input.joinToString("\n") + DAO_SUFFIX),
+                        COMMON.USER, COMMON.BOOK, COMMON.NOT_AN_ENTITY,
+                        COMMON.COMPLETABLE, COMMON.MAYBE, COMMON.SINGLE)
+                )
                 .processedWith(TestProcessor.builder()
                         .forAnnotations(Insert::class, Dao::class)
                         .nextRunHandler { invocation ->
