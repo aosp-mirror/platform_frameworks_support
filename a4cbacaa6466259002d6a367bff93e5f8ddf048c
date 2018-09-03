@@ -19,6 +19,40 @@
     },
     {
       "key": {
+        "uuid": "de178439_8100ad85",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2018-09-03T17:26:58Z",
+      "side": 1,
+      "message": "nit: our convention is that \"final\" should be used whenever possible. Please add it here and below",
+      "revId": "a4cbacaa6466259002d6a367bff93e5f8ddf048c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4816ddd_9574b4ac",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1437,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2018-09-03T17:26:58Z",
+      "side": 1,
+      "message": "It\u0027s a bit confusing that here the first three lines are checking that the same typeface is used, while the check at line 1436 is based on a particularity of the font. I think the first three lines are not bringing much value over line 1436, and probably it would be enough if you only do:\nassertEquals(measureText(\"a\", typeface), measureText(\"bbb\", typeface), 0f);\n(note that by doing this, you can simplify the test further as you are not using mTypeface anymore)\nThis makes sure that the theme font is applied, as it\u0027s probably very uncommon for default fonts to have the width of `a` equal the width of `bbb`.",
+      "revId": "a4cbacaa6466259002d6a367bff93e5f8ddf048c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "12e093b1_80fbcf23",
         "filename": "appcompat/src/main/java/androidx/appcompat/widget/DialogTitle.java",
         "patchSetId": 1
