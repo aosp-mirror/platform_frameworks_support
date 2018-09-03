@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32399454_c678468c",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/DynamicSummaryTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-03T11:36:04Z",
+      "side": 1,
+      "message": "Thanks for extensive tests!",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 31
+      },
+      "revId": "5aeed43fe6c5bc0d32bb55d7ccbe69a9f35cd6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e9166924_7fe59df8",
+        "filename": "preference/src/main/java/androidx/preference/EditTextPreference.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-03T11:36:04Z",
+      "side": 1,
+      "message": "I\u0027m wondering about this. You have said that the default behavior might be not what the majority of developers will use at the end. But here we are introducing new API for setting a boolean for dynamic API summary to be used just for this. Wouldn\u0027t it be more general to actually introduce API for providing a summary formatter and implement some default ones? That would for instance promote composition over inheritance.",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 173,
+        "endChar": 9
+      },
+      "revId": "5aeed43fe6c5bc0d32bb55d7ccbe69a9f35cd6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "518c325c_47538341",
+        "filename": "preference/src/main/java/androidx/preference/Preference.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2065,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-03T11:36:04Z",
+      "side": 1,
+      "message": "We usually use updateD format in the method names.",
+      "range": {
+        "startLine": 2065,
+        "startChar": 16,
+        "endLine": 2065,
+        "endChar": 31
+      },
+      "revId": "5aeed43fe6c5bc0d32bb55d7ccbe69a9f35cd6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
