@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "f1784a96_f39fd289",
+        "filename": "preference/src/main/java/androidx/preference/EditTextPreference.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-03T22:49:33Z",
+      "side": 1,
+      "message": "Why do you think that it is a bad pattern? Essentially every reference in an XML file is instantiated via reflection these days. So if we ignore reflection, the solution with formatters actually favors composition over inheritance which is good. I can\u0027t see at this moment why that would be a bad pattern. Also inheritance is still doable if someone needs / wants to do it via that. We can also get a second opinion ...",
+      "parentUuid": "13f64839_e92752d5",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 173,
+        "endChar": 9
+      },
+      "revId": "5aeed43fe6c5bc0d32bb55d7ccbe69a9f35cd6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "518c325c_47538341",
         "filename": "preference/src/main/java/androidx/preference/Preference.java",
         "patchSetId": 3
