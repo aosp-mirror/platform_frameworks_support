@@ -117,6 +117,30 @@
       "revId": "b626d1dd9b755379b222d6df13766b76a1da5829",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9eae639d_a5bbcb36",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-03T10:31:26Z",
+      "side": 1,
+      "message": "I\u0027ve checked log with git blame and there\u0027s no documented reason for calling refreshRoutes since MRChooserDialog calls refreshRoutes() when onRouteChagned is triggered at the very first version of its implementation. \n(FYI, MRChooserDialog calls refreshRoutes() and MRControllerDialog calls update() when onRouteChanged() is triggered.)\n \nAnd, I think only updating ui of changed route seems ok. There are two reasons.\n\nFirst,  \nCurrently, refreshRoutes() filters routes (with their device type) and sorts them(with their name). So, if device type or name of routes can be changed, dialog has to call refreshRoutes() when onRouteChanged() is triggered. \nHowever, device type or name of routes are the attributes that nearly don\u0027t change. \n\nSecond, \nonRouteChanged() can be triggered when selection state of route is changed, which means calling refreshRoutes() when onRouteChanged() is triggered will make distinguishing between initially selected routes and newly added routes impossible. \n\nIf there\u0027s anything that makes confusion, feel free to ping me. \nThanks.",
+      "parentUuid": "160588f8_f52baaf4",
+      "range": {
+        "startLine": 1066,
+        "startChar": 12,
+        "endLine": 1069,
+        "endChar": 13
+      },
+      "revId": "b626d1dd9b755379b222d6df13766b76a1da5829",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
