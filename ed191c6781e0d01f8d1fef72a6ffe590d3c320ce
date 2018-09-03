@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52cb4fc4_2aa9e5be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-03T03:33:46Z",
+      "side": 1,
+      "message": "Q) The original code intended not to turn off MCV2 in talkback mode. What\u0027s the reason reverting it? Could you give more explanation here or in the buganizer?",
+      "revId": "ed191c6781e0d01f8d1fef72a6ffe590d3c320ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
