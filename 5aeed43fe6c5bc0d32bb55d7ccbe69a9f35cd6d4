@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "13f64839_e92752d5",
+        "filename": "preference/src/main/java/androidx/preference/EditTextPreference.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-09-03T12:57:28Z",
+      "side": 1,
+      "message": "I don\u0027t think we could set this via xml without referring to a class name and using reflection.\n\nLots of developers currently set a bunch of change listeners in their preference fragment, but I think this is just a really bad pattern that we shouldn\u0027t encourage. I would lean towards encouraging implementing custom preferences that handle their own state - but it just comes down to what we want to suggest developers use.",
+      "parentUuid": "fe88e694_9e1cdcee",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 173,
+        "endChar": 9
+      },
+      "revId": "5aeed43fe6c5bc0d32bb55d7ccbe69a9f35cd6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "518c325c_47538341",
         "filename": "preference/src/main/java/androidx/preference/Preference.java",
         "patchSetId": 3
