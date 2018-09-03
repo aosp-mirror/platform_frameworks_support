@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22e3d0f0_dc4cfcfd",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-03T14:25:10Z",
+      "side": 1,
+      "message": "I don\u0027t see this in MediaPlayerConnector. What\u0027s the use case?",
+      "range": {
+        "startLine": 343,
+        "startChar": 9,
+        "endLine": 350,
+        "endChar": 60
+      },
+      "revId": "f7113dcccddbaed9967aa79ba16009c3cd16c895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
