@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12e093b1_80fbcf23",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/DialogTitle.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-09-03T16:47:46Z",
+      "side": 1,
+      "message": "is this now unnecessary as AppCompatTextView already does this?",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 5
+      },
+      "revId": "a4cbacaa6466259002d6a367bff93e5f8ddf048c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
