@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "fe88e694_9e1cdcee",
+        "filename": "preference/src/main/java/androidx/preference/EditTextPreference.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-03T12:32:29Z",
+      "side": 1,
+      "message": "Sure but that is maybe still better than extending every preference to provided that functionality? \n\nAlso would be good to investigate if this could be set via XML. Because then it is super easy.",
+      "parentUuid": "2916f922_218e853f",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 173,
+        "endChar": 9
+      },
+      "revId": "5aeed43fe6c5bc0d32bb55d7ccbe69a9f35cd6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "518c325c_47538341",
         "filename": "preference/src/main/java/androidx/preference/Preference.java",
         "patchSetId": 3
