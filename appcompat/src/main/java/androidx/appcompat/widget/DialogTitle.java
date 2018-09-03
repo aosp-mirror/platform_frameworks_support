@@ -37,7 +37,7 @@ import androidx.core.widget.TextViewCompat;
  * @hide
  */
 @RestrictTo(LIBRARY_GROUP)
-public class DialogTitle extends TextView {
+public class DialogTitle extends AppCompatTextView {
 
     public DialogTitle(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
