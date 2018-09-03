@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "1dca2d4c_719457c4",
+        "filename": "preference/src/main/java/androidx/preference/EditTextPreference.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-09-03T12:16:34Z",
+      "side": 1,
+      "message": "Yeah, I was considering that. However the problem then is because every type of Preference has a different value type / some have multiple types (e.g MultiSelectListPreference) - we would probably have to pass the entire Preference instead of just a changed value in the interface, and then we would end up with the same problem we have with onPreferenceChange, where there is either a god implementation with many different casting checks, or you implement it on each preference so you would still need to extend so the preference can safely know about itself.",
+      "parentUuid": "e9166924_7fe59df8",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 173,
+        "endChar": 9
+      },
+      "revId": "5aeed43fe6c5bc0d32bb55d7ccbe69a9f35cd6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "518c325c_47538341",
         "filename": "preference/src/main/java/androidx/preference/Preference.java",
         "patchSetId": 3
