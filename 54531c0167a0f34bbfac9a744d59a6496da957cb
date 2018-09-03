@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24f7f999_9cc9c44e",
+        "filename": "mediarouter/build.gradle",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-03T22:27:30Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 11,
+        "startChar": 18,
+        "endLine": 11,
+        "endChar": 37
+      },
+      "revId": "54531c0167a0f34bbfac9a744d59a6496da957cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
