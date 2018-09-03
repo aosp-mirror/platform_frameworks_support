@@ -46,6 +46,30 @@
       "revId": "f7113dcccddbaed9967aa79ba16009c3cd16c895",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62c77ff7_fc719e49",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-03T18:00:03Z",
+      "side": 1,
+      "message": "could you kindly explain the use case from user\u0027s point of view?",
+      "parentUuid": "cd7a9dd4_3c04b0f8",
+      "range": {
+        "startLine": 343,
+        "startChar": 9,
+        "endLine": 350,
+        "endChar": 60
+      },
+      "revId": "f7113dcccddbaed9967aa79ba16009c3cd16c895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
