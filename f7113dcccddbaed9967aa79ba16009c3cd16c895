@@ -22,6 +22,30 @@
       "revId": "f7113dcccddbaed9967aa79ba16009c3cd16c895",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd7a9dd4_3c04b0f8",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-03T17:06:15Z",
+      "side": 1,
+      "message": "We didn\u0027t add it when we make it MediaPlayerConnector, but found out the usecase afterward\nsee: http://shortn/_6qWonFWzyK\n\nSince we\u0027re making SessionPlayer2 again, I thought that it\u0027s better to place it.\nJust FYI, I updated newer patchset on top of yours to call this.",
+      "parentUuid": "22e3d0f0_dc4cfcfd",
+      "range": {
+        "startLine": 343,
+        "startChar": 9,
+        "endLine": 350,
+        "endChar": 60
+      },
+      "revId": "f7113dcccddbaed9967aa79ba16009c3cd16c895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
