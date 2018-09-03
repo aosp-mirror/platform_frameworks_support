@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f95bcf42_416b0f8d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-03T08:42:01Z",
+      "side": 1,
+      "message": "It means if view is not horizontally symmetric, which means if I set only paddingLeft and paddingRight, they have to be set to different value for LTR and RTL. \n\nIn current status, if view has only paddingStart or paddingEnd, it means they have different value. I think my commit msg wasn\u0027t clear enough. Sorry for confusion. I\u0027\u0027ve updated commit msg in next patchset.",
+      "parentUuid": "4667b208_bc8b8fb6",
+      "range": {
+        "startLine": 12,
+        "startChar": 20,
+        "endLine": 12,
+        "endChar": 39
+      },
+      "revId": "5b6a7b850ef1074c9967c68b10d7ab0677b874ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72747497_3fa0b28e",
         "filename": "mediarouter/src/main/res/layout/mr_cast_route_item.xml",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "5b6a7b850ef1074c9967c68b10d7ab0677b874ab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7404d7bc_e7743c51",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_route_item.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-03T08:42:01Z",
+      "side": 1,
+      "message": "it\u0027s intended.",
+      "parentUuid": "72747497_3fa0b28e",
+      "range": {
+        "startLine": 60,
+        "startChar": 21,
+        "endLine": 60,
+        "endChar": 47
+      },
+      "revId": "5b6a7b850ef1074c9967c68b10d7ab0677b874ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6c513880_36214c75",
+        "filename": "mediarouter/src/main/res/layout/mr_cast_route_item.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-03T08:42:01Z",
+      "side": 1,
+      "message": "it\u0027s intended.",
+      "parentUuid": "d9f625b1_1e9699f5",
+      "range": {
+        "startLine": 69,
+        "startChar": 12,
+        "endLine": 69,
+        "endChar": 36
+      },
+      "revId": "5b6a7b850ef1074c9967c68b10d7ab0677b874ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36c62fe9_89b932a5",
         "filename": "mediarouter/src/main/res/layout/mr_picker_dialog.xml",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "5b6a7b850ef1074c9967c68b10d7ab0677b874ab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "280eb2d4_b8f29b0b",
+        "filename": "mediarouter/src/main/res/layout/mr_picker_dialog.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-03T08:42:01Z",
+      "side": 1,
+      "message": "it\u0027s intended.",
+      "parentUuid": "36c62fe9_89b932a5",
+      "range": {
+        "startLine": 26,
+        "startChar": 18,
+        "endLine": 26,
+        "endChar": 38
+      },
+      "revId": "5b6a7b850ef1074c9967c68b10d7ab0677b874ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

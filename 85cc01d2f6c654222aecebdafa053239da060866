@@ -22,6 +22,30 @@
       "revId": "85cc01d2f6c654222aecebdafa053239da060866",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a1bb8ff_d68e8af6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-03T08:42:01Z",
+      "side": 1,
+      "message": "I\u0027ve updated commit msg to make it clear.",
+      "parentUuid": "3477fb4b_2da94136",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 11
+      },
+      "revId": "85cc01d2f6c654222aecebdafa053239da060866",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
