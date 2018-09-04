@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "419b69e3_0e30c98d",
+        "filename": "animation/src/main/java/androidx/animation/PathKeyframes.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-09-04T23:50:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "123c4349_39353d89",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 59
+      },
+      "revId": "de58c41533045067a297a22da11ac006117f6c94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb835e39_ae323d4f",
         "filename": "animation/src/main/java/androidx/animation/PathKeyframes.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-04T23:33:31Z",
       "side": 1,
       "message": "use toArray() method\n\nPS veeeery nerdy long read about this method in JVM: https://shipilev.net/blog/2016/arrays-wisdom-ancients",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 176,
+        "endChar": 9
+      },
+      "revId": "de58c41533045067a297a22da11ac006117f6c94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44ff9db6_be13e3f8",
+        "filename": "animation/src/main/java/androidx/animation/PathKeyframes.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-09-04T23:50:25Z",
+      "side": 1,
+      "message": "Wouldn\u0027t that produce an array of the boxed Float type, instead of a primitive float array?",
+      "parentUuid": "fb835e39_ae323d4f",
       "range": {
         "startLine": 173,
         "startChar": 0,
