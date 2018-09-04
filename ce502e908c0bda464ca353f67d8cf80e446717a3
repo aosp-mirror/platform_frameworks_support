@@ -104,6 +104,24 @@
       "revId": "ce502e908c0bda464ca353f67d8cf80e446717a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9844926c_4b8e6f10",
+        "filename": "textclassifier/src/main/res/values-v23/themes_base.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-04T13:59:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f09c9dcb_f45fb175",
+      "revId": "ce502e908c0bda464ca353f67d8cf80e446717a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
