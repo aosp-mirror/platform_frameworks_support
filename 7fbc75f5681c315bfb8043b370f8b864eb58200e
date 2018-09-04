@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af54db33_42d7eb51",
+        "filename": "media2/src/main/java/androidx/media2/RemoteSessionPlayer2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-04T18:53:17Z",
+      "side": 1,
+      "message": "can it fail?",
+      "range": {
+        "startLine": 79,
+        "startChar": 43,
+        "endLine": 79,
+        "endChar": 61
+      },
+      "revId": "7fbc75f5681c315bfb8043b370f8b864eb58200e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9596bbbe_8b2fb5a3",
+        "filename": "media2/src/main/java/androidx/media2/RemoteSessionPlayer2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-04T18:53:17Z",
+      "side": 1,
+      "message": "Callback or listener?",
+      "range": {
+        "startLine": 124,
+        "startChar": 24,
+        "endLine": 124,
+        "endChar": 33
+      },
+      "revId": "7fbc75f5681c315bfb8043b370f8b864eb58200e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
