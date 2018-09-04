@@ -16,6 +16,24 @@
       "revId": "ed191c6781e0d01f8d1fef72a6ffe590d3c320ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08ca5d4e_04611e25",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-09-04T05:32:59Z",
+      "side": 1,
+      "message": "Sorry for the change, but I made a mistake here--I changed the code to HIDE MCV2 when in talkback mode.\n\nAlso added explanation in buganizer, but basically the current code prevented toggleMediaControlViewVisibility from being executed in talkback mode, which meant it was impossible to show it when it was hidden. In order to prevent this, changed code to not hide MCV2 when in talkback mode.",
+      "parentUuid": "52cb4fc4_2aa9e5be",
+      "revId": "ed191c6781e0d01f8d1fef72a6ffe590d3c320ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
