@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58018ad7_ab6cfd5a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-04T22:03:53Z",
+      "side": 1,
+      "message": "If you write a commit message of the form\n\n${shortSummary}\n${newline}\n${longMessage}\n\nthen Gerrit knows to only include ${shortSummary} in various spots, which makes it easier to recognize what the change is about.\n\nIn this case, an example could be something like \"Making CheckApi disallow API removals in minor releases\"",
+      "revId": "589280abc7f7536a56ff3ab0d56232251b8cd623",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65b78523_e0cca40c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/Version.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-04T22:03:53Z",
+      "side": 1,
+      "message": "It looks like VERSION_FILE_REGEX now accepts the same patterns as VERSION_REGEX, except for the \".txt\" at the end.\n\nI think it would be faster to read if instead we check that the filename ends with \".txt\", and if so, remove the \".txt\" and pass that into parseOrNull\n\nIf you were looking forward to keeping the comments (either keeping or discarding sounds good to me), my suggestion would be to move them into the constructor of Version",
+      "revId": "589280abc7f7536a56ff3ab0d56232251b8cd623",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66a235ac_8c3eb8c3",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-04T22:03:53Z",
+      "side": 1,
+      "message": "I think we want to remove the parentheses now that the API file for doc diffs is different from the API file for compatibility checking.",
+      "range": {
+        "startLine": 212,
+        "startChar": 53,
+        "endLine": 212,
+        "endChar": 82
+      },
+      "revId": "589280abc7f7536a56ff3ab0d56232251b8cd623",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5d29bc1_23efc1c1",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-04T22:03:53Z",
+      "side": 1,
+      "message": "Let\u0027s update the name of this function to clarify now that it\u0027s specific to documentation diffs rather than for api compatibility checking. Maybe \"getOldApiTxtForDocDiffs\"?",
+      "range": {
+        "startLine": 214,
+        "startChar": 12,
+        "endLine": 214,
+        "endChar": 24
+      },
+      "revId": "589280abc7f7536a56ff3ab0d56232251b8cd623",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcaa76a4_cc98a7c2",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-04T22:03:53Z",
+      "side": 1,
+      "message": "It only ignores alpha versions if finalApi is true, right?",
+      "range": {
+        "startLine": 241,
+        "startChar": 3,
+        "endLine": 241,
+        "endChar": 26
+      },
+      "revId": "589280abc7f7536a56ff3ab0d56232251b8cd623",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6919f09_42b12ba9",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-04T22:03:53Z",
+      "side": 1,
+      "message": "It was probably my fault for naming this \"refVersion\", but if you want to rename \"refVersion\" to \"maxVersion\" or (even better) \"maxVersionExclusive\", I think that\u0027d be great",
+      "revId": "589280abc7f7536a56ff3ab0d56232251b8cd623",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0023b42d_ab641b75",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-04T22:03:53Z",
+      "side": 1,
+      "message": "I think it\u0027d be clearer, given the increasing number of parameters to this method, to put a verb somewhere into the variable name, to make something like \"requireFinalApi\"",
+      "range": {
+        "startLine": 246,
+        "startChar": 4,
+        "endLine": 246,
+        "endChar": 12
+      },
+      "revId": "589280abc7f7536a56ff3ab0d56232251b8cd623",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4c61302_da22549a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-04T22:03:53Z",
+      "side": 1,
+      "message": "Having a parameter that ignores versions less than \"${refVersion.major}.${refVersion.minor}.0\" seems to me to be kind of confusing/wordy, given that the caller can do the same check against the result.\n\nHow would you feel about moving the check of the major version closer to line 63?\n\nAlternatively if you want to keep it as a parameter, I think \"requireSameMajorRevision\" would be a clearer name",
+      "range": {
+        "startLine": 247,
+        "startChar": 4,
+        "endLine": 247,
+        "endChar": 23
+      },
+      "revId": "589280abc7f7536a56ff3ab0d56232251b8cd623",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4f7d0a7_bfa41b3b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-04T22:03:53Z",
+      "side": 1,
+      "message": "(If you don\u0027t remove the withinMajorRevision argument to this function, then: )\n\nIt\u0027d be good to tell the user into which project it is. I think the cleanest way to do that would be to pass in a project instead of an apiDir, and add the path of the project into the error message",
+      "range": {
+        "startLine": 250,
+        "startChar": 31,
+        "endLine": 250,
+        "endChar": 41
+      },
+      "revId": "589280abc7f7536a56ff3ab0d56232251b8cd623",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
