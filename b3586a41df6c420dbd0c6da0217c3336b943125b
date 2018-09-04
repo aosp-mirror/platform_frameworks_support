@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "712bbe38_88a7e84e",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/DialogTitle.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2018-09-04T17:11:44Z",
+      "side": 0,
+      "message": "Why was this removed?",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 5
+      },
+      "revId": "b3586a41df6c420dbd0c6da0217c3336b943125b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
