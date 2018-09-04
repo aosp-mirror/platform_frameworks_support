@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f703149c_d5f00172",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-04T22:40:20Z",
+      "side": 1,
+      "message": "It\u0027s good we can remove the extra thread hop but just to ensure safety, let\u0027s assert this is a background thread at the top of this method.  As I recall, there are several entry points to this method (sometimes it\u0027s invoked directly in WorkerWrapper), so I\u0027m not 100% sure you\u0027re actually on the thread you think you\u0027re on.",
+      "range": {
+        "startLine": 253,
+        "startChar": 7,
+        "endLine": 253,
+        "endChar": 58
+      },
+      "revId": "a3761587e73f3ed9491c6992a3e2fe9f786304fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
