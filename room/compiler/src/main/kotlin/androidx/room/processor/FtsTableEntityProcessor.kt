@@ -16,7 +16,8 @@
 
 package androidx.room.processor
 
-import androidx.room.Fts3Entity
+import androidx.room.Fts3
+import androidx.room.Fts4
 import androidx.room.ext.getAsIntList
 import androidx.room.ext.getAsString
 import androidx.room.ext.getAsStringList
@@ -26,6 +27,8 @@ import androidx.room.parser.FtsOrder
 import androidx.room.parser.FtsVersion
 import androidx.room.parser.SQLTypeAffinity
 import androidx.room.parser.Tokenizer
+import androidx.room.processor.EntityProcessor.Companion.extractForeignKeys
+import androidx.room.processor.EntityProcessor.Companion.extractIndices
 import androidx.room.processor.EntityProcessor.Companion.extractTableName
 import androidx.room.processor.cache.Cache
 import androidx.room.vo.Entity
@@ -57,28 +60,45 @@ class FtsTableEntityProcessor internal constructor(
     }
 
     private fun doProcess(): FtsEntity {
+        context.checker.hasAnnotation(element, androidx.room.Entity::class,
+                ProcessorErrors.ENTITY_MUST_BE_ANNOTATED_WITH_ENTITY)
+
+        val entityAnnotation = MoreElements.getAnnotationMirror(element,
+                androidx.room.Entity::class.java).orNull()
+        val tableName: String
+        val ignoredColumns: Set<String>
+        if (entityAnnotation != null) {
+            tableName = extractTableName(element, entityAnnotation)
+            ignoredColumns = AnnotationMirrors.getAnnotationValue(entityAnnotation,
+                    "ignoredColumns").getAsStringList().toSet()
+
+            context.checker.check(extractIndices(entityAnnotation, tableName).isEmpty(),
+                    element, ProcessorErrors.INDICES_IN_FTS_ENTITY)
+            context.checker.check(extractForeignKeys(entityAnnotation).isEmpty(),
+                    element, ProcessorErrors.FOREIGN_KEYS_IN_FTS_ENTITY)
+        } else {
+            tableName = element.simpleName.toString()
+            ignoredColumns = emptySet()
+        }
+
         val pojo = PojoProcessor.createFor(
                 context = context,
                 element = element,
                 bindingScope = FieldProcessor.BindingScope.TWO_WAY,
                 parent = null,
-                referenceStack = referenceStack).process()
+                referenceStack = referenceStack,
+                ignoredColumns = ignoredColumns).process()
 
         context.checker.check(pojo.relations.isEmpty(), element, ProcessorErrors.RELATION_IN_ENTITY)
 
-        val (ftsVersion, annotation) = if (element.hasAnnotation(Fts3Entity::class)) {
+        val (ftsVersion, ftsAnnotation) = if (element.hasAnnotation(Fts3::class)) {
             FtsVersion.FTS3 to MoreElements.getAnnotationMirror(element,
-                    androidx.room.Fts3Entity::class.java).orNull()
+                    androidx.room.Fts3::class.java).orNull()
         } else {
             FtsVersion.FTS4 to MoreElements.getAnnotationMirror(element,
-                    androidx.room.Fts4Entity::class.java).orNull()
+                    Fts4::class.java).orNull()
         }
-        val tableName = if (annotation != null) {
-            extractTableName(element, annotation)
-        } else {
-            element.simpleName.toString()
-        }
-        val ftsOptions = getAnnotationFTSOptions(ftsVersion, annotation)
+        val ftsOptions = getAnnotationFTSOptions(ftsVersion, ftsAnnotation)
 
         val shadowTableName = if (ftsOptions.contentEntity != null) {
             // In 'external content' mode the FTS table content is in another table.
@@ -90,7 +110,7 @@ class FtsTableEntityProcessor internal constructor(
             "${tableName}_content"
         }
 
-        val primaryKey = findAndValidatePrimaryKey(pojo.fields)
+        val primaryKey = findAndValidatePrimaryKey(entityAnnotation, pojo.fields)
         val languageId = findAndValidateLanguageId(pojo.fields, ftsOptions.languageIdColumnName)
         validateExternalContentEntity(ftsOptions.contentEntity, pojo.fields, primaryKey, languageId)
 
@@ -202,8 +222,28 @@ class FtsTableEntityProcessor internal constructor(
         return EntityProcessor(context, contentEntityElement, referenceStack).process()
     }
 
-    private fun findAndValidatePrimaryKey(fields: List<Field>): PrimaryKey {
-        val primaryKeys = fields.mapNotNull { field ->
+    private fun findAndValidatePrimaryKey(
+        entityAnnotation: AnnotationMirror?,
+        fields: List<Field>
+    ): PrimaryKey {
+        val keysFromEntityAnnotation = if (entityAnnotation != null) {
+            AnnotationMirrors.getAnnotationValue(entityAnnotation, "primaryKeys")
+                    .getAsStringList().mapNotNull { pkColumnName ->
+                        val field = fields.firstOrNull { it.columnName == pkColumnName }
+                        context.checker.check(field != null, element,
+                                ProcessorErrors.primaryKeyColumnDoesNotExist(pkColumnName,
+                                        fields.map { it.columnName }))
+                        field?.let { pkField ->
+                            PrimaryKey(
+                                    declaredIn = pkField.element.enclosingElement,
+                                    fields = listOf(pkField),
+                                    autoGenerateId = true)
+                        }
+                    }
+        } else {
+            emptyList()
+        }
+        val keysFromPrimaryKeyAnnotations = fields.mapNotNull { field ->
             if (field.element.hasAnnotation(androidx.room.PrimaryKey::class)) {
                 PrimaryKey(
                         declaredIn = field.element.enclosingElement,
@@ -213,6 +253,7 @@ class FtsTableEntityProcessor internal constructor(
                 null
             }
         }
+        val primaryKeys = keysFromEntityAnnotation + keysFromPrimaryKeyAnnotations
         if (primaryKeys.isEmpty()) {
             fields.firstOrNull { it.columnName == "rowid" }?.let {
                 context.checker.check(it.element.hasAnnotation(androidx.room.PrimaryKey::class),

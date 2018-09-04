@@ -24,26 +24,25 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Marks a class as an entity. This class will have a mapping SQLite FTS4 table in the database.
+ * Marks an {@link Entity} annotated class as a FTS4 entity. This class will have a mapping SQLite
+ * FTS4 table in the database.
  * <p>
  * <a href="https://www.sqlite.org/fts3.html">FTS3 and FTS4</a> are SQLite virtual table modules
  * that allows full-text searches to be performed on a set of documents.
  * <p>
- * An FtsEntity table always has a column named <code>rowid</code> that is the equivalent of an
- * <code>INTEGER PRIMARY KEY</code> index. Therefore, an FtsEntity can only have a single field
+ * An FTS entity table always has a column named <code>rowid</code> that is the equivalent of an
+ * <code>INTEGER PRIMARY KEY</code> index. Therefore, an FTS entity can only have a single field
  * annotated with {@link PrimaryKey}, it must be named <code>rowid</code> and must be of
  * <code>INTEGER</code> affinity. The field can be optionally omitted in the class but can still be
  * used in queries.
  * <p>
- * All fields in an FtsEntity are of <code>TEXT</code> affinity, except the for the 'rowid' and
+ * All fields in an FTS entity are of <code>TEXT</code> affinity, except the for the 'rowid' and
  * 'languageid' fields.
- * <p>
- * Similar to an {@link Entity}, each FtsEntity must either have a no-arg constructor or a
- * constructor whose parameters match fields (based on type and name).
  * <p>
  * Example:
  * <pre>
- * {@literal @}Fts4Entity
+ * {@literal @}Entity
+ * {@literal @}Fts4
  * public class Mail {
  *   {@literal @}PrimaryKey
  *   {@literal @}ColumnInfo(name = "rowid")
@@ -78,14 +77,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.CLASS)
 @RequiresApi(16)
-public @interface Fts4Entity {
-
-    /**
-     * The table name in the SQLite database. If not set, defaults to the class name.
-     *
-     * @return The SQLite tableName of the FtsEntity.
-     */
-    String tableName() default "";
+public @interface Fts4 {
 
     /**
      * The tokenizer to be used in the FTS table.
