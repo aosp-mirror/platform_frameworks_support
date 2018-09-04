@@ -59,8 +59,8 @@ fun initializeApiChecksForProject(
     val generateApi = createGenerateApiTask(project, docletClasspath)
     generateApi.dependsOn(doclavaConfiguration)
 
-    // for verifying that the API surface has not broken since the last release
-    val lastReleasedApiFile = getLastReleasedApiFile(workingDir, version)
+    // for verifying that the API surface has not broken since the last minor release
+    val lastReleasedApiFile = getLastReleasedApiFile(workingDir, version, true, true)
 
     val whitelistFile = lastReleasedApiFile?.let { apiFile ->
         File(lastReleasedApiFile.parentFile, stripExtension(apiFile.name) + ".ignore")
@@ -222,26 +222,43 @@ private fun getOldApiTxt(project: Project): File? {
         File(rootFolder, "api/$fromApi.txt")
     } else {
         // Use the most recently released API file bounded by toApi.
-        getLastReleasedApiFile(rootFolder, toApi)
+        getLastReleasedApiFile(rootFolder, toApi, false, false)
     }
 }
 
-private fun getLastReleasedApiFile(rootFolder: File, refVersion: Version?): File? {
+private fun getLastReleasedApiFile(
+    rootFolder: File,
+    refVersion: Version?,
+    finalApi: Boolean,
+    withinMajorRevision: Boolean
+): File? {
     val apiDir = File(rootFolder, "api")
-    return getLastReleasedApiFileFromDir(apiDir, refVersion)
+    return getLastReleasedApiFileFromDir(apiDir, refVersion, finalApi, withinMajorRevision)
 }
 
 /**
- * Returns the api file with highest version among those having version less than refVersion
+ * Returns the api file with highest version among those having version less than refVersion.
+ * Ignores alpha versions.
  */
-private fun getLastReleasedApiFileFromDir(apiDir: File, refVersion: Version?): File? {
+private fun getLastReleasedApiFileFromDir(
+    apiDir: File,
+    refVersion: Version?,
+    finalApi: Boolean,
+    withinMajorRevision: Boolean
+): File? {
+    if (withinMajorRevision && refVersion == null) {
+        throw GradleException("RefVersion is not specified for the current project, " +
+                "please specify a mavenVersion in your gradle build file")
+    }
     var lastFile: File? = null
     var lastVersion: Version? = null
     apiDir.listFiles().forEach { file ->
         val parsed = Version.parseOrNull(file)
         parsed?.let { version ->
             if ((lastFile == null || lastVersion!! < version) &&
-                    (refVersion == null || version < refVersion)) {
+                    (refVersion == null || version < refVersion) &&
+                    (if (finalApi) version.isFinalApi() else true) &&
+                    if (withinMajorRevision) version.major == refVersion?.major else true) {
                 lastFile = file
                 lastVersion = version
             }
