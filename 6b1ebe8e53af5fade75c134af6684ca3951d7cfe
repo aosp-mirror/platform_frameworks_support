@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41c8e7b1_47408088",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-04T15:04:33Z",
+      "side": 1,
+      "message": "nit: bail out early to avoid nested code block?",
+      "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "366d6f6a_b479a920",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-04T15:04:33Z",
+      "side": 1,
+      "message": "Just to make sure I follow, the reason we cache the instance here is to allow us to dismiss the previous floating toolbar?",
+      "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a795a3af_5313f342",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-04T15:04:33Z",
+      "side": 1,
+      "message": "Mind help doing a little manual test to ensure that we don\u0027t have memory leak here?\n\n1. Connect the device, and open Android Studio.\n2. Debug (but not run) textclassifier-integration-tests-testapp\n3. Open the memory profiler by clicking View \u003e Tool Windows \u003e Android Profiler.\n4. You should find a memory profier at the bottom.\n5. Try show and dismiss several times, see if the memory keeps going up.\n\nWould be even good if we can create another dummy textview there, so we can test the different textview case as well.\n\n\nThanks!",
+      "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eca1da94_c3d7c3bb",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-04T15:04:33Z",
+      "side": 1,
+      "message": "nit: textutils.isEmpty",
+      "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56f7c32d_ac2462d5",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-04T15:04:33Z",
+      "side": 1,
+      "message": "nit: textutils.isEmpty?",
+      "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae016e08_f11eb7de",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-04T15:04:33Z",
+      "side": 1,
+      "message": "nit: putExtra should replace the extra anyway, not necessary to remove it beforehand?",
+      "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7455b91f_0d911ac1",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-04T15:04:33Z",
+      "side": 1,
+      "message": "For the mPreferMe \u003d false case, why don\u0027t we just set the original callback?",
+      "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "489be73d_37c81efb",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-04T15:04:33Z",
+      "side": 1,
+      "message": "mmm, why not just use BackgroundColorSpan?",
+      "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
