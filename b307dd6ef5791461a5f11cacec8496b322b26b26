@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35c514d9_1423d62d",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2018-09-04T15:49:35Z",
+      "side": 1,
+      "message": "testThemeMainFontIsAppliedToTitle?",
+      "revId": "b307dd6ef5791461a5f11cacec8496b322b26b26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5a6bc7f_0c7a03ab",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2018-09-04T15:49:35Z",
+      "side": 1,
+      "message": "nit: final",
+      "revId": "b307dd6ef5791461a5f11cacec8496b322b26b26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8a996a5_231d1e90",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1410,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2018-09-04T15:49:35Z",
+      "side": 1,
+      "message": "I\u0027d make the class private.",
+      "revId": "b307dd6ef5791461a5f11cacec8496b322b26b26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7ee86bc_73416597",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1414,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2018-09-04T15:49:35Z",
+      "side": 1,
+      "message": "I think no fallback is used for \u0027a\u0027 and \u0027b\u0027 characters, so you might be able to remove this and line 1415. Can you check whether the tests still passes if these are removed?",
+      "revId": "b307dd6ef5791461a5f11cacec8496b322b26b26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f382bddc_8ebcdfec",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1440,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2018-09-04T15:49:35Z",
+      "side": 1,
+      "message": "also private",
+      "revId": "b307dd6ef5791461a5f11cacec8496b322b26b26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

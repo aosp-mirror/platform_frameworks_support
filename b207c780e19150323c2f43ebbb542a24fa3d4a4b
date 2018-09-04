@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "dbdfb5b0_eddb3878",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2018-09-04T15:49:35Z",
+      "side": 1,
+      "message": "Thanks, now it\u0027s better.",
+      "parentUuid": "a941ea49_4ebaac5d",
+      "revId": "b207c780e19150323c2f43ebbb542a24fa3d4a4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af8d0388_5b8acd86",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
