@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "56e8bc14_cc5694c4",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-04T18:50:09Z",
+      "side": 1,
+      "message": "This is consistent with the current Fragment behavior. Filed https://issuetracker.google.com/issues/113886460 to look at this as a follow on.",
+      "parentUuid": "a358dda3_7d1ea470",
+      "range": {
+        "startLine": 48,
+        "startChar": 20,
+        "endLine": 49,
+        "endChar": 44
+      },
+      "revId": "f5ff8a1b8f110435e4368e5dfb37da7b03c6fb25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "731edbc6_ce55b6e7",
         "filename": "fragment/src/main/java/androidx/fragment/app/FragmentFactory.java",
         "patchSetId": 2
