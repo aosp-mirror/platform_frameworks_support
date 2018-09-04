@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "0ee4aed6_4cc33f40",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 1010199
+      },
+      "writtenOn": "2018-09-04T22:53:42Z",
+      "side": 1,
+      "message": "It\u0027s a positive change, the result of my backlash against returning null from an API that returns a collection. Caller code went from having to deal with two empty cases (null, empty list) to just one.",
+      "parentUuid": "032222a0_81715218",
+      "revId": "912325a8d1049f7d5e97c19dacfd33f9cbc1e9da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "af867afd_f355013f",
         "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
         "patchSetId": 1
