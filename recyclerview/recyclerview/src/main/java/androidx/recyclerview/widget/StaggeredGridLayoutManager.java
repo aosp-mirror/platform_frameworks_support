@@ -2067,7 +2067,7 @@ public class StaggeredGridLayoutManager extends RecyclerView.LayoutManager imple
     }
 
     @Override
-    public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state,
+    public void smoothScrollToPosition(@NonNull RecyclerView recyclerView, RecyclerView.State state,
             int position) {
         LinearSmoothScroller scroller = new LinearSmoothScroller(recyclerView.getContext());
         scroller.setTargetPosition(position);
