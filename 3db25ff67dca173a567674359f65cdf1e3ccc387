@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b004ac8d_d6262d80",
+        "filename": "activity/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-04T21:16:57Z",
+      "side": 1,
+      "message": "lets track api from the day one\n\nPS: just create api folder and ./gradlew updateApi",
+      "revId": "3db25ff67dca173a567674359f65cdf1e3ccc387",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "294cf30f_3ed3f653",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-04T21:16:57Z",
+      "side": 1,
+      "message": "most important comment: 2018",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "3db25ff67dca173a567674359f65cdf1e3ccc387",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
