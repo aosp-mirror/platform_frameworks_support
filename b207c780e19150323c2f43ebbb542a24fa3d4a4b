@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c3d1bb9_318aa97e",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2018-09-04T13:23:04Z",
+      "side": 1,
+      "message": "I think this is not needed anymore now.",
+      "revId": "b207c780e19150323c2f43ebbb542a24fa3d4a4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
