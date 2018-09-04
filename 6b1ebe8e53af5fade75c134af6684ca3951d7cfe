@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "10a9d5d0_6a09c490",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-04T16:15:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41c8e7b1_47408088",
+      "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "366d6f6a_b479a920",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
         "patchSetId": 8
@@ -30,6 +48,24 @@
       "writtenOn": "2018-09-04T15:04:33Z",
       "side": 1,
       "message": "Just to make sure I follow, the reason we cache the instance here is to allow us to dismiss the previous floating toolbar?",
+      "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3916caa9_d144528f",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-04T16:15:57Z",
+      "side": 1,
+      "message": "Yes, we only ever want to have one toolbar at any point in time.\n\n- If you ask for a toolbar for the currently associated textView, we reuse the current toolbar.\n- If you change the associated textView, I find that it is easier to just get rid of the old toolbar and recreate another one for the new textView instead of trying to write code to reassociate the toolbar with another textView, which is a bit more complicated and error prone.",
+      "parentUuid": "366d6f6a_b479a920",
       "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c895eaf1_fa93e94c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-04T16:15:57Z",
+      "side": 1,
+      "message": "Will do. Thanks.",
+      "parentUuid": "a795a3af_5313f342",
+      "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eca1da94_c3d7c3bb",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
         "patchSetId": 8
@@ -67,6 +121,24 @@
       "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1f253d0_c19c559e",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-04T16:15:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eca1da94_c3d7c3bb",
+      "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "aaae6e30_23b389e1",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-04T16:15:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56f7c32d_ac2462d5",
+      "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae016e08_f11eb7de",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
         "patchSetId": 8
@@ -101,6 +191,24 @@
       "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "127a10a1_3b2b5983",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-04T16:15:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae016e08_f11eb7de",
+      "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "82494ace_54184eff",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-04T16:15:57Z",
+      "side": 1,
+      "message": "Because we want to return \"false\" so that the action mode is not started (showing the platform toolbar) and if we\u0027re returning false, whatever work the callback did will be thrown away so no point making it do work.",
+      "parentUuid": "7455b91f_0d911ac1",
+      "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "489be73d_37c81efb",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
         "patchSetId": 8
@@ -132,6 +258,24 @@
       "writtenOn": "2018-09-04T15:04:33Z",
       "side": 1,
       "message": "mmm, why not just use BackgroundColorSpan?",
+      "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72534e46_f88ea9f1",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-04T16:15:57Z",
+      "side": 1,
+      "message": "So when I remove \"BackgroundSpan\", I don\u0027t remove other BackgroundColorSpans that may have been added by some other process to the text. Kind of like the way we clear url or textlink spans.\n\nI find that removing a span by type is a more guaranteed way to remove it, isntead of removing by reference, just in case the span type is recreated on the spannable during parceling/unparceling and the reference no longer points to the intended span.",
+      "parentUuid": "489be73d_37c81efb",
       "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
