@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "9938e210_2d21607c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-04T17:11:45Z",
+      "side": 1,
+      "message": "I had a look. Doesn\u0027t seem to leak memory. I\u0027ll keep an eye on it.\nThanks.",
+      "parentUuid": "c895eaf1_fa93e94c",
+      "revId": "6b1ebe8e53af5fade75c134af6684ca3951d7cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eca1da94_c3d7c3bb",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
         "patchSetId": 8
