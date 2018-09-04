@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7df535df_1b7c7602",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-04T16:57:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f91e2de_abdde4ab",
+      "range": {
+        "startLine": 7,
+        "startChar": 40,
+        "endLine": 7,
+        "endChar": 41
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79905dd9_7f98fd3b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-02T09:54:15Z",
       "side": 1,
       "message": "Could you be more specific?\n\nJust FYI, AudioFocusRequest is granted per user (instead of per package),\nso you can write test for it.",
+      "range": {
+        "startLine": 10,
+        "startChar": 6,
+        "endLine": 10,
+        "endChar": 20
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20ab3024_d8b7973d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-04T16:57:50Z",
+      "side": 1,
+      "message": "I want to create actual tests before I submit, but am running into some minor issues with that at the moment. :)",
+      "parentUuid": "79905dd9_7f98fd3b",
       "range": {
         "startLine": 10,
         "startChar": 6,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "931f31d0_ddc4f0f3",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-04T16:57:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bf3aaae_00a2e122",
+      "range": {
+        "startLine": 90,
+        "startChar": 13,
+        "endLine": 90,
+        "endChar": 21
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31049232_2a6ddcc4",
         "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
         "patchSetId": 1
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "029b4179_c48f5573",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-04T16:57:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31049232_2a6ddcc4",
+      "range": {
+        "startLine": 104,
+        "startChar": 7,
+        "endLine": 104,
+        "endChar": 15
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d29b78b3_2f99bf04",
         "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
         "patchSetId": 1
@@ -137,6 +233,30 @@
       "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b0e10bb_513b3403",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-04T16:57:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d29b78b3_2f99bf04",
+      "range": {
+        "startLine": 177,
+        "startChar": 17,
+        "endLine": 177,
+        "endChar": 22
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +300,30 @@
     },
     {
       "key": {
+        "uuid": "ac4ec4ba_d81bf3fb",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-04T16:57:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5ec54c0_99c8fffe",
+      "range": {
+        "startLine": 287,
+        "startChar": 0,
+        "endLine": 287,
+        "endChar": 53
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "098926f8_5c198b40",
         "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
         "patchSetId": 1
@@ -191,6 +335,30 @@
       "writtenOn": "2018-09-02T09:54:15Z",
       "side": 1,
       "message": "question) can\u0027t we set this from framework?",
+      "range": {
+        "startLine": 289,
+        "startChar": 12,
+        "endLine": 289,
+        "endChar": 40
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6e14b87_511f87d8",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-04T16:57:50Z",
+      "side": 1,
+      "message": "I\u0027m not sure I\u0027m following what you mean?",
+      "parentUuid": "098926f8_5c198b40",
       "range": {
         "startLine": 289,
         "startChar": 12,
@@ -249,6 +417,30 @@
     },
     {
       "key": {
+        "uuid": "52d3ad32_8671dce3",
+        "filename": "media/src/main/java/androidx/media/AudioManagerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-04T16:57:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0d3c795_60ebb5b3",
+      "range": {
+        "startLine": 2,
+        "startChar": 12,
+        "endLine": 2,
+        "endChar": 17
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00643ade_74a221e4",
         "filename": "media/src/main/java/androidx/media/AudioManagerCompat.java",
         "patchSetId": 1
@@ -295,6 +487,30 @@
     },
     {
       "key": {
+        "uuid": "78158652_fb67105c",
+        "filename": "media/src/main/java/androidx/media/AudioManagerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-04T16:57:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5fb9e59_7dbea5a6",
+      "range": {
+        "startLine": 45,
+        "startChar": 21,
+        "endLine": 45,
+        "endChar": 46
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "690ec1ae_1d776cdd",
         "filename": "media/src/main/java/androidx/media/AudioManagerCompat.java",
         "patchSetId": 1
@@ -315,6 +531,30 @@
       "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42c3fab3_f72e05d5",
+        "filename": "media/src/main/java/androidx/media/AudioManagerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-04T16:57:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "690ec1ae_1d776cdd",
+      "range": {
+        "startLine": 70,
+        "startChar": 34,
+        "endLine": 70,
+        "endChar": 46
+      },
+      "revId": "3f410ebdb969987f605694ecd878263f4f7d5d5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
