@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac07046f_cfe2144b",
+        "filename": "versionedparcelable/annotation/src/main/java/androidx/versionedparcelable/compiler/VersionedParcelProcessor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-04T17:38:21Z",
+      "side": 0,
+      "message": "note 1) this \u0027element\u0027 is just wrong -- we\u0027d better to use \u0027e\u0027 here\nnote 2) code snippet here calls checkClass() for inner classes which doesn\u0027t necessarily to be versioned parcelable (e.g. Builder)",
+      "range": {
+        "startLine": 461,
+        "startChar": 24,
+        "endLine": 461,
+        "endChar": 31
+      },
+      "revId": "55daa2a1a4e003766296af0e904fe5f3d31b8a3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
