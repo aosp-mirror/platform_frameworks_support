@@ -28,7 +28,7 @@ import androidx.room.Dao;
 import androidx.room.Database;
 import androidx.room.Embedded;
 import androidx.room.Entity;
-import androidx.room.Fts4Entity;
+import androidx.room.Fts4;
 import androidx.room.FtsOptions;
 import androidx.room.Insert;
 import androidx.room.PrimaryKey;
@@ -77,7 +77,8 @@ public class FtsMigrationTest {
         Book getAllBooks();
     }
 
-    @Fts4Entity(matchInfo = FtsOptions.FTS3)
+    @Entity
+    @Fts4(matchInfo = FtsOptions.FTS3)
     static class Book {
         public String title;
         public String author;
@@ -95,7 +96,8 @@ public class FtsMigrationTest {
         public Address address;
     }
 
-    @Fts4Entity(contentEntity = Person.class)
+    @Entity
+    @Fts4(contentEntity = Person.class)
     static class AddressFts {
         @Embedded
         public Address address;

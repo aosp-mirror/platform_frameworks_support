@@ -160,7 +160,7 @@ class Fts3TableEntityProcessorTest : BaseFtsEntityParserTest() {
                 public int getRowId() { return rowId; }
                 public void setRowId(int id) { this.rowId = rowId; }
                 """,
-                attributes = hashMapOf("tokenizer" to "FtsOptions.PORTER")
+                ftsAttributes = hashMapOf("tokenizer" to "FtsOptions.TOKENIZER_PORTER")
         ) { entity, _ ->
             assertThat(entity.ftsOptions.tokenizer, `is`(Tokenizer.PORTER))
         }.compilesWithoutError()

@@ -60,8 +60,7 @@ fun Element.isNonNull() =
                 hasAnnotation(androidx.annotation.NonNull::class) ||
                 hasAnnotation(org.jetbrains.annotations.NotNull::class)
 
-fun Element.isEntityElement() = this.hasAnyOf(androidx.room.Entity::class,
-        androidx.room.Fts3Entity::class, androidx.room.Fts4Entity::class)
+fun Element.isEntityElement() = this.hasAnnotation(androidx.room.Entity::class)
 
 /**
  * gets all members including super privates. does not handle duplicate field names!!!

@@ -316,15 +316,15 @@ enum class Tokenizer {
     companion object {
         fun fromAnnotation(annotation: AnnotationMirror, elementName: String): Tokenizer {
             return fromAnnotationValue(AnnotationMirrors.getAnnotationValue(annotation, elementName)
-                    .getAsInt(FtsOptions.SIMPLE)!!)
+                    .getAsInt(FtsOptions.TOKENIZER_SIMPLE)!!)
         }
 
         fun fromAnnotationValue(value: Int): Tokenizer {
             return when (value) {
-                FtsOptions.SIMPLE -> SIMPLE
-                FtsOptions.PORTER -> PORTER
-                FtsOptions.ICU -> ICU
-                FtsOptions.UNICODE61 -> UNICODE61
+                FtsOptions.TOKENIZER_SIMPLE -> SIMPLE
+                FtsOptions.TOKENIZER_PORTER -> PORTER
+                FtsOptions.TOKENIZER_ICU -> ICU
+                FtsOptions.TOKENIZER_UNICODE61 -> UNICODE61
                 else -> SIMPLE
             }
         }
@@ -338,13 +338,13 @@ enum class FtsOrder {
     companion object {
         fun fromAnnotation(annotation: AnnotationMirror, elementName: String): FtsOrder {
             return fromAnnotationValue(AnnotationMirrors.getAnnotationValue(annotation, elementName)
-                    .getAsInt(FtsOptions.ASC)!!)
+                    .getAsInt(FtsOptions.ORDER_ASC)!!)
         }
 
         fun fromAnnotationValue(value: Int): FtsOrder {
             return when (value) {
-                FtsOptions.ASC -> ASC
-                FtsOptions.DESC -> DESC
+                FtsOptions.ORDER_ASC -> ASC
+                FtsOptions.ORDER_DESC -> DESC
                 else -> ASC
             }
         }

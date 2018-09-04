@@ -20,21 +20,21 @@ import androidx.annotation.IntDef;
 import androidx.annotation.RequiresApi;
 
 /**
- * Available option values that can be used with {@link Fts3Entity} & {@link Fts4Entity}.
+ * Available option values that can be used with {@link Fts3} & {@link Fts4}.
  */
 public class FtsOptions {
 
     /**
      * Version 3 of the extension module.
      *
-     * @see Fts4Entity#matchInfo()
+     * @see Fts4#matchInfo()
      */
     public static final int FTS3 = 1;
 
     /**
      * Version 4 of the extension module.
      *
-     * @see Fts4Entity#matchInfo()
+     * @see Fts4#matchInfo()
      */
     public static final int FTS4 = 2;
 
@@ -45,40 +45,40 @@ public class FtsOptions {
     /**
      * The name of the default tokenizer used on FTS tables.
      *
-     * @see Fts4Entity#tokenizer()
-     * @see Fts4Entity#tokenizerArgs()
+     * @see Fts4#tokenizer()
+     * @see Fts4#tokenizerArgs()
      */
-    public static final int SIMPLE = 0;
+    public static final int TOKENIZER_SIMPLE = 0;
 
     /**
      * The name of the tokenizer based on the Porter Stemming Algorithm.
      *
-     * @see Fts4Entity#tokenizer()
-     * @see Fts4Entity#tokenizerArgs()
+     * @see Fts4#tokenizer()
+     * @see Fts4#tokenizerArgs()
      */
-    public static final int PORTER = 1;
+    public static final int TOKENIZER_PORTER = 1;
 
     /**
      * The name of a tokenizer implemented by the ICU library.
      * <p>
      * Not available in certain Android builds (e.g. vendor).
      *
-     * @see Fts4Entity#tokenizer()
-     * @see Fts4Entity#tokenizerArgs()
+     * @see Fts4#tokenizer()
+     * @see Fts4#tokenizerArgs()
      */
-    public static final int ICU = 2;
+    public static final int TOKENIZER_ICU = 2;
 
     /**
-     * The name of the tokenizer that extends the {@link #SIMPLE} tokenizer according to rules in
-     * Unicode Version 6.1.
+     * The name of the tokenizer that extends the {@link #TOKENIZER_SIMPLE SIMPLE} tokenizer
+     * according to rules in Unicode Version 6.1.
      *
-     * @see Fts4Entity#tokenizer()
-     * @see Fts4Entity#tokenizerArgs()
+     * @see Fts4#tokenizer()
+     * @see Fts4#tokenizerArgs()
      */
     @RequiresApi(21)
-    public static final int UNICODE61 = 3;
+    public static final int TOKENIZER_UNICODE61 = 3;
 
-    @IntDef({SIMPLE, PORTER, UNICODE61})
+    @IntDef({TOKENIZER_SIMPLE, TOKENIZER_PORTER, TOKENIZER_UNICODE61})
     public @interface Tokenizer {
     }
 
@@ -89,18 +89,18 @@ public class FtsOptions {
     /**
      * Ascending returning order.
      *
-     * @see Fts4Entity#order()
+     * @see Fts4#order()
      */
-    public static final int ASC = 0;
+    public static final int ORDER_ASC = 0;
 
     /**
      * Descending returning order.
      *
-     * @see Fts4Entity#order()
+     * @see Fts4#order()
      */
-    public static final int DESC = 1;
+    public static final int ORDER_DESC = 1;
 
-    @IntDef({ASC, DESC})
+    @IntDef({ORDER_ASC, ORDER_DESC})
     public @interface Order {
     }
 
