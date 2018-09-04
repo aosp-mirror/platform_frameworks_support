@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "032222a0_81715218",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-09-04T22:46:05Z",
+      "side": 1,
+      "message": "This is a change in API. You may see some backlash from this one.",
+      "revId": "912325a8d1049f7d5e97c19dacfd33f9cbc1e9da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af867afd_f355013f",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-09-04T22:46:05Z",
+      "side": 1,
+      "message": "Are you sure this is NonNull? What do you return if position is out of range? Should you throw an exception?",
+      "revId": "912325a8d1049f7d5e97c19dacfd33f9cbc1e9da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
