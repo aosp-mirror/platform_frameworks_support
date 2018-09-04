@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "a358dda3_7d1ea470",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1082598
+      },
+      "writtenOn": "2018-09-04T15:43:29Z",
+      "side": 1,
+      "message": "Is it expected that the map will cache classes without considering the classloader?\n\nClassLoader c1 \u003d ...\nClassLoader c2 \u003d ...\n\nloadFragmentClass(c1, \"example.MyFragment\") \u003d\u003d loadFragmentClass(c2, \"example.MyFragment\")\n\nwhich seems possibly weird.",
+      "range": {
+        "startLine": 48,
+        "startChar": 20,
+        "endLine": 49,
+        "endChar": 44
+      },
+      "revId": "f5ff8a1b8f110435e4368e5dfb37da7b03c6fb25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "731edbc6_ce55b6e7",
         "filename": "fragment/src/main/java/androidx/fragment/app/FragmentFactory.java",
         "patchSetId": 2
@@ -47,6 +70,24 @@
       "writtenOn": "2018-09-04T14:26:03Z",
       "side": 1,
       "message": "Can this receive the (presumably nullable) args? Having the args at this point means you could vary things inside the fragment graph based on the args for things which are constructor injected into the fragment. This is what AppComponentFactory does for things like activities and services. It\u0027s important to document that this method isn\u0027t responsible for setting the args on the returned instance though.",
+      "revId": "f5ff8a1b8f110435e4368e5dfb37da7b03c6fb25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09cc57ef_7a35da13",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1082598
+      },
+      "writtenOn": "2018-09-04T15:43:29Z",
+      "side": 1,
+      "message": "I can\u0027t remember, but is there ever a case where we already know the enclosing Activity when creating a fragment? If so, would that be helpful here? Or perhaps also the enclosing Fragment?",
+      "parentUuid": "a1c1fc33_992b95b0",
       "revId": "f5ff8a1b8f110435e4368e5dfb37da7b03c6fb25",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
