@@ -59,7 +59,7 @@ data class Version(
     }
 
     companion object {
-        private val VERSION_FILE_REGEX = Pattern.compile("^(\\d+\\.\\d+\\.\\d+).txt$")
+        private val VERSION_FILE_REGEX = Pattern.compile("^(\\d+\\.\\d+\\.\\d+)(-.+)?.txt$")
         private val VERSION_REGEX = Pattern.compile("^(\\d+)\\.(\\d+)\\.(\\d+)(-.+)?$")
 
         private fun checkedMatcher(versionString: String): Matcher {
@@ -76,7 +76,15 @@ data class Version(
         fun parseOrNull(file: File): Version? {
             if (!file.isFile) return null
             val matcher = VERSION_FILE_REGEX.matcher(file.name)
-            return if (matcher.matches()) Version(matcher.group(1)) else null
+            if (matcher.matches()) {
+                // If this is an alpha, beta or rc version
+                if (matcher.group(2) != null) {
+                    return Version(matcher.group(1) + matcher.group(2))
+                }
+                // Stable version without suffix
+                return Version(matcher.group(1))
+            }
+            return null
         }
 
         /**
