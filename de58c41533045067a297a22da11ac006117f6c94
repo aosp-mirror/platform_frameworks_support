@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "123c4349_39353d89",
+        "filename": "animation/src/main/java/androidx/animation/PathKeyframes.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-04T23:33:31Z",
+      "side": 1,
+      "message": "always true",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 59
+      },
+      "revId": "de58c41533045067a297a22da11ac006117f6c94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb835e39_ae323d4f",
+        "filename": "animation/src/main/java/androidx/animation/PathKeyframes.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-04T23:33:31Z",
+      "side": 1,
+      "message": "use toArray() method\n\nPS veeeery nerdy long read about this method in JVM: https://shipilev.net/blog/2016/arrays-wisdom-ancients",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 176,
+        "endChar": 9
+      },
+      "revId": "de58c41533045067a297a22da11ac006117f6c94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31233895_b00c992f",
+        "filename": "animation/testing/src/main/java/androidx/animation/AnimationTestRule.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-04T23:33:31Z",
+      "side": 1,
+      "message": "it is surprising that it produces the frame",
+      "revId": "de58c41533045067a297a22da11ac006117f6c94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a20878ab_a41732dc",
+        "filename": "animation/testing/src/main/java/androidx/animation/TestHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-04T23:33:31Z",
+      "side": 1,
+      "message": "It would be nice to pass provider into constructor and remove setter. \nBtw, can we not extend AnimationHandler?",
+      "revId": "de58c41533045067a297a22da11ac006117f6c94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03ef503e_746f085c",
+        "filename": "animation/testing/src/main/java/androidx/animation/TestHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-04T23:33:31Z",
+      "side": 1,
+      "message": "I generally dislike exposing synchronization business of own class to other, but I guess it is ok since it is not public class.",
+      "revId": "de58c41533045067a297a22da11ac006117f6c94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
