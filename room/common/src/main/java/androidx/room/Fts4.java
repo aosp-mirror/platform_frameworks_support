@@ -24,26 +24,25 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Marks a class as an entity. This class will have a mapping SQLite FTS4 table in the database.
+ * Marks an {@link Entity} annotated class as a FTS4 entity. This class will have a mapping SQLite
+ * FTS4 table in the database.
  * <p>
  * <a href="https://www.sqlite.org/fts3.html">FTS3 and FTS4</a> are SQLite virtual table modules
  * that allows full-text searches to be performed on a set of documents.
  * <p>
- * An FtsEntity table always has a column named <code>rowid</code> that is the equivalent of an
- * <code>INTEGER PRIMARY KEY</code> index. Therefore, an FtsEntity can only have a single field
+ * An FTS entity table always has a column named <code>rowid</code> that is the equivalent of an
+ * <code>INTEGER PRIMARY KEY</code> index. Therefore, an FTS entity can only have a single field
  * annotated with {@link PrimaryKey}, it must be named <code>rowid</code> and must be of
  * <code>INTEGER</code> affinity. The field can be optionally omitted in the class but can still be
  * used in queries.
  * <p>
- * All fields in an FtsEntity are of <code>TEXT</code> affinity, except the for the 'rowid' and
+ * All fields in an FTS entity are of <code>TEXT</code> affinity, except the for the 'rowid' and
  * 'languageid' fields.
- * <p>
- * Similar to an {@link Entity}, each FtsEntity must either have a no-arg constructor or a
- * constructor whose parameters match fields (based on type and name).
  * <p>
  * Example:
  * <pre>
- * {@literal @}Fts4Entity
+ * {@literal @}Entity
+ * {@literal @}Fts4
  * public class Mail {
  *   {@literal @}PrimaryKey
  *   {@literal @}ColumnInfo(name = "rowid")
@@ -78,35 +77,29 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.CLASS)
 @RequiresApi(16)
-public @interface Fts4Entity {
-
-    /**
-     * The table name in the SQLite database. If not set, defaults to the class name.
-     *
-     * @return The SQLite tableName of the FtsEntity.
-     */
-    String tableName() default "";
+public @interface Fts4 {
 
     /**
      * The tokenizer to be used in the FTS table.
      * <p>
-     * The default value is {@link FtsOptions#SIMPLE}. Tokenizer arguments can be defined with
-     * {@link #tokenizerArgs()}.
+     * The default value is {@link FtsOptions#TOKENIZER_SIMPLE}. Tokenizer arguments can be defined
+     * with {@link #tokenizerArgs()}.
      *
-     * @return The tokenizer to use on the FTS table. This is either {@link FtsOptions#SIMPLE},
-     * {@link FtsOptions#PORTER} or {@link FtsOptions#UNICODE61}.
+     * @return The tokenizer to use on the FTS table. This is either
+     * {@link FtsOptions#TOKENIZER_SIMPLE}, {@link FtsOptions#TOKENIZER_PORTER} or
+     * {@link FtsOptions#TOKENIZER_UNICODE61}.
      * @see #tokenizerArgs()
      * @see <a href="https://www.sqlite.org/fts3.html#tokenizer">SQLite tokernizers
      * documentation</a>
      */
-    @FtsOptions.Tokenizer int tokenizer() default FtsOptions.SIMPLE;
+    @FtsOptions.Tokenizer int tokenizer() default FtsOptions.TOKENIZER_SIMPLE;
 
     /**
      * Optional arguments to configure the defined tokenizer.
      * <p>
      * Tokenizer arguments consist of an argument name, followed by an "=" character, followed by
      * the option value. For example, <code>separators=.</code> defines the dot character as an
-     * additional separator when using the {@link FtsOptions#UNICODE61} tokenizer.
+     * additional separator when using the {@link FtsOptions#TOKENIZER_UNICODE61} tokenizer.
      * <p>
      * The available arguments that can be defined depend on the tokenizer defined, see the
      * <a href="https://www.sqlite.org/fts3.html#tokenizer">SQLite tokernizers documentation</a> for
@@ -188,12 +181,13 @@ public @interface Fts4Entity {
     /**
      * The preferred 'rowid' order of the FTS table.
      * <p>
-     * The default value is {@link FtsOptions#ASC}. If many queries are run against the FTS table
-     * use <code>ORDER BY row DESC</code> then it may improve performance to set this option to
-     * {@link FtsOptions#DESC}, enabling the FTS module to store its data in a way that optimizes
-     * returning results in descending order by rowid.
+     * The default value is {@link FtsOptions#ORDER_ASC}. If many queries are run against the FTS
+     * table use <code>ORDER BY row DESC</code> then it may improve performance to set this option
+     * to {@link FtsOptions#ORDER_DESC}, enabling the FTS module to store its data in a way that
+     * optimizes returning results in descending order by rowid.
      *
-     * @return The preferred order, either {@link FtsOptions#ASC} or {@link FtsOptions#DESC}.
+     * @return The preferred order, either {@link FtsOptions#ORDER_ASC} or
+     * {@link FtsOptions#ORDER_DESC}.
      */
-    @FtsOptions.Order int order() default FtsOptions.ASC;
+    @FtsOptions.Order int order() default FtsOptions.ORDER_ASC;
 }
