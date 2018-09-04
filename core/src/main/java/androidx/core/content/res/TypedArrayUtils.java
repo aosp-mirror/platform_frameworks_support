@@ -18,6 +18,7 @@ package androidx.core.content.res;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -152,6 +153,32 @@ public class TypedArrayUtils {
         }
         return ComplexColorCompat.from(defaultValue);
     }
+
+    /**
+     * TODO: write the javadoc
+     * @param a
+     * @param parser
+     * @param theme
+     * @param attrName
+     * @param resId
+     * @return
+     */
+    public static ColorStateList getNamedColorStateList(@NonNull TypedArray a,
+            @NonNull XmlPullParser parser, @Nullable Resources.Theme theme,
+            @NonNull String attrName, @StyleableRes int resId) {
+        if (hasAttribute(parser, attrName)) {
+            final TypedValue value = new TypedValue();
+            a.getValue(resId, value);
+            if (value.type == TypedValue.TYPE_ATTRIBUTE) {
+                throw new UnsupportedOperationException(
+                        "Failed to resolve attribute at index " + resId + ": " + value);
+            }
+            return ColorStateListInflaterCompat.inflate(a.getResources(),
+                    a.getResourceId(resId, 0), theme);
+        }
+        return null;
+    }
+
 
     /**
      * Retrieves a resource ID attribute value. In addition to the styleable resource ID, we also
