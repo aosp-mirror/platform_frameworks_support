@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c9c72d62_e9daafe6",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-09-04T13:21:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "addab719_b2e94b25",
+      "revId": "a4cbacaa6466259002d6a367bff93e5f8ddf048c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5dc32748_7ca59ba6",
         "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "93560b43_45b141f5",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-09-04T13:21:16Z",
+      "side": 1,
+      "message": "Not required.",
+      "parentUuid": "5dc32748_7ca59ba6",
+      "range": {
+        "startLine": 263,
+        "startChar": 52,
+        "endLine": 263,
+        "endChar": 70
+      },
+      "revId": "a4cbacaa6466259002d6a367bff93e5f8ddf048c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de178439_8100ad85",
         "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
         "patchSetId": 1
@@ -56,6 +98,24 @@
       "revId": "a4cbacaa6466259002d6a367bff93e5f8ddf048c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ace8a8a_8e2757c0",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-09-04T13:21:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de178439_8100ad85",
+      "revId": "a4cbacaa6466259002d6a367bff93e5f8ddf048c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "cfdeb0b7_6cd71e5f",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1437,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-09-04T13:21:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4816ddd_9574b4ac",
+      "revId": "a4cbacaa6466259002d6a367bff93e5f8ddf048c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c18ec92_a7d962c3",
         "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
         "patchSetId": 1
@@ -90,6 +168,24 @@
       "revId": "a4cbacaa6466259002d6a367bff93e5f8ddf048c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd6a2535_ba528798",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1442,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-09-04T13:21:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c18ec92_a7d962c3",
+      "revId": "a4cbacaa6466259002d6a367bff93e5f8ddf048c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -113,6 +209,30 @@
       "revId": "a4cbacaa6466259002d6a367bff93e5f8ddf048c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37f5062f_07a83f5b",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/DialogTitle.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-09-04T13:21:16Z",
+      "side": 1,
+      "message": "Yes, it has become unnecessary. Removed it.",
+      "parentUuid": "12e093b1_80fbcf23",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 5
+      },
+      "revId": "a4cbacaa6466259002d6a367bff93e5f8ddf048c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
