@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "67971238_aff17ec1",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2018-09-04T13:34:00Z",
+      "side": 1,
+      "message": "nit: make this final (actually it will be removed as per the next comment)",
+      "revId": "b207c780e19150323c2f43ebbb542a24fa3d4a4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4c3d1bb9_318aa97e",
         "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
         "patchSetId": 2
@@ -13,6 +30,74 @@
       "writtenOn": "2018-09-04T13:23:04Z",
       "side": 1,
       "message": "I think this is not needed anymore now.",
+      "revId": "b207c780e19150323c2f43ebbb542a24fa3d4a4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "095a01c4_5c5b0b86",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1409,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2018-09-04T13:34:00Z",
+      "side": 1,
+      "message": "Let\u0027s add a javadoc comment to explain what this class does, something like:\n/**\n * Matcher checking that:\n * - the View is a TextView\n * - the TextView uses a font with the property that the width of glyph \u0027a\u0027 is triple the width of glyph \u0027b\u0027\n */",
+      "revId": "b207c780e19150323c2f43ebbb542a24fa3d4a4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bc8512e_1c3b729f",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1410,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2018-09-04T13:34:00Z",
+      "side": 1,
+      "message": "Maybe rename this class to A3emFontMatcher?",
+      "revId": "b207c780e19150323c2f43ebbb542a24fa3d4a4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ea7bf1a_38b792b3",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1412,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2018-09-04T13:34:00Z",
+      "side": 1,
+      "message": "nit: you can make the arguments final",
+      "revId": "b207c780e19150323c2f43ebbb542a24fa3d4a4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be5ca066_8e5be6a7",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1436,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2018-09-04T13:34:00Z",
+      "side": 1,
+      "message": "is a TextView and has a font where the width of glyph \u0027a\u0027 is triple the width of glyph \u0027b\u0027?",
       "revId": "b207c780e19150323c2f43ebbb542a24fa3d4a4b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
