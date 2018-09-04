@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0bb46c65_c016c449",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-04T17:18:08Z",
+      "side": 1,
+      "message": "These few lines seems do not compile? :)",
+      "revId": "9b0c632638c10fe24d69b94a3c1f69cefe612840",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
