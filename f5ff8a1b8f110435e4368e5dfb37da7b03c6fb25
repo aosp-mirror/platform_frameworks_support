@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "731edbc6_ce55b6e7",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-09-04T14:26:03Z",
+      "side": 1,
+      "message": "Returns the class, not instance",
+      "revId": "f5ff8a1b8f110435e4368e5dfb37da7b03c6fb25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce9b9faf_395fca9c",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-09-04T14:26:03Z",
+      "side": 1,
+      "message": "@NonNull on the method",
+      "revId": "f5ff8a1b8f110435e4368e5dfb37da7b03c6fb25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1c1fc33_992b95b0",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-09-04T14:26:03Z",
+      "side": 1,
+      "message": "Can this receive the (presumably nullable) args? Having the args at this point means you could vary things inside the fragment graph based on the args for things which are constructor injected into the fragment. This is what AppComponentFactory does for things like activities and services. It\u0027s important to document that this method isn\u0027t responsible for setting the args on the returned instance though.",
+      "revId": "f5ff8a1b8f110435e4368e5dfb37da7b03c6fb25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
