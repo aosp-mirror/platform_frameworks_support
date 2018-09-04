@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a850a26a_d9f14125",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-09-04T19:44:47Z",
+      "side": 0,
+      "message": "we cannot change the signature (for backwards compatibility). it should be a new method and old one should delegate to the new one.",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 35
+      },
+      "revId": "b3586a41df6c420dbd0c6da0217c3336b943125b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

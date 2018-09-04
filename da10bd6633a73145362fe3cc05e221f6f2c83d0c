@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9de204d7_250fc115",
+        "filename": "room/common/src/main/java/androidx/room/Database.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-09-04T19:44:47Z",
+      "side": 1,
+      "message": "view in the database",
+      "range": {
+        "startLine": 74,
+        "startChar": 84,
+        "endLine": 75,
+        "endChar": 22
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25fef473_d8cd795d",
+        "filename": "room/common/src/main/java/androidx/room/DatabaseView.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-09-04T19:44:47Z",
+      "side": 1,
+      "message": "via",
+      "range": {
+        "startLine": 44,
+        "startChar": 49,
+        "endLine": 44,
+        "endChar": 51
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce0176f6_db6288cb",
+        "filename": "room/common/src/main/java/androidx/room/DatabaseView.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-09-04T19:44:47Z",
+      "side": 1,
+      "message": "sqlite",
+      "range": {
+        "startLine": 45,
+        "startChar": 20,
+        "endLine": 45,
+        "endChar": 28
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4eafff9_f3ac1ea3",
+        "filename": "room/common/src/main/java/androidx/room/DatabaseView.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-09-04T19:44:47Z",
+      "side": 1,
+      "message": "lets move this to another paragraph and say sth like:\n\n\"Room automatically handles View migrations, you don\u0027t need to write migrations for them except for dropped views\" (or are we handling view drops migrations?)",
+      "range": {
+        "startLine": 46,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 39
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3a756ff_1fb256bc",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-09-04T19:44:47Z",
+      "side": 1,
+      "message": "this is repeated 7 lines above. just create a local variable instead.",
+      "range": {
+        "startLine": 86,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 44
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51e2e2cb_19ea9687",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-09-04T19:44:47Z",
+      "side": 1,
+      "message": "there is no point in having this as a set since the isTable method traverses them all.\neither make this a list or change the isTable to  `!viewNames.contains(it.toLowercase(Locale.US))` and also keep lowercase names in views.\n\nI don\u0027t think any of it matters in terms of perf since there won\u0027t be hundreds of views so maybe just keep viewNames as a list.",
+      "range": {
+        "startLine": 315,
+        "startChar": 8,
+        "endLine": 315,
+        "endChar": 61
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "becf834c_bba2c2a3",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-09-04T19:44:47Z",
+      "side": 1,
+      "message": "having steps to resolve in a DatabaseView class seems really weird, where is it used ?\n\nupdate:\n\nso looks like we are doing this to re-order for creation. why don\u0027t we just keep views sorted in the database processor instead and avoid a confusing parameter ?",
+      "range": {
+        "startLine": 340,
+        "startChar": 29,
+        "endLine": 340,
+        "endChar": 43
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "724a87f3_005096c0",
+        "filename": "room/runtime/src/main/java/androidx/room/util/DBUtil.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-09-04T19:44:47Z",
+      "side": 1,
+      "message": "you cannot do this. developer might have their own views (the same way we allow their own tables).\n\n\nan option is to somehow mark the table as created by room (maybe some watermark in the query ?). that way we can know whether we can delete it or not.",
+      "range": {
+        "startLine": 100,
+        "startChar": 19,
+        "endLine": 101,
+        "endChar": 59
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
