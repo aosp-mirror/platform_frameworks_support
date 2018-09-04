@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7e575382_1dddbbb4",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/FloatingToolbar.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-04T11:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d69975d2_7ca4c7ac",
+      "revId": "ce502e908c0bda464ca353f67d8cf80e446717a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8436aad7_ce4a950a",
         "filename": "textclassifier/src/main/res/values-v23/themes_base.xml",
         "patchSetId": 6
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "60a0928f_fc8a071a",
+        "filename": "textclassifier/src/main/res/values-v23/themes_base.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-04T11:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8436aad7_ce4a950a",
+      "revId": "ce502e908c0bda464ca353f67d8cf80e446717a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8dbd4ca_9bdf1bfd",
         "filename": "textclassifier/src/main/res/values-v23/themes_base.xml",
         "patchSetId": 6
@@ -47,6 +83,24 @@
       "writtenOn": "2018-09-04T10:06:30Z",
       "side": 1,
       "message": "What is this for?\nSo, developers will need to use these themes in their AndroidManifest by themselves in order to apply the theme to floating toolbar?",
+      "revId": "ce502e908c0bda464ca353f67d8cf80e446717a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f09c9dcb_f45fb175",
+        "filename": "textclassifier/src/main/res/values-v23/themes_base.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-04T11:35:39Z",
+      "side": 1,
+      "message": "FloatingToolbar uses this theme internally.\nSee FloatingToolbar.applyDefaultTheme() at the bottom of the FloatingToolbar.java file.",
+      "parentUuid": "d8dbd4ca_9bdf1bfd",
       "revId": "ce502e908c0bda464ca353f67d8cf80e446717a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
