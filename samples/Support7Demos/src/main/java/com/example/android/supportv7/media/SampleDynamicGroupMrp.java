@@ -235,10 +235,11 @@ final class SampleDynamicGroupMrp extends SampleMediaRouteProvider {
             mDynamicRouteDescriptors.put(routeId, builder.build());
             mMemberRouteIds.add(routeId);
 
+            // TODO: Replace addGroupMemberIds with addGroupMemberId after b/113842359 is fixed.
             MediaRouteDescriptor groupDescriptor =
                     new MediaRouteDescriptor.Builder(mRouteDescriptors.get(mRouteId))
-                    .addGroupMemberId(routeId)
-                    .build();
+                            .addGroupMemberIds(mMemberRouteIds)
+                            .build();
             mRouteDescriptors.put(mRouteId, groupDescriptor);
             publishRoutes();
             if (mListenerExecutor != null) {
@@ -262,9 +263,10 @@ final class SampleDynamicGroupMrp extends SampleMediaRouteProvider {
             builder.setSelectionState(DynamicRouteDescriptor.UNSELECTED);
             mDynamicRouteDescriptors.put(routeId, builder.build());
 
+            // TODO: Replace addGroupMemberIds with removeGroupMemberId after b/113842359 is fixed.
             MediaRouteDescriptor groupDescriptor =
                     new MediaRouteDescriptor.Builder(mRouteDescriptors.get(mRouteId))
-                            .removeGroupMemberId(routeId)
+                            .addGroupMemberIds(mMemberRouteIds)
                             .build();
             mRouteDescriptors.put(mRouteId, groupDescriptor);
             publishRoutes();
