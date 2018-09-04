@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "90dc0be0_42ef8e22",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-04T22:50:19Z",
+      "side": 1,
+      "message": "This came up in the previous attempt of this in http://ag/3785306 and I had checked that there were no google3 usages of this that depended on a null value.",
+      "parentUuid": "032222a0_81715218",
+      "revId": "912325a8d1049f7d5e97c19dacfd33f9cbc1e9da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af867afd_f355013f",
         "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "912325a8d1049f7d5e97c19dacfd33f9cbc1e9da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85ab66bb_68484ab6",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-04T22:50:19Z",
+      "side": 1,
+      "message": "This is never called with a position out of range (as determined by size()), but if you\u0027re trying to be exhaustive in your implementation, you would indeed want to throw an exception.",
+      "parentUuid": "af867afd_f355013f",
+      "revId": "912325a8d1049f7d5e97c19dacfd33f9cbc1e9da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
