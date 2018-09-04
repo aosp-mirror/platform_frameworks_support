@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "326e0432_58c3f2fe",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.generated.config",
+        "patchSetId": 2
+      },
+      "lineNbr": 4152,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-04T23:39:29Z",
+      "side": 1,
+      "message": "this seems to be a gerrit bug I don\u0027t see L4152 in my local file.",
+      "range": {
+        "startLine": 4151,
+        "startChar": 0,
+        "endLine": 4152,
+        "endChar": 0
+      },
+      "revId": "6135115b95c2bb9bcf508262d2862415db0b5217",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
