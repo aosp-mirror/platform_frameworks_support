@@ -23,10 +23,12 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.StateSet;
 import android.util.Xml;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
 import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,6 +47,27 @@ import java.io.IOException;
 public final class ColorStateListInflaterCompat {
 
     private ColorStateListInflaterCompat() {
+    }
+
+    /**
+     * Creates a ColorStateList from an XML document using given a set of
+     * {@link Resources} and a {@link Resources.Theme}.
+     *
+     * @param resources Resources against which the ColorStateList should be inflated.
+     * @param resId     the resource identifier of the ColorStateList to retrieve.
+     * @param theme     Optional theme to apply to the color, may be {@code null}.
+     * @return A new color state list.
+     */
+    @Nullable
+    public static ColorStateList inflate(@NonNull Resources resources, @ColorRes int resId,
+            @Nullable Resources.Theme theme) {
+        try {
+            XmlPullParser parser = resources.getXml(resId);
+            return createFromXml(resources, parser, theme);
+        } catch (Exception e) {
+            Log.e("CSLCompat", "Failed to inflate ColorStateList.", e);
+        }
+        return null;
     }
 
     /**
