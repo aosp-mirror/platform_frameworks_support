@@ -2,6 +2,63 @@
   "comments": [
     {
       "key": {
+        "uuid": "7219e823_4358c35c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2018-09-04T13:41:29Z",
+      "side": 1,
+      "message": "nit: I think it\u0027s good practice to keep the first line \u003c\u003d 50 characters",
+      "revId": "b207c780e19150323c2f43ebbb542a24fa3d4a4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "157ae3c3_85c70163",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2018-09-04T13:41:29Z",
+      "side": 1,
+      "message": "Please improve this comment a bit (it doesn\u0027t make it clear what the desired behavior would be and why inheriting from TextView is not enough).",
+      "revId": "b207c780e19150323c2f43ebbb542a24fa3d4a4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af8d0388_5b8acd86",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2018-09-04T13:41:29Z",
+      "side": 1,
+      "message": "nit^2: I think we usually keep test commands on one line to keep them easy to be copy pasted",
+      "range": {
+        "startLine": 12,
+        "startChar": 6,
+        "endLine": 13,
+        "endChar": 125
+      },
+      "revId": "b207c780e19150323c2f43ebbb542a24fa3d4a4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67971238_aff17ec1",
         "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/AlertDialogTest.java",
         "patchSetId": 2
