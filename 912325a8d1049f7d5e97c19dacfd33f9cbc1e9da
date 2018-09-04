@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "07363732_3ebff07c",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-09-04T22:52:13Z",
+      "side": 1,
+      "message": "It is only a warning :-) I have a few scars from API changes like this.",
+      "parentUuid": "90dc0be0_42ef8e22",
+      "revId": "912325a8d1049f7d5e97c19dacfd33f9cbc1e9da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af867afd_f355013f",
         "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
         "patchSetId": 1
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "This is never called with a position out of range (as determined by size()), but if you\u0027re trying to be exhaustive in your implementation, you would indeed want to throw an exception.",
       "parentUuid": "af867afd_f355013f",
+      "revId": "912325a8d1049f7d5e97c19dacfd33f9cbc1e9da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2c9b16c9_8a6ed460",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-09-04T22:52:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "85ab66bb_68484ab6",
       "revId": "912325a8d1049f7d5e97c19dacfd33f9cbc1e9da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
