@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "538f43c6_15b7b77a",
+        "filename": "transition/src/main/java/androidx/transition/Slide.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-09-05T13:10:40Z",
+      "side": 0,
+      "message": "do you need to remove this to be able to add the annotation below?\n\nThroughout the platform we have a policy where all annotations are hidden, tagged correctly in usage and then lint can do the correct thing without exposing these as public api. I\u0027m not 100% that works for androidx as well, but can you check if leaving this here and adding the annotation works?",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 30
+      },
+      "revId": "926be378f2d9ac234086a8ad157d6444c22a88f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

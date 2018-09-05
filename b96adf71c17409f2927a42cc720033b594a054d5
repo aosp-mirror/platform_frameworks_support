@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "197b106e_39a3895e",
+        "filename": "transition/src/main/java/androidx/transition/Visibility.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-09-05T13:10:40Z",
+      "side": 1,
+      "message": "are they both already public api? sad we didn\u0027t unify this earlier :(",
+      "range": {
+        "startLine": 71,
+        "startChar": 33,
+        "endLine": 71,
+        "endChar": 72
+      },
+      "revId": "b96adf71c17409f2927a42cc720033b594a054d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
