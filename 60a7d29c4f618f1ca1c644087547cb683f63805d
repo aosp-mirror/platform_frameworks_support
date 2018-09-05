@@ -22,6 +22,30 @@
       "revId": "60a7d29c4f618f1ca1c644087547cb683f63805d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93523611_75c98a6e",
+        "filename": "room/common/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-09-05T23:15:41Z",
+      "side": 1,
+      "message": "Done - Converted to enums.",
+      "parentUuid": "e91c0dfa_b665c775",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 3
+      },
+      "revId": "60a7d29c4f618f1ca1c644087547cb683f63805d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
