@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "634310fb_f4060f6b",
+        "filename": "textclassifier/src/main/res/values-v23/themes_base.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-05T17:51:07Z",
+      "side": 1,
+      "message": "Just curious, why don\u0027t we extends Theme.AppCompat.Light/Theme.AppCompat directly?",
+      "revId": "5d6d54fd299bcfed1558977dc174bb5f8c19c207",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
