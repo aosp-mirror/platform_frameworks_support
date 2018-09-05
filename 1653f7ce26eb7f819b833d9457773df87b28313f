@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce69abde_1cbfb0c5",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FtsTableEntityProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-05T23:28:53Z",
+      "side": 1,
+      "message": "looks like FtsEntity.kt has similar code. Helper function?",
+      "range": {
+        "startLine": 246,
+        "startChar": 14,
+        "endLine": 249,
+        "endChar": 65
+      },
+      "revId": "1653f7ce26eb7f819b833d9457773df87b28313f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
