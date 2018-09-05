@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "037a74e5_c6e4f279",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/shortcut/binder/RxCallableInsertMethodBinder.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-09-05T20:19:45Z",
+      "side": 1,
+      "message": "val type is redundant can be simplified to just assignment:\n\nprivate val instantInsertMethodBinder \u003d InstantInsertMethodBinder(adapter)",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 46
+      },
+      "revId": "9e8bd15a0d351c93c241c49382beaadf55b188d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b714601_1b147325",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/shortcut/binderprovider/RxCallableInsertMethodBinderProvider.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-09-05T20:19:45Z",
+      "side": 1,
+      "message": "Would be nice to just have RxType.SINGLE, you can do so by adding RxType as an import:\n\nimport androidx.room.solver.shortcut.binder.RxCallableInsertMethodBinder.RxType",
+      "range": {
+        "startLine": 61,
+        "startChar": 52,
+        "endLine": 61,
+        "endChar": 94
+      },
+      "revId": "9e8bd15a0d351c93c241c49382beaadf55b188d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
