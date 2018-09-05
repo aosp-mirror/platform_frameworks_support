@@ -16,8 +16,6 @@
 
 package androidx.transition;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.animation.Animator;
 import android.animation.TimeInterpolator;
 import android.content.Context;
@@ -31,7 +29,6 @@ import android.view.animation.DecelerateInterpolator;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
-import androidx.annotation.RestrictTo;
 import androidx.core.content.res.TypedArrayUtils;
 import androidx.core.view.ViewCompat;
 
@@ -57,8 +54,6 @@ public class Slide extends Visibility {
     private CalculateSlide mSlideCalculator = sCalculateBottom;
     private int mSlideEdge = Gravity.BOTTOM;
 
-    /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({Gravity.LEFT, Gravity.TOP, Gravity.RIGHT, Gravity.BOTTOM, Gravity.START, Gravity.END})
     public @interface GravityFlag {
@@ -158,7 +153,7 @@ public class Slide extends Visibility {
     /**
      * Constructor using the provided slide edge direction.
      */
-    public Slide(int slideEdge) {
+    public Slide(@GravityFlag int slideEdge) {
         setSlideEdge(slideEdge);
     }
 

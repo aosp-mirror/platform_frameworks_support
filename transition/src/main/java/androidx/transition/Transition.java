@@ -148,8 +148,6 @@ public abstract class Transition implements Cloneable {
 
     private static final int MATCH_LAST = MATCH_ITEM_ID;
 
-    /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
     @IntDef({MATCH_INSTANCE, MATCH_NAME, MATCH_ID, MATCH_ITEM_ID})
     @Retention(RetentionPolicy.SOURCE)
     public @interface MatchOrder {
