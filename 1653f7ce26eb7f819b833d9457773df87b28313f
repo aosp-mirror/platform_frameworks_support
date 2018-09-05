@@ -22,6 +22,30 @@
       "revId": "1653f7ce26eb7f819b833d9457773df87b28313f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "873e0e15_cde66cb1",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FtsTableEntityProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-09-05T23:56:54Z",
+      "side": 1,
+      "message": "Cleaned up - Moved this method to after the FtsEntity vo is created so that we can use the lazy field nonHiddenFields keeping only one place for the same logic.",
+      "parentUuid": "ce69abde_1cbfb0c5",
+      "range": {
+        "startLine": 246,
+        "startChar": 14,
+        "endLine": 249,
+        "endChar": 65
+      },
+      "revId": "1653f7ce26eb7f819b833d9457773df87b28313f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
