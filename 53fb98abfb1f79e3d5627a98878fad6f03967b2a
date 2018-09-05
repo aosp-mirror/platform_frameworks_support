@@ -22,6 +22,30 @@
       "revId": "53fb98abfb1f79e3d5627a98878fad6f03967b2a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c0e5f95_ec54e797",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-05T16:33:48Z",
+      "side": 1,
+      "message": "Good point! Done.",
+      "parentUuid": "3d97bae2_ed275c94",
+      "range": {
+        "startLine": 446,
+        "startChar": 39,
+        "endLine": 446,
+        "endChar": 47
+      },
+      "revId": "53fb98abfb1f79e3d5627a98878fad6f03967b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
