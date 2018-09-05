@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "861e43f5_989d7ed8",
+        "filename": "animation/src/main/java/androidx/animation/PathKeyframes.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-05T23:45:28Z",
+      "side": 1,
+      "message": "nit: I would receive arrays (tan1, tan2, p1, p2), but ...",
+      "range": {
+        "startLine": 179,
+        "startChar": 45,
+        "endLine": 180,
+        "endChar": 50
+      },
+      "revId": "5801f100cfe7bb79ec00abe4604d0d12c9bd0201",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
