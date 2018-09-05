@@ -46,6 +46,30 @@
       "revId": "926be378f2d9ac234086a8ad157d6444c22a88f8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e55b46df_2acf84dd",
+        "filename": "transition/src/main/java/androidx/transition/Slide.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-09-05T15:14:32Z",
+      "side": 0,
+      "message": "After discussion in AndroidX Team Chat it turned out we really need this RestrictTo annotations, and it is not working probably because of a Lint bug. So I reverted it and updated CL.",
+      "parentUuid": "f0dd060c_91a8b284",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 30
+      },
+      "revId": "926be378f2d9ac234086a8ad157d6444c22a88f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
