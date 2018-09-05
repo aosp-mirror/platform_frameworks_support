@@ -2756,6 +2756,7 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
         mOnErrorCalled.reset();
 
         mPlayer.setMediaItem(new CallbackMediaItem2.Builder(dataSource).build());
+        mPlayer.setMediaItem(new CallbackMediaItem2.Builder(dataSource).build());
 
         // prepare() will be pending until readAllowed is signaled.
         mPlayer.prepare();

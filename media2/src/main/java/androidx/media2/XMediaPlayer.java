@@ -35,6 +35,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.collection.ArrayMap;
+import androidx.concurrent.futures.AbstractFuture;
 import androidx.concurrent.futures.SettableFuture;
 import androidx.media.AudioAttributesCompat;
 
@@ -44,6 +45,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -163,7 +165,7 @@ public class XMediaPlayer extends SessionPlayer2 {
 
     /**
      * The player just completed an iteration of playback loop. This event is sent only when
-     * looping is enabled by {@link #loopCurrent}.
+     * looping is enabled by {@link #setRepeatMode(int)}.
      * @see PlayerCallback#onInfo
      * @hide
      */
@@ -366,6 +368,9 @@ public class XMediaPlayer extends SessionPlayer2 {
     @RestrictTo(LIBRARY_GROUP)
     public @interface SeekMode {}
 
+    private static final int END_OF_PLAYLIST = -1;
+    private static final int NO_MEDIA_ITEM = -2;
+
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     static ArrayMap<Integer, Integer> sResultCodeMap;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -427,8 +432,8 @@ public class XMediaPlayer extends SessionPlayer2 {
 
     /* A list for tracking the commands submitted to MediaPlayer2.*/
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    final ArrayDeque<Pair<Integer, SettableFuture<CommandResult2>>>
-            mCallTypeAndFutures = new ArrayDeque<>();
+    final ArrayDeque<Pair<Integer, SettableFuture<CommandResult2>>> mCallTypeAndFutures =
+            new ArrayDeque<>();
 
     private final Object mStateLock = new Object();
     @GuardedBy("mStateLock")
@@ -436,11 +441,30 @@ public class XMediaPlayer extends SessionPlayer2 {
     @GuardedBy("mStateLock")
     private Map<MediaItem2, Integer> mMediaItemToBuffState = new HashMap<>();
 
+    private final Object mPlaylistLock = new Object();
+    @GuardedBy("mPlaylistLock")
+    private ArrayList<MediaItem2> mPlaylist = new ArrayList<>();
+    @GuardedBy("mPlaylistLock")
+    private ArrayList<MediaItem2> mShuffledList = new ArrayList<>();
+    @GuardedBy("mPlaylistLock")
+    private MediaMetadata2 mPlaylistMetadata;
+    @GuardedBy("mPlaylistLock")
+    private int mRepeatMode;
+    @GuardedBy("mPlaylistLock")
+    private int mShuffleMode;
+    @GuardedBy("mPlaylistLock")
+    private int mCurrentShuffleIdx;
+    @GuardedBy("mPlaylistLock")
+    private MediaItem2 mCurrentItem;
+    @GuardedBy("mPlaylistLock")
+    private MediaItem2 mNextItem;
+
     public XMediaPlayer(Context context) {
         mState = PLAYER_STATE_IDLE;
         mPlayer = MediaPlayer2.create(context);
         mExecutor = Executors.newFixedThreadPool(1);
         mPlayer.setEventCallback(mExecutor, new Mp2Callback());
+        mCurrentShuffleIdx = NO_MEDIA_ITEM;
     }
 
     @Override
@@ -572,90 +596,385 @@ public class XMediaPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> setPlaylist(
-            List<MediaItem2> list, MediaMetadata2 metadata) {
-        throw new UnsupportedOperationException();
+    public ListenableFuture<CommandResult2> setMediaItem(MediaItem2 item) {
+        if (item == null) {
+            throw new IllegalArgumentException("item shouldn't be null");
+        }
+        synchronized (mPlaylistLock) {
+            mPlaylist.clear();
+            mShuffledList.clear();
+            mCurrentItem = null;
+            mNextItem = null;
+            mShuffledList = null;
+        }
+        return setPlayerMediaItems(item, null);
     }
 
     @Override
-    public ListenableFuture<CommandResult2> setMediaItem(MediaItem2 item) {
-        SettableFuture<CommandResult2> future = SettableFuture.create();
-        synchronized (mCallTypeAndFutures) {
-            mCallTypeAndFutures.add(
-                    new Pair<>(MediaPlayer2.CALL_COMPLETED_SET_DATA_SOURCE, future));
-            mPlayer.setMediaItem(item);
+    public ListenableFuture<CommandResult2> setPlaylist(
+            @Nullable List<MediaItem2> playlist, @Nullable MediaMetadata2 metadata) {
+        if (playlist == null || playlist.isEmpty()) {
+            throw new IllegalArgumentException("playlist shouldn't be null or empty");
         }
+        MediaItem2 curItem;
+        MediaItem2 nextItem;
+        synchronized (mPlaylistLock) {
+            mPlaylistMetadata = metadata;
+            mPlaylist.clear();
+            mShuffledList.clear();
+            if (playlist == null) {
+                mCurrentShuffleIdx = NO_MEDIA_ITEM;
+            } else {
+                mPlaylist.addAll(playlist);
+                applyShuffleModeLocked();
+                mCurrentShuffleIdx = 0;
+            }
+            updateAndGetCurrentNextItemIfNeededLocked();
+            curItem = mCurrentItem;
+            nextItem = mNextItem;
+        }
+        notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+            @Override
+            public void callCallback(
+                    SessionPlayer2.PlayerCallback callback) {
+                callback.onPlaylistChanged(XMediaPlayer.this, getPlaylist(), getPlaylistMetadata());
+            }
+        });
+        if (curItem != null) {
+            return setPlayerMediaItems(curItem, nextItem);
+        }
+        SettableFuture<CommandResult2> future = SettableFuture.create();
+        future.set(new CommandResult2(RESULT_CODE_NO_ERROR, mPlayer.getCurrentMediaItem()));
         return future;
     }
 
     @Override
     public ListenableFuture<CommandResult2> addPlaylistItem(int index, MediaItem2 item) {
-        throw new UnsupportedOperationException();
+        if (item == null) {
+            throw new IllegalArgumentException("item shouldn't be null");
+        }
+        if (index < 0) {
+            throw new IllegalArgumentException("index shouldn't be negative integer");
+        }
+        synchronized (mPlaylistLock) {
+            if (mPlaylist.contains(item)) {
+                throw new IllegalStateException("The item is already in the playlist: " + item);
+            }
+        }
+        MediaItem2 curItem;
+        Pair<MediaItem2, MediaItem2> updatedCurNextItem;
+        synchronized (mPlaylistLock) {
+            index = clamp(index, mPlaylist.size());
+            curItem = mShuffledList.get(mCurrentShuffleIdx);
+            int addedShuffleIdx = index;
+            mPlaylist.add(index, item);
+            if (mShuffleMode == MediaPlaylistAgent.SHUFFLE_MODE_NONE) {
+                mShuffledList.add(index, item);
+            } else {
+                // Add the item in random position of mShuffledList.
+                addedShuffleIdx = (int) (Math.random() * (mShuffledList.size() + 1));
+                mShuffledList.add(addedShuffleIdx, item);
+            }
+            if (addedShuffleIdx <= mCurrentShuffleIdx) {
+                mCurrentShuffleIdx++;
+            }
+            updatedCurNextItem = updateAndGetCurrentNextItemIfNeededLocked();
+        }
+        notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+            @Override
+            public void callCallback(
+                    SessionPlayer2.PlayerCallback callback) {
+                callback.onPlaylistChanged(XMediaPlayer.this, getPlaylist(), getPlaylistMetadata());
+            }
+        });
+
+        if (updatedCurNextItem.second == null) {
+            SettableFuture<CommandResult2> future = SettableFuture.create();
+            future.set(new CommandResult2(RESULT_CODE_NO_ERROR, curItem));
+            return future;
+        }
+        return getFutureForSetNextMediaItem(updatedCurNextItem.second);
     }
 
     @Override
     public ListenableFuture<CommandResult2> removePlaylistItem(MediaItem2 item) {
-        throw new UnsupportedOperationException();
+        if (item == null) {
+            throw new IllegalArgumentException("item shouldn't be null");
+        }
+        int removedItemShuffleIdx;
+        MediaItem2 curItem;
+        MediaItem2 nextItem;
+        Pair<MediaItem2, MediaItem2> updatedCurNextItem = null;
+        synchronized (mPlaylistLock) {
+            removedItemShuffleIdx = mShuffledList.indexOf(item);
+            if (removedItemShuffleIdx >= 0) {
+                mPlaylist.remove(item);
+                mShuffledList.remove(removedItemShuffleIdx);
+                if (removedItemShuffleIdx < mCurrentShuffleIdx) {
+                    mCurrentShuffleIdx--;
+                }
+                updatedCurNextItem = updateAndGetCurrentNextItemIfNeededLocked();
+            }
+            curItem = mCurrentItem;
+            nextItem = mNextItem;
+        }
+        if (removedItemShuffleIdx >= 0) {
+            notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+                @Override
+                public void callCallback(
+                        SessionPlayer2.PlayerCallback callback) {
+                    callback.onPlaylistChanged(
+                            XMediaPlayer.this, getPlaylist(), getPlaylistMetadata());
+                }
+            });
+        }
+
+        if (updatedCurNextItem != null) {
+            if (updatedCurNextItem.first != null) {
+                return setPlayerMediaItems(curItem, nextItem);
+            } else if (updatedCurNextItem.second != null) {
+                return getFutureForSetNextMediaItem(nextItem);
+            }
+        }
+        ListenableFuture<CommandResult2> future = SettableFuture.create();
+        ((SettableFuture<CommandResult2>) future).set(
+                new CommandResult2(RESULT_CODE_NO_ERROR, curItem));
+        return future;
     }
 
     @Override
+    // TODO: consider to change to replacePlaylistItem(DSD2, DSD2)
     public ListenableFuture<CommandResult2> replacePlaylistItem(int index, MediaItem2 item) {
-        throw new UnsupportedOperationException();
+        if (item == null) {
+            throw new IllegalArgumentException("item shouldn't be null");
+        }
+        if (index < 0) {
+            throw new IllegalArgumentException("index shouldn't be negative integer");
+        }
+        synchronized (mPlaylistLock) {
+            int itemIdx = mPlaylist.indexOf(item);
+            if (itemIdx >= 0 && index == itemIdx) {
+                throw new IllegalStateException("The item is already in the playlist: " + item);
+            }
+        }
+        MediaItem2 curItem;
+        MediaItem2 nextItem;
+        Pair<MediaItem2, MediaItem2> updatedCurNextItem = null;
+        synchronized (mPlaylistLock) {
+            if (index >= mPlaylist.size()) {
+                SettableFuture<CommandResult2> future = SettableFuture.create();
+                future.set(new CommandResult2(RESULT_CODE_BAD_VALUE, null));
+                return future;
+            }
+            int shuffleIdx = mShuffledList.indexOf(mPlaylist.get(index));
+            mShuffledList.set(shuffleIdx, item);
+            mPlaylist.set(index, item);
+            updatedCurNextItem = updateAndGetCurrentNextItemIfNeededLocked();
+            curItem = mCurrentItem;
+            nextItem = mNextItem;
+        }
+        // TODO: Should we notify current media item changed if it is replaced?
+        notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+            @Override
+            public void callCallback(
+                    SessionPlayer2.PlayerCallback callback) {
+                callback.onPlaylistChanged(XMediaPlayer.this, getPlaylist(), getPlaylistMetadata());
+            }
+        });
+
+        if (updatedCurNextItem != null) {
+            if (updatedCurNextItem.first != null) {
+                return setPlayerMediaItems(curItem, nextItem);
+            } else if (updatedCurNextItem.second != null) {
+                return getFutureForSetNextMediaItem(nextItem);
+            }
+        }
+
+        SettableFuture<CommandResult2> future = SettableFuture.create();
+        future.set(new CommandResult2(RESULT_CODE_NO_ERROR, curItem));
+        return future;
     }
 
     @Override
     public ListenableFuture<CommandResult2> skipToPreviousItem() {
-        throw new UnsupportedOperationException();
+        MediaItem2 curItem;
+        MediaItem2 nextItem;
+        synchronized (mPlaylistLock) {
+            int prevShuffleIdx = mCurrentShuffleIdx - 1;
+            if (prevShuffleIdx < 0) {
+                if (mRepeatMode == REPEAT_MODE_ALL || mRepeatMode == REPEAT_MODE_GROUP) {
+                    prevShuffleIdx = mShuffledList.size() - 1;
+                } else {
+                    SettableFuture<CommandResult2> future = SettableFuture.create();
+                    future.set(new CommandResult2(RESULT_CODE_INVALID_OPERATION, mCurrentItem));
+                    return future;
+                }
+            }
+            mCurrentShuffleIdx = prevShuffleIdx;
+            updateAndGetCurrentNextItemIfNeededLocked();
+            curItem = mCurrentItem;
+            nextItem = mNextItem;
+        }
+        return setPlayerMediaItems(curItem, nextItem);
     }
 
     @Override
     public ListenableFuture<CommandResult2> skipToNextItem() {
-        throw new UnsupportedOperationException();
+        MediaItem2 curItem;
+        MediaItem2 nextItem;
+        synchronized (mPlaylistLock) {
+            int nextShuffleIdx = mCurrentShuffleIdx + 1;
+            if (nextShuffleIdx >= mShuffledList.size()) {
+                if (mRepeatMode == REPEAT_MODE_ALL || mRepeatMode == REPEAT_MODE_GROUP) {
+                    nextShuffleIdx = 0;
+                } else {
+                    SettableFuture<CommandResult2> future = SettableFuture.create();
+                    future.set(new CommandResult2(RESULT_CODE_INVALID_OPERATION, mCurrentItem));
+                    return future;
+                }
+            }
+            mCurrentShuffleIdx = nextShuffleIdx;
+            updateAndGetCurrentNextItemIfNeededLocked();
+            curItem = mCurrentItem;
+            nextItem = mNextItem;
+        }
+        return curItem != null ? setPlayerMediaItems(curItem, nextItem) : getFutureForSkipToNext();
     }
 
     @Override
     public ListenableFuture<CommandResult2> skipToPlaylistItem(MediaItem2 item) {
-        throw new UnsupportedOperationException();
+        MediaItem2 curItem;
+        MediaItem2 nextItem;
+        synchronized (mPlaylistLock) {
+            int newShuffleIdx = mShuffledList.indexOf(item);
+            if (newShuffleIdx < 0) {
+                SettableFuture<CommandResult2> future = SettableFuture.create();
+                future.set(new CommandResult2(RESULT_CODE_BAD_VALUE, mCurrentItem));
+                return future;
+            }
+            mCurrentShuffleIdx = newShuffleIdx;
+            updateAndGetCurrentNextItemIfNeededLocked();
+            curItem = mCurrentItem;
+            nextItem = mNextItem;
+        }
+        return setPlayerMediaItems(curItem, nextItem);
     }
 
     @Override
     public ListenableFuture<CommandResult2> updatePlaylistMetadata(MediaMetadata2 metadata) {
-        throw new UnsupportedOperationException();
+        MediaItem2 curItem;
+        synchronized (mPlaylistLock) {
+            mPlaylistMetadata = metadata;
+            curItem = mCurrentItem;
+        }
+        notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+            @Override
+            public void callCallback(
+                    SessionPlayer2.PlayerCallback callback) {
+                callback.onPlaylistMetadataChanged(XMediaPlayer.this, getPlaylistMetadata());
+            }
+        });
+
+        SettableFuture<CommandResult2> future = SettableFuture.create();
+        future.set(new CommandResult2(RESULT_CODE_NO_ERROR, curItem));
+        return future;
     }
 
     @Override
-    public ListenableFuture<CommandResult2> setRepeatMode(int repeatMode) {
-        throw new UnsupportedOperationException();
+    public ListenableFuture<CommandResult2> setRepeatMode(final int repeatMode) {
+        MediaItem2 curItem;
+        synchronized (mPlaylistLock) {
+            curItem = mCurrentItem;
+        }
+        if (repeatMode < SessionPlayer2.REPEAT_MODE_NONE
+                || repeatMode > SessionPlayer2.REPEAT_MODE_GROUP) {
+            SettableFuture<CommandResult2> future = SettableFuture.create();
+            future.set(new CommandResult2(RESULT_CODE_BAD_VALUE, curItem));
+            return future;
+        }
+
+        boolean changed;
+        synchronized (mPlaylistLock) {
+            changed = mRepeatMode != repeatMode;
+            mRepeatMode = repeatMode;
+        }
+        if (changed) {
+            notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+                @Override
+                public void callCallback(
+                        SessionPlayer2.PlayerCallback callback) {
+                    callback.onRepeatModeChanged(XMediaPlayer.this, repeatMode);
+                }
+            });
+        }
+        SettableFuture<CommandResult2> future = SettableFuture.create();
+        future.set(new CommandResult2(RESULT_CODE_NO_ERROR, curItem));
+        return future;
     }
 
     @Override
-    public ListenableFuture<CommandResult2> setShuffleMode(int shuffleMode) {
-        throw new UnsupportedOperationException();
+    public ListenableFuture<CommandResult2> setShuffleMode(final int shuffleMode) {
+        MediaItem2 curItem;
+        synchronized (mPlaylistLock) {
+            curItem = mCurrentItem;
+        }
+        if (shuffleMode < SessionPlayer2.SHUFFLE_MODE_NONE
+                || shuffleMode > SessionPlayer2.SHUFFLE_MODE_GROUP) {
+            SettableFuture<CommandResult2> future = SettableFuture.create();
+            future.set(new CommandResult2(RESULT_CODE_BAD_VALUE, curItem));
+            return future;
+        }
+
+        boolean changed;
+        synchronized (mPlaylistLock) {
+            changed = mShuffleMode != shuffleMode;
+            mShuffleMode = shuffleMode;
+        }
+        if (changed) {
+            notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+                @Override
+                public void callCallback(
+                        SessionPlayer2.PlayerCallback callback) {
+                    callback.onShuffleModeChanged(XMediaPlayer.this, shuffleMode);
+                }
+            });
+        }
+        SettableFuture<CommandResult2> future = SettableFuture.create();
+        future.set(new CommandResult2(RESULT_CODE_NO_ERROR, curItem));
+        return future;
     }
 
     @Override
     public List<MediaItem2> getPlaylist() {
-        throw new UnsupportedOperationException();
+        synchronized (mPlaylistLock) {
+            return new ArrayList<>(mPlaylist);
+        }
     }
 
     @Override
     public MediaMetadata2 getPlaylistMetadata() {
-        throw new UnsupportedOperationException();
+        synchronized (mPlaylistLock) {
+            return mPlaylistMetadata;
+        }
     }
 
     @Override
     public int getRepeatMode() {
-        throw new UnsupportedOperationException();
+        synchronized (mPlaylistLock) {
+            return mRepeatMode;
+        }
     }
 
     @Override
     public int getShuffleMode() {
-        throw new UnsupportedOperationException();
+        synchronized (mPlaylistLock) {
+            return mShuffleMode;
+        }
     }
 
     @Override
     public MediaItem2 getCurrentMediaItem() {
-        throw new UnsupportedOperationException();
+        return mPlayer.getCurrentMediaItem();
     }
 
     @Override
@@ -1116,6 +1435,141 @@ public class XMediaPlayer extends SessionPlayer2 {
         void callCallback(PlayerCallback callback);
     }
 
+    private ListenableFuture<CommandResult2> setPlayerMediaItems(
+            @NonNull MediaItem2 curItem, @Nullable MediaItem2 nextItem) {
+        boolean setMediaItemCalled =  mPlayer.getCurrentMediaItem() != null;
+        ListenableFuture<CommandResult2> future = !setMediaItemCalled
+                ? getFutureForSetMediaItem(curItem)
+                : CombindedCommandResultFuture.create(mExecutor,
+                        getFutureForSetNextMediaItem(curItem), getFutureForSkipToNext());
+
+        return nextItem == null ? future : CombindedCommandResultFuture.create(
+                mExecutor, future, getFutureForSetNextMediaItem(nextItem));
+    }
+
+    private ListenableFuture<CommandResult2> getFutureForSetMediaItem(MediaItem2 item) {
+        SettableFuture<CommandResult2> future = SettableFuture.create();
+        synchronized (mCallTypeAndFutures) {
+            mCallTypeAndFutures.add(
+                    new Pair<>(MediaPlayer2.CALL_COMPLETED_SET_DATA_SOURCE, future));
+            mPlayer.setMediaItem(item);
+        }
+        return future;
+    }
+
+    private ListenableFuture<CommandResult2> getFutureForSetNextMediaItem(MediaItem2 item) {
+        SettableFuture<CommandResult2> future = SettableFuture.create();
+        synchronized (mCallTypeAndFutures) {
+            mCallTypeAndFutures.add(
+                    new Pair<>(MediaPlayer2.CALL_COMPLETED_SET_NEXT_DATA_SOURCE, future));
+            mPlayer.setNextMediaItem(item);
+        }
+        return future;
+    }
+
+    private ListenableFuture<CommandResult2> getFutureForSkipToNext() {
+        SettableFuture<CommandResult2> future = SettableFuture.create();
+        synchronized (mCallTypeAndFutures) {
+            mCallTypeAndFutures.add(
+                    new Pair<>(MediaPlayer2.CALL_COMPLETED_SKIP_TO_NEXT, future));
+            mPlayer.skipToNext();
+        }
+        return future;
+    }
+
+    @SuppressWarnings("GuardedBy")
+    private void applyShuffleModeLocked() {
+        mShuffledList.clear();
+        mShuffledList.addAll(mPlaylist);
+        if (mShuffleMode == MediaPlaylistAgent.SHUFFLE_MODE_ALL
+                || mShuffleMode == MediaPlaylistAgent.SHUFFLE_MODE_GROUP) {
+            Collections.shuffle(mShuffledList);
+        }
+    }
+
+    /**
+     * Update mCurrentItem and mNextItem based on mCurrentShuffleIdx value.
+     *
+     * @return A pair contains the changed current item and next item. If current item or next item
+     * is not changed, Pair.first or Pair.second will be null. If current item and next item are the
+     * same, it will return null Pair. If non null Pair which contains two nulls, that means one of
+     * current and next item or both are changed to null.
+     *
+     */
+    @SuppressWarnings("GuardedBy")
+    private Pair<MediaItem2, MediaItem2> updateAndGetCurrentNextItemIfNeededLocked() {
+        MediaItem2 changedCurItem = null;
+        MediaItem2 changedNextItem = null;
+        if (mCurrentShuffleIdx < 0) {
+            if (mCurrentItem == null && mNextItem == null) {
+                return null;
+            }
+            mCurrentItem = null;
+            mNextItem = null;
+            return new Pair<>(null, null);
+        }
+        if (mCurrentItem != mShuffledList.get(mCurrentShuffleIdx)) {
+            changedCurItem = mCurrentItem = mShuffledList.get(mCurrentShuffleIdx);
+
+        }
+        int nextShuffleIdx = mCurrentShuffleIdx + 1;
+        if (nextShuffleIdx >= mShuffledList.size()) {
+            if (mRepeatMode == REPEAT_MODE_ALL || mRepeatMode == REPEAT_MODE_GROUP) {
+                nextShuffleIdx = 0;
+            } else {
+                nextShuffleIdx = END_OF_PLAYLIST;
+            }
+        }
+
+        if (nextShuffleIdx == END_OF_PLAYLIST && mNextItem != null) {
+            changedNextItem = mNextItem = null;
+        } else if (mNextItem != mShuffledList.get(nextShuffleIdx)) {
+            changedNextItem = mNextItem = mShuffledList.get(nextShuffleIdx);
+        }
+
+        return (changedCurItem == null && changedNextItem == null)
+                ? null : new Pair<>(changedCurItem, changedNextItem);
+    }
+
+    private void notifyPlaylistChanged() {
+        final List<MediaItem2> playlist = getPlaylist();
+        final MediaMetadata2 metadata = getPlaylistMetadata();
+        for (Map.Entry<SessionPlayer2.PlayerCallback, Executor> entry : getCallbacks().entrySet()) {
+            final SessionPlayer2.PlayerCallback callback = entry.getKey();
+            entry.getValue().execute(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onPlaylistChanged(XMediaPlayer.this, playlist, metadata);
+                }
+            });
+        }
+    }
+
+    private void notifyPlaylistMetadataChanged() {
+        final MediaMetadata2 metadata = getPlaylistMetadata();
+        for (Map.Entry<SessionPlayer2.PlayerCallback, Executor> entry : getCallbacks().entrySet()) {
+            final SessionPlayer2.PlayerCallback callback = entry.getKey();
+            entry.getValue().execute(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onPlaylistMetadataChanged(XMediaPlayer.this, metadata);
+                }
+            });
+        }
+    }
+
+    // Clamps value to [0, size]
+    private static int clamp(int value, int size) {
+        if (value < 0) {
+            return 0;
+        }
+        return (value > size) ? size : value;
+    }
+
+    private interface PlayerCallbackNotifier {
+        void notify(SessionPlayer2.PlayerCallback callback);
+    }
+
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     class Mp2Callback extends MediaPlayer2.EventCallback {
         @Override
@@ -1526,6 +1980,57 @@ public class XMediaPlayer extends SessionPlayer2 {
          * The value is an integer.
          */
         public static final String ERROR_CODE = "android.media.mediaplayer.errcode";
+    }
 
+    static final class CombindedCommandResultFuture extends AbstractFuture<CommandResult2> {
+        final ListenableFuture<CommandResult2>[] mFutures;
+        final Executor mExecutor;
+        private volatile int mSuccessCount;
+
+        public static CombindedCommandResultFuture create(Executor executor,
+                ListenableFuture<CommandResult2>... futures) {
+            return new CombindedCommandResultFuture(executor, futures);
+        }
+
+        private CombindedCommandResultFuture(Executor executor,
+                ListenableFuture<CommandResult2>[] futures) {
+            mFutures = futures;
+            mExecutor = executor;
+            mSuccessCount = 0;
+
+            for (int i = 0; i < mFutures.length; ++i) {
+                final int cur = i;
+                mFutures[i].addListener(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            CommandResult2 result = mFutures[cur].get();
+                            if (result.getResultCode() != RESULT_CODE_NO_ERROR) {
+                                for (int j = 0; j < mFutures.length; ++j) {
+                                    if (!mFutures[j].isCancelled() && !mFutures[j].isDone()
+                                            && cur != j) {
+                                        mFutures[j].cancel(true);
+                                    }
+                                }
+                                set(result);
+                            } else {
+                                mSuccessCount++;
+                                if (mSuccessCount == mFutures.length) {
+                                    set(result);
+                                }
+                            }
+                        } catch (Exception e) {
+                            for (int j = 0; j < mFutures.length; ++j) {
+                                if (!mFutures[j].isCancelled() && !mFutures[j].isDone()
+                                        && cur != j) {
+                                    mFutures[j].cancel(true);
+                                }
+                            }
+                            setException(e);
+                        }
+                    }
+                }, executor);
+            }
+        }
     }
 }
