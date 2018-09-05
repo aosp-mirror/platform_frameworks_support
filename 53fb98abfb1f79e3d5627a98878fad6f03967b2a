@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d97bae2_ed275c94",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-09-05T11:05:28Z",
+      "side": 1,
+      "message": "Should probably also be applied to StaggeredGridLayoutManager",
+      "range": {
+        "startLine": 446,
+        "startChar": 39,
+        "endLine": 446,
+        "endChar": 47
+      },
+      "revId": "53fb98abfb1f79e3d5627a98878fad6f03967b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
