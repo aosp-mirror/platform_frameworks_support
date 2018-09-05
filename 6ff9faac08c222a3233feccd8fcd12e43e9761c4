@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fed606e7_bd009d6c",
+        "filename": "room/common/src/main/java/androidx/room/Fts4Entity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-09-05T19:14:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "260cead1_d190916e",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 75
+      },
+      "revId": "6ff9faac08c222a3233feccd8fcd12e43e9761c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "047a8087_3d5c3f04",
         "filename": "room/common/src/main/java/androidx/room/Fts4Entity.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "6ff9faac08c222a3233feccd8fcd12e43e9761c4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae00e40a_23a811fb",
+        "filename": "room/common/src/main/java/androidx/room/Fts4Entity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-09-05T19:14:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "047a8087_3d5c3f04",
+      "range": {
+        "startLine": 130,
+        "startChar": 5,
+        "endLine": 130,
+        "endChar": 6
+      },
+      "revId": "6ff9faac08c222a3233feccd8fcd12e43e9761c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c3953446_8af951a4",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/ProcessorErrors.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-09-05T19:14:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93929cbf_5e153102",
+      "range": {
+        "startLine": 599,
+        "startChar": 76,
+        "endLine": 599,
+        "endChar": 84
+      },
+      "revId": "6ff9faac08c222a3233feccd8fcd12e43e9761c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74eb85df_6427b1a0",
         "filename": "room/compiler/src/main/kotlin/androidx/room/vo/FtsEntity.kt",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "3cb4594e_a660e2b5",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/FtsEntity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-09-05T19:14:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74eb85df_6427b1a0",
+      "range": {
+        "startLine": 56,
+        "startChar": 46,
+        "endLine": 56,
+        "endChar": 53
+      },
+      "revId": "6ff9faac08c222a3233feccd8fcd12e43e9761c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f0c6e06_4eac8a5b",
         "filename": "room/compiler/src/main/kotlin/androidx/room/vo/FtsEntity.kt",
         "patchSetId": 2
@@ -111,6 +207,24 @@
     },
     {
       "key": {
+        "uuid": "bf2de9f7_7b25d7c4",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/FtsEntity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-09-05T19:14:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f0c6e06_4eac8a5b",
+      "revId": "6ff9faac08c222a3233feccd8fcd12e43e9761c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "372a8c7b_59a2c9d6",
         "filename": "room/compiler/src/main/kotlin/androidx/room/vo/FtsEntity.kt",
         "patchSetId": 2
@@ -125,6 +239,24 @@
       "revId": "6ff9faac08c222a3233feccd8fcd12e43e9761c4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4c17ab4_3c6ffcfe",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/FtsEntity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-09-05T19:14:57Z",
+      "side": 1,
+      "message": "But I don\u0027t want newlines in the final string. \u003d/",
+      "parentUuid": "372a8c7b_59a2c9d6",
+      "revId": "6ff9faac08c222a3233feccd8fcd12e43e9761c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
