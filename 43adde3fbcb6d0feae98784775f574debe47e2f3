@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f982731_a543c224",
+        "filename": "core/src/main/java/androidx/core/content/ContextCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-05T19:50:41Z",
+      "side": 1,
+      "message": "Remove this empty line.",
+      "revId": "43adde3fbcb6d0feae98784775f574debe47e2f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
