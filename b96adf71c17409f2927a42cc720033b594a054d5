@@ -22,6 +22,30 @@
       "revId": "b96adf71c17409f2927a42cc720033b594a054d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3bccb21_0667a6c2",
+        "filename": "transition/src/main/java/androidx/transition/Visibility.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-09-05T13:29:47Z",
+      "side": 1,
+      "message": "yes. I also don\u0027t see the point of introducing Fade.IN and Fade.OUT in addition to the main ones",
+      "parentUuid": "197b106e_39a3895e",
+      "range": {
+        "startLine": 71,
+        "startChar": 33,
+        "endLine": 71,
+        "endChar": 72
+      },
+      "revId": "b96adf71c17409f2927a42cc720033b594a054d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }

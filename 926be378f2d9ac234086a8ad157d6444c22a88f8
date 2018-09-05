@@ -22,6 +22,30 @@
       "revId": "926be378f2d9ac234086a8ad157d6444c22a88f8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0dd060c_91a8b284",
+        "filename": "transition/src/main/java/androidx/transition/Slide.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-09-05T13:29:47Z",
+      "side": 0,
+      "message": "removing RestrictTo and adding this annotation into constructor are not directly related changes. \n\noriginal bug was created by me exactly because it wasn\u0027t working, Lint is not detecting \nSlide().setSlideEdge(Gravity.CENTER) even when Gravity.CENTER is not allowed value. setSlideEdge is also annotated with this IntDef.\nRemoving @RestrictTo makes Lint works, as I just checked in my sample app. \nAnd in the usage of the platform class Lint works even given the interface annotated with /** @hide */. Looks like for Lint @hide and @RestrictTo are not the same. Btw, what is the idea to have hidden IntDefs, why external developers can\u0027t use them if they want?",
+      "parentUuid": "538f43c6_15b7b77a",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 30
+      },
+      "revId": "926be378f2d9ac234086a8ad157d6444c22a88f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
