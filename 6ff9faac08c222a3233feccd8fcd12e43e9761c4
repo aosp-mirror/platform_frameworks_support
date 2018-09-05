@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "260cead1_d190916e",
+        "filename": "room/common/src/main/java/androidx/room/Fts4Entity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-05T00:50:18Z",
+      "side": 1,
+      "message": "as follow up we can have a warning or error if anyone inserts into such table",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 75
+      },
+      "revId": "6ff9faac08c222a3233feccd8fcd12e43e9761c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "047a8087_3d5c3f04",
+        "filename": "room/common/src/main/java/androidx/room/Fts4Entity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-05T00:50:18Z",
+      "side": 1,
+      "message": "add a paragraph about migration behavior",
+      "range": {
+        "startLine": 130,
+        "startChar": 5,
+        "endLine": 130,
+        "endChar": 6
+      },
+      "revId": "6ff9faac08c222a3233feccd8fcd12e43e9761c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93929cbf_5e153102",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/ProcessorErrors.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-05T00:50:18Z",
+      "side": 1,
+      "message": "let have a Entity name here",
+      "range": {
+        "startLine": 599,
+        "startChar": 76,
+        "endLine": 599,
+        "endChar": 84
+      },
+      "revId": "6ff9faac08c222a3233feccd8fcd12e43e9761c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74eb85df_6427b1a0",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/FtsEntity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-05T00:50:18Z",
+      "side": 1,
+      "message": "lets name it operation",
+      "range": {
+        "startLine": 56,
+        "startChar": 46,
+        "endLine": 56,
+        "endChar": 53
+      },
+      "revId": "6ff9faac08c222a3233feccd8fcd12e43e9761c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f0c6e06_4eac8a5b",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/FtsEntity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-05T00:50:18Z",
+      "side": 1,
+      "message": "let use full name BEFORE_TRIGGER",
+      "revId": "6ff9faac08c222a3233feccd8fcd12e43e9761c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "372a8c7b_59a2c9d6",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/FtsEntity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-05T00:50:18Z",
+      "side": 1,
+      "message": "use \"\"\" \"\"\" for multiple lines strings",
+      "revId": "6ff9faac08c222a3233feccd8fcd12e43e9761c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
