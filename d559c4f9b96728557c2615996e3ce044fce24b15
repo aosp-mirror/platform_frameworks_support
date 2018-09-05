@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ecf0472e_b5464269",
+        "filename": "animation/integration-tests/testapp/src/androidTest/java/androidx/animation/EvaluatorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-05T01:04:57Z",
+      "side": 1,
+      "message": "are you sure that you don\u0027t want to write tests in kotlin? It would be so much nicer",
+      "range": {
+        "startLine": 93,
+        "startChar": 9,
+        "endLine": 101,
+        "endChar": 0
+      },
+      "revId": "d559c4f9b96728557c2615996e3ce044fce24b15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
