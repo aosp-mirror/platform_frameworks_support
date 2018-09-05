@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0c26f12_1bbca352",
+        "filename": "appcompat/res/drawable/btn_checkbox_checked_mtrl.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-09-05T22:05:24Z",
+      "side": 1,
+      "message": "Is there a way to overlay these values somewhere?  Like in the car library, I want to increase the size of the drawable without the blurriness that results from scaling.",
+      "range": {
+        "startLine": 20,
+        "startChar": 8,
+        "endLine": 21,
+        "endChar": 29
+      },
+      "revId": "179ce3f17439c6face9dc485e9db107bd489e2a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
