@@ -280,7 +280,7 @@ public abstract class SessionPlayer2 implements AutoCloseable {
 
     // APIs from the MediaPlaylistAgent
     public abstract @NonNull ListenableFuture<CommandResult2> setPlaylist(
-            List<MediaItem2> list, MediaMetadata2 metadata);
+            @Nullable List<MediaItem2> list, @Nullable MediaMetadata2 metadata);
 
     /**
      * Gets the {@link AudioAttributesCompat} that media player has.
