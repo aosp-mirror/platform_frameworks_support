@@ -46,6 +46,30 @@
       "revId": "b96adf71c17409f2927a42cc720033b594a054d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a2bdf17_0b9f3a7d",
+        "filename": "transition/src/main/java/androidx/transition/Visibility.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-09-05T15:21:24Z",
+      "side": 1,
+      "message": "also ideas:\n1) do the same in the platform class, as Lint is alerting for \"new android.transition.Fade().setMode(android.transition.Fade.IN);\" as well\n2) deprecate Fade.IN, Fade.out ?",
+      "parentUuid": "b3bccb21_0667a6c2",
+      "range": {
+        "startLine": 71,
+        "startChar": 33,
+        "endLine": 71,
+        "endChar": 72
+      },
+      "revId": "b96adf71c17409f2927a42cc720033b594a054d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
