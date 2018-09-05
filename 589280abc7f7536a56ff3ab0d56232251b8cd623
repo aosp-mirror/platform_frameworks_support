@@ -59,6 +59,30 @@
     },
     {
       "key": {
+        "uuid": "fd73d30f_92e5a933",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-05T18:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66a235ac_8c3eb8c3",
+      "range": {
+        "startLine": 212,
+        "startChar": 53,
+        "endLine": 212,
+        "endChar": 82
+      },
+      "revId": "589280abc7f7536a56ff3ab0d56232251b8cd623",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5d29bc1_23efc1c1",
         "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
         "patchSetId": 2
@@ -82,6 +106,30 @@
     },
     {
       "key": {
+        "uuid": "b6a3c644_53fd8a86",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-05T18:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5d29bc1_23efc1c1",
+      "range": {
+        "startLine": 214,
+        "startChar": 12,
+        "endLine": 214,
+        "endChar": 24
+      },
+      "revId": "589280abc7f7536a56ff3ab0d56232251b8cd623",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bcaa76a4_cc98a7c2",
         "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
         "patchSetId": 2
@@ -102,6 +150,30 @@
       "revId": "589280abc7f7536a56ff3ab0d56232251b8cd623",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b4b0feb_38fdc912",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-05T18:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bcaa76a4_cc98a7c2",
+      "range": {
+        "startLine": 241,
+        "startChar": 3,
+        "endLine": 241,
+        "endChar": 26
+      },
+      "revId": "589280abc7f7536a56ff3ab0d56232251b8cd623",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
