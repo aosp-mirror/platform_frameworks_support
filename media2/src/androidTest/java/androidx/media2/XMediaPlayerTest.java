@@ -74,11 +74,16 @@ public class XMediaPlayerTest {
 
     private static final int SLEEP_TIME = 1000;
     private static final float FLOAT_TOLERANCE = .0001f;
+    private static final int INVALID_SHUFFLE_MODE = -1000;
+    private static final int INVALID_REPEAT_MODE = -1000;
 
     private Context mContext;
     private Resources mResources;
     private ExecutorService mExecutor;
     protected XMediaPlayer mPlayer;
+
+    private Object mPlayerCbArg1;
+    private Object mPlayerCbArg2;
 
     private MediaStubActivity mActivity;
     private Instrumentation mInstrumentation;
@@ -1114,5 +1119,144 @@ public class XMediaPlayerTest {
             mFdsToClose.add(afd);
         }
         return true;
+    }
+
+    @Test
+    @SmallTest
+    public void testSetAndGetShuflleMode() throws Exception {
+        final TestUtils.Monitor onShuffleModeChangedMonitor = new TestUtils.Monitor();
+        XMediaPlayer.PlayerCallback callback = new XMediaPlayer.PlayerCallback() {
+            @Override
+            public void onShuffleModeChanged(SessionPlayer2 player, int shuffleMode) {
+                mPlayerCbArg1 = player;
+                mPlayerCbArg2 = new Integer(shuffleMode);
+                onShuffleModeChangedMonitor.signal();
+            }
+        };
+        mPlayer.registerPlayerCallback(mExecutor, callback);
+
+        int shuffleMode = mPlayer.getShuffleMode();
+        ListenableFuture<CommandResult2> future;
+        CommandResult2 result;
+        if (shuffleMode != MediaPlaylistAgent.SHUFFLE_MODE_NONE) {
+            onShuffleModeChangedMonitor.reset();
+            future = mPlayer.setShuffleMode(SessionPlayer2.SHUFFLE_MODE_NONE);
+            assertTrue(onShuffleModeChangedMonitor.waitForSignal(300));
+            result = future.get();
+            assertEquals(mPlayer, mPlayerCbArg1);
+            assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR, result.getResultCode());
+            assertEquals(SessionPlayer2.SHUFFLE_MODE_NONE, ((Integer) mPlayerCbArg2).intValue());
+            assertEquals(SessionPlayer2.SHUFFLE_MODE_NONE, mPlayer.getShuffleMode());
+        }
+
+        onShuffleModeChangedMonitor.reset();
+        future = mPlayer.setShuffleMode(SessionPlayer2.SHUFFLE_MODE_ALL);
+        assertTrue(onShuffleModeChangedMonitor.waitForSignal(300));
+        result = future.get();
+        assertEquals(mPlayer, mPlayerCbArg1);
+        assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR, result.getResultCode());
+        assertEquals(SessionPlayer2.SHUFFLE_MODE_ALL, ((Integer) mPlayerCbArg2).intValue());
+        assertEquals(SessionPlayer2.SHUFFLE_MODE_ALL, mPlayer.getShuffleMode());
+
+        onShuffleModeChangedMonitor.reset();
+        future = mPlayer.setShuffleMode(SessionPlayer2.SHUFFLE_MODE_GROUP);
+        assertTrue(onShuffleModeChangedMonitor.waitForSignal(300));
+        result = future.get();
+        assertEquals(mPlayer, mPlayerCbArg1);
+        assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR, result.getResultCode());
+        assertEquals(SessionPlayer2.SHUFFLE_MODE_GROUP, ((Integer) mPlayerCbArg2).intValue());
+        assertEquals(SessionPlayer2.SHUFFLE_MODE_GROUP, mPlayer.getShuffleMode());
+
+        // INVALID_SHUFFLE_MODE will not change the shuffle mode.
+        onShuffleModeChangedMonitor.reset();
+        future = mPlayer.setShuffleMode(INVALID_SHUFFLE_MODE);
+        assertFalse(onShuffleModeChangedMonitor.waitForSignal(300));
+        result = future.get();
+        assertEquals(mPlayer, mPlayerCbArg1);
+        assertEquals(XMediaPlayer.RESULT_CODE_BAD_VALUE, result.getResultCode());
+        assertEquals(SessionPlayer2.SHUFFLE_MODE_GROUP, mPlayer.getShuffleMode());
+    }
+
+    @Test
+    @SmallTest
+    public void testSetAndGetRepeatMode() throws Exception {
+        final TestUtils.Monitor onRepeatModeChangedMonitor = new TestUtils.Monitor();
+        XMediaPlayer.PlayerCallback callback = new XMediaPlayer.PlayerCallback() {
+            @Override
+            public void onRepeatModeChanged(SessionPlayer2 player, int repeatMode) {
+                mPlayerCbArg1 = player;
+                mPlayerCbArg2 = new Integer(repeatMode);
+                onRepeatModeChangedMonitor.signal();
+            }
+        };
+        mPlayer.registerPlayerCallback(mExecutor, callback);
+
+        int repeatMode = mPlayer.getRepeatMode();
+        ListenableFuture<CommandResult2> future;
+        CommandResult2 result;
+        if (repeatMode != MediaPlaylistAgent.REPEAT_MODE_NONE) {
+            onRepeatModeChangedMonitor.reset();
+            future = mPlayer.setRepeatMode(SessionPlayer2.REPEAT_MODE_NONE);
+            assertTrue(onRepeatModeChangedMonitor.waitForSignal(300));
+            result = future.get();
+            assertEquals(mPlayer, mPlayerCbArg1);
+            assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR, result.getResultCode());
+            assertEquals(SessionPlayer2.REPEAT_MODE_NONE, ((Integer) mPlayerCbArg2).intValue());
+            assertEquals(SessionPlayer2.REPEAT_MODE_NONE, mPlayer.getRepeatMode());
+        }
+
+        onRepeatModeChangedMonitor.reset();
+        future = mPlayer.setRepeatMode(SessionPlayer2.REPEAT_MODE_ALL);
+        assertTrue(onRepeatModeChangedMonitor.waitForSignal(300));
+        result = future.get();
+        assertEquals(mPlayer, mPlayerCbArg1);
+        assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR, result.getResultCode());
+        assertEquals(SessionPlayer2.REPEAT_MODE_ALL, ((Integer) mPlayerCbArg2).intValue());
+        assertEquals(SessionPlayer2.REPEAT_MODE_ALL, mPlayer.getRepeatMode());
+
+        onRepeatModeChangedMonitor.reset();
+        future = mPlayer.setRepeatMode(SessionPlayer2.REPEAT_MODE_GROUP);
+        assertTrue(onRepeatModeChangedMonitor.waitForSignal(300));
+        result = future.get();
+        assertEquals(mPlayer, mPlayerCbArg1);
+        assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR, result.getResultCode());
+        assertEquals(SessionPlayer2.REPEAT_MODE_GROUP, ((Integer) mPlayerCbArg2).intValue());
+        assertEquals(SessionPlayer2.REPEAT_MODE_GROUP, mPlayer.getRepeatMode());
+
+        // INVALID_REPEAT_MODE will not change the repeat mode.
+        onRepeatModeChangedMonitor.reset();
+        future = mPlayer.setRepeatMode(INVALID_REPEAT_MODE);
+        assertFalse(onRepeatModeChangedMonitor.waitForSignal(300));
+        result = future.get();
+        assertEquals(mPlayer, mPlayerCbArg1);
+        assertEquals(XMediaPlayer.RESULT_CODE_BAD_VALUE, result.getResultCode());
+        assertEquals(SessionPlayer2.REPEAT_MODE_GROUP, mPlayer.getRepeatMode());
+    }
+
+    @Test
+    @SmallTest
+    public void testSetPlaylist() throws Exception {
+        List<MediaItem2> playlist = createPlaylist(10);
+        ListenableFuture<CommandResult2> future = mPlayer.setPlaylist(playlist, null);
+        CommandResult2 result = future.get();
+        assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR, result.getResultCode());
+        assertEquals(playlist.size(), mPlayer.getPlaylist().size());
+        assertEquals(playlist.get(0), mPlayer.getCurrentMediaItem());
+    }
+
+    private MediaItem2 createMediaItem(int key) throws Exception {
+        AssetFileDescriptor afd = mResources.openRawResourceFd(R.raw.testvideo);
+        return new FileMediaItem2.Builder(
+                afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength())
+                .setMediaId("TEST_MEDIA_" + key)
+                .build();
+    }
+
+    private List<MediaItem2> createPlaylist(int size) throws Exception {
+        List<MediaItem2> items = new ArrayList<>();
+        for (int i = 0; i < size; ++i) {
+            items.add(createMediaItem(i));
+        }
+        return items;
     }
 }
