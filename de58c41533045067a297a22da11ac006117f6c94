@@ -113,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "680aa1a3_7091ae6b",
+        "filename": "animation/testing/src/main/java/androidx/animation/AnimationTestRule.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-09-05T03:09:01Z",
+      "side": 1,
+      "message": "Mentioned that in the javadoc",
+      "parentUuid": "31233895_b00c992f",
+      "revId": "de58c41533045067a297a22da11ac006117f6c94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a20878ab_a41732dc",
         "filename": "animation/testing/src/main/java/androidx/animation/TestHandler.java",
         "patchSetId": 2
@@ -130,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "a30ffe73_3197b7f2",
+        "filename": "animation/testing/src/main/java/androidx/animation/TestHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-09-05T03:09:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a20878ab_a41732dc",
+      "revId": "de58c41533045067a297a22da11ac006117f6c94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03ef503e_746f085c",
         "filename": "animation/testing/src/main/java/androidx/animation/TestHandler.java",
         "patchSetId": 2
@@ -144,6 +180,24 @@
       "revId": "de58c41533045067a297a22da11ac006117f6c94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a05f336_5e2f4b2c",
+        "filename": "animation/testing/src/main/java/androidx/animation/TestHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-09-05T03:09:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03ef503e_746f085c",
+      "revId": "de58c41533045067a297a22da11ac006117f6c94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
