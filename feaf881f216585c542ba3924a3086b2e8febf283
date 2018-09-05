@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "662d68e2_277b4bfe",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/Version.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-05T17:37:25Z",
+      "side": 1,
+      "message": "If you replace this with \".*\" then it\u0027ll accept filenames of the form \"2.0.0-alpha01.txt\" too.\n\nIf it gets a non-version string like \"alpha.txt\", that\u0027s supposed to be detected when invoking `Version(\"alpha\")` (which should return null)",
+      "range": {
+        "startLine": 62,
+        "startChar": 60,
+        "endLine": 62,
+        "endChar": 78
+      },
+      "revId": "feaf881f216585c542ba3924a3086b2e8febf283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04713102_617c3e5c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-05T17:37:25Z",
+      "side": 1,
+      "message": "It can still return null even if requireSameMajorRevision is false, right? I think we want to either remove the \"or null\", or move it up to the first sentence",
+      "range": {
+        "startLine": 245,
+        "startChar": 39,
+        "endLine": 245,
+        "endChar": 47
+      },
+      "revId": "feaf881f216585c542ba3924a3086b2e8febf283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5bcdb84_0c85b42e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-05T17:37:25Z",
+      "side": 1,
+      "message": "I think this can be shortened to \"only considers releases having the same major revision\"",
+      "range": {
+        "startLine": 244,
+        "startChar": 44,
+        "endLine": 245,
+        "endChar": 47
+      },
+      "revId": "feaf881f216585c542ba3924a3086b2e8febf283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc742abc_361e44cd",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-05T17:37:25Z",
+      "side": 1,
+      "message": "Also probably want to rename \"RefVersion\" to something more like \"version\" now that you\u0027ve cleaned up the variable name",
+      "range": {
+        "startLine": 254,
+        "startChar": 31,
+        "endLine": 254,
+        "endChar": 41
+      },
+      "revId": "feaf881f216585c542ba3924a3086b2e8febf283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62d8f080_9b0ccf8a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-05T17:37:25Z",
+      "side": 1,
+      "message": "I think you can leave this as \"val parsed \u003d Version.parseOrNull(file)\" (after updating the regex in the other file so that that works)",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 262,
+        "endChar": 57
+      },
+      "revId": "feaf881f216585c542ba3924a3086b2e8febf283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

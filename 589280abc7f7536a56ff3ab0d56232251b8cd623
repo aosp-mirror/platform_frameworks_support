@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "5e7822d5_6cac233b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-05T17:37:25Z",
+      "side": 1,
+      "message": "Re keeping the param and renaming to \"requireSameMajorRevision\", that (what you\u0027ve done in patchset 4) seems adequate to me",
+      "parentUuid": "c4c61302_da22549a",
+      "range": {
+        "startLine": 247,
+        "startChar": 4,
+        "endLine": 247,
+        "endChar": 23
+      },
+      "revId": "589280abc7f7536a56ff3ab0d56232251b8cd623",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f4f7d0a7_bfa41b3b",
         "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
         "patchSetId": 2
