@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e91c0dfa_b665c775",
+        "filename": "room/common/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-05T00:24:50Z",
+      "side": 1,
+      "message": "we were blessed to use enums, what don\u0027t you use your chance?\n\nPS FTS3 and FTS4 should be MATCH_INFO_ ?",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 3
+      },
+      "revId": "60a7d29c4f618f1ca1c644087547cb683f63805d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
