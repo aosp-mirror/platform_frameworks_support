@@ -70,6 +70,30 @@
       "revId": "b96adf71c17409f2927a42cc720033b594a054d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e86d377_55c83c9e",
+        "filename": "transition/src/main/java/androidx/transition/Visibility.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-09-05T15:30:30Z",
+      "side": 1,
+      "message": "1) Yes, let\u0027s make the platform match this. Please do that work on the master branch\n2) We tend to only deprecate when there is a strong reason, e.g. the constants don\u0027t work or are part of an old way of doing things that has been replaced. We can ensure our documentation points developers to the preferred constants. As a note, I believe your change will make Android Studio autocomplete now suggest Fade.IN and Fade.OUT when it didn\u0027t before, as they are now part of the annotation. Is this something we want? I\u0027ll let George weigh in on these constants as I\u0027m not familiar with the history",
+      "parentUuid": "7a2bdf17_0b9f3a7d",
+      "range": {
+        "startLine": 71,
+        "startChar": 33,
+        "endLine": 71,
+        "endChar": 72
+      },
+      "revId": "b96adf71c17409f2927a42cc720033b594a054d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
