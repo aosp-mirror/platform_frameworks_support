@@ -19,37 +19,59 @@ package androidx.textclassifier;
 import android.content.Context;
 import android.os.Build;
 
+import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.util.Preconditions;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Class to handle the creation of {@link TextClassifier}.
  */
 public final class TextClassificationManager {
-    private final Context mContext;
-    @Nullable
-    private static TextClassificationManager sInstance;
+
+    // TextClassificationManager may be called from any thread.
+    private static final Object sLock = new Object();
+    @GuardedBy("sLock")
+    private static WeakReference<TextClassificationManager> sInstance = new WeakReference<>(null);
+
+    private final Object mLock = new Object();
+    @GuardedBy("mLock")
+    private final Context mAppContext;
+    @GuardedBy("mLock")
     private TextClassifier mTextClassifier;
+    @GuardedBy("mLock")
+    private TextClassifier mDefaultTextClassifier;
 
     /** @hide **/
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     @VisibleForTesting
-    TextClassificationManager(@NonNull Context context) {
-        mContext = Preconditions.checkNotNull(context);
+    TextClassificationManager(Context appContext) {
+        mAppContext = appContext;
     }
 
     /**
      * Return an instance of {@link TextClassificationManager}.
      */
     public static TextClassificationManager of(@NonNull Context context) {
-        if (sInstance == null) {
-            Context appContext = context.getApplicationContext();
-            sInstance = new TextClassificationManager(appContext);
+        Preconditions.checkNotNull(context);
+        final Context appContext = context.getApplicationContext();
+        // Unfortunately, appContext can sometimes be null.
+        if (appContext == null) {
+            throw new IllegalArgumentException(
+                    "Context without an application context is not supported.");
         }
-        return sInstance;
+
+        synchronized (sLock) {
+            final TextClassificationManager tcm = sInstance.get();
+            if (tcm == null || tcm.mAppContext != appContext) {
+                sInstance = new WeakReference<>(new TextClassificationManager(appContext));
+            }
+            return sInstance.get();
+        }
     }
 
     /**
@@ -58,10 +80,12 @@ public final class TextClassificationManager {
      */
     @NonNull
     public TextClassifier getTextClassifier() {
-        if (mTextClassifier != null) {
-            return mTextClassifier;
+        synchronized (mLock) {
+            if (mTextClassifier != null) {
+                return mTextClassifier;
+            }
+            return defaultTextClassifier();
         }
-        return defaultTextClassifier();
     }
 
     /**
@@ -70,16 +94,30 @@ public final class TextClassificationManager {
      * To turn off the feature completely, you can set a {@link TextClassifier#NO_OP}.
      */
     public void setTextClassifier(@Nullable TextClassifier textClassifier) {
-        mTextClassifier = textClassifier;
+        synchronized (mLock) {
+            mTextClassifier = textClassifier;
+        }
     }
+
+    // TODO: Create a method to set the textClassifier on the platform TextClassificationManager
+    // of a specified context so that platform features such as "Smart selection" can make use of
+    // the same textClassifier as the one set on this object.
 
     /**
      * Returns the default text classifier.
      */
     private TextClassifier defaultTextClassifier() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            return PlatformTextClassifierWrapper.create(mContext);
+        synchronized (mLock) {
+            if (mDefaultTextClassifier != null) {
+                return mDefaultTextClassifier;
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                mDefaultTextClassifier = PlatformTextClassifierWrapper.create(mAppContext);
+            } else {
+                mDefaultTextClassifier = LegacyTextClassifier.of(mAppContext);
+            }
+            return mDefaultTextClassifier;
         }
-        return LegacyTextClassifier.of(mContext);
     }
 }

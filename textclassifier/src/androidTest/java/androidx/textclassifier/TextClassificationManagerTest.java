@@ -18,42 +18,28 @@ package androidx.textclassifier;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import static org.mockito.Mockito.when;
-
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Build;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.junit.runner.RunWith;
 
 @SmallTest
-public class TextClassificationManagerTest {
-    private static final String PACKAGE_NAME = "my.package";
+@RunWith(AndroidJUnit4.class)
+public final class TextClassificationManagerTest {
 
     private TextClassificationManager mTextClassificationManager;
-    @Mock
-    private Context mContext;
-    @Mock
-    private PackageManager mPackageManager;
 
     @Before
     public void setup() {
-        MockitoAnnotations.initMocks(this);
-        mTextClassificationManager = new TextClassificationManager(mContext);
-        when(mContext.getPackageManager()).thenReturn(mPackageManager);
-        when(mContext.getPackageName()).thenReturn(PACKAGE_NAME);
-        when(mContext.getApplicationContext()).thenReturn(mContext);
-        when(mContext.getSystemService(Context.TEXT_CLASSIFICATION_SERVICE)).thenReturn(
-                InstrumentationRegistry.getTargetContext().getSystemService(
-                        Context.TEXT_CLASSIFICATION_SERVICE)
-        );
+        Context appContext = InstrumentationRegistry.getTargetContext().getApplicationContext();
+        mTextClassificationManager = new TextClassificationManager(appContext);
     }
 
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
