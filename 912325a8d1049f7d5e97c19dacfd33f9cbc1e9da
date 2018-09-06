@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "c2594064_96d5e70e",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-06T23:18:21Z",
+      "side": 1,
+      "message": "Noted",
+      "parentUuid": "0ee4aed6_4cc33f40",
+      "revId": "912325a8d1049f7d5e97c19dacfd33f9cbc1e9da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af867afd_f355013f",
         "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
         "patchSetId": 1
