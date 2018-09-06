@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c52ba17_5a8516c5",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/EntityProcessor.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-06T18:17:32Z",
+      "side": 1,
+      "message": "is it just a move?",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 0
+      },
+      "revId": "86861cffbec55b5eb2176f1fd578637532cbe530",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
