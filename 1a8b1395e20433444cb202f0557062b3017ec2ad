@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9091c330_84fc6c5c",
+        "filename": "transition/src/main/java/androidx/transition/ChangeImageTransform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-09-06T15:52:08Z",
+      "side": 1,
+      "message": "It looks like the bug is in fitXYMatrix. This change will fix a divide by 0 error, but it doesn\u0027t fix the underlying bug that there must be a starting matrix. I don\u0027t remember exactly, but I thought that we always use a MATRIX scale when animating transform, so even a FIT_XY to FIT_XY might fail.",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 0
+      },
+      "revId": "1a8b1395e20433444cb202f0557062b3017ec2ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
