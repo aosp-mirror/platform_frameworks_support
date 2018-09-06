@@ -22,6 +22,30 @@
       "revId": "1a8b1395e20433444cb202f0557062b3017ec2ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8abd001b_55b3ba61",
+        "filename": "transition/src/main/java/androidx/transition/ChangeImageTransform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-09-06T16:02:58Z",
+      "side": 1,
+      "message": "in this case is not about dividing by zero. getIntrinsicWidth() \u003d\u003d -1. \nwhat do you mean by there must be starting matrix? we will have it on the last line in the method.",
+      "parentUuid": "9091c330_84fc6c5c",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 0
+      },
+      "revId": "1a8b1395e20433444cb202f0557062b3017ec2ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
