@@ -44,6 +44,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
+import androidx.viewpager2.CompositeOnPageChangeListener;
 import androidx.viewpager2.PageTransformerAdapter;
 import androidx.viewpager2.R;
 import androidx.viewpager2.ScrollEventAdapter;
@@ -62,11 +63,13 @@ public class ViewPager2 extends ViewGroup {
     private final Rect mTmpContainerRect = new Rect();
     private final Rect mTmpChildRect = new Rect();
 
+    private CompositeOnPageChangeListener mListeners = new CompositeOnPageChangeListener();
+
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private PagerSnapHelper mPagerSnapHelper;
-    private @Nullable ScrollEventAdapter mScrollEventAdapter;
-    private @Nullable PageTransformerAdapter mPageTransformerAdapter;
+    private ScrollEventAdapter mScrollEventAdapter;
+    private PageTransformerAdapter mPageTransformerAdapter;
 
     public ViewPager2(Context context) {
         super(context);
@@ -105,6 +108,16 @@ public class ViewPager2 extends ViewGroup {
 
         mPagerSnapHelper = new PagerSnapHelper();
         mPagerSnapHelper.attachToRecyclerView(mRecyclerView);
+
+        mPageTransformerAdapter = new PageTransformerAdapter(mLayoutManager);
+
+        mScrollEventAdapter = new ScrollEventAdapter(mLayoutManager);
+        mRecyclerView.addOnScrollListener(mScrollEventAdapter);
+
+        CompositeOnPageChangeListener dispatcher = new CompositeOnPageChangeListener(2);
+        dispatcher.addOnPageChangeListener(mListeners);
+        dispatcher.addOnPageChangeListener(mPageTransformerAdapter);
+        mScrollEventAdapter.setOnPageChangeListener(dispatcher);
 
         attachViewToParent(mRecyclerView, 0, mRecyclerView.getLayoutParams());
     }
@@ -336,11 +349,11 @@ public class ViewPager2 extends ViewGroup {
     public void setCurrentItem(int item, boolean smoothScroll) {
         // TODO: handle scroll-in-progress case better; could lead to subtle bugs otherwise (WIP)
         final int currentItem = getCurrentItem();
-        if (currentItem == item || !getScrollEventAdapter().isIdle()) {
+        if (currentItem == item || !mScrollEventAdapter.isIdle()) {
             return;
         }
 
-        getScrollEventAdapter().notifyProgrammaticScroll(item, smoothScroll);
+        mScrollEventAdapter.notifyProgrammaticScroll(item, smoothScroll);
         if (!smoothScroll) {
             mRecyclerView.scrollToPosition(item);
             return;
@@ -380,15 +393,7 @@ public class ViewPager2 extends ViewGroup {
      * @param listener listener to add
      */
     public void addOnPageChangeListener(@NonNull OnPageChangeListener listener) {
-        getScrollEventAdapter().addOnPageChangeListener(listener);
-    }
-
-    private ScrollEventAdapter getScrollEventAdapter() {
-        if (mScrollEventAdapter == null) {
-            mScrollEventAdapter = new ScrollEventAdapter(mLayoutManager);
-            mRecyclerView.addOnScrollListener(mScrollEventAdapter);
-        }
-        return mScrollEventAdapter;
+        mListeners.addOnPageChangeListener(listener);
     }
 
     /**
@@ -398,22 +403,14 @@ public class ViewPager2 extends ViewGroup {
      * @param listener listener to remove
      */
     public void removeOnPageChangeListener(@NonNull OnPageChangeListener listener) {
-        getScrollEventAdapter().removeOnPageChangeListener(listener);
+        mListeners.removeOnPageChangeListener(listener);
     }
 
     /**
      * Remove all listeners that are notified of any changes in scroll state or position.
      */
     public void clearOnPageChangeListeners() {
-        getScrollEventAdapter().clearOnPageChangeListeners();
-    }
-
-    private PageTransformerAdapter getPageTransformerAdapter() {
-        if (mPageTransformerAdapter == null) {
-            mPageTransformerAdapter = new PageTransformerAdapter(mLayoutManager);
-            getScrollEventAdapter().setPageTransformerAdapter(mPageTransformerAdapter);
-        }
-        return mPageTransformerAdapter;
+        mListeners.clearOnPageChangeListeners();
     }
 
     /**
@@ -426,7 +423,7 @@ public class ViewPager2 extends ViewGroup {
     public void setPageTransformer(@Nullable PageTransformer transformer) {
         // TODO: add support for reverseDrawingOrder: b/112892792
         // TODO: add support for pageLayerType: b/112893074
-        getPageTransformerAdapter().setPageTransformer(transformer);
+        mPageTransformerAdapter.setPageTransformer(transformer);
     }
 
     @Retention(CLASS)
