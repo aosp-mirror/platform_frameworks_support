@@ -22,6 +22,30 @@
       "revId": "179ce3f17439c6face9dc485e9db107bd489e2a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1ee5c96_fafa3743",
+        "filename": "appcompat/res/drawable/btn_checkbox_checked_mtrl.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2018-09-06T00:45:57Z",
+      "side": 1,
+      "message": "These are the intrinsic height/weight, but that does not mean that they can only be shown at that size.\n\nAlso, this isn\u0027t the right place for this sort of question.",
+      "parentUuid": "b0c26f12_1bbca352",
+      "range": {
+        "startLine": 20,
+        "startChar": 8,
+        "endLine": 21,
+        "endChar": 29
+      },
+      "revId": "179ce3f17439c6face9dc485e9db107bd489e2a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
