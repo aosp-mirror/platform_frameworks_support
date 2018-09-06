@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7de9a02c_e38a1ac6",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-06T23:52:13Z",
+      "side": 1,
+      "message": "shouldn\u0027t we use setRepeatMode(REPEAT_MODE_ONE) instead?",
+      "range": {
+        "startLine": 717,
+        "startChar": 44,
+        "endLine": 717,
+        "endChar": 55
+      },
+      "revId": "9c02f7f7b28fa039ef8ebaf9ca60e479484ac043",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07024a3b_b2ee9f07",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-06T23:52:13Z",
+      "side": 1,
+      "message": "setAudioSessionId?",
+      "range": {
+        "startLine": 936,
+        "startChar": 20,
+        "endLine": 936,
+        "endChar": 37
+      },
+      "revId": "9c02f7f7b28fa039ef8ebaf9ca60e479484ac043",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
