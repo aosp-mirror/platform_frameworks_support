@@ -19,8 +19,7 @@ package androidx.arch.core.executor.testing;
 import androidx.arch.core.executor.ArchTaskExecutor;
 import androidx.arch.core.executor.TaskExecutor;
 
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
+import org.junit.rules.ExternalResource;
 
 /**
  * A JUnit Test Rule that swaps the background executor used by the Architecture Components with a
@@ -28,10 +27,9 @@ import org.junit.runner.Description;
  * <p>
  * You can use this rule for your host side tests that use Architecture Components.
  */
-public class InstantTaskExecutorRule extends TestWatcher {
+public class InstantTaskExecutorRule extends ExternalResource {
     @Override
-    protected void starting(Description description) {
-        super.starting(description);
+    protected void before() {
         ArchTaskExecutor.getInstance().setDelegate(new TaskExecutor() {
             @Override
             public void executeOnDiskIO(Runnable runnable) {
@@ -51,8 +49,7 @@ public class InstantTaskExecutorRule extends TestWatcher {
     }
 
     @Override
-    protected void finished(Description description) {
-        super.finished(description);
+    protected void after() {
         ArchTaskExecutor.getInstance().setDelegate(null);
     }
 }

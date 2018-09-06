@@ -40,8 +40,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory;
 
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
+import org.junit.rules.ExternalResource;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -78,7 +77,7 @@ import java.util.Set;
  * }
  * </pre>
  */
-public class MigrationTestHelper extends TestWatcher {
+public class MigrationTestHelper extends ExternalResource {
     private static final String TAG = "MigrationTestHelper";
     private final String mAssetsFolder;
     private final SupportSQLiteOpenHelper.Factory mOpenFactory;
@@ -117,8 +116,7 @@ public class MigrationTestHelper extends TestWatcher {
     }
 
     @Override
-    protected void starting(Description description) {
-        super.starting(description);
+    protected void before() {
         mTestStarted = true;
     }
 
@@ -236,8 +234,7 @@ public class MigrationTestHelper extends TestWatcher {
     }
 
     @Override
-    protected void finished(Description description) {
-        super.finished(description);
+    protected void after() {
         for (WeakReference<SupportSQLiteDatabase> dbRef : mManagedDatabases) {
             SupportSQLiteDatabase db = dbRef.get();
             if (db != null && db.isOpen()) {
@@ -263,6 +260,7 @@ public class MigrationTestHelper extends TestWatcher {
      *
      * @param db The database connection that should be closed after the test finishes.
      */
+    @SuppressWarnings("unused")
     public void closeWhenFinished(SupportSQLiteDatabase db) {
         if (!mTestStarted) {
             throw new IllegalStateException("You cannot register a database to be closed before"

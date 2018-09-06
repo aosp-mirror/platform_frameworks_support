@@ -21,8 +21,7 @@ import android.os.SystemClock;
 import androidx.arch.core.executor.ArchTaskExecutor;
 import androidx.arch.core.executor.DefaultTaskExecutor;
 
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
+import org.junit.rules.ExternalResource;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -33,13 +32,12 @@ import java.util.concurrent.TimeoutException;
  * <p>
  * You can use this rule for your host side tests that use Architecture Components.
  */
-public class CountingTaskExecutorRule extends TestWatcher {
+public class CountingTaskExecutorRule extends ExternalResource {
     private final Object mCountLock = new Object();
     private int mTaskCount = 0;
 
     @Override
-    protected void starting(Description description) {
-        super.starting(description);
+    protected void before() {
         ArchTaskExecutor.getInstance().setDelegate(new DefaultTaskExecutor() {
             @Override
             public void executeOnDiskIO(Runnable runnable) {
@@ -54,8 +52,7 @@ public class CountingTaskExecutorRule extends TestWatcher {
     }
 
     @Override
-    protected void finished(Description description) {
-        super.finished(description);
+    protected void after() {
         ArchTaskExecutor.getInstance().setDelegate(null);
     }
 
@@ -90,9 +87,9 @@ public class CountingTaskExecutorRule extends TestWatcher {
      * Returns false if there are tasks waiting to be executed, true otherwise.
      *
      * @return False if there are tasks waiting to be executed, true otherwise.
-     *
      * @see #onIdle()
      */
+    @SuppressWarnings("WeakerAccess")
     public boolean isIdle() {
         synchronized (mCountLock) {
             return mTaskCount == 0;
@@ -102,11 +99,10 @@ public class CountingTaskExecutorRule extends TestWatcher {
     /**
      * Waits until all active tasks are finished.
      *
-     * @param time The duration to wait
+     * @param time     The duration to wait
      * @param timeUnit The time unit for the {@code time} parameter
-     *
      * @throws InterruptedException If thread is interrupted while waiting
-     * @throws TimeoutException If tasks cannot be drained at the given time
+     * @throws TimeoutException     If tasks cannot be drained at the given time
      */
     public void drainTasks(int time, TimeUnit timeUnit)
             throws InterruptedException, TimeoutException {
