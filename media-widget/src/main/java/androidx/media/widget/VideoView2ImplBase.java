@@ -627,6 +627,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
         if (DEBUG) {
             Log.d(TAG, "onSurfaceTakeOverDone(). Now current view is: " + view);
         }
+        mMediaSession.seekTo(mMediaSession.getCurrentPosition());
         mCurrentView = view;
         if (mViewTypeChangedListener != null) {
             mViewTypeChangedListener.onViewTypeChanged(mInstance, view.getViewType());
