@@ -2,6 +2,167 @@
   "comments": [
     {
       "key": {
+        "uuid": "bccc845c_8012f02a",
+        "filename": "animation/integration-tests/testapp/src/androidTest/java/androidx/animation/AnimatorInflaterTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-06T19:39:29Z",
+      "side": 1,
+      "message": "This may be a dumb question: where is this defined?",
+      "range": {
+        "startLine": 42,
+        "startChar": 18,
+        "endLine": 42,
+        "endChar": 35
+      },
+      "revId": "ef53c4fbc67005c3aba757579277f4ed870f1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0feb9a51_7acadd88",
+        "filename": "animation/src/main/java/androidx/animation/AnimatorInflater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-06T19:39:29Z",
+      "side": 1,
+      "message": "I was thinking this was an unnecessary check... but I suppose if you don\u0027t have the check, this code has to be aware of what the right default value is to set.  This check basically guarantees that the default value below won\u0027t be used.\n\nThat right?",
+      "range": {
+        "startLine": 307,
+        "startChar": 7,
+        "endLine": 307,
+        "endChar": 87
+      },
+      "revId": "ef53c4fbc67005c3aba757579277f4ed870f1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1af0c617_a339e8d7",
+        "filename": "animation/src/main/java/androidx/animation/AnimatorInflater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-06T19:39:29Z",
+      "side": 1,
+      "message": "The param is an int.",
+      "range": {
+        "startLine": 367,
+        "startChar": 24,
+        "endLine": 367,
+        "endChar": 28
+      },
+      "revId": "ef53c4fbc67005c3aba757579277f4ed870f1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1919603_16eab7c1",
+        "filename": "animation/src/main/java/androidx/animation/AnimatorInflater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-06T19:39:29Z",
+      "side": 1,
+      "message": "Nit: I prefer the previous formatting.  This formatting is a bit deceiving to me given that the two lines following the initial boolean expression look somehow \"equivalent\" in structure.",
+      "range": {
+        "startLine": 802,
+        "startChar": 47,
+        "endLine": 802,
+        "endChar": 86
+      },
+      "revId": "ef53c4fbc67005c3aba757579277f4ed870f1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0e9f92a_2656b58f",
+        "filename": "animation/src/main/java/androidx/animation/AnimatorInflater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-06T19:39:29Z",
+      "side": 1,
+      "message": "Incomplete param docs?  Missing theme and pathErrorScale.",
+      "range": {
+        "startLine": 900,
+        "startChar": 7,
+        "endLine": 903,
+        "endChar": 32
+      },
+      "revId": "ef53c4fbc67005c3aba757579277f4ed870f1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5de019fc_6476b31c",
+        "filename": "animation/src/main/java/androidx/animation/AnimatorInflater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-06T19:39:29Z",
+      "side": 1,
+      "message": "This looks like new api... should this be TimeInterpolator?",
+      "range": {
+        "startLine": 960,
+        "startChar": 18,
+        "endLine": 960,
+        "endChar": 30
+      },
+      "revId": "ef53c4fbc67005c3aba757579277f4ed870f1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee09dd0c_de8df63d",
+        "filename": "animation/src/main/java/androidx/animation/AnimatorInflater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-06T19:39:29Z",
+      "side": 1,
+      "message": "nit: I thought it was code style standard to not inline if statements.",
+      "range": {
+        "startLine": 976,
+        "startChar": 12,
+        "endLine": 976,
+        "endChar": 47
+      },
+      "revId": "ef53c4fbc67005c3aba757579277f4ed870f1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "71b6cc79_bf96d59b",
         "filename": "animation/src/main/java/androidx/animation/AnimatorInflater.java",
         "patchSetId": 6
@@ -46,6 +207,29 @@
       "revId": "ef53c4fbc67005c3aba757579277f4ed870f1d9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df75afcd_ada85cc3",
+        "filename": "animation/src/main/java/androidx/animation/AnimatorInflater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1054,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-06T19:39:29Z",
+      "side": 1,
+      "message": "nit: you\u0027ve already extracted \u0027name\u0027 above.",
+      "range": {
+        "startLine": 1054,
+        "startChar": 75,
+        "endLine": 1054,
+        "endChar": 91
+      },
+      "revId": "ef53c4fbc67005c3aba757579277f4ed870f1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f3ed47e_33358535",
+        "filename": "animation/src/main/java/androidx/animation/AnimatorInflater.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-06T19:39:29Z",
+      "side": 1,
+      "message": "I assume this is safe to have removed.",
+      "range": {
+        "startLine": 678,
+        "startChar": 16,
+        "endLine": 678,
+        "endChar": 81
+      },
+      "revId": "cf114945b82794e823bf8aed3da329c7637522e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
