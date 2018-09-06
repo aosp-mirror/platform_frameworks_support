@@ -22,6 +22,30 @@
       "revId": "5801f100cfe7bb79ec00abe4604d0d12c9bd0201",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db7372cb_865abd26",
+        "filename": "animation/src/main/java/androidx/animation/PathKeyframes.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-09-06T00:06:36Z",
+      "side": 1,
+      "message": "Changed to arrays for tan1, tan2. But since putting positions in arrays would require creating an additional array, I\u0027m going to keep them as is.",
+      "parentUuid": "861e43f5_989d7ed8",
+      "range": {
+        "startLine": 179,
+        "startChar": 45,
+        "endLine": 180,
+        "endChar": 50
+      },
+      "revId": "5801f100cfe7bb79ec00abe4604d0d12c9bd0201",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
