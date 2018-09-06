@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9021809_69b3b148",
+        "filename": "appcompat/res/values/attrs.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-09-06T21:12:09Z",
+      "side": 1,
+      "message": "as far as I know comments on this xml are converted into javadocs. Therefore it is good to mention what they do, or at least that they will be applied starting android 26 but not before.(applies to both attrs defined in this file)",
+      "revId": "e8509fb361cfe167c520c92f1581d910e80c586a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa84bd2a_eb99fe4b",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatTextViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-09-06T21:12:09Z",
+      "side": 1,
+      "message": "awesome tests.",
+      "range": {
+        "startLine": 397,
+        "startChar": 4,
+        "endLine": 397,
+        "endChar": 10
+      },
+      "revId": "e8509fb361cfe167c520c92f1581d910e80c586a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f54e60b1_17b451db",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatTextViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-09-06T21:12:09Z",
+      "side": 1,
+      "message": "ideally you should not be needing Thread.sleep. the following countdown should be enough. \nactually I believe you do not have to call runOnUiThread. You can annotate with @UiThreadTest and do it without any runnables. (the above test testfontFamilyNamespaceHierarchy uses it.)",
+      "range": {
+        "startLine": 429,
+        "startChar": 8,
+        "endLine": 429,
+        "endChar": 26
+      },
+      "revId": "e8509fb361cfe167c520c92f1581d910e80c586a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
