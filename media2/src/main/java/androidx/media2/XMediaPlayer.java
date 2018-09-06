@@ -33,6 +33,8 @@ import androidx.concurrent.listenablefuture.SettableFuture;
 import androidx.media.AudioAttributesCompat;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +49,8 @@ import java.util.concurrent.Executors;
 @RestrictTo(LIBRARY)
 public class XMediaPlayer extends SessionPlayer2 {
     private static final String TAG = "XMediaPlayer";
+
+    private static final int END_OF_PLAYLIST = -1;
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     static ArrayMap<Integer, Integer> sResultCodeMap;
@@ -65,7 +69,7 @@ public class XMediaPlayer extends SessionPlayer2 {
     }
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    MediaPlayer2 mPlayer;
+            MediaPlayer2 mPlayer;
     private ExecutorService mExecutor;
 
     /* A list for tracking the commands submitted to MediaPlayer2.*/
@@ -78,6 +82,20 @@ public class XMediaPlayer extends SessionPlayer2 {
     private @PlayerState int mState;
     @GuardedBy("mStateLock")
     private Map<DataSourceDesc2, Integer> mDSDToBuffStateMap = new HashMap<>();
+
+    private final Object mPlaylistLock = new Object();
+    @GuardedBy("mPlaylistLock")
+    private ArrayList<DataSourceDesc2> mPlaylist = new ArrayList<>();
+    @GuardedBy("mPlaylistLock")
+    private ArrayList<DataSourceDesc2> mShuffledList = new ArrayList<>();
+    @GuardedBy("mPlaylistLock")
+    private MediaMetadata2 mPlaylistMetadata;
+    @GuardedBy("mPlaylistLock")
+    private int mRepeatMode;
+    @GuardedBy("mPlaylistLock")
+    private int mShuffleMode;
+    @GuardedBy("mPlaylistLock")
+    private int mCurrentShuffledIdx;
 
     public XMediaPlayer(Context context) {
         mState = PLAYER_STATE_IDLE;
@@ -217,7 +235,64 @@ public class XMediaPlayer extends SessionPlayer2 {
     @Override
     public ListenableFuture<CommandResult2> setPlaylist(
             List<DataSourceDesc2> list, MediaMetadata2 metadata) {
-        throw new UnsupportedOperationException();
+        DataSourceDesc2 curItem = null;
+        DataSourceDesc2 nextItem = null;
+        synchronized (mPlaylistLock) {
+            mPlaylistMetadata = metadata;
+            mPlaylist.clear();
+            if (list == null) {
+                mCurrentShuffledIdx = END_OF_PLAYLIST;
+            } else {
+                mPlaylist.addAll(list);
+                applyShuffleModeLocked();
+                mCurrentShuffledIdx = 0;
+                curItem = mShuffledList.get(mCurrentShuffledIdx);
+                if (mShuffledList.size() > 1) {
+                    nextItem = mShuffledList.get(mCurrentShuffledIdx + 1);
+                }
+            }
+        }
+        notifyPlaylistChanged();
+
+        if (nextItem == null) {
+            return setMediaItem(curItem);
+        }
+
+        final SettableFuture<CommandResult2> future = SettableFuture.create();
+        final ListenableFuture<CommandResult2> setMediaItemFuture = setMediaItem(curItem);
+        final ListenableFuture<CommandResult2> setNextMediaItemFuture = setNextMediaItem(nextItem);
+
+        setMediaItemFuture.addListener(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    CommandResult2 result = setMediaItemFuture.get();
+                    if (result.getResultCode() != RESULT_CODE_NO_ERROR) {
+                        setNextMediaItemFuture.cancel(true);
+                        future.set(result);
+                    }
+                } catch (Exception e) {
+                    setNextMediaItemFuture.cancel(true);
+                    future.setException(e);
+                }
+            }
+        }, mExecutor);
+
+        setNextMediaItemFuture.addListener(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (!future.isDone()) {
+                        future.set(setNextMediaItemFuture.get());
+                    }
+                } catch (Exception e) {
+                    if (!future.isDone()) {
+                        future.setException(e);
+                    }
+                }
+            }
+        }, mExecutor);
+        return future;
     }
 
     @Override
@@ -233,12 +308,59 @@ public class XMediaPlayer extends SessionPlayer2 {
 
     @Override
     public ListenableFuture<CommandResult2> addPlaylistItem(int index, DataSourceDesc2 item) {
-        throw new UnsupportedOperationException();
+        if (item == null) {
+            throw new IllegalArgumentException("item shouldn't be null");
+        }
+        DataSourceDesc2 curItem;
+        synchronized (mPlaylistLock) {
+            index = clamp(index, mPlaylist.size());
+            int shuffledIdx = index;
+            mPlaylist.add(index, item);
+            if (mShuffleMode == MediaPlaylistAgent.SHUFFLE_MODE_NONE) {
+                mShuffledList.add(index, item);
+            } else {
+                // Add the item in random position of mShuffledList.
+                shuffledIdx = (int) (Math.random() * (mShuffledList.size() + 1));
+                mShuffledList.add(shuffledIdx, item);
+            }
+            curItem = mShuffledList.get(mCurrentShuffledIdx);
+        }
+        notifyPlaylistChanged();
+
+        SettableFuture<CommandResult2> future = SettableFuture.create();
+        future.set(new CommandResult2(RESULT_CODE_NO_ERROR, System.currentTimeMillis(), curItem));
+        return future;
     }
 
     @Override
     public ListenableFuture<CommandResult2> removePlaylistItem(DataSourceDesc2 item) {
-        throw new UnsupportedOperationException();
+        if (item == null) {
+            throw new IllegalArgumentException("item shouldn't be null");
+        }
+        int removedItemShuffledIdx;
+        DataSourceDesc2 curItem;
+        synchronized (mPlaylistLock) {
+            removedItemShuffledIdx = mShuffledList.indexOf(item);
+            if (removedItemShuffledIdx >= 0) {
+                mPlaylist.remove(item);
+                mShuffledList.remove(removedItemShuffledIdx);
+            }
+            curItem = mShuffledList.get(mCurrentShuffledIdx);
+        }
+        ListenableFuture<CommandResult2> future = null;
+        if (removedItemShuffledIdx >= 0) {
+            notifyPlaylistChanged();
+            if (removedItemShuffledIdx == mCurrentShuffledIdx) {
+                future = skipToNextItem();
+            }
+        }
+
+        if (future == null) {
+            future = SettableFuture.create();
+            ((SettableFuture<CommandResult2>) future).set(
+                    new CommandResult2(RESULT_CODE_NO_ERROR, System.currentTimeMillis(), curItem));
+        }
+        return future;
     }
 
     @Override
@@ -278,12 +400,16 @@ public class XMediaPlayer extends SessionPlayer2 {
 
     @Override
     public List<DataSourceDesc2> getPlaylist() {
-        throw new UnsupportedOperationException();
+        synchronized (mPlaylistLock) {
+            return new ArrayList<>(mPlaylist);
+        }
     }
 
     @Override
     public MediaMetadata2 getPlaylistMetadata() {
-        throw new UnsupportedOperationException();
+        synchronized (mPlaylistLock) {
+            return mPlaylistMetadata;
+        }
     }
 
     @Override
@@ -372,6 +498,48 @@ public class XMediaPlayer extends SessionPlayer2 {
                 }
             });
         }
+    }
+
+    private ListenableFuture<CommandResult2> setNextMediaItem(DataSourceDesc2 item) {
+        SettableFuture<CommandResult2> future = SettableFuture.create();
+        synchronized (mCallTypeAndFutures) {
+            mCallTypeAndFutures.add(
+                    new Pair<>(MediaPlayer2.CALL_COMPLETED_SET_NEXT_DATA_SOURCE, future));
+            mPlayer.setNextDataSource(item);
+        }
+        return future;
+    }
+
+    @SuppressWarnings("GuardedBy")
+    private void applyShuffleModeLocked() {
+        mShuffledList.clear();
+        mShuffledList.addAll(mPlaylist);
+        if (mShuffleMode == MediaPlaylistAgent.SHUFFLE_MODE_ALL
+                || mShuffleMode == MediaPlaylistAgent.SHUFFLE_MODE_GROUP) {
+            Collections.shuffle(mShuffledList);
+        }
+    }
+
+    private void notifyPlaylistChanged() {
+        final List<DataSourceDesc2> playlist = getPlaylist();
+        final MediaMetadata2 metadata = getPlaylistMetadata();
+        for (Map.Entry<PlayerCallback, Executor> entry : getCallbacks().entrySet()) {
+            final PlayerCallback callback = entry.getKey();
+            entry.getValue().execute(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onPlaylistChanged(XMediaPlayer.this, playlist, metadata);
+                }
+            });
+        }
+    }
+
+    // Clamps value to [0, size]
+    private static int clamp(int value, int size) {
+        if (value < 0) {
+            return 0;
+        }
+        return (value > size) ? size : value;
     }
 
     private interface PlayerCallbackNotifier {
