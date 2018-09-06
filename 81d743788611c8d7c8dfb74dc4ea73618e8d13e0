@@ -22,6 +22,30 @@
       "revId": "81d743788611c8d7c8dfb74dc4ea73618e8d13e0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8886e030_0eeecdf4",
+        "filename": "concurrent/listenable-future/src/main/java/androidx/concurrent/listenablefuture/AbstractFuture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-06T23:07:34Z",
+      "side": 1,
+      "message": "I won\u0027t change it, because in this exact case we can do that, but their style is \u003cmodifiers\u003e @Nullable \u003ctype\u003e and our codestyle doesn\u0027t like the modifier before Nullable annotation, however we may change it going forward",
+      "parentUuid": "f45114fe_8dae1b92",
+      "range": {
+        "startLine": 258,
+        "startChar": 8,
+        "endLine": 259,
+        "endChar": 22
+      },
+      "revId": "81d743788611c8d7c8dfb74dc4ea73618e8d13e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
