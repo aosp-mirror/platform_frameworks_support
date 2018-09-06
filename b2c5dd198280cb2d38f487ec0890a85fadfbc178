@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc7db51c_eaa6ee8e",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/background/systemalarm/SystemAlarmDispatcherTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-06T23:52:05Z",
+      "side": 1,
+      "message": "You should use the return value from mLatch.await() - it returns true if the count reached zero",
+      "range": {
+        "startLine": 505,
+        "startChar": 8,
+        "endLine": 505,
+        "endChar": 46
+      },
+      "revId": "b2c5dd198280cb2d38f487ec0890a85fadfbc178",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
