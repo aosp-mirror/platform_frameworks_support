@@ -46,6 +46,30 @@
       "revId": "1a8b1395e20433444cb202f0557062b3017ec2ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1c81ed7_3c1214b2",
+        "filename": "transition/src/main/java/androidx/transition/ChangeImageTransform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-09-06T22:37:03Z",
+      "side": 1,
+      "message": "I didn\u0027t realize the default was -1, so that makes sense.\n\nWhen using FIT_XY, ImageDrawable doesn\u0027t set the matrix, but uses setBounds() on the drawable instead. That\u0027s why I had the fitXYMatrix() method.",
+      "parentUuid": "8abd001b_55b3ba61",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 0
+      },
+      "revId": "1a8b1395e20433444cb202f0557062b3017ec2ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
