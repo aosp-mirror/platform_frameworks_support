@@ -394,6 +394,52 @@ public class AppCompatTextViewTest
         assertEquals(Typeface.MONOSPACE, textView.getTypeface());
     }
 
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void testFontVariation_setInXml() {
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.textview_fontVariation_textView);
+        assertEquals("'wdth' 30", textView.getFontVariationSettings());
+    }
+
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void testFontVariation_setInXmlByTextAppearance() {
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.textview_fontVariation_textAppearance);
+        assertEquals("'wght' 300", textView.getFontVariationSettings());
+    }
+
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void testFontVariationPriority_setInXml() {
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.textview_fontVariation_textView_and_textAppearance);
+        //FontVariation is set in both AppCompatTextView and textAppearance,
+        //we should use the one in AppCompatTextView.
+        assertEquals("'wdth' 30", textView.getFontVariationSettings());
+    }
+
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void testFontVariation_setTextAppearance() throws Throwable {
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.textview_simple
+        );
+        Thread.sleep(200);
+        final CountDownLatch latch = new CountDownLatch(1);
+        mActivityTestRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                textView.setTextAppearance(textView.getContext(), R.style.TextView_FontVariation);
+                latch.countDown();
+            }
+        });
+
+        assertTrue(latch.await(2, TimeUnit.SECONDS));
+        assertEquals("'wght' 300", textView.getFontVariationSettings());
+    }
+
     @Test
     @UiThreadTest
     public void testBaselineAttributes() {
