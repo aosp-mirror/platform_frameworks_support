@@ -22,6 +22,30 @@
       "revId": "86861cffbec55b5eb2176f1fd578637532cbe530",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4557094a_95fb5ede",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/EntityProcessor.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-09-06T18:21:27Z",
+      "side": 1,
+      "message": "Yup just a move of common code used by both Processors.",
+      "parentUuid": "9c52ba17_5a8516c5",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 0
+      },
+      "revId": "86861cffbec55b5eb2176f1fd578637532cbe530",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
