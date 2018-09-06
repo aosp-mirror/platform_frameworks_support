@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "568978d2_cac1ed3e",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-06T23:58:00Z",
+      "side": 1,
+      "message": "Correct. Removed.",
+      "parentUuid": "7de9a02c_e38a1ac6",
+      "range": {
+        "startLine": 717,
+        "startChar": 44,
+        "endLine": 717,
+        "endChar": 55
+      },
+      "revId": "9c02f7f7b28fa039ef8ebaf9ca60e479484ac043",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "07024a3b_b2ee9f07",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-06T23:52:13Z",
       "side": 1,
       "message": "setAudioSessionId?",
+      "range": {
+        "startLine": 936,
+        "startChar": 20,
+        "endLine": 936,
+        "endChar": 37
+      },
+      "revId": "9c02f7f7b28fa039ef8ebaf9ca60e479484ac043",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d7d7582_db748ff4",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-06T23:58:00Z",
+      "side": 1,
+      "message": "Right. It should be attachAuxEffect(). Fixed.",
+      "parentUuid": "07024a3b_b2ee9f07",
       "range": {
         "startLine": 936,
         "startChar": 20,
