@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71b6cc79_bf96d59b",
+        "filename": "animation/src/main/java/androidx/animation/AnimatorInflater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-06T17:53:12Z",
+      "side": 1,
+      "message": "nit: pass cause in constructor.",
+      "range": {
+        "startLine": 998,
+        "startChar": 16,
+        "endLine": 998,
+        "endChar": 25
+      },
+      "revId": "ef53c4fbc67005c3aba757579277f4ed870f1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "208ae6d9_1a15fd1f",
+        "filename": "core/src/main/java/androidx/core/graphics/PathParser.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-06T17:53:12Z",
+      "side": 1,
+      "message": "I would better return PathDataNode[] instead of boolean and either throw exception or return null if it is impossible to morph",
+      "range": {
+        "startLine": 313,
+        "startChar": 18,
+        "endLine": 313,
+        "endChar": 25
+      },
+      "revId": "ef53c4fbc67005c3aba757579277f4ed870f1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
