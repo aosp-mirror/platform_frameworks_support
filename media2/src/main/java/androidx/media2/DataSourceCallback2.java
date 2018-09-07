@@ -42,7 +42,7 @@ public abstract class DataSourceCallback2 implements Closeable {
      *
      * Return {@code -1} to indicate that end of stream is reached.
      *
-     * @param position the position in the data source to read from.
+     * @param position the position in the media item to read from.
      * @param buffer the buffer to read the data into.
      * @param offset the offset within buffer to read the data into.
      * @param size the number of bytes to read.
@@ -53,10 +53,10 @@ public abstract class DataSourceCallback2 implements Closeable {
             throws IOException;
 
     /**
-     * Called to get the size of the data source.
+     * Called to get the size of the media item.
      *
      * @throws IOException on fatal errors
-     * @return the size of data source in bytes, or -1 if the size is unknown.
+     * @return the size of media item in bytes, or -1 if the size is unknown.
      */
     public abstract long getSize() throws IOException;
 }

@@ -25,9 +25,8 @@ import androidx.annotation.Nullable;
 import androidx.collection.ArrayMap;
 import androidx.collection.SimpleArrayMap;
 import androidx.media2.BaseRemoteMediaPlayerConnector;
-import androidx.media2.DataSourceDesc2;
+import androidx.media2.MediaItem2;
 import androidx.media2.MediaPlayerConnector;
-import androidx.media2.MediaPlayerConnector.PlayerEventCallback;
 import androidx.media2.MediaSession2;
 import androidx.mediarouter.media.MediaRouter.RouteInfo;
 
@@ -180,12 +179,11 @@ public abstract class RouteMediaPlayerConnector extends BaseRemoteMediaPlayerCon
         }
     }
 
-
     /**
      * Notifies the current data source. Call this API when the current data soruce is changed.
      * <p>
      * Registered {@link PlayerEventCallback} would receive this event through the
-     * {@link PlayerEventCallback#onCurrentDataSourceChanged(MediaPlayerConnector, DataSourceDesc2)}
+     * {@link PlayerEventCallback#onCurrentDataSourceChanged(MediaPlayerConnector, MediaItem2)}
      * .
      */
     public final void notifyCurrentDataSourceChanged() {
@@ -197,14 +195,14 @@ public abstract class RouteMediaPlayerConnector extends BaseRemoteMediaPlayerCon
      * played next (i.e. playback reached the end of the list of sources to play).
      * <p>
      * Registered {@link PlayerEventCallback} would receive this event through the
-     * {@link PlayerEventCallback#onCurrentDataSourceChanged(MediaPlayerConnector, DataSourceDesc2)}
-     * with {@code null} {@link DataSourceDesc2}.
+     * {@link PlayerEventCallback#onCurrentDataSourceChanged(MediaPlayerConnector, MediaItem2)}
+     * with {@code null} {@link MediaItem2}.
      */
     public final void notifyPlaybackCompleted() {
         notifyCurrentDataSourceChanged(null);
     }
 
-    private void notifyCurrentDataSourceChanged(final DataSourceDesc2 dsd) {
+    private void notifyCurrentDataSourceChanged(final MediaItem2 dsd) {
         SimpleArrayMap<PlayerEventCallback, Executor> callbacks = getCallbacks();
         for (int i = 0; i < callbacks.size(); i++) {
             final PlayerEventCallback callback = callbacks.keyAt(i);
@@ -222,12 +220,12 @@ public abstract class RouteMediaPlayerConnector extends BaseRemoteMediaPlayerCon
      * Notifies that a data source is prepared.
      * <p>
      * Registered {@link PlayerEventCallback} would receive this event through the
-     * {@link PlayerEventCallback#onCurrentDataSourceChanged(MediaPlayerConnector, DataSourceDesc2)}
-     * with {@code null} {@link DataSourceDesc2}.
+     * {@link PlayerEventCallback#onCurrentDataSourceChanged(MediaPlayerConnector, MediaItem2)}
+     * with {@code null} {@link MediaItem2}.
      *
      * @param dsd prepared dsd
      */
-    public final void notifyMediaPrepared(final DataSourceDesc2 dsd) {
+    public final void notifyMediaPrepared(final MediaItem2 dsd) {
         SimpleArrayMap<PlayerEventCallback, Executor> callbacks = getCallbacks();
         for (int i = 0; i < callbacks.size(); i++) {
             final PlayerEventCallback callback = callbacks.keyAt(i);
@@ -266,13 +264,13 @@ public abstract class RouteMediaPlayerConnector extends BaseRemoteMediaPlayerCon
      * Notifies that buffering state of a data source is changed.
      * <p>
      * Registered {@link PlayerEventCallback} would receive this event through the
-     * {@link PlayerEventCallback#onBufferingStateChanged(MediaPlayerConnector, DataSourceDesc2,
+     * {@link PlayerEventCallback#onBufferingStateChanged(MediaPlayerConnector, MediaItem2,
      * int)}.
      *
      * @param dsd dsd to notify
      * @param state new buffering state
      */
-    public final void notifyBufferingStateChanged(final DataSourceDesc2 dsd,
+    public final void notifyBufferingStateChanged(final MediaItem2 dsd,
             final @BuffState int state) {
         SimpleArrayMap<PlayerEventCallback, Executor> callbacks = getCallbacks();
         for (int i = 0; i < callbacks.size(); i++) {
