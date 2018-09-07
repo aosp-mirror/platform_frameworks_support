@@ -191,33 +191,33 @@ public class MockPlayer extends MediaPlayerConnector {
         }
     }
 
-    public void notifyCurrentDataSourceChanged(final DataSourceDesc2 dsd) {
+    public void notifyCurrentDataSourceChanged(final MediaItem2 item) {
         for (int i = 0; i < mCallbacks.size(); i++) {
             final PlayerEventCallback callback = mCallbacks.keyAt(i);
             final Executor executor = mCallbacks.valueAt(i);
             executor.execute(new Runnable() {
                 @Override
                 public void run() {
-                    callback.onCurrentDataSourceChanged(MockPlayer.this, dsd);
+                    callback.onCurrentDataSourceChanged(MockPlayer.this, item);
                 }
             });
         }
     }
 
-    public void notifyMediaPrepared(final DataSourceDesc2 dsd) {
+    public void notifyMediaPrepared(final MediaItem2 item) {
         for (int i = 0; i < mCallbacks.size(); i++) {
             final PlayerEventCallback callback = mCallbacks.keyAt(i);
             final Executor executor = mCallbacks.valueAt(i);
             executor.execute(new Runnable() {
                 @Override
                 public void run() {
-                    callback.onMediaPrepared(MockPlayer.this, dsd);
+                    callback.onMediaPrepared(MockPlayer.this, item);
                 }
             });
         }
     }
 
-    public void notifyBufferingStateChanged(final DataSourceDesc2 dsd,
+    public void notifyBufferingStateChanged(final MediaItem2 item,
             final @BuffState int buffState) {
         for (int i = 0; i < mCallbacks.size(); i++) {
             final PlayerEventCallback callback = mCallbacks.keyAt(i);
@@ -225,7 +225,7 @@ public class MockPlayer extends MediaPlayerConnector {
             executor.execute(new Runnable() {
                 @Override
                 public void run() {
-                    callback.onBufferingStateChanged(MockPlayer.this, dsd, buffState);
+                    callback.onBufferingStateChanged(MockPlayer.this, item, buffState);
                 }
             });
         }
@@ -277,22 +277,22 @@ public class MockPlayer extends MediaPlayerConnector {
     }
 
     @Override
-    public void setDataSource(@NonNull DataSourceDesc2 dsd) {
+    public void setDataSource(@NonNull MediaItem2 item) {
         // TODO: Implement this
     }
 
     @Override
-    public void setNextDataSource(@NonNull DataSourceDesc2 dsd) {
+    public void setNextDataSource(@NonNull MediaItem2 item) {
         // TODO: Implement this
     }
 
     @Override
-    public void setNextDataSources(@NonNull List<DataSourceDesc2> dsds) {
+    public void setNextDataSources(@NonNull List<MediaItem2> items) {
         // TODO: Implement this
     }
 
     @Override
-    public DataSourceDesc2 getCurrentDataSource() {
+    public MediaItem2 getCurrentDataSource() {
         // TODO: Implement this
         return null;
     }
