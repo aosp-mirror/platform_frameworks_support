@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "65b7c259_287ed8d6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-07T10:30:35Z",
+      "side": 1,
+      "message": "nvm, your previous only makes the highlight span not parcelable, but the link appearance is still preserved.\n\nAnd I am confused :)\nTextLinksSpan extends ClickableSpan, and ClickableSpan does not extend ParcelableSpan, why they will be preserved across orientation change?\n\nLet\u0027s talk when you are back next week :)",
+      "parentUuid": "665ebe77_eb663cdc",
+      "revId": "04876f3ab00418769b79597952528f54e32876a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9839d6f0_b5dda26d",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 2
