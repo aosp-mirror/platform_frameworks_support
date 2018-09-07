@@ -141,6 +141,30 @@
       "revId": "b626d1dd9b755379b222d6df13766b76a1da5829",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f09f552_bb125415",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-07T06:48:44Z",
+      "side": 1,
+      "message": "ag/1099050 (b/29061029) says that route list needs to be updated with delays, but you\u0027re changing the changed route immediately.\nCast dialog is similar with chooser dialog for showing unselected route, so we\u0027d better get some ideas from its old implementation.\n\n\nRegarding your the second reason\n\u003e onRouteChanged() can be triggered when selection state of route is changed, which means calling refreshRoutes() when onRouteChanged() is triggered will make distinguishing between initially selected routes and newly added routes impossible. \n\nWhy it\u0027s impossible? You can simply keep the set of the selected routes.",
+      "parentUuid": "9eae639d_a5bbcb36",
+      "range": {
+        "startLine": 1066,
+        "startChar": 12,
+        "endLine": 1069,
+        "endChar": 13
+      },
+      "revId": "b626d1dd9b755379b222d6df13766b76a1da5829",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
