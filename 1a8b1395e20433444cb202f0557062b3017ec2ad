@@ -70,6 +70,30 @@
       "revId": "1a8b1395e20433444cb202f0557062b3017ec2ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94c62a83_bd0469f0",
+        "filename": "transition/src/main/java/androidx/transition/ChangeImageTransform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-09-07T10:44:41Z",
+      "side": 1,
+      "message": "so what do you suggest to change?\nI think we should not go into fitXYMatrix or centerCropMatrix when getIntrinsicWidth() \u003d\u003d -1, as it makes no sense, even if scaleType will be changed from FIT_XY to CENTER_CROP nothing will be actually changed, as this scaleTypes are ignored for such types of drawables. so the correct way to solve it in this methods is to return identity matrix or null. so later in createAnimator there are two possibilities:\n1) bounds didn\u0027t change: we return null as animator\n2) bounds did change: we use createNullAnimator method with NULL_MATRIX_EVALUATOR. \n\nBtw, I also don\u0027t understand why do we need to use this createNullAnimator and not just return null instead.\nIt will call \"mDrawable.setBounds(0, 0, getWidth(), getHeight());\" via View.animateTransform() on every frame.\nBut if someone(like ChangeBounds) will change size of the imageview via View.setFrame() it will call configureBounds() where we again have mDrawable.setBounds(0, 0, vwidth, vheight);\n\nAnd a funny thing: looks like there is a bug in View.animateTransform(). it has:\nmDrawable.setBounds(0, 0, getWidth(), getHeight());\nbut configureBounds() is also taking into account paddings:\nfinal int vwidth \u003d getWidth() - mPaddingLeft - mPaddingRight;\nfinal int vheight \u003d getHeight() - mPaddingTop - mPaddingBottom;\nmDrawable.setBounds(0, 0, vwidth, vheight);",
+      "parentUuid": "e1c81ed7_3c1214b2",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 0
+      },
+      "revId": "1a8b1395e20433444cb202f0557062b3017ec2ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
