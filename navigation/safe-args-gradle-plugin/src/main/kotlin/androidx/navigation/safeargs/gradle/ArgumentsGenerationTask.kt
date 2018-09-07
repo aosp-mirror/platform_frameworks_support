@@ -51,7 +51,7 @@ open class ArgumentsGenerationTask : DefaultTask() {
     lateinit var incrementalFolder: File
 
     private fun generateArgs(navFiles: Collection<File>, out: File) = navFiles.map { file ->
-        val output = generateSafeArgs(rFilePackage, applicationId, file, out, useAndroidX)
+        val output = generateSafeArgs(rFilePackage, applicationId, file, out, useAndroidX, navFiles)
         Mapping(file.relativeTo(project.projectDir).path, output.fileNames) to output.errors
     }.unzip().let { (mappings, errorLists) -> mappings to errorLists.flatten() }
 
