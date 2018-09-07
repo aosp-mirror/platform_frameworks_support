@@ -30,9 +30,9 @@ import android.os.Build;
 
 import androidx.annotation.RestrictTo;
 import androidx.media.AudioAttributesCompat;
-import androidx.media2.DataSourceDesc2;
+import androidx.media2.MediaItem2;
 import androidx.media2.MediaPlayer2;
-import androidx.media2.UriDataSourceDesc2;
+import androidx.media2.UriMediaItem2;
 import androidx.media2.common.TrackInfoImpl;
 import androidx.media2.exoplayer.external.Format;
 import androidx.media2.exoplayer.external.audio.AudioAttributes;
@@ -59,10 +59,10 @@ import java.util.List;
 
     /** Returns an ExoPlayer media source for the given data source description. */
     public static MediaSource createMediaSource(
-            DataSource.Factory dataSourceFactory, DataSourceDesc2 dataSourceDescription) {
+            DataSource.Factory dataSourceFactory, MediaItem2 dataSourceDescription) {
         // TODO(b/111150876): Add support for HLS streams and file descriptors.
-        if (dataSourceDescription instanceof UriDataSourceDesc2) {
-            Uri uri = ((UriDataSourceDesc2) dataSourceDescription).getUri();
+        if (dataSourceDescription instanceof UriMediaItem2) {
+            Uri uri = ((UriMediaItem2) dataSourceDescription).getUri();
             return new ExtractorMediaSource.Factory(dataSourceFactory)
                     .setTag(dataSourceDescription).createMediaSource(uri);
         } else {

@@ -41,9 +41,9 @@ public final class CommandResult2 {
     // No error code here!
     private final int mResultCode;
     private final long mCompletionTime;
-    private final DataSourceDesc2 mDesc;
+    private final MediaItem2 mDesc;
 
-    public CommandResult2(int resultCode, long completionTime, DataSourceDesc2 desc) {
+    public CommandResult2(int resultCode, long completionTime, MediaItem2 desc) {
         mResultCode = resultCode;
         mCompletionTime = completionTime;
         mDesc = desc;
@@ -75,7 +75,7 @@ public final class CommandResult2 {
      *
      * @return media item desc
      */
-    public @Nullable DataSourceDesc2 getMediaItem2() {
+    public @Nullable MediaItem2 getMediaItem2() {
         return mDesc;
     }
 }

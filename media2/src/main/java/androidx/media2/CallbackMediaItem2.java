@@ -17,21 +17,22 @@
 package androidx.media2;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.util.Preconditions;
 
 /**
  * Structure for data source descriptor for {@link DataSourceCallback2}. Used by {@link MediaItem2}.
  * <p>
- * Users should use {@link Builder} to create {@link CallbackDataSourceDesc2}.
+ * Users should use {@link Builder} to create {@link CallbackMediaItem2}.
  *
  * @see MediaItem2
  */
-public class CallbackDataSourceDesc2 extends DataSourceDesc2 {
+public class CallbackMediaItem2 extends MediaItem2 {
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
             DataSourceCallback2 mDataSourceCallback2;
 
-    CallbackDataSourceDesc2(Builder builder) {
+    CallbackMediaItem2(Builder builder) {
         super(builder);
         mDataSourceCallback2 = builder.mDataSourceCallback2;
     }
@@ -45,9 +46,9 @@ public class CallbackDataSourceDesc2 extends DataSourceDesc2 {
     }
 
     /**
-     * This Builder class simplifies the creation of a {@link CallbackDataSourceDesc2} object.
+     * This Builder class simplifies the creation of a {@link CallbackMediaItem2} object.
      */
-    public static final class Builder extends DataSourceDesc2.Builder<Builder> {
+    public static final class Builder extends BuilderBase<Builder> {
 
         @SuppressWarnings("WeakerAccess") /* synthetic access */
         DataSourceCallback2 mDataSourceCallback2;
@@ -57,16 +58,30 @@ public class CallbackDataSourceDesc2 extends DataSourceDesc2 {
          * @param dsc2 the DataSourceCallback2 for the media you want to play
          */
         public Builder(@NonNull DataSourceCallback2 dsc2) {
+            super();
+            init(dsc2);
+        }
+
+        /**
+         * Creates a new Builder object.
+         * @param dsc2 the DataSourceCallback2 for the media you want to play
+         */
+        public Builder(@NonNull DataSourceCallback2 dsc2, @NonNull MediaMetadata2 metadata) {
+            super(metadata);
+            init(dsc2);
+        }
+
+        private void init(DataSourceCallback2 dsc2) {
             Preconditions.checkNotNull(dsc2);
             mDataSourceCallback2 = dsc2;
         }
 
         /**
-         * @return A new CallbackDataSourceDesc2 with values supplied by the Builder.
+         * @return A new CallbackMediaItem2 with values supplied by the Builder.
          */
         @Override
-        public CallbackDataSourceDesc2 build() {
-            return new CallbackDataSourceDesc2(this);
+        public CallbackMediaItem2 build() {
+            return new CallbackMediaItem2(this);
         }
     }
 }

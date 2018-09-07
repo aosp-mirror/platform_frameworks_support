@@ -17,6 +17,7 @@
 package androidx.media2;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.util.Preconditions;
 
 import java.io.FileDescriptor;
@@ -24,11 +25,11 @@ import java.io.FileDescriptor;
 /**
  * Structure for data source descriptor for a file. Used by {@link MediaItem2}.
  * <p>
- * Users should use {@link Builder} to create {@link FileDataSourceDesc2}.
+ * Users should use {@link Builder} to create {@link FileMediaItem2}.
  *
  * @see MediaItem2
  */
-public class FileDataSourceDesc2 extends DataSourceDesc2 {
+public class FileMediaItem2 extends MediaItem2 {
     /**
      * Used when the length of file descriptor is unknown.
      *
@@ -43,7 +44,7 @@ public class FileDataSourceDesc2 extends DataSourceDesc2 {
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     long mFDLength = FD_LENGTH_UNKNOWN;
 
-    FileDataSourceDesc2(Builder builder) {
+    FileMediaItem2(Builder builder) {
         super(builder);
         mFD = builder.mFD;
         mFDOffset = builder.mFDOffset;
@@ -60,7 +61,7 @@ public class FileDataSourceDesc2 extends DataSourceDesc2 {
 
     /**
      * Return the offset associated with the FileDescriptor of this data source.
-     * It's meaningful only when it has been set by the {@link DataSourceDesc2.Builder}.
+     * It's meaningful only when it has been set by the {@link MediaItem2.Builder}.
      * @return the offset associated with the FileDescriptor of this data source
      */
     public long getFileDescriptorOffset() {
@@ -77,9 +78,9 @@ public class FileDataSourceDesc2 extends DataSourceDesc2 {
     }
 
     /**
-     * This Builder class simplifies the creation of a {@link FileDataSourceDesc2} object.
+     * This Builder class simplifies the creation of a {@link FileMediaItem2} object.
      */
-    public static final class Builder extends DataSourceDesc2.Builder<Builder> {
+    public static final class Builder extends BuilderBase<Builder> {
 
         @SuppressWarnings("WeakerAccess") /* synthetic access */
         FileDescriptor mFD;
@@ -96,10 +97,21 @@ public class FileDataSourceDesc2 extends DataSourceDesc2 {
          * @param fd the FileDescriptor for the file you want to play
          */
         public Builder(@NonNull FileDescriptor fd) {
-            Preconditions.checkNotNull(fd);
-            mFD = fd;
-            mFDOffset = 0;
-            mFDLength = FD_LENGTH_UNKNOWN;
+            super();
+            init(fd);
+        }
+
+        /**
+         * Creates a new Builder object with a data source (FileDescriptor) to use. The
+         * FileDescriptor must be seekable (N.B. a LocalSocket is not seekable). It is the caller's
+         * responsibility to close the file descriptor after the source has been used.
+         *
+         * @param fd the FileDescriptor for the file you want to play
+         * @param metadata metadata
+         */
+        public Builder(@NonNull FileDescriptor fd, @NonNull MediaMetadata2 metadata) {
+            super(metadata);
+            init(fd);
         }
 
         /**
@@ -115,6 +127,7 @@ public class FileDataSourceDesc2 extends DataSourceDesc2 {
          * @param length the length in bytes of the data to be played
          */
         public Builder(@NonNull FileDescriptor fd, long offset, long length) {
+            super();
             Preconditions.checkNotNull(fd);
             if (offset < 0) {
                 offset = 0;
@@ -127,12 +140,19 @@ public class FileDataSourceDesc2 extends DataSourceDesc2 {
             mFDLength = length;
         }
 
+        private void init(FileDescriptor fd) {
+            Preconditions.checkNotNull(fd);
+            mFD = fd;
+            mFDOffset = 0;
+            mFDLength = FD_LENGTH_UNKNOWN;
+        }
+
         /**
-         * @return A new FileDataSourceDesc2 with values supplied by the Builder.
+         * @return A new FileMediaItem2 with values supplied by the Builder.
          */
         @Override
-        public FileDataSourceDesc2 build() {
-            return new FileDataSourceDesc2(this);
+        public FileMediaItem2 build() {
+            return new FileMediaItem2(this);
         }
     }
 }
