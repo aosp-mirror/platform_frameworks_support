@@ -112,7 +112,7 @@ public abstract class MediaPlayerConnector implements AutoCloseable {
 
     /**
      * Prepares the player for playback.
-     * See {@link PlayerEventCallback#onMediaPrepared(MediaPlayerConnector, DataSourceDesc2)} for
+     * See {@link PlayerEventCallback#onMediaPrepared(MediaPlayerConnector, MediaItem2)} for
      * being notified when the preparation phase completed. During this time, the player may
      * allocate resources required to play, such as audio and video decoders.
      */
@@ -197,28 +197,28 @@ public abstract class MediaPlayerConnector implements AutoCloseable {
 
     /**
      * Sets the data source to be played.
-     * @param dsd
+     * @param item
      */
-    public abstract void setDataSource(@NonNull DataSourceDesc2 dsd);
+    public abstract void setDataSource(@NonNull MediaItem2 item);
 
     /**
      * Sets the data source that will be played immediately after the current one is done playing.
-     * @param dsd
+     * @param item
      */
-    public abstract void setNextDataSource(@NonNull DataSourceDesc2 dsd);
+    public abstract void setNextDataSource(@NonNull MediaItem2 item);
 
     /**
      * Sets the list of data sources that will be sequentially played after the current one. Each
      * data source is played immediately after the previous one is done playing.
-     * @param dsds
+     * @param items
      */
-    public abstract void setNextDataSources(@NonNull List<DataSourceDesc2> dsds);
+    public abstract void setNextDataSources(@NonNull List<MediaItem2> items);
 
     /**
      * Returns the current data source.
      * @return the current data source, or null if none is set, or none available to play.
      */
-    public abstract @Nullable DataSourceDesc2 getCurrentDataSource();
+    public abstract @Nullable MediaItem2 getCurrentDataSource();
 
     /**
      * Configures the player to loop on the current data source.
@@ -306,22 +306,22 @@ public abstract class MediaPlayerConnector implements AutoCloseable {
          * <p>
          * When the playback completes, and no other source is about to be played next (i.e.
          * playback reached the end of the list of sources to play), this callback will be invoked
-         * with a {@code null} dsd.
+         * with a {@code null} item.
          *
          * @param mpb the player whose data source changed.
-         * @param dsd the new current data source. {@code null}, if no more data sources available.
+         * @param item the new current data source. {@code null}, if no more data sources available.
          */
         public void onCurrentDataSourceChanged(@NonNull MediaPlayerConnector mpb,
-                @Nullable DataSourceDesc2 dsd) { }
+                @Nullable MediaItem2 item) { }
 
         /**
          * Called when the player is <i>prepared</i>, i.e. it is ready to play the content
          * referenced by the given data source.
          * @param mpb the player that is prepared.
-         * @param dsd the data source that the player is prepared to play.
+         * @param item the data source that the player is prepared to play.
          */
         public void onMediaPrepared(@NonNull MediaPlayerConnector mpb,
-                @NonNull DataSourceDesc2 dsd) { }
+                @NonNull MediaItem2 item) { }
 
         /**
          * Called to indicate that the state of the player has changed.
@@ -335,11 +335,11 @@ public abstract class MediaPlayerConnector implements AutoCloseable {
         /**
          * Called to report buffering events for a data source.
          * @param mpb the player that is buffering
-         * @param dsd the data source for which buffering is happening.
+         * @param item the data source for which buffering is happening.
          * @param state the new buffering state.
          */
         public void onBufferingStateChanged(@NonNull MediaPlayerConnector mpb,
-                @NonNull DataSourceDesc2 dsd, @BuffState int state) { }
+                @NonNull MediaItem2 item, @BuffState int state) { }
 
         /**
          * Called to indicate that the playback speed has changed.

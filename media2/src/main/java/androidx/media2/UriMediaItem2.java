@@ -22,6 +22,8 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.util.Preconditions;
+import androidx.versionedparcelable.NonParcelField;
+import androidx.versionedparcelable.VersionedParcelize;
 
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -34,21 +36,33 @@ import java.util.Map;
 /**
  * Structure for data source descriptor for {@link Uri}. Used by {@link MediaItem2}.
  * <p>
- * Users should use {@link Builder} to create {@link UriDataSourceDesc2}.
+ * Users should use {@link Builder} to create {@link UriMediaItem2}.
  *
  * @see MediaItem2
  */
-public class UriDataSourceDesc2 extends DataSourceDesc2 {
+@VersionedParcelize
+public class UriMediaItem2 extends MediaItem2 {
+    @NonParcelField
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     Uri mUri;
+    @NonParcelField
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     Map<String, String> mUriHeader;
+    @NonParcelField
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     List<HttpCookie> mUriCookies;
+    @NonParcelField
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     Context mUriContext;
 
-    UriDataSourceDesc2(Builder builder) {
+    /**
+     * Used for VersionedParcelable
+     */
+    UriMediaItem2() {
+        // no-op
+    }
+
+    UriMediaItem2(Builder builder) {
         super(builder);
         mUri = builder.mUri;
         mUriHeader = builder.mUriHeader;
@@ -95,9 +109,9 @@ public class UriDataSourceDesc2 extends DataSourceDesc2 {
     }
 
     /**
-     * This Builder class simplifies the creation of a {@link UriDataSourceDesc2} object.
+     * This Builder class simplifies the creation of a {@link UriMediaItem2} object.
      */
-    public static final class Builder extends DataSourceDesc2.Builder<Builder> {
+    public static final class Builder extends BuilderBase<Builder> {
 
         @SuppressWarnings("WeakerAccess") /* synthetic access */
         Uri mUri;
@@ -115,10 +129,47 @@ public class UriDataSourceDesc2 extends DataSourceDesc2 {
          * @param uri the Content URI of the data you want to play
          */
         public Builder(@NonNull Context context, @NonNull Uri uri) {
-            Preconditions.checkNotNull(context, "context cannot be null");
-            Preconditions.checkNotNull(uri, "uri cannot be null");
-            mUri = uri;
-            mUriContext = context;
+            super();
+            init(context, uri, null, null);
+        }
+
+        /**
+         * Creates a new Builder object with a content Uri.
+         *
+         * @param context the Context to use when resolving the Uri
+         * @param uri the Content URI of the data you want to play
+         * @param metadata the metadata
+         */
+        public Builder(@NonNull Context context, @NonNull Uri uri,
+                @NonNull MediaMetadata2 metadata) {
+            super(metadata);
+            init(context, uri, null, null);
+        }
+
+        /**
+         * Creates a new Builder object with a content Uri.
+         *
+         * To provide cookies for the subsequent HTTP requests, you can install your own default
+         * cookie handler and use other variants of setDataSource APIs instead.
+         *
+         * <p><strong>Note</strong> that the cross domain redirection is allowed by default,
+         * but that can be changed with key/value pairs through the headers parameter with
+         * "android-allow-cross-domain-redirect" as the key and "0" or "1" as the value to
+         * disallow or allow cross domain redirection.
+         *
+         * @param context the Context to use when resolving the Uri
+         * @param uri the Content URI of the data you want to play
+         * @param metdata the Content metadata
+         * @param headers the headers to be sent together with the request for the data
+         *                The headers must not include cookies. Instead, use the cookies param.
+         * @param cookies the cookies to be sent together with the request
+         * @throws IllegalArgumentException if the cookie handler is not of CookieManager type
+         *                                  when cookies are provided.
+         */
+        public Builder(@NonNull Context context, @NonNull Uri uri, @NonNull MediaMetadata2 metdata,
+                @Nullable Map<String, String> headers, @Nullable List<HttpCookie> cookies) {
+            super(metdata);
+            init(context, uri, headers, cookies);
         }
 
         /**
@@ -142,8 +193,16 @@ public class UriDataSourceDesc2 extends DataSourceDesc2 {
          */
         public Builder(@NonNull Context context, @NonNull Uri uri,
                 @Nullable Map<String, String> headers, @Nullable List<HttpCookie> cookies) {
+            super();
+            init(context, uri, headers, cookies);
+        }
+
+        private void init(@NonNull Context context, @NonNull Uri uri,
+                @Nullable Map<String, String> headers, @Nullable List<HttpCookie> cookies) {
             Preconditions.checkNotNull(context, "context cannot be null");
-            Preconditions.checkNotNull(uri);
+            Preconditions.checkNotNull(uri, "uri cannot be null");
+            mUri = uri;
+            mUriContext = context;
             if (cookies != null) {
                 CookieHandler cookieHandler = CookieHandler.getDefault();
                 if (cookieHandler != null && !(cookieHandler instanceof CookieManager)) {
@@ -163,13 +222,12 @@ public class UriDataSourceDesc2 extends DataSourceDesc2 {
             mUriContext = context;
         }
 
-
         /**
-         * @return A new UriDataSourceDesc2 with values supplied by the Builder.
+         * @return A new UriMediaItem2 with values supplied by the Builder.
          */
         @Override
-        public UriDataSourceDesc2 build() {
-            return new UriDataSourceDesc2(this);
+        public UriMediaItem2 build() {
+            return new UriMediaItem2(this);
         }
     }
 }

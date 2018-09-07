@@ -81,7 +81,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
     // Used for testing case that operation is called before setDataSourceDesc().
     private static final int MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE = 400001;
 
-    private static final DataSourceDesc2 sDummyDataSource = new CallbackDataSourceDesc2.Builder(
+    private static final MediaItem2 sDummyDataSource = new CallbackMediaItem2.Builder(
             new DataSourceCallback2() {
                 @Override
                 public int readAt(long position, byte[] buffer, int offset, int size)
@@ -1016,7 +1016,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
         MediaPlayer2.EventCallback ecb = new MediaPlayer2.EventCallback() {
             @Override
             public void onCallCompleted(
-                    MediaPlayer2 mp, DataSourceDesc2 dsd, int what, int status) {
+                    MediaPlayer2 mp, MediaItem2 item, int what, int status) {
                 if (what == MediaPlayer2.CALL_COMPLETED_PAUSE) {
                     onPauseCalled.signal();
                 } else if (what == MediaPlayer2.CALL_COMPLETED_PREPARE) {
@@ -1027,7 +1027,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
             }
 
             @Override
-            public void onError(MediaPlayer2 mp, DataSourceDesc2 dsd, int what, int extra) {
+            public void onError(MediaPlayer2 mp, MediaItem2 item, int what, int extra) {
                 mOnErrorCalled.signal();
             }
         };
@@ -1052,7 +1052,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
                 public void close() throws IOException {}
             };
             mOnErrorCalled.reset();
-            mPlayer.setDataSource(new CallbackDataSourceDesc2.Builder(invalidDataSource)
+            mPlayer.setDataSource(new CallbackMediaItem2.Builder(invalidDataSource)
                     .build());
             mPlayer.prepare();
             mOnErrorCalled.waitForSignal(1000);
@@ -1068,8 +1068,8 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
             fail();
         }
         if (mTestOpertation == sSkipToNextOperation) {
-            DataSourceDesc2 dsd = createDataSourceDesc(R.raw.testvideo);
-            mPlayer.setNextDataSource(dsd);
+            MediaItem2 item = createDataSourceDesc(R.raw.testvideo);
+            mPlayer.setNextDataSource(item);
         }
         assertEquals(PLAYER_STATE_IDLE, mPlayer.getState());
         if (mTestState == PLAYER_STATE_IDLE) {
@@ -1116,7 +1116,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
         MediaPlayer2.EventCallback ecb = new MediaPlayer2.EventCallback() {
             @Override
             public void onCallCompleted(
-                    MediaPlayer2 mp, DataSourceDesc2 dsd, int what, int status) {
+                    MediaPlayer2 mp, MediaItem2 item, int what, int status) {
                 callCompletes.add(new Pair<Integer, Integer>(what, status));
                 callCompleteCalled.signal();
             }

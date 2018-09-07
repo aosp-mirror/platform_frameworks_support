@@ -66,7 +66,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
-import androidx.media2.DataSourceDesc2;
 import androidx.media2.MediaController2;
 import androidx.media2.MediaItem2;
 import androidx.media2.MediaMetadata2;
@@ -76,7 +75,7 @@ import androidx.media2.MediaSession2;
 import androidx.media2.SessionCommand2;
 import androidx.media2.SessionCommandGroup2;
 import androidx.media2.SessionToken2;
-import androidx.media2.UriDataSourceDesc2;
+import androidx.media2.UriMediaItem2;
 import androidx.mediarouter.app.MediaRouteButton;
 import androidx.mediarouter.media.MediaRouteSelector;
 
@@ -1920,9 +1919,8 @@ public class MediaControlView2 extends BaseLayout {
             return false;
         }
 
-        DataSourceDesc2 dsd = currentMediaItem.getDataSourceDesc();
-        Uri uri = (dsd != null && dsd instanceof UriDataSourceDesc2)
-                ? ((UriDataSourceDesc2) dsd).getUri() : null;
+        Uri uri = currentMediaItem instanceof UriMediaItem2
+                ? ((UriMediaItem2) currentMediaItem).getUri() : null;
         if (uri == null) {
             // Something wrong.
             return false;
