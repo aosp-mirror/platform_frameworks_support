@@ -16,6 +16,8 @@
 
 package androidx.navigation.safe.args.generator
 
+import androidx.navigation.safe.args.generator.models.NavFile
 import java.io.File
 
-fun testData(path: String) = File("src/tests/test-data/$path")
+fun testData(path: String, isLibraryFile: Boolean = false) = NavFile(
+        File("src/tests/test-data/$path"), isLibraryFile)

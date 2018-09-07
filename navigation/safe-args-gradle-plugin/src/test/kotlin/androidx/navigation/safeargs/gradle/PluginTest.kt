@@ -33,6 +33,7 @@ import java.util.Properties
 
 private const val MAIN_DIR = "androidx/navigation/testapp"
 
+private const val APP_DIRECTIONS = "$MAIN_DIR/AppFragmentDirections.java"
 private const val NEXT_DIRECTIONS = "$MAIN_DIR/NextFragmentDirections.java"
 private const val MAIN_DIRECTIONS = "$MAIN_DIR/MainFragmentDirections.java"
 private const val MODIFIED_NEXT_DIRECTIONS = "$MAIN_DIR/ModifiedNextFragmentDirections.java"
@@ -45,6 +46,8 @@ private const val FOO_DYNAMIC_DIRECTIONS =
 private const val NOTFOO_DYNAMIC_DIRECTIONS = "$MAIN_DIR/DynFeatureFragmentDirections.java"
 
 private const val NAV_RESOURCES = "src/main/res/navigation"
+private const val APP_NAV_RESOURCES = "app/src/main/res/navigation"
+private const val LIBRARY_NAV_RESOURCES = "library/src/main/res/navigation"
 private const val SEC = 1000L
 
 // Does not work in the Android Studio
@@ -58,6 +61,7 @@ class PluginTest {
     private var buildFile: File = File("")
     private var compileSdkVersion = ""
     private var buildToolsVersion = ""
+    private var m2RepoPath = ""
 
     private fun projectRoot(): File = testProjectDir.root
 
@@ -76,6 +80,9 @@ class PluginTest {
     }
 
     private fun navResource(name: String) = File(projectRoot(), "$NAV_RESOURCES/$name")
+    private fun appNavResource(name: String) = File(projectRoot(), "$APP_NAV_RESOURCES/$name")
+    private fun libraryNavResource(name: String) =
+            File(projectRoot(), "$LIBRARY_NAV_RESOURCES/$name")
 
     private fun gradleBuilder(vararg args: String) = GradleRunner.create()
             .withProjectDir(projectRoot()).withPluginClasspath().withArguments(*args)
@@ -101,6 +108,7 @@ class PluginTest {
         properties.load(stream)
         compileSdkVersion = properties.getProperty("compileSdkVersion")
         buildToolsVersion = properties.getProperty("buildToolsVersion")
+        m2RepoPath = properties.getProperty("m2repo")
     }
 
     private fun setupSimpleBuildGradle() {
@@ -109,6 +117,12 @@ class PluginTest {
             plugins {
                 id('com.android.application')
                 id('androidx.navigation.safeargs')
+            }
+
+            allprojects {
+                repositories {
+                    maven { url '$m2RepoPath' }
+                }
             }
 
             android {
@@ -125,6 +139,28 @@ class PluginTest {
                 ext.compileSdk = $compileSdkVersion
                 ext.buildTools = "$buildToolsVersion"
             }
+
+            allprojects {
+                repositories {
+                    maven { url '$m2RepoPath' }
+                }
+            }
+        """.trimIndent())
+    }
+
+    private fun setupNestedMultiModuleBuildGradle() {
+        testData("nested-project").copyRecursively(projectRoot())
+        buildFile.writeText("""
+            buildscript {
+                ext.compileSdk = $compileSdkVersion
+                ext.buildTools = "$buildToolsVersion"
+            }
+
+            allprojects {
+                repositories {
+                    maven { url '$m2RepoPath' }
+                }
+            }
         """.trimIndent())
     }
 
@@ -135,6 +171,12 @@ class PluginTest {
             plugins {
                 id('com.android.application')
                 id('androidx.navigation.safeargs')
+            }
+
+            allprojects {
+                repositories {
+                    maven { url '$m2RepoPath' }
+                }
             }
 
             android {
@@ -326,6 +368,42 @@ class PluginTest {
         assertNotGenerated("foo/debug/$NOTFOO_DYNAMIC_DIRECTIONS", "dynamic_feature/")
         assertGenerated("foo/debug/$FOO_DYNAMIC_DIRECTIONS", "dynamic_feature/")
         assertNotGenerated("notfoo/debug/$FOO_DYNAMIC_DIRECTIONS", "dynamic_feature/")
+    }
+
+    @Test
+    fun generateForAppWithInclude() {
+        setupMultiModuleBuildGradle()
+        runGradle(
+                ":app:generateSafeArgsFooDebug",
+                ":app:generateSafeArgsNotfooDebug"
+        )
+                .assertSuccessfulTask("app:generateSafeArgsNotfooDebug")
+                .assertSuccessfulTask("app:generateSafeArgsFooDebug")
+
+        assertGenerated("foo/debug/$APP_DIRECTIONS", "app/")
+        assertGenerated("notfoo/debug/$APP_DIRECTIONS", "app/")
+        assertNotGenerated("foo/debug/$FEATURE_DIRECTIONS", "feature/")
+        assertNotGenerated("notfoo/debug/$FEATURE_DIRECTIONS", "feature/")
+    }
+
+    @Test
+    fun nestedIncrementalModify() {
+        setupNestedMultiModuleBuildGradle()
+
+        runGradle(":app:generateSafeArgsDebug").assertSuccessfulTask("app:generateSafeArgsDebug")
+        val appLastMod = assertGenerated("debug/$APP_DIRECTIONS", "app/").lastModified()
+
+        // Modify library nav, should cause app nav to be re-processed
+        testData("incremental-test-data/modified_nav_library.xml")
+                .copyTo(libraryNavResource("nav_library_test.xml"), true)
+
+        Thread.sleep(SEC)
+        runGradle(":app:generateSafeArgsDebug").assertSuccessfulTask("app:generateSafeArgsDebug")
+        val newAppLastMod = assertGenerated("debug/$APP_DIRECTIONS", "app/").lastModified()
+        // app directions were regenerated
+        assertThat(newAppLastMod, not(appLastMod))
+
+        assertNotGenerated("debug/$LIBRARY_DIRECTIONS", "library/")
     }
 }
 

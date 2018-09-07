@@ -56,7 +56,8 @@ class SafeArgsPlugin : Plugin<Project> {
                     ArgumentsGenerationTask::class.java) { task ->
                 task.rFilePackage = variant.rFilePackage()
                 task.applicationId = variant.applicationId
-                task.navigationFiles = navigationFiles(variant)
+                task.resDirectories = variant.sourceSets.flatMap { it.resDirectories }
+                task.librariesResDirectories = variant.mergeResources.libraries
                 task.outputDir = File(project.buildDir, "$GENERATED_PATH/${variant.dirName}")
                 task.incrementalFolder = File(project.buildDir, "$INCREMENTAL_PATH/${task.name}")
                 task.useAndroidX = (project.findProperty("android.useAndroidX") == "true")
@@ -65,17 +66,6 @@ class SafeArgsPlugin : Plugin<Project> {
         }
     }
 }
-
-private fun navigationFiles(variant: BaseVariant) = variant.sourceSets
-        .flatMap { it.resDirectories }
-        .mapNotNull {
-            File(it, "navigation").let { navFolder ->
-                if (navFolder.exists() && navFolder.isDirectory) navFolder else null
-            }
-        }
-        .flatMap { navFolder -> navFolder.listFiles().asIterable() }
-        .groupBy { file -> file.name }
-        .map { entry -> entry.value.last() }
 
 private fun BaseVariant.rFilePackage(): String {
     val mainSourceSet = sourceSets.find { it.name == "main" }

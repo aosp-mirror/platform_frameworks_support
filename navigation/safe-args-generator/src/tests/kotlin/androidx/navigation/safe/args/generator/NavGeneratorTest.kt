@@ -35,15 +35,18 @@ class NavGeneratorTest {
 
     @Test
     fun naive_test() {
-        val output = generateSafeArgs("foo", "foo.flavor",
-            testData("naive_test.xml"), workingDir.root)
-        val javaNames = output.fileNames
+        val output = NavSafeArgsGenerator(
+                navigationFiles = listOf(testData("naive_test.xml")),
+                rFilePackage = "foo",
+                applicationId = "foo.flavor",
+                outputDir = workingDir.root).generate()
+        val javaNames = output.flatMap { it.fileNames }
         val expectedSet = setOf(
                 "androidx.navigation.testapp.MainFragmentDirections",
                 "foo.flavor.NextFragmentDirections",
                 "androidx.navigation.testapp.MainFragmentArgs",
                 "foo.flavor.NextFragmentArgs")
-        assertThat(output.errors.isEmpty(), `is`(true))
+        assertThat(output.flatMap { it.errors }.isEmpty(), `is`(true))
         assertThat(javaNames.toSet(), `is`(expectedSet))
         javaNames.forEach { name ->
             val file = File(workingDir.root, "${name.replace('.', File.separatorChar)}.java")
@@ -53,15 +56,18 @@ class NavGeneratorTest {
 
     @Test
     fun nested_test() {
-        val output = generateSafeArgs("foo", "foo.flavor",
-                testData("nested_login_test.xml"), workingDir.root)
-        val javaNames = output.fileNames
+        val output = NavSafeArgsGenerator(
+                navigationFiles = listOf(testData("nested_login_test.xml")),
+                rFilePackage = "foo",
+                applicationId = "foo.flavor",
+                outputDir = workingDir.root).generate()
+        val javaNames = output.flatMap { it.fileNames }
         val expectedSet = setOf(
                 "foo.flavor.MainFragmentDirections",
                 "foo.LoginDirections",
                 "foo.flavor.LoginFragmentDirections",
                 "foo.flavor.RegisterFragmentDirections")
-        assertThat(output.errors.isEmpty(), `is`(true))
+        assertThat(output.flatMap { it.errors }.isEmpty(), `is`(true))
         assertThat(javaNames.toSet(), `is`(expectedSet))
         javaNames.forEach { name ->
             val file = File(workingDir.root, "${name.replace('.', File.separatorChar)}.java")
@@ -69,7 +75,38 @@ class NavGeneratorTest {
         }
 
         val javaFiles = javaNames
-                .mapIndexed { index, name -> name to output.files[index] }
+                .mapIndexed { index, name -> name to output.flatMap { it.files }[index] }
+                .associate { it }
+        javaFiles.forEach { (name, file) ->
+            JavaSourcesSubject.assertThat(file.toJavaFileObject())
+                    .parsesAs(name, "expected/nav_generator_test")
+        }
+    }
+
+    @Test
+    fun nested_include_test() {
+        val output = NavSafeArgsGenerator(
+                navigationFiles = listOf(
+                        testData("nested_include_login_test.xml"),
+                        testData("to_include_login_test.xml")),
+                rFilePackage = "foo",
+                applicationId = "foo.flavor",
+                outputDir = workingDir.root).generate()
+        val javaNames = output.flatMap { it.fileNames }
+        val expectedSet = setOf(
+                "foo.flavor.MainFragmentDirections",
+                "foo.LoginDirections",
+                "foo.flavor.LoginFragmentDirections",
+                "foo.flavor.RegisterFragmentDirections")
+        assertThat(output.flatMap { it.errors }.isEmpty(), `is`(true))
+        assertThat(javaNames.toSet(), `is`(expectedSet))
+        javaNames.forEach { name ->
+            val file = File(workingDir.root, "${name.replace('.', File.separatorChar)}.java")
+            assertThat(file.exists(), `is`(true))
+        }
+
+        val javaFiles = javaNames
+                .mapIndexed { index, name -> name to output.flatMap { it.files }[index] }
                 .associate { it }
         javaFiles.forEach { (name, file) ->
             JavaSourcesSubject.assertThat(file.toJavaFileObject())

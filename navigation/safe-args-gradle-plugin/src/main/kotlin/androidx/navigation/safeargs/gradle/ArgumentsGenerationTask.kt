@@ -17,11 +17,13 @@
 package androidx.navigation.safeargs.gradle
 
 import androidx.navigation.safe.args.generator.ErrorMessage
-import androidx.navigation.safe.args.generator.generateSafeArgs
+import androidx.navigation.safe.args.generator.NavSafeArgsGenerator
+import androidx.navigation.safe.args.generator.models.NavFile
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
+import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputDirectory
@@ -45,29 +47,13 @@ open class ArgumentsGenerationTask : DefaultTask() {
     lateinit var outputDir: File
 
     @get:InputFiles
-    var navigationFiles: List<File> = emptyList()
+    var resDirectories: List<File> = emptyList()
+
+    @get:InputFiles
+    var librariesResDirectories: FileCollection? = null
 
     @get:OutputDirectory
     lateinit var incrementalFolder: File
-
-    private fun generateArgs(navFiles: Collection<File>, out: File) = navFiles.map { file ->
-        val output = generateSafeArgs(rFilePackage, applicationId, file, out, useAndroidX)
-        Mapping(file.relativeTo(project.projectDir).path, output.fileNames) to output.errors
-    }.unzip().let { (mappings, errorLists) -> mappings to errorLists.flatten() }
-
-    private fun writeMappings(mappings: List<Mapping>) {
-        File(incrementalFolder, MAPPING_FILE).writer().use { Gson().toJson(mappings, it) }
-    }
-
-    private fun readMappings(): List<Mapping> {
-        val type = object : TypeToken<List<Mapping>>() {}.type
-        val mappingsFile = File(incrementalFolder, MAPPING_FILE)
-        if (mappingsFile.exists()) {
-            return mappingsFile.reader().use { Gson().fromJson(it, type) }
-        } else {
-            return emptyList()
-        }
-    }
 
     @Suppress("unused")
     @TaskAction
@@ -87,7 +73,10 @@ open class ArgumentsGenerationTask : DefaultTask() {
         if (!outputDir.exists() && !outputDir.mkdirs()) {
             throw GradleException("Failed to create directory for navigation arguments")
         }
-        val (mappings, errors) = generateArgs(navigationFiles, outputDir)
+        val navFiles = getNavigationFiles(resDirectories).map { NavFile(it, false) }
+        val libraryNavFiles = getNavigationFiles(librariesResDirectories?.files ?: emptySet())
+                .map { NavFile(it, true) }
+        val (mappings, errors) = generateArgs(navFiles + libraryNavFiles, outputDir)
         writeMappings(mappings)
         failIfErrors(errors)
     }
@@ -95,13 +84,16 @@ open class ArgumentsGenerationTask : DefaultTask() {
     private fun doIncrementalTaskAction(inputs: IncrementalTaskInputs) {
         val modifiedFiles = mutableSetOf<File>()
         val removedFiles = mutableSetOf<File>()
-        inputs.outOfDate { change -> modifiedFiles.add(change.file) }
+        // Gather modified files, this includes new files (but not new folders).
+        inputs.outOfDate { change -> if (change.file.isFile) modifiedFiles.add(change.file) }
+        // Gather removed files and folders.
         inputs.removed { change -> removedFiles.add(change.file) }
 
         val oldMapping = readMappings()
-        val (newMapping, errors) = generateArgs(modifiedFiles, outputDir)
+        val affectedNavFiles = getAffectedNavFiles(modifiedFiles, oldMapping)
+        val (newMapping, errors) = generateArgs(affectedNavFiles, outputDir)
         val newJavaFiles = newMapping.flatMap { it.javaFiles }.toSet()
-        val changedInputs = removedFiles + modifiedFiles
+        val changedInputs = affectedNavFiles.map { it.file } + removedFiles
         val (modified, unmodified) = oldMapping.partition {
             File(project.projectDir, it.navFile) in changedInputs
         }
@@ -118,6 +110,75 @@ open class ArgumentsGenerationTask : DefaultTask() {
         failIfErrors(errors)
     }
 
+    private fun getNavigationFiles(resDirectories: Collection<File>) = resDirectories
+            .mapNotNull {
+                File(it, "navigation").let { navFolder ->
+                    if (navFolder.exists() && navFolder.isDirectory) navFolder else null
+                }
+            }
+            .flatMap { navFolder -> navFolder.listFiles().asIterable() }
+            .groupBy { file -> file.name }
+            .map { entry -> entry.value.last() }
+
+    private fun generateArgs(navFiles: Collection<NavFile>, out: File) =
+            NavSafeArgsGenerator(
+                    navigationFiles = navFiles,
+                    rFilePackage = rFilePackage,
+                    applicationId = applicationId,
+                    outputDir = out,
+                    useAndroidX = useAndroidX).generate().map { output ->
+                Mapping(navFile = output.source.file.relativeTo(project.projectDir).path,
+                        javaFiles = output.fileNames,
+                        includedNavFiles = output.extraSources.map {
+                            it.file.relativeTo(project.projectDir).path
+                        }) to output.errors
+            }.unzip().let { (mappings, errorLists) -> mappings to errorLists.flatten() }
+
+    private fun getAffectedNavFiles(
+        modifiedFiles: Set<File>,
+        oldMapping: List<Mapping>
+    ): Set<NavFile> {
+        val projectNavFiles = getNavigationFiles(resDirectories)
+        return mutableSetOf<NavFile>() + modifiedFiles.map { modifiedFile ->
+            // All modified files are affected files
+            NavFile(modifiedFile, !projectNavFiles.contains(modifiedFile))
+        } + modifiedFiles.flatMap { modifiedFile ->
+            // If modified files are referenced through an include then the referee file is also
+            // affected.
+            val modifiedFilePath = modifiedFile.relativeTo(project.projectDir).path
+            oldMapping.filter { mapping ->
+                mapping.navFile == modifiedFilePath ||
+                        mapping.includedNavFiles.contains(modifiedFilePath)
+            }.flatMap { mapping ->
+                // To properly re-process the referee file we also need the referenced files,
+                // consider them part of the affected files unless they have been removed.
+                // Since flattening will occur on a set, there will be no duplicates.
+                (mapping.includedNavFiles + mapping.navFile).mapNotNull { filename ->
+                    val file = File(project.projectDir, filename).normalize()
+                    if (file.exists()) {
+                        NavFile(file, !projectNavFiles.contains(file))
+                    } else {
+                        null
+                    }
+                }
+            }
+        }
+    }
+
+    private fun readMappings(): List<Mapping> {
+        val type = object : TypeToken<List<Mapping>>() {}.type
+        val mappingsFile = File(incrementalFolder, MAPPING_FILE)
+        if (mappingsFile.exists()) {
+            return mappingsFile.reader().use { Gson().fromJson(it, type) }
+        } else {
+            return emptyList()
+        }
+    }
+
+    private fun writeMappings(mappings: List<Mapping>) {
+        File(incrementalFolder, MAPPING_FILE).writer().use { Gson().toJson(mappings, it) }
+    }
+
     private fun failIfErrors(errors: List<ErrorMessage>) {
         if (errors.isNotEmpty()) {
             val errString = errors.joinToString("\n") { it.toClickableText() }
@@ -132,4 +193,8 @@ private fun ErrorMessage.toClickableText() = "$path:$line:$column " +
         "(${File(path).name}:$line): \n" +
         "error: $message"
 
-private data class Mapping(val navFile: String, val javaFiles: List<String>)
+private data class Mapping(
+    val navFile: String,
+    val javaFiles: List<String>,
+    val includedNavFiles: List<String>
+)
