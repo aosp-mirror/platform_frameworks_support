@@ -16,6 +16,24 @@
       "revId": "4f3e42c3237d5a0a20bdc02c7b6a073dd62c8196",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f093e462_fe3d475a",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-07T11:54:44Z",
+      "side": 1,
+      "message": "Yeah, about potential side effects, that\u0027s why I have Adam on the cl too.\nTbh, I\u0027m okay with a side effect of the backgroundspan not appearing at all than it being preserved where it is not supposed to.\nFrom my tests, it seems to work fine, but I\u0027m happy for folks to scrutinize this cl.",
+      "parentUuid": "05185b59_85dc5048",
+      "revId": "4f3e42c3237d5a0a20bdc02c7b6a073dd62c8196",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
