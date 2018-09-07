@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,9 @@
 
 package androidx.navigation.safe.args.generator.models
 
+import java.io.File
+
 /**
- * Represents an <action> tag.
+ * Represents a navigation xml file.
  */
-data class Action(
-    val id: ResReference,
-    val destination: ResReference?,
-    val args: List<Argument> = emptyList()
-)
+data class NavFile(val file: File, val isLibraryFile: Boolean)

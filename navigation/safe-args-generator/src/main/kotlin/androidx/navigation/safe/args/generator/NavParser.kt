@@ -22,13 +22,15 @@ import androidx.navigation.safe.args.generator.ext.toCamelCase
 import androidx.navigation.safe.args.generator.models.Action
 import androidx.navigation.safe.args.generator.models.Argument
 import androidx.navigation.safe.args.generator.models.Destination
+import androidx.navigation.safe.args.generator.models.IncludedDestination
+import androidx.navigation.safe.args.generator.models.NavFile
 import androidx.navigation.safe.args.generator.models.ResReference
-import java.io.File
 import java.io.FileReader
 
 private const val TAG_NAVIGATION = "navigation"
 private const val TAG_ACTION = "action"
 private const val TAG_ARGUMENT = "argument"
+private const val TAG_INCLUDE = "include"
 
 private const val ATTRIBUTE_ID = "id"
 private const val ATTRIBUTE_DESTINATION = "destination"
@@ -37,6 +39,7 @@ private const val ATTRIBUTE_NAME = "name"
 private const val ATTRIBUTE_TYPE = "argType"
 private const val ATTRIBUTE_TYPE_DEPRECATED = "type"
 private const val ATTRIBUTE_NULLABLE = "nullable"
+private const val ATTRIBUTE_GRAPH = "graph"
 
 const val VALUE_NULL = "@null"
 private const val VALUE_TRUE = "true"
@@ -54,15 +57,19 @@ internal class NavParser(
 
     companion object {
         fun parseNavigationFile(
-            navigationXml: File,
+            navigationFile: NavFile,
             rFilePackage: String,
             applicationId: String,
             context: Context
         ): Destination {
-            FileReader(navigationXml).use { reader ->
-                val parser = XmlPositionParser(navigationXml.path, reader, context.logger)
+            FileReader(navigationFile.file).use { reader ->
+                val parser = XmlPositionParser(navigationFile.file.path, reader, context.logger)
                 parser.traverseStartTags { true }
-                return NavParser(parser, context, rFilePackage, applicationId).parseDestination()
+                    return NavParser(
+                            parser = parser,
+                            context = context,
+                            rFilePackage = rFilePackage,
+                            applicationId = applicationId).parseDestination()
             }
         }
     }
@@ -75,10 +82,12 @@ internal class NavParser(
         val args = mutableListOf<Argument>()
         val actions = mutableListOf<Action>()
         val nested = mutableListOf<Destination>()
+        val included = mutableListOf<IncludedDestination>()
         parser.traverseInnerStartTags {
             when {
                 parser.name() == TAG_ACTION -> actions.add(parseAction())
                 parser.name() == TAG_ARGUMENT -> args.add(parseArgument())
+                parser.name() == TAG_INCLUDE -> included.add(parseIncludeDestination())
                 type == TAG_NAVIGATION -> nested.add(parseDestination())
             }
         }
@@ -102,7 +111,25 @@ internal class NavParser(
             return context.createStubDestination()
         }
 
-        return Destination(id, className, type, args, actions, nested)
+        return Destination(id, className, type, args, actions, nested, included)
+    }
+
+    private fun parseIncludeDestination(): IncludedDestination {
+        val xmlPosition = parser.xmlPosition()
+
+        val graphValue = parser.attrValue(NAMESPACE_RES_AUTO, ATTRIBUTE_GRAPH)
+        if (graphValue == null) {
+            context.logger.error(NavParserErrors.MISSING_GRAPH_ATTR, xmlPosition)
+            return context.createStubIncludedDestination()
+        }
+
+        val graphRef = parseReference(graphValue, rFilePackage)
+        if (graphRef == null || graphRef.resType != "navigation") {
+            context.logger.error(NavParserErrors.invalidNavReference(graphValue), xmlPosition)
+            return context.createStubIncludedDestination()
+        }
+
+        return IncludedDestination(graphRef)
     }
 
     private fun parseArgument(): Argument {

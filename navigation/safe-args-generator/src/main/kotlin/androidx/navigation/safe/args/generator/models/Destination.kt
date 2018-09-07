@@ -19,13 +19,18 @@ package androidx.navigation.safe.args.generator.models
 import androidx.navigation.safe.args.generator.ext.toCamelCase
 import com.squareup.javapoet.ClassName
 
+/**
+ * Represents a destination tag, such as <fragment>, <activity>, another <navigation> or a user
+ * defined navigator tag.
+ */
 data class Destination(
     val id: ResReference?,
     val name: ClassName?,
     val type: String,
     val args: List<Argument>,
     val actions: List<Action>,
-    val nested: List<Destination> = emptyList()
+    val nested: List<Destination> = emptyList(),
+    val included: List<IncludedDestination> = emptyList()
 ) {
 
     companion object {

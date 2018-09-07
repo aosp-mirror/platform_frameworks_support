@@ -17,11 +17,13 @@
 package androidx.navigation.safeargs.gradle
 
 import androidx.navigation.safe.args.generator.ErrorMessage
-import androidx.navigation.safe.args.generator.generateSafeArgs
+import androidx.navigation.safe.args.generator.NavSafeArgsGenerator
+import androidx.navigation.safe.args.generator.models.NavFile
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
+import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputDirectory
@@ -45,15 +47,23 @@ open class ArgumentsGenerationTask : DefaultTask() {
     lateinit var outputDir: File
 
     @get:InputFiles
-    var navigationFiles: List<File> = emptyList()
+    var resDirectories: List<File> = emptyList()
+
+    var librariesResDirectories: FileCollection? = null
 
     @get:OutputDirectory
     lateinit var incrementalFolder: File
 
-    private fun generateArgs(navFiles: Collection<File>, out: File) = navFiles.map { file ->
-        val output = generateSafeArgs(rFilePackage, applicationId, file, out, useAndroidX)
-        Mapping(file.relativeTo(project.projectDir).path, output.fileNames) to output.errors
-    }.unzip().let { (mappings, errorLists) -> mappings to errorLists.flatten() }
+    private fun generateArgs(navFiles: Collection<NavFile>, out: File) =
+            NavSafeArgsGenerator(
+                    navigationFiles = navFiles,
+                    rFilePackage = rFilePackage,
+                    applicationId = applicationId,
+                    outputDir = out,
+                    useAndroidX = useAndroidX).generate().map { output ->
+                Mapping(output.source.file.relativeTo(project.projectDir).path,
+                        output.fileNames) to output.errors
+            }.unzip().let { (mappings, errorLists) -> mappings to errorLists.flatten() }
 
     private fun writeMappings(mappings: List<Mapping>) {
         File(incrementalFolder, MAPPING_FILE).writer().use { Gson().toJson(mappings, it) }
@@ -87,7 +97,10 @@ open class ArgumentsGenerationTask : DefaultTask() {
         if (!outputDir.exists() && !outputDir.mkdirs()) {
             throw GradleException("Failed to create directory for navigation arguments")
         }
-        val (mappings, errors) = generateArgs(navigationFiles, outputDir)
+        val navFiles = getNavigationFiles(resDirectories).map { NavFile(it, false) }
+        val libraryNavFiles = getNavigationFiles(librariesResDirectories?.files ?: emptySet())
+                .map { NavFile(it, true) }
+        val (mappings, errors) = generateArgs(navFiles + libraryNavFiles, outputDir)
         writeMappings(mappings)
         failIfErrors(errors)
     }
@@ -99,7 +112,7 @@ open class ArgumentsGenerationTask : DefaultTask() {
         inputs.removed { change -> removedFiles.add(change.file) }
 
         val oldMapping = readMappings()
-        val (newMapping, errors) = generateArgs(modifiedFiles, outputDir)
+        val (newMapping, errors) = generateArgs(modifiedFiles.map { NavFile(it, false) }, outputDir)
         val newJavaFiles = newMapping.flatMap { it.javaFiles }.toSet()
         val changedInputs = removedFiles + modifiedFiles
         val (modified, unmodified) = oldMapping.partition {
@@ -117,6 +130,16 @@ open class ArgumentsGenerationTask : DefaultTask() {
         writeMappings(unmodified + newMapping)
         failIfErrors(errors)
     }
+
+    private fun getNavigationFiles(resDirectories: Collection<File>) = resDirectories
+            .mapNotNull {
+                File(it, "navigation").let { navFolder ->
+                    if (navFolder.exists() && navFolder.isDirectory) navFolder else null
+                }
+            }
+            .flatMap { navFolder -> navFolder.listFiles().asIterable() }
+            .groupBy { file -> file.name }
+            .map { entry -> entry.value.last() }
 
     private fun failIfErrors(errors: List<ErrorMessage>) {
         if (errors.isNotEmpty()) {

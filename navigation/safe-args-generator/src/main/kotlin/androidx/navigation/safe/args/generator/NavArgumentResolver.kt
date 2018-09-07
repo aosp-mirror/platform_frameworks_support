@@ -20,11 +20,16 @@ import androidx.navigation.safe.args.generator.models.Argument
 import androidx.navigation.safe.args.generator.models.Destination
 import androidx.navigation.safe.args.generator.models.ResReference
 
+/**
+ * Resolves action arguments with the action's defined destination arguments, merging them if
+ * possible.
+ */
 fun resolveArguments(rootDestination: Destination): Destination {
     val destinations = mutableMapOf<ResReference, Destination>()
 
     fun dfs(dest: Destination): Destination {
-        val nested = dest.nested.filter { it.id != null }.associateBy { it.id!! }
+        val nested = (dest.nested + dest.included.mapNotNull { it.actual })
+                .filter { it.id != null }.associateBy { it.id!! }
         destinations.putAll(nested)
         val resolvedActions = dest.actions.map { action ->
             val actionDestination = destinations[action.destination]
