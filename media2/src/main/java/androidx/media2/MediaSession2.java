@@ -605,27 +605,27 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
     }
 
     /**
-     * Sets the data source missing helper. Helper will be used to provide default implementation of
+     * Sets the media item missing helper. Helper will be used to provide default implementation of
      * {@link MediaPlaylistAgent} when it isn't set by developer.
      * <p>
      * Default implementation of the {@link MediaPlaylistAgent} will call helper when a
-     * {@link MediaItem2} in the playlist doesn't have a {@link DataSourceDesc2}. This may happen
+     * {@link MediaItem2} in the playlist doesn't have a {@link MediaItem2}. This may happen
      * when
      * <ul>
      *      <li>{@link MediaItem2} specified by {@link #setPlaylist(List, MediaMetadata2)} doesn't
-     *          have {@link DataSourceDesc2}</li>
+     *          have {@link MediaItem2}</li>
      *      <li>{@link MediaController2#addPlaylistItem(int, MediaItem2)} is called and accepted
      *          by {@link SessionCallback#onCommandRequest(
      *          MediaSession2, ControllerInfo, SessionCommand2)}.
-     *          In that case, an item would be added automatically without the data source.</li>
+     *          In that case, an item would be added automatically without the media item.</li>
      * </ul>
      * <p>
-     * If it's not set, playback wouldn't happen for the item without data source descriptor.
+     * If it's not set, playback wouldn't happen for the item without media item descriptor.
      * <p>
      * The helper will be run on the executor that was specified by
      * {@link Builder#setSessionCallback(Executor, SessionCallback)}.
      *
-     * @param helper a data source missing helper.
+     * @param helper a media item missing helper.
      * @throws IllegalStateException when the helper is set when the playlist agent is set
      * @see #setPlaylist(List, MediaMetadata2)
      * @see SessionCallback#onCommandRequest(MediaSession2, ControllerInfo, SessionCommand2)
@@ -638,7 +638,7 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
     }
 
     /**
-     * Clears the data source missing helper.
+     * Clears the media item missing helper.
      *
      * @see #setOnDataSourceMissingHelper(OnDataSourceMissingHelper)
      */
@@ -674,8 +674,8 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
      * list. Wait for {@link SessionCallback#onPlaylistChanged(MediaSession2, MediaPlaylistAgent,
      * List, MediaMetadata2)} to know the operation finishes.
      * <p>
-     * You may specify a {@link MediaItem2} without {@link DataSourceDesc2}. In that case,
-     * {@link MediaPlaylistAgent} has responsibility to dynamically query {link DataSourceDesc2}
+     * You may specify a {@link MediaItem2} without {@link MediaItem2}. In that case,
+     * {@link MediaPlaylistAgent} has responsibility to dynamically query {link MediaItem2}
      * when such media item is ready for preparation or play. Default implementation needs
      * {@link OnDataSourceMissingHelper} for such case.
      * <p>
@@ -894,26 +894,26 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
 
     /**
      * Interface definition of a callback to be invoked when a {@link MediaItem2} in the playlist
-     * didn't have a {@link DataSourceDesc2} but it's needed now for preparing or playing it.
+     * didn't have a {@link MediaItem2} but it's needed now for preparing or playing it.
      *
      * #see #setOnDataSourceMissingHelper
      */
     public interface OnDataSourceMissingHelper {
         /**
-         * Called when a {@link MediaItem2} in the playlist didn't have a {@link DataSourceDesc2}
-         * but it's needed now for preparing or playing it. Returned data source descriptor will be
+         * Called when a {@link MediaItem2} in the playlist didn't have a {@link MediaItem2}
+         * but it's needed now for preparing or playing it. Returned media item descriptor will be
          * sent to the player directly to prepare or play the contents.
          * <p>
-         * An exception may be thrown if the returned {@link DataSourceDesc2} is duplicated in the
+         * An exception may be thrown if the returned {@link MediaItem2} is duplicated in the
          * playlist, so items cannot be differentiated.
          *
          * @param session the session for this event
          * @param item media item from the controller
-         * @return a data source descriptor if the media item. Can be {@code null} if the content
+         * @return a media item descriptor if the media item. Can be {@code null} if the content
          *        isn't available.
          */
         @Nullable
-        DataSourceDesc2 onDataSourceMissing(@NonNull MediaSession2 session,
+        MediaItem2 onDataSourceMissing(@NonNull MediaSession2 session,
                 @NonNull MediaItem2 item);
     }
 
@@ -1223,7 +1223,7 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
 
         /**
          * Called when the player is <i>prepared</i>, i.e. it is ready to play the content
-         * referenced by the given data source.
+         * referenced by the given media item.
          * @param session the session for this event
          * @param player the player for this event
          * @param item the media item for which buffering is happening
@@ -1242,7 +1242,7 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
                 @NonNull MediaPlayerConnector player, @PlayerState int state) { }
 
         /**
-         * Called to report buffering events for a data source.
+         * Called to report buffering events for a media item.
          *
          * @param session the session for this event
          * @param player the player for this event
