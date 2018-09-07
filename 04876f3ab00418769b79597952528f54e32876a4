@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4eeb7ea0_eefec77b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-07T08:26:50Z",
+      "side": 1,
+      "message": "Just out of curiosity, how legacy Linkify API manages to persist the LinkMovementMethod across orientation change then?",
+      "revId": "04876f3ab00418769b79597952528f54e32876a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9839d6f0_b5dda26d",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-07T08:26:50Z",
+      "side": 1,
+      "message": "Just to make sure I follow\u003e\n1. Last time, we decide to use TCM.getTextClassifier here because TextClassifier can\u0027t be persisted across orientation change. But it is now \"fixed\" by not persisting the spans at all. So we can take a TextClasifier here?\n\n2. Should we move this to TextLinksParam, so it is an optional?\n\n3. If it should not be optional, should we remove TCM.setTextClassifier?\n   After all the changes recently, it is not obvious to me what is TCM.setTextClassifier for.\n   It seems like TCM is just used to retrieve the default TextClassifier now?",
+      "revId": "04876f3ab00418769b79597952528f54e32876a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
