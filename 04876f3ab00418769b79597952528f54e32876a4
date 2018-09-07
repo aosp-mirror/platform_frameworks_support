@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "48963609_39f1e2e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-07T15:23:32Z",
+      "side": 1,
+      "message": "Gotcha.",
+      "parentUuid": "c60ae3fb_6a5e507e",
+      "revId": "04876f3ab00418769b79597952528f54e32876a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9839d6f0_b5dda26d",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 2
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "TCM.setTC(tc) is for overriding the default TC. If an app wants a custom default TC instead of the platform default. It\u0027s probably more useful on the platform where we automatically use the default TC for things like smart selection, but I think it can also be useful for Android X clients too.\ne.g. You only need to do TCM.setTC(new GMSCoreTC(...)) once in your app. Every other time, you just need to get your default TC by calling TCM.getTC().",
       "parentUuid": "9839d6f0_b5dda26d",
+      "revId": "04876f3ab00418769b79597952528f54e32876a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc41bf31_778dc27c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-07T15:23:32Z",
+      "side": 1,
+      "message": "Agree, but it will be nothing more than a simple cache :)",
+      "parentUuid": "00528376_9331ac45",
       "revId": "04876f3ab00418769b79597952528f54e32876a4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
