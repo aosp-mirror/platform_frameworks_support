@@ -104,7 +104,14 @@ public class WorkerWrapperTest extends DatabaseTest {
     @Before
     public void setUp() {
         mContext = InstrumentationRegistry.getTargetContext();
-        mConfiguration = new Configuration.Builder().build();
+        mConfiguration = new Configuration.Builder()
+                .setExecutor(new Executor() {
+                    @Override
+                    public void execute(@NonNull Runnable command) {
+                        command.run();
+                    }
+                })
+                .build();
         mWorkTaskExecutor = new InstantWorkTaskExecutor();
         mWorkSpecDao = spy(mDatabase.workSpecDao());
         mDependencyDao = mDatabase.dependencyDao();
@@ -613,7 +620,8 @@ public class WorkerWrapperTest extends DatabaseTest {
                 new Extras(Data.EMPTY,
                         Collections.<String>emptyList(),
                         new Extras.RuntimeExtras(),
-                        1));
+                        1,
+                        mSynchronousExecutor));
 
         assertThat(worker, is(notNullValue()));
         assertThat(worker.getApplicationContext(), is(equalTo(mContext.getApplicationContext())));
@@ -631,7 +639,11 @@ public class WorkerWrapperTest extends DatabaseTest {
         Worker worker = WorkerWrapper.workerFromWorkSpec(
                 mContext,
                 getWorkSpec(work),
-                new Extras(input, Collections.<String>emptyList(), new Extras.RuntimeExtras(), 1));
+                new Extras(input,
+                        Collections.<String>emptyList(),
+                        new Extras.RuntimeExtras(),
+                        1,
+                        mSynchronousExecutor));
 
         assertThat(worker, is(notNullValue()));
         assertThat(worker.getInputData().getString(key), is(expectedValue));
@@ -643,7 +655,8 @@ public class WorkerWrapperTest extends DatabaseTest {
                 new Extras(Data.EMPTY,
                         Collections.<String>emptyList(),
                         new Extras.RuntimeExtras(),
-                        1));
+                        1,
+                        mSynchronousExecutor));
 
         assertThat(worker, is(notNullValue()));
         assertThat(worker.getInputData().size(), is(0));
@@ -664,7 +677,8 @@ public class WorkerWrapperTest extends DatabaseTest {
                 new Extras(Data.EMPTY,
                         Arrays.asList("one", "two", "three"),
                         new Extras.RuntimeExtras(),
-                        1));
+                        1,
+                        mSynchronousExecutor));
 
         assertThat(worker, is(notNullValue()));
         assertThat(worker.getTags(), containsInAnyOrder("one", "two", "three"));
@@ -682,7 +696,11 @@ public class WorkerWrapperTest extends DatabaseTest {
         Worker worker = WorkerWrapper.workerFromWorkSpec(
                 mContext,
                 getWorkSpec(work),
-                new Extras(Data.EMPTY, Collections.<String>emptyList(), runtimeExtras, 1));
+                new Extras(Data.EMPTY,
+                        Collections.<String>emptyList(),
+                        runtimeExtras,
+                        1,
+                        mSynchronousExecutor));
 
         assertThat(worker, is(notNullValue()));
         assertThat(worker.getTriggeredContentAuthorities(),
@@ -762,7 +780,8 @@ public class WorkerWrapperTest extends DatabaseTest {
                 new Extras(Data.EMPTY,
                         Collections.<String>emptyList(),
                         new Extras.RuntimeExtras(),
-                        1));
+                        1,
+                        mSynchronousExecutor));
         assertThat(worker, is(notNullValue()));
         assertThat(worker.isStopped(), is(false));
 
@@ -791,7 +810,8 @@ public class WorkerWrapperTest extends DatabaseTest {
                 new Extras(Data.EMPTY,
                         Collections.<String>emptyList(),
                         new Extras.RuntimeExtras(),
-                        1));
+                        1,
+                        mSynchronousExecutor));
         assertThat(worker, is(notNullValue()));
         assertThat(worker.isStopped(), is(false));
 

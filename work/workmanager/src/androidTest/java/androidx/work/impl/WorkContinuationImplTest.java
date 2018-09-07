@@ -64,7 +64,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.Executors;
+import java.util.concurrent.Executor;
 
 
 @RunWith(AndroidJUnit4.class)
@@ -101,7 +101,12 @@ public class WorkContinuationImplTest extends WorkManagerTest {
         mScheduler = mock(Scheduler.class);
         Context context = InstrumentationRegistry.getTargetContext();
         mConfiguration = new Configuration.Builder()
-                .setExecutor(Executors.newSingleThreadExecutor())
+                .setExecutor(new Executor() {
+                    @Override
+                    public void execute(@NonNull Runnable command) {
+                        command.run();
+                    }
+                })
                 .build();
 
         mWorkManagerImpl =
