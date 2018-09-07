@@ -84,10 +84,8 @@
     <!-- Placeholder text indicating that the user is currently casting screen. [CHAR LIMIT=50] -->
     <string name="mr_controller_casting_screen">Casting screen</string>
 
-    <!-- Text for error alert when a video container is not valid for progressive download/playback. -->
-    <string name="VideoView2_error_text_invalid_progressive_playback">This video isn\'t valid for streaming to this device.</string>
     <!-- Text for error alert when a video cannot be played. It can be used by any app. -->
-    <string name="VideoView2_error_text_unknown">Can\'t play this video.</string>
+    <string name="VideoView2_error_text">Couldn\'t play the item you requested</string>
     <!-- Button to close error alert when a video cannot be played. -->
     <string name="VideoView2_error_button">OK</string>
 
