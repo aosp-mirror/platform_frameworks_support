@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "c60ae3fb_6a5e507e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-07T11:51:31Z",
+      "side": 1,
+      "message": "It\u0027s preserved across orientation change because the system keeps the TextLinkSpan references across orientation changes. However if the activity is destroyed, nothing is preserved.\n\nSure, we can talk next week.",
+      "parentUuid": "65b7c259_287ed8d6",
+      "revId": "04876f3ab00418769b79597952528f54e32876a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9839d6f0_b5dda26d",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 2
@@ -66,6 +84,24 @@
       "writtenOn": "2018-09-07T08:26:50Z",
       "side": 1,
       "message": "Just to make sure I follow\u003e\n1. Last time, we decide to use TCM.getTextClassifier here because TextClassifier can\u0027t be persisted across orientation change. But it is now \"fixed\" by not persisting the spans at all. So we can take a TextClasifier here?\n\n2. Should we move this to TextLinksParam, so it is an optional?\n\n3. If it should not be optional, should we remove TCM.setTextClassifier?\n   After all the changes recently, it is not obvious to me what is TCM.setTextClassifier for.\n   It seems like TCM is just used to retrieve the default TextClassifier now?",
+      "revId": "04876f3ab00418769b79597952528f54e32876a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00528376_9331ac45",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-07T11:51:31Z",
+      "side": 1,
+      "message": "TCM.setTC(tc) is for overriding the default TC. If an app wants a custom default TC instead of the platform default. It\u0027s probably more useful on the platform where we automatically use the default TC for things like smart selection, but I think it can also be useful for Android X clients too.\ne.g. You only need to do TCM.setTC(new GMSCoreTC(...)) once in your app. Every other time, you just need to get your default TC by calling TCM.getTC().",
+      "parentUuid": "9839d6f0_b5dda26d",
       "revId": "04876f3ab00418769b79597952528f54e32876a4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
