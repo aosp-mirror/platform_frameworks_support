@@ -67,7 +67,7 @@ class InvalidXmlTest(private val testCase: ErrorMessage) {
         val context = Context()
         val navigationXml = testData("invalid_xmls/${testCase.path}")
         val expectedError = testCase.copy(path = navigationXml.path)
-        NavParser.parseNavigationFile(navigationXml, "a.b", "foo.app", context)
+        NavParser.parseNavigationFile(navigationXml, "a.b", "foo.app", context, emptyList())
         val messages = context.logger.allMessages()
         assertThat(messages.size, `is`(1))
         assertThat(messages.first(), `is`(expectedError))

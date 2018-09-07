@@ -36,7 +36,7 @@ class NavParserTest {
     fun testNaiveGraph() {
         val id: (String) -> ResReference = { id -> ResReference("a.b", "id", id) }
         val navGraph = NavParser.parseNavigationFile(testData("naive_test.xml"),
-            "a.b", "foo.app", Context())
+            "a.b", "foo.app", Context(), emptyList())
 
         val nameFirst = ClassName.get("androidx.navigation.testapp", "MainFragment")
         val nameNext = ClassName.get("foo.app", "NextFragment")
@@ -72,7 +72,48 @@ class NavParserTest {
     fun testNestedGraph() {
         val id: (String) -> ResReference = { id -> ResReference("a.b", "id", id) }
         val navGraph = NavParser.parseNavigationFile(testData("nested_login_test.xml"),
-                "a.b", "foo.app", Context())
+                "a.b", "foo.app", Context(), emptyList())
+
+        val expectedMainFragment = Destination(
+                id = id("main_fragment"),
+                name = ClassName.get("foo.app", "MainFragment"),
+                type = "fragment",
+                args = emptyList(),
+                actions = listOf(Action(id("start_login"), id("login"))))
+
+        val expectedNestedFragment1 = Destination(
+                id = id("login_fragment"),
+                name = ClassName.get("foo.app", "LoginFragment"),
+                type = "fragment",
+                args = emptyList(),
+                actions = listOf(Action(id("register"), id("register_fragment"))))
+
+        val expectedNestedFragment2 = Destination(
+                id = id("register_fragment"),
+                name = ClassName.get("foo.app", "RegisterFragment"),
+                type = "fragment",
+                args = emptyList(),
+                actions = emptyList())
+
+        val expectedNestedGraph = Destination(
+                id = id("login"),
+                name = ClassName.get("a.b", "Login"),
+                type = "navigation",
+                args = emptyList(),
+                actions = listOf(Action(id("action_done"), null)),
+                nested = listOf(expectedNestedFragment1, expectedNestedFragment2))
+
+        val expectedGraph = Destination(null, null, "navigation", emptyList(), emptyList(),
+                listOf(expectedMainFragment, expectedNestedGraph))
+
+        assertThat(navGraph, `is`(expectedGraph))
+    }
+
+    @Test
+    fun testNestedIncludeGraph() {
+        val id: (String) -> ResReference = { id -> ResReference("a.b", "id", id) }
+        val navGraph = NavParser.parseNavigationFile(testData("nested_include_login_test.xml"),
+                "a.b", "foo.app", Context(), listOf(testData("to_include_login_test.xml")))
 
         val expectedMainFragment = Destination(
                 id = id("main_fragment"),

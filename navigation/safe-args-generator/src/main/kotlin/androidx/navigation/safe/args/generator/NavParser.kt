@@ -29,6 +29,7 @@ import java.io.FileReader
 private const val TAG_NAVIGATION = "navigation"
 private const val TAG_ACTION = "action"
 private const val TAG_ARGUMENT = "argument"
+private const val TAG_INCLUDE = "include"
 
 private const val ATTRIBUTE_ID = "id"
 private const val ATTRIBUTE_DESTINATION = "destination"
@@ -37,6 +38,7 @@ private const val ATTRIBUTE_NAME = "name"
 private const val ATTRIBUTE_TYPE = "argType"
 private const val ATTRIBUTE_TYPE_DEPRECATED = "type"
 private const val ATTRIBUTE_NULLABLE = "nullable"
+private const val ATTRIBUTE_GRAPH = "graph"
 
 const val VALUE_NULL = "@null"
 private const val VALUE_TRUE = "true"
@@ -49,7 +51,8 @@ internal class NavParser(
     private val parser: XmlPositionParser,
     private val context: Context,
     private val rFilePackage: String,
-    private val applicationId: String
+    private val applicationId: String,
+    private val additionalNavigationFiles: Collection<File>
 ) {
 
     companion object {
@@ -57,12 +60,14 @@ internal class NavParser(
             navigationXml: File,
             rFilePackage: String,
             applicationId: String,
-            context: Context
+            context: Context,
+            navigationFiles: Collection<File>
         ): Destination {
             FileReader(navigationXml).use { reader ->
                 val parser = XmlPositionParser(navigationXml.path, reader, context.logger)
                 parser.traverseStartTags { true }
-                return NavParser(parser, context, rFilePackage, applicationId).parseDestination()
+                return NavParser(parser, context, rFilePackage, applicationId, navigationFiles)
+                        .parseDestination()
             }
         }
     }
@@ -79,6 +84,7 @@ internal class NavParser(
             when {
                 parser.name() == TAG_ACTION -> actions.add(parseAction())
                 parser.name() == TAG_ARGUMENT -> args.add(parseArgument())
+                parser.name() == TAG_INCLUDE -> nested.add(parseIncludeDestination())
                 type == TAG_NAVIGATION -> nested.add(parseDestination())
             }
         }
@@ -103,6 +109,38 @@ internal class NavParser(
         }
 
         return Destination(id, className, type, args, actions, nested)
+    }
+
+    private fun parseIncludeDestination(): Destination {
+        val position = parser.xmlPosition()
+
+        val graphValue = parser.attrValue(NAMESPACE_RES_AUTO, ATTRIBUTE_GRAPH)
+        if (graphValue == null) {
+            context.logger.error(NavParserErrors.MISSING_GRAPH_ATTR, position)
+            return context.createStubDestination()
+        }
+
+        val graph = parseReference(graphValue, rFilePackage)
+        if (graph == null || graph.resType != "navigation") {
+            context.logger.error(NavParserErrors.invalidNavReference(graphValue), position)
+            return context.createStubDestination()
+        }
+
+        // TODO: Handle circular nav includes
+        val includeNavigationFile = additionalNavigationFiles.firstOrNull {
+            it.name == "${graph.name}.xml" // TODO: Use a better comparison
+        }
+        if (includeNavigationFile == null) {
+            context.logger.error(NavParserErrors.unabletoFindIncludedNavFile(graph.name), position)
+            return context.createStubDestination()
+        }
+
+        return parseNavigationFile(
+                navigationXml = includeNavigationFile,
+                context = context,
+                rFilePackage = rFilePackage,
+                applicationId = applicationId,
+                navigationFiles = emptyList())
     }
 
     private fun parseArgument(): Argument {
