@@ -34,6 +34,24 @@
       "revId": "fce0cdb245e8b4559b74e351a24be8d2bec236ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17996703_0d23c083",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-07T15:10:33Z",
+      "side": 1,
+      "message": "The \"tcm.mAppContext !\u003d appContex\" and the WeakReference part.\n\nappContext is singleton, it would not change.\nAlso, it is not okay to hold strong reference like Activity, but it is okay to strong reference to appContext.\n\nThanks!",
+      "parentUuid": "660bd6c5_1d56e2b6",
+      "revId": "fce0cdb245e8b4559b74e351a24be8d2bec236ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
