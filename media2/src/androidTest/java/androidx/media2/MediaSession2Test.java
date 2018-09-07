@@ -222,7 +222,7 @@ public class MediaSession2Test extends MediaSession2TestBase {
                     }
                 });
 
-        mPlayer.notifyBufferingStateChanged(targetItem.getDataSourceDesc(), targetBufferingState);
+        mPlayer.notifyBufferingStateChanged(targetItem, targetBufferingState);
         assertTrue(latchForSessionCallback.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
         assertTrue(latchForControllerCallback.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
         assertEquals(targetBufferingState, controller.getBufferingState());
@@ -299,11 +299,10 @@ public class MediaSession2Test extends MediaSession2TestBase {
                         }
                     });
 
-            // Player notifies with the unknown dsd. Should be ignored.
-            mPlayer.notifyCurrentDataSourceChanged(TestUtils.createMediaItemWithMetadata()
-                    .getDataSourceDesc());
+            // Player notifies with the unknown item. Should be ignored.
+            mPlayer.notifyCurrentDataSourceChanged(TestUtils.createMediaItemWithMetadata());
             // Known DSD should be notified through the onCurrentMediaItemChanged.
-            mPlayer.notifyCurrentDataSourceChanged(currentItem.getDataSourceDesc());
+            mPlayer.notifyCurrentDataSourceChanged(currentItem);
             // Null DSD becomes null MediaItem2.
             mPlayer.notifyCurrentDataSourceChanged(null);
             assertTrue(latchForSessionCallback.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
@@ -334,7 +333,7 @@ public class MediaSession2Test extends MediaSession2TestBase {
                     }
                 }).build()) {
 
-            mPlayer.notifyMediaPrepared(currentItem.getDataSourceDesc());
+            mPlayer.notifyMediaPrepared(currentItem);
             assertTrue(latchForSessionCallback.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
             // TODO(jaewan): Test that controllers are also notified. (b/74505936)
         }
@@ -365,7 +364,7 @@ public class MediaSession2Test extends MediaSession2TestBase {
                     }
                 }).build()) {
 
-            mPlayer.notifyBufferingStateChanged(currentItem.getDataSourceDesc(), buffState);
+            mPlayer.notifyBufferingStateChanged(currentItem, buffState);
             assertTrue(latchForSessionCallback.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
             // TODO(jaewan): Test that controllers are also notified. (b/74505936)
         }
@@ -603,7 +602,7 @@ public class MediaSession2Test extends MediaSession2TestBase {
                 .setId("testSessionCallback")
                 .setSessionCallback(sHandlerExecutor, sessionCallback)
                 .build()) {
-            mPlayer.notifyMediaPrepared(testItem.getDataSourceDesc());
+            mPlayer.notifyMediaPrepared(testItem);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
     }
@@ -1174,7 +1173,7 @@ public class MediaSession2Test extends MediaSession2TestBase {
             assertEquals(aItem.getFlags(), bItem.getFlags());
             TestUtils.equals(aItem.getMetadata().toBundle(), bItem.getMetadata().toBundle());
 
-            // Note: Here it does not check whether DataSourceDesc2 are equal,
+            // Note: Here it does not check whether MediaItem2 are equal,
             // since there DataSourceDec is not comparable.
         }
     }
