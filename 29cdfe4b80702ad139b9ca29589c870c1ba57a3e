@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d1f72b77_504e2737",
+        "filename": "animation/src/main/java/androidx/animation/PathInterpolator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-09-07T22:29:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb793cb6_efb71335",
+      "range": {
+        "startLine": 159,
+        "startChar": 24,
+        "endLine": 159,
+        "endChar": 41
+      },
+      "revId": "29cdfe4b80702ad139b9ca29589c870c1ba57a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00ba9499_9b4baf56",
         "filename": "animation/src/main/java/androidx/animation/PathInterpolator.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "29cdfe4b80702ad139b9ca29589c870c1ba57a3e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00e896cd_db3ef980",
+        "filename": "animation/src/main/java/androidx/animation/PathInterpolator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-09-07T22:29:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00ba9499_9b4baf56",
+      "range": {
+        "startLine": 162,
+        "startChar": 12,
+        "endLine": 162,
+        "endChar": 41
+      },
+      "revId": "29cdfe4b80702ad139b9ca29589c870c1ba57a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c6784c00_51e17baa",
+        "filename": "animation/src/main/java/androidx/animation/PathInterpolator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-09-07T22:29:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "842580c2_e52e3f99",
+      "range": {
+        "startLine": 172,
+        "startChar": 22,
+        "endLine": 172,
+        "endChar": 38
+      },
+      "revId": "29cdfe4b80702ad139b9ca29589c870c1ba57a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e18d8d4_6a391372",
         "filename": "animation/src/main/java/androidx/animation/PathUtils.java",
         "patchSetId": 2
@@ -85,6 +157,24 @@
       "revId": "29cdfe4b80702ad139b9ca29589c870c1ba57a3e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "646eb33b_ad1fc7d3",
+        "filename": "animation/src/main/java/androidx/animation/PathUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-09-07T22:29:13Z",
+      "side": 1,
+      "message": "Yes. No functionality change.",
+      "parentUuid": "0e18d8d4_6a391372",
+      "revId": "29cdfe4b80702ad139b9ca29589c870c1ba57a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
