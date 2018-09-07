@@ -143,7 +143,7 @@ public class XMediaPlayerTest {
     @Test
     @MediumTest
     public void testPlayNullSourcePath() throws Exception {
-        ListenableFuture<CommandResult2> future = mPlayer.setMediaItem((DataSourceDesc2) null);
+        ListenableFuture<CommandResult2> future = mPlayer.setMediaItem((MediaItem2) null);
         assertEquals(XMediaPlayer.RESULT_CODE_BAD_VALUE, future.get().getResultCode());
     }
 
@@ -156,7 +156,7 @@ public class XMediaPlayerTest {
         final int seekDuration = 100;
 
         AssetFileDescriptor afd = mResources.openRawResourceFd(resid);
-        mPlayer.setMediaItem(new FileDataSourceDesc2.Builder(
+        mPlayer.setMediaItem(new FileMediaItem2.Builder(
                 afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength())
                 .build());
         AudioAttributesCompat attributes = new AudioAttributesCompat.Builder()
@@ -210,7 +210,7 @@ public class XMediaPlayerTest {
         final TestUtils.Monitor onVideoRenderingStartCalled = new TestUtils.Monitor();
         XMediaPlayer.PlayerCallback callback = new XMediaPlayer.PlayerCallback() {
             @Override
-            public void onVideoSizeChanged(XMediaPlayer mp, DataSourceDesc2 dsd, int w, int h) {
+            public void onVideoSizeChanged(XMediaPlayer mp, MediaItem2 dsd, int w, int h) {
                 if (w == 0 && h == 0) {
                     // A size of 0x0 can be sent initially one time when using NuPlayer.
                     assertFalse(onVideoSizeChangedCalled.isSignalled());
@@ -222,12 +222,12 @@ public class XMediaPlayerTest {
             }
 
             @Override
-            public void onError(XMediaPlayer mp, DataSourceDesc2 dsd, int what, int extra) {
+            public void onError(XMediaPlayer mp, MediaItem2 dsd, int what, int extra) {
                 fail("Media player had error " + what + " playing video");
             }
 
             @Override
-            public void onInfo(XMediaPlayer mp, DataSourceDesc2 dsd, int what, int extra) {
+            public void onInfo(XMediaPlayer mp, MediaItem2 dsd, int what, int extra) {
                 if (what == XMediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) {
                     onVideoRenderingStartCalled.signal();
                 }
@@ -552,14 +552,14 @@ public class XMediaPlayerTest {
 
         XMediaPlayer.PlayerCallback callback = new XMediaPlayer.PlayerCallback() {
             @Override
-            public void onInfo(XMediaPlayer mp, DataSourceDesc2 dsd, int what, int extra) {
+            public void onInfo(XMediaPlayer mp, MediaItem2 dsd, int what, int extra) {
                 if (what == MediaPlayer2.MEDIA_INFO_METADATA_UPDATE) {
                     mOnInfoCalled.signal();
                 }
             }
 
             @Override
-            public void onSubtitleData(XMediaPlayer mp, DataSourceDesc2 dsd, SubtitleData2 data) {
+            public void onSubtitleData(XMediaPlayer mp, MediaItem2 dsd, SubtitleData2 data) {
                 if (data != null && data.getData() != null) {
                     mOnSubtitleDataCalled.signal();
                 }
@@ -607,7 +607,7 @@ public class XMediaPlayerTest {
 
         XMediaPlayer.PlayerCallback callback = new XMediaPlayer.PlayerCallback() {
             @Override
-            public void onInfo(XMediaPlayer mp, DataSourceDesc2 dsd, int what, int extra) {
+            public void onInfo(XMediaPlayer mp, MediaItem2 dsd, int what, int extra) {
                 if (what == MediaPlayer2.MEDIA_INFO_METADATA_UPDATE) {
                     mOnInfoCalled.signal();
                 }
@@ -615,7 +615,7 @@ public class XMediaPlayerTest {
 
             @Override
             public void onSubtitleData(
-                    XMediaPlayer mp, DataSourceDesc2 dsd, SubtitleData2 data) {
+                    XMediaPlayer mp, MediaItem2 dsd, SubtitleData2 data) {
                 if (data != null && data.getData() != null) {
                     mOnSubtitleDataCalled.signal();
                 }
@@ -656,7 +656,7 @@ public class XMediaPlayerTest {
 
         XMediaPlayer.PlayerCallback callback = new XMediaPlayer.PlayerCallback() {
             @Override
-            public void onInfo(XMediaPlayer mp, DataSourceDesc2 dsd, int what, int extra) {
+            public void onInfo(XMediaPlayer mp, MediaItem2 dsd, int what, int extra) {
                 if (what == MediaPlayer2.MEDIA_INFO_METADATA_UPDATE) {
                     mOnInfoCalled.signal();
                 }
@@ -694,7 +694,7 @@ public class XMediaPlayerTest {
         XMediaPlayer.PlayerCallback callback = new XMediaPlayer.PlayerCallback() {
             @Override
             public void onMediaTimeDiscontinuity(
-                    XMediaPlayer mp, DataSourceDesc2 dsd, MediaTimestamp2 timestamp) {
+                    XMediaPlayer mp, MediaItem2 dsd, MediaTimestamp2 timestamp) {
                 timestamps.add(timestamp);
                 mOnMediaTimeDiscontinuityCalled.signal();
             }
@@ -746,7 +746,7 @@ public class XMediaPlayerTest {
                 TestDataSourceCallback2.fromAssetFd(mResources.openRawResourceFd(resid));
         // Test returning -1 from getSize() to indicate unknown size.
         dataSource.returnFromGetSize(-1);
-        mPlayer.setMediaItem(new CallbackDataSourceDesc2.Builder(dataSource).build());
+        mPlayer.setMediaItem(new CallbackMediaItem2.Builder(dataSource).build());
         mPlayer.prepare();
         mPlayer.play().get();
         assertTrue(mPlayer.getPlayerState() == XMediaPlayer.PLAYER_STATE_PLAYING);
@@ -761,7 +761,7 @@ public class XMediaPlayerTest {
 
         // Test reset.
         mPlayer.reset();
-        mPlayer.setMediaItem(new CallbackDataSourceDesc2.Builder(dataSource).build());
+        mPlayer.setMediaItem(new CallbackMediaItem2.Builder(dataSource).build());
 
         mPlayer.prepare();
         mPlayer.play().get();
@@ -779,7 +779,7 @@ public class XMediaPlayerTest {
     @LargeTest
     public void testNullMedia2DataSourceIsRejected() throws Exception {
         assertNotEquals(XMediaPlayer.RESULT_CODE_NO_ERROR,
-                mPlayer.setMediaItem((DataSourceDesc2) null).get().getResultCode());
+                mPlayer.setMediaItem((MediaItem2) null).get().getResultCode());
     }
 
     @Test
@@ -787,7 +787,7 @@ public class XMediaPlayerTest {
     public void testMedia2DataSourceIsClosedOnReset() throws Exception {
         TestDataSourceCallback2 dataSource = new TestDataSourceCallback2(new byte[0]);
         assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR,
-                mPlayer.setMediaItem(new CallbackDataSourceDesc2.Builder(dataSource).build()).get()
+                mPlayer.setMediaItem(new CallbackMediaItem2.Builder(dataSource).build()).get()
                         .getResultCode());
         mPlayer.reset();
         assertTrue(dataSource.isClosed());
@@ -801,7 +801,7 @@ public class XMediaPlayerTest {
         XMediaPlayer.PlayerCallback callback = new XMediaPlayer.PlayerCallback() {
             @Override
             public void onError(
-                    XMediaPlayer mp, DataSourceDesc2 dsd, int what, int extra) {
+                    XMediaPlayer mp, MediaItem2 dsd, int what, int extra) {
                 mOnErrorCalled.signal();
             }
         };
@@ -809,7 +809,7 @@ public class XMediaPlayerTest {
 
         TestDataSourceCallback2 dataSource =
                 TestDataSourceCallback2.fromAssetFd(mResources.openRawResourceFd(resid));
-        mPlayer.setMediaItem(new CallbackDataSourceDesc2.Builder(dataSource).build());
+        mPlayer.setMediaItem(new CallbackMediaItem2.Builder(dataSource).build());
 
         mPlayer.prepare().get();
 
@@ -826,12 +826,12 @@ public class XMediaPlayerTest {
 
         TestDataSourceCallback2 dataSource =
                 TestDataSourceCallback2.fromAssetFd(mResources.openRawResourceFd(resid));
-        mPlayer.setMediaItem(new CallbackDataSourceDesc2.Builder(dataSource).build());
+        mPlayer.setMediaItem(new CallbackMediaItem2.Builder(dataSource).build());
 
         XMediaPlayer.PlayerCallback callback = new XMediaPlayer.PlayerCallback() {
             @Override
             public void onError(
-                    XMediaPlayer mp, DataSourceDesc2 dsd, int what, int extra) {
+                    XMediaPlayer mp, MediaItem2 dsd, int what, int extra) {
                 mOnErrorCalled.signal();
             }
         };
@@ -852,7 +852,7 @@ public class XMediaPlayerTest {
         final long start1 = 6000;
         final long end1 = 7000;
         AssetFileDescriptor afd1 = mResources.openRawResourceFd(resid1);
-        DataSourceDesc2 dsd1 = new FileDataSourceDesc2.Builder(
+        MediaItem2 dsd1 = new FileMediaItem2.Builder(
                 afd1.getFileDescriptor(), afd1.getStartOffset(), afd1.getLength())
                 .setStartPosition(start1)
                 .setEndPosition(end1)
@@ -862,7 +862,7 @@ public class XMediaPlayerTest {
         final long start2 = 3000;
         final long end2 = 4000;
         AssetFileDescriptor afd2 = mResources.openRawResourceFd(resid2);
-        DataSourceDesc2 dsd2 = new FileDataSourceDesc2.Builder(
+        MediaItem2 dsd2 = new FileMediaItem2.Builder(
                 afd2.getFileDescriptor(), afd2.getStartOffset(), afd2.getLength())
                 .setStartPosition(start2)
                 .setEndPosition(end2)
@@ -874,7 +874,7 @@ public class XMediaPlayerTest {
 
         XMediaPlayer.PlayerCallback callback = new XMediaPlayer.PlayerCallback() {
             @Override
-            public void onInfo(MediaPlayer2 mp, DataSourceDesc2 dsd, int what, int extra) {
+            public void onInfo(MediaPlayer2 mp, MediaItem2 dsd, int what, int extra) {
                 if (what == MediaPlayer2.MEDIA_INFO_PREPARED) {
                     mOnPrepareCalled.signal();
                 } else if (what == MediaPlayer2.MEDIA_INFO_DATA_SOURCE_END) {
@@ -884,7 +884,7 @@ public class XMediaPlayerTest {
 
             @Override
             public void onCallCompleted(
-                    MediaPlayer2 mp, DataSourceDesc2 dsd, int what, int status) {
+                    MediaPlayer2 mp, MediaItem2 dsd, int what, int status) {
                 if (what == MediaPlayer2.CALL_COMPLETED_PLAY) {
                     assertTrue(status == MediaPlayer2.CALL_STATUS_NO_ERROR);
                     mOnPlayCalled.signal();
@@ -964,12 +964,12 @@ public class XMediaPlayerTest {
 
         XMediaPlayer.PlayerCallback callback = new XMediaPlayer.PlayerCallback() {
             @Override
-            public void onError(XMediaPlayer mp, DataSourceDesc2 dsd, int what, int extra) {
+            public void onError(XMediaPlayer mp, MediaItem2 dsd, int what, int extra) {
                 mOnErrorCalled.signal();
             }
         };
         mPlayer.registerPlayerCallback(mExecutor, callback);
-        mPlayer.setMediaItem(new CallbackDataSourceDesc2.Builder(dataSource).build());
+        mPlayer.setMediaItem(new CallbackMediaItem2.Builder(dataSource).build());
 
         mOnErrorCalled.reset();
 
@@ -1051,7 +1051,7 @@ public class XMediaPlayerTest {
             }
 
             @Override
-            public void onBufferingStateChanged(SessionPlayer2 player, DataSourceDesc2 desc,
+            public void onBufferingStateChanged(SessionPlayer2 player, MediaItem2 item,
                     int buffState) {
                 bufferingState.set(buffState);
                 onBufferingStateChangedCalled.signal();
@@ -1106,7 +1106,7 @@ public class XMediaPlayerTest {
     private boolean loadResource(int resid) throws Exception {
         AssetFileDescriptor afd = mResources.openRawResourceFd(resid);
         try {
-            mPlayer.setMediaItem(new FileDataSourceDesc2.Builder(
+            mPlayer.setMediaItem(new FileMediaItem2.Builder(
                     afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength()).build());
         } finally {
             // Close descriptor later when test finishes since setMediaItem is async operation.
