@@ -77,7 +77,7 @@ public class XMediaPlayer extends SessionPlayer2 {
     @GuardedBy("mStateLock")
     private @PlayerState int mState;
     @GuardedBy("mStateLock")
-    private Map<DataSourceDesc2, Integer> mDSDToBuffStateMap = new HashMap<>();
+    private Map<MediaItem2, Integer> mDSDToBuffStateMap = new HashMap<>();
 
     public XMediaPlayer(Context context) {
         mState = PLAYER_STATE_IDLE;
@@ -216,12 +216,12 @@ public class XMediaPlayer extends SessionPlayer2 {
 
     @Override
     public ListenableFuture<CommandResult2> setPlaylist(
-            List<DataSourceDesc2> list, MediaMetadata2 metadata) {
+            List<MediaItem2> list, MediaMetadata2 metadata) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public ListenableFuture<CommandResult2> setMediaItem(DataSourceDesc2 item) {
+    public ListenableFuture<CommandResult2> setMediaItem(MediaItem2 item) {
         SettableFuture<CommandResult2> future = SettableFuture.create();
         synchronized (mCallTypeAndFutures) {
             mCallTypeAndFutures.add(
@@ -232,17 +232,17 @@ public class XMediaPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> addPlaylistItem(int index, DataSourceDesc2 item) {
+    public ListenableFuture<CommandResult2> addPlaylistItem(int index, MediaItem2 item) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public ListenableFuture<CommandResult2> removePlaylistItem(DataSourceDesc2 item) {
+    public ListenableFuture<CommandResult2> removePlaylistItem(MediaItem2 item) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public ListenableFuture<CommandResult2> replacePlaylistItem(int index, DataSourceDesc2 item) {
+    public ListenableFuture<CommandResult2> replacePlaylistItem(int index, MediaItem2 item) {
         throw new UnsupportedOperationException();
     }
 
@@ -257,7 +257,7 @@ public class XMediaPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> skipToPlaylistItem(DataSourceDesc2 desc) {
+    public ListenableFuture<CommandResult2> skipToPlaylistItem(MediaItem2 desc) {
         throw new UnsupportedOperationException();
     }
 
@@ -277,7 +277,7 @@ public class XMediaPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public List<DataSourceDesc2> getPlaylist() {
+    public List<MediaItem2> getPlaylist() {
         throw new UnsupportedOperationException();
     }
 
@@ -297,7 +297,7 @@ public class XMediaPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public DataSourceDesc2 getCurrentMediaItem() {
+    public MediaItem2 getCurrentMediaItem() {
         throw new UnsupportedOperationException();
     }
 
@@ -347,16 +347,16 @@ public class XMediaPlayer extends SessionPlayer2 {
     }
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    void setBufferingState(final DataSourceDesc2 dsd, @BuffState final int state) {
+    void setBufferingState(final MediaItem2 item, @BuffState final int state) {
         Integer previousState;
         synchronized (mStateLock) {
-            previousState = mDSDToBuffStateMap.put(dsd, state);
+            previousState = mDSDToBuffStateMap.put(item, state);
         }
         if (previousState == null || previousState.intValue() != state) {
             notifyPlayerCallback(new PlayerCallbackNotifier() {
                 @Override
                 public void notify(PlayerCallback callback) {
-                    callback.onBufferingStateChanged(XMediaPlayer.this, dsd, state);
+                    callback.onBufferingStateChanged(XMediaPlayer.this, item, state);
                 }
             });
         }
@@ -382,35 +382,35 @@ public class XMediaPlayer extends SessionPlayer2 {
     class Mp2Callback extends MediaPlayer2.EventCallback {
         @Override
         public void onVideoSizeChanged(
-                MediaPlayer2 mp, DataSourceDesc2 dsd, int width, int height) {
+                MediaPlayer2 mp, MediaItem2 item, int width, int height) {
             // TODO: extend PlayerCallback to provide this event.
         }
 
         @Override
         public void onTimedMetaDataAvailable(
-                MediaPlayer2 mp, DataSourceDesc2 dsd, TimedMetaData2 data) {
+                MediaPlayer2 mp, MediaItem2 item, TimedMetaData2 data) {
             // TODO: extend PlayerCallback to provide this event.
         }
 
         @Override
-        public void onError(MediaPlayer2 mp, DataSourceDesc2 dsd, int what, int extra) {
+        public void onError(MediaPlayer2 mp, MediaItem2 item, int what, int extra) {
             setState(PLAYER_STATE_ERROR);
-            setBufferingState(dsd, BUFFERING_STATE_UNKNOWN);
+            setBufferingState(item, BUFFERING_STATE_UNKNOWN);
         }
 
         @Override
-        public void onInfo(MediaPlayer2 mp, DataSourceDesc2 dsd, int what, int extra) {
+        public void onInfo(MediaPlayer2 mp, MediaItem2 item, int what, int extra) {
             switch (what) {
                 case MediaPlayer2.MEDIA_INFO_BUFFERING_START:
-                    setBufferingState(dsd, BUFFERING_STATE_BUFFERING_AND_STARVED);
+                    setBufferingState(item, BUFFERING_STATE_BUFFERING_AND_STARVED);
                     break;
                 case MediaPlayer2.MEDIA_INFO_PREPARED:
                 case MediaPlayer2.MEDIA_INFO_BUFFERING_END:
-                    setBufferingState(dsd, BUFFERING_STATE_BUFFERING_AND_PLAYABLE);
+                    setBufferingState(item, BUFFERING_STATE_BUFFERING_AND_PLAYABLE);
                     break;
                 case MediaPlayer2.MEDIA_INFO_BUFFERING_UPDATE:
                     if (extra /* percent */ >= 100) {
-                        setBufferingState(dsd, BUFFERING_STATE_BUFFERING_COMPLETE);
+                        setBufferingState(item, BUFFERING_STATE_BUFFERING_COMPLETE);
                     }
                     break;
             }
@@ -418,7 +418,7 @@ public class XMediaPlayer extends SessionPlayer2 {
 
         @Override
         public void onCallCompleted(
-                MediaPlayer2 mp, DataSourceDesc2 dsd, int what, int status) {
+                MediaPlayer2 mp, MediaItem2 item, int what, int status) {
             Pair<Integer, SettableFuture<CommandResult2>> pair;
             synchronized (mCallTypeAndFutures) {
                 pair = mCallTypeAndFutures.pollFirst();
@@ -461,12 +461,12 @@ public class XMediaPlayer extends SessionPlayer2 {
             Integer resultCode = sResultCodeMap.get(status);
             pair.second.set(new CommandResult2(
                     resultCode == null ? RESULT_CODE_ERROR_UNKNOWN : resultCode,
-                    System.currentTimeMillis(), dsd));
+                    System.currentTimeMillis(), item));
         }
 
         @Override
         public void onMediaTimeDiscontinuity(
-                MediaPlayer2 mp, DataSourceDesc2 dsd, MediaTimestamp2 timestamp) {
+                MediaPlayer2 mp, MediaItem2 item, MediaTimestamp2 timestamp) {
             // TODO: extend PlayerCallback to provide this event.
         }
 
@@ -476,7 +476,7 @@ public class XMediaPlayer extends SessionPlayer2 {
         }
 
         @Override
-        public void onSubtitleData(MediaPlayer2 mp, DataSourceDesc2 dsd, SubtitleData2 data) {
+        public void onSubtitleData(MediaPlayer2 mp, MediaItem2 item, SubtitleData2 data) {
             // TODO: extend PlayerCallback to provide this event.
         }
     }

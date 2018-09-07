@@ -139,9 +139,10 @@ public class MediaUtils2 {
         }
 
         MediaMetadata2 metadata2 = convertToMediaMetadata2(item.getDescription());
-        return new MediaItem2.Builder(item.getFlags())
+        return new MediaItem2.Builder()
                 .setMediaId(item.getMediaId())
                 .setMetadata(metadata2)
+                .setFlags(item.getFlags())
                 .build();
     }
 
@@ -155,7 +156,8 @@ public class MediaUtils2 {
         // descriptionCompat cannot be null
         MediaDescriptionCompat descriptionCompat = item.getDescription();
         MediaMetadata2 metadata2 = convertToMediaMetadata2(descriptionCompat);
-        return new MediaItem2.Builder(FLAG_PLAYABLE).setMetadata(metadata2)
+        return new MediaItem2.Builder().setMetadata(metadata2)
+                .setFlags(FLAG_PLAYABLE)
                 .setUuid(createUuidByQueueIdAndMediaId(item.getQueueId(),
                         descriptionCompat.getMediaId()))
                 .build();
@@ -176,7 +178,7 @@ public class MediaUtils2 {
         if (metadata2 == null || metadata2.getMediaId() == null) {
             return null;
         }
-        return new MediaItem2.Builder(FLAG_PLAYABLE).setMetadata(metadata2).build();
+        return new MediaItem2.Builder().setFlags(FLAG_PLAYABLE).setMetadata(metadata2).build();
     }
 
     /**
@@ -187,7 +189,7 @@ public class MediaUtils2 {
         if (metadata2 == null || metadata2.getMediaId() == null) {
             return null;
         }
-        return new MediaItem2.Builder(FLAG_PLAYABLE).setMetadata(metadata2).build();
+        return new MediaItem2.Builder().setFlags(FLAG_PLAYABLE).setMetadata(metadata2).build();
     }
 
     /**

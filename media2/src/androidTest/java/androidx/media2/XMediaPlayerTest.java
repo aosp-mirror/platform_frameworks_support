@@ -182,7 +182,7 @@ public class XMediaPlayerTest {
             }
 
             @Override
-            public void onBufferingStateChanged(SessionPlayer2 player, DataSourceDesc2 desc,
+            public void onBufferingStateChanged(SessionPlayer2 player, MediaItem2 desc,
                     int buffState) {
                 bufferingState.set(buffState);
                 onBufferingStateChangedCalled.signal();
@@ -237,7 +237,7 @@ public class XMediaPlayerTest {
     private boolean loadResource(int resid) throws Exception {
         AssetFileDescriptor afd = mResources.openRawResourceFd(resid);
         try {
-            mPlayer.setMediaItem(new FileDataSourceDesc2.Builder(
+            mPlayer.setMediaItem(new FileMediaItem2.Builder(
                     afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength()).build());
         } finally {
             // Close descriptor later when test finishes since setMediaItem is async operation.
