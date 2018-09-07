@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "cd657417_3e0f9956",
+        "filename": "animation/integration-tests/testapp/src/androidTest/java/androidx/animation/AnimatorInflaterTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-07T00:25:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3bc3f446_6929ec9a",
+      "range": {
+        "startLine": 42,
+        "startChar": 18,
+        "endLine": 42,
+        "endChar": 35
+      },
+      "revId": "ef53c4fbc67005c3aba757579277f4ed870f1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0feb9a51_7acadd88",
         "filename": "animation/src/main/java/androidx/animation/AnimatorInflater.java",
         "patchSetId": 6
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "The check basically avoids the unnecessary set-to-default-value call to the animator, since repeat count and repeat mode are most often undefined (i.e. most animators don\u0027t repeat).",
       "parentUuid": "0feb9a51_7acadd88",
+      "range": {
+        "startLine": 307,
+        "startChar": 7,
+        "endLine": 307,
+        "endChar": 87
+      },
+      "revId": "ef53c4fbc67005c3aba757579277f4ed870f1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f4d310d2_48ccd9da",
+        "filename": "animation/src/main/java/androidx/animation/AnimatorInflater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-07T00:25:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f6f055e8_99162549",
       "range": {
         "startLine": 307,
         "startChar": 7,
@@ -190,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "c30f6e1d_90e512a2",
+        "filename": "animation/src/main/java/androidx/animation/AnimatorInflater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-07T00:25:48Z",
+      "side": 1,
+      "message": "More readable is great! Thanks!",
+      "parentUuid": "9c9cdb44_0e25b710",
+      "range": {
+        "startLine": 802,
+        "startChar": 47,
+        "endLine": 802,
+        "endChar": 86
+      },
+      "revId": "ef53c4fbc67005c3aba757579277f4ed870f1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0e9f92a_2656b58f",
         "filename": "animation/src/main/java/androidx/animation/AnimatorInflater.java",
         "patchSetId": 6
@@ -272,6 +344,30 @@
       "side": 1,
       "message": "Not really new API. See AnimationUtils in patchset #1, or here: https://cs.corp.google.com/android/frameworks/base/core/java/android/view/animation/AnimationUtils.java?rcl\u003dd54ad2ee805421de0e615b924be3ab1db906cb81\u0026l\u003d337\n\nTimeInterpolator is purely for backward compatible purposes. In fact, I\u0027m considering removing TimeInterpolator altogether in the androidx version of animators",
       "parentUuid": "5de019fc_6476b31c",
+      "range": {
+        "startLine": 960,
+        "startChar": 18,
+        "endLine": 960,
+        "endChar": 30
+      },
+      "revId": "ef53c4fbc67005c3aba757579277f4ed870f1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3486c3c_8741dd39",
+        "filename": "animation/src/main/java/androidx/animation/AnimatorInflater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-07T00:25:48Z",
+      "side": 1,
+      "message": "Oh, I somehow fell under the incorrect assumption that TimeInterpolator was new and Interpolator was the old one.  Nevermind!",
+      "parentUuid": "0ba475ad_ee67736f",
       "range": {
         "startLine": 960,
         "startChar": 18,
