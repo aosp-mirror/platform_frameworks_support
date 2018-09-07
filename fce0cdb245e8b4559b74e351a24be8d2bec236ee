@@ -52,6 +52,24 @@
       "revId": "fce0cdb245e8b4559b74e351a24be8d2bec236ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b64d455c_ea117a6e",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-07T16:01:05Z",
+      "side": 1,
+      "message": "Sure. Thanks.\nI\u0027m tempted to explicitly rename TCM.of(context) to TCM.of(appContext) and add Javadoc saying pass the appContext. I wonder if I can guarantee at runtime that an appContext is passed or if I can\u0027t trust that and have to explicitly still attempt to pull an appContext from the supplied context.",
+      "parentUuid": "17996703_0d23c083",
+      "revId": "fce0cdb245e8b4559b74e351a24be8d2bec236ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
