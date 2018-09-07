@@ -523,9 +523,9 @@ package androidx.mediarouter.media {
     method public final float getMaxPlayerVolume();
     method public final float getPlayerVolume();
     method public final int getVolumeControlType();
-    method public final void notifyBufferingStateChanged(androidx.media2.DataSourceDesc2, int);
+    method public final void notifyBufferingStateChanged(androidx.media2.MediaItem2, int);
     method public final void notifyCurrentDataSourceChanged();
-    method public final void notifyMediaPrepared(androidx.media2.DataSourceDesc2);
+    method public final void notifyMediaPrepared(androidx.media2.MediaItem2);
     method public final void notifyPlaybackCompleted();
     method public final void notifyPlaybackSpeedChanged();
     method public final void notifyPlayerStateChanged();

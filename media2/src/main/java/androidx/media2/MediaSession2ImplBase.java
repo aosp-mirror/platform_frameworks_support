@@ -60,7 +60,6 @@ import androidx.media2.MediaSession2.MediaSession2Impl;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.concurrent.Executor;
 
 class MediaSession2ImplBase implements MediaSession2Impl {
@@ -1251,7 +1250,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
         @Override
         public void onCurrentDataSourceChanged(final MediaPlayerConnector player,
-                final DataSourceDesc2 dsd) {
+                final MediaItem2 item) {
             final MediaSession2ImplBase session = getSession();
             if (session == null) {
                 return;
@@ -1259,15 +1258,8 @@ class MediaSession2ImplBase implements MediaSession2Impl {
             session.getCallbackExecutor().execute(new Runnable() {
                 @Override
                 public void run() {
-                    final MediaItem2 item;
-                    if (dsd == null) {
-                        // This is OK because onCurrentDataSourceChanged() can be called with the
-                        // null dsd, so onCurrentMediaItemChanged() can be as well.
-                        item = null;
-                    } else {
-                        item = MyPlayerEventCallback.this.getMediaItem(session, dsd);
-                        if (item == null) {
-                            Log.w(TAG, "Cannot obtain media item from the dsd=" + dsd);
+                    if (item != null) {
+                        if (getMediaItem(session, item) == null) {
                             return;
                         }
                     }
@@ -1284,18 +1276,14 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         }
 
         @Override
-        public void onMediaPrepared(final MediaPlayerConnector mpb, final DataSourceDesc2 dsd) {
+        public void onMediaPrepared(final MediaPlayerConnector mpb, final MediaItem2 item) {
             final MediaSession2ImplBase session = getSession();
-            if (session == null || dsd == null) {
+            if (session == null || item == null) {
                 return;
             }
             session.getCallbackExecutor().execute(new Runnable() {
                 @Override
                 public void run() {
-                    MediaItem2 item = MyPlayerEventCallback.this.getMediaItem(session, dsd);
-                    if (item == null) {
-                        return;
-                    }
                     if (item.equals(session.getCurrentMediaItem())) {
                         long duration = session.getDuration();
                         if (duration < 0) {
@@ -1388,18 +1376,14 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
         @Override
         public void onBufferingStateChanged(final MediaPlayerConnector mpb,
-                final DataSourceDesc2 dsd, final int state) {
+                final MediaItem2 item, final int state) {
             final MediaSession2ImplBase session = getSession();
-            if (session == null || dsd == null) {
+            if (session == null || item == null) {
                 return;
             }
             session.getCallbackExecutor().execute(new Runnable() {
                 @Override
                 public void run() {
-                    final MediaItem2 item = MyPlayerEventCallback.this.getMediaItem(session, dsd);
-                    if (item == null) {
-                        return;
-                    }
                     session.getCallback().onBufferingStateChanged(
                             session.getInstance(), mpb, item, state);
                     session.notifyToAllControllers(new NotifyRunnable() {
@@ -1463,7 +1447,8 @@ class MediaSession2ImplBase implements MediaSession2Impl {
             return session;
         }
 
-        MediaItem2 getMediaItem(MediaSession2ImplBase session, DataSourceDesc2 dsd) {
+        // TODO: Remove this
+        MediaItem2 getMediaItem(MediaSession2ImplBase session, MediaItem2 item) {
             MediaPlaylistAgent agent = session.getPlaylistAgent();
             if (agent == null) {
                 if (DEBUG) {
@@ -1471,14 +1456,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
                 }
                 return null;
             }
-            MediaItem2 item = agent.getMediaItem(dsd);
-            if (item == null) {
-                if (DEBUG) {
-                    Log.d(TAG, "Could not find matching item for dsd=" + dsd,
-                            new NoSuchElementException());
-                }
-            }
-            return item;
+            return agent.getPlaylist().contains(item) ? item : null;
         }
     }
 
