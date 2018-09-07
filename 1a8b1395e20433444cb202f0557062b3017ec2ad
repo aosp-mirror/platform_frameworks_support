@@ -94,6 +94,30 @@
       "revId": "1a8b1395e20433444cb202f0557062b3017ec2ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a4c266d_3433c029",
+        "filename": "transition/src/main/java/androidx/transition/ChangeImageTransform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-09-07T16:20:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "94c62a83_bd0469f0",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 0
+      },
+      "revId": "1a8b1395e20433444cb202f0557062b3017ec2ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
