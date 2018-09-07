@@ -138,4 +138,20 @@ public class FragmentFactory {
                     + ": calling Fragment constructor caused an exception", e);
         }
     }
+
+    /**
+     * Provide a {@link FragmentFactory} for child Fragments. When a
+     * {@link Fragment#getChildFragmentManager() child FragmentManager} does not have an explicitly
+     * set {@link FragmentFactory}, this method is called to give the parent's FragmentFactory
+     * (this object) the ability to provide a specific FragmentFactory.
+     * <p>
+     * By default, this method returns this FragmentFactory instance.
+     *
+     * @param parent The parent Fragment
+     * @return A FragmentFactory suitable for constructing child Fragments for the given parent.
+     */
+    @NonNull
+    public FragmentFactory provideChildFragmentFactory(@NonNull Fragment parent) {
+        return this;
+    }
 }

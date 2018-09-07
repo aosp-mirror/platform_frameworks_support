@@ -87,6 +87,50 @@ class FragmentFactoryTest {
         assertEquals("Child FragmentFactory should be used for inflated child Fragments",
                 1, childFragmentFactory.instantiateCount)
     }
+
+    @Test
+    @UiThreadTest
+    fun testProvideChildFragmentFactory() {
+        val parentFragmentFactory = ParentAwareFragmentFactory()
+        fragmentManager.fragmentFactory = parentFragmentFactory
+        activity.setContentView(R.layout.activity_content)
+        val fragment = ParentFragment()
+        fragmentManager.beginTransaction()
+                .replace(R.id.content, fragment)
+                .commitNow()
+        val childFactory = fragment.childFragmentManager.fragmentFactory
+        assertEquals("Child FragmentFactory should be an instance of ParentAwareFragmentFactory",
+                ParentAwareFragmentFactory::class.java, childFactory::class.java)
+        val childFragmentFactory = childFactory as ParentAwareFragmentFactory
+
+        assertEquals("FragmentFactory should not used for child Fragments when they " +
+                "have their own FragmentFactory", 0, parentFragmentFactory.instantiateCount)
+        assertEquals("Child FragmentFactory should be used for inflated child Fragments",
+                1, childFragmentFactory.instantiateCount)
+        assertEquals("Child FragmentFactory should have the correct parent",
+                fragment, childFragmentFactory.parentFragment)
+    }
+
+    @Test
+    @UiThreadTest
+    fun testChildFactoryOverridesProvideChild() {
+        val parentFragmentFactory = ParentAwareFragmentFactory()
+        fragmentManager.fragmentFactory = parentFragmentFactory
+        activity.setContentView(R.layout.activity_content)
+        val fragment = ParentFragment()
+        val childFragmentFactory = TestFragmentFactory()
+        fragmentManager.beginTransaction()
+                .replace(R.id.content, fragment.apply {
+                    factory = childFragmentFactory
+                })
+                .commitNow()
+        assertEquals("Child FragmentFactory should be the manually set Factory",
+                childFragmentFactory, fragment.childFragmentManager.fragmentFactory)
+        assertEquals("FragmentFactory should not used for child Fragments when they " +
+                "have their own FragmentFactory", 0, parentFragmentFactory.instantiateCount)
+        assertEquals("Child FragmentFactory should be used for inflated child Fragments",
+                1, childFragmentFactory.instantiateCount)
+    }
 }
 
 class ParentFragment : Fragment() {
@@ -108,11 +152,18 @@ class ParentFragment : Fragment() {
     }
 }
 
-class TestFragmentFactory : FragmentFactory() {
+open class TestFragmentFactory : FragmentFactory() {
     var instantiateCount = 0
 
     override fun instantiate(classLoader: ClassLoader, className: String, args: Bundle?): Fragment {
         instantiateCount++
         return super.instantiate(classLoader, className, args)
+    }
+}
+
+class ParentAwareFragmentFactory(val parentFragment: Fragment? = null) : TestFragmentFactory() {
+
+    override fun provideChildFragmentFactory(parent: Fragment): FragmentFactory {
+        return ParentAwareFragmentFactory(parent)
     }
 }

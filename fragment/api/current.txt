@@ -229,6 +229,7 @@ package androidx.fragment.app {
     ctor public FragmentFactory();
     method public androidx.fragment.app.Fragment instantiate(java.lang.ClassLoader, java.lang.String, android.os.Bundle);
     method public static java.lang.Class<? extends androidx.fragment.app.Fragment> loadFragmentClass(java.lang.ClassLoader, java.lang.String);
+    method public androidx.fragment.app.FragmentFactory provideChildFragmentFactory(androidx.fragment.app.Fragment);
   }
 
   public abstract class FragmentHostCallback<E> extends androidx.fragment.app.FragmentContainer {
