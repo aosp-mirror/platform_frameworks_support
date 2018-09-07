@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "665ebe77_eb663cdc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-07T09:01:37Z",
+      "side": 1,
+      "message": "Also, in your another CL, I think the span is no longer parcelable?\nSo developers are expected to call generateLinks(...).apply() after orientation change anyway, no?",
+      "parentUuid": "4eeb7ea0_eefec77b",
+      "revId": "04876f3ab00418769b79597952528f54e32876a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9839d6f0_b5dda26d",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 2
