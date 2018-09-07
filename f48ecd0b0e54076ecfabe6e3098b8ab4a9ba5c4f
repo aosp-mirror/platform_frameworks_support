@@ -22,6 +22,30 @@
       "revId": "f48ecd0b0e54076ecfabe6e3098b8ab4a9ba5c4f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f651dc35_0d5d9394",
+        "filename": "concurrent/listenable-future/src/main/java/androidx/concurrent/listenablefuture/AbstractFuture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-07T02:13:01Z",
+      "side": 0,
+      "message": "I would see a value in this if it is possible to keep line number between the original and this fork, but it seems hard or even not possible (see my next comment about that), so this interface becomes just rudimentary.",
+      "parentUuid": "91bf6243_45d8fc7b",
+      "range": {
+        "startLine": 73,
+        "startChar": 14,
+        "endLine": 73,
+        "endChar": 21
+      },
+      "revId": "f48ecd0b0e54076ecfabe6e3098b8ab4a9ba5c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }

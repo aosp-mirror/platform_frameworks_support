@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "71fea867_4c959443",
+        "filename": "concurrent/listenable-future/src/main/java/androidx/concurrent/listenablefuture/AbstractFuture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-07T02:13:01Z",
+      "side": 1,
+      "message": "It is temporary things while ListenableFuture artifact is backing. This artifact has publish\u003dfalse, so it won\u0027t ever ship with wrong ListenableFuture",
+      "parentUuid": "41435232_b36fe0f7",
+      "range": {
+        "startLine": 60,
+        "startChar": 51,
+        "endLine": 60,
+        "endChar": 67
+      },
+      "revId": "49e4b54a763d7ddb3530bcbda9c4ab77c5ed97a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "623ba80f_c5ff024d",
         "filename": "concurrent/listenable-future/src/main/java/androidx/concurrent/listenablefuture/AbstractFuture.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-07T00:49:18Z",
       "side": 1,
       "message": "why this change?",
+      "range": {
+        "startLine": 810,
+        "startChar": 24,
+        "endLine": 810,
+        "endChar": 25
+      },
+      "revId": "49e4b54a763d7ddb3530bcbda9c4ab77c5ed97a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f1e8804_0f0909ee",
+        "filename": "concurrent/listenable-future/src/main/java/androidx/concurrent/listenablefuture/AbstractFuture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-07T02:13:01Z",
+      "side": 1,
+      "message": "it is just formatting. \nI\u0027ve originally tried to avoid even formatting, but then I realized:\n- I have to change docs, because we can not (and should not) reference in docs things that are not available (Futures.transform etc)\n- I need to use our nullability annotations\n- I want to make small clean up (like this one), \n\nSo it is very hard to keep lines in fork and original aligned, so I decided it will be easier to work with it would have our formatting.",
+      "parentUuid": "623ba80f_c5ff024d",
       "range": {
         "startLine": 810,
         "startChar": 24,
