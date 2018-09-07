@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "532fd41b_4cb8e509",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2018-09-07T19:56:07Z",
+      "side": 1,
+      "message": "I\u0027m not sure I can see when I\u0027d use this method.\n\nWouldn\u0027t the factory have to introspect on the type or label of the input parent Fragment and sort of replicate the Navigation structure in order for this to do anything interesting in an override?\n\nIt seems like the FragmentManager for any given Fragment ought to override the Factory getter method if it\u0027d like for a different one to be used.\n\nI\u0027m a bit confused.",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 82
+      },
+      "revId": "db2e97f047996fd28e9b12f954f0c3d09f66ee2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
