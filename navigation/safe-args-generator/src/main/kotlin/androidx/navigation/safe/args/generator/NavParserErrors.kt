@@ -54,4 +54,11 @@ object NavParserErrors {
     fun deprecatedTypeAttrUsed(name: String) =
             "The 'type' attribute used by argument '$name' is deprecated. " +
                     "Please change all instances of 'type' in navigation resources to 'argType'."
+
+    val MISSING_GRAPH_ATTR = "Missing 'graph' attribute in <include> tag."
+
+    fun invalidNavReference(value: String) = "Failed to parse '$value' as a navigation reference." +
+            " Reference must be in format @[package:]navigation/resource_name"
+
+    fun unabletoFindIncludedNavFile(name: String) = "Unable to find navigation reference '$name'."
 }

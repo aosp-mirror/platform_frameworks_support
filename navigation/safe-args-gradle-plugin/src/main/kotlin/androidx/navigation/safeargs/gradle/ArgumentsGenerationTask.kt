@@ -45,13 +45,13 @@ open class ArgumentsGenerationTask : DefaultTask() {
     lateinit var outputDir: File
 
     @get:InputFiles
-    var navigationFiles: List<File> = emptyList()
+    var resDirectories: List<File> = emptyList()
 
     @get:OutputDirectory
     lateinit var incrementalFolder: File
 
     private fun generateArgs(navFiles: Collection<File>, out: File) = navFiles.map { file ->
-        val output = generateSafeArgs(rFilePackage, applicationId, file, out, useAndroidX)
+        val output = generateSafeArgs(rFilePackage, applicationId, file, out, useAndroidX, navFiles)
         Mapping(file.relativeTo(project.projectDir).path, output.fileNames) to output.errors
     }.unzip().let { (mappings, errorLists) -> mappings to errorLists.flatten() }
 
@@ -87,6 +87,15 @@ open class ArgumentsGenerationTask : DefaultTask() {
         if (!outputDir.exists() && !outputDir.mkdirs()) {
             throw GradleException("Failed to create directory for navigation arguments")
         }
+        val navigationFiles = resDirectories
+                .mapNotNull {
+                    File(it, "navigation").let { navFolder ->
+                        if (navFolder.exists() && navFolder.isDirectory) navFolder else null
+                    }
+                }
+                .flatMap { navFolder -> navFolder.listFiles().asIterable() }
+                .groupBy { file -> file.name }
+                .map { entry -> entry.value.last() }
         val (mappings, errors) = generateArgs(navigationFiles, outputDir)
         writeMappings(mappings)
         failIfErrors(errors)
