@@ -22,6 +22,30 @@
       "revId": "db2e97f047996fd28e9b12f954f0c3d09f66ee2f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "009e69dc_e1f7b899",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-07T20:54:07Z",
+      "side": 1,
+      "message": "I suspect most of the logic will still be in instantiate(). The problem is if instantiate() needs to know the parent Fragment.\n\nIf you want to build a FragmentFactory class that is aware of what the parent Fragment is, there\u0027s two ways to do that:\n1) Have every Fragment you create set its childFragmentManager.fragmentFactory to your custom ScopedFragmentFactory(this).\n2) Use this method to return ScopedFragmentFactory(parent) directly, no need to have code in every Fragment.\n\nThis assumes that having the parent Fragment available for your instantiate() calls is helpful, which is certainly not always the case, hence the default implementation here to not care about the parent Fragment.",
+      "parentUuid": "532fd41b_4cb8e509",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 82
+      },
+      "revId": "db2e97f047996fd28e9b12f954f0c3d09f66ee2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
