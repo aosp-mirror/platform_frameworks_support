@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "efef67b8_283b392e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-07T06:12:07Z",
+      "side": 1,
+      "message": "MediaRouteDevicePicker/CastDialog: Fix layout issues\n\nThis includes two fixes\n  - API\u003c17: Set paddings with paddingLeft/Right\n            because paddingStart/End aren\u0027t supported in API\u003c17\n  - API\u003e\u003d17: Specify textAlignment to TextViews for RTL support",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 0
+      },
+      "revId": "5c67f6c09eb3c2e6284d7c412f6ea0490967afbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
