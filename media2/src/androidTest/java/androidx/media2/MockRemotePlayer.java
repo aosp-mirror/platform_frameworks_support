@@ -135,22 +135,22 @@ public class MockRemotePlayer extends BaseRemoteMediaPlayerConnector {
     }
 
     @Override
-    public void setDataSource(DataSourceDesc2 dsd) {
+    public void setDataSource(MediaItem2 item) {
 
     }
 
     @Override
-    public void setNextDataSource(DataSourceDesc2 dsd) {
+    public void setNextDataSource(MediaItem2 item) {
 
     }
 
     @Override
-    public void setNextDataSources(List<DataSourceDesc2> dsds) {
+    public void setNextDataSources(List<MediaItem2> items) {
 
     }
 
     @Override
-    public DataSourceDesc2 getCurrentDataSource() {
+    public MediaItem2 getCurrentDataSource() {
         return null;
     }
 
