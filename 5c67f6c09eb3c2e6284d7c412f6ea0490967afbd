@@ -22,6 +22,30 @@
       "revId": "5c67f6c09eb3c2e6284d7c412f6ea0490967afbd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "079af602_983648ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-07T06:12:35Z",
+      "side": 1,
+      "message": "ALso add note that RTL isn\u0027t supported in API \u003c 17",
+      "parentUuid": "efef67b8_283b392e",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 0
+      },
+      "revId": "5c67f6c09eb3c2e6284d7c412f6ea0490967afbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
