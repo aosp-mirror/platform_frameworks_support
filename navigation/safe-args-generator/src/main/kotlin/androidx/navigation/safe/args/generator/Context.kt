@@ -18,9 +18,11 @@ package androidx.navigation.safe.args.generator
 
 import androidx.navigation.safe.args.generator.models.Argument
 import androidx.navigation.safe.args.generator.models.Destination
+import androidx.navigation.safe.args.generator.models.IncludedDestination
+import androidx.navigation.safe.args.generator.models.NavFile
 import androidx.navigation.safe.args.generator.models.ResReference
 
-internal class Context {
+internal class Context(val navFile: NavFile) {
     val logger = NavLogger()
     private var nextId = 0
 
@@ -28,6 +30,7 @@ internal class Context {
     fun createStubArg() = Argument("errorArg${next()}", StringType)
     fun createStubDestination() = Destination(createStubId(), null, "stub",
             emptyList(), emptyList())
+    fun createStubIncludedDestination() = IncludedDestination(createStubId())
 
     private fun next() = nextId++
 }

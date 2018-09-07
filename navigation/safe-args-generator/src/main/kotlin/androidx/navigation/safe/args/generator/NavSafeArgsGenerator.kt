@@ -18,44 +18,81 @@ package androidx.navigation.safe.args.generator
 
 import androidx.navigation.safe.args.generator.ext.toClassName
 import androidx.navigation.safe.args.generator.models.Destination
+import androidx.navigation.safe.args.generator.models.NavFile
 import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.JavaFile
 import java.io.File
 
-fun generateSafeArgs(
-    rFilePackage: String,
-    applicationId: String,
-    navigationXml: File,
-    outputDir: File,
-    useAndroidX: Boolean = false
-): GeneratorOutput {
-    val context = Context()
-    val rawDestination = NavParser.parseNavigationFile(navigationXml, rFilePackage, applicationId,
-            context)
-    val resolvedDestination = resolveArguments(rawDestination)
-    val javaFiles = mutableSetOf<JavaFile>()
-    fun writeJavaFiles(
-        destination: Destination,
-        parentDirectionName: ClassName?
-    ) {
-        val directionsJavaFile = if (destination.actions.isNotEmpty() ||
-                parentDirectionName != null) {
-            generateDirectionsJavaFile(destination, parentDirectionName, useAndroidX)
-        } else {
-            null
+class NavSafeArgsGenerator(
+    val navigationFiles: Collection<NavFile>,
+    val rFilePackage: String,
+    val applicationId: String,
+    val outputDir: File,
+    val useAndroidX: Boolean = false
+) {
+    private val destinationCache = mutableMapOf<NavFile, Destination>()
+
+    fun generate() = navigationFiles.filterNot { it.isLibraryFile }.map { navFile ->
+        val context = Context(navFile)
+        val destination = destinationCache.getOrPut(navFile) {
+            NavParser.parseNavigationFile(
+                    navigationFile = navFile,
+                    rFilePackage = rFilePackage,
+                    applicationId = applicationId,
+                    context = context)
         }
-        val argsJavaFile = if (destination.args.isNotEmpty()) {
-            generateArgsJavaFile(destination, useAndroidX)
-        } else {
-            null
-        }
-        directionsJavaFile?.let { javaFiles.add(it) }
-        argsJavaFile?.let { javaFiles.add(it) }
-        destination.nested.forEach { it ->
-            writeJavaFiles(it, directionsJavaFile?.toClassName())
-        }
+        context to destination
+    }.map { (context, destination) ->
+        context to resolveArguments(parseIncludedDestinations(context, destination))
+    }.map { (context, resolvedDestination) ->
+        val javaFiles = generateClasses(resolvedDestination)
+        GeneratorOutput(context.navFile, javaFiles, context.logger.allMessages())
     }
-    writeJavaFiles(resolvedDestination, null)
-    javaFiles.forEach { javaFile -> javaFile.writeTo(outputDir) }
-    return GeneratorOutput(javaFiles.toList(), context.logger.allMessages())
+
+    private fun parseIncludedDestinations(context: Context, destination: Destination): Destination {
+        destination.included.forEach { includedDestination ->
+            navigationFiles.firstOrNull {
+                val navFilename = it.file.name.substring(0, it.file.name.lastIndexOf('.'))
+                navFilename == includedDestination.id.name
+            }?.let { navFile ->
+                includedDestination.actual = destinationCache.getOrPut(navFile) {
+                    NavParser.parseNavigationFile(
+                            navigationFile = navFile,
+                            rFilePackage = rFilePackage,
+                            applicationId = applicationId,
+                            context = context)
+                }
+            }
+        }
+        destination.nested.forEach { parseIncludedDestinations(context, it) }
+        return destination
+    }
+
+    private fun generateClasses(destination: Destination): List<JavaFile> {
+        val javaFiles = mutableSetOf<JavaFile>()
+        fun writeJavaFiles(
+            destination: Destination,
+            parentDirectionName: ClassName?
+        ) {
+            val directionsJavaFile = if (destination.actions.isNotEmpty() ||
+                    parentDirectionName != null) {
+                generateDirectionsJavaFile(destination, parentDirectionName, useAndroidX)
+            } else {
+                null
+            }
+            val argsJavaFile = if (destination.args.isNotEmpty()) {
+                generateArgsJavaFile(destination, useAndroidX)
+            } else {
+                null
+            }
+            directionsJavaFile?.let { javaFiles.add(it) }
+            argsJavaFile?.let { javaFiles.add(it) }
+            destination.nested.forEach { it ->
+                writeJavaFiles(it, directionsJavaFile?.toClassName())
+            }
+        }
+        writeJavaFiles(destination, null)
+        javaFiles.forEach { javaFile -> javaFile.writeTo(outputDir) }
+        return javaFiles.toList()
+    }
 }

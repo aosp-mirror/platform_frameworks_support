@@ -49,6 +49,7 @@ task generateSdkResource() {
         new File(generatedResources, "sdk.prop").withWriter('UTF-8') { writer ->
             writer.write("compileSdkVersion=$SupportConfig.CURRENT_SDK_VERSION\n")
             writer.write("buildToolsVersion=$SupportConfig.BUILD_TOOLS_VERSION\n")
+            writer.write("m2repo=${supportRootFolder}/../../prebuilts/androidx/external\n")
         }
     }
 }

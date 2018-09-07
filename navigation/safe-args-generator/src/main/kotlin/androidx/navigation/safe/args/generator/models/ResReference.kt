@@ -16,6 +16,9 @@
 
 package androidx.navigation.safe.args.generator.models
 
+/**
+ * Represents a resource reference.
+ */
 data class ResReference(val packageName: String, val resType: String, val name: String) {
 
     // aapt allows and transforms dots and dashes into underscores

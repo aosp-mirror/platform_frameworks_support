@@ -21,6 +21,9 @@ import androidx.navigation.safe.args.generator.NullValue
 import androidx.navigation.safe.args.generator.WriteableValue
 import androidx.navigation.safe.args.generator.ext.joinToCamelCaseAsVar
 
+/**
+ * Represents an <argument> tag.
+ */
 data class Argument(
     val name: String,
     val type: NavType,
