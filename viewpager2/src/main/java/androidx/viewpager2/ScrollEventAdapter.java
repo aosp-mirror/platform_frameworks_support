@@ -46,6 +46,7 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
 
     // state related fields
     private @AdapterState int mAdapterState;
+    private @ViewPager2.ScrollState int mScrollState;
     private int mInitialPosition;
     private int mTarget;
     private boolean mDispatchSelected;
@@ -58,6 +59,7 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
 
     private void resetState() {
         mAdapterState = AdapterState.IDLE;
+        mScrollState = ViewPager2.ScrollState.IDLE;
         mInitialPosition = NO_TARGET;
         mTarget = NO_TARGET;
         mDispatchSelected = false;
@@ -107,11 +109,38 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
     @Override
     public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
         mScrollHappened = true;
+        ScrollEventValues values = getScrollEventValues();
 
-        int position = getPosition();
-        View firstVisibleView = mLayoutManager.findViewByPosition(position);
+        if (mDispatchSelected) {
+            mDispatchSelected = false;
+            mTarget = (dx + dy > 0) ? values.mPosition + 1 : values.mPosition;
+            if (mInitialPosition != mTarget) {
+                dispatchSelected(mTarget);
+            }
+        }
+
+        dispatchScrolled(values.mPosition, values.mOffset, values.mOffsetPx);
+
+        if ((values.mPosition == mTarget || mTarget == NO_TARGET) && values.mOffsetPx == 0) {
+            dispatchStateChanged(ViewPager2.ScrollState.IDLE);
+            resetState();
+        }
+    }
+
+    /**
+     * Calculates the current position and the offset (as a percentage and in pixels) of that
+     * position from the center.
+     */
+    private ScrollEventValues getScrollEventValues() {
+        ScrollEventValues values = new ScrollEventValues();
+
+        values.mPosition = mLayoutManager.findFirstVisibleItemPosition();
+        if (values.mPosition == RecyclerView.NO_POSITION) {
+            return values;
+        }
+        View firstVisibleView = mLayoutManager.findViewByPosition(values.mPosition);
         if (firstVisibleView == null) {
-            return;
+            return values;
         }
 
         boolean isHorizontal = mLayoutManager.getOrientation() == ViewPager2.Orientation.HORIZONTAL;
@@ -124,43 +153,26 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
             end = firstVisibleView.getBottom();
         }
 
-        int offsetPx = -start;
-        if (offsetPx < 0) {
+        values.mOffsetPx = -start;
+        if (values.mOffsetPx < 0) {
             throw new IllegalStateException(String.format("Page can only be offset by a positive "
-                    + "amount, not by %d", offsetPx));
+                    + "amount, not by %d", values.mOffsetPx));
         }
-
         int sizePx = end - start;
-        float offset = sizePx == 0 ? 0 : (float) offsetPx / sizePx;
-
-        if (mDispatchSelected) {
-            mDispatchSelected = false;
-            mTarget = (dx + dy > 0) ? position + 1 : position;
-            if (mInitialPosition != mTarget) {
-                dispatchSelected(mTarget);
-            }
-        }
-
-        dispatchScrolled(position, offset, offsetPx);
-
-        if ((position == mTarget || mTarget == NO_TARGET) && offsetPx == 0) {
-            dispatchStateChanged(ViewPager2.ScrollState.IDLE);
-            resetState();
-        }
+        values.mOffset = sizePx == 0 ? 0 : (float) values.mOffsetPx / sizePx;
+        return values;
     }
 
     /**
      * Let the adapter know a programmatic scroll was initiated.
      */
     public void notifyProgrammaticScroll(int target, boolean smooth) {
-        if (isIdle()) {
-            mAdapterState = smooth
-                    ? AdapterState.IN_PROGRESS_SMOOTH_SCROLL
-                    : AdapterState.IN_PROGRESS_IMMEDIATE_SCROLL;
-            mTarget = target;
-            dispatchStateChanged(ViewPager2.ScrollState.SETTLING);
-            dispatchSelected(target);
-        }
+        mAdapterState = smooth
+                ? AdapterState.IN_PROGRESS_SMOOTH_SCROLL
+                : AdapterState.IN_PROGRESS_IMMEDIATE_SCROLL;
+        mTarget = target;
+        dispatchStateChanged(ViewPager2.ScrollState.SETTLING);
+        dispatchSelected(target);
     }
 
     public void setOnPageChangeListener(OnPageChangeListener listener) {
@@ -174,6 +186,19 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         return mAdapterState == AdapterState.IDLE;
     }
 
+    /**
+     * Calculates the current floating position of the ViewPager. Decimal values mean that the
+     * ViewPager is not in a snapped position. The user might currently be dragging the ViewPager,
+     * or the ViewPager may be scrolling towards its {@link ViewPager2#getCurrentItem() current
+     * item}.
+     *
+     * @return The current position as a float
+     */
+    public float getCurrentPosition() {
+        ScrollEventValues values = getScrollEventValues();
+        return values.mPosition + values.mOffset;
+    }
+
     private void dispatchStateChanged(@ViewPager2.ScrollState int state) {
         // Listener contract for immediate-scroll requires not having state change notifications.
         // By putting a suppress statement in here (rather than next to dispatch calls) we are
@@ -181,7 +206,11 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         if (mAdapterState == AdapterState.IN_PROGRESS_IMMEDIATE_SCROLL) {
             return;
         }
+        if (mScrollState == state) {
+            return;
+        }
 
+        mScrollState = state;
         if (mListener != null) {
             mListener.onPageScrollStateChanged(state);
         }
@@ -211,5 +240,11 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         int IN_PROGRESS_MANUAL_DRAG = 1;
         int IN_PROGRESS_SMOOTH_SCROLL = 2;
         int IN_PROGRESS_IMMEDIATE_SCROLL = 3;
+    }
+
+    private static class ScrollEventValues {
+        int mPosition = RecyclerView.NO_POSITION;
+        float mOffset = 0f;
+        int mOffsetPx = 0;
     }
 }
