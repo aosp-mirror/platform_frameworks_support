@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28816a27_e1ddb581",
+        "filename": "media2/src/main/java/androidx/media2/CommandResult2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-07T01:40:30Z",
+      "side": 1,
+      "message": "What about SystemClock#elapsedRealTime()? Here\u0027s reasons.\n\n1. our media codes had used SystemClock#elapsedRealTime(), not currentTimeMillis()\nBeing specific, here\u0027s current usage of support lib media code.\n- currentTimeMillis isn\u0027t used (http://shortn/_zVwwOL0HNt)\n- elapsedRealTime is used. (http://shortn/_yQU0pHLp6Y)\n\n2. System.currentTimeMillis() can be changed by setCurrentTimeMillis()\nlink: https://developer.android.com/reference/android/os/SystemClock.html#top_of_page\n\n\nGiven above, I feels like that SystemClock would be safer.\nWhat do you think?",
+      "range": {
+        "startLine": 47,
+        "startChar": 31,
+        "endLine": 47,
+        "endChar": 55
+      },
+      "revId": "775b7d180ab1fffa93663cc0b4355e2f30c9aeab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
