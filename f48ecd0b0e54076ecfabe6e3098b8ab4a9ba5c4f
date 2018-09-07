@@ -46,6 +46,30 @@
       "revId": "f48ecd0b0e54076ecfabe6e3098b8ab4a9ba5c4f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb238d6e_623b0118",
+        "filename": "concurrent/listenable-future/src/main/java/androidx/concurrent/listenablefuture/AbstractFuture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2018-09-07T02:53:59Z",
+      "side": 0,
+      "message": "I don\u0027t think you can preserve line numbers, but it would certainly minimize the diffs, and reduce the manual work required for future updates. Doesn\u0027t affect behavior though.",
+      "parentUuid": "f651dc35_0d5d9394",
+      "range": {
+        "startLine": 73,
+        "startChar": 14,
+        "endLine": 73,
+        "endChar": 21
+      },
+      "revId": "f48ecd0b0e54076ecfabe6e3098b8ab4a9ba5c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

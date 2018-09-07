@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "01588841_ebdf193a",
+        "filename": "concurrent/listenable-future/src/main/java/androidx/concurrent/listenablefuture/AbstractFuture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2018-09-07T02:53:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "71fea867_4c959443",
+      "range": {
+        "startLine": 60,
+        "startChar": 51,
+        "endLine": 60,
+        "endChar": 67
+      },
+      "revId": "49e4b54a763d7ddb3530bcbda9c4ab77c5ed97a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "623ba80f_c5ff024d",
         "filename": "concurrent/listenable-future/src/main/java/androidx/concurrent/listenablefuture/AbstractFuture.java",
         "patchSetId": 2
@@ -93,6 +117,30 @@
       "revId": "49e4b54a763d7ddb3530bcbda9c4ab77c5ed97a4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b35491d2_190d80cc",
+        "filename": "concurrent/listenable-future/src/main/java/androidx/concurrent/listenablefuture/AbstractFuture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2018-09-07T02:53:59Z",
+      "side": 1,
+      "message": "Why do you care about docs? These docs aren\u0027t going to published, since this is only an internal type, right?",
+      "parentUuid": "2f1e8804_0f0909ee",
+      "range": {
+        "startLine": 810,
+        "startChar": 24,
+        "endLine": 810,
+        "endChar": 25
+      },
+      "revId": "49e4b54a763d7ddb3530bcbda9c4ab77c5ed97a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
