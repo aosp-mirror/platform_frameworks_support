@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a60aa7bc_9c6e6d48",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/MockMediaBrowserServiceCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-09-07T06:54:35Z",
+      "side": 1,
+      "message": "Copied from media2\u0027s MockMediaBrowserServiceCompat.",
+      "revId": "883399bae696abea0b0dba90eabb5cc11113d191",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
