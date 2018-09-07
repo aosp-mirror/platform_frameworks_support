@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ab45f3c_e4a689e1",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-07T17:55:31Z",
+      "side": 1,
+      "message": "Assuming we are supporting lower API levels (14 and up?), this is a lot of object churn.  Can we create one instance upfront and update its state in getScrollEventValues?  Maybe change method name to updateScrollEventValues?",
+      "range": {
+        "startLine": 135,
+        "startChar": 39,
+        "endLine": 135,
+        "endChar": 56
+      },
+      "revId": "e75a5152b6f4f61d5f8756b52723c11c36cda985",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43455192_2577a0a6",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-07T17:55:31Z",
+      "side": 1,
+      "message": "I assume this isn\u0027t the case but just want to check: Is it true that part of the reason this check is here is because RV is dispatching state changes redundantly or incorrectly?",
+      "range": {
+        "startLine": 209,
+        "startChar": 8,
+        "endLine": 211,
+        "endChar": 9
+      },
+      "revId": "e75a5152b6f4f61d5f8756b52723c11c36cda985",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

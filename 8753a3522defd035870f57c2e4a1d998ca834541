@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "471c3be9_e0481e1b",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-07T17:55:31Z",
+      "side": 1,
+      "message": "Not to do in this CL, but a couple of things I just noticed.  \n\n1. sizePx is equivalent to getWidth/getHeight, so no need to do end - start, or keep end.\n2. If a View\u0027s size is 0, doesn\u0027t that just sort of break everything?  I think the only way that would happen is if the ViewPager\u0027s size is 0 or it\u0027s padding dimensions are equal to its size.  Should there be some check elsewhere to short circuit if children are of size 0?",
+      "range": {
+        "startLine": 162,
+        "startChar": 39,
+        "endLine": 162,
+        "endChar": 40
+      },
+      "revId": "8753a3522defd035870f57c2e4a1d998ca834541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b94f527e_34e3fd5e",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-07T17:55:31Z",
+      "side": 1,
+      "message": "\"The current floating position of the ViewPager\" sounds like the position of the ViewPager itself...",
+      "range": {
+        "startLine": 190,
+        "startChar": 7,
+        "endLine": 190,
+        "endChar": 64
+      },
+      "revId": "8753a3522defd035870f57c2e4a1d998ca834541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3182176d_2b6e9686",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-07T17:55:31Z",
+      "side": 1,
+      "message": "Maybe I\u0027m missing something, but why is this position + percent offset?",
+      "range": {
+        "startLine": 199,
+        "startChar": 41,
+        "endLine": 199,
+        "endChar": 48
+      },
+      "revId": "8753a3522defd035870f57c2e4a1d998ca834541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f08c7f0_911ce554",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-07T17:55:31Z",
+      "side": 1,
+      "message": "nit: mOffsetPercent",
+      "range": {
+        "startLine": 247,
+        "startChar": 14,
+        "endLine": 247,
+        "endChar": 21
+      },
+      "revId": "8753a3522defd035870f57c2e4a1d998ca834541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
