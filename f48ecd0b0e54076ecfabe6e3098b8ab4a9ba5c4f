@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "91bf6243_45d8fc7b",
+        "filename": "concurrent/listenable-future/src/main/java/androidx/concurrent/listenablefuture/AbstractFuture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2018-09-07T00:49:18Z",
+      "side": 0,
+      "message": "Consider leaving this here and just making AbstractFuture implement it - then you don\u0027t have to change any code that does \"if instanceof Trusted\"",
+      "range": {
+        "startLine": 73,
+        "startChar": 14,
+        "endLine": 73,
+        "endChar": 21
+      },
+      "revId": "f48ecd0b0e54076ecfabe6e3098b8ab4a9ba5c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

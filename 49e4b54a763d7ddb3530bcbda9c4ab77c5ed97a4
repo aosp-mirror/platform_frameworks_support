@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41435232_b36fe0f7",
+        "filename": "concurrent/listenable-future/src/main/java/androidx/concurrent/listenablefuture/AbstractFuture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2018-09-07T00:49:18Z",
+      "side": 1,
+      "message": "I think you need to import this class now that it\u0027s not in the same package",
+      "range": {
+        "startLine": 60,
+        "startChar": 51,
+        "endLine": 60,
+        "endChar": 67
+      },
+      "revId": "49e4b54a763d7ddb3530bcbda9c4ab77c5ed97a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "623ba80f_c5ff024d",
+        "filename": "concurrent/listenable-future/src/main/java/androidx/concurrent/listenablefuture/AbstractFuture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2018-09-07T00:49:18Z",
+      "side": 1,
+      "message": "why this change?",
+      "range": {
+        "startLine": 810,
+        "startChar": 24,
+        "endLine": 810,
+        "endChar": 25
+      },
+      "revId": "49e4b54a763d7ddb3530bcbda9c4ab77c5ed97a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
