@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05185b59_85dc5048",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-07T08:48:40Z",
+      "side": 1,
+      "message": "Thanks for fixing this!\n\nSo getUnderlying was to return \"this\" which is Parcelable and we now replace it by NON_PARCELABLE_UNDERLYING.\n\nBut is there any side-effect we replace it by the above dummy object though? \nIn other words, is getUnderlying used for things other than parcelable?\n\nMaybe we can ask for someone in the UI toolkit to take a second look? :)\n\nThanks!",
+      "revId": "4f3e42c3237d5a0a20bdc02c7b6a073dd62c8196",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
