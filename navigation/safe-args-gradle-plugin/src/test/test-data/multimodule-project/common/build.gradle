@@ -16,7 +16,6 @@
 
 plugins {
     id('com.android.library')
-    id('androidx.navigation.safeargs')
 }
 
 android {
@@ -25,19 +24,4 @@ android {
     defaultConfig {
         minSdkVersion 14
     }
-
-    flavorDimensions "mode"
-    productFlavors {
-        foo {
-            dimension "mode"
-        }
-        notfoo {
-            dimension "mode"
-        }
-
-    }
-}
-
-dependencies {
-    implementation project(':common')
 }

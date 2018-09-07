@@ -13,31 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package androidx.navigation;
 
-plugins {
-    id('com.android.library')
-    id('androidx.navigation.safeargs')
-}
+import android.os.Bundle;
 
-android {
-    buildToolsVersion buildTools
-    compileSdkVersion compileSdk
-    defaultConfig {
-        minSdkVersion 14
-    }
+public interface NavDirections {
 
-    flavorDimensions "mode"
-    productFlavors {
-        foo {
-            dimension "mode"
-        }
-        notfoo {
-            dimension "mode"
-        }
+    int getActionId();
 
-    }
-}
-
-dependencies {
-    implementation project(':common')
+    Bundle getArguments();
 }

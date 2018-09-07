@@ -18,6 +18,7 @@ package androidx.navigation.safe.args.generator
 
 import androidx.navigation.safe.args.generator.ext.toClassName
 import androidx.navigation.safe.args.generator.models.Destination
+import androidx.navigation.safe.args.generator.models.NavFile
 import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.JavaFile
 import java.io.File
@@ -25,19 +26,29 @@ import java.io.File
 fun generateSafeArgs(
     rFilePackage: String,
     applicationId: String,
-    navigationXml: File,
+    navigationFile: NavFile,
     outputDir: File,
-    useAndroidX: Boolean = false
+    useAndroidX: Boolean = false,
+    navigationFiles: Collection<NavFile> = emptySet()
 ): GeneratorOutput {
     val context = Context()
-    val rawDestination = NavParser.parseNavigationFile(navigationXml, rFilePackage, applicationId,
-            context)
+    val rawDestination = NavParser.parseNavigationFile(
+            navigationFile = navigationFile,
+            rFilePackage = rFilePackage,
+            applicationId = applicationId,
+            context = context,
+            navigationFiles = navigationFiles,
+            referenceStack = LinkedHashSet())
     val resolvedDestination = resolveArguments(rawDestination)
     val javaFiles = mutableSetOf<JavaFile>()
     fun writeJavaFiles(
         destination: Destination,
         parentDirectionName: ClassName?
     ) {
+        if (destination.skipFileGen) {
+            return
+        }
+
         val directionsJavaFile = if (destination.actions.isNotEmpty() ||
                 parentDirectionName != null) {
             generateDirectionsJavaFile(destination, parentDirectionName, useAndroidX)

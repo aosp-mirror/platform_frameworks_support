@@ -54,4 +54,23 @@ object NavParserErrors {
     fun deprecatedTypeAttrUsed(name: String) =
             "The 'type' attribute used by argument '$name' is deprecated. " +
                     "Please change all instances of 'type' in navigation resources to 'argType'."
+
+    val MISSING_GRAPH_ATTR = "Missing 'graph' attribute in <include> tag."
+
+    fun invalidNavReference(value: String) = "Failed to parse '$value' as a navigation reference." +
+            " Reference must be in format @[package:]navigation/resource_name"
+
+    fun unableToFindIncludedNavFile(name: String) = "Unable to find navigation reference '$name'."
+
+    fun recursiveReferenceDetected(recursiveTailName: String, referenceStack: Set<String>): String {
+        val referenceRecursionList = mutableListOf<String>()
+        with(referenceRecursionList) {
+            add(recursiveTailName)
+            addAll(referenceStack.toList().takeLastWhile { it != recursiveTailName })
+            add(recursiveTailName)
+        }
+
+        return "Recursive referencing through <include> detected: " +
+                referenceRecursionList.joinToString(" -> ")
+    }
 }

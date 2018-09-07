@@ -14,30 +14,8 @@
  * limitations under the License.
  */
 
-plugins {
-    id('com.android.library')
-    id('androidx.navigation.safeargs')
-}
+package androidx.navigation.safe.args.generator.models
 
-android {
-    buildToolsVersion buildTools
-    compileSdkVersion compileSdk
-    defaultConfig {
-        minSdkVersion 14
-    }
+import java.io.File
 
-    flavorDimensions "mode"
-    productFlavors {
-        foo {
-            dimension "mode"
-        }
-        notfoo {
-            dimension "mode"
-        }
-
-    }
-}
-
-dependencies {
-    implementation project(':common')
-}
+data class NavFile(val file: File, val isLibraryFile: Boolean)

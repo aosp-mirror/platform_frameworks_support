@@ -33,6 +33,7 @@ import java.util.Properties
 
 private const val MAIN_DIR = "androidx/navigation/testapp"
 
+private const val APP_DIRECTIONS = "$MAIN_DIR/AppFragmentDirections.java"
 private const val NEXT_DIRECTIONS = "$MAIN_DIR/NextFragmentDirections.java"
 private const val MAIN_DIRECTIONS = "$MAIN_DIR/MainFragmentDirections.java"
 private const val MODIFIED_NEXT_DIRECTIONS = "$MAIN_DIR/ModifiedNextFragmentDirections.java"
@@ -58,6 +59,7 @@ class PluginTest {
     private var buildFile: File = File("")
     private var compileSdkVersion = ""
     private var buildToolsVersion = ""
+    private var m2RepoPath = ""
 
     private fun projectRoot(): File = testProjectDir.root
 
@@ -101,6 +103,7 @@ class PluginTest {
         properties.load(stream)
         compileSdkVersion = properties.getProperty("compileSdkVersion")
         buildToolsVersion = properties.getProperty("buildToolsVersion")
+        m2RepoPath = properties.getProperty("m2repo")
     }
 
     private fun setupSimpleBuildGradle() {
@@ -109,6 +112,12 @@ class PluginTest {
             plugins {
                 id('com.android.application')
                 id('androidx.navigation.safeargs')
+            }
+
+            allprojects {
+                repositories {
+                    maven { url '$m2RepoPath' }
+                }
             }
 
             android {
@@ -125,6 +134,12 @@ class PluginTest {
                 ext.compileSdk = $compileSdkVersion
                 ext.buildTools = "$buildToolsVersion"
             }
+
+            allprojects {
+                repositories {
+                    maven { url '$m2RepoPath' }
+                }
+            }
         """.trimIndent())
     }
 
@@ -135,6 +150,12 @@ class PluginTest {
             plugins {
                 id('com.android.application')
                 id('androidx.navigation.safeargs')
+            }
+
+            allprojects {
+                repositories {
+                    maven { url '$m2RepoPath' }
+                }
             }
 
             android {
@@ -326,6 +347,22 @@ class PluginTest {
         assertNotGenerated("foo/debug/$NOTFOO_DYNAMIC_DIRECTIONS", "dynamic_feature/")
         assertGenerated("foo/debug/$FOO_DYNAMIC_DIRECTIONS", "dynamic_feature/")
         assertNotGenerated("notfoo/debug/$FOO_DYNAMIC_DIRECTIONS", "dynamic_feature/")
+    }
+
+    @Test
+    fun generateForAppWithInclude() {
+        setupMultiModuleBuildGradle()
+        runGradle(
+                ":app:generateSafeArgsFooDebug",
+                ":app:generateSafeArgsNotfooDebug"
+        )
+                .assertSuccessfulTask("app:generateSafeArgsNotfooDebug")
+                .assertSuccessfulTask("app:generateSafeArgsFooDebug")
+
+        assertGenerated("foo/debug/$APP_DIRECTIONS", "app/")
+        assertGenerated("notfoo/debug/$APP_DIRECTIONS", "app/")
+        assertNotGenerated("foo/debug/$FEATURE_DIRECTIONS", "feature/")
+        assertNotGenerated("notfoo/debug/$FEATURE_DIRECTIONS", "feature/")
     }
 }
 
