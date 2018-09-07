@@ -72,6 +72,17 @@ public class SliceViewManagerTest {
     }
 
     @Test
+    public void testPinBadUri() {
+        Uri uri = new Uri.Builder()
+                .scheme(ContentResolver.SCHEME_CONTENT)
+                .authority("doesnotexist")
+                .build();
+        mViewManager.pinSlice(uri);
+        List<Uri> uris = mManager.getPinnedSlices();
+        assertEquals(0, uris.size());
+    }
+
+    @Test
     public void testPin() {
         Uri uri = new Uri.Builder()
                 .scheme(ContentResolver.SCHEME_CONTENT)
