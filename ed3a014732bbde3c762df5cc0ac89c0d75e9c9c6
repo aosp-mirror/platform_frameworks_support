@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98a76061_639bdb41",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-07T06:13:49Z",
+      "side": 1,
+      "message": "Or, you can still take Dialog and calls getDecorView() here.",
+      "range": {
+        "startLine": 208,
+        "startChar": 58,
+        "endLine": 208,
+        "endChar": 67
+      },
+      "revId": "ed3a014732bbde3c762df5cc0ac89c0d75e9c9c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
