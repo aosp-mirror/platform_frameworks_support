@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1827d0e_3b0003c9",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-07T16:38:31Z",
+      "side": 1,
+      "message": "Compared to previous MediaItem2, this is a new property which hasn\u0027t been covered in the meetings. To me, this looks redundant field since we already have MediaMetadata2 here.\n\nRegarding your previous comment on aosp/741801:\n| 1. Duration is special in the metadata because duration isn\u0027t a optional field for playback\n| because it tells the range of seekTo(). So I thought that providing convenient method here\n| would be better.\n\nThere are cases we don\u0027t know the duration of the source like live streaming.\n\n| 2. Start/end positions are already in the DSD. Why not duration?\n\nTo me, duration is metadata is something , originally, coming from the source. Start and end positions here are values expected to be set by developers.",
+      "range": {
+        "startLine": 145,
+        "startChar": 18,
+        "endLine": 145,
+        "endChar": 37
+      },
+      "revId": "2727f36a0eaa8ad19f712aa88f7a6d9c28d49c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5c27757_765436eb",
+        "filename": "media2/src/main/java/androidx/media2/CallbackMediaItem2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-07T16:38:31Z",
+      "side": 1,
+      "message": "needs update.",
+      "range": {
+        "startLine": 25,
+        "startChar": 73,
+        "endLine": 25,
+        "endChar": 100
+      },
+      "revId": "2727f36a0eaa8ad19f712aa88f7a6d9c28d49c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7675272d_a1380cb6",
+        "filename": "media2/src/main/java/androidx/media2/FileMediaItem2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-07T16:38:31Z",
+      "side": 1,
+      "message": "needs update",
+      "range": {
+        "startLine": 27,
+        "startChar": 52,
+        "endLine": 27,
+        "endChar": 79
+      },
+      "revId": "2727f36a0eaa8ad19f712aa88f7a6d9c28d49c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5357f992_cbd08090",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-07T16:38:31Z",
+      "side": 1,
+      "message": "Is this needed for this renaming/refactoring change? Or, trying to add a new thing with this change?",
+      "range": {
+        "startLine": 362,
+        "startChar": 7,
+        "endLine": 364,
+        "endChar": 97
+      },
+      "revId": "2727f36a0eaa8ad19f712aa88f7a6d9c28d49c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1584a7a0_fb521316",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-07T16:38:31Z",
+      "side": 1,
+      "message": "Jean-Michel and Wei, can you give us some feedback regarding whether the framework side also would use this new MediaItem2 (which includes DSD functionality) class in MediaPlayer2 in framework? In that case, method naming changes would need to follow in MediaPlayer2 case. e.g. MP2.setDataSource \u003d\u003e MP2.setMediaItem.",
+      "range": {
+        "startLine": 386,
+        "startChar": 25,
+        "endLine": 386,
+        "endChar": 38
+      },
+      "revId": "2727f36a0eaa8ad19f712aa88f7a6d9c28d49c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08a725f6_c9dbdf69",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-07T16:38:31Z",
+      "side": 1,
+      "message": "Could you search for \"data source\" and update the java docs?",
+      "range": {
+        "startLine": 58,
+        "startChar": 13,
+        "endLine": 58,
+        "endChar": 25
+      },
+      "revId": "2727f36a0eaa8ad19f712aa88f7a6d9c28d49c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
