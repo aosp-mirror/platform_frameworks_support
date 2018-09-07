@@ -16,6 +16,24 @@
       "revId": "fce0cdb245e8b4559b74e351a24be8d2bec236ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "660bd6c5_1d56e2b6",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-07T11:34:38Z",
+      "side": 1,
+      "message": "What exactly makes the code complicated?\nThe fact that I\u0027m checking for appContext or the fact that I\u0027m using a WeakReference?\n\n1. appContext being null.\nMichael also wrote ag/4182721. Which means platform TCM would work in such situations but will break in Android X. I think being explicit about this helps make devs more aware that we\u0027re not supporting contexts without app contexts.\n\n2. Using a WeakReference.\nI think it\u0027s just good practice to not hold a strong static reference to Context. It\u0027s good Android practice.",
+      "parentUuid": "e53959b9_2a752310",
+      "revId": "fce0cdb245e8b4559b74e351a24be8d2bec236ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
