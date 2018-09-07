@@ -113,7 +113,7 @@ class PageChangeListenerTest : BaseTest() {
                     scrollEvents.assertOffsetSorted(sortOrder)
                     scrollEvents.assertValueSanity(initialPage, targetPage, viewPager.pageSize)
                     scrollEvents.assertLastCorrect(targetPage)
-                    scrollEvents.assertMaxShownPages(initialPage)
+                    scrollEvents.assertMaxShownPages()
                 }
             }
         }
@@ -368,7 +368,7 @@ class PageChangeListenerTest : BaseTest() {
                             scrollEvents.assertValueSanity(currentPage, targetPage,
                                     viewPager.pageSize)
                             scrollEvents.assertLastCorrect(targetPage)
-                            scrollEvents.assertMaxShownPages(currentPage)
+                            scrollEvents.assertMaxShownPages()
                         }
                     }
                 }
@@ -608,8 +608,7 @@ class PageChangeListenerTest : BaseTest() {
         otherPage: Int,
         pageSize: Int
     ) = forEach {
-        assertThat(it.position,
-                isBetweenInIn(Math.min(initialPage, otherPage), Math.max(initialPage, otherPage)))
+        assertThat(it.position, isBetweenInInMinMax(initialPage, otherPage))
         assertThat(it.positionOffset, isBetweenInEx(0f, 1f))
         assertThat((it.positionOffset * pageSize).roundToInt(), equalTo(it.positionOffsetPixels))
     }
@@ -618,7 +617,7 @@ class PageChangeListenerTest : BaseTest() {
         map { it.position }.assertSorted { it * sortOrder.sign }
     }
 
-    private fun List<OnPageScrolledEvent>.assertMaxShownPages(startPage: Int) {
-        assertThat(map { it.position }.distinct().minus(startPage).size, isBetweenInIn(0, 3))
+    private fun List<OnPageScrolledEvent>.assertMaxShownPages() {
+        assertThat(map { it.position }.distinct().size, isBetweenInIn(0, 4))
     }
 }
