@@ -17,7 +17,7 @@
 package androidx.media.widget;
 
 import androidx.media.AudioAttributesCompat;
-import androidx.media2.DataSourceDesc2;
+import androidx.media2.MediaItem2;
 import androidx.media2.MediaPlayer2;
 import androidx.media2.MediaPlayerConnector;
 
@@ -99,22 +99,22 @@ class VideoView2Player extends MediaPlayerConnector {
     }
 
     @Override
-    public void setDataSource(DataSourceDesc2 dsd) {
+    public void setDataSource(MediaItem2 dsd) {
         mMediaPlayer2.setDataSource(dsd);
     }
 
     @Override
-    public void setNextDataSource(DataSourceDesc2 dsd) {
+    public void setNextDataSource(MediaItem2 dsd) {
         mMediaPlayer2.setNextDataSource(dsd);
     }
 
     @Override
-    public void setNextDataSources(List<DataSourceDesc2> dsds) {
+    public void setNextDataSources(List<MediaItem2> dsds) {
         mMediaPlayer2.setNextDataSources(dsds);
     }
 
     @Override
-    public DataSourceDesc2 getCurrentDataSource() {
+    public MediaItem2 getCurrentDataSource() {
         return mMediaPlayer2.getCurrentDataSource();
     }
 
