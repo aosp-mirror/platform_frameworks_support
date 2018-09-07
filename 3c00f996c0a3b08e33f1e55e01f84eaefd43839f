@@ -22,6 +22,30 @@
       "revId": "3c00f996c0a3b08e33f1e55e01f84eaefd43839f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6913c534_232a966a",
+        "filename": "media2/src/main/java/androidx/media2/DataSourceDesc2.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-07T02:16:38Z",
+      "side": 1,
+      "message": "Duration here is the just a cache/copy of the duration in the metadata.\nHere\u0027s bit more reasons why I want to expose duration here.\n\n1. Duration is special in the metadata because duration isn\u0027t a optional field for playback because it tells the range of seekTo().\nSo I thought that providing convenient method here would be better.\n\n2. Start/end positions are already in the DSD. Why not duration?\n\n\nJust FYI, media id is the similar case. It\u0027s the part of the metadata, but we also have a getter for it here.\n\nFeel free to comment more about this.",
+      "parentUuid": "a5a4b3dc_2667b319",
+      "range": {
+        "startLine": 76,
+        "startChar": 9,
+        "endLine": 76,
+        "endChar": 57
+      },
+      "revId": "3c00f996c0a3b08e33f1e55e01f84eaefd43839f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
