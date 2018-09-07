@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e53959b9_2a752310",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-07T08:34:15Z",
+      "side": 1,
+      "message": "I really feel like this makes thing too complicated..\n\nI think Michael mentioned that getApplicationContext() should not return null in b/80188317#comment29, let\u0027s just keep it simple?\n\nAFAIK, getApplicationContext can only be null before Application.onCreate is run.",
+      "revId": "fce0cdb245e8b4559b74e351a24be8d2bec236ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
