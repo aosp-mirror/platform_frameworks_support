@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8cabb1e_f7f0cb38",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/ext/element_ext.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-09-07T21:56:58Z",
+      "side": 1,
+      "message": "ok some docs on this class would be nice.\nalso, maybe move it to its own file ?",
+      "revId": "4e00c3bfebe3bcd9a62096158c3f6ff2f15e6990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03a19f69_2a55b7d6",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/ext/element_ext.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-09-07T21:56:58Z",
+      "side": 1,
+      "message": "asAnnotationBox\n\nor we can even just call box() ?",
+      "range": {
+        "startLine": 111,
+        "startChar": 38,
+        "endLine": 111,
+        "endChar": 50
+      },
+      "revId": "4e00c3bfebe3bcd9a62096158c3f6ff2f15e6990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eba99308_992080b9",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/ext/element_ext.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-09-07T21:56:58Z",
+      "side": 1,
+      "message": "shoulkd the ones above be nullable as well ? what is special about Int ?",
+      "range": {
+        "startLine": 131,
+        "startChar": 73,
+        "endLine": 131,
+        "endChar": 80
+      },
+      "revId": "4e00c3bfebe3bcd9a62096158c3f6ff2f15e6990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f029f5ef_c5e65fc1",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/ext/element_ext.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-09-07T21:56:58Z",
+      "side": 1,
+      "message": "TIL",
+      "range": {
+        "startLine": 140,
+        "startChar": 25,
+        "endLine": 140,
+        "endChar": 46
+      },
+      "revId": "4e00c3bfebe3bcd9a62096158c3f6ff2f15e6990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
