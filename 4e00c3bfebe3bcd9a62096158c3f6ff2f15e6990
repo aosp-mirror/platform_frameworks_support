@@ -85,6 +85,29 @@
       "revId": "4e00c3bfebe3bcd9a62096158c3f6ff2f15e6990",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06d7a3fd_9d9889b3",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/EntityProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-09-07T22:58:27Z",
+      "side": 1,
+      "message": "Is it possible to do \u0027annotation.value.indices.map {\u0027 here?",
+      "range": {
+        "startLine": 55,
+        "startChar": 19,
+        "endLine": 55,
+        "endChar": 80
+      },
+      "revId": "4e00c3bfebe3bcd9a62096158c3f6ff2f15e6990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
