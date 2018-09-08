@@ -22,6 +22,30 @@
       "revId": "775b7d180ab1fffa93663cc0b4355e2f30c9aeab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96f918f2_42ed53f5",
+        "filename": "media2/src/main/java/androidx/media2/CommandResult2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-08T00:56:06Z",
+      "side": 1,
+      "message": "+1 for SystemClock.elapsedRealTime().",
+      "parentUuid": "28816a27_e1ddb581",
+      "range": {
+        "startLine": 47,
+        "startChar": 31,
+        "endLine": 47,
+        "endChar": 55
+      },
+      "revId": "775b7d180ab1fffa93663cc0b4355e2f30c9aeab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
