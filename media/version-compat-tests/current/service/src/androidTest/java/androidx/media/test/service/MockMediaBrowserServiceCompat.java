@@ -17,6 +17,7 @@
 package androidx.media.test.service;
 
 import static android.support.mediacompat.testlib.util.IntentUtil.CLIENT_PACKAGE_NAME;
+import static android.support.mediacompat.testlib.util.IntentUtil.SERVICE_PACKAGE_NAME;
 
 import android.os.Bundle;
 import android.support.v4.media.MediaBrowserCompat.MediaItem;
@@ -113,7 +114,8 @@ public class MockMediaBrowserServiceCompat extends MediaBrowserServiceCompat {
 
     @Override
     public BrowserRoot onGetRoot(String clientPackageName, int clientUid, Bundle rootHints) {
-        if (!CLIENT_PACKAGE_NAME.equals(clientPackageName)) {
+        if (!CLIENT_PACKAGE_NAME.equals(clientPackageName)
+                && !SERVICE_PACKAGE_NAME.equals(clientPackageName) ) {
             // Test only -- reject any other request.
             return null;
         }
