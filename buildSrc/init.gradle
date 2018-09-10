@@ -101,8 +101,10 @@ def configureSubProjects() {
         // Copy instrumentation test APKs and app APKs into the dist dir
         // For test apks, they are uploaded only if we have java test sources.
         // For regular app apks, they are uploaded only if they have java sources.
+        // Copy only the minDepVersions debug version since that is the publish
+        // flavor.
         project.tasks.whenTaskAdded { task ->
-            if (task.name.startsWith("packageDebug")) {
+            if (task.name.startsWith("packageMinDepVersionsDebug")) {
                 // run this task only if we should run it
                 def testApk = task.name.contains("AndroidTest")
                 if (testApk) {
