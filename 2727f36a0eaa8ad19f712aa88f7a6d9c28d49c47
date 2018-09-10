@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d2961fe3_e82c3bc7",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-10T12:58:35Z",
+      "side": 1,
+      "message": "I got your point. So you\u0027re opposing to exposing convenient method for getting duration from the metadata. Am I correct?\nI\u0027m fine not having this, but can we have meeting tomorrow for other details? (http://shortn/_gQaoQzcgGg)",
+      "parentUuid": "b1827d0e_3b0003c9",
+      "range": {
+        "startLine": 145,
+        "startChar": 18,
+        "endLine": 145,
+        "endChar": 37
+      },
+      "revId": "2727f36a0eaa8ad19f712aa88f7a6d9c28d49c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a5c27757_765436eb",
         "filename": "media2/src/main/java/androidx/media2/CallbackMediaItem2.java",
         "patchSetId": 5
