@@ -57,44 +57,6 @@ public class TextListItemActivity extends Activity {
         ListItemAdapter adapter = new ListItemAdapter(this, provider,
                 ListItemAdapter.BackgroundStyle.SOLID);
 
-        final boolean[] showDivider = {false};
-        // Demonstrate how to update list item post construction.
-        TextListItem toBeUpdated = new TextListItem(this);
-        toBeUpdated.setPrimaryActionEmptyIcon();
-        toBeUpdated.setTitle("tap next item to update my icon");
-        toBeUpdated.setShowDivider(showDivider[0]);
-        provider.mItems.add(0, toBeUpdated);
-
-        boolean[] useEmptyIcon = new boolean[]{false};
-        TextListItem update = new TextListItem(this);
-        update.setTitle("tap me to update the icon of item above");
-        update.setOnClickListener(v -> {
-            // Change icon.
-            if (useEmptyIcon[0]) {
-                toBeUpdated.setPrimaryActionEmptyIcon();
-            } else {
-                toBeUpdated.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
-                        TextListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
-            }
-            useEmptyIcon[0] = !useEmptyIcon[0];
-
-            // Show/hide item divider.
-            toBeUpdated.setShowDivider(showDivider[0]);
-            showDivider[0] = !showDivider[0];
-
-            // Make sure to notify adapter about the change.
-            adapter.notifyItemChanged(0);
-        });
-        provider.mItems.add(1, update);
-
-        TextListItem testItem = new TextListItem(this);
-        testItem.setTitle("Switch - refresh self");
-        testItem.setSwitch(false, true, (button, isChecked) -> {
-            testItem.setBody(isChecked ? "checked" : "unchecked");
-            adapter.notifyItemChanged(provider.mItems.indexOf(testItem));
-        });
-        provider.mItems.add(5, testItem);
-
         mPagedListView.setAdapter(adapter);
         mPagedListView.setMaxPages(PagedListView.UNLIMITED_PAGES);
         mPagedListView.setDividerVisibilityManager(adapter);
@@ -122,6 +84,10 @@ public class TextListItemActivity extends Activity {
 
             TextListItem item;
             ActionListItem actionItem;
+
+            item = new TextListItem(mContext);
+            item.setBody(mContext.getString(R.string.crazy_long_text));
+            mItems.add(item);
 
             item = new TextListItem(mContext);
             item.setPrimaryActionIcon(mContext.getDrawable(R.drawable.pressed_icon),
