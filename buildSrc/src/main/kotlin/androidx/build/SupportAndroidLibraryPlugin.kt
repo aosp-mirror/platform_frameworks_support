@@ -21,6 +21,7 @@ import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.LibraryPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.artifacts.ConfigurationContainer
 import org.gradle.api.logging.LogLevel
 import org.gradle.api.plugins.JavaBasePlugin
 import org.gradle.kotlin.dsl.apply
@@ -35,7 +36,7 @@ class SupportAndroidLibraryPlugin : Plugin<Project> {
         project.apply<AndroidXPlugin>()
 
         val supportLibraryExtension = project.extensions.create("supportLibrary",
-                SupportLibraryExtension::class.java, project)
+            SupportLibraryExtension::class.java, project)
         project.setupVersion(supportLibraryExtension)
         project.configureMavenArtifactUpload(supportLibraryExtension)
 
@@ -51,7 +52,30 @@ class SupportAndroidLibraryPlugin : Plugin<Project> {
                 DiffAndDocs.registerAndroidProject(project, library, supportLibraryExtension)
             }
 
+            project.configurations.all { configuration ->
+                configuration.resolutionStrategy.eachDependency { dep ->
+                    val target = dep.target
+                    // Enforce inclusive exclusive Androidx dependency verion range specification.
+                    if (target.group.startsWith("androidx.")) {
+                        if ((target.version.startsWith("[") &&
+                                        !target.version.endsWith(")") ||
+                                        target.version.startsWith("(") ||
+                                        target.version.contains("+"))) {
+                            throw IllegalArgumentException(
+                                    "Androidx dependency version ranges can only be specified" +
+                                            " in the following format [x.y.z, a.b.c) " +
+                                            "(i.e inclusive on the left and exclusive on the" +
+                                            " right and the + operator" +
+                                            " is not yet supported")
+                        }
+                    }
+                }
+            }
+
             library.libraryVariants.all { libraryVariant ->
+                if (libraryVariant.flavorName == "minDepVersions") {
+                    useMinimumDependencyVersions(project.configurations)
+                }
                 if (libraryVariant.getBuildType().getName().equals("debug")) {
                     @Suppress("DEPRECATION")
                     val javaCompile = libraryVariant.javaCompile
@@ -70,6 +94,12 @@ class SupportAndroidLibraryPlugin : Plugin<Project> {
 
         val library = project.extensions.findByType(LibraryExtension::class.java)
                 ?: throw Exception("Failed to find Android extension")
+        // We create only one dimension, it will be auto assigned to all flavors.
+        library.flavorDimensions("version")
+        library.productFlavors {
+            it.create("minDepVersions")
+            it.create("maxDepVersions")
+        }
 
         project.configureLint(library.lintOptions, supportLibraryExtension)
     }
@@ -114,3 +144,25 @@ private fun Project.injectCompilationForBenchmarks(
         extension.adbOptions.setInstallOptions(*options.split(" ").toTypedArray())
     }
 }
+
+/**
+ * Goes through all the dependencies in the passed in configurations and finds the androidx library
+ * dependencies then if they are specified as a version range, set the dependency to be on the
+ * starting version (i.e if the version range is [x.y.z, a.b.c) then set the dependency version to
+ * x.y.z.)
+ */
+private fun useMinimumDependencyVersions(configurations: ConfigurationContainer) {
+    configurations.all { configuration ->
+        configuration.resolutionStrategy.eachDependency { dep ->
+                if (dep.target.version.startsWith("[") &&
+                        dep.target.version.endsWith(")") &&
+                        dep.target.group.startsWith("androidx.")) {
+                    // Set dependency version to the first value in the range (i.e the minimum
+                    // dependency, this is a hard set so if the version does not exist the build will
+                    // error)
+                    dep.useVersion(dep.target.version.removePrefix("[")
+                        .split(",")[0])
+                }
+            }
+        }
+    }
