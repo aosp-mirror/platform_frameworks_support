@@ -22,6 +22,30 @@
       "revId": "2cea33c927b52cee31c8536d73db7574a88f8bff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a688b48a_c0a9e945",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/workers/ConstraintTrackingWorkerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-10T19:58:00Z",
+      "side": 1,
+      "message": "That was probably an over-optimization (none of the other tests did this).",
+      "parentUuid": "62c81f38_0801cb0e",
+      "range": {
+        "startLine": 159,
+        "startChar": 16,
+        "endLine": 159,
+        "endChar": 51
+      },
+      "revId": "2cea33c927b52cee31c8536d73db7574a88f8bff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
