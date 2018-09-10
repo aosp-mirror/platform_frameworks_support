@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fcdeebc1_59fb76e0",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/ext/element_ext.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-10T18:00:07Z",
+      "side": 1,
+      "message": "Added docs. I don\u0027t think we need a separate class for it",
+      "parentUuid": "c8cabb1e_f7f0cb38",
+      "revId": "4e00c3bfebe3bcd9a62096158c3f6ff2f15e6990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03a19f69_2a55b7d6",
         "filename": "room/compiler/src/main/kotlin/androidx/room/ext/element_ext.kt",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "4e00c3bfebe3bcd9a62096158c3f6ff2f15e6990",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39e1451b_a3385e98",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/ext/element_ext.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-10T18:00:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03a19f69_2a55b7d6",
+      "range": {
+        "startLine": 111,
+        "startChar": 38,
+        "endLine": 111,
+        "endChar": 50
+      },
+      "revId": "4e00c3bfebe3bcd9a62096158c3f6ff2f15e6990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "49893eeb_b3e020e0",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/ext/element_ext.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-10T18:00:07Z",
+      "side": 1,
+      "message": "made string nullable as well. For booleans we\u0027re currently always expect default value, so I left  it as \"Boolean\"",
+      "parentUuid": "eba99308_992080b9",
+      "range": {
+        "startLine": 131,
+        "startChar": 73,
+        "endLine": 131,
+        "endChar": 80
+      },
+      "revId": "4e00c3bfebe3bcd9a62096158c3f6ff2f15e6990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f029f5ef_c5e65fc1",
         "filename": "room/compiler/src/main/kotlin/androidx/room/ext/element_ext.kt",
         "patchSetId": 2
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "87713cb2_190d1ab1",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/ext/element_ext.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-10T18:00:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f029f5ef_c5e65fc1",
+      "range": {
+        "startLine": 140,
+        "startChar": 25,
+        "endLine": 140,
+        "endChar": 46
+      },
+      "revId": "4e00c3bfebe3bcd9a62096158c3f6ff2f15e6990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06d7a3fd_9d9889b3",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/EntityProcessor.kt",
         "patchSetId": 2
@@ -108,6 +198,30 @@
       "revId": "4e00c3bfebe3bcd9a62096158c3f6ff2f15e6990",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54a21c95_37cb733a",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/EntityProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-10T18:00:07Z",
+      "side": 1,
+      "message": "Unfortunately, for properties with class or annotation types we need to use special methods. Because:\n1. we can not return Class\u003c...\u003e type because such class doesn\u0027t exist in annotatiom-processor\u0027s classloader, so we need to return TypeMirror\n2. for annotations we need to return AnnotationBox, because those annotations can access classes (see 1.)",
+      "parentUuid": "06d7a3fd_9d9889b3",
+      "range": {
+        "startLine": 55,
+        "startChar": 19,
+        "endLine": 55,
+        "endChar": 80
+      },
+      "revId": "4e00c3bfebe3bcd9a62096158c3f6ff2f15e6990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
