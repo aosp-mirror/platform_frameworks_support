@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "f06ea36e_2088d7e4",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-10T13:47:14Z",
+      "side": 1,
+      "message": "Sure, please schedule one so that we can discuss further. My intention here was more like doing the refactoring first as previously discussed without introducing unrelated new APIs/functionalities, to make the refactoring process faster.",
+      "parentUuid": "d2961fe3_e82c3bc7",
+      "range": {
+        "startLine": 145,
+        "startChar": 18,
+        "endLine": 145,
+        "endChar": 37
+      },
+      "revId": "2727f36a0eaa8ad19f712aa88f7a6d9c28d49c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a5c27757_765436eb",
         "filename": "media2/src/main/java/androidx/media2/CallbackMediaItem2.java",
         "patchSetId": 5
