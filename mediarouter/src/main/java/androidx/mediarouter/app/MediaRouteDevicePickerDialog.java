@@ -455,12 +455,14 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
             View mItemView;
             TextView mTextView;
             ImageView mImageView;
+            final int mTextColor;
 
             RouteViewHolder(View itemView) {
                 super(itemView);
                 mItemView = itemView;
                 mTextView = itemView.findViewById(R.id.mr_picker_route_name);
                 mImageView = itemView.findViewById(R.id.mr_picker_route_icon);
+                mTextColor = MediaRouterThemeHelper.getRouteTextColor(mContext);
             }
 
             public void bindRouteView(final Item item) {
@@ -473,6 +475,7 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
                     }
                 });
                 mTextView.setText(route.getName());
+                mTextView.setTextColor(mTextColor);
                 mImageView.setImageDrawable(getIconDrawable(route));
             }
         }

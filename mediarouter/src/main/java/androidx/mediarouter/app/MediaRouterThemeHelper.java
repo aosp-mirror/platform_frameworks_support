@@ -197,6 +197,12 @@ final class MediaRouterThemeHelper {
         return primaryColor;
     }
 
+    static int getRouteTextColor(Context context) {
+        return ContextCompat.getColor(context, isLightTheme(context)
+                ? R.color.mr_dynamic_dialog_route_text_color_light
+                : R.color.mr_dynamic_dialog_route_text_color_dark);
+    }
+
     static TypedArray getStyledAttributes(Context context) {
         TypedArray styledAttributes = context.obtainStyledAttributes(new int[] {
                 R.attr.mediaRouteDefaultIconDrawable,

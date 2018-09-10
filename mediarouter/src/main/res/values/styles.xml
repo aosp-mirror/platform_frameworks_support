@@ -55,12 +55,7 @@
     <!-- TextAppearance for route item of MediaRouteDevicePickerDialog/MediaRouteCastDialog-->
     <style name="TextAppearance.MediaRouter.Dynamic.Body" parent="TextAppearance.AppCompat.Body1">
         <item name="android:textSize">@dimen/mr_dynamic_dialog_route_text_size</item>
-        <item name="android:textColor">@color/mr_dynamic_dialog_route_text_color_dark</item>
         <item name="android:singleLine">true</item>
-    </style>
-
-    <style name="TextAppearance.MediaRouter.Dynamic.Body.Light">
-        <item name="android:textColor">@color/mr_dynamic_dialog_route_text_color_light</item>
     </style>
 </resources>
 
