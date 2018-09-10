@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e982db5f_c3eb5f9f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-10T19:09:34Z",
+      "side": 1,
+      "message": "(!requireFinalApi || version.isFinalApi())",
+      "range": {
+        "startLine": 263,
+        "startChar": 16,
+        "endLine": 263,
+        "endChar": 67
+      },
+      "revId": "cbd93490d5121929a9eb584e6b0625cfc1c2d5fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0da4ac0_c0309d61",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-10T19:09:34Z",
+      "side": 1,
+      "message": "similar restructuring",
+      "range": {
+        "startLine": 264,
+        "startChar": 16,
+        "endLine": 265,
+        "endChar": 25
+      },
+      "revId": "cbd93490d5121929a9eb584e6b0625cfc1c2d5fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
