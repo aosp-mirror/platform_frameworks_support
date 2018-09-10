@@ -45,6 +45,30 @@
       "revId": "d8cdc65d6d95f989d4cd22595f1cb0840522d0e4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "885e5e6d_b2734ee1",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatCheckBox.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-09-10T15:38:53Z",
+      "side": 1,
+      "message": "We don\u0027t need the other methods for this specific case, it\u0027s basically the same principle that\u0027s applied to the radio button class. \n\nWe might need to override the other methods for other different cases in the future though which begs the question, what solution should we use then ? Like we touched upon briefly before, adding them using the current architecture means copy pasting the methods in this class which isn\u0027t something very nice to say the least and other ways of obtaining this behavior are quite hard to come by given the lack of multiple inheritance support of the language or of a similar mechanism that would help with this. Using mixins (i.e. I\u0027m thinking interfaces with default methods) isn\u0027t feasible as it would require API 21 if I recall correctly.\n\nI can spend some more time thinking about a different, more generic, solution if you think it would be best.",
+      "parentUuid": "0922317d_ed706509",
+      "range": {
+        "startLine": 69,
+        "startChar": 20,
+        "endLine": 69,
+        "endChar": 38
+      },
+      "revId": "d8cdc65d6d95f989d4cd22595f1cb0840522d0e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
