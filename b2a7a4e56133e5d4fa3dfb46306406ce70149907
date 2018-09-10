@@ -22,6 +22,53 @@
       "revId": "b2a7a4e56133e5d4fa3dfb46306406ce70149907",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c288ea1b_21e63b6c",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2068,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-10T22:36:29Z",
+      "side": 1,
+      "message": "Jinseok, what\u0027s your concern?",
+      "parentUuid": "3748916d_b3e3aa48",
+      "range": {
+        "startLine": 2067,
+        "startChar": 16,
+        "endLine": 2068,
+        "endChar": 92
+      },
+      "revId": "b2a7a4e56133e5d4fa3dfb46306406ce70149907",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60552b19_14a1f8a1",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2502,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-10T22:36:29Z",
+      "side": 1,
+      "message": "1. Same with PLAYER_STATE_PAUSED. What about falling through instead?\n2. Can user start playback in PLAYER_STATE_ERROR if he/she click the play button?",
+      "range": {
+        "startLine": 2498,
+        "startChar": 0,
+        "endLine": 2502,
+        "endChar": 61
+      },
+      "revId": "b2a7a4e56133e5d4fa3dfb46306406ce70149907",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
