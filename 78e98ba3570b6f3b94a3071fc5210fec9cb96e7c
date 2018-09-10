@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5e557578_fc75b666",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-10T18:29:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea93fa8a_2dda9aae",
+      "range": {
+        "startLine": 56,
+        "startChar": 46,
+        "endLine": 56,
+        "endChar": 52
+      },
+      "revId": "78e98ba3570b6f3b94a3071fc5210fec9cb96e7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d935e25d_faa9d894",
         "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "3e7d6243_ee2e362e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-10T18:29:53Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "d935e25d_faa9d894",
+      "range": {
+        "startLine": 125,
+        "startChar": 49,
+        "endLine": 125,
+        "endChar": 63
+      },
+      "revId": "78e98ba3570b6f3b94a3071fc5210fec9cb96e7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2807d25_70505d58",
         "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
         "patchSetId": 4
@@ -62,6 +110,24 @@
       "revId": "78e98ba3570b6f3b94a3071fc5210fec9cb96e7c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bb2b857_4986295b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-10T18:29:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2807d25_70505d58",
+      "revId": "78e98ba3570b6f3b94a3071fc5210fec9cb96e7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
