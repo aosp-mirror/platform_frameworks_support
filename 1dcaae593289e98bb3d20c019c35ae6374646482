@@ -16,6 +16,24 @@
       "revId": "1dcaae593289e98bb3d20c019c35ae6374646482",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "953d4ca9_5a3e6f2e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-10T18:06:57Z",
+      "side": 1,
+      "message": "+1, flavors looks like a better fit. \nPS getBuildType().getName().equals -\u003e buildType.name \u003d\u003d",
+      "parentUuid": "a19619fb_18653594",
+      "revId": "1dcaae593289e98bb3d20c019c35ae6374646482",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
