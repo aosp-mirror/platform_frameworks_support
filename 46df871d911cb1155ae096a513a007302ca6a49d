@@ -33,6 +33,24 @@
       "revId": "46df871d911cb1155ae096a513a007302ca6a49d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a7cc119_c139c7cb",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-10T18:51:05Z",
+      "side": 1,
+      "message": "(Implemented the alternative)",
+      "parentUuid": "bd69c8a5_ee9984ac",
+      "revId": "46df871d911cb1155ae096a513a007302ca6a49d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
