@@ -70,9 +70,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
                 if (pos == DEFAULT) {
-                    mTextClassificationManager.setTextClassifier(null);
+                    mTextClassificationManager.setTextClassifier(MainActivity.this, null);
                 } else {
                     mTextClassificationManager.setTextClassifier(
+                            MainActivity.this,
                             new SimpleTextClassifier(MainActivity.this));
                 }
                 updateStatusText();
@@ -113,6 +114,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private TextClassifier getTextClassifier() {
-        return mTextClassificationManager.getTextClassifier();
+        return mTextClassificationManager.getTextClassifier(MainActivity.this);
     }
 }

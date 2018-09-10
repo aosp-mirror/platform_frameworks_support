@@ -28,10 +28,14 @@ import android.util.AttributeSet;
 import android.view.ActionMode;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import android.view.textclassifier.TextClassificationManager;
+import android.view.textclassifier.TextClassifier;
 import android.widget.EditText;
 
 import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.R;
 import androidx.core.view.TintableBackgroundView;
@@ -56,6 +60,7 @@ public class AppCompatEditText extends EditText implements TintableBackgroundVie
 
     private final AppCompatBackgroundHelper mBackgroundTintHelper;
     private final AppCompatTextHelper mTextHelper;
+    private TextClassifier mTextClassifier;
 
     public AppCompatEditText(Context context) {
         this(context, null);
@@ -195,5 +200,42 @@ public class AppCompatEditText extends EditText implements TintableBackgroundVie
     public void setCustomSelectionActionModeCallback(ActionMode.Callback actionModeCallback) {
         super.setCustomSelectionActionModeCallback(TextViewCompat
                 .wrapCustomSelectionActionModeCallback(this, actionModeCallback));
+    }
+
+    /**
+     * Sets the {@link TextClassifier} for this TextView.
+     */
+    @Override
+    @RequiresApi(api = 26)
+    public void setTextClassifier(@Nullable TextClassifier textClassifier) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            super.setTextClassifier(textClassifier);
+            return;
+        }
+        mTextClassifier = textClassifier;
+    }
+
+    /**
+     * Returns the {@link TextClassifier} used by this TextView.
+     * If no TextClassifier has been set, this TextView uses the default set by the
+     * {@link android.view.textclassifier.TextClassificationManager}.
+     */
+    @Override
+    @NonNull
+    @RequiresApi(api = 26)
+    public TextClassifier getTextClassifier() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            return super.getTextClassifier();
+        }
+        // To workaround a bug in O, which cached the text classifier returns from TCM unexpectedly.
+        if (mTextClassifier == null) {
+            final TextClassificationManager tcm =
+                    getContext().getSystemService(TextClassificationManager.class);
+            if (tcm != null) {
+                return tcm.getTextClassifier();
+            }
+            return TextClassifier.NO_OP;
+        }
+        return mTextClassifier;
     }
 }

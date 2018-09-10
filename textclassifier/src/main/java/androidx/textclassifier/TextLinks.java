@@ -208,7 +208,8 @@ public final class TextLinks {
         Preconditions.checkNotNull(text);
         Preconditions.checkNotNull(textLinksParams);
 
-        TextClassifier textClassifier = TextClassificationManager.of(context).getTextClassifier();
+        TextClassifier textClassifier =
+                TextClassificationManager.of(context).getTextClassifier(context);
 
         return textLinksParams.apply(text, this, textClassifier);
     }
