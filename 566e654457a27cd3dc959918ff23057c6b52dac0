@@ -2,6 +2,144 @@
   "comments": [
     {
       "key": {
+        "uuid": "96d92144_9ea527c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-10T18:55:36Z",
+      "side": 1,
+      "message": "Recommend removing this (it\u0027s a repeat of the main sentence)",
+      "range": {
+        "startLine": 13,
+        "startChar": 69,
+        "endLine": 14,
+        "endChar": 31
+      },
+      "revId": "566e654457a27cd3dc959918ff23057c6b52dac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "906ca864_9b3cf41c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-10T18:55:36Z",
+      "side": 1,
+      "message": "Suggest replacing this (which describes the expected numerical value of the maximum version) with something that describes the motivation of this change (we are approximating the ability to validate that the version ranges that a library claims to be compatible with are in fact compatible)",
+      "range": {
+        "startLine": 14,
+        "startChar": 31,
+        "endLine": 15,
+        "endChar": 7
+      },
+      "revId": "566e654457a27cd3dc959918ff23057c6b52dac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa879e92_200329a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-10T18:55:36Z",
+      "side": 1,
+      "message": "Since this patch is pretty small I recommend removing the verbose description and just letting readers read the diff if they want to know how it works.\n\nI imagine that the place where we\u0027d want to document something about this (although probably this documentation would be more focused on the usage (from which the implementation can be reverse engineered)) this would be in a task description, or in a unit test, or in a README",
+      "range": {
+        "startLine": 15,
+        "startChar": 10,
+        "endLine": 19,
+        "endChar": 66
+      },
+      "revId": "566e654457a27cd3dc959918ff23057c6b52dac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9248cec4_16a0165e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-10T18:55:36Z",
+      "side": 1,
+      "message": "Recommend shortening this to something like:\n\nLibraries can specify standard Gradle version ranges (of the form dependency_group:dependency_name:[x.y.z, a.b.c) ) for their dependencies",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 61
+      },
+      "revId": "566e654457a27cd3dc959918ff23057c6b52dac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38ccf9d6_00d0b954",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-10T18:55:36Z",
+      "side": 1,
+      "message": "Suggest replacing with \"\\nTest: \" (a new Test line) to make it easier to skim",
+      "range": {
+        "startLine": 26,
+        "startChar": 33,
+        "endLine": 26,
+        "endChar": 44
+      },
+      "revId": "566e654457a27cd3dc959918ff23057c6b52dac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3999e120_37d2dc83",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-10T18:55:36Z",
+      "side": 1,
+      "message": "Recommend removing this; I think it\u0027s implied by the description of the motivation",
+      "range": {
+        "startLine": 28,
+        "startChar": 64,
+        "endLine": 31,
+        "endChar": 0
+      },
+      "revId": "566e654457a27cd3dc959918ff23057c6b52dac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "601779bf_e7a3025d",
         "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
         "patchSetId": 6
@@ -41,6 +179,29 @@
         "startChar": 45,
         "endLine": 136,
         "endChar": 46
+      },
+      "revId": "566e654457a27cd3dc959918ff23057c6b52dac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff3ede15_22d45fe2",
+        "filename": "core/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-10T18:55:36Z",
+      "side": 1,
+      "message": "(Also, reminder about moving this into somewhere common under buildSrc to avoid adding it to each project)",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 18
       },
       "revId": "566e654457a27cd3dc959918ff23057c6b52dac0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
