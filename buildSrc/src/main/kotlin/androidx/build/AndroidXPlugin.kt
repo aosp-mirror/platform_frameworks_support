@@ -35,10 +35,12 @@ import org.gradle.api.JavaVersion.VERSION_1_7
 import org.gradle.api.JavaVersion.VERSION_1_8
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.artifacts.ConfigurationContainer
 import org.gradle.api.plugins.JavaLibraryPlugin
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.plugins.JavaPluginConvention
 import org.gradle.api.tasks.bundling.Jar
+import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getPlugin
 import org.gradle.kotlin.dsl.withType
 
@@ -163,8 +165,33 @@ class AndroidXPlugin : Plugin<Project> {
             check(minSdkVersion >= DEFAULT_MIN_SDK_VERSION) {
                 "minSdkVersion $minSdkVersion lower than the default of $DEFAULT_MIN_SDK_VERSION"
             }
+            project.configurations.all { configuration ->
+                configuration.resolutionStrategy.eachDependency { dep ->
+                    val target = dep.target
+                    // Enforce the ban on declaring dependencies with version ranges.
+                    if (isDependencyRange(target.version)) {
+                        throw IllegalArgumentException(
+                                "Dependency ${dep.target.module} declares its version as " +
+                                        " version range ${dep.target.version} however the use of " +
+                                        "version ranges is not allowed, please update the " +
+                                        "dependency to list a fixed version.")
+                    }
+                }
+            }
+            extension.variants.all { variant ->
+                if (variant.flavorName.toLowerCase().contains(
+                        "maxdepversions")) {
+                    useMaxiumumDependencyVersions(project.configurations)
+                }
+            }
         }
-
+        extension.flavorDimensions("version")
+        extension.productFlavors {
+            it.create("minDepVersions")
+            it.get("minDepVersions").dimension = "version"
+            it.create("maxDepVersions")
+            it.get("maxDepVersions").dimension = "version"
+        }
         // Use a local debug keystore to avoid build server issues.
         extension.signingConfigs.getByName("debug").storeFile = SupportConfig.getKeystore(this)
 
@@ -254,4 +281,49 @@ class AndroidXPlugin : Plugin<Project> {
 fun Project.isBenchmark(): Boolean {
     // benchmark convention is to end name with "-benchmark"
     return name.endsWith("-benchmark")
+}
+
+/**
+ * Goes through all the dependencies in the passed in configurations and finds each dependency
+ * depending on an androidx library, then each of these dependencies is substituted with its
+ * equivalent in the current development project (e.g module("androidx.collection:collection:x.y.z")
+ * becomes project(":collection".) Throws an error if there is a major release conflict between
+ * the two dependency versions.
+ */
+private fun Project.useMaxiumumDependencyVersions(configurations: ConfigurationContainer) {
+    configurations.all { configuration ->
+        configuration.resolutionStrategy.eachDependency { dep ->
+            if (artifactSupportsSemVer(dep.target.group)) {
+                val localDependencyProject = findProject(":${dep.target.name}")
+                if (localDependencyProject != null &&
+                        localDependencyProject.version.toString() != "unspecified") {
+                    if (localDependencyProject.version().major ==
+                            Version(dep.target.version).major) {
+                        configuration.resolutionStrategy.dependencySubstitution.apply {
+                            substitute(module("${dep.target.group}:${dep.target.name}:" +
+                                    "${dep.target.version}"))
+                                    .with(project(":${dep.target.name}"))
+                        }
+                    } else {
+                        throw IllegalArgumentException("The local version for dependency" +
+                                " ${localDependencyProject.name} is in major release" +
+                                " ${localDependencyProject.version.toString()[0]}, but the " +
+                                "specified dependency's major release is ${dep.target.version[0]}" +
+                                ", please update the dependency's version to match " +
+                                "that major release.")
+                    }
+                }
+            }
+        }
+    }
+}
+
+private fun isDependencyRange(version: String?): Boolean {
+    return ((version!!.startsWith("[") || version.startsWith("(")) &&
+            (version.endsWith("]") || version.endsWith(")")) ||
+            version.endsWith("+"))
+}
+
+private fun artifactSupportsSemVer(artifactGroup: String): Boolean {
+    return artifactGroup.startsWith("androidx.")
 }
