@@ -33,5 +33,5 @@
               android:layout_marginLeft="16dp"
               android:layout_marginStart="16dp"
               android:textAlignment="viewStart"
-              android:textAppearance="?attr/mediaRouteBodyTextAppearance" />
+              android:textAppearance="@style/TextAppearance.MediaRouter.Dynamic.Body" />
 </LinearLayout>
