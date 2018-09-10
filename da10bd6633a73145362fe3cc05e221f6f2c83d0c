@@ -375,6 +375,30 @@
       "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9f9a531_70b758ba",
+        "filename": "room/runtime/src/main/java/androidx/room/util/DBUtil.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-09-10T19:46:22Z",
+      "side": 1,
+      "message": "people are already using custom views. Having this code will break their code when they update room version.\nI think the long term solution for this problem is for room to keep its own metadata tables for everything it generates (not just for views but all tables etc).\n\nI also couldn\u0027t find a way to watermark queries :/\n\nI think there are two options:\na) implement the metadata log first (i assume it to take time since it needs to be thoguthful) and then make this rely on that\n\nb) change this CL not to drop any views and instead update views if we try to create a view w/ the same name. And for dropped / renamed views, ask developer to add the migration. It is not a great story but would unblock this CL.\n\nI\u0027m open to suggestions.",
+      "parentUuid": "ba36c86c_dd69ae6f",
+      "range": {
+        "startLine": 100,
+        "startChar": 19,
+        "endLine": 101,
+        "endChar": 59
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
