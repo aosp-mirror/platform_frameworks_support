@@ -21,6 +21,7 @@ import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.LibraryPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.artifacts.ConfigurationContainer
 import org.gradle.api.logging.LogLevel
 import org.gradle.api.plugins.JavaBasePlugin
 import org.gradle.kotlin.dsl.apply
@@ -62,6 +63,10 @@ class SupportAndroidLibraryPlugin : Plugin<Project> {
                         javaCompile.options.compilerArgs.add("-Xlint:deprecation")
                     }
                     javaCompile.options.compilerArgs.add("-Werror")
+                }
+                if (!libraryVariant.getBuildType()
+                        .getName().equals("useLatestDependencyVersions")) {
+                    useMinimumDependencyVersions(project.configurations)
                 }
             }
         }
@@ -112,5 +117,30 @@ private fun Project.injectCompilationForBenchmarks(
         // NOTE: we assume here that all benchmarks have apk name $projectname-debug-androidTest.apk
         val options = "/data/local/tmp/$name-debug-androidTest.apk && $inject #"
         extension.adbOptions.setInstallOptions(*options.split(" ").toTypedArray())
+    }
+}
+
+/**
+ * Goes through all the dependencies in the passed in configurations and finds the androidx library
+ * dependencies then if they are specified as a version range, set the dependency to be on the
+ * starting version (i.e if the version range is [x.y.z, a.b.c) then set the dependency version to
+ * x.y.z.)
+ */
+fun useMinimumDependencyVersions(configurations: ConfigurationContainer) {
+    configurations.all { configuration ->
+        configuration.resolutionStrategy.eachDependency { dep ->
+            // This assume proper version setting behaviour otherwise it may crash.
+            // TODO(obenabde): confirm that gradle will error if the version range is not set
+            // properly before we get here, otherwise additional error checking is recommended.
+            if (dep.target.group.startsWith("androidx.") &&
+                dep.target.version.startsWith("[") &&
+                dep.target.version.endsWith(")")) {
+                // Set dependency version to the first value in the range (i.e the minimum
+                // dependency, this is a hard set so if the version does not exist the build will
+                // error)
+                dep.useVersion(dep.target.version.removePrefix("[")
+                    .split(",")[0])
+            }
+        }
     }
 }
