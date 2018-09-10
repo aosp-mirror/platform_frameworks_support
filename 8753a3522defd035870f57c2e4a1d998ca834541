@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c5934371_d2613407",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-09-10T11:46:02Z",
+      "side": 1,
+      "message": "Well, since I\u0027m editing this CL anyway, I might as well address (one of) these issues :)\n\n1. Done\n2. If the size is 0, the expected outcome is to see nothing on the screen and have no way of interacting with the VP. I\u0027m not sure if we need to short circuit the internals of VP to achieve this.",
+      "parentUuid": "471c3be9_e0481e1b",
+      "range": {
+        "startLine": 162,
+        "startChar": 39,
+        "endLine": 162,
+        "endChar": 40
+      },
+      "revId": "8753a3522defd035870f57c2e4a1d998ca834541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b94f527e_34e3fd5e",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "8753a3522defd035870f57c2e4a1d998ca834541",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d82b5c6_6bc822be",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-09-10T11:46:02Z",
+      "side": 1,
+      "message": "Ah, I see. Done.",
+      "parentUuid": "b94f527e_34e3fd5e",
+      "range": {
+        "startLine": 190,
+        "startChar": 7,
+        "endLine": 190,
+        "endChar": 64
+      },
+      "revId": "8753a3522defd035870f57c2e4a1d998ca834541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ce9bd61b_12f1f2c8",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-09-10T11:46:02Z",
+      "side": 1,
+      "message": "Because the adapter position of the first visible item in the ViewPager\u0027s adapter is not enough detail for the purpose I need it for. I need to know the distance between the current position and the target, and be able to distinguish between a distance of, say, 4.0 (in which case the current item would be snapped in the middle of the VP) and 4.2 (in which case the current item is only 80% visible, with the remaining 20% off the left/top of the VP). Merely returning 4 wouldn\u0027t allow this.",
+      "parentUuid": "3182176d_2b6e9686",
+      "range": {
+        "startLine": 199,
+        "startChar": 41,
+        "endLine": 199,
+        "endChar": 48
+      },
+      "revId": "8753a3522defd035870f57c2e4a1d998ca834541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f08c7f0_911ce554",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "8753a3522defd035870f57c2e4a1d998ca834541",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "553fbcea_2a62b961",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-09-10T11:46:02Z",
+      "side": 1,
+      "message": "The onPageScrolled event has arguments `int position, float positionOffset, @Px int positionOffsetPixels`. I would like to be consistent with these definitions.",
+      "parentUuid": "2f08c7f0_911ce554",
+      "range": {
+        "startLine": 247,
+        "startChar": 14,
+        "endLine": 247,
+        "endChar": 21
+      },
+      "revId": "8753a3522defd035870f57c2e4a1d998ca834541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

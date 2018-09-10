@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "074caa97_a4b974a4",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-09-10T11:46:02Z",
+      "side": 1,
+      "message": "Good point, will change",
+      "parentUuid": "8ab45f3c_e4a689e1",
+      "range": {
+        "startLine": 135,
+        "startChar": 39,
+        "endLine": 135,
+        "endChar": 56
+      },
+      "revId": "e75a5152b6f4f61d5f8756b52723c11c36cda985",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "43455192_2577a0a6",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "e75a5152b6f4f61d5f8756b52723c11c36cda985",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28ed4187_ef1fe3e1",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-09-10T11:46:02Z",
+      "side": 1,
+      "message": "No. Duplicate state \u0027changes\u0027 can be fired when setCurrentItem(x, true) (w/ smooth scrolling) is called when the ViewPager2 was still settling to a previous smooth scroll target. It will fire the SETTLING state again, even though it is already in that state.",
+      "parentUuid": "43455192_2577a0a6",
+      "range": {
+        "startLine": 209,
+        "startChar": 8,
+        "endLine": 211,
+        "endChar": 9
+      },
+      "revId": "e75a5152b6f4f61d5f8756b52723c11c36cda985",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
