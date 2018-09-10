@@ -31,7 +31,7 @@
                        android:layout_width="match_parent"
                        android:layout_height="match_parent"
                        android:scaleType="fitCenter" />
-            <ProgressBar android:id="@+id/mr_cast_progress_bar"
+            <ProgressBar android:id="@+id/mr_cast_route_progress_bar"
                          android:layout_width="match_parent"
                          android:layout_height="match_parent"
                          android:indeterminate="true"
@@ -45,7 +45,7 @@
                   android:layout_marginLeft="16dp"
                   android:layout_marginRight="16dp"
                   android:textAlignment="viewStart"
-                  android:textAppearance="?attr/mediaRouteBodyTextAppearance" />
+                  android:textAppearance="@style/TextAppearance.MediaRouter.Dynamic.Body" />
         <CheckBox android:id="@+id/mr_cast_checkbox"
                   android:layout_width="24dp"
                   android:layout_height="24dp"
