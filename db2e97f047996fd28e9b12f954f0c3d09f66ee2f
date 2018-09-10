@@ -94,6 +94,30 @@
       "revId": "db2e97f047996fd28e9b12f954f0c3d09f66ee2f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3c56f00_f653c89c",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-10T18:42:44Z",
+      "side": 1,
+      "message": "I\u0027d strongly prefer instantiate() be as fast as possible since it is on the critical path of Fragment inflation/recreation and I think passing in the Fragment there will lead to developers doing the wrong thing.\n\nFragmentFactory has two places to do work:\n- in the constructor for work that applies to all instantiate() calls\n- in instantiate() for the work that applies to only that one instantiation\n\nIf the parent Fragment was only given to instantiate(), that would rule out the constructor as a place to do work that applies to all instantiate() calls for a given parent Fragment / information extracted from the parent Fragment.\n\nBy focusing instead of giving developers the ability to virally construct child instances, they can control what gets given to the child FragmentFactory instances (be it the parent Fragment itself or a more testable subset of actual dependencies) without needing every Fragment to manually set its own FragmentFactory (although that is still an option and takes precedence over this).",
+      "parentUuid": "9c2b7c30_722162b5",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 82
+      },
+      "revId": "db2e97f047996fd28e9b12f954f0c3d09f66ee2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
