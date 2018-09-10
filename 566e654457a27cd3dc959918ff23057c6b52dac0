@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "601779bf_e7a3025d",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-10T18:42:55Z",
+      "side": 1,
+      "message": "This sounds like a job for a unit test",
+      "range": {
+        "startLine": 132,
+        "startChar": 12,
+        "endLine": 132,
+        "endChar": 93
+      },
+      "revId": "566e654457a27cd3dc959918ff23057c6b52dac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d97e3d8b_5179dfa4",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-10T18:42:55Z",
+      "side": 1,
+      "message": "I imagine it\u0027s probably easier to preemptively handle either type of brackets on either end rather than have to remember that this only supports one combination.\n\nWe probably also want to check for \"+\" and at least throw an error saying it\u0027s not supported, or even better, support it.",
+      "range": {
+        "startLine": 136,
+        "startChar": 45,
+        "endLine": 136,
+        "endChar": 46
+      },
+      "revId": "566e654457a27cd3dc959918ff23057c6b52dac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1544a676_d4783462",
+        "filename": "core/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-10T18:42:55Z",
+      "side": 1,
+      "message": "It looks like this creates two dimensions, one dimension named \"usedMinimumDependencyVersions\" and one named \"useLatestDependencyVersions\".\n\nI imagine we want one dimension, perhaps called \"dependencyVersions\", with two possible values, perhaps \"earliest\" and \"latest\".\n\nI imagine that we could follow this example from https://developer.android.com/studio/build/build-variants :\n\n    // Specifies one flavor dimension.\n    flavorDimensions \"version\"\n    productFlavors {\n        demo {\n            // Assigns this product flavor to the \"version\" flavor dimension.\n            // This property is optional if you are using only one dimension.\n            dimension \"version\"\n            applicationIdSuffix \".demo\"\n            versionNameSuffix \"-demo\"\n        }\n        full {\n            dimension \"version\"\n            applicationIdSuffix \".full\"\n            versionNameSuffix \"-full\"\n        }\n    }",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 5
+      },
+      "revId": "566e654457a27cd3dc959918ff23057c6b52dac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
