@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0922317d_ed706509",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatCheckBox.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-09-10T15:11:41Z",
+      "side": 1,
+      "message": "what about all the other methods that this is inheriting from TextView, like we talked about? Do you need to override setTextAppearance, etc?",
+      "range": {
+        "startLine": 69,
+        "startChar": 20,
+        "endLine": 69,
+        "endChar": 38
+      },
+      "revId": "d8cdc65d6d95f989d4cd22595f1cb0840522d0e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
