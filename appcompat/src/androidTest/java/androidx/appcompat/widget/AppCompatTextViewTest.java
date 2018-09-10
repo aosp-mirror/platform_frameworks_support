@@ -36,6 +36,8 @@ import android.os.Build;
 import android.text.Layout;
 import android.text.PrecomputedText;
 import android.view.View;
+import android.view.textclassifier.TextClassificationManager;
+import android.view.textclassifier.TextClassifier;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
@@ -658,4 +660,15 @@ public class AppCompatTextViewTest
         assertEquals(Layout.BREAK_STRATEGY_BALANCED, textView.getBreakStrategy());
     }
 
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void testSetTextClassifier() {
+        AppCompatTextView textView = mContainer.findViewById(R.id.textview_simple);
+        TextClassificationManager textClassificationManager =
+                mActivity.getSystemService(TextClassificationManager.class);
+        textClassificationManager.setTextClassifier(new DummyTextClassifier());
+        assertEquals(DummyTextClassifier.class, textView.getTextClassifier().getClass());
+    }
+
+    private static class DummyTextClassifier implements TextClassifier {}
 }
