@@ -323,4 +323,30 @@ public class MediaSession2Test extends MediaSession2TestBase {
             }
         }
     }
+
+    @Test
+    public void testCreatingTwoSessionWithSameId() {
+        prepareLooper();
+        final String sessionId = "testSessionId";
+        MediaSession2 session = new MediaSession2.Builder(mContext)
+                .setPlayer(new MockPlayerConnector(0))
+                .setId(sessionId)
+                .setSessionCallback(sHandlerExecutor, new MediaSession2.SessionCallback() {})
+                .build();
+
+        MediaSession2.Builder builderWithSameId = new MediaSession2.Builder(mContext);
+        try {
+            builderWithSameId.setPlayer(new MockPlayerConnector(0))
+                    .setId(sessionId)
+                    .setSessionCallback(sHandlerExecutor, new MediaSession2.SessionCallback() {})
+                    .build();
+            fail("Creating a new session with the same ID in a process should not be allowed");
+        } catch (IllegalArgumentException e) {
+            // expected. pass-through
+        }
+
+        // Creating a new session with ID of the closed session is okay.
+        session.close();
+        builderWithSameId.build();
+    }
 }
