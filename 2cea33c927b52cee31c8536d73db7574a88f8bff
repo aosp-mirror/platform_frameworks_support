@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62c81f38_0801cb0e",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/workers/ConstraintTrackingWorkerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-10T19:56:43Z",
+      "side": 1,
+      "message": "Previously, your tearDown() called shutdownNow() at the end of the tests. Do you need to call that manually in these tests now?",
+      "range": {
+        "startLine": 159,
+        "startChar": 16,
+        "endLine": 159,
+        "endChar": 51
+      },
+      "revId": "2cea33c927b52cee31c8536d73db7574a88f8bff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
