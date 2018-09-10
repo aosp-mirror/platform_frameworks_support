@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "cf61f150_cba67d24",
+        "filename": "appcompat/src/androidTest/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2018-09-10T15:23:48Z",
+      "side": 1,
+      "message": "I think this should point to a @string/app_compat_checkbox_activity resource.",
+      "range": {
+        "startLine": 118,
+        "startChar": 27,
+        "endLine": 118,
+        "endChar": 62
+      },
+      "revId": "d8cdc65d6d95f989d4cd22595f1cb0840522d0e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0922317d_ed706509",
         "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatCheckBox.java",
         "patchSetId": 1
