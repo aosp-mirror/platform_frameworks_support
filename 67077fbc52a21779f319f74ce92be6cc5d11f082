@@ -46,6 +46,30 @@
       "revId": "67077fbc52a21779f319f74ce92be6cc5d11f082",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24cbd32b_cc30fd16",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/workers/ConstraintTrackingWorkerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-10T21:04:50Z",
+      "side": 1,
+      "message": "Resolved.",
+      "parentUuid": "6002b2e4_6e5782ff",
+      "range": {
+        "startLine": 133,
+        "startChar": 8,
+        "endLine": 133,
+        "endChar": 41
+      },
+      "revId": "67077fbc52a21779f319f74ce92be6cc5d11f082",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
