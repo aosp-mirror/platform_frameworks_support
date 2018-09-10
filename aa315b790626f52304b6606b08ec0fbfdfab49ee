@@ -1,0 +1,335 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "acc7f191_629952da",
+        "filename": "car/core/res/layout/car_list_item_radio_content.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-10T23:21:46Z",
+      "side": 1,
+      "message": "Update this",
+      "revId": "aa315b790626f52304b6606b08ec0fbfdfab49ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7252a1a6_8e9a3b59",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/RadioButtonListItemTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-10T23:21:46Z",
+      "side": 1,
+      "message": "Update",
+      "range": {
+        "startLine": 55,
+        "startChar": 44,
+        "endLine": 55,
+        "endChar": 59
+      },
+      "revId": "aa315b790626f52304b6606b08ec0fbfdfab49ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8eba3a2_e4687952",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/RadioButtonListItemTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-10T23:21:46Z",
+      "side": 1,
+      "message": "Could you split each of these into its own test case?",
+      "revId": "aa315b790626f52304b6606b08ec0fbfdfab49ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a533082_26563782",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/RadioButtonListItemTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-10T23:21:46Z",
+      "side": 1,
+      "message": "I rather you explicitly set the text on each of the RadioButtonListItem creations. Makes it more clear.",
+      "revId": "aa315b790626f52304b6606b08ec0fbfdfab49ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a2c7eb9_55290c2e",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/RadioButtonListItemTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-10T23:21:46Z",
+      "side": 1,
+      "message": "Split these two into its own test case.",
+      "revId": "aa315b790626f52304b6606b08ec0fbfdfab49ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac8d46f7_27fd560e",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/RadioButtonListItemTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-10T23:21:46Z",
+      "side": 1,
+      "message": "Can you add javadoc",
+      "revId": "aa315b790626f52304b6606b08ec0fbfdfab49ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8eb5dde_09bfc10c",
+        "filename": "car/core/src/main/java/androidx/car/widget/ListItemAdapter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-10T23:21:46Z",
+      "side": 1,
+      "message": "Where is this used?",
+      "revId": "aa315b790626f52304b6606b08ec0fbfdfab49ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bbb1202_e1a0bf2d",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-10T23:21:46Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 117,
+        "startChar": 46,
+        "endLine": 117,
+        "endChar": 50
+      },
+      "revId": "aa315b790626f52304b6606b08ec0fbfdfab49ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8f8ebd2_485c4d19",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-10T23:21:46Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 121,
+        "startChar": 31,
+        "endLine": 121,
+        "endChar": 38
+      },
+      "revId": "aa315b790626f52304b6606b08ec0fbfdfab49ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52e2d80b_aaf94010",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-10T23:21:46Z",
+      "side": 1,
+      "message": "Reword as:\n\n{@code true} if the widget...",
+      "range": {
+        "startLine": 144,
+        "startChar": 15,
+        "endLine": 144,
+        "endChar": 22
+      },
+      "revId": "aa315b790626f52304b6606b08ec0fbfdfab49ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "677f615c_863c3e19",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-10T23:21:46Z",
+      "side": 1,
+      "message": "@PrimaryActionIconSize",
+      "range": {
+        "startLine": 174,
+        "startChar": 65,
+        "endLine": 174,
+        "endChar": 73
+      },
+      "revId": "aa315b790626f52304b6606b08ec0fbfdfab49ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ea13a9c_15c61fa1",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-10T23:21:46Z",
+      "side": 1,
+      "message": "Same here",
+      "range": {
+        "startLine": 183,
+        "startChar": 56,
+        "endLine": 183,
+        "endChar": 64
+      },
+      "revId": "aa315b790626f52304b6606b08ec0fbfdfab49ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dd3cf11_75c9b687",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-10T23:21:46Z",
+      "side": 1,
+      "message": "Is there ever a reason for this to be GONE? I say you can just leave it as visible.",
+      "revId": "aa315b790626f52304b6606b08ec0fbfdfab49ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39aea390_8183a826",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-10T23:21:46Z",
+      "side": 1,
+      "message": "If the icon is always centered, then center it in the XML instead",
+      "revId": "aa315b790626f52304b6606b08ec0fbfdfab49ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60e05f46_e8d8f535",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/RadioButtonListItemActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-10T23:21:46Z",
+      "side": 1,
+      "message": "private",
+      "revId": "aa315b790626f52304b6606b08ec0fbfdfab49ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4571b256_a2ce001e",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/RadioButtonListItemActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-10T23:21:46Z",
+      "side": 1,
+      "message": "Never called?",
+      "range": {
+        "startLine": 90,
+        "startChar": 20,
+        "endLine": 90,
+        "endChar": 26
+      },
+      "revId": "aa315b790626f52304b6606b08ec0fbfdfab49ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b611a6e_7ce8937b",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/RadioButtonListItemActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-10T23:21:46Z",
+      "side": 1,
+      "message": "This is always true for this activity. I say just do the blind cast. If this ever fails, that means something fundamental has changed with this activity.",
+      "revId": "aa315b790626f52304b6606b08ec0fbfdfab49ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
