@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "dd8257ae_76a5ac2f",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-10T17:07:28Z",
+      "side": 1,
+      "message": "1. Thanks\n2. My hunch is that by not preventing undefined behavior from running in the first place, strange and hard to reason about bugs may crop up and waste time.  Like, if a dev adds padding to a ViewPager such that the child has a 0 height or width, (or even negative... I wonder if that is possible), calls scrollToPosition() and then decreases padding.  Nothing to do now... just something to think about mabye?",
+      "parentUuid": "c5934371_d2613407",
+      "range": {
+        "startLine": 162,
+        "startChar": 39,
+        "endLine": 162,
+        "endChar": 40
+      },
+      "revId": "8753a3522defd035870f57c2e4a1d998ca834541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b94f527e_34e3fd5e",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
         "patchSetId": 2
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "a39790da_bb4cede7",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-10T17:07:28Z",
+      "side": 1,
+      "message": "Ah ok, I see how it is used and how it makes sense.  I had been thinking about the return value as a type that composes two different values... the position, and it\u0027s relative distance, and that just struck me as an unnecessarily complex type (Like, I have an int A and a float B and -1 \u003e b \u003e 1 is guaranteed, so I\u0027m going to just put them together as A.B).  \n\nBut what this type really is is the percent scrolled relative to the width of a child (and all children are guaranteed to have the same width).  So if this returns 3.4, we are scrolled to the position equal to 340% the width of an item.  Right?\n\nGiven that that is the case, do you think we could actually change the method name and doc to represent the value as that?",
+      "parentUuid": "ce9bd61b_12f1f2c8",
+      "range": {
+        "startLine": 199,
+        "startChar": 41,
+        "endLine": 199,
+        "endChar": 48
+      },
+      "revId": "8753a3522defd035870f57c2e4a1d998ca834541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2f08c7f0_911ce554",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
         "patchSetId": 2
@@ -178,6 +226,30 @@
       "side": 1,
       "message": "The onPageScrolled event has arguments `int position, float positionOffset, @Px int positionOffsetPixels`. I would like to be consistent with these definitions.",
       "parentUuid": "2f08c7f0_911ce554",
+      "range": {
+        "startLine": 247,
+        "startChar": 14,
+        "endLine": 247,
+        "endChar": 21
+      },
+      "revId": "8753a3522defd035870f57c2e4a1d998ca834541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14b11f79_ed1fe943",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-10T17:07:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "553fbcea_2a62b961",
       "range": {
         "startLine": 247,
         "startChar": 14,
