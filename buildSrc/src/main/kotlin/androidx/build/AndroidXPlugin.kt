@@ -35,10 +35,12 @@ import org.gradle.api.JavaVersion.VERSION_1_7
 import org.gradle.api.JavaVersion.VERSION_1_8
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.artifacts.ConfigurationContainer
 import org.gradle.api.plugins.JavaLibraryPlugin
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.plugins.JavaPluginConvention
 import org.gradle.api.tasks.bundling.Jar
+import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getPlugin
 import org.gradle.kotlin.dsl.withType
 
@@ -163,8 +165,37 @@ class AndroidXPlugin : Plugin<Project> {
             check(minSdkVersion >= DEFAULT_MIN_SDK_VERSION) {
                 "minSdkVersion $minSdkVersion lower than the default of $DEFAULT_MIN_SDK_VERSION"
             }
+            project.configurations.all { configuration ->
+                configuration.resolutionStrategy.eachDependency { dep ->
+                    val target = dep.target
+                    // Enforce inclusive exclusive Androidx dependency
+                    // version range specification.
+                    if (artifactSupportsSemVer(target.group) && isDependencyRange(
+                                    target.version) &&
+                            !isSupportedDependencyRange(target.version)) {
+                        throw IllegalArgumentException(
+                                "Androidx dependency version ranges can only " +
+                                        "be specified in the format [x.y.z, a.b.c) " +
+                                        "(i.e inclusive on the left and exclusive " +
+                                        "on the right.) The + operator" +
+                                        " is not yet supported")
+                    }
+                }
+            }
+            extension.variants.all { variant ->
+                if (variant.flavorName.toLowerCase().contains(
+                                "mindepversions")) {
+                    useMinimumDependencyVersions(project.configurations)
+                }
+            }
         }
-
+        extension.flavorDimensions("version")
+        extension.productFlavors {
+            it.create("minDepVersions")
+            it.get("minDepVersions").dimension = "version"
+            it.create("maxDepVersions")
+            it.get("maxDepVersions").dimension = "version"
+        }
         // Use a local debug keystore to avoid build server issues.
         extension.signingConfigs.getByName("debug").storeFile = SupportConfig.getKeystore(this)
 
@@ -254,4 +285,41 @@ class AndroidXPlugin : Plugin<Project> {
 fun Project.isBenchmark(): Boolean {
     // benchmark convention is to end name with "-benchmark"
     return name.endsWith("-benchmark")
+}
+
+/**
+ * Goes through all the dependencies in the passed in configurations and finds each dependency
+ * depending on an androidx library. Then for any that is specified as a version range, overrides
+ * the resolution strategy for this dependency to resolve to the earliest version (i.e if the
+ * version range is [x.y.z, a.b.c) then make the dependency resolve to x.y.z.)
+ */
+private fun useMinimumDependencyVersions(configurations: ConfigurationContainer) {
+    configurations.all { configuration ->
+        configuration.resolutionStrategy.eachDependency { dep ->
+            if (artifactSupportsSemVer(dep.target.group) &&
+                    isSupportedDependencyRange(dep.target.version)) {
+                // Set dependency version to the first value in the range (i.e the minimum
+                // dependency, this is a hard set so if the version does not exist the build will
+                // error)
+                dep.useVersion(dep.target.version.removePrefix("[")
+                        .split(",")[0])
+            }
+        }
+    }
+}
+
+private fun artifactSupportsSemVer(artifactGroup: String): Boolean {
+    return artifactGroup.startsWith("androidx.")
+}
+
+private fun isDependencyRange(version: String?): Boolean {
+    return ((version!!.startsWith("[") || version!!.startsWith("(")) &&
+            (version!!.endsWith("]") || version!!.endsWith(")"))) ||
+            version!!.contains("+")
+}
+
+private fun isSupportedDependencyRange(version: String?): Boolean {
+    if (!isDependencyRange(version)) return false
+    if (!version!!.startsWith("[") || !version!!.endsWith(")")) return false
+    return true
 }
