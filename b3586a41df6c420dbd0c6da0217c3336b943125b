@@ -22,6 +22,30 @@
       "revId": "b3586a41df6c420dbd0c6da0217c3336b943125b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6925ea22_9e6fffa3",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-09-10T06:21:20Z",
+      "side": 0,
+      "message": "This shadowTablesMap was added for FTS support, and it is not released yet. Should we still maintain this?",
+      "parentUuid": "a850a26a_d9f14125",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 35
+      },
+      "revId": "b3586a41df6c420dbd0c6da0217c3336b943125b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }

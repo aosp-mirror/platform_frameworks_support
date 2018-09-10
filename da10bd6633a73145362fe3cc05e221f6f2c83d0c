@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6db6c1b5_90c0e081",
+        "filename": "room/common/src/main/java/androidx/room/Database.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-09-10T06:21:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9de204d7_250fc115",
+      "range": {
+        "startLine": 74,
+        "startChar": 84,
+        "endLine": 75,
+        "endChar": 22
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25fef473_d8cd795d",
         "filename": "room/common/src/main/java/androidx/room/DatabaseView.java",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c199d2e4_76b54fb2",
+        "filename": "room/common/src/main/java/androidx/room/DatabaseView.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-09-10T06:21:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25fef473_d8cd795d",
+      "range": {
+        "startLine": 44,
+        "startChar": 49,
+        "endLine": 44,
+        "endChar": 51
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "eb90e222_071368dd",
+        "filename": "room/common/src/main/java/androidx/room/DatabaseView.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-09-10T06:21:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce0176f6_db6288cb",
+      "range": {
+        "startLine": 45,
+        "startChar": 20,
+        "endLine": 45,
+        "endChar": 28
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4eafff9_f3ac1ea3",
         "filename": "room/common/src/main/java/androidx/room/DatabaseView.java",
         "patchSetId": 9
@@ -91,6 +163,30 @@
       "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7422c16_aa062c91",
+        "filename": "room/common/src/main/java/androidx/room/DatabaseView.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-09-10T06:21:20Z",
+      "side": 1,
+      "message": "Done.\nYes, they are automatically dropped.",
+      "parentUuid": "e4eafff9_f3ac1ea3",
+      "range": {
+        "startLine": 46,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 39
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "e58a5eaa_e4688045",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-09-10T06:21:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3a756ff_1fb256bc",
+      "range": {
+        "startLine": 86,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 44
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51e2e2cb_19ea9687",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
         "patchSetId": 9
@@ -137,6 +257,30 @@
       "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69658b5a_41326e04",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-09-10T06:21:20Z",
+      "side": 1,
+      "message": "Done. This is now a list.",
+      "parentUuid": "51e2e2cb_19ea9687",
+      "range": {
+        "startLine": 315,
+        "startChar": 8,
+        "endLine": 315,
+        "endChar": 61
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "3740082e_6aed5ef4",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-09-10T06:21:20Z",
+      "side": 1,
+      "message": "Done. This is now sorted in processor.\n\nI think I subconsciously did it this way because all the other lists passed from the processor are treated like sets, and I was not sure if I could rely on the order in the list.",
+      "parentUuid": "becf834c_bba2c2a3",
+      "range": {
+        "startLine": 340,
+        "startChar": 29,
+        "endLine": 340,
+        "endChar": 43
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "724a87f3_005096c0",
         "filename": "room/runtime/src/main/java/androidx/room/util/DBUtil.java",
         "patchSetId": 9
@@ -174,6 +342,30 @@
       "writtenOn": "2018-09-04T19:44:47Z",
       "side": 1,
       "message": "you cannot do this. developer might have their own views (the same way we allow their own tables).\n\n\nan option is to somehow mark the table as created by room (maybe some watermark in the query ?). that way we can know whether we can delete it or not.",
+      "range": {
+        "startLine": 100,
+        "startChar": 19,
+        "endLine": 101,
+        "endChar": 59
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba36c86c_dd69ae6f",
+        "filename": "room/runtime/src/main/java/androidx/room/util/DBUtil.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-09-10T06:21:20Z",
+      "side": 1,
+      "message": "Hmm, I disregarded developer-custom views as they can\u0027t be verified and few people should be using them, but yeah, people can still use it, so we should take it into consideration.\n\nI can\u0027t find a way to put any watermark in CREATE VIEW (https://www.sqlite.org/lang_createview.html). Can I create another table like room_master_table?\nCREATE TABLE room_view_table (name TEXT PRIMARY KEY, sql TEXT NOT NULL);",
+      "parentUuid": "724a87f3_005096c0",
       "range": {
         "startLine": 100,
         "startChar": 19,
