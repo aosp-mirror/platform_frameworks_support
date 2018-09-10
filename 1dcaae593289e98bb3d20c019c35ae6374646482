@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a19619fb_18653594",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-10T17:15:39Z",
+      "side": 1,
+      "message": "I\u0027d imagine that it would be preferable to be able to build using old or new dependency versions independently from whether we\u0027re building debug or release, so it\u0027d be great if we can get product flavors to work.\n\nBased on https://developer.android.com/studio/build/build-variants#product-flavors , it does not seem to me that creating a product flavor and/or build type requires moving the code to a directory with that name (which was a concern when we talked in person).\nIt says:\n\n  Build with source sets\n  You can use source set directories to contain the code and resources you want packaged only with certain configurations. For example, if you are building the \"demoDebug\" build variant, which is the crossproduct of a \"demo\" product flavor and \"debug\" build type, Gradle looks at these directories, and gives them the following priority:\n\n  src/demoDebug/ (build variant source set)\n  src/debug/ (build type source set)\n  src/demo/ (product flavor source set)\n  src/main/ (main source set)\n\nWe will want one of us to try it out to see whether this works (and do some brief testing to see how it impacts build configuration time)",
+      "revId": "1dcaae593289e98bb3d20c019c35ae6374646482",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
