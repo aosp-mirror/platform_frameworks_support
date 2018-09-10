@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ab7b927_2decce91",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatEditText.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-10T18:08:37Z",
+      "side": 1,
+      "message": "Unfortunately, AppCompatEditText (and other androidX TextView subclass) do not extends AppCompatTextView, so we will have to repeat the fix here.\n\nThis change only fixed AppCompatTextView and AppCompatEditText.",
+      "revId": "46df871d911cb1155ae096a513a007302ca6a49d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd69c8a5_ee9984ac",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-10T18:08:37Z",
+      "side": 1,
+      "message": "Another option is to have WeakHashMap\u003cContext, TextClassificationManager\u003e, which saves developers from passing context into setTextClassifier and getTextClassifier.",
+      "revId": "46df871d911cb1155ae096a513a007302ca6a49d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
