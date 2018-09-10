@@ -20,6 +20,7 @@ import static android.support.mediacompat.testlib.util.IntentUtil.CLIENT_PACKAGE
 
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.media.MediaBrowserCompat.MediaItem;
 import android.util.Log;
 
 import androidx.media2.FileMediaItem2;

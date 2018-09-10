@@ -43,6 +43,9 @@ public class CommonConstants {
     public static final ComponentName MOCK_MEDIA_LIBRARY_SERVICE = new ComponentName(
             IntentUtil.SERVICE_PACKAGE_NAME,
             "androidx.media.test.service.MockMediaLibraryService2");
+    public static final ComponentName MOCK_MEDIA_BROWSER_SERVICE_COMPAT = new ComponentName(
+            IntentUtil.SERVICE_PACKAGE_NAME,
+            "androidx.media.test.service.MockMediaBrowserServiceCompat");
 
     public static final String ACTION_MEDIA_SESSION2 = "androidx.media.test.action.MEDIA_SESSION2";
     public static final String ACTION_MEDIA_CONTROLLER2 =
@@ -53,6 +56,8 @@ public class CommonConstants {
             "androidx.media.test.action.MEDIA_CONTROLLER_COMPAT";
     public static final String ACTION_MEDIA_BROWSER_COMPAT =
             "androidx.media.test.action.MEDIA_BROWSER_COMPAT";
+    public static final String ACTION_MEDIA_BROWSER_SERVICE_PROXY =
+            "androidx.media.test.action.MEDIA_BROWSER_SERVICE_PROXY";
 
     // Keys for arguments.
     public static final String KEY_STREAM = "stream";

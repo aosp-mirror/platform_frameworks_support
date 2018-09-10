@@ -19,6 +19,7 @@ package androidx.media.test.client;
 import android.os.Bundle;
 import android.os.Parcelable;
 
+import androidx.core.util.ObjectsCompat;
 import androidx.media2.FileMediaItem2;
 import androidx.media2.MediaItem2;
 import androidx.media2.MediaMetadata2;
@@ -32,26 +33,43 @@ import java.util.List;
  */
 public final class MediaTestUtils {
 
-    // Temporaily commenting out, since we don't have the Mock services yet.
-//    /**
-//     * Finds the session with id in this test package.
-//     *
-//     * @param context
-//     * @param id
-//     * @return
-//     */
-//    public static SessionToken2 getServiceToken(Context context, String id) {
-//        switch (id) {
-//            case MockMediaSessionService2.ID:
-//                return new SessionToken2(context, new ComponentName(
-//                        context.getPackageName(), MockMediaSessionService2.class.getName()));
-//            case MockMediaLibraryService2.ID:
-//                return new SessionToken2(context, new ComponentName(
-//                        context.getPackageName(), MockMediaLibraryService2.class.getName()));
-//        }
-//        fail("Unknown id=" + id);
-//        return null;
-//    }
+    /**
+     * Compares contents of two bundles.
+     *
+     * @param a a bundle
+     * @param b another bundle
+     * @return {@code true} if two bundles are the same. {@code false} otherwise. This may be
+     *     incorrect if any bundle contains a bundle.
+     */
+    public static boolean equals(Bundle a, Bundle b) {
+        return contains(a, b) && contains(b, a);
+    }
+
+    /**
+     * Checks whether a Bundle contains another bundle.
+     *
+     * @param a a bundle
+     * @param b another bundle
+     * @return {@code true} if a contains b. {@code false} otherwise. This may be incorrect if any
+     *      bundle contains a bundle.
+     */
+    public static boolean contains(Bundle a, Bundle b) {
+        if (a == b) {
+            return true;
+        }
+        if (a == null || b == null) {
+            return b == null;
+        }
+        if (!a.keySet().containsAll(b.keySet())) {
+            return false;
+        }
+        for (String key : b.keySet()) {
+            if (!ObjectsCompat.equals(a.get(key), b.get(key))) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * Create a playlist for testing purpose
