@@ -34,8 +34,20 @@ dependencies {
 }
 
 android {
-    buildTypes.all {
-        consumerProguardFiles("proguard-rules.pro")
+    android {
+        buildTypes {
+            release {
+                consumerProguardFiles 'proguard-rules.pro'
+            }
+
+            debug {
+                consumerProguardFiles 'proguard-rules.pro'
+            }
+
+            useLatestDependencyVersions {
+                consumerProguardFiles 'proguard-rules.pro'
+            }
+        }
     }
 }
 
