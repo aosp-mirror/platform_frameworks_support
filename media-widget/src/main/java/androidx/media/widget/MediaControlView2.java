@@ -694,7 +694,7 @@ public class MediaControlView2 extends BaseLayout {
     }
 
     private int getBufferPercentage() {
-        if (mDuration == 0) {
+        if (mDuration <= 0) {
             return 0;
         }
         long bufferedPos = mController.getBufferedPosition();
@@ -2068,6 +2068,9 @@ public class MediaControlView2 extends BaseLayout {
     }
 
     void seekTo(long newPosition, boolean shouldSeekNow) {
+        if (mDuration <= 0) {
+            return;
+        }
         int positionOnProgressBar = (int) (MAX_PROGRESS * newPosition / mDuration);
         mProgress.setProgress(positionOnProgressBar);
         mCurrentTime.setText(stringForTime(newPosition));
@@ -2525,6 +2528,9 @@ public class MediaControlView2 extends BaseLayout {
             public void onSeekCompleted(MediaController2 controller, long position) {
                 if (DEBUG) {
                     Log.d(TAG, "onSeekCompleted(): " + position);
+                }
+                if (mDuration <= 0) {
+                    return;
                 }
 
                 // Update progress bar and time text.
