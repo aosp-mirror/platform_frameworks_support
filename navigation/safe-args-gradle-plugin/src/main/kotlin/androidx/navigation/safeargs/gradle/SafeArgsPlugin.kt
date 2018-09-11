@@ -52,9 +52,10 @@ class SafeArgsPlugin : Plugin<Project> {
         val extension = project.extensions.findByType(BaseExtension::class.java)
                 ?: throw GradleException("safeargs plugin must be used with android plugin")
         forEachVariant(extension) { variant ->
-            val task = project.tasks.create("generateSafeArgs${variant.name.capitalize()}",
+            project.tasks.register("generateSafeArgs${variant.name.capitalize()}",
                     ArgumentsGenerationTask::class.java) { task ->
-                task.rFilePackage = variant.rFilePackage()
+                task.rFilePackage = project.providers.provider { variant.rFilePackage() }
+                // TODO: Use applicationIdTextResources once android plugin is updated.
                 task.applicationId = variant.applicationId
                 task.resDirectories = variant.sourceSets.flatMap { it.resDirectories }
                 task.librariesResDirectories = variant.mergeResources.libraries
@@ -62,13 +63,13 @@ class SafeArgsPlugin : Plugin<Project> {
                 task.incrementalFolder = File(project.buildDir, "$INCREMENTAL_PATH/${task.name}")
                 task.useAndroidX = (project.findProperty("android.useAndroidX") == "true")
                 task.dependsOn(variant.mergeResources)
+                variant.registerJavaGeneratingTask(task, task.outputDir)
             }
-            variant.registerJavaGeneratingTask(task, task.outputDir)
         }
     }
 }
 
-private fun BaseVariant.rFilePackage(): String {
+internal fun BaseVariant.rFilePackage(): String {
     val mainSourceSet = sourceSets.find { it.name == "main" }
     val sourceSet = mainSourceSet ?: sourceSets[0]
     val manifest = sourceSet.manifestFile

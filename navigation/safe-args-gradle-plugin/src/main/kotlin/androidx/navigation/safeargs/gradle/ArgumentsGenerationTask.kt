@@ -24,6 +24,7 @@ import com.google.gson.reflect.TypeToken
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.file.FileCollection
+import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputDirectory
@@ -35,7 +36,7 @@ private const val MAPPING_FILE = "file_mappings.json"
 
 open class ArgumentsGenerationTask : DefaultTask() {
     @get:Input
-    lateinit var rFilePackage: String
+    lateinit var rFilePackage: Provider<String>
 
     @get:Input
     lateinit var applicationId: String
@@ -57,7 +58,7 @@ open class ArgumentsGenerationTask : DefaultTask() {
     private fun generateArgs(navFiles: Collection<NavFile>, out: File) =
             NavSafeArgsGenerator(
                     navigationFiles = navFiles,
-                    rFilePackage = rFilePackage,
+                    rFilePackage = rFilePackage.get(),
                     applicationId = applicationId,
                     outputDir = out,
                     useAndroidX = useAndroidX).generate().map { output ->
