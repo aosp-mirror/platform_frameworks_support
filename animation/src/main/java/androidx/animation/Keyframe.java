@@ -39,7 +39,7 @@ import androidx.annotation.Nullable;
  *
  * @param <T> type of the data value stored in a key frame.
  */
-public abstract class Keyframe<T> implements Cloneable {
+public class Keyframe<T> implements Cloneable {
     /**
      * Flag to indicate whether this keyframe has a valid value. This flag is used when an
      * animation first starts, to populate placeholder keyframes with real values derived
@@ -53,6 +53,10 @@ public abstract class Keyframe<T> implements Cloneable {
      */
     boolean mValueWasSetOnStart;
 
+    /**
+     * The value of the animation at the time mFraction.
+     */
+    T mValue;
 
     /**
      * The time at which mValue will hold true.
@@ -84,8 +88,8 @@ public abstract class Keyframe<T> implements Cloneable {
      * this keyframe.
      */
     @NonNull
-    public static IntKeyframe ofInt(@FloatRange(from = 0, to = 1) float fraction, int value) {
-        return new IntKeyframe(fraction, value);
+    public static Keyframe<Integer> ofInt(@FloatRange(from = 0, to = 1) float fraction, int value) {
+        return new Keyframe<>(fraction, value);
     }
 
     /**
@@ -101,8 +105,8 @@ public abstract class Keyframe<T> implements Cloneable {
      * of time elapsed of the overall animation duration.
      */
     @NonNull
-    public static IntKeyframe ofInt(@FloatRange(from = 0, to = 1) float fraction) {
-        return new IntKeyframe(fraction);
+    public static Keyframe<Integer> ofInt(@FloatRange(from = 0, to = 1) float fraction) {
+        return new Keyframe<>(fraction);
     }
 
     /**
@@ -118,8 +122,9 @@ public abstract class Keyframe<T> implements Cloneable {
      * this keyframe.
      */
     @NonNull
-    public static FloatKeyframe ofFloat(@FloatRange(from = 0, to = 1) float fraction, float value) {
-        return new FloatKeyframe(fraction, value);
+    public static Keyframe<Float> ofFloat(@FloatRange(from = 0, to = 1) float fraction,
+            float value) {
+        return new Keyframe<>(fraction, value);
     }
 
     /**
@@ -135,8 +140,8 @@ public abstract class Keyframe<T> implements Cloneable {
      * of time elapsed of the overall animation duration.
      */
     @NonNull
-    public static FloatKeyframe ofFloat(@FloatRange(from = 0, to = 1) float fraction) {
-        return new FloatKeyframe(fraction);
+    public static Keyframe<Float> ofFloat(@FloatRange(from = 0, to = 1) float fraction) {
+        return new Keyframe<>(fraction);
     }
 
     /**
@@ -152,9 +157,9 @@ public abstract class Keyframe<T> implements Cloneable {
      * this keyframe.
      */
     @NonNull
-    public static <T> ObjectKeyframe<T> ofObject(@FloatRange(from = 0, to = 1) float fraction,
+    public static <T> Keyframe<T> ofObject(@FloatRange(from = 0, to = 1) float fraction,
                 @Nullable T value) {
-        return new ObjectKeyframe<T>(fraction, value);
+        return new Keyframe<>(fraction, value);
     }
 
     /**
@@ -170,8 +175,8 @@ public abstract class Keyframe<T> implements Cloneable {
      * of time elapsed of the overall animation duration.
      */
     @NonNull
-    public static <T> ObjectKeyframe<T> ofObject(@FloatRange(from = 0, to = 1) float fraction) {
-        return new ObjectKeyframe<>(fraction, null);
+    public static <T> Keyframe<T> ofObject(@FloatRange(from = 0, to = 1) float fraction) {
+        return new Keyframe<>(fraction);
     }
 
     /**
@@ -208,14 +213,19 @@ public abstract class Keyframe<T> implements Cloneable {
     // using a different signal for when the animation should read the property value as its start
     // value.
     @Nullable
-    public abstract T getValue();
+    public T getValue() {
+        return mValue;
+    }
 
     /**
      * Sets the value for this Keyframe.
      *
      * @param value value for this Keyframe.
      */
-    public abstract void setValue(@Nullable T value);
+    public void setValue(@Nullable T value) {
+        mValue = value;
+        mHasValue = (value != null);
+    }
 
     /**
      * Gets the time for this keyframe, as a fraction of the overall animation duration.
@@ -265,144 +275,32 @@ public abstract class Keyframe<T> implements Cloneable {
      */
     @NonNull
     public Class getType() {
-        return mValueType;
+        if (mValueType != null) {
+            return mValueType;
+        } else if (mValue != null) {
+            mValueType = mValue.getClass();
+            return mValueType;
+        } else {
+            return null;
+        }
+    }
+
+    Keyframe(float fraction, T value) {
+        mFraction = fraction;
+        mValue = value;
+        mHasValue = (value != null);
+    }
+
+    Keyframe(float fraction) {
+        mFraction = fraction;
+        mHasValue = false;
     }
 
     @Override
-    public abstract Keyframe clone();
-
-    /**
-     * This internal subclass is used for all types which are not int or float.
-     */
-    static class ObjectKeyframe<T> extends Keyframe<T> {
-
-        /**
-         * The value of the animation at the time mFraction.
-         */
-        T mValue;
-
-        ObjectKeyframe(float fraction, T value) {
-            mFraction = fraction;
-            mValue = value;
-            mHasValue = (value != null);
-            mValueType = mHasValue ? value.getClass() : Object.class;
-        }
-
-        @Override
-        public T getValue() {
-            return mValue;
-        }
-
-        @Override
-        public void setValue(T value) {
-            mValue = value;
-            mHasValue = (value != null);
-        }
-
-        @Override
-        public ObjectKeyframe<T> clone() {
-            ObjectKeyframe<T> kfClone = new ObjectKeyframe<>(getFraction(),
-                    hasValue() ? mValue : null);
-            kfClone.mValueWasSetOnStart = mValueWasSetOnStart;
-            kfClone.setInterpolator(getInterpolator());
-            return kfClone;
-        }
-    }
-
-    /**
-     * Internal subclass used when the keyframe value is of type int.
-     */
-    static class IntKeyframe extends Keyframe<Integer> {
-
-        /**
-         * The value of the animation at the time mFraction.
-         */
-        int mValue;
-
-        IntKeyframe(float fraction, int value) {
-            mFraction = fraction;
-            mValue = value;
-            mValueType = int.class;
-            mHasValue = true;
-        }
-
-        IntKeyframe(float fraction) {
-            mFraction = fraction;
-            mValueType = int.class;
-        }
-
-        public int getIntValue() {
-            return mValue;
-        }
-
-        @Override
-        public Integer getValue() {
-            return mValue;
-        }
-
-        @Override
-        public void setValue(Integer value) {
-            if (value != null && value.getClass() == Integer.class) {
-                mValue = value.intValue();
-                mHasValue = true;
-            }
-        }
-
-        @Override
-        public IntKeyframe clone() {
-            IntKeyframe kfClone = mHasValue ? new IntKeyframe(getFraction(), mValue) :
-                    new IntKeyframe(getFraction());
-            kfClone.setInterpolator(getInterpolator());
-            kfClone.mValueWasSetOnStart = mValueWasSetOnStart;
-            return kfClone;
-        }
-    }
-
-    /**
-     * Internal subclass used when the keyframe value is of type float.
-     */
-    static class FloatKeyframe extends Keyframe<Float> {
-        /**
-         * The value of the animation at the time mFraction.
-         */
-        float mValue;
-
-        FloatKeyframe(float fraction, float value) {
-            mFraction = fraction;
-            mValue = value;
-            mValueType = float.class;
-            mHasValue = true;
-        }
-
-        FloatKeyframe(float fraction) {
-            mFraction = fraction;
-            mValueType = float.class;
-        }
-
-        public float getFloatValue() {
-            return mValue;
-        }
-
-        @Override
-        public Float getValue() {
-            return mValue;
-        }
-
-        @Override
-        public void setValue(Float value) {
-            if (value != null && value.getClass() == Float.class) {
-                mValue =  value.floatValue();
-                mHasValue = true;
-            }
-        }
-
-        @Override
-        public FloatKeyframe clone() {
-            FloatKeyframe kfClone = mHasValue ? new FloatKeyframe(getFraction(), mValue) :
-                    new FloatKeyframe(getFraction());
-            kfClone.setInterpolator(getInterpolator());
-            kfClone.mValueWasSetOnStart = mValueWasSetOnStart;
-            return kfClone;
-        }
+    public Keyframe<T> clone() {
+        Keyframe<T> kfClone = new Keyframe<>(getFraction(), hasValue() ? mValue : null);
+        kfClone.mValueWasSetOnStart = mValueWasSetOnStart;
+        kfClone.setInterpolator(getInterpolator());
+        return kfClone;
     }
 }

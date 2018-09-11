@@ -60,29 +60,4 @@ interface Keyframes<T> extends Cloneable {
 
     Keyframes clone();
 
-    /**
-     * A specialization of Keyframes that has integer primitive value calculation.
-     */
-    public interface IntKeyframes extends Keyframes<Integer> {
-
-        /**
-         * Works like {@link #getValue(float)}, but returning a primitive.
-         * @param fraction The elapsed fraction of the animation
-         * @return The animated value.
-         */
-        int getIntValue(float fraction);
-    }
-
-    /**
-     * A specialization of Keyframes that has float primitive value calculation.
-     */
-    public interface FloatKeyframes extends Keyframes<Float> {
-
-        /**
-         * Works like {@link #getValue(float)}, but returning a primitive.
-         * @param fraction The elapsed fraction of the animation
-         * @return The animated value.
-         */
-        float getFloatValue(float fraction);
-    }
 }

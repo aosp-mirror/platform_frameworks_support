@@ -443,8 +443,16 @@ public class AnimatorSetTest {
                 x = val;
             }
 
+            public int getX() {
+                return x;
+            }
+
             public void setY(int val) {
                 y = val;
+            }
+
+            public int getY() {
+                return y;
             }
         }
         set1.setTarget(new AnimateObject());
