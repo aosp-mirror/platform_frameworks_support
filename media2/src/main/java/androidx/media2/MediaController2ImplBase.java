@@ -22,7 +22,6 @@ import static androidx.media2.MediaPlayerConnector.UNKNOWN_TIME;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYBACK_PLAY;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYBACK_PREPARE;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYBACK_RESET;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYBACK_SEEK_TO;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYBACK_SET_SPEED;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYLIST_ADD_ITEM;
@@ -244,18 +243,6 @@ class MediaController2ImplBase implements MediaController2Impl {
         if (iSession2 != null) {
             try {
                 iSession2.pause(mControllerStub);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
-            }
-        }
-    }
-
-    @Override
-    public void reset() {
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_PLAYBACK_RESET);
-        if (iSession2 != null) {
-            try {
-                iSession2.reset(mControllerStub);
             } catch (RemoteException e) {
                 Log.w(TAG, "Cannot connect to the service or the session is gone", e);
             }

@@ -266,17 +266,15 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
 
     private final MediaSession2Impl mImpl;
 
-    MediaSession2(Context context, String id, MediaPlayerConnector player,
-            MediaPlaylistAgent playlistAgent, PendingIntent sessionActivity,
-            Executor callbackExecutor, SessionCallback callback) {
-        mImpl = createImpl(context, id, player, playlistAgent, sessionActivity, callbackExecutor,
+    MediaSession2(Context context, String id, SessionPlayer2 player,
+            PendingIntent sessionActivity, Executor callbackExecutor, SessionCallback callback) {
+        mImpl = createImpl(context, id, player, sessionActivity, callbackExecutor,
                 callback);
     }
 
-    MediaSession2Impl createImpl(Context context, String id, MediaPlayerConnector player,
-            MediaPlaylistAgent playlistAgent, PendingIntent sessionActivity,
-            Executor callbackExecutor, MediaSession2.SessionCallback callback) {
-        return new MediaSession2ImplBase(this, context, id, player, playlistAgent, sessionActivity,
+    MediaSession2Impl createImpl(Context context, String id, SessionPlayer2 player,
+            PendingIntent sessionActivity, Executor callbackExecutor, SessionCallback callback) {
+        return new MediaSession2ImplBase(this, context, id, player, sessionActivity,
                 callbackExecutor, callback);
     }
 
@@ -306,6 +304,15 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
         mImpl.updatePlayer(player, playlistAgent);
     }
 
+    /**
+     * Sets the underlying {@link SessionPlayer2} for this session to dispatch incoming event to.
+     *
+     * @param player a player that handles actual media playback in your app
+     */
+    public void updatePlayer(@NonNull SessionPlayer2 player) {
+        mImpl.updatePlayer(player);
+    }
+
     @Override
     public void close() {
         try {
@@ -319,7 +326,7 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
      * @return player. Can be {@code null} if and only if the session is released.
      */
     public @Nullable MediaPlayerConnector getPlayerConnector() {
-        return mImpl.getPlayer();
+        return mImpl.getPlayerConnector();
     }
 
     /**
@@ -327,6 +334,13 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
      */
     public @NonNull MediaPlaylistAgent getPlaylistAgent() {
         return mImpl.getPlaylistAgent();
+    }
+
+    /**
+     * @return player. Can be {@code null} if and only if the session is released.
+     */
+    public @Nullable SessionPlayer2 getPlayer() {
+        return mImpl.getPlayer();
     }
 
     /**
@@ -452,18 +466,6 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
     @Override
     public void pause() {
         mImpl.pause();
-    }
-
-    /**
-     * Resets the player connector to the idle state.
-     * <p>
-     * This calls {@link MediaPlayerConnector#reset()} which resets the player connector to the
-     * idle state, and detailed behaviors may differ depending on the player implementation. Use
-     * this with caution.
-     */
-    @Override
-    public void reset() {
-        mImpl.reset();
     }
 
     /**
@@ -1377,6 +1379,11 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
         }
 
         @Override
+        public @NonNull Builder setPlayer(@NonNull SessionPlayer2 player) {
+            return super.setPlayer(player);
+        }
+
+        @Override
         public @NonNull Builder setSessionActivity(@Nullable PendingIntent pi) {
             return super.setSessionActivity(pi);
         }
@@ -1400,7 +1407,7 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
             if (mCallback == null) {
                 mCallback = new SessionCallback() {};
             }
-            return new MediaSession2(mContext, mId, mPlayer, mPlaylistAgent, mSessionActivity,
+            return new MediaSession2(mContext, mId, mSessionPlayer, mSessionActivity,
                     mCallbackExecutor, mCallback);
         }
     }
@@ -1726,9 +1733,9 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
                 @Nullable MediaMetadata2 metadata) throws RemoteException;
         abstract void onPlaylistMetadataChanged(@Nullable MediaMetadata2 metadata)
                 throws RemoteException;
-        abstract void onShuffleModeChanged(@MediaPlaylistAgent.ShuffleMode int shuffleMode)
+        abstract void onShuffleModeChanged(@SessionPlayer2.ShuffleMode int shuffleMode)
                 throws RemoteException;
-        abstract void onRepeatModeChanged(@MediaPlaylistAgent.RepeatMode int repeatMode)
+        abstract void onRepeatModeChanged(@SessionPlayer2.RepeatMode int repeatMode)
                 throws RemoteException;
         abstract void onRoutesInfoChanged(@Nullable List<Bundle> routes) throws RemoteException;
         abstract void onDisconnected() throws RemoteException;
@@ -1751,9 +1758,10 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
     interface MediaSession2Impl extends MediaInterface2.SessionPlayer, AutoCloseable {
         void updatePlayer(@NonNull MediaPlayerConnector player,
                 @Nullable MediaPlaylistAgent playlistAgent);
-        @NonNull
-        MediaPlayerConnector getPlayer();
+        void updatePlayer(@NonNull SessionPlayer2 player);
+        @NonNull MediaPlayerConnector getPlayerConnector();
         @NonNull MediaPlaylistAgent getPlaylistAgent();
+        @NonNull SessionPlayer2 getPlayer();
         @NonNull String getId();
         @NonNull SessionToken2 getToken();
         @NonNull List<ControllerInfo> getConnectedControllers();
@@ -1812,6 +1820,7 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
         C mCallback;
         MediaPlaylistAgent mPlaylistAgent;
         PendingIntent mSessionActivity;
+        SessionPlayer2 mSessionPlayer;
 
         BuilderBase(Context context) {
             if (context == null) {
@@ -1854,6 +1863,20 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
                 throw new IllegalArgumentException("playlistAgent shouldn't be null");
             }
             mPlaylistAgent = playlistAgent;
+            return (U) this;
+        }
+
+        /**
+         * Sets the underlying {@link SessionPlayer2} for this session to dispatch incoming
+         * event to.
+         *
+         * @param player a {@link SessionPlayer2} that handles actual media playback in your app.
+         */
+        @NonNull U setPlayer(@NonNull SessionPlayer2 player) {
+            if (player == null) {
+                throw new IllegalArgumentException("player shouldn't be null");
+            }
+            mSessionPlayer = player;
             return (U) this;
         }
 

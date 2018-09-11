@@ -31,7 +31,6 @@ class MediaInterface2 {
         void prepare();
         void play();
         void pause();
-        void reset();
 
         void seekTo(long pos);
 

@@ -96,17 +96,6 @@ public final class SessionCommand2 implements VersionedParcelable {
     public static final int COMMAND_CODE_PLAYBACK_PAUSE = 10001;
 
     /**
-     * Command code for {@link MediaController2#reset()}.
-     * <p>
-     * Command would be sent directly to the player if the session doesn't reject the request
-     * through the {@link SessionCallback#onCommandRequest(MediaSession2, ControllerInfo,
-     * SessionCommand2)}.
-     * <p>
-     * Code version is {@link #COMMAND_VERSION_1}.
-     */
-    public static final int COMMAND_CODE_PLAYBACK_RESET = 10002;
-
-    /**
      * Command code for {@link MediaController2#prepare()}.
      * <p>
      * Command would be sent directly to the player if the session doesn't reject the request
@@ -115,7 +104,7 @@ public final class SessionCommand2 implements VersionedParcelable {
      * <p>
      * Code version is {@link #COMMAND_VERSION_1}.
      */
-    public static final int COMMAND_CODE_PLAYBACK_PREPARE = 10003;
+    public static final int COMMAND_CODE_PLAYBACK_PREPARE = 10002;
 
     /**
      * Command code for {@link MediaController2#seekTo(long)}.
@@ -126,7 +115,7 @@ public final class SessionCommand2 implements VersionedParcelable {
      * <p>
      * Code version is {@link #COMMAND_VERSION_1}.
      */
-    public static final int COMMAND_CODE_PLAYBACK_SEEK_TO = 10004;
+    public static final int COMMAND_CODE_PLAYBACK_SEEK_TO = 10003;
 
     /**
      * Command code for {@link MediaController2#setPlaybackSpeed(float)}}.
@@ -137,7 +126,7 @@ public final class SessionCommand2 implements VersionedParcelable {
      * <p>
      * Code version is {@link #COMMAND_VERSION_1}.
      */
-    public static final int COMMAND_CODE_PLAYBACK_SET_SPEED = 10005;
+    public static final int COMMAND_CODE_PLAYBACK_SET_SPEED = 10004;
 
     static {
         VERSION_PLAYBACK_COMMANDS_MAP.put(COMMAND_VERSION_1,

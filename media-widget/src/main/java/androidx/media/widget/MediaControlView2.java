@@ -2068,6 +2068,9 @@ public class MediaControlView2 extends BaseLayout {
     }
 
     void seekTo(long newPosition, boolean shouldSeekNow) {
+        if (mDuration <= 0) {
+            return;
+        }
         int positionOnProgressBar = (int) (MAX_PROGRESS * newPosition / mDuration);
         mProgress.setProgress(positionOnProgressBar);
         mCurrentTime.setText(stringForTime(newPosition));
