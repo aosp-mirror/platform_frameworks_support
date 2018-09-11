@@ -152,11 +152,16 @@ class PathKeyframes implements Keyframes<PointF> {
      * Returns a FloatKeyframes for the X component of the Path.
      * @return a FloatKeyframes for the X component of the Path.
      */
-    public FloatKeyframes createXFloatKeyframes() {
-        return new FloatKeyframesBase() {
+    public Keyframes<Float> createXFloatKeyframes() {
+        return new SimpleKeyframes<Float>() {
             @Override
-            public float getFloatValue(float fraction) {
-                PointF pointF = (PointF) PathKeyframes.this.getValue(fraction);
+            public Class getType() {
+                return Float.class;
+            }
+
+            @Override
+            public Float getValue(float fraction) {
+                PointF pointF = PathKeyframes.this.getValue(fraction);
                 return pointF.x;
             }
         };
@@ -166,12 +171,17 @@ class PathKeyframes implements Keyframes<PointF> {
      * Returns a FloatKeyframes for the Y component of the Path.
      * @return a FloatKeyframes for the Y component of the Path.
      */
-    public FloatKeyframes createYFloatKeyframes() {
-        return new FloatKeyframesBase() {
+    public Keyframes<Float> createYFloatKeyframes() {
+        return new SimpleKeyframes<Float>() {
             @Override
-            public float getFloatValue(float fraction) {
-                PointF pointF = (PointF) PathKeyframes.this.getValue(fraction);
-                return pointF.y;
+            public Class getType() {
+                return Float.class;
+            }
+
+            @Override
+            public Float getValue(float fraction) {
+                PointF pointF = PathKeyframes.this.getValue(fraction);
+                return pointF.x;
             }
         };
     }
@@ -180,11 +190,16 @@ class PathKeyframes implements Keyframes<PointF> {
      * Returns an IntKeyframes for the X component of the Path.
      * @return an IntKeyframes for the X component of the Path.
      */
-    public IntKeyframes createXIntKeyframes() {
-        return new IntKeyframesBase() {
+    public Keyframes<Integer> createXIntKeyframes() {
+        return new SimpleKeyframes<Integer>() {
             @Override
-            public int getIntValue(float fraction) {
-                PointF pointF = (PointF) PathKeyframes.this.getValue(fraction);
+            public Class getType() {
+                return Integer.class;
+            }
+
+            @Override
+            public Integer getValue(float fraction) {
+                PointF pointF = PathKeyframes.this.getValue(fraction);
                 return Math.round(pointF.x);
             }
         };
@@ -194,63 +209,43 @@ class PathKeyframes implements Keyframes<PointF> {
      * Returns an IntKeyframeSet for the Y component of the Path.
      * @return an IntKeyframeSet for the Y component of the Path.
      */
-    public IntKeyframes createYIntKeyframes() {
-        return new IntKeyframesBase() {
+    public Keyframes<Integer> createYIntKeyframes() {
+        return new SimpleKeyframes<Integer>() {
             @Override
-            public int getIntValue(float fraction) {
-                PointF pointF = (PointF) PathKeyframes.this.getValue(fraction);
+            public Class getType() {
+                return Integer.class;
+            }
+
+            @Override
+            public Integer getValue(float fraction) {
+                PointF pointF = PathKeyframes.this.getValue(fraction);
                 return Math.round(pointF.y);
             }
         };
     }
 
-    private abstract static class SimpleKeyframes<T> implements Keyframes<T> {
-        private final ArrayList<Keyframe<T>> mEmptyFrames = new ArrayList<>();
+    private abstract class SimpleKeyframes<T> implements Keyframes<T> {
+
         @Override
         public void setEvaluator(TypeEvaluator<T> evaluator) {
+            // No op
         }
+
+        @Override
+        public abstract Class getType();
+
+        @Override
+        public abstract T getValue(float fraction);
 
         @Override
         public List<Keyframe<T>> getKeyframes() {
-            return mEmptyFrames;
+            return null;
         }
 
         @Override
-        @SuppressWarnings("unchecked")
-        public Keyframes<T> clone() {
-            Keyframes<T> clone = null;
-            try {
-                clone = (Keyframes<T>) super.clone();
-            } catch (CloneNotSupportedException e) {
-                e.printStackTrace();
-            }
-            return clone;
-        }
-    }
-
-    abstract static class IntKeyframesBase extends SimpleKeyframes<Integer>
-            implements IntKeyframes {
-        @Override
-        public Class<?> getType() {
-            return Integer.class;
-        }
-
-        @Override
-        public Integer getValue(float fraction) {
-            return getIntValue(fraction);
-        }
-    }
-
-    abstract static class FloatKeyframesBase extends SimpleKeyframes<Float>
-            implements FloatKeyframes {
-        @Override
-        public Class<?> getType() {
-            return Float.class;
-        }
-
-        @Override
-        public Float getValue(float fraction) {
-            return getFloatValue(fraction);
+        public Keyframes clone() {
+            // TODO: Implement this.
+            return null;
         }
     }
 }

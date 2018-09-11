@@ -40,7 +40,7 @@ public class PropertyValuesHolder implements Cloneable {
     /**
      * The name of the property associated with the values. This need not be a real property,
      * unless this object is being used with ObjectAnimator. But this is the name by which
-     * aniamted values are looked up with getAnimatedValue(String) in ValueAnimator.
+     * animated values are looked up with getAnimatedValue(String) in ValueAnimator.
      */
     String mPropertyName;
 
@@ -152,7 +152,9 @@ public class PropertyValuesHolder implements Cloneable {
      */
     @NonNull
     public static PropertyValuesHolder ofInt(@NonNull String propertyName, @NonNull int... values) {
-        return new IntPropertyValuesHolder(propertyName, values);
+        PropertyValuesHolder holder = new PropertyValuesHolder(propertyName);
+        holder.setIntValues(values);
+        return holder;
     }
 
     /**
@@ -165,7 +167,9 @@ public class PropertyValuesHolder implements Cloneable {
     @NonNull
     public static PropertyValuesHolder ofInt(@NonNull Property<?, Integer> property,
             @NonNull int... values) {
-        return new IntPropertyValuesHolder(property, values);
+        PropertyValuesHolder holder = new PropertyValuesHolder(property);
+        holder.setIntValues(values);
+        return holder;
     }
 
     /**
@@ -284,7 +288,9 @@ public class PropertyValuesHolder implements Cloneable {
     @NonNull
     public static PropertyValuesHolder ofFloat(@NonNull String propertyName,
             @NonNull float... values) {
-        return new FloatPropertyValuesHolder(propertyName, values);
+        PropertyValuesHolder holder = new PropertyValuesHolder(propertyName);
+        holder.setFloatValues(values);
+        return holder;
     }
 
     /**
@@ -297,7 +303,9 @@ public class PropertyValuesHolder implements Cloneable {
     @NonNull
     public static PropertyValuesHolder ofFloat(@NonNull Property<?, Float> property,
             @NonNull float... values) {
-        return new FloatPropertyValuesHolder(property, values);
+        PropertyValuesHolder holder = new PropertyValuesHolder(property);
+        holder.setFloatValues(values);
+        return holder;
     }
 
     /**
@@ -598,30 +606,17 @@ public class PropertyValuesHolder implements Cloneable {
     }
 
     static PropertyValuesHolder ofKeyframes(String propertyName, Keyframes keyframes) {
-        if (keyframes instanceof Keyframes.IntKeyframes) {
-            return new IntPropertyValuesHolder(propertyName, (Keyframes.IntKeyframes) keyframes);
-        } else if (keyframes instanceof Keyframes.FloatKeyframes) {
-            return new FloatPropertyValuesHolder(propertyName,
-                    (Keyframes.FloatKeyframes) keyframes);
-        } else {
-            PropertyValuesHolder pvh = new PropertyValuesHolder(propertyName);
-            pvh.mKeyframes = keyframes;
-            pvh.mValueType = keyframes.getType();
-            return pvh;
-        }
+        PropertyValuesHolder pvh = new PropertyValuesHolder(propertyName);
+        pvh.mKeyframes = keyframes;
+        pvh.mValueType = keyframes.getType();
+        return pvh;
     }
 
     static PropertyValuesHolder ofKeyframes(Property property, Keyframes keyframes) {
-        if (keyframes instanceof Keyframes.IntKeyframes) {
-            return new IntPropertyValuesHolder(property, (Keyframes.IntKeyframes) keyframes);
-        } else if (keyframes instanceof Keyframes.FloatKeyframes) {
-            return new FloatPropertyValuesHolder(property, (Keyframes.FloatKeyframes) keyframes);
-        } else {
-            PropertyValuesHolder pvh = new PropertyValuesHolder(property);
-            pvh.mKeyframes = keyframes;
-            pvh.mValueType = keyframes.getType();
-            return pvh;
-        }
+        PropertyValuesHolder pvh = new PropertyValuesHolder(property);
+        pvh.mKeyframes = keyframes;
+        pvh.mValueType = keyframes.getType();
+        return pvh;
     }
 
     /**
@@ -670,7 +665,7 @@ public class PropertyValuesHolder implements Cloneable {
         for (int i = 0; i < numKeyframes; ++i) {
             keyframes[i] = values[i];
         }
-        mKeyframes = new KeyframeSet(keyframes);
+        mKeyframes = KeyframeSet.ofKeyframe(keyframes);
     }
 
     /**
@@ -1046,6 +1041,7 @@ public class PropertyValuesHolder implements Cloneable {
      */
     void calculateValue(float fraction) {
         Object value = mKeyframes.getValue(fraction);
+        Log.w("LTD", "In calculating value, value = " + value);
         mAnimatedValue = mConverter == null ? value : mConverter.convert(value);
     }
 
@@ -1132,204 +1128,6 @@ public class PropertyValuesHolder implements Cloneable {
         char firstLetter = Character.toUpperCase(propertyName.charAt(0));
         String theRest = propertyName.substring(1);
         return prefix + firstLetter + theRest;
-    }
-
-    static class IntPropertyValuesHolder extends PropertyValuesHolder {
-
-        private IntProperty mIntProperty;
-
-        Keyframes.IntKeyframes mIntKeyframes;
-        int mIntAnimatedValue;
-
-        IntPropertyValuesHolder(String propertyName, Keyframes.IntKeyframes keyframes) {
-            super(propertyName);
-            mValueType = int.class;
-            mKeyframes = keyframes;
-            mIntKeyframes = keyframes;
-        }
-
-        IntPropertyValuesHolder(Property property, Keyframes.IntKeyframes keyframes) {
-            super(property);
-            mValueType = int.class;
-            mKeyframes = keyframes;
-            mIntKeyframes = keyframes;
-            if (property instanceof  IntProperty) {
-                mIntProperty = (IntProperty) mProperty;
-            }
-        }
-
-        IntPropertyValuesHolder(String propertyName, int... values) {
-            super(propertyName);
-            setIntValues(values);
-        }
-
-        IntPropertyValuesHolder(Property property, int... values) {
-            super(property);
-            setIntValues(values);
-            if (property instanceof  IntProperty) {
-                mIntProperty = (IntProperty) mProperty;
-            }
-        }
-
-        @Override
-        public void setProperty(Property property) {
-            if (property instanceof IntProperty) {
-                mIntProperty = (IntProperty) property;
-            } else {
-                super.setProperty(property);
-            }
-        }
-
-        @Override
-        public void setIntValues(int... values) {
-            super.setIntValues(values);
-            mIntKeyframes = (Keyframes.IntKeyframes) mKeyframes;
-        }
-
-        @Override
-        void calculateValue(float fraction) {
-            mIntAnimatedValue = mIntKeyframes.getIntValue(fraction);
-        }
-
-        @Override
-        Object getAnimatedValue() {
-            return mIntAnimatedValue;
-        }
-
-        @Override
-        public IntPropertyValuesHolder clone() {
-            IntPropertyValuesHolder newPVH = (IntPropertyValuesHolder) super.clone();
-            newPVH.mIntKeyframes = (Keyframes.IntKeyframes) newPVH.mKeyframes;
-            return newPVH;
-        }
-
-        /**
-         * Internal function to set the value on the target object, using the setter set up
-         * earlier on this PropertyValuesHolder object. This function is called by ObjectAnimator
-         * to handle turning the value calculated by ValueAnimator into a value set on the object
-         * according to the name of the property.
-         * @param target The target object on which the value is set
-         */
-        @Override
-        void setAnimatedValue(Object target) {
-            if (mIntProperty != null) {
-                mIntProperty.setValue(target, mIntAnimatedValue);
-                return;
-            }
-            if (mProperty != null) {
-                mProperty.set(target, mIntAnimatedValue);
-                return;
-            }
-
-            try {
-                mTmpValueArray[0] = mIntAnimatedValue;
-                mSetter.invoke(target, mTmpValueArray);
-            } catch (InvocationTargetException e) {
-                Log.e("PropertyValuesHolder", e.toString());
-            } catch (IllegalAccessException e) {
-                Log.e("PropertyValuesHolder", e.toString());
-            }
-        }
-    }
-
-    static class FloatPropertyValuesHolder extends PropertyValuesHolder {
-
-        private FloatProperty mFloatProperty;
-
-        Keyframes.FloatKeyframes mFloatKeyframes;
-        float mFloatAnimatedValue;
-
-        FloatPropertyValuesHolder(String propertyName, Keyframes.FloatKeyframes keyframes) {
-            super(propertyName);
-            mValueType = float.class;
-            mKeyframes = keyframes;
-            mFloatKeyframes = keyframes;
-        }
-
-        FloatPropertyValuesHolder(Property property, Keyframes.FloatKeyframes keyframes) {
-            super(property);
-            mValueType = float.class;
-            mKeyframes = keyframes;
-            mFloatKeyframes = keyframes;
-            if (property instanceof FloatProperty) {
-                mFloatProperty = (FloatProperty) mProperty;
-            }
-        }
-
-        FloatPropertyValuesHolder(String propertyName, float... values) {
-            super(propertyName);
-            setFloatValues(values);
-        }
-
-        FloatPropertyValuesHolder(Property property, float... values) {
-            super(property);
-            setFloatValues(values);
-            if (property instanceof  FloatProperty) {
-                mFloatProperty = (FloatProperty) mProperty;
-            }
-        }
-
-        @Override
-        public void setProperty(Property property) {
-            if (property instanceof FloatProperty) {
-                mFloatProperty = (FloatProperty) property;
-            } else {
-                super.setProperty(property);
-            }
-        }
-
-        @Override
-        public void setFloatValues(float... values) {
-            super.setFloatValues(values);
-            mFloatKeyframes = (Keyframes.FloatKeyframes) mKeyframes;
-        }
-
-        @Override
-        void calculateValue(float fraction) {
-            mFloatAnimatedValue = mFloatKeyframes.getFloatValue(fraction);
-        }
-
-        @Override
-        Object getAnimatedValue() {
-            return mFloatAnimatedValue;
-        }
-
-        @Override
-        public FloatPropertyValuesHolder clone() {
-            FloatPropertyValuesHolder newPVH = (FloatPropertyValuesHolder) super.clone();
-            newPVH.mFloatKeyframes = (Keyframes.FloatKeyframes) newPVH.mKeyframes;
-            return newPVH;
-        }
-
-        /**
-         * Internal function to set the value on the target object, using the setter set up
-         * earlier on this PropertyValuesHolder object. This function is called by ObjectAnimator
-         * to handle turning the value calculated by ValueAnimator into a value set on the object
-         * according to the name of the property.
-         * @param target The target object on which the value is set
-         */
-        @Override
-        void setAnimatedValue(Object target) {
-            if (mFloatProperty != null) {
-                mFloatProperty.setValue(target, mFloatAnimatedValue);
-                return;
-            }
-            if (mProperty != null) {
-                mProperty.set(target, mFloatAnimatedValue);
-                return;
-            }
-            if (mSetter != null) {
-                try {
-                    mTmpValueArray[0] = mFloatAnimatedValue;
-                    mSetter.invoke(target, mTmpValueArray);
-                } catch (InvocationTargetException e) {
-                    Log.e("PropertyValuesHolder", e.toString());
-                } catch (IllegalAccessException e) {
-                    Log.e("PropertyValuesHolder", e.toString());
-                }
-            }
-        }
-
     }
 
     static class MultiFloatValuesHolder extends PropertyValuesHolder {
