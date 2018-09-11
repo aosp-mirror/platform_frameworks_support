@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e16ddc20_f9cd5e6c",
+        "filename": "media2/src/main/java/androidx/media2/CommandResult2.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-11T17:45:03Z",
+      "side": 1,
+      "message": "nit: how about to remove meaningless @return lines in this file and change \"Gets\" to \"Returns\"?",
+      "range": {
+        "startLine": 80,
+        "startChar": 7,
+        "endLine": 80,
+        "endChar": 25
+      },
+      "revId": "2dd6f6285780bb1df90d482813259a4e44d33b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef468a14_f0a5a2f8",
+        "filename": "media2/src/main/java/androidx/media2/DataSourceCallback2.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-11T17:45:03Z",
+      "side": 1,
+      "message": "in this context, \"data source\" is correct.",
+      "range": {
+        "startLine": 45,
+        "startChar": 42,
+        "endLine": 59,
+        "endChar": 44
+      },
+      "revId": "2dd6f6285780bb1df90d482813259a4e44d33b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fee53a99_e9eec980",
+        "filename": "media2/src/main/java/androidx/media2/FileMediaItem2.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-11T17:45:03Z",
+      "side": 1,
+      "message": "please drop \"descriptor\"",
+      "range": {
+        "startLine": 27,
+        "startChar": 28,
+        "endLine": 27,
+        "endChar": 38
+      },
+      "revId": "2dd6f6285780bb1df90d482813259a4e44d33b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3935b26f_6278691c",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-11T17:45:03Z",
+      "side": 1,
+      "message": "java doc is missing.",
+      "range": {
+        "startLine": 342,
+        "startChar": 16,
+        "endLine": 342,
+        "endChar": 23
+      },
+      "revId": "2dd6f6285780bb1df90d482813259a4e44d33b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b054d01_8d4d88bd",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerUtils.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-11T17:45:03Z",
+      "side": 1,
+      "message": "remove \"description\"",
+      "range": {
+        "startLine": 60,
+        "startChar": 67,
+        "endLine": 60,
+        "endChar": 78
+      },
+      "revId": "2dd6f6285780bb1df90d482813259a4e44d33b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
