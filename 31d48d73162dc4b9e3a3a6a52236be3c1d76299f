@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cffd0b9_29826bd7",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-09-11T23:24:15Z",
+      "side": 1,
+      "message": "Why suppress here? Because the argument is ignored?",
+      "revId": "31d48d73162dc4b9e3a3a6a52236be3c1d76299f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
