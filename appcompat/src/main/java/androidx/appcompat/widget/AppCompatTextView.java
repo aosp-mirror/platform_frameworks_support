@@ -27,6 +27,7 @@ import android.util.AttributeSet;
 import android.view.ActionMode;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import android.view.textclassifier.TextClassifier;
 import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
@@ -34,6 +35,7 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.R;
 import androidx.core.text.PrecomputedTextCompat;
@@ -72,6 +74,7 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
 
     private final AppCompatBackgroundHelper mBackgroundTintHelper;
     private final AppCompatTextHelper mTextHelper;
+    private final AppCompatTextClassifierHelper mTextClassifierHelper;
 
     private @Nullable Future<PrecomputedTextCompat> mPrecomputedTextFuture;
 
@@ -92,6 +95,8 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
         mTextHelper = new AppCompatTextHelper(this);
         mTextHelper.loadFromAttributes(attrs, defStyleAttr);
         mTextHelper.applyCompoundDrawablesTints();
+
+        mTextClassifierHelper = new AppCompatTextClassifierHelper(this);
     }
 
     @Override
@@ -476,6 +481,36 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
     public CharSequence getText() {
         consumeTextFutureAndSetBlocking();
         return super.getText();
+    }
+
+    /**
+     * Sets the {@link TextClassifier} for this TextView.
+     */
+    @Override
+    @RequiresApi(api = 26)
+    public void setTextClassifier(@Nullable TextClassifier textClassifier) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P || mTextClassifierHelper == null) {
+            super.setTextClassifier(textClassifier);
+            return;
+        }
+        mTextClassifierHelper.setTextClassifier(textClassifier);
+    }
+
+    /**
+     * Returns the {@link TextClassifier} used by this TextView.
+     * If no TextClassifier has been set, this TextView uses the default set by the
+     * {@link android.view.textclassifier.TextClassificationManager}.
+     */
+    @Override
+    @NonNull
+    @RequiresApi(api = 26)
+    public TextClassifier getTextClassifier() {
+        // The null check is necessary because getTextClassifier is called when we are invoking
+        // the super class's constructor.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P || mTextClassifierHelper == null) {
+            return super.getTextClassifier();
+        }
+        return mTextClassifierHelper.getTextClassifier();
     }
 
     /**
