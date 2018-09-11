@@ -399,6 +399,30 @@
       "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cf45481_39dc588e",
+        "filename": "room/runtime/src/main/java/androidx/room/util/DBUtil.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-09-11T05:28:14Z",
+      "side": 1,
+      "message": "b) sounds tempting, but the disparity between view creation and removal might be a headache in the future. Also, it feels strange to bump up the DB version and add a migration just to remove a view when it does not affect the schema.\n\nAbout a), what are the necessary information for tables? For now, it seems we can get enough information from default SQLite metadata. Are we going to provide some feature that require additional information?",
+      "parentUuid": "d9f9a531_70b758ba",
+      "range": {
+        "startLine": 100,
+        "startChar": 19,
+        "endLine": 101,
+        "endChar": 59
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
