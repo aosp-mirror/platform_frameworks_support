@@ -41,6 +41,6 @@ public class IntEvaluator implements TypeEvaluator<Integer> {
     public Integer evaluate(float fraction, @NonNull Integer startValue,
             @NonNull Integer endValue) {
         int startInt = startValue;
-        return (int) (startInt + fraction * (endValue - startInt));
+        return Math.round(startInt + fraction * (endValue - startInt));
     }
 }
