@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86256c8b_7f5bc252",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatEditText.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-11T13:51:51Z",
+      "side": 1,
+      "message": "Let\u0027s move appcompat module code to a different cl so appcompat reviewers don\u0027t have to deal with textclassifier module code.",
+      "range": {
+        "startLine": 59,
+        "startChar": 13,
+        "endLine": 59,
+        "endChar": 30
+      },
+      "revId": "1658753889ab8a69fb8bf23fbb995235ffb17a14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfd2d973_3fceb69f",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatEditText.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-11T13:51:51Z",
+      "side": 1,
+      "message": "- Let\u0027s move all of this code into a new class e.g. TextClassifierHelper.\n- Also, let\u0027s add implementation to TextViewCompat for TextView implementations we don\u0027t know about.\n- Consider hiding the different implementations inside of TextClassifierHelper. If you hide the TCHelper construction behind a static class, you have the flexibility to decide to use if-statements as you\u0027ve done in your code or a strategy pattern as illustrated below. (whatever option works for me).\n\nclass AppCompatTextView {\n  private final TextClassifierHelper tchelper \u003d TextViewCompat.createTCHelper(this);\n\n  @Override\n  void setTC(TC tc) {\n    tchelper.setTC(tc);\n  }\n\n  @Override\n  TC getTC(TC tc) {\n    tchelper.getTC(tc);\n  }\n}\n\nclass TextViewCompat {\n  ...\n  static TextClassifierHelper createTCHelper(TextView tv) {\n    return TextClassifierHelper.newInstance(tv);\n  }\n}\n\nabstract class TextClassifierHelper {\n\n  private TextClassifier tc;\n  void setTextClassifier(TextClassifier tc);\n  TextClassifier getTextClassifier();\n\n  static newInstance(TextView tv) {\n    if (\u003c P) {\n      return OTCHelper();\n    } else {\n      return PPlusTCHelper(tv);\n    }\n  }\n\n  class OTCHelper extends TCHelper {...}\n  class PPlusTCHelper extends TCHelper {...}\n}",
+      "range": {
+        "startLine": 205,
+        "startChar": 4,
+        "endLine": 240,
+        "endChar": 5
+      },
+      "revId": "1658753889ab8a69fb8bf23fbb995235ffb17a14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e0ff8fa_68c56c3c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-11T13:51:51Z",
+      "side": 1,
+      "message": "Returns an instance of {@link TCM} for the specified context.\nEach context has it\u0027s own TCM.",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 7
+      },
+      "revId": "1658753889ab8a69fb8bf23fbb995235ffb17a14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4322ddf_39897d16",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-11T13:51:51Z",
+      "side": 1,
+      "message": "thought bubble 🗩: In the future, I imagine if we can/should introduce the concept of an appContext\u0027s TCM. So that if you don\u0027t set a TCM on a context, it will try to get it from it\u0027s appContext.",
+      "revId": "1658753889ab8a69fb8bf23fbb995235ffb17a14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e099818_487476a0",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-11T13:51:51Z",
+      "side": 1,
+      "message": "TCM is an optional Android system service. Check for null.",
+      "range": {
+        "startLine": 107,
+        "startChar": 62,
+        "endLine": 107,
+        "endChar": 87
+      },
+      "revId": "1658753889ab8a69fb8bf23fbb995235ffb17a14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1244b83f_500638db",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-11T13:51:51Z",
+      "side": 1,
+      "message": "Let\u0027s cache defaultTextClassifier otherwise, we\u0027d create and get different TCs each time we call TCM.getTC() which I IMO is not ideal.",
+      "range": {
+        "startLine": 121,
+        "startChar": 27,
+        "endLine": 121,
+        "endChar": 48
+      },
+      "revId": "1658753889ab8a69fb8bf23fbb995235ffb17a14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
