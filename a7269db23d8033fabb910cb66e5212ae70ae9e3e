@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "830706f8_ed48814f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-11T21:39:33Z",
+      "side": 1,
+      "message": "LGTM, but please be sure that when callee changes the list, caller\u0027s unmodifiableList will be changed.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 65
+      },
+      "revId": "a7269db23d8033fabb910cb66e5212ae70ae9e3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
