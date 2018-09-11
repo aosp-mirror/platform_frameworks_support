@@ -22,6 +22,30 @@
       "revId": "de8133bd31b44b1999cf28cf013665899dcf9f17",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "469f32d2_a9f4e621",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-09-11T17:12:31Z",
+      "side": 1,
+      "message": "Actually, nvm, that is silly, it would take away the ability for the method to return null to indicate annotation was not present, preventing adding logic for that case.",
+      "parentUuid": "e9892245_1bdb9272",
+      "range": {
+        "startLine": 58,
+        "startChar": 86,
+        "endLine": 58,
+        "endChar": 88
+      },
+      "revId": "de8133bd31b44b1999cf28cf013665899dcf9f17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
