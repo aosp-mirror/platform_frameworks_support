@@ -1,0 +1,463 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46cfd7f0_062327e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "Suggest rearranging the description to be of the form:\n\n${summary}\n${whatThisMeans}\n${howThisWorks}\n\nwith blank lines between thoughts, to make it faster to read. Something like:\n\n\n\nSupport for testing dependency version ranges\n\nAny androidx library can now declare to be compatible with a range of versions of another androidx library via standard Gradle version ranges. These ranges may look like:\n\n  dependency_group:dependency_name:[x.y.z, a.b.c)\n\nWe approximate the testing of this compatibility by creating a task that builds the library against the earliest version of its dependencies, and another task that builds the library against the latest released version of its dependencies.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 13
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "917fecbb_a2eb1bc0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "If you put another \":\" after \"Test\" then (after adding the newline) it signifies that both of them are ways of testing",
+      "range": {
+        "startLine": 20,
+        "startChar": 38,
+        "endLine": 20,
+        "endChar": 39
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5043200_6fe77d68",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "I mean that I recommend putting a newline character here",
+      "range": {
+        "startLine": 20,
+        "startChar": 32,
+        "endLine": 20,
+        "endChar": 35
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c4c04f9_9a43ec24",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "I suspect that this was intentionally indented twice (and therefore we want to keep it that way) because it is a continuation of the previous line, in the same way that line 45 is indented twice more than line 44.\n\nI think the reason for that is to make it easy for readers to know that anything that is indented one level more than the previous line is something that is structurally one level deeper than the previous line.",
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ddcfd92_2091c45c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "version",
+      "range": {
+        "startLine": 58,
+        "startChar": 71,
+        "endLine": 58,
+        "endChar": 77
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0183004e_52ee0b31",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "There\u0027s already another set of parens surrounding this one so you can remove this \u0027)\u0027 and its matching \u0027(\u0027 on line 60.\n\nAlternatively (what I would do), you could move this \u0027)\u0027 to be immediately after \u0027!target.version.endsWith(\")\")\u0027 so that it\u0027s easier to recognize that the \"\u0026\u0026\" is supposed to take precedence over the \"||\"",
+      "range": {
+        "startLine": 63,
+        "startChar": 68,
+        "endLine": 63,
+        "endChar": 69
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0576469_d446863e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "Suggest shortening the message by removing the word \"following\"",
+      "range": {
+        "startLine": 66,
+        "startChar": 53,
+        "endLine": 66,
+        "endChar": 62
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f7265af_6fa72fd7",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "Replacing \"and\" with \".\" would make the sentence faster to read (since then it\u0027s more obvious that the rest of the sentence is a new thought, not part of the description of the format)",
+      "range": {
+        "startLine": 68,
+        "startChar": 52,
+        "endLine": 68,
+        "endChar": 55
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79996dc9_d43e9e95",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "Based on line 81, the libraryVariant has a specific javaCompile task and therefore (if someone in the future adds more build flavors) can be named based on the concatenation of potentially several build flavors.\n\nSo, if someone adds a new flavor named \"sample\" with values \"1\" and \"2\", then the libraryVariant.flavorName could be \"1minDepVersions\", \"2minDepVersions\", \"1maxDepVersions\", \"2maxDepVersions\", which would cause this check to always return false.\n\nWe should at least add an assertion that libraryVariant.flavorName is one of \"minDepVersions\" or \"maxDepVersions\", so that if someone adds a new flavorDimension, the build will fail instead of no longer triggering this check.\n\nEven better would be to figure out how to iterate over all of the flavors associated with libraryVariant and check whether one of them is \"minDepVersions\".",
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e7298a0_c4db6614",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "Let\u0027s explicitly assign this dimension to the created flavors so that if someone else in the future wants to create their own dimension for an unrelated case, it won\u0027t cause this to break and require them to look into it\n\nAlso, then we can remove the explanatory comment",
+      "range": {
+        "startLine": 97,
+        "startChar": 41,
+        "endLine": 97,
+        "endChar": 65
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "369f1129_e0d5f2c7",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "minDepVersions seems kind of verbose to me but I don\u0027t have any better ideas. Do any other reviewers have better ideas?\n\nThis text shows up in the name of the task.\n\nIf nobody else has any better ideas then this sounds good to me.",
+      "range": {
+        "startLine": 100,
+        "startChar": 23,
+        "endLine": 100,
+        "endChar": 37
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5db9e693_688e45b1",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "\"the androidx library dependencies\" -\u003e \"each dependency depending on an androidx library\"\n\n(this clarifies that it refers to dependencies that resolve to androidx libraries, rather than dependencies that are declared in androidx libraries)",
+      "range": {
+        "startLine": 149,
+        "startChar": 79,
+        "endLine": 150,
+        "endChar": 15
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b75d164_ffb73042",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "\"if they are\" -\u003e \"For any that is\"",
+      "range": {
+        "startLine": 150,
+        "startChar": 21,
+        "endLine": 150,
+        "endChar": 32
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "513d6a5b_3acab688",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "\"set the dependency to be on\" -\u003e \"overrides the resolution strategy for this dependency to resolve to\"",
+      "range": {
+        "startLine": 150,
+        "startChar": 63,
+        "endLine": 150,
+        "endChar": 90
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "059a6195_93ee6dc2",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "\" then\" -\u003e \". Then,\"",
+      "range": {
+        "startLine": 150,
+        "startChar": 16,
+        "endLine": 150,
+        "endChar": 20
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a533853_10a18fbe",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "earliest",
+      "range": {
+        "startLine": 151,
+        "startChar": 3,
+        "endLine": 151,
+        "endChar": 11
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0060c181_302e6970",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "makes the dependency resolve",
+      "range": {
+        "startLine": 151,
+        "startChar": 69,
+        "endLine": 151,
+        "endChar": 95
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "128f3d68_1a7c7f21",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "Since this dependency-parsing logic has to be consistent with the dependency-validation logic from lines 60-63, it\u0027d be great to figure out how to consolidate the logic into the same function, or if there isn\u0027t a good way to deduplicate the checks, then to extract them into functions that are adjacent to each other to make it clearer that if someone wants to change one then they should change the other too.\n\nOne idea is to make these functions:\n\nfun isDependencyRange(dependency): bool {\n  // checks whether dependency.version has \"[\" or \"]\" or \"(\" or \")\" or \"+\"\n}\nfun isSupportedDependencyRange(dependency): bool {\n  // checks whether dependency.version starts with \"[\" and ends with \")\"\n}",
+      "range": {
+        "startLine": 157,
+        "startChar": 20,
+        "endLine": 158,
+        "endChar": 56
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "307d1c6c_2a0895ba",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "It\u0027d be good to extract this check (determining whether a library supports SemVer) into a separate function now that it has appeared twice (here and on line 59) in case we need to change the check later, and to further clarify what it means.\n\nYou could, for example, call the function \"artifactSupportsSemVer\"",
+      "range": {
+        "startLine": 159,
+        "startChar": 24,
+        "endLine": 159,
+        "endChar": 64
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd59b4f4_510615a8",
+        "filename": "core/build.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "Presumably you were already planning to communicate this to the team, but we\u0027ll want to be sure to do that approximately right after it\u0027s submitted, since it means that soon a bunch of projects will no longer be depending on other projects but instead depending on prebuilts (which is expected as part of this feature but might be surprising to people that didn\u0027t remember that this feature was happening).",
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5d14c9e_97d4964b",
+        "filename": "core/build.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-11T23:47:31Z",
+      "side": 1,
+      "message": "Hmm, it looks kind of odd to me to have the format of this line different from the format of the other lines (line 28, line 32).\n\nMy vote is either to at least change all expressions of this type in this file, or none of them.\n\nIf you do want to add some extra parens (which I, too, think is an improvement), you probably want to check with some of the other reviewers (I think I\u0027m in the minority in considering the increased clarity of syntax to be worthwhile).",
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
