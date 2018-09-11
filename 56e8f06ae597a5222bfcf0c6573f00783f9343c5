@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "efff8beb_c2208c72",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-11T18:16:28Z",
+      "side": 1,
+      "message": "Update to include information about it being zero.",
+      "range": {
+        "startLine": 843,
+        "startChar": 39,
+        "endLine": 843,
+        "endChar": 47
+      },
+      "revId": "56e8f06ae597a5222bfcf0c6573f00783f9343c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
