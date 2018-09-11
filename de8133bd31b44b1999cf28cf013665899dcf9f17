@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e9892245_1bdb9272",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-09-11T17:08:24Z",
+      "side": 1,
+      "message": "Would be cool if the Proxy class method would return non-null. Avoiding spreading the double-bang around a few places.",
+      "range": {
+        "startLine": 58,
+        "startChar": 86,
+        "endLine": 58,
+        "endChar": 88
+      },
+      "revId": "de8133bd31b44b1999cf28cf013665899dcf9f17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
