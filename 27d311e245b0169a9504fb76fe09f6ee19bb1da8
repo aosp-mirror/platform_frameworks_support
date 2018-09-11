@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2432c6f8_ef1ba476",
+        "filename": "core/src/main/java/androidx/core/app/Person.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-09-11T18:53:41Z",
+      "side": 1,
+      "message": "probably add a private method:\n\nprivate static Person fromBundle(@NonNull BaseBundle bundle, @Nullable Bundle icon) {",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 75,
+        "endChar": 0
+      },
+      "revId": "27d311e245b0169a9504fb76fe09f6ee19bb1da8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4d41811_562f0dd9",
+        "filename": "core/src/main/java/androidx/core/app/Person.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-09-11T18:53:41Z",
+      "side": 1,
+      "message": "nit: common private method: addToBundle(BaseBundle bundle)",
+      "range": {
+        "startLine": 126,
+        "startChar": 1,
+        "endLine": 152,
+        "endChar": 5
+      },
+      "revId": "27d311e245b0169a9504fb76fe09f6ee19bb1da8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d45ac2c4_7e2fd59f",
+        "filename": "core/src/main/java/androidx/core/content/pm/ChooserTargetServiceCompat.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-09-11T18:53:41Z",
+      "side": 1,
+      "message": "probaly load the icons lazily",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 96
+      },
+      "revId": "27d311e245b0169a9504fb76fe09f6ee19bb1da8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57e9a6d6_efb490c8",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShareTargetCompat.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-09-11T18:53:41Z",
+      "side": 1,
+      "message": "this can be a package-private class?",
+      "revId": "27d311e245b0169a9504fb76fe09f6ee19bb1da8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47a2ee5f_dbd83d10",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutManagerCompat.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-09-11T18:53:41Z",
+      "side": 1,
+      "message": "Only add/update the shortcuts which have at least one category?",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 74
+      },
+      "revId": "27d311e245b0169a9504fb76fe09f6ee19bb1da8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
