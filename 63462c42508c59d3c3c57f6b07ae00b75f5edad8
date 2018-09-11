@@ -22,6 +22,30 @@
       "revId": "63462c42508c59d3c3c57f6b07ae00b75f5edad8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcac883f_6d94da3a",
+        "filename": "mediarouter/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-11T21:17:04Z",
+      "side": 0,
+      "message": "They are related with the other hidden methods in this CL. They were introduced together with other Media2 related APIs.",
+      "parentUuid": "ab522f48_88b69916",
+      "range": {
+        "startLine": 349,
+        "startChar": 67,
+        "endLine": 349,
+        "endChar": 75
+      },
+      "revId": "63462c42508c59d3c3c57f6b07ae00b75f5edad8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
