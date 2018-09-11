@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9c99302e_6912c965",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatEditText.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-11T15:21:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86256c8b_7f5bc252",
+      "range": {
+        "startLine": 59,
+        "startChar": 13,
+        "endLine": 59,
+        "endChar": 30
+      },
+      "revId": "1658753889ab8a69fb8bf23fbb995235ffb17a14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bfd2d973_3fceb69f",
         "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatEditText.java",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "d6aa6496_ba05c511",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatEditText.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-11T15:21:57Z",
+      "side": 1,
+      "message": "Going to address this in appcompat CL",
+      "parentUuid": "bfd2d973_3fceb69f",
+      "range": {
+        "startLine": 205,
+        "startChar": 4,
+        "endLine": 240,
+        "endChar": 5
+      },
+      "revId": "1658753889ab8a69fb8bf23fbb995235ffb17a14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e0ff8fa_68c56c3c",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
         "patchSetId": 7
@@ -68,6 +116,30 @@
       "revId": "1658753889ab8a69fb8bf23fbb995235ffb17a14",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6043330_f64ada2c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-11T15:21:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e0ff8fa_68c56c3c",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 7
+      },
+      "revId": "1658753889ab8a69fb8bf23fbb995235ffb17a14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +183,30 @@
     },
     {
       "key": {
+        "uuid": "8c712366_51897a74",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-11T15:21:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e099818_487476a0",
+      "range": {
+        "startLine": 107,
+        "startChar": 62,
+        "endLine": 107,
+        "endChar": 87
+      },
+      "revId": "1658753889ab8a69fb8bf23fbb995235ffb17a14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1244b83f_500638db",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
         "patchSetId": 7
@@ -131,6 +227,30 @@
       "revId": "1658753889ab8a69fb8bf23fbb995235ffb17a14",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "890fe5bb_9fd1a7db",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-11T15:21:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1244b83f_500638db",
+      "range": {
+        "startLine": 121,
+        "startChar": 27,
+        "endLine": 121,
+        "endChar": 48
+      },
+      "revId": "1658753889ab8a69fb8bf23fbb995235ffb17a14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
