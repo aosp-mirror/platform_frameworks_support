@@ -27,12 +27,11 @@ import android.support.annotation.RestrictTo;
 import android.support.annotation.WorkerThread;
 import android.support.v4.util.Pair;
 
-import androidx.work.impl.Extras;
-
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.Executor;
 
 /**
  * The basic object that performs work.  Worker classes are instantiated at runtime by
@@ -45,13 +44,7 @@ import java.util.UUID;
 public abstract class NonBlockingWorker {
 
     @SuppressWarnings("NullableProblems")   // Set by internalInit
-    private @NonNull Context mAppContext;
-
-    @SuppressWarnings("NullableProblems")   // Set by internalInit
-    private @NonNull UUID mId;
-
-    @SuppressWarnings("NullableProblems")   // Set by internalInit
-    private @NonNull Extras mExtras;
+    private @NonNull WorkParameters mWorkParameters;
 
     private volatile boolean mStopped;
     private volatile boolean mCancelled;
@@ -65,7 +58,7 @@ public abstract class NonBlockingWorker {
      * @return The application {@link android.content.Context}
      */
     public final @NonNull Context getApplicationContext() {
-        return mAppContext;
+        return mWorkParameters.getApplicationContext();
     }
 
     /**
@@ -74,7 +67,7 @@ public abstract class NonBlockingWorker {
      * @return The ID of the creating {@link WorkRequest}
      */
     public final @NonNull UUID getId() {
-        return mId;
+        return mWorkParameters.getId();
     }
 
     /**
@@ -85,7 +78,7 @@ public abstract class NonBlockingWorker {
      * @see OneTimeWorkRequest.Builder#setInputMerger(Class)
      */
     public final @NonNull Data getInputData() {
-        return mExtras.getInputData();
+        return mWorkParameters.getInputData();
     }
 
     /**
@@ -95,7 +88,7 @@ public abstract class NonBlockingWorker {
      * @see WorkRequest.Builder#addTag(String)
      */
     public final @NonNull Set<String> getTags() {
-        return mExtras.getTags();
+        return mWorkParameters.getTags();
     }
 
     /**
@@ -106,7 +99,7 @@ public abstract class NonBlockingWorker {
      */
     @RequiresApi(24)
     public final @Nullable Uri[] getTriggeredContentUris() {
-        return mExtras.getRuntimeExtras().triggeredContentUris;
+        return mWorkParameters.getTriggeredContentUris();
     }
 
     /**
@@ -116,7 +109,7 @@ public abstract class NonBlockingWorker {
      */
     @RequiresApi(24)
     public final @Nullable String[] getTriggeredContentAuthorities() {
-        return mExtras.getRuntimeExtras().triggeredContentAuthorities;
+        return mWorkParameters.getTriggeredContentAuthorities();
     }
 
     /**
@@ -127,7 +120,7 @@ public abstract class NonBlockingWorker {
      */
     @RequiresApi(28)
     public final @Nullable Network getNetwork() {
-        return mExtras.getRuntimeExtras().network;
+        return mWorkParameters.getNetwork();
     }
 
     /**
@@ -136,7 +129,7 @@ public abstract class NonBlockingWorker {
      * @return The current run attempt count for this work.
      */
     public final int getRunAttemptCount() {
-        return mExtras.getRunAttemptCount();
+        return mWorkParameters.getRunAttemptCount();
     }
 
     /**
@@ -259,20 +252,23 @@ public abstract class NonBlockingWorker {
 
     @Keep
     @SuppressWarnings("unused")
-    protected void internalInit(
-            @NonNull Context appContext,
-            @NonNull UUID id,
-            @NonNull Extras extras) {
-        mAppContext = appContext;
-        mId = id;
-        mExtras = extras;
+    protected void internalInit(@NonNull WorkParameters workParameters) {
+        mWorkParameters = workParameters;
     }
 
     /**
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    public @NonNull Extras getExtras() {
-        return mExtras;
+    public @NonNull WorkParameters.RuntimeExtras getRuntimeExtras() {
+        return mWorkParameters.getRuntimeExtras();
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public @NonNull Executor getBackgroundExecutor() {
+        return mWorkParameters.getBackgroundExecutor();
     }
 }
