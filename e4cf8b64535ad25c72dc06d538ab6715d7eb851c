@@ -377,6 +377,24 @@
     },
     {
       "key": {
+        "uuid": "7845470c_079a3286",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-12T15:41:47Z",
+      "side": 1,
+      "message": "That (doing a string containment check) would also be a good approximation, yeah. If you do that you\u0027ll want to lowercase the strings first in \"minDepVersions\" isn\u0027t the first one that gets concatenated (causing \"minDepVersions\" to get a capital \"M\")",
+      "parentUuid": "d4818b18_dcabb5d6",
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8e7298a0_c4db6614",
         "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
         "patchSetId": 8
