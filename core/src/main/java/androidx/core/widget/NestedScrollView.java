@@ -17,8 +17,6 @@
 
 package androidx.core.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -47,7 +45,6 @@ import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
 import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.InputDeviceCompat;
 import androidx.core.view.NestedScrollingChild3;
@@ -1442,12 +1439,6 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
         smoothScrollBy(x - getScrollX(), y - getScrollY());
     }
 
-    /**
-     * <p>The scroll range of a scroll view is the overall height of all of its
-     * children.</p>
-     * @hide
-     */
-    @RestrictTo(LIBRARY_GROUP)
     @Override
     public int computeVerticalScrollRange() {
         final int count = getChildCount();
@@ -1470,36 +1461,26 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
         return scrollRange;
     }
 
-    /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
     @Override
     public int computeVerticalScrollOffset() {
         return Math.max(0, super.computeVerticalScrollOffset());
     }
 
-    /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
     @Override
     public int computeVerticalScrollExtent() {
         return super.computeVerticalScrollExtent();
     }
 
-    /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
     @Override
     public int computeHorizontalScrollRange() {
         return super.computeHorizontalScrollRange();
     }
 
-    /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
     @Override
     public int computeHorizontalScrollOffset() {
         return super.computeHorizontalScrollOffset();
     }
 
-    /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
     @Override
     public int computeHorizontalScrollExtent() {
         return super.computeHorizontalScrollExtent();
