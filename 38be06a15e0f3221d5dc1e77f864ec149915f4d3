@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "11b21e8d_90b2d394",
+        "filename": "media/src/main/java/androidx/media/AudioManagerCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-12T22:24:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6982b4ab_a1f3eeea",
+      "range": {
+        "startLine": 31,
+        "startChar": 28,
+        "endLine": 31,
+        "endChar": 41
+      },
+      "revId": "38be06a15e0f3221d5dc1e77f864ec149915f4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2445c473_02a47d29",
         "filename": "media/src/main/java/androidx/media/AudioManagerCompat.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "38be06a15e0f3221d5dc1e77f864ec149915f4d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c37b3f9_1b918aa3",
+        "filename": "media/src/main/java/androidx/media/AudioManagerCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-12T22:24:00Z",
+      "side": 1,
+      "message": "We chatted in person about this and I think this is a common pattern (see: AlarmManagerCompat as we chatted about :)",
+      "parentUuid": "2445c473_02a47d29",
+      "range": {
+        "startLine": 44,
+        "startChar": 11,
+        "endLine": 45,
+        "endChar": 46
+      },
+      "revId": "38be06a15e0f3221d5dc1e77f864ec149915f4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
