@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5580a8ab_be965ace",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-12T17:30:18Z",
+      "side": 1,
+      "message": "Q) are we targeting pre-L devices?",
+      "range": {
+        "startLine": 553,
+        "startChar": 12,
+        "endLine": 554,
+        "endChar": 54
+      },
+      "revId": "82e892bdc4ce103d32789d181fcd662150d56653",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
