@@ -43,6 +43,7 @@ import androidx.media2.MediaPlayer2;
 import androidx.media2.MediaPlayerConnector;
 import androidx.media2.MediaTimestamp2;
 import androidx.media2.PlaybackParams2;
+import androidx.media2.exoplayer.external.C;
 import androidx.media2.exoplayer.external.DefaultLoadControl;
 import androidx.media2.exoplayer.external.DefaultRenderersFactory;
 import androidx.media2.exoplayer.external.ExoPlayerFactory;
@@ -51,10 +52,12 @@ import androidx.media2.exoplayer.external.SimpleExoPlayer;
 import androidx.media2.exoplayer.external.Timeline;
 import androidx.media2.exoplayer.external.audio.AudioAttributes;
 import androidx.media2.exoplayer.external.source.MediaSource;
+import androidx.media2.exoplayer.external.source.TrackGroup;
 import androidx.media2.exoplayer.external.source.TrackGroupArray;
 import androidx.media2.exoplayer.external.trackselection.DefaultTrackSelector;
 import androidx.media2.exoplayer.external.upstream.DataSource;
 import androidx.media2.exoplayer.external.upstream.DefaultDataSourceFactory;
+import androidx.media2.exoplayer.external.util.MimeTypes;
 import androidx.media2.exoplayer.external.util.Util;
 import androidx.media2.exoplayer.external.video.VideoListener;
 
@@ -496,6 +499,63 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
     }
 
     @Override
+    public void reset() {
+        synchronized (mLock) {
+            mDataSourceDescription = null;
+            mVideoWidth = 0;
+            mVideoHeight = 0;
+            mStartPlaybackTimeNs = -1;
+            mPlayingTimeUs = 0;
+        }
+        // TODO(b/80232248): ComponentListener callbacks on the task thread can happen at the same
+        // time as resetting the player. Once the data source queue is implemented, check the
+        // current data source description to suppress stale events before reset.
+        synchronized (mPlayerLock) {
+            mPlayer.stop(/* reset= */ true);
+        }
+    }
+
+    @Override
+    public PersistableBundle getMetrics() {
+        if (Util.SDK_INT >= 21) {
+            PersistableBundle bundle = new PersistableBundle();
+            TrackGroupArray trackGroupArray;
+            long durationMs;
+            synchronized (mPlayerLock) {
+                trackGroupArray = mPlayer.getCurrentTrackGroups();
+                durationMs = mPlayer.getDuration();
+            }
+            long playingTimeMs;
+            synchronized (mLock) {
+                playingTimeMs = C.usToMs(mPlayingTimeUs);
+            }
+            @Nullable String primaryAudioMimeType = null;
+            @Nullable String primaryVideoMimeType = null;
+            for (int i = 0; i < trackGroupArray.length; i++) {
+                TrackGroup trackGroup = trackGroupArray.get(i);
+                String mimeType = trackGroup.getFormat(0).sampleMimeType;
+                if (primaryVideoMimeType == null && MimeTypes.isVideo(mimeType)) {
+                    primaryVideoMimeType = mimeType;
+                } else if (primaryAudioMimeType == null && MimeTypes.isAudio(mimeType)) {
+                    primaryAudioMimeType = mimeType;
+                }
+            }
+            if (primaryVideoMimeType != null) {
+                bundle.putString(MetricsConstants.MIME_TYPE_VIDEO, primaryVideoMimeType);
+            }
+            if (primaryAudioMimeType != null) {
+                bundle.putString(MetricsConstants.MIME_TYPE_AUDIO, primaryAudioMimeType);
+            }
+            bundle.putLong(MetricsConstants.DURATION, durationMs == C.TIME_UNSET ? -1 : durationMs);
+            bundle.putLong(MetricsConstants.PLAYING, playingTimeMs);
+            return bundle;
+        } else {
+            // TODO(b/80232248): Check what to do for pre-Android L builds.
+            throw new UnsupportedOperationException();
+        }
+    }
+
+    @Override
     public void skipToNext() {
         throw new UnsupportedOperationException();
     }
@@ -507,11 +567,6 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
 
     @Override
     public void setNextDataSources(List<DataSourceDesc2> dsds) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public PersistableBundle getMetrics() {
         throw new UnsupportedOperationException();
     }
 
@@ -532,11 +587,6 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
 
     @Override
     public MediaTimestamp2 getTimestamp() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void reset() {
         throw new UnsupportedOperationException();
     }
 
@@ -945,7 +995,7 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
         void sendCompleteNotification(final int status) {
             if (mMediaCallType >= SEPARATE_CALL_COMPLETE_CALLBACK_START) {
                 // These methods have a separate call complete callback and it should be already
-                // called within processs().
+                // called within process().
                 return;
             }
             notifyMediaPlayer2Event(new Mp2EventNotifier() {
