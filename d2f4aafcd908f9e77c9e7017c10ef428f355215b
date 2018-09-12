@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c0b92f1_a3a43267",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-12T22:25:38Z",
+      "side": 1,
+      "message": "I figured this made the most sense? If `AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE` isn\u0027t supported to just fall back to `AUDIOFOCUS_GAIN_TRANSIENT`?",
+      "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
