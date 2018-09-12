@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "24f7c558_bdbc15c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-12T07:45:25Z",
+      "side": 1,
+      "message": "Could we have a new issue?\nAn issue for one current.txt change CL.",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 14
+      },
+      "revId": "54bb603d2e8a2e61e14adf1a0435b6c5b7ae44d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "39536916_34569245",
         "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
         "patchSetId": 12
