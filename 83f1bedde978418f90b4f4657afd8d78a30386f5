@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04aca921_061d0155",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2344,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-12T07:47:18Z",
+      "side": 1,
+      "message": "It is double spaces.",
+      "range": {
+        "startLine": 2344,
+        "startChar": 31,
+        "endLine": 2344,
+        "endChar": 33
+      },
+      "revId": "83f1bedde978418f90b4f4657afd8d78a30386f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
