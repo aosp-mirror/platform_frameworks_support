@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "71e79f39_e522a106",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-09-12T20:29:13Z",
+      "side": 1,
+      "message": "I think all the changes in this file can be moved to the AndroidXPlugin since they\u0027re not fundamentally tied to the SupportExtension.",
+      "revId": "f57628e2795d0de66da91c6e305f70bbf0b6d059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1b79efe_5ed6a431",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-09-12T20:29:13Z",
+      "side": 1,
+      "message": "nit: should only be +4 indent not +8",
+      "revId": "f57628e2795d0de66da91c6e305f70bbf0b6d059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5f10e6cc_d92376d6",
         "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
         "patchSetId": 10
@@ -19,6 +53,40 @@
         "endLine": 149,
         "endChar": 45
       },
+      "revId": "f57628e2795d0de66da91c6e305f70bbf0b6d059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72edb526_dc78f5cd",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-09-12T20:29:13Z",
+      "side": 1,
+      "message": "nit: The above 3 closing braces should all be -4 spaces",
+      "revId": "f57628e2795d0de66da91c6e305f70bbf0b6d059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1507434_8d4a8e4e",
+        "filename": "navigation/common/build.gradle",
+        "patchSetId": 10
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-09-12T20:29:13Z",
+      "side": 1,
+      "message": "This is just `variant.name` I think",
       "revId": "f57628e2795d0de66da91c6e305f70bbf0b6d059",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
