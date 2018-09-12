@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b560433b_9edf6de9",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-12T16:54:35Z",
+      "side": 1,
+      "message": "I guess you are already aware of this, but just fyi, In MP2, reset() is designed to be a blocking call and it returns after clearing and releasing the resource used.",
+      "range": {
+        "startLine": 508,
+        "startChar": 83,
+        "endLine": 509,
+        "endChar": 81
+      },
+      "revId": "f5626a9e736194d37fff17e9cc5c52c9eddc68cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
