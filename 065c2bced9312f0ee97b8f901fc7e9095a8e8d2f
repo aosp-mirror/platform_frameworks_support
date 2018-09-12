@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a5d6bef_0b44e8f1",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavigatorExtras.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-12T18:38:49Z",
+      "side": 1,
+      "message": "lets move to Navigator class",
+      "range": {
+        "startLine": 23,
+        "startChar": 23,
+        "endLine": 23,
+        "endChar": 24
+      },
+      "revId": "065c2bced9312f0ee97b8f901fc7e9095a8e8d2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd9fec05_15e19186",
+        "filename": "navigation/fragment/src/main/java/androidx/navigation/fragment/FragmentNavigator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-12T18:38:49Z",
+      "side": 1,
+      "message": "why linkedhashmap?",
+      "revId": "065c2bced9312f0ee97b8f901fc7e9095a8e8d2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "111059ed_476d607e",
+        "filename": "navigation/fragment/src/main/java/androidx/navigation/fragment/FragmentNavigator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-12T18:38:49Z",
+      "side": 1,
+      "message": "fragment transaction don\u0027t allow shared elements with same name, should we a verification here?",
+      "revId": "065c2bced9312f0ee97b8f901fc7e9095a8e8d2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5539561_6fd94fba",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-12T18:38:49Z",
+      "side": 1,
+      "message": "since extras are part of Options, why do we need a special overload?",
+      "revId": "065c2bced9312f0ee97b8f901fc7e9095a8e8d2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
