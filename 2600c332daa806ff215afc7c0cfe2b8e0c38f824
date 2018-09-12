@@ -22,6 +22,30 @@
       "revId": "2600c332daa806ff215afc7c0cfe2b8e0c38f824",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb4bef44_2c142fa0",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-09-12T16:44:34Z",
+      "side": 1,
+      "message": "This is to do a rounding division and matches the code in NuPlayer2Driver.cpp.",
+      "parentUuid": "25b86be4_0dad6a6d",
+      "range": {
+        "startLine": 659,
+        "startChar": 62,
+        "endLine": 659,
+        "endChar": 65
+      },
+      "revId": "2600c332daa806ff215afc7c0cfe2b8e0c38f824",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
