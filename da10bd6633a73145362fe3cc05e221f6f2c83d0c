@@ -423,6 +423,30 @@
       "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf7fade9_845f94c0",
+        "filename": "room/runtime/src/main/java/androidx/room/util/DBUtil.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-09-12T18:01:17Z",
+      "side": 1,
+      "message": "For option a. (Room metadata log) we do have plans on trying to provide a better migration story that would use a Room generated schema log / table so that we can basically handle the migration for the user all they would need to tell us is what they want to change between versions (addColumn, createTable, renameTable, etc...) and since we have a log of schema changes we would know how to apply those migration operations. In the case of views, we would be able to nicely keep track of Room created views and we would be able to clean them up.\n\nI suggest for now to go with option b. but instead of syncing views when the DB is opened to sync them when the DB is upgraded, making views be considered a schema change.",
+      "parentUuid": "2cf45481_39dc588e",
+      "range": {
+        "startLine": 100,
+        "startChar": 19,
+        "endLine": 101,
+        "endChar": 59
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
