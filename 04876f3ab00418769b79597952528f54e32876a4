@@ -141,6 +141,24 @@
       "revId": "04876f3ab00418769b79597952528f54e32876a4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9e6cf0d_6505cb7e",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-12T19:22:59Z",
+      "side": 1,
+      "message": "Given aosp/742241 (i.e. TCM.setTC() does something useful -- point 3) are you now okay with this?\n\nAbout point 2,\nI think tls.apply(text, tc, params) may be much cleaner/clearer than tls.apply(ctx, text, params(tc?)) where ctx is only used if tc is not supplied and we have to explicitly explain this devs in the javadoc. If devs want default context, they can just do tls.apply(text, TCM.of(ctx), params). Shouldn\u0027t be hard and is unambiguous.\nWdyt?",
+      "parentUuid": "cc41bf31_778dc27c",
+      "revId": "04876f3ab00418769b79597952528f54e32876a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
