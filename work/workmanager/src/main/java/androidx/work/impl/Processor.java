@@ -22,6 +22,7 @@ import android.support.annotation.RestrictTo;
 import androidx.concurrent.listenablefuture.ListenableFuture;
 import androidx.work.Configuration;
 import androidx.work.Logger;
+import androidx.work.WorkParameters;
 import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 import java.util.ArrayList;
@@ -84,10 +85,10 @@ public class Processor implements ExecutionListener {
      * Starts a given unit of work in the background.
      *
      * @param id The work id to execute.
-     * @param runtimeExtras The {@link Extras.RuntimeExtras} for this work, if any.
+     * @param runtimeExtras The {@link WorkParameters.RuntimeExtras} for this work, if any.
      * @return {@code true} if the work was successfully enqueued for processing
      */
-    public boolean startWork(String id, Extras.RuntimeExtras runtimeExtras) {
+    public boolean startWork(String id, WorkParameters.RuntimeExtras runtimeExtras) {
         WorkerWrapper workWrapper;
         synchronized (mLock) {
             // Work may get triggered multiple times if they have passing constraints

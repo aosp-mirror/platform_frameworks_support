@@ -30,8 +30,8 @@ import androidx.concurrent.listenablefuture.ListenableFuture;
 import androidx.work.Data;
 import androidx.work.Logger;
 import androidx.work.NonBlockingWorker;
+import androidx.work.WorkParameters;
 import androidx.work.Worker;
-import androidx.work.impl.Extras;
 import androidx.work.impl.WorkDatabase;
 import androidx.work.impl.WorkManagerImpl;
 import androidx.work.impl.WorkerWrapper;
@@ -81,17 +81,16 @@ public class ConstraintTrackingWorker extends Worker implements WorkConstraintsC
             return FAILURE;
         }
 
-        Extras extrasToPass = new Extras(getInputData(),
+        WorkParameters paramsToPass = new WorkParameters(
+                getApplicationContext(),
+                getId(),
+                getInputData(),
                 getTags(),
-                getExtras().getRuntimeExtras(),
+                getRuntimeExtras(),
                 getRunAttemptCount(),
                 new SynchronousExecutor());
 
-        mDelegate = WorkerWrapper.workerFromClassName(
-                getApplicationContext(),
-                className,
-                getId(),
-                extrasToPass);
+        mDelegate = WorkerWrapper.workerFromClassName(className, paramsToPass);
 
         if (mDelegate == null) {
             Logger.debug(TAG, "No worker to delegate to.");
