@@ -20,6 +20,7 @@ import static androidx.slice.core.SliceHints.ICON_IMAGE;
 
 import android.app.PendingIntent.CanceledException;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
@@ -117,15 +118,19 @@ public class ShortcutView extends SliceChildView {
             try {
                 if (mActionItem != null) {
                     mActionItem.fireAction(null, null);
-                    if (mObserver != null) {
-                        EventInfo ei = new EventInfo(SliceView.MODE_SHORTCUT,
-                                EventInfo.ACTION_TYPE_BUTTON,
-                                EventInfo.ROW_TYPE_SHORTCUT, 0 /* rowIndex */);
-                        SliceItem interactedItem = mActionItem != null
-                                ? mActionItem
-                                : mListContent.getSliceItem();
-                        mObserver.onSliceAction(ei, interactedItem);
-                    }
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_VIEW).setData(mUri);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    getContext().startActivity(intent);
+                }
+                if (mObserver != null) {
+                    EventInfo ei = new EventInfo(SliceView.MODE_SHORTCUT,
+                            EventInfo.ACTION_TYPE_BUTTON,
+                            EventInfo.ROW_TYPE_SHORTCUT, 0 /* rowIndex */);
+                    SliceItem interactedItem = mActionItem != null
+                            ? mActionItem
+                            : mListContent.getSliceItem();
+                    mObserver.onSliceAction(ei, interactedItem);
                 }
             } catch (CanceledException e) {
                 Log.e(TAG, "PendingIntent for slice cannot be sent", e);

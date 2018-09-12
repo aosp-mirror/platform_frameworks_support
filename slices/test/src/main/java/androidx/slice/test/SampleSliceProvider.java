@@ -107,7 +107,6 @@ public class SampleSliceProvider extends SliceProvider {
             "cat",
             "permission",
             "longtext",
-            "loading"
     };
 
     /**
@@ -201,8 +200,6 @@ public class SampleSliceProvider extends SliceProvider {
                 return createBigPicSlice(sliceUri);
             case "/permission":
                 return createPermissionSlice(getContext(), sliceUri, getContext().getPackageName());
-            case "/loading":
-                return createLoadingSlice(sliceUri);
         }
         Log.w(TAG, String.format("Unknown uri: %s", sliceUri));
         return null;
@@ -1012,11 +1009,6 @@ public class SampleSliceProvider extends SliceProvider {
                         .setSubtitle("This is not the slice you're looking for")
                         .addEndItem(ic2, ICON_IMAGE)
                         .setPrimaryAction(simpleAction)).build();
-    }
-
-    private Slice createLoadingSlice(Uri uri) {
-        return new ListBuilder(getContext(), uri, INFINITY)
-                .setHeader(new HeaderBuilder().setTitle("Some loading title", true)).build();
     }
 
     private Handler mHandler = new Handler();

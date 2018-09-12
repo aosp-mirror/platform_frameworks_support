@@ -37,7 +37,6 @@ import static androidx.slice.widget.SliceViewUtil.resolveLayoutDirection;
 
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ProviderInfo;
@@ -219,20 +218,12 @@ public class SliceContent {
                     shortcutAction = pm.getApplicationLabel(appInfo);
                 }
                 if (actionItem == null) {
-                    Intent launchIntent = pm.getLaunchIntentForPackage(appInfo.packageName);
-                    if (launchIntent != null) {
-                        actionItem = new SliceItem(
-                                PendingIntent.getActivity(context, 0, launchIntent, 0),
-                                new Slice.Builder(uri).build(), FORMAT_ACTION,
-                                null /* subtype */, null);
-                    }
+                    actionItem = new SliceItem(PendingIntent.getActivity(context, 0,
+                            pm.getLaunchIntentForPackage(appInfo.packageName), 0),
+                            new Slice.Builder(uri).build(), FORMAT_ACTION,
+                            null /* subtype */, null);
                 }
             }
-        }
-        if (actionItem == null) {
-            Intent intent = new Intent();
-            PendingIntent pi = PendingIntent.getActivity(context, 0, intent, 0);
-            actionItem = new SliceItem(pi, null, FORMAT_ACTION, null, null);
         }
         if (shortcutAction != null && shortcutIcon != null && actionItem != null) {
             return new SliceActionImpl(actionItem.getAction(), shortcutIcon, iconMode,
