@@ -1,0 +1,297 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b34582e_5e5bcbb2",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-12T18:51:47Z",
+      "side": 1,
+      "message": "Seems like this only applies to one test. Can we consider moving this to that test?",
+      "range": {
+        "startLine": 54,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 9
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd2ecee6_d2d31eae",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-12T18:51:47Z",
+      "side": 1,
+      "message": "Seems like this test applies to all platforms.",
+      "range": {
+        "startLine": 82,
+        "startChar": 16,
+        "endLine": 82,
+        "endChar": 49
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "372087a0_dc11c9ad",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-12T18:51:47Z",
+      "side": 1,
+      "message": "Why are we checking the type here and not the reference?",
+      "range": {
+        "startLine": 86,
+        "startChar": 7,
+        "endLine": 86,
+        "endChar": 75
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c1c2d29_b4c827bd",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-12T18:51:47Z",
+      "side": 1,
+      "message": "Already part of the previous test. Can we unify?",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 95,
+        "endChar": 75
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35a58227_fea75b12",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-12T18:51:47Z",
+      "side": 1,
+      "message": "FYI. TCM is currently configured as an optional system service, so in theory mPlatformTCM can be null.",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 60
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2ebb97d_115fd669",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-12T18:51:47Z",
+      "side": 1,
+      "message": "How is this true?\nShouldn\u0027t this be TCImpl.class?",
+      "range": {
+        "startLine": 99,
+        "startChar": 30,
+        "endLine": 99,
+        "endChar": 58
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa12864b_901237a0",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-12T18:51:47Z",
+      "side": 1,
+      "message": "Can we also\nassertThat(platformTextClassification.getIntent()).isNull()?",
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7cc78c6_4698717f",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/PlatformTextClassifier.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-12T18:51:47Z",
+      "side": 1,
+      "message": "We shouldn\u0027t need to implement this method. This is essentially what the super class does.",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 5
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ea11ff7_35b2d120",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/PlatformTextClassifier.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-12T18:51:47Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 5
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8413a900_33336cde",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SelectionEvent.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-12T18:51:47Z",
+      "side": 1,
+      "message": "Preconditions.checkNotNull otherwise we do unnecessary work (and in certain cases, even return) with this being null.",
+      "range": {
+        "startLine": 741,
+        "startChar": 39,
+        "endLine": 741,
+        "endChar": 46
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52dbda44_d7e7e1e3",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SelectionEvent.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-12T18:51:47Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 763,
+        "startChar": 29,
+        "endLine": 763,
+        "endChar": 36
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb877fd3_968836af",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SelectionEvent.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-12T18:51:47Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 782,
+        "startChar": 29,
+        "endLine": 782,
+        "endChar": 36
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3b46941_1e6fb371",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-12T18:51:47Z",
+      "side": 1,
+      "message": "Preconditions.checkNotNull.\n\nLeads me to another question.\nAre we going to need to convert to platform where we don\u0027t have a context available? If so, perhaps we can make this nullable and just not resolve the drawable when there is no context (that field is optional provided we have a label) I think /shrug/. If not, nonnull is fine.\nThanks.",
+      "range": {
+        "startLine": 278,
+        "startChar": 39,
+        "endLine": 278,
+        "endChar": 46
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
