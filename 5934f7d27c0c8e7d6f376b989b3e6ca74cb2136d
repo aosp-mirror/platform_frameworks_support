@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2146e27b_b2125361",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-09-12T16:49:31Z",
+      "side": 1,
+      "message": "@TargetApi should not be required. @TargetApi simply suppresses lint. If lint does not understand this, please file a bug to lint.",
+      "range": {
+        "startLine": 204,
+        "startChar": 8,
+        "endLine": 204,
+        "endChar": 54
+      },
+      "revId": "5934f7d27c0c8e7d6f376b989b3e6ca74cb2136d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
