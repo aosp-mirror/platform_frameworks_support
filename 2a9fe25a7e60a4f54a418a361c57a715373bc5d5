@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2d239c22_d74c6ec8",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatActivity.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2018-09-12T00:43:48Z",
+      "side": 1,
+      "message": "Sure, done.",
+      "parentUuid": "f2a46fb0_2d5677e8",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 13
+      },
+      "revId": "2a9fe25a7e60a4f54a418a361c57a715373bc5d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "45a8e43b_add625c7",
         "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-11T15:04:03Z",
       "side": 1,
       "message": "Why does it need both?",
+      "range": {
+        "startLine": 430,
+        "startChar": 0,
+        "endLine": 434,
+        "endChar": 9
+      },
+      "revId": "2a9fe25a7e60a4f54a418a361c57a715373bc5d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7111012a_fc9bd66c",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2018-09-12T00:43:48Z",
+      "side": 1,
+      "message": "The original context still gets updated (for things like windowBackground and sys-ui).",
+      "parentUuid": "45a8e43b_add625c7",
       "range": {
         "startLine": 430,
         "startChar": 0,

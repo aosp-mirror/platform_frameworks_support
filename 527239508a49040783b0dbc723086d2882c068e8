@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "24eeec31_91ab4669",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2054,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2018-09-12T00:43:48Z",
+      "side": 1,
+      "message": "I agree that would be best but the tests break when I do that (AppCompat theme check). This is basically just moving the call from AppCompatActivity to here, so we\u0027re not doing anything extra here.",
+      "parentUuid": "19cfc4ad_f70996f4",
+      "range": {
+        "startLine": 2045,
+        "startChar": 0,
+        "endLine": 2054,
+        "endChar": 9
+      },
+      "revId": "527239508a49040783b0dbc723086d2882c068e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "57bda89f_5b3786f5",
         "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDialog.java",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-11T15:04:03Z",
       "side": 1,
       "message": "Why the additional constructor?",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 35
+      },
+      "revId": "527239508a49040783b0dbc723086d2882c068e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "143ae99b_cd9a6d12",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2018-09-12T00:43:48Z",
+      "side": 1,
+      "message": "Because I want to get the actually value of themeResId. The second constructor maps the value with `getThemeResId`. I could just call getThemeResId again, but it felt gross. Neither are good solutions.",
+      "parentUuid": "57bda89f_5b3786f5",
       "range": {
         "startLine": 60,
         "startChar": 0,
