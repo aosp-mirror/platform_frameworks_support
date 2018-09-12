@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39536916_34569245",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-12T07:43:22Z",
+      "side": 1,
+      "message": "Don\u0027t we agree to have constructor instead of this?",
+      "range": {
+        "startLine": 379,
+        "startChar": 26,
+        "endLine": 379,
+        "endChar": 37
+      },
+      "revId": "54bb603d2e8a2e61e14adf1a0435b6c5b7ae44d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d812695a_ec4c41b2",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-12T07:43:22Z",
+      "side": 1,
+      "message": "Why not MediaItem2(mUuid, ...)?",
+      "range": {
+        "startLine": 425,
+        "startChar": 23,
+        "endLine": 425,
+        "endChar": 40
+      },
+      "revId": "54bb603d2e8a2e61e14adf1a0435b6c5b7ae44d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
