@@ -16,6 +16,24 @@
       "revId": "31d48d73162dc4b9e3a3a6a52236be3c1d76299f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ba90bca_52b00c7e",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-12T00:17:16Z",
+      "side": 1,
+      "message": "Yep. Nothing actually calls this method, so I\u0027m planning on deprecating this method entirely in a follow up CL.",
+      "parentUuid": "3cffd0b9_29826bd7",
+      "revId": "31d48d73162dc4b9e3a3a6a52236be3c1d76299f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
