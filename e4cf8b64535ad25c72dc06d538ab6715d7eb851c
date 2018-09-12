@@ -71,6 +71,54 @@
     },
     {
       "key": {
+        "uuid": "3697a46a_f6c40d38",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-12T13:48:30Z",
+      "side": 1,
+      "message": "Oh I did not intend to leave that that way, woooops. It\u0027s fixed now.",
+      "parentUuid": "a5043200_6fe77d68",
+      "range": {
+        "startLine": 20,
+        "startChar": 32,
+        "endLine": 20,
+        "endChar": 35
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7682c876_e4671e7b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-12T13:48:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "917fecbb_a2eb1bc0",
+      "range": {
+        "startLine": 20,
+        "startChar": 38,
+        "endLine": 20,
+        "endChar": 39
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c4c04f9_9a43ec24",
         "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
         "patchSetId": 8
@@ -85,6 +133,24 @@
       "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e82f0d55_a0a6e339",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-12T13:48:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c4c04f9_9a43ec24",
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "792466fc_246f7e20",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-12T13:48:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ddcfd92_2091c45c",
+      "range": {
+        "startLine": 58,
+        "startChar": 71,
+        "endLine": 58,
+        "endChar": 77
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0183004e_52ee0b31",
         "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
         "patchSetId": 8
@@ -131,6 +221,30 @@
       "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbf1818a_67d3630c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-12T13:48:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0183004e_52ee0b31",
+      "range": {
+        "startLine": 63,
+        "startChar": 68,
+        "endLine": 63,
+        "endChar": 69
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "6425899e_d8e8999b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-12T13:48:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0576469_d446863e",
+      "range": {
+        "startLine": 66,
+        "startChar": 53,
+        "endLine": 66,
+        "endChar": 62
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f7265af_6fa72fd7",
         "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
         "patchSetId": 8
@@ -180,6 +318,30 @@
     },
     {
       "key": {
+        "uuid": "2fbbb741_e10873f9",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-12T13:48:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f7265af_6fa72fd7",
+      "range": {
+        "startLine": 68,
+        "startChar": 52,
+        "endLine": 68,
+        "endChar": 55
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79996dc9_d43e9e95",
         "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
         "patchSetId": 8
@@ -191,6 +353,24 @@
       "writtenOn": "2018-09-11T23:47:31Z",
       "side": 1,
       "message": "Based on line 81, the libraryVariant has a specific javaCompile task and therefore (if someone in the future adds more build flavors) can be named based on the concatenation of potentially several build flavors.\n\nSo, if someone adds a new flavor named \"sample\" with values \"1\" and \"2\", then the libraryVariant.flavorName could be \"1minDepVersions\", \"2minDepVersions\", \"1maxDepVersions\", \"2maxDepVersions\", which would cause this check to always return false.\n\nWe should at least add an assertion that libraryVariant.flavorName is one of \"minDepVersions\" or \"maxDepVersions\", so that if someone adds a new flavorDimension, the build will fail instead of no longer triggering this check.\n\nEven better would be to figure out how to iterate over all of the flavors associated with libraryVariant and check whether one of them is \"minDepVersions\".",
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4818b18_dcabb5d6",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-12T13:48:30Z",
+      "side": 1,
+      "message": "Wouldn\u0027t \u0027contains\u0027 be a more suitable solution? That way even if someone legitimately needs to create flavors with a different dimension, they would so so safely. Let me know if otherwise.",
+      "parentUuid": "79996dc9_d43e9e95",
       "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -217,6 +397,30 @@
       "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0a23986_75599330",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-12T13:48:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e7298a0_c4db6614",
+      "range": {
+        "startLine": 97,
+        "startChar": 41,
+        "endLine": 97,
+        "endChar": 65
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -335,6 +539,102 @@
     },
     {
       "key": {
+        "uuid": "71b51eb8_5d94b52d",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-12T13:48:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "059a6195_93ee6dc2",
+      "range": {
+        "startLine": 150,
+        "startChar": 16,
+        "endLine": 150,
+        "endChar": 20
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a1afc950_bb7172b3",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-12T13:48:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5db9e693_688e45b1",
+      "range": {
+        "startLine": 149,
+        "startChar": 79,
+        "endLine": 150,
+        "endChar": 15
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "237d984e_2e77b75d",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-12T13:48:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b75d164_ffb73042",
+      "range": {
+        "startLine": 150,
+        "startChar": 21,
+        "endLine": 150,
+        "endChar": 32
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7d5239b5_6baae544",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-12T13:48:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "513d6a5b_3acab688",
+      "range": {
+        "startLine": 150,
+        "startChar": 63,
+        "endLine": 150,
+        "endChar": 90
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a533853_10a18fbe",
         "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
         "patchSetId": 8
@@ -381,6 +681,54 @@
     },
     {
       "key": {
+        "uuid": "bad1e9ce_73bbdaa9",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-12T13:48:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0060c181_302e6970",
+      "range": {
+        "startLine": 151,
+        "startChar": 69,
+        "endLine": 151,
+        "endChar": 95
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5651946e_839363a7",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-12T13:48:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a533853_10a18fbe",
+      "range": {
+        "startLine": 151,
+        "startChar": 3,
+        "endLine": 151,
+        "endChar": 11
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "128f3d68_1a7c7f21",
         "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
         "patchSetId": 8
@@ -401,6 +749,30 @@
       "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00d02dde_11f30b3d",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-12T13:48:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "128f3d68_1a7c7f21",
+      "range": {
+        "startLine": 157,
+        "startChar": 20,
+        "endLine": 158,
+        "endChar": 56
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -427,6 +799,30 @@
     },
     {
       "key": {
+        "uuid": "d3f5e403_fd78cc81",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-12T13:48:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "307d1c6c_2a0895ba",
+      "range": {
+        "startLine": 159,
+        "startChar": 24,
+        "endLine": 159,
+        "endChar": 64
+      },
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd59b4f4_510615a8",
         "filename": "core/build.gradle",
         "patchSetId": 8
@@ -438,6 +834,24 @@
       "writtenOn": "2018-09-11T23:47:31Z",
       "side": 1,
       "message": "Presumably you were already planning to communicate this to the team, but we\u0027ll want to be sure to do that approximately right after it\u0027s submitted, since it means that soon a bunch of projects will no longer be depending on other projects but instead depending on prebuilts (which is expected as part of this feature but might be surprising to people that didn\u0027t remember that this feature was happening).",
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "368f6e39_2016e2e1",
+        "filename": "core/build.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-12T13:48:30Z",
+      "side": 1,
+      "message": "Agreed, whenever you are here, let\u0027s talk about the appropriate correspondents.",
+      "parentUuid": "cd59b4f4_510615a8",
       "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -458,6 +872,24 @@
       "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3276cc38_cd3f76d6",
+        "filename": "core/build.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-12T13:48:30Z",
+      "side": 1,
+      "message": "The change was not meant to be to begin with, leaving as is.",
+      "parentUuid": "f5d14c9e_97d4964b",
+      "revId": "e4cf8b64535ad25c72dc06d538ab6715d7eb851c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
