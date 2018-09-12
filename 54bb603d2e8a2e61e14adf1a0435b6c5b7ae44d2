@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8577762f_2df5322c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-12T08:41:23Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "24f7c558_bdbc15c5",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 14
+      },
+      "revId": "54bb603d2e8a2e61e14adf1a0435b6c5b7ae44d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "39536916_34569245",
         "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
         "patchSetId": 12
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "77f50f30_d9d2177f",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-12T08:41:23Z",
+      "side": 1,
+      "message": "As discussed with dongwon, it will be handled in another CL.",
+      "parentUuid": "39536916_34569245",
+      "range": {
+        "startLine": 379,
+        "startChar": 26,
+        "endLine": 379,
+        "endChar": 37
+      },
+      "revId": "54bb603d2e8a2e61e14adf1a0435b6c5b7ae44d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d812695a_ec4c41b2",
         "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
         "patchSetId": 12
@@ -68,6 +116,30 @@
       "revId": "54bb603d2e8a2e61e14adf1a0435b6c5b7ae44d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02e447b5_09527c67",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-12T08:41:23Z",
+      "side": 1,
+      "message": "I only have small reasons.\nI\u0027m OK to change as your proposal if this implementation doesn\u0027t look good.\n\nHere are the three small reasons.\n1. This matches with the DataSourceDesc2 implementation\n2. This requires smaller code for subclass because initializing parent class part needs less code. (super(builder) vs super(mUuuid, ...))\n3. For future, when we want to allow 3rd party library to create their own subclass of MediaItem2, then we\u0027d better to have (protected/public) constructor that takes Builder. It would ensure that MediaItem2 is only created from the Builder.",
+      "parentUuid": "d812695a_ec4c41b2",
+      "range": {
+        "startLine": 425,
+        "startChar": 23,
+        "endLine": 425,
+        "endChar": 40
+      },
+      "revId": "54bb603d2e8a2e61e14adf1a0435b6c5b7ae44d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
