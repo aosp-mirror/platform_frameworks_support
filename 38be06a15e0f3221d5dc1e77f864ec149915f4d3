@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6982b4ab_a1f3eeea",
+        "filename": "media/src/main/java/androidx/media/AudioManagerCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-09-12T00:12:45Z",
+      "side": 1,
+      "message": "configure your",
+      "range": {
+        "startLine": 31,
+        "startChar": 28,
+        "endLine": 31,
+        "endChar": 41
+      },
+      "revId": "38be06a15e0f3221d5dc1e77f864ec149915f4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2445c473_02a47d29",
+        "filename": "media/src/main/java/androidx/media/AudioManagerCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-09-12T00:12:45Z",
+      "side": 1,
+      "message": "is this a common pattern in compat lib (static on method to make compatible, and pass object on which it\u0027s called), or is it here to the AudioManager instance is kept around to achieve the death monitoring. It seems the latter, which is good and necessary, but wanted to check if the former is also true.",
+      "range": {
+        "startLine": 44,
+        "startChar": 11,
+        "endLine": 45,
+        "endChar": 46
+      },
+      "revId": "38be06a15e0f3221d5dc1e77f864ec149915f4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
