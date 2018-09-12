@@ -37,7 +37,6 @@ import androidx.media2.MediaPlayerConnector;
 import androidx.media2.MediaSession2;
 import androidx.media2.MediaSession2.ControllerInfo;
 import androidx.media2.SessionCommandGroup2;
-import androidx.test.filters.FlakyTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
@@ -141,7 +140,6 @@ public class MediaSession2_KeyEventTest extends MediaSession2TestBase {
         assertTrue(mPlayer.mPlayCalled);
     }
 
-    @FlakyTest(bugId = 115432583)
     @Test
     public void testPause() throws Exception {
         prepareLooper();
@@ -166,7 +164,6 @@ public class MediaSession2_KeyEventTest extends MediaSession2TestBase {
         assertTrue(mMockAgent.mSkipToPreviousItemCalled);
     }
 
-    @FlakyTest(bugId = 112291143)
     @Test
     public void testStop() throws Exception {
         prepareLooper();
@@ -203,11 +200,9 @@ public class MediaSession2_KeyEventTest extends MediaSession2TestBase {
         assertTrue(mPlayer.mPlayCalled);
     }
 
-    @FlakyTest(bugId = 115464664)
     @Test
     public void testPlayPause_pause() throws Exception {
         prepareLooper();
-        mPlayer.notifyPlayerStateChanged(MediaPlayerConnector.PLAYER_STATE_PLAYING);
         dispatchMediaKeyEvent(KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE, false);
         assertTrue(mPlayer.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mPlayer.mPauseCalled);
