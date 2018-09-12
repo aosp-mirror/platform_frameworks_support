@@ -496,6 +496,23 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
     }
 
     @Override
+    public void reset() {
+        synchronized (mLock) {
+            mDataSourceDescription = null;
+            mVideoWidth = 0;
+            mVideoHeight = 0;
+            mStartPlaybackTimeNs = -1;
+            mPlayingTimeUs = 0;
+        }
+        // TODO(b/80232248): ComponentListener callbacks on the task thread can happen at the same
+        // time as resetting the player. Once the data source queue is implemented, check the
+        // current data source description to suppress stale events before reset.
+        synchronized (mPlayerLock) {
+            mPlayer.stop(/* reset= */ true);
+        }
+    }
+
+    @Override
     public void skipToNext() {
         throw new UnsupportedOperationException();
     }
@@ -532,11 +549,6 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
 
     @Override
     public MediaTimestamp2 getTimestamp() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void reset() {
         throw new UnsupportedOperationException();
     }
 
@@ -945,7 +957,7 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
         void sendCompleteNotification(final int status) {
             if (mMediaCallType >= SEPARATE_CALL_COMPLETE_CALLBACK_START) {
                 // These methods have a separate call complete callback and it should be already
-                // called within processs().
+                // called within process().
                 return;
             }
             notifyMediaPlayer2Event(new Mp2EventNotifier() {
