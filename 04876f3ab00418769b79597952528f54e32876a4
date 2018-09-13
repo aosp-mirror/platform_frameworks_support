@@ -91,6 +91,40 @@
     },
     {
       "key": {
+        "uuid": "0c5d4546_63e8403e",
+        "filename": "textclassifier/integration-tests/testapp/src/main/java/androidx/textclassifier/integration/testapp/MainActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-13T13:08:53Z",
+      "side": 1,
+      "message": "actually should we copy the string here before passing it to generateLinks?",
+      "revId": "04876f3ab00418769b79597952528f54e32876a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb3814b1_a3547ffa",
+        "filename": "textclassifier/integration-tests/testapp/src/main/java/androidx/textclassifier/integration/testapp/MainActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-13T13:08:53Z",
+      "side": 1,
+      "message": "Should we use SpannableString.of(textView.getText()) instead?",
+      "revId": "04876f3ab00418769b79597952528f54e32876a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9839d6f0_b5dda26d",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 2
