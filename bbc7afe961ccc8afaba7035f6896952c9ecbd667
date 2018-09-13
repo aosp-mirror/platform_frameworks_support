@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dca01d41_0e1050c1",
+        "filename": "car/core/res/layout/select_dialog_multichoice_car.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-13T22:13:06Z",
+      "side": 1,
+      "message": "Alternatively, what about setting the car_checkbox as listChoiceIndicatorMultiple within the theme instead? That\u0027ll allow someone to come along and change the checkbox if they wanted. \n\nI\u0027m also ok if you want to take the approach of saying that the checkbox can\u0027t be changed.",
+      "revId": "bbc7afe961ccc8afaba7035f6896952c9ecbd667",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ebda50d_24aba92e",
+        "filename": "car/core/res/layout/select_dialog_singlechoice_car.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-13T22:13:06Z",
+      "side": 1,
+      "message": "Same general comment here",
+      "revId": "bbc7afe961ccc8afaba7035f6896952c9ecbd667",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f6ad26b_8e352c64",
+        "filename": "car/core/res/values/themes.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-13T22:13:06Z",
+      "side": 1,
+      "message": "nit: but I think we should reorganize this theme so that all the \"android:\" stuff appears before the other attributes. Alpha-ordered too :) \n\nI\u0027m fine if you want to do it in another CL to avoid cluttering this one.",
+      "revId": "bbc7afe961ccc8afaba7035f6896952c9ecbd667",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
