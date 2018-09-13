@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "97ad041a_483a6023",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-13T13:16:43Z",
+      "side": 1,
+      "message": "I would like to keep it here though as I consider this one of the environment setups :)",
+      "parentUuid": "1b34582e_5e5bcbb2",
+      "range": {
+        "startLine": 54,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 9
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd2ecee6_d2d31eae",
         "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5e03531_e175aaff",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-13T13:16:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd2ecee6_d2d31eae",
+      "range": {
+        "startLine": 82,
+        "startChar": 16,
+        "endLine": 82,
+        "endChar": 49
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e7e00541_d7b02bf5",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-13T13:16:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "372087a0_dc11c9ad",
+      "range": {
+        "startLine": 86,
+        "startChar": 7,
+        "endLine": 86,
+        "endChar": 75
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c1c2d29_b4c827bd",
         "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
         "patchSetId": 9
@@ -91,6 +163,30 @@
       "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e92cad0_65573ba1",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-13T13:16:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c1c2d29_b4c827bd",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 95,
+        "endChar": 75
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +236,54 @@
     },
     {
       "key": {
+        "uuid": "6768dede_049531b1",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-13T13:16:43Z",
+      "side": 1,
+      "message": "No, it should not be TCImpl.\n\nWhen calling setTextClassifier(new DummyTextClassifier()),\nwe will wrap the androidX DummyTextClassifier by using PlatformTextClassifier, and set it to \nplatform TCM, so we should expect PlatformTextClassifier here.",
+      "parentUuid": "c2ebb97d_115fd669",
+      "range": {
+        "startLine": 99,
+        "startChar": 30,
+        "endLine": 99,
+        "endChar": 58
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02b3b07f_a98a250a",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-13T13:16:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35a58227_fea75b12",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 60
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa12864b_901237a0",
         "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationTest.java",
         "patchSetId": 9
@@ -157,6 +301,24 @@
     },
     {
       "key": {
+        "uuid": "2cceafbb_d35042d0",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-13T13:16:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa12864b_901237a0",
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7cc78c6_4698717f",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/PlatformTextClassifier.java",
         "patchSetId": 9
@@ -168,6 +330,30 @@
       "writtenOn": "2018-09-12T18:51:47Z",
       "side": 1,
       "message": "We shouldn\u0027t need to implement this method. This is essentially what the super class does.",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 5
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20fc9217_3cb15a80",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/PlatformTextClassifier.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-13T13:16:43Z",
+      "side": 1,
+      "message": "We need this to support O, no?",
+      "parentUuid": "a7cc78c6_4698717f",
       "range": {
         "startLine": 57,
         "startChar": 4,
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "138fe86e_76b5244b",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/PlatformTextClassifier.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-13T13:16:43Z",
+      "side": 1,
+      "message": "ditto.",
+      "parentUuid": "1ea11ff7_35b2d120",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 5
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8413a900_33336cde",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/SelectionEvent.java",
         "patchSetId": 9
@@ -223,6 +433,30 @@
       "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b218d9c7_1a0aa634",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SelectionEvent.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-13T13:16:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8413a900_33336cde",
+      "range": {
+        "startLine": 741,
+        "startChar": 39,
+        "endLine": 741,
+        "endChar": 46
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -249,6 +483,30 @@
     },
     {
       "key": {
+        "uuid": "6e1062e8_b141d12a",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SelectionEvent.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-13T13:16:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52dbda44_d7e7e1e3",
+      "range": {
+        "startLine": 763,
+        "startChar": 29,
+        "endLine": 763,
+        "endChar": 36
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb877fd3_968836af",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/SelectionEvent.java",
         "patchSetId": 9
@@ -272,6 +530,30 @@
     },
     {
       "key": {
+        "uuid": "32391a11_411892fe",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/SelectionEvent.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-13T13:16:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb877fd3_968836af",
+      "range": {
+        "startLine": 782,
+        "startChar": 29,
+        "endLine": 782,
+        "endChar": 36
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3b46941_1e6fb371",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
         "patchSetId": 9
@@ -283,6 +565,30 @@
       "writtenOn": "2018-09-12T18:51:47Z",
       "side": 1,
       "message": "Preconditions.checkNotNull.\n\nLeads me to another question.\nAre we going to need to convert to platform where we don\u0027t have a context available? If so, perhaps we can make this nullable and just not resolve the drawable when there is no context (that field is optional provided we have a label) I think /shrug/. If not, nonnull is fine.\nThanks.",
+      "range": {
+        "startLine": 278,
+        "startChar": 39,
+        "endLine": 278,
+        "endChar": 46
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6568291_eecd5eda",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-13T13:16:43Z",
+      "side": 1,
+      "message": "Currently, there is only two callers of these methods:\n1. PlatformTextClassifier, the wrapper, which uses app content and can\u0027t be null.\n2. SelectionEvent, which are currently unused. (We are going to hide onSelectionEvent for now)\n\nSo seems fine to me to keep it @NonNull.",
+      "parentUuid": "a3b46941_1e6fb371",
       "range": {
         "startLine": 278,
         "startChar": 39,
