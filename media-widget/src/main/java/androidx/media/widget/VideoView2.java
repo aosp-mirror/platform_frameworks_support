@@ -144,22 +144,10 @@ public class VideoView2 extends BaseLayout {
     public VideoView2(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         if (android.os.Build.VERSION.SDK_INT >= 28) {
-            if (USE_MP1) {
-                if (DEBUG) {
-                    Log.d(TAG, "Create VideoView2ImplApi28WithMp1");
-                }
-                mImpl = new VideoView2ImplApi28WithMp1();
-            } else {
-                if (DEBUG) {
-                    Log.d(TAG, "Create VideoView2ImplBase");
-                }
-                mImpl = new VideoView2ImplBase();
-            }
-        } else {
             if (DEBUG) {
-                Log.d(TAG, "Create VideoView2ImplBaseWithMp1");
+                Log.d(TAG, "Create VideoView2ImplBase");
             }
-            mImpl = new VideoView2ImplBaseWithMp1();
+            mImpl = new VideoView2ImplBase();
         }
         mImpl.initialize(this, context, attrs, defStyleAttr);
     }
