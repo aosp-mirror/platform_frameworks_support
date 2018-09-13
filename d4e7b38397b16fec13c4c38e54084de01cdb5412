@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65e76864_05373cbb",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-13T21:03:31Z",
+      "side": 1,
+      "message": "Is WorkerParameters still @hide? It should be unhidden if you want people to implement this.",
+      "range": {
+        "startLine": 73,
+        "startChar": 67,
+        "endLine": 73,
+        "endChar": 83
+      },
+      "revId": "d4e7b38397b16fec13c4c38e54084de01cdb5412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8a2e5a6_0b6b3ce9",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-13T21:03:31Z",
+      "side": 1,
+      "message": "This should be context.getApplicationContext()",
+      "range": {
+        "startLine": 535,
+        "startChar": 58,
+        "endLine": 535,
+        "endChar": 65
+      },
+      "revId": "d4e7b38397b16fec13c4c38e54084de01cdb5412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
