@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8bff5f18_b8eaf89c",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-13T21:13:28Z",
+      "side": 1,
+      "message": "No, it wasn\u0027t checked in as hidden.",
+      "parentUuid": "65e76864_05373cbb",
+      "range": {
+        "startLine": 73,
+        "startChar": 67,
+        "endLine": 73,
+        "endChar": 83
+      },
+      "revId": "d4e7b38397b16fec13c4c38e54084de01cdb5412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8a2e5a6_0b6b3ce9",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "d4e7b38397b16fec13c4c38e54084de01cdb5412",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dc6033b_9e74c12e",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-13T21:13:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8a2e5a6_0b6b3ce9",
+      "range": {
+        "startLine": 535,
+        "startChar": 58,
+        "endLine": 535,
+        "endChar": 65
+      },
+      "revId": "d4e7b38397b16fec13c4c38e54084de01cdb5412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
