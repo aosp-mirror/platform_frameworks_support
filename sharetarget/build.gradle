@@ -1,0 +1,42 @@
+import static androidx.build.dependencies.DependenciesKt.*
+import androidx.build.LibraryGroups
+import androidx.build.LibraryVersions
+
+plugins {
+    id("SupportAndroidLibraryPlugin")
+}
+
+dependencies {
+    api(project(":core"))
+
+    androidTestImplementation(TEST_RUNNER)
+    androidTestImplementation(TEST_RULES)
+    androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
+    androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
+    androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
+}
+
+android {
+    sourceSets {
+        main.res.srcDirs 'res', 'res-public'
+    }
+
+    aaptOptions {
+        noCompress 'ttf'
+    }
+
+    buildTypes.all {
+        consumerProguardFiles 'proguard-rules.pro'
+    }
+}
+
+supportLibrary {
+    name = "AndroidX Share Target Support Library"
+    publish = true
+    mavenVersion = LibraryVersions.SHARETARGET
+    mavenGroup = LibraryGroups.SHARETARGET
+    inceptionYear = "2018"
+    description = "ShareTarget"
+    failOnUncheckedWarnings = false
+    failOnDeprecationWarnings = false
+}
