@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "383baf0e_f17a0fba",
+        "filename": "textclassifier/integration-tests/testapp/src/main/java/androidx/textclassifier/integration/testapp/MainActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-13T17:29:34Z",
+      "side": 1,
+      "message": "I believe build() does that. No need to be defensive here.",
+      "parentUuid": "0c5d4546_63e8403e",
+      "revId": "04876f3ab00418769b79597952528f54e32876a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb3814b1_a3547ffa",
         "filename": "textclassifier/integration-tests/testapp/src/main/java/androidx/textclassifier/integration/testapp/MainActivity.java",
         "patchSetId": 2
@@ -122,6 +140,24 @@
       "revId": "04876f3ab00418769b79597952528f54e32876a4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9af9cedc_6f4f5d27",
+        "filename": "textclassifier/integration-tests/testapp/src/main/java/androidx/textclassifier/integration/testapp/MainActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-13T17:29:34Z",
+      "side": 1,
+      "message": "Then the code would look like:\nSpannable spannable \u003d SpannableString.of(textView.getText());\ntextLinks.apply(spannable, getTextClassifier(), TextLinkParams.DEFAULT_PARAMS);\ntextView.setText(spannable);\nI\u0027m not sure that\u0027s necessary. We essentially want to annotate the textView\u0027s text and I\u0027m pretty certain the text has to be a Spannable (given that it is coming from an editable textView). textLinks.apply((Spannable) textView.getText(), ...) does just that.",
+      "parentUuid": "fb3814b1_a3547ffa",
+      "revId": "04876f3ab00418769b79597952528f54e32876a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
