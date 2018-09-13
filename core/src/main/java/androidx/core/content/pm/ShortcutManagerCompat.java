@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.os.Build;
 import android.text.TextUtils;
@@ -30,7 +31,13 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.collection.ArrayMap;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.IconCompat;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Helper for accessing features in {@link android.content.pm.ShortcutManager}.
@@ -140,5 +147,97 @@ public class ShortcutManagerCompat {
             result = new Intent();
         }
         return shortcut.addToIntent(result);
+    }
+
+    // TODO: add comments
+    public static boolean addDynamicShortcuts(@NonNull Context context,
+            @NonNull List<ShortcutInfoCompat> shortcutInfoList) {
+        if (Build.VERSION.SDK_INT >= 25) {
+            ArrayList<ShortcutInfo> shortcuts = new ArrayList<>();
+            for (ShortcutInfoCompat item : shortcutInfoList) {
+                shortcuts.add(item.toShortcutInfo());
+            }
+            context.getSystemService(ShortcutManager.class).addDynamicShortcuts(shortcuts);
+        }
+
+        ArrayMap<String, ShortcutInfoCompat> savedShortcuts = ShortcutInfoCompatSaver.loadFromXml(
+                context, false);
+        for (ShortcutInfoCompat item : shortcutInfoList) {
+            Set<String> categories = item.getCategories();
+            if (categories == null || categories.isEmpty()) {
+                continue;
+            }
+            savedShortcuts.put(item.getId(), item);
+        }
+        return ShortcutInfoCompatSaver.saveAsXml(context, savedShortcuts);
+    }
+
+    // TODO: add comments
+    @NonNull
+    public static List<ShortcutInfoCompat> getDynamicShortcuts(@NonNull Context context,
+            boolean lazyIcons) {
+        /*
+        if (Build.VERSION.SDK_INT >= 25) {
+            List<ShortcutInfoCompat> shortcuts = new ArrayList<>();
+
+            List<ShortcutInfo> dynamicShortcuts = context.getSystemService(ShortcutManager.class)
+                    .getDynamicShortcuts();
+            for (ShortcutInfo item : dynamicShortcuts) {
+                shortcuts.add(ShortcutInfoCompat.fromShortcutInfo(context, item));
+            }
+
+            return shortcuts;
+        }
+        */
+
+        return new ArrayList<>(ShortcutInfoCompatSaver.loadFromXml(context, lazyIcons).values());
+    }
+
+    // TODO: add comments
+    @NonNull
+    public static List<ShortcutInfoCompat> getDynamicShortcuts(@NonNull Context context) {
+        return getDynamicShortcuts(context, false);
+    }
+
+    // TODO: add comments
+    @Nullable
+    public static IconCompat getShortcutIcon(@NonNull ShortcutInfoCompat shortcut) {
+        return null;
+    }
+
+    // TODO: add comments
+    public static boolean updateShortcuts(@NonNull Context context,
+            @NonNull List<ShortcutInfoCompat> shortcutInfoList) {
+        if (Build.VERSION.SDK_INT >= 25) {
+            ArrayList<ShortcutInfo> shortcuts = new ArrayList<>();
+            for (ShortcutInfoCompat item : shortcutInfoList) {
+                shortcuts.add(item.toShortcutInfo());
+            }
+            context.getSystemService(ShortcutManager.class).updateShortcuts(shortcuts);
+        }
+
+        return ShortcutManagerCompat.addDynamicShortcuts(context, shortcutInfoList);
+    }
+
+    // TODO: add comments
+    public void removeDynamicShortcuts(@NonNull Context context,
+            @NonNull List<String> shortcutIds) {
+        if (Build.VERSION.SDK_INT >= 25) {
+            context.getSystemService(ShortcutManager.class).removeDynamicShortcuts(shortcutIds);
+        }
+
+        ArrayMap<String, ShortcutInfoCompat> savedShortcuts = ShortcutInfoCompatSaver.loadFromXml(
+                context, false);
+        savedShortcuts.removeAll(shortcutIds);
+        ShortcutInfoCompatSaver.saveAsXml(context, savedShortcuts);
+    }
+
+    // TODO: add comments
+    public static void removeAllDynamicShortcuts(@NonNull Context context) {
+        if (Build.VERSION.SDK_INT >= 25) {
+            context.getSystemService(ShortcutManager.class).removeAllDynamicShortcuts();
+        }
+
+        ShortcutInfoCompatSaver.saveAsXml(context, new ArrayMap<String, ShortcutInfoCompat>());
     }
 }
