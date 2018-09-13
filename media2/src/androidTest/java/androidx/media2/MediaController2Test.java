@@ -292,8 +292,12 @@ public class MediaController2Test extends MediaSession2TestBase {
     public void testGetSessionActivity() {
         prepareLooper();
         PendingIntent sessionActivity = mController.getSessionActivity();
-        assertEquals(mContext.getPackageName(), sessionActivity.getCreatorPackage());
-        assertEquals(Process.myUid(), sessionActivity.getCreatorUid());
+        assertNotNull(sessionActivity);
+        if (Build.VERSION.SDK_INT >= 17) {
+            // PendingIntent#getCreatorPackage() is added in API 17.
+            assertEquals(mContext.getPackageName(), sessionActivity.getCreatorPackage());
+            assertEquals(Process.myUid(), sessionActivity.getCreatorUid());
+        }
     }
 
     @Test
@@ -518,7 +522,7 @@ public class MediaController2Test extends MediaSession2TestBase {
         final MediaController2 controller = createController(mSession.getToken(), true, callback);
         mSession.setPlaylist(testPlaylist, null);
         mPlayer.mBufferedPosition = testBufferingPosition;
-        mPlayer.notifyBufferingStateChanged(testItem.getDataSourceDesc(), testBufferingState);
+        mPlayer.notifyBufferingStateChanged(testItem, testBufferingState);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
 

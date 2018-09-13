@@ -20,8 +20,8 @@ import static android.media.AudioAttributes.CONTENT_TYPE_MUSIC;
 
 import static androidx.media.VolumeProviderCompat.VOLUME_CONTROL_ABSOLUTE;
 import static androidx.media.test.lib.CommonConstants.DEFAULT_TEST_NAME;
-import static androidx.media.test.lib.CommonConstants.INDEX_FOR_NULL_DSD;
-import static androidx.media.test.lib.CommonConstants.INDEX_FOR_UNKONWN_DSD;
+import static androidx.media.test.lib.CommonConstants.INDEX_FOR_NULL_ITEM;
+import static androidx.media.test.lib.CommonConstants.INDEX_FOR_UNKONWN_ITEM;
 import static androidx.media.test.lib.CommonConstants.MOCK_MEDIA_LIBRARY_SERVICE;
 import static androidx.media.test.lib.MediaSession2Constants
         .TEST_CONTROLLER_CALLBACK_SESSION_REJECTS;
@@ -87,18 +87,25 @@ public class MediaController2CallbackTest extends MediaSession2TestBase {
     RemoteMediaSession2 mRemoteSession2;
     MediaController2 mController;
 
+    final List<RemoteMediaSession2> mRemoteSessionList = new ArrayList<>();
+
     @Before
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        mRemoteSession2 = new RemoteMediaSession2(DEFAULT_TEST_NAME, mContext);
+        mRemoteSession2 = createRemoteMediaSession2(DEFAULT_TEST_NAME);
     }
 
     @After
     @Override
     public void cleanUp() throws Exception {
         super.cleanUp();
-        mRemoteSession2.cleanUp();
+        for (int i = 0; i < mRemoteSessionList.size(); i++) {
+            RemoteMediaSession2 session = mRemoteSessionList.get(i);
+            if (session != null) {
+                session.cleanUp();
+            }
+        }
     }
 
     @Test
@@ -114,7 +121,7 @@ public class MediaController2CallbackTest extends MediaSession2TestBase {
     public void testConnection_sessionRejects() throws InterruptedException {
         prepareLooper();
         RemoteMediaSession2 session2 =
-                new RemoteMediaSession2(TEST_CONTROLLER_CALLBACK_SESSION_REJECTS, mContext);
+                createRemoteMediaSession2(TEST_CONTROLLER_CALLBACK_SESSION_REJECTS);
 
         MediaController2 controller = createController(session2.getToken(),
                 false /* waitForConnect */, null);
@@ -226,7 +233,7 @@ public class MediaController2CallbackTest extends MediaSession2TestBase {
         prepareLooper();
         final int listSize = 5;
         final List<MediaItem2> list = MediaTestUtils.createPlaylist(listSize);
-        mRemoteSession2.getMockPlaylistAgent().setPlaylistWithDummyDsd(list);
+        mRemoteSession2.getMockPlaylistAgent().setPlaylistWithDummyItem(list);
 
         final int currentItemIndex = 3;
         final MediaItem2 currentItem = list.get(currentItemIndex);
@@ -246,14 +253,14 @@ public class MediaController2CallbackTest extends MediaSession2TestBase {
                         latchForControllerCallback.countDown();
                     }
                 });
-        // Player notifies with the unknown dsd. Should be ignored.
-        mRemoteSession2.getMockPlayer().notifyCurrentDataSourceChanged(INDEX_FOR_UNKONWN_DSD);
+        // Player notifies with the unknown item. Should be ignored.
+        mRemoteSession2.getMockPlayer().notifyCurrentDataSourceChanged(INDEX_FOR_UNKONWN_ITEM);
 
-        // Known DSD should be notified through the onCurrentMediaItemChanged.
+        // Known ITEM should be notified through the onCurrentMediaItemChanged.
         mRemoteSession2.getMockPlayer().notifyCurrentDataSourceChanged(currentItemIndex);
 
-        // Null DSD becomes null MediaItem2.
-        mRemoteSession2.getMockPlayer().notifyCurrentDataSourceChanged(INDEX_FOR_NULL_DSD);
+        // Null ITEM becomes null MediaItem2.
+        mRemoteSession2.getMockPlayer().notifyCurrentDataSourceChanged(INDEX_FOR_NULL_ITEM);
         assertTrue(latchForControllerCallback.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
     }
 
@@ -366,7 +373,7 @@ public class MediaController2CallbackTest extends MediaSession2TestBase {
         final CountDownLatch latch = new CountDownLatch(1);
 
         RemoteMediaSession2.RemoteMockPlaylistAgent agent = mRemoteSession2.getMockPlaylistAgent();
-        agent.setPlaylistWithDummyDsd(playlist);
+        agent.setPlaylistWithDummyItem(playlist);
         agent.setCurrentMediaItem(testItemIndex);
 
         RemoteMediaSession2.RemoteMockPlayer player = mRemoteSession2.getMockPlayer();
@@ -540,7 +547,7 @@ public class MediaController2CallbackTest extends MediaSession2TestBase {
             }
         };
 
-        mRemoteSession2.getMockPlaylistAgent().setPlaylistWithDummyDsd(testPlaylist);
+        mRemoteSession2.getMockPlaylistAgent().setPlaylistWithDummyItem(testPlaylist);
 
         RemoteMediaSession2.RemoteMockPlayer player = mRemoteSession2.getMockPlayer();
         player.setBufferedPosition(testBufferingPosition);
@@ -719,7 +726,7 @@ public class MediaController2CallbackTest extends MediaSession2TestBase {
         // Ensure that the controller cannot use newly create session with the same ID.
         // Recreated session has different session stub, so previously created controller
         // shouldn't be available.
-        mRemoteSession2 = new RemoteMediaSession2(id, mContext);
+        mRemoteSession2 = createRemoteMediaSession2(id);
         testNoInteraction();
     }
 
@@ -743,5 +750,11 @@ public class MediaController2CallbackTest extends MediaSession2TestBase {
 
         assertFalse(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
         setRunnableForOnCustomCommand(mController, null);
+    }
+
+    RemoteMediaSession2 createRemoteMediaSession2(String id) {
+        RemoteMediaSession2 session = new RemoteMediaSession2(id, mContext);
+        mRemoteSessionList.add(session);
+        return session;
     }
 }

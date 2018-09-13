@@ -55,7 +55,7 @@ import java.util.concurrent.CountDownLatch;
  * device and check whether the notification is shown/removed.
  */
 @LargeTest
-@SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
+@SdkSuppress(minSdkVersion = Build.VERSION_CODES.JELLY_BEAN)
 @Ignore("Comment out this line and manually run the test.")
 public class MediaSessionService2NotificationTest extends MediaSession2TestBase {
     private static final long NOTIFICATION_SHOW_TIME_MS = 15000;
@@ -111,8 +111,8 @@ public class MediaSessionService2NotificationTest extends MediaSession2TestBase 
                         .putBitmap(MediaMetadata2.METADATA_KEY_ALBUM_ART, albumArt)
                         .build();
         mPlaylistAgent.mCurrentMediaItem = new MediaItem2.Builder(MediaItem2.FLAG_PLAYABLE)
-                        .setMediaId(mediaId)
                         .setMetadata(metadata)
+                        .setMediaId(mediaId)
                         .build();
 
         // Notification should be shown. Clicking play/pause button will change the player state.

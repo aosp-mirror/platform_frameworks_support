@@ -122,7 +122,7 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
         return new ViewHolder(itemView);
     }
 
-    public SeekbarListItem(Context context) {
+    public SeekbarListItem(@NonNull Context context) {
         mContext = context;
         markDirty();
     }
@@ -138,6 +138,11 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
     @Override
     public void setEnabled(boolean enabled) {
         mIsEnabled = enabled;
+    }
+
+    @NonNull
+    protected Context getContext() {
+        return mContext;
     }
 
     /**
@@ -484,25 +489,6 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
 
         mSupplementalIconDrawable = drawable;
         mShowSupplementalIconDivider = showSupplementalIconDivider;
-
-        markDirty();
-    }
-
-    /**
-     * Sets {@code Supplemental Action} to be represented by an {@code Supplemental Icon}.
-     *
-     * @deprecated use either {@link #setSupplementalIcon(Drawable, boolean)} or
-     * {@link #setSupplementalIcon(int, boolean)} and
-     * {@link #setSupplementalIconListener(android.view.View.OnClickListener)}.
-     */
-    @Deprecated
-    public void setSupplementalIcon(Drawable drawable, boolean showSupplementalIconDivider,
-            @Nullable  View.OnClickListener listener) {
-        mSupplementalActionType = SUPPLEMENTAL_ACTION_SUPPLEMENTAL_ICON;
-
-        mSupplementalIconDrawable = drawable;
-        mShowSupplementalIconDivider = showSupplementalIconDivider;
-        mSupplementalIconOnClickListener = listener;
 
         markDirty();
     }

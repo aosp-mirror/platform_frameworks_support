@@ -25,6 +25,7 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Point;
@@ -66,7 +67,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
-import androidx.media2.DataSourceDesc2;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.media2.MediaController2;
 import androidx.media2.MediaItem2;
 import androidx.media2.MediaMetadata2;
@@ -76,7 +78,7 @@ import androidx.media2.MediaSession2;
 import androidx.media2.SessionCommand2;
 import androidx.media2.SessionCommandGroup2;
 import androidx.media2.SessionToken2;
-import androidx.media2.UriDataSourceDesc2;
+import androidx.media2.UriMediaItem2;
 import androidx.mediarouter.app.MediaRouteButton;
 import androidx.mediarouter.media.MediaRouteSelector;
 
@@ -1920,9 +1922,8 @@ public class MediaControlView2 extends BaseLayout {
             return false;
         }
 
-        DataSourceDesc2 dsd = currentMediaItem.getDataSourceDesc();
-        Uri uri = (dsd != null && dsd instanceof UriDataSourceDesc2)
-                ? ((UriDataSourceDesc2) dsd).getUri() : null;
+        Uri uri = currentMediaItem instanceof UriMediaItem2
+                ? ((UriMediaItem2) currentMediaItem).getUri() : null;
         if (uri == null) {
             // Something wrong.
             return false;
@@ -2061,7 +2062,9 @@ public class MediaControlView2 extends BaseLayout {
 
     boolean shouldNotHideBars() {
         return (mMediaType == MEDIA_TYPE_MUSIC && mSizeType == SIZE_TYPE_FULL)
-                || mAccessibilityManager.isTouchExplorationEnabled();
+                || mAccessibilityManager.isTouchExplorationEnabled()
+                || mController.getPlaybackState() == MediaPlayerConnector.PLAYER_STATE_ERROR
+                || mController.getPlaybackState() == MediaPlayerConnector.PLAYER_STATE_IDLE;
     }
 
     void seekTo(long newPosition, boolean shouldSeekNow) {
@@ -2307,6 +2310,7 @@ public class MediaControlView2 extends BaseLayout {
         boolean isPlaying();
         long getCurrentPosition();
         long getBufferedPosition();
+        int getPlaybackState();
         boolean canPause();
         boolean canSeekForward();
         boolean canSeekBackward();
@@ -2335,8 +2339,7 @@ public class MediaControlView2 extends BaseLayout {
         private Executor mCallbackExecutor;
 
         Controller2(SessionToken2 token) {
-            mCallbackExecutor =  MainHandlerExecutor
-                    .getExecutor(MediaControlView2.this.getContext());
+            mCallbackExecutor = ContextCompat.getMainExecutor(getContext());
             mController2 = new MediaController2(getContext(), token, mCallbackExecutor,
                     new MediaControllerCallback());
             mPlaybackState = mController2.getPlayerState();
@@ -2360,6 +2363,10 @@ public class MediaControlView2 extends BaseLayout {
         @Override
         public long getBufferedPosition() {
             return mController2.getBufferedPosition();
+        }
+        @Override
+        public int getPlaybackState() {
+            return mController2.getPlayerState();
         }
         @Override
         public boolean canPause() {
@@ -2485,6 +2492,28 @@ public class MediaControlView2 extends BaseLayout {
                                     mResources.getString(R.string.mcv2_play_button_desc));
                             removeCallbacks(mUpdateProgress);
                             break;
+                        case MediaPlayerConnector.PLAYER_STATE_ERROR:
+                            MediaControlView2.this.setEnabled(false);
+                            mPlayPauseButton.setImageDrawable(
+                                    mResources.getDrawable(R.drawable.ic_play_circle_filled, null));
+                            mPlayPauseButton.setContentDescription(
+                                    mResources.getString(R.string.mcv2_play_button_desc));
+                            removeCallbacks(mUpdateProgress);
+                            if (getWindowToken() != null) {
+                                new AlertDialog.Builder(getContext())
+                                        .setMessage(R.string.mcv2_playback_error_text)
+                                        .setPositiveButton(R.string.mcv2_error_dialog_button,
+                                                new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(
+                                                            DialogInterface dialogInterface,
+                                                            int i) {
+                                                        dialogInterface.dismiss();
+                                                    }
+                                                })
+                                        .setCancelable(true)
+                                        .show();
+                            }
                         default:
                             break;
                     }
@@ -2517,6 +2546,14 @@ public class MediaControlView2 extends BaseLayout {
                     removeCallbacks(mHideMainBars);
                     post(mUpdateProgress);
                     postDelayed(mHideMainBars, mShowControllerIntervalMs);
+                }
+            }
+
+            @Override
+            public void onError(@NonNull MediaController2 controller,
+                    @MediaSession2.ErrorCode int errorCode, @Nullable Bundle extras) {
+                if (DEBUG) {
+                    Log.d(TAG, "onError(), errorCode: " + errorCode);
                 }
             }
 
@@ -2740,6 +2777,25 @@ public class MediaControlView2 extends BaseLayout {
                 return mPlaybackState.getBufferedPosition();
             }
             return 0;
+        }
+        @Override
+        public int getPlaybackState() {
+            switch (mPlaybackState.getState()) {
+                case PlaybackStateCompat.STATE_ERROR:
+                    return MediaPlayerConnector.PLAYER_STATE_ERROR;
+                case PlaybackStateCompat.STATE_BUFFERING:
+                case PlaybackStateCompat.STATE_CONNECTING:
+                case PlaybackStateCompat.STATE_PAUSED:
+                    return MediaPlayerConnector.PLAYER_STATE_PAUSED;
+                case PlaybackStateCompat.STATE_REWINDING:
+                case PlaybackStateCompat.STATE_FAST_FORWARDING:
+                case PlaybackStateCompat.STATE_PLAYING:
+                    return MediaPlayerConnector.PLAYER_STATE_PLAYING;
+                case PlaybackStateCompat.STATE_NONE:
+                case PlaybackStateCompat.STATE_STOPPED:
+                default:
+                    return MediaPlayerConnector.PLAYER_STATE_IDLE;
+            }
         }
         @Override
         public boolean canPause() {

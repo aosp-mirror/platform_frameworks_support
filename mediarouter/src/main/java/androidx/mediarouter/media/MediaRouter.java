@@ -42,13 +42,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.core.app.ActivityManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.hardware.display.DisplayManagerCompat;
 import androidx.core.util.ObjectsCompat;
 import androidx.core.util.Pair;
 import androidx.media.VolumeProviderCompat;
-import androidx.media2.MediaPlayerConnector;
-import androidx.media2.MediaPlaylistAgent;
-import androidx.media2.MediaSession2;
 import androidx.mediarouter.app.MediaRouteDiscoveryFragment;
 import androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController;
 import androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController
@@ -290,7 +288,9 @@ public final class MediaRouter {
      * @return A route for the given {@code uniqueRouteDescriptorBundle} if exist, otherwise null.
      * @see androidx.media2.MediaSession2#notifyRoutesInfoChanged
      * @see androidx.media2.MediaController2.ControllerCallback#onRoutesInfoChanged
+     * @hide
      */
+    @RestrictTo(LIBRARY_GROUP)
     public @Nullable RouteInfo getRoute(Bundle uniqueRouteDescriptorBundle) {
         if (uniqueRouteDescriptorBundle == null) {
             return null;
@@ -802,19 +802,6 @@ public final class MediaRouter {
             Log.d(TAG, "addMediaSessionCompat: " + mediaSession);
         }
         sGlobal.setMediaSessionCompat(mediaSession);
-    }
-
-    /**
-     * Sets a {@link MediaSession2}, {@link RouteMediaPlayerConnector}, and
-     * {@link MediaPlaylistAgent} to be used when a router is selected and playback becomes remote.
-     *
-     * @param session2 a media session2
-     * @param routePlayer route player.
-     * @param agent a playlist agent
-     */
-    public void setMediaSession2(@NonNull MediaSession2 session2,
-            @NonNull RouteMediaPlayerConnector routePlayer, @NonNull MediaPlaylistAgent agent) {
-        sGlobal.setMediaSession2(session2, routePlayer, agent);
     }
 
     public MediaSessionCompat.Token getMediaSessionToken() {
@@ -1347,7 +1334,9 @@ public final class MediaRouter {
          * associated with this route.
          * @see androidx.media2.MediaSession2#notifyRoutesInfoChanged
          * @see androidx.media2.MediaController2.ControllerCallback#onRoutesInfoChanged
+         * @hide
          */
+        @RestrictTo(LIBRARY_GROUP)
         public @NonNull Bundle getUniqueRouteDescriptorBundle() {
             Bundle bundle = mDescriptor.asBundle();
             bundle.putString(MediaRouteDescriptor.KEY_ID, mUniqueId);
@@ -1681,7 +1670,7 @@ public final class MediaRouter {
          * @return The list of the routes in this group
          */
         public List<RouteInfo> getMemberRoutes() {
-            return mMemberRoutes;
+            return Collections.unmodifiableList(mMemberRoutes);
         }
 
         @Override
@@ -1786,15 +1775,15 @@ public final class MediaRouter {
         }
 
         public List<RouteInfo> getUnselectableRoutes() {
-            return mUnselectableRoutes;
+            return Collections.unmodifiableList(mUnselectableRoutes);
         }
 
         public List<RouteInfo> getGroupableRoutes() {
-            return mGroupableRoutes;
+            return Collections.unmodifiableList(mGroupableRoutes);
         }
 
         public List<RouteInfo> getTransferableRoutes() {
-            return mTransferableRoutes;
+            return Collections.unmodifiableList(mTransferableRoutes);
         }
 
         /**
@@ -1859,7 +1848,7 @@ public final class MediaRouter {
          */
         public List<RouteInfo> getRoutes() {
             checkCallingThread();
-            return mRoutes;
+            return Collections.unmodifiableList(mRoutes);
         }
 
         Resources getResources() {
@@ -2823,7 +2812,7 @@ public final class MediaRouter {
                     // Note: Controller doesn't have a valid route id yet.
                     // It will be informed with updated provider's route descriptors.
                     controller.setOnDynamicRoutesChangedListener(
-                            MainHandlerExecutor.getExecutor(mApplicationContext),
+                            ContextCompat.getMainExecutor(mApplicationContext),
                             mDynamicRoutesListener);
                     mSelectedRouteController = controller;
                     // Select the initial member route for now. It is replaced with dynamic group
@@ -2924,12 +2913,6 @@ public final class MediaRouter {
             }
         }
 
-        public void setMediaSession2(MediaSession2 session2, RouteMediaPlayerConnector remotePlayer,
-                MediaPlaylistAgent agent) {
-            setMediaSessionRecord(session2 != null
-                    ? new MediaSessionRecord(session2, remotePlayer, agent) : null);
-        }
-
         private void setMediaSessionRecord(MediaSessionRecord mediaSessionRecord) {
             if (mMediaSession != null) {
                 mMediaSession.clearVolumeHandling();
@@ -3010,11 +2993,6 @@ public final class MediaRouter {
         private final class MediaSessionRecord {
             private final MediaSessionCompat mMsCompat;
 
-            private final MediaSession2 mMediaSession2;
-            private final RouteMediaPlayerConnector mRoutePlayer;
-            private final MediaPlayerConnector mLocalPlayer;
-            private final MediaPlaylistAgent mPlaylistAgent;
-
             private @VolumeProviderCompat.ControlType int mControlType;
             private int mMaxVolume;
             private VolumeProviderCompat mVpCompat;
@@ -3025,21 +3003,8 @@ public final class MediaRouter {
 
             MediaSessionRecord(MediaSessionCompat mediaSessionCompat) {
                 mMsCompat = mediaSessionCompat;
-                mMediaSession2 = null;
-                mRoutePlayer = null;
-                mLocalPlayer = null;
-                mPlaylistAgent = null;
-            }
 
-            MediaSessionRecord(MediaSession2 session2, RouteMediaPlayerConnector remotePlayer,
-                    MediaPlaylistAgent agent) {
-                mMsCompat = null;
-                mMediaSession2 = session2;
-                mRoutePlayer = remotePlayer;
-                mLocalPlayer = session2.getPlayerConnector();
-                mPlaylistAgent = agent;
             }
-
             public void configureVolume(@VolumeProviderCompat.ControlType int controlType,
                     int max, int current) {
                 if (mMsCompat != null) {
@@ -3076,10 +3041,6 @@ public final class MediaRouter {
                         };
                         mMsCompat.setPlaybackToRemote(mVpCompat);
                     }
-                } else if (mMediaSession2 != null) {
-                    // RouteMediaPlayerConnector will handle volume changes that mVpCompat is doing.
-                    mRoutePlayer.updateRouteInfo(mSelectedRoute);
-                    mMediaSession2.updatePlayerConnector(mRoutePlayer, mPlaylistAgent);
                 }
             }
 
@@ -3087,20 +3048,12 @@ public final class MediaRouter {
                 if (mMsCompat != null) {
                     mMsCompat.setPlaybackToLocal(mPlaybackInfo.playbackStream);
                     mVpCompat = null;
-                } else if (mMediaSession2 != null) {
-                    if (mRoutePlayer != null) {
-                        mRoutePlayer.updateRouteInfo(null);
-                    }
-                    mMediaSession2.updatePlayerConnector(mLocalPlayer, mPlaylistAgent);
                 }
             }
 
             public MediaSessionCompat.Token getToken() {
                 if (mMsCompat != null) {
                     return mMsCompat.getSessionToken();
-                } else if (mMediaSession2 != null) {
-                    // For backward compatibility.
-                    return mMediaSession2.getSessionCompat().getSessionToken();
                 }
                 return null;
             }
