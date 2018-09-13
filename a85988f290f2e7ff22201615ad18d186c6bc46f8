@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cabaf2fa_4993ce2a",
+        "filename": "transition/src/main/java/androidx/transition/TransitionManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-09-13T20:25:32Z",
+      "side": 1,
+      "message": "This can be extracted to the higher level as it is used in both if and else",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 71
+      },
+      "revId": "a85988f290f2e7ff22201615ad18d186c6bc46f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
