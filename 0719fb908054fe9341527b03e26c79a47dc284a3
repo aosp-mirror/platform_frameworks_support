@@ -284,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "384e1630_43753762",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-13T17:22:07Z",
+      "side": 1,
+      "message": "Right. Thanks. :)",
+      "parentUuid": "6768dede_049531b1",
+      "range": {
+        "startLine": 99,
+        "startChar": 30,
+        "endLine": 99,
+        "endChar": 58
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa12864b_901237a0",
         "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationTest.java",
         "patchSetId": 9
@@ -316,6 +340,29 @@
       "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7adb63ad_4b60016a",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/PlatformTextClassifier.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-13T17:22:07Z",
+      "side": 1,
+      "message": "O\n\n:)",
+      "range": {
+        "startLine": 37,
+        "startChar": 39,
+        "endLine": 37,
+        "endChar": 40
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
@@ -366,6 +413,30 @@
     },
     {
       "key": {
+        "uuid": "561dff3a_b0dd13d4",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/PlatformTextClassifier.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-13T17:22:07Z",
+      "side": 1,
+      "message": "Argh. Yes. Correct. :)\nThanks.",
+      "parentUuid": "20fc9217_3cb15a80",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 5
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ea11ff7_35b2d120",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/PlatformTextClassifier.java",
         "patchSetId": 9
@@ -410,6 +481,30 @@
       "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7449892_02def6e4",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/PlatformTextClassifier.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-13T17:22:07Z",
+      "side": 1,
+      "message": "Thanks! :)",
+      "parentUuid": "138fe86e_76b5244b",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 5
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -598,6 +693,30 @@
       "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c78932ca_e23db641",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-13T17:22:07Z",
+      "side": 1,
+      "message": "sgtm. Sorry, I missed that this is hidden API.\nPlease feel free to revert.\nThanks.",
+      "parentUuid": "a6568291_eecd5eda",
+      "range": {
+        "startLine": 278,
+        "startChar": 39,
+        "endLine": 278,
+        "endChar": 46
+      },
+      "revId": "0719fb908054fe9341527b03e26c79a47dc284a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

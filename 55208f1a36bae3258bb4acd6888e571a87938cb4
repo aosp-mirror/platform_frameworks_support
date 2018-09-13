@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4a717c2_ecfcbff7",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-13T17:22:07Z",
+      "side": 1,
+      "message": "I learn new things everyday. :)\nIs this just semantics or does Assume.assumeNotNull(...) defer from assertNotNull(...)?",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 93,
+        "endChar": 28
+      },
+      "revId": "55208f1a36bae3258bb4acd6888e571a87938cb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55553d3e_d9fab056",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-13T17:22:07Z",
+      "side": 1,
+      "message": "nit: new DummyTextClassifier()",
+      "range": {
+        "startLine": 96,
+        "startChar": 53,
+        "endLine": 96,
+        "endChar": 72
+      },
+      "revId": "55208f1a36bae3258bb4acd6888e571a87938cb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
