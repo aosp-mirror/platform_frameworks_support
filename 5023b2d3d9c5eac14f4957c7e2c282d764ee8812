@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93791d98_9b3c9518",
+        "filename": "car/core/res/layout/car_list_item_radio_content.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-13T00:05:38Z",
+      "side": 1,
+      "message": "You don\u0027t need to specify this. The fact that it\u0027s constrained to the top and bottom of parent means that it\u0027ll be centered.\n\nThe reason we specified it in code for the other ListItems was because we shifted the positioning. But since this is always fixed to the center, it\u0027s not needed.",
+      "revId": "5023b2d3d9c5eac14f4957c7e2c282d764ee8812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dac7c2e_fcbacfad",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-13T00:05:38Z",
+      "side": 1,
+      "message": "checks the* radio...",
+      "range": {
+        "startLine": 61,
+        "startChar": 47,
+        "endLine": 61,
+        "endChar": 59
+      },
+      "revId": "5023b2d3d9c5eac14f4957c7e2c282d764ee8812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0596baf9_b7beb272",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-13T00:05:38Z",
+      "side": 1,
+      "message": "Prepend \u003cp\u003e tag.",
+      "range": {
+        "startLine": 61,
+        "startChar": 3,
+        "endLine": 61,
+        "endChar": 11
+      },
+      "revId": "5023b2d3d9c5eac14f4957c7e2c282d764ee8812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93cb1824_84e792a0",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-13T00:05:38Z",
+      "side": 1,
+      "message": "Maybe public instead?",
+      "range": {
+        "startLine": 139,
+        "startChar": 4,
+        "endLine": 139,
+        "endChar": 13
+      },
+      "revId": "5023b2d3d9c5eac14f4957c7e2c282d764ee8812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e705ee5_7c15abdb",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-13T00:05:38Z",
+      "side": 1,
+      "message": "I rather you not toggle it to GONE at all rather than setting it immediately back as VISIBLE. Two ways to go about this:\n\n- add if check in your loop.\n- Remove radio button from widget views. \n\nFor the second solution, the widget views is really just a convenience method for you to toggle visibility anyway, so I don\u0027t think it\u0027s necessary for radio button to be in there. But perhaps we should update that getter method to be more clear.",
+      "revId": "5023b2d3d9c5eac14f4957c7e2c282d764ee8812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
