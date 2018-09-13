@@ -582,9 +582,19 @@ package androidx.core.app {
     method public void cancel(int);
     method public void cancel(String?, int);
     method public void cancelAll();
+    method public void createNotificationChannel(android.app.NotificationChannel);
+    method public void createNotificationChannelGroup(android.app.NotificationChannelGroup);
+    method public void createNotificationChannelGroups(java.util.List<android.app.NotificationChannelGroup>);
+    method public void createNotificationChannels(java.util.List<android.app.NotificationChannel>);
+    method public void deleteNotificationChannel(String);
+    method public void deleteNotificationChannelGroup(String);
     method public static androidx.core.app.NotificationManagerCompat from(android.content.Context);
     method public static java.util.Set<java.lang.String> getEnabledListenerPackages(android.content.Context);
     method public int getImportance();
+    method public android.app.NotificationChannel? getNotificationChannel(String);
+    method public android.app.NotificationChannelGroup? getNotificationChannelGroup(String);
+    method public java.util.List<android.app.NotificationChannelGroup> getNotificationChannelGroups();
+    method public java.util.List<android.app.NotificationChannel> getNotificationChannels();
     method public void notify(int, android.app.Notification);
     method public void notify(String?, int, android.app.Notification);
     field public static final String ACTION_BIND_SIDE_CHANNEL = "android.support.BIND_NOTIFICATION_SIDE_CHANNEL";
@@ -890,9 +900,16 @@ package androidx.core.content.pm {
   }
 
   public class ShortcutManagerCompat {
+    method public static boolean addDynamicShortcuts(android.content.Context, java.util.List<androidx.core.content.pm.ShortcutInfoCompat>);
     method public static android.content.Intent createShortcutResultIntent(android.content.Context, androidx.core.content.pm.ShortcutInfoCompat);
+    method public static java.util.List<androidx.core.content.pm.ShortcutInfoCompat> getDynamicShortcuts(android.content.Context);
+    method public static int getMaxShortcutCountPerActivity(android.content.Context);
     method public static boolean isRequestPinShortcutSupported(android.content.Context);
+    method public static void removeAllDynamicShortcuts(android.content.Context);
+    method public void removeDynamicShortcuts(android.content.Context, java.util.List<java.lang.String>);
     method public static boolean requestPinShortcut(android.content.Context, androidx.core.content.pm.ShortcutInfoCompat, android.content.IntentSender?);
+    method public static boolean updateShortcuts(android.content.Context, java.util.List<androidx.core.content.pm.ShortcutInfoCompat>);
+    field public static final String EXTRA_SHORTCUT_ID = "android.intent.extra.SHORTCUT_ID";
   }
 
 }
