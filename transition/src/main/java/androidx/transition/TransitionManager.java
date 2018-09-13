@@ -170,6 +170,12 @@ public class TransitionManager {
 
         if (!sPendingTransitions.contains(sceneRoot)) {
             if (transition == null) {
+                // Notify previous scene that it is being exited
+                Scene previousScene = Scene.getCurrentScene(sceneRoot);
+                if (previousScene != null) {
+                    previousScene.exit();
+                }
+
                 scene.enter();
             } else {
                 sPendingTransitions.add(sceneRoot);
