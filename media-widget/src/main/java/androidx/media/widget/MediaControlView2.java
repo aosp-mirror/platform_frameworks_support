@@ -34,9 +34,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.ResultReceiver;
-import android.support.v4.media.MediaMetadataCompat;
-import android.support.v4.media.session.MediaControllerCompat;
-import android.support.v4.media.session.PlaybackStateCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -269,7 +266,7 @@ public class MediaControlView2 extends BaseLayout {
     private static final String RESOURCE_EMPTY = "";
 
     Resources mResources;
-    ControllerInterface mController;
+    Controller2 mController;
     OnFullScreenListener mOnFullScreenListener;
     private AccessibilityManager mAccessibilityManager;
     SessionCommandGroup2 mAllowedCommands;
@@ -415,21 +412,6 @@ public class MediaControlView2 extends BaseLayout {
             mController.close();
         }
         mController = new Controller2(token);
-        if (mController.hasMetadata()) {
-            updateDuration();
-            updateTitle();
-        }
-    }
-
-    /**
-     * Sets MediaControllerCompat to control corresponding MediaSession2.
-     * This is temporally provided for working with MP1 on lower devices.
-     * @hide
-     */
-    // TODO: Remove with impl_with_mp1 once MP2 compat starts supporting lower devices.
-    @RestrictTo(LIBRARY_GROUP)
-    public void setController(MediaControllerCompat controllerCompat) {
-        mController = new ControllerCompat(controllerCompat);
         if (mController.hasMetadata()) {
             updateDuration();
             updateTitle();
@@ -2305,34 +2287,7 @@ public class MediaControlView2 extends BaseLayout {
         }
     }
 
-    interface ControllerInterface {
-        boolean hasMetadata();
-        boolean isPlaying();
-        long getCurrentPosition();
-        long getBufferedPosition();
-        int getPlaybackState();
-        boolean canPause();
-        boolean canSeekForward();
-        boolean canSeekBackward();
-        void pause();
-        void play();
-        void seekTo(long posMs);
-        void skipToNextItem();
-        void skipToPreviousItem();
-        void setSpeed(float speed);
-        void selectAudioTrack(int trackIndex);
-        void showSubtitle(int trackIndex);
-        void hideSubtitle();
-
-        long getDurationMs();
-        String getTitle();
-        String getArtistText();
-        MediaItem2 getCurrentMediaItem();
-
-        void close();
-    }
-
-    class Controller2 implements ControllerInterface {
+    class Controller2 {
         private MediaController2 mController2;
         int mPlaybackState;
         MediaMetadata2 mMediaMetadata2;
@@ -2347,67 +2302,52 @@ public class MediaControlView2 extends BaseLayout {
             mMediaMetadata2 = currentItem != null ? currentItem.getMetadata() : null;
         }
 
-        @Override
         public boolean hasMetadata() {
             return mMediaMetadata2 != null;
         }
-        @Override
         public boolean isPlaying() {
             return mPlaybackState == MediaPlayerConnector.PLAYER_STATE_PLAYING;
         }
-        @Override
         public long getCurrentPosition() {
             long currentPosition = mController2.getCurrentPosition();
             return (currentPosition < 0) ? 0 : currentPosition;
         }
-        @Override
         public long getBufferedPosition() {
             return mController2.getBufferedPosition();
         }
-        @Override
         public int getPlaybackState() {
             return mController2.getPlayerState();
         }
-        @Override
         public boolean canPause() {
             return mAllowedCommands != null && mAllowedCommands.hasCommand(
                     SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE);
         }
-        @Override
         public boolean canSeekBackward() {
             return mAllowedCommands != null && mAllowedCommands.hasCommand(
                     SessionCommand2.COMMAND_CODE_SESSION_REWIND);
         }
-        @Override
         public boolean canSeekForward() {
             return mAllowedCommands != null && mAllowedCommands.hasCommand(
                     SessionCommand2.COMMAND_CODE_SESSION_FAST_FORWARD);
         }
-        @Override
         public void pause() {
             mController2.pause();
         }
-        @Override
         public void play() {
             mController2.play();
         }
-        @Override
         public void seekTo(long posMs) {
             mController2.seekTo(posMs);
         }
-        @Override
         public void skipToNextItem() {
             mController2.skipToNextItem();
         }
-        @Override
         public void skipToPreviousItem() {
             mController2.skipToPreviousItem();
         }
-        @Override
         public void setSpeed(float speed) {
             mController2.setPlaybackSpeed(speed);
         }
-        @Override
         public void selectAudioTrack(int trackIndex) {
             Bundle extra = new Bundle();
             extra.putInt(KEY_SELECTED_AUDIO_INDEX, trackIndex);
@@ -2415,19 +2355,16 @@ public class MediaControlView2 extends BaseLayout {
                     new SessionCommand2(COMMAND_SELECT_AUDIO_TRACK, null),
                     extra, null);
         }
-        @Override
         public void showSubtitle(int trackIndex) {
             Bundle extra = new Bundle();
             extra.putInt(KEY_SELECTED_SUBTITLE_INDEX, trackIndex);
             mController2.sendCustomCommand(
                     new SessionCommand2(COMMAND_SHOW_SUBTITLE, null), extra, null);
         }
-        @Override
         public void hideSubtitle() {
             mController2.sendCustomCommand(
                     new SessionCommand2(COMMAND_HIDE_SUBTITLE, null), null, null);
         }
-        @Override
         public long getDurationMs() {
             // TODO Remove this if-block after b/109639439 is fixed.
             if (mMediaMetadata2 != null) {
@@ -2437,7 +2374,6 @@ public class MediaControlView2 extends BaseLayout {
             }
             return mController2.getDuration();
         }
-        @Override
         public String getTitle() {
             if (mMediaMetadata2 != null) {
                 if (mMediaMetadata2.containsKey(MediaMetadata2.METADATA_KEY_TITLE)) {
@@ -2446,7 +2382,6 @@ public class MediaControlView2 extends BaseLayout {
             }
             return null;
         }
-        @Override
         public String getArtistText() {
             if (mMediaMetadata2 != null) {
                 if (mMediaMetadata2.containsKey(MediaMetadata2.METADATA_KEY_ARTIST)) {
@@ -2455,11 +2390,9 @@ public class MediaControlView2 extends BaseLayout {
             }
             return null;
         }
-        @Override
         public void close() {
             mController2.close();
         }
-        @Override
         public MediaItem2 getCurrentMediaItem() {
             return mController2.getCurrentMediaItem();
         }
@@ -2719,325 +2652,6 @@ public class MediaControlView2 extends BaseLayout {
                         int selectedTrackIndex = args != null
                                 ? args.getInt(KEY_SELECTED_SUBTITLE_INDEX, -1)
                                 : -1;
-                        if (selectedTrackIndex < 0 || selectedTrackIndex >= mSubtitleTrackCount) {
-                            Log.w(TAG, "Selected subtitle track index (" + selectedTrackIndex
-                                    + ") is out of range.");
-                            break;
-                        }
-                        mSelectedSubtitleTrackIndex = selectedTrackIndex + 1;
-                        if (mSettingsMode == SETTINGS_MODE_SUBTITLE_TRACK) {
-                            mSubSettingsAdapter.setCheckPosition(mSelectedSubtitleTrackIndex);
-                        }
-                        break;
-                    case EVENT_UPDATE_SUBTITLE_DESELECTED:
-                        mSelectedSubtitleTrackIndex = 0;
-                        if (mSettingsMode == SETTINGS_MODE_SUBTITLE_TRACK) {
-                            mSubSettingsAdapter.setCheckPosition(mSelectedSubtitleTrackIndex);
-                        }
-                        break;
-                }
-            }
-        }
-    }
-
-    class ControllerCompat implements ControllerInterface {
-        private MediaControllerCompat mControllerCompat;
-        MediaControllerCompat.TransportControls mControls;
-        MediaMetadataCompat mMediaMetadata;
-        PlaybackStateCompat mPlaybackState;
-
-        ControllerCompat(MediaControllerCompat controllerCompat) {
-            mControllerCompat = controllerCompat;
-            if (controllerCompat != null) {
-                mControls = mControllerCompat.getTransportControls();
-                mPlaybackState = mControllerCompat.getPlaybackState();
-                mMediaMetadata = mControllerCompat.getMetadata();
-                mControllerCompat.registerCallback(new MediaControllerCompatCallback());
-            }
-        }
-
-        @Override
-        public boolean hasMetadata() {
-            return mMediaMetadata != null;
-        }
-        @Override
-        public boolean isPlaying() {
-            return mPlaybackState != null
-                    && mPlaybackState.getState() == PlaybackStateCompat.STATE_PLAYING;
-        }
-        @Override
-        public long getCurrentPosition() {
-            mPlaybackState = mControllerCompat.getPlaybackState();
-            return (mPlaybackState != null) ? mPlaybackState.getPosition() : 0;
-        }
-        @Override
-        public long getBufferedPosition() {
-            mPlaybackState = mControllerCompat.getPlaybackState();
-            if (mPlaybackState != null) {
-                return mPlaybackState.getBufferedPosition();
-            }
-            return 0;
-        }
-        @Override
-        public int getPlaybackState() {
-            switch (mPlaybackState.getState()) {
-                case PlaybackStateCompat.STATE_ERROR:
-                    return MediaPlayerConnector.PLAYER_STATE_ERROR;
-                case PlaybackStateCompat.STATE_BUFFERING:
-                case PlaybackStateCompat.STATE_CONNECTING:
-                case PlaybackStateCompat.STATE_PAUSED:
-                    return MediaPlayerConnector.PLAYER_STATE_PAUSED;
-                case PlaybackStateCompat.STATE_REWINDING:
-                case PlaybackStateCompat.STATE_FAST_FORWARDING:
-                case PlaybackStateCompat.STATE_PLAYING:
-                    return MediaPlayerConnector.PLAYER_STATE_PLAYING;
-                case PlaybackStateCompat.STATE_NONE:
-                case PlaybackStateCompat.STATE_STOPPED:
-                default:
-                    return MediaPlayerConnector.PLAYER_STATE_IDLE;
-            }
-        }
-        @Override
-        public boolean canPause() {
-            if (mPlaybackState != null) {
-                return (mPlaybackState.getActions() & PlaybackStateCompat.ACTION_PAUSE) != 0;
-            }
-            return true;
-        }
-
-        @Override
-        public boolean canSeekBackward() {
-            if (mPlaybackState != null) {
-                return (mPlaybackState.getActions() & PlaybackStateCompat.ACTION_REWIND) != 0;
-            }
-            return true;
-        }
-        @Override
-        public boolean canSeekForward() {
-            if (mPlaybackState != null) {
-                return (mPlaybackState.getActions() & PlaybackStateCompat.ACTION_FAST_FORWARD) != 0;
-            }
-            return true;
-        }
-        @Override
-        public void pause() {
-            mControls.pause();
-        }
-        @Override
-        public void play() {
-            mControls.play();
-        }
-        @Override
-        public void seekTo(long posMs) {
-            mControls.seekTo(posMs);
-        }
-        @Override
-        public void skipToNextItem() {
-            mControls.skipToNext();
-        }
-        @Override
-        public void skipToPreviousItem() {
-            mControls.skipToPrevious();
-        }
-        @Override
-        public void setSpeed(float speed) {
-            Bundle extra = new Bundle();
-            extra.putFloat(KEY_PLAYBACK_SPEED, speed);
-            mControllerCompat.sendCommand(COMMAND_SET_PLAYBACK_SPEED, extra, null);
-        }
-        @Override
-        public void selectAudioTrack(int trackIndex) {
-            Bundle extra = new Bundle();
-            extra.putInt(KEY_SELECTED_AUDIO_INDEX, trackIndex);
-            mControllerCompat.sendCommand(COMMAND_SELECT_AUDIO_TRACK, extra, null);
-        }
-        @Override
-        public void showSubtitle(int trackIndex) {
-            Bundle extra = new Bundle();
-            extra.putInt(KEY_SELECTED_SUBTITLE_INDEX, trackIndex);
-            mControllerCompat.sendCommand(COMMAND_SHOW_SUBTITLE, extra, null);
-        }
-        @Override
-        public void hideSubtitle() {
-            mControllerCompat.sendCommand(COMMAND_HIDE_SUBTITLE, null, null);
-        }
-        @Override
-        public long getDurationMs() {
-            return mMediaMetadata == null
-                    ? 0 : mMediaMetadata.getLong(MediaMetadataCompat.METADATA_KEY_DURATION);
-        }
-        @Override
-        public String getTitle() {
-            return mMediaMetadata == null
-                    ? null : mMediaMetadata.getString(MediaMetadataCompat.METADATA_KEY_TITLE);
-        }
-        @Override
-        public String getArtistText() {
-            return mMediaMetadata == null
-                    ? null : mMediaMetadata.getString(MediaMetadataCompat.METADATA_KEY_ARTIST);
-        }
-        @Override
-        public void close() {
-            // Nothing.
-        }
-        @Override
-        public MediaItem2 getCurrentMediaItem() {
-            return null;
-        }
-
-        private class MediaControllerCompatCallback extends MediaControllerCompat.Callback {
-            MediaControllerCompatCallback() {
-            }
-
-            @Override
-            public void onPlaybackStateChanged(PlaybackStateCompat state) {
-                mPlaybackState = state;
-
-                // Update pause button depending on playback state for the following two reasons:
-                //   1) Need to handle case where app customizes playback state behavior when app
-                //      activity is resumed.
-                //   2) Need to handle case where the media file reaches end of duration.
-                if (mPlaybackState.getState() != mPrevState) {
-                    switch (mPlaybackState.getState()) {
-                        case PlaybackStateCompat.STATE_PLAYING:
-                            removeCallbacks(mUpdateProgress);
-                            post(mUpdateProgress);
-                            resetHideCallbacks();
-                            updateForStoppedState(false);
-                            break;
-                        case PlaybackStateCompat.STATE_PAUSED:
-                            mPlayPauseButton.setImageDrawable(
-                                    mResources.getDrawable(R.drawable.ic_play_circle_filled, null));
-                            mPlayPauseButton.setContentDescription(
-                                    mResources.getString(R.string.mcv2_play_button_desc));
-                            break;
-                        case PlaybackStateCompat.STATE_STOPPED:
-                            updateForStoppedState(true);
-                            // The progress bar and current time text may not have been updated.
-                            mProgress.setProgress(MAX_PROGRESS);
-                            mCurrentTime.setText(stringForTime(mDuration));
-                            break;
-                        default:
-                            break;
-                    }
-                    mPrevState = mPlaybackState.getState();
-                }
-
-                if (mPlaybackActions != mPlaybackState.getActions()) {
-                    long newActions = mPlaybackState.getActions();
-                    if ((newActions & PlaybackStateCompat.ACTION_PAUSE) != 0) {
-                        mPlayPauseButton.setVisibility(View.VISIBLE);
-                    }
-                    if ((newActions & PlaybackStateCompat.ACTION_REWIND) != 0
-                            && mMediaType != MEDIA_TYPE_MUSIC) {
-                        if (mRewButton != null) {
-                            mRewButton.setVisibility(View.VISIBLE);
-                        }
-                    }
-                    if ((newActions & PlaybackStateCompat.ACTION_FAST_FORWARD) != 0
-                            && mMediaType != MEDIA_TYPE_MUSIC) {
-                        if (mFfwdButton != null) {
-                            mFfwdButton.setVisibility(View.VISIBLE);
-                        }
-                    }
-                    if ((newActions & PlaybackStateCompat.ACTION_SEEK_TO) != 0) {
-                        mSeekAvailable = true;
-                    } else {
-                        mSeekAvailable = false;
-                    }
-                    mPlaybackActions = newActions;
-                }
-
-                // Add buttons if custom actions are present.
-                List<PlaybackStateCompat.CustomAction> customActions =
-                        mPlaybackState.getCustomActions();
-                mCustomButtons.removeAllViews();
-                if (customActions.size() > 0) {
-                    for (final PlaybackStateCompat.CustomAction action : customActions) {
-                        ImageButton button = new ImageButton(getContext(),
-                                null /* AttributeSet */, 0 /* Style */);
-                        // Refer Constructor with argument (int defStyleRes) of View.java
-                        button.setImageResource(action.getIcon());
-                        final String actionString = action.getAction().toString();
-                        button.setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mControls.sendCustomAction(actionString, action.getExtras());
-                                setVisibility(View.VISIBLE);
-                            }
-                        });
-                        mCustomButtons.addView(button);
-                    }
-                }
-            }
-
-            @Override
-            public void onMetadataChanged(MediaMetadataCompat metadata) {
-                mMediaMetadata = metadata;
-                updateDuration();
-                updateTitle();
-                updateAudioMetadata();
-            }
-
-            @Override
-            public void onSessionEvent(String event, Bundle extras) {
-                switch (event) {
-                    case EVENT_UPDATE_TRACK_STATUS:
-                        mVideoTrackCount = extras.getInt(KEY_VIDEO_TRACK_COUNT);
-                        // If there is one or more audio tracks, and this information has not been
-                        // reflected into the Settings window yet, automatically check the first
-                        // track.
-                        // Otherwise, the Audio Track selection will be defaulted to "None".
-                        mAudioTrackCount = extras.getInt(KEY_AUDIO_TRACK_COUNT);
-                        mAudioTrackList = new ArrayList<String>();
-                        if (mAudioTrackCount > 0) {
-                            for (int i = 0; i < mAudioTrackCount; i++) {
-                                String track = mResources.getString(
-                                        R.string.MediaControlView2_audio_track_number_text, i + 1);
-                                mAudioTrackList.add(track);
-                            }
-                            // Change sub text inside the Settings window.
-                            mSettingsSubTextsList.set(SETTINGS_MODE_AUDIO_TRACK,
-                                    mAudioTrackList.get(0));
-                        } else {
-                            mAudioTrackList.add(mResources.getString(
-                                    R.string.MediaControlView2_audio_track_none_text));
-                        }
-                        if (mVideoTrackCount == 0 && mAudioTrackCount > 0) {
-                            mMediaType = MEDIA_TYPE_MUSIC;
-                        }
-
-                        mSubtitleTrackCount = extras.getInt(KEY_SUBTITLE_TRACK_COUNT);
-                        mSubtitleDescriptionsList = new ArrayList<String>();
-                        if (mSubtitleTrackCount > 0) {
-                            mSubtitleButton.setAlpha(1.0f);
-                            mSubtitleButton.setEnabled(true);
-                            mSubtitleDescriptionsList.add(mResources.getString(
-                                    R.string.MediaControlView2_subtitle_off_text));
-                            for (int i = 0; i < mSubtitleTrackCount; i++) {
-                                String track = mResources.getString(
-                                        R.string.MediaControlView2_subtitle_track_number_text,
-                                        i + 1);
-                                mSubtitleDescriptionsList.add(track);
-                            }
-                        } else {
-                            if (mMediaType == MEDIA_TYPE_MUSIC) {
-                                mSubtitleButton.setVisibility(View.GONE);
-                            } else {
-                                mSubtitleButton.setAlpha(0.5f);
-                                mSubtitleButton.setEnabled(false);
-                            }
-                        }
-                        break;
-                    case EVENT_UPDATE_MEDIA_TYPE_STATUS:
-                        boolean newStatus = extras.getBoolean(KEY_STATE_IS_ADVERTISEMENT);
-                        if (newStatus != mIsAdvertisement) {
-                            mIsAdvertisement = newStatus;
-                            updateLayoutForAd();
-                        }
-                        break;
-                    case EVENT_UPDATE_SUBTITLE_SELECTED:
-                        int selectedTrackIndex = extras.getInt(KEY_VIDEO_TRACK_COUNT);
                         if (selectedTrackIndex < 0 || selectedTrackIndex >= mSubtitleTrackCount) {
                             Log.w(TAG, "Selected subtitle track index (" + selectedTrackIndex
                                     + ") is out of range.");
