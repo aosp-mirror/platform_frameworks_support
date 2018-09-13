@@ -63,7 +63,8 @@ public abstract class AbstractFuture<V> implements ListenableFuture<V> {
 
     // NOTE: Whenever both tests are cheap and functional, it's faster to use &, | instead of &&, ||
 
-    private static final boolean GENERATE_CANCELLATION_CAUSES =
+    @SuppressWarnings("WeakerAccess") // Avoiding synthetic accessor.
+    static final boolean GENERATE_CANCELLATION_CAUSES =
             Boolean.parseBoolean(
                     System.getProperty("guava.concurrent.generate_cancellation_cause", "false"));
 
@@ -74,7 +75,8 @@ public abstract class AbstractFuture<V> implements ListenableFuture<V> {
     // blocking. This value is what AbstractQueuedSynchronizer uses.
     private static final long SPIN_THRESHOLD_NANOS = 1000L;
 
-    private static final AtomicHelper ATOMIC_HELPER;
+    @SuppressWarnings("WeakerAccess") // Avoiding synthetic accessor.
+    static final AtomicHelper ATOMIC_HELPER;
 
     static {
         AtomicHelper helper;
@@ -308,15 +310,18 @@ public abstract class AbstractFuture<V> implements ListenableFuture<V> {
      * </ul>
      */
     @Nullable
-    private volatile Object value;
+    @SuppressWarnings("WeakerAccess") // Avoiding synthetic accessor.
+    volatile Object value;
 
     /** All listeners. */
     @Nullable
-    private volatile Listener listeners;
+    @SuppressWarnings("WeakerAccess") // Avoiding synthetic accessor.
+    volatile Listener listeners;
 
     /** All waiting threads. */
     @Nullable
-    private volatile Waiter waiters;
+    @SuppressWarnings("WeakerAccess") // Avoiding synthetic accessor.
+    volatile Waiter waiters;
 
     /** Constructor for use by subclasses. */
     protected AbstractFuture() {
@@ -795,7 +800,8 @@ public abstract class AbstractFuture<V> implements ListenableFuture<V> {
      *
      * <p>This is approximately the inverse of {@link #getDoneValue(Object)}
      */
-    private static Object getFutureValue(ListenableFuture<?> future) {
+    @SuppressWarnings("WeakerAccess") // Avoiding synthetic accessor.
+    static Object getFutureValue(ListenableFuture<?> future) {
         if (future instanceof AbstractFuture) {
             // Break encapsulation for TrustedFuture instances since we know that subclasses cannot
             // override .get() (since it is final) and therefore this is equivalent to calling
@@ -862,7 +868,8 @@ public abstract class AbstractFuture<V> implements ListenableFuture<V> {
     }
 
     /** Unblocks all threads and runs all listeners. */
-    private static void complete(AbstractFuture<?> future) {
+    @SuppressWarnings("WeakerAccess") // Avoiding synthetic accessor.
+    static void complete(AbstractFuture<?> future) {
         Listener next = null;
         outer:
         while (true) {
@@ -1148,6 +1155,9 @@ public abstract class AbstractFuture<V> implements ListenableFuture<V> {
             }
         }
 
+        UnsafeAtomicHelper() {
+        }
+
         @Override
         void putThread(Waiter waiter, Thread newValue) {
             UNSAFE.putObject(waiter, WAITER_THREAD_OFFSET, newValue);
@@ -1231,6 +1241,9 @@ public abstract class AbstractFuture<V> implements ListenableFuture<V> {
      * (like AtomicReferenceFieldUpdater).
      */
     private static final class SynchronizedHelper extends AtomicHelper {
+        SynchronizedHelper() {
+        }
+
         @Override
         void putThread(Waiter waiter, Thread newValue) {
             waiter.thread = newValue;
@@ -1282,7 +1295,8 @@ public abstract class AbstractFuture<V> implements ListenableFuture<V> {
         return exception;
     }
 
-    private static void throwIfUnchecked(Throwable throwable) {
+    @SuppressWarnings("WeakerAccess") // Avoiding synthetic accessor.
+    static void throwIfUnchecked(Throwable throwable) {
         checkNotNull(throwable);
         if (throwable instanceof RuntimeException) {
             throw (RuntimeException) throwable;
@@ -1292,8 +1306,9 @@ public abstract class AbstractFuture<V> implements ListenableFuture<V> {
         }
     }
 
+    @SuppressWarnings("WeakerAccess") // Avoiding synthetic accessor.
     @NonNull
-    private static <T> T checkNotNull(@Nullable T reference) {
+    static <T> T checkNotNull(@Nullable T reference) {
         if (reference == null) {
             throw new NullPointerException();
         }
