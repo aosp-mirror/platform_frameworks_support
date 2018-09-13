@@ -27,11 +27,11 @@ import android.support.annotation.RestrictTo;
 import android.support.annotation.WorkerThread;
 import android.support.v4.util.Pair;
 
-import androidx.concurrent.listenablefuture.ListenableFuture;
-import androidx.work.impl.Extras;
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.Executor;
 
 /**
  * The basic object that performs work.  Worker classes are instantiated at runtime by
@@ -47,16 +47,33 @@ public abstract class NonBlockingWorker {
     private @NonNull Context mAppContext;
 
     @SuppressWarnings("NullableProblems")   // Set by internalInit
-    private @NonNull UUID mId;
-
-    @SuppressWarnings("NullableProblems")   // Set by internalInit
-    private @NonNull Extras mExtras;
+    private @NonNull WorkerParameters mWorkerParams;
 
     private volatile boolean mStopped;
     private volatile boolean mCancelled;
 
     private @NonNull volatile Data mOutputData = Data.EMPTY;
     private @NonNull volatile Worker.Result mResult = Worker.Result.FAILURE;
+
+    /**
+     * The default constructor.  This constructor is deprecated and only exists temporarily for
+     * backwards-compatibility.  It will be removed soon, so you should switch all your workers to
+     * use {@link #NonBlockingWorker(Context, WorkerParameters)}.
+     *
+     * @deprecated Use {@link #NonBlockingWorker(Context, WorkerParameters)} instead
+     */
+    @Deprecated
+    public NonBlockingWorker() {
+    }
+
+    /**
+     * @param appContext The application {@link Context}
+     * @param workerParams Parameters to setup the internal state of this worker
+     */
+    public NonBlockingWorker(@NonNull Context appContext, @NonNull WorkerParameters workerParams) {
+        mAppContext = appContext;
+        mWorkerParams = workerParams;
+    }
 
     /**
      * Gets the application {@link android.content.Context}.
@@ -73,7 +90,7 @@ public abstract class NonBlockingWorker {
      * @return The ID of the creating {@link WorkRequest}
      */
     public final @NonNull UUID getId() {
-        return mId;
+        return mWorkerParams.getId();
     }
 
     /**
@@ -84,7 +101,7 @@ public abstract class NonBlockingWorker {
      * @see OneTimeWorkRequest.Builder#setInputMerger(Class)
      */
     public final @NonNull Data getInputData() {
-        return mExtras.getInputData();
+        return mWorkerParams.getInputData();
     }
 
     /**
@@ -94,7 +111,7 @@ public abstract class NonBlockingWorker {
      * @see WorkRequest.Builder#addTag(String)
      */
     public final @NonNull Set<String> getTags() {
-        return mExtras.getTags();
+        return mWorkerParams.getTags();
     }
 
     /**
@@ -105,7 +122,7 @@ public abstract class NonBlockingWorker {
      */
     @RequiresApi(24)
     public final @Nullable Uri[] getTriggeredContentUris() {
-        return mExtras.getRuntimeExtras().triggeredContentUris;
+        return mWorkerParams.getTriggeredContentUris();
     }
 
     /**
@@ -115,7 +132,7 @@ public abstract class NonBlockingWorker {
      */
     @RequiresApi(24)
     public final @Nullable String[] getTriggeredContentAuthorities() {
-        return mExtras.getRuntimeExtras().triggeredContentAuthorities;
+        return mWorkerParams.getTriggeredContentAuthorities();
     }
 
     /**
@@ -126,7 +143,7 @@ public abstract class NonBlockingWorker {
      */
     @RequiresApi(28)
     public final @Nullable Network getNetwork() {
-        return mExtras.getRuntimeExtras().network;
+        return mWorkerParams.getNetwork();
     }
 
     /**
@@ -135,7 +152,7 @@ public abstract class NonBlockingWorker {
      * @return The current run attempt count for this work.
      */
     public final int getRunAttemptCount() {
-        return mExtras.getRunAttemptCount();
+        return mWorkerParams.getRunAttemptCount();
     }
 
     /**
@@ -256,22 +273,31 @@ public abstract class NonBlockingWorker {
         mResult = result;
     }
 
+    /**
+     * @deprecated To be removed; internal usage only.
+     */
+    @Deprecated
     @Keep
     @SuppressWarnings("unused")
-    protected void internalInit(
-            @NonNull Context appContext,
-            @NonNull UUID id,
-            @NonNull Extras extras) {
-        mAppContext = appContext;
-        mId = id;
-        mExtras = extras;
+    protected void internalInit(@NonNull Context context,
+            @NonNull WorkerParameters workParameters) {
+        mAppContext = context;
+        mWorkerParams = workParameters;
     }
 
     /**
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    public @NonNull Extras getExtras() {
-        return mExtras;
+    public @NonNull WorkerParameters.RuntimeExtras getRuntimeExtras() {
+        return mWorkerParams.getRuntimeExtras();
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public @NonNull Executor getBackgroundExecutor() {
+        return mWorkerParams.getBackgroundExecutor();
     }
 }

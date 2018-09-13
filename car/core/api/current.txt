@@ -50,7 +50,6 @@ package androidx.car.drawer {
     ctor public CarDrawerActivity();
     method protected int getContentContainerId();
     method protected androidx.car.drawer.CarDrawerController getDrawerController();
-    method protected deprecated androidx.car.drawer.CarDrawerAdapter getRootAdapter();
     method public void setMainContent(android.view.View);
     method public void setMainContent(int);
     method public void setToolbarAlwaysShow();
@@ -201,6 +200,7 @@ package androidx.car.widget {
   public final class ActionListItem extends androidx.car.widget.ListItem {
     ctor public ActionListItem(android.content.Context);
     method public static androidx.car.widget.ActionListItem.ViewHolder createViewHolder(android.view.View);
+    method protected android.content.Context getContext();
     method public int getViewType();
     method public void onBind(androidx.car.widget.ActionListItem.ViewHolder);
     method protected void resolveDirtyState();
@@ -456,6 +456,7 @@ package androidx.car.widget {
   public class SeekbarListItem extends androidx.car.widget.ListItem {
     ctor public SeekbarListItem(android.content.Context);
     method public static androidx.car.widget.SeekbarListItem.ViewHolder createViewHolder(android.view.View);
+    method protected android.content.Context getContext();
     method public int getViewType();
     method protected void onBind(androidx.car.widget.SeekbarListItem.ViewHolder);
     method protected void resolveDirtyState();
@@ -471,7 +472,6 @@ package androidx.car.widget {
     method public void setSupplementalEmptyIcon(boolean);
     method public void setSupplementalIcon(int, boolean);
     method public void setSupplementalIcon(android.graphics.drawable.Drawable, boolean);
-    method public deprecated void setSupplementalIcon(android.graphics.drawable.Drawable, boolean, android.view.View.OnClickListener);
     method public void setSupplementalIconListener(android.view.View.OnClickListener);
     method public void setText(java.lang.CharSequence);
   }
@@ -490,6 +490,7 @@ package androidx.car.widget {
   public class SubheaderListItem extends androidx.car.widget.ListItem {
     ctor public SubheaderListItem(android.content.Context, java.lang.CharSequence);
     method public static androidx.car.widget.SubheaderListItem.ViewHolder createViewHolder(android.view.View);
+    method protected android.content.Context getContext();
     method public int getViewType();
     method protected void onBind(androidx.car.widget.SubheaderListItem.ViewHolder);
     method protected void resolveDirtyState();
@@ -513,6 +514,7 @@ package androidx.car.widget {
   public class TextListItem extends androidx.car.widget.ListItem {
     ctor public TextListItem(android.content.Context);
     method public static androidx.car.widget.TextListItem.ViewHolder createViewHolder(android.view.View);
+    method protected android.content.Context getContext();
     method public int getViewType();
     method public void onBind(androidx.car.widget.TextListItem.ViewHolder);
     method protected void resolveDirtyState();

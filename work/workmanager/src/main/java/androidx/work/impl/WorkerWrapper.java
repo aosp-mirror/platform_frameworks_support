@@ -32,8 +32,7 @@ import android.support.annotation.VisibleForTesting;
 import android.support.annotation.WorkerThread;
 import android.support.v4.util.Pair;
 
-import androidx.concurrent.listenablefuture.ListenableFuture;
-import androidx.concurrent.listenablefuture.SettableFuture;
+import androidx.concurrent.futures.SettableFuture;
 import androidx.work.Configuration;
 import androidx.work.Data;
 import androidx.work.InputMerger;
@@ -42,6 +41,7 @@ import androidx.work.NonBlockingWorker;
 import androidx.work.State;
 import androidx.work.Worker;
 import androidx.work.Worker.Result;
+import androidx.work.WorkerParameters;
 import androidx.work.impl.background.systemalarm.RescheduleReceiver;
 import androidx.work.impl.model.DependencyDao;
 import androidx.work.impl.model.WorkSpec;
@@ -50,6 +50,9 @@ import androidx.work.impl.model.WorkTagDao;
 import androidx.work.impl.utils.PackageManagerHelper;
 import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +73,7 @@ public class WorkerWrapper implements Runnable {
     private Context mAppContext;
     private String mWorkSpecId;
     private List<Scheduler> mSchedulers;
-    private Extras.RuntimeExtras mRuntimeExtras;
+    private WorkerParameters.RuntimeExtras mRuntimeExtras;
     private WorkSpec mWorkSpec;
     NonBlockingWorker mWorker;
 
@@ -164,7 +167,8 @@ public class WorkerWrapper implements Runnable {
             input = inputMerger.merge(inputs);
         }
 
-        Extras extras = new Extras(
+        WorkerParameters params = new WorkerParameters(
+                UUID.fromString(mWorkSpecId),
                 input,
                 mTags,
                 mRuntimeExtras,
@@ -174,7 +178,7 @@ public class WorkerWrapper implements Runnable {
         // Not always creating a worker here, as the WorkerWrapper.Builder can set a worker override
         // in test mode.
         if (mWorker == null) {
-            mWorker = workerFromWorkSpec(mAppContext, mWorkSpec, extras);
+            mWorker = workerFromClassName(mWorkSpec.workerClassName, mAppContext, params);
         }
 
         if (mWorker == null) {
@@ -506,25 +510,12 @@ public class WorkerWrapper implements Runnable {
         return sb.toString();
     }
 
-    static Worker workerFromWorkSpec(@NonNull Context context,
-            @NonNull WorkSpec workSpec,
-            @NonNull Extras extras) {
-        String workerClassName = workSpec.workerClassName;
-        UUID workSpecId = UUID.fromString(workSpec.id);
-        return workerFromClassName(
-                context,
-                workerClassName,
-                workSpecId,
-                extras);
-    }
-
     /**
      * Creates a {@link Worker} reflectively & initializes the worker.
      *
-     * @param context         The application {@link Context}
      * @param workerClassName The fully qualified class name for the {@link Worker}
-     * @param workSpecId      The {@link WorkSpec} identifier
-     * @param extras          The {@link Extras} for the worker
+     * @param context         The Context from which we derive the application Context
+     * @param params          The {@link WorkerParameters} for the worker
      * @return The instance of {@link Worker}
      *
      * @hide
@@ -532,25 +523,25 @@ public class WorkerWrapper implements Runnable {
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @SuppressWarnings("ClassNewInstance")
     public static Worker workerFromClassName(
-            @NonNull Context context,
             @NonNull String workerClassName,
-            @NonNull UUID workSpecId,
-            @NonNull Extras extras) {
-        Context appContext = context.getApplicationContext();
+            @NonNull Context context,
+            @NonNull WorkerParameters params) {
         try {
             Class<?> clazz = Class.forName(workerClassName);
-            Worker worker = (Worker) clazz.newInstance();
-            Method internalInitMethod = NonBlockingWorker.class.getDeclaredMethod(
-                    "internalInit",
-                    Context.class,
-                    UUID.class,
-                    Extras.class);
-            internalInitMethod.setAccessible(true);
-            internalInitMethod.invoke(
-                    worker,
-                    appContext,
-                    workSpecId,
-                    extras);
+            Worker worker;
+            try {
+                Constructor<?> constructor =
+                        clazz.getDeclaredConstructor(Context.class, WorkerParameters.class);
+                worker = (Worker) constructor.newInstance(context.getApplicationContext(), params);
+            } catch (NoSuchMethodException e) {
+                worker = (Worker) clazz.newInstance();
+                Method internalInitMethod = NonBlockingWorker.class.getDeclaredMethod(
+                        "internalInit",
+                        Context.class,
+                        WorkerParameters.class);
+                internalInitMethod.setAccessible(true);
+                internalInitMethod.invoke(worker, context.getApplicationContext(), params);
+            }
             return worker;
         } catch (Exception e) {
             Logger.error(TAG, "Trouble instantiating " + workerClassName, e);
@@ -572,7 +563,8 @@ public class WorkerWrapper implements Runnable {
         @NonNull WorkDatabase mWorkDatabase;
         @NonNull String mWorkSpecId;
         List<Scheduler> mSchedulers;
-        @NonNull Extras.RuntimeExtras mRuntimeExtras = new Extras.RuntimeExtras();
+        @NonNull
+        WorkerParameters.RuntimeExtras mRuntimeExtras = new WorkerParameters.RuntimeExtras();
 
         public Builder(@NonNull Context context,
                 @NonNull Configuration configuration,
@@ -596,12 +588,12 @@ public class WorkerWrapper implements Runnable {
         }
 
         /**
-         * @param runtimeExtras The {@link Extras.RuntimeExtras} for the {@link Worker}; if this is
-         *                      {@code null}, it will be ignored and the default value will be
-         *                      retained.
+         * @param runtimeExtras The {@link WorkerParameters.RuntimeExtras} for the {@link Worker};
+         *                      if this is {@code null}, it will be ignored and the default value
+         *                      will be retained.
          * @return The instance of {@link Builder} for chaining.
          */
-        public Builder withRuntimeExtras(Extras.RuntimeExtras runtimeExtras) {
+        public Builder withRuntimeExtras(WorkerParameters.RuntimeExtras runtimeExtras) {
             if (runtimeExtras != null) {
                 mRuntimeExtras = runtimeExtras;
             }

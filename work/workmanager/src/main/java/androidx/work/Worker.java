@@ -16,13 +16,15 @@
 
 package androidx.work;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.WorkerThread;
 import android.support.v4.util.Pair;
 
-import androidx.concurrent.listenablefuture.ListenableFuture;
-import androidx.concurrent.listenablefuture.SettableFuture;
+import androidx.concurrent.futures.SettableFuture;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.concurrent.TimeUnit;
 
@@ -62,6 +64,14 @@ public abstract class Worker extends NonBlockingWorker {
     // Package-private to avoid synthetic accessor.
     SettableFuture<Pair<Result, Data>> mFuture;
 
+    public Worker() {
+        super();
+    }
+
+    public Worker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+        super(context, workerParams);
+    }
+
     /**
      * Override this method to do your actual background processing.
      */
@@ -75,7 +85,7 @@ public abstract class Worker extends NonBlockingWorker {
     @Override
     public @NonNull ListenableFuture<Pair<Result, Data>> onStartWork() {
         mFuture = SettableFuture.create();
-        getExtras().getBackgroundExecutor().execute(new Runnable() {
+        getBackgroundExecutor().execute(new Runnable() {
             @Override
             public void run() {
                 Result result = doWork();

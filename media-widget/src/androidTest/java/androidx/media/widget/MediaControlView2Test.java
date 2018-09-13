@@ -37,12 +37,12 @@ import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.media.widget.test.R;
-import androidx.media2.DataSourceDesc2;
 import androidx.media2.MediaController2;
 import androidx.media2.MediaItem2;
 import androidx.media2.MediaPlayerConnector;
-import androidx.media2.UriDataSourceDesc2;
+import androidx.media2.UriMediaItem2;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.filters.LargeTest;
@@ -99,7 +99,7 @@ public class MediaControlView2Test {
     @Before
     public void setup() throws Throwable {
         mContext = InstrumentationRegistry.getTargetContext();
-        mMainHandlerExecutor = MainHandlerExecutor.getExecutor(mContext);
+        mMainHandlerExecutor = ContextCompat.getMainExecutor(mContext);
         mInstrumentation = InstrumentationRegistry.getInstrumentation();
 
         mActivity = mActivityRule.getActivity();
@@ -345,8 +345,8 @@ public class MediaControlView2Test {
     }
 
     private MediaItem2 createTestMediaItem2(Uri uri) {
-        DataSourceDesc2 dsd = new UriDataSourceDesc2.Builder(mVideoView.getContext(), uri).build();
-        return new MediaItem2.Builder(MediaItem2.FLAG_PLAYABLE).setDataSourceDesc(dsd).build();
+        return new UriMediaItem2.Builder(mVideoView.getContext(), uri)
+                .build();
     }
 
     private boolean hasCodec(Uri uri) {

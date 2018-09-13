@@ -16,6 +16,10 @@
 
 package androidx.media.test.service.tests;
 
+import static android.support.mediacompat.testlib.util.IntentUtil.SERVICE_PACKAGE_NAME;
+
+import static androidx.media.MediaSessionManager.RemoteUserInfo.LEGACY_CONTROLLER;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -23,7 +27,7 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
-import android.os.Process;
+import android.os.Build;
 import android.support.mediacompat.service.R;
 import android.view.KeyEvent;
 
@@ -33,7 +37,6 @@ import androidx.media2.MediaPlayerConnector;
 import androidx.media2.MediaSession2;
 import androidx.media2.MediaSession2.ControllerInfo;
 import androidx.media2.SessionCommandGroup2;
-import androidx.test.filters.FlakyTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
@@ -48,18 +51,32 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Tests {@link MediaSession2} whether it handles key events correctly.
+ * In order to get the media key events, the player state is set to 'Playing' before every test
+ * method.
  */
-// Note: Test fails on pre-P for now because ControllerInfo isn't available for key event, and fails
-//       to pass permission check.
-@SdkSuppress(minSdkVersion = 28)
+@SdkSuppress(minSdkVersion = Build.VERSION_CODES.LOLLIPOP)
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class MediaSession2_KeyEventTest extends MediaSession2TestBase {
+    private static String sExpectedControllerPackageName;
+
     private AudioManager mAudioManager;
     private MediaSession2 mSession;
     private MockPlayerConnector mPlayer;
     private MockPlaylistAgent mMockAgent;
     private TestSessionCallback mSessionCallback;
+
+    static {
+        if (Build.VERSION.SDK_INT >= 28) {
+            sExpectedControllerPackageName = SERVICE_PACKAGE_NAME;
+        } else if (Build.VERSION.SDK_INT >= 24) {
+            // KeyEvent from system service has the package name "android".
+            sExpectedControllerPackageName = "android";
+        } else {
+            // In API 21+, MediaSessionCompat#getCurrentControllerInfo always returns dummy info.
+            sExpectedControllerPackageName = LEGACY_CONTROLLER;
+        }
+    }
 
     @Before
     @Override
@@ -93,6 +110,7 @@ public class MediaSession2_KeyEventTest extends MediaSession2TestBase {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
                         latch.countDown();
+                        player.release();
                     }
                 });
                 player.start();
@@ -118,7 +136,7 @@ public class MediaSession2_KeyEventTest extends MediaSession2TestBase {
     }
 
     @Test
-    public void testPlay() throws Exception {
+    public void testPlayKeyEvent() throws Exception {
         prepareLooper();
         dispatchMediaKeyEvent(KeyEvent.KEYCODE_MEDIA_PLAY, false);
         assertTrue(mPlayer.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -126,7 +144,7 @@ public class MediaSession2_KeyEventTest extends MediaSession2TestBase {
     }
 
     @Test
-    public void testPause() throws Exception {
+    public void testPauseKeyEvent() throws Exception {
         prepareLooper();
         dispatchMediaKeyEvent(KeyEvent.KEYCODE_MEDIA_PAUSE, false);
         assertTrue(mPlayer.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -134,7 +152,7 @@ public class MediaSession2_KeyEventTest extends MediaSession2TestBase {
     }
 
     @Test
-    public void testNext() throws Exception {
+    public void testNextKeyEvent() throws Exception {
         prepareLooper();
         dispatchMediaKeyEvent(KeyEvent.KEYCODE_MEDIA_NEXT, false);
         assertTrue(mMockAgent.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -142,16 +160,15 @@ public class MediaSession2_KeyEventTest extends MediaSession2TestBase {
     }
 
     @Test
-    public void testPrevious() throws Exception {
+    public void testPreviousKeyEvent() throws Exception {
         prepareLooper();
         dispatchMediaKeyEvent(KeyEvent.KEYCODE_MEDIA_PREVIOUS, false);
         assertTrue(mMockAgent.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mMockAgent.mSkipToPreviousItemCalled);
     }
 
-    @FlakyTest(bugId = 112291143)
     @Test
-    public void testStop() throws Exception {
+    public void testStopKeyEvent() throws Exception {
         prepareLooper();
         mPlayer = new MockPlayerConnector(2);
         mSession.updatePlayerConnector(mPlayer, mSession.getPlaylistAgent());
@@ -162,7 +179,7 @@ public class MediaSession2_KeyEventTest extends MediaSession2TestBase {
     }
 
     @Test
-    public void testFastForward() throws Exception {
+    public void testFastForwardKeyEvent() throws Exception {
         prepareLooper();
         dispatchMediaKeyEvent(KeyEvent.KEYCODE_MEDIA_FAST_FORWARD, false);
         assertTrue(mSessionCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -170,7 +187,7 @@ public class MediaSession2_KeyEventTest extends MediaSession2TestBase {
     }
 
     @Test
-    public void testRewind() throws Exception {
+    public void testRewindKeyEvent() throws Exception {
         prepareLooper();
         dispatchMediaKeyEvent(KeyEvent.KEYCODE_MEDIA_REWIND, false);
         assertTrue(mSessionCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -178,7 +195,7 @@ public class MediaSession2_KeyEventTest extends MediaSession2TestBase {
     }
 
     @Test
-    public void testPlayPause_play() throws Exception {
+    public void testPlayPauseKeyEvent_play() throws Exception {
         prepareLooper();
         mPlayer.notifyPlayerStateChanged(MediaPlayerConnector.PLAYER_STATE_PAUSED);
         dispatchMediaKeyEvent(KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE, false);
@@ -187,16 +204,15 @@ public class MediaSession2_KeyEventTest extends MediaSession2TestBase {
     }
 
     @Test
-    public void testPlayPause_pause() throws Exception {
+    public void testPlayPauseKeyEvent_pause() throws Exception {
         prepareLooper();
-        mPlayer.notifyPlayerStateChanged(MediaPlayerConnector.PLAYER_STATE_PLAYING);
         dispatchMediaKeyEvent(KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE, false);
         assertTrue(mPlayer.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mPlayer.mPauseCalled);
     }
 
     @Test
-    public void testPlayPause_doubleTap() throws Exception {
+    public void testPlayPauseKeyEvent_doubleTapIsTranslatedToSkipToNext() throws Exception {
         prepareLooper();
         dispatchMediaKeyEvent(KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE, true);
         assertTrue(mMockAgent.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -212,7 +228,7 @@ public class MediaSession2_KeyEventTest extends MediaSession2TestBase {
 
         @Override
         public SessionCommandGroup2 onConnect(MediaSession2 session, ControllerInfo controller) {
-            if (Process.myUid() == controller.getUid()) {
+            if (sExpectedControllerPackageName.equals(controller.getPackageName())) {
                 return super.onConnect(session, controller);
             }
             return null;
