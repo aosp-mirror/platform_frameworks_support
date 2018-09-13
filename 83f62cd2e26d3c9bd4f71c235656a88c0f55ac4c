@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "202314c1_1545f9d8",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.config",
+        "patchSetId": 1
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-13T13:24:07Z",
+      "side": 1,
+      "message": "Are you sure this is not android/support/activity/(.*)?",
+      "range": {
+        "startLine": 731,
+        "startChar": 22,
+        "endLine": 731,
+        "endChar": 44
+      },
+      "revId": "83f62cd2e26d3c9bd4f71c235656a88c0f55ac4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
