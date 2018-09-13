@@ -1,0 +1,735 @@
+/*
+ * Copyright 2018 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package androidx.core.content.pm;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Icon;
+import android.text.TextUtils;
+import android.util.Log;
+import android.util.Xml;
+
+import androidx.annotation.AnyThread;
+import androidx.annotation.GuardedBy;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.UiThread;
+import androidx.annotation.VisibleForTesting;
+import androidx.annotation.WorkerThread;
+import androidx.collection.ArrayMap;
+import androidx.core.graphics.drawable.IconCompat;
+import androidx.core.util.AtomicFile;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlSerializer;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+/**
+ * Provides APIs to access and update a persistable list of {@link ShortcutInfoCompat}. This class
+ * keeps an up-to-date cache of the complete list in memory for quick access, except shortcuts'
+ * Icons, which are stored on the disk and only loaded from disk separately if necessary.
+ *
+ * @hide
+ */
+@RestrictTo(LIBRARY_GROUP)
+@RequiresApi(19)
+class ShortcutInfoCompatSaver {
+
+    static final String TAG = "ShortcutInfoCompatSaver";
+
+    private static final String DIRECTORY_TARGETS = "share_targets";
+    private static final String DIRECTORY_BITMAPS = "bitmaps";
+    private static final String FILENAME_XML = "targets.xml";
+
+    private static final String TAG_ROOT = "share_targets";
+    private static final String TAG_TARGET = "target";
+    private static final String TAG_INTENT = "intent";
+    private static final String TAG_CATEGORY = "categories";
+
+    private static final String ATTR_ID = "id";
+    private static final String ATTR_COMPONENT = "component";
+    private static final String ATTR_SHORT_LABEL = "short_label";
+    private static final String ATTR_LONG_LABEL = "long_label";
+    private static final String ATTR_DISABLED_MSG = "disabled_message";
+
+    private static final String ATTR_ICON_RES_NAME = "icon_resource_name";
+    private static final String ATTR_ICON_BMP_PATH = "icon_bitmap_path";
+
+    private static final String ATTR_ACTION = "action";
+    private static final String ATTR_TARGET_PACKAGE = "targetPackage";
+    private static final String ATTR_TARGET_CLASS = "targetClass";
+    private static final String ATTR_NAME = "name";
+
+    final Context mContext;
+    final Map<String, ShortcutContainer> mShortcutsList = new ArrayMap<>();
+
+    // Single threaded tasks queue for updating the in memory cache
+    final ExecutorService mCacheUpdateService = Executors.newSingleThreadExecutor();
+    // Single threaded tasks queue for IO operations on disk
+    final ExecutorService mDiskIoService = Executors.newSingleThreadExecutor();
+
+    Future mLastCacheUpdateFuture;
+    Future mLastDiskIoFuture;
+    Future mLastXmlSaveFuture;
+
+    private static final Object GET_INSTANCE_LOCK = new Object();
+    @GuardedBy("GET_INSTANCE_LOCK")
+    private static ShortcutInfoCompatSaver sINSTANCE;
+
+    @AnyThread
+    static ShortcutInfoCompatSaver getInstance(Context context) {
+        synchronized (GET_INSTANCE_LOCK) {
+            if (sINSTANCE == null) {
+                sINSTANCE = new ShortcutInfoCompatSaver(context);
+            }
+            return sINSTANCE;
+        }
+    }
+
+    /**
+     * Class to keep {@link ShortcutInfoCompat}s with extra info (resource name or file path) about
+     * their serialized Icon for lazy loading.
+     */
+    private class ShortcutContainer {
+        private final Object mLock = new Object();
+
+        final String mResourceName;
+        final String mBitmapPath;
+        final ShortcutInfoCompat mShortcutInfo;
+
+        @AnyThread
+        ShortcutContainer(ShortcutInfoCompat shortcut) {
+            String resourceName = null;
+            String bitmapPath = null;
+
+            if (shortcut != null && shortcut.mIcon != null) {
+                IconCompat icon = shortcut.mIcon;
+                switch (icon.getType()) {
+                    case Icon.TYPE_RESOURCE:
+                        resourceName = mContext.getResources().getResourceName(icon.getResId());
+                        break;
+                    case Icon.TYPE_BITMAP:
+                    case Icon.TYPE_ADAPTIVE_BITMAP:
+                        // Choose a unique file name to serialize the bitmap
+                        bitmapPath = new File(getBitmapsPath(), UUID.randomUUID().toString())
+                                .getAbsolutePath();
+                        break;
+                }
+            }
+            mShortcutInfo = shortcut;
+            mResourceName = resourceName;
+            mBitmapPath = bitmapPath;
+        }
+
+        @AnyThread
+        ShortcutContainer(ShortcutInfoCompat shortcut, String resourceName, String bitmapPath) {
+            mShortcutInfo = shortcut;
+            mResourceName = resourceName;
+            mBitmapPath = bitmapPath;
+        }
+
+        @WorkerThread
+        IconCompat getIcon() {
+            if (!TextUtils.isEmpty(mResourceName)) {
+                int id = 0;
+                try {
+                    id = mContext.getResources().getIdentifier(mResourceName, null, null);
+                } catch (Exception e) { /* Do nothing */ }
+                if (id != 0) {
+                    return IconCompat.createWithResource(mContext, id);
+                }
+            }
+
+            if (!TextUtils.isEmpty(mBitmapPath)) {
+                synchronized (mLock) {
+                    if (mShortcutInfo.mIcon != null) {
+                        // Icon is still waiting in the queue to be saved. Return from the cache.
+                        return mShortcutInfo.mIcon;
+                    }
+                }
+                Bitmap bitmap = loadBitmap(mBitmapPath);
+                if (bitmap != null) {
+                    // TODO: Re-create an adaptive icon if the original icon was adaptive
+                    return IconCompat.createWithBitmap(bitmap);
+                }
+            }
+            return null;
+        }
+
+        /**
+         * Removes the Icon from the in memory cache. Called after the icon is successfully saved to
+         * the disk, or when the shortcut gets updated with a new Icon while it was waiting to be
+         * saved, and there is no need to save the old icon anymore.
+         */
+        @AnyThread
+        void clearInMemoryIcon() {
+            synchronized (mLock) {
+                mShortcutInfo.mIcon = null;
+            }
+        }
+
+        @AnyThread
+        boolean needToSaveIcon() {
+            synchronized (mLock) {
+                if (mShortcutInfo.mIcon == null) {
+                    return false;
+                }
+                int iconType = mShortcutInfo.mIcon.getType();
+                if (iconType == Icon.TYPE_BITMAP || iconType == Icon.TYPE_ADAPTIVE_BITMAP) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    @AnyThread
+    private ShortcutInfoCompatSaver(Context context) {
+        mContext = context;
+        postLoadFromXml();
+    }
+
+    @AnyThread
+    boolean addShortcuts(List<ShortcutInfoCompat> shortcuts) {
+        final List<ShortcutInfoCompat> shortcutList = new ArrayList<>(shortcuts);
+        mLastCacheUpdateFuture = mCacheUpdateService.submit(new Runnable() {
+            @Override
+            public void run() {
+                for (ShortcutInfoCompat item : shortcutList) {
+                    Set<String> categories = item.getCategories();
+                    if (categories == null || categories.isEmpty()) {
+                        continue;
+                    }
+
+                    synchronized (mShortcutsList) {
+                        if (mShortcutsList.containsKey(item.getId())) {
+                            ShortcutContainer container = mShortcutsList.get(item.getId());
+                            if (!TextUtils.isEmpty(container.mBitmapPath)) {
+                                // Skip saving the old icon, if it is still waiting to get saved.
+                                container.clearInMemoryIcon();
+                                // Delete the old bitmap
+                                postDeleteBitmap(container.mBitmapPath);
+                            }
+                        }
+
+                        final ShortcutContainer container = new ShortcutContainer(item);
+                        mShortcutsList.put(item.getId(), container);
+                        if (container.needToSaveIcon()) {
+                            mLastDiskIoFuture = mDiskIoService.submit(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (container.needToSaveIcon()
+                                            && saveBitmap(container.mShortcutInfo.mIcon.getBitmap(),
+                                                    container.mBitmapPath)) {
+                                        container.clearInMemoryIcon();
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+                postSaveAsXml();
+            }
+        });
+
+        return true;
+    }
+
+    @AnyThread
+    void removeShortcuts(List<String> shortcutIds) {
+        final List<String> idList = new ArrayList<>(shortcutIds);
+        mLastCacheUpdateFuture = mCacheUpdateService.submit(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (mShortcutsList) {
+                    for (String id : idList) {
+                        if (!mShortcutsList.containsKey(id)) {
+                            continue;
+                        }
+                        postDeleteBitmap(mShortcutsList.get(id).mBitmapPath);
+                        mShortcutsList.remove(id);
+                    }
+                }
+                postSaveAsXml();
+            }
+        });
+    }
+
+    @AnyThread
+    void removeAllShortcuts() {
+        mLastCacheUpdateFuture = mCacheUpdateService.submit(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (mShortcutsList) {
+                    for (ShortcutContainer item : mShortcutsList.values()) {
+                        postDeleteBitmap(item.mBitmapPath);
+                    }
+                    mShortcutsList.clear();
+                }
+                postSaveAsXml();
+            }
+        });
+    }
+
+    @WorkerThread
+    List<ShortcutInfoCompat> getShortcuts() {
+        // Wait until the last update is applied to the in memory cache
+        waitForTasksToComplete(true, false);
+
+        synchronized (mShortcutsList) {
+            ArrayList<ShortcutInfoCompat> shortcuts = new ArrayList<>();
+            for (ShortcutContainer item : mShortcutsList.values()) {
+                shortcuts.add(new ShortcutInfoCompat.Builder(mContext, item.mShortcutInfo.getId())
+                        .setActivity(item.mShortcutInfo.getActivity())
+                        .setDisabledMessage(item.mShortcutInfo.getDisabledMessage())
+                        .setCategories(item.mShortcutInfo.getCategories())
+                        .setIntents(item.mShortcutInfo.getIntents())
+                        .setLongLabel(item.mShortcutInfo.getLongLabel())
+                        .setShortLabel(item.mShortcutInfo.getShortLabel())
+                        .build());
+            }
+            return shortcuts;
+        }
+    }
+
+    @WorkerThread
+    IconCompat getShortcutIcon(String shortcutId) {
+        // Wait until the last update is applied to the in memory cache
+        waitForTasksToComplete(true, false);
+
+        ShortcutContainer container;
+        synchronized (mShortcutsList) {
+            container = mShortcutsList.get(shortcutId);
+        }
+        if (container != null) {
+            return container.getIcon();
+        }
+        return null;
+    }
+
+    /**
+     * For testing ONLY
+     */
+    @VisibleForTesting
+    @UiThread
+    void forceReloadFromDisk() {
+        waitForTasksToComplete(true, true);
+        postLoadFromXml();
+    }
+
+    private void waitForTasksToComplete(boolean cacheUpdateTasks, boolean diskIoTasks) {
+        Future lastCacheUpdate = mLastCacheUpdateFuture;
+        if (cacheUpdateTasks && lastCacheUpdate != null) {
+            try {
+                lastCacheUpdate.get();
+            } catch (Exception e) {
+                /* Do nothing */
+            }
+        }
+
+        Future lastDiskIo = mLastDiskIoFuture;
+        if (diskIoTasks && lastDiskIo != null) {
+            try {
+                lastDiskIo.get();
+            } catch (Exception e) {
+                /* Do nothing */
+            }
+        }
+    }
+
+    /**
+     * Asynchronously loads the in memory cache from disk and deletes potential unwanted files.
+     */
+    @AnyThread
+    void postLoadFromXml() {
+        mLastCacheUpdateFuture = mCacheUpdateService.submit(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (mShortcutsList) {
+                    mShortcutsList.clear();
+                    mShortcutsList.putAll(loadFromXml());
+                }
+
+                mLastDiskIoFuture = mDiskIoService.submit(new Runnable() {
+                    @Override
+                    public void run() {
+                        deleteDanglingBitmaps();
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * Asynchronously deletes a given file using the Disk IO executor
+     */
+    @AnyThread
+    void postDeleteBitmap(final String path) {
+        if (!TextUtils.isEmpty(path)) {
+            mLastDiskIoFuture = mDiskIoService.submit(new Runnable() {
+                @Override
+                public void run() {
+                    new File(path).delete();
+                }
+            });
+        }
+    }
+
+    /**
+     * Asynchronously saves the list to the disk using the Disk IO executor
+     */
+    @WorkerThread
+    synchronized void postSaveAsXml() {
+        // Cancel the previous save task since it will get overwritten anyway.
+        if (mLastXmlSaveFuture != null) {
+            mLastXmlSaveFuture.cancel(false);
+        }
+
+        mLastXmlSaveFuture = mLastDiskIoFuture = mDiskIoService.submit(new Runnable() {
+            @Override
+            public void run() {
+                getXmlFile().getParentFile().mkdirs();
+                getBitmapsPath().mkdirs();
+
+                Map<String, ShortcutContainer> clone = new ArrayMap<>();
+                synchronized (mShortcutsList) {
+                    for (ShortcutContainer item : mShortcutsList.values()) {
+                        clone.put(item.mShortcutInfo.getId(), new ShortcutContainer(
+                                item.mShortcutInfo, item.mResourceName, item.mBitmapPath));
+                    }
+                }
+                saveAsXml(clone);
+            }
+        });
+    }
+
+    /**
+     * @return Directory where the bitmaps will get stored.
+     */
+    @AnyThread
+    File getBitmapsPath() {
+        return new File(new File(mContext.getFilesDir(), DIRECTORY_TARGETS), DIRECTORY_BITMAPS);
+    }
+
+    /**
+     * @return Path of the XML file that is used to save the list of shortcuts.
+     */
+    @AnyThread
+    File getXmlFile() {
+        return new File(new File(mContext.getFilesDir(), DIRECTORY_TARGETS), FILENAME_XML);
+    }
+
+    /**
+     * Delete bitmap files from the disk if they are not associated with any shortcuts in the list.
+     */
+    @WorkerThread
+    void deleteDanglingBitmaps() {
+        Collection<ShortcutContainer> containers;
+        synchronized (mShortcutsList) {
+            containers = mShortcutsList.values();
+        }
+
+        List<String> bitmapPaths = new ArrayList<>();
+        for (ShortcutContainer item : containers) {
+            if (!TextUtils.isEmpty(item.mBitmapPath)) {
+                bitmapPaths.add(item.mBitmapPath);
+            }
+        }
+
+        for (File bitmap : getBitmapsPath().listFiles()) {
+            if (!bitmapPaths.contains(bitmap.getAbsolutePath())) {
+                bitmap.delete();
+            }
+        }
+    }
+
+    @WorkerThread
+    Map<String, ShortcutContainer> loadFromXml() {
+        Map<String, ShortcutContainer> shortcutsList = new ArrayMap<>();
+
+        final File file = getXmlFile();
+        try {
+            if (!file.exists()) {
+                return shortcutsList;
+            }
+            final FileInputStream stream = new FileInputStream(file);
+            final XmlPullParser parser = Xml.newPullParser();
+            parser.setInput(stream, "UTF_8");
+
+            int type;
+            while ((type = parser.next()) != XmlPullParser.END_DOCUMENT) {
+                if (type == XmlPullParser.START_TAG && parser.getName().equals(TAG_TARGET)) {
+                    ShortcutContainer shortcut = parseShortcutContainer(parser);
+                    if (shortcut != null && shortcut.mShortcutInfo != null) {
+                        shortcutsList.put(shortcut.mShortcutInfo.getId(), shortcut);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to load from file " + file.getAbsolutePath(), e);
+            shortcutsList.clear();
+        }
+        return shortcutsList;
+    }
+
+    @WorkerThread
+    boolean saveAsXml(Map<String, ShortcutContainer> shortcutsList) {
+        final AtomicFile atomicFile = new AtomicFile(getXmlFile());
+
+        FileOutputStream fileStream = null;
+        try {
+            fileStream = atomicFile.startWrite();
+            final BufferedOutputStream stream = new BufferedOutputStream(fileStream);
+
+            XmlSerializer serializer = Xml.newSerializer();
+            serializer.setOutput(stream, "UTF_8");
+            serializer.startDocument(null, true);
+            serializer.startTag(null, TAG_ROOT);
+
+            for (ShortcutContainer shortcut : shortcutsList.values()) {
+                serializeShortcutContainer(serializer, shortcut);
+            }
+
+            serializer.endTag(null, TAG_ROOT);
+            serializer.endDocument();
+
+            stream.flush();
+            fileStream.flush();
+            atomicFile.finishWrite(fileStream);
+
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to write to file " + atomicFile.getBaseFile(), e);
+            atomicFile.failWrite(fileStream);
+            return false;
+        }
+
+        return true;
+    }
+
+    @WorkerThread
+    private ShortcutContainer parseShortcutContainer(XmlPullParser parser) throws Exception {
+        if (!parser.getName().equals(TAG_TARGET)) {
+            return null;
+        }
+
+        String id = getAttributeValue(parser, ATTR_ID);
+        CharSequence label = getAttributeValue(parser, ATTR_SHORT_LABEL);
+        if (TextUtils.isEmpty(id) || TextUtils.isEmpty(label)) {
+            return null;
+        }
+
+        CharSequence longLabel = getAttributeValue(parser, ATTR_LONG_LABEL);
+        CharSequence disabledMessage = getAttributeValue(parser, ATTR_DISABLED_MSG);
+        ComponentName activity = parseComponentName(parser);
+        String iconResourceName = getAttributeValue(parser, ATTR_ICON_RES_NAME);
+        String iconBitmapPath = getAttributeValue(parser, ATTR_ICON_BMP_PATH);
+
+        ArrayList<Intent> intents = new ArrayList<>();
+        Set<String> categories = new HashSet<>();
+        int type;
+        while ((type = parser.next()) != XmlPullParser.END_DOCUMENT) {
+            if (type == XmlPullParser.START_TAG) {
+                switch (parser.getName()) {
+                    case TAG_INTENT:
+                        Intent intent = parseIntent(parser);
+                        if (intent != null) {
+                            intents.add(intent);
+                        }
+                        break;
+                    case TAG_CATEGORY:
+                        String category = getAttributeValue(parser, ATTR_NAME);
+                        if (!TextUtils.isEmpty(category)) {
+                            categories.add(category);
+                        }
+                        break;
+                }
+            } else if (type == XmlPullParser.END_TAG && parser.getName().equals(TAG_TARGET)) {
+                break;
+            }
+        }
+
+        ShortcutInfoCompat.Builder builder = new ShortcutInfoCompat.Builder(mContext, id)
+                .setShortLabel(label);
+        if (!TextUtils.isEmpty(longLabel)) {
+            builder.setLongLabel(longLabel);
+        }
+        if (!TextUtils.isEmpty(disabledMessage)) {
+            builder.setDisabledMessage(disabledMessage);
+        }
+        if (activity != null) {
+            builder.setActivity(activity);
+        }
+        if (!intents.isEmpty()) {
+            builder.setIntents(intents.toArray(new Intent[0]));
+        }
+        if (!categories.isEmpty()) {
+            builder.setCategories(categories);
+        }
+        return new ShortcutContainer(builder.build(), iconResourceName, iconBitmapPath);
+    }
+
+    @WorkerThread
+    private ComponentName parseComponentName(XmlPullParser parser) {
+        String value = getAttributeValue(parser, ATTR_COMPONENT);
+        return TextUtils.isEmpty(value) ? null : ComponentName.unflattenFromString(value);
+    }
+
+    @WorkerThread
+    private Intent parseIntent(XmlPullParser parser) {
+        String action = getAttributeValue(parser, ATTR_ACTION);
+        String targetPackage = getAttributeValue(parser, ATTR_TARGET_PACKAGE);
+        String targetClass = getAttributeValue(parser, ATTR_TARGET_CLASS);
+
+        if (action == null) {
+            return null;
+        }
+        Intent intent = new Intent(action);
+        if (!TextUtils.isEmpty(targetPackage) && !TextUtils.isEmpty(targetClass)) {
+            intent.setClassName(targetPackage, targetClass);
+        }
+        return intent;
+    }
+
+    @WorkerThread
+    private String getAttributeValue(XmlPullParser parser, String attribute) {
+        String value = parser.getAttributeValue("http://schemas.android.com/apk/res/android",
+                attribute);
+        if (value == null) {
+            value = parser.getAttributeValue(null, attribute);
+        }
+        return value;
+    }
+
+    @WorkerThread
+    private void serializeShortcutContainer(XmlSerializer serializer, ShortcutContainer container)
+            throws IOException {
+        serializer.startTag(null, TAG_TARGET);
+
+        ShortcutInfoCompat shortcut = container.mShortcutInfo;
+        serializeAttribute(serializer, ATTR_ID, shortcut.getId());
+        serializeAttribute(serializer, ATTR_SHORT_LABEL, shortcut.getShortLabel().toString());
+        if (!TextUtils.isEmpty(shortcut.getLongLabel())) {
+            serializeAttribute(serializer, ATTR_LONG_LABEL, shortcut.getLongLabel().toString());
+        }
+        if (!TextUtils.isEmpty(shortcut.getDisabledMessage())) {
+            serializeAttribute(serializer, ATTR_DISABLED_MSG,
+                    shortcut.getDisabledMessage().toString());
+        }
+        if (shortcut.getActivity() != null) {
+            serializeAttribute(serializer, ATTR_COMPONENT,
+                    shortcut.getActivity().flattenToString());
+        }
+        if (!TextUtils.isEmpty(container.mResourceName)) {
+            serializeAttribute(serializer, ATTR_ICON_RES_NAME, container.mResourceName);
+        }
+        if (!TextUtils.isEmpty(container.mBitmapPath)) {
+            serializeAttribute(serializer, ATTR_ICON_BMP_PATH, container.mBitmapPath);
+        }
+        for (Intent intent : shortcut.getIntents()) {
+            serializeIntent(serializer, intent);
+        }
+        for (String category : shortcut.mCategories) {
+            serializeCategory(serializer, category);
+        }
+
+        serializer.endTag(null, TAG_TARGET);
+    }
+
+    @WorkerThread
+    private void serializeIntent(XmlSerializer serializer, Intent intent) throws IOException {
+        serializer.startTag(null, TAG_INTENT);
+
+        serializeAttribute(serializer, ATTR_ACTION, intent.getAction());
+        if (intent.getComponent() != null) {
+            serializeAttribute(serializer, ATTR_TARGET_PACKAGE,
+                    intent.getComponent().getPackageName());
+            serializeAttribute(serializer, ATTR_TARGET_CLASS, intent.getComponent().getClassName());
+        }
+
+        serializer.endTag(null, TAG_INTENT);
+    }
+
+    @WorkerThread
+    private void serializeCategory(XmlSerializer serializer, String category) throws IOException {
+        if (TextUtils.isEmpty(category)) {
+            return;
+        }
+        serializer.startTag(null, TAG_CATEGORY);
+        serializeAttribute(serializer, ATTR_NAME, category);
+        serializer.endTag(null, TAG_CATEGORY);
+    }
+
+    @WorkerThread
+    private static void serializeAttribute(XmlSerializer serializer, String attribute, String value)
+            throws IOException {
+        if (TextUtils.isEmpty(value)) {
+            return;
+        }
+        serializer.attribute(null, attribute, value);
+    }
+
+    @WorkerThread
+    static Bitmap loadBitmap(String path) {
+        if (TextUtils.isEmpty(path)) {
+            return null;
+        }
+        return BitmapFactory.decodeFile(path);
+    }
+
+    /*
+     * Suppress wrong thread warning since Bitmap.compress() and saveBitmap() are both annotated
+     * @WorkerThread, but from different packages.
+     * androidx.annotation.WorkerThread vs android.annotation.WorkerThread
+     */
+    @WorkerThread
+    @SuppressWarnings("WrongThread")
+    static boolean saveBitmap(Bitmap bitmap, String path) {
+        if (bitmap == null || TextUtils.isEmpty(path)) {
+            return false;
+        }
+
+        try (FileOutputStream fileStream = new FileOutputStream(new File(path))) {
+            if (!bitmap.compress(Bitmap.CompressFormat.PNG, 100 /* quality */, fileStream)) {
+                Log.wtf(TAG, "Unable to compress bitmap");
+            }
+        } catch (IOException | RuntimeException | OutOfMemoryError e) {
+            Log.wtf(TAG, "Unable to write bitmap to file", e);
+            return false;
+        }
+        return true;
+    }
+}
