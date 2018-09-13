@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "477e8b39_82760f8a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-13T17:58:42Z",
+      "side": 1,
+      "message": "Could you test this with a pre-P device?",
+      "range": {
+        "startLine": 13,
+        "startChar": 49,
+        "endLine": 13,
+        "endChar": 58
+      },
+      "revId": "7b799ea691f3efc8f5c3f726d57f7bd9987400ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
