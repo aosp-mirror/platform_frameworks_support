@@ -46,6 +46,30 @@
       "revId": "b3586a41df6c420dbd0c6da0217c3336b943125b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a27498b2_716ff7f4",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-09-13T08:35:54Z",
+      "side": 0,
+      "message": "So, is this fine as is?",
+      "parentUuid": "6925ea22_9e6fffa3",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 35
+      },
+      "revId": "b3586a41df6c420dbd0c6da0217c3336b943125b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

@@ -471,6 +471,30 @@
       "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e8a5bfd_0c1df181",
+        "filename": "room/runtime/src/main/java/androidx/room/util/DBUtil.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-09-13T08:35:54Z",
+      "side": 1,
+      "message": "Done. syncViews is gone. Views require migration now.",
+      "parentUuid": "ceb4a0dd_0470c8ce",
+      "range": {
+        "startLine": 100,
+        "startChar": 19,
+        "endLine": 101,
+        "endChar": 59
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
