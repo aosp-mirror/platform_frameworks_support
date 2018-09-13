@@ -850,6 +850,11 @@ package androidx.core.content.pm {
     field public static final deprecated int CONFIG_UI_MODE = 512; // 0x200
   }
 
+  public class ChooserTargetServiceCompat extends android.service.chooser.ChooserTargetService {
+    ctor public ChooserTargetServiceCompat();
+    method public java.util.List<android.service.chooser.ChooserTarget> onGetChooserTargets(android.content.ComponentName, android.content.IntentFilter);
+  }
+
   public final class PackageInfoCompat {
     method public static long getLongVersionCode(android.content.pm.PackageInfo);
   }
@@ -888,10 +893,31 @@ package androidx.core.content.pm {
     method public androidx.core.content.pm.ShortcutInfoCompat.Builder setShortLabel(java.lang.CharSequence);
   }
 
+  public class ShortcutInfoCompatSaver {
+    method public synchronized boolean addShortcuts(java.util.List<androidx.core.content.pm.ShortcutInfoCompat>);
+    method public static androidx.core.content.pm.ShortcutInfoCompatSaver getInstance(android.content.Context);
+    method public synchronized androidx.core.graphics.drawable.IconCompat getShortcutIcon(java.lang.String);
+    method public synchronized java.util.List<androidx.core.content.pm.ShortcutInfoCompat> getShortcuts();
+    method public synchronized void removeAllShortcuts();
+    method public synchronized void removeShortcuts(java.util.List<java.lang.String>);
+    field public static final java.lang.String TAG = "ShortcutInfoCompatSaver";
+  }
+
   public class ShortcutManagerCompat {
+    method public static boolean addDynamicShortcuts(android.content.Context, java.util.List<androidx.core.content.pm.ShortcutInfoCompat>);
     method public static android.content.Intent createShortcutResultIntent(android.content.Context, androidx.core.content.pm.ShortcutInfoCompat);
+    method public static java.util.List<androidx.core.content.pm.ShortcutInfoCompat> getDynamicShortcuts(android.content.Context);
+    method public static int getMaxShortcutCountPerActivity(android.content.Context);
     method public static boolean isRequestPinShortcutSupported(android.content.Context);
+    method public static void removeAllDynamicShortcuts(android.content.Context);
+    method public void removeDynamicShortcuts(android.content.Context, java.util.List<java.lang.String>);
     method public static boolean requestPinShortcut(android.content.Context, androidx.core.content.pm.ShortcutInfoCompat, android.content.IntentSender);
+    method public static boolean updateShortcuts(android.content.Context, java.util.List<androidx.core.content.pm.ShortcutInfoCompat>);
+  }
+
+  public class XmlShareTargetParser {
+    ctor public XmlShareTargetParser();
+    method public static java.util.ArrayList<androidx.core.content.pm.ShareTargetCompat> parseShareTargets(android.content.Context);
   }
 
 }
