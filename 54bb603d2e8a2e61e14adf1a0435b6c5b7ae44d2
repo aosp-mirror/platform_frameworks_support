@@ -140,6 +140,30 @@
       "revId": "54bb603d2e8a2e61e14adf1a0435b6c5b7ae44d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb6cd822_a70eb0ed",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-13T01:05:04Z",
+      "side": 1,
+      "message": "I wonder what is the expected codes for implementing ExoMediaItem2.\nLet\u0027s talk about it offline.",
+      "parentUuid": "02e447b5_09527c67",
+      "range": {
+        "startLine": 425,
+        "startChar": 23,
+        "endLine": 425,
+        "endChar": 40
+      },
+      "revId": "54bb603d2e8a2e61e14adf1a0435b6c5b7ae44d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
