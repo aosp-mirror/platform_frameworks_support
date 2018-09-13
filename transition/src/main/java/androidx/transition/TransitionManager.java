@@ -170,6 +170,8 @@ public class TransitionManager {
 
         if (!sPendingTransitions.contains(sceneRoot)) {
             if (transition == null) {
+                exitPreviousScene(sceneRoot);
+
                 scene.enter();
             } else {
                 sPendingTransitions.add(sceneRoot);
@@ -204,6 +206,14 @@ public class TransitionManager {
         runningTransitions = new WeakReference<>(transitions);
         sRunningTransitions.set(runningTransitions);
         return transitions;
+    }
+
+    private static void exitPreviousScene(final ViewGroup sceneRoot) {
+        // Notify previous scene that it is being exited
+        final Scene previousScene = Scene.getCurrentScene(sceneRoot);
+        if (previousScene != null) {
+            previousScene.exit();
+        }
     }
 
     private static void sceneChangeRunTransition(final ViewGroup sceneRoot,
@@ -312,11 +322,7 @@ public class TransitionManager {
             transition.captureValues(sceneRoot, true);
         }
 
-        // Notify previous scene that it is being exited
-        Scene previousScene = Scene.getCurrentScene(sceneRoot);
-        if (previousScene != null) {
-            previousScene.exit();
-        }
+        exitPreviousScene(sceneRoot);
     }
 
     /**
