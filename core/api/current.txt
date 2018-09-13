@@ -873,6 +873,7 @@ package androidx.core.content.pm {
 
   public static class ShortcutInfoCompat.Builder {
     ctor public ShortcutInfoCompat.Builder(android.content.Context, java.lang.String);
+    ctor public ShortcutInfoCompat.Builder(android.content.Context, androidx.core.content.pm.ShortcutInfoCompat);
     method public androidx.core.content.pm.ShortcutInfoCompat build();
     method public androidx.core.content.pm.ShortcutInfoCompat.Builder setActivity(android.content.ComponentName);
     method public androidx.core.content.pm.ShortcutInfoCompat.Builder setAlwaysBadged();
