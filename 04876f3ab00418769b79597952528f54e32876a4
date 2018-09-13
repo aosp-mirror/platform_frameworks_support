@@ -159,6 +159,24 @@
       "revId": "04876f3ab00418769b79597952528f54e32876a4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c28e6d7_024f7639",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-13T12:42:28Z",
+      "side": 1,
+      "message": "sgtm, thanks.",
+      "parentUuid": "d9e6cf0d_6505cb7e",
+      "revId": "04876f3ab00418769b79597952528f54e32876a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
