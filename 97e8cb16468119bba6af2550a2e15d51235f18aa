@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e6a97d6_579674a0",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-13T09:44:32Z",
+      "side": 1,
+      "message": "NPE if SDK_INT \u003c 28.",
+      "range": {
+        "startLine": 151,
+        "startChar": 8,
+        "endLine": 151,
+        "endChar": 24
+      },
+      "revId": "97e8cb16468119bba6af2550a2e15d51235f18aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
