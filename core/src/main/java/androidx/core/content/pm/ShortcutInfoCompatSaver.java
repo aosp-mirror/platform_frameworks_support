@@ -16,6 +16,8 @@
 
 package androidx.core.content.pm;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,6 +27,7 @@ import android.util.Log;
 
 import androidx.annotation.AnyThread;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
 import androidx.annotation.WorkerThread;
 import androidx.collection.ArrayMap;
 import androidx.concurrent.futures.ResolvableFuture;
@@ -51,10 +54,13 @@ import java.util.concurrent.TimeUnit;
  * Provides APIs to access and update a persistable list of {@link ShortcutInfoCompat}. This class
  * keeps an up-to-date cache of the complete list in memory for quick access, except shortcuts'
  * Icons, which are stored on the disk and only loaded from disk separately if necessary.
+ *
+ * @hide
  */
 @RequiresApi(19)
+@RestrictTo(LIBRARY_GROUP)
 //TODO: we need Futures.addCallback and CallbackToFutureAdapter, update once they're available
-class ShortcutInfoCompatSaver {
+public class ShortcutInfoCompatSaver {
 
     static final String TAG = "ShortcutInfoCompatSaver";
 
@@ -86,7 +92,7 @@ class ShortcutInfoCompatSaver {
     final File mBitmapsDir;
 
     @AnyThread
-    static ShortcutInfoCompatSaver getInstance(Context context) {
+    public static ShortcutInfoCompatSaver getInstance(Context context) {
         if (sINSTANCE == null) {
             synchronized (GET_INSTANCE_LOCK) {
                 if (sINSTANCE == null) {
@@ -179,7 +185,7 @@ class ShortcutInfoCompatSaver {
     }
 
     @WorkerThread
-    List<ShortcutInfoCompat> getShortcuts() throws Exception {
+    public List<ShortcutInfoCompat> getShortcuts() throws Exception {
         return mCacheUpdateService.submit(new Callable<ArrayList<ShortcutInfoCompat>>() {
             @Override
             public ArrayList<ShortcutInfoCompat> call() {
@@ -193,7 +199,7 @@ class ShortcutInfoCompatSaver {
     }
 
     @WorkerThread
-    IconCompat getShortcutIcon(final String shortcutId) throws Exception {
+    public IconCompat getShortcutIcon(final String shortcutId) throws Exception {
         final ShortcutContainer container = mCacheUpdateService.submit(
                 new Callable<ShortcutContainer>() {
                     @Override
