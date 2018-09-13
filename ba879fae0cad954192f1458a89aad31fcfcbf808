@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d60b22fd_815dde0b",
+        "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/media/SampleDynamicGroupMrp.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-13T07:45:13Z",
+      "side": 1,
+      "message": "Let\u0027s move this to L393.",
+      "revId": "ba879fae0cad954192f1458a89aad31fcfcbf808",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e64e4ae0_95a00ed5",
+        "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/media/SampleDynamicGroupMrp.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-13T07:45:13Z",
+      "side": 1,
+      "message": "!mMemberRouteIds.contains(routeId)",
+      "range": {
+        "startLine": 225,
+        "startChar": 27,
+        "endLine": 225,
+        "endChar": 67
+      },
+      "revId": "ba879fae0cad954192f1458a89aad31fcfcbf808",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34784b6f_0403eaeb",
+        "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/media/SampleDynamicGroupMrp.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-13T07:45:13Z",
+      "side": 1,
+      "message": "1) What about renaming it more descriptively if you keep current style? \n2) Or delegating this logic into updateDynamicRouteDesriptors()?\n\n1)\nif (routeDescriptor.getDeviceType() \u003d\u003d ...) {\n    setOtherTvDevicesGroupable(false);\n}\n\nor\n\n2)\nvoid updateDynamicRouteDescriptors() {\n    // blahblah...  (about the logic.)\n    boolean tvCanBeGroupable \u003d true;\n    MediaRouteDescriptor groupDescriptor \u003d mRouteDescriptors.get(mRouteId);\n    for (String routeId : groupDescriptor.getGroupMemberIds()) {\n        MediaRouteDescriptor memberDescriptor \u003d mRouteDescriptors.get(routeId);\n        if (memberDescriptor.getDeivceType() \u003d\u003d MediaRoute.RouteInfo.DEVICE_TYPE_TV) {\n            tvCanbeGroupable \u003d false;\n            break;\n        }\n    }\n    for (DynamicRouteDescriptors dynamicDescriptor: mDynamicRouteDescriptors.values()) {\n        descriptor \u003d dynamicDescriptor.getDescriptor()....\n        if (descriptor.getDeviceType() \u003d\u003d DEVICE_TYPE_TV\n                \u0026\u0026 !mMemberRoutes.contains(desriptor.getId)) {\n            ....isGroupable(tvCanbeGroupable);\n        }\n           \n    }\n}",
+      "range": {
+        "startLine": 287,
+        "startChar": 0,
+        "endLine": 290,
+        "endChar": 13
+      },
+      "revId": "ba879fae0cad954192f1458a89aad31fcfcbf808",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
