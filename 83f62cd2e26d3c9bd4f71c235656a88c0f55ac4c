@@ -22,6 +22,30 @@
       "revId": "83f62cd2e26d3c9bd4f71c235656a88c0f55ac4c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "783d2231_bd07131a",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.config",
+        "patchSetId": 1
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-13T16:12:37Z",
+      "side": 1,
+      "message": "This is more similar to versionedparcelable where there is no pre-1.0 version. The only reason we need dejetifier rules is because google3 hasn\u0027t been moved over to AndroidX yet and we\u0027re still pushing builds from aosp-androidx-master-dev",
+      "parentUuid": "202314c1_1545f9d8",
+      "range": {
+        "startLine": 731,
+        "startChar": 22,
+        "endLine": 731,
+        "endChar": 44
+      },
+      "revId": "83f62cd2e26d3c9bd4f71c235656a88c0f55ac4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
