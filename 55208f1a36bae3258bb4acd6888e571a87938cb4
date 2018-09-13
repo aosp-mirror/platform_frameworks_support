@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "12a18818_fc75ac7f",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-13T17:39:35Z",
+      "side": 1,
+      "message": "my understanding is: it means if the assumption does not hold, skip the test.",
+      "parentUuid": "a4a717c2_ecfcbff7",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 93,
+        "endChar": 28
+      },
+      "revId": "55208f1a36bae3258bb4acd6888e571a87938cb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55553d3e_d9fab056",
         "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
         "patchSetId": 10
@@ -45,6 +69,30 @@
       "revId": "55208f1a36bae3258bb4acd6888e571a87938cb4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec62a87b_9bf8af69",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextClassificationManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-13T17:39:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55553d3e_d9fab056",
+      "range": {
+        "startLine": 96,
+        "startChar": 53,
+        "endLine": 96,
+        "endChar": 72
+      },
+      "revId": "55208f1a36bae3258bb4acd6888e571a87938cb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
