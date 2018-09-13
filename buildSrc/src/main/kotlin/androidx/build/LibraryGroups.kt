@@ -59,6 +59,7 @@ object LibraryGroups {
     const val PRINT = "androidx.print"
     const val RECOMMENDATION = "androidx.recommendation"
     const val RECYCLERVIEW = "androidx.recyclerview"
+    const val SHARETARGET = "androidx.sharetarget"
     const val SLICE = "androidx.slice"
     const val REMOTECALLBACK = "androidx.remotecallback"
     const val SLIDINGPANELAYOUT = "androidx.slidingpanelayout"
