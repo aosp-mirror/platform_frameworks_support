@@ -49,6 +49,167 @@
     },
     {
       "key": {
+        "uuid": "2df29773_b911130e",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-13T03:03:47Z",
+      "side": 1,
+      "message": "Shouldn\u0027t it be MediaSourceCallback2?",
+      "range": {
+        "startLine": 12,
+        "startChar": 24,
+        "endLine": 12,
+        "endChar": 43
+      },
+      "revId": "54bb603d2e8a2e61e14adf1a0435b6c5b7ae44d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eac263b2_ce3b2527",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-13T03:03:47Z",
+      "side": 1,
+      "message": "setMediaItem?",
+      "range": {
+        "startLine": 312,
+        "startChar": 32,
+        "endLine": 312,
+        "endChar": 45
+      },
+      "revId": "54bb603d2e8a2e61e14adf1a0435b6c5b7ae44d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dc81950_d5568a9d",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-13T03:03:47Z",
+      "side": 1,
+      "message": "setNextMediaItem?",
+      "range": {
+        "startLine": 316,
+        "startChar": 32,
+        "endLine": 316,
+        "endChar": 49
+      },
+      "revId": "54bb603d2e8a2e61e14adf1a0435b6c5b7ae44d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43d2f41b_5ca69418",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-13T03:03:47Z",
+      "side": 1,
+      "message": "setNextMediaItems?",
+      "range": {
+        "startLine": 317,
+        "startChar": 32,
+        "endLine": 317,
+        "endChar": 50
+      },
+      "revId": "54bb603d2e8a2e61e14adf1a0435b6c5b7ae44d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37c34dcb_06a99329",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-13T03:03:47Z",
+      "side": 1,
+      "message": "getCurrentMediaItem?",
+      "range": {
+        "startLine": 456,
+        "startChar": 54,
+        "endLine": 456,
+        "endChar": 74
+      },
+      "revId": "54bb603d2e8a2e61e14adf1a0435b6c5b7ae44d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a607312_736a9f5b",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-13T03:03:47Z",
+      "side": 1,
+      "message": "ditto for all followings",
+      "range": {
+        "startLine": 472,
+        "startChar": 32,
+        "endLine": 472,
+        "endChar": 45
+      },
+      "revId": "54bb603d2e8a2e61e14adf1a0435b6c5b7ae44d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04d55f8c_33dc3654",
+        "filename": "media2/src/main/java/androidx/media2/CallbackMediaItem2.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-13T03:03:47Z",
+      "side": 1,
+      "message": "Shouldn\u0027t it be MediaSourceCallback2?",
+      "range": {
+        "startLine": 53,
+        "startChar": 20,
+        "endLine": 53,
+        "endChar": 39
+      },
+      "revId": "54bb603d2e8a2e61e14adf1a0435b6c5b7ae44d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "39536916_34569245",
         "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
         "patchSetId": 12
