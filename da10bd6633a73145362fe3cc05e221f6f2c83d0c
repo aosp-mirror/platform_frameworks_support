@@ -447,6 +447,30 @@
       "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ceb4a0dd_0470c8ce",
+        "filename": "room/runtime/src/main/java/androidx/room/util/DBUtil.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-09-13T02:27:52Z",
+      "side": 1,
+      "message": "I see. So we are improving the overall migration. Then it makes sense to put the views in schema. It makes @DatabaseView more consistent with @Entity while keeping the easy way of migration.\nI\u0027ll implement that way.",
+      "parentUuid": "bf7fade9_845f94c0",
+      "range": {
+        "startLine": 100,
+        "startChar": 19,
+        "endLine": 101,
+        "endChar": 59
+      },
+      "revId": "da10bd6633a73145362fe3cc05e221f6f2c83d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
