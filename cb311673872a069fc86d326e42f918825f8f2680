@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "357e15ab_59a9237b",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-09-13T15:23:08Z",
+      "side": 1,
+      "message": "Add a comment that calling a setter with null also means now is used.",
+      "range": {
+        "startLine": 461,
+        "startChar": 33,
+        "endLine": 461,
+        "endChar": 60
+      },
+      "revId": "cb311673872a069fc86d326e42f918825f8f2680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
