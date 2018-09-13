@@ -22,6 +22,30 @@
       "revId": "f5626a9e736194d37fff17e9cc5c52c9eddc68cd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be4335d1_1a3ce7e1",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-09-13T08:17:26Z",
+      "side": 1,
+      "message": "Got it, thanks! I\u0027ve added another TODO for that as mPlayer.reset doesn\u0027t block (we need to call mPlayer.release and make the field non-final). I hope it\u0027s okay to submit this with the TODO for now as an incremental improvement towards getting the tests to run.",
+      "parentUuid": "b560433b_9edf6de9",
+      "range": {
+        "startLine": 508,
+        "startChar": 83,
+        "endLine": 509,
+        "endChar": 81
+      },
+      "revId": "f5626a9e736194d37fff17e9cc5c52c9eddc68cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
