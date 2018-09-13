@@ -15,25 +15,39 @@
  */
 package androidx.core.content.pm;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ShortcutInfo;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.os.PersistableBundle;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
+import androidx.core.app.Person;
 import androidx.core.graphics.drawable.IconCompat;
 
 import java.util.Arrays;
+import java.util.Set;
 
 /**
  * Helper for accessing features in {@link ShortcutInfo}.
  */
 public class ShortcutInfoCompat {
+
+    private static final String EXTRA_PERSON_COUNT = "extraPersonCount";
+    private static final String EXTRA_PERSON_ = "extraPerson_";
+    private static final String EXTRA_LONG_LIVED = "extraLongLived";
+
+    // TODO: Replace with SDK number that supports pushing share targets to shortcut manager.
+    private static final int FUTURE_SDK_INT = 999;
 
     Context mContext;
     String mId;
@@ -48,7 +62,50 @@ public class ShortcutInfoCompat {
     IconCompat mIcon;
     boolean mIsAlwaysBadged;
 
+    Person[] mPersons;
+    Set<String> mCategories;
+
+    // TODO: Support |auto| when the value of mIsLongLived is not set
+    boolean mIsLongLived;
+
     ShortcutInfoCompat() { }
+
+    /**
+     * Converts an Android framework {@link android.content.pm.ShortcutInfo} to a compat
+     * {@link ShortcutInfoCompat}. The Icon of the ShortcutInfo will be skipped and will not be
+     * included in the resulting ShortcutInfoCompat.
+     *
+     * @hide
+     */
+    @RequiresApi(25)
+    @RestrictTo(LIBRARY_GROUP)
+    public static ShortcutInfoCompat fromShortcutInfo(@NonNull Context context,
+            ShortcutInfo shortcutInfo) {
+        ShortcutInfoCompat.Builder builder = new ShortcutInfoCompat.Builder(context,
+                shortcutInfo.getId())
+                .setShortLabel(shortcutInfo.getShortLabel())
+                .setIntents(shortcutInfo.getIntents());
+        if (!TextUtils.isEmpty(shortcutInfo.getLongLabel())) {
+            builder.setLongLabel(shortcutInfo.getLongLabel());
+        }
+        if (!TextUtils.isEmpty(shortcutInfo.getDisabledMessage())) {
+            builder.setDisabledMessage(shortcutInfo.getDisabledMessage());
+        }
+        if (shortcutInfo.getActivity() != null) {
+            builder.setActivity(shortcutInfo.getActivity());
+        }
+        if (shortcutInfo.getCategories() != null) {
+            builder.setCategories(shortcutInfo.getCategories());
+        }
+        Person[] persons = ShortcutInfoCompat.getPersonsFromExtra(shortcutInfo.getExtras());
+        if (persons != null) {
+            builder.setPersons(persons);
+        }
+        if (ShortcutInfoCompat.getLongLivedFromExtra(shortcutInfo.getExtras())) {
+            builder.setLongLived();
+        }
+        return builder.build();
+    }
 
     /**
      * @return {@link ShortcutInfo} object from this compat object.
@@ -70,7 +127,36 @@ public class ShortcutInfoCompat {
         if (mActivity != null) {
             builder.setActivity(mActivity);
         }
+        if (mCategories != null) {
+            builder.setCategories(mCategories);
+        }
+        if (Build.VERSION.SDK_INT >= FUTURE_SDK_INT) {
+            /*
+            if (mPersons != null) {
+                builder.setPersons(mPersons);
+            }
+            if (mIsLongLived) {
+                builder.setLongLived();
+            }
+            */
+        } else {
+            builder.setExtras(buildExtrasBundle());
+        }
         return builder.build();
+    }
+
+    @RequiresApi(21)
+    private PersistableBundle buildExtrasBundle() {
+        PersistableBundle bundle = new PersistableBundle();
+        if (mPersons != null && mPersons.length > 0) {
+            bundle.putInt(EXTRA_PERSON_COUNT, mPersons.length);
+            for (int i = 0; i < mPersons.length; i++) {
+                bundle.putPersistableBundle(EXTRA_PERSON_ + (i + 1),
+                        mPersons[i].toPersistableBundle());
+            }
+        }
+        bundle.putBoolean(EXTRA_LONG_LIVED, mIsLongLived);
+        return bundle;
     }
 
     Intent addToIntent(Intent outIntent) {
@@ -172,6 +258,31 @@ public class ShortcutInfoCompat {
     @NonNull
     public Intent[] getIntents() {
         return Arrays.copyOf(mIntents, mIntents.length);
+    }
+
+    @RequiresApi(25)
+    @Nullable
+    private static Person[] getPersonsFromExtra(@NonNull PersistableBundle bundle) {
+        if (bundle == null && !bundle.containsKey(EXTRA_PERSON_COUNT)) {
+            return null;
+        }
+
+        int personsLength = bundle.getInt(EXTRA_PERSON_COUNT);
+        Person[] persons = new Person[personsLength];
+        for (int i = 0; i < personsLength; i++) {
+            persons[i] = Person.fromPersistableBundle(
+                    bundle.getPersistableBundle(EXTRA_PERSON_ + (i + 1)));
+        }
+        return persons;
+    }
+
+    @RequiresApi(25)
+    @Nullable
+    private static boolean getLongLivedFromExtra(@NonNull PersistableBundle bundle) {
+        if (bundle == null && !bundle.containsKey(EXTRA_LONG_LIVED)) {
+            return false;
+        }
+        return bundle.getBoolean(EXTRA_LONG_LIVED);
     }
 
     /**
@@ -290,6 +401,47 @@ public class ShortcutInfoCompat {
          */
         public Builder setAlwaysBadged() {
             mInfo.mIsAlwaysBadged = true;
+            return this;
+        }
+
+        /**
+         * Associate a person to a shortcut. Alternatively, {@link #setPersons(Person[])} can be
+         * used to add multiple persons to a shortcut.
+         *
+         * <p>This is an optional field when publishing a new shortcut.
+         *
+         * @see Person
+         */
+        public Builder setPerson(Person person) {
+            return setPersons(new Person[]{person});
+        }
+
+        /**
+         * Sets multiple persons instead of a single person.
+         */
+        public Builder setPersons(Person[] persons) {
+            mInfo.mPersons = persons;
+            return this;
+        }
+
+        /**
+         * Sets categories for a shortcut. Launcher apps may use this information to categorize
+         * shortcuts.
+         *
+         * @see ShortcutInfo#getCategories()
+         */
+        public Builder setCategories(Set<String> categories) {
+            mInfo.mCategories = categories;
+            return this;
+        }
+
+        /**
+         * Sets if a shortcut would be valid even if it has been unpublished/invisible by the app
+         * (as a dynamic or pinned shortcut). If it is long lived, it can be cached by various
+         * system services even after if has been unpublished as a dynamic shortcut.
+         */
+        public Builder setLongLived() {
+            mInfo.mIsLongLived = true;
             return this;
         }
 
