@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "bb1e8f26_e6499eef",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-09-13T15:29:59Z",
+      "side": 1,
+      "message": "Definitely something to keep in mind. I\u0027ve created an issue for it b/115619362",
+      "parentUuid": "dd8257ae_76a5ac2f",
+      "range": {
+        "startLine": 162,
+        "startChar": 39,
+        "endLine": 162,
+        "endChar": 40
+      },
+      "revId": "8753a3522defd035870f57c2e4a1d998ca834541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b94f527e_34e3fd5e",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
         "patchSetId": 2
@@ -188,6 +212,30 @@
       "revId": "8753a3522defd035870f57c2e4a1d998ca834541",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a31ccd4e_4b2b8d69",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-09-13T15:29:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a39790da_bb4cede7",
+      "range": {
+        "startLine": 199,
+        "startChar": 41,
+        "endLine": 199,
+        "endChar": 48
+      },
+      "revId": "8753a3522defd035870f57c2e4a1d998ca834541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
