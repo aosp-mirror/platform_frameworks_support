@@ -22,6 +22,30 @@
       "revId": "9cfdf4aed2f3f331483821b5d9b219ae3194813f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dcbf0b9_2c3a1386",
+        "filename": "room/integration-tests/testapp/schemas/androidx.room.integration.testapp.migration.MigrationDb/8.json",
+        "patchSetId": 12
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-09-14T03:13:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a74310ff_68f5e17c",
+      "range": {
+        "startLine": 116,
+        "startChar": 34,
+        "endLine": 116,
+        "endChar": 42
+      },
+      "revId": "9cfdf4aed2f3f331483821b5d9b219ae3194813f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
