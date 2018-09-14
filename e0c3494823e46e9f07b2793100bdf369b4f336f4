@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38de9b4f_2368b633",
+        "filename": "work/workmanager/src/main/java/androidx/work/DefaultWorkerFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-14T22:14:36Z",
+      "side": 1,
+      "message": "If this is actually the appContext, then you don\u0027t need to call getApplicationContext(), yes? I think it makes sense to only pass the application context into the Worker.",
+      "range": {
+        "startLine": 48,
+        "startChar": 24,
+        "endLine": 48,
+        "endChar": 58
+      },
+      "revId": "e0c3494823e46e9f07b2793100bdf369b4f336f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e564c387_52c3225b",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-14T22:14:36Z",
+      "side": 1,
+      "message": "This feels really weird to me. I feel like you should always be getting the WorkerFactory from the Configuration rather than reading it from the Worker.",
+      "range": {
+        "startLine": 308,
+        "startChar": 34,
+        "endLine": 308,
+        "endChar": 51
+      },
+      "revId": "e0c3494823e46e9f07b2793100bdf369b4f336f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21d8f202_7cc79d92",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkerFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-14T22:14:36Z",
+      "side": 1,
+      "message": "FWIW, AppComponentFactory and FragmentFactory pass in a ClassLoader and a String className, rather than the Class instance.",
+      "range": {
+        "startLine": 41,
+        "startChar": 21,
+        "endLine": 41,
+        "endChar": 41
+      },
+      "revId": "e0c3494823e46e9f07b2793100bdf369b4f336f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60581504_dd413b18",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkerParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-14T22:14:36Z",
+      "side": 1,
+      "message": "This feels really weird to me. I\u0027d really prefer if the one source of record for the WorkerFactory was the Configuration.",
+      "range": {
+        "startLine": 56,
+        "startChar": 12,
+        "endLine": 56,
+        "endChar": 48
+      },
+      "revId": "e0c3494823e46e9f07b2793100bdf369b4f336f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "853887ad_07925ccf",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-14T22:14:36Z",
+      "side": 1,
+      "message": "Extra white space?",
+      "revId": "e0c3494823e46e9f07b2793100bdf369b4f336f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb3d150c_b2a525de",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-14T22:14:36Z",
+      "side": 1,
+      "message": "Extra white space?",
+      "range": {
+        "startLine": 595,
+        "startChar": 0,
+        "endLine": 596,
+        "endChar": 0
+      },
+      "revId": "e0c3494823e46e9f07b2793100bdf369b4f336f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
