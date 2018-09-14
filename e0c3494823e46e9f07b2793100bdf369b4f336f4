@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "4682dbc8_416eacce",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkerFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-14T23:27:02Z",
+      "side": 1,
+      "message": "We can\u0027t have nice things.  Changed to just be a class name String; the developer can figure out their own ClassLoader story.",
+      "parentUuid": "527513d7_181a96be",
+      "range": {
+        "startLine": 41,
+        "startChar": 21,
+        "endLine": 41,
+        "endChar": 41
+      },
+      "revId": "e0c3494823e46e9f07b2793100bdf369b4f336f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "60581504_dd413b18",
         "filename": "work/workmanager/src/main/java/androidx/work/WorkerParameters.java",
         "patchSetId": 2
