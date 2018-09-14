@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2a0678d_d4c01676",
+        "filename": "core/src/main/java/androidx/core/content/res/TypedArrayUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-09-14T22:05:46Z",
+      "side": 1,
+      "message": "@Nullable",
+      "range": {
+        "startLine": 164,
+        "startChar": 18,
+        "endLine": 164,
+        "endChar": 32
+      },
+      "revId": "89baec43273140ad0a4a5897dc8b929a068bcc9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
