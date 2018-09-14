@@ -22,6 +22,30 @@
       "revId": "7b799ea691f3efc8f5c3f726d57f7bd9987400ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29274f78_de024f1f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-09-14T10:22:41Z",
+      "side": 1,
+      "message": "I think this is already done? I\u0027m testing on angler running Android O, which uses the ExoPlayer wrapper. I\u0027m getting hold of K and L devices too but ExoPlayer behaves the same across these versions so there shouldn\u0027t be a difference. (Caveat: this change doesn\u0027t handle resetting file descriptors pre-L.)",
+      "parentUuid": "477e8b39_82760f8a",
+      "range": {
+        "startLine": 13,
+        "startChar": 49,
+        "endLine": 13,
+        "endChar": 58
+      },
+      "revId": "7b799ea691f3efc8f5c3f726d57f7bd9987400ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
