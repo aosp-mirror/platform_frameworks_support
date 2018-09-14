@@ -33,7 +33,6 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 import androidx.work.impl.WorkDatabase;
 import androidx.work.impl.WorkManagerImpl;
-import androidx.work.impl.WorkerWrapper;
 import androidx.work.impl.constraints.WorkConstraintsCallback;
 import androidx.work.impl.constraints.WorkConstraintsTracker;
 import androidx.work.impl.model.WorkSpec;
@@ -78,7 +77,7 @@ public class ConstraintTrackingWorker extends Worker implements WorkConstraintsC
     public Result doWork() {
         String className = getInputData().getString(ARGUMENT_CLASS_NAME);
         if (TextUtils.isEmpty(className)) {
-            Logger.debug(TAG, "No worker to delegate to.");
+            Logger.error(TAG, "No worker to delegate to.");
             return FAILURE;
         }
 
@@ -88,10 +87,19 @@ public class ConstraintTrackingWorker extends Worker implements WorkConstraintsC
                 getTags(),
                 getRuntimeExtras(),
                 getRunAttemptCount(),
-                new SynchronousExecutor());
+                new SynchronousExecutor(),
+                getWorkerFactory());
 
-        mDelegate = WorkerWrapper.workerFromClassName(
-                className,
+        Class<? extends NonBlockingWorker> clazz;
+        try {
+            clazz = Class.forName(className).asSubclass(NonBlockingWorker.class);
+        } catch (ClassNotFoundException e) {
+            Logger.error(TAG, "Could not instantiate " + className, e);
+            return FAILURE;
+        }
+
+        mDelegate = getWorkerFactory().createWorker(
+                clazz,
                 getApplicationContext(),
                 paramsToPass);
 
