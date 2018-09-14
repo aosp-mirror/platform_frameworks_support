@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cd544f59_f0e9b926",
+        "filename": "work/workmanager/src/main/java/androidx/work/DefaultWorkerFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-14T22:29:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38de9b4f_2368b633",
+      "range": {
+        "startLine": 48,
+        "startChar": 24,
+        "endLine": 48,
+        "endChar": 58
+      },
+      "revId": "e0c3494823e46e9f07b2793100bdf369b4f336f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e564c387_52c3225b",
         "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-14T22:14:36Z",
       "side": 1,
       "message": "This feels really weird to me. I feel like you should always be getting the WorkerFactory from the Configuration rather than reading it from the Worker.",
+      "range": {
+        "startLine": 308,
+        "startChar": 34,
+        "endLine": 308,
+        "endChar": 51
+      },
+      "revId": "e0c3494823e46e9f07b2793100bdf369b4f336f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b7a871b_3b2264e1",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-14T22:29:11Z",
+      "side": 1,
+      "message": "Worker doesn\u0027t currently contain the Configuration.  This is analagous to Executor (right above this).  This is honestly internal and not API.  If you\u0027re really opposed to this, I can make the change in a future CL.",
+      "parentUuid": "e564c387_52c3225b",
       "range": {
         "startLine": 308,
         "startChar": 34,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "527513d7_181a96be",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkerFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-14T22:29:11Z",
+      "side": 1,
+      "message": "Isn\u0027t this nicer? :-/",
+      "parentUuid": "21d8f202_7cc79d92",
+      "range": {
+        "startLine": 41,
+        "startChar": 21,
+        "endLine": 41,
+        "endChar": 41
+      },
+      "revId": "e0c3494823e46e9f07b2793100bdf369b4f336f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "60581504_dd413b18",
         "filename": "work/workmanager/src/main/java/androidx/work/WorkerParameters.java",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2018-09-14T22:14:36Z",
       "side": 1,
       "message": "This feels really weird to me. I\u0027d really prefer if the one source of record for the WorkerFactory was the Configuration.",
+      "range": {
+        "startLine": 56,
+        "startChar": 12,
+        "endLine": 56,
+        "endChar": 48
+      },
+      "revId": "e0c3494823e46e9f07b2793100bdf369b4f336f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fda7d74_402ad828",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkerParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-14T22:29:11Z",
+      "side": 1,
+      "message": "It is, this is just an internal implementation detail of how we\u0027re plumbing it through.  This constructor is not available externally.",
+      "parentUuid": "60581504_dd413b18",
       "range": {
         "startLine": 56,
         "startChar": 12,
@@ -111,6 +207,24 @@
     },
     {
       "key": {
+        "uuid": "2b9fdcd8_86a59b61",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-14T22:29:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "853887ad_07925ccf",
+      "revId": "e0c3494823e46e9f07b2793100bdf369b4f336f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb3d150c_b2a525de",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
         "patchSetId": 2
@@ -131,6 +245,30 @@
       "revId": "e0c3494823e46e9f07b2793100bdf369b4f336f4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79ced199_746142e1",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-14T22:29:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb3d150c_b2a525de",
+      "range": {
+        "startLine": 595,
+        "startChar": 0,
+        "endLine": 596,
+        "endChar": 0
+      },
+      "revId": "e0c3494823e46e9f07b2793100bdf369b4f336f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
