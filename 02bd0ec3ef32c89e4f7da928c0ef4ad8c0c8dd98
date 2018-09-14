@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24e6bc64_28889599",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/SelectionBuilderBasicImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1312644
+      },
+      "writtenOn": "2018-09-14T17:14:07Z",
+      "side": 1,
+      "message": "Doesn\u0027t java inherit the constructors if we omit them?",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 5
+      },
+      "revId": "02bd0ec3ef32c89e4f7da928c0ef4ad8c0c8dd98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "143804b1_1bf616d5",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/SelectionBuilderBasicImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1312644
+      },
+      "writtenOn": "2018-09-14T17:14:07Z",
+      "side": 1,
+      "message": "options?",
+      "range": {
+        "startLine": 40,
+        "startChar": 83,
+        "endLine": 40,
+        "endChar": 84
+      },
+      "revId": "02bd0ec3ef32c89e4f7da928c0ef4ad8c0c8dd98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
