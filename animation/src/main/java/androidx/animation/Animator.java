@@ -221,7 +221,7 @@ public abstract class Animator implements Cloneable {
      *
      * @param value the interpolator to be used by this animation
      */
-    public abstract void setInterpolator(@Nullable TimeInterpolator value);
+    public abstract void setInterpolator(@Nullable Interpolator value);
 
     /**
      * Returns the timing interpolator that this animation uses.
@@ -229,7 +229,7 @@ public abstract class Animator implements Cloneable {
      * @return The timing interpolator for this animation.
      */
     @Nullable
-    public TimeInterpolator getInterpolator() {
+    public Interpolator getInterpolator() {
         return null;
     }
 
