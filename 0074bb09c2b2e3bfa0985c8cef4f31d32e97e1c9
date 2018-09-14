@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44bf69a8_f31e0654",
+        "filename": "navigation/common/src/main/java/androidx/navigation/Navigator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-14T20:54:16Z",
+      "side": 1,
+      "message": "accidental change",
+      "range": {
+        "startLine": 122,
+        "startChar": 9,
+        "endLine": 122,
+        "endChar": 14
+      },
+      "revId": "0074bb09c2b2e3bfa0985c8cef4f31d32e97e1c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40f81284_e0842a97",
+        "filename": "navigation/fragment/src/main/java/androidx/navigation/fragment/FragmentNavigator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-14T20:54:16Z",
+      "side": 1,
+      "message": "should we throw if it is not? \nBtw we can play generics game and make Navigator\u003cDestination, Extras\u003e",
+      "range": {
+        "startLine": 203,
+        "startChar": 11,
+        "endLine": 203,
+        "endChar": 46
+      },
+      "revId": "0074bb09c2b2e3bfa0985c8cef4f31d32e97e1c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1433bf99_26dbdfc7",
+        "filename": "navigation/fragment/src/main/java/androidx/navigation/fragment/FragmentNavigator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-14T20:54:16Z",
+      "side": 1,
+      "message": "I guess that there is no need to do both unmodifiableMap and defensive copy",
+      "range": {
+        "startLine": 382,
+        "startChar": 19,
+        "endLine": 382,
+        "endChar": 83
+      },
+      "revId": "0074bb09c2b2e3bfa0985c8cef4f31d32e97e1c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
