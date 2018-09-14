@@ -36,8 +36,10 @@ import androidx.work.Configuration;
 import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.DatabaseTest;
+import androidx.work.DefaultWorkerFactory;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.State;
+import androidx.work.WorkerFactory;
 import androidx.work.WorkerParameters;
 import androidx.work.impl.Scheduler;
 import androidx.work.impl.WorkManagerImpl;
@@ -248,18 +250,20 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest {
 
         insertWork(mWork);
 
-        ConstraintTrackingWorker worker =
-                (ConstraintTrackingWorker) WorkerWrapper.workerFromClassName(
-                        ConstraintTrackingWorker.class.getName(),
-                        mContext,
-                        new WorkerParameters(
-                                mWork.getId(),
-                                input,
-                                Collections.<String>emptyList(),
-                                new WorkerParameters.RuntimeExtras(),
-                                1,
-                                executor));
+        WorkerFactory workerFactory = new DefaultWorkerFactory();
+        ConstraintTrackingWorker worker = workerFactory.createWorker(
+                ConstraintTrackingWorker.class,
+                mContext,
+                new WorkerParameters(
+                        mWork.getId(),
+                        input,
+                        Collections.<String>emptyList(),
+                        new WorkerParameters.RuntimeExtras(),
+                        1,
+                        executor,
+                        workerFactory));
 
+        assertThat(worker, is(notNullValue()));
         mWorker = spy(worker);
         when(mWorker.getWorkDatabase()).thenReturn(mDatabase);
     }
