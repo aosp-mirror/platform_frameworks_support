@@ -19,6 +19,7 @@ package androidx.viewpager2.widget
 import android.os.Build
 import android.view.View
 import android.view.View.OVER_SCROLL_NEVER
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.CoordinatesProvider
@@ -152,6 +153,31 @@ open class BaseTest {
         return latch
     }
 
+    fun ViewPager2.addWaitForIdleLatch(): CountDownLatch {
+        val latch = CountDownLatch(1)
+
+        addOnPageChangeListener(object : ViewPager2.OnPageChangeListener {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+            }
+
+            override fun onPageSelected(position: Int) {
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                if (state == IDLE) {
+                    latch.countDown()
+                    post { removeOnPageChangeListener(this) }
+                }
+            }
+        })
+
+        return latch
+    }
+
     val ViewPager2.pageSize: Int
         get() {
             return if (orientation == HORIZONTAL) {
@@ -159,6 +185,13 @@ open class BaseTest {
             } else {
                 measuredHeight - paddingTop - paddingBottom
             }
+        }
+
+    val ViewPager2.currentCompletelyVisibleItem: Int
+        get() {
+            return ((getChildAt(0) as RecyclerView)
+                .layoutManager as LinearLayoutManager)
+                .findFirstCompletelyVisibleItemPosition()
         }
 
     /**

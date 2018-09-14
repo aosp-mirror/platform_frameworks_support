@@ -75,10 +75,17 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
      */
     @Override
     public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-        if (mAdapterState == AdapterState.IDLE && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+        if (mAdapterState != AdapterState.IN_PROGRESS_MANUAL_DRAG
+                && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
             mAdapterState = AdapterState.IN_PROGRESS_MANUAL_DRAG;
+            if (mTarget != NO_TARGET) {
+                // Special case when a smooth scroll was going on
+                mInitialPosition = mTarget;
+                mTarget = NO_TARGET;
+            } else {
+                mInitialPosition = getPosition();
+            }
             dispatchStateChanged(ViewPager2.ScrollState.DRAGGING);
-            mInitialPosition = getPosition();
             return;
         }
 
