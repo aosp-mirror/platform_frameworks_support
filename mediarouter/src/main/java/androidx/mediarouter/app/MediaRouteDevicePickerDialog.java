@@ -31,6 +31,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
@@ -452,15 +453,21 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
 
         // ViewHolder for route list item
         private class RouteViewHolder extends RecyclerView.ViewHolder {
-            View mItemView;
-            TextView mTextView;
-            ImageView mImageView;
+            private final View mItemView;
+            private final ImageView mImageView;
+            private final ProgressBar mProgressBar;
+            private final TextView mTextView;
+            int mTextColor;
 
             RouteViewHolder(View itemView) {
                 super(itemView);
                 mItemView = itemView;
-                mTextView = itemView.findViewById(R.id.mr_picker_route_name);
                 mImageView = itemView.findViewById(R.id.mr_picker_route_icon);
+                mProgressBar = itemView.findViewById(R.id.mr_picker_route_progress_bar);
+                mTextView = itemView.findViewById(R.id.mr_picker_route_name);
+                mTextColor = MediaRouterThemeHelper.getRouteTextColor(mContext);
+
+                MediaRouterThemeHelper.setIndeterminateProgressBarColor(mContext, mProgressBar);
             }
 
             public void bindRouteView(final Item item) {
@@ -470,9 +477,12 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
                     @Override
                     public void onClick(View view) {
                         route.select();
+                        mImageView.setVisibility(View.INVISIBLE);
+                        mProgressBar.setVisibility(View.VISIBLE);
                     }
                 });
                 mTextView.setText(route.getName());
+                mTextView.setTextColor(mTextColor);
                 mImageView.setImageDrawable(getIconDrawable(route));
             }
         }
