@@ -33,7 +33,7 @@ dependencies {
     implementation(project(":arch:core-common"))
     api(project(":arch:core-runtime"))
     api(project(":lifecycle:lifecycle-livedata-core"))
-
+    api(GUAVA_LISTENABLE_FUTURE)
     testImplementation(project(":lifecycle:lifecycle-runtime"))
     testImplementation(project(":arch:core-testing"))
     testImplementation(JUNIT)
