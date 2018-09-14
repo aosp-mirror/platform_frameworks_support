@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d48f1b6b_7b59f0f6",
+        "filename": "animation/src/main/java/androidx/animation/Interpolator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-09-14T22:50:18Z",
+      "side": 1,
+      "message": "@FloatRange on output and input. here, and in subclasses",
+      "revId": "1a95b9e17f8fa56fc33344173f2024378e8f93eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
