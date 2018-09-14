@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fda52fae_327b80a8",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkerFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-14T23:41:52Z",
+      "side": 1,
+      "message": "Per adamp@, change the order to Context, String",
+      "range": {
+        "startLine": 40,
+        "startChar": 12,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "33cb929ae07d509420edfc36bc0a093832850632",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
