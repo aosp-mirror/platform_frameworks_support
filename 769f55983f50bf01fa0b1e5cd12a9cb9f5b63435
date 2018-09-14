@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca759851_d9822574",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1863,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-14T09:40:53Z",
+      "side": 1,
+      "message": "check zero",
+      "range": {
+        "startLine": 1863,
+        "startChar": 72,
+        "endLine": 1863,
+        "endChar": 81
+      },
+      "revId": "769f55983f50bf01fa0b1e5cd12a9cb9f5b63435",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3708be7c_ece3804d",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2102,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-14T09:40:53Z",
+      "side": 1,
+      "message": "initialize it to PLAYER_STATE_IDLE",
+      "range": {
+        "startLine": 2102,
+        "startChar": 8,
+        "endLine": 2102,
+        "endChar": 27
+      },
+      "revId": "769f55983f50bf01fa0b1e5cd12a9cb9f5b63435",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4156870a_fb81770c",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2103,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-14T09:40:53Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "769f55983f50bf01fa0b1e5cd12a9cb9f5b63435",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42ee29d7_97f582e4",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2112,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-14T09:40:53Z",
+      "side": 1,
+      "message": "minor: it would be fine to remove \u0027public\u0027 modifier.",
+      "range": {
+        "startLine": 2112,
+        "startChar": 8,
+        "endLine": 2112,
+        "endChar": 14
+      },
+      "revId": "769f55983f50bf01fa0b1e5cd12a9cb9f5b63435",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8661d314_90dccb77",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2135,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-14T09:40:53Z",
+      "side": 1,
+      "message": "what happen if mduration is zero?",
+      "range": {
+        "startLine": 2135,
+        "startChar": 69,
+        "endLine": 2135,
+        "endChar": 78
+      },
+      "revId": "769f55983f50bf01fa0b1e5cd12a9cb9f5b63435",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eccfa758_e2df6857",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2143,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-14T09:40:53Z",
+      "side": 1,
+      "message": "MediaPlayerConnector.PLAYER_STATE_IDLE",
+      "range": {
+        "startLine": 2143,
+        "startChar": 18,
+        "endLine": 2143,
+        "endChar": 20
+      },
+      "revId": "769f55983f50bf01fa0b1e5cd12a9cb9f5b63435",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59334972_71dcd7ed",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2242,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-14T09:40:53Z",
+      "side": 1,
+      "message": "what do you think about moving this into setSessionToken2() and remove close()?",
+      "range": {
+        "startLine": 2239,
+        "startChar": 0,
+        "endLine": 2242,
+        "endChar": 9
+      },
+      "revId": "769f55983f50bf01fa0b1e5cd12a9cb9f5b63435",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d20b34e_bbfd2281",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2320,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-14T09:40:53Z",
+      "side": 1,
+      "message": "check zero",
+      "range": {
+        "startLine": 2320,
+        "startChar": 74,
+        "endLine": 2320,
+        "endChar": 87
+      },
+      "revId": "769f55983f50bf01fa0b1e5cd12a9cb9f5b63435",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
