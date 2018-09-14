@@ -22,6 +22,30 @@
       "revId": "33cb929ae07d509420edfc36bc0a093832850632",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55b7dccb_57ba158b",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkerFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-14T23:45:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fda52fae_327b80a8",
+      "range": {
+        "startLine": 40,
+        "startChar": 12,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "33cb929ae07d509420edfc36bc0a093832850632",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
