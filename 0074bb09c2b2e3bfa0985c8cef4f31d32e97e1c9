@@ -143,6 +143,30 @@
       "revId": "0074bb09c2b2e3bfa0985c8cef4f31d32e97e1c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67b67e0a_aefc63a8",
+        "filename": "navigation/fragment/src/main/java/androidx/navigation/fragment/FragmentNavigator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-14T21:57:08Z",
+      "side": 1,
+      "message": "you call \"putAll\" in Extras constructor (that is defensive copy), so continued usage won\u0027t affect previous extras",
+      "parentUuid": "7806b2bd_35319aca",
+      "range": {
+        "startLine": 382,
+        "startChar": 19,
+        "endLine": 382,
+        "endChar": 83
+      },
+      "revId": "0074bb09c2b2e3bfa0985c8cef4f31d32e97e1c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
