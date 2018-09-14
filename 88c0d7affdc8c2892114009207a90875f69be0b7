@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4dac1c97_6d1ee15a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1312644
+      },
+      "writtenOn": "2018-09-14T17:11:38Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 6
+      },
+      "revId": "88c0d7affdc8c2892114009207a90875f69be0b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4995e484_314ddf80",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1312644
+      },
+      "writtenOn": "2018-09-14T17:11:38Z",
+      "side": 1,
+      "message": "add how you tested the test case:\n\nTest: atest whatever",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 6
+      },
+      "revId": "88c0d7affdc8c2892114009207a90875f69be0b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a26bac6_704220ba",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/ListBuilderBasicImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1312644
+      },
+      "writtenOn": "2018-09-14T17:11:38Z",
+      "side": 1,
+      "message": "null check and illegal argument exception?",
+      "range": {
+        "startLine": 176,
+        "startChar": 29,
+        "endLine": 176,
+        "endChar": 53
+      },
+      "revId": "88c0d7affdc8c2892114009207a90875f69be0b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "866dffba_dff62686",
+        "filename": "slices/test/src/main/java/androidx/slice/test/SampleSliceProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 1312644
+      },
+      "writtenOn": "2018-09-14T17:11:38Z",
+      "side": 1,
+      "message": "Whenever we leave a todo we usually annotate which bug it points to, or just file a bug and remove the todo.",
+      "range": {
+        "startLine": 1160,
+        "startChar": 24,
+        "endLine": 1160,
+        "endChar": 90
+      },
+      "revId": "88c0d7affdc8c2892114009207a90875f69be0b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
