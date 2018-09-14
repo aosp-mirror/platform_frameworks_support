@@ -75,10 +75,17 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
      */
     @Override
     public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-        if (mAdapterState == AdapterState.IDLE && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+        if (mAdapterState != AdapterState.IN_PROGRESS_MANUAL_DRAG
+                && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
             mAdapterState = AdapterState.IN_PROGRESS_MANUAL_DRAG;
+            if (mTarget != NO_TARGET) {
+                // Special case when a smooth scroll was going on
+                mInitialPosition = mTarget;
+                mTarget = NO_TARGET;
+            } else {
+                mInitialPosition = getPosition();
+            }
             dispatchStateChanged(ViewPager2.ScrollState.DRAGGING);
-            mInitialPosition = getPosition();
             return;
         }
 
@@ -90,6 +97,7 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
             } else {
                 dispatchStateChanged(ViewPager2.ScrollState.SETTLING);
                 mDispatchSelected = true;
+                mScrollHappened = false;
             }
             return;
         }
@@ -97,7 +105,15 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         if (mAdapterState == AdapterState.IN_PROGRESS_MANUAL_DRAG
                 && newState == RecyclerView.SCROLL_STATE_IDLE) {
             if (!mScrollHappened) {
-                // Special case of dragging before first (or beyond last) page
+                // Special case if we were snapped at a page when going from dragging to settling
+                if (mDispatchSelected) {
+                    // Special case when the snapped page is different from the initial position
+                    // E.g.: programmatic scroll from 0 to 1, interrupt with drag from 0.5 to 0
+                    updateScrollEventValues();
+                    if (mInitialPosition != mScrollValues.mPosition) {
+                        dispatchSelected(mScrollValues.mPosition);
+                    }
+                }
                 dispatchStateChanged(ViewPager2.ScrollState.IDLE);
                 resetState();
             }
@@ -124,7 +140,8 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
 
         dispatchScrolled(values.mPosition, values.mOffset, values.mOffsetPx);
 
-        if ((values.mPosition == mTarget || mTarget == NO_TARGET) && values.mOffsetPx == 0) {
+        if ((values.mPosition == mTarget || mTarget == NO_TARGET) && values.mOffsetPx == 0
+                && mScrollState != ViewPager2.ScrollState.DRAGGING) {
             dispatchStateChanged(ViewPager2.ScrollState.IDLE);
             resetState();
         }
