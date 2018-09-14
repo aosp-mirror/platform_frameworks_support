@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ca50c956_77c39a16",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1312644
+      },
+      "writtenOn": "2018-09-14T19:17:30Z",
+      "side": 1,
+      "message": "Forgot to ask you to remove the WIP",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 6
+      },
+      "revId": "02bd0ec3ef32c89e4f7da928c0ef4ad8c0c8dd98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "24e6bc64_28889599",
         "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/SelectionBuilderBasicImpl.java",
         "patchSetId": 6
