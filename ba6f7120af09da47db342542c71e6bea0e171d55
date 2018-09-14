@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9a8e065_049a7657",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/AbstractFuture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-14T16:51:19Z",
+      "side": 1,
+      "message": "Test is failing, because in test we accidentally shadow a variable with this field %) I\u0027ll update your CL",
+      "revId": "ba6f7120af09da47db342542c71e6bea0e171d55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
