@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "72b57b04_a1a755f8",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 18
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-09-14T00:03:02Z",
+      "side": 1,
+      "message": "Dongwon, wasn\u0027t this renamed to CallbackDataSource or something like that?\nSungsoo, I think this is not a \"callback\" in the sense of \"callback to send events to\", but it\u0027s to a DataSource that provides data/size through a callback...",
+      "parentUuid": "9df8bcd9_a4ac586f",
+      "range": {
+        "startLine": 14,
+        "startChar": 18,
+        "endLine": 14,
+        "endChar": 26
+      },
+      "revId": "4c6be68ec5fed7e560ead6d70385df80fbb27458",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5a155d04_7ad17e18",
         "filename": "media2/api/current.txt",
         "patchSetId": 18
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-13T05:27:45Z",
       "side": 1,
       "message": "Jean-Michel,\nNot related with this CL:\nShouldn\u0027t callback methods starts with \"on\"?",
+      "range": {
+        "startLine": 15,
+        "startChar": 31,
+        "endLine": 15,
+        "endChar": 37
+      },
+      "revId": "4c6be68ec5fed7e560ead6d70385df80fbb27458",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d61c0225_a79df7c0",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 18
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-09-14T00:03:02Z",
+      "side": 1,
+      "message": "... and as such the method names wouldn\u0027t start with onxxx.",
+      "parentUuid": "5a155d04_7ad17e18",
       "range": {
         "startLine": 15,
         "startChar": 31,
