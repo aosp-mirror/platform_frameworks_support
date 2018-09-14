@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e6c8b33_0156fb37",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1312644
+      },
+      "writtenOn": "2018-09-14T19:21:34Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 6
+      },
+      "revId": "75146e3923ff8e4358dcf3f28b4d61d7997fb2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d263c1e_269166cc",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1312644
+      },
+      "writtenOn": "2018-09-14T19:21:34Z",
+      "side": 1,
+      "message": "Can options repeat? If not, can you use a Map instead?",
+      "range": {
+        "startLine": 41,
+        "startChar": 22,
+        "endLine": 41,
+        "endChar": 28
+      },
+      "revId": "75146e3923ff8e4358dcf3f28b4d61d7997fb2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1c9155a_4984013d",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1312644
+      },
+      "writtenOn": "2018-09-14T19:21:34Z",
+      "side": 1,
+      "message": "then you probably wouldn\u0027t need a set for the keys",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 36
+      },
+      "revId": "75146e3923ff8e4358dcf3f28b4d61d7997fb2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9014a8ee_cab933d4",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1312644
+      },
+      "writtenOn": "2018-09-14T19:21:34Z",
+      "side": 1,
+      "message": "you can also make them final",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 39
+      },
+      "revId": "75146e3923ff8e4358dcf3f28b4d61d7997fb2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35bb39f3_af5d1ab5",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/SelectionBuilderImpl.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1312644
+      },
+      "writtenOn": "2018-09-14T19:21:34Z",
+      "side": 1,
+      "message": "final",
+      "revId": "75146e3923ff8e4358dcf3f28b4d61d7997fb2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
