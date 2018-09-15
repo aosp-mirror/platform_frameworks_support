@@ -16,6 +16,24 @@
       "revId": "1a95b9e17f8fa56fc33344173f2024378e8f93eb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d44a7f3_35f9a0f9",
+        "filename": "animation/src/main/java/androidx/animation/Interpolator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-09-15T01:24:21Z",
+      "side": 1,
+      "message": "Done for the input, but output is not bounded - the only requirement is that they start from 0, and end at 1, and it could go beyond 1 or below 0 when input is (0, 1)",
+      "parentUuid": "d48f1b6b_7b59f0f6",
+      "revId": "1a95b9e17f8fa56fc33344173f2024378e8f93eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
