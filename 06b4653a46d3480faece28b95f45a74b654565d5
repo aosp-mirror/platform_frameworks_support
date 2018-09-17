@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53dae693_86cf5a90",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-09-17T23:58:53Z",
+      "side": 1,
+      "message": "you probably dont need to save and read everything, only the information needed by the chooser service",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 0
+      },
+      "revId": "06b4653a46d3480faece28b95f45a74b654565d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
