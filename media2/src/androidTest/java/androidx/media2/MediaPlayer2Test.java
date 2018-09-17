@@ -3133,4 +3133,20 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
                         MediaPlayer2.CALL_STATUS_NO_ERROR),
                 commandsCompleted.get(4));
     }
+
+    @Test
+    @MediumTest
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.P)
+    public void testReset() throws Exception {
+        assertTrue(loadResource(R.raw.testmp3_2));
+        AudioAttributesCompat attributes = new AudioAttributesCompat.Builder()
+                .setLegacyStreamType(AudioManager.STREAM_MUSIC)
+                .build();
+        mPlayer.setAudioAttributes(attributes);
+
+        mPlayer.reset();
+
+        assertNull(mPlayer.getAudioAttributes());
+        assertNull(mPlayer.getCurrentMediaItem());
+    }
 }
