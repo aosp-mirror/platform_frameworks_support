@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "119c0ca0_058ebb36",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-09-17T16:07:42Z",
+      "side": 1,
+      "message": "might be good to expand on what a \u0027selection\u0027 is, e.g. list of options, user can select one of them?",
+      "range": {
+        "startLine": 37,
+        "startChar": 26,
+        "endLine": 37,
+        "endChar": 35
+      },
+      "revId": "75146e3923ff8e4358dcf3f28b4d61d7997fb2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9d263c1e_269166cc",
         "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
         "patchSetId": 12
@@ -87,6 +110,52 @@
         "startChar": 8,
         "endLine": 57,
         "endChar": 39
+      },
+      "revId": "75146e3923ff8e4358dcf3f28b4d61d7997fb2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbf6a5cf_f8bab15c",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-09-17T16:07:42Z",
+      "side": 1,
+      "message": "you can add an extra in SliceHints.java for this -- we\u0027ve been sticking stuff there when it\u0027s something that would eventually be coming from frameworks.",
+      "range": {
+        "startLine": 84,
+        "startChar": 67,
+        "endLine": 84,
+        "endChar": 79
+      },
+      "revId": "75146e3923ff8e4358dcf3f28b4d61d7997fb2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49fae966_37bc86a1",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-09-17T16:07:42Z",
+      "side": 1,
+      "message": "is it expected that this be checkable / have a \u0027selected\u0027 / \u0027unselected\u0027 state? It might be good to include that here.",
+      "range": {
+        "startLine": 116,
+        "startChar": 7,
+        "endLine": 117,
+        "endChar": 32
       },
       "revId": "75146e3923ff8e4358dcf3f28b4d61d7997fb2ff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
