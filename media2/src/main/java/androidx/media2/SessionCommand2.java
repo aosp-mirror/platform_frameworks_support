@@ -69,7 +69,7 @@ public final class SessionCommand2 implements VersionedParcelable {
     public static final int COMMAND_CODE_CUSTOM = 0;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Playback commands (i.e. commands to {@link MediaPlayerConnector})
+    // Playback commands (i.e. commands to {@link SessionPlayer2})
     ////////////////////////////////////////////////////////////////////////////////////////////////
     static final ArrayMap<Integer, Range> VERSION_PLAYBACK_COMMANDS_MAP = new ArrayMap<>();
 
@@ -145,7 +145,7 @@ public final class SessionCommand2 implements VersionedParcelable {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Playlist commands (i.e. commands to {@link MediaPlaylistAgent})
+    // Playlist commands (i.e. commands to {@link SessionPlayer2})
     ////////////////////////////////////////////////////////////////////////////////////////////////
     static final ArrayMap<Integer, Range> VERSION_PLAYLIST_COMMANDS_MAP = new ArrayMap<>();
 

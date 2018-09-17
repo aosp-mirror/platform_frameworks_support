@@ -32,7 +32,6 @@ import androidx.media.AudioAttributesCompat;
 import androidx.media2.CommandResult2;
 import androidx.media2.MediaItem2;
 import androidx.media2.MediaMetadata2;
-import androidx.media2.MediaPlayerConnector;
 import androidx.media2.RemoteSessionPlayer2;
 import androidx.media2.SessionPlayer2;
 import androidx.media2.UriMediaItem2;
@@ -271,7 +270,7 @@ public class RoutePlayer2 extends RemoteSessionPlayer2 {
 
     @Override
     public int getBufferingState() {
-        return MediaPlayerConnector.BUFFERING_STATE_UNKNOWN;
+        return SessionPlayer2.BUFFERING_STATE_UNKNOWN;
     }
 
     @Override

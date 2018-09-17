@@ -1182,7 +1182,7 @@ public class XMediaPlayerTest extends XMediaPlayerTestBase {
         int shuffleMode = mPlayer.getShuffleMode();
         ListenableFuture<CommandResult2> future;
         CommandResult2 result;
-        if (shuffleMode != MediaPlaylistAgent.SHUFFLE_MODE_NONE) {
+        if (shuffleMode != SessionPlayer2.SHUFFLE_MODE_NONE) {
             onShuffleModeChangedMonitor.reset();
             future = mPlayer.setShuffleMode(SessionPlayer2.SHUFFLE_MODE_NONE);
             assertTrue(onShuffleModeChangedMonitor.waitForSignal(WAIT_TIME_MS));
@@ -1238,7 +1238,7 @@ public class XMediaPlayerTest extends XMediaPlayerTestBase {
         int repeatMode = mPlayer.getRepeatMode();
         ListenableFuture<CommandResult2> future;
         CommandResult2 result;
-        if (repeatMode != MediaPlaylistAgent.REPEAT_MODE_NONE) {
+        if (repeatMode != SessionPlayer2.REPEAT_MODE_NONE) {
             onRepeatModeChangedMonitor.reset();
             future = mPlayer.setRepeatMode(SessionPlayer2.REPEAT_MODE_NONE);
             assertTrue(onRepeatModeChangedMonitor.waitForSignal(WAIT_TIME_MS));
@@ -1295,7 +1295,7 @@ public class XMediaPlayerTest extends XMediaPlayerTestBase {
         List<MediaItem2> playlist = createPlaylist(listSize);
         CommandResult2 result = mPlayer.setPlaylist(playlist, null).get();
         assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR, result.getResultCode());
-        mPlayer.setRepeatMode(MediaPlaylistAgent.REPEAT_MODE_NONE).get();
+        mPlayer.setRepeatMode(SessionPlayer2.REPEAT_MODE_NONE).get();
         assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR, result.getResultCode());
 
         // Test skipToPlaylistItem
@@ -1313,7 +1313,7 @@ public class XMediaPlayerTest extends XMediaPlayerTestBase {
         List<MediaItem2> playlist = createPlaylist(listSize);
         CommandResult2 result = mPlayer.setPlaylist(playlist, null).get();
         assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR, result.getResultCode());
-        mPlayer.setRepeatMode(MediaPlaylistAgent.REPEAT_MODE_NONE).get();
+        mPlayer.setRepeatMode(SessionPlayer2.REPEAT_MODE_NONE).get();
         assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR, result.getResultCode());
 
         // Test skipToNextItem
@@ -1335,7 +1335,7 @@ public class XMediaPlayerTest extends XMediaPlayerTestBase {
         List<MediaItem2> playlist = createPlaylist(listSize);
         CommandResult2 result = mPlayer.setPlaylist(playlist, null).get();
         assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR, result.getResultCode());
-        mPlayer.setRepeatMode(MediaPlaylistAgent.REPEAT_MODE_NONE).get();
+        mPlayer.setRepeatMode(SessionPlayer2.REPEAT_MODE_NONE).get();
         assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR, result.getResultCode());
         result = mPlayer.skipToPlaylistItem(playlist.get(listSize - 1)).get();
         assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR, result.getResultCode());
@@ -1359,7 +1359,7 @@ public class XMediaPlayerTest extends XMediaPlayerTestBase {
         List<MediaItem2> playlist = createPlaylist(listSize);
         CommandResult2 result = mPlayer.setPlaylist(playlist, null).get();
         assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR, result.getResultCode());
-        result = mPlayer.setRepeatMode(MediaPlaylistAgent.REPEAT_MODE_ALL).get();
+        result = mPlayer.setRepeatMode(SessionPlayer2.REPEAT_MODE_ALL).get();
         assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR, result.getResultCode());
 
         result = mPlayer.skipToPreviousItem().get();
@@ -1389,7 +1389,7 @@ public class XMediaPlayerTest extends XMediaPlayerTestBase {
         assertEquals(XMediaPlayer.RESULT_CODE_INVALID_OPERATION, result.getResultCode());
         assertEquals(playlist.get(1), mPlayer.getCurrentMediaItem());
 
-        result = mPlayer.setRepeatMode(MediaPlaylistAgent.REPEAT_MODE_ALL).get();
+        result = mPlayer.setRepeatMode(SessionPlayer2.REPEAT_MODE_ALL).get();
         assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR, result.getResultCode());
         result = mPlayer.skipToNextItem().get();
         assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR, result.getResultCode());
@@ -1410,7 +1410,7 @@ public class XMediaPlayerTest extends XMediaPlayerTestBase {
         assertEquals(XMediaPlayer.RESULT_CODE_INVALID_OPERATION, result.getResultCode());
         assertEquals(playlist.get(0), mPlayer.getCurrentMediaItem());
 
-        result = mPlayer.setRepeatMode(MediaPlaylistAgent.REPEAT_MODE_ALL).get();
+        result = mPlayer.setRepeatMode(SessionPlayer2.REPEAT_MODE_ALL).get();
         assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR, result.getResultCode());
         result = mPlayer.skipToPreviousItem().get();
         assertEquals(XMediaPlayer.RESULT_CODE_NO_ERROR, result.getResultCode());

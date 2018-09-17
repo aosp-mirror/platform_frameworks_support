@@ -49,7 +49,6 @@ import androidx.media.AudioAttributesCompat;
 import androidx.media2.MediaItem2;
 import androidx.media2.MediaMetadata2;
 import androidx.media2.MediaPlayer2;
-import androidx.media2.MediaPlayerConnector;
 import androidx.media2.MediaSession2;
 import androidx.media2.RemoteSessionPlayer2;
 import androidx.media2.SessionCommand2;
@@ -193,7 +192,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
             if (reason != MediaRouter.UNSELECT_REASON_ROUTE_CHANGED) {
                 openVideo();
                 mMediaSession.getPlayer().seekTo(currentPosition);
-                if (currentState == MediaPlayerConnector.PLAYER_STATE_PLAYING) {
+                if (currentState == SessionPlayer2.PLAYER_STATE_PLAYING) {
                     mMediaSession.getPlayer().play();
                 }
             }
@@ -911,7 +910,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
         builder.putString(
                 MediaMetadata2.METADATA_KEY_MEDIA_ID, mMediaItem.getMediaId());
         mMediaItem.setMetadata(builder.build());
-        mMediaSession.getPlaylistAgent().replacePlaylistItem(0, mMediaItem);
+        mMediaSession.getPlayer().replacePlaylistItem(0, mMediaItem);
     }
 
     private int retrieveOrientation() {
