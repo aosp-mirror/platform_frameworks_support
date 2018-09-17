@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96d456a4_b6c737b8",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T09:27:44Z",
+      "side": 1,
+      "message": "Two comments.\n\n1. Could you explain me a reason for this API while we don\u0027t have such version for RouteGroup? This doesn\u0027t look convenient to me because caller need to check null.\n2. Find better name here. I thought that it\u0027s not related with mSelectedRoute.",
+      "range": {
+        "startLine": 209,
+        "startChar": 33,
+        "endLine": 209,
+        "endChar": 48
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7f3d6e3_ed57573d",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T09:27:44Z",
+      "side": 1,
+      "message": "do we also have fake group or just group as well?",
+      "range": {
+        "startLine": 216,
+        "startChar": 20,
+        "endLine": 216,
+        "endChar": 46
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e77eb6ac_2b2b5032",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T09:27:44Z",
+      "side": 1,
+      "message": "Add simple Javadoc - what\u0027s member routes?",
+      "range": {
+        "startLine": 599,
+        "startChar": 0,
+        "endLine": 599,
+        "endChar": 51
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74368032_234b7923",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T09:27:44Z",
+      "side": 1,
+      "message": "Add simple Javadoc - what\u0027s groupable routes?",
+      "range": {
+        "startLine": 609,
+        "startChar": 0,
+        "endLine": 609,
+        "endChar": 54
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04f8f58e_dc3c6e86",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T09:27:44Z",
+      "side": 1,
+      "message": "Add simple Javadoc - what\u0027s transferable routes?",
+      "range": {
+        "startLine": 617,
+        "startChar": 0,
+        "endLine": 617,
+        "endChar": 57
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce3ca9b0_b0a94f6f",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T09:27:44Z",
+      "side": 1,
+      "message": "question) is it OK not to use ID?",
+      "range": {
+        "startLine": 807,
+        "startChar": 0,
+        "endLine": 810,
+        "endChar": 0
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e1ad59c_cf4987f8",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1108,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T09:27:44Z",
+      "side": 1,
+      "message": "To insun) Is it intended to use route descriptor\u0027s constant?",
+      "range": {
+        "startLine": 1107,
+        "startChar": 52,
+        "endLine": 1108,
+        "endChar": 56
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af9b6f02_6d874315",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1112,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T09:27:44Z",
+      "side": 1,
+      "message": "remove or \u0027that is\u0027\n\n\u0027which\u0027 is used when the terms before/after are the same.",
+      "range": {
+        "startLine": 1112,
+        "startChar": 37,
+        "endLine": 1112,
+        "endChar": 45
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d64259e1_70d6fd05",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T09:27:44Z",
+      "side": 1,
+      "message": "????",
+      "range": {
+        "startLine": 1116,
+        "startChar": 0,
+        "endLine": 1116,
+        "endChar": 79
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaf905ee_ef4a0972",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1142,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T09:27:44Z",
+      "side": 1,
+      "message": "image and progress visibility should be also handled here.",
+      "range": {
+        "startLine": 1142,
+        "startChar": 0,
+        "endLine": 1142,
+        "endChar": 52
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1261ead_06742698",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T09:27:44Z",
+      "side": 1,
+      "message": "Q) why don\u0027t you apply alpha to the parent view?",
+      "range": {
+        "startLine": 1162,
+        "startChar": 0,
+        "endLine": 1162,
+        "endChar": 79
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06fae49b_9bb6bc8e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1182,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T09:27:44Z",
+      "side": 1,
+      "message": "resets alpha here as well",
+      "range": {
+        "startLine": 1182,
+        "startChar": 0,
+        "endLine": 1182,
+        "endChar": 59
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac3dfddb_01d3e295",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T09:27:44Z",
+      "side": 1,
+      "message": "2 comes before 1 and I don\u0027t know what is this for.",
+      "range": {
+        "startLine": 1236,
+        "startChar": 14,
+        "endLine": 1236,
+        "endChar": 17
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ab58174_892975f6",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouterThemeHelper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T09:27:44Z",
+      "side": 1,
+      "message": "two questions\n\n1. Why don\u0027t you follow pattern above?\n2. If using isLightTheme() is better, then why did you remove resource attrs? Previously resources looked working well with light/dark theme and you\u0027ve changed the logic to the theme helper.",
+      "range": {
+        "startLine": 200,
+        "startChar": 15,
+        "endLine": 200,
+        "endChar": 32
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
