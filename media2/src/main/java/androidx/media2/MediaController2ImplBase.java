@@ -17,8 +17,6 @@
 package androidx.media2;
 
 import static androidx.media2.MediaMetadata2.METADATA_KEY_DURATION;
-import static androidx.media2.MediaPlayerConnector.BUFFERING_STATE_UNKNOWN;
-import static androidx.media2.MediaPlayerConnector.UNKNOWN_TIME;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYBACK_PLAY;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYBACK_PREPARE;
@@ -47,6 +45,8 @@ import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_SUBSCRIBE_ROU
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_UNSUBSCRIBE_ROUTES_INFO;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_VOLUME_ADJUST_VOLUME;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_VOLUME_SET_VOLUME;
+import static androidx.media2.SessionPlayer2.BUFFERING_STATE_UNKNOWN;
+import static androidx.media2.SessionPlayer2.UNKNOWN_TIME;
 import static androidx.media2.SessionToken2.TYPE_SESSION;
 
 import android.app.PendingIntent;
@@ -71,8 +71,8 @@ import androidx.media2.MediaController2.MediaController2Impl;
 import androidx.media2.MediaController2.PlaybackInfo;
 import androidx.media2.MediaController2.VolumeDirection;
 import androidx.media2.MediaController2.VolumeFlags;
-import androidx.media2.MediaPlaylistAgent.RepeatMode;
-import androidx.media2.MediaPlaylistAgent.ShuffleMode;
+import androidx.media2.SessionPlayer2.RepeatMode;
+import androidx.media2.SessionPlayer2.ShuffleMode;
 import androidx.versionedparcelable.ParcelImpl;
 import androidx.versionedparcelable.ParcelUtils;
 
@@ -442,7 +442,7 @@ class MediaController2ImplBase implements MediaController2Impl {
                 return metadata.getLong(METADATA_KEY_DURATION);
             }
         }
-        return MediaPlayerConnector.UNKNOWN_TIME;
+        return SessionPlayer2.UNKNOWN_TIME;
     }
 
     @Override
@@ -452,7 +452,7 @@ class MediaController2ImplBase implements MediaController2Impl {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
                 return UNKNOWN_TIME;
             }
-            if (mPlayerState == MediaPlayerConnector.PLAYER_STATE_PLAYING) {
+            if (mPlayerState == SessionPlayer2.PLAYER_STATE_PLAYING) {
                 long timeDiff = (mInstance.mTimeDiff != null) ? mInstance.mTimeDiff
                         : SystemClock.elapsedRealtime() - mPositionEventTimeMs;
                 long expectedPosition = mPositionMs + (long) (mPlaybackSpeed * timeDiff);
@@ -487,7 +487,7 @@ class MediaController2ImplBase implements MediaController2Impl {
     }
 
     @Override
-    public @MediaPlayerConnector.BuffState int getBufferingState() {
+    public @SessionPlayer2.BuffState int getBufferingState() {
         synchronized (mLock) {
             if (mISession2 == null) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
