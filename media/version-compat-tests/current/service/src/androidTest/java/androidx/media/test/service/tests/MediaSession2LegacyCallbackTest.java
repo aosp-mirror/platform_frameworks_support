@@ -53,7 +53,6 @@ import androidx.media.test.service.MockPlayer;
 import androidx.media.test.service.MockRemotePlayer;
 import androidx.media.test.service.RemoteMediaControllerCompat;
 import androidx.media2.MediaItem2;
-import androidx.media2.MediaPlaylistAgent;
 import androidx.media2.MediaSession2;
 import androidx.media2.MediaSession2.ControllerInfo;
 import androidx.media2.MediaSession2.SessionCallback;
@@ -316,7 +315,7 @@ public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
     @Test
     public void testSetShuffleMode() throws InterruptedException {
         prepareLooper();
-        final int testShuffleMode = MediaPlaylistAgent.SHUFFLE_MODE_GROUP;
+        final int testShuffleMode = SessionPlayer2.SHUFFLE_MODE_GROUP;
         mController.getTransportControls().setShuffleMode(testShuffleMode);
         assertTrue(mPlayer.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
 
@@ -327,7 +326,7 @@ public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
     @Test
     public void testSetRepeatMode() throws InterruptedException {
         prepareLooper();
-        final int testRepeatMode = MediaPlaylistAgent.REPEAT_MODE_GROUP;
+        final int testRepeatMode = SessionPlayer2.REPEAT_MODE_GROUP;
         mController.getTransportControls().setRepeatMode(testRepeatMode);
         assertTrue(mPlayer.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
 
@@ -772,7 +771,7 @@ public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
                 assertEquals(EXPECTED_CONTROLLER_PACKAGE_NAME, controllerInfo.getPackageName());
                 assertFalse(controllerInfo.isTrusted());
                 commands.add(command);
-                if (command.getCommandCode() == SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE) {
+                if (command.getCommandCode() == SessionCommand2.COMMAND_CODE_PLAYER_PAUSE) {
                     latchForPause.countDown();
                     return false;
                 }
@@ -797,7 +796,7 @@ public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
         assertFalse(mPlayer.mCountDownLatch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
         assertFalse(mPlayer.mPauseCalled);
         assertEquals(1, commands.size());
-        assertEquals(SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE,
+        assertEquals(SessionCommand2.COMMAND_CODE_PLAYER_PAUSE,
                 (long) commands.get(0).getCommandCode());
 
         controller.getTransportControls().play();
@@ -805,7 +804,7 @@ public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
         assertTrue(mPlayer.mPlayCalled);
         assertFalse(mPlayer.mPauseCalled);
         assertEquals(2, commands.size());
-        assertEquals(SessionCommand2.COMMAND_CODE_PLAYBACK_PLAY,
+        assertEquals(SessionCommand2.COMMAND_CODE_PLAYER_PLAY,
                 (long) commands.get(1).getCommandCode());
     }
 

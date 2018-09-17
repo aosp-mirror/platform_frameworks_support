@@ -17,23 +17,21 @@
 package androidx.media2;
 
 import static androidx.media2.MediaMetadata2.METADATA_KEY_DURATION;
-import static androidx.media2.MediaPlayerConnector.BUFFERING_STATE_UNKNOWN;
-import static androidx.media2.MediaPlayerConnector.UNKNOWN_TIME;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYBACK_PLAY;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYBACK_PREPARE;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYBACK_SEEK_TO;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYBACK_SET_SPEED;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYLIST_ADD_ITEM;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYLIST_REMOVE_ITEM;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYLIST_REPLACE_ITEM;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYLIST_SET_LIST;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYLIST_SET_REPEAT_MODE;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYLIST_SET_SHUFFLE_MODE;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYLIST_SKIP_TO_NEXT_ITEM;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYLIST_SKIP_TO_PLAYLIST_ITEM;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYLIST_SKIP_TO_PREV_ITEM;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYLIST_UPDATE_LIST_METADATA;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_ADD_ITEM;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_PAUSE;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_PLAY;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_PREPARE;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_REMOVE_ITEM;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_REPLACE_ITEM;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_SEEK_TO;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_SET_LIST;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_SET_REPEAT_MODE;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_SET_SHUFFLE_MODE;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_SET_SPEED;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_SKIP_TO_NEXT_ITEM;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_SKIP_TO_PLAYLIST_ITEM;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_SKIP_TO_PREV_ITEM;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_UPDATE_LIST_METADATA;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_FAST_FORWARD;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_MEDIA_ID;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_SEARCH;
@@ -47,6 +45,8 @@ import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_SUBSCRIBE_ROU
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_UNSUBSCRIBE_ROUTES_INFO;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_VOLUME_ADJUST_VOLUME;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_VOLUME_SET_VOLUME;
+import static androidx.media2.SessionPlayer2.BUFFERING_STATE_UNKNOWN;
+import static androidx.media2.SessionPlayer2.UNKNOWN_TIME;
 import static androidx.media2.SessionToken2.TYPE_SESSION;
 
 import android.app.PendingIntent;
@@ -71,8 +71,8 @@ import androidx.media2.MediaController2.MediaController2Impl;
 import androidx.media2.MediaController2.PlaybackInfo;
 import androidx.media2.MediaController2.VolumeDirection;
 import androidx.media2.MediaController2.VolumeFlags;
-import androidx.media2.MediaPlaylistAgent.RepeatMode;
-import androidx.media2.MediaPlaylistAgent.ShuffleMode;
+import androidx.media2.SessionPlayer2.RepeatMode;
+import androidx.media2.SessionPlayer2.ShuffleMode;
 import androidx.versionedparcelable.ParcelImpl;
 import androidx.versionedparcelable.ParcelUtils;
 
@@ -227,7 +227,7 @@ class MediaController2ImplBase implements MediaController2Impl {
 
     @Override
     public void play() {
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_PLAYBACK_PLAY);
+        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_PLAY);
         if (iSession2 != null) {
             try {
                 iSession2.play(mControllerStub);
@@ -239,7 +239,7 @@ class MediaController2ImplBase implements MediaController2Impl {
 
     @Override
     public void pause() {
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_PLAYBACK_PAUSE);
+        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_PAUSE);
         if (iSession2 != null) {
             try {
                 iSession2.pause(mControllerStub);
@@ -256,7 +256,7 @@ class MediaController2ImplBase implements MediaController2Impl {
 
     @Override
     public void prepare() {
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_PLAYBACK_PREPARE);
+        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_PREPARE);
         if (iSession2 != null) {
             try {
                 iSession2.prepare(mControllerStub);
@@ -296,7 +296,7 @@ class MediaController2ImplBase implements MediaController2Impl {
         if (pos < 0) {
             throw new IllegalArgumentException("position shouldn't be negative");
         }
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_PLAYBACK_SEEK_TO);
+        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_SEEK_TO);
         if (iSession2 != null) {
             try {
                 iSession2.seekTo(mControllerStub, pos);
@@ -442,7 +442,7 @@ class MediaController2ImplBase implements MediaController2Impl {
                 return metadata.getLong(METADATA_KEY_DURATION);
             }
         }
-        return MediaPlayerConnector.UNKNOWN_TIME;
+        return SessionPlayer2.UNKNOWN_TIME;
     }
 
     @Override
@@ -452,7 +452,7 @@ class MediaController2ImplBase implements MediaController2Impl {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
                 return UNKNOWN_TIME;
             }
-            if (mPlayerState == MediaPlayerConnector.PLAYER_STATE_PLAYING) {
+            if (mPlayerState == SessionPlayer2.PLAYER_STATE_PLAYING) {
                 long timeDiff = (mInstance.mTimeDiff != null) ? mInstance.mTimeDiff
                         : SystemClock.elapsedRealtime() - mPositionEventTimeMs;
                 long expectedPosition = mPositionMs + (long) (mPlaybackSpeed * timeDiff);
@@ -476,7 +476,7 @@ class MediaController2ImplBase implements MediaController2Impl {
     @Override
     public void setPlaybackSpeed(float speed) {
         final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_PLAYBACK_SET_SPEED);
+                getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_SET_SPEED);
         if (iSession2 != null) {
             try {
                 iSession2.setPlaybackSpeed(mControllerStub, speed);
@@ -487,7 +487,7 @@ class MediaController2ImplBase implements MediaController2Impl {
     }
 
     @Override
-    public @MediaPlayerConnector.BuffState int getBufferingState() {
+    public @SessionPlayer2.BuffState int getBufferingState() {
         synchronized (mLock) {
             if (mISession2 == null) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -554,7 +554,7 @@ class MediaController2ImplBase implements MediaController2Impl {
 
     @Override
     public void setPlaylist(@NonNull List<MediaItem2> list, @Nullable MediaMetadata2 metadata) {
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_PLAYLIST_SET_LIST);
+        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_SET_LIST);
         if (iSession2 != null) {
             try {
                 iSession2.setPlaylist(mControllerStub,
@@ -569,7 +569,7 @@ class MediaController2ImplBase implements MediaController2Impl {
     @Override
     public void updatePlaylistMetadata(@Nullable MediaMetadata2 metadata) {
         final IMediaSession2 iSession2 = getSessionInterfaceIfAble(
-                COMMAND_CODE_PLAYLIST_UPDATE_LIST_METADATA);
+                COMMAND_CODE_PLAYER_UPDATE_LIST_METADATA);
         if (iSession2 != null) {
             try {
                 iSession2.updatePlaylistMetadata(mControllerStub,
@@ -589,7 +589,7 @@ class MediaController2ImplBase implements MediaController2Impl {
 
     @Override
     public void addPlaylistItem(int index, @NonNull MediaItem2 item) {
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_PLAYLIST_ADD_ITEM);
+        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_ADD_ITEM);
         if (iSession2 != null) {
             try {
                 iSession2.addPlaylistItem(mControllerStub, index,
@@ -603,7 +603,7 @@ class MediaController2ImplBase implements MediaController2Impl {
     @Override
     public void removePlaylistItem(@NonNull MediaItem2 item) {
         final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_PLAYLIST_REMOVE_ITEM);
+                getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_REMOVE_ITEM);
         if (iSession2 != null) {
             try {
                 iSession2.removePlaylistItem(mControllerStub,
@@ -617,7 +617,7 @@ class MediaController2ImplBase implements MediaController2Impl {
     @Override
     public void replacePlaylistItem(int index, @NonNull MediaItem2 item) {
         final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_PLAYLIST_REPLACE_ITEM);
+                getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_REPLACE_ITEM);
         if (iSession2 != null) {
             try {
                 iSession2.replacePlaylistItem(mControllerStub, index,
@@ -638,7 +638,7 @@ class MediaController2ImplBase implements MediaController2Impl {
     @Override
     public void skipToPreviousItem() {
         final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_PLAYLIST_SKIP_TO_PREV_ITEM);
+                getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_SKIP_TO_PREV_ITEM);
         if (iSession2 != null) {
             try {
                 iSession2.skipToPreviousItem(mControllerStub);
@@ -651,7 +651,7 @@ class MediaController2ImplBase implements MediaController2Impl {
     @Override
     public void skipToNextItem() {
         final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_PLAYLIST_SKIP_TO_NEXT_ITEM);
+                getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_SKIP_TO_NEXT_ITEM);
         if (iSession2 != null) {
             try {
                 iSession2.skipToNextItem(mControllerStub);
@@ -664,7 +664,7 @@ class MediaController2ImplBase implements MediaController2Impl {
     @Override
     public void skipToPlaylistItem(@NonNull MediaItem2 item) {
         final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_PLAYLIST_SKIP_TO_PLAYLIST_ITEM);
+                getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_SKIP_TO_PLAYLIST_ITEM);
         if (iSession2 != null) {
             try {
                 iSession2.skipToPlaylistItem(mControllerStub,
@@ -685,7 +685,7 @@ class MediaController2ImplBase implements MediaController2Impl {
     @Override
     public void setRepeatMode(int repeatMode) {
         final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_PLAYLIST_SET_REPEAT_MODE);
+                getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_SET_REPEAT_MODE);
         if (iSession2 != null) {
             try {
                 iSession2.setRepeatMode(mControllerStub, repeatMode);
@@ -705,7 +705,7 @@ class MediaController2ImplBase implements MediaController2Impl {
     @Override
     public void setShuffleMode(int shuffleMode) {
         final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_PLAYLIST_SET_SHUFFLE_MODE);
+                getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_SET_SHUFFLE_MODE);
         if (iSession2 != null) {
             try {
                 iSession2.setShuffleMode(mControllerStub, shuffleMode);

@@ -832,7 +832,7 @@ public class XMediaPlayer extends SessionPlayer2 {
             index = clamp(index, mPlaylist.size());
             int addedShuffleIdx = index;
             mPlaylist.add(index, item);
-            if (mShuffleMode == MediaPlaylistAgent.SHUFFLE_MODE_NONE) {
+            if (mShuffleMode == SessionPlayer2.SHUFFLE_MODE_NONE) {
                 mShuffledList.add(index, item);
             } else {
                 // Add the item in random position of mShuffledList.
@@ -1856,8 +1856,8 @@ public class XMediaPlayer extends SessionPlayer2 {
     private void applyShuffleModeLocked() {
         mShuffledList.clear();
         mShuffledList.addAll(mPlaylist);
-        if (mShuffleMode == MediaPlaylistAgent.SHUFFLE_MODE_ALL
-                || mShuffleMode == MediaPlaylistAgent.SHUFFLE_MODE_GROUP) {
+        if (mShuffleMode == SessionPlayer2.SHUFFLE_MODE_ALL
+                || mShuffleMode == SessionPlayer2.SHUFFLE_MODE_GROUP) {
             Collections.shuffle(mShuffledList);
         }
     }

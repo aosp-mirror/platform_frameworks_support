@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * Mock implementation of {@link BaseRemoteMediaPlayerConnector}.
+ * Mock implementation of {@link RemoteSessionPlayer2}.
  */
 public class MockRemotePlayer extends RemoteSessionPlayer2 {
     public final CountDownLatch mLatch = new CountDownLatch(1);

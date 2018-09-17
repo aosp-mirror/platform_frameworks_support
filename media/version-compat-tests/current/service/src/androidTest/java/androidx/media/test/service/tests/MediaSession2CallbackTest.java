@@ -93,7 +93,7 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
             assertFalse(mPlayer.mCountDownLatch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
             assertFalse(mPlayer.mPauseCalled);
             assertEquals(1, callback.commands.size());
-            assertEquals(SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE,
+            assertEquals(SessionCommand2.COMMAND_CODE_PLAYER_PAUSE,
                     (long) callback.commands.get(0).getCommandCode());
 
             mController2.play();
@@ -101,7 +101,7 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
             assertTrue(mPlayer.mPlayCalled);
             assertFalse(mPlayer.mPauseCalled);
             assertEquals(2, callback.commands.size());
-            assertEquals(SessionCommand2.COMMAND_CODE_PLAYBACK_PLAY,
+            assertEquals(SessionCommand2.COMMAND_CODE_PLAYER_PLAY,
                     (long) callback.commands.get(1).getCommandCode());
         }
     }
@@ -526,7 +526,7 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
             assertEquals(CLIENT_PACKAGE_NAME, controllerInfo.getPackageName());
             assertFalse(controllerInfo.isTrusted());
             commands.add(command);
-            if (command.getCommandCode() == SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE) {
+            if (command.getCommandCode() == SessionCommand2.COMMAND_CODE_PLAYER_PAUSE) {
                 return false;
             }
             return true;
