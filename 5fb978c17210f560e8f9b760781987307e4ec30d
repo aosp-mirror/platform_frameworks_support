@@ -62,6 +62,29 @@
       "revId": "5fb978c17210f560e8f9b760781987307e4ec30d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82409f82_ab0c0452",
+        "filename": "core/src/main/java/androidx/core/graphics/drawable/IconCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-09-17T23:49:46Z",
+      "side": 1,
+      "message": "are you taking adaptive bitmap into account as well?",
+      "range": {
+        "startLine": 366,
+        "startChar": 1,
+        "endLine": 386,
+        "endChar": 0
+      },
+      "revId": "5fb978c17210f560e8f9b760781987307e4ec30d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
