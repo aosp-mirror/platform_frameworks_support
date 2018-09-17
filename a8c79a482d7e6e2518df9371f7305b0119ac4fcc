@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3fe5af88_88920ee7",
+        "filename": "appcompat/res/values/styles.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-09-17T15:43:54Z",
+      "side": 1,
+      "message": "From my understanding of the architecture, it\u0027s not necessary so I can remove this added indirection through \"Base\". I\u0027ve done this to be consistent with other widgets (e.g. RadioButton). How would you like to proceed ?",
+      "parentUuid": "57495817_8f3a8935",
+      "range": {
+        "startLine": 192,
+        "startChar": 4,
+        "endLine": 192,
+        "endChar": 124
+      },
+      "revId": "a8c79a482d7e6e2518df9371f7305b0119ac4fcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "babfaa26_fa81312c",
         "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatToggleButton.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "a8c79a482d7e6e2518df9371f7305b0119ac4fcc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebf4eb22_da2651ab",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatToggleButton.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-09-17T15:43:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "babfaa26_fa81312c",
+      "range": {
+        "startLine": 29,
+        "startChar": 76,
+        "endLine": 29,
+        "endChar": 80
+      },
+      "revId": "a8c79a482d7e6e2518df9371f7305b0119ac4fcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
