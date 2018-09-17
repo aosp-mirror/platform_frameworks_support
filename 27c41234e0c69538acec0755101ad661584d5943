@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b70f3c1b_3a2b7ca5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-17T17:17:21Z",
+      "side": 1,
+      "message": "Oops, sorry. It seems updates are dropped. I\u0027m gonna apply those changes in the next patchset.",
+      "parentUuid": "4db684b8_6aa20750",
+      "range": {
+        "startLine": 7,
+        "startChar": 48,
+        "endLine": 7,
+        "endChar": 62
+      },
+      "revId": "27c41234e0c69538acec0755101ad661584d5943",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac69f46d_15e5cc39",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteDevicePickerDialog.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "27c41234e0c69538acec0755101ad661584d5943",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5eb5036d_8d33d35e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteDevicePickerDialog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-17T17:17:21Z",
+      "side": 1,
+      "message": "I\u0027m gonna revert this as I mentioned the reason at previous CL(aosp/751768). (Anyway, it even doesn\u0027t have access modifier and final. Sorry for mistake)",
+      "parentUuid": "ac69f46d_15e5cc39",
+      "range": {
+        "startLine": 460,
+        "startChar": 12,
+        "endLine": 460,
+        "endChar": 15
+      },
+      "revId": "27c41234e0c69538acec0755101ad661584d5943",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
