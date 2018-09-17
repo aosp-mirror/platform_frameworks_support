@@ -232,4 +232,5 @@
      <public type="attr" name="windowActionBarOverlay"/>
      <public type="attr" name="windowActionModeOverlay"/>
      <public type="attr" name="windowNoTitle"/>
+     <public type="attr" name="toggleButtonStyle"/>
 </resources>

@@ -189,6 +189,8 @@
 
     <style name="Widget.AppCompat.CompoundButton.RadioButton" parent="Base.Widget.AppCompat.CompoundButton.RadioButton" />
 
+    <style name="Widget.AppCompat.CompoundButton.ToggleButton" parent="Base.Widget.AppCompat.CompoundButton.ToggleButton" />
+
     <style name="Widget.AppCompat.RatingBar" parent="Base.Widget.AppCompat.RatingBar" />
 
     <style name="Widget.AppCompat.RatingBar.Indicator" parent="Base.Widget.AppCompat.RatingBar.Indicator" />
