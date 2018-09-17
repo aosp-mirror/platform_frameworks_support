@@ -73,7 +73,7 @@ import java.util.List;
  */
 public class SliceBrowser extends AppCompatActivity implements SliceView.OnSliceActionListener {
 
-    private static final String TAG = "SliceBrowser";
+    private static final String TAG = "mady";
 
     private static final String SLICE_METADATA_KEY = "android.metadata.SLICE_URI";
     private static final boolean TEST_INTENT = false;
@@ -346,6 +346,7 @@ public class SliceBrowser extends AppCompatActivity implements SliceView.OnSlice
                 Toast.makeText(this, "Invalid slice URI", Toast.LENGTH_SHORT).show();
             }
             mShowingSerialized = false;
+            Log.w("mady", "no longer serialized...");
             mSliceView.setSlice(slice);
         });
     }
@@ -403,6 +404,8 @@ public class SliceBrowser extends AppCompatActivity implements SliceView.OnSlice
         });
     }
 
+    private static boolean LOAD_LIVE = true;
+
     private void showCached(Slice s, Context context) {
         try {
             Log.d(TAG, "Serializing: " + s);
@@ -418,8 +421,13 @@ public class SliceBrowser extends AppCompatActivity implements SliceView.OnSlice
             byte[] bytes = outputStream.toByteArray();
             Log.d(TAG, "Serialized length: " + bytes.length);
             ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
-            showSlice(SliceLiveData.fromStream(context, inputStream,
-                    (type, source) -> Log.e(TAG, "onSliceError " + type, source)));
+            if (LOAD_LIVE) {
+                showSlice(SliceLiveData.fromStreamLoadLive(context, inputStream,
+                        (type, source) -> Log.e(TAG, "onSliceError2 " + type, source)));
+            } else {
+                showSlice(SliceLiveData.fromStream(context, inputStream,
+                        (type, source) -> Log.e(TAG, "onSliceError " + type, source)));
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

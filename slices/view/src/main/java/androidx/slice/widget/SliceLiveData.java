@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
@@ -107,7 +108,8 @@ public final class SliceLiveData {
      */
     public static @NonNull LiveData<Slice> fromStream(@NonNull Context context,
             @NonNull InputStream input, OnErrorListener listener) {
-        return fromStream(context, SliceViewManager.getInstance(context), input, listener, false);
+        return fromStream(context, SliceViewManager.getInstance(context), input, listener,
+                true /* blocking */, false /* loadLive */);
     }
 
     /**
@@ -116,7 +118,35 @@ public final class SliceLiveData {
      */
     public static @NonNull LiveData<Slice> fromStreamBlocking(@NonNull Context context,
             @NonNull InputStream input, OnErrorListener listener) {
-        return fromStream(context, SliceViewManager.getInstance(context), input, listener, true);
+        return fromStream(context, SliceViewManager.getInstance(context), input, listener,
+                true /* blocking */, false /* loadLive */);
+    }
+
+    /**
+     * Produces a {@link LiveData} that tracks a Slice for a given InputStream. TO use
+     * this method your app must have the permission to the slice Uri.
+     *
+     * This will request the hosting app for the slice immediately and use the InputStream until
+     * the fresh slice is retrieved from the hosting app.
+     */
+    public static @NonNull LiveData<Slice> fromStreamLoadLive(@NonNull Context context,
+            @NonNull InputStream input, OnErrorListener listener) {
+        return fromStream(context, SliceViewManager.getInstance(context), input, listener,
+                false /* blocking */, true /* loadLive */);
+    }
+
+    /**
+     * Produces a {@link LiveData} that tracks a Slice for a given InputStream. TO use
+     * this method your app must have the permission to the slice Uri.
+     *
+     * This will request the hosting app for the slice immediately and use the InputStream until
+     * the fresh slice is retrieved from the hosting app. This will block until loading the
+     * slice from the InputStream is complete.
+     */
+    public static @NonNull LiveData<Slice> fromStreamBlockingLoadLive(@NonNull Context context,
+            @NonNull InputStream input, OnErrorListener listener) {
+        return fromStream(context, SliceViewManager.getInstance(context), input, listener,
+                true /* blocking */, true /* loadLive */);
     }
 
     /**
@@ -127,8 +157,8 @@ public final class SliceLiveData {
     @NonNull
     public static LiveData<Slice> fromStream(@NonNull Context context,
             SliceViewManager manager, @NonNull InputStream input, OnErrorListener listener,
-            boolean blocking) {
-        return new CachedLiveDataImpl(context, manager, input, listener, blocking);
+            boolean blocking, boolean loadLive) {
+        return new CachedLiveDataImpl(context, manager, input, listener, blocking, loadLive);
     }
 
     private static class CachedLiveDataImpl extends LiveData<Slice> {
@@ -143,14 +173,17 @@ public final class SliceLiveData {
         List<Context> mPendingContext = new ArrayList<>();
         List<Intent> mPendingIntent = new ArrayList<>();
         private boolean mSliceCallbackRegistered;
+        private boolean mLoadLive;
 
         CachedLiveDataImpl(final Context context, final SliceViewManager manager,
-                final InputStream input, final OnErrorListener listener, boolean blocking) {
+                final InputStream input, final OnErrorListener listener, boolean blocking,
+                boolean loadLive) {
             super();
             mContext = context;
             mSliceViewManager = manager;
             mUri = null;
             mListener = listener;
+            mLoadLive = loadLive;
             if (blocking) {
                 loadInitialSlice(input);
             } else {
@@ -179,6 +212,9 @@ public final class SliceLiveData {
                     setValue(s);
                 } else {
                     postValue(s);
+                }
+                if (mLoadLive) {
+                    showLiveRegisterCallback();
                 }
             } catch (Exception e) {
                 mListener.onSliceError(OnErrorListener.ERROR_INVALID_INPUT, e);
@@ -210,7 +246,7 @@ public final class SliceLiveData {
         @Override
         protected void onInactive() {
             mActive = false;
-            if (mLive && mSliceCallbackRegistered) {
+            if (mUri != null && mLive && mSliceCallbackRegistered) {
                 mSliceViewManager.unregisterSliceCallback(mUri, mSliceCallback);
                 mSliceCallbackRegistered = false;
             }
@@ -283,6 +319,19 @@ public final class SliceLiveData {
                 postValue(s);
             }
         };
+
+        void showLiveRegisterCallback() {
+            if (mUri == null) {
+                return;
+            }
+            try {
+                Slice s = mSliceViewManager.bindSlice(mUri);
+                mLive = true;
+                mSliceCallback.onSliceUpdated(s);
+            } catch (Exception e) {
+               // mListener.onSliceError(OnErrorListener.ERROR_UNKNOWN, e);
+            }
+        }
     }
 
     private static class SliceLiveDataImpl extends LiveData<Slice> {

@@ -93,7 +93,7 @@ public class SliceLiveDataBlockingTest {
             @Override
             public void run() {
                 mLiveData = SliceLiveData.fromStream(mContext, mManager, input, mErrorListener,
-                        true);
+                        true /* blocking */, false /* loadlive */);
                 mLiveData.observeForever(mObserver);
             }
         });
@@ -264,7 +264,8 @@ public class SliceLiveDataBlockingTest {
             @Override
             public void run() {
                 mLiveData = SliceLiveData.fromStream(mContext, mManager,
-                        new ByteArrayInputStream(new byte[0]), mErrorListener, true);
+                        new ByteArrayInputStream(new byte[0]), mErrorListener, true /* blocking */,
+                        false /* loadlive */);
             }
         });
         verify(mErrorListener).onSliceError(
