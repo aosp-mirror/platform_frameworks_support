@@ -425,6 +425,30 @@
     },
     {
       "key": {
+        "uuid": "b1390d60_92ab68a9",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-17T15:07:11Z",
+      "side": 1,
+      "message": "I found that onMetadataChanged is also triggered when transferring to another route which means #510~512 is also needed to updateMetadataViews(). I\u0027m gonna also add #510~512 to updateMetadataViews() on next patchset. Thanks!",
+      "parentUuid": "3a00a40e_db2e2301",
+      "range": {
+        "startLine": 510,
+        "startChar": 8,
+        "endLine": 519,
+        "endChar": 9
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2364f29_db83920d",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 16
