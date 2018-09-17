@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df56c619_8f70dadd",
+        "filename": "media-widget/src/androidTest/java/androidx/media/widget/VideoView2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-17T02:48:00Z",
+      "side": 1,
+      "message": "Q) why is this condition necessary now? Isn\u0027t the initial state of the associated player always idle before preparing (or setting media sources)?",
+      "revId": "9afcdf908a67fd54fb653a5d2109ade69d743bb1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
