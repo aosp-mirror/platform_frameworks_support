@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2698b33c_bcc0db92",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T08:27:50Z",
+      "side": 1,
+      "message": "split",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 9
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8543508e_c177eb5a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T08:27:50Z",
+      "side": 1,
+      "message": "Why?",
+      "range": {
+        "startLine": 18,
+        "startChar": 24,
+        "endLine": 19,
+        "endChar": 15
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbd9935f_eb2fc14a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T08:27:50Z",
+      "side": 1,
+      "message": "again, why?",
+      "range": {
+        "startLine": 20,
+        "startChar": 19,
+        "endLine": 20,
+        "endChar": 65
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "945b90dd_a1e27ff6",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T08:27:50Z",
+      "side": 1,
+      "message": "1. This is not refactoring. Either change CL title or split\n2. What\u0027s better between setSupportsChangeAnimations(false) vs mRecyclerView.setItemAnimator(null)?",
+      "range": {
+        "startLine": 340,
+        "startChar": 0,
+        "endLine": 342,
+        "endChar": 0
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0d8310b_e5bf51b4",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T08:27:50Z",
+      "side": 1,
+      "message": "mHandler.removeCallbacksAndMessages(null)",
+      "range": {
+        "startLine": 392,
+        "startChar": 8,
+        "endLine": 393,
+        "endChar": 65
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a13c63a9_3238ce08",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T08:27:50Z",
+      "side": 1,
+      "message": "@WeakerAccess ~",
+      "range": {
+        "startLine": 446,
+        "startChar": 0,
+        "endLine": 446,
+        "endChar": 32
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab908d38_b638b974",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T08:27:50Z",
+      "side": 1,
+      "message": "who calls this?\nAdd this when needed.",
+      "range": {
+        "startLine": 498,
+        "startChar": 9,
+        "endLine": 498,
+        "endChar": 24
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c8e9f54_89455314",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T08:27:50Z",
+      "side": 1,
+      "message": "also this",
+      "range": {
+        "startLine": 499,
+        "startChar": 27,
+        "endLine": 499,
+        "endChar": 52
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2aa77b40_0f8bf850",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T08:27:50Z",
+      "side": 1,
+      "message": "don\u0027t we need similar check for updateMetadataView?",
+      "range": {
+        "startLine": 510,
+        "startChar": 8,
+        "endLine": 519,
+        "endChar": 9
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2364f29_db83920d",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T08:27:50Z",
+      "side": 1,
+      "message": "Q) What\u0027s the difference between refresh update?",
+      "range": {
+        "startLine": 562,
+        "startChar": 16,
+        "endLine": 562,
+        "endChar": 33
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a87a6f89_d888aade",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T08:27:50Z",
+      "side": 1,
+      "message": "why? when the dialog is attached to window later, it simply calls notifyDataSetChanged() and it will be refresh with old route info.",
+      "range": {
+        "startLine": 581,
+        "startChar": 0,
+        "endLine": 584,
+        "endChar": 0
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
