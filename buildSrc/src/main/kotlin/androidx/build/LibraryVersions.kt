@@ -54,7 +54,7 @@ object LibraryVersions {
     /**
      * Version code for Paging
      */
-    val PAGING = Version("2.1.0-alpha01")
+    val PAGING = Version("2.0.0-rc02")
 
     private val LIFECYCLES = Version("2.0.0-rc01")
 
