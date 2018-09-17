@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "4cba66c9_462015a1",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/ListBuilderBasicImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-09-17T16:08:03Z",
+      "side": 1,
+      "message": "this is annoying because of icons :(\n\nI\u0027m thinking maybe we might want to relax SliceAction from requiring an icon / maybe only in the SliceActionImpl in core so it\u0027s just used internally? That might make this a little easier?",
+      "range": {
+        "startLine": 184,
+        "startChar": 12,
+        "endLine": 184,
+        "endChar": 58
+      },
+      "revId": "88c0d7affdc8c2892114009207a90875f69be0b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "866dffba_dff62686",
         "filename": "slices/test/src/main/java/androidx/slice/test/SampleSliceProvider.java",
         "patchSetId": 6
