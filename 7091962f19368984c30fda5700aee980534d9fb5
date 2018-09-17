@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "40f1cfa4_62ce49a8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-17T12:36:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2698b33c_bcc0db92",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 9
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8543508e_c177eb5a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 16
@@ -45,6 +69,30 @@
       "revId": "7091962f19368984c30fda5700aee980534d9fb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27ed2ca4_977061ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-17T12:36:39Z",
+      "side": 1,
+      "message": "Talked offline.",
+      "parentUuid": "8543508e_c177eb5a",
+      "range": {
+        "startLine": 18,
+        "startChar": 24,
+        "endLine": 19,
+        "endChar": 15
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f278e1d7_2077609c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-17T12:36:39Z",
+      "side": 1,
+      "message": "Talked offline.",
+      "parentUuid": "fbd9935f_eb2fc14a",
+      "range": {
+        "startLine": 20,
+        "startChar": 19,
+        "endLine": 20,
+        "endChar": 65
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "945b90dd_a1e27ff6",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 16
@@ -91,6 +163,30 @@
       "revId": "7091962f19368984c30fda5700aee980534d9fb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67fa6368_4f27afe7",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-17T12:36:39Z",
+      "side": 1,
+      "message": "Sorry for confusion. Disabling animation doesn\u0027t need anymore since there\u0027s no notifyItemChanged. I\u0027m gonna remove this. Thanks!",
+      "parentUuid": "945b90dd_a1e27ff6",
+      "range": {
+        "startLine": 340,
+        "startChar": 0,
+        "endLine": 342,
+        "endChar": 0
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "3e099c64_9b048aad",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-17T12:36:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0d8310b_e5bf51b4",
+      "range": {
+        "startLine": 392,
+        "startChar": 8,
+        "endLine": 393,
+        "endChar": 65
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a13c63a9_3238ce08",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 16
@@ -137,6 +257,30 @@
       "revId": "7091962f19368984c30fda5700aee980534d9fb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29c90c15_3a125416",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-17T12:36:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a13c63a9_3238ce08",
+      "range": {
+        "startLine": 446,
+        "startChar": 0,
+        "endLine": 446,
+        "endChar": 32
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "71b8fe1b_5be74b08",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-17T12:36:39Z",
+      "side": 1,
+      "message": "Sorry for confusion. It has to be removed. Thanks.",
+      "parentUuid": "ab908d38_b638b974",
+      "range": {
+        "startLine": 498,
+        "startChar": 9,
+        "endLine": 498,
+        "endChar": 24
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c8e9f54_89455314",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 16
@@ -183,6 +351,30 @@
       "revId": "7091962f19368984c30fda5700aee980534d9fb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd4a6a11_1af9251f",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-17T12:36:39Z",
+      "side": 1,
+      "message": "ditto.",
+      "parentUuid": "7c8e9f54_89455314",
+      "range": {
+        "startLine": 499,
+        "startChar": 27,
+        "endLine": 499,
+        "endChar": 52
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "3a00a40e_db2e2301",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-17T12:36:39Z",
+      "side": 1,
+      "message": "Thanks for pointing out! \nI think updateMetadataViews() needs #513~519 but not #510~512.\nThe reason #510~512 isn\u0027t needed is that views updated by updateMetadataViews() don\u0027t show any route related information. \nDespite of the above reason, #513~516 is needed because it doesn\u0027t make sense to update metadata views if dialog has to be dismissed.",
+      "parentUuid": "2aa77b40_0f8bf850",
+      "range": {
+        "startLine": 510,
+        "startChar": 8,
+        "endLine": 519,
+        "endChar": 9
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2364f29_db83920d",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 16
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "75542802_8f1ee97d",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-17T12:36:39Z",
+      "side": 1,
+      "message": "Talked offline.",
+      "parentUuid": "a2364f29_db83920d",
+      "range": {
+        "startLine": 562,
+        "startChar": 16,
+        "endLine": 562,
+        "endChar": 33
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a87a6f89_d888aade",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 16
@@ -252,6 +492,30 @@
       "revId": "7091962f19368984c30fda5700aee980534d9fb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b311b98_8a96ab64",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-17T12:36:39Z",
+      "side": 1,
+      "message": "It\u0027s because updateRoutes() can be called in setRouteSelector()(#273) which is called before mAdapter is initialized in onCreate(). I think it\u0027d be better to move updateRoutes at #273 to #271 which will check mAttachedToWindow there. Then, I\u0027m gonna remove condition(#581) here.",
+      "parentUuid": "a87a6f89_d888aade",
+      "range": {
+        "startLine": 581,
+        "startChar": 0,
+        "endLine": 584,
+        "endChar": 0
+      },
+      "revId": "7091962f19368984c30fda5700aee980534d9fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
