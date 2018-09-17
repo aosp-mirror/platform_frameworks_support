@@ -35,7 +35,10 @@ open class CheckApiTask : MetalavaTask() {
      */
     @get:InputFile
     @get:OutputFile
-    var currentTxtFile: File? = null
+    var apiTxtFile: File? = null
+
+    /** Whether to permit API removals **/
+    var allowApiRemovals: Boolean = false
 
     /** Android's boot classpath. Obtained from [BaseExtension.getBootClasspath]. */
     @get:InputFiles
@@ -63,7 +66,7 @@ open class CheckApiTask : MetalavaTask() {
     fun exec() {
         val dependencyClasspath = checkNotNull(
                 dependencyClasspath) { "Dependency classpath not set." }
-        val currentTxtFile = checkNotNull(currentTxtFile) { "Current API file not set." }
+        val apiTxtFile = checkNotNull(apiTxtFile) { "Current API file not set." }
         check(bootClasspath.isNotEmpty()) { "Android boot classpath not set." }
         check(sourcePaths.isNotEmpty()) { "Source paths not set." }
 
@@ -74,8 +77,8 @@ open class CheckApiTask : MetalavaTask() {
             "--source-path",
             sourcePaths.filter { it.exists() }.joinToString(File.pathSeparator),
 
-            "--check-compatibility:api:current",
-            currentTxtFile.toString(),
+            "--check-compatibility:api:" + if (allowApiRemovals) { "released" } else {"current" },
+            apiTxtFile.toString(),
 
             "--no-banner",
             "--compatible-output=no",
