@@ -344,14 +344,14 @@ public class MockPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> skipToPreviousItem() {
+    public ListenableFuture<CommandResult2> skipToPreviousPlaylistItem() {
         mSkipToPreviousItemCalled = true;
         mCountDownLatch.countDown();
         return new SyncListenableFuture(mCurrentMediaItem);
     }
 
     @Override
-    public ListenableFuture<CommandResult2> skipToNextItem() {
+    public ListenableFuture<CommandResult2> skipToNextPlaylistItem() {
         mSkipToNextItemCalled = true;
         mCountDownLatch.countDown();
         return new SyncListenableFuture(mCurrentMediaItem);
@@ -408,6 +408,20 @@ public class MockPlayer extends SessionPlayer2 {
                 @Override
                 public void run() {
                     callback.onRepeatModeChanged(MockPlayer.this, repeatMode);
+                }
+            });
+        }
+    }
+
+    public void notifyPlaybackCompleted() {
+        Map<PlayerCallback, Executor> callbacks = getCallbacks();
+        for (Map.Entry<PlayerCallback, Executor> entry : callbacks.entrySet()) {
+            final PlayerCallback callback = entry.getKey();
+            final Executor executor = entry.getValue();
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onPlaybackCompleted(MockPlayer.this);
                 }
             });
         }
