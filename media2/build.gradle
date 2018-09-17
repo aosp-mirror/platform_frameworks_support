@@ -1,6 +1,7 @@
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
+import static androidx.build.dependencies.DependenciesKt.CHECKER_FRAMEWORK
 import static androidx.build.dependencies.DependenciesKt.ESPRESSO_CORE
 import static androidx.build.dependencies.DependenciesKt.TEST_RULES
 import static androidx.build.dependencies.DependenciesKt.TEST_RUNNER
@@ -13,6 +14,7 @@ dependencies {
     api(project(":media"))
     api(project(':versionedparcelable'))
     api project(":concurrent:futures")
+    annotationProcessor(CHECKER_FRAMEWORK)
     if (System.getProperties()['idea.platform.prefix'] != null) {
         // :media2-exoplayer merges the ExoPlayer JAR into its outputs, but Android Studio can't see
         // the symbols, so depend on the JAR directly.
