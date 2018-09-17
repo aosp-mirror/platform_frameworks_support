@@ -1249,7 +1249,7 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
 
     @Test
     @LargeTest
-    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.P)
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
     public void testSeekModes() throws Exception {
         // This clip has 2 I frames at 66687us and 4299687us.
         if (!checkLoadResource(
@@ -2183,7 +2183,7 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
 
     @Test
     @LargeTest
-    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.P)
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
     public void testMediaPlayer2Callback() throws Throwable {
         final int mp4Duration = 8484;
 
