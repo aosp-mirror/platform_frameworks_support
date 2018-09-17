@@ -241,7 +241,7 @@ public class MediaSession2Test extends MediaSession2TestBase {
         prepareLooper();
         final long testDuration = 9999;
         mPlayer.mDuration = testDuration;
-        mPlayer.mLastPlayerState = MediaPlayerConnector.PLAYER_STATE_PLAYING;
+        mPlayer.mLastPlayerState = SessionPlayer2.PLAYER_STATE_PLAYING;
         assertEquals(testDuration, mSession.getPlayer().getDuration());
     }
 
@@ -259,7 +259,7 @@ public class MediaSession2Test extends MediaSession2TestBase {
         prepareLooper();
         final float speed = 1.5f;
         mPlayer.setPlaybackSpeed(speed);
-        mPlayer.mLastPlayerState = MediaPlayerConnector.PLAYER_STATE_PLAYING;
+        mPlayer.mLastPlayerState = SessionPlayer2.PLAYER_STATE_PLAYING;
         assertEquals(speed, mSession.getPlayer().getPlaybackSpeed(), 0.0f);
     }
 
@@ -297,7 +297,7 @@ public class MediaSession2Test extends MediaSession2TestBase {
     @Test
     public void testGetPlayerState() {
         prepareLooper();
-        final int state = MediaPlayerConnector.PLAYER_STATE_PLAYING;
+        final int state = SessionPlayer2.PLAYER_STATE_PLAYING;
         mPlayer.mLastPlayerState = state;
         assertEquals(state, mSession.getPlayer().getPlayerState());
     }
@@ -305,7 +305,7 @@ public class MediaSession2Test extends MediaSession2TestBase {
     @Test
     public void testGetBufferingState() {
         prepareLooper();
-        final int bufferingState = MediaPlayerConnector.BUFFERING_STATE_BUFFERING_AND_PLAYABLE;
+        final int bufferingState = SessionPlayer2.BUFFERING_STATE_BUFFERING_AND_PLAYABLE;
         mPlayer.mLastBufferingState = bufferingState;
         assertEquals(bufferingState, mSession.getPlayer().getBufferingState());
     }
@@ -315,7 +315,7 @@ public class MediaSession2Test extends MediaSession2TestBase {
         prepareLooper();
         final long position = 150000;
         mPlayer.mCurrentPosition = position;
-        mPlayer.mLastPlayerState = MediaPlayerConnector.PLAYER_STATE_PLAYING;
+        mPlayer.mLastPlayerState = SessionPlayer2.PLAYER_STATE_PLAYING;
         assertEquals(position, mSession.getPlayer().getCurrentPosition());
     }
 
@@ -324,7 +324,7 @@ public class MediaSession2Test extends MediaSession2TestBase {
         prepareLooper();
         final long bufferedPosition = 900000;
         mPlayer.mBufferedPosition = bufferedPosition;
-        mPlayer.mLastPlayerState = MediaPlayerConnector.PLAYER_STATE_PLAYING;
+        mPlayer.mLastPlayerState = SessionPlayer2.PLAYER_STATE_PLAYING;
         assertEquals(bufferedPosition, mSession.getPlayer().getBufferedPosition());
     }
 
@@ -397,7 +397,7 @@ public class MediaSession2Test extends MediaSession2TestBase {
     @Test
     public void testSetShuffleMode() {
         prepareLooper();
-        final int testShuffleMode = MediaPlaylistAgent.SHUFFLE_MODE_GROUP;
+        final int testShuffleMode = SessionPlayer2.SHUFFLE_MODE_GROUP;
         mSession.getPlayer().setShuffleMode(testShuffleMode);
         assertTrue(mPlayer.mSetShuffleModeCalled);
         assertEquals(testShuffleMode, mPlayer.mShuffleMode);
@@ -406,7 +406,7 @@ public class MediaSession2Test extends MediaSession2TestBase {
     @Test
     public void testSetRepeatMode() {
         prepareLooper();
-        final int testRepeatMode = MediaPlaylistAgent.REPEAT_MODE_GROUP;
+        final int testRepeatMode = SessionPlayer2.REPEAT_MODE_GROUP;
         mSession.getPlayer().setRepeatMode(testRepeatMode);
         assertTrue(mPlayer.mSetRepeatModeCalled);
         assertEquals(testRepeatMode, mPlayer.mRepeatMode);

@@ -235,16 +235,6 @@ public abstract class MediaLibraryService2 extends MediaSessionService2 {
                 setSessionCallback(callbackExecutor, callback);
             }
 
-            @Override
-            public @NonNull Builder setPlayer(@NonNull MediaPlayerConnector player) {
-                return super.setPlayer(player);
-            }
-
-            @Override
-            public @NonNull Builder setPlaylistAgent(@NonNull MediaPlaylistAgent playlistAgent) {
-                return super.setPlaylistAgent(playlistAgent);
-            }
-
             /**
              * @hide
              */

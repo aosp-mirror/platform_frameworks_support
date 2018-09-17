@@ -245,7 +245,7 @@ public abstract class SessionPlayer2 implements AutoCloseable {
     @GuardedBy("mLock")
     private final Map<PlayerCallback, Executor> mCallbacks = new HashMap<>();
 
-    // APIs from the MediaPlayerConnector
+    // APIs from the SessionPlayer2
     public abstract @NonNull ListenableFuture<CommandResult2> play();
 
     public abstract @NonNull ListenableFuture<CommandResult2> pause();
@@ -278,7 +278,7 @@ public abstract class SessionPlayer2 implements AutoCloseable {
 
     public abstract float getPlaybackSpeed();
 
-    // APIs from the MediaPlaylistAgent
+    // APIs from the SessionPlayer2
     public abstract @NonNull ListenableFuture<CommandResult2> setPlaylist(
             List<MediaItem2> list, MediaMetadata2 metadata);
 
@@ -387,7 +387,7 @@ public abstract class SessionPlayer2 implements AutoCloseable {
     }
 
     public static abstract class PlayerCallback {
-        // Callbacks from MediaPlayerConnector
+        // Callbacks from SessionPlayer2
         public void onPlayerStateChanged(@NonNull SessionPlayer2 player,
                 @PlayerState int playerState) {
         }
@@ -403,7 +403,7 @@ public abstract class SessionPlayer2 implements AutoCloseable {
         public void onSeekCompleted(@NonNull SessionPlayer2 player, long position) {
         }
 
-        // Callbacks from MediaPlaylistAgent
+        // Callbacks from SessionPlayer2
         public void onPlaylistChanged(@NonNull SessionPlayer2 player, List<MediaItem2> list,
                 @Nullable MediaMetadata2 metadata) {
         }
