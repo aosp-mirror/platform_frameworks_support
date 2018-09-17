@@ -340,14 +340,14 @@ public class MockPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> skipToPreviousItem() {
+    public ListenableFuture<CommandResult2> skipToPreviousPlaylistItem() {
         mSkipToPreviousItemCalled = true;
         mCountDownLatch.countDown();
         return new SyncListenableFuture(mCurrentMediaItem);
     }
 
     @Override
-    public ListenableFuture<CommandResult2> skipToNextItem() {
+    public ListenableFuture<CommandResult2> skipToNextPlaylistItem() {
         mSkipToNextItemCalled = true;
         mCountDownLatch.countDown();
         return new SyncListenableFuture(mCurrentMediaItem);
