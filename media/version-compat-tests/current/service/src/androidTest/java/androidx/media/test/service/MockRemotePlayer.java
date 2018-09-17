@@ -170,12 +170,12 @@ public class MockRemotePlayer extends RemoteSessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> skipToPreviousItem() {
+    public ListenableFuture<CommandResult2> skipToPreviousPlaylistItem() {
         return null;
     }
 
     @Override
-    public ListenableFuture<CommandResult2> skipToNextItem() {
+    public ListenableFuture<CommandResult2> skipToNextPlaylistItem() {
         return null;
     }
 
