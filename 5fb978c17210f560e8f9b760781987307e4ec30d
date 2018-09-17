@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a87c6c44_ebee0906",
+        "filename": "core/src/main/java/androidx/core/app/Person.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-09-17T23:46:33Z",
+      "side": 1,
+      "message": "remove @RequiresApi(21) here and below,\nand add @RestrictTo(LIBRARY_GROUP)",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 20
+      },
+      "revId": "5fb978c17210f560e8f9b760781987307e4ec30d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e9ed554_0e1c95e9",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-09-17T23:46:33Z",
+      "side": 1,
+      "message": "@RestrictTo(LIBRARY_GROUP).\n\nWhere are you using this?",
+      "revId": "5fb978c17210f560e8f9b760781987307e4ec30d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec39663f_f032f53a",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-09-17T23:46:33Z",
+      "side": 1,
+      "message": "remove all getters. They will not be compatible with final platform APIs",
+      "range": {
+        "startLine": 258,
+        "startChar": 3,
+        "endLine": 357,
+        "endChar": 5
+      },
+      "revId": "5fb978c17210f560e8f9b760781987307e4ec30d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
