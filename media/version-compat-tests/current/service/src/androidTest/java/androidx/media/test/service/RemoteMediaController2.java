@@ -186,7 +186,7 @@ public class RemoteMediaController2 {
         try {
             mBinder.skipToPreviousItem(mControllerId);
         } catch (RemoteException ex) {
-            Log.e(TAG, "Failed to call skipToPreviousItem()");
+            Log.e(TAG, "Failed to call skipToPreviousPlaylistItem()");
         }
     }
 
@@ -194,7 +194,7 @@ public class RemoteMediaController2 {
         try {
             mBinder.skipToNextItem(mControllerId);
         } catch (RemoteException ex) {
-            Log.e(TAG, "Failed to call skipToNextItem()");
+            Log.e(TAG, "Failed to call skipToNextPlaylistItem()");
         }
     }
 
