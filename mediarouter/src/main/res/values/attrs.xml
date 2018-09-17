@@ -31,15 +31,9 @@
     <attr name="mediaRouteButtonStyle" format="reference" />
     <attr name="mediaRouteHeaderTextAppearance" format="reference" />
     <attr name="mediaRouteBodyTextAppearance" format="reference" />
-    <attr name="mediaRouteCloseDrawable" format="reference" />
-    <attr name="mediaRoutePlayDrawable" format="reference" />
-    <attr name="mediaRoutePauseDrawable" format="reference" />
-    <attr name="mediaRouteStopDrawable" format="reference" />
-    <attr name="mediaRouteAudioTrackDrawable" format="reference" />
-    <attr name="mediaRouteDefaultIconDrawable" format="reference" />
-    <attr name="mediaRouteTvIconDrawable" format="reference" />
-    <attr name="mediaRouteSpeakerIconDrawable" format="reference" />
-    <attr name="mediaRouteSpeakerGroupIconDrawable" format="reference" />
+    <attr name="mediaRouteLegacyIconTint" format="color" />
+    <attr name="mediaRouteLegacyDeviceTypeIconTint" format="color" />
+    <attr name="mediaRouteDynamicIconTint" format="color" />
     <attr name="mediaRouteDividerColor" format="color" />
     <attr name="mediaRouteControlPanelThemeOverlay" format="reference" />
 

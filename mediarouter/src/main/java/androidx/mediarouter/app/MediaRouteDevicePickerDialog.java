@@ -19,6 +19,7 @@ package androidx.mediarouter.app;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.app.AppCompatDialog;
+import androidx.core.widget.ImageViewCompat;
 import androidx.mediarouter.R;
 import androidx.mediarouter.media.MediaRouteSelector;
 import androidx.mediarouter.media.MediaRouter;
@@ -310,19 +312,11 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
         private final ArrayList<Item> mItems;
 
         private final LayoutInflater mInflater;
-        private final Drawable mDefaultIcon;
-        private final Drawable mTvIcon;
-        private final Drawable mSpeakerIcon;
-        private final Drawable mSpeakerGroupIcon;
 
         RecyclerAdapter() {
             mItems = new ArrayList<>();
 
             mInflater = LayoutInflater.from(mContext);
-            mDefaultIcon = MediaRouterThemeHelper.getDefaultDrawableIcon(mContext);
-            mTvIcon = MediaRouterThemeHelper.getTvDrawableIcon(mContext);
-            mSpeakerIcon = MediaRouterThemeHelper.getSpeakerDrawableIcon(mContext);
-            mSpeakerGroupIcon = MediaRouterThemeHelper.getSpeakerGroupDrawableIcon(mContext);
             setItems();
         }
 
@@ -377,38 +371,35 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
             return mItems.size();
         }
 
-        Drawable getIconDrawable(MediaRouter.RouteInfo route) {
-            Uri iconUri = route.getIconUri();
-            if (iconUri != null) {
-                try {
-                    InputStream is = mContext.getContentResolver().openInputStream(iconUri);
-                    Drawable drawable = Drawable.createFromStream(is, null);
-                    if (drawable != null) {
-                        return drawable;
-                    }
-                } catch (IOException e) {
-                    Log.w(TAG, "Failed to load " + iconUri, e);
-                    // Falls back.
+        private Drawable getIconDrawableByUri(Uri iconUri) {
+            try {
+                InputStream is = getContext().getContentResolver().openInputStream(iconUri);
+                Drawable drawable = Drawable.createFromStream(is, null);
+                if (drawable != null) {
+                    return drawable;
                 }
+            } catch (IOException e) {
+                Log.w(TAG, "Failed to load " + iconUri, e);
+                // Falls back.
             }
-            return getDefaultIconDrawable(route);
+            return null;
         }
 
-        private Drawable getDefaultIconDrawable(MediaRouter.RouteInfo route) {
+        private int getDefaultIconDrawableId(MediaRouter.RouteInfo route) {
             // If the type of the receiver device is specified, use it.
             switch (route.getDeviceType()) {
-                case  MediaRouter.RouteInfo.DEVICE_TYPE_TV:
-                    return mTvIcon;
+                case MediaRouter.RouteInfo.DEVICE_TYPE_TV:
+                    return R.drawable.ic_vol_type_tv;
                 case MediaRouter.RouteInfo.DEVICE_TYPE_SPEAKER:
-                    return mSpeakerIcon;
+                    return R.drawable.ic_vol_type_speaker;
             }
 
             // Otherwise, make the best guess based on other route information.
             if (route instanceof MediaRouter.RouteGroup) {
                 // Only speakers can be grouped for now.
-                return mSpeakerGroupIcon;
+                return R.drawable.ic_vol_type_speaker_group;
             }
-            return mDefaultIcon;
+            return R.drawable.ic_vol_type_default;
         }
 
         @Override
@@ -472,6 +463,7 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
             final ImageView mImageView;
             final ProgressBar mProgressBar;
             final TextView mTextView;
+            final int mIconTint;
 
             RouteViewHolder(View itemView) {
                 super(itemView);
@@ -479,6 +471,7 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
                 mImageView = itemView.findViewById(R.id.mr_picker_route_icon);
                 mProgressBar = itemView.findViewById(R.id.mr_picker_route_progress_bar);
                 mTextView = itemView.findViewById(R.id.mr_picker_route_name);
+                mIconTint = MediaRouterThemeHelper.getDevicTypeIconTintColor(mContext);
 
                 MediaRouterThemeHelper.setIndeterminateProgressBarColor(mContext, mProgressBar);
             }
@@ -499,7 +492,14 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
                     }
                 });
                 mTextView.setText(route.getName());
-                mImageView.setImageDrawable(getIconDrawable(route));
+                Uri iconUri = route.getIconUri();
+                if (iconUri == null) {
+                    ImageViewCompat.setImageTintList(mImageView, ColorStateList.valueOf(mIconTint));
+                    mImageView.setImageResource(getDefaultIconDrawableId(route));
+                } else {
+                    ImageViewCompat.setImageTintList(mImageView, null);
+                    mImageView.setImageDrawable(getIconDrawableByUri(iconUri));
+                }
             }
         }
     }

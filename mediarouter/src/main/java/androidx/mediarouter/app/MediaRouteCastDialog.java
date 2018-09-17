@@ -20,6 +20,7 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -53,7 +54,6 @@ import android.view.animation.Animation;
 import android.view.animation.Interpolator;
 import android.view.animation.Transformation;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -67,6 +67,7 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.core.util.ObjectsCompat;
+import androidx.core.widget.ImageViewCompat;
 import androidx.mediarouter.R;
 import androidx.mediarouter.media.MediaRouteProvider;
 import androidx.mediarouter.media.MediaRouteSelector;
@@ -695,8 +696,6 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             mMuteButton = muteButton;
             mVolumeSlider = volumeSlider;
 
-            Drawable muteButtonIcon = MediaRouterThemeHelper.getMuteButtonDrawableIcon(mContext);
-            mMuteButton.setImageDrawable(muteButtonIcon);
             MediaRouterThemeHelper.setVolumeSliderColor(mContext, mVolumeSlider);
         }
 
@@ -776,18 +775,10 @@ public class MediaRouteCastDialog extends AppCompatDialog {
 
         private final ArrayList<Item> mItems;
         private final LayoutInflater mInflater;
-        private final Drawable mDefaultIcon;
-        private final Drawable mTvIcon;
-        private final Drawable mSpeakerIcon;
-        private final Drawable mSpeakerGroupIcon;
 
         RecyclerAdapter() {
             mItems = new ArrayList<>();
             mInflater = LayoutInflater.from(mContext);
-            mDefaultIcon = MediaRouterThemeHelper.getDefaultDrawableIcon(mContext);
-            mTvIcon = MediaRouterThemeHelper.getTvDrawableIcon(mContext);
-            mSpeakerIcon = MediaRouterThemeHelper.getSpeakerDrawableIcon(mContext);
-            mSpeakerGroupIcon = MediaRouterThemeHelper.getSpeakerGroupDrawableIcon(mContext);
             setItems();
         }
 
@@ -955,38 +946,35 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             return mItems.size();
         }
 
-        Drawable getIconDrawable(MediaRouter.RouteInfo route) {
-            Uri iconUri = route.getIconUri();
-            if (iconUri != null) {
-                try {
-                    InputStream is = mContext.getContentResolver().openInputStream(iconUri);
-                    Drawable drawable = Drawable.createFromStream(is, null);
-                    if (drawable != null) {
-                        return drawable;
-                    }
-                } catch (IOException e) {
-                    Log.w(TAG, "Failed to load " + iconUri, e);
-                    // Falls back.
+        private Drawable getIconDrawableByUri(Uri iconUri) {
+            try {
+                InputStream is = getContext().getContentResolver().openInputStream(iconUri);
+                Drawable drawable = Drawable.createFromStream(is, null);
+                if (drawable != null) {
+                    return drawable;
                 }
+            } catch (IOException e) {
+                Log.w(TAG, "Failed to load " + iconUri, e);
+                // Falls back.
             }
-            return getDefaultIconDrawable(route);
+            return null;
         }
 
-        private Drawable getDefaultIconDrawable(MediaRouter.RouteInfo route) {
+        private int getDefaultIconDrawableId(MediaRouter.RouteInfo route) {
             // If the type of the receiver device is specified, use it.
             switch (route.getDeviceType()) {
                 case MediaRouter.RouteInfo.DEVICE_TYPE_TV:
-                    return mTvIcon;
+                    return R.drawable.ic_vol_type_tv;
                 case MediaRouter.RouteInfo.DEVICE_TYPE_SPEAKER:
-                    return mSpeakerIcon;
+                    return R.drawable.ic_vol_type_speaker;
             }
 
             // Otherwise, make the best guess based on other route information.
             if (route instanceof MediaRouter.RouteGroup) {
                 // Only speakers can be grouped for now.
-                return mSpeakerGroupIcon;
+                return R.drawable.ic_vol_type_speaker_group;
             }
-            return mDefaultIcon;
+            return R.drawable.ic_vol_type_default;
         }
 
         @Override
@@ -1058,8 +1046,9 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             final ProgressBar mProgressBar;
             final TextView mTextView;
             final RelativeLayout mVolumeSliderLayout;
-            final CheckBox mCheckBox;
+            final ImageButton mCheckBox;
 
+            final int mIconTint;
             final float mDisabledAlpha;
             final int mExpandedLayoutHeight;
             final int mCollapsedLayoutHeight;
@@ -1069,18 +1058,16 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             final View.OnClickListener mCheckBoxClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // If user clicked unchecked checkbox, isChecked returns true.
-                    if (((CheckBox) v).isChecked()) {
+                    if (v.isSelected()) {
+                        mCheckBox.setEnabled(false);
+                        mRoute.unselectFromGroup();
+                        animateLayoutHeight(mVolumeSliderLayout, mCollapsedLayoutHeight);
+                    } else {
                         mCheckBox.setEnabled(false);
                         mImageView.setVisibility(View.INVISIBLE);
                         mProgressBar.setVisibility(View.VISIBLE);
                         mRoute.selectIntoGroup();
                         animateLayoutHeight(mVolumeSliderLayout, mExpandedLayoutHeight);
-                    } else {
-                        // If user clicked checked checkbox, isChecked returns false.
-                        mCheckBox.setEnabled(false);
-                        mRoute.unselectFromGroup();
-                        animateLayoutHeight(mVolumeSliderLayout, mCollapsedLayoutHeight);
                     }
                 }
             };
@@ -1127,10 +1114,9 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 mVolumeSliderLayout = itemView.findViewById(R.id.mr_cast_volume_layout);
                 mCheckBox = itemView.findViewById(R.id.mr_cast_checkbox);
 
-                Drawable checkBoxIcon = MediaRouterThemeHelper.getCheckBoxDrawableIcon(mContext);
-                mCheckBox.setButtonDrawable(checkBoxIcon);
                 MediaRouterThemeHelper.setIndeterminateProgressBarColor(mContext, mProgressBar);
 
+                mIconTint = MediaRouterThemeHelper.getDevicTypeIconTintColor(mContext);
                 mDisabledAlpha = MediaRouterThemeHelper.getDisabledAlpha(mContext);
                 Resources res = mContext.getResources();
                 DisplayMetrics metrics = res.getDisplayMetrics();
@@ -1169,8 +1155,14 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 MediaRouter.RouteInfo route = (MediaRouter.RouteInfo) item.getData();
                 bindRouteVolumeSliderHolder(route);
 
-                // Get icons for route and checkbox.
-                mImageView.setImageDrawable(getIconDrawable(route));
+                Uri iconUri = route.getIconUri();
+                if (iconUri == null) {
+                    ImageViewCompat.setImageTintList(mImageView, ColorStateList.valueOf(mIconTint));
+                    mImageView.setImageResource(getDefaultIconDrawableId(route));
+                } else {
+                    ImageViewCompat.setImageTintList(mImageView, null);
+                    mImageView.setImageDrawable(getIconDrawableByUri(iconUri));
+                }
                 mTextView.setText(route.getName());
                 if (mSelectedRoute instanceof MediaRouter.DynamicGroupInfo) {
                     mCheckBox.setVisibility(View.VISIBLE);
@@ -1178,7 +1170,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                     boolean enabled = isEnabled(route);
 
                     // Set checked state of checkbox and replace progress bar with route type icon.
-                    mCheckBox.setChecked(selected);
+                    mCheckBox.setSelected(selected);
                     mProgressBar.setVisibility(View.INVISIBLE);
                     mImageView.setVisibility(View.VISIBLE);
 
@@ -1248,7 +1240,13 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                         mProgressBar.setVisibility(View.VISIBLE);
                     }
                 });
-                mImageView.setImageDrawable(getIconDrawable(route));
+                Uri iconUri = route.getIconUri();
+                if (iconUri == null) {
+                    mImageView.setImageResource(getDefaultIconDrawableId(route));
+                } else {
+                    ImageViewCompat.setImageTintMode(mImageView, null);
+                    mImageView.setImageDrawable(getIconDrawableByUri(iconUri));
+                }
                 mTextView.setText(route.getName());
             }
         }

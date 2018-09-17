@@ -16,6 +16,7 @@
   -->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
                    android:layout_width="match_parent"
                    android:layout_height="116dp">
     <ImageView android:id="@+id/mr_cast_meta_background"
@@ -38,7 +39,8 @@
                      android:layout_width="24dp"
                      android:layout_height="24dp"
                      android:layout_gravity="center_vertical"
-                     android:src="?attr/mediaRouteCloseDrawable"
+                     app:srcCompat="@drawable/ic_dialog_close"
+                     android:tint="?attr/mediaRouteDynamicIconTint"
                      android:background="?attr/selectableItemBackgroundBorderless" />
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="wrap_content"

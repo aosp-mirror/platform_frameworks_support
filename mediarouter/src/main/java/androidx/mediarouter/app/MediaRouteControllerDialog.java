@@ -1017,25 +1017,23 @@ public class MediaRouteControllerDialog extends AlertDialog {
                         || mState.getState() == PlaybackStateCompat.STATE_PLAYING;
                 Context playbackControlButtonContext = mPlaybackControlButton.getContext();
                 boolean visible = true;
-                int iconDrawableAttr = 0;
+                int iconDrawableId = 0;
                 int iconDescResId = 0;
                 if (isPlaying && isPauseActionSupported()) {
-                    iconDrawableAttr = R.attr.mediaRoutePauseDrawable;
+                    iconDrawableId = R.drawable.ic_media_pause;
                     iconDescResId = R.string.mr_controller_pause;
                 } else if (isPlaying && isStopActionSupported()) {
-                    iconDrawableAttr = R.attr.mediaRouteStopDrawable;
+                    iconDrawableId = R.drawable.ic_media_stop;
                     iconDescResId = R.string.mr_controller_stop;
                 } else if (!isPlaying && isPlayActionSupported()) {
-                    iconDrawableAttr = R.attr.mediaRoutePlayDrawable;
+                    iconDrawableId = R.drawable.ic_media_play;
                     iconDescResId = R.string.mr_controller_play;
                 } else {
                     visible = false;
                 }
                 mPlaybackControlButton.setVisibility(visible ? View.VISIBLE : View.GONE);
                 if (visible) {
-                    mPlaybackControlButton.setImageResource(
-                            MediaRouterThemeHelper.getThemeResource(
-                                    playbackControlButtonContext, iconDrawableAttr));
+                    mPlaybackControlButton.setImageResource(iconDrawableId);
                     mPlaybackControlButton.setContentDescription(
                             playbackControlButtonContext.getResources()
                                     .getText(iconDescResId));

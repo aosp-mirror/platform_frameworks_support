@@ -20,7 +20,7 @@ import static androidx.mediarouter.media.MediaRouter.RouteInfo.CONNECTION_STATE_
 import static androidx.mediarouter.media.MediaRouter.RouteInfo.CONNECTION_STATE_CONNECTING;
 
 import android.content.Context;
-import android.content.res.TypedArray;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,6 +41,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialog;
+import androidx.core.widget.ImageViewCompat;
 import androidx.mediarouter.R;
 import androidx.mediarouter.media.MediaRouteSelector;
 import androidx.mediarouter.media.MediaRouter;
@@ -249,24 +250,12 @@ public class MediaRouteChooserDialog extends AppCompatDialog {
     private final class RouteAdapter extends ArrayAdapter<MediaRouter.RouteInfo>
             implements ListView.OnItemClickListener {
         private final LayoutInflater mInflater;
-        private final Drawable mDefaultIcon;
-        private final Drawable mTvIcon;
-        private final Drawable mSpeakerIcon;
-        private final Drawable mSpeakerGroupIcon;
+        private final int mIconTint;
 
         public RouteAdapter(Context context, List<MediaRouter.RouteInfo> routes) {
             super(context, 0, routes);
             mInflater = LayoutInflater.from(context);
-            TypedArray styledAttributes = getContext().obtainStyledAttributes(new int[] {
-                    R.attr.mediaRouteDefaultIconDrawable,
-                    R.attr.mediaRouteTvIconDrawable,
-                    R.attr.mediaRouteSpeakerIconDrawable,
-                    R.attr.mediaRouteSpeakerGroupIconDrawable});
-            mDefaultIcon = styledAttributes.getDrawable(0);
-            mTvIcon = styledAttributes.getDrawable(1);
-            mSpeakerIcon = styledAttributes.getDrawable(2);
-            mSpeakerGroupIcon = styledAttributes.getDrawable(3);
-            styledAttributes.recycle();
+            mIconTint = MediaRouterThemeHelper.getDevicTypeIconTintColor(context);
         }
 
         @Override
@@ -307,7 +296,14 @@ public class MediaRouteChooserDialog extends AppCompatDialog {
 
             ImageView iconView = (ImageView) view.findViewById(R.id.mr_chooser_route_icon);
             if (iconView != null) {
-                iconView.setImageDrawable(getIconDrawable(route));
+                Uri iconUri = route.getIconUri();
+                if (iconUri == null) {
+                    ImageViewCompat.setImageTintList(iconView, ColorStateList.valueOf(mIconTint));
+                    iconView.setImageResource(getDefaultIconDrawableId(route));
+                } else {
+                    ImageViewCompat.setImageTintList(iconView, null);
+                    iconView.setImageDrawable(getIconDrawableByUri(iconUri));
+                }
             }
             return view;
         }
@@ -321,38 +317,35 @@ public class MediaRouteChooserDialog extends AppCompatDialog {
             }
         }
 
-        private Drawable getIconDrawable(MediaRouter.RouteInfo route) {
-            Uri iconUri = route.getIconUri();
-            if (iconUri != null) {
-                try {
-                    InputStream is = getContext().getContentResolver().openInputStream(iconUri);
-                    Drawable drawable = Drawable.createFromStream(is, null);
-                    if (drawable != null) {
-                        return drawable;
-                    }
-                } catch (IOException e) {
-                    Log.w(TAG, "Failed to load " + iconUri, e);
-                    // Falls back.
+        private Drawable getIconDrawableByUri(Uri iconUri) {
+            try {
+                InputStream is = getContext().getContentResolver().openInputStream(iconUri);
+                Drawable drawable = Drawable.createFromStream(is, null);
+                if (drawable != null) {
+                    return drawable;
                 }
+            } catch (IOException e) {
+                Log.w(TAG, "Failed to load " + iconUri, e);
+                // Falls back.
             }
-            return getDefaultIconDrawable(route);
+            return null;
         }
 
-        private Drawable getDefaultIconDrawable(MediaRouter.RouteInfo route) {
+        private int getDefaultIconDrawableId(MediaRouter.RouteInfo route) {
             // If the type of the receiver device is specified, use it.
             switch (route.getDeviceType()) {
-                case  MediaRouter.RouteInfo.DEVICE_TYPE_TV:
-                    return mTvIcon;
+                case MediaRouter.RouteInfo.DEVICE_TYPE_TV:
+                    return R.drawable.ic_vol_type_tv;
                 case MediaRouter.RouteInfo.DEVICE_TYPE_SPEAKER:
-                    return mSpeakerIcon;
+                    return R.drawable.ic_vol_type_speaker;
             }
 
             // Otherwise, make the best guess based on other route information.
             if (route instanceof MediaRouter.RouteGroup) {
                 // Only speakers can be grouped for now.
-                return mSpeakerGroupIcon;
+                return R.drawable.ic_vol_type_speaker_group;
             }
-            return mDefaultIcon;
+            return R.drawable.ic_vol_type_default;
         }
     }
 
