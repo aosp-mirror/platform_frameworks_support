@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a91ba74a_027b5ad8",
+        "filename": "paging/common/api/current.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-09-17T22:19:24Z",
+      "side": 1,
+      "message": "This should be package protected, why is it public?\n\nIs it because it\u0027s abstract at the DataSource level? That doesn\u0027t make sense, since it\u0027s not in DataSource above",
+      "revId": "61b219560f9a2277530713d704954f7397520ea9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6af2796_e7fe1b11",
+        "filename": "paging/common/api/current.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-09-17T22:19:24Z",
+      "side": 1,
+      "message": "This should be package protected, why is it public? (same as above)",
+      "revId": "61b219560f9a2277530713d704954f7397520ea9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
