@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4db684b8_6aa20750",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T09:31:00Z",
+      "side": 1,
+      "message": "Really? I\u0027m not seeing any use of dynamic group APIs.",
+      "range": {
+        "startLine": 7,
+        "startChar": 48,
+        "endLine": 7,
+        "endChar": 62
+      },
+      "revId": "27c41234e0c69538acec0755101ad661584d5943",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac69f46d_15e5cc39",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteDevicePickerDialog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-17T09:31:00Z",
+      "side": 1,
+      "message": "????",
+      "range": {
+        "startLine": 460,
+        "startChar": 12,
+        "endLine": 460,
+        "endChar": 15
+      },
+      "revId": "27c41234e0c69538acec0755101ad661584d5943",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
