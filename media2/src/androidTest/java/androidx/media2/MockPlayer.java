@@ -92,7 +92,7 @@ public class MockPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> play() {
+    public ListenableFuture<PlayerResult2> play() {
         mPlayCalled = true;
         if (mCountDownLatch != null) {
             mCountDownLatch.countDown();
@@ -104,7 +104,7 @@ public class MockPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> pause() {
+    public ListenableFuture<PlayerResult2> pause() {
         mPauseCalled = true;
         if (mCountDownLatch != null) {
             mCountDownLatch.countDown();
@@ -116,7 +116,7 @@ public class MockPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> prepare() {
+    public ListenableFuture<PlayerResult2> prepare() {
         mPrepareCalled = true;
         if (mCountDownLatch != null) {
             mCountDownLatch.countDown();
@@ -128,7 +128,7 @@ public class MockPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> seekTo(long pos) {
+    public ListenableFuture<PlayerResult2> seekTo(long pos) {
         mSeekToCalled = true;
         mSeekPosition = pos;
         if (mCountDownLatch != null) {
@@ -241,7 +241,7 @@ public class MockPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> setAudioAttributes(AudioAttributesCompat attributes) {
+    public ListenableFuture<PlayerResult2> setAudioAttributes(AudioAttributesCompat attributes) {
         mAudioAttributes = attributes;
         return new SyncListenableFuture(mCurrentMediaItem);
     }
@@ -252,7 +252,7 @@ public class MockPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> setPlaybackSpeed(float speed) {
+    public ListenableFuture<PlayerResult2> setPlaybackSpeed(float speed) {
         mSetPlaybackSpeedCalled = true;
         mPlaybackSpeed = speed;
         if (mCountDownLatch != null) {
@@ -271,14 +271,14 @@ public class MockPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> setMediaItem(MediaItem2 item) {
+    public ListenableFuture<PlayerResult2> setMediaItem(MediaItem2 item) {
         ArrayList list = new ArrayList<>();
         list.add(item);
         return setPlaylist(list, null);
     }
 
     @Override
-    public ListenableFuture<CommandResult2> setPlaylist(
+    public ListenableFuture<PlayerResult2> setPlaylist(
             List<MediaItem2> list, MediaMetadata2 metadata) {
         mSetPlaylistCalled = true;
         mPlaylist = list;
@@ -293,7 +293,7 @@ public class MockPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> updatePlaylistMetadata(MediaMetadata2 metadata) {
+    public ListenableFuture<PlayerResult2> updatePlaylistMetadata(MediaMetadata2 metadata) {
         mUpdatePlaylistMetadataCalled = true;
         mMetadata = metadata;
         mCountDownLatch.countDown();
@@ -306,7 +306,7 @@ public class MockPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> addPlaylistItem(int index, MediaItem2 item) {
+    public ListenableFuture<PlayerResult2> addPlaylistItem(int index, MediaItem2 item) {
         mAddPlaylistItemCalled = true;
         mIndex = index;
         mItem = item;
@@ -315,7 +315,7 @@ public class MockPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> removePlaylistItem(MediaItem2 item) {
+    public ListenableFuture<PlayerResult2> removePlaylistItem(MediaItem2 item) {
         mRemovePlaylistItemCalled = true;
         mItem = item;
         mCountDownLatch.countDown();
@@ -323,7 +323,7 @@ public class MockPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> replacePlaylistItem(int index, MediaItem2 item) {
+    public ListenableFuture<PlayerResult2> replacePlaylistItem(int index, MediaItem2 item) {
         mReplacePlaylistItemCalled = true;
         mIndex = index;
         mItem = item;
@@ -332,7 +332,7 @@ public class MockPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> skipToPlaylistItem(MediaItem2 item) {
+    public ListenableFuture<PlayerResult2> skipToPlaylistItem(MediaItem2 item) {
         mSkipToPlaylistItemCalled = true;
         mItem = item;
         mCountDownLatch.countDown();
@@ -340,14 +340,14 @@ public class MockPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> skipToPreviousItem() {
+    public ListenableFuture<PlayerResult2> skipToPreviousPlaylistItem() {
         mSkipToPreviousItemCalled = true;
         mCountDownLatch.countDown();
         return new SyncListenableFuture(mCurrentMediaItem);
     }
 
     @Override
-    public ListenableFuture<CommandResult2> skipToNextItem() {
+    public ListenableFuture<PlayerResult2> skipToNextPlaylistItem() {
         mSkipToNextItemCalled = true;
         mCountDownLatch.countDown();
         return new SyncListenableFuture(mCurrentMediaItem);
@@ -359,7 +359,7 @@ public class MockPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> setRepeatMode(int repeatMode) {
+    public ListenableFuture<PlayerResult2> setRepeatMode(int repeatMode) {
         mSetRepeatModeCalled = true;
         mRepeatMode = repeatMode;
         mCountDownLatch.countDown();
@@ -372,7 +372,7 @@ public class MockPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> setShuffleMode(int shuffleMode) {
+    public ListenableFuture<PlayerResult2> setShuffleMode(int shuffleMode) {
         mSetShuffleModeCalled = true;
         mShuffleMode = shuffleMode;
         mCountDownLatch.countDown();

@@ -17,7 +17,6 @@
 package androidx.media.test.service;
 
 import androidx.media.AudioAttributesCompat;
-import androidx.media2.CommandResult2;
 import androidx.media2.MediaItem2;
 import androidx.media2.MediaMetadata2;
 import androidx.media2.RemoteSessionPlayer2;
@@ -47,7 +46,7 @@ public class MockRemotePlayer extends RemoteSessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> setVolume(int volume) {
+    public ListenableFuture<PlayerResult2> setVolume(int volume) {
         mSetVolumeToCalled = true;
         mCurrentVolume = volume;
         mLatch.countDown();
@@ -55,7 +54,7 @@ public class MockRemotePlayer extends RemoteSessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> adjustVolume(int direction) {
+    public ListenableFuture<PlayerResult2> adjustVolume(int direction) {
         mAdjustVolumeCalled = true;
         mDirection = direction;
         mLatch.countDown();
@@ -78,32 +77,32 @@ public class MockRemotePlayer extends RemoteSessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> play() {
+    public ListenableFuture<PlayerResult2> play() {
         return null;
     }
 
     @Override
-    public ListenableFuture<CommandResult2> pause() {
+    public ListenableFuture<PlayerResult2> pause() {
         return null;
     }
 
     @Override
-    public ListenableFuture<CommandResult2> prepare() {
+    public ListenableFuture<PlayerResult2> prepare() {
         return null;
     }
 
     @Override
-    public ListenableFuture<CommandResult2> seekTo(long position) {
+    public ListenableFuture<PlayerResult2> seekTo(long position) {
         return null;
     }
 
     @Override
-    public ListenableFuture<CommandResult2> setPlaybackSpeed(float playbackSpeed) {
+    public ListenableFuture<PlayerResult2> setPlaybackSpeed(float playbackSpeed) {
         return null;
     }
 
     @Override
-    public ListenableFuture<CommandResult2> setAudioAttributes(AudioAttributesCompat attributes) {
+    public ListenableFuture<PlayerResult2> setAudioAttributes(AudioAttributesCompat attributes) {
         mAttributes = attributes;
         return new SyncListenableFuture(null);
     }
@@ -139,7 +138,7 @@ public class MockRemotePlayer extends RemoteSessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> setPlaylist(List<MediaItem2> list,
+    public ListenableFuture<PlayerResult2> setPlaylist(List<MediaItem2> list,
             MediaMetadata2 metadata) {
         return null;
     }
@@ -150,52 +149,52 @@ public class MockRemotePlayer extends RemoteSessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> setMediaItem(MediaItem2 item) {
+    public ListenableFuture<PlayerResult2> setMediaItem(MediaItem2 item) {
         return null;
     }
 
     @Override
-    public ListenableFuture<CommandResult2> addPlaylistItem(int index, MediaItem2 item) {
+    public ListenableFuture<PlayerResult2> addPlaylistItem(int index, MediaItem2 item) {
         return null;
     }
 
     @Override
-    public ListenableFuture<CommandResult2> removePlaylistItem(MediaItem2 item) {
+    public ListenableFuture<PlayerResult2> removePlaylistItem(MediaItem2 item) {
         return null;
     }
 
     @Override
-    public ListenableFuture<CommandResult2> replacePlaylistItem(int index, MediaItem2 item) {
+    public ListenableFuture<PlayerResult2> replacePlaylistItem(int index, MediaItem2 item) {
         return null;
     }
 
     @Override
-    public ListenableFuture<CommandResult2> skipToPreviousItem() {
+    public ListenableFuture<PlayerResult2> skipToPreviousPlaylistItem() {
         return null;
     }
 
     @Override
-    public ListenableFuture<CommandResult2> skipToNextItem() {
+    public ListenableFuture<PlayerResult2> skipToNextPlaylistItem() {
         return null;
     }
 
     @Override
-    public ListenableFuture<CommandResult2> skipToPlaylistItem(MediaItem2 item) {
+    public ListenableFuture<PlayerResult2> skipToPlaylistItem(MediaItem2 item) {
         return null;
     }
 
     @Override
-    public ListenableFuture<CommandResult2> updatePlaylistMetadata(MediaMetadata2 metadata) {
+    public ListenableFuture<PlayerResult2> updatePlaylistMetadata(MediaMetadata2 metadata) {
         return null;
     }
 
     @Override
-    public ListenableFuture<CommandResult2> setRepeatMode(int repeatMode) {
+    public ListenableFuture<PlayerResult2> setRepeatMode(int repeatMode) {
         return null;
     }
 
     @Override
-    public ListenableFuture<CommandResult2> setShuffleMode(int shuffleMode) {
+    public ListenableFuture<PlayerResult2> setShuffleMode(int shuffleMode) {
         return null;
     }
 
