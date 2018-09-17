@@ -22,6 +22,30 @@
       "revId": "768d1607fcd52e524c0bb750b1c18360ae44daa1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49c9f356_33e518ed",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-17T22:24:43Z",
+      "side": 1,
+      "message": "This won\u0027t be a fast fail because this is happening when the worker runs.  Throwing an exception in a random background thread won\u0027t really do anything.",
+      "parentUuid": "845156ba_26289648",
+      "range": {
+        "startLine": 194,
+        "startChar": 12,
+        "endLine": 194,
+        "endChar": 24
+      },
+      "revId": "768d1607fcd52e524c0bb750b1c18360ae44daa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
