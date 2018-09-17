@@ -400,6 +400,8 @@
 
     <style name="Base.TextAppearance.AppCompat.Widget.Switch" parent="TextAppearance.AppCompat.Button" />
 
+    <style name="Base.Widget.AppCompat.CompoundButton.ToggleButton" parent="android:Widget.Button.Toggle" />
+
     <style name="Base.Widget.AppCompat.RatingBar" parent="android:Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/abc_ratingbar_material</item>
         <item name="android:indeterminateDrawable">@drawable/abc_ratingbar_material</item>

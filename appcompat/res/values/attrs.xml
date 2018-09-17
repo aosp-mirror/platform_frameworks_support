@@ -392,6 +392,8 @@
         <attr name="spinnerStyle" format="reference" />
         <!-- Default style for the Switch widget. -->
         <attr name="switchStyle" format="reference" />
+        <!-- Default style for the Toggle Button widget. -->
+        <attr name="toggleButtonStyle" format="reference" />
 
         <!-- Default menu-style ListView style. -->
         <attr name="listMenuViewStyle" format="reference" />
