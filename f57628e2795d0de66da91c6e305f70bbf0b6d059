@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7b9143ba_51c35ad6",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-17T20:56:43Z",
+      "side": 1,
+      "message": "Good call; I think you\u0027re right\n\n(and to clarify why we\u0027d want to do that, I think that moving this logic to the AndroidXPlugin would cause this to be available to projects using the SupportJavaLibraryPlugin , for example, paging/common)\n\n\nMaybe we should figure out how to clarify via a comment above the SupportAndroidLibraryPlugin class that this class is specifically for libraries that are Android-specific and that the plugin that gets also applied on non-Android-specific libraries too is the AndroidXPlugin",
+      "parentUuid": "71e79f39_e522a106",
+      "revId": "f57628e2795d0de66da91c6e305f70bbf0b6d059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d1b79efe_5ed6a431",
         "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
         "patchSetId": 10
