@@ -36,6 +36,7 @@ import androidx.media2.MediaPlayer2;
 import androidx.media2.UriMediaItem2;
 import androidx.media2.common.TrackInfoImpl;
 import androidx.media2.exoplayer.external.Format;
+import androidx.media2.exoplayer.external.SeekParameters;
 import androidx.media2.exoplayer.external.audio.AudioAttributes;
 import androidx.media2.exoplayer.external.mediacodec.MediaFormatUtil;
 import androidx.media2.exoplayer.external.source.ExtractorMediaSource;
@@ -94,6 +95,22 @@ import java.util.List;
                 .setFlags(audioAttributes.flags)
                 .setUsage(audioAttributes.usage)
                 .build();
+    }
+
+    /** Returns ExoPlayer seek parameters for the given seek mode. */
+    public static SeekParameters getSeekParameters(int seekMode) {
+        switch (seekMode) {
+            case MediaPlayer2.SEEK_CLOSEST:
+                return SeekParameters.EXACT;
+            case MediaPlayer2.SEEK_CLOSEST_SYNC:
+                return SeekParameters.CLOSEST_SYNC;
+            case MediaPlayer2.SEEK_NEXT_SYNC:
+                return SeekParameters.NEXT_SYNC;
+            case MediaPlayer2.SEEK_PREVIOUS_SYNC:
+                return SeekParameters.PREVIOUS_SYNC;
+            default:
+                throw new IllegalArgumentException();
+        }
     }
 
     /** Returns the track info list corresponding to an ExoPlayer track group array. */
