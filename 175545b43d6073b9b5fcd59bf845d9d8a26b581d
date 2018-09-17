@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e02a686_8efd1f9c",
+        "filename": "media2/media2-exoplayer/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-09-17T16:59:47Z",
+      "side": 1,
+      "message": "Why is this compile only? Aren\u0027t we going to crash in run time?",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 34
+      },
+      "revId": "175545b43d6073b9b5fcd59bf845d9d8a26b581d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eed653f4_2e3d820e",
+        "filename": "media2/media2-exoplayer/proguard-rules.pro",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-09-17T16:59:47Z",
+      "side": 1,
+      "message": "I don\u0027t think this is a good idea. Anyone who includes your library will get all the warnings about org.checkerframework disabled. Some of these warnings might be legit. Why are we suppressing this?",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 33
+      },
+      "revId": "175545b43d6073b9b5fcd59bf845d9d8a26b581d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
