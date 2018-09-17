@@ -49,6 +49,7 @@ import androidx.media.AudioAttributesCompat;
  * @see {@docRoot}guide/topics/media-apps/volume-and-earphones.html
  * @hide
  */
+// TODO(jaewan): Change to be used by XMediaPlayer.
 @VisibleForTesting(otherwise = PACKAGE_PRIVATE)
 @RestrictTo(Scope.LIBRARY)
 public class AudioFocusHandler {
@@ -173,7 +174,7 @@ public class AudioFocusHandler {
         /**
          * Check we need to abandon/request audio focus when playback state becomes playing. It's
          * needed to handle following cases.
-         *   1. Audio attribute has changed between {@link MediaPlayerConnector#play} and actual
+         *   1. Audio attribute has changed between {@link SessionPlayer2#play} and actual
          *      start of playback. Note that {@link MediaPlayer2} only allows changing audio
          *      attributes in IDLE state, so such issue wouldn't happen.
          *   2. Or, playback is started without MediaSession2#play().

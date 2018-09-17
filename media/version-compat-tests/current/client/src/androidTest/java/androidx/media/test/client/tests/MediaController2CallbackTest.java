@@ -46,7 +46,6 @@ import androidx.media2.MediaController2;
 import androidx.media2.MediaController2.PlaybackInfo;
 import androidx.media2.MediaItem2;
 import androidx.media2.MediaMetadata2;
-import androidx.media2.MediaPlaylistAgent;
 import androidx.media2.MediaSession2;
 import androidx.media2.MediaSession2.ControllerInfo;
 import androidx.media2.SessionCommand2;
@@ -413,7 +412,7 @@ public class MediaController2CallbackTest extends MediaSession2TestBase {
     @Test
     public void testOnShuffleModeChanged() throws InterruptedException {
         prepareLooper();
-        final int testShuffleMode = MediaPlaylistAgent.SHUFFLE_MODE_GROUP;
+        final int testShuffleMode = SessionPlayer2.SHUFFLE_MODE_GROUP;
         final CountDownLatch latch = new CountDownLatch(1);
         final MediaController2.ControllerCallback callback =
                 new MediaController2.ControllerCallback() {
@@ -438,7 +437,7 @@ public class MediaController2CallbackTest extends MediaSession2TestBase {
     @Test
     public void testOnRepeatModeChanged() throws InterruptedException {
         prepareLooper();
-        final int testRepeatMode = MediaPlaylistAgent.REPEAT_MODE_GROUP;
+        final int testRepeatMode = SessionPlayer2.REPEAT_MODE_GROUP;
         final CountDownLatch latch = new CountDownLatch(1);
         final MediaController2.ControllerCallback callback =
                 new MediaController2.ControllerCallback() {
