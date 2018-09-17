@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "845156ba_26289648",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-17T22:15:20Z",
+      "side": 1,
+      "message": "I think this should throw an IllegalStateException - this only happens when the Factory fails to uphold its contract, a clear developer error that should fail fast rather than have work silently disappear.",
+      "range": {
+        "startLine": 194,
+        "startChar": 12,
+        "endLine": 194,
+        "endChar": 24
+      },
+      "revId": "768d1607fcd52e524c0bb750b1c18360ae44daa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
