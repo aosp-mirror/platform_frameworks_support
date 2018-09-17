@@ -228,7 +228,7 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
 
     @Override
     public void onStop() {
-        // Here, we don't call MediaPlayerConnector#reset() since it may result removing
+        // Here, we don't call SessionPlayer2#reset() since it may result removing
         // all callbacks from the player. Instead, we pause and seek to zero.
         // Here, we check both permissions: Pause / SeekTo.
         onSessionCommand(SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE, new SessionRunnable() {

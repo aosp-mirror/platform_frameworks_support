@@ -23,8 +23,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.media2.MediaController2.PlaybackInfo;
-import androidx.media2.MediaPlayerConnector.BuffState;
 import androidx.media2.MediaSession2.CommandButton;
+import androidx.media2.SessionPlayer2.BuffState;
 import androidx.versionedparcelable.ParcelImpl;
 import androidx.versionedparcelable.ParcelUtils;
 

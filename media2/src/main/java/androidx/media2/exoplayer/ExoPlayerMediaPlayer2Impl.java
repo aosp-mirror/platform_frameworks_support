@@ -34,15 +34,14 @@ import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
-import androidx.collection.ArrayMap;
 import androidx.core.util.ObjectsCompat;
 import androidx.core.util.Preconditions;
 import androidx.media.AudioAttributesCompat;
 import androidx.media2.MediaItem2;
 import androidx.media2.MediaPlayer2;
-import androidx.media2.MediaPlayerConnector;
 import androidx.media2.MediaTimestamp2;
 import androidx.media2.PlaybackParams2;
+import androidx.media2.SessionPlayer2;
 import androidx.media2.exoplayer.external.C;
 import androidx.media2.exoplayer.external.DefaultLoadControl;
 import androidx.media2.exoplayer.external.DefaultRenderersFactory;
@@ -100,12 +99,9 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final Object mLock;
     @GuardedBy("mLock")
-    private ArrayMap<MediaPlayerConnector.PlayerEventCallback, Executor>
-            mExecutorByPlayerEventCallback;
-    @GuardedBy("mLock")
     private Pair<Executor, EventCallback> mExecutorAndEventCallback;
     @GuardedBy("mLock")
-    private MediaPlayerConnector mMediaPlayerConnectorImpl;
+    private SessionPlayer2 mMediaPlayerConnectorImpl;
     @GuardedBy("mLock")
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     @Nullable MediaItem2 mMediaItem;
@@ -152,7 +148,6 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
         mPlayer.addVideoListener(listener);
         mPlayerLock = new Object();
 
-        mExecutorByPlayerEventCallback = new ArrayMap<>();
         mLock = new Object();
         mStartPlaybackTimeNs = -1;
     }
@@ -206,24 +201,6 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
         }
     }
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    void registerPlayerEventCallback(@NonNull Executor executor,
-            @NonNull MediaPlayerConnector.PlayerEventCallback callback) {
-        Preconditions.checkNotNull(callback);
-        Preconditions.checkNotNull(executor);
-        synchronized (mLock) {
-            mExecutorByPlayerEventCallback.put(callback, executor);
-        }
-    }
-
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    void unregisterPlayerEventCallback(@NonNull MediaPlayerConnector.PlayerEventCallback callback) {
-        Preconditions.checkNotNull(callback);
-        synchronized (mLock) {
-            mExecutorByPlayerEventCallback.remove(callback);
-        }
-    }
-
     @Override
     public void setEventCallback(@NonNull Executor executor, @NonNull EventCallback eventCallback) {
         Preconditions.checkNotNull(executor);
@@ -242,25 +219,6 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
         if (executorAndEventCallback != null) {
             Executor executor = executorAndEventCallback.first;
             final EventCallback eventCallback = executorAndEventCallback.second;
-            executor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    notifier.notify(eventCallback);
-                }
-            });
-        }
-    }
-
-    @SuppressWarnings({"unused", "WeakerAccess"}) /* synthetic access */
-    void notifyPlayerEvent(final PlayerEventNotifier notifier) {
-        ArrayMap<MediaPlayerConnector.PlayerEventCallback, Executor> map;
-        synchronized (mLock) {
-            map = new ArrayMap<>(mExecutorByPlayerEventCallback);
-        }
-        final int callbackCount = map.size();
-        for (int i = 0; i < callbackCount; i++) {
-            final Executor executor = map.valueAt(i);
-            final MediaPlayerConnector.PlayerEventCallback eventCallback = map.keyAt(i);
             executor.execute(new Runnable() {
                 @Override
                 public void run() {
@@ -376,18 +334,18 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
     }
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    @MediaPlayerConnector.PlayerState int getPlayerState() {
+    @SessionPlayer2.PlayerState int getPlayerState() {
         int state = getState();
         switch (state) {
             case PLAYER_STATE_IDLE:
-                return MediaPlayerConnector.PLAYER_STATE_IDLE;
+                return SessionPlayer2.PLAYER_STATE_IDLE;
             case PLAYER_STATE_PREPARED:
             case PLAYER_STATE_PAUSED:
-                return MediaPlayerConnector.PLAYER_STATE_PAUSED;
+                return SessionPlayer2.PLAYER_STATE_PAUSED;
             case PLAYER_STATE_PLAYING:
-                return MediaPlayerConnector.PLAYER_STATE_PLAYING;
+                return SessionPlayer2.PLAYER_STATE_PLAYING;
             case PLAYER_STATE_ERROR:
-                return MediaPlayerConnector.PLAYER_STATE_ERROR;
+                return SessionPlayer2.PLAYER_STATE_ERROR;
             default:
                 throw new IllegalStateException();
         }
@@ -403,16 +361,6 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
                 }
             }
         });
-    }
-
-    @Override
-    public MediaPlayerConnector getMediaPlayerConnector() {
-        synchronized (mLock) {
-            if (mMediaPlayerConnectorImpl == null) {
-                mMediaPlayerConnectorImpl = new ExoPlayerMediaPlayerConnector();
-            }
-            return mMediaPlayerConnectorImpl;
-        }
     }
 
     @Override
@@ -791,12 +739,6 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
                             /* extra= */ 0);
                 }
             });
-            notifyPlayerEvent(new PlayerEventNotifier() {
-                @Override
-                public void notify(MediaPlayerConnector.PlayerEventCallback cb) {
-                    cb.onMediaPrepared(getMediaPlayerConnector(), item);
-                }
-            });
             synchronized (mTaskLock) {
                 if (mCurrentTask != null
                         && mCurrentTask.mMediaCallType == CALL_COMPLETED_PREPARE
@@ -817,124 +759,8 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
 
     }
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    final class ExoPlayerMediaPlayerConnector extends MediaPlayerConnector {
-
-        @Override
-        public void prepare() {
-            ExoPlayerMediaPlayer2Impl.this.prepare();
-        }
-
-        @Override
-        public void play() {
-            ExoPlayerMediaPlayer2Impl.this.play();
-        }
-
-        @Override
-        public void pause() {
-            ExoPlayerMediaPlayer2Impl.this.pause();
-        }
-
-        @Override
-        public void reset() {
-            ExoPlayerMediaPlayer2Impl.this.reset();
-        }
-
-        @Override
-        public void skipToNext() {
-            ExoPlayerMediaPlayer2Impl.this.skipToNext();
-        }
-
-        @Override
-        public void seekTo(long pos) {
-            ExoPlayerMediaPlayer2Impl.this.seekTo(pos);
-        }
-
-        @Override
-        public void setAudioAttributes(AudioAttributesCompat attributes) {
-            ExoPlayerMediaPlayer2Impl.this.setAudioAttributes(attributes);
-        }
-
-        @Override
-        public AudioAttributesCompat getAudioAttributes() {
-            return ExoPlayerMediaPlayer2Impl.this.getAudioAttributes();
-        }
-
-        @Override
-        public void setMediaItem(MediaItem2 item) {
-            ExoPlayerMediaPlayer2Impl.this.setMediaItem(item);
-        }
-
-        @Override
-        public void setNextMediaItem(MediaItem2 item) {
-            ExoPlayerMediaPlayer2Impl.this.setNextMediaItem(item);
-        }
-
-        @Override
-        public void setNextMediaItems(List<MediaItem2> items) {
-            ExoPlayerMediaPlayer2Impl.this.getNextMediaItems(items);
-        }
-
-        @Override
-        public MediaItem2 getCurrentMediaItem() {
-            return ExoPlayerMediaPlayer2Impl.this.getCurrentMediaItem();
-        }
-
-        @Override
-        public void loopCurrent(boolean loop) {
-            ExoPlayerMediaPlayer2Impl.this.loopCurrent(loop);
-        }
-
-        @Override
-        public void setPlayerVolume(float volume) {
-            ExoPlayerMediaPlayer2Impl.this.setPlayerVolume(volume);
-        }
-
-        @Override
-        public float getPlayerVolume() {
-            return ExoPlayerMediaPlayer2Impl.this.getPlayerVolume();
-        }
-
-        @Override
-        public void close() {
-            ExoPlayerMediaPlayer2Impl.this.close();
-        }
-
-        @Override
-        public void registerPlayerEventCallback(Executor executor, PlayerEventCallback callback) {
-            ExoPlayerMediaPlayer2Impl.this.registerPlayerEventCallback(executor, callback);
-        }
-
-        @Override
-        public void unregisterPlayerEventCallback(PlayerEventCallback callback) {
-            ExoPlayerMediaPlayer2Impl.this.unregisterPlayerEventCallback(callback);
-        }
-
-        @Override
-        public int getPlayerState() {
-            return ExoPlayerMediaPlayer2Impl.this.getPlayerState();
-        }
-
-        // TODO: Implement these methods:
-
-        @Override
-        public void setPlaybackSpeed(float speed) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public int getBufferingState() {
-            return MediaPlayerConnector.BUFFERING_STATE_UNKNOWN;
-        }
-
-    }
-
     private interface Mp2EventNotifier {
         void notify(EventCallback callback);
-    }
-
-    private interface PlayerEventNotifier {
-        void notify(MediaPlayerConnector.PlayerEventCallback callback);
     }
 
     private abstract class Task implements Runnable {
