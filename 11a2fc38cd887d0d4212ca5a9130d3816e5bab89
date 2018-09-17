@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb29520a_a7ebc232",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-17T21:37:58Z",
+      "side": 1,
+      "message": "I\u0027m not sure about this. Have we discussed about this before?",
+      "range": {
+        "startLine": 254,
+        "startChar": 8,
+        "endLine": 254,
+        "endChar": 82
+      },
+      "revId": "11a2fc38cd887d0d4212ca5a9130d3816e5bab89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20dab89c_f81def37",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1159,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-17T21:37:58Z",
+      "side": 1,
+      "message": "I think there can be an item which is not in the playlist.\nAfter I took a look on YT behavior, setMediaItem(item) !\u003d setPlaylist(new List\u003cMediaItem\u003e(item))",
+      "revId": "11a2fc38cd887d0d4212ca5a9130d3816e5bab89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "beec850d_c0c3ee52",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1195,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-17T21:37:58Z",
+      "side": 1,
+      "message": "Why do we need to do this here?",
+      "range": {
+        "startLine": 1195,
+        "startChar": 12,
+        "endLine": 1195,
+        "endChar": 34
+      },
+      "revId": "11a2fc38cd887d0d4212ca5a9130d3816e5bab89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

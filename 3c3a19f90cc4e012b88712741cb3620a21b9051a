@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f781333d_bf66445c",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1376,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-17T21:37:58Z",
+      "side": 0,
+      "message": "Is it ok not to handle this now?",
+      "range": {
+        "startLine": 1373,
+        "startChar": 0,
+        "endLine": 1376,
+        "endChar": 74
+      },
+      "revId": "3c3a19f90cc4e012b88712741cb3620a21b9051a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
