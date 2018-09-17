@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "51e75943_7b321fe0",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-09-17T20:58:53Z",
+      "side": 1,
+      "message": "I\u0027m hoping the death of SupportAndroidLibraryPlugin and SupportJavaLibraryPlugin will be that, but too many things. I will add comments to them in a separate CL to discourage adding functionality.",
+      "parentUuid": "7b9143ba_51c35ad6",
+      "revId": "f57628e2795d0de66da91c6e305f70bbf0b6d059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d1b79efe_5ed6a431",
         "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
         "patchSetId": 10
