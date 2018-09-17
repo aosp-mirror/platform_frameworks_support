@@ -75,7 +75,6 @@ package androidx.car.drawer {
   }
 
   public class CarDrawerController {
-    ctor public deprecated CarDrawerController(androidx.appcompat.widget.Toolbar, androidx.drawerlayout.widget.DrawerLayout, androidx.appcompat.app.ActionBarDrawerToggle);
     ctor public CarDrawerController(androidx.drawerlayout.widget.DrawerLayout, androidx.appcompat.app.ActionBarDrawerToggle);
     method public void addDrawerListener(androidx.drawerlayout.widget.DrawerLayout.DrawerListener);
     method public void closeDrawer();
@@ -97,32 +96,6 @@ package androidx.car.drawer {
     method public android.widget.ImageView getIconView();
     method public android.widget.TextView getTitleView();
     method public void onUxRestrictionsChanged(androidx.car.uxrestrictions.CarUxRestrictions);
-  }
-
-}
-
-package androidx.car.moderator {
-
-  public class ContentRateLimiter {
-    ctor public ContentRateLimiter(double, double, long);
-    method public double getAvailablePermits();
-    method public double getMaxStoredPermits();
-    method public void setAcquiredPermitsRate(double);
-    method public void setAvailablePermits(double);
-    method public void setMaxStoredPermits(double);
-    method public void setPermitFillDelay(long);
-    method public void setUnlimitedMode(boolean);
-    method public boolean tryAcquire();
-    method public boolean tryAcquire(int);
-  }
-
-  public class SpeedBumpView extends android.widget.FrameLayout {
-    ctor public SpeedBumpView(android.content.Context);
-    ctor public SpeedBumpView(android.content.Context, android.util.AttributeSet);
-    ctor public SpeedBumpView(android.content.Context, android.util.AttributeSet, int);
-    ctor public SpeedBumpView(android.content.Context, android.util.AttributeSet, int, int);
-    method public void onAttachedToWindow();
-    method public void onDetachedFromWindow();
   }
 
 }
