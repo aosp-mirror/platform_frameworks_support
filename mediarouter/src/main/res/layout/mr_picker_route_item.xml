@@ -26,9 +26,9 @@
     <FrameLayout android:layout_width="24dp"
                  android:layout_height="24dp">
         <ImageView android:id="@+id/mr_picker_route_icon"
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:scaleType="fitCenter" />
+                   android:layout_width="24dp"
+                   android:layout_height="24dp"
+                   android:tint="?attr/mediaRouteDynamicIconTint" />
         <ProgressBar android:id="@+id/mr_picker_route_progress_bar"
                      android:layout_width="match_parent"
                      android:layout_height="match_parent"

@@ -15,6 +15,7 @@
 -->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
           android:id="@+id/mr_expandable_area"
           android:layout_width="fill_parent"
           android:layout_height="fill_parent">
@@ -43,7 +44,8 @@
                          android:layout_height="48dp"
                          android:layout_gravity="center_vertical"
                          android:contentDescription="@string/mr_controller_close_description"
-                         android:src="?attr/mediaRouteCloseDrawable"
+                         app:srcCompat="@drawable/ic_dialog_close"
+                         android:tint="?attr/mediaRouteLegacyIconTint"
                          android:background="?attr/selectableItemBackgroundBorderless" />
         </LinearLayout>
         <FrameLayout android:id="@+id/mr_custom_control"

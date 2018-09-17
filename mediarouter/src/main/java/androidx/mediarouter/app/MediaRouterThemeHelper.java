@@ -21,7 +21,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
@@ -31,7 +30,6 @@ import android.widget.ProgressBar;
 import androidx.annotation.IntDef;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.mediarouter.R;
 
 import java.lang.annotation.Retention;
@@ -51,57 +49,6 @@ final class MediaRouterThemeHelper {
     static final int COLOR_WHITE_ON_DARK_BACKGROUND = Color.WHITE;
 
     private MediaRouterThemeHelper() {
-    }
-
-    static Drawable getMuteButtonDrawableIcon(Context context) {
-        return getIconByDrawableId(context, R.drawable.mr_cast_mute_button);
-    }
-
-    static Drawable getCheckBoxDrawableIcon(Context context) {
-        return getIconByDrawableId(context, R.drawable.mr_cast_checkbox);
-    }
-
-    static Drawable getDefaultDrawableIcon(Context context) {
-        return getIconByAttrId(context, R.attr.mediaRouteDefaultIconDrawable);
-    }
-
-    static Drawable getTvDrawableIcon(Context context) {
-        return getIconByAttrId(context, R.attr.mediaRouteTvIconDrawable);
-    }
-
-    static Drawable getSpeakerDrawableIcon(Context context) {
-        return getIconByAttrId(context, R.attr.mediaRouteSpeakerIconDrawable);
-    }
-
-    static Drawable getSpeakerGroupDrawableIcon(Context context) {
-        return getIconByAttrId(context, R.attr.mediaRouteSpeakerGroupIconDrawable);
-    }
-
-    private static Drawable getIconByDrawableId(Context context, int drawableId) {
-        Drawable icon = ContextCompat.getDrawable(context, drawableId);
-        icon = DrawableCompat.wrap(icon);
-
-        if (isLightTheme(context)) {
-            int tintColor = ContextCompat.getColor(context, R.color.mr_dynamic_dialog_icon_light);
-            DrawableCompat.setTint(icon, tintColor);
-        }
-        return icon;
-    }
-
-    private static Drawable getIconByAttrId(Context context, int attrId) {
-        TypedArray styledAttributes = context.obtainStyledAttributes(new int[] { attrId });
-        Drawable icon = styledAttributes.getDrawable(0);
-        icon = DrawableCompat.wrap(icon);
-
-        // Since Chooser(Controller)Dialog and DevicePicker(Cast)Dialog is using same icon but with
-        // different color for LightTheme, change color of the icon for the latter.
-        if (USE_SUPPORT_DYNAMIC_GROUP && isLightTheme(context)) {
-            int tintColor = ContextCompat.getColor(context, R.color.mr_dynamic_dialog_icon_light);
-            DrawableCompat.setTint(icon, tintColor);
-        }
-        styledAttributes.recycle();
-
-        return icon;
     }
 
     static Context createThemedButtonContext(Context context) {
@@ -195,13 +142,11 @@ final class MediaRouterThemeHelper {
         return primaryColor;
     }
 
-    static TypedArray getStyledAttributes(Context context) {
-        TypedArray styledAttributes = context.obtainStyledAttributes(new int[] {
-                R.attr.mediaRouteDefaultIconDrawable,
-                R.attr.mediaRouteTvIconDrawable,
-                R.attr.mediaRouteSpeakerIconDrawable,
-                R.attr.mediaRouteSpeakerGroupIconDrawable});
-        return styledAttributes;
+    static int getDevicTypeIconTintColor(Context context) {
+        int attrId = USE_SUPPORT_DYNAMIC_GROUP
+                ? R.attr.mediaRouteDynamicIconTint : R.attr.mediaRouteLegacyDeviceTypeIconTint;
+        int colorId = getThemeResource(context, attrId);
+        return ContextCompat.getColor(context, colorId);
     }
 
     static void setDialogBackgroundColor(Context context, Dialog dialog) {

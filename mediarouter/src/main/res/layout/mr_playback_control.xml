@@ -27,6 +27,7 @@
                  android:layout_alignParentRight="true"
                  android:layout_centerVertical="true"
                  android:contentDescription="@string/mr_controller_play"
+                 android:tint="?attr/mediaRouteLegacyIconTint"
                  android:background="?attr/selectableItemBackgroundBorderless"
                  android:visibility="gone" />
     <LinearLayout android:id="@+id/mr_control_title_container"

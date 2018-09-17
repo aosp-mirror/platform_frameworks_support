@@ -16,6 +16,11 @@
   -->
 
 <resources>
+    <!-- Icon colors for legacy dialogs MediaRouteChooser/ControllerDialog -->
+    <color name="mr_legacy_dialog_icon_light">#000000</color>
+    <color name="mr_legacy_dialog_icon_dark">#FFFFFF</color>
+    <color name="mr_legacy_dialog_icon_grey">#757575</color>
+
     <color name="mr_dynamic_dialog_background_light">#FFFFFF</color>
     <color name="mr_dynamic_dialog_background_dark">#000000</color>
 
