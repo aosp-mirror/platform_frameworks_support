@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57495817_8f3a8935",
+        "filename": "appcompat/res/values/styles.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-09-17T14:57:09Z",
+      "side": 1,
+      "message": "is this necessary?",
+      "range": {
+        "startLine": 192,
+        "startChar": 4,
+        "endLine": 192,
+        "endChar": 124
+      },
+      "revId": "a8c79a482d7e6e2518df9371f7305b0119ac4fcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "babfaa26_fa81312c",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatToggleButton.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-09-17T14:57:09Z",
+      "side": 1,
+      "message": "missing \u003c",
+      "range": {
+        "startLine": 29,
+        "startChar": 76,
+        "endLine": 29,
+        "endChar": 80
+      },
+      "revId": "a8c79a482d7e6e2518df9371f7305b0119ac4fcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
