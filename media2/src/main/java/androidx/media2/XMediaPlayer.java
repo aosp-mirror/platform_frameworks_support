@@ -832,7 +832,7 @@ public class XMediaPlayer extends SessionPlayer2 {
             index = clamp(index, mPlaylist.size());
             int addedShuffleIdx = index;
             mPlaylist.add(index, item);
-            if (mShuffleMode == MediaPlaylistAgent.SHUFFLE_MODE_NONE) {
+            if (mShuffleMode == SessionPlayer2.SHUFFLE_MODE_NONE) {
                 mShuffledList.add(index, item);
             } else {
                 // Add the item in random position of mShuffledList.
@@ -955,7 +955,7 @@ public class XMediaPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> skipToPreviousItem() {
+    public ListenableFuture<CommandResult2> skipToPreviousPlaylistItem() {
         MediaItem2 curItem;
         MediaItem2 nextItem;
         synchronized (mPlaylistLock) {
@@ -976,7 +976,7 @@ public class XMediaPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<CommandResult2> skipToNextItem() {
+    public ListenableFuture<CommandResult2> skipToNextPlaylistItem() {
         MediaItem2 curItem;
         MediaItem2 nextItem;
         synchronized (mPlaylistLock) {
@@ -1856,8 +1856,8 @@ public class XMediaPlayer extends SessionPlayer2 {
     private void applyShuffleModeLocked() {
         mShuffledList.clear();
         mShuffledList.addAll(mPlaylist);
-        if (mShuffleMode == MediaPlaylistAgent.SHUFFLE_MODE_ALL
-                || mShuffleMode == MediaPlaylistAgent.SHUFFLE_MODE_GROUP) {
+        if (mShuffleMode == SessionPlayer2.SHUFFLE_MODE_ALL
+                || mShuffleMode == SessionPlayer2.SHUFFLE_MODE_GROUP) {
             Collections.shuffle(mShuffledList);
         }
     }
@@ -1994,6 +1994,12 @@ public class XMediaPlayer extends SessionPlayer2 {
                     break;
                 case MediaPlayer2.MEDIA_INFO_DATA_SOURCE_LIST_END:
                     setState(PLAYER_STATE_PAUSED);
+                    notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+                        @Override
+                        public void callCallback(SessionPlayer2.PlayerCallback callback) {
+                            callback.onPlaybackCompleted(XMediaPlayer.this);
+                        }
+                    });
                     break;
             }
             final int what = sInfoCodeMap.getOrDefault(mp2What, MEDIA_INFO_UNKNOWN);
