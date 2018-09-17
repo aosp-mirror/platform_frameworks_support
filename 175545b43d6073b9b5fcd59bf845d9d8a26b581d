@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8f49e497_b9ac1a08",
+        "filename": "media2/media2-exoplayer/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-09-17T17:37:03Z",
+      "side": 1,
+      "message": "I think this is needed to process annotations at compile time (for Assertions calls like in https://github.com/google/ExoPlayer/blob/49ef1f3/library/core/src/main/java/com/google/android/exoplayer2/util/Assertions.java#L108). It\u0027s intended to fix the errors in https://android-build.googleplex.com/builds/pending/P6628810/androidx_host_tests/latest/view/logs/build_error.log. I haven\u0027t seen any issues at runtime.",
+      "parentUuid": "5e02a686_8efd1f9c",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 34
+      },
+      "revId": "175545b43d6073b9b5fcd59bf845d9d8a26b581d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eed653f4_2e3d820e",
         "filename": "media2/media2-exoplayer/proguard-rules.pro",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "175545b43d6073b9b5fcd59bf845d9d8a26b581d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f53b0c90_8a720b06",
+        "filename": "media2/media2-exoplayer/proguard-rules.pro",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-09-17T17:37:03Z",
+      "side": 1,
+      "message": "This came from ExoPlayer\u0027s consumer proguard file, but I\u0027m not sure why it was added there so removed.",
+      "parentUuid": "eed653f4_2e3d820e",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 33
+      },
+      "revId": "175545b43d6073b9b5fcd59bf845d9d8a26b581d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
