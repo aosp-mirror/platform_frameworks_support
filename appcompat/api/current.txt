@@ -311,20 +311,21 @@ package androidx.appcompat.app {
 
   public class AppCompatViewInflater {
     ctor public AppCompatViewInflater();
-    method protected androidx.appcompat.widget.AppCompatAutoCompleteTextView createAutoCompleteTextView(android.content.Context!, android.util.AttributeSet!);
-    method protected androidx.appcompat.widget.AppCompatButton createButton(android.content.Context!, android.util.AttributeSet!);
-    method protected androidx.appcompat.widget.AppCompatCheckBox createCheckBox(android.content.Context!, android.util.AttributeSet!);
-    method protected androidx.appcompat.widget.AppCompatCheckedTextView createCheckedTextView(android.content.Context!, android.util.AttributeSet!);
-    method protected androidx.appcompat.widget.AppCompatEditText createEditText(android.content.Context!, android.util.AttributeSet!);
-    method protected androidx.appcompat.widget.AppCompatImageButton createImageButton(android.content.Context!, android.util.AttributeSet!);
-    method protected androidx.appcompat.widget.AppCompatImageView createImageView(android.content.Context!, android.util.AttributeSet!);
-    method protected androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView createMultiAutoCompleteTextView(android.content.Context!, android.util.AttributeSet!);
-    method protected androidx.appcompat.widget.AppCompatRadioButton createRadioButton(android.content.Context!, android.util.AttributeSet!);
-    method protected androidx.appcompat.widget.AppCompatRatingBar createRatingBar(android.content.Context!, android.util.AttributeSet!);
-    method protected androidx.appcompat.widget.AppCompatSeekBar createSeekBar(android.content.Context!, android.util.AttributeSet!);
-    method protected androidx.appcompat.widget.AppCompatSpinner createSpinner(android.content.Context!, android.util.AttributeSet!);
-    method protected androidx.appcompat.widget.AppCompatTextView createTextView(android.content.Context!, android.util.AttributeSet!);
-    method protected android.view.View? createView(android.content.Context!, String!, android.util.AttributeSet!);
+    method protected androidx.appcompat.widget.AppCompatAutoCompleteTextView createAutoCompleteTextView(android.content.Context, android.util.AttributeSet);
+    method protected androidx.appcompat.widget.AppCompatButton createButton(android.content.Context, android.util.AttributeSet);
+    method protected androidx.appcompat.widget.AppCompatCheckBox createCheckBox(android.content.Context, android.util.AttributeSet);
+    method protected androidx.appcompat.widget.AppCompatCheckedTextView createCheckedTextView(android.content.Context, android.util.AttributeSet);
+    method protected androidx.appcompat.widget.AppCompatEditText createEditText(android.content.Context, android.util.AttributeSet);
+    method protected androidx.appcompat.widget.AppCompatImageButton createImageButton(android.content.Context, android.util.AttributeSet);
+    method protected androidx.appcompat.widget.AppCompatImageView createImageView(android.content.Context, android.util.AttributeSet);
+    method protected androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView createMultiAutoCompleteTextView(android.content.Context, android.util.AttributeSet);
+    method protected androidx.appcompat.widget.AppCompatRadioButton createRadioButton(android.content.Context, android.util.AttributeSet);
+    method protected androidx.appcompat.widget.AppCompatRatingBar createRatingBar(android.content.Context, android.util.AttributeSet);
+    method protected androidx.appcompat.widget.AppCompatSeekBar createSeekBar(android.content.Context, android.util.AttributeSet);
+    method protected androidx.appcompat.widget.AppCompatSpinner createSpinner(android.content.Context, android.util.AttributeSet);
+    method protected androidx.appcompat.widget.AppCompatTextView createTextView(android.content.Context, android.util.AttributeSet);
+    method protected androidx.appcompat.widget.AppCompatToggleButton createToggleButton(android.content.Context, android.util.AttributeSet);
+    method protected android.view.View createView(android.content.Context, java.lang.String, android.util.AttributeSet);
   }
 
 }
@@ -618,6 +619,12 @@ package androidx.appcompat.widget {
     method public void setTextAppearance(android.content.Context!, int);
     method public void setTextFuture(java.util.concurrent.Future<androidx.core.text.PrecomputedTextCompat>?);
     method public void setTextMetricsParamsCompat(androidx.core.text.PrecomputedTextCompat.Params);
+  }
+
+  public class AppCompatToggleButton extends android.widget.ToggleButton {
+    ctor public AppCompatToggleButton(android.content.Context);
+    ctor public AppCompatToggleButton(android.content.Context, android.util.AttributeSet);
+    ctor public AppCompatToggleButton(android.content.Context, android.util.AttributeSet, int);
   }
 
   public class LinearLayoutCompat extends android.view.ViewGroup {
