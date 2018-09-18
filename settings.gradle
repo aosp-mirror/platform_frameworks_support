@@ -261,3 +261,6 @@ if (!startParameter.projectProperties.containsKey('android.injected.invoked.from
 // for each size and test runner is happy when there is nothing to test.
 includeProject(":dumb-tests", "dumb-tests")
 
+include ':manager', ':slice-core-manager'
+project(':manager').projectDir = new File('slices/core/manager')
+project(':slice-core-manager').projectDir = new File('slices/core/manager')
