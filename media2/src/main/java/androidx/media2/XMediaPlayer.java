@@ -1638,7 +1638,7 @@ public class XMediaPlayer extends SessionPlayer2 {
 
         @Override
         public void onCallCompleted(
-                MediaPlayer2 mp, MediaItem2 item, int what, int status) {
+                MediaPlayer2 mp, final MediaItem2 item, int what, int status) {
             Pair<Integer, SettableFuture<CommandResult2>> pair;
             synchronized (mCallTypeAndFutures) {
                 pair = mCallTypeAndFutures.pollFirst();
@@ -1663,6 +1663,15 @@ public class XMediaPlayer extends SessionPlayer2 {
                             public void callCallback(
                                     SessionPlayer2.PlayerCallback callback) {
                                 callback.onSeekCompleted(XMediaPlayer.this, pos);
+                            }
+                        });
+                        break;
+                    case MediaPlayer2.CALL_COMPLETED_SET_DATA_SOURCE:
+                        notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+                            @Override
+                            public void callCallback(
+                                    SessionPlayer2.PlayerCallback callback) {
+                                callback.onCurrentMediaItemChanged(XMediaPlayer.this, item);
                             }
                         });
                         break;
