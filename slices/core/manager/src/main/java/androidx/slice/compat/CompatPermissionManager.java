@@ -61,6 +61,13 @@ public class CompatPermissionManager {
         return mContext.getSharedPreferences(mPrefsName, Context.MODE_PRIVATE);
     }
 
+    /**
+     * Checks whether the given process and user have access to the provided uri.
+     *
+     * @param uri to check permission to.
+     * @param pid id of process to check permission for.
+     * @param uid id of user to check permission for.
+     */
     public int checkSlicePermission(Uri uri, int pid, int uid) {
         if (uid == mMyUid) {
             return PERMISSION_GRANTED;
@@ -88,6 +95,12 @@ public class CompatPermissionManager {
         return state.hasAccess(uri.getPathSegments()) ? PERMISSION_GRANTED : PERMISSION_DENIED;
     }
 
+    /**
+     * Grants a package access to a {@link Uri}.
+     *
+     * @param uri to grant access to.
+     * @param toPkg to grant permission to.
+     */
     public void grantSlicePermission(Uri uri, String toPkg) {
         PermissionState state = getPermissionState(toPkg, uri.getAuthority());
         if (state.addPath(uri.getPathSegments())) {
@@ -95,6 +108,12 @@ public class CompatPermissionManager {
         }
     }
 
+    /**
+     * Revokes permission to access a {@link Uri}.
+     *
+     * @param uri to revoke access from.
+     * @param toPkg to revoke permission from.
+     */
     public void revokeSlicePermission(Uri uri, String toPkg) {
         PermissionState state = getPermissionState(toPkg, uri.getAuthority());
         if (state.removePath(uri.getPathSegments())) {
@@ -116,6 +135,9 @@ public class CompatPermissionManager {
         return new PermissionState(grant, key, hasAllPermissions);
     }
 
+    /**
+     * Holds permission state.
+     */
     public static class PermissionState {
 
         private final ArraySet<String[]> mPaths = new ArraySet<>();
@@ -132,14 +154,23 @@ public class CompatPermissionManager {
             mKey = key;
         }
 
+        /**
+         * @return whether all permissions are granted.
+         */
         public boolean hasAllPermissions() {
             return hasAccess(Collections.<String>emptyList());
         }
 
+        /**
+         * @return the key for this permission state.
+         */
         public String getKey() {
             return mKey;
         }
 
+        /**
+         * @return set of paths that permission has been granted to in a persistable state.
+         */
         public Set<String> toPersistable() {
             ArraySet<String> ret = new ArraySet<>();
             for (String[] path : mPaths) {
@@ -148,6 +179,9 @@ public class CompatPermissionManager {
             return ret;
         }
 
+        /**
+         * @return whether any of the provided paths have permission granted to them.
+         */
         public boolean hasAccess(List<String> path) {
             String[] inPath = path.toArray(new String[path.size()]);
             for (String[] p : mPaths) {

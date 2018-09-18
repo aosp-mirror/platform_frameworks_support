@@ -54,6 +54,7 @@ import androidx.slice.builders.ListBuilder.RangeBuilder;
 import androidx.slice.builders.ListBuilder.RowBuilder;
 import androidx.slice.builders.MessagingSliceBuilder;
 import androidx.slice.builders.SliceAction;
+import androidx.slice.compat.SliceProviderCompat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -200,7 +201,8 @@ public class SampleSliceProvider extends SliceProvider {
             case "/cat":
                 return createBigPicSlice(sliceUri);
             case "/permission":
-                return createPermissionSlice(getContext(), sliceUri, getContext().getPackageName());
+                return SliceProviderCompat.createPermissionSlice(getContext(), sliceUri,
+                        getContext().getPackageName());
             case "/loading":
                 return createLoadingSlice(sliceUri);
         }

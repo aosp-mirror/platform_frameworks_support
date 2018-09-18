@@ -24,9 +24,8 @@ plugins {
 }
 
 dependencies {
-    api project(":slice-core-manager")
     implementation project(":annotation")
-    implementation project(":appcompat")
+    api(project(":core"))
 
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy)

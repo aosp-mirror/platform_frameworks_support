@@ -52,7 +52,6 @@ import android.app.slice.SliceManager;
 import android.content.Context;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 
@@ -64,7 +63,6 @@ import androidx.annotation.RestrictTo.Scope;
 import androidx.annotation.StringDef;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.core.util.Preconditions;
-import androidx.slice.compat.SliceProviderCompat;
 import androidx.versionedparcelable.CustomVersionedParcelable;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelable;
@@ -579,27 +577,11 @@ public final class Slice extends CustomVersionedParcelable implements VersionedP
     }
 
     /**
-     * Turns a slice Uri into slice content.
-     *
      * @hide
-     * @param context Context to be used.
-     * @param uri The URI to a slice provider
-     * @return The Slice provided by the app or null if none is given.
-     * @see Slice
      */
-    @RestrictTo(Scope.LIBRARY_GROUP)
-    @Nullable
-    public static Slice bindSlice(Context context, @NonNull Uri uri,
-            Set<SliceSpec> supportedSpecs) {
-        if (Build.VERSION.SDK_INT >= 28) {
-            return callBindSlice(context, uri, supportedSpecs);
-        } else {
-            return SliceProviderCompat.bindSlice(context, uri, supportedSpecs);
-        }
-    }
-
+    @RestrictTo(Scope.LIBRARY)
     @RequiresApi(28)
-    private static Slice callBindSlice(Context context, Uri uri,
+    public static Slice callBindSlice(Context context, Uri uri,
             Set<SliceSpec> supportedSpecs) {
         return SliceConvert.wrap(context.getSystemService(SliceManager.class)
                 .bindSlice(uri, unwrap(supportedSpecs)), context);
