@@ -192,6 +192,30 @@
     },
     {
       "key": {
+        "uuid": "6ed15184_7a9057b3",
+        "filename": "preference/src/main/java/androidx/preference/EditTextPreference.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-09-18T16:13:51Z",
+      "side": 1,
+      "message": "Rebuilt this using a SummaryFormatter interface. Since now we just call this in getSummary(), we don\u0027t have to worry about hooking into the preference lifecycle correctly. WDYT?",
+      "parentUuid": "f1784a96_f39fd289",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 173,
+        "endChar": 9
+      },
+      "revId": "5aeed43fe6c5bc0d32bb55d7ccbe69a9f35cd6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "518c325c_47538341",
         "filename": "preference/src/main/java/androidx/preference/Preference.java",
         "patchSetId": 3
@@ -212,6 +236,30 @@
       "revId": "5aeed43fe6c5bc0d32bb55d7ccbe69a9f35cd6d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df26241c_29ccef6c",
+        "filename": "preference/src/main/java/androidx/preference/Preference.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2065,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-09-18T16:13:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "518c325c_47538341",
+      "range": {
+        "startLine": 2065,
+        "startChar": 16,
+        "endLine": 2065,
+        "endChar": 31
+      },
+      "revId": "5aeed43fe6c5bc0d32bb55d7ccbe69a9f35cd6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
