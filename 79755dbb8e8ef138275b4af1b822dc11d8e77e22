@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "178c6a09_f8864c68",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteDevicePickerDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T07:19:51Z",
+      "side": 1,
+      "message": "synthetic accessor?\n\nPlease run \u0027./gradlew mediarouter:check\u0027 or presubmit.",
+      "range": {
+        "startLine": 471,
+        "startChar": 0,
+        "endLine": 471,
+        "endChar": 33
+      },
+      "revId": "79755dbb8e8ef138275b4af1b822dc11d8e77e22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
