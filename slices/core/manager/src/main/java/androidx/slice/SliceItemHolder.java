@@ -149,6 +149,9 @@ public class SliceItemHolder implements VersionedParcelable {
      * Callback that gets to participate in the serialization process for SliceItems.
      */
     public interface HolderHandler {
+        /**
+         * Called when this {@link SliceItemHolder} is being serialized.
+         */
         void handle(SliceItemHolder holder, String format);
     }
 
