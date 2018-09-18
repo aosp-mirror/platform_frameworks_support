@@ -239,10 +239,10 @@ public class WorkerWrapper implements Runnable {
     // Package-private for synthetic accessor.
     void onWorkFinished(@NonNull Result result) {
         assertBackgroundExecutorThread();
+        boolean isWorkFinished = false;
         if (!tryCheckForInterruptionAndNotify()) {
             try {
                 mWorkDatabase.beginTransaction();
-
                 State state = mWorkSpecDao.getState(mWorkSpecId);
                 if (state == null) {
                     // state can be null here with a REPLACE on beginUniqueWork().
@@ -252,6 +252,9 @@ public class WorkerWrapper implements Runnable {
                     notifyListener(false);
                 } else if (state == RUNNING) {
                     handleResult(result);
+                    // Update state after a call to handleResult()
+                    state = mWorkSpecDao.getState(mWorkSpecId);
+                    isWorkFinished = state.isFinished();
                 } else if (!state.isFinished()) {
                     rescheduleAndNotify();
                 }
@@ -265,11 +268,10 @@ public class WorkerWrapper implements Runnable {
         // periodic work using AlarmManager).  This code runs after runWorker() because it should
         // happen in its own transaction.
 
-        boolean isFinished = mWorkSpec.state.isFinished();
         // Cancel this work in other schedulers.  For example, if this work was
         // completed by GreedyScheduler, we should make sure JobScheduler is informed
         // that it should remove this job and AlarmManager should remove all related alarms.
-        if (isFinished) {
+        if (isWorkFinished) {
             for (Scheduler scheduler : mSchedulers) {
                 scheduler.cancel(mWorkSpecId);
             }
