@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7986c096_2e73ba62",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-18T14:01:45Z",
+      "side": 1,
+      "message": "I think L632 makes confusion. getTransferableRoutes() returns transferable routes of selected route whether it\u0027s dynamic group or not. Since RouteInfo doesn\u0027t have explicit API like getTransferableRoutes(), I wrote L632. I think removing L632 would be better.",
+      "parentUuid": "0979117e_d6ba8efd",
+      "range": {
+        "startLine": 632,
+        "startChar": 28,
+        "endLine": 632,
+        "endChar": 45
+      },
+      "revId": "50fd7e75f11d92f466f62b409e4b9c7b48703343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e709b54_1a25b944",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 10
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "22b449fe_4ccf1aad",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-18T14:01:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e709b54_1a25b944",
+      "range": {
+        "startLine": 662,
+        "startChar": 0,
+        "endLine": 668,
+        "endChar": 0
+      },
+      "revId": "50fd7e75f11d92f466f62b409e4b9c7b48703343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd4dbe85_f0272666",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 10
@@ -62,6 +110,24 @@
       "revId": "50fd7e75f11d92f466f62b409e4b9c7b48703343",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74cf4c58_e4becf3f",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-18T14:01:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd4dbe85_f0272666",
+      "revId": "50fd7e75f11d92f466f62b409e4b9c7b48703343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "1840a411_b5f1a46a",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-18T14:01:45Z",
+      "side": 1,
+      "message": "This is for getting section title string(L861,683).\nAnd since static group doesn\u0027t need to get section title from RouteInfo/RouteGroup(static group), typecasted mSeletedRoute isn\u0027t needed.",
+      "parentUuid": "63968805_e5d3433d",
+      "range": {
+        "startLine": 832,
+        "startChar": 0,
+        "endLine": 832,
+        "endChar": 58
+      },
+      "revId": "50fd7e75f11d92f466f62b409e4b9c7b48703343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa3c7fc9_c633619b",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 10
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "12ea4a96_4373459d",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-18T14:01:45Z",
+      "side": 1,
+      "message": "Talked offline.",
+      "parentUuid": "fa3c7fc9_c633619b",
+      "range": {
+        "startLine": 1145,
+        "startChar": 16,
+        "endLine": 1148,
+        "endChar": 0
+      },
+      "revId": "50fd7e75f11d92f466f62b409e4b9c7b48703343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab30685c_8c422a03",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 10
@@ -131,6 +245,30 @@
       "revId": "50fd7e75f11d92f466f62b409e4b9c7b48703343",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "761f88be_4562a843",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-18T14:01:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab30685c_8c422a03",
+      "range": {
+        "startLine": 1193,
+        "startChar": 0,
+        "endLine": 1193,
+        "endChar": 55
+      },
+      "revId": "50fd7e75f11d92f466f62b409e4b9c7b48703343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

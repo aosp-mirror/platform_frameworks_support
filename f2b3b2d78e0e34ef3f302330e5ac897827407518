@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "7b68a1d0_d67febb4",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-18T14:01:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e961ee35_be0f2ada",
+      "range": {
+        "startLine": 216,
+        "startChar": 20,
+        "endLine": 216,
+        "endChar": 46
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e77eb6ac_2b2b5032",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 6
@@ -238,6 +262,30 @@
     },
     {
       "key": {
+        "uuid": "d3e26343_aa541734",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-18T14:01:45Z",
+      "side": 1,
+      "message": "Sorry for confusion. Would you check most recent patchset?",
+      "parentUuid": "719744ca_f28aa980",
+      "range": {
+        "startLine": 609,
+        "startChar": 0,
+        "endLine": 609,
+        "endChar": 54
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04f8f58e_dc3c6e86",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 6
@@ -309,6 +357,30 @@
     },
     {
       "key": {
+        "uuid": "7f722de7_7f9d005e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-18T14:01:45Z",
+      "side": 1,
+      "message": "ditto.",
+      "parentUuid": "53377da4_6d252136",
+      "range": {
+        "startLine": 617,
+        "startChar": 0,
+        "endLine": 617,
+        "endChar": 57
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce3ca9b0_b0a94f6f",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 6
@@ -377,6 +449,30 @@
       "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83598411_8c289523",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1344758
+      },
+      "writtenOn": "2018-09-18T14:01:45Z",
+      "side": 1,
+      "message": "I didn\u0027t notice that. Thanks for pointing out. For consistency, I\u0027m gonna change L876-880 not to use id for equality check.",
+      "parentUuid": "59c2a7f2_a4993f24",
+      "range": {
+        "startLine": 807,
+        "startChar": 0,
+        "endLine": 810,
+        "endChar": 0
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
