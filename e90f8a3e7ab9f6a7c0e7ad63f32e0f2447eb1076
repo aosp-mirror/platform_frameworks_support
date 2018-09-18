@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "433e5aec_fd852cea",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatEditTextTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-18T12:42:19Z",
+      "side": 1,
+      "message": "Opps, done.",
+      "parentUuid": "10e39ab0_1cfff02b",
+      "revId": "e90f8a3e7ab9f6a7c0e7ad63f32e0f2447eb1076",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b63fe05_d22210db",
         "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatEditTextTest.java",
         "patchSetId": 2
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "90d28aa8_4e4e2b34",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatEditTextTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-18T12:42:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b63fe05_d22210db",
+      "range": {
+        "startLine": 144,
+        "startChar": 21,
+        "endLine": 144,
+        "endChar": 87
+      },
+      "revId": "e90f8a3e7ab9f6a7c0e7ad63f32e0f2447eb1076",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef3518cb_7ea3f0aa",
         "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatTextViewTest.java",
         "patchSetId": 2
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "380ce2d5_04257f91",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatTextViewTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-18T12:42:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef3518cb_7ea3f0aa",
+      "revId": "e90f8a3e7ab9f6a7c0e7ad63f32e0f2447eb1076",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "782913b5_d62dfac8",
         "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatEditText.java",
         "patchSetId": 2
@@ -70,6 +130,30 @@
       "writtenOn": "2018-09-12T19:06:17Z",
       "side": 1,
       "message": "According to this code, this is never null.",
+      "range": {
+        "startLine": 212,
+        "startChar": 62,
+        "endLine": 212,
+        "endChar": 91
+      },
+      "revId": "e90f8a3e7ab9f6a7c0e7ad63f32e0f2447eb1076",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be10e1e8_d478f2ad",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatEditText.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-18T12:42:19Z",
+      "side": 1,
+      "message": "This is tricky. \n\nWhen we call super in the constructor, it will end up calling getTextClassifier.\nAnd because super(..) has to be put in the first line, mTextClassifierHelper would be null.\n\nLet me know if you can think of a neater way..\n\nThanks.",
+      "parentUuid": "782913b5_d62dfac8",
       "range": {
         "startLine": 212,
         "startChar": 62,
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "8bf673d2_4524f933",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatEditText.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-18T12:42:19Z",
+      "side": 1,
+      "message": "Let\u0027s use the above box to discuss about it.",
+      "parentUuid": "57e20d4c_50458223",
+      "range": {
+        "startLine": 228,
+        "startChar": 62,
+        "endLine": 228,
+        "endChar": 91
+      },
+      "revId": "e90f8a3e7ab9f6a7c0e7ad63f32e0f2447eb1076",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec241d46_ceabf9b0",
         "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextClassifierHelper.java",
         "patchSetId": 2
@@ -125,6 +233,30 @@
       "revId": "e90f8a3e7ab9f6a7c0e7ad63f32e0f2447eb1076",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "398d93a2_d3505098",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextClassifierHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-18T12:42:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec241d46_ceabf9b0",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 5
+      },
+      "revId": "e90f8a3e7ab9f6a7c0e7ad63f32e0f2447eb1076",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "c343d759_5ce6cdfa",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextClassifierHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-18T12:42:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15aa6238_93e61003",
+      "range": {
+        "startLine": 38,
+        "startChar": 13,
+        "endLine": 38,
+        "endChar": 21
+      },
+      "revId": "e90f8a3e7ab9f6a7c0e7ad63f32e0f2447eb1076",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "13173255_42cd0a25",
         "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextView.java",
         "patchSetId": 2
@@ -174,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "0b3da3fe_8ce28809",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-18T12:42:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "13173255_42cd0a25",
+      "range": {
+        "startLine": 492,
+        "startChar": 62,
+        "endLine": 492,
+        "endChar": 91
+      },
+      "revId": "e90f8a3e7ab9f6a7c0e7ad63f32e0f2447eb1076",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98ccdbc6_f289111d",
         "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextView.java",
         "patchSetId": 2
@@ -194,6 +374,30 @@
       "revId": "e90f8a3e7ab9f6a7c0e7ad63f32e0f2447eb1076",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f4ca2b6_48e9b041",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-18T12:42:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "98ccdbc6_f289111d",
+      "range": {
+        "startLine": 508,
+        "startChar": 62,
+        "endLine": 508,
+        "endChar": 91
+      },
+      "revId": "e90f8a3e7ab9f6a7c0e7ad63f32e0f2447eb1076",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
