@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3f169686_995bda79",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T01:31:34Z",
+      "side": 1,
+      "message": "SessionPlayer2 doesn\u0027t have reset. Given that I expected to remove this as well.\nDid you expected to add SessionCallback#onReset() instead?",
+      "parentUuid": "cb29520a_a7ebc232",
+      "range": {
+        "startLine": 254,
+        "startChar": 8,
+        "endLine": 254,
+        "endChar": 82
+      },
+      "revId": "11a2fc38cd887d0d4212ca5a9130d3816e5bab89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "20dab89c_f81def37",
         "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
         "patchSetId": 4
@@ -62,6 +86,30 @@
       "revId": "11a2fc38cd887d0d4212ca5a9130d3816e5bab89",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c4d0f7a_4d6d3973",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1195,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T01:31:34Z",
+      "side": 1,
+      "message": "Let\u0027s assume a scenarion with following conditions.\n\n- Playing a playlist without user interaction (i.e. playback state is PLAYING all the time)\n- Playback of a song is over, moving to next.\n- Next song isn\u0027t prepared.\n\n--\u003e Given that, playback state will be PLAYING all the time, current media item is changed to next song. In that case, buffering state change is the only event that we\u0027ll get from the session player when we can get the duration.",
+      "parentUuid": "beec850d_c0c3ee52",
+      "range": {
+        "startLine": 1195,
+        "startChar": 12,
+        "endLine": 1195,
+        "endChar": 34
+      },
+      "revId": "11a2fc38cd887d0d4212ca5a9130d3816e5bab89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
