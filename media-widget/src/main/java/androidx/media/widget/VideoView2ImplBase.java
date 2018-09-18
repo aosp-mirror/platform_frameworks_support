@@ -806,12 +806,6 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
     }
 
     void extractMetadata() {
-        if (mMediaItem.getMetadata() != null) {
-            // If a MediaItem2 instance has its own metadata, then use it.
-            // TODO: merge metadata from metadata retriever
-            return;
-        }
-
         Uri uri = (mMediaItem != null && mMediaItem instanceof UriMediaItem2)
                 ? ((UriMediaItem2) mMediaItem).getUri() : null;
         if (uri == null) {
@@ -821,32 +815,33 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
 
         // Save file name as title since the file may not have a title Metadata.
         String scheme = uri.getScheme();
+        String path = "";
         if (scheme != null) {
             if (scheme.equals("file")) {
-                mTitle = uri.getLastPathSegment();
+                path = uri.getLastPathSegment();
                 mMediaControlView.setRouteSelector(null);
             } else if (scheme.equals("http") || scheme.equals("https")) {
-                mTitle = uri.getPath();
+                path = uri.getPath();
                 mMediaControlView.setRouteSelector(mRouteSelector);
             }
         }
 
+        MediaMetadata2 metadata = mMediaItem.getMetadata();
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         try {
             retriever.setDataSource(mInstance.getContext(), uri);
         } catch (IllegalArgumentException e) {
             Log.v(TAG, "Cannot retrieve metadata for this media file.");
             retriever.release();
-            return;
+            retriever = null;
         }
-
-        String title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
-        if (title != null) {
-            mTitle = title;
-        }
+        mTitle = extractString(metadata, retriever, MediaMetadata2.METADATA_KEY_TITLE,
+                MediaMetadataRetriever.METADATA_KEY_TITLE, path);
 
         if (!mIsMusicMediaType) {
-            retriever.release();
+            if (retriever != null) {
+                retriever.release();
+            }
             return;
         }
 
@@ -855,9 +850,16 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
         mManager = (WindowManager) mInstance.getContext().getApplicationContext()
                 .getSystemService(Context.WINDOW_SERVICE);
 
-        byte[] album = retriever.getEmbeddedPicture();
-        if (album != null) {
-            Bitmap bitmap = BitmapFactory.decodeByteArray(album, 0, album.length);
+        Bitmap bitmap = null;
+        if (metadata != null && metadata.containsKey(MediaMetadata2.METADATA_KEY_ALBUM_ART)) {
+            bitmap = metadata.getBitmap(MediaMetadata2.METADATA_KEY_ALBUM_ART);
+        } else if (retriever != null) {
+            byte[] album = retriever.getEmbeddedPicture();
+            if (album != null) {
+                bitmap = BitmapFactory.decodeByteArray(album, 0, album.length);
+            }
+        }
+        if (bitmap != null) {
             mMusicAlbumDrawable = new BitmapDrawable(bitmap);
 
             Palette.Builder builder = Palette.from(bitmap);
@@ -873,21 +875,12 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
         } else {
             mMusicAlbumDrawable = resources.getDrawable(R.drawable.ic_default_album_image);
         }
-
-        title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
-        if (title != null) {
-            mMusicTitleText = title;
-        } else {
-            mMusicTitleText = resources.getString(R.string.mcv2_music_title_unknown_text);
-        }
-
-        String artist = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
-        if (artist != null) {
-            mMusicArtistText = artist;
-        } else {
-            mMusicArtistText = resources.getString(R.string.mcv2_music_artist_unknown_text);
-        }
-
+        mMusicTitleText = extractString(metadata, retriever, MediaMetadata2.METADATA_KEY_TITLE,
+                MediaMetadataRetriever.METADATA_KEY_TITLE,
+                resources.getString(R.string.mcv2_music_title_unknown_text));
+        mMusicArtistText = extractString(metadata, retriever, MediaMetadata2.METADATA_KEY_ARTIST,
+                MediaMetadataRetriever.METADATA_KEY_ARTIST,
+                resources.getString(R.string.mcv2_music_artist_unknown_text));
         retriever.release();
 
         // Display Embedded mode as default
@@ -945,6 +938,29 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
         mInstance.removeView(mCurrentMusicView);
         mInstance.addView(newMusicView, 0);
         mCurrentMusicView = newMusicView;
+    }
+
+    String extractString(MediaMetadata2 metadata, MediaMetadataRetriever retriever,
+            String stringKey, int intKey, String defaultValue) {
+        String value = null;
+
+        if (metadata != null) {
+            value = metadata.getString(stringKey);
+            if (value != null && !value.isEmpty()) {
+                return value;
+            }
+        }
+        if (retriever != null) {
+            switch (intKey) {
+                case MediaMetadataRetriever.METADATA_KEY_TITLE:
+                    value = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+                    break;
+                case MediaMetadataRetriever.METADATA_KEY_ARTIST:
+                    value = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
+                    break;
+            }
+        }
+        return (value == null) ? defaultValue : value;
     }
 
     XMediaPlayer.PlayerCallback mMediaPlayerCallback =
@@ -1039,6 +1055,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
                 }
 
                 private void onPrepared(XMediaPlayer mp, MediaItem2 dsd) {
+                    // TODO: b/116765554
                     if (DEBUG) {
                         Log.d(TAG, "OnPreparedListener(): "
                                 + ", mCurrentState=" + mCurrentState
