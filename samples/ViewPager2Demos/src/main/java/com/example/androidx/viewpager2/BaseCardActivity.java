@@ -47,14 +47,12 @@ public abstract class BaseCardActivity extends FragmentActivity {
     private static final String VERTICAL = "vertical";
 
     protected ViewPager2 mViewPager;
-    private Spinner mOrientationSelector;
     private Spinner mValueSelector;
     private Spinner mSuitSelector;
     private CheckBox mSmoothScrollCheckBox;
     private CheckBox mRotateCheckBox;
     private CheckBox mTranslateCheckBox;
     private CheckBox mScaleCheckBox;
-    private Button mGotoPage;
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -62,22 +60,22 @@ public abstract class BaseCardActivity extends FragmentActivity {
         setContentView(R.layout.activity_card_layout);
 
         mViewPager = findViewById(R.id.view_pager);
-        mOrientationSelector = findViewById(R.id.orientation_spinner);
+        Spinner orientationSelector = findViewById(R.id.orientation_spinner);
         mValueSelector = findViewById(R.id.value_spinner);
         mSuitSelector = findViewById(R.id.suit_spinner);
         mSmoothScrollCheckBox = findViewById(R.id.smooth_scroll_checkbox);
         mRotateCheckBox = findViewById(R.id.rotate_checkbox);
         mTranslateCheckBox = findViewById(R.id.translate_checkbox);
         mScaleCheckBox = findViewById(R.id.scale_checkbox);
-        mGotoPage = findViewById(R.id.jump_button);
+        Button gotoPage = findViewById(R.id.jump_button);
 
-        mOrientationSelector.setAdapter(createOrientationAdapter());
+        orientationSelector.setAdapter(createOrientationAdapter());
         mValueSelector.setAdapter(createAdapter(Card.VALUES));
         mSuitSelector.setAdapter(createAdapter(Card.SUITS));
 
         mViewPager.setPageTransformer(mAnimator);
 
-        mOrientationSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        orientationSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (parent.getSelectedItem().toString()) {
@@ -95,7 +93,7 @@ public abstract class BaseCardActivity extends FragmentActivity {
             }
         });
 
-        mGotoPage.setOnClickListener(view -> {
+        gotoPage.setOnClickListener(view -> {
             int suit = mSuitSelector.getSelectedItemPosition();
             int value = mValueSelector.getSelectedItemPosition();
             int targetPosition = suit * Card.VALUES.size() + value;
@@ -104,9 +102,9 @@ public abstract class BaseCardActivity extends FragmentActivity {
         });
     }
 
-    private SpinnerAdapter createAdapter(Set<Character> values) {
-        ArrayAdapter<Character> adapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_item, values.toArray(new Character[0]));
+    private SpinnerAdapter createAdapter(Set<String> values) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_item, values.toArray(new String[0]));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         return adapter;
     }
