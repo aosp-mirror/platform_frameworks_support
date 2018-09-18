@@ -132,7 +132,7 @@ public abstract class SliceViewManagerBase extends SliceViewManager {
             @Override
             public void run() {
                 tryPin();
-                final Slice s = Slice.bindSlice(mContext, mUri, SUPPORTED_SPECS);
+                final Slice s = SliceProvider.bindSlice(mContext, mUri, SUPPORTED_SPECS);
                 mExecutor.execute(new Runnable() {
                     @Override
                     public void run() {
