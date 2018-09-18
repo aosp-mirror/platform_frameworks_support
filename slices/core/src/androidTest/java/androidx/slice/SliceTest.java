@@ -72,7 +72,7 @@ public class SliceTest {
     @Test
     public void testProcess() {
         sFlag = false;
-        Slice.bindSlice(mContext,
+        SliceProvider.bindSlice(mContext,
                 BASE_URI.buildUpon().appendPath("set_flag").build(),
                 Collections.<SliceSpec>emptySet());
         assertFalse(sFlag);
@@ -85,14 +85,14 @@ public class SliceTest {
 
     @Test
     public void testSliceUri() {
-        Slice s = Slice.bindSlice(mContext, BASE_URI, Collections.<SliceSpec>emptySet());
+        Slice s = SliceProvider.bindSlice(mContext, BASE_URI, Collections.<SliceSpec>emptySet());
         assertEquals(BASE_URI, s.getUri());
     }
 
     @Test
     public void testSubSlice() {
         Uri uri = BASE_URI.buildUpon().appendPath("subslice").build();
-        Slice s = Slice.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
+        Slice s = SliceProvider.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
         assertEquals(uri, s.getUri());
         assertEquals(1, s.getItems().size());
 
@@ -107,7 +107,7 @@ public class SliceTest {
     @Test
     public void testText() {
         Uri uri = BASE_URI.buildUpon().appendPath("text").build();
-        Slice s = Slice.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
+        Slice s = SliceProvider.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
         assertEquals(uri, s.getUri());
         assertEquals(1, s.getItems().size());
 
@@ -122,7 +122,7 @@ public class SliceTest {
     @Test
     public void testProhibitedSpan() {
         Uri uri = BASE_URI.buildUpon().appendPath("prohibited_span").build();
-        Slice s = Slice.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
+        Slice s = SliceProvider.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
         assertEquals(uri, s.getUri());
         assertEquals(1, s.getItems().size());
 
@@ -155,7 +155,7 @@ public class SliceTest {
     @Test
     public void testIcon() {
         Uri uri = BASE_URI.buildUpon().appendPath("icon").build();
-        Slice s = Slice.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
+        Slice s = SliceProvider.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
         assertEquals(uri, s.getUri());
         assertEquals(1, s.getItems().size());
 
@@ -168,21 +168,21 @@ public class SliceTest {
     @Test
     public void testNullIcon() {
         Uri uri = BASE_URI.buildUpon().appendPath("icon_null").build();
-        Slice s = Slice.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
+        Slice s = SliceProvider.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
         assertNull(s);
     }
 
     @Test
     public void testForceZeroIcon() {
         Uri uri = BASE_URI.buildUpon().appendPath("icon_zero").build();
-        Slice s = Slice.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
+        Slice s = SliceProvider.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
         assertTrue(s.getItems().isEmpty());
     }
 
     @Test
     public void testInvalidResIdIcon() {
         Uri uri = BASE_URI.buildUpon().appendPath("icon_invalid").build();
-        Slice s = Slice.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
+        Slice s = SliceProvider.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
         assertNull(s);
     }
 
@@ -206,7 +206,7 @@ public class SliceTest {
         mContext.registerReceiver(receiver,
                 new IntentFilter(mContext.getPackageName() + ".action"));
         Uri uri = BASE_URI.buildUpon().appendPath("action").build();
-        Slice s = Slice.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
+        Slice s = SliceProvider.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
         assertEquals(uri, s.getUri());
         assertEquals(1, s.getItems().size());
 
@@ -229,7 +229,7 @@ public class SliceTest {
     @Test
     public void testInt() {
         Uri uri = BASE_URI.buildUpon().appendPath("int").build();
-        Slice s = Slice.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
+        Slice s = SliceProvider.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
         assertEquals(uri, s.getUri());
         assertEquals(1, s.getItems().size());
 
@@ -241,7 +241,7 @@ public class SliceTest {
     @Test
     public void testTimestamp() {
         Uri uri = BASE_URI.buildUpon().appendPath("timestamp").build();
-        Slice s = Slice.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
+        Slice s = SliceProvider.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
         assertEquals(uri, s.getUri());
         assertEquals(1, s.getItems().size());
 
@@ -255,7 +255,7 @@ public class SliceTest {
         // Note this tests that hints are propagated through to the client but not that any specific
         // hints have any effects.
         Uri uri = BASE_URI.buildUpon().appendPath("hints").build();
-        Slice s = Slice.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
+        Slice s = SliceProvider.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
         assertEquals(uri, s.getUri());
 
         assertEquals(Arrays.asList(HINT_LIST), s.getHints());
