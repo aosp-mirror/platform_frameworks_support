@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "e961ee35_be0f2ada",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T07:18:11Z",
+      "side": 1,
+      "message": "Fake group vs Actual group is your own terminology that others cannot understand without taking both UX spec and your code. Please find better name here, add comment with explanation, or remove this API.",
+      "parentUuid": "4b3d6b79_2ab1125c",
+      "range": {
+        "startLine": 216,
+        "startChar": 20,
+        "endLine": 216,
+        "endChar": 46
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e77eb6ac_2b2b5032",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 6
@@ -190,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "719744ca_f28aa980",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T07:18:11Z",
+      "side": 1,
+      "message": "Not done. Please read my comment.\n\nDid you answer what\u0027s the groupable routes?",
+      "parentUuid": "b5c6ae5e_fe8352f2",
+      "range": {
+        "startLine": 609,
+        "startChar": 0,
+        "endLine": 609,
+        "endChar": 54
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "04f8f58e_dc3c6e86",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 6
@@ -237,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "53377da4_6d252136",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T07:18:11Z",
+      "side": 1,
+      "message": "Not done.",
+      "parentUuid": "8241fcde_5a7dd526",
+      "range": {
+        "startLine": 617,
+        "startChar": 0,
+        "endLine": 617,
+        "endChar": 57
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ce3ca9b0_b0a94f6f",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 6
@@ -281,6 +353,30 @@
       "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59c2a7f2_a4993f24",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T07:18:11Z",
+      "side": 1,
+      "message": "Then why do you check ID in L876-880? Do you have any reason for the inconsistency?",
+      "parentUuid": "b925cea5_8490134c",
+      "range": {
+        "startLine": 807,
+        "startChar": 0,
+        "endLine": 810,
+        "endChar": 0
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
@@ -586,6 +682,30 @@
       "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "390e4fac_5af66dd1",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T07:18:11Z",
+      "side": 1,
+      "message": "I\u0027m not curious about the sequence. I\u0027m asking you to fix the way of documenting the behavior.",
+      "parentUuid": "a667974d_76256eae",
+      "range": {
+        "startLine": 1236,
+        "startChar": 14,
+        "endLine": 1236,
+        "endChar": 17
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {

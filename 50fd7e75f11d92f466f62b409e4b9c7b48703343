@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0979117e_d6ba8efd",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T07:18:11Z",
+      "side": 1,
+      "message": "what\u0027s returned for dynamic group?",
+      "range": {
+        "startLine": 632,
+        "startChar": 28,
+        "endLine": 632,
+        "endChar": 45
+      },
+      "revId": "50fd7e75f11d92f466f62b409e4b9c7b48703343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63968805_e5d3433d",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T07:18:11Z",
+      "side": 1,
+      "message": "don\u0027t we do the similar for static group?",
+      "range": {
+        "startLine": 832,
+        "startChar": 0,
+        "endLine": 832,
+        "endChar": 58
+      },
+      "revId": "50fd7e75f11d92f466f62b409e4b9c7b48703343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa3c7fc9_c633619b",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T07:18:11Z",
+      "side": 1,
+      "message": "isn\u0027t it sufficient to know whether it should be enabled/disabled?\nWhy do you need extra check L1149-1152?\nDo groupInfo.getUnselectableRoutes() and mUngroupableRoutes differ?",
+      "range": {
+        "startLine": 1145,
+        "startChar": 16,
+        "endLine": 1148,
+        "endChar": 0
+      },
+      "revId": "50fd7e75f11d92f466f62b409e4b9c7b48703343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab30685c_8c422a03",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T07:18:11Z",
+      "side": 1,
+      "message": "progressbar / imageview visibility should be also reset.",
+      "range": {
+        "startLine": 1193,
+        "startChar": 0,
+        "endLine": 1193,
+        "endChar": 55
+      },
+      "revId": "50fd7e75f11d92f466f62b409e4b9c7b48703343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
