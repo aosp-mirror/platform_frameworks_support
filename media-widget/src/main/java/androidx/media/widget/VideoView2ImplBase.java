@@ -161,13 +161,12 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
                 // Update player
                 resetPlayer();
                 mRoute = route;
-                mRoutePlayer = new RoutePlayer2(mInstance.getContext(), route);
+                mRoutePlayer = new RoutePlayer2(mInstance.getContext(), mRouteSelector, route);
                 // TODO: Replace with MediaSession2#setPlaylist once b/110811730 is fixed.
                 mRoutePlayer.setMediaItem(mMediaItem);
                 mRoutePlayer.setCurrentPosition(localPlaybackPosition);
                 if (mMediaSession != null) {
-                    mMediaSession.updatePlayerConnector(
-                            mRoutePlayer, mMediaSession.getPlaylistAgent());
+                    mMediaSession.updatePlayer(mRoutePlayer);
                 } else {
                     final Context context = mInstance.getContext();
                     mMediaSession = new MediaSession2.Builder(context)
