@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "f4996b80_f5518de9",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatEditTextTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-18T17:47:15Z",
+      "side": 1,
+      "message": "Did you forget this bit?",
+      "parentUuid": "433e5aec_fd852cea",
+      "revId": "e90f8a3e7ab9f6a7c0e7ad63f32e0f2447eb1076",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9b63fe05_d22210db",
         "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatEditTextTest.java",
         "patchSetId": 2
@@ -163,6 +181,30 @@
       "revId": "e90f8a3e7ab9f6a7c0e7ad63f32e0f2447eb1076",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0dbee7f_be66cf35",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatEditText.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-18T17:47:15Z",
+      "side": 1,
+      "message": "Yeah. There\u0027s no way around this. :/\nI\u0027d usually just add a comment in the code that says the parent class unfortunately ends up calling this method in its constructor.\n\nI\u0027d see if I can find fix these issues in TextView/EditText. I\u0027ve run into issues because of such in the past too.\n\nThanks.",
+      "parentUuid": "be10e1e8_d478f2ad",
+      "range": {
+        "startLine": 212,
+        "startChar": 62,
+        "endLine": 212,
+        "endChar": 91
+      },
+      "revId": "e90f8a3e7ab9f6a7c0e7ad63f32e0f2447eb1076",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
