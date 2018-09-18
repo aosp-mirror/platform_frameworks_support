@@ -377,8 +377,12 @@ public class AsyncPagedListDiffer<T> {
         // to new list even if no in-viewport item changes (AsyncPagedListDiffer#get not called)
         int newPosition = PagedStorageDiffHelper.transformAnchorIndex(
                 diffResult, previousSnapshot.mStorage, newList.mStorage, lastAccessIndex);
-        // copy lastLoad position, clamped to list bounds
-        mPagedList.mLastLoad = Math.max(0, Math.min(mPagedList.size(), newPosition));
+
+        // Trigger load in new list at this position, clamped to list bounds.
+        // This is a load, not just an update of last load position, since the new list may be
+        // incomplete. If new list is subset of old list, but doesn't fill the viewport, this will
+        // likely trigger a load of new data.
+        mPagedList.loadAround(Math.max(0, Math.min(mPagedList.size() - 1, newPosition)));
 
         onCurrentListChanged(previousSnapshot, mPagedList, commitCallback);
     }
