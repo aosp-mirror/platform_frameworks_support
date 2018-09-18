@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "783cd771_19985cdc",
+        "filename": "preference/src/main/java/androidx/preference/PreferenceCategory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-18T20:44:30Z",
+      "side": 1,
+      "message": "move comment inside else block, always put else on the same line a the closing brace, ex.\n\n} else {",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 23
+      },
+      "revId": "382031db8c2b2394a32c202b168833e3bd0ccab6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b82504bf_5b86a952",
+        "filename": "preference/src/main/java/androidx/preference/PreferenceCategory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-18T20:44:30Z",
+      "side": 1,
+      "message": "Is the developer able to set a custom layout for this Preference? If so, this is going to potentially conflict with styling in XML. Unfortunately, I don\u0027t know of a good way to leave a placeholder value here to avoid such conflict -- just something to consider.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 13
+      },
+      "revId": "382031db8c2b2394a32c202b168833e3bd0ccab6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
