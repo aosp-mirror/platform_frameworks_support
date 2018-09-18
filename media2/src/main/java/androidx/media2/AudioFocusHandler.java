@@ -17,10 +17,10 @@
 package androidx.media2;
 
 import static androidx.annotation.VisibleForTesting.PACKAGE_PRIVATE;
-import static androidx.media2.MediaPlayerConnector.PLAYER_STATE_ERROR;
-import static androidx.media2.MediaPlayerConnector.PLAYER_STATE_IDLE;
-import static androidx.media2.MediaPlayerConnector.PLAYER_STATE_PAUSED;
-import static androidx.media2.MediaPlayerConnector.PLAYER_STATE_PLAYING;
+import static androidx.media2.SessionPlayer2.PLAYER_STATE_ERROR;
+import static androidx.media2.SessionPlayer2.PLAYER_STATE_IDLE;
+import static androidx.media2.SessionPlayer2.PLAYER_STATE_PAUSED;
+import static androidx.media2.SessionPlayer2.PLAYER_STATE_PLAYING;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -242,7 +242,7 @@ public class AudioFocusHandler {
                 }
             }
             if (pauseNeeded) {
-                mSession.pause();
+                mSession.getPlayer().pause();
             }
         }
 
@@ -461,7 +461,7 @@ public class AudioFocusHandler {
                         case AudioAttributesCompat.USAGE_MEDIA:
                             // Noisy intent guide says 'In the case of music players, users
                             // typically expect the playback to be paused.'
-                            mSession.pause();
+                            mSession.getPlayer().pause();
                             break;
                         case AudioAttributesCompat.USAGE_GAME:
                             // Noisy intent guide says 'For gaming apps, you may choose to
@@ -494,14 +494,14 @@ public class AudioFocusHandler {
                 switch (focusGain) {
                     case AudioManager.AUDIOFOCUS_GAIN:
                         // Regains focus after the LOSS_TRANSIENT or LOSS_TRANSIENT_CAN_DUCK.
-                        if (mSession.getPlayerState() == PLAYER_STATE_PAUSED) {
+                        if (mSession.getPlayer().getPlayerState() == PLAYER_STATE_PAUSED) {
                             // Note: onPlayRequested() will be called again with this.
                             synchronized (mLock) {
                                 if (!mResumeWhenAudioFocusGain) {
                                     break;
                                 }
                             }
-                            mSession.play();
+                            mSession.getPlayer().play();
                         } else {
                             MediaPlayerConnector player = mSession.getPlayerConnector();
                             if (player != null) {
@@ -522,7 +522,7 @@ public class AudioFocusHandler {
                     case AudioManager.AUDIOFOCUS_LOSS:
                         // Audio-focus developer guide says 'Your app should pause playback
                         // immediately, as it won't ever receive an AUDIOFOCUS_GAIN callback'.
-                        mSession.pause();
+                        mSession.getPlayer().pause();
                         // Don't resume even after you regain the audio focus.
                         synchronized (mLock) {
                             mResumeWhenAudioFocusGain = false;
@@ -539,7 +539,7 @@ public class AudioFocusHandler {
                                     == AudioAttributesCompat.CONTENT_TYPE_SPEECH);
                         }
                         if (pause) {
-                            mSession.pause();
+                            mSession.getPlayer().pause();
                         } else {
                             MediaPlayerConnector player = mSession.getPlayerConnector();
                             if (player != null) {
@@ -555,7 +555,7 @@ public class AudioFocusHandler {
                         }
                         break;
                     case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
-                        mSession.pause();
+                        mSession.getPlayer().pause();
                         // Resume after regaining the audio focus.
                         synchronized (mLock) {
                             mResumeWhenAudioFocusGain = true;

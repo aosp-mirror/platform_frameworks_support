@@ -54,6 +54,7 @@ import androidx.media2.MediaPlayerConnector;
 import androidx.media2.MediaSession2;
 import androidx.media2.SessionCommand2;
 import androidx.media2.SessionCommandGroup2;
+import androidx.media2.SessionPlayer2;
 import androidx.media2.SessionToken2;
 import androidx.media2.SubtitleData2;
 import androidx.media2.UriMediaItem2;
@@ -156,8 +157,8 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
             if (route.supportsControlCategory(MediaControlIntent.CATEGORY_REMOTE_PLAYBACK)) {
                 // Save local playback state and position
                 int localPlaybackState = mCurrentState;
-                long localPlaybackPosition =
-                        (mMediaSession == null) ? 0 : mMediaSession.getCurrentPosition();
+                long localPlaybackPosition = (mMediaSession == null)
+                        ? 0 : mMediaSession.getPlayer().getCurrentPosition();
 
                 // Update player
                 resetPlayer();
@@ -177,7 +178,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
                             .build();
                 }
                 if (localPlaybackState == STATE_PLAYING) {
-                    mMediaSession.play();
+                    mMediaSession.getPlayer().play();
                 }
             }
         }
@@ -197,9 +198,9 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
             }
             if (reason != MediaRouter.UNSELECT_REASON_ROUTE_CHANGED) {
                 openVideo();
-                mMediaSession.seekTo(currentPosition);
+                mMediaSession.getPlayer().seekTo(currentPosition);
                 if (currentState == MediaPlayerConnector.PLAYER_STATE_PLAYING) {
-                    mMediaSession.play();
+                    mMediaSession.getPlayer().play();
                 }
             }
         }
@@ -523,9 +524,9 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
     public void onVisibilityAggregatedImpl(boolean isVisible) {
         if (isMediaPrepared()) {
             if (!isVisible && mCurrentState == STATE_PLAYING) {
-                mMediaSession.pause();
+                mMediaSession.getPlayer().pause();
             } else if (isVisible && mTargetState == STATE_PLAYING) {
-                mMediaSession.play();
+                mMediaSession.getPlayer().play();
             }
         }
     }
@@ -590,7 +591,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
                     + ", " + view.toString());
         }
         if (needToStart()) {
-            mMediaSession.play();
+            mMediaSession.getPlayer().play();
         }
     }
 
@@ -616,7 +617,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
             Log.d(TAG, "onSurfaceTakeOverDone(). Now current view is: " + view);
         }
         if (mCurrentState != STATE_PLAYING) {
-            mMediaSession.seekTo(mMediaSession.getCurrentPosition());
+            mMediaSession.getPlayer().seekTo(mMediaSession.getPlayer().getCurrentPosition());
         }
         mCurrentView = view;
         if (mViewTypeChangedListener != null) {
@@ -624,7 +625,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
         }
 
         if (needToStart()) {
-            mMediaSession.play();
+            mMediaSession.getPlayer().play();
         }
     }
 
@@ -642,8 +643,8 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
 
     private boolean isMediaPrepared() {
         return mMediaSession != null
-                && mMediaSession.getPlayerState() != MediaPlayerConnector.PLAYER_STATE_ERROR
-                && mMediaSession.getPlayerState() != MediaPlayerConnector.PLAYER_STATE_IDLE;
+                && mMediaSession.getPlayer().getPlayerState() != SessionPlayer2.PLAYER_STATE_ERROR
+                && mMediaSession.getPlayer().getPlayerState() != SessionPlayer2.PLAYER_STATE_IDLE;
     }
 
     boolean needToStart() {
@@ -701,7 +702,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
             // we don't set the target state here either, but preserve the
             // target state that was there before.
             mCurrentState = STATE_PREPARING;
-            mMediaSession.prepare();
+            mMediaSession.getPlayer().prepare();
         } catch (IllegalArgumentException ex) {
             Log.w(TAG, "Unable to open content: " + mMediaItem, ex);
             mCurrentState = STATE_ERROR;
@@ -909,7 +910,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
             builder.putString(MediaMetadata2.METADATA_KEY_TITLE, mTitle);
         }
         builder.putLong(
-                MediaMetadata2.METADATA_KEY_DURATION, mMediaSession.getDuration());
+                MediaMetadata2.METADATA_KEY_DURATION, mMediaSession.getPlayer().getDuration());
         builder.putString(
                 MediaMetadata2.METADATA_KEY_MEDIA_ID, mMediaItem.getMediaId());
         mMediaItem.setMetadata(builder.build());
@@ -1063,7 +1064,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
                     // mSeekWhenPrepared may be changed after seekTo() call
                     long seekToPosition = mSeekWhenPrepared;
                     if (seekToPosition != 0) {
-                        mMediaSession.seekTo(seekToPosition);
+                        mMediaSession.getPlayer().seekTo(seekToPosition);
                     }
 
                     if (videoWidth != 0 && videoHeight != 0) {
@@ -1074,14 +1075,14 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
                         }
 
                         if (needToStart()) {
-                            mMediaSession.play();
+                            mMediaSession.getPlayer().play();
                         }
 
                     } else {
                         // We don't know the video size yet, but should start anyway.
                         // The video size might be reported to us later.
                         if (needToStart()) {
-                            mMediaSession.play();
+                            mMediaSession.getPlayer().play();
                         }
                     }
                 }
@@ -1179,7 +1180,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
                     Log.w(TAG, "onCommandRequest() is ignored. session is already gone.");
                 }
             }
-            switch(command.getCommandCode()) {
+            switch (command.getCommandCode()) {
                 case SessionCommand2.COMMAND_CODE_PLAYBACK_PLAY:
                     mTargetState = STATE_PLAYING;
                     if (!mCurrentView.hasAvailableSurface() && !mIsMusicMediaType) {
@@ -1196,13 +1197,15 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
             }
             return true;
         }
+    }
 
+    class SessionPlayerCallback extends SessionPlayer2.PlayerCallback {
         @Override
-        public void onPlayerStateChanged(@NonNull MediaSession2 session,
-                @NonNull MediaPlayerConnector player, @MediaPlayerConnector.PlayerState int state) {
-            if (session != mMediaSession) {
+        public void onPlayerStateChanged(@NonNull SessionPlayer2 player,
+                @SessionPlayer2.PlayerState int state) {
+            if (player != mMediaSession.getPlayer()) {
                 if (DEBUG) {
-                    Log.w(TAG, "onPlayerStateChanged() is ignored. session is already gone.");
+                    Log.w(TAG, "onPlayerStateChanged() is ignored. player mismatches.");
                 }
             }
             switch(state) {
@@ -1218,19 +1221,6 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
                 case MediaPlayerConnector.PLAYER_STATE_ERROR:
                     mCurrentState = STATE_ERROR;
                     break;
-            }
-        }
-
-        @Override
-        public void onMediaPrepared(@NonNull MediaSession2 session,
-                @NonNull MediaPlayerConnector player, @NonNull MediaItem2 item) {
-            if (session != mMediaSession) {
-                if (DEBUG) {
-                    Log.w(TAG, "onMediaPrepared() is ignored. session is already gone.");
-                }
-            }
-            if (DEBUG) {
-                Log.d(TAG, "onMediaPrepared() is called.");
             }
         }
     }

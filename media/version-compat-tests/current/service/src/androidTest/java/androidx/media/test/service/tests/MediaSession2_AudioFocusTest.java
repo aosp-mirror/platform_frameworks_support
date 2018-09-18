@@ -300,7 +300,7 @@ public class MediaSession2_AudioFocusTest extends MediaSession2TestBase {
         AudioAttributesCompat attrs = createAudioAttributes(CONTENT_TYPE_MUSIC, USAGE_MEDIA);
         try (MediaSession2 session = createSession(attrs)) {
             // Play should request audio focus with AUDIOFOCUS_GAIN for USAGE_MEDIA
-            session.play();
+            session.getPlayer().play();
 
             // Previously focused one should loss audio focus
             waitForAudioFocus(AUDIOFOCUS_LOSS);
@@ -337,7 +337,7 @@ public class MediaSession2_AudioFocusTest extends MediaSession2TestBase {
         AudioAttributesCompat attrs = createAudioAttributes(CONTENT_TYPE_MUSIC, USAGE_UNKNOWN);
         try (MediaSession2 session = createSession(attrs)) {
             // Play should request audio focus with AUDIOFOCUS_GAIN for USAGE_MEDIA
-            session.play();
+            session.getPlayer().play();
 
             // Previously focused one should loss audio focus
             waitForAudioFocus(AUDIOFOCUS_LOSS);
@@ -354,7 +354,7 @@ public class MediaSession2_AudioFocusTest extends MediaSession2TestBase {
         AudioAttributesCompat attrs = createAudioAttributes(CONTENT_TYPE_MUSIC, USAGE_ALARM);
         try (MediaSession2 session = createSession(attrs)) {
             // Play should request audio focus with AUDIOFOCUS_GAIN_TRANSIENT for USAGE_ALARM
-            session.play();
+            session.getPlayer().play();
 
             waitForAudioFocus(AUDIOFOCUS_LOSS_TRANSIENT);
         }
@@ -372,7 +372,7 @@ public class MediaSession2_AudioFocusTest extends MediaSession2TestBase {
         try (MediaSession2 session = createSession(attrs)) {
             // Play should request audio focus with AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK for
             // USAGE_ASSISTANCE_NAVIGATION_GUIDANCE.
-            session.play();
+            session.getPlayer().play();
 
             waitForAudioFocus(AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK);
         }
@@ -387,7 +387,7 @@ public class MediaSession2_AudioFocusTest extends MediaSession2TestBase {
         requestAudioFocus(AUDIOFOCUS_GAIN);
 
         try (MediaSession2 session = createSession(null)) {
-            session.play();
+            session.getPlayer().play();
             assertNoAudioFocusChanges(AUDIOFOCUS_GAIN);
             assertEquals(0, session.getPlayerConnector().getPlayerVolume(), 0.1f);
         }
