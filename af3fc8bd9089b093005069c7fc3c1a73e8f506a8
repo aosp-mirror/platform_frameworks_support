@@ -1,0 +1,481 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9806171_d3464a51",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "null?",
+      "range": {
+        "startLine": 604,
+        "startChar": 12,
+        "endLine": 604,
+        "endChar": 27
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15d538ee_f884f675",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "Is playlist Nullable (as written in the annotation) or non-null as the code checks?",
+      "range": {
+        "startLine": 615,
+        "startChar": 12,
+        "endLine": 618,
+        "endChar": 9
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "468ad4a2_4320b6bf",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "|| playlist.isEmpty()?",
+      "range": {
+        "startLine": 625,
+        "startChar": 32,
+        "endLine": 625,
+        "endChar": 33
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18532392_b0e6e364",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "can be null after the setMediaItem(). Here and other places.",
+      "range": {
+        "startLine": 660,
+        "startChar": 16,
+        "endLine": 660,
+        "endChar": 25
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69dfa108_16010b69",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "This may not contain item, when setMediaItem is called.",
+      "range": {
+        "startLine": 711,
+        "startChar": 16,
+        "endLine": 711,
+        "endChar": 25
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da5df25d_a5778fcf",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "DSD2?",
+      "range": {
+        "startLine": 746,
+        "startChar": 55,
+        "endLine": 746,
+        "endChar": 59
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b59a11ef_7316cc5b",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "null?",
+      "range": {
+        "startLine": 755,
+        "startChar": 26,
+        "endLine": 755,
+        "endChar": 35
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22aee75c_88ab8ebb",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "Why not metadata? repeat/shuffle notifies with the params.",
+      "range": {
+        "startLine": 874,
+        "startChar": 70,
+        "endLine": 874,
+        "endChar": 92
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55cc6123_695fa91d",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "Why don\u0027t you do this first? It\u0027s not MediaItem in the CommandResult isn\u0027t for current item so you may not return it.",
+      "range": {
+        "startLine": 921,
+        "startChar": 0,
+        "endLine": 921,
+        "endChar": 58
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d061a5fa_f1bd15f1",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "nit) I\u0027m seeing the same pattern more than 5 times. What about creating an helper method for this?",
+      "range": {
+        "startLine": 942,
+        "startChar": 0,
+        "endLine": 945,
+        "endChar": 0
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c65ad62_39dfecd8",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1450,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be setMediaItem()?",
+      "range": {
+        "startLine": 1450,
+        "startChar": 0,
+        "endLine": 1450,
+        "endChar": 88
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63bd1a2d_fd7757de",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1460,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "setNextMediaItem()?",
+      "range": {
+        "startLine": 1460,
+        "startChar": 45,
+        "endLine": 1460,
+        "endChar": 73
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20509c9f_4baadd64",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1470,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "skipToNext?",
+      "range": {
+        "startLine": 1470,
+        "startChar": 45,
+        "endLine": 1470,
+        "endChar": 67
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a65ce46_7915a2ed",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1497,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "remove empty line.",
+      "range": {
+        "startLine": 1497,
+        "startChar": 0,
+        "endLine": 1497,
+        "endChar": 6
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80879c9c_414318a0",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1500,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "Q) Can the return be differ with Pair\u003cmCurrentItem, mNextItem\u003e?\n  - If they\u0027re the same always, what about not returning pair, but boolean?\n    For example, L633-634 uses the mCurrentItem and mNextItem instead of the returned value.\n  - If they may not be the same, what about documenting it more?",
+      "range": {
+        "startLine": 1500,
+        "startChar": 12,
+        "endLine": 1500,
+        "endChar": 82
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59963fa4_4264ad32",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1513,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "remove empty line",
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fc05745_dbdcacc3",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1526,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "Q) Is mNextItem non null always here? Otherwise nextShuffleIdx \u003d\u003d END_OF_PLAYLIST and OutOfBound exception will be thrown",
+      "range": {
+        "startLine": 1526,
+        "startChar": 19,
+        "endLine": 1526,
+        "endChar": 65
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee74e0a1_2e87c894",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1534,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "who calls this?",
+      "range": {
+        "startLine": 1534,
+        "startChar": 17,
+        "endLine": 1534,
+        "endChar": 38
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0a7372a_bf762016",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1548,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "who calls this?",
+      "range": {
+        "startLine": 1548,
+        "startChar": 17,
+        "endLine": 1548,
+        "endChar": 46
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a28f371_043eb780",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1569,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "Who use this?",
+      "range": {
+        "startLine": 1569,
+        "startChar": 22,
+        "endLine": 1569,
+        "endChar": 44
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48913a49_ee63c203",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2017,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T08:44:57Z",
+      "side": 1,
+      "message": "This is not atomic operation. If you care about about synchronization, consider using AtomicInteger instead.",
+      "range": {
+        "startLine": 2017,
+        "startChar": 32,
+        "endLine": 2017,
+        "endChar": 47
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
