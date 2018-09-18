@@ -45,6 +45,30 @@
       "revId": "382031db8c2b2394a32c202b168833e3bd0ccab6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58f332f9_e8fc7a0c",
+        "filename": "preference/src/main/java/androidx/preference/PreferenceCategory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-09-18T21:58:04Z",
+      "side": 1,
+      "message": "Yeah. Currently pre L we hardcode the teal material accent colour (ff008577) as the category title colour - the only thing I can think of to safeguard against this changing breaking developers is check that the current colour is the same as that, and then change the colour if so. In any case the category title colour should be the same as the accent colour according to material specs.",
+      "parentUuid": "b82504bf_5b86a952",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 13
+      },
+      "revId": "382031db8c2b2394a32c202b168833e3bd0ccab6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
