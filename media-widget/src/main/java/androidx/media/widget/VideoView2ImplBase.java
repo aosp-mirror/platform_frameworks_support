@@ -806,12 +806,6 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
     }
 
     void extractMetadata() {
-        if (mMediaItem.getMetadata() != null) {
-            // If a MediaItem2 instance has its own metadata, then use it.
-            // TODO: merge metadata from metadata retriever
-            return;
-        }
-
         Uri uri = (mMediaItem != null && mMediaItem instanceof UriMediaItem2)
                 ? ((UriMediaItem2) mMediaItem).getUri() : null;
         if (uri == null) {
@@ -831,22 +825,31 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
             }
         }
 
+        MediaMetadata2 metadata = mMediaItem.getMetadata();
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         try {
             retriever.setDataSource(mInstance.getContext(), uri);
         } catch (IllegalArgumentException e) {
             Log.v(TAG, "Cannot retrieve metadata for this media file.");
             retriever.release();
-            return;
+            retriever = null;
         }
-
-        String title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
-        if (title != null) {
-            mTitle = title;
+        if (metadata != null && metadata.containsKey(MediaMetadata2.METADATA_KEY_TITLE)) {
+            CharSequence title = metadata.getText(MediaMetadata2.METADATA_KEY_TITLE);
+            if (title != null) {
+                mTitle = title.toString();
+            }
+        } else if (retriever != null) {
+            String title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+            if (title != null) {
+                mTitle = title;
+            }
         }
 
         if (!mIsMusicMediaType) {
-            retriever.release();
+            if (retriever != null) {
+                retriever.release();
+            }
             return;
         }
 
@@ -855,9 +858,16 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
         mManager = (WindowManager) mInstance.getContext().getApplicationContext()
                 .getSystemService(Context.WINDOW_SERVICE);
 
-        byte[] album = retriever.getEmbeddedPicture();
-        if (album != null) {
-            Bitmap bitmap = BitmapFactory.decodeByteArray(album, 0, album.length);
+        Bitmap bitmap = null;
+        if (metadata != null && metadata.containsKey(MediaMetadata2.METADATA_KEY_ALBUM_ART)) {
+            bitmap = metadata.getBitmap(MediaMetadata2.METADATA_KEY_ALBUM_ART);
+        } else if (retriever != null) {
+            byte[] album = retriever.getEmbeddedPicture();
+            if (album != null) {
+                bitmap = BitmapFactory.decodeByteArray(album, 0, album.length);
+            }
+        }
+        if (bitmap != null) {
             mMusicAlbumDrawable = new BitmapDrawable(bitmap);
 
             Palette.Builder builder = Palette.from(bitmap);
@@ -874,18 +884,30 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
             mMusicAlbumDrawable = resources.getDrawable(R.drawable.ic_default_album_image);
         }
 
-        title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
-        if (title != null) {
-            mMusicTitleText = title;
-        } else {
-            mMusicTitleText = resources.getString(R.string.mcv2_music_title_unknown_text);
+        mMusicTitleText = resources.getString(R.string.mcv2_music_title_unknown_text);
+        if (metadata != null && metadata.containsKey(MediaMetadata2.METADATA_KEY_TITLE)) {
+            String title = metadata.getString(MediaMetadata2.METADATA_KEY_TITLE);
+            if (title != null) {
+                mMusicTitleText = title;
+            }
+        } else if (retriever != null) {
+            String title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+            if (title != null) {
+                mMusicTitleText = title;
+            }
         }
 
-        String artist = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
-        if (artist != null) {
-            mMusicArtistText = artist;
-        } else {
-            mMusicArtistText = resources.getString(R.string.mcv2_music_artist_unknown_text);
+        mMusicArtistText = resources.getString(R.string.mcv2_music_artist_unknown_text);
+        if (metadata != null && metadata.containsKey(MediaMetadata2.METADATA_KEY_ARTIST)) {
+            String artist = metadata.getString(MediaMetadata2.METADATA_KEY_ARTIST);
+            if (artist != null) {
+                mMusicArtistText = artist;
+            }
+        } else if (retriever != null) {
+            String artist = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
+            if (artist != null) {
+                mMusicArtistText = artist;
+            }
         }
 
         retriever.release();
@@ -1039,6 +1061,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
                 }
 
                 private void onPrepared(XMediaPlayer mp, MediaItem2 dsd) {
+                    // TODO: b/116765554
                     if (DEBUG) {
                         Log.d(TAG, "OnPreparedListener(): "
                                 + ", mCurrentState=" + mCurrentState
