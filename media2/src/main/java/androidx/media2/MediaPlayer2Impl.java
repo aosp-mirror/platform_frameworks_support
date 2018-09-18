@@ -1016,17 +1016,14 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
 
     // Modular DRM begin
 
-    /**
-     * Register a callback to be invoked for configuration of the DRM object before
-     * the session is created.
-     * The callback will be invoked synchronously during the execution
-     * of {@link #prepareDrm(UUID uuid)}.
-     *
-     * @param listener the callback that will be run
-     */
     @Override
     public void setOnDrmConfigHelper(final OnDrmConfigHelper listener) {
-        mPlayer.setOnDrmConfigHelper(new MediaPlayer.OnDrmConfigHelper() {
+        setOnDrmConfigHelper(getCurrentMediaItem(), listener);
+    }
+
+    @Override
+    public void setOnDrmConfigHelper(MediaItem2 item, final OnDrmConfigHelper listener) {
+        mPlayer.setOnDrmConfigHelper(item, new MediaPlayer.OnDrmConfigHelper() {
             @Override
             public void onDrmConfig(MediaPlayer mp) {
                 MediaPlayerSource src = mPlayer.getSourceForPlayer(mp);
@@ -1036,13 +1033,6 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         });
     }
 
-    /**
-     * Register a callback to be invoked when the media source is ready
-     * for playback.
-     *
-     * @param eventCallback the callback that will be run
-     * @param executor the executor through which the callback should be invoked
-     */
     @Override
     public void setDrmEventCallback(@NonNull Executor executor,
                                     @NonNull DrmEventCallback eventCallback) {
@@ -1058,9 +1048,6 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         }
     }
 
-    /**
-     * Clears the {@link DrmEventCallback}.
-     */
     @Override
     public void clearDrmEventCallback() {
         synchronized (mLock) {
@@ -1068,49 +1055,30 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         }
     }
 
-
-    /**
-     * Retrieves the DRM Info associated with the current source
-     *
-     * @throws IllegalStateException if called before prepare()
-     */
     @Override
     public DrmInfo getDrmInfo() {
-        MediaPlayer.DrmInfo info = mPlayer.getDrmInfo();
+        return getDrmInfo(getCurrentMediaItem());
+    }
+
+    @Override
+    public DrmInfo getDrmInfo(MediaItem2 item) {
+        MediaPlayer.DrmInfo info = mPlayer.getDrmInfo(item);
         return info == null ? null : new DrmInfoImpl(info.getPssh(), info.getSupportedSchemes());
     }
 
-
-    /**
-     * Prepares the DRM for the current source
-     * <p>
-     * If {@link OnDrmConfigHelper} is registered, it will be called during
-     * preparation to allow configuration of the DRM properties before opening the
-     * DRM session. Note that the callback is called synchronously in the thread that called
-     * {@link #prepareDrm}. It should be used only for a series of {@code getDrmPropertyString}
-     * and {@code setDrmPropertyString} calls and refrain from any lengthy operation.
-     * <p>
-     * If the device has not been provisioned before, this call also provisions the device
-     * which involves accessing the provisioning server and can take a variable time to
-     * complete depending on the network connectivity.
-     * prepareDrm() runs in non-blocking mode by launching the provisioning in the background and
-     * returning. {@link DrmEventCallback#onDrmPrepared} will be called when provisioning and
-     * preparation has finished. The application should check the status code returned with
-     * {@link DrmEventCallback#onDrmPrepared} to proceed.
-     * <p>
-     *
-     * @param uuid The UUID of the crypto scheme. If not known beforehand, it can be retrieved
-     * from the source through {@#link getDrmInfo} or registering
-     * {@link DrmEventCallback#onDrmInfo}.
-     */
     @Override
     public void prepareDrm(@NonNull final UUID uuid) {
+        prepareDrm(getCurrentMediaItem(), uuid);
+    }
+
+    @Override
+    public void prepareDrm(final MediaItem2 item, final UUID uuid) {
         addTask(new Task(CALL_COMPLETED_PREPARE_DRM, false) {
             @Override
             void process() {
                 int status = PREPARE_DRM_STATUS_SUCCESS;
                 try {
-                    mPlayer.prepareDrm(uuid);
+                    mPlayer.prepareDrm(item, uuid);
                 } catch (ResourceBusyException e) {
                     status = PREPARE_DRM_STATUS_RESOURCE_BUSY;
                 } catch (MediaPlayer.ProvisioningServerErrorException e) {
@@ -1133,163 +1101,102 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         });
     }
 
-    /**
-     * Releases the DRM session
-     * <p>
-     * The player has to have an active DRM session and be in stopped, or prepared
-     * state before this call is made.
-     * A {@code reset()} call will release the DRM session implicitly.
-     *
-     * @throws NoDrmSchemeException if there is no active DRM session to release
-     */
     @Override
     public void releaseDrm() throws NoDrmSchemeException {
+        releaseDrm(getCurrentMediaItem());
+    }
+
+    @Override
+    public void releaseDrm(MediaItem2 item) throws NoDrmSchemeException {
         try {
-            mPlayer.releaseDrm();
+            mPlayer.releaseDrm(item);
         } catch (MediaPlayer.NoDrmSchemeException e) {
             throw new NoDrmSchemeException(e.getMessage());
         }
     }
 
-
-    /**
-     * A key request/response exchange occurs between the app and a license server
-     * to obtain or release keys used to decrypt encrypted content.
-     * <p>
-     * getDrmKeyRequest() is used to obtain an opaque key request byte array that is
-     * delivered to the license server.  The opaque key request byte array is returned
-     * in KeyRequest.data.  The recommended URL to deliver the key request to is
-     * returned in KeyRequest.defaultUrl.
-     * <p>
-     * After the app has received the key request response from the server,
-     * it should deliver to the response to the DRM engine plugin using the method
-     * {@link #provideDrmKeyResponse}.
-     *
-     * @param keySetId is the key-set identifier of the offline keys being released when keyType is
-     * {@link MediaDrm#KEY_TYPE_RELEASE}. It should be set to null for other key requests, when
-     * keyType is {@link MediaDrm#KEY_TYPE_STREAMING} or {@link MediaDrm#KEY_TYPE_OFFLINE}.
-     *
-     * @param initData is the container-specific initialization data when the keyType is
-     * {@link MediaDrm#KEY_TYPE_STREAMING} or {@link MediaDrm#KEY_TYPE_OFFLINE}. Its meaning is
-     * interpreted based on the mime type provided in the mimeType parameter.  It could
-     * contain, for example, the content ID, key ID or other data obtained from the content
-     * metadata that is required in generating the key request.
-     * When the keyType is {@link MediaDrm#KEY_TYPE_RELEASE}, it should be set to null.
-     *
-     * @param mimeType identifies the mime type of the content
-     *
-     * @param keyType specifies the type of the request. The request may be to acquire
-     * keys for streaming, {@link MediaDrm#KEY_TYPE_STREAMING}, or for offline content
-     * {@link MediaDrm#KEY_TYPE_OFFLINE}, or to release previously acquired
-     * keys ({@link MediaDrm#KEY_TYPE_RELEASE}), which are identified by a keySetId.
-     *
-     * @param optionalParameters are included in the key request message to
-     * allow a client application to provide additional message parameters to the server.
-     * This may be {@code null} if no additional parameters are to be sent.
-     *
-     * @throws NoDrmSchemeException if there is no active DRM session
-     */
     @Override
     @NonNull
     public MediaDrm.KeyRequest getDrmKeyRequest(@Nullable byte[] keySetId,
             @Nullable byte[] initData, @Nullable String mimeType, int keyType,
             @Nullable Map<String, String> optionalParameters)
             throws NoDrmSchemeException {
+        return getDrmKeyRequest(getCurrentMediaItem(), keySetId, initData, mimeType, keyType,
+                optionalParameters);
+    }
+
+    @Override
+    public MediaDrm.KeyRequest getDrmKeyRequest(MediaItem2 item, byte[] keySetId, byte[] initData,
+            String mimeType, int keyType, Map<String, String> optionalParameters)
+            throws NoDrmSchemeException {
         try {
-            return mPlayer.getKeyRequest(keySetId, initData, mimeType, keyType, optionalParameters);
+            return mPlayer.getKeyRequest(
+                    item, keySetId, initData, mimeType, keyType, optionalParameters);
         } catch (MediaPlayer.NoDrmSchemeException e) {
             throw new NoDrmSchemeException(e.getMessage());
         }
     }
 
-
-    /**
-     * A key response is received from the license server by the app, then it is
-     * provided to the DRM engine plugin using provideDrmKeyResponse. When the
-     * response is for an offline key request, a key-set identifier is returned that
-     * can be used to later restore the keys to a new session with the method
-     * {@link #restoreDrmKeys}.
-     * When the response is for a streaming or release request, null is returned.
-     *
-     * @param keySetId When the response is for a release request, keySetId identifies
-     * the saved key associated with the release request (i.e., the same keySetId
-     * passed to the earlier {@link #getDrmKeyRequest} call. It MUST be null when the
-     * response is for either streaming or offline key requests.
-     *
-     * @param response the byte array response from the server
-     *
-     * @throws NoDrmSchemeException if there is no active DRM session
-     * @throws DeniedByServerException if the response indicates that the
-     * server rejected the request
-     */
     @Override
     public byte[] provideDrmKeyResponse(@Nullable byte[] keySetId, @NonNull byte[] response)
             throws NoDrmSchemeException, DeniedByServerException {
+        return provideDrmKeyResponse(getCurrentMediaItem(), keySetId, response);
+    }
+
+    @Override
+    public byte[] provideDrmKeyResponse(MediaItem2 item, byte[] keySetId, byte[] response)
+            throws NoDrmSchemeException, DeniedByServerException {
         try {
-            return mPlayer.provideKeyResponse(keySetId, response);
+            return mPlayer.provideKeyResponse(item, keySetId, response);
         } catch (MediaPlayer.NoDrmSchemeException e) {
             throw new NoDrmSchemeException(e.getMessage());
         }
     }
 
-
-    /**
-     * Restore persisted offline keys into a new session.  keySetId identifies the
-     * keys to load, obtained from a prior call to {@link #provideDrmKeyResponse}.
-     *
-     * @param keySetId identifies the saved key set to restore
-     */
     @Override
     public void restoreDrmKeys(@NonNull final byte[] keySetId)
             throws NoDrmSchemeException {
+        restoreDrmKeys(getCurrentMediaItem(), keySetId);
+    }
+
+    @Override
+    public void restoreDrmKeys(MediaItem2 item, final byte[] keySetId) throws NoDrmSchemeException {
         try {
-            mPlayer.restoreKeys(keySetId);
+            mPlayer.restoreKeys(item, keySetId);
         } catch (MediaPlayer.NoDrmSchemeException e) {
             throw new NoDrmSchemeException(e.getMessage());
         }
     }
 
-
-    /**
-     * Read a DRM engine plugin String property value, given the property name string.
-     * <p>
-     *
-
-     * @param propertyName the property name
-     *
-     * Standard fields names are:
-     * {@link MediaDrm#PROPERTY_VENDOR}, {@link MediaDrm#PROPERTY_VERSION},
-     * {@link MediaDrm#PROPERTY_DESCRIPTION}, {@link MediaDrm#PROPERTY_ALGORITHMS}
-     */
     @Override
     @NonNull
     public String getDrmPropertyString(@NonNull String propertyName)
             throws NoDrmSchemeException {
+        return getDrmPropertyString(getCurrentMediaItem(), propertyName);
+    }
+
+    @Override
+    public String getDrmPropertyString(MediaItem2 item, String propertyName)
+            throws NoDrmSchemeException {
         try {
-            return mPlayer.getDrmPropertyString(propertyName);
+            return mPlayer.getDrmPropertyString(item, propertyName);
         } catch (MediaPlayer.NoDrmSchemeException e) {
             throw new NoDrmSchemeException(e.getMessage());
         }
     }
 
-
-    /**
-     * Set a DRM engine plugin String property value.
-     * <p>
-     *
-     * @param propertyName the property name
-     * @param value the property value
-     *
-     * Standard fields names are:
-     * {@link MediaDrm#PROPERTY_VENDOR}, {@link MediaDrm#PROPERTY_VERSION},
-     * {@link MediaDrm#PROPERTY_DESCRIPTION}, {@link MediaDrm#PROPERTY_ALGORITHMS}
-     */
     @Override
     public void setDrmPropertyString(@NonNull String propertyName,
                                      @NonNull String value)
             throws NoDrmSchemeException {
+        setDrmPropertyString(getCurrentMediaItem(), propertyName, value);
+    }
+
+    @Override
+    public void setDrmPropertyString(MediaItem2 item, String propertyName, String value)
+            throws NoDrmSchemeException {
         try {
-            mPlayer.setDrmPropertyString(propertyName, value);
+            mPlayer.setDrmPropertyString(item, propertyName, value);
         } catch (MediaPlayer.NoDrmSchemeException e) {
             throw new NoDrmSchemeException(e.getMessage());
         }
@@ -1885,6 +1792,15 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
             mQueue.add(new MediaPlayerSource(null));
         }
 
+        synchronized MediaPlayer getPlayer(MediaItem2 item) {
+            for (MediaPlayerSource src : mQueue) {
+                if (src.getDSD() == item) {
+                    return src.mPlayer;
+                }
+            }
+            throw new IllegalArgumentException(item + " is not found in the list.");
+        }
+
         synchronized MediaPlayer getCurrentPlayer() {
             return mQueue.get(0).getPlayer();
         }
@@ -2397,49 +2313,50 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
             getCurrentPlayer().deselectTrack(index);
         }
 
-        synchronized MediaPlayer.DrmInfo getDrmInfo() {
-            return getCurrentPlayer().getDrmInfo();
+        synchronized MediaPlayer.DrmInfo getDrmInfo(MediaItem2 item) {
+            return getPlayer(item).getDrmInfo();
         }
 
-        synchronized void prepareDrm(UUID uuid)
+        synchronized void prepareDrm(MediaItem2 item, UUID uuid)
                 throws ResourceBusyException, MediaPlayer.ProvisioningServerErrorException,
                 MediaPlayer.ProvisioningNetworkErrorException, UnsupportedSchemeException {
-            getCurrentPlayer().prepareDrm(uuid);
+            getPlayer(item).prepareDrm(uuid);
         }
 
-        synchronized void releaseDrm() throws MediaPlayer.NoDrmSchemeException {
-            getCurrentPlayer().stop();
-            getCurrentPlayer().releaseDrm();
+        synchronized void releaseDrm(MediaItem2 item) throws MediaPlayer.NoDrmSchemeException {
+            getPlayer(item).stop();
+            getPlayer(item).releaseDrm();
         }
 
-        synchronized byte[] provideKeyResponse(byte[] keySetId, byte[] response)
+        synchronized byte[] provideKeyResponse(MediaItem2 item,byte[] keySetId, byte[] response)
                 throws DeniedByServerException, MediaPlayer.NoDrmSchemeException {
-            return getCurrentPlayer().provideKeyResponse(keySetId, response);
+            return getPlayer(item).provideKeyResponse(keySetId, response);
         }
 
-        synchronized void restoreKeys(byte[] keySetId) throws MediaPlayer.NoDrmSchemeException {
-            getCurrentPlayer().restoreKeys(keySetId);
+        synchronized void restoreKeys(MediaItem2 item, byte[] keySetId) throws MediaPlayer.NoDrmSchemeException {
+            getPlayer(item).restoreKeys(keySetId);
         }
 
-        synchronized String getDrmPropertyString(String propertyName)
+        synchronized String getDrmPropertyString(MediaItem2 item, String propertyName)
                 throws MediaPlayer.NoDrmSchemeException {
-            return getCurrentPlayer().getDrmPropertyString(propertyName);
+            return getPlayer(item).getDrmPropertyString(propertyName);
         }
 
-        synchronized void setDrmPropertyString(String propertyName, String value)
+        synchronized void setDrmPropertyString(MediaItem2 item, String propertyName, String value)
                 throws MediaPlayer.NoDrmSchemeException {
-            getCurrentPlayer().setDrmPropertyString(propertyName, value);
+            getPlayer(item).setDrmPropertyString(propertyName, value);
         }
 
-        synchronized void setOnDrmConfigHelper(MediaPlayer.OnDrmConfigHelper onDrmConfigHelper) {
-            getCurrentPlayer().setOnDrmConfigHelper(onDrmConfigHelper);
+        synchronized void setOnDrmConfigHelper(MediaItem2 item,
+                MediaPlayer.OnDrmConfigHelper onDrmConfigHelper) {
+            getPlayer(item).setOnDrmConfigHelper(onDrmConfigHelper);
         }
 
-        synchronized MediaDrm.KeyRequest getKeyRequest(byte[] keySetId, byte[] initData,
-                String mimeType,
+        synchronized MediaDrm.KeyRequest getKeyRequest(MediaItem2 item, byte[] keySetId,
+                byte[] initData, String mimeType,
                 int keyType, Map<String, String> optionalParameters)
                 throws MediaPlayer.NoDrmSchemeException {
-            return getCurrentPlayer().getKeyRequest(keySetId, initData, mimeType, keyType,
+            return getPlayer(item).getKeyRequest(keySetId, initData, mimeType, keyType,
                     optionalParameters);
         }
 

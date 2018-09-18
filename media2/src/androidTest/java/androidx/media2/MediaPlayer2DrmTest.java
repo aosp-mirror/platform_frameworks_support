@@ -41,7 +41,7 @@ import java.io.File;
  */
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-@Suppress // Disabled as it 100% fails b/79682973
+//@Suppress // Disabled as it 100% fails b/79682973
 public class MediaPlayer2DrmTest extends MediaPlayer2DrmTestBase {
 
     private static final String LOG_TAG = "MediaPlayer2DrmTest";
