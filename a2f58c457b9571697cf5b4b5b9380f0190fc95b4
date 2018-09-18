@@ -70,6 +70,30 @@
       "revId": "a2f58c457b9571697cf5b4b5b9380f0190fc95b4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee64afb3_e0d7aec6",
+        "filename": "preference/src/main/java/androidx/preference/PreferenceGroup.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-09-18T21:59:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06209ec9_3901ee99",
+      "range": {
+        "startLine": 278,
+        "startChar": 7,
+        "endLine": 278,
+        "endChar": 36
+      },
+      "revId": "a2f58c457b9571697cf5b4b5b9380f0190fc95b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
