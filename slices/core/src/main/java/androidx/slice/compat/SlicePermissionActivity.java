@@ -35,6 +35,7 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.text.BidiFormatter;
+import androidx.slice.SliceProviderUtils;
 import androidx.slice.core.R;
 
 /**
@@ -59,9 +60,9 @@ public class SlicePermissionActivity extends Activity implements OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mUri = getIntent().getParcelableExtra(SliceProviderCompat.EXTRA_BIND_URI);
-        mCallingPkg = getIntent().getStringExtra(SliceProviderCompat.EXTRA_PKG);
-        mProviderPkg = getIntent().getStringExtra(SliceProviderCompat.EXTRA_PROVIDER_PKG);
+        mUri = getIntent().getParcelableExtra(SliceProviderUtils.EXTRA_BIND_URI);
+        mCallingPkg = getIntent().getStringExtra(SliceProviderUtils.EXTRA_PKG);
+        mProviderPkg = getIntent().getStringExtra(SliceProviderUtils.EXTRA_PROVIDER_PKG);
 
         try {
             PackageManager pm = getPackageManager();
@@ -130,7 +131,7 @@ public class SlicePermissionActivity extends Activity implements OnClickListener
     @Override
     public void onClick(DialogInterface dialog, int which) {
         if (which == DialogInterface.BUTTON_POSITIVE) {
-            SliceProviderCompat.grantSlicePermission(this, getPackageName(), mCallingPkg,
+            SliceProviderUtils.grantSlicePermission(this, getPackageName(), mCallingPkg,
                     mUri.buildUpon().path("").build());
         }
         finish();
