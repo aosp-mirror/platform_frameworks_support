@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e530c2c7_1fd445bb",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-09-18T12:51:36Z",
+      "side": 1,
+      "message": "I think we might need to do the same for the AlarmManager based implementation.",
+      "revId": "e6be41fdad08bb09c5f3ddb101bca0438773ca48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
