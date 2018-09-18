@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0264010a_73c64692",
+        "filename": "paging/common/api/current.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-18T14:26:54Z",
+      "side": 1,
+      "message": "Interesting. Tor, do you know if this is expected?\nTo summarize what I think is the relevant code:\n\nIn DataSource.java I see:\n\n  public abstract class DataSource\u003cKey, Value\u003e\n\nand\n\n  abstract boolean isContiguous();\n\nIn ContiguousDataSource.java I see\n\n  abstract class ContiguousDataSource\u003cKey, Value\u003e extends DataSource\u003cKey, Value\u003e\n\nand\n\n    @Override\n    boolean isContiguous() {\n        return true;\n    }\n\nand in ItemKeyedDataSource.java I see\n\n  public abstract class ItemKeyedDataSource\u003cKey, Value\u003e extends ContiguousDataSource\u003cKey, Value\u003e",
+      "parentUuid": "a91ba74a_027b5ad8",
+      "revId": "61b219560f9a2277530713d704954f7397520ea9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d6af2796_e7fe1b11",
         "filename": "paging/common/api/current.txt",
         "patchSetId": 7
