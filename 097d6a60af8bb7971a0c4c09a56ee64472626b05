@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b87848e_7e90f554",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/CheckApiTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-09-18T16:27:10Z",
+      "side": 1,
+      "message": "Missing `@get:Input`",
+      "revId": "097d6a60af8bb7971a0c4c09a56ee64472626b05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
