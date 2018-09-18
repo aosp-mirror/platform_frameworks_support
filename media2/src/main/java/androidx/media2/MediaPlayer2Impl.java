@@ -60,6 +60,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.Executor;
 import java.util.concurrent.RejectedExecutionException;
@@ -664,14 +665,18 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
 
     @Override
     public void setOnDrmConfigHelper(final OnDrmConfigHelper listener) {
-        mPlayer.setOnDrmConfigHelper(new MediaPlayer.OnDrmConfigHelper() {
-            @Override
-            public void onDrmConfig(MediaPlayer mp) {
-                MediaPlayerSource src = mPlayer.getSourceForPlayer(mp);
-                MediaItem2 item = src == null ? null : src.getDSD();
-                listener.onDrmConfig(MediaPlayer2Impl.this, item);
-            }
-        });
+        setOnDrmConfigHelper(getCurrentMediaItem(), listener);
+    }
+
+    @Override
+    public void setOnDrmConfigHelper(final MediaItem2 item, final OnDrmConfigHelper listener) {
+        mPlayer.setOnDrmConfigHelper(item, listener == null ? null :
+                new MediaPlayer.OnDrmConfigHelper() {
+                    @Override
+                    public void onDrmConfig(MediaPlayer mp) {
+                        listener.onDrmConfig(MediaPlayer2Impl.this, item);
+                    }
+                });
     }
 
     @Override
@@ -696,22 +701,30 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         }
     }
 
-
     @Override
     public DrmInfo getDrmInfo() {
-        MediaPlayer.DrmInfo info = mPlayer.getDrmInfo();
+        return getDrmInfo(getCurrentMediaItem());
+    }
+
+    @Override
+    public DrmInfo getDrmInfo(MediaItem2 item) {
+        MediaPlayer.DrmInfo info = mPlayer.getDrmInfo(item);
         return info == null ? null : new DrmInfoImpl(info.getPssh(), info.getSupportedSchemes());
     }
 
-
     @Override
     public void prepareDrm(@NonNull final UUID uuid) {
+        prepareDrm(getCurrentMediaItem(), uuid);
+    }
+
+    @Override
+    public void prepareDrm(final MediaItem2 item, final UUID uuid) {
         addTask(new Task(CALL_COMPLETED_PREPARE_DRM, false) {
             @Override
             void process() {
                 int status = PREPARE_DRM_STATUS_SUCCESS;
                 try {
-                    mPlayer.prepareDrm(uuid);
+                    mPlayer.prepareDrm(item, uuid);
                 } catch (ResourceBusyException e) {
                     status = PREPARE_DRM_STATUS_RESOURCE_BUSY;
                 } catch (MediaPlayer.ProvisioningServerErrorException e) {
@@ -727,7 +740,7 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                 notifyDrmEvent(new DrmEventNotifier() {
                     @Override
                     public void notify(DrmEventCallback cb) {
-                        cb.onDrmPrepared(MediaPlayer2Impl.this, mDSD, prepareDrmStatus);
+                        cb.onDrmPrepared(MediaPlayer2Impl.this, item, prepareDrmStatus);
                     }
                 });
             }
@@ -736,13 +749,17 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
 
     @Override
     public void releaseDrm() throws NoDrmSchemeException {
+        releaseDrm(getCurrentMediaItem());
+    }
+
+    @Override
+    public void releaseDrm(MediaItem2 item) throws NoDrmSchemeException {
         try {
-            mPlayer.releaseDrm();
+            mPlayer.releaseDrm(item);
         } catch (MediaPlayer.NoDrmSchemeException e) {
             throw new NoDrmSchemeException(e.getMessage());
         }
     }
-
 
     @Override
     @NonNull
@@ -750,54 +767,82 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
             @Nullable byte[] initData, @Nullable String mimeType, int keyType,
             @Nullable Map<String, String> optionalParameters)
             throws NoDrmSchemeException {
+        return getDrmKeyRequest(getCurrentMediaItem(), keySetId, initData, mimeType, keyType,
+                optionalParameters);
+    }
+
+    @Override
+    public MediaDrm.KeyRequest getDrmKeyRequest(MediaItem2 item, byte[] keySetId, byte[] initData,
+            String mimeType, int keyType, Map<String, String> optionalParameters)
+            throws NoDrmSchemeException {
         try {
-            return mPlayer.getKeyRequest(keySetId, initData, mimeType, keyType, optionalParameters);
+            return mPlayer.getKeyRequest(
+                    item, keySetId, initData, mimeType, keyType, optionalParameters);
         } catch (MediaPlayer.NoDrmSchemeException e) {
             throw new NoDrmSchemeException(e.getMessage());
         }
     }
-
 
     @Override
     public byte[] provideDrmKeyResponse(@Nullable byte[] keySetId, @NonNull byte[] response)
             throws NoDrmSchemeException, DeniedByServerException {
+        return provideDrmKeyResponse(getCurrentMediaItem(), keySetId, response);
+    }
+
+    @Override
+    public byte[] provideDrmKeyResponse(MediaItem2 item, byte[] keySetId, byte[] response)
+            throws NoDrmSchemeException, DeniedByServerException {
         try {
-            return mPlayer.provideKeyResponse(keySetId, response);
+            return mPlayer.provideKeyResponse(item, keySetId, response);
         } catch (MediaPlayer.NoDrmSchemeException e) {
             throw new NoDrmSchemeException(e.getMessage());
         }
     }
-
 
     @Override
     public void restoreDrmKeys(@NonNull final byte[] keySetId)
             throws NoDrmSchemeException {
+        restoreDrmKeys(getCurrentMediaItem(), keySetId);
+    }
+
+    @Override
+    public void restoreDrmKeys(MediaItem2 item, final byte[] keySetId) throws NoDrmSchemeException {
         try {
-            mPlayer.restoreKeys(keySetId);
+            mPlayer.restoreKeys(item, keySetId);
         } catch (MediaPlayer.NoDrmSchemeException e) {
             throw new NoDrmSchemeException(e.getMessage());
         }
     }
-
 
     @Override
     @NonNull
     public String getDrmPropertyString(@NonNull String propertyName)
             throws NoDrmSchemeException {
+        return getDrmPropertyString(getCurrentMediaItem(), propertyName);
+    }
+
+    @Override
+    public String getDrmPropertyString(MediaItem2 item, String propertyName)
+            throws NoDrmSchemeException {
         try {
-            return mPlayer.getDrmPropertyString(propertyName);
+            return mPlayer.getDrmPropertyString(item, propertyName);
         } catch (MediaPlayer.NoDrmSchemeException e) {
             throw new NoDrmSchemeException(e.getMessage());
         }
     }
 
-
     @Override
     public void setDrmPropertyString(@NonNull String propertyName,
                                      @NonNull String value)
             throws NoDrmSchemeException {
+        setDrmPropertyString(getCurrentMediaItem(), propertyName, value);
+    }
+
+    @Override
+    public void setDrmPropertyString(MediaItem2 item, String propertyName, String value)
+            throws NoDrmSchemeException {
         try {
-            mPlayer.setDrmPropertyString(propertyName, value);
+            mPlayer.setDrmPropertyString(item, propertyName, value);
         } catch (MediaPlayer.NoDrmSchemeException e) {
             throw new NoDrmSchemeException(e.getMessage());
         }
@@ -1110,6 +1155,7 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         p.setOnDrmInfoListener(new MediaPlayer.OnDrmInfoListener() {
             @Override
             public void onDrmInfo(MediaPlayer mp, final MediaPlayer.DrmInfo drmInfo) {
+                mPlayer.onDrmInfo(mp);
                 notifyDrmEvent(new DrmEventNotifier() {
                     @Override
                     public void notify(DrmEventCallback cb) {
@@ -1358,6 +1404,7 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         @PlayerState int mPlayerState = MediaPlayerConnector.PLAYER_STATE_IDLE;
         boolean mPlayPending;
         boolean mSetAsNextPlayer;
+        boolean mDrmSetUpNeeded;
 
         MediaPlayerSource(final MediaItem2 item) {
             mDSD = item;
@@ -1390,6 +1437,15 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
 
         MediaPlayerSourceQueue() {
             mQueue.add(new MediaPlayerSource(null));
+        }
+
+        synchronized MediaPlayer getPlayer(MediaItem2 item) {
+            for (MediaPlayerSource src : mQueue) {
+                if (Objects.equals(src.getDSD(), item)) {
+                    return src.mPlayer;
+                }
+            }
+            throw new IllegalArgumentException(item + " is not found in the list.");
         }
 
         synchronized MediaPlayer getCurrentPlayer() {
@@ -1536,6 +1592,11 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
             for (int i = 0; i < mQueue.size(); i++) {
                 MediaPlayerSource src = mQueue.get(i);
                 if (mp == src.getPlayer()) {
+                    if (src.mDrmSetUpNeeded) {
+                        // DRM is not set up yet. This method will be called again when DRM setup is
+                        // done.
+                        break;
+                    }
                     if (i == 0) {
                         if (src.mPlayPending) {
                             src.mPlayPending = false;
@@ -1891,50 +1952,74 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
             getCurrentPlayer().deselectTrack(index);
         }
 
-        synchronized MediaPlayer.DrmInfo getDrmInfo() {
-            return getCurrentPlayer().getDrmInfo();
+        synchronized MediaPlayer.DrmInfo getDrmInfo(MediaItem2 item) {
+            return getPlayer(item).getDrmInfo();
         }
 
-        synchronized void prepareDrm(UUID uuid)
+        synchronized void prepareDrm(MediaItem2 item, UUID uuid)
                 throws ResourceBusyException, MediaPlayer.ProvisioningServerErrorException,
                 MediaPlayer.ProvisioningNetworkErrorException, UnsupportedSchemeException {
-            getCurrentPlayer().prepareDrm(uuid);
+            getPlayer(item).prepareDrm(uuid);
         }
 
-        synchronized void releaseDrm() throws MediaPlayer.NoDrmSchemeException {
-            getCurrentPlayer().stop();
-            getCurrentPlayer().releaseDrm();
+        synchronized void releaseDrm(MediaItem2 item) throws MediaPlayer.NoDrmSchemeException {
+            getPlayer(item).stop();
+            getPlayer(item).releaseDrm();
         }
 
-        synchronized byte[] provideKeyResponse(byte[] keySetId, byte[] response)
+        synchronized byte[] provideKeyResponse(MediaItem2 item, byte[] keySetId, byte[] response)
                 throws DeniedByServerException, MediaPlayer.NoDrmSchemeException {
-            return getCurrentPlayer().provideKeyResponse(keySetId, response);
+            byte[] ret = getPlayer(item).provideKeyResponse(keySetId, response);
+            onDrmSetUpDone(item);
+            return ret;
         }
 
-        synchronized void restoreKeys(byte[] keySetId) throws MediaPlayer.NoDrmSchemeException {
-            getCurrentPlayer().restoreKeys(keySetId);
-        }
-
-        synchronized String getDrmPropertyString(String propertyName)
+        synchronized void restoreKeys(MediaItem2 item, byte[] keySetId)
                 throws MediaPlayer.NoDrmSchemeException {
-            return getCurrentPlayer().getDrmPropertyString(propertyName);
+            getPlayer(item).restoreKeys(keySetId);
+            onDrmSetUpDone(item);
         }
 
-        synchronized void setDrmPropertyString(String propertyName, String value)
+        synchronized String getDrmPropertyString(MediaItem2 item, String propertyName)
                 throws MediaPlayer.NoDrmSchemeException {
-            getCurrentPlayer().setDrmPropertyString(propertyName, value);
+            return getPlayer(item).getDrmPropertyString(propertyName);
         }
 
-        synchronized void setOnDrmConfigHelper(MediaPlayer.OnDrmConfigHelper onDrmConfigHelper) {
-            getCurrentPlayer().setOnDrmConfigHelper(onDrmConfigHelper);
+        synchronized void setDrmPropertyString(MediaItem2 item, String propertyName, String value)
+                throws MediaPlayer.NoDrmSchemeException {
+            getPlayer(item).setDrmPropertyString(propertyName, value);
         }
 
-        synchronized MediaDrm.KeyRequest getKeyRequest(byte[] keySetId, byte[] initData,
-                String mimeType,
+        synchronized void setOnDrmConfigHelper(MediaItem2 item,
+                MediaPlayer.OnDrmConfigHelper onDrmConfigHelper) {
+            getPlayer(item).setOnDrmConfigHelper(onDrmConfigHelper);
+        }
+
+        synchronized MediaDrm.KeyRequest getKeyRequest(MediaItem2 item, byte[] keySetId,
+                byte[] initData, String mimeType,
                 int keyType, Map<String, String> optionalParameters)
                 throws MediaPlayer.NoDrmSchemeException {
-            return getCurrentPlayer().getKeyRequest(keySetId, initData, mimeType, keyType,
+            return getPlayer(item).getKeyRequest(keySetId, initData, mimeType, keyType,
                     optionalParameters);
+        }
+
+        synchronized void onDrmInfo(MediaPlayer mp) {
+            for (MediaPlayerSource src : mQueue) {
+                if (src.mPlayer == mp) {
+                    src.mDrmSetUpNeeded = true;
+                    break;
+                }
+            }
+        }
+
+        synchronized void onDrmSetUpDone(MediaItem2 item) {
+            for (MediaPlayerSource src : mQueue) {
+                if (Objects.equals(src.getDSD(), item)) {
+                    src.mDrmSetUpNeeded = false;
+                    handleDataSourceError(mPlayer.onPrepared(src.mPlayer));
+                    break;
+                }
+            }
         }
 
         synchronized void setMp2State(MediaPlayer mp, @MediaPlayer2State int mp2State) {

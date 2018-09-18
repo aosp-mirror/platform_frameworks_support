@@ -55,6 +55,7 @@ import org.junit.Rule;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -139,6 +140,10 @@ public class MediaPlayer2DrmTestBase {
         }
         mExecutor.shutdown();
         mActivity = null;
+        MediaDownloadManager mediaDownloadManager = new MediaDownloadManager(mContext);
+        for (Long id : mDownloadIDs) {
+            mediaDownloadManager.removeFile(id);
+        }
     }
 
     private static class PrepareFailedException extends Exception {}
@@ -151,15 +156,16 @@ public class MediaPlayer2DrmTestBase {
     protected static final int PLAY_TIME_MS = 60 * 1000;
     protected byte[] mKeySetId;
     protected boolean mAudioOnly;
+    protected List<Long> mDownloadIDs = new ArrayList<>();
 
-    private static final byte[] CLEAR_KEY_CENC = {
+    protected static final byte[] CLEAR_KEY_CENC = {
             (byte) 0x1a, (byte) 0x8a, (byte) 0x20, (byte) 0x95,
             (byte) 0xe4, (byte) 0xde, (byte) 0xb2, (byte) 0xd2,
             (byte) 0x9e, (byte) 0xc8, (byte) 0x16, (byte) 0xac,
             (byte) 0x7b, (byte) 0xae, (byte) 0x20, (byte) 0x82
             };
 
-    private static final UUID CLEARKEY_SCHEME_UUID =
+    protected static final UUID CLEARKEY_SCHEME_UUID =
             new UUID(0x1077efecc0b24d02L, 0xace33c1e52e2fb4bL);
 
     final byte[] mClearKeyPssh = hexStringToByteArray(
@@ -182,24 +188,25 @@ public class MediaPlayer2DrmTestBase {
         V4_SYNC_OFFLINE_KEY,
     }
 
-    // TODO: After living on these tests for a while, we can consider grouping them based on
-    // the asset such that each asset is downloaded once and played back with multiple tests.
-    protected void playModularDrmVideoDownload(Uri uri, Uri path, int width, int height,
-            ModularDrmTestType testType) throws Exception {
+    protected Uri downloadDrmProtectedMedia(Uri uri, Uri path) throws Exception {
         final long downloadTimeOutSeconds = 600;
         Log.i(TAG, "Downloading file:" + path);
         MediaDownloadManager mediaDownloadManager = new MediaDownloadManager(mContext);
         final long id = mediaDownloadManager.downloadFileWithRetries(
                 uri, path, downloadTimeOutSeconds, STREAM_RETRIES);
         assertFalse("Download " + uri + " failed.", id == -1);
+        mDownloadIDs.add(id);
         Uri file = mediaDownloadManager.getUriForDownloadedFile(id);
         Log.i(TAG, "Downloaded file:" + path + " id:" + id + " uri:" + file);
+        return file;
+    }
 
-        try {
-            playModularDrmVideo(file, width, height, testType);
-        } finally {
-            mediaDownloadManager.removeFile(id);
-        }
+    // TODO: After living on these tests for a while, we can consider grouping them based on
+    // the asset such that each asset is downloaded once and played back with multiple tests.
+    protected void playModularDrmVideoDownload(Uri uri, Uri path, int width, int height,
+            ModularDrmTestType testType) throws Exception {
+        Uri file = downloadDrmProtectedMedia(uri, path);
+        playModularDrmVideo(file, width, height, testType);
     }
 
     protected void playModularDrmVideo(Uri uri, int width, int height,
@@ -868,7 +875,7 @@ public class MediaPlayer2DrmTestBase {
     /**
      * Retrieves clear key ids from KeyRequest and creates the response in place.
      */
-    private byte[] createKeysResponse(MediaDrm.KeyRequest keyRequest, byte[][] clearKeys) {
+    protected byte[] createKeysResponse(MediaDrm.KeyRequest keyRequest, byte[][] clearKeys) {
 
         Vector<String> keyIds = new Vector<String>();
         if (0 == getKeyIds(keyRequest.getData(), keyIds)) {

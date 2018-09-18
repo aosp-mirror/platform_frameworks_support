@@ -1445,6 +1445,10 @@ public abstract class MediaPlayer2 {
     // This is a synchronous call.
     public abstract void setOnDrmConfigHelper(OnDrmConfigHelper listener);
 
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP)
+    public abstract void setOnDrmConfigHelper(MediaItem2 item, OnDrmConfigHelper listener);
+
     /**
      * Interface definition for callbacks to be invoked when the player has the corresponding
      * DRM events.
@@ -1541,6 +1545,10 @@ public abstract class MediaPlayer2 {
      */
     public abstract DrmInfo getDrmInfo();
 
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP)
+    public abstract DrmInfo getDrmInfo(MediaItem2 item);
+
     /**
      * Prepares the DRM for the current source
      * <p>
@@ -1566,6 +1574,10 @@ public abstract class MediaPlayer2 {
     // This is an asynchronous call.
     public abstract void prepareDrm(@NonNull UUID uuid);
 
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP)
+    public abstract void prepareDrm(MediaItem2 item, @NonNull UUID uuid);
+
     /**
      * Releases the DRM session
      * <p>
@@ -1577,6 +1589,10 @@ public abstract class MediaPlayer2 {
      */
     // This is an asynchronous call.
     public abstract void releaseDrm() throws NoDrmSchemeException;
+
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP)
+    public abstract void releaseDrm(MediaItem2 item) throws NoDrmSchemeException;
 
     /**
      * A key request/response exchange occurs between the app and a license server
@@ -1622,6 +1638,16 @@ public abstract class MediaPlayer2 {
             @Nullable Map<String, String> optionalParameters)
             throws NoDrmSchemeException;
 
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP)
+    @NonNull
+    public abstract MediaDrm.KeyRequest getDrmKeyRequest(
+            MediaItem2 item,
+            @Nullable byte[] keySetId, @Nullable byte[] initData,
+            @Nullable String mimeType, int keyType,
+            @Nullable Map<String, String> optionalParameters)
+            throws NoDrmSchemeException;
+
     /**
      * A key response is received from the license server by the app, then it is
      * provided to the DRM engine plugin using provideDrmKeyResponse. When the
@@ -1646,6 +1672,13 @@ public abstract class MediaPlayer2 {
             @Nullable byte[] keySetId, @NonNull byte[] response)
             throws NoDrmSchemeException, DeniedByServerException;
 
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP)
+    public abstract byte[] provideDrmKeyResponse(
+            MediaItem2 item,
+            @Nullable byte[] keySetId, @NonNull byte[] response)
+            throws NoDrmSchemeException, DeniedByServerException;
+
     /**
      * Restore persisted offline keys into a new session.  keySetId identifies the
      * keys to load, obtained from a prior call to {@link #provideDrmKeyResponse}.
@@ -1655,6 +1688,11 @@ public abstract class MediaPlayer2 {
     // This is an asynchronous call.
     public abstract void restoreDrmKeys(@NonNull byte[] keySetId)
             throws NoDrmSchemeException;
+
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP)
+    public abstract void restoreDrmKeys(
+            MediaItem2 item, @NonNull byte[] keySetId) throws NoDrmSchemeException;
 
     /**
      * Read a DRM engine plugin String property value, given the property name string.
@@ -1670,6 +1708,14 @@ public abstract class MediaPlayer2 {
             @NonNull String propertyName)
             throws NoDrmSchemeException;
 
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP)
+    @NonNull
+    public abstract String getDrmPropertyString(
+            MediaItem2 item,
+            @NonNull String propertyName)
+            throws NoDrmSchemeException;
+
     /**
      * Set a DRM engine plugin String property value.
      * <p>
@@ -1682,6 +1728,13 @@ public abstract class MediaPlayer2 {
      */
     // This is a synchronous call.
     public abstract void setDrmPropertyString(
+            @NonNull String propertyName, @NonNull String value)
+            throws NoDrmSchemeException;
+
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP)
+    public abstract void setDrmPropertyString(
+            MediaItem2 item,
             @NonNull String propertyName, @NonNull String value)
             throws NoDrmSchemeException;
 
