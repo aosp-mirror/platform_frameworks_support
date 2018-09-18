@@ -32,7 +32,7 @@ import java.util.Set;
 /**
  * Class to handle interactions with {@link Slice}s.
  * <p>
- * The SliceViewManager manages permissions and pinned state for slices.
+ * The SliceManager manages pinned and permission state for slices.
  */
 @RequiresApi(19)
 public abstract class SliceManager {

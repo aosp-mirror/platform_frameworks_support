@@ -18,7 +18,7 @@ package androidx.slice.compat;
 
 import static androidx.core.content.PermissionChecker.PERMISSION_DENIED;
 import static androidx.core.content.PermissionChecker.PERMISSION_GRANTED;
-import static androidx.slice.compat.SliceProviderCompat.EXTRA_BIND_URI;
+import static androidx.slice.SliceProviderUtils.EXTRA_BIND_URI;
 import static androidx.slice.compat.SliceProviderCompat.EXTRA_SLICE;
 
 import static org.junit.Assert.assertEquals;
@@ -37,6 +37,7 @@ import android.os.Bundle;
 
 import androidx.slice.Slice;
 import androidx.slice.SliceProvider;
+import androidx.slice.SliceProviderUtils;
 import androidx.slice.SliceSpec;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SdkSuppress;
@@ -82,7 +83,7 @@ public class SliceProviderCompatTest {
 
         Bundle b = new Bundle();
         b.putParcelable(EXTRA_BIND_URI, uri);
-        SliceProviderCompat.addSpecs(b, Collections.<SliceSpec>emptySet());
+        SliceProviderUtils.addSpecs(b, Collections.<SliceSpec>emptySet());
 
         Bundle result = compat.call(SliceProviderCompat.METHOD_SLICE, null, b);
         assertEquals(s.toString(), new Slice(result.getBundle(EXTRA_SLICE)).toString());
@@ -115,7 +116,7 @@ public class SliceProviderCompatTest {
 
         Bundle b = new Bundle();
         b.putParcelable(EXTRA_BIND_URI, uri);
-        SliceProviderCompat.addSpecs(b, Collections.<SliceSpec>emptySet());
+        SliceProviderUtils.addSpecs(b, Collections.<SliceSpec>emptySet());
 
         Bundle result = compat.call(SliceProviderCompat.METHOD_SLICE, null, b);
         assertNotEquals(s.toString(), new Slice(result.getBundle(EXTRA_SLICE)).toString());

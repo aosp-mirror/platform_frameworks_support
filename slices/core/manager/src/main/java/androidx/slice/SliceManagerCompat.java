@@ -22,7 +22,6 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
-import androidx.slice.compat.SliceProviderCompat;
 
 import java.util.List;
 import java.util.Set;
@@ -43,29 +42,29 @@ class SliceManagerCompat extends SliceManager {
 
     @Override
     public @NonNull Set<SliceSpec> getPinnedSpecs(@NonNull Uri uri) {
-        return SliceProviderCompat.getPinnedSpecs(mContext, uri);
+        return SliceProviderUtils.getPinnedSpecs(mContext, uri);
     }
 
     @Override
     public int checkSlicePermission(Uri uri, int pid, int uid) {
-        return SliceProviderCompat.checkSlicePermission(mContext, mContext.getPackageName(), uri,
+        return SliceProviderUtils.checkSlicePermission(mContext, mContext.getPackageName(), uri,
                 pid, uid);
     }
 
     @Override
     public void grantSlicePermission(String toPackage, Uri uri) {
-        SliceProviderCompat.grantSlicePermission(mContext, mContext.getPackageName(), toPackage,
+        SliceProviderUtils.grantSlicePermission(mContext, mContext.getPackageName(), toPackage,
                 uri);
     }
 
     @Override
     public void revokeSlicePermission(String toPackage, Uri uri) {
-        SliceProviderCompat.revokeSlicePermission(mContext, mContext.getPackageName(), toPackage,
+        SliceProviderUtils.revokeSlicePermission(mContext, mContext.getPackageName(), toPackage,
                 uri);
     }
 
     @Override
     public List<Uri> getPinnedSlices() {
-        return SliceProviderCompat.getPinnedSlices(mContext);
+        return SliceProviderUtils.getPinnedSlices(mContext);
     }
 }

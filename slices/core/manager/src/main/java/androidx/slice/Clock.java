@@ -26,9 +26,9 @@ import androidx.annotation.RestrictTo;
  */
 @RestrictTo(LIBRARY_GROUP)
 @RequiresApi(19)
-public class SystemClock implements Clock {
-    @Override
-    public long currentTimeMillis() {
-        return System.currentTimeMillis();
-    }
+public interface Clock {
+    /**
+     * @return the current time in milliseconds.
+     */
+    long currentTimeMillis();
 }
