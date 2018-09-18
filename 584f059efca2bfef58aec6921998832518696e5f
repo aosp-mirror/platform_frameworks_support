@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82b31f19_6b18da65",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T10:23:56Z",
+      "side": 1,
+      "message": "Refactor -\u003e Revisit\n\nRefactor means changing code without changing behavior, but this includes lots of behavior changes.",
+      "range": {
+        "startLine": 7,
+        "startChar": 22,
+        "endLine": 7,
+        "endChar": 46
+      },
+      "revId": "584f059efca2bfef58aec6921998832518696e5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "543c798c_5e0080ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T10:23:56Z",
+      "side": 1,
+      "message": "check grammar",
+      "range": {
+        "startLine": 13,
+        "startChar": 35,
+        "endLine": 13,
+        "endChar": 57
+      },
+      "revId": "584f059efca2bfef58aec6921998832518696e5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ae47ba3_fe4ac596",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T10:23:56Z",
+      "side": 1,
+      "message": "previously this was checked after resetting mHasPendingUpdate. Do you have a reason for the change?",
+      "range": {
+        "startLine": 455,
+        "startChar": 8,
+        "endLine": 458,
+        "endChar": 9
+      },
+      "revId": "584f059efca2bfef58aec6921998832518696e5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06b364d7_36b95779",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-18T10:23:56Z",
+      "side": 1,
+      "message": "Previously update routes view had done without such check. Any reason for the change?",
+      "range": {
+        "startLine": 578,
+        "startChar": 0,
+        "endLine": 587,
+        "endChar": 0
+      },
+      "revId": "584f059efca2bfef58aec6921998832518696e5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
