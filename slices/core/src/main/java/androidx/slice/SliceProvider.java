@@ -15,26 +15,16 @@
  */
 package androidx.slice;
 
-import static android.app.slice.Slice.HINT_PERMISSION_REQUEST;
-import static android.app.slice.Slice.HINT_SHORTCUT;
-import static android.app.slice.Slice.HINT_TITLE;
-import static android.app.slice.Slice.SUBTYPE_COLOR;
 import static android.app.slice.SliceProvider.SLICE_TYPE;
 
-import static androidx.slice.compat.SliceProviderCompat.EXTRA_BIND_URI;
-import static androidx.slice.compat.SliceProviderCompat.EXTRA_PKG;
-import static androidx.slice.compat.SliceProviderCompat.EXTRA_PROVIDER_PKG;
 import static androidx.slice.compat.SliceProviderCompat.PERMS_PREFIX;
 
-import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
@@ -43,8 +33,6 @@ import android.os.Bundle;
 import android.os.CancellationSignal;
 import android.os.Process;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.ContextThemeWrapper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,14 +40,11 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.app.CoreComponentFactory;
-import androidx.core.graphics.drawable.IconCompat;
 import androidx.slice.compat.CompatPermissionManager;
 import androidx.slice.compat.SliceProviderCompat;
 import androidx.slice.compat.SliceProviderWrapperContainer;
-import androidx.slice.core.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -166,6 +151,26 @@ public abstract class SliceProvider extends ContentProvider implements
     }
 
     /**
+     * Turns a slice Uri into slice content.
+     *
+     * @hide
+     * @param context Context to be used.
+     * @param uri The URI to a slice provider
+     * @return The Slice provided by the app or null if none is given.
+     * @see Slice
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @Nullable
+    public static Slice bindSlice(Context context, @NonNull Uri uri,
+            Set<SliceSpec> supportedSpecs) {
+        if (Build.VERSION.SDK_INT >= 28) {
+            return Slice.callBindSlice(context, uri, supportedSpecs);
+        } else {
+            return SliceProviderCompat.bindSlice(context, uri, supportedSpecs);
+        }
+    }
+
+    /**
      * Implement this to initialize your slice provider on startup.
      * This method is called for all registered slice providers on the
      * application main thread at application launch time.  It must not perform
@@ -233,77 +238,6 @@ public abstract class SliceProvider extends ContentProvider implements
     public Bundle call(String method, String arg, Bundle extras) {
         if (Build.VERSION.SDK_INT < 19) return null;
         return mCompat != null ? mCompat.call(method, arg, extras) : null;
-    }
-
-    /**
-     * Generate a slice that contains a permission request.
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    @RequiresApi(19)
-    public static Slice createPermissionSlice(Context context, Uri sliceUri,
-            String callingPackage) {
-        PendingIntent action = createPermissionIntent(context, sliceUri, callingPackage);
-
-        Slice.Builder parent = new Slice.Builder(sliceUri);
-        Slice.Builder childAction = new Slice.Builder(parent)
-                .addIcon(IconCompat.createWithResource(context,
-                        R.drawable.abc_ic_permission), null)
-                .addHints(Arrays.asList(HINT_TITLE, HINT_SHORTCUT))
-                .addAction(action, new Slice.Builder(parent).build(), null);
-
-        TypedValue tv = new TypedValue();
-        new ContextThemeWrapper(context, android.R.style.Theme_DeviceDefault_Light)
-                .getTheme().resolveAttribute(android.R.attr.colorAccent, tv, true);
-        int deviceDefaultAccent = tv.data;
-
-        parent.addSubSlice(new Slice.Builder(sliceUri.buildUpon().appendPath("permission").build())
-                .addIcon(IconCompat.createWithResource(context,
-                        R.drawable.abc_ic_arrow_forward), null)
-                .addText(getPermissionString(context, callingPackage), null)
-                .addInt(deviceDefaultAccent, SUBTYPE_COLOR)
-                .addSubSlice(childAction.build(), null)
-                .build(), null);
-        return parent.addHints(Arrays.asList(HINT_PERMISSION_REQUEST)).build();
-    }
-
-    /**
-     * Create a PendingIntent pointing at the permission dialog.
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    @RequiresApi(19)
-    public static PendingIntent createPermissionIntent(Context context, Uri sliceUri,
-            String callingPackage) {
-        Intent intent = new Intent();
-        intent.setComponent(new ComponentName(context.getPackageName(),
-                "androidx.slice.compat.SlicePermissionActivity"));
-        intent.putExtra(EXTRA_BIND_URI, sliceUri);
-        intent.putExtra(EXTRA_PKG, callingPackage);
-        intent.putExtra(EXTRA_PROVIDER_PKG, context.getPackageName());
-        // Unique pending intent.
-        intent.setData(sliceUri.buildUpon().appendQueryParameter("package", callingPackage)
-                .build());
-
-        return PendingIntent.getActivity(context, 0, intent, 0);
-    }
-
-    /**
-     * Get string describing permission request.
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    @RequiresApi(19)
-    public static CharSequence getPermissionString(Context context, String callingPackage) {
-        PackageManager pm = context.getPackageManager();
-        try {
-            return context.getString(R.string.abc_slices_permission_request,
-                    pm.getApplicationInfo(callingPackage, 0).loadLabel(pm),
-                    context.getApplicationInfo().loadLabel(pm));
-        } catch (PackageManager.NameNotFoundException e) {
-            // This shouldn't be possible since the caller is verified.
-            throw new RuntimeException("Unknown calling app", e);
-        }
     }
 
     /**

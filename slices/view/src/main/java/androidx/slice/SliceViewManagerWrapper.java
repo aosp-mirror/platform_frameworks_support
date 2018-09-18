@@ -45,7 +45,6 @@ import java.util.Set;
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 @RequiresApi(api = 28)
 class SliceViewManagerWrapper extends SliceViewManagerBase {
-    private static final String TAG = "SliceViewManagerWrapper"; // exactly 23
 
     private final ArrayMap<String, Boolean> mCachedSuspendFlags = new ArrayMap<>();
     private final ArrayMap<String, String> mCachedAuthorities = new ArrayMap<>();

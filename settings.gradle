@@ -156,6 +156,7 @@ includeProject(":slice-builders", "slices/builders")
 includeProject(":slice-test", "slices/test")
 includeProject(":slice-builders-ktx", "slices/builders/ktx")
 includeProject(":slice-benchmark", "slices/benchmark")
+includeProject(":slice-core-manager", "slices/core/manager")
 includeProject(":slidingpanelayout", "slidingpanelayout")
 includeProject(":sqlite:sqlite", "persistence/db")
 includeProject(":sqlite:sqlite-ktx", "persistence/db/ktx")
@@ -260,4 +261,3 @@ if (!startParameter.projectProperties.containsKey('android.injected.invoked.from
 // dumb test project that has a test for each size to ensure that at least one test is run
 // for each size and test runner is happy when there is nothing to test.
 includeProject(":dumb-tests", "dumb-tests")
-
