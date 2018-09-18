@@ -116,7 +116,7 @@
  * <b>Include Selection in Activity lifecycle events</b>
  *
  * <p>
- * In order to preserve state the author must the selection library in handling
+ * In order to preserve state the author must include the selection library in handling
  * of Activity lifecycle events. See SelectionTracker#onSaveInstanceState
  * and SelectionTracker#onRestoreInstanceState.
  *
