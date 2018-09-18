@@ -640,6 +640,11 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
     }
 
     @Override
+    public void setOnDrmConfigHelper(MediaItem2 item, OnDrmConfigHelper listener) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void setDrmEventCallback(Executor executor,
             DrmEventCallback eventCallback) {
         throw new UnsupportedOperationException();
@@ -656,12 +661,27 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
     }
 
     @Override
+    public DrmInfo getDrmInfo(MediaItem2 item) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void prepareDrm(UUID uuid) {
         throw new UnsupportedOperationException();
     }
 
     @Override
+    public void prepareDrm(MediaItem2 item, UUID uuid) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void releaseDrm() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void releaseDrm(MediaItem2 item) {
         throw new UnsupportedOperationException();
     }
 
@@ -672,7 +692,18 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
     }
 
     @Override
+    public MediaDrm.KeyRequest getDrmKeyRequest(MediaItem2 item, byte[] keySetId, byte[] initData,
+            String mimeType, int keyType, Map<String, String> optionalParameters) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public byte[] provideDrmKeyResponse(byte[] keySetId, byte[] response) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public byte[] provideDrmKeyResponse(MediaItem2 item, byte[] keySetId, byte[] response) {
         throw new UnsupportedOperationException();
     }
 
@@ -682,12 +713,27 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2 {
     }
 
     @Override
+    public void restoreDrmKeys(MediaItem2 item, final byte[] keySetId) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public String getDrmPropertyString(String propertyName) {
         throw new UnsupportedOperationException();
     }
 
     @Override
+    public String getDrmPropertyString(MediaItem2 item, String propertyName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void setDrmPropertyString(String propertyName, String value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setDrmPropertyString(MediaItem2 item, String propertyName, String value) {
         throw new UnsupportedOperationException();
     }
 
