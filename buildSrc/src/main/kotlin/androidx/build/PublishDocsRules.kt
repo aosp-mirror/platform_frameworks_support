@@ -90,6 +90,8 @@ val RELEASE_RULE = docsRules("public", false) {
     ignore(LibraryGroups.LIFECYCLE, "lifecycle-viewmodel-savedstate")
     ignore(LibraryGroups.LIFECYCLE, "lifecycle-viewmodel-fragment")
     prebuilts(LibraryGroups.LIFECYCLE, flatfootVersion)
+    prebuilts(LibraryGroups.LIFECYCLE, "lifecycle-viewmodel", "2.0.0-rc02")
+    prebuilts(LibraryGroups.LIFECYCLE, "lifecycle-viewmodel-ktx", "2.0.0-rc02")
     prebuilts(LibraryGroups.ARCH_CORE, flatfootVersion)
     ignore(LibraryGroups.PAGING, "paging-common-ktx")
     ignore(LibraryGroups.PAGING, "paging-runtime-ktx")
