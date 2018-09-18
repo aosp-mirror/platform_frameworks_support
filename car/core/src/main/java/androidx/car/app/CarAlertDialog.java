@@ -20,6 +20,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -29,6 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -43,6 +45,7 @@ import androidx.car.R;
  */
 public class CarAlertDialog extends Dialog {
     private final CharSequence mTitle;
+    private final Drawable mIcon;
     private final CharSequence mBody;
     private final CharSequence mPositiveButtonText;
     private final OnClickListener mPositiveButtonListener;
@@ -56,7 +59,9 @@ public class CarAlertDialog extends Dialog {
     private final int mButtonSpacing;
 
     private View mContentView;
+    private View mHeaderView;
     private TextView mTitleView;
+    private ImageView mIconView;
     private TextView mBodyView;
 
     private View mButtonPanel;
@@ -68,6 +73,7 @@ public class CarAlertDialog extends Dialog {
         super(context, getDialogTheme(context));
 
         mTitle = builder.mTitle;
+        mIcon = builder.mIcon;
         mBody = builder.mBody;
         mPositiveButtonText = builder.mPositiveButtonText;
         mPositiveButtonListener = builder.mPositiveButtonListener;
@@ -80,6 +86,9 @@ public class CarAlertDialog extends Dialog {
         mBottomPadding = res.getDimensionPixelSize(R.dimen.car_padding_4);
         mButtonMinWidth = res.getDimensionPixelSize(R.dimen.car_button_min_width);
         mButtonSpacing = res.getDimensionPixelSize(R.dimen.car_padding_4);
+
+        this.getWindow().getAttributes().windowAnimations = R.style.AlertDialog;
+
     }
 
     @Override
@@ -102,30 +111,61 @@ public class CarAlertDialog extends Dialog {
         setBody(mBody);
         setPositiveButton(mPositiveButtonText);
         setNegativeButton(mNegativeButtonText);
-        // setTitleInternal() should be called last because we want to center title and adjust
-        // padding depending on body/button configuration.
+        setIcon(mIcon);
         setTitleInternal(mTitle);
+        // setupHeader() should be called last because we want to center title and adjust
+        // padding depending on icon/body/button configuration.
+        setupHeader();
+    }
+
+    /**
+     * Sets the ImageView as the passed-in Drawable.
+     * @param mIcon the drawable that will be used.
+     */
+    public void setIcon(Drawable mIcon) {
+        if (mIcon != null) {
+            mIconView.setImageDrawable(mIcon);
+            mIconView.setVisibility(View.VISIBLE);
+        } else {
+            mIconView.setVisibility(View.GONE);
+        }
     }
 
     private void setTitleInternal(CharSequence title) {
         boolean hasTitle = !TextUtils.isEmpty(title);
-        boolean hasBody = mBodyView.getVisibility() == View.VISIBLE;
-        boolean hasButton = mButtonPanel.getVisibility() == View.VISIBLE;
 
         mTitleView.setText(title);
         mTitleView.setVisibility(hasTitle ? View.VISIBLE : View.GONE);
+    }
+
+    private void setupHeader() {
+        boolean hasTitle = mTitleView.getVisibility() == View.VISIBLE;
+        boolean hasIcon = mIconView.getVisibility() == View.VISIBLE;
+        boolean hasBody = mBodyView.getVisibility() == View.VISIBLE;
+        boolean hasButton = mButtonPanel.getVisibility() == View.VISIBLE;
+        boolean onlyTitle = !hasIcon && !hasButton && !hasBody;
 
         // If there's a title, then remove the padding at the top of the content view.
-        int topPadding = hasTitle ? 0 : mTopPadding;
+        int topPadding = (hasTitle || hasIcon) ? 0 : mTopPadding;
 
         // If there is only title, also remove the padding at the bottom so title is
         // vertically centered.
-        int bottomPadding = !hasButton && !hasBody ? 0 : mContentView.getPaddingBottom();
+        int bottomPadding = onlyTitle ? 0 : mContentView.getPaddingBottom();
         mContentView.setPaddingRelative(
                 mContentView.getPaddingStart(),
                 topPadding,
                 mContentView.getPaddingEnd(),
                 bottomPadding);
+
+        // Remove the Header padding if there's an icon.
+        int headerTopPadding = hasIcon ? mHeaderView.getPaddingTop() : 0;
+        int headerBottomPadding = hasIcon ? mHeaderView.getPaddingBottom() : 0;
+
+        mHeaderView.setPaddingRelative(
+                mHeaderView.getPaddingStart(),
+                headerTopPadding,
+                mHeaderView.getPaddingEnd(),
+                headerBottomPadding);
     }
 
     private void setBody(CharSequence body) {
@@ -273,6 +313,8 @@ public class CarAlertDialog extends Dialog {
         Window window = getWindow();
 
         mContentView = window.findViewById(R.id.content_view);
+        mHeaderView = window.findViewById(R.id.header_view);
+        mIconView = window.findViewById(R.id.icon_view);
         mTitleView = window.findViewById(R.id.title);
         mBodyView = window.findViewById(R.id.body);
 
@@ -361,6 +403,7 @@ public class CarAlertDialog extends Dialog {
     public static final class Builder {
         private final Context mContext;
 
+        Drawable mIcon;
         CharSequence mTitle;
         CharSequence mBody;
         CharSequence mPositiveButtonText;
@@ -379,6 +422,28 @@ public class CarAlertDialog extends Dialog {
          */
         public Builder(Context context) {
             mContext = context;
+        }
+
+        /**
+         * Sets the icon of the dialog to be the given int resource.
+         *
+         * @param iconId The resource id of the Drawable to be used as the icon.
+         * @return This {@code Builder} object to allow for chaining of calls.
+         */
+        public Builder setIcon(int iconId) {
+            mIcon = mContext.getResources().getDrawable(iconId, mContext.getTheme());
+            return this;
+        }
+
+        /**
+         * Sets the icon of the dialog to be the given Drawable.
+         *
+         * @param icon The Drawable to be used as the icon.
+         * @return This {@code Builder} object to allow for chaining of calls.
+         */
+        public Builder setIcon(Drawable icon) {
+            mIcon = icon;
+            return this;
         }
 
         /**

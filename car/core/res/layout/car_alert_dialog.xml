@@ -36,45 +36,60 @@ limitations under the License.
         android:paddingBottom="@dimen/car_padding_4"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/car_dialog_header_height"
-            android:gravity="center_vertical|start"
-            android:visibility="gone"
-            style="?attr/dialogTitleStyle" />
-
-        <TextView
-            android:id="@+id/body"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            style="?attr/dialogBodyStyle" />
-
         <LinearLayout
-            android:id="@+id/button_panel"
+            android:id="@+id/header_view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/car_dialog_action_bar_height"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:visibility="gone">
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/car_padding_4"
+            android:paddingBottom="@dimen/car_padding_2"
+            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/positive_button"
-                android:layout_marginEnd="@dimen/car_padding_4"
-                android:layout_width="wrap_content"
-                android:minWidth="0dp"
-                android:padding="0dp"
+            <ImageView
+                android:id="@+id/icon_view"
+                android:layout_height="@dimen/car_app_icon_size"
+                android:layout_width="@dimen/car_app_icon_size"
+                android:gravity="start"
                 android:visibility="gone"
-                style="?attr/dialogButtonStyle" />
+                android:layout_marginEnd="@dimen/car_padding_4"/>
 
-            <Button
-                android:id="@+id/negative_button"
-                android:layout_width="wrap_content"
-                android:minWidth="0dp"
-                android:padding="0dp"
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/car_dialog_header_height"
+                android:gravity="center_vertical|start"
                 android:visibility="gone"
-                style="?attr/dialogButtonStyle" />
+                style="?attr/dialogTitleStyle" />
+        </LinearLayout>
+            <TextView
+                android:id="@+id/body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                style="?attr/dialogBodyStyle" />
+
+            <LinearLayout
+                android:id="@+id/button_panel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/car_dialog_action_bar_height"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/positive_button"
+                    android:layout_width="wrap_content"
+                    android:minWidth="0dp"
+                    android:padding="0dp"
+                    android:visibility="gone"
+                    style="?attr/dialogButtonStyle" />
+
+                <Button
+                    android:id="@+id/negative_button"
+                    android:layout_width="wrap_content"
+                    android:minWidth="0dp"
+                    android:padding="0dp"
+                    android:visibility="gone"
+                    style="?attr/dialogButtonStyle" />
         </LinearLayout>
     </LinearLayout>
 </androidx.car.widget.ColumnCardView>
