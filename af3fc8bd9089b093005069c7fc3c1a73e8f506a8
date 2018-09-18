@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "49e33ed8_558e45f4",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-18T16:39:25Z",
+      "side": 1,
+      "message": "Could you unhide this and add a test?",
+      "range": {
+        "startLine": 132,
+        "startChar": 7,
+        "endLine": 132,
+        "endChar": 12
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9268668c_0c802c52",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-18T16:39:25Z",
+      "side": 1,
+      "message": "Could you unhide this and add a test?",
+      "range": {
+        "startLine": 152,
+        "startChar": 8,
+        "endLine": 152,
+        "endChar": 12
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10182880_a1e808da",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-18T16:39:25Z",
+      "side": 1,
+      "message": "Could you unhide this and add a test?",
+      "range": {
+        "startLine": 161,
+        "startChar": 8,
+        "endLine": 161,
+        "endChar": 12
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a9806171_d3464a51",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 4
@@ -64,6 +133,75 @@
         "startChar": 32,
         "endLine": 625,
         "endChar": 33
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfb68c5c_da3eb89c",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-18T16:39:25Z",
+      "side": 1,
+      "message": "can playlist be null considering we have L616?",
+      "range": {
+        "startLine": 625,
+        "startChar": 12,
+        "endLine": 625,
+        "endChar": 31
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43d2e10d_38fb1bce",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-18T16:39:25Z",
+      "side": 1,
+      "message": "replace instead of add? I thought setXXX should be replacing the existing list?",
+      "range": {
+        "startLine": 628,
+        "startChar": 26,
+        "endLine": 628,
+        "endChar": 32
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0e3f8f6_30f7eb8d",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-18T16:39:25Z",
+      "side": 1,
+      "message": "A command/operation should be queued and they should be executed and returned after all the previous operations are done.",
+      "range": {
+        "startLine": 646,
+        "startChar": 8,
+        "endLine": 647,
+        "endChar": 92
       },
       "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -225,6 +363,29 @@
         "startChar": 0,
         "endLine": 945,
         "endChar": 0
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59238433_23a2c5f4",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1440,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-18T16:39:25Z",
+      "side": 1,
+      "message": "what if setMediaItem is called, but not finished?",
+      "range": {
+        "startLine": 1440,
+        "startChar": 16,
+        "endLine": 1440,
+        "endChar": 76
       },
       "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -449,6 +610,52 @@
         "startChar": 22,
         "endLine": 1569,
         "endChar": 44
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6fb8f77_40eb2354",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2008,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-18T16:39:25Z",
+      "side": 1,
+      "message": "there could be other non-error codes like SKIPPED.",
+      "range": {
+        "startLine": 2008,
+        "startChar": 58,
+        "endLine": 2008,
+        "endChar": 78
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32fd681c_c420d6c5",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2011,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-18T16:39:25Z",
+      "side": 1,
+      "message": "In some error cases, the player state would be like a half executed state. Would that be okay with proceeding next operations? Or, should be report an error and go to error state?",
+      "range": {
+        "startLine": 2010,
+        "startChar": 40,
+        "endLine": 2011,
+        "endChar": 58
       },
       "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
