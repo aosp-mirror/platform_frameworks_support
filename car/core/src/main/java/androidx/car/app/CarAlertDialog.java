@@ -20,6 +20,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -29,6 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -43,6 +45,7 @@ import androidx.car.R;
  */
 public class CarAlertDialog extends Dialog {
     private final CharSequence mTitle;
+    private final Drawable mImage;
     private final CharSequence mBody;
     private final CharSequence mPositiveButtonText;
     private final OnClickListener mPositiveButtonListener;
@@ -56,7 +59,9 @@ public class CarAlertDialog extends Dialog {
     private final int mButtonSpacing;
 
     private View mContentView;
+    private View mHeaderView;
     private TextView mTitleView;
+    private ImageView mImageView;
     private TextView mBodyView;
 
     private View mButtonPanel;
@@ -68,6 +73,7 @@ public class CarAlertDialog extends Dialog {
         super(context, getDialogTheme(context));
 
         mTitle = builder.mTitle;
+        mImage = builder.mImage;
         mBody = builder.mBody;
         mPositiveButtonText = builder.mPositiveButtonText;
         mPositiveButtonListener = builder.mPositiveButtonListener;
@@ -102,30 +108,61 @@ public class CarAlertDialog extends Dialog {
         setBody(mBody);
         setPositiveButton(mPositiveButtonText);
         setNegativeButton(mNegativeButtonText);
-        // setTitleInternal() should be called last because we want to center title and adjust
-        // padding depending on body/button configuration.
+        setImage(mImage);
         setTitleInternal(mTitle);
+        // setupHeader() should be called last because we want to center title and adjust
+        // padding depending on image/body/button configuration.
+        setupHeader();
+    }
+
+    /**
+     * Sets the ImageView as the passed-in image.
+     * @param mImage the drawable that will be used.
+     */
+    public void setImage(Drawable mImage) {
+        if (mImage != null) {
+            mImageView.setImageDrawable(mImage);
+            mImageView.setVisibility(View.VISIBLE);
+        } else {
+            mImageView.setVisibility(View.GONE);
+        }
     }
 
     private void setTitleInternal(CharSequence title) {
         boolean hasTitle = !TextUtils.isEmpty(title);
-        boolean hasBody = mBodyView.getVisibility() == View.VISIBLE;
-        boolean hasButton = mButtonPanel.getVisibility() == View.VISIBLE;
 
         mTitleView.setText(title);
         mTitleView.setVisibility(hasTitle ? View.VISIBLE : View.GONE);
+    }
+
+    private void setupHeader() {
+        boolean hasTitle = mTitleView.getVisibility() == View.VISIBLE;
+        boolean hasImage = mImageView.getVisibility() == View.VISIBLE;
+        boolean hasBody = mBodyView.getVisibility() == View.VISIBLE;
+        boolean hasButton = mButtonPanel.getVisibility() == View.VISIBLE;
+        boolean onlyTitle = !hasImage && !hasButton && !hasBody;
 
         // If there's a title, then remove the padding at the top of the content view.
-        int topPadding = hasTitle ? 0 : mTopPadding;
+        int topPadding = (hasTitle || hasImage) ? 0 : mTopPadding;
 
         // If there is only title, also remove the padding at the bottom so title is
         // vertically centered.
-        int bottomPadding = !hasButton && !hasBody ? 0 : mContentView.getPaddingBottom();
+        int bottomPadding = onlyTitle ? 0 : mContentView.getPaddingBottom();
         mContentView.setPaddingRelative(
                 mContentView.getPaddingStart(),
                 topPadding,
                 mContentView.getPaddingEnd(),
                 bottomPadding);
+
+        // Remove the Header padding if there's an image.
+        int headerTopPadding = hasImage ? mHeaderView.getPaddingTop() : 0;
+        int headerBottomPadding = hasImage ? mHeaderView.getPaddingBottom() : 0;
+
+        mHeaderView.setPaddingRelative(
+                mHeaderView.getPaddingStart(),
+                headerTopPadding,
+                mHeaderView.getPaddingEnd(),
+                headerBottomPadding);
     }
 
     private void setBody(CharSequence body) {
@@ -273,6 +310,8 @@ public class CarAlertDialog extends Dialog {
         Window window = getWindow();
 
         mContentView = window.findViewById(R.id.content_view);
+        mHeaderView = window.findViewById(R.id.header_view);
+        mImageView = window.findViewById(R.id.image_view);
         mTitleView = window.findViewById(R.id.title);
         mBodyView = window.findViewById(R.id.body);
 
@@ -361,6 +400,7 @@ public class CarAlertDialog extends Dialog {
     public static final class Builder {
         private final Context mContext;
 
+        Drawable mImage;
         CharSequence mTitle;
         CharSequence mBody;
         CharSequence mPositiveButtonText;
@@ -379,6 +419,28 @@ public class CarAlertDialog extends Dialog {
          */
         public Builder(Context context) {
             mContext = context;
+        }
+
+        /**
+         * Sets the image of the dialog to be the given int resource.
+         *
+         * @param imageId The resource id of the Drawable to be used as the image.
+         * @return This {@code Builder} object to allow for chaining of calls.
+         */
+        public Builder setImage(int imageId) {
+            mImage = mContext.getResources().getDrawable(imageId, mContext.getTheme());
+            return this;
+        }
+
+        /**
+         * Sets the image of the dialog to be the given Drawable.
+         *
+         * @param image The Drawable to be used as the image.
+         * @return This {@code Builder} object to allow for chaining of calls.
+         */
+        public Builder setImage(Drawable image) {
+            mImage = image;
+            return this;
         }
 
         /**
