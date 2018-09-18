@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4177a627_84902891",
+        "filename": "core/src/main/java/androidx/core/app/Person.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-09-18T22:24:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a87c6c44_ebee0906",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 20
+      },
+      "revId": "5fb978c17210f560e8f9b760781987307e4ec30d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e9ed554_0e1c95e9",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2018-09-17T23:46:33Z",
       "side": 1,
       "message": "@RestrictTo(LIBRARY_GROUP).\n\nWhere are you using this?",
+      "revId": "5fb978c17210f560e8f9b760781987307e4ec30d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a521695_fdc4b317",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-09-18T22:24:29Z",
+      "side": 1,
+      "message": "This is not being used anywhere right now. It may get used later when we use ShortcutManager to get the list of shortcuts and convert them to Compat version. Let me know if you prefer it removed.",
+      "parentUuid": "5e9ed554_0e1c95e9",
       "revId": "5fb978c17210f560e8f9b760781987307e4ec30d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -85,6 +127,30 @@
       "revId": "5fb978c17210f560e8f9b760781987307e4ec30d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d339ac66_a18cde52",
+        "filename": "core/src/main/java/androidx/core/graphics/drawable/IconCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-09-18T22:24:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82409f82_ab0c0452",
+      "range": {
+        "startLine": 366,
+        "startChar": 1,
+        "endLine": 386,
+        "endChar": 0
+      },
+      "revId": "5fb978c17210f560e8f9b760781987307e4ec30d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
