@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43193642_48e591a9",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-19T12:04:53Z",
+      "side": 1,
+      "message": "Does clicking checked item means select? Could you double check?",
+      "range": {
+        "startLine": 1069,
+        "startChar": 0,
+        "endLine": 1069,
+        "endChar": 53
+      },
+      "revId": "8caa29cfb545eb09e166bdefcdb7b71405eded1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
