@@ -306,6 +306,7 @@ public class SliceProviderCompat {
             Log.e(TAG, "Unable to bind slice", e);
             return null;
         } finally {
+            holder.close();
         }
     }
 
@@ -395,6 +396,8 @@ public class SliceProviderCompat {
         } catch (RemoteException e) {
             Log.e(TAG, "Unable to bind slice", e);
             return null;
+        } finally {
+            holder.close();
         }
     }
 
@@ -415,6 +418,8 @@ public class SliceProviderCompat {
             holder.mProvider.call(METHOD_PIN, null, extras);
         } catch (RemoteException e) {
             Log.e(TAG, "Unable to pin slice", e);
+        } finally {
+            holder.close();
         }
     }
 
@@ -423,18 +428,22 @@ public class SliceProviderCompat {
      */
     public static void unpinSlice(Context context, Uri uri,
             Set<SliceSpec> supportedSpecs) {
-        ProviderHolder holder = acquireClient(context.getContentResolver(), uri);
-        if (holder.mProvider == null) {
-            throw new IllegalArgumentException("Unknown URI " + uri);
-        }
-        try {
-            Bundle extras = new Bundle();
-            extras.putParcelable(EXTRA_BIND_URI, uri);
-            extras.putString(EXTRA_PKG, context.getPackageName());
-            addSpecs(extras, supportedSpecs);
-            holder.mProvider.call(METHOD_UNPIN, null, extras);
-        } catch (RemoteException e) {
-            Log.e(TAG, "Unable to unpin slice", e);
+        if (getPinnedSlices(context).contains(uri)) {
+            ProviderHolder holder = acquireClient(context.getContentResolver(), uri);
+            if (holder.mProvider == null) {
+                throw new IllegalArgumentException("Unknown URI " + uri);
+            }
+            try {
+                Bundle extras = new Bundle();
+                extras.putParcelable(EXTRA_BIND_URI, uri);
+                extras.putString(EXTRA_PKG, context.getPackageName());
+                addSpecs(extras, supportedSpecs);
+                holder.mProvider.call(METHOD_UNPIN, ARG_SUPPORTS_VERSIONED_PARCELABLE, extras);
+            } catch (RemoteException e) {
+                Log.e(TAG, "Unable to unpin slice", e);
+            } finally {
+                holder.close();
+            }
         }
     }
 
@@ -455,6 +464,8 @@ public class SliceProviderCompat {
             }
         } catch (RemoteException e) {
             Log.e(TAG, "Unable to get pinned specs", e);
+        } finally {
+            holder.close();
         }
         return null;
     }
