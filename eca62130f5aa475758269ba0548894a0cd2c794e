@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "283d5a05_2d769502",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/testutils/NightModeUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2018-09-19T13:48:24Z",
+      "side": 1,
+      "message": "Is the change guaranteed to apply by the next sync?",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 42
+      },
+      "revId": "eca62130f5aa475758269ba0548894a0cd2c794e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a779f89e_80de5070",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2047,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2018-09-19T13:48:24Z",
+      "side": 1,
+      "message": "Is this \"bypass\" or \"force\"?",
+      "range": {
+        "startLine": 2047,
+        "startChar": 65,
+        "endLine": 2047,
+        "endChar": 71
+      },
+      "revId": "eca62130f5aa475758269ba0548894a0cd2c794e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41ffa3b0_23420b0f",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDialog.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2018-09-19T13:48:24Z",
+      "side": 1,
+      "message": "Why is this split into another constructor with an unused boolean? Is this to reuse themeResId and not compute it twice?",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 35
+      },
+      "revId": "eca62130f5aa475758269ba0548894a0cd2c794e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
