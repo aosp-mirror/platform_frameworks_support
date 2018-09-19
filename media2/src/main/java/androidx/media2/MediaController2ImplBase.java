@@ -57,6 +57,8 @@ import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Parcel;
+import android.os.ParcelFileDescriptor;
 import android.os.RemoteException;
 import android.os.ResultReceiver;
 import android.os.SystemClock;
@@ -76,6 +78,8 @@ import androidx.media2.MediaPlaylistAgent.ShuffleMode;
 import androidx.versionedparcelable.ParcelImpl;
 import androidx.versionedparcelable.ParcelUtils;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -555,13 +559,54 @@ class MediaController2ImplBase implements MediaController2Impl {
     @Override
     public void setPlaylist(@NonNull List<MediaItem2> list, @Nullable MediaMetadata2 metadata) {
         final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_PLAYLIST_SET_LIST);
-        if (iSession2 != null) {
+        if (iSession2 == null) {
+            return;
+        }
+
+        Parcel parcel = Parcel.obtain();
+        parcel.writeTypedList(MediaUtils2.convertMediaItem2ListToParcelImplList(list));
+        if (metadata != null) {
+            parcel.writeInt(1);
+            // TODO: Why not just send MediaMetadata instead of Bundle?
+            parcel.writeParcelable(metadata.toBundle(), 0);
+        } else {
+            parcel.writeInt(0);
+        }
+
+        // From here, codes can be moved to util class (except iSession2.setPlaylist()).
+        ParcelFileDescriptor read = null;
+        ParcelFileDescriptor write = null;
+        FileOutputStream os = null;
+
+        try {
+            ParcelFileDescriptor[] pipe = ParcelFileDescriptor.createPipe();
+            read = pipe[0];
+            write = pipe[1];
+            os = new FileOutputStream(write.getFileDescriptor());
+
+            byte[] data = parcel.marshall();
+            parcel.recycle();
+            iSession2.setPlaylist(mControllerStub, data.length, read);
+            os.write(data);
+        } catch (IOException e) {
+            Log.w(TAG, "IOException happened while sending data.", e);
+        } catch (RemoteException e) {
+            Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+        } finally {
             try {
-                iSession2.setPlaylist(mControllerStub,
-                        MediaUtils2.convertMediaItem2ListToParcelImplList(list),
-                        (metadata == null) ? null : metadata.toBundle());
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+                if (read != null) {
+                    read.close();
+                }
+                if (write != null) {
+                    write.close();
+                }
+                if (os != null) {
+                    os.close();
+                }
+            } catch (IOException e) {
+                // Ignore error from close().
+                // TODO: Remove below log. This is for debugging.
+                Log.d(TAG, "Error on close()!", e);
             }
         }
     }

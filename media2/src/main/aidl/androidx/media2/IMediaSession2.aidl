@@ -17,6 +17,7 @@
 package androidx.media2;
 
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.os.ResultReceiver;
 import android.net.Uri;
 
@@ -54,8 +55,7 @@ import androidx.versionedparcelable.ParcelImpl;
     void setRating(IMediaController2 caller, String mediaId, in ParcelImpl rating2) = 18;
     void setPlaybackSpeed(IMediaController2 caller, float speed) = 19;
 
-    void setPlaylist(IMediaController2 caller, in List<ParcelImpl> playlist,
-            in Bundle metadata) = 20;
+    void setPlaylist(IMediaController2 caller, int size, in ParcelFileDescriptor pfd) = 20;
     void updatePlaylistMetadata(IMediaController2 caller, in Bundle metadata) = 21;
     void addPlaylistItem(IMediaController2 caller, int index, in ParcelImpl mediaItem) = 22;
     void removePlaylistItem(IMediaController2 caller, in ParcelImpl mediaItem) = 23;
