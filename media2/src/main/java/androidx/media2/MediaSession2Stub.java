@@ -25,6 +25,8 @@ import android.net.Uri;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Parcel;
+import android.os.ParcelFileDescriptor;
 import android.os.ParcelUuid;
 import android.os.RemoteException;
 import android.os.ResultReceiver;
@@ -48,6 +50,8 @@ import androidx.media2.MediaSession2.MediaSession2Impl;
 import androidx.versionedparcelable.ParcelImpl;
 import androidx.versionedparcelable.ParcelUtils;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -543,8 +547,20 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     }
 
     @Override
-    public void setPlaylist(final IMediaController2 caller, final List<ParcelImpl> playlist,
-            final Bundle metadata) {
+    public void setPlaylist(final int size, final ParcelFileDescriptor pfd) {
+        Parcel parcel = createParcelFromFileDescriptor(size, pfd);
+        if (parcel == null) {
+            return;
+        }
+        final IMediaController2 caller = IMediaController2.Stub.asInterface(
+                parcel.readStrongBinder());
+        final List<ParcelImpl> playlist = parcel.createTypedArrayList(ParcelImpl.CREATOR);
+        final Bundle metadata;
+        if ((parcel.readInt() != 0)) {
+            metadata = Bundle.CREATOR.createFromParcel(parcel);
+        } else {
+            metadata = null;
+        }
         onSessionCommand(caller, SessionCommand2.COMMAND_CODE_PLAYLIST_SET_LIST,
                 new SessionRunnable() {
                     @Override
@@ -558,6 +574,39 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                                 MediaMetadata2.fromBundle(metadata));
                     }
                 });
+    }
+
+    private Parcel createParcelFromFileDescriptor(int size, ParcelFileDescriptor pfd) {
+        byte[] buffer;
+        FileInputStream is = null;
+        try {
+            is = new FileInputStream(pfd.getFileDescriptor());
+            if (is.available() > 0) {
+                buffer = new byte[size];
+                int dataCount = is.read(buffer);
+                if (dataCount == size) {
+                    Parcel parcel = Parcel.obtain();
+                    parcel.unmarshall(buffer, 0, buffer.length);
+                    parcel.setDataPosition(0);
+                    return parcel;
+                } else {
+                    Log.d(TAG, "The actual data size is different from what controller has sent. "
+                            + "Ignoring.");
+                    return null;
+                }
+            }
+        } catch (IOException ex) {
+            Log.d(TAG, "IOException happened while getting data from the controller.", ex);
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException ex) {
+                    // Ignore exception on close().
+                }
+            }
+        }
+        return null;
     }
 
     @Override
