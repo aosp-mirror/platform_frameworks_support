@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eac81c4e_fcc02ca4",
+        "filename": "graphics/drawable/static/src/main/java/androidx/vectordrawable/graphics/drawable/VectorDrawableCommon.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-09-19T21:37:15Z",
+      "side": 1,
+      "message": "why does this look duplicated in subclasses? shouldn\u0027t they be calling super.setColorFilter to set the color filter on the delegate?",
+      "revId": "45f7f98df5602a8e0118edf59b5dd25374cc7074",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

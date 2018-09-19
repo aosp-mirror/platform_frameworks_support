@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6781c72c_006e72b4",
+        "filename": "graphics/drawable/static/src/main/java/androidx/vectordrawable/graphics/drawable/VectorDrawableCommon.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-09-19T21:37:15Z",
+      "side": 0,
+      "message": "why didn\u0027t it work to implement this in the base class?",
+      "revId": "d5609f3a04f146f3d2de8063c711c0909e230762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
