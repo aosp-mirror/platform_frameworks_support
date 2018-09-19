@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "30860a71_eee3d775",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatEditTextTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-19T16:45:53Z",
+      "side": 1,
+      "message": ":( :( :(\n\nReally done this time.",
+      "parentUuid": "f4996b80_f5518de9",
+      "revId": "e90f8a3e7ab9f6a7c0e7ad63f32e0f2447eb1076",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b63fe05_d22210db",
         "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatEditTextTest.java",
         "patchSetId": 2
@@ -196,6 +214,30 @@
       "side": 1,
       "message": "Yeah. There\u0027s no way around this. :/\nI\u0027d usually just add a comment in the code that says the parent class unfortunately ends up calling this method in its constructor.\n\nI\u0027d see if I can find fix these issues in TextView/EditText. I\u0027ve run into issues because of such in the past too.\n\nThanks.",
       "parentUuid": "be10e1e8_d478f2ad",
+      "range": {
+        "startLine": 212,
+        "startChar": 62,
+        "endLine": 212,
+        "endChar": 91
+      },
+      "revId": "e90f8a3e7ab9f6a7c0e7ad63f32e0f2447eb1076",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6dd4ac1_4465bdf0",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatEditText.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-19T16:45:53Z",
+      "side": 1,
+      "message": "added a comment, thanks.",
+      "parentUuid": "e0dbee7f_be66cf35",
       "range": {
         "startLine": 212,
         "startChar": 62,
