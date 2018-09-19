@@ -163,6 +163,24 @@
       "revId": "9524c362acff830e024b7d0b5f69f0bd4b9601d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de405068_2d55f88d",
+        "filename": "samples/Support7Demos/src/main/res/values/styles.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1034928
+      },
+      "writtenOn": "2018-09-19T10:55:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ac5b70f_b27bfeaa",
+      "revId": "9524c362acff830e024b7d0b5f69f0bd4b9601d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
