@@ -107,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "72f0625b_5bf9d01f",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-09-19T00:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec39663f_f032f53a",
+      "range": {
+        "startLine": 258,
+        "startChar": 3,
+        "endLine": 357,
+        "endChar": 5
+      },
+      "revId": "5fb978c17210f560e8f9b760781987307e4ec30d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82409f82_ab0c0452",
         "filename": "core/src/main/java/androidx/core/graphics/drawable/IconCompat.java",
         "patchSetId": 2
