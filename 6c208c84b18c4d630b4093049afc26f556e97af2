@@ -1,0 +1,204 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68779cd8_e3949055",
+        "filename": "car/core/res/layout/car_alert_dialog.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-19T21:45:52Z",
+      "side": 1,
+      "message": "In general, we want to reduce the nesting in our view hierarchies. I think that three nested LinearLayouts is a bit overkill. Can you look into seeing if you can flatten the hierarchy?\n\nLook into using either a RelativeLayout or ConstraintLayout.",
+      "range": {
+        "startLine": 70,
+        "startChar": 13,
+        "endLine": 70,
+        "endChar": 25
+      },
+      "revId": "6c208c84b18c4d630b4093049afc26f556e97af2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "388a9c9e_c41cd2cc",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-19T21:45:52Z",
+      "side": 1,
+      "message": "What\u0027s this for? Add a comment.",
+      "revId": "6c208c84b18c4d630b4093049afc26f556e97af2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33a0037e_107bb966",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-19T21:45:52Z",
+      "side": 1,
+      "message": "This javadoc will be public facing, so it needs to be more verbose. What is ImageView for example? That\u0027s too much internal information for the javadoc. You should instead talk about where the icon will be set, what happens if it\u0027s passed null (is that even allowed?), etc.",
+      "revId": "6c208c84b18c4d630b4093049afc26f556e97af2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "340741ff_5226a98f",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-19T21:45:52Z",
+      "side": 1,
+      "message": "nit: our style is to have a new line after the description and before the start of the block tags",
+      "revId": "6c208c84b18c4d630b4093049afc26f556e97af2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "376325f5_477dda60",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-19T21:45:52Z",
+      "side": 1,
+      "message": "Method name is probably too generic. Maybe \"setHeaderIcon\"",
+      "range": {
+        "startLine": 125,
+        "startChar": 16,
+        "endLine": 125,
+        "endChar": 23
+      },
+      "revId": "6c208c84b18c4d630b4093049afc26f556e97af2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8eead26c_953f6eb3",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-19T21:45:52Z",
+      "side": 1,
+      "message": "Parameters do not have the \"m\" prefix.",
+      "range": {
+        "startLine": 125,
+        "startChar": 33,
+        "endLine": 125,
+        "endChar": 38
+      },
+      "revId": "6c208c84b18c4d630b4093049afc26f556e97af2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ae8c352_a1ecbd17",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-19T21:45:52Z",
+      "side": 1,
+      "message": "I suspect you don\u0027t want this method to be public. A user should only be setting icons though the Builder",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 10
+      },
+      "revId": "6c208c84b18c4d630b4093049afc26f556e97af2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76600110_9e5124a4",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-19T21:45:52Z",
+      "side": 1,
+      "message": "I recently had some feedback from API council that we should be using Icons to abstract away Drawables:\n\nhttps://developer.android.com/reference/android/graphics/drawable/Icon\n\nCan you see if you can substitute Drawable for Icon?",
+      "range": {
+        "startLine": 125,
+        "startChar": 24,
+        "endLine": 125,
+        "endChar": 32
+      },
+      "revId": "6c208c84b18c4d630b4093049afc26f556e97af2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbc0f260_bb87d116",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-19T21:45:52Z",
+      "side": 1,
+      "message": "It looks like you want \"null\" to be a valid input for this method. Add @Nullable to the parameter:\n\n  public void setIcon(@Nullable Icon icon) {",
+      "revId": "6c208c84b18c4d630b4093049afc26f556e97af2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a6db07f_0048b9af",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-19T21:45:52Z",
+      "side": 1,
+      "message": "Mostly same comments as above for method name and parameter annotations.",
+      "revId": "6c208c84b18c4d630b4093049afc26f556e97af2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
