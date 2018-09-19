@@ -660,6 +660,8 @@ public class XMediaPlayer extends SessionPlayer2 {
 
     @Override
     public void close() throws Exception {
+        //mPlayer.clearEventCallback();
+        //mPlayer.clearDrmEventCallback();
         mPlayer.close();
         mExecutor.shutdown();
     }
