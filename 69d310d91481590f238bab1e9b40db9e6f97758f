@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de27ff6d_555b6e52",
+        "filename": "preference/res/values/attrs.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-19T12:49:04Z",
+      "side": 1,
+      "message": "We could instead of this have summaryFormatter\u003d\"EditTextPreference.DefaultFortmatter\". And in case developers have custom ones they can simply assign it here in the xml without having to search for the preference in code.\n\nThat requires to instantiate a formatter dynamically. I\u0027m not sure if such pattern is discouraged or not. We can get Alan\u0027s opinion on this.",
+      "range": {
+        "startLine": 236,
+        "startChar": 20,
+        "endLine": 236,
+        "endChar": 46
+      },
+      "revId": "69d310d91481590f238bab1e9b40db9e6f97758f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
