@@ -16,6 +16,24 @@
       "revId": "d5609f3a04f146f3d2de8063c711c0909e230762",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76bb10d7_e1dffd93",
+        "filename": "graphics/drawable/static/src/main/java/androidx/vectordrawable/graphics/drawable/VectorDrawableCommon.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-09-19T22:09:50Z",
+      "side": 0,
+      "message": "Because subclasses override this method for their specific cases anyways. Leaving this bit of logic in base class doesn\u0027t make the code easier to read.",
+      "parentUuid": "6781c72c_006e72b4",
+      "revId": "d5609f3a04f146f3d2de8063c711c0909e230762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }

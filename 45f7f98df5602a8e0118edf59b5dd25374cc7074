@@ -16,6 +16,24 @@
       "revId": "45f7f98df5602a8e0118edf59b5dd25374cc7074",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aed095d_0bd2ca96",
+        "filename": "graphics/drawable/static/src/main/java/androidx/vectordrawable/graphics/drawable/VectorDrawableCommon.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-09-19T22:09:50Z",
+      "side": 1,
+      "message": "This method is not overridden in subclasses. Subclasses implement a different one-parameter setColorFilter public API.",
+      "parentUuid": "eac81c4e_fcc02ca4",
+      "revId": "45f7f98df5602a8e0118edf59b5dd25374cc7074",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
