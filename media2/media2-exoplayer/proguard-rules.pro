@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Proguard rules specific to the core module.
-
 # Constructors accessed via reflection in DefaultRenderersFactory
 -dontnote androidx.media2.exoplayer.external.ext.vp9.LibvpxVideoRenderer
 -keepclassmembers class androidx.media2.exoplayer.external.ext.vp9.LibvpxVideoRenderer {
@@ -48,3 +46,6 @@
 -dontnote androidx.media2.exoplayer.external.source.dash.offline.DashDownloadAction
 -dontnote androidx.media2.exoplayer.external.source.hls.offline.HlsDownloadAction
 -dontnote androidx.media2.exoplayer.external.source.smoothstreaming.offline.SsDownloadAction
+
+# checkerframework is used for static analysis only
+-dontwarn org.checkerframework.**
