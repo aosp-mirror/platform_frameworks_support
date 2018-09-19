@@ -117,6 +117,29 @@
       "revId": "a8c79a482d7e6e2518df9371f7305b0119ac4fcc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba2f9c58_93b7da03",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatToggleButton.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2018-09-19T12:35:38Z",
+      "side": 1,
+      "message": "Not clear why the new attribute and styles are needed. See AppCompatCheckedTextView - it\u0027s using android.R.attr.checkedTextViewStyle. Can you use android.R.attr.toggleButtonStyle instead?",
+      "range": {
+        "startLine": 44,
+        "startChar": 29,
+        "endLine": 44,
+        "endChar": 53
+      },
+      "revId": "a8c79a482d7e6e2518df9371f7305b0119ac4fcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
