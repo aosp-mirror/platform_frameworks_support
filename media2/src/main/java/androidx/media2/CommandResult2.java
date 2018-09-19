@@ -16,28 +16,21 @@
 
 package androidx.media2;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.SystemClock;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
 
 /**
  * Result of the asynchrnous APIs
- *
- * @hide
+ * <p>
+ * This class doesn't define error code itself. Check the returned class for the individual error
+ * codes.
  */
-// TODO(jaewan): Unhide
-// TODO(jaewan): double check final vs non-final
-// TODO(jaewna): versioned parcelable or not? -- Exception cannot be parcelable.
-// Equivalent to 'status_t' in C/C++
+// Similar to 'status_t' in C/C++
 @TargetApi(Build.VERSION_CODES.P)
-@RestrictTo(LIBRARY)
 public final class CommandResult2 {
-    // No error code here!
     private final int mResultCode;
     private final long mCompletionTime;
     private final MediaItem2 mItem;
@@ -74,7 +67,8 @@ public final class CommandResult2 {
     }
 
     /**
-     * Gets the {@link MediaItem2} for which the command was executed.
+     * Gets the {@link MediaItem2} for which the command was executed. In other words, this is the
+     * current media item when the command is completed.
      *
      * @return media item
      */

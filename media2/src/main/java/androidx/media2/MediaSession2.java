@@ -124,7 +124,6 @@ import java.util.concurrent.Executor;
  * </table>
  * @see MediaSessionService2
  */
-// TODO(jaewan): Fix {@link SessionPlayer2} when it's unhidden.
 @TargetApi(Build.VERSION_CODES.P)
 public class MediaSession2 implements AutoCloseable {
     /**
@@ -230,12 +229,10 @@ public class MediaSession2 implements AutoCloseable {
     }
 
     /**
-     * Sets the underlying {@link SessionPlayer2} for this session to dispatch incoming event to.
+     * Updates the underlying {@link SessionPlayer2} for this session to dispatch incoming event to.
      *
      * @param player a player that handles actual media playback in your app
-     * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
     public void updatePlayer(@NonNull SessionPlayer2 player) {
         mImpl.updatePlayer(player);
     }
@@ -250,11 +247,10 @@ public class MediaSession2 implements AutoCloseable {
     }
 
     /**
+     * Gets the underlying {@link SessionPlayer2}.
+     *
      * @return player. Can be {@code null} if and only if the session is released.
-     * @hide
      */
-    // TODO(jaewan): Unhide
-    @RestrictTo(LIBRARY_GROUP)
     public @Nullable SessionPlayer2 getPlayer() {
         return mImpl.getPlayer();
     }
@@ -804,13 +800,6 @@ public class MediaSession2 implements AutoCloseable {
             super(context);
         }
 
-        /**
-         * @param player a {@link SessionPlayer2} that handles actual media playback in your app.
-         * @return
-         * @hide
-         */
-        // TODO(jaewan): Unhide
-        @RestrictTo(LIBRARY_GROUP)
         @Override
         public @NonNull Builder setPlayer(@NonNull SessionPlayer2 player) {
             return super.setPlayer(player);

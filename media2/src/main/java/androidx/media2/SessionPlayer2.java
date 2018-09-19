@@ -16,7 +16,6 @@
 
 package androidx.media2;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.annotation.TargetApi;
@@ -40,16 +39,15 @@ import java.util.Map;
 import java.util.concurrent.Executor;
 
 /**
- * Base interface for all media players that want media session
- *
- * @hide
+ * Base interface for all media players that want media session.
+ * <p>
+ * Methods here may be the asynchronous calls depending on the implementation. Wait with returned
+ * {@link ListenableFuture} or callback for the completion.
  */
-// TODO(jaewan): Unhide
 // Previously MediaSessionCompat.Callback.
 // Subclasses can be implemented with ExoPlayer, MediaPlayer2, RemoteClient, etc.
 // Preferably it can be interface, but API guideline requires to use abstract class.
 @TargetApi(Build.VERSION_CODES.P)
-@RestrictTo(LIBRARY)
 public abstract class SessionPlayer2 implements AutoCloseable {
     private static final String TAG = "SessionPlayer2";
 
@@ -245,40 +243,136 @@ public abstract class SessionPlayer2 implements AutoCloseable {
     @GuardedBy("mLock")
     private final Map<PlayerCallback, Executor> mCallbacks = new HashMap<>();
 
-    // APIs from the SessionPlayer2
+    /**
+     * Plays the playback.
+     * <p>
+     * This may be the asynchronous call depending on the implementation. Wait with returned
+     * {@link ListenableFuture} or callback for the completion.
+     */
     public abstract @NonNull ListenableFuture<CommandResult2> play();
 
+    /**
+     * Pauses playback.
+     * <p>
+     * This may be the asynchronous call depending on the implementation. Wait with returned
+     * {@link ListenableFuture} or callback for the completion.
+     */
     public abstract @NonNull ListenableFuture<CommandResult2> pause();
 
+    /**
+     * Prepares the player for playback. During this time, the player may allocate resources
+     * required to play, such as audio and video decoders.
+     * <p>
+     * This may be the asynchronous call depending on the implementation. Wait with returned
+     * {@link ListenableFuture} or callback for the completion.
+     */
     public abstract @NonNull ListenableFuture<CommandResult2> prepare();
 
+    /**
+     * Seeks to the specified position. Moves the playback head to the specified position.
+     * <p>
+     * This may be the asynchronous call depending on the implementation. Wait with returned
+     * {@link ListenableFuture} or callback for the completion.
+     *
+     * @param position the new playback position expressed in ms.
+     */
     public abstract @NonNull ListenableFuture<CommandResult2> seekTo(long position);
 
+    /**
+     * Sets the playback speed. A value of {@code 1.0f} is the default playback value.
+     * <p>
+     * After changing the playback speed, it is recommended to query the actual speed supported
+     * by the player, see {@link #getPlaybackSpeed()}.
+     * <p>
+     * This may be the asynchronous call depending on the implementation. Wait with returned
+     * {@link ListenableFuture} or callback for the completion.
+     *
+     * @param playbackSpeed playback speed
+     */
     public abstract @NonNull ListenableFuture<CommandResult2> setPlaybackSpeed(float playbackSpeed);
 
     /**
      * Sets the {@link AudioAttributesCompat} to be used during the playback of the media.
+     * <p>
      * You must call this method in {@link #PLAYER_STATE_IDLE} in order for the audio attributes to
      * become effective thereafter.
+     * <p>
+     * This may be the asynchronous call depending on the implementation. Wait with returned
+     * {@link ListenableFuture} or callback for the completion.
      *
      * @param attributes non-null <code>AudioAttributes</code>.
      */
     public abstract @NonNull ListenableFuture<CommandResult2> setAudioAttributes(
             @NonNull AudioAttributesCompat attributes);
 
+    /**
+     * Gets the current player state.
+     * <p>
+     * This may be the asynchronous call depending on the implementation. Wait with returned
+     * {@link ListenableFuture} or callback for the completion.
+     *
+     * @return the current player state
+     * @see PlayerCallback#onPlayerStateChanged(SessionPlayer2, int)
+     * @see #PLAYER_STATE_IDLE
+     * @see #PLAYER_STATE_PAUSED
+     * @see #PLAYER_STATE_PLAYING
+     * @see #PLAYER_STATE_ERROR
+     */
     public abstract @PlayerState int getPlayerState();
 
+    /**
+     * Gets the current playback head position.
+     *
+     * @return the current playback position in ms, or {@link #UNKNOWN_TIME} if unknown.
+     */
     public abstract long getCurrentPosition();
 
+    /**
+     * Gets the duration of the current media item, or {@link #UNKNOWN_TIME} if unknown.
+     *
+     * @return the duration in ms, or {@link #UNKNOWN_TIME}.
+     */
     public abstract long getDuration();
 
+    /**
+     * Gets the buffered position of current playback, or {@link #UNKNOWN_TIME} if unknown.
+     * @return the buffered position in ms, or {@link #UNKNOWN_TIME}.
+     */
     public abstract long getBufferedPosition();
 
+    /**
+     * Returns the current buffering state of the player.
+     * During the buffering, see {@link #getBufferedPosition()} for the quantifying the amount
+     * already buffered.
+     *
+     * @return the buffering state.
+     * @see #getBufferedPosition()
+     */
     public abstract @BuffState int getBufferingState();
 
+    /**
+     * Gets the actual playback speed to be used by the player when playing.
+     * <p>
+     * Note that it may differ from the speed set in {@link #setPlaybackSpeed(float)}.
+     *
+     * @return the actual playback speed
+     */
     public abstract float getPlaybackSpeed();
 
-    // APIs from the SessionPlayer2
+    /**
+     * Sets the playlist with the metadata.
+     * <p>
+     * This may be the asynchronous call depending on the implementation. Wait with returned
+     * {@link ListenableFuture} or callback for the completion.
+     * <p>
+     * The implementation must notify registered callbacks with
+     * {@link PlayerCallback#onPlaylistChanged(SessionPlayer2, List, MediaMetadata2)} when it's
+     * completed.
+     *
+     * @param list playlist
+     * @param metadata metadata of the playlist
+     * @see PlayerCallback#onPlaylistChanged(SessionPlayer2, List, MediaMetadata2)
+     */
     public abstract @NonNull ListenableFuture<CommandResult2> setPlaylist(
             List<MediaItem2> list, MediaMetadata2 metadata);
 
@@ -297,37 +391,200 @@ public abstract class SessionPlayer2 implements AutoCloseable {
      */
     public abstract @NonNull ListenableFuture<CommandResult2> setMediaItem(MediaItem2 item);
 
+    /**
+     * Adds the media item to the playlist at position index. Index equals or greater than
+     * the current playlist size (e.g. {@link Integer#MAX_VALUE}) will add the item at the end of
+     * the playlist.
+     * <p>
+     * This may be the asynchronous call depending on the implementation. Wait with returned
+     * {@link ListenableFuture} or callback for the completion.
+     * <p>
+     * The implementation may not change the currently playing media item.
+     * If index is less than or equal to the current index of the playlist,
+     * the current index of the playlist will be increased correspondingly.
+     * <p>
+     * The implementation must notify registered callbacks with
+     * {@link PlayerCallback#onPlaylistChanged(SessionPlayer2, List, MediaMetadata2)} when it's
+     * completed.
+     *
+     * @param index the index you want to add
+     * @param item the media item you want to add
+     * @see PlayerCallback#onPlaylistChanged(SessionPlayer2, List, MediaMetadata2)
+     */
     public abstract @NonNull ListenableFuture<CommandResult2> addPlaylistItem(int index,
             @NonNull MediaItem2 item);
 
+    /**
+     * Removes the media item from the playlist
+     * <p>
+     * This may be the asynchronous call depending on the implementation. Wait with returned
+     * {@link ListenableFuture} or callback for the completion.
+     * <p>
+     * The implementation may not change the currently playing media item even when it's removed.
+     * <p>
+     * The implementation must notify registered callbacks with
+     * {@link PlayerCallback#onPlaylistChanged(SessionPlayer2, List, MediaMetadata2)} when it's
+     * completed.
+     *
+     * @param item media item to remove
+     * @see PlayerCallback#onPlaylistChanged(SessionPlayer2, List, MediaMetadata2)
+     */
     public abstract @NonNull ListenableFuture<CommandResult2> removePlaylistItem(
             @NonNull MediaItem2 item);
 
+    /**
+     * Replaces the media item at index in the playlist. This can be also used to update metadata of
+     * an item.
+     * <p>
+     * This may be the asynchronous call depending on the implementation. Wait with returned
+     * {@link ListenableFuture} or callback for the completion.
+     * <p>
+     * The implementation must notify registered callbacks with
+     * {@link PlayerCallback#onPlaylistChanged(SessionPlayer2, List, MediaMetadata2)} when it's
+     * completed.
+     *
+     * @param index the index of the item to replace
+     * @param item the new item
+     * @see PlayerCallback#onPlaylistChanged(SessionPlayer2, List, MediaMetadata2)
+     */
     public abstract @NonNull ListenableFuture<CommandResult2> replacePlaylistItem(int index,
             @NonNull MediaItem2 item);
 
+    /**
+     * Skips to the previous item in the playlist.
+     * <p>
+     * This may be the asynchronous call depending on the implementation. Wait with returned
+     * {@link ListenableFuture} or callback for the completion.
+     * <p>
+     * The implementation must notify registered callbacks with
+     * {@link PlayerCallback#onCurrentMediaItemChanged(SessionPlayer2, MediaItem2)} when it's
+     * completed.
+     *
+     * @see PlayerCallback#onCurrentMediaItemChanged(SessionPlayer2, MediaItem2)
+     */
     public abstract @NonNull ListenableFuture<CommandResult2> skipToPreviousItem();
 
+    /**
+     * Skips to the next item in the playlist.
+     * <p>
+     * This may be the asynchronous call depending on the implementation. Wait with returned
+     * {@link ListenableFuture} or callback for the completion.
+     * <p>
+     * The implementation must notify registered callbacks with
+     * {@link PlayerCallback#onCurrentMediaItemChanged(SessionPlayer2, MediaItem2)} when it's
+     * completed.
+     *
+     * @see PlayerCallback#onCurrentMediaItemChanged(SessionPlayer2, MediaItem2)
+     */
     public abstract @NonNull ListenableFuture<CommandResult2> skipToNextItem();
 
+    /**
+     * Skips to the the media item.
+     * <p>
+     * This may be the asynchronous call depending on the implementation. Wait with returned
+     * {@link ListenableFuture} or callback for the completion.
+     * <p>
+     * The implementation must notify registered callbacks with
+     * {@link PlayerCallback#onCurrentMediaItemChanged(SessionPlayer2, MediaItem2)} when it's
+     * completed.
+     *
+     * @param item media item to start playing from
+     * @see PlayerCallback#onCurrentMediaItemChanged(SessionPlayer2, MediaItem2)
+     */
     public abstract @NonNull ListenableFuture<CommandResult2> skipToPlaylistItem(
             @NonNull MediaItem2 item);
 
+    /**
+     * Updates the playlist metadata while keeping the playlist as-is.
+     * <p>
+     * This may be the asynchronous call depending on the implementation. Wait with returned
+     * {@link ListenableFuture} or callback for the completion.
+     * <p>
+     * The implementation must notify registered callbacks with
+     * {@link PlayerCallback#onPlaylistMetadataChanged(SessionPlayer2, MediaMetadata2)} when it's
+     * completed.
+     *
+     * @param metadata metadata of the playlist
+     * @see PlayerCallback#onPlaylistMetadataChanged(SessionPlayer2, MediaMetadata2)
+     */
     public abstract @NonNull ListenableFuture<CommandResult2> updatePlaylistMetadata(
             @Nullable MediaMetadata2 metadata);
 
+    /**
+     * Sets the repeat mode.
+     * <p>
+     * This may be the asynchronous call depending on the implementation. Wait with returned
+     * {@link ListenableFuture} or callback for the completion.
+     * <p>
+     * The implementation must notify registered callbacks with
+     * {@link PlayerCallback#onRepeatModeChanged(SessionPlayer2, int)} when it's completed.
+     *
+     * @param repeatMode repeat mode
+     * @see #REPEAT_MODE_NONE
+     * @see #REPEAT_MODE_ONE
+     * @see #REPEAT_MODE_ALL
+     * @see #REPEAT_MODE_GROUP
+     * @see PlayerCallback#onRepeatModeChanged(SessionPlayer2, int)
+     */
     public abstract @NonNull ListenableFuture<CommandResult2> setRepeatMode(
             @RepeatMode int repeatMode);
 
+    /**
+     * Sets the shuffle mode.
+     * <p>
+     * This may be the asynchronous call depending on the implementation. Wait with returned
+     * {@link ListenableFuture} or callback for the completion.
+     * <p>
+     * The implementation must notify registered callbacks with
+     * {@link PlayerCallback#onShuffleModeChanged(SessionPlayer2, int)} when it's completed.
+     *
+     * @param shuffleMode The shuffle mode
+     * @see #SHUFFLE_MODE_NONE
+     * @see #SHUFFLE_MODE_ALL
+     * @see #SHUFFLE_MODE_GROUP
+     * @see PlayerCallback#onShuffleModeChanged(SessionPlayer2, int)
+     */
     public abstract @NonNull ListenableFuture<CommandResult2> setShuffleMode(
             @ShuffleMode int shuffleMode);
 
+    /**
+     * Gets the playlist.
+     *
+     * @return playlist, or null if none is set.
+     * @see PlayerCallback#onPlaylistChanged(SessionPlayer2, List, MediaMetadata2)
+     */
     public abstract @Nullable List<MediaItem2> getPlaylist();
 
+    /**
+     * Gets the playlist metadata.
+     *
+     * @return metadata metadata of the playlist, or null if none is set
+     * @see PlayerCallback#onPlaylistChanged(SessionPlayer2, List, MediaMetadata2)
+     * @see PlayerCallback#onPlaylistMetadataChanged(SessionPlayer2, MediaMetadata2)
+     */
     public abstract @Nullable MediaMetadata2 getPlaylistMetadata();
 
+    /**
+     * Gets the repeat mode.
+     *
+     * @return repeat mode
+     * @see #REPEAT_MODE_NONE
+     * @see #REPEAT_MODE_ONE
+     * @see #REPEAT_MODE_ALL
+     * @see #REPEAT_MODE_GROUP
+     * @see PlayerCallback#onRepeatModeChanged(SessionPlayer2, int)
+     */
     public abstract @RepeatMode int getRepeatMode();
 
+    /**
+     * Gets the shuffle mode.
+     *
+     * @return The shuffle mode
+     * @see #SHUFFLE_MODE_NONE
+     * @see #SHUFFLE_MODE_ALL
+     * @see #SHUFFLE_MODE_GROUP
+     * @see PlayerCallback#onShuffleModeChanged(SessionPlayer2, int)
+     */
     public abstract @ShuffleMode int getShuffleMode();
 
     // APIs previously in the grey area (neither player connector / playlist agent)
@@ -377,7 +634,11 @@ public abstract class SessionPlayer2 implements AutoCloseable {
         }
     }
 
-    // For subclasses that wants to extend Callbacks
+    /**
+     * Gets the callbacks with executors for subclasses to notify player events.
+     *
+     * @return map of callbacks and its executors
+     */
     protected final Map<PlayerCallback, Executor> getCallbacks() {
         Map<PlayerCallback, Executor> map = new HashMap<>();
         synchronized (mLock) {
@@ -386,41 +647,119 @@ public abstract class SessionPlayer2 implements AutoCloseable {
         return map;
     }
 
+    /**
+     * A callback class to receive notifications for events on the session player. See
+     * {@link #registerPlayerCallback(Executor, PlayerCallback)} to register this callback.
+     */
     public static abstract class PlayerCallback {
-        // Callbacks from SessionPlayer2
+        /**
+         * Called when the state of the player has changed.
+         *
+         * @param player the player whose state has changed.
+         * @param playerState the new state of the player.
+         * @see #getPlayerState() ()
+         */
         public void onPlayerStateChanged(@NonNull SessionPlayer2 player,
                 @PlayerState int playerState) {
         }
 
+        /**
+         * Called when a buffering events for a media item happened.
+         *
+         * @param player the player that is buffering
+         * @param item the media item for which buffering is happening.
+         * @param buffState the new buffering state.
+         * @see #getBufferingState()
+         */
         public void onBufferingStateChanged(@NonNull SessionPlayer2 player,
                 @Nullable MediaItem2 item, @BuffState int buffState) {
         }
 
+        /**
+         * Called when the playback speed has changed.
+         *
+         * @param player the player that has changed the playback speed.
+         * @param playbackSpeed the new playback speed.
+         * @see #getPlaybackSpeed()
+         */
         public void onPlaybackSpeedChanged(@NonNull SessionPlayer2 player,
                 float playbackSpeed) {
         }
 
+        /**
+         * Called when {@link #seekTo(long)} is completed.
+         *
+         * @param player the player that has completed seeking.
+         * @param position the previous seeking request.
+         * @see #getCurrentPosition()
+         */
         public void onSeekCompleted(@NonNull SessionPlayer2 player, long position) {
         }
 
-        // Callbacks from SessionPlayer2
+        /**
+         * Called when a playlist is changed.
+         *
+         * @param player the player that has changed the playlist and playlist metadata.
+         * @param list new playlist
+         * @param metadata new metadata
+         * @see #getPlaylist()
+         * @see #getPlaylistMetadata()
+         */
         public void onPlaylistChanged(@NonNull SessionPlayer2 player, List<MediaItem2> list,
                 @Nullable MediaMetadata2 metadata) {
         }
 
+        /**
+         * Called when a playlist metadata is changed.
+         *
+         * @param player the player that has changed the playlist metadata.
+         * @param metadata new metadata
+         * @see #getPlaylistMetadata()
+         */
         public void onPlaylistMetadataChanged(@NonNull SessionPlayer2 player,
                 @Nullable MediaMetadata2 metadata) {
         }
 
+        /**
+         * Called when the shuffle mode is changed.
+         *
+         * @param player playlist agent for this event
+         * @param shuffleMode shuffle mode
+         * @see #SHUFFLE_MODE_NONE
+         * @see #SHUFFLE_MODE_ALL
+         * @see #SHUFFLE_MODE_GROUP
+         * @see #getShuffleMode()
+         */
         public void onShuffleModeChanged(@NonNull SessionPlayer2 player,
                 @ShuffleMode int shuffleMode) {
         }
 
+        /**
+         * Called when the repeat mode is changed.
+         *
+         * @param player player for this event
+         * @param repeatMode repeat mode
+         * @see #REPEAT_MODE_NONE
+         * @see #REPEAT_MODE_ONE
+         * @see #REPEAT_MODE_ALL
+         * @see #REPEAT_MODE_GROUP
+         * @see #getRepeatMode()
+         */
         public void onRepeatModeChanged(@NonNull SessionPlayer2 player,
                 @RepeatMode int repeatMode) {
         }
 
-        // Callbacks in the middle
+        /**
+         * Called when the player's current media item has changed.
+         * <p>
+         * When the playback completes, and no other source is about to be played next (i.e.
+         * playback reached the end of the list of sources to play), this callback will be invoked
+         * with a {@code null} item.
+         *
+         * @param player the player whose media item changed.
+         * @param item the new current media item. {@code null}, if no more media items available.
+         * @see #getCurrentMediaItem()
+         */
         public void onCurrentMediaItemChanged(@NonNull SessionPlayer2 player,
                 @Nullable MediaItem2 item) {
         }
