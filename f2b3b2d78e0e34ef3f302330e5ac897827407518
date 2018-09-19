@@ -499,6 +499,30 @@
     },
     {
       "key": {
+        "uuid": "00d0beeb_df706e08",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1108,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-19T03:04:33Z",
+      "side": 1,
+      "message": "Talked offline.\n- Currently this is the correct way.\n- We might need to change MediaRouter\u0027s APIs for this. Let me schedule for MediaRouter API feedback.",
+      "parentUuid": "9e1ad59c_cf4987f8",
+      "range": {
+        "startLine": 1107,
+        "startChar": 52,
+        "endLine": 1108,
+        "endChar": 56
+      },
+      "revId": "f2b3b2d78e0e34ef3f302330e5ac897827407518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "af9b6f02_6d874315",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 6
