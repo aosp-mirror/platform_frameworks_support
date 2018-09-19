@@ -424,8 +424,8 @@ public class MediaController2Test extends MediaSession2TestBase {
      * Test whether {@link MediaSession2#setPlaylist(List, MediaMetadata2)} is notified
      * through the
      * {@link ControllerCallback#onPlaylistMetadataChanged(MediaController2, MediaMetadata2)}
-     * if the controller doesn't have {@link SessionCommand2#COMMAND_CODE_PLAYLIST_GET_LIST} but
-     * {@link SessionCommand2#COMMAND_CODE_PLAYLIST_GET_LIST_METADATA}.
+     * if the controller doesn't have {@link SessionCommand2#COMMAND_CODE_PLAYER_GET_LIST} but
+     * {@link SessionCommand2#COMMAND_CODE_PLAYER_GET_LIST_METADATA}.
      */
     @Test
     public void testControllerCallback_onPlaylistMetadataChanged() throws InterruptedException {
@@ -449,7 +449,7 @@ public class MediaController2Test extends MediaSession2TestBase {
                 if (Process.myUid() == controller.getUid()) {
                     SessionCommandGroup2 commands = new SessionCommandGroup2.Builder()
                             .addCommand(new SessionCommand2(
-                                    SessionCommand2.COMMAND_CODE_PLAYLIST_GET_LIST_METADATA))
+                                    SessionCommand2.COMMAND_CODE_PLAYER_GET_LIST_METADATA))
                             .build();
                     return commands;
                 }

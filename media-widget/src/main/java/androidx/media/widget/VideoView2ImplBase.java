@@ -1100,20 +1100,20 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
                 }
             }
             SessionCommandGroup2.Builder commandsBuilder = new SessionCommandGroup2.Builder()
-                    .addCommand(SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE)
-                    .addCommand(SessionCommand2.COMMAND_CODE_PLAYBACK_PLAY)
-                    .addCommand(SessionCommand2.COMMAND_CODE_PLAYBACK_PREPARE)
-                    .addCommand(SessionCommand2.COMMAND_CODE_PLAYBACK_SET_SPEED)
+                    .addCommand(SessionCommand2.COMMAND_CODE_PLAYER_PAUSE)
+                    .addCommand(SessionCommand2.COMMAND_CODE_PLAYER_PLAY)
+                    .addCommand(SessionCommand2.COMMAND_CODE_PLAYER_PREPARE)
+                    .addCommand(SessionCommand2.COMMAND_CODE_PLAYER_SET_SPEED)
                     .addCommand(SessionCommand2.COMMAND_CODE_SESSION_FAST_FORWARD)
                     .addCommand(SessionCommand2.COMMAND_CODE_SESSION_REWIND)
-                    .addCommand(SessionCommand2.COMMAND_CODE_PLAYBACK_SEEK_TO)
+                    .addCommand(SessionCommand2.COMMAND_CODE_PLAYER_SEEK_TO)
                     .addCommand(SessionCommand2.COMMAND_CODE_VOLUME_SET_VOLUME)
                     .addCommand(SessionCommand2.COMMAND_CODE_VOLUME_ADJUST_VOLUME)
                     .addCommand(SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_URI)
                     .addCommand(SessionCommand2.COMMAND_CODE_SESSION_PREPARE_FROM_URI)
                     .addCommand(SessionCommand2.COMMAND_CODE_SESSION_SELECT_ROUTE)
-                    .addCommand(SessionCommand2.COMMAND_CODE_PLAYLIST_GET_LIST)
-                    .addCommand(SessionCommand2.COMMAND_CODE_PLAYLIST_GET_LIST_METADATA)
+                    .addCommand(SessionCommand2.COMMAND_CODE_PLAYER_GET_LIST)
+                    .addCommand(SessionCommand2.COMMAND_CODE_PLAYER_GET_LIST_METADATA)
                     .addCommand(new SessionCommand2(
                             MediaControlView2.COMMAND_SELECT_AUDIO_TRACK, null))
                     .addCommand(new SessionCommand2(
@@ -1177,17 +1177,17 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
                 }
             }
             switch (command.getCommandCode()) {
-                case SessionCommand2.COMMAND_CODE_PLAYBACK_PLAY:
+                case SessionCommand2.COMMAND_CODE_PLAYER_PLAY:
                     mTargetState = STATE_PLAYING;
                     if (!mCurrentView.hasAvailableSurface() && !mIsMusicMediaType) {
                         Log.d(TAG, "surface is not available");
                         return false;
                     }
                     break;
-                case SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE:
+                case SessionCommand2.COMMAND_CODE_PLAYER_PAUSE:
                     mTargetState = STATE_PAUSED;
                     break;
-                case SessionCommand2.COMMAND_CODE_PLAYBACK_SEEK_TO:
+                case SessionCommand2.COMMAND_CODE_PLAYER_SEEK_TO:
                     mSeekWhenPrepared = 0;
                     break;
             }

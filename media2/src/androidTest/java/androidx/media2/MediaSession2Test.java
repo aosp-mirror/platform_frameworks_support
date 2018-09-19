@@ -430,7 +430,7 @@ public class MediaSession2Test extends MediaSession2TestBase {
         assertFalse(mPlayer.mCountDownLatch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
         assertFalse(mPlayer.mPauseCalled);
         assertEquals(1, callback.commands.size());
-        assertEquals(SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE,
+        assertEquals(SessionCommand2.COMMAND_CODE_PLAYER_PAUSE,
                 (long) callback.commands.get(0).getCommandCode());
 
         controller.play();
@@ -438,7 +438,7 @@ public class MediaSession2Test extends MediaSession2TestBase {
         assertTrue(mPlayer.mPlayCalled);
         assertFalse(mPlayer.mPauseCalled);
         assertEquals(2, callback.commands.size());
-        assertEquals(SessionCommand2.COMMAND_CODE_PLAYBACK_PLAY,
+        assertEquals(SessionCommand2.COMMAND_CODE_PLAYER_PLAY,
                 (long) callback.commands.get(1).getCommandCode());
     }
 
@@ -486,7 +486,7 @@ public class MediaSession2Test extends MediaSession2TestBase {
         prepareLooper();
         final List<CommandButton> customLayout = new ArrayList<>();
         customLayout.add(new CommandButton.Builder()
-                .setCommand(new SessionCommand2(SessionCommand2.COMMAND_CODE_PLAYBACK_PLAY))
+                .setCommand(new SessionCommand2(SessionCommand2.COMMAND_CODE_PLAYER_PLAY))
                 .setDisplayName("button")
                 .build());
         final CountDownLatch latch = new CountDownLatch(1);
@@ -530,8 +530,8 @@ public class MediaSession2Test extends MediaSession2TestBase {
     public void testSetAllowedCommands() throws InterruptedException {
         prepareLooper();
         final SessionCommandGroup2 commands = new SessionCommandGroup2.Builder()
-                .addCommand(new SessionCommand2(SessionCommand2.COMMAND_CODE_PLAYBACK_PLAY))
-                .addCommand(new SessionCommand2(SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE))
+                .addCommand(new SessionCommand2(SessionCommand2.COMMAND_CODE_PLAYER_PLAY))
+                .addCommand(new SessionCommand2(SessionCommand2.COMMAND_CODE_PLAYER_PAUSE))
                 .build();
 
         final CountDownLatch latch = new CountDownLatch(1);
@@ -564,7 +564,7 @@ public class MediaSession2Test extends MediaSession2TestBase {
     public void testSendCustomCommand() throws InterruptedException {
         prepareLooper();
         final SessionCommand2 testCommand = new SessionCommand2(
-                SessionCommand2.COMMAND_CODE_PLAYBACK_PREPARE);
+                SessionCommand2.COMMAND_CODE_PLAYER_PREPARE);
         final Bundle testArgs = new Bundle();
         testArgs.putString("args", "testSendCustomAction");
 
@@ -668,7 +668,7 @@ public class MediaSession2Test extends MediaSession2TestBase {
             assertEquals(Process.myUid(), controllerInfo.getUid());
             assertFalse(controllerInfo.isTrusted());
             commands.add(command);
-            if (command.getCommandCode() == SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE) {
+            if (command.getCommandCode() == SessionCommand2.COMMAND_CODE_PLAYER_PAUSE) {
                 return false;
             }
             return true;

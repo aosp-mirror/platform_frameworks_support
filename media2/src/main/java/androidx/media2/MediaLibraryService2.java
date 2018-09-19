@@ -16,8 +16,6 @@
 
 package androidx.media2;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -27,7 +25,6 @@ import android.os.IBinder;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
 import androidx.core.content.ContextCompat;
 import androidx.media2.MediaLibraryService2.MediaLibrarySession.Builder;
 import androidx.media2.MediaLibraryService2.MediaLibrarySession.MediaLibrarySessionCallback;
@@ -235,11 +232,6 @@ public abstract class MediaLibraryService2 extends MediaSessionService2 {
                 setSessionCallback(callbackExecutor, callback);
             }
 
-            /**
-             * @hide
-             */
-            // TODO(jaewan): Unhide
-            @RestrictTo(LIBRARY_GROUP)
             @Override
             public @NonNull Builder setPlayer(SessionPlayer2 player) {
                 return super.setPlayer(player);

@@ -124,7 +124,6 @@ import java.util.concurrent.Executor;
  * </table>
  * @see MediaSessionService2
  */
-// TODO(jaewan): Fix {@link SessionPlayer2} when it's unhidden.
 @TargetApi(Build.VERSION_CODES.P)
 public class MediaSession2 implements AutoCloseable {
     /**
@@ -230,12 +229,10 @@ public class MediaSession2 implements AutoCloseable {
     }
 
     /**
-     * Sets the underlying {@link SessionPlayer2} for this session to dispatch incoming event to.
+     * Updates the underlying {@link SessionPlayer2} for this session to dispatch incoming event to.
      *
      * @param player a player that handles actual media playback in your app
-     * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
     public void updatePlayer(@NonNull SessionPlayer2 player) {
         mImpl.updatePlayer(player);
     }
@@ -250,11 +247,10 @@ public class MediaSession2 implements AutoCloseable {
     }
 
     /**
+     * Gets the underlying {@link SessionPlayer2}.
+     *
      * @return player. Can be {@code null} if and only if the session is released.
-     * @hide
      */
-    // TODO(jaewan): Unhide
-    @RestrictTo(LIBRARY_GROUP)
     public @Nullable SessionPlayer2 getPlayer() {
         return mImpl.getPlayer();
     }
@@ -408,8 +404,8 @@ public class MediaSession2 implements AutoCloseable {
      * @param helper a media item missing helper.
      * @throws IllegalStateException when the helper is set when the playlist agent is set
      * @see SessionCallback#onCommandRequest(MediaSession2, ControllerInfo, SessionCommand2)
-     * @see SessionCommand2#COMMAND_CODE_PLAYLIST_ADD_ITEM
-     * @see SessionCommand2#COMMAND_CODE_PLAYLIST_REPLACE_ITEM
+     * @see SessionCommand2#COMMAND_CODE_PLAYER_ADD_ITEM
+     * @see SessionCommand2#COMMAND_CODE_PLAYER_REPLACE_ITEM
      */
     public void setOnDataSourceMissingHelper(@NonNull OnDataSourceMissingHelper helper) {
         mImpl.setOnDataSourceMissingHelper(helper);
@@ -527,22 +523,22 @@ public class MediaSession2 implements AutoCloseable {
          * @param controller controller information.
          * @param command a command. This method will be called for every single command.
          * @return {@code true} if you want to accept incoming command. {@code false} otherwise.
-         * @see SessionCommand2#COMMAND_CODE_PLAYBACK_PLAY
-         * @see SessionCommand2#COMMAND_CODE_PLAYBACK_PAUSE
-         * @see SessionCommand2#COMMAND_CODE_PLAYLIST_SKIP_TO_NEXT_ITEM
-         * @see SessionCommand2#COMMAND_CODE_PLAYLIST_SKIP_TO_PREV_ITEM
-         * @see SessionCommand2#COMMAND_CODE_PLAYBACK_PREPARE
-         * @see SessionCommand2#COMMAND_CODE_PLAYBACK_SEEK_TO
-         * @see SessionCommand2#COMMAND_CODE_PLAYLIST_SKIP_TO_PLAYLIST_ITEM
-         * @see SessionCommand2#COMMAND_CODE_PLAYLIST_SET_SHUFFLE_MODE
-         * @see SessionCommand2#COMMAND_CODE_PLAYLIST_SET_REPEAT_MODE
-         * @see SessionCommand2#COMMAND_CODE_PLAYLIST_ADD_ITEM
-         * @see SessionCommand2#COMMAND_CODE_PLAYLIST_REMOVE_ITEM
-         * @see SessionCommand2#COMMAND_CODE_PLAYLIST_REPLACE_ITEM
-         * @see SessionCommand2#COMMAND_CODE_PLAYLIST_GET_LIST
-         * @see SessionCommand2#COMMAND_CODE_PLAYLIST_SET_LIST
-         * @see SessionCommand2#COMMAND_CODE_PLAYLIST_GET_LIST_METADATA
-         * @see SessionCommand2#COMMAND_CODE_PLAYLIST_UPDATE_LIST_METADATA
+         * @see SessionCommand2#COMMAND_CODE_PLAYER_PLAY
+         * @see SessionCommand2#COMMAND_CODE_PLAYER_PAUSE
+         * @see SessionCommand2#COMMAND_CODE_PLAYER_SKIP_TO_NEXT_ITEM
+         * @see SessionCommand2#COMMAND_CODE_PLAYER_SKIP_TO_PREV_ITEM
+         * @see SessionCommand2#COMMAND_CODE_PLAYER_PREPARE
+         * @see SessionCommand2#COMMAND_CODE_PLAYER_SEEK_TO
+         * @see SessionCommand2#COMMAND_CODE_PLAYER_SKIP_TO_PLAYLIST_ITEM
+         * @see SessionCommand2#COMMAND_CODE_PLAYER_SET_SHUFFLE_MODE
+         * @see SessionCommand2#COMMAND_CODE_PLAYER_SET_REPEAT_MODE
+         * @see SessionCommand2#COMMAND_CODE_PLAYER_ADD_ITEM
+         * @see SessionCommand2#COMMAND_CODE_PLAYER_REMOVE_ITEM
+         * @see SessionCommand2#COMMAND_CODE_PLAYER_REPLACE_ITEM
+         * @see SessionCommand2#COMMAND_CODE_PLAYER_GET_LIST
+         * @see SessionCommand2#COMMAND_CODE_PLAYER_SET_LIST
+         * @see SessionCommand2#COMMAND_CODE_PLAYER_GET_LIST_METADATA
+         * @see SessionCommand2#COMMAND_CODE_PLAYER_UPDATE_LIST_METADATA
          * @see SessionCommand2#COMMAND_CODE_VOLUME_SET_VOLUME
          * @see SessionCommand2#COMMAND_CODE_VOLUME_ADJUST_VOLUME
          */
@@ -803,13 +799,6 @@ public class MediaSession2 implements AutoCloseable {
             super(context);
         }
 
-        /**
-         * @param player a {@link SessionPlayer2} that handles actual media playback in your app.
-         * @return
-         * @hide
-         */
-        // TODO(jaewan): Unhide
-        @RestrictTo(LIBRARY_GROUP)
         @Override
         public @NonNull Builder setPlayer(@NonNull SessionPlayer2 player) {
             return super.setPlayer(player);

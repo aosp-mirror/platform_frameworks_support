@@ -649,7 +649,7 @@ public class MediaController2 implements AutoCloseable {
      *
      * @return playlist, or {@code null} if the playlist hasn't set, controller isn't connected,
      *         or it doesn't have enough permission
-     * @see SessionCommand2#COMMAND_CODE_PLAYLIST_GET_LIST
+     * @see SessionCommand2#COMMAND_CODE_PLAYER_GET_LIST
      */
     public @Nullable List<MediaItem2> getPlaylist() {
         return isConnected() ? getImpl().getPlaylist() : null;

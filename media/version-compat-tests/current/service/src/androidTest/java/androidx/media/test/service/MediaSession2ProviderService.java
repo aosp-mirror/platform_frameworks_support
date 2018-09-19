@@ -145,7 +145,7 @@ public class MediaSession2ProviderService extends Service {
                             SessionCommandGroup2 commands = new SessionCommandGroup2.Builder()
                                     .addCommand(new SessionCommand2(
                                             SessionCommand2
-                                                    .COMMAND_CODE_PLAYLIST_GET_LIST_METADATA))
+                                                    .COMMAND_CODE_PLAYER_GET_LIST_METADATA))
                                     .build();
                             return commands;
                         }

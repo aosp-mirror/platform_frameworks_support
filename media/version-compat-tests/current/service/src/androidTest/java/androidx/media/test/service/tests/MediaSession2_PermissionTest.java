@@ -18,17 +18,17 @@ package androidx.media.test.service.tests;
 
 import static android.support.mediacompat.testlib.util.IntentUtil.CLIENT_PACKAGE_NAME;
 
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYBACK_PLAY;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYBACK_SEEK_TO;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYLIST_ADD_ITEM;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYLIST_REMOVE_ITEM;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYLIST_REPLACE_ITEM;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYLIST_SET_LIST;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYLIST_SKIP_TO_NEXT_ITEM;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYLIST_SKIP_TO_PLAYLIST_ITEM;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYLIST_SKIP_TO_PREV_ITEM;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYLIST_UPDATE_LIST_METADATA;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_ADD_ITEM;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_PAUSE;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_PLAY;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_REMOVE_ITEM;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_REPLACE_ITEM;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_SEEK_TO;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_SET_LIST;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_SKIP_TO_NEXT_ITEM;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_SKIP_TO_PLAYLIST_ITEM;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_SKIP_TO_PREV_ITEM;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_UPDATE_LIST_METADATA;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_FAST_FORWARD;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_MEDIA_ID;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_SEARCH;
@@ -162,7 +162,7 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
     @Test
     public void testPlay() throws InterruptedException {
         prepareLooper();
-        testOnCommandRequest(COMMAND_CODE_PLAYBACK_PLAY, new PermissionTestRunnable() {
+        testOnCommandRequest(COMMAND_CODE_PLAYER_PLAY, new PermissionTestRunnable() {
             @Override
             public void run(RemoteMediaController2 controller) {
                 controller.play();
@@ -173,7 +173,7 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
     @Test
     public void testPause() throws InterruptedException {
         prepareLooper();
-        testOnCommandRequest(COMMAND_CODE_PLAYBACK_PAUSE, new PermissionTestRunnable() {
+        testOnCommandRequest(COMMAND_CODE_PLAYER_PAUSE, new PermissionTestRunnable() {
             @Override
             public void run(RemoteMediaController2 controller) {
                 controller.pause();
@@ -185,7 +185,7 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
     public void testSeekTo() throws InterruptedException {
         prepareLooper();
         final long position = 10;
-        testOnCommandRequest(COMMAND_CODE_PLAYBACK_SEEK_TO, new PermissionTestRunnable() {
+        testOnCommandRequest(COMMAND_CODE_PLAYER_SEEK_TO, new PermissionTestRunnable() {
             @Override
             public void run(RemoteMediaController2 controller) {
                 controller.seekTo(position);
@@ -196,7 +196,7 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
     @Test
     public void testSkipToNext() throws InterruptedException {
         prepareLooper();
-        testOnCommandRequest(COMMAND_CODE_PLAYLIST_SKIP_TO_NEXT_ITEM, new PermissionTestRunnable() {
+        testOnCommandRequest(COMMAND_CODE_PLAYER_SKIP_TO_NEXT_ITEM, new PermissionTestRunnable() {
             @Override
             public void run(RemoteMediaController2 controller) {
                 controller.skipToNextItem();
@@ -207,7 +207,7 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
     @Test
     public void testSkipToPrevious() throws InterruptedException {
         prepareLooper();
-        testOnCommandRequest(COMMAND_CODE_PLAYLIST_SKIP_TO_PREV_ITEM, new PermissionTestRunnable() {
+        testOnCommandRequest(COMMAND_CODE_PLAYER_SKIP_TO_PREV_ITEM, new PermissionTestRunnable() {
             @Override
             public void run(RemoteMediaController2 controller) {
                 controller.skipToPreviousItem();
@@ -220,7 +220,7 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
         prepareLooper();
         final MediaItem2 testItem = MediaTestUtils.createMediaItemWithMetadata();
         testOnCommandRequest(
-                COMMAND_CODE_PLAYLIST_SKIP_TO_PLAYLIST_ITEM,
+                COMMAND_CODE_PLAYER_SKIP_TO_PLAYLIST_ITEM,
                 new PermissionTestRunnable() {
                     @Override
                     public void run(RemoteMediaController2 controller) {
@@ -233,7 +233,7 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
     public void testSetPlaylist() throws InterruptedException {
         prepareLooper();
         final List<MediaItem2> list = MediaTestUtils.createPlaylist(2);
-        testOnCommandRequest(COMMAND_CODE_PLAYLIST_SET_LIST, new PermissionTestRunnable() {
+        testOnCommandRequest(COMMAND_CODE_PLAYER_SET_LIST, new PermissionTestRunnable() {
             @Override
             public void run(RemoteMediaController2 controller) {
                 controller.setPlaylist(list, null);
@@ -244,7 +244,7 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
     @Test
     public void testUpdatePlaylistMetadata() throws InterruptedException {
         prepareLooper();
-        testOnCommandRequest(COMMAND_CODE_PLAYLIST_UPDATE_LIST_METADATA,
+        testOnCommandRequest(COMMAND_CODE_PLAYER_UPDATE_LIST_METADATA,
                 new PermissionTestRunnable() {
                     @Override
                     public void run(RemoteMediaController2 controller) {
@@ -257,7 +257,7 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
     public void testAddPlaylistItem() throws InterruptedException {
         prepareLooper();
         final MediaItem2 testItem = MediaTestUtils.createMediaItemWithMetadata();
-        testOnCommandRequest(COMMAND_CODE_PLAYLIST_ADD_ITEM, new PermissionTestRunnable() {
+        testOnCommandRequest(COMMAND_CODE_PLAYER_ADD_ITEM, new PermissionTestRunnable() {
             @Override
             public void run(RemoteMediaController2 controller) {
                 controller.addPlaylistItem(0, testItem);
@@ -269,7 +269,7 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
     public void testRemovePlaylistItem() throws InterruptedException {
         prepareLooper();
         final MediaItem2 testItem = MediaTestUtils.createMediaItemWithMetadata();
-        testOnCommandRequest(COMMAND_CODE_PLAYLIST_REMOVE_ITEM, new PermissionTestRunnable() {
+        testOnCommandRequest(COMMAND_CODE_PLAYER_REMOVE_ITEM, new PermissionTestRunnable() {
             @Override
             public void run(RemoteMediaController2 controller) {
                 controller.removePlaylistItem(testItem);
@@ -281,7 +281,7 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
     public void testReplacePlaylistItem() throws InterruptedException {
         prepareLooper();
         final MediaItem2 testItem = MediaTestUtils.createMediaItemWithMetadata();
-        testOnCommandRequest(COMMAND_CODE_PLAYLIST_REPLACE_ITEM, new PermissionTestRunnable() {
+        testOnCommandRequest(COMMAND_CODE_PLAYER_REPLACE_ITEM, new PermissionTestRunnable() {
             @Override
             public void run(RemoteMediaController2 controller) {
                 controller.replacePlaylistItem(0, testItem);

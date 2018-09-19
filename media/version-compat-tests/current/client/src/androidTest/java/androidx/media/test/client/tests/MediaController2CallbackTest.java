@@ -396,8 +396,8 @@ public class MediaController2CallbackTest extends MediaSession2TestBase {
      * Test whether {@link MediaSession2#setPlaylist(List, MediaMetadata2)} is notified
      * through the {@link MediaController2.ControllerCallback#onPlaylistMetadataChanged(
      * MediaController2, MediaMetadata2)}
-     * if the controller doesn't have {@link SessionCommand2#COMMAND_CODE_PLAYLIST_GET_LIST} but
-     * {@link SessionCommand2#COMMAND_CODE_PLAYLIST_GET_LIST_METADATA}.
+     * if the controller doesn't have {@link SessionCommand2#COMMAND_CODE_PLAYER_GET_LIST} but
+     * {@link SessionCommand2#COMMAND_CODE_PLAYER_GET_LIST_METADATA}.
      */
     @Ignore
     @Test
@@ -569,8 +569,8 @@ public class MediaController2CallbackTest extends MediaSession2TestBase {
     public void testOnAllowedCommandsChanged() throws InterruptedException {
         prepareLooper();
         final SessionCommandGroup2 commands = new SessionCommandGroup2();
-        commands.addCommand(SessionCommand2.COMMAND_CODE_PLAYBACK_PLAY);
-        commands.addCommand(SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE);
+        commands.addCommand(SessionCommand2.COMMAND_CODE_PLAYER_PLAY);
+        commands.addCommand(SessionCommand2.COMMAND_CODE_PLAYER_PAUSE);
 
         final CountDownLatch latch = new CountDownLatch(1);
         final MediaController2.ControllerCallback callback =
@@ -600,7 +600,7 @@ public class MediaController2CallbackTest extends MediaSession2TestBase {
     public void testOnCustomCommand() throws InterruptedException {
         prepareLooper();
         final SessionCommand2 testCommand = new SessionCommand2(
-                SessionCommand2.COMMAND_CODE_PLAYBACK_PREPARE);
+                SessionCommand2.COMMAND_CODE_PLAYER_PREPARE);
         final Bundle testArgs = TestUtils.createTestBundle();
 
         final CountDownLatch latch = new CountDownLatch(2);
@@ -631,7 +631,7 @@ public class MediaController2CallbackTest extends MediaSession2TestBase {
         final List<MediaSession2.CommandButton> buttons = new ArrayList<>();
 
         MediaSession2.CommandButton button = new MediaSession2.CommandButton.Builder()
-                .setCommand(new SessionCommand2(SessionCommand2.COMMAND_CODE_PLAYBACK_PLAY))
+                .setCommand(new SessionCommand2(SessionCommand2.COMMAND_CODE_PLAYER_PLAY))
                 .setDisplayName("button")
                 .build();
         buttons.add(button);

@@ -1801,7 +1801,7 @@ public class MediaControlView2 extends BaseLayout {
         }
         mController.setAllowedCommands(commands);
 
-        if (commands.hasCommand(SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE)) {
+        if (commands.hasCommand(SessionCommand2.COMMAND_CODE_PLAYER_PAUSE)) {
             mPlayPauseButton.setVisibility(View.VISIBLE);
             mPlayPauseButton.setEnabled(true);
         } else {
@@ -1829,7 +1829,7 @@ public class MediaControlView2 extends BaseLayout {
                 mFfwdButton.setVisibility(View.GONE);
             }
         }
-        if (commands.hasCommand(SessionCommand2.COMMAND_CODE_PLAYBACK_SEEK_TO)) {
+        if (commands.hasCommand(SessionCommand2.COMMAND_CODE_PLAYER_SEEK_TO)) {
             mSeekAvailable = true;
             mProgress.setEnabled(true);
         }
@@ -2147,7 +2147,7 @@ public class MediaControlView2 extends BaseLayout {
         }
         boolean canPause() {
             return mAllowedCommands != null && mAllowedCommands.hasCommand(
-                    SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE);
+                    SessionCommand2.COMMAND_CODE_PLAYER_PAUSE);
         }
         boolean canSeekBackward() {
             return mAllowedCommands != null && mAllowedCommands.hasCommand(
