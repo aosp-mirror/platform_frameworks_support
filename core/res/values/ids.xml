@@ -29,4 +29,5 @@
     <item name="tag_accessibility_pane_title" type="id"/>
     <item name="tag_accessibility_clickable_spans" type="id"/>
     <item name="tag_accessibility_actions" type="id"/>
+    <item name="tag_accessibility_removed_standard_actions" type="id"/>
 </resources>

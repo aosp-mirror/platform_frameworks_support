@@ -6334,6 +6334,9 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                 holder.setFlags(0, ViewHolder.FLAG_SET_A11Y_ITEM_DELEGATE);
                 ViewCompat.setAccessibilityDelegate(holder.itemView, null);
             }
+            holder.itemView.setTag(androidx.core.R.id.tag_accessibility_actions, null);
+            holder.itemView.setTag(androidx.core.R.id.tag_accessibility_removed_standard_actions,
+                    null);
             if (dispatchRecycled) {
                 dispatchViewRecycled(holder);
             }
