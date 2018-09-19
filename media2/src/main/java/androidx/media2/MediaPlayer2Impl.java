@@ -810,12 +810,17 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
             record = mMp2EventCallbackRecord;
         }
         if (record != null) {
-            record.first.execute(new Runnable() {
-                @Override
-                public void run() {
-                    notifier.notify(record.second);
-                }
-            });
+            try {
+                record.first.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        notifier.notify(record.second);
+                    }
+                });
+            } catch (RejectedExecutionException e) {
+                // The given executor is shutting down.
+                Log.w(TAG, "The given executor is shutting down. Ignoring the player event.");
+            }
         }
     }
 
@@ -852,11 +857,11 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         if (record != null) {
             try {
                 record.first.execute(new Runnable() {
-                @Override
-                public void run() {
-                    notifier.notify(record.second);
-                }
-            });
+                    @Override
+                    public void run() {
+                        notifier.notify(record.second);
+                    }
+                });
             } catch (RejectedExecutionException e) {
                 // The given executor is shutting down.
                 Log.w(TAG, "The given executor is shutting down. Ignoring the player event.");
