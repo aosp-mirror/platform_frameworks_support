@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50643220_9a7edb8c",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-09-19T00:08:00Z",
+      "side": 1,
+      "message": "Please rename to icon",
+      "range": {
+        "startLine": 48,
+        "startChar": 27,
+        "endLine": 48,
+        "endChar": 33
+      },
+      "revId": "6226e00e8edf848205f3c2e801c1753178cdf7fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f77d8629_970e232e",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-09-19T00:08:00Z",
+      "side": 1,
+      "message": "Same, icon is the preferred term.  titleIcon?",
+      "range": {
+        "startLine": 76,
+        "startChar": 8,
+        "endLine": 76,
+        "endChar": 14
+      },
+      "revId": "6226e00e8edf848205f3c2e801c1753178cdf7fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "430e4d33_afbc0c4b",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-09-19T00:08:00Z",
+      "side": 1,
+      "message": "titleIcon",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 16
+      },
+      "revId": "6226e00e8edf848205f3c2e801c1753178cdf7fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "800e828e_511604ac",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-09-19T00:08:00Z",
+      "side": 1,
+      "message": "Update the description to include where the icon will be used aka title.  And then describe the default behavior aka something like \"no icon will be used if nothing is specified\"",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 52
+      },
+      "revId": "6226e00e8edf848205f3c2e801c1753178cdf7fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b780a66f_4c004e3e",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-09-19T00:08:00Z",
+      "side": 1,
+      "message": "how about setTitleIcon instead?  It is more clear that we\u0027re setting the icon near the title.",
+      "range": {
+        "startLine": 122,
+        "startChar": 16,
+        "endLine": 122,
+        "endChar": 24
+      },
+      "revId": "6226e00e8edf848205f3c2e801c1753178cdf7fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb289366_19c89987",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-09-19T00:08:00Z",
+      "side": 1,
+      "message": "TitleIconView?",
+      "range": {
+        "startLine": 314,
+        "startChar": 8,
+        "endLine": 314,
+        "endChar": 18
+      },
+      "revId": "6226e00e8edf848205f3c2e801c1753178cdf7fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0807fc3f_2460d861",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-09-19T00:08:00Z",
+      "side": 1,
+      "message": "setTitleIcon?",
+      "range": {
+        "startLine": 430,
+        "startChar": 23,
+        "endLine": 430,
+        "endChar": 31
+      },
+      "revId": "6226e00e8edf848205f3c2e801c1753178cdf7fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8e64e5e_ced6ee4d",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-09-19T00:08:00Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 441,
+        "startChar": 23,
+        "endLine": 441,
+        "endChar": 31
+      },
+      "revId": "6226e00e8edf848205f3c2e801c1753178cdf7fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
