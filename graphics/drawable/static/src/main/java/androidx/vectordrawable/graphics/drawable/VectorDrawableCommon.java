@@ -17,6 +17,7 @@ package androidx.vectordrawable.graphics.drawable;
 import android.content.res.Resources;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
 import android.graphics.Region;
 import android.graphics.drawable.Drawable;
@@ -38,16 +39,12 @@ abstract class VectorDrawableCommon extends Drawable implements TintAwareDrawabl
             mDelegateDrawable.setColorFilter(color, mode);
             return;
         }
-        super.setColorFilter(color, mode);
+        ColorFilter filter = new PorterDuffColorFilter(color, mode);
+        setColorFilter(filter);
     }
 
     @Override
-    public ColorFilter getColorFilter() {
-        if (mDelegateDrawable != null) {
-            return DrawableCompat.getColorFilter(mDelegateDrawable);
-        }
-        return null;
-    }
+    public abstract ColorFilter getColorFilter();
 
     @Override
     protected boolean onLevelChange(int level) {
