@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74539353_08ec3a14",
+        "filename": "jetifier/jetifier/core/src/main/kotlin/com/android/tools/build/jetifier/core/PackageMap.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-19T21:11:45Z",
+      "side": 1,
+      "message": "Q) Just out of curiosity, why are these two lines having the same value?",
+      "revId": "1dbbec673c1fc023e5e90df8540d89f77453693b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
