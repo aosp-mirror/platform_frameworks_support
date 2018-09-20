@@ -16,6 +16,7 @@
 
 package androidx.car.app;
 
+import android.animation.ValueAnimator;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
@@ -105,6 +106,21 @@ public class CarAlertDialog extends Dialog {
         // setTitleInternal() should be called last because we want to center title and adjust
         // padding depending on body/button configuration.
         setTitleInternal(mTitle);
+
+        Window window = getWindow();
+
+        // Background dim animation.
+        Resources res = getContext().getResources();
+        TypedValue outValue = new TypedValue();
+        res.getValue(R.dimen.car_dialog_background_dim, outValue, true);
+        float dimAmount = outValue.getFloat();
+
+        ValueAnimator backgroundDimAnimator = ValueAnimator.ofFloat(0f, dimAmount);
+        backgroundDimAnimator.setDuration(res.getInteger(R.integer.car_dialog_enter_duration_ms));
+
+        backgroundDimAnimator.addUpdateListener(
+                animation -> window.setDimAmount((float) animation.getAnimatedValue()));
+        backgroundDimAnimator.start();
     }
 
     private void setTitleInternal(CharSequence title) {
