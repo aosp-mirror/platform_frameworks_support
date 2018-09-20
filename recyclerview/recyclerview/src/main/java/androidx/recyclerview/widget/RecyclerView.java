@@ -760,7 +760,9 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
     /**
      * Sets the accessibility delegate compatibility implementation used by RecyclerView.
      * @param accessibilityDelegate The accessibility delegate to be used by RecyclerView.
+     * @deprecated Use accessibility methods that act directly on the View instead
      */
+    @Deprecated
     public void setAccessibilityDelegateCompat(
             @Nullable RecyclerViewAccessibilityDelegate accessibilityDelegate) {
         mAccessibilityDelegate = accessibilityDelegate;
@@ -10205,7 +10207,9 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
          * @see #getColumnCountForAccessibility(RecyclerView.Recycler, RecyclerView.State)
          * @see #isLayoutHierarchical(RecyclerView.Recycler, RecyclerView.State)
          * @see #getSelectionModeForAccessibility(RecyclerView.Recycler, RecyclerView.State)
+         * @deprecated Use accessibility methods that act directly on the View instead
          */
+        @Deprecated
         public void onInitializeAccessibilityNodeInfo(@NonNull Recycler recycler,
                 @NonNull State state, @NonNull AccessibilityNodeInfoCompat info) {
             if (mRecyclerView.canScrollVertically(-1) || mRecyclerView.canScrollHorizontally(-1)) {
@@ -10225,7 +10229,11 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
             info.setCollectionInfo(collectionInfo);
         }
 
-        // called by accessibility delegate
+        /**
+         * called by accessibility delegate
+         * @deprecated Use {@link androidx.core.view.AccessibilityDelegateCompat} instead
+         */
+        @Deprecated
         public void onInitializeAccessibilityEvent(@NonNull AccessibilityEvent event) {
             onInitializeAccessibilityEvent(mRecyclerView.mRecycler, mRecyclerView.mState, event);
         }
@@ -10240,7 +10248,9 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
          * @param state    The current state of RecyclerView
          * @param event    The event instance to initialize
          * @see View#onInitializeAccessibilityEvent(android.view.accessibility.AccessibilityEvent)
+         * @deprecated Use {@link androidx.core.view.AccessibilityDelegateCompat} instead
          */
+        @Deprecated
         public void onInitializeAccessibilityEvent(@NonNull Recycler recycler, @NonNull State state,
                 @NonNull AccessibilityEvent event) {
             if (mRecyclerView == null || event == null) {
@@ -10279,7 +10289,9 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
          * @param info     The info to fill out about the item
          * @see android.widget.AbsListView#onInitializeAccessibilityNodeInfoForItem(View, int,
          * android.view.accessibility.AccessibilityNodeInfo)
+         * @deprecated Use accessibility methods that act directly on the View instead
          */
+        @Deprecated
         public void onInitializeAccessibilityNodeInfoForItem(@NonNull Recycler recycler,
                 @NonNull State state, @NonNull View host,
                 @NonNull AccessibilityNodeInfoCompat info) {
@@ -10393,7 +10405,11 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
          * @param action    The action to perform
          * @param args      Optional action arguments
          * @see View#performAccessibilityAction(int, android.os.Bundle)
+         * @deprecated Add actions using {@link ViewCompat#addAccessibilityAction(View,
+         * AccessibilityNodeInfoCompat.AccessibilityActionCompat)} in
+         * {@link RecyclerView.Adapter#onCreateViewHolder(ViewGroup, int)}
          */
+        @Deprecated
         public boolean performAccessibilityAction(@NonNull Recycler recycler, @NonNull State state,
                 int action, @Nullable Bundle args) {
             if (mRecyclerView == null) {
