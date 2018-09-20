@@ -85,9 +85,16 @@ public class AccessibilityDelegateCompat {
             nodeInfoCompat.setPaneTitle(ViewCompat.getAccessibilityPaneTitle(host));
             mCompat.onInitializeAccessibilityNodeInfo(host, nodeInfoCompat);
             nodeInfoCompat.addSpansToExtras(info.getText(), host);
-            List<AccessibilityActionCompat> actions = getActionList(host);
-            for (int i = 0; i < actions.size(); i++) {
-                nodeInfoCompat.addAction(actions.get(i));
+            if (Build.VERSION.SDK_INT >= 21) {
+                List<AccessibilityActionCompat> actions = getActionList(host);
+                for (int i = 0; i < actions.size(); i++) {
+                    nodeInfoCompat.addAction(actions.get(i));
+                }
+                List<Integer> actionsToRemove = getViewTagList(host,
+                        R.id.tag_accessibility_removed_standard_actions);
+                for (int i = 0; i < actionsToRemove.size(); i++) {
+                    nodeInfoCompat.unwrap().removeAction(actionsToRemove.get(i));
+                }
             }
         }
 
@@ -391,8 +398,11 @@ public class AccessibilityDelegateCompat {
     }
 
     static List<AccessibilityActionCompat> getActionList(View view) {
-        List<AccessibilityActionCompat> actions = (List<AccessibilityActionCompat>)
-                view.getTag(R.id.tag_accessibility_actions);
-        return actions == null ? Collections.<AccessibilityActionCompat>emptyList() : actions;
+        return getViewTagList(view, R.id.tag_accessibility_actions);
+    }
+
+    static <T> List<T> getViewTagList(View view, int key) {
+        List<T> list = (List<T>) view.getTag(key);
+        return list == null ? Collections.<T>emptyList() : list;
     }
 }

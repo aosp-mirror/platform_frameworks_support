@@ -253,6 +253,39 @@ public class AccessibilityDelegateCompatTest extends
     }
 
     @Test
+    public void testRemoveThenReplaceStandardAction() {
+        if (Build.VERSION.SDK_INT >= 19) {
+            AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat action =
+                    AccessibilityActionCompat.ACTION_ACCESSIBILITY_FOCUS;
+            int actionId = action.getId();
+            ViewCompat.removeAccessibilityAction(mView, actionId);
+
+            assertActionisNotOnView(actionId);
+
+            ViewCompat.replaceAccessibilityAction(mView, action, null, null);
+
+            assertActionisOnView(actionId);
+        }
+    }
+
+    @Test
+    public void testMultipleRemoveThenReplaceStandardAction() {
+        if (Build.VERSION.SDK_INT >= 19) {
+            AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat action =
+                    AccessibilityActionCompat.ACTION_ACCESSIBILITY_FOCUS;
+            int actionId = action.getId();
+            ViewCompat.removeAccessibilityAction(mView, actionId);
+            ViewCompat.removeAccessibilityAction(mView, actionId);
+
+            assertActionisNotOnView(actionId);
+
+            ViewCompat.replaceAccessibilityAction(mView, action, null, null);
+
+            assertActionisOnView(actionId);
+        }
+    }
+
+    @Test
     public void testReplaceActionPerformIsCalled() {
         if (Build.VERSION.SDK_INT >= 19) {
             final AccessibilityViewCommand action = mock(AccessibilityViewCommand.class);
@@ -264,6 +297,27 @@ public class AccessibilityDelegateCompatTest extends
                     AccessibilityNodeInfoCompat.ACTION_FOCUS, null);
             verify(action).perform(mView, null);
         }
+    }
+
+    private void assertActionisOnView(int actionId) {
+        boolean isOnView = false;
+        for (AccessibilityActionCompat action : getActionsOnView()) {
+            isOnView |= action.getId() == actionId;
+        }
+        assertTrue("Action should have been associated with this view", isOnView);
+    }
+
+
+    private void assertActionisNotOnView(int actionId) {
+        for (AccessibilityActionCompat action : getActionsOnView()) {
+            assertFalse("Action should have been removed", action.getId() == actionId);
+        }
+    }
+
+    private List<AccessibilityActionCompat> getActionsOnView() {
+        AccessibilityNodeInfoCompat nodeInfoCompat = AccessibilityNodeInfoCompat.obtain();
+        mView.onInitializeAccessibilityNodeInfo(nodeInfoCompat.unwrap());
+        return nodeInfoCompat.getActionList();
     }
 
     @Test

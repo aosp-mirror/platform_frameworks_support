@@ -1193,11 +1193,13 @@ public class ViewCompat {
 
     /**
      * Associates and adds an action with a specified id.
+     * If command is null, the action is reset back to it's default framework behavior.
      *
      * @param view The view.
      * @param replacedAction The Standard Action to be replaced.
      * @param label The use facing description of the action.
-     * @param command The command performed when the service requests the action.
+     * @param command The command performed when the service requests the action, or null to
+     *                remove any custom behavior associated with this action.
      *
      * <p>
      * Compatibility:
@@ -1209,10 +1211,15 @@ public class ViewCompat {
                 replaceAccessibilityAction(@NonNull View view,
             StandardAccessibilityActionCompat<T> replacedAction,  @Nullable CharSequence label,
             @Nullable AccessibilityViewCommand<T> command) {
-        StandardAccessibilityActionCompat<T> actionCompat =
-                new StandardAccessibilityActionCompat<>(replacedAction.getId(), label, command,
-                        replacedAction.getViewCommandArgumentClass());
-        addAccessibilityAction(view, actionCompat);
+        if (command == null) {
+            getRemovedFrameworkActionList(view).remove(Integer.valueOf(replacedAction.getId()));
+        } else {
+            StandardAccessibilityActionCompat<T> actionCompat =
+                    new StandardAccessibilityActionCompat<>(replacedAction.getId(), label, command,
+                            replacedAction.getViewCommandArgumentClass());
+            addAccessibilityAction(view, actionCompat);
+        }
+
     }
 
     private static void addAccessibilityAction(@NonNull View view,
@@ -1220,7 +1227,6 @@ public class ViewCompat {
         if (Build.VERSION.SDK_INT >= 21) {
             getOrCreateAccessibilityDelegateCompat(view);
             List<AccessibilityActionCompat> actions = getActionList(view);
-
             actions.remove(action);
             actions.add(action);
             notifyViewAccessibilityStateChangedIfNeeded(
@@ -1238,10 +1244,19 @@ public class ViewCompat {
     public static void removeAccessibilityAction(View view, int actionId) {
         if (Build.VERSION.SDK_INT >= 21) {
             List<AccessibilityActionCompat> actions = getActionList(view);
+            boolean removed = false;
             for (int i = 0; i < actions.size(); i++) {
                 if (actions.get(i).getId() == actionId) {
                     actions.remove(i);
+                    removed = true;
                     break;
+                }
+            }
+            if (!removed) {
+                List<Integer> removedActionList = getRemovedFrameworkActionList(view);
+                if (!removedActionList.contains(actionId)) {
+                    getOrCreateAccessibilityDelegateCompat(view);
+                    removedActionList.add(actionId);
                 }
             }
             notifyViewAccessibilityStateChangedIfNeeded(
@@ -1250,13 +1265,20 @@ public class ViewCompat {
     }
 
     private static List<AccessibilityActionCompat> getActionList(View view) {
-        ArrayList<AccessibilityActionCompat> actions =
-                (ArrayList<AccessibilityActionCompat>) view.getTag(R.id.tag_accessibility_actions);
-        if (actions == null) {
-            actions = new ArrayList<AccessibilityActionCompat>();
-            view.setTag(R.id.tag_accessibility_actions, actions);
+        return getLazyViewTagList(view, R.id.tag_accessibility_actions);
+    }
+
+    private static List<Integer> getRemovedFrameworkActionList(View view) {
+        return getLazyViewTagList(view, R.id.tag_accessibility_removed_standard_actions);
+    }
+
+    private static <T> List<T> getLazyViewTagList(View view, int key) {
+        ArrayList<T> list = (ArrayList<T>) view.getTag(key);
+        if (list == null) {
+            list = new ArrayList<T>();
+            view.setTag(key, list);
         }
-        return actions;
+        return list;
     }
 
     /**
