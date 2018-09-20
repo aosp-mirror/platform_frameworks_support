@@ -22,6 +22,30 @@
       "revId": "942b2809d893d8ff5f395667793c4a0bba825bdb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34c3d5f5_74bc159c",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-20T00:14:22Z",
+      "side": 1,
+      "message": "good point. Done.",
+      "parentUuid": "a277a66b_1b8e1f37",
+      "range": {
+        "startLine": 663,
+        "startChar": 8,
+        "endLine": 664,
+        "endChar": 40
+      },
+      "revId": "942b2809d893d8ff5f395667793c4a0bba825bdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
