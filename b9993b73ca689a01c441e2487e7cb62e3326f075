@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "b2610dc3_b6bfec43",
+        "filename": "car/core/res/layout/car_alert_dialog.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-20T18:21:36Z",
+      "side": 1,
+      "message": "Fix the indenting here and for the below LinearLayout. It should match the indentation of the header_view LinearLayout",
+      "revId": "b9993b73ca689a01c441e2487e7cb62e3326f075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "418e47c3_58caa3bc",
         "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
         "patchSetId": 5
@@ -18,6 +35,52 @@
         "startChar": 0,
         "endLine": 20,
         "endChar": 0
+      },
+      "revId": "b9993b73ca689a01c441e2487e7cb62e3326f075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52dd126e_2faa9d83",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-20T18:21:36Z",
+      "side": 1,
+      "message": "Add @DrawableRes annotation",
+      "range": {
+        "startLine": 427,
+        "startChar": 37,
+        "endLine": 427,
+        "endChar": 40
+      },
+      "revId": "b9993b73ca689a01c441e2487e7cb62e3326f075",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c70d06c_55df6e2f",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarAlertDialogDemo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-20T18:21:36Z",
+      "side": 1,
+      "message": "This is the wrong call",
+      "range": {
+        "startLine": 97,
+        "startChar": 24,
+        "endLine": 97,
+        "endChar": 31
       },
       "revId": "b9993b73ca689a01c441e2487e7cb62e3326f075",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
