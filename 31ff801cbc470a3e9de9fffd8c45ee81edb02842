@@ -22,6 +22,30 @@
       "revId": "31ff801cbc470a3e9de9fffd8c45ee81edb02842",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9ae3385_00d96c29",
+        "filename": "lifecycle/livedata/src/main/java/androidx/lifecycle/Transformations.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-20T23:03:23Z",
+      "side": 1,
+      "message": "Changed it after thinking about it some more.  Transformations needs two separate methods instead of the super-method I wrote in WorkManager.",
+      "parentUuid": "795a4125_d81236f1",
+      "range": {
+        "startLine": 182,
+        "startChar": 42,
+        "endLine": 182,
+        "endChar": 62
+      },
+      "revId": "31ff801cbc470a3e9de9fffd8c45ee81edb02842",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
