@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e064c38_1563461d",
+        "filename": "fragment/src/main/java/androidx/fragment/app/BackStackState.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-20T15:23:34Z",
+      "side": 1,
+      "message": "You\u0027ll want to copy the copyright header too",
+      "revId": "82f32cb3aa393fb6ec280f801b7bb3e79ba49db8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
