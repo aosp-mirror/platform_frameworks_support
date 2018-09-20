@@ -1238,11 +1238,17 @@ public class ViewCompat {
     public static void removeAccessibilityAction(View view, int actionId) {
         if (Build.VERSION.SDK_INT >= 21) {
             List<AccessibilityActionCompat> actions = getActionList(view);
+            boolean removed = false;
             for (int i = 0; i < actions.size(); i++) {
                 if (actions.get(i).getId() == actionId) {
                     actions.remove(i);
+                    removed = true;
                     break;
                 }
+            }
+            if (!removed) {
+                getOrCreateAccessibilityDelegateCompat(view);
+                getRemovedFrameworkActionList(view).add(actionId);
             }
             notifyViewAccessibilityStateChangedIfNeeded(
                     view, AccessibilityEvent.CONTENT_CHANGE_TYPE_UNDEFINED);
@@ -1250,13 +1256,20 @@ public class ViewCompat {
     }
 
     private static List<AccessibilityActionCompat> getActionList(View view) {
-        ArrayList<AccessibilityActionCompat> actions =
-                (ArrayList<AccessibilityActionCompat>) view.getTag(R.id.tag_accessibility_actions);
-        if (actions == null) {
-            actions = new ArrayList<AccessibilityActionCompat>();
-            view.setTag(R.id.tag_accessibility_actions, actions);
+        return getLazyViewTagList(view, R.id.tag_accessibility_actions);
+    }
+
+    private static List<Integer> getRemovedFrameworkActionList(View view) {
+        return getLazyViewTagList(view, R.id.tag_accessibility_removed_standard_actions);
+    }
+
+    private static <T> List<T> getLazyViewTagList(View view, int key) {
+        ArrayList<T> list = (ArrayList<T>) view.getTag(key);
+        if (list == null) {
+            list = new ArrayList<T>();
+            view.setTag(key, list);
         }
-        return actions;
+        return list;
     }
 
     /**
