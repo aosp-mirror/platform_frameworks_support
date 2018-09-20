@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30dc3b5a_ff2ea402",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/BaseCardActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-09-20T13:56:20Z",
+      "side": 1,
+      "message": "Nit:\n\nThey were together (m...) as a convention, and so it\u0027s easy to access in the future if you want to find them later. I prefer it this way.\n\nIt\u0027s not important, so if you don\u0027t want to revert, keep as is.",
+      "range": {
+        "startLine": 63,
+        "startChar": 8,
+        "endLine": 63,
+        "endChar": 15
+      },
+      "revId": "924addc7d4d307276ad7d51b1b13eb4ba51bb6cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "157193fe_065fd132",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/cards/CardView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-09-20T13:56:20Z",
+      "side": 1,
+      "message": "I don\u0027t think that works - before it was a hex dump. I think you need to iterate over all characters in a string (as ints) and do %X on them).",
+      "range": {
+        "startLine": 100,
+        "startChar": 81,
+        "endLine": 100,
+        "endChar": 83
+      },
+      "revId": "924addc7d4d307276ad7d51b1b13eb4ba51bb6cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

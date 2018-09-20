@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "557c7ab1_3875b7fa",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/CardActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-09-20T13:56:20Z",
+      "side": 0,
+      "message": "Linter wasn\u0027t allowing us to commit without those (or a comment at all). If the rules have changed, I prefer no comments (the way you\u0027ve done it).",
+      "revId": "5ee7a9542e1c6c4efa083f9f83cf60bdd905c90e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
