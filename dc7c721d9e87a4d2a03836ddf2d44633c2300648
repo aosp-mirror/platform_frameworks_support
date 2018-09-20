@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19c49797_ff40f64b",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-09-20T20:15:56Z",
+      "side": 1,
+      "message": "also explain the effect of setting a null icon in the doc, and annotate return as @NonNull/Nullable for all new methods.",
+      "range": {
+        "startLine": 438,
+        "startChar": 8,
+        "endLine": 438,
+        "endChar": 14
+      },
+      "revId": "dc7c721d9e87a4d2a03836ddf2d44633c2300648",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
