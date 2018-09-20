@@ -154,18 +154,18 @@ public class MediaRouteCastDialog extends AppCompatDialog {
     };
     private RecyclerView mRecyclerView;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    RecyclerAdapter mAdapter;
+            RecyclerAdapter mAdapter;
     VolumeChangeListener mVolumeChangeListener;
     int mVolumeSliderColor;
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    Map<String, MediaRouteVolumeSliderHolder> mVolumeSliderHolderMap;
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
+            Map<String, MediaRouteVolumeSliderHolder> mVolumeSliderHolderMap;
     MediaRouter.RouteInfo mRouteForVolumeUpdatingByUser;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    Map<String, Integer> mBeforeMuteVolumeMap;
+            Map<String, Integer> mBeforeMuteVolumeMap;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    boolean mIsSelectingRoute;
+            boolean mIsSelectingRoute;
+    private boolean mIsAnimatingVolumeSliderLayout;
 
     private boolean mUpdateRoutesViewDeferred;
     private boolean mUpdateMetadataViewsDeferred;
@@ -455,7 +455,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         // Since onRouteUnselected is triggered before onRouteSelected when transferring to
         // another route, pending update if mIsSelectingRoute is true to prevent dialog from
         // being dismissed in the process of selecting route.
-        if (mRouteForVolumeUpdatingByUser != null || mIsSelectingRoute) {
+        if (mRouteForVolumeUpdatingByUser != null || mIsSelectingRoute
+                || mIsAnimatingVolumeSliderLayout) {
             return true;
         }
         // Defer updating views if corresponding views aren't created yet.
@@ -577,6 +578,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
     /**
      * Returns a list of member routes of selected route.
      * If selected route is neither dynamic group nor static group, returns empty list.
+
      */
     List<MediaRouter.RouteInfo> getMemberRoutes() {
         List<MediaRouter.RouteInfo> memberRoutes = new ArrayList<>();
@@ -1054,7 +1056,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             final ImageView mImageView;
             final ProgressBar mProgressBar;
             final TextView mTextView;
-            final RelativeLayout mVolumeSliderLayout;
+            RelativeLayout mVolumeSliderLayout;
             final CheckBox mCheckBox;
 
             final float mDisabledAlpha;
@@ -1066,6 +1068,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             final View.OnClickListener mCheckBoxClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // If user clicked unchecked checkbox, isChecked returns true.
                     if (((CheckBox) v).isChecked()) {
                         mCheckBox.setEnabled(false);
                         mImageView.setVisibility(View.INVISIBLE);
@@ -1073,6 +1076,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                         mRoute.selectIntoGroup();
                         animateLayoutHeight(mVolumeSliderLayout, mExpandedLayoutHeight);
                     } else {
+                        // If user clicked checked checkbox, isChecked returns false.
                         mCheckBox.setEnabled(false);
                         mRoute.unselectFromGroup();
                         animateLayoutHeight(mVolumeSliderLayout, mCollapsedLayoutHeight);
@@ -1091,6 +1095,22 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                     }
                 };
 
+                anim.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+                    }
+
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        mIsAnimatingVolumeSliderLayout = true;
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        mIsAnimatingVolumeSliderLayout = false;
+                        updateViewsIfNeeded();
+                    }
+                });
                 anim.setDuration(mLayoutAnimationDurationMs);
                 anim.setInterpolator(mAccelerateDecelerateInterpolator);
                 view.startAnimation(anim);
@@ -1166,16 +1186,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                     if (enabled) {
                         mCheckBox.setEnabled(true);
                         mCheckBox.setOnClickListener(mCheckBoxClickListener);
-                        int layoutHeight = mVolumeSliderLayout.getLayoutParams().height;
-                        boolean isAnimating = layoutHeight > mCollapsedLayoutHeight
-                                && layoutHeight < mExpandedLayoutHeight;
-                        if (isAnimating) {
-                            animateLayoutHeight(mVolumeSliderLayout, selected
-                                    ? mExpandedLayoutHeight : mCollapsedLayoutHeight);
-                        } else {
-                            setLayoutHeight(mVolumeSliderLayout, selected
-                                    ? mExpandedLayoutHeight : mCollapsedLayoutHeight);
-                        }
+                        setLayoutHeight(mVolumeSliderLayout, selected
+                                ? mExpandedLayoutHeight : mCollapsedLayoutHeight);
                         mItemView.setAlpha(1.0f);
                     } else {
                         mCheckBox.setEnabled(false);
@@ -1186,6 +1198,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                     mCheckBox.setVisibility(View.GONE);
                     mProgressBar.setVisibility(View.INVISIBLE);
                     mImageView.setVisibility(View.VISIBLE);
+                    setLayoutHeight(mVolumeSliderLayout, mExpandedLayoutHeight);
                     mItemView.setAlpha(1.0f);
                 }
             }
