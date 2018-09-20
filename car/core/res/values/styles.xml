@@ -559,6 +559,8 @@ limitations under the License.
         <item name="multiChoiceItemLayout">@layout/select_dialog_multichoice_car</item>
         <item name="singleChoiceItemLayout">@layout/select_dialog_singlechoice_car</item>
         <item name="android:layout">@layout/car_preference_alert_dialog</item>
+        <item name="android:windowEnterAnimation">@anim/car_dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/car_dialog_exit</item>
     </style>
 
 </resources>
