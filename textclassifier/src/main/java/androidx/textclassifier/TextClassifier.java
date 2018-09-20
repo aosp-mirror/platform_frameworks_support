@@ -112,30 +112,66 @@ public abstract class TextClassifier {
             WIDGET_TYPE_CUSTOM_EDITTEXT, WIDGET_TYPE_CUSTOM_UNSELECTABLE_TEXTVIEW,
             WIDGET_TYPE_UNKNOWN})
     @interface WidgetType {}
-    /** The widget involved in the text classification session is a standard
-     * {@link android.widget.TextView}. */
-    public static final String WIDGET_TYPE_TEXTVIEW = "textview";
-    /** The widget involved in the text classification session is a standard
-     * {@link android.widget.EditText}. */
-    public static final String WIDGET_TYPE_EDITTEXT = "edittext";
-    /** The widget involved in the text classification session is a standard non-selectable
-     * {@link android.widget.TextView}. */
-    public static final String WIDGET_TYPE_UNSELECTABLE_TEXTVIEW = "nosel-textview";
-    /** The widget involved in the text classification session is a standard
-     * {@link android.webkit.WebView}. */
-    public static final String WIDGET_TYPE_WEBVIEW = "webview";
-    /** The widget involved in the text classification session is a standard editable
-     * {@link android.webkit.WebView}. */
-    public static final String WIDGET_TYPE_EDIT_WEBVIEW = "edit-webview";
-    /** The widget involved in the text classification session is a custom text widget. */
-    public static final String WIDGET_TYPE_CUSTOM_TEXTVIEW = "customview";
-    /** The widget involved in the text classification session is a custom editable text widget. */
-    public static final String WIDGET_TYPE_CUSTOM_EDITTEXT = "customedit";
-    /** The widget involved in the text classification session is a custom non-selectable text
-     * widget. */
-    public static final String WIDGET_TYPE_CUSTOM_UNSELECTABLE_TEXTVIEW = "nosel-customview";
-    /** The widget involved in the text classification session is of an unknown/unspecified type. */
-    public static final String WIDGET_TYPE_UNKNOWN = "unknown";
+    /**
+     * The widget involved in the text classification session is a standard
+     * {@link android.widget.TextView}.
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    static final String WIDGET_TYPE_TEXTVIEW = "textview";
+    /**
+     * The widget involved in the text classification session is a standard
+     * {@link android.widget.EditText}.
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    static final String WIDGET_TYPE_EDITTEXT = "edittext";
+    /**
+     * The widget involved in the text classification session is a standard non-selectable
+     * {@link android.widget.TextView}.
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    static final String WIDGET_TYPE_UNSELECTABLE_TEXTVIEW = "nosel-textview";
+    /**
+     * The widget involved in the text classification session is a standard
+     * {@link android.webkit.WebView}.
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    static final String WIDGET_TYPE_WEBVIEW = "webview";
+    /**
+     * The widget involved in the text classification session is a standard editable
+     * {@link android.webkit.WebView}.
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    static final String WIDGET_TYPE_EDIT_WEBVIEW = "edit-webview";
+    /**
+     * The widget involved in the text classification session is a custom text widget.
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    static final String WIDGET_TYPE_CUSTOM_TEXTVIEW = "customview";
+    /**
+     * The widget involved in the text classification session is a custom editable text widget.
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    static final String WIDGET_TYPE_CUSTOM_EDITTEXT = "customedit";
+    /**
+     * The widget involved in the text classification session is a custom non-selectable text
+     * widget.
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    static final String WIDGET_TYPE_CUSTOM_UNSELECTABLE_TEXTVIEW = "nosel-customview";
+    /**
+     * The widget involved in the text classification session is of an unknown/unspecified type.
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    static final String WIDGET_TYPE_UNKNOWN = "unknown";
 
     private static final int GENERATE_LINKS_MAX_TEXT_LENGTH_DEFAULT = 100 * 1000;
 
@@ -223,7 +259,15 @@ public abstract class TextClassifier {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     @WorkerThread
-    public void onSelectionEvent(@NonNull SelectionEvent event) {
+    public void onSelectionEvent(@NonNull SelectionEvent event) {}
+
+    /**
+     * Reports a text classifier event.
+     */
+    @WorkerThread
+    public void onTextClassifierEvent(@NonNull TextClassifierEvent event) {
+        ensureNotOnMainThread();
+        // TODO: Implement.
     }
 
     /** @hide */
