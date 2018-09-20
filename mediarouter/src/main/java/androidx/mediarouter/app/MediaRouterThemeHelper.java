@@ -49,8 +49,6 @@ final class MediaRouterThemeHelper {
 
     static final int COLOR_DARK_ON_LIGHT_BACKGROUND = 0xDE000000; /* Opacity of 87% */
     static final int COLOR_WHITE_ON_DARK_BACKGROUND = Color.WHITE;
-    private static final int COLOR_DARK_ON_LIGHT_BACKGROUND_RES_ID =
-            R.color.mr_dynamic_dialog_icon_light;
 
     private MediaRouterThemeHelper() {
     }
@@ -84,7 +82,7 @@ final class MediaRouterThemeHelper {
         icon = DrawableCompat.wrap(icon);
 
         if (isLightTheme(context)) {
-            int tintColor = ContextCompat.getColor(context, COLOR_DARK_ON_LIGHT_BACKGROUND_RES_ID);
+            int tintColor = ContextCompat.getColor(context, R.color.mr_dynamic_dialog_icon_light);
             DrawableCompat.setTint(icon, tintColor);
         }
         return icon;
@@ -95,10 +93,10 @@ final class MediaRouterThemeHelper {
         Drawable icon = styledAttributes.getDrawable(0);
         icon = DrawableCompat.wrap(icon);
 
-        // Since Chooser(Controller)Dialog and DevicePicker(Cast)Dialog is using same shape but
-        // different color icon for LightTheme, change color of the icon for the latter.
+        // Since Chooser(Controller)Dialog and DevicePicker(Cast)Dialog is using same icon but with
+        // different color for LightTheme, change color of the icon for the latter.
         if (USE_SUPPORT_DYNAMIC_GROUP && isLightTheme(context)) {
-            int tintColor = ContextCompat.getColor(context, COLOR_DARK_ON_LIGHT_BACKGROUND_RES_ID);
+            int tintColor = ContextCompat.getColor(context, R.color.mr_dynamic_dialog_icon_light);
             DrawableCompat.setTint(icon, tintColor);
         }
         styledAttributes.recycle();
