@@ -22,6 +22,30 @@
       "revId": "dc7c721d9e87a4d2a03836ddf2d44633c2300648",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e09b3f70_dbcf5899",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-09-20T22:37:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19c49797_ff40f64b",
+      "range": {
+        "startLine": 438,
+        "startChar": 8,
+        "endLine": 438,
+        "endChar": 14
+      },
+      "revId": "dc7c721d9e87a4d2a03836ddf2d44633c2300648",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
