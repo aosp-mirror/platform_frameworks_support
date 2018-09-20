@@ -21,6 +21,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.arch.core.util.Function;
 
+import java.util.concurrent.Executor;
+
 /**
  * Transformation methods for {@link LiveData}.
  * <p>
@@ -159,5 +161,49 @@ public class Transformations {
             }
         });
         return result;
+    }
+
+    /**
+     * Creates a new {@link LiveData} object that maps the values of {@code inputLiveData} using
+     * {@code mappingMethod} on a background thread, but only triggers its observers when the mapped
+     * values actually change.
+     *
+     * @param inputLiveData An input {@link LiveData}
+     * @param mappingMethod A {@link Function} that maps input of type {@code In} to output of type
+     *                      {@code Out}
+     * @param executor The {@link java.util.concurrent.Executor} that will run this operation on a
+     *                 background thread
+     * @param <In> The type of data for {@code inputLiveData}
+     * @param <Out> The type of data to output
+     * @return A new {@link LiveData} of type {@code Out}
+     */
+    @MainThread
+    @NonNull
+    public static <In, Out> LiveData<Out> distinctUntilChanged(
+            @NonNull LiveData<In> inputLiveData,
+            @NonNull final Function<In, Out> mappingMethod,
+            @NonNull final Executor executor) {
+        final MediatorLiveData<Out> outputLiveData = new MediatorLiveData<>();
+        outputLiveData.addSource(inputLiveData, new Observer<In>() {
+            @Override
+            public void onChanged(@Nullable final In input) {
+                final Out previousOutput = outputLiveData.getValue();
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        synchronized (outputLiveData) {
+                            Out newOutput = mappingMethod.apply(input);
+                            if (previousOutput == null && newOutput != null) {
+                                outputLiveData.postValue(newOutput);
+                            } else if (
+                                    previousOutput != null && !previousOutput.equals(newOutput)) {
+                                outputLiveData.postValue(newOutput);
+                            }
+                        }
+                    }
+                });
+            }
+        });
+        return outputLiveData;
     }
 }
