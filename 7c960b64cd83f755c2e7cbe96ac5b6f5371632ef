@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2307d732_36039c9a",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-20T06:24:49Z",
+      "side": 1,
+      "message": "Why? Are setPlaylist(null) and setPlaylist(new ArrayList\u003c\u003e()) the same?",
+      "range": {
+        "startLine": 911,
+        "startChar": 19,
+        "endLine": 911,
+        "endChar": 45
+      },
+      "revId": "7c960b64cd83f755c2e7cbe96ac5b6f5371632ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "742bbbb6_9419fc69",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1460,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-20T06:24:49Z",
+      "side": 1,
+      "message": "This is place for the command code, but you\u0027re adding a value from the result code here. Is it working as intended?",
+      "range": {
+        "startLine": 1460,
+        "startChar": 35,
+        "endLine": 1460,
+        "endChar": 75
+      },
+      "revId": "7c960b64cd83f755c2e7cbe96ac5b6f5371632ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

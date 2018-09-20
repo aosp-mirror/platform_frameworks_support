@@ -1036,6 +1036,30 @@
     },
     {
       "key": {
+        "uuid": "a3093ae6_cead4ed5",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1500,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-20T06:24:49Z",
+      "side": 1,
+      "message": "What about returning pair of Booleans then? This API is hard to understand. Do we have an example of such return value? (null of not changed, non-null for the new value?)",
+      "parentUuid": "0988272f_77e6f264",
+      "range": {
+        "startLine": 1500,
+        "startChar": 12,
+        "endLine": 1500,
+        "endChar": 82
+      },
+      "revId": "af3fc8bd9089b093005069c7fc3c1a73e8f506a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "59963fa4_4264ad32",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 4
