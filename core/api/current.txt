@@ -1876,6 +1876,7 @@ package androidx.core.view {
 
   public class ViewCompat {
     ctor protected ViewCompat();
+    method public static int addAccessibilityAction(android.view.View, CharSequence, androidx.core.view.accessibility.AccessibilityViewCommand);
     method public static void addKeyboardNavigationClusters(android.view.View, java.util.Collection<android.view.View>, int);
     method public static void addOnUnhandledKeyEventListener(android.view.View, androidx.core.view.ViewCompat.OnUnhandledKeyEventListenerCompat);
     method public static androidx.core.view.ViewPropertyAnimatorCompat animate(android.view.View);
@@ -1971,7 +1972,9 @@ package androidx.core.view {
     method public static void postInvalidateOnAnimation(android.view.View, int, int, int, int);
     method public static void postOnAnimation(android.view.View, Runnable!);
     method public static void postOnAnimationDelayed(android.view.View, Runnable!, long);
+    method public static void removeAccessibilityAction(android.view.View, int);
     method public static void removeOnUnhandledKeyEventListener(android.view.View, androidx.core.view.ViewCompat.OnUnhandledKeyEventListenerCompat);
+    method public static <T extends androidx.core.view.accessibility.AccessibilityViewCommand.CommandArguments> void replaceAccessibilityAction(android.view.View, androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat<T>, CharSequence?, androidx.core.view.accessibility.AccessibilityViewCommand<T>?);
     method public static void requestApplyInsets(android.view.View);
     method public static <T extends android.view.View> T requireViewById(android.view.View, @IdRes int);
     method @Deprecated public static int resolveSizeAndState(int, int, int);
@@ -2444,39 +2447,39 @@ package androidx.core.view.accessibility {
     ctor public AccessibilityNodeInfoCompat.AccessibilityActionCompat(int, CharSequence!);
     method public int getId();
     method public CharSequence! getLabel();
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_ACCESSIBILITY_FOCUS;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_CLEAR_ACCESSIBILITY_FOCUS;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_CLEAR_FOCUS;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_CLEAR_SELECTION;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_CLICK;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_COLLAPSE;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_CONTEXT_CLICK;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_COPY;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_CUT;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_DISMISS;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_EXPAND;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_FOCUS;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_HIDE_TOOLTIP;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_LONG_CLICK;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_MOVE_WINDOW;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_NEXT_AT_MOVEMENT_GRANULARITY;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_NEXT_HTML_ELEMENT;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_PASTE;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_PREVIOUS_HTML_ELEMENT;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_SCROLL_BACKWARD;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_SCROLL_DOWN;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_SCROLL_FORWARD;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_SCROLL_LEFT;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_SCROLL_RIGHT;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_SCROLL_TO_POSITION;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_SCROLL_UP;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_SELECT;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_SET_PROGRESS;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_SET_SELECTION;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_SET_TEXT;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_SHOW_ON_SCREEN;
-    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat! ACTION_SHOW_TOOLTIP;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_ACCESSIBILITY_FOCUS;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_CLEAR_ACCESSIBILITY_FOCUS;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_CLEAR_FOCUS;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_CLEAR_SELECTION;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_CLICK;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_COLLAPSE;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_CONTEXT_CLICK;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_COPY;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_CUT;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_DISMISS;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_EXPAND;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_FOCUS;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_HIDE_TOOLTIP;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_LONG_CLICK;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat<androidx.core.view.accessibility.AccessibilityViewCommand.MoveWindowArguments>! ACTION_MOVE_WINDOW;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat<androidx.core.view.accessibility.AccessibilityViewCommand.MoveAtGranularityArguments>! ACTION_NEXT_AT_MOVEMENT_GRANULARITY;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat<androidx.core.view.accessibility.AccessibilityViewCommand.MoveHtmlArguments>! ACTION_NEXT_HTML_ELEMENT;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_PASTE;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat<androidx.core.view.accessibility.AccessibilityViewCommand.MoveAtGranularityArguments>! ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_PREVIOUS_HTML_ELEMENT;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_SCROLL_BACKWARD;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_SCROLL_DOWN;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_SCROLL_FORWARD;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_SCROLL_LEFT;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_SCROLL_RIGHT;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat<androidx.core.view.accessibility.AccessibilityViewCommand.ScrollToPositionArguments>! ACTION_SCROLL_TO_POSITION;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_SCROLL_UP;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_SELECT;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat<androidx.core.view.accessibility.AccessibilityViewCommand.SetProgressArguments>! ACTION_SET_PROGRESS;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat<androidx.core.view.accessibility.AccessibilityViewCommand.SetSelectionArguments>! ACTION_SET_SELECTION;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat<androidx.core.view.accessibility.AccessibilityViewCommand.SetTextArguments>! ACTION_SET_TEXT;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_SHOW_ON_SCREEN;
+    field public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat! ACTION_SHOW_TOOLTIP;
   }
 
   public static class AccessibilityNodeInfoCompat.CollectionInfoCompat {
@@ -2511,6 +2514,9 @@ package androidx.core.view.accessibility {
     field public static final int RANGE_TYPE_FLOAT = 1; // 0x1
     field public static final int RANGE_TYPE_INT = 0; // 0x0
     field public static final int RANGE_TYPE_PERCENT = 2; // 0x2
+  }
+
+  public static final class AccessibilityNodeInfoCompat.StandardAccessibilityActionCompat<T extends androidx.core.view.accessibility.AccessibilityViewCommand.CommandArguments> extends androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat {
   }
 
   public class AccessibilityNodeProviderCompat {
@@ -2580,6 +2586,53 @@ package androidx.core.view.accessibility {
     method @Deprecated public void setSource(android.view.View!, int);
     method public static void setSource(android.view.accessibility.AccessibilityRecord, android.view.View!, int);
     method @Deprecated public void setToIndex(int);
+  }
+
+  public interface AccessibilityViewCommand<T extends androidx.core.view.accessibility.AccessibilityViewCommand.CommandArguments> {
+    method public boolean perform(android.view.View, T?);
+  }
+
+  public abstract static class AccessibilityViewCommand.CommandArguments {
+    ctor public AccessibilityViewCommand.CommandArguments();
+  }
+
+  public static final class AccessibilityViewCommand.MoveAtGranularityArguments extends androidx.core.view.accessibility.AccessibilityViewCommand.CommandArguments {
+    ctor public AccessibilityViewCommand.MoveAtGranularityArguments();
+    method public boolean getExtendSelection();
+    method public int getGranularity();
+  }
+
+  public static final class AccessibilityViewCommand.MoveHtmlArguments extends androidx.core.view.accessibility.AccessibilityViewCommand.CommandArguments {
+    ctor public AccessibilityViewCommand.MoveHtmlArguments();
+    method public String! getHTMLElement();
+  }
+
+  public static final class AccessibilityViewCommand.MoveWindowArguments extends androidx.core.view.accessibility.AccessibilityViewCommand.CommandArguments {
+    ctor public AccessibilityViewCommand.MoveWindowArguments();
+    method public int getX();
+    method public int getY();
+  }
+
+  public static final class AccessibilityViewCommand.ScrollToPositionArguments extends androidx.core.view.accessibility.AccessibilityViewCommand.CommandArguments {
+    ctor public AccessibilityViewCommand.ScrollToPositionArguments();
+    method public int getColumn();
+    method public int getRow();
+  }
+
+  public static final class AccessibilityViewCommand.SetProgressArguments extends androidx.core.view.accessibility.AccessibilityViewCommand.CommandArguments {
+    ctor public AccessibilityViewCommand.SetProgressArguments();
+    method public float getProgress();
+  }
+
+  public static final class AccessibilityViewCommand.SetSelectionArguments extends androidx.core.view.accessibility.AccessibilityViewCommand.CommandArguments {
+    ctor public AccessibilityViewCommand.SetSelectionArguments();
+    method public int getEnd();
+    method public int getStart();
+  }
+
+  public static final class AccessibilityViewCommand.SetTextArguments extends androidx.core.view.accessibility.AccessibilityViewCommand.CommandArguments {
+    ctor public AccessibilityViewCommand.SetTextArguments();
+    method public CharSequence! getText();
   }
 
   public class AccessibilityWindowInfoCompat {
