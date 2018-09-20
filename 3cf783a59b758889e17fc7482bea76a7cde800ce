@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a26ddc33_48f5e61c",
+        "filename": "paging/common/api/2.0.0.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-20T20:19:48Z",
+      "side": 1,
+      "message": "This file was the only one that I couldn\u0027t just regenerate via `./gradlew updateApi` - for this one, the format changed between doclava and metalava",
+      "revId": "3cf783a59b758889e17fc7482bea76a7cde800ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
