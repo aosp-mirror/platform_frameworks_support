@@ -16,6 +16,7 @@
 
 package androidx.car.app;
 
+import android.animation.ValueAnimator;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
@@ -28,6 +29,7 @@ import android.view.TouchDelegate;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -80,6 +82,25 @@ public class CarAlertDialog extends Dialog {
         mBottomPadding = res.getDimensionPixelSize(R.dimen.car_padding_4);
         mButtonMinWidth = res.getDimensionPixelSize(R.dimen.car_button_min_width);
         mButtonSpacing = res.getDimensionPixelSize(R.dimen.car_padding_4);
+
+        Window window = this.getWindow();
+
+        window.getAttributes().windowAnimations = R.style.AlertDialog;
+
+        // Background dim animation. Blur
+        TypedValue outValue = new TypedValue();
+        res.getValue(R.dimen.car_dialog_background_dim, outValue, true);
+        float dimAmount = outValue.getFloat();
+
+        ValueAnimator backgroundDimAnimator = ValueAnimator.ofFloat(0f, dimAmount);
+        backgroundDimAnimator.setDuration(res.getInteger(R.integer.car_dialog_enter_duration_ms));
+        WindowManager.LayoutParams lp = window.getAttributes();
+
+        backgroundDimAnimator.addUpdateListener(animation -> {
+            lp.dimAmount = (float) animation.getAnimatedValue();
+            window.setAttributes(lp);
+        });
+        backgroundDimAnimator.start();
     }
 
     @Override
