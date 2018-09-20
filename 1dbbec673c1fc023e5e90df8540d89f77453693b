@@ -16,6 +16,24 @@
       "revId": "1dbbec673c1fc023e5e90df8540d89f77453693b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a953a2b4_657b3e4e",
+        "filename": "jetifier/jetifier/core/src/main/kotlin/com/android/tools/build/jetifier/core/PackageMap.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-20T13:38:13Z",
+      "side": 1,
+      "message": "It was supposed to keep media2 in the same package even after dejetification. I have never actually received any story on how media2 should be dejetified so I kept it where it was.",
+      "parentUuid": "74539353_08ec3a14",
+      "revId": "1dbbec673c1fc023e5e90df8540d89f77453693b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
