@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e88de5e3_1d8414dc",
+        "filename": "media2/src/androidTest/java/androidx/media2/XMediaPlayerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1121,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-09-20T16:49:08Z",
+      "side": 1,
+      "message": "Would it make sense to move this into MediaPlayer2Test.java? Then it can test the ExoPlayer-based implementation too.",
+      "range": {
+        "startLine": 1107,
+        "startChar": 0,
+        "endLine": 1121,
+        "endChar": 5
+      },
+      "revId": "11aa6c0aa8452cd677e6464a40afd9eaa0ea3282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
