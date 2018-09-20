@@ -30,7 +30,10 @@ import java.util.Locale;
 
 /**
  * A representation of the context in which text classification would be performed.
+ *
+ * @hide
  */
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public final class TextClassificationContext {
     private static final String EXTRA_PACKAGE_NAME = "package_name";
     private static final String EXTRA_WIGET_TYPE = "widget_type";
