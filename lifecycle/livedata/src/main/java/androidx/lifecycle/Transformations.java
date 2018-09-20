@@ -160,4 +160,31 @@ public class Transformations {
         });
         return result;
     }
+
+    /**
+     * Creates a new {@link LiveData} object does not emit a value until the source LiveData value
+     * has been changed.
+     *
+     * @param source the input {@link LiveData}
+     * @param <X>    the generic type parameter of {@code source}
+     * @return       a new {@link LiveData} of type {@code X}
+     */
+    @MainThread
+    @NonNull
+    public static <X> LiveData<X> distinctUntilChanged(@NonNull LiveData<X> source) {
+        final MediatorLiveData<X> outputLiveData = new MediatorLiveData<>();
+        outputLiveData.addSource(source, new Observer<X>() {
+            @Override
+            public void onChanged(X currentValue) {
+                final X previousValue = outputLiveData.getValue();
+                if ((previousValue == null && currentValue != null)
+                        || (previousValue != null && !previousValue.equals(currentValue))) {
+                    outputLiveData.setValue(currentValue);
+                }
+            }
+        });
+        return outputLiveData;
+    }
+
+
 }
