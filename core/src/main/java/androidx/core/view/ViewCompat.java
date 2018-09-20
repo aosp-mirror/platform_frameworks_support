@@ -1194,10 +1194,10 @@ public class ViewCompat {
     /**
      * Associates and adds an action with a specified id.
      *
-     * @param view The view.
-     * @param replacedAction The Standard Action to be replaced.
-     * @param label The use facing description of the action.
-     * @param command The command performed when the service requests the action.
+     * @param view The view
+     * @param replacedAction The Standard Action to be replaced
+     * @param label The use facing description of the action
+     * @param command The command performed when the service requests the action
      *
      * <p>
      * Compatibility:
@@ -1220,7 +1220,6 @@ public class ViewCompat {
         if (Build.VERSION.SDK_INT >= 21) {
             getOrCreateAccessibilityDelegateCompat(view);
             List<AccessibilityActionCompat> actions = getActionList(view);
-
             actions.remove(action);
             actions.add(action);
             notifyViewAccessibilityStateChangedIfNeeded(
@@ -1250,13 +1249,16 @@ public class ViewCompat {
     }
 
     private static List<AccessibilityActionCompat> getActionList(View view) {
-        ArrayList<AccessibilityActionCompat> actions =
-                (ArrayList<AccessibilityActionCompat>) view.getTag(R.id.tag_accessibility_actions);
-        if (actions == null) {
-            actions = new ArrayList<AccessibilityActionCompat>();
-            view.setTag(R.id.tag_accessibility_actions, actions);
+        return getLazyViewTagList(view, R.id.tag_accessibility_actions);
+    }
+
+    private static <T> List<T> getLazyViewTagList(View view, int key) {
+        ArrayList<T> list = (ArrayList<T>) view.getTag(key);
+        if (list == null) {
+            list = new ArrayList<T>();
+            view.setTag(key, list);
         }
-        return actions;
+        return list;
     }
 
     /**
