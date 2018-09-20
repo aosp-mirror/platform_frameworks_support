@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24eb814e_dbed5748",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-09-20T23:59:00Z",
+      "side": 1,
+      "message": "getAttributes returns LayoutParams.  Why is this set to a alertDialog style?",
+      "range": {
+        "startLine": 88,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 70
+      },
+      "revId": "dff1a7fffdc3e7487f75d812522f638a787d92ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
