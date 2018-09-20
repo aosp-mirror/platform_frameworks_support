@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "66f00647_7471aec2",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-20T06:27:20Z",
+      "side": 1,
+      "message": "If they\u0027re the same, what about disallowing null list from the setPlaylist() and return null only when setMediaItem is called().\nIf they aren\u0027t the same, could you document?",
+      "parentUuid": "2307d732_36039c9a",
+      "range": {
+        "startLine": 911,
+        "startChar": 19,
+        "endLine": 911,
+        "endChar": 45
+      },
+      "revId": "7c960b64cd83f755c2e7cbe96ac5b6f5371632ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "742bbbb6_9419fc69",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 7
