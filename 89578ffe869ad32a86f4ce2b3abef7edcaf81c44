@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ecf5ddc0_d1fa1e8b",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaSession2Test.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-09-20T08:26:09Z",
+      "side": 0,
+      "message": "Q) Why this test is removed? The specification is no longer valid?",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 232,
+        "endChar": 0
+      },
+      "revId": "89578ffe869ad32a86f4ce2b3abef7edcaf81c44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

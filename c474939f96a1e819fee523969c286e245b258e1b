@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "719fbaba_5322fdd0",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1202,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-09-20T08:26:09Z",
+      "side": 1,
+      "message": "Q)What class does/will use this?",
+      "range": {
+        "startLine": 1202,
+        "startChar": 10,
+        "endLine": 1202,
+        "endChar": 31
+      },
+      "revId": "c474939f96a1e819fee523969c286e245b258e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
