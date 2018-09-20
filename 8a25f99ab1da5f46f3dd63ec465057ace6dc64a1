@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd1000f4_6558c2f8",
+        "filename": "media2/src/androidTest/java/androidx/media2/XMediaPlayerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-20T06:06:48Z",
+      "side": 1,
+      "message": "Q) Is this necessary?",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 5
+      },
+      "revId": "8a25f99ab1da5f46f3dd63ec465057ace6dc64a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6dc5374_be1063f8",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-20T06:06:48Z",
+      "side": 1,
+      "message": "Is this still valid comment?",
+      "range": {
+        "startLine": 433,
+        "startChar": 0,
+        "endLine": 435,
+        "endChar": 62
+      },
+      "revId": "8a25f99ab1da5f46f3dd63ec465057ace6dc64a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e745ebe_a1cf5988",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-20T06:06:48Z",
+      "side": 1,
+      "message": "According to Dongwon,\n\"A command/operation should be queued and they should be executed and returned after all the previous operations are done.\"\n\nI addressed the same comment.\nSee createFutureForResultCodeInternal() in\nhttps://android-review.googlesource.com/c/platform/frameworks/support/+/749794/4..7/media2/src/main/java/androidx/media2/XMediaPlayer.java#1455",
+      "range": {
+        "startLine": 516,
+        "startChar": 12,
+        "endLine": 516,
+        "endChar": 76
+      },
+      "revId": "8a25f99ab1da5f46f3dd63ec465057ace6dc64a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
