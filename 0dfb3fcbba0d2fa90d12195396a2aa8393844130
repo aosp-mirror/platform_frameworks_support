@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb45db33_ebe2f94f",
+        "filename": "preference/src/main/java/androidx/preference/EditTextPreference.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-09-20T17:48:51Z",
+      "side": 1,
+      "message": "Unsure about naming here. Something like updateSummaryAutomatically(boolean) provides more context and is more obvious to what it does (since for this basic case we aren\u0027t really formatting a summary, just updating it based on value) - but then there\u0027s a distinction between this method and the underlying interface. If a developer wants to customize the default behaviour, they might override this method and then wonder why they need to use a summary formatter, and what that is. \n\nOn the flipside this method name makes it obvious that alternative formatters can be provided.\n\nAnother option could be making the default implementation public, and suggesting developers call setSummaryFormatter(new EditTextPreference.DefaultFormatter()) - but then the XML story becomes more difficult, and that\u0027s the really key part of making this feature easy to use without needing to write a ton of boilerplate.",
+      "range": {
+        "startLine": 142,
+        "startChar": 16,
+        "endLine": 142,
+        "endChar": 42
+      },
+      "revId": "0dfb3fcbba0d2fa90d12195396a2aa8393844130",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
