@@ -16,6 +16,24 @@
       "revId": "fe40ad19f1ef06820baa12b4e39fac71dd540173",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "374ae9fc_a787c3e7",
+        "filename": "compat/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1186,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-09-20T21:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a53e3b9_2e9013cf",
+      "revId": "fe40ad19f1ef06820baa12b4e39fac71dd540173",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

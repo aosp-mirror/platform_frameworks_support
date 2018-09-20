@@ -72,6 +72,54 @@
     },
     {
       "key": {
+        "uuid": "9a6c0ce6_8b4bbbab",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-09-20T21:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a847436f_043e0f57",
+      "range": {
+        "startLine": 46,
+        "startChar": 21,
+        "endLine": 46,
+        "endChar": 22
+      },
+      "revId": "70d7cfa6536ecb9a1d8448836d6fae45ef284157",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d5e9679_5e081a6b",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-09-20T21:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c178ec61_e465c1cb",
+      "range": {
+        "startLine": 46,
+        "startChar": 22,
+        "endLine": 46,
+        "endChar": 46
+      },
+      "revId": "70d7cfa6536ecb9a1d8448836d6fae45ef284157",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93e05f9a_b82dc4ed",
         "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
         "patchSetId": 5
@@ -92,6 +140,30 @@
       "revId": "70d7cfa6536ecb9a1d8448836d6fae45ef284157",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73aa1082_12761cf7",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-09-20T21:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93e05f9a_b82dc4ed",
+      "range": {
+        "startLine": 50,
+        "startChar": 19,
+        "endLine": 50,
+        "endChar": 21
+      },
+      "revId": "70d7cfa6536ecb9a1d8448836d6fae45ef284157",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -142,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "6793ce96_90d15b67",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-09-20T21:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f98dbf40_8c0feb2a",
+      "range": {
+        "startLine": 56,
+        "startChar": 35,
+        "endLine": 56,
+        "endChar": 47
+      },
+      "revId": "70d7cfa6536ecb9a1d8448836d6fae45ef284157",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c41e123_9c676d82",
         "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
         "patchSetId": 5
@@ -165,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "0a072988_3100f814",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-09-20T21:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c41e123_9c676d82",
+      "range": {
+        "startLine": 508,
+        "startChar": 78,
+        "endLine": 508,
+        "endChar": 84
+      },
+      "revId": "70d7cfa6536ecb9a1d8448836d6fae45ef284157",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3dd76eb2_9ff66772",
         "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
         "patchSetId": 5
@@ -176,6 +296,30 @@
       "writtenOn": "2018-08-24T20:07:26Z",
       "side": 1,
       "message": "necessary? we\u0027re discouraging @hide now",
+      "range": {
+        "startLine": 566,
+        "startChar": 8,
+        "endLine": 566,
+        "endChar": 34
+      },
+      "revId": "70d7cfa6536ecb9a1d8448836d6fae45ef284157",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de644aa0_0cedac13",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-09-20T21:28:53Z",
+      "side": 1,
+      "message": "I think it would be confusing to expose this as API.",
+      "parentUuid": "3dd76eb2_9ff66772",
       "range": {
         "startLine": 566,
         "startChar": 8,
