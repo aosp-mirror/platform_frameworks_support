@@ -24,6 +24,8 @@ import android.os.Looper;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -44,7 +46,9 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.concurrent.Executor;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
@@ -94,8 +98,20 @@ public class BiometricPromptDemo extends FragmentActivity {
 
         @Override
         public void onAuthenticationSucceeded(BiometricPrompt.AuthenticationResult result) {
-            Toast.makeText(getApplicationContext(), "Yay", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Yay, Crypto: "
+                    + result.getCryptoObject(), Toast.LENGTH_SHORT).show();
             mNumberFailedAttempts = 0;
+
+            if (result.getCryptoObject() != null) {
+                Cipher cipher = result.getCryptoObject().getCipher();
+                try {
+                    byte[] encrypted = cipher.doFinal("hello".getBytes());
+                    Toast.makeText(getApplicationContext(), "Message: "
+                            + Base64.encode(encrypted, 0 /* flags */), Toast.LENGTH_SHORT).show();
+                } catch (BadPaddingException | IllegalBlockSizeException e) {
+                    Log.e(TAG, "Error encrypting");
+                }
+            }
         }
 
         @Override
