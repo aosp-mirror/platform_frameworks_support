@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1839bd7f_b348c39c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-09-20T10:53:52Z",
+      "side": 1,
+      "message": "is there no real bug to attach?",
+      "range": {
+        "startLine": 19,
+        "startChar": 4,
+        "endLine": 19,
+        "endChar": 13
+      },
+      "revId": "e453408c08a17081382aa5507d186242e913e83e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
