@@ -16,6 +16,24 @@
       "revId": "5ee7a9542e1c6c4efa083f9f83cf60bdd905c90e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a839756_ade56b52",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/CardActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2018-09-20T15:55:04Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "557c7ab1_3875b7fa",
+      "revId": "5ee7a9542e1c6c4efa083f9f83cf60bdd905c90e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
