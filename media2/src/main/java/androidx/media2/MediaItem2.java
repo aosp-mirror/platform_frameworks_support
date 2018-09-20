@@ -38,7 +38,9 @@ import java.util.UUID;
  * A class with information on a single media item with the metadata information.
  * Media item are application dependent so we cannot guarantee that they contain the right values.
  * <p>
- * When it's sent to a controller or browser, it's anonymized and data descriptor wouldn't be sent.
+ * When its subclass is sent between {@link MediaSession2}/{@link MediaController2} or
+ * {@link androidx.media2.MediaLibraryService2.MediaLibrarySession}/{@link MediaBrowser2}, the
+ * subclass' data will be anonymized and and receipane t
  * <p>
  * This object isn't a thread safe.
  */
