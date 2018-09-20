@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee75d8b3_8a44bb1e",
+        "filename": "buildSrc/build_dependencies.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-09-20T19:57:39Z",
+      "side": 1,
+      "message": "Use logger.warn( instead.",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 12
+      },
+      "revId": "9bcdc73d86018d60aaf22ebe33e16ecfd2ceca33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
