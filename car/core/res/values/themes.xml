@@ -185,6 +185,8 @@ limitations under the License.
         <item name="dialogListTheme">@style/Theme.Car.Light.List.DarkItems</item>
         <item name="dialogTitleStyle">@style/Widget.Car.Dialog.Title.Light</item>
         <item name="dialogBodyStyle">@style/Widget.Car.Dialog.Body.Light</item>
+        <item name="android:windowEnterAnimation">@anim/car_dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/car_dialog_exit</item>
     </style>
 
     <!-- ===================================== -->
