@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f825385_3de3d397",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-09-20T22:49:31Z",
+      "side": 1,
+      "message": "throw",
+      "range": {
+        "startLine": 424,
+        "startChar": 41,
+        "endLine": 424,
+        "endChar": 46
+      },
+      "revId": "ea8bc38fa4cfd04c9dd976b90aed1326a09e4c13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4c43f5a_4357674d",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-09-20T22:49:31Z",
+      "side": 1,
+      "message": "a null Icon",
+      "range": {
+        "startLine": 438,
+        "startChar": 22,
+        "endLine": 438,
+        "endChar": 28
+      },
+      "revId": "ea8bc38fa4cfd04c9dd976b90aed1326a09e4c13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
