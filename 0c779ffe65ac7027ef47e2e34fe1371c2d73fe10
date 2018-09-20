@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42d5bd61_73b695d9",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-09-20T16:41:51Z",
+      "side": 1,
+      "message": "why not private?",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 30
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b396c2f1_88f334a5",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-09-20T16:41:51Z",
+      "side": 1,
+      "message": "why not private?",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 20
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7757d256_b7c4766e",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-09-20T16:41:51Z",
+      "side": 1,
+      "message": "I thought we were going to drop this concept and just show the right page after the rotation. Simplifies onRestoreInstanceState as well.",
+      "range": {
+        "startLine": 173,
+        "startChar": 8,
+        "endLine": 173,
+        "endChar": 28
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e42a337_f8532122",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-09-20T16:41:51Z",
+      "side": 1,
+      "message": "We keep all fields at the top of the file. Can initialize in initialize().\nAlso, is it possible to simplify so that mCurrentItem is only modified by this class? The fewer places that modify a field the better.",
+      "range": {
+        "startLine": 453,
+        "startChar": 39,
+        "endLine": 453,
+        "endChar": 60
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
