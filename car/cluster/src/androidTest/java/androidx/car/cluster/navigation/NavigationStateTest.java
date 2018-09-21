@@ -18,6 +18,8 @@ package androidx.car.cluster.navigation;
 
 import static org.junit.Assert.assertEquals;
 
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -142,6 +144,19 @@ public class NavigationStateTest {
         assertEquals(new ArrayList(), state.getDestinations());
     }
 
+    @Test
+    public void locationToLatLngConversion() {
+        final double lat = 37.4219999;
+        final double lng = -122.0840575;
+        Location loc = new Location(LocationManager.GPS_PROVIDER);
+        loc.setLatitude(lat);
+        loc.setLongitude(lng);
+
+        assertEquals(
+                new LatLng.Builder().setLatitude(lat).setLongitude(lng).build(),
+                LatLng.fromLocation(loc));
+    }
+
     private NavigationState createEmptyState() {
         return new NavigationState.Builder().build();
     }
@@ -181,6 +196,10 @@ public class NavigationStateTest {
                 .addDestination(new Destination.Builder()
                         .setTitle("Home")
                         .setDistance(new Distance(1230, "1.2", Distance.Unit.KILOMETERS))
+                        .setLocation(new LatLng.Builder()
+                                .setLatitude(37.4219999)
+                                .setLongitude(-122.0840575)
+                                .build())
                         .build())
                 .build();
     }
