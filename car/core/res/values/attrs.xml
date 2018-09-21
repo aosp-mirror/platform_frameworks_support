@@ -242,5 +242,13 @@ limitations under the License.
         <!-- The layout that will be used for render a normal list item within the drawer. A
              normal layout should have an icon, title, subtitle and end icon. -->
         <attr name="drawerNormalLayoutId" format="reference"/>
+
+        <!-- ================= -->
+        <!-- Spinner Attributes -->
+        <!-- ================= -->
+        <eat-comment />
+
+        <!-- The primary color of a spinner. -->
+        <attr name="spinnerPrimaryColor" format="color"/>
     </declare-styleable>
 </resources>
