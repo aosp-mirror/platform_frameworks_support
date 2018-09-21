@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8bad589d_af913673",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.config",
+        "patchSetId": 1
+      },
+      "lineNbr": 1399,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-21T18:24:52Z",
+      "side": 1,
+      "message": "28.0.0",
+      "range": {
+        "startLine": 1398,
+        "startChar": 0,
+        "endLine": 1399,
+        "endChar": 48
+      },
+      "revId": "d83ab2ac1c18ca1dc44c9e3fa203d55129a5f0bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1297385a_2eecbc6f",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.config",
+        "patchSetId": 1
+      },
+      "lineNbr": 1406,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-21T18:24:52Z",
+      "side": 1,
+      "message": "1.0.0",
+      "range": {
+        "startLine": 1405,
+        "startChar": 0,
+        "endLine": 1406,
+        "endChar": 47
+      },
+      "revId": "d83ab2ac1c18ca1dc44c9e3fa203d55129a5f0bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef59e2f6_1234582c",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.config",
+        "patchSetId": 1
+      },
+      "lineNbr": 1423,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-21T18:24:52Z",
+      "side": 1,
+      "message": "28.0.0",
+      "range": {
+        "startLine": 1422,
+        "startChar": 0,
+        "endLine": 1423,
+        "endChar": 48
+      },
+      "revId": "d83ab2ac1c18ca1dc44c9e3fa203d55129a5f0bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fbf3208_f34c3fb3",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.config",
+        "patchSetId": 1
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-21T18:24:52Z",
+      "side": 1,
+      "message": "1.0.0",
+      "range": {
+        "startLine": 1429,
+        "startChar": 0,
+        "endLine": 1430,
+        "endChar": 47
+      },
+      "revId": "d83ab2ac1c18ca1dc44c9e3fa203d55129a5f0bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41bf41ca_8d0214bb",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.generated.config",
+        "patchSetId": 1
+      },
+      "lineNbr": 2198,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-21T18:24:52Z",
+      "side": 1,
+      "message": "Same as the other one here and below.",
+      "range": {
+        "startLine": 2197,
+        "startChar": 0,
+        "endLine": 2198,
+        "endChar": 42
+      },
+      "revId": "d83ab2ac1c18ca1dc44c9e3fa203d55129a5f0bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
