@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad26098_fe10564f",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer2Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1060405
+      },
+      "writtenOn": "2018-09-21T00:51:12Z",
+      "side": 1,
+      "message": "in case of timeout, is it still needed to let currentTask know that it shouldn\u0027t send out EventCallback?",
+      "range": {
+        "startLine": 580,
+        "startChar": 1,
+        "endLine": 585,
+        "endChar": 13
+      },
+      "revId": "a5c942005696e8fdfc5a3042c34f3bf1d62a8b8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
