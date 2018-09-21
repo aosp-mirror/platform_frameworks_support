@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9788b07_62f6bc8e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-21T22:14:17Z",
+      "side": 1,
+      "message": "can\u0027t have alpha and minor version bump at the same time (and that makes sense)",
+      "revId": "c1a8365408e3541b00ccec6caff647ef347bd193",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
