@@ -22,6 +22,30 @@
       "revId": "2486bb824eb9ec60da4a3c55a1764ad376dc6ce3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b69d87d3_9c2e5322",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-21T21:35:23Z",
+      "side": 1,
+      "message": "Given that we use get() on mActive in a number of places and ArrayMap\u0027s get() requires a binary search, I\u0027d prefer to stick with HashMap just to help with degenerate cases of many, many Fragments.",
+      "parentUuid": "686fefd4_1af1cc77",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 11
+      },
+      "revId": "2486bb824eb9ec60da4a3c55a1764ad376dc6ce3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
