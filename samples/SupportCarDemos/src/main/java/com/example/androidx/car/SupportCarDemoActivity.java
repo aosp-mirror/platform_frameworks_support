@@ -36,6 +36,7 @@ import java.util.List;
  * Home activity for car support library samples.
  */
 public class SupportCarDemoActivity extends ListActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
