@@ -54,6 +54,7 @@ import androidx.media2.MediaPlayerConnector;
 import androidx.media2.MediaSession2;
 import androidx.media2.SessionCommand2;
 import androidx.media2.SessionCommandGroup2;
+import androidx.media2.SessionPlayer2;
 import androidx.media2.SessionToken2;
 import androidx.media2.SubtitleData2;
 import androidx.media2.UriMediaItem2;
@@ -811,7 +812,6 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
         if (mMediaItem.getMetadata() != null) {
             // If a MediaItem2 instance has its own metadata, then use it.
             // TODO: merge metadata from metadata retriever
-            return;
         }
 
         Uri uri = (mMediaItem != null && mMediaItem instanceof UriMediaItem2)
@@ -913,7 +913,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
         builder.putString(
                 MediaMetadata2.METADATA_KEY_MEDIA_ID, mMediaItem.getMediaId());
         mMediaItem.setMetadata(builder.build());
-        mMediaSession.getPlaylistAgent().replacePlaylistItem(0, mMediaItem);
+        mMediaPlayer.setMediaItem(mMediaItem);
     }
 
     private int retrieveOrientation() {
@@ -1083,6 +1083,18 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
                         if (needToStart()) {
                             mMediaSession.play();
                         }
+                    }
+                }
+
+                @Override
+                public void onPlayerStateChanged(@NonNull SessionPlayer2 player, int playerState) {
+                    if (playerState != SessionPlayer2.PLAYER_STATE_PAUSED) {
+                        return;
+                    }
+                    if (mMediaSession != null) {
+                        extractTracks();
+                        extractMetadata();
+                        sendMetadata();
                     }
                 }
 
