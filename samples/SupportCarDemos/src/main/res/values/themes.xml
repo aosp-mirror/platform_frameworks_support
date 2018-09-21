@@ -21,7 +21,7 @@
     </style>
 
     <!-- The main theme for all activities within the Car Demo. -->
-    <style name="CarTheme" parent="Theme.Car.NoActionBar">
+    <style name="CarTheme" parent="Theme.Car.Light.NoActionBar">
     </style>
 
     <!-- A theme for activities within the Car Demo that have a drawer. -->
