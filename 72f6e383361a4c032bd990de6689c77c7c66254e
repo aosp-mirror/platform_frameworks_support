@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49c8bdef_0dd389e1",
+        "filename": "car/core/res/anim/car_dialog_enter.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-21T22:28:55Z",
+      "side": 1,
+      "message": "Could you add a comment explaining each of these sub-animations just to help people who look at this in the future?",
+      "revId": "72f6e383361a4c032bd990de6689c77c7c66254e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "249f2c87_fb922c91",
+        "filename": "car/core/res/anim/car_dialog_exit.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-21T22:28:55Z",
+      "side": 1,
+      "message": "Same for this file.",
+      "revId": "72f6e383361a4c032bd990de6689c77c7c66254e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bd9bf46_965f0f73",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-21T22:28:55Z",
+      "side": 1,
+      "message": "No need for \"this\"",
+      "range": {
+        "startLine": 86,
+        "startChar": 24,
+        "endLine": 86,
+        "endChar": 28
+      },
+      "revId": "72f6e383361a4c032bd990de6689c77c7c66254e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "538bf7a3_eab6ea52",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-21T22:28:55Z",
+      "side": 1,
+      "message": "Prefer a more verbose variable name like \"windowLayoutParams\"",
+      "range": {
+        "startLine": 87,
+        "startChar": 35,
+        "endLine": 87,
+        "endChar": 37
+      },
+      "revId": "72f6e383361a4c032bd990de6689c77c7c66254e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91eb04d9_49582847",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-21T22:28:55Z",
+      "side": 1,
+      "message": "We probably don\u0027t want to hardcode this actually. It should be abstracted from the theme attribute \"carAlertDialog\":\n\nhttp://cs/android/frameworks/support/car/core/res/values/themes.xml?l\u003d50\u0026rcl\u003d3c6d714aa4d37cb882f97b04ea040a47ae965ef2\n\nIf you put the exit/enter animations in that theme, I think you might not need to explicitly set this.",
+      "revId": "72f6e383361a4c032bd990de6689c77c7c66254e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41f98c48_82531086",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-21T22:28:55Z",
+      "side": 1,
+      "message": "There\u0027s actually a getFloat() method on the Resources",
+      "range": {
+        "startLine": 94,
+        "startChar": 12,
+        "endLine": 94,
+        "endChar": 20
+      },
+      "revId": "72f6e383361a4c032bd990de6689c77c7c66254e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23d6de39_da32fb93",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-21T22:28:55Z",
+      "side": 1,
+      "message": "Feel this animation should be started in onCreate() instead of the constructor.",
+      "revId": "72f6e383361a4c032bd990de6689c77c7c66254e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
