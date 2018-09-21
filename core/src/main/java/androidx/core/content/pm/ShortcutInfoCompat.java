@@ -46,6 +46,7 @@ public class ShortcutInfoCompat {
     private static final String EXTRA_PERSON_ = "extraPerson_";
     private static final String EXTRA_LONG_LIVED = "extraLongLived";
 
+    // TODO: Replace with SDK number that supports pushing share targets to shortcut manager.
     private static final int FUTURE_SDK_INT = 999;
 
     Context mContext;
@@ -403,24 +404,42 @@ public class ShortcutInfoCompat {
             return this;
         }
 
-        // TODO: Needs comments
+        /**
+         * Associate a person to a shortcut. Alternatively, {@link #setPersons(Person[])} can be
+         * used to add multiple persons to a shortcut.
+         *
+         * <p>This is an optional field when publishing a new shortcut.
+         *
+         * @see Person
+         */
         public Builder setPerson(Person person) {
             return setPersons(new Person[]{person});
         }
 
-        // TODO: Needs comments
+        /**
+         * Sets multiple persons instead of a single person.
+         */
         public Builder setPersons(Person[] persons) {
             mInfo.mPersons = persons;
             return this;
         }
 
-        // TODO: Needs comments
+        /**
+         * Sets categories for a shortcut. Launcher apps may use this information to categorize
+         * shortcuts.
+         *
+         * @see ShortcutInfo#getCategories()
+         */
         public Builder setCategories(Set<String> categories) {
             mInfo.mCategories = categories;
             return this;
         }
 
-        // TODO: Needs comments
+        /**
+         * Sets if a shortcut would be valid even if it has been unpublished/invisible by the app
+         * (as a dynamic or pinned shortcut). If it is long lived, it can be cached by various
+         * system services even after if has been unpublished as a dynamic shortcut.
+         */
         public Builder setLongLived() {
             mInfo.mIsLongLived = true;
             return this;

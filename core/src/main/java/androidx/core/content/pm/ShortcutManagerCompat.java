@@ -149,7 +149,18 @@ public class ShortcutManagerCompat {
         return shortcut.addToIntent(result);
     }
 
-    // TODO: add comments
+    /**
+     * Publish the list of dynamic shortcuts. If there are already dynamic or pinned shortcuts with
+     * the same IDs, each mutable shortcut is updated.
+     *
+     * <p>This API will be rate-limited.
+     *
+     * @return {@code true} if the call has succeeded. {@code false} if the call fails or is
+     * rate-limited.
+     *
+     * @throws IllegalArgumentException if {@link #getMaxShortcutCountPerActivity(Context)} is
+     * exceeded, or when trying to update immutable shortcuts.
+     */
     public static boolean addDynamicShortcuts(@NonNull Context context,
             @NonNull List<ShortcutInfoCompat> shortcutInfoList) {
         if (Build.VERSION.SDK_INT >= 25) {
@@ -157,7 +168,9 @@ public class ShortcutManagerCompat {
             for (ShortcutInfoCompat item : shortcutInfoList) {
                 shortcuts.add(item.toShortcutInfo());
             }
-            context.getSystemService(ShortcutManager.class).addDynamicShortcuts(shortcuts);
+            if (!context.getSystemService(ShortcutManager.class).addDynamicShortcuts(shortcuts)) {
+                return false;
+            }
         }
 
         ShortcutInfoCompatSaver shortcutSaver = new ShortcutInfoCompatSaver(context);
@@ -172,27 +185,42 @@ public class ShortcutManagerCompat {
         return shortcutSaver.saveAsXml(savedShortcuts);
     }
 
-    // TODO: add comments
+    /**
+     * Return the maximum number of static and dynamic shortcuts that each launcher icon
+     * can have at a time.
+     */
+    public static int getMaxShortcutCountPerActivity(@NonNull Context context) {
+        if (Build.VERSION.SDK_INT >= 25) {
+            return context.getSystemService(ShortcutManager.class).getMaxShortcutCountPerActivity();
+        }
+
+        // TODO: decide on the limit for max shortcut count.
+        return 100;
+    }
+
+    /**
+     * Return all dynamic shortcuts from the caller app.
+     *
+     * <p>This API is intended to be used for examining what shortcuts are currently published.
+     * Re-publishing returned {@link ShortcutInfo}s via APIs such as
+     * {@link #addDynamicShortcuts(Context, List)} may cause loss of information such as icons.
+     */
     @NonNull
     public static List<ShortcutInfoCompat> getDynamicShortcuts(@NonNull Context context) {
-        /*
-        if (Build.VERSION.SDK_INT >= 25) {
-            List<ShortcutInfoCompat> shortcuts = new ArrayList<>();
-
-            List<ShortcutInfo> dynamicShortcuts = context.getSystemService(ShortcutManager.class)
-                    .getDynamicShortcuts();
-            for (ShortcutInfo item : dynamicShortcuts) {
-                shortcuts.add(ShortcutInfoCompat.fromShortcutInfo(context, item));
-            }
-
-            return shortcuts;
-        }
-        */
-
         return new ArrayList<>(new ShortcutInfoCompatSaver(context).loadFromXml().values());
     }
 
-    // TODO: add comments
+    /**
+     * Update all existing shortcuts with the same IDs. Target shortcuts may be pinned and/or
+     * dynamic, but they must not be immutable.
+     *
+     * <p>This API will be rate-limited.
+     *
+     * @return {@code true} if the call has succeeded. {@code false} if the call fails or is
+     * rate-limited.
+     *
+     * @throws IllegalArgumentException If trying to update immutable shortcuts.
+     */
     public static boolean updateShortcuts(@NonNull Context context,
             @NonNull List<ShortcutInfoCompat> shortcutInfoList) {
         if (Build.VERSION.SDK_INT >= 25) {
@@ -200,13 +228,17 @@ public class ShortcutManagerCompat {
             for (ShortcutInfoCompat item : shortcutInfoList) {
                 shortcuts.add(item.toShortcutInfo());
             }
-            context.getSystemService(ShortcutManager.class).updateShortcuts(shortcuts);
+            if (!context.getSystemService(ShortcutManager.class).updateShortcuts(shortcuts)) {
+                return false;
+            }
         }
 
         return ShortcutManagerCompat.addDynamicShortcuts(context, shortcutInfoList);
     }
 
-    // TODO: add comments
+    /**
+     * Delete dynamic shortcuts by ID.
+     */
     public void removeDynamicShortcuts(@NonNull Context context,
             @NonNull List<String> shortcutIds) {
         if (Build.VERSION.SDK_INT >= 25) {
@@ -219,7 +251,9 @@ public class ShortcutManagerCompat {
         shortcutSaver.saveAsXml(savedShortcuts);
     }
 
-    // TODO: add comments
+    /**
+     * Delete all dynamic shortcuts from the caller app.
+     */
     public static void removeAllDynamicShortcuts(@NonNull Context context) {
         if (Build.VERSION.SDK_INT >= 25) {
             context.getSystemService(ShortcutManager.class).removeAllDynamicShortcuts();

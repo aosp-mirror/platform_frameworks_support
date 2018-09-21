@@ -80,10 +80,14 @@ public class ShortcutInfoCompatSaver {
     private static final String ATTR_BOT = "bot";
     private static final String ATTR_IMPORTANT = "important";
 
+    // If set to true, only the fields used by the Chooser service will be saved and loaded.
+    // Otherwise all the fields in ShortcutInfoCompat and Person objects will be stored on the disk.
+    private static final boolean STORE_CHOOSER_SERVICE_FIELDS_ONLY = true;
+
+    // If set to true, icon of Person objects will be saved to the disk, otherwise skips the icons.
     private static final boolean STORE_PERSONS_ICON = false;
 
     private Context mContext;
-    private boolean mLazyLoadIcons;
     private ArrayMap<String, IconInfo> mIconInfoList = new ArrayMap<>();
 
     private class IconInfo {
@@ -148,12 +152,7 @@ public class ShortcutInfoCompatSaver {
     }
 
     public ShortcutInfoCompatSaver(Context context) {
-        this(context, false);
-    }
-
-    public ShortcutInfoCompatSaver(Context context, boolean lazyLoadIcons) {
         mContext = context;
-        mLazyLoadIcons = lazyLoadIcons;
     }
 
     public ArrayMap<String, ShortcutInfoCompat> loadFromXml() {
@@ -171,7 +170,12 @@ public class ShortcutInfoCompatSaver {
             int type;
             while ((type = parser.next()) != XmlPullParser.END_DOCUMENT) {
                 if (type == XmlPullParser.START_TAG && parser.getName().equals(TAG_TARGET)) {
-                    ShortcutInfoCompat info = parseShortcutInfoCompat(parser);
+                    ShortcutInfoCompat info = null;
+                    if (STORE_CHOOSER_SERVICE_FIELDS_ONLY) {
+                        info = parseShortcutInfoCompatForChooserService(parser);
+                    } else {
+                        info = parseShortcutInfoCompat(parser);
+                    }
                     if (info != null && !TextUtils.isEmpty(info.getId())) {
                         shortcuts.put(info.getId(), info);
                     }
@@ -199,7 +203,11 @@ public class ShortcutInfoCompatSaver {
             serializer.startTag(null, TAG_ROOT);
 
             for (String key : shortcuts.keySet()) {
-                serializeShortcutInfoCompat(serializer, shortcuts.get(key));
+                if (STORE_CHOOSER_SERVICE_FIELDS_ONLY) {
+                    serializeShortcutInfoCompatForChooserService(serializer, shortcuts.get(key));
+                } else {
+                    serializeShortcutInfoCompat(serializer, shortcuts.get(key));
+                }
             }
 
             serializer.endTag(null, TAG_ROOT);
@@ -223,11 +231,67 @@ public class ShortcutInfoCompatSaver {
         if (info != null) {
             return info.getIcon();
         }
-        return  null;
+        return null;
     }
 
-    private ShortcutInfoCompat parseShortcutInfoCompat(XmlPullParser parser)
+    private ShortcutInfoCompat parseShortcutInfoCompatForChooserService(XmlPullParser parser)
             throws Exception {
+        if (!parser.getName().equals(TAG_TARGET)) {
+            return null;
+        }
+
+        String id = getAttributeValue(parser, ATTR_ID);
+        CharSequence label = getAttributeValue(parser, ATTR_SHORT_LABEL);
+        CharSequence longLabel = getAttributeValue(parser, ATTR_LONG_LABEL);
+        ComponentName activity = parseComponentName(parser);
+        IconInfo iconInfo = parseIconInfo(parser);
+
+        ArrayList<Intent> intents = new ArrayList<>();
+        Set<String> categories = new HashSet<>();
+
+        int type;
+        while ((type = parser.next()) != XmlPullParser.END_DOCUMENT) {
+            if (type == XmlPullParser.START_TAG) {
+                switch (parser.getName()) {
+                    case TAG_INTENT:
+                        Intent intent = parseIntent(parser);
+                        if (intent != null) {
+                            intents.add(intent);
+                        }
+                        break;
+                    case TAG_CATEGORY:
+                        String category = parseCategory(parser);
+                        if (!TextUtils.isEmpty(category)) {
+                            categories.add(category);
+                        }
+                        break;
+                }
+            } else if (type == XmlPullParser.END_TAG && parser.getName().equals(TAG_TARGET)) {
+                break;
+            }
+        }
+
+        ShortcutInfoCompat.Builder builder = new ShortcutInfoCompat.Builder(mContext, id)
+                .setShortLabel(label);
+        if (!TextUtils.isEmpty(longLabel)) {
+            builder.setLongLabel(longLabel);
+        }
+        if (activity != null) {
+            builder.setActivity(activity);
+        }
+        if (iconInfo != null) {
+            mIconInfoList.put(id, iconInfo);
+        }
+        if (!intents.isEmpty()) {
+            builder.setIntents(intents.toArray(new Intent[intents.size()]));
+        }
+        if (!categories.isEmpty()) {
+            builder.setCategories(categories);
+        }
+        return builder.build();
+    }
+
+    private ShortcutInfoCompat parseShortcutInfoCompat(XmlPullParser parser) throws Exception {
         if (!parser.getName().equals(TAG_TARGET)) {
             return null;
         }
@@ -290,13 +354,8 @@ public class ShortcutInfoCompatSaver {
         if (activity != null) {
             builder.setActivity(activity);
         }
-        if (mLazyLoadIcons) {
+        if (iconInfo != null) {
             mIconInfoList.put(id, iconInfo);
-        } else {
-            IconCompat icon = iconInfo.getIcon();
-            if (icon != null) {
-                builder.setIcon(icon);
-            }
         }
         if (!intents.isEmpty()) {
             builder.setIntents(intents.toArray(new Intent[intents.size()]));
@@ -310,8 +369,7 @@ public class ShortcutInfoCompatSaver {
         return builder.build();
     }
 
-    private boolean parseBoolean(XmlPullParser parser, String attribute,
-            boolean defaultValue) {
+    private boolean parseBoolean(XmlPullParser parser, String attribute, boolean defaultValue) {
         String value = getAttributeValue(parser, attribute);
         return TextUtils.isEmpty(value) ? defaultValue : Boolean.parseBoolean(value);
     }
@@ -400,8 +458,34 @@ public class ShortcutInfoCompatSaver {
         return value;
     }
 
-    private void serializeShortcutInfoCompat(XmlSerializer serializer,
+    private void serializeShortcutInfoCompatForChooserService(XmlSerializer serializer,
             ShortcutInfoCompat shortcut) throws IOException {
+        serializer.startTag(null, TAG_TARGET);
+
+        serializeAttribute(serializer, ATTR_ID, shortcut.getId());
+        serializeAttribute(serializer, ATTR_SHORT_LABEL, shortcut.getShortLabel().toString());
+        if (!TextUtils.isEmpty(shortcut.getLongLabel())) {
+            serializeAttribute(serializer, ATTR_LONG_LABEL, shortcut.getLongLabel().toString());
+        }
+        if (shortcut.getActivity() != null) {
+            serializeAttribute(serializer, ATTR_COMPONENT,
+                    shortcut.getActivity().flattenToString());
+        }
+        if (shortcut.mIcon != null) {
+            serializeIconCompat(serializer, shortcut.mIcon);
+        }
+        for (Intent intent : shortcut.getIntents()) {
+            serializeIntent(serializer, intent);
+        }
+        for (String category : shortcut.mCategories) {
+            serializeCategory(serializer, category);
+        }
+
+        serializer.endTag(null, TAG_TARGET);
+    }
+
+    private void serializeShortcutInfoCompat(XmlSerializer serializer, ShortcutInfoCompat shortcut)
+            throws IOException {
         serializer.startTag(null, TAG_TARGET);
 
         serializeAttribute(serializer, ATTR_ID, shortcut.getId());
@@ -451,8 +535,7 @@ public class ShortcutInfoCompatSaver {
         }
     }
 
-    private void serializeIntent(XmlSerializer serializer, Intent intent)
-            throws IOException {
+    private void serializeIntent(XmlSerializer serializer, Intent intent) throws IOException {
         serializer.startTag(null, TAG_INTENT);
 
         serializeAttribute(serializer, ATTR_ACTION, intent.getAction());
@@ -486,8 +569,7 @@ public class ShortcutInfoCompatSaver {
         serializer.endTag(null, TAG_PERSON);
     }
 
-    private void serializeCategory(XmlSerializer serializer, String category)
-            throws IOException {
+    private void serializeCategory(XmlSerializer serializer, String category) throws IOException {
         if (TextUtils.isEmpty(category)) {
             return;
         }
