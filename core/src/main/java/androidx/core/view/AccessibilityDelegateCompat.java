@@ -84,6 +84,7 @@ public class AccessibilityDelegateCompat {
             nodeInfoCompat.setHeading(ViewCompat.isAccessibilityHeading(host));
             nodeInfoCompat.setPaneTitle(ViewCompat.getAccessibilityPaneTitle(host));
             mCompat.onInitializeAccessibilityNodeInfo(host, nodeInfoCompat);
+            nodeInfoCompat.setCollectionInfo(host.getTag(R.id.tag_accessibility_collection_info));
             nodeInfoCompat.addSpansToExtras(info.getText(), host);
             if (Build.VERSION.SDK_INT >= 21) {
                 List<AccessibilityActionCompat> actions = getActionList(host);

@@ -1273,6 +1273,19 @@ public class ViewCompat {
     }
 
     /**
+     * Sets the collection info, use for views like
+     * {@link androidx.recyclerview.widget.RecyclerView}.
+     *
+     * @param view The view
+     * @param collectionInfoCompat The collection info.
+     */
+    public static void setCollectionInfo(View view,
+            AccessibilityNodeInfoCompat.CollectionInfoCompat collectionInfoCompat) {
+        getOrCreateAccessibilityDelegateCompat(view);
+        view.setTag(R.id.tag_accessibility_collection_info, collectionInfoCompat);
+    }
+
+    /**
      * Allow accessibility services to find and activate clickable spans in the application.
      *
      * @param view The view

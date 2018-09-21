@@ -412,4 +412,33 @@ public class RecyclerViewAccessibilityTest extends BaseRecyclerViewInstrumentati
                     action.getId());
         }
     }
+
+    @Test
+    public void setCollectionInfo() throws Throwable {
+        int rowCount = 10;
+        final TestAdapter adapter = new TestAdapter(rowCount);
+        final RecyclerView recyclerView = new RecyclerView(getActivity());
+        recyclerView.setAdapter(adapter);
+        final DumbLayoutManager layoutManager = new DumbLayoutManager();
+        recyclerView.setLayoutManager(layoutManager);
+        layoutManager.expectLayouts(1);
+
+
+        //How to reduce the number of rows the collection is said to have by one.
+        AccessibilityNodeInfoCompat.CollectionInfoCompat actual =
+                AccessibilityNodeInfoCompat.CollectionInfoCompat.obtain(rowCount - 1, 1, false);
+        ViewCompat.setCollectionInfo(recyclerView, actual);
+
+        setRecyclerView(recyclerView);
+        layoutManager.waitForLayout(1);
+
+        AccessibilityNodeInfoCompat nodeInfoCompat = AccessibilityNodeInfoCompat.obtain();
+        recyclerView.onInitializeAccessibilityNodeInfo(nodeInfoCompat.unwrap());
+        AccessibilityNodeInfoCompat.CollectionInfoCompat result =
+                nodeInfoCompat.getCollectionInfo();
+        assertEquals(actual.getRowCount(), result.getRowCount());
+        assertEquals(actual.getColumnCount(), result.getColumnCount());
+        assertEquals(actual.isHierarchical(), result.isHierarchical());
+
+    }
 }
