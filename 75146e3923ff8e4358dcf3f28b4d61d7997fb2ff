@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "48044608_c738c0ff",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-09-21T16:17:50Z",
+      "side": 1,
+      "message": "Done.\n\nRelatedly, do you think we should support multiple selection? It seems like a reasonable thing, but the UI would be pretty different.",
+      "parentUuid": "119c0ca0_058ebb36",
+      "range": {
+        "startLine": 37,
+        "startChar": 26,
+        "endLine": 37,
+        "endChar": 35
+      },
+      "revId": "75146e3923ff8e4358dcf3f28b4d61d7997fb2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d263c1e_269166cc",
         "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
         "patchSetId": 12
@@ -59,6 +83,30 @@
       "writtenOn": "2018-09-14T19:21:34Z",
       "side": 1,
       "message": "Can options repeat? If not, can you use a Map instead?",
+      "range": {
+        "startLine": 41,
+        "startChar": 22,
+        "endLine": 41,
+        "endChar": 28
+      },
+      "revId": "75146e3923ff8e4358dcf3f28b4d61d7997fb2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7a5800a_533b1360",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-09-21T16:17:50Z",
+      "side": 1,
+      "message": "Keys can\u0027t repeat, but I can\u0027t use a map because I need to keep the order. (Consider wifi networks; we put the strongest signals and/or known networks at the top of the list.)\n\nI\u0027m not super happy with this arrangement either; do you have any better ideas?",
+      "parentUuid": "9d263c1e_269166cc",
       "range": {
         "startLine": 41,
         "startChar": 22,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "b1ca672e_86a1d446",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-09-21T16:17:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a1c9155a_4984013d",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 36
+      },
+      "revId": "75146e3923ff8e4358dcf3f28b4d61d7997fb2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9014a8ee_cab933d4",
         "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
         "patchSetId": 12
@@ -114,6 +186,30 @@
       "revId": "75146e3923ff8e4358dcf3f28b4d61d7997fb2ff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bab1f1f_8356fb44",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-09-21T16:17:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9014a8ee_cab933d4",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 39
+      },
+      "revId": "75146e3923ff8e4358dcf3f28b4d61d7997fb2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "c6ddb511_00404362",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-09-21T16:17:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbf6a5cf_f8bab15c",
+      "range": {
+        "startLine": 84,
+        "startChar": 67,
+        "endLine": 84,
+        "endChar": 79
+      },
+      "revId": "75146e3923ff8e4358dcf3f28b4d61d7997fb2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "49fae966_37bc86a1",
         "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
         "patchSetId": 12
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "5c794694_226e4812",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-09-21T16:17:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49fae966_37bc86a1",
+      "range": {
+        "startLine": 116,
+        "startChar": 7,
+        "endLine": 117,
+        "endChar": 32
+      },
+      "revId": "75146e3923ff8e4358dcf3f28b4d61d7997fb2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35bb39f3_af5d1ab5",
         "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/SelectionBuilderImpl.java",
         "patchSetId": 12
@@ -177,6 +321,24 @@
       "revId": "75146e3923ff8e4358dcf3f28b4d61d7997fb2ff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1b33224_9a5ceece",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/SelectionBuilderImpl.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-09-21T16:17:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35bb39f3_af5d1ab5",
+      "revId": "75146e3923ff8e4358dcf3f28b4d61d7997fb2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
