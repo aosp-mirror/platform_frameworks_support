@@ -69,6 +69,29 @@
       "revId": "7c960b64cd83f755c2e7cbe96ac5b6f5371632ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8b0ac6e_07b22e65",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1642,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-21T02:48:11Z",
+      "side": 1,
+      "message": "I\u0027m not sure whether this address dongwon\u0027s comment. Could you double check with dongwon?\n\nThis is the callback of the MediaPlayer2 and runs on XMediaPlayer\u0027s executor.\nHowever, since the commands are actually handled by the MediaPlayer2, other next commands may be run already in the MediaPlayer2\u0027s process queue.",
+      "range": {
+        "startLine": 1642,
+        "startChar": 12,
+        "endLine": 1642,
+        "endChar": 17
+      },
+      "revId": "7c960b64cd83f755c2e7cbe96ac5b6f5371632ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
