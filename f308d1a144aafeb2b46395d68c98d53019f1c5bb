@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "003c164b_bc18899e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-09-21T22:00:26Z",
+      "side": 1,
+      "message": "I guess for automotive it would be safe, but was it released to public already?",
+      "range": {
+        "startLine": 12,
+        "startChar": 50,
+        "endLine": 12,
+        "endChar": 53
+      },
+      "revId": "f308d1a144aafeb2b46395d68c98d53019f1c5bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d44f811d_a2fef2bd",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LatLng.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-09-21T22:00:26Z",
+      "side": 1,
+      "message": "is it possible to find a better class name? I think even LatLong is better.",
+      "range": {
+        "startLine": 40,
+        "startChar": 13,
+        "endLine": 40,
+        "endChar": 19
+      },
+      "revId": "f308d1a144aafeb2b46395d68c98d53019f1c5bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75b34bb9_d9fbd501",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LatLng.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-09-21T22:00:26Z",
+      "side": 1,
+      "message": "I like the builder pattern and I know we want to be consistent but looking at the class name, it seems like the whole purpose is only to contain latitute and longitude. Why not make these a required parameter in the constructor of LatLng?\nEspecially right now it allows default (and potentially meaningless) lat and long values.",
+      "range": {
+        "startLine": 65,
+        "startChar": 7,
+        "endLine": 65,
+        "endChar": 17
+      },
+      "revId": "f308d1a144aafeb2b46395d68c98d53019f1c5bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
