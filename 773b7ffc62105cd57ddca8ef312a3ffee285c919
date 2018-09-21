@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff0177f4_e8fc1e70",
+        "filename": "media2/exoplayer/import-exoplayer.sh",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-09-21T16:37:56Z",
+      "side": 0,
+      "message": "Note: this script is now stored in google3 where ExoPlayer is developed so I\u0027m deleting this old version.",
+      "revId": "773b7ffc62105cd57ddca8ef312a3ffee285c919",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
