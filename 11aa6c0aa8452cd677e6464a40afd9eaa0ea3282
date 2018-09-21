@@ -46,6 +46,30 @@
       "revId": "11aa6c0aa8452cd677e6464a40afd9eaa0ea3282",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9305625_610dc738",
+        "filename": "media2/src/androidTest/java/androidx/media2/XMediaPlayerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1121,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-09-21T14:35:35Z",
+      "side": 1,
+      "message": "Thanks! Resolving.",
+      "parentUuid": "659826d6_a7ff5539",
+      "range": {
+        "startLine": 1107,
+        "startChar": 0,
+        "endLine": 1121,
+        "endChar": 5
+      },
+      "revId": "11aa6c0aa8452cd677e6464a40afd9eaa0ea3282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
