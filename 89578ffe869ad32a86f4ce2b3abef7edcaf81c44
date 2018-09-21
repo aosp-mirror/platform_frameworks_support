@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "648b4c39_b6b99292",
+        "filename": "media-widget/src/main/java/androidx/media/widget/RoutePlayer2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-09-21T06:28:13Z",
+      "side": 1,
+      "message": "Callback can be instance of MediaSession2ImplBase.SessionPlayerCallback",
+      "range": {
+        "startLine": 92,
+        "startChar": 26,
+        "endLine": 92,
+        "endChar": 93
+      },
+      "revId": "89578ffe869ad32a86f4ce2b3abef7edcaf81c44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
