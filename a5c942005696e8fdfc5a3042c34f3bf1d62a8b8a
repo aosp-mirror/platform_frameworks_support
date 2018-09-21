@@ -22,6 +22,30 @@
       "revId": "a5c942005696e8fdfc5a3042c34f3bf1d62a8b8a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44357acc_f601d29e",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer2Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-21T16:07:07Z",
+      "side": 1,
+      "message": "Discussed offline. Removed the timeout since there is a possibility that there is a case that currentTask will send the event even when we add a flag to notify that the instance was reset.",
+      "parentUuid": "dad26098_fe10564f",
+      "range": {
+        "startLine": 580,
+        "startChar": 1,
+        "endLine": 585,
+        "endChar": 13
+      },
+      "revId": "a5c942005696e8fdfc5a3042c34f3bf1d62a8b8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
