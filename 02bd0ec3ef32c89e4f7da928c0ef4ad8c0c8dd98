@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "bf297b1b_3e16d69f",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/SelectionBuilderBasicImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-09-21T16:17:54Z",
+      "side": 1,
+      "message": "Apparently not; if I comment this out, Studio gives me a red squiggly on the class that says \"There is no default constructor available in \u0027androidx.slice.builders.impl.SelectionBuilderImpl\u0027\".",
+      "parentUuid": "24e6bc64_28889599",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 5
+      },
+      "revId": "02bd0ec3ef32c89e4f7da928c0ef4ad8c0c8dd98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "143804b1_1bf616d5",
         "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/SelectionBuilderBasicImpl.java",
         "patchSetId": 6
@@ -68,6 +92,30 @@
       "revId": "02bd0ec3ef32c89e4f7da928c0ef4ad8c0c8dd98",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d830e864_64b38c77",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/SelectionBuilderBasicImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-09-21T16:17:54Z",
+      "side": 1,
+      "message": "No; it calls it with no selected option. I\u0027ve updated the comment to be clearer.",
+      "parentUuid": "143804b1_1bf616d5",
+      "range": {
+        "startLine": 40,
+        "startChar": 83,
+        "endLine": 40,
+        "endChar": 84
+      },
+      "revId": "02bd0ec3ef32c89e4f7da928c0ef4ad8c0c8dd98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "dec04e65_4514e72a",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/SelectionBuilderBasicImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-09-21T16:17:54Z",
+      "side": 1,
+      "message": "They don\u0027t, and I\u0027ve clarified that.",
+      "parentUuid": "2dfa8a43_7f8a7e2e",
+      "range": {
+        "startLine": 42,
+        "startChar": 38,
+        "endLine": 42,
+        "endChar": 81
+      },
+      "revId": "02bd0ec3ef32c89e4f7da928c0ef4ad8c0c8dd98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97600e43_95260adb",
         "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/SelectionBuilderBasicImpl.java",
         "patchSetId": 6
@@ -114,6 +186,30 @@
       "revId": "02bd0ec3ef32c89e4f7da928c0ef4ad8c0c8dd98",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc384a45_d365b028",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/SelectionBuilderBasicImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-09-21T16:17:54Z",
+      "side": 1,
+      "message": "We will, but only in list context, not basic -- unless you think we should provide it in both contexts?",
+      "parentUuid": "97600e43_95260adb",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 97
+      },
+      "revId": "02bd0ec3ef32c89e4f7da928c0ef4ad8c0c8dd98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
