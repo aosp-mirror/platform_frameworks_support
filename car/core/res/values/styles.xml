@@ -546,14 +546,41 @@ limitations under the License.
     <!-- ============== -->
     <eat-comment />
 
-    <style name="SpinnerDropDownItem">
-        <item name="android:textAppearance">@style/TextAppearance.Car.Body2</item>
-        <item name="android:divider">@drawable/car_preference_divider</item>
-        <item name="android:paddingLeft">@dimen/car_keyline_1</item>
-        <item name="android:paddingRight">@dimen/car_keyline_1</item>
-        <item name="android:paddingTop">@dimen/car_padding_4</item>
-        <item name="android:paddingBottom">@dimen/car_padding_4</item>
+    <style name="SpinnerDropDownItemDark">
+        <item name="android:background">@color/car_body1_dark</item>
+        <item name="android:textAppearance">@style/TextAppearance.Car.Body1</item>
+        <!--<item name="android:background">@color/car_white_1000</item>-->
+        <!--<item name="android:divider">@drawable/car_preference_divider</item>-->
+        <!--<item name="android:paddingLeft">@dimen/car_keyline_1</item>-->
+        <!--<item name="android:paddingRight">@dimen/car_keyline_1</item>-->
+        <!--<item name="android:paddingTop">@dimen/car_padding_4</item>-->
+        <!--<item name="android:paddingBottom">@dimen/car_padding_4</item>-->
     </style>
+
+    <style name="SpinnerDropDownItemLight">
+        <item name="android:background">@color/car_body1_light</item>
+        <item name="android:textAppearance">@style/TextAppearance.Car.Body3.Light</item>
+        <!--<item name="android:background">@color/car_body1_dark</item>-->
+        <!--<item name="android:divider">@drawable/car_preference_divider</item>-->
+        <!--<item name="android:paddingLeft">@dimen/car_keyline_1</item>-->
+        <!--<item name="android:paddingRight">@dimen/car_keyline_1</item>-->
+        <!--<item name="android:paddingTop">@dimen/car_padding_4</item>-->
+        <!--<item name="android:paddingBottom">@dimen/car_padding_4</item>-->
+    </style>
+
+    <style name="SpinnerItemDark">
+        <item name="android:background">@color/car_body1_dark</item>
+        <!--<item name="android:textSize">20dp</item>-->
+    </style>
+
+    <style name="SpinnerItemLight">
+        <item name="android:background">@color/car_body1_light</item>
+        <!--<item name="android:textSize">20dp</item>-->
+    </style>
+
+    <!-- ============== -->
+    <!-- Dialog Styles -->
+    <!-- ============== -->
 
     <style name="AlertDialog" parent="AlertDialog.AppCompat">
         <item name="multiChoiceItemLayout">@layout/select_dialog_multichoice_car</item>
