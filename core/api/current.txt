@@ -1991,6 +1991,8 @@ package androidx.core.view {
     method public static void setBackgroundTintMode(android.view.View, android.graphics.PorterDuff.Mode!);
     method @Deprecated public static void setChildrenDrawingOrderEnabled(android.view.ViewGroup!, boolean);
     method public static void setClipBounds(android.view.View, android.graphics.Rect!);
+    method public static void setCollectionInfo(android.view.View!, androidx.core.view.accessibility.AccessibilityNodeInfoCompat.CollectionInfoCompat!);
+    method public static void setCollectionItemInfo(android.view.View!, androidx.core.view.accessibility.AccessibilityNodeInfoCompat.CollectionItemInfoCompat!);
     method public static void setElevation(android.view.View, float);
     method @Deprecated public static void setFitsSystemWindows(android.view.View!, boolean);
     method public static void setFocusedByDefault(android.view.View, boolean);

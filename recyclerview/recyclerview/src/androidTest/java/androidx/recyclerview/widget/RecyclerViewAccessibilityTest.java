@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 
 import androidx.core.view.AccessibilityDelegateCompat;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.test.filters.MediumTest;
 
@@ -295,5 +296,67 @@ public class RecyclerViewAccessibilityTest extends BaseRecyclerViewInstrumentati
         getInstrumentation().waitForIdleSync();
         Thread.sleep(250);
         return result[0];
+    }
+
+    @Test
+    public void setCollectionInfo() throws Throwable {
+        int rowCount = 10;
+        final TestAdapter adapter = new TestAdapter(rowCount);
+        final RecyclerView recyclerView = new RecyclerView(getActivity());
+        recyclerView.setAdapter(adapter);
+        final DumbLayoutManager layoutManager = new DumbLayoutManager();
+        recyclerView.setLayoutManager(layoutManager);
+        layoutManager.expectLayouts(1);
+
+
+        //How to reduce the number of rows the collection is said to have by one.
+        AccessibilityNodeInfoCompat.CollectionInfoCompat actual =
+                AccessibilityNodeInfoCompat.CollectionInfoCompat.obtain(rowCount - 1, 1, false);
+        ViewCompat.setCollectionInfo(recyclerView, actual);
+
+        setRecyclerView(recyclerView);
+        layoutManager.waitForLayout(1);
+
+        AccessibilityNodeInfoCompat nodeInfoCompat = AccessibilityNodeInfoCompat.obtain();
+        recyclerView.onInitializeAccessibilityNodeInfo(nodeInfoCompat.unwrap());
+        AccessibilityNodeInfoCompat.CollectionInfoCompat result =
+                nodeInfoCompat.getCollectionInfo();
+        assertEquals(actual.getRowCount(), result.getRowCount());
+        assertEquals(actual.getColumnCount(), result.getColumnCount());
+        assertEquals(actual.isHierarchical(), result.isHierarchical());
+
+    }
+
+    @Test
+    public void setCollectionItemInfo() throws Throwable {
+        final int rowCount = 10;
+        final TestAdapter adapter = new TestAdapter(1) {
+            public void onBindViewHolder(TestViewHolder holder, int position) {
+                super.onBindViewHolder(holder, position);
+                ViewCompat.setCollectionItemInfo(holder.itemView, AccessibilityNodeInfoCompat
+                        .CollectionItemInfoCompat.obtain(
+                                rowCount - position - 1,  1, 0, 1, true, false));
+
+            }
+        };
+
+        final RecyclerView recyclerView = new RecyclerView(getActivity());
+        recyclerView.setAdapter(adapter);
+        final DumbLayoutManager layoutManager = new DumbLayoutManager();
+        recyclerView.setLayoutManager(layoutManager);
+        layoutManager.expectLayouts(1);
+
+        setRecyclerView(recyclerView);
+        layoutManager.waitForLayout(1);
+
+        View view = recyclerView.getChildAt(0);
+        AccessibilityNodeInfoCompat nodeInfoCompat = AccessibilityNodeInfoCompat.obtain();
+        view.onInitializeAccessibilityNodeInfo(nodeInfoCompat.unwrap());
+        AccessibilityNodeInfoCompat.CollectionItemInfoCompat result =
+                nodeInfoCompat.getCollectionItemInfo();
+        assertEquals(9, result.getRowIndex());
+        assertEquals(0, result.getColumnIndex());
+        assertEquals(1, result.getRowSpan());
+        assertEquals(1, result.getColumnSpan());
     }
 }
