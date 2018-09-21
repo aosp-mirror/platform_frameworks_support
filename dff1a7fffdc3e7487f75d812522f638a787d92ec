@@ -22,6 +22,30 @@
       "revId": "dff1a7fffdc3e7487f75d812522f638a787d92ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b71f6a24_16791583",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-09-21T00:30:09Z",
+      "side": 1,
+      "message": "windowAnimations is a parameter in LayoutParamters that takes a style.\nI modified the code slightly for better readability.",
+      "parentUuid": "24eb814e_dbed5748",
+      "range": {
+        "startLine": 88,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 70
+      },
+      "revId": "dff1a7fffdc3e7487f75d812522f638a787d92ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
