@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "bade8497_ca8e46d9",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/ListBuilderBasicImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-09-21T16:18:08Z",
+      "side": 1,
+      "message": "Done.\n\nThe other methods here don\u0027t have it -- should I add it to all of them?",
+      "parentUuid": "5a26bac6_704220ba",
+      "range": {
+        "startLine": 176,
+        "startChar": 29,
+        "endLine": 176,
+        "endChar": 53
+      },
+      "revId": "88c0d7affdc8c2892114009207a90875f69be0b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4cba66c9_462015a1",
         "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/ListBuilderBasicImpl.java",
         "patchSetId": 6
@@ -82,6 +106,30 @@
       "writtenOn": "2018-09-17T16:08:03Z",
       "side": 1,
       "message": "this is annoying because of icons :(\n\nI\u0027m thinking maybe we might want to relax SliceAction from requiring an icon / maybe only in the SliceActionImpl in core so it\u0027s just used internally? That might make this a little easier?",
+      "range": {
+        "startLine": 184,
+        "startChar": 12,
+        "endLine": 184,
+        "endChar": 58
+      },
+      "revId": "88c0d7affdc8c2892114009207a90875f69be0b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a467e278_01e5fcc2",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/ListBuilderBasicImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-09-21T16:18:08Z",
+      "side": 1,
+      "message": "Should the caller be providing a SliceAction then?",
+      "parentUuid": "4cba66c9_462015a1",
       "range": {
         "startLine": 184,
         "startChar": 12,
