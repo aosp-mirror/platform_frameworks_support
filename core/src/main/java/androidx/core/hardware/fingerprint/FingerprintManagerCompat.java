@@ -26,6 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RequiresPermission;
+import androidx.biometrics.BiometricPrompt;
 import androidx.core.os.CancellationSignal;
 
 import java.security.Signature;
@@ -38,7 +39,10 @@ import javax.crypto.Mac;
  * <p>
  * On platforms before {@link android.os.Build.VERSION_CODES#M}, this class behaves as there would
  * be no fingerprint hardware available.
+ *
+ * @deprecated Use {@link BiometricPrompt} instead.
  */
+@Deprecated
 public final class FingerprintManagerCompat {
 
     private final Context mContext;
