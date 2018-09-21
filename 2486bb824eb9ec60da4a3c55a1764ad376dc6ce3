@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "686fefd4_1af1cc77",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-09-21T21:18:34Z",
+      "side": 1,
+      "message": "Which is the better structure here? HashMap or ArrayMap?",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 11
+      },
+      "revId": "2486bb824eb9ec60da4a3c55a1764ad376dc6ce3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
