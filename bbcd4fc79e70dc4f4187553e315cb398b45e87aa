@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41ff479e_78c9a9fd",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-21T22:01:16Z",
+      "side": 1,
+      "message": "Just a thought (nothing to do in this CL): Make this final?  Or if you really want it to be part of public api (maybe start final and open up later if it seems reasonable), add @CallSuper.\n\nSame goes for all other @Overrides.",
+      "range": {
+        "startLine": 69,
+        "startChar": 30,
+        "endLine": 69,
+        "endChar": 48
+      },
+      "revId": "bbcd4fc79e70dc4f4187553e315cb398b45e87aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
