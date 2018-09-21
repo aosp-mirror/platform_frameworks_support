@@ -36,11 +36,22 @@ import java.util.List;
  * Home activity for car support library samples.
  */
 public class SupportCarDemoActivity extends ListActivity {
+
+    public static boolean mOpened = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setListAdapter(new SampleAdapter(querySampleActivities()));
+        SampleAdapter sample = new SampleAdapter(querySampleActivities());
+
+        setListAdapter(sample);
+
+        if (!mOpened) {
+            SampleInfo i = (SampleInfo) sample.getItem(9);
+            startActivity(i.mIntent);
+            mOpened = true;
+        }
     }
 
     @Override
@@ -80,6 +91,7 @@ public class SupportCarDemoActivity extends ListActivity {
     }
 
     static class SampleInfo implements Comparable<SampleInfo> {
+
         String mName;
         Intent mIntent;
 
@@ -95,6 +107,7 @@ public class SupportCarDemoActivity extends ListActivity {
     }
 
     class SampleAdapter extends BaseAdapter {
+
         private List<SampleInfo> mItems;
 
         SampleAdapter(List<SampleInfo> items) {

@@ -186,6 +186,8 @@ limitations under the License.
         <!-- An attribute for specifying a style that modifies the look of CarToolbar. -->
         <attr name="carToolbarStyle" format="reference"/>
 
+        <attr name="themeName" format="string"/>
+
 
         <!-- ================= -->
         <!-- Dialog Attributes -->

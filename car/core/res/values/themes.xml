@@ -40,7 +40,9 @@ limitations under the License.
         <item name="android:secondaryProgressTint">@color/car_seekbar_track_secondary_progress</item>
         <item name="android:seekBarStyle">@style/Widget.Car.SeekBar.Light</item>
         <item name="android:textColorHint">@color/car_body2_light</item>
-        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
+        <item name="android:spinnerStyle">@style/SpinnerStyle</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerItemLight</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemLight</item>
         <item name="actionBarItemBackground">@drawable/car_card_ripple_background</item>
         <item name="actionBarSize">@dimen/car_app_bar_height</item>
         <item name="actionButtonStyle">@style/Widget.Car.ActionButton.Light</item>
@@ -68,6 +70,7 @@ limitations under the License.
         <item name="checkboxStyle">@style/Widget.Car.CheckBox.Light</item>
         <item name="toolbarNavigationButtonStyle">@style/Widget.Car.Toolbar.Button.Navigation</item>
         <item name="toolbarStyle">@style/Widget.Car.Toolbar.Light</item>
+        <item name="themeName">Dark</item>
     </style>
 
     <!-- Light theme for the Car. This theme has light colors for card backgrounds and dark
@@ -91,7 +94,7 @@ limitations under the License.
         <item name="android:editTextColor">@color/car_body1</item>
         <item name="android:colorControlNormal">@color/car_body2</item>
         <item name="android:seekBarStyle">@style/Widget.Car.SeekBar</item>
-        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
+        <item name="android:spinnerStyle">@style/SpinnerStyle</item>
         <item name="actionBarItemBackground">@drawable/car_card_ripple_background</item>
         <item name="actionBarSize">@dimen/car_app_bar_height</item>
         <item name="actionButtonStyle">@style/Widget.Car.ActionButton</item>
@@ -116,6 +119,7 @@ limitations under the License.
         <item name="checkboxStyle">@style/Widget.Car.CheckBox</item>
         <item name="toolbarNavigationButtonStyle">@style/Widget.Car.Toolbar.Button.Navigation</item>
         <item name="toolbarStyle">@style/Widget.Car.Toolbar</item>
+        <item name="themeName">Light</item>
     </style>
 
     <!-- Theme that is a pass-through for Theme.Car.NoActionBar. -->
