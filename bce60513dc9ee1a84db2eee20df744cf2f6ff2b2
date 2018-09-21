@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d995d64c_288e226e",
+        "filename": "lifecycle/livedata/src/main/java/androidx/lifecycle/Transformations.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-21T18:08:14Z",
+      "side": 1,
+      "message": "+1 for simply distinct.\n\nLet\u0027s clarify in docs that we rely on the equals call",
+      "revId": "bce60513dc9ee1a84db2eee20df744cf2f6ff2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
