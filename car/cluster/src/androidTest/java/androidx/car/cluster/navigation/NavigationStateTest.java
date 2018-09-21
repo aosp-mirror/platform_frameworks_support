@@ -181,6 +181,10 @@ public class NavigationStateTest {
                 .addDestination(new Destination.Builder()
                         .setTitle("Home")
                         .setDistance(new Distance(1230, "1.2", Distance.Unit.KILOMETERS))
+                        .setLocation(new LatLng.Builder()
+                                .setLatitude(37.4219999)
+                                .setLongitude(-122.0840575)
+                                .build())
                         .build())
                 .build();
     }
