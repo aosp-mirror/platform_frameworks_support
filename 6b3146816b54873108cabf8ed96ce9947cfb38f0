@@ -22,6 +22,30 @@
       "revId": "6b3146816b54873108cabf8ed96ce9947cfb38f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91dbf5c5_851a3311",
+        "filename": "arch/core-runtime/src/main/java/androidx/arch/core/executor/DefaultTaskExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-21T20:34:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "178db55e_1b4b5ee4",
+      "range": {
+        "startLine": 93,
+        "startChar": 15,
+        "endLine": 100,
+        "endChar": 50
+      },
+      "revId": "6b3146816b54873108cabf8ed96ce9947cfb38f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
