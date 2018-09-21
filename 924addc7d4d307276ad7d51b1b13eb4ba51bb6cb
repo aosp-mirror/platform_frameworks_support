@@ -93,6 +93,30 @@
       "revId": "924addc7d4d307276ad7d51b1b13eb4ba51bb6cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d094fc7_2818b76a",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/cards/CardView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2018-09-21T09:15:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df33f5e8_490da6d3",
+      "range": {
+        "startLine": 100,
+        "startChar": 81,
+        "endLine": 100,
+        "endChar": 83
+      },
+      "revId": "924addc7d4d307276ad7d51b1b13eb4ba51bb6cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
