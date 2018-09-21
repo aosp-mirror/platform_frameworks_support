@@ -1,0 +1,9 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+API-Review+1: Clara Bayarri <clarabayarri@google.com>
+Code-Review+2: kirillg <kirillg@google.com>
+Code-Review+2: Clara Bayarri <clarabayarri@google.com>
+Submitted-by: Cătălin Tudor <catalintudor@google.com>
+Submitted-at: Fri, 21 Sep 2018 14:41:46 +0000
+Reviewed-on: https://android-review.googlesource.com/758339
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
