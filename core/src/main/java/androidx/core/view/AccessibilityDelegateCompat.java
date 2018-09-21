@@ -34,6 +34,8 @@ import androidx.annotation.RestrictTo;
 import androidx.core.R;
 import androidx.core.view.accessibility.AccessibilityClickableSpanCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.CollectionInfoCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.CollectionItemInfoCompat;
 import androidx.core.view.accessibility.AccessibilityNodeProviderCompat;
 
 import java.lang.ref.WeakReference;
@@ -81,6 +83,19 @@ public class AccessibilityDelegateCompat {
             nodeInfoCompat.setHeading(ViewCompat.isAccessibilityHeading(host));
             nodeInfoCompat.setPaneTitle(ViewCompat.getAccessibilityPaneTitle(host));
             mCompat.onInitializeAccessibilityNodeInfo(host, nodeInfoCompat);
+            CollectionInfoCompat ci =
+                    (CollectionInfoCompat) host.getTag(R.id.tag_accessibility_collection_info);
+            if (ci != null) {
+                nodeInfoCompat.setCollectionInfo(CollectionInfoCompat.obtain(ci.getRowCount(),
+                        ci.getColumnCount(), ci.isHierarchical(), ci.getSelectionMode()));
+            }
+            CollectionItemInfoCompat cii = (CollectionItemInfoCompat) host.getTag(
+                    R.id.tag_accessibility_collection_item_info);
+            if (cii != null) {
+                nodeInfoCompat.setCollectionItemInfo(CollectionItemInfoCompat.obtain(
+                        cii.getRowIndex(), cii.getRowSpan(), cii.getColumnIndex(), cii.getRowSpan(),
+                        cii.isHeading(), cii.isSelected()));
+            }
             nodeInfoCompat.addSpansToExtras(info.getText(), host);
         }
 

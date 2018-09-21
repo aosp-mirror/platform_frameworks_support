@@ -28,4 +28,6 @@
     <item name="tag_accessibility_heading" type="id"/>
     <item name="tag_accessibility_pane_title" type="id"/>
     <item name="tag_accessibility_clickable_spans" type="id"/>
+    <item name="tag_accessibility_collection_info" type="id"/>
+    <item name="tag_accessibility_collection_item_info" type="id"/>
 </resources>
