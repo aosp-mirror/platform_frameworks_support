@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "178db55e_1b4b5ee4",
+        "filename": "arch/core-runtime/src/main/java/androidx/arch/core/executor/DefaultTaskExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-09-21T20:08:52Z",
+      "side": 1,
+      "message": "do we really want to throw here or just fall back to `new Handler` ?\nfeels like developer cannot really fix it ?",
+      "range": {
+        "startLine": 93,
+        "startChar": 15,
+        "endLine": 100,
+        "endChar": 50
+      },
+      "revId": "6b3146816b54873108cabf8ed96ce9947cfb38f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
