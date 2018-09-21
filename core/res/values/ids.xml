@@ -61,4 +61,6 @@
     <item name="accessibility_custom_action_29" type="id"/>
     <item name="accessibility_custom_action_30" type="id"/>
     <item name="accessibility_custom_action_31" type="id"/>
+    <item name="tag_accessibility_collection_info" type="id"/>
+    <item name="tag_accessibility_collection_item_info" type="id"/>
 </resources>
