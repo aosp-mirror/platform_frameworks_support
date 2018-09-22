@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26957144_88655cba",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1251,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-09-22T00:48:37Z",
+      "side": 1,
+      "message": "nit: You don\u0027t really know for sure that the removed actions are framework ones. You just know that they are added by the view.",
+      "range": {
+        "startLine": 1251,
+        "startChar": 16,
+        "endLine": 1251,
+        "endChar": 45
+      },
+      "revId": "e39e811d75c43fc62910a7ad9fe7c82feadcd288",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

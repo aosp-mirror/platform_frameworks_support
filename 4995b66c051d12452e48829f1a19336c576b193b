@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c011f0b1_c060f2e5",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-09-22T00:48:37Z",
+      "side": 1,
+      "message": "nit: Doesn\u0027t really say what you\u0027d expect to happen.",
+      "range": {
+        "startLine": 305,
+        "startChar": 16,
+        "endLine": 305,
+        "endChar": 31
+      },
+      "revId": "4995b66c051d12452e48829f1a19336c576b193b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf350088_38344b6a",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-09-22T00:48:37Z",
+      "side": 1,
+      "message": "Why don\u0027t you want to?",
+      "range": {
+        "startLine": 313,
+        "startChar": 11,
+        "endLine": 313,
+        "endChar": 37
+      },
+      "revId": "4995b66c051d12452e48829f1a19336c576b193b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60306e13_7ac1d8d2",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-09-22T00:48:37Z",
+      "side": 1,
+      "message": "These tests are long, and this code looks repeated. Maybe pull it out?",
+      "range": {
+        "startLine": 399,
+        "startChar": 8,
+        "endLine": 407,
+        "endChar": 39
+      },
+      "revId": "4995b66c051d12452e48829f1a19336c576b193b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
