@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "5c8b95f9_7ed67b73",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-09-22T00:47:25Z",
+      "side": 1,
+      "message": "I think all dialogs should have these animations. I moved them from Theme.Car.Dark.Dialog to Theme.Car.Dialog, and also added them to Theme.Car.Dialog.Alert.",
+      "parentUuid": "4985efcb_07949b5d",
+      "revId": "72f6e383361a4c032bd990de6689c77c7c66254e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1bd9bf46_965f0f73",
         "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
         "patchSetId": 2
@@ -233,6 +251,24 @@
       "revId": "72f6e383361a4c032bd990de6689c77c7c66254e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2403502_c20ee16a",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-09-22T00:47:25Z",
+      "side": 1,
+      "message": "That makes sense, will update.",
+      "parentUuid": "1720a26c_5cc41bee",
+      "revId": "72f6e383361a4c032bd990de6689c77c7c66254e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
