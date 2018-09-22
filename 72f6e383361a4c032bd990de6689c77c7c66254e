@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "08291784_3130c1c8",
+        "filename": "car/core/res/anim/car_dialog_enter.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-09-22T00:02:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49c8bdef_0dd389e1",
+      "revId": "72f6e383361a4c032bd990de6689c77c7c66254e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "249f2c87_fb922c91",
         "filename": "car/core/res/anim/car_dialog_exit.xml",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "72f6e383361a4c032bd990de6689c77c7c66254e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a35fb31_82cfc625",
+        "filename": "car/core/res/anim/car_dialog_exit.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-09-22T00:02:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "249f2c87_fb922c91",
+      "revId": "72f6e383361a4c032bd990de6689c77c7c66254e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "9543f1fd_32b90820",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-09-22T00:02:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1bd9bf46_965f0f73",
+      "range": {
+        "startLine": 86,
+        "startChar": 24,
+        "endLine": 86,
+        "endChar": 28
+      },
+      "revId": "72f6e383361a4c032bd990de6689c77c7c66254e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "538bf7a3_eab6ea52",
         "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
         "patchSetId": 2
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "48379418_f133af0b",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-09-22T00:02:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "538bf7a3_eab6ea52",
+      "range": {
+        "startLine": 87,
+        "startChar": 35,
+        "endLine": 87,
+        "endChar": 37
+      },
+      "revId": "72f6e383361a4c032bd990de6689c77c7c66254e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91eb04d9_49582847",
         "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
         "patchSetId": 2
@@ -96,6 +180,24 @@
       "revId": "72f6e383361a4c032bd990de6689c77c7c66254e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb29b74d_2a1d760c",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-09-22T00:02:12Z",
+      "side": 1,
+      "message": "I\u0027m not sure that\u0027s possible, I moved the animations to the theme but they do not work unless that line is specified. I\u0027m leaving the changes in the theme file for the time being.",
+      "parentUuid": "91eb04d9_49582847",
+      "revId": "72f6e383361a4c032bd990de6689c77c7c66254e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -122,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "3594d2f6_b8fc7664",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-09-22T00:02:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "41f98c48_82531086",
+      "range": {
+        "startLine": 94,
+        "startChar": 12,
+        "endLine": 94,
+        "endChar": 20
+      },
+      "revId": "72f6e383361a4c032bd990de6689c77c7c66254e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23d6de39_da32fb93",
         "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
         "patchSetId": 2
@@ -136,6 +262,24 @@
       "revId": "72f6e383361a4c032bd990de6689c77c7c66254e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8703ceb5_16104227",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-09-22T00:02:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23d6de39_da32fb93",
+      "revId": "72f6e383361a4c032bd990de6689c77c7c66254e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
