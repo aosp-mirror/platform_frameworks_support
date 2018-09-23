@@ -48,6 +48,53 @@
     },
     {
       "key": {
+        "uuid": "a9db0a6b_35c167d3",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LatLng.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-09-23T22:44:49Z",
+      "side": 1,
+      "message": "I think LatLng is more popular internally, and also consistent with Google Maps Android API.\n\nhttps://developers.google.com/android/reference/com/google/android/gms/maps/model/LatLng\n\nInternally, latlng is more than 10x as popular:\n- LatLng: 641k results. https://cs.corp.google.com/search/?q\u003dlatlng\u0026sq\u003dpackage:piper+file://depot/google3+-file:google3/experimental: \n- LatLong: 45k results. https://cs.corp.google.com/search/?q\u003dlatlong\u0026sq\u003dpackage:piper+file://depot/google3+-file:google3/experimental",
+      "parentUuid": "d44f811d_a2fef2bd",
+      "range": {
+        "startLine": 40,
+        "startChar": 13,
+        "endLine": 40,
+        "endChar": 19
+      },
+      "revId": "f308d1a144aafeb2b46395d68c98d53019f1c5bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d084d2d5_df71cfcd",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LatLng.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-09-23T22:44:49Z",
+      "side": 1,
+      "message": "public final class",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 12
+      },
+      "revId": "f308d1a144aafeb2b46395d68c98d53019f1c5bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75b34bb9_d9fbd501",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LatLng.java",
         "patchSetId": 4
@@ -59,6 +106,30 @@
       "writtenOn": "2018-09-21T22:00:26Z",
       "side": 1,
       "message": "I like the builder pattern and I know we want to be consistent but looking at the class name, it seems like the whole purpose is only to contain latitute and longitude. Why not make these a required parameter in the constructor of LatLng?\nEspecially right now it allows default (and potentially meaningless) lat and long values.",
+      "range": {
+        "startLine": 65,
+        "startChar": 7,
+        "endLine": 65,
+        "endChar": 17
+      },
+      "revId": "f308d1a144aafeb2b46395d68c98d53019f1c5bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4533fdac_99e31483",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LatLng.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-09-23T22:44:49Z",
+      "side": 1,
+      "message": "FYI I think we need the no-args constructor for VersionedParcelable",
+      "parentUuid": "75b34bb9_d9fbd501",
       "range": {
         "startLine": 65,
         "startChar": 7,
