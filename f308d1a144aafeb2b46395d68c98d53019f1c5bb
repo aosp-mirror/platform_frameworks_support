@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "433503de_35db344f",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LatLng.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-09-23T23:28:00Z",
+      "side": 1,
+      "message": "nit: remove /",
+      "range": {
+        "startLine": 35,
+        "startChar": 5,
+        "endLine": 35,
+        "endChar": 6
+      },
+      "revId": "f308d1a144aafeb2b46395d68c98d53019f1c5bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d44f811d_a2fef2bd",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LatLng.java",
         "patchSetId": 4
