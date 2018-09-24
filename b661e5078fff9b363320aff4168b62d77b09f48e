@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "70a8bca0_89b98cc0",
+        "filename": "core/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2018-09-24T20:29:25Z",
+      "side": 1,
+      "message": "Ok, I didn\u0027t think it was a great idea either. Removed and using @code for now",
+      "parentUuid": "f32edbe9_910bdde4",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 76
+      },
+      "revId": "b661e5078fff9b363320aff4168b62d77b09f48e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4830a70_05fdcc74",
         "filename": "core/src/main/java/androidx/core/hardware/fingerprint/FingerprintManagerCompat.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "b661e5078fff9b363320aff4168b62d77b09f48e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5d6dfdc_63547742",
+        "filename": "core/src/main/java/androidx/core/hardware/fingerprint/FingerprintManagerCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2018-09-24T20:29:25Z",
+      "side": 1,
+      "message": "Filed b/116495021",
+      "parentUuid": "b4830a70_05fdcc74",
+      "range": {
+        "startLine": 43,
+        "startChar": 19,
+        "endLine": 43,
+        "endChar": 42
+      },
+      "revId": "b661e5078fff9b363320aff4168b62d77b09f48e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
