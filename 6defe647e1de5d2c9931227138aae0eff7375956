@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "486fe1b7_9b2a6f72",
+        "filename": "car/core/res/values/themes.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-24T18:40:51Z",
+      "side": 1,
+      "message": "nit: make this \"Car.Dialog.Animiation\" instead",
+      "range": {
+        "startLine": 239,
+        "startChar": 17,
+        "endLine": 239,
+        "endChar": 23
+      },
+      "revId": "6defe647e1de5d2c9931227138aae0eff7375956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "328c4117_3e12b59c",
+        "filename": "car/core/res/values/themes.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-24T18:40:51Z",
+      "side": 1,
+      "message": "Is the \"@android:style\" needed or can you just do\n\n  parent\u003d\"Animation.Dialog\"",
+      "range": {
+        "startLine": 239,
+        "startChar": 43,
+        "endLine": 239,
+        "endChar": 58
+      },
+      "revId": "6defe647e1de5d2c9931227138aae0eff7375956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
