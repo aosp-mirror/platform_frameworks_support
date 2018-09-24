@@ -154,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "a4c98d1e_01c09dd1",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1130919
+      },
+      "writtenOn": "2018-09-24T19:26:20Z",
+      "side": 1,
+      "message": ":)\n\nAh, makes sense. I take back my proposal for getInt() and getString() - good point about the type.\n\nI was thinking about it as a proto. So here in androidX we can extend the class and at AndroidX HEAD it is always be the latest version. And AOSP will just take its snapshot @Q release, @R release, etc. And it just seems cleaner to have everything in the bundle, rather than serializing some stuff directly and some separately. Because once you introduce something experimental that will be in bundle it will have to stay there forever to be compatible with the old AOSP versions (so that it \"goes through\"). So the only fields that will be outside of the bundle are the ones here. And if you see the current best practices about protos - marking any fields \"required\", is considered a bad practice.",
+      "parentUuid": "2d63b0e1_3d1c4b87",
+      "range": {
+        "startLine": 202,
+        "startChar": 8,
+        "endLine": 216,
+        "endChar": 29
+      },
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cccc9670_82c3bf25",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 2
@@ -254,6 +278,30 @@
     },
     {
       "key": {
+        "uuid": "dc2d7b32_973acbf1",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1130919
+      },
+      "writtenOn": "2018-09-24T19:26:20Z",
+      "side": 1,
+      "message": "I\u0027m not proposing to log any text.\n\nI am just saying we should log a list of action indices. E.g. [1, 3, 139, 359], meaning [MAPS, PHONE, ...].",
+      "parentUuid": "d3bba403_055f22ad",
+      "range": {
+        "startLine": 327,
+        "startChar": 15,
+        "endLine": 327,
+        "endChar": 29
+      },
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0c005f45_59a76f86",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 2
@@ -336,6 +384,24 @@
       "side": 1,
       "message": "I don\u0027t have any objections to this. Is that better?\nI\u0027m thinking if the user already has the language string, they shouldn\u0027t need to construct a Locale or ULocale object. And if they have the latter, they can easily get the associated language string.",
       "parentUuid": "6cc7bf63_051ef8d3",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8f33cd8_1cf6cf08",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1130919
+      },
+      "writtenOn": "2018-09-24T19:26:20Z",
+      "side": 1,
+      "message": "+1 locale seems to be a different concept than language, no?",
+      "parentUuid": "7ecacf95_419d6dda",
       "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
