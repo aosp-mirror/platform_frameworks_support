@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "43369a6d_c56b81d6",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-24T18:33:38Z",
+      "side": 1,
+      "message": "So this should be removed?",
+      "parentUuid": "a7f3d55d_05dfecfe",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55e1eab5_4eba1bde",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 2
@@ -171,6 +189,24 @@
     },
     {
       "key": {
+        "uuid": "f95f0bb1_4e13aa2c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-24T18:33:38Z",
+      "side": 1,
+      "message": "maybe getExtrasBundle? or just getExtras?\n\nNot sure :/",
+      "parentUuid": "8a8c42ef_54a9582f",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "745054cb_ecde9788",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 2
@@ -250,6 +286,24 @@
       "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f440222c_4a38ddee",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-24T18:33:38Z",
+      "side": 1,
+      "message": "It is really \"comprehensive\" :)",
+      "parentUuid": "36fb93a0_08f2d718",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
