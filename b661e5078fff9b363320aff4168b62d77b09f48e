@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f32edbe9_910bdde4",
+        "filename": "core/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-24T19:23:55Z",
+      "side": 1,
+      "message": "No, that\u0027s not an acceptable dependency.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 76
+      },
+      "revId": "b661e5078fff9b363320aff4168b62d77b09f48e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4830a70_05fdcc74",
+        "filename": "core/src/main/java/androidx/core/hardware/fingerprint/FingerprintManagerCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-24T19:23:55Z",
+      "side": 1,
+      "message": "Use the fully-qualified class name here instead of importing the class. If that doesn\u0027t work, just use {@code ...} and file a bug -- we\u0027ll work on cross-project docs linking after we migrate to Dokka.",
+      "range": {
+        "startLine": 43,
+        "startChar": 19,
+        "endLine": 43,
+        "endChar": 42
+      },
+      "revId": "b661e5078fff9b363320aff4168b62d77b09f48e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
