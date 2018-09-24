@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa9ba65c_f24dbc4f",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1130919
+      },
+      "writtenOn": "2018-09-24T13:19:43Z",
+      "side": 1,
+      "message": "Noob question: Why not have everything in the bundle? And then have method like\nint getInt(int field_id); -\u003e getInt(EVENT_TYPE), getString(ENTITY_TYPE) ... ?",
+      "range": {
+        "startLine": 202,
+        "startChar": 8,
+        "endLine": 216,
+        "endChar": 29
+      },
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "745054cb_ecde9788",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1130919
+      },
+      "writtenOn": "2018-09-24T13:19:43Z",
+      "side": 1,
+      "message": "Should there be a field for a set of the offered action options? I\u0027m not what can we learn from a relative index of clicked action?",
+      "range": {
+        "startLine": 327,
+        "startChar": 15,
+        "endLine": 327,
+        "endChar": 29
+      },
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
