@@ -3170,9 +3170,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             // If this fragment is newly instantiated (either right now, or
             // from last saved state), then give it the attributes to
             // initialize itself.
-            if (!fragment.mRetaining) {
-                fragment.onInflate(mHost.getContext(), attrs, fragment.mSavedFragmentState);
-            }
+            fragment.onInflate(mHost.getContext(), attrs, fragment.mSavedFragmentState);
         }
 
         // If we haven't finished entering the CREATED state ourselves yet,
