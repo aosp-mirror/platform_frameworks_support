@@ -34,6 +34,24 @@
       "revId": "bce60513dc9ee1a84db2eee20df744cf2f6ff2b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aca133b7_cdb578c6",
+        "filename": "lifecycle/livedata/src/main/java/androidx/lifecycle/Transformations.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-09-24T18:33:04Z",
+      "side": 1,
+      "message": "yea +1 for matching Rx.",
+      "parentUuid": "e59beed6_6d0f0c6e",
+      "revId": "bce60513dc9ee1a84db2eee20df744cf2f6ff2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
