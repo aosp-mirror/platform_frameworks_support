@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "95446b58_691dce78",
+        "filename": "slices/core/api/1.0.0.ignore",
+        "patchSetId": 11
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-09-24T22:39:07Z",
+      "side": 1,
+      "message": "yes, these should all be part of slice-core-manager API set now",
+      "parentUuid": "2f984a25_b05a92cd",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 7
+      },
+      "revId": "402018ed4d40307998ac660e23f24a5458115836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3a07410c_53f99f5c",
         "filename": "slices/core/manager/build.gradle",
         "patchSetId": 11
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "4fcf2a18_c7b14a96",
+        "filename": "slices/core/manager/build.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-09-24T22:39:07Z",
+      "side": 1,
+      "message": "LibraryVersions.SLICE is currently 1.1.0-alpha01\n\nWould the rationale for this to be 1.0.0-alpha01 because it\u0027s a \"new\" module? I think in that case then your reasoning in a) \u0026 b) makes sense to me -- nothing new here just stuff being extracted.",
+      "parentUuid": "3a07410c_53f99f5c",
+      "range": {
+        "startLine": 40,
+        "startChar": 19,
+        "endLine": 40,
+        "endChar": 40
+      },
+      "revId": "402018ed4d40307998ac660e23f24a5458115836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "420282df_88c45da6",
         "filename": "slices/core/manager/src/main/AndroidManifest.xml",
         "patchSetId": 11
@@ -59,6 +107,30 @@
       "writtenOn": "2018-09-24T20:28:48Z",
       "side": 1,
       "message": "Needs to be unique.",
+      "range": {
+        "startLine": 17,
+        "startChar": 19,
+        "endLine": 17,
+        "endChar": 38
+      },
+      "revId": "402018ed4d40307998ac660e23f24a5458115836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c6e478c_1b5a7b8a",
+        "filename": "slices/core/manager/src/main/AndroidManifest.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-09-24T22:39:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "420282df_88c45da6",
       "range": {
         "startLine": 17,
         "startChar": 19,
