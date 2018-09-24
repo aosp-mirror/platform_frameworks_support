@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "230b936d_9acf0874",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-24T13:46:25Z",
+      "side": 1,
+      "message": "nit: I think the pattern is to have @hide in a separate line? :)\n\nAlso, I am still wondering do we need @hide for package private constants...",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64d0dd58_2c7a0814",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-24T13:46:25Z",
+      "side": 1,
+      "message": "Are we indeed going to have the implementation here? \n\nIf so, how do we ensure subclass is calling super()?",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55e1eab5_4eba1bde",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-24T13:46:25Z",
+      "side": 1,
+      "message": "nit: @NonNull",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aa9ba65c_f24dbc4f",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 2
@@ -25,6 +76,23 @@
     },
     {
       "key": {
+        "uuid": "cccc9670_82c3bf25",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-24T13:46:25Z",
+      "side": 1,
+      "message": "Feel like we need a better name here as \nto/fromBundle and get/setBundle may confuse people when they are put together?",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "745054cb_ecde9788",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 2
@@ -42,6 +110,74 @@
         "endLine": 327,
         "endChar": 29
       },
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c005f45_59a76f86",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-24T13:46:25Z",
+      "side": 1,
+      "message": "A question more than a comment.\n\nWhere are we going to put the documentation of schema of the events?\nLike if the type is language detection, you may want to look into getLanguage.\nIf the type is smart selection, you may want to look into getSmartStart, getSmartEnd, etc.\n\nIn the javadoc of those TYPE_* constants?",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cc7bf63_051ef8d3",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-24T13:46:25Z",
+      "side": 1,
+      "message": "Should we use Locale object instead?",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2eaea4c_d3f0c121",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-24T13:46:25Z",
+      "side": 1,
+      "message": "nit: type annotation",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44b47047_bf1cefbd",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-24T13:46:25Z",
+      "side": 1,
+      "message": "nit: type annotation",
       "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
