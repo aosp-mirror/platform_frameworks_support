@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "074d0617_ded0e82d",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-24T16:57:12Z",
+      "side": 1,
+      "message": "I think that if you remove \".module\" then it will echo the entire dependency (which is probably slightly easier for users to recognize)",
+      "range": {
+        "startLine": 174,
+        "startChar": 56,
+        "endLine": 174,
+        "endChar": 63
+      },
+      "revId": "db4bc1975a94ee01d0cc5ebfb1f00417ae397255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47be3b62_e6033265",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-24T16:57:12Z",
+      "side": 1,
+      "message": "Does this work for a project whose path contains multiple \":\" characters, like \":paging:paging-common\"?\n\nIf it doesn\u0027t work, we may want to first populate a map from artifact name to project name, and use that lookup here",
+      "revId": "db4bc1975a94ee01d0cc5ebfb1f00417ae397255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea056f73_fcc7ebb4",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-24T16:57:12Z",
+      "side": 1,
+      "message": "Recommend adding an explanation/reminder like \" (it is required that all libraries at HEAD are compatible with each other at all times, to make it easier for clients to avoid version conflicts)\"",
+      "revId": "db4bc1975a94ee01d0cc5ebfb1f00417ae397255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
