@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1afe09f5_fae9a7c0",
+        "filename": "car/cluster/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-09-24T16:33:06Z",
+      "side": 1,
+      "message": "You might need to update the API file, as this Builder doesn\u0027t exist anymore.",
+      "revId": "45d5a9116ff53beb2379721172afaf88c3610e00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b71432a_b9268641",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LatLng.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-09-24T16:33:06Z",
+      "side": 1,
+      "message": "Do we really need this utility method? In the case of GMM, this information most probably comes from a proto. On other implementions (e.g. Waze), they most likely have this information stored in a database as a pair of doubles, rather than as a full Location object.",
+      "revId": "45d5a9116ff53beb2379721172afaf88c3610e00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
