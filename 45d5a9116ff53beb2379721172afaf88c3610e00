@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5f502cda_a6363e83",
+        "filename": "car/cluster/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1290474
+      },
+      "writtenOn": "2018-09-24T18:51:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1afe09f5_fae9a7c0",
+      "revId": "45d5a9116ff53beb2379721172afaf88c3610e00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b71432a_b9268641",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LatLng.java",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "45d5a9116ff53beb2379721172afaf88c3610e00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5efcba9_ccd09230",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LatLng.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1290474
+      },
+      "writtenOn": "2018-09-24T18:51:08Z",
+      "side": 1,
+      "message": "It\u0027s basically a one-line helper. I guess you\u0027re right, it doesn\u0027t add much value.",
+      "parentUuid": "2b71432a_b9268641",
+      "revId": "45d5a9116ff53beb2379721172afaf88c3610e00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
