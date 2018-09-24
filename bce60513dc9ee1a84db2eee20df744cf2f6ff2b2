@@ -16,6 +16,24 @@
       "revId": "bce60513dc9ee1a84db2eee20df744cf2f6ff2b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e59beed6_6d0f0c6e",
+        "filename": "lifecycle/livedata/src/main/java/androidx/lifecycle/Transformations.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-24T18:28:28Z",
+      "side": 1,
+      "message": "Re: distinct, I just talked it over with others and we want to call it distinctUntilChanged because that\u0027s what Rx would call this.  Rx\u0027s distinct will never emit the same item twice; we just compare it to the previous value, which is Rx\u0027s distinctUntilChanged operator.",
+      "parentUuid": "d995d64c_288e226e",
+      "revId": "bce60513dc9ee1a84db2eee20df744cf2f6ff2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
