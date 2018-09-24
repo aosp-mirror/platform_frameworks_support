@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f984a25_b05a92cd",
+        "filename": "slices/core/api/1.0.0.ignore",
+        "patchSetId": 11
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-24T20:28:48Z",
+      "side": 1,
+      "message": "Removals due to refactor?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 7
+      },
+      "revId": "402018ed4d40307998ac660e23f24a5458115836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a07410c_53f99f5c",
+        "filename": "slices/core/manager/build.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-24T20:28:48Z",
+      "side": 1,
+      "message": "*Technically* our versioning policy says this should start at 1.0.0-alpha01, but we\u0027ve never released anything according to that guidance yet and matching the version to the existing Slice module feels right since this is a) extracted classes and b) in the same groupId.\n\nMady, what do you think?",
+      "range": {
+        "startLine": 40,
+        "startChar": 19,
+        "endLine": 40,
+        "endChar": 40
+      },
+      "revId": "402018ed4d40307998ac660e23f24a5458115836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "420282df_88c45da6",
+        "filename": "slices/core/manager/src/main/AndroidManifest.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-24T20:28:48Z",
+      "side": 1,
+      "message": "Needs to be unique.",
+      "range": {
+        "startLine": 17,
+        "startChar": 19,
+        "endLine": 17,
+        "endChar": 38
+      },
+      "revId": "402018ed4d40307998ac660e23f24a5458115836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
