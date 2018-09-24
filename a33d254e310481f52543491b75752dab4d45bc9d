@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "a7f3d55d_05dfecfe",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-24T17:24:58Z",
+      "side": 1,
+      "message": "Nope. Implementation is going into the subclasses.",
+      "parentUuid": "64d0dd58_2c7a0814",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55e1eab5_4eba1bde",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 2
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "78768dfe_871fa7bf",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-24T17:24:58Z",
+      "side": 1,
+      "message": "Is that necessary for non-public API?\nBy convention, don\u0027t pass null into anything that is not marked as nullable.",
+      "parentUuid": "55e1eab5_4eba1bde",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa9ba65c_f24dbc4f",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 2
@@ -64,6 +100,30 @@
       "writtenOn": "2018-09-24T13:19:43Z",
       "side": 1,
       "message": "Noob question: Why not have everything in the bundle? And then have method like\nint getInt(int field_id); -\u003e getInt(EVENT_TYPE), getString(ENTITY_TYPE) ... ?",
+      "range": {
+        "startLine": 202,
+        "startChar": 8,
+        "endLine": 216,
+        "endChar": 29
+      },
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d63b0e1_3d1c4b87",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-24T17:24:58Z",
+      "side": 1,
+      "message": "Short answer:\nHow would you know the type of the field? e.g. is it getInt(key) or getString(key)?\n\nLong answer:\nThis question has been asked by a few folks.\nMy opinion here is that having specific API fields is better than stuffing everything in a bundle. With a bundle, we\u0027d still need APIs for the keys which means we don\u0027t get much gains doing this. It also means we\u0027d have to document the data type in Javadoc so that clients and server are in sync. Why document something in javadoc when you can enforce it by the compiler? We should use the bundle only for experimental features or as a way to be able to pass some fields that did not make it into the API before we can release in the next API. As soon as we commit to a \"hidden\" or experimental field, we should upgrade it to a first-class field in the next API.\n\nTongue-in-cheek answer :)\nBundle TextClassifier.doSomething(Bundle request)\nand then I don\u0027t have a job anymore. The PM can defined the fields in the Javadoc. :)",
+      "parentUuid": "aa9ba65c_f24dbc4f",
       "range": {
         "startLine": 202,
         "startChar": 8,
@@ -93,6 +153,24 @@
     },
     {
       "key": {
+        "uuid": "8a8c42ef_54a9582f",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-24T17:24:58Z",
+      "side": 1,
+      "message": "Right. Any suggestions?",
+      "parentUuid": "cccc9670_82c3bf25",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "745054cb_ecde9788",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 2
@@ -104,6 +182,30 @@
       "writtenOn": "2018-09-24T13:19:43Z",
       "side": 1,
       "message": "Should there be a field for a set of the offered action options? I\u0027m not what can we learn from a relative index of clicked action?",
+      "range": {
+        "startLine": 327,
+        "startChar": 15,
+        "endLine": 327,
+        "endChar": 29
+      },
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3bba403_055f22ad",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-24T17:24:58Z",
+      "side": 1,
+      "message": "I am not comfortable with sending text like this to Google servers. The text here can be quite sensitive.\n\nThe relevance of index here is that, the TC believes that action at index 0 is better than action at index 1. It also means that if the event is being used for training the TC, then the TC can resolve the item at the specified index with the resultId.",
+      "parentUuid": "745054cb_ecde9788",
       "range": {
         "startLine": 327,
         "startChar": 15,
@@ -133,6 +235,24 @@
     },
     {
       "key": {
+        "uuid": "36fb93a0_08f2d718",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-24T17:24:58Z",
+      "side": 1,
+      "message": "In the \"comprehensive\" javadoc. See line 35.\n\nAlso see how AccessibilityEvent handles that here: https://developer.android.com/reference/android/view/accessibility/AccessibilityEvent\n\nWhere possible, we can/will have higher level androidx APIs to help construct the appropriate event. e.g.\nclass SelectionEvents {\n  TextClassifierEvent createStartSelectionEvent(int index, ....)\n  ...\n}",
+      "parentUuid": "0c005f45_59a76f86",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6cc7bf63_051ef8d3",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 2
@@ -144,6 +264,24 @@
       "writtenOn": "2018-09-24T13:46:25Z",
       "side": 1,
       "message": "Should we use Locale object instead?",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ecacf95_419d6dda",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-24T17:24:58Z",
+      "side": 1,
+      "message": "I don\u0027t have any objections to this. Is that better?\nI\u0027m thinking if the user already has the language string, they shouldn\u0027t need to construct a Locale or ULocale object. And if they have the latter, they can easily get the associated language string.",
+      "parentUuid": "6cc7bf63_051ef8d3",
       "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
