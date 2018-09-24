@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "10840943_2ae4f559",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LatLng.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1290474
+      },
+      "writtenOn": "2018-09-24T16:20:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "433503de_35db344f",
+      "range": {
+        "startLine": 35,
+        "startChar": 5,
+        "endLine": 35,
+        "endChar": 6
+      },
+      "revId": "f308d1a144aafeb2b46395d68c98d53019f1c5bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d44f811d_a2fef2bd",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LatLng.java",
         "patchSetId": 4
@@ -118,6 +142,54 @@
     },
     {
       "key": {
+        "uuid": "c99285b6_7b40ca33",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LatLng.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1290474
+      },
+      "writtenOn": "2018-09-24T16:20:38Z",
+      "side": 1,
+      "message": "I also prefer LatLng for the reason that it\u0027s commonly used in Android code as well:\n\n$ find . -name \"*.java\" | xargs grep -i \"latlng\" | wc -l\n571\n$ find . -name \"*.java\" | xargs grep -i \"latlong\" | wc -l\n163\n\nAlso, I think \"Long\" could be confused with the data type \"Long\".",
+      "parentUuid": "a9db0a6b_35c167d3",
+      "range": {
+        "startLine": 40,
+        "startChar": 13,
+        "endLine": 40,
+        "endChar": 19
+      },
+      "revId": "f308d1a144aafeb2b46395d68c98d53019f1c5bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8f59fdaf_7752d4ce",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LatLng.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1290474
+      },
+      "writtenOn": "2018-09-24T16:20:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d084d2d5_df71cfcd",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 12
+      },
+      "revId": "f308d1a144aafeb2b46395d68c98d53019f1c5bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75b34bb9_d9fbd501",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LatLng.java",
         "patchSetId": 4
@@ -162,6 +234,30 @@
       "revId": "f308d1a144aafeb2b46395d68c98d53019f1c5bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee23cba7_c296068a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LatLng.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1290474
+      },
+      "writtenOn": "2018-09-24T16:20:38Z",
+      "side": 1,
+      "message": "I think this is a tricky one... on the one hand, the no-args constructor is package-private, so should be OK (I could make the other constructor public and it\u0027ll be fine). On the other hand, I do want to be consistent with the other stuff. But on the other other hand, I suspect most users would use the fromLocation method. But on the other other other hand, Selim is right that by it\u0027s very name, LatLng could never contain anything except a latitude and longitude.\n\nI think I\u0027ll remove the builder before I run out of hands.",
+      "parentUuid": "4533fdac_99e31483",
+      "range": {
+        "startLine": 65,
+        "startChar": 7,
+        "endLine": 65,
+        "endChar": 17
+      },
+      "revId": "f308d1a144aafeb2b46395d68c98d53019f1c5bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
