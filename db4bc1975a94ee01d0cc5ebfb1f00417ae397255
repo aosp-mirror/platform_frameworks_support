@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "2597969f_33023fe0",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-24T19:20:09Z",
+      "side": 1,
+      "message": "we talked offline and you said you wanted to do that in a followup CL",
+      "parentUuid": "47be3b62_e6033265",
+      "revId": "db4bc1975a94ee01d0cc5ebfb1f00417ae397255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ea056f73_fcc7ebb4",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 14

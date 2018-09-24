@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "160dd8a2_1cec11e6",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-24T19:20:09Z",
+      "side": 1,
+      "message": "(reminder that we probably want it to be an error when version \u003d\u003d \"unspecified\" and another project is depending on a prebuilt of this project)",
+      "range": {
+        "startLine": 299,
+        "startChar": 24,
+        "endLine": 299,
+        "endChar": 82
+      },
+      "revId": "c49a010549f3b0299066d0d59e5d50b9a6494fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
