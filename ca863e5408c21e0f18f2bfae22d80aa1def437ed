@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53e9446d_0a51d298",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-24T18:08:05Z",
+      "side": 1,
+      "message": "Add a comment explaining why we need to explicitly set this.",
+      "revId": "ca863e5408c21e0f18f2bfae22d80aa1def437ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad4ac099_5c37f84b",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-24T18:08:05Z",
+      "side": 1,
+      "message": "Since this is just one line, I\u0027d prefer if you remove the braces here:\n\n  animation -\u003e window...\n\nhttp://go/java-style#s4.1.1-braces-always-used",
+      "range": {
+        "startLine": 123,
+        "startChar": 48,
+        "endLine": 125,
+        "endChar": 9
+      },
+      "revId": "ca863e5408c21e0f18f2bfae22d80aa1def437ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
