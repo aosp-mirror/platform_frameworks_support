@@ -46,6 +46,30 @@
       "revId": "0a0257379415463fec3f7ec488fb3c12d0d684d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "033e61bd_fe85c0da",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-25T16:05:36Z",
+      "side": 1,
+      "message": "My comment was more like a question and your explanation and code example SGTM.",
+      "parentUuid": "ac28b7b7_a45dcae6",
+      "range": {
+        "startLine": 749,
+        "startChar": 0,
+        "endLine": 757,
+        "endChar": 13
+      },
+      "revId": "0a0257379415463fec3f7ec488fb3c12d0d684d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
