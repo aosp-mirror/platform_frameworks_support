@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93c6c25e_8ad34481",
+        "filename": "core/src/main/java/androidx/core/graphics/drawable/IconCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-09-25T23:39:41Z",
+      "side": 1,
+      "message": "there is no getBitmap method in the platform implementation:\nhttps://developer.android.com/reference/android/graphics/drawable/Icon\n\nProbably restrict this to Library_group",
+      "range": {
+        "startLine": 373,
+        "startChar": 3,
+        "endLine": 374,
+        "endChar": 31
+      },
+      "revId": "78806b8d0152144b568c3629988d8041ff40d469",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
