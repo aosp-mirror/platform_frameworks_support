@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a49e94fd_1ff12417",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-25T16:49:31Z",
+      "side": 1,
+      "message": "nit: doesn\u0027t need to be in the protected block?",
+      "range": {
+        "startLine": 849,
+        "startChar": 12,
+        "endLine": 850,
+        "endChar": 40
+      },
+      "revId": "0bf908e698c3254e88ac346df743265e00b6d3a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
