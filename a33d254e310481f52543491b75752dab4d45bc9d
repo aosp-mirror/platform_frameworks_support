@@ -492,6 +492,24 @@
     },
     {
       "key": {
+        "uuid": "0882aec6_eace546b",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1130919
+      },
+      "writtenOn": "2018-09-25T13:36:15Z",
+      "side": 1,
+      "message": "Sorry I wasn\u0027t clear - I was just supportive of the current version :) with string language argument",
+      "parentUuid": "67289824_f34d61eb",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e2eaea4c_d3f0c121",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 2
