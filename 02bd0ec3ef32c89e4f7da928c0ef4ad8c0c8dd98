@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "05f116fb_d820d332",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/SelectionBuilderBasicImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-09-25T17:30:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d830e864_64b38c77",
+      "range": {
+        "startLine": 40,
+        "startChar": 83,
+        "endLine": 40,
+        "endChar": 84
+      },
+      "revId": "02bd0ec3ef32c89e4f7da928c0ef4ad8c0c8dd98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2dfa8a43_7f8a7e2e",
         "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/SelectionBuilderBasicImpl.java",
         "patchSetId": 6
@@ -166,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "ab494294_8cd3c6e8",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/SelectionBuilderBasicImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-09-25T17:30:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dec04e65_4514e72a",
+      "range": {
+        "startLine": 42,
+        "startChar": 38,
+        "endLine": 42,
+        "endChar": 81
+      },
+      "revId": "02bd0ec3ef32c89e4f7da928c0ef4ad8c0c8dd98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97600e43_95260adb",
         "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/SelectionBuilderBasicImpl.java",
         "patchSetId": 6
@@ -201,6 +249,30 @@
       "side": 1,
       "message": "We will, but only in list context, not basic -- unless you think we should provide it in both contexts?",
       "parentUuid": "97600e43_95260adb",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 97
+      },
+      "revId": "02bd0ec3ef32c89e4f7da928c0ef4ad8c0c8dd98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b68dfc55_4edba911",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/SelectionBuilderBasicImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-09-25T17:30:18Z",
+      "side": 1,
+      "message": "Ah yeah, that makes sense SGTM",
+      "parentUuid": "fc384a45_d365b028",
       "range": {
         "startLine": 72,
         "startChar": 8,
