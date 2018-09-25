@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "92f88d1a_04aec55f",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/ListBuilderBasicImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-09-25T17:31:13Z",
+      "side": 1,
+      "message": "maybe annotate @NonNull for this and the other places",
+      "parentUuid": "bade8497_ca8e46d9",
+      "range": {
+        "startLine": 176,
+        "startChar": 29,
+        "endLine": 176,
+        "endChar": 53
+      },
+      "revId": "88c0d7affdc8c2892114009207a90875f69be0b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4cba66c9_462015a1",
         "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/ListBuilderBasicImpl.java",
         "patchSetId": 6
@@ -130,6 +154,30 @@
       "side": 1,
       "message": "Should the caller be providing a SliceAction then?",
       "parentUuid": "4cba66c9_462015a1",
+      "range": {
+        "startLine": 184,
+        "startChar": 12,
+        "endLine": 184,
+        "endChar": 58
+      },
+      "revId": "88c0d7affdc8c2892114009207a90875f69be0b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45f777ab_a0ae8593",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/ListBuilderBasicImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-09-25T17:31:13Z",
+      "side": 1,
+      "message": "Yes, I think the caller should provide a SliceAction",
+      "parentUuid": "a467e278_01e5fcc2",
       "range": {
         "startLine": 184,
         "startChar": 12,
