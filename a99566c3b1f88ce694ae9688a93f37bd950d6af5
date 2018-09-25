@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09a3aed4_7798dae5",
+        "filename": "transition/src/main/java/androidx/transition/TransitionSet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-09-25T23:31:24Z",
+      "side": 1,
+      "message": "why can mTransitions be null? It is assigned a value in the constructor and is never changed.",
+      "range": {
+        "startLine": 232,
+        "startChar": 30,
+        "endLine": 232,
+        "endChar": 42
+      },
+      "revId": "a99566c3b1f88ce694ae9688a93f37bd950d6af5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
