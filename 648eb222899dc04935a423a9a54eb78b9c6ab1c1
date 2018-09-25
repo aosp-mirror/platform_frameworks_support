@@ -16,6 +16,24 @@
       "revId": "648eb222899dc04935a423a9a54eb78b9c6ab1c1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c936dbd_06929a91",
+        "filename": "slices/core/manager/build.gradle",
+        "patchSetId": 12
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-09-25T20:53:21Z",
+      "side": 1,
+      "message": "I sort of feel like the -noui or -noappcompat implies that it\u0027s a variant of the slice-core which isn\u0027t quite true? But maybe that\u0027s ok?\n\nThe API diff of these is that slice-core-manager basically has everything the SliceManager needs; slice-core depends on slice-core-manager and has SliceProvider in it.\n\n\nAlan, do you have thoughts on this / are there any guidelines around module naming?",
+      "parentUuid": "b69fdc73_07d6d9f9",
+      "revId": "648eb222899dc04935a423a9a54eb78b9c6ab1c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
