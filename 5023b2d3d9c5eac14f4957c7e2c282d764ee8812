@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "82612605_0b050be1",
+        "filename": "car/core/res/layout/car_list_item_radio_content.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-09-25T23:02:59Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "93791d98_9b3c9518",
+      "revId": "5023b2d3d9c5eac14f4957c7e2c282d764ee8812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6dac7c2e_fcbacfad",
         "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
         "patchSetId": 8
@@ -65,6 +83,54 @@
     },
     {
       "key": {
+        "uuid": "e1e5b22e_d0017eec",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-09-25T23:02:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0596baf9_b7beb272",
+      "range": {
+        "startLine": 61,
+        "startChar": 3,
+        "endLine": 61,
+        "endChar": 11
+      },
+      "revId": "5023b2d3d9c5eac14f4957c7e2c282d764ee8812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a1df783_09c01e52",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-09-25T23:02:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6dac7c2e_fcbacfad",
+      "range": {
+        "startLine": 61,
+        "startChar": 47,
+        "endLine": 61,
+        "endChar": 59
+      },
+      "revId": "5023b2d3d9c5eac14f4957c7e2c282d764ee8812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93cb1824_84e792a0",
         "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
         "patchSetId": 8
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "f20cc716_c9ad72fd",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-09-25T23:02:59Z",
+      "side": 1,
+      "message": "Discussed in the other CL - this protected method is meant for subclass to get its context. I don\u0027t think it needs to be public.",
+      "parentUuid": "93cb1824_84e792a0",
+      "range": {
+        "startLine": 139,
+        "startChar": 4,
+        "endLine": 139,
+        "endChar": 13
+      },
+      "revId": "5023b2d3d9c5eac14f4957c7e2c282d764ee8812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e705ee5_7c15abdb",
         "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
         "patchSetId": 8
@@ -99,6 +189,24 @@
       "writtenOn": "2018-09-13T00:05:38Z",
       "side": 1,
       "message": "I rather you not toggle it to GONE at all rather than setting it immediately back as VISIBLE. Two ways to go about this:\n\n- add if check in your loop.\n- Remove radio button from widget views. \n\nFor the second solution, the widget views is really just a convenience method for you to toggle visibility anyway, so I don\u0027t think it\u0027s necessary for radio button to be in there. But perhaps we should update that getter method to be more clear.",
+      "revId": "5023b2d3d9c5eac14f4957c7e2c282d764ee8812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "188814b3_2a28d451",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-09-25T23:02:59Z",
+      "side": 1,
+      "message": "method getWidgetViews() is also used for setting enabled state so radio button needs to be returned.\n\nI think immediately togging back is fine here as this method is simple enough that its result is really what matters - if anything I think the method name needs to be changed (but I wanted it to be consistent with sibling ListItems). \n\nBut I don\u0027t have strong opinion on it. PLMK if you prefer having if checks.",
+      "parentUuid": "2e705ee5_7c15abdb",
       "revId": "5023b2d3d9c5eac14f4957c7e2c282d764ee8812",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
