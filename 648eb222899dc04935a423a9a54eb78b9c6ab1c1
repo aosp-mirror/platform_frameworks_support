@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b69fdc73_07d6d9f9",
+        "filename": "slices/core/manager/build.gradle",
+        "patchSetId": 12
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1060751
+      },
+      "writtenOn": "2018-09-25T18:29:51Z",
+      "side": 1,
+      "message": "nit: slight preference for naming this library slices-core-noui or slices-core-noappcompat to indicate that this library includes the core classes necessary for Slices but doesn\u0027t impose the appcompat dependency",
+      "revId": "648eb222899dc04935a423a9a54eb78b9c6ab1c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
