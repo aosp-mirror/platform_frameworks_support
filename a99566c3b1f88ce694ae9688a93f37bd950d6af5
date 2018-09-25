@@ -22,6 +22,30 @@
       "revId": "a99566c3b1f88ce694ae9688a93f37bd950d6af5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1583c71_ca72ba47",
+        "filename": "transition/src/main/java/androidx/transition/TransitionSet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1182279
+      },
+      "writtenOn": "2018-09-25T23:42:33Z",
+      "side": 1,
+      "message": "setDuration is called from the constructor of the super class. At that time, mTransitions is null.",
+      "parentUuid": "09a3aed4_7798dae5",
+      "range": {
+        "startLine": 232,
+        "startChar": 30,
+        "endLine": 232,
+        "endChar": 42
+      },
+      "revId": "a99566c3b1f88ce694ae9688a93f37bd950d6af5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
