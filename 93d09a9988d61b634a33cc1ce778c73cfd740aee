@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36d00cd8_922780ee",
+        "filename": "work/workmanager/proguard-rules.pro",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-25T17:46:04Z",
+      "side": 1,
+      "message": "Can you keep all constructors (in case we change anything)?  \u003cinit\u003e(*) or whatever the correct type is?",
+      "range": {
+        "startLine": 5,
+        "startChar": 4,
+        "endLine": 6,
+        "endChar": 75
+      },
+      "revId": "93d09a9988d61b634a33cc1ce778c73cfd740aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
