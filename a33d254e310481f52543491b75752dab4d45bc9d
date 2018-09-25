@@ -178,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "f85a7b92_a8091acd",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-25T13:26:48Z",
+      "side": 1,
+      "message": "Yeah. This works a bit different from protos.\nConsider all fields \"optional\" and have \"not-set\" values... in this case, explicitly defined where necessary, or java defaults.",
+      "parentUuid": "a4c98d1e_01c09dd1",
+      "range": {
+        "startLine": 202,
+        "startChar": 8,
+        "endLine": 216,
+        "endChar": 29
+      },
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cccc9670_82c3bf25",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 2
@@ -225,6 +249,24 @@
       "side": 1,
       "message": "maybe getExtrasBundle? or just getExtras?\n\nNot sure :/",
       "parentUuid": "8a8c42ef_54a9582f",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edb75e3c_c999061e",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-25T13:26:48Z",
+      "side": 1,
+      "message": "getExtras() sounds good. Will go with that. Thanks.",
+      "parentUuid": "f95f0bb1_4e13aa2c",
       "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -290,6 +332,30 @@
       "side": 1,
       "message": "I\u0027m not proposing to log any text.\n\nI am just saying we should log a list of action indices. E.g. [1, 3, 139, 359], meaning [MAPS, PHONE, ...].",
       "parentUuid": "d3bba403_055f22ad",
+      "range": {
+        "startLine": 327,
+        "startChar": 15,
+        "endLine": 327,
+        "endChar": 29
+      },
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31246a65_91b468c2",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-25T13:26:48Z",
+      "side": 1,
+      "message": "I see. Will do. Thanks.",
+      "parentUuid": "dc2d7b32_973acbf1",
       "range": {
         "startLine": 327,
         "startChar": 15,
@@ -402,6 +468,24 @@
       "side": 1,
       "message": "+1 locale seems to be a different concept than language, no?",
       "parentUuid": "7ecacf95_419d6dda",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67289824_f34d61eb",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-25T13:26:48Z",
+      "side": 1,
+      "message": "I\u0027d like to understand what you folks are asking for here.\n\n1. Change the method name to setLocale(...)?\n2. Pass in a locale parameter?\n3. Do both?\n\nFor 1, I don\u0027t mind. Either name works for me. Even setLanguageTag(...). I consider the variants are equivalent... but that\u0027s just me. If someone has strong opinions on a variant, I will go with that.\n\nFor 2, see my earlier response. We shouldn\u0027t force clients to create a Locale object for something we\u0027re essentially going to convert back to a string. The only benefit for creating a Locale object here is to verify the string. I don\u0027t think it is worth it.\n\nFor 3, See response to 1 and 2.\n\nThanks.",
+      "parentUuid": "d8f33cd8_1cf6cf08",
       "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
