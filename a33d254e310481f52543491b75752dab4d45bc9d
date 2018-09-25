@@ -202,6 +202,30 @@
     },
     {
       "key": {
+        "uuid": "9666c006_a57059f2",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-25T14:07:05Z",
+      "side": 1,
+      "message": "I am actually thinking how are we going to use this Bundle.\n\nFor request / result object, this allows us to experiment new stuff without toughing the \nmiddlelayer (androidX or platform).\n\nBut for logging, we need to modify platform / AndroidX (like TextView/ FloatingToolBar) anyway to report the new events?\n\nBut maybe at least it allows us try out a new event before officially introducing a new API?",
+      "parentUuid": "f85a7b92_a8091acd",
+      "range": {
+        "startLine": 202,
+        "startChar": 8,
+        "endLine": 216,
+        "endChar": 29
+      },
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cccc9670_82c3bf25",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 2
@@ -507,6 +531,24 @@
       "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "894a8e06_68b35f72",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-25T14:07:05Z",
+      "side": 1,
+      "message": "Let\u0027s just use the string, thanks :)",
+      "parentUuid": "0882aec6_eace546b",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
