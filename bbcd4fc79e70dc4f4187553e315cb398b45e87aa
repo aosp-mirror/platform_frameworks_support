@@ -22,6 +22,30 @@
       "revId": "bbcd4fc79e70dc4f4187553e315cb398b45e87aa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a10103e3_cede95a7",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-09-25T15:36:22Z",
+      "side": 1,
+      "message": "Thank for the \u0027final\u0027 suggestion. Will start an e-mail thread.",
+      "parentUuid": "41ff479e_78c9a9fd",
+      "range": {
+        "startLine": 69,
+        "startChar": 30,
+        "endLine": 69,
+        "endChar": 48
+      },
+      "revId": "bbcd4fc79e70dc4f4187553e315cb398b45e87aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
