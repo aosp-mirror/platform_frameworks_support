@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "73077d5f_66ab7e04",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-09-25T17:30:24Z",
+      "side": 1,
+      "message": "Oooo multiple selection I think in the future but maybe not for 1.1?",
+      "parentUuid": "48044608_c738c0ff",
+      "range": {
+        "startLine": 37,
+        "startChar": 26,
+        "endLine": 37,
+        "endChar": 35
+      },
+      "revId": "75146e3923ff8e4358dcf3f28b4d61d7997fb2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d263c1e_269166cc",
         "filename": "slices/builders/src/main/java/androidx/slice/builders/SelectionBuilder.java",
         "patchSetId": 12
