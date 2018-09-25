@@ -30,16 +30,15 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.VisibleForTesting;
 import android.support.annotation.WorkerThread;
-import android.support.v4.util.Pair;
 
 import androidx.work.Configuration;
 import androidx.work.Data;
 import androidx.work.InputMerger;
 import androidx.work.Logger;
 import androidx.work.NonBlockingWorker;
+import androidx.work.NonBlockingWorker.Result;
 import androidx.work.State;
 import androidx.work.Worker;
-import androidx.work.Worker.Result;
 import androidx.work.WorkerParameters;
 import androidx.work.impl.background.systemalarm.RescheduleReceiver;
 import androidx.work.impl.model.DependencyDao;
@@ -207,9 +206,10 @@ public class WorkerWrapper implements Runnable {
                 return;
             }
 
-            final SettableFuture<Pair<Result, Data>> future = SettableFuture.create();
+            final SettableFuture<NonBlockingWorker.Payload> future = SettableFuture.create();
             try {
-                final ListenableFuture<Pair<Result, Data>> innerFuture = mWorker.onStartWork();
+                final ListenableFuture<NonBlockingWorker.Payload> innerFuture =
+                        mWorker.onStartWork();
                 future.setFuture(innerFuture);
             } catch (Throwable e) {
                 future.setException(e);
@@ -221,7 +221,7 @@ public class WorkerWrapper implements Runnable {
                 @Override
                 public void run() {
                     try {
-                        onWorkFinished(future.get().first);
+                        onWorkFinished(future.get().getResult());
                     } catch (InterruptedException | ExecutionException exception) {
                         Logger.error(TAG,
                                 String.format("%s failed because it threw an exception/error",
@@ -343,7 +343,7 @@ public class WorkerWrapper implements Runnable {
         mFuture.set(needsReschedule);
     }
 
-    private void handleResult(Worker.Result result) {
+    private void handleResult(Result result) {
         switch (result) {
             case SUCCESS: {
                 Logger.info(TAG, String.format("Worker result SUCCESS for %s", mWorkDescription));

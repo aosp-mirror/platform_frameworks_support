@@ -21,13 +21,10 @@ import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.WorkerThread;
-import android.support.v4.util.Pair;
 
 import androidx.work.impl.utils.futures.SettableFuture;
 
 import com.google.common.util.concurrent.ListenableFuture;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * The basic object that performs work.  Worker classes are instantiated at runtime by
@@ -38,32 +35,9 @@ import java.util.concurrent.TimeUnit;
 public abstract class Worker extends NonBlockingWorker {
 
     // TODO(rahulrav@) Move this to a NonBlockingWorker once we are ready to expose it.
-    /**
-     * The result of the Worker's computation that is returned in the {@link #doWork()} method.
-     */
-    public enum Result {
-        /**
-         * Used to indicate that the work completed successfully.  Any work that depends on this
-         * can be executed as long as all of its other dependencies and constraints are met.
-         */
-        SUCCESS,
-
-        /**
-         * Used to indicate that the work completed with a permanent failure.  Any work that depends
-         * on this will also be marked as failed and will not be run.
-         */
-        FAILURE,
-
-        /**
-         * Used to indicate that the work encountered a transient failure and should be retried with
-         * backoff specified in
-         * {@link WorkRequest.Builder#setBackoffCriteria(BackoffPolicy, long, TimeUnit)}.
-         */
-        RETRY
-    }
 
     // Package-private to avoid synthetic accessor.
-    SettableFuture<Pair<Result, Data>> mFuture;
+    SettableFuture<Payload> mFuture;
 
     /**
      * @deprecated Use {@link #Worker(Context, WorkerParameters)} instead
@@ -90,14 +64,14 @@ public abstract class Worker extends NonBlockingWorker {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @Override
-    public @NonNull ListenableFuture<Pair<Result, Data>> onStartWork() {
+    public final @NonNull ListenableFuture<Payload> onStartWork() {
         mFuture = SettableFuture.create();
         getBackgroundExecutor().execute(new Runnable() {
             @Override
             public void run() {
                 Result result = doWork();
                 setResult(result);
-                mFuture.set(new Pair<>(result, getOutputData()));
+                mFuture.set(new Payload(result, getOutputData()));
             }
         });
         return mFuture;
