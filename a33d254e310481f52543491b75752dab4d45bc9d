@@ -226,6 +226,30 @@
     },
     {
       "key": {
+        "uuid": "57e73fcd_2f1cfa6a",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-09-25T14:33:38Z",
+      "side": 1,
+      "message": "Yes. Exactly that.\nEssentially, we can bypass the TCS to send something through to the TCSImpl before we can get an API update.\n\n1. We can pass something from app through to AiAi without requiring an API update.\n2. We can update androidx APIs and pass data through to AiAi or any other TCSImpl without need for a platform API update. Imagine, if these TCSImpls implement androidx APIs.\n3. Also, note that this may be used for FL, so if we realize we need a new field that didn\u0027t make it to the TCS, we could temporarily add it here.\n\nThis may not apply to GMSCoreTCImpl as we could simply update androidx TC APIs but perhaps we could use it for fields that we\u0027re experimenting with and not sure they\u0027d make it to the final API as is.",
+      "parentUuid": "9666c006_a57059f2",
+      "range": {
+        "startLine": 202,
+        "startChar": 8,
+        "endLine": 216,
+        "endChar": 29
+      },
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cccc9670_82c3bf25",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 2
