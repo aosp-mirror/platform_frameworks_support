@@ -22,6 +22,30 @@
       "revId": "0a0257379415463fec3f7ec488fb3c12d0d684d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac28b7b7_a45dcae6",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-09-25T07:12:20Z",
+      "side": 1,
+      "message": "I think this is necessary for player.release(), as we don\u0027t want to return while the player may still be holding onto resources (e.g., via MediaCodecs). We do the same thing in ExoPlayer here: https://github.com/google/ExoPlayer/blob/ef8a47b/library/core/src/main/java/com/google/android/exoplayer2/ExoPlayerImplInternal.java#L226.\n\nFor all cases other than release(), the code running should return quickly as these are asynchronous calls (this change is just intended to make them run on the correct thread).\n\nI\u0027m okay with switching this to throw a runtime exception, though we might still want to have release() block as a special case. What do you think?",
+      "parentUuid": "890ca71a_37b1db10",
+      "range": {
+        "startLine": 749,
+        "startChar": 0,
+        "endLine": 757,
+        "endChar": 13
+      },
+      "revId": "0a0257379415463fec3f7ec488fb3c12d0d684d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
