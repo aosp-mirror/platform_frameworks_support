@@ -432,10 +432,10 @@ public class InvalidationTracker {
 
     /**
      * Check versions for tables, and run observers synchronously if tables have been updated.
-     *
-     * @hide
+     * <p>
+     * This method should only be used on a worker thread. It can be used to verify whether two
+     * separate loads are from the same version (that is, nothing changed in between two loads).
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @WorkerThread
     public void refreshVersionsSync() {
         syncTriggers();

@@ -19,6 +19,7 @@ package androidx.room {
   public class InvalidationTracker {
     method public void addObserver(androidx.room.InvalidationTracker.Observer);
     method public void refreshVersionsAsync();
+    method public void refreshVersionsSync();
     method public void removeObserver(androidx.room.InvalidationTracker.Observer);
   }
 
