@@ -211,7 +211,6 @@ public class PagedScrollBarView extends ViewGroup {
         }
 
         int thumbLength = calculateScrollThumbLength(range, extent);
-        int thumbOffset = calculateScrollThumbOffset(range, offset, thumbLength);
 
         // Sets the size of the thumb and request a redraw if needed.
         ViewGroup.LayoutParams lp = mScrollThumb.getLayoutParams();
@@ -221,6 +220,7 @@ public class PagedScrollBarView extends ViewGroup {
             mScrollThumb.requestLayout();
         }
 
+        int thumbOffset = calculateScrollThumbOffset(range, offset, thumbLength);
         moveY(mScrollThumb, thumbOffset, animate);
     }
 
@@ -255,7 +255,7 @@ public class PagedScrollBarView extends ViewGroup {
             measureAndLayoutScrollThumb();
         }
 
-        mScrollThumb.setY(thumbOffset);
+        moveY(mScrollThumb, thumbOffset, /* animate= */ false);
     }
 
     /**
@@ -475,16 +475,16 @@ public class PagedScrollBarView extends ViewGroup {
         // aligned to the bottom as well. Otherwise, scale the offset appropriately.
         // This offset will be a value relative to the parent of this scrollbar, so start by where
         // the top of mScrollThumb is.
-        return mScrollThumb.getTop() + (isDownEnabled()
+        return isDownEnabled()
                 ? Math.round(((float) offset / range) * mScrollThumbTrackHeight)
-                : mScrollThumbTrackHeight - thumbLength);
+                : mScrollThumbTrackHeight - thumbLength;
     }
 
     /** Moves the given view to the specified 'y' position. */
     private void moveY(final View view, float newPosition, boolean animate) {
         final int duration = animate ? 200 : 0;
         view.animate()
-                .y(newPosition)
+                .translationY(newPosition)
                 .setDuration(duration)
                 .setInterpolator(mPaginationInterpolator)
                 .start();
