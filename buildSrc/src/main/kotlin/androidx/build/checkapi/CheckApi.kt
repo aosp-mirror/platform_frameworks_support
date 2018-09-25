@@ -112,16 +112,10 @@ fun initializeApiChecksForProject(
     return CheckApiTasks(generateApi, checkApi)
 }
 
-fun Project.hasApiFolder() = File(projectDir, "api").exists()
-
 fun hasApiTasks(project: Project, extension: SupportLibraryExtension): Boolean {
     if (extension.toolingProject) {
         project.logger.info("Project ${project.name} is tooling project ignoring API tasks.")
         return false
-    }
-
-    if (project.hasApiFolder()) {
-        return true
     }
 
     if (!extension.publish) {
@@ -130,12 +124,7 @@ fun hasApiTasks(project: Project, extension: SupportLibraryExtension): Boolean {
         return false
     }
 
-    if (extension.publish && project.version().isFinalApi()) {
-        throw GradleException("Project ${project.name} must track API before stabilizing API\n." +
-                "To do that create \"api\" in your project directory and " +
-                "run \"./gradlew updateApi\" command")
-    }
-    return false
+    return true
 }
 
 // Creates a new task on the project for generating API files
@@ -273,16 +262,18 @@ private fun getLastReleasedApiFileFromDir(
     }
     var lastFile: File? = null
     var lastVersion: Version? = null
-    apiDir.listFiles().forEach { file ->
-        val parsed = Version.parseOrNull(file)
-        parsed?.let { version ->
-            if ((lastFile == null || lastVersion!! < version) &&
-                (maxVersionExclusive == null || version < maxVersionExclusive) &&
-                if (requireFinalApi) version.isFinalApi() else true &&
-                if (requireSameMajorRevision) version.major == maxVersionExclusive?.major
-                else true) {
-                lastFile = file
-                lastVersion = version
+    if (apiDir.exists()) {
+        apiDir.listFiles().forEach { file ->
+            val parsed = Version.parseOrNull(file)
+            parsed?.let { version ->
+                if ((lastFile == null || lastVersion!! < version) &&
+                    (maxVersionExclusive == null || version < maxVersionExclusive) &&
+                    if (requireFinalApi) version.isFinalApi() else true &&
+                    if (requireSameMajorRevision) version.major == maxVersionExclusive?.major
+                    else true) {
+                    lastFile = file
+                    lastVersion = version
+                }
             }
         }
     }

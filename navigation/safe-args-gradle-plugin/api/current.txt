@@ -1,0 +1,44 @@
+// Signature format: 2.0
+package androidx.navigation.safeargs.gradle {
+
+  public class ArgumentsGenerationTask extends org.gradle.api.DefaultTask {
+    ctor public ArgumentsGenerationTask();
+    method public final String getApplicationId();
+    method public final java.io.File getIncrementalFolder();
+    method public final java.util.List<java.io.File> getNavigationFiles();
+    method public final java.io.File getOutputDir();
+    method public final String getRFilePackage();
+    method public final boolean getUseAndroidX();
+    method public final void setApplicationId(String p);
+    method public final void setIncrementalFolder(java.io.File p);
+    method public final void setNavigationFiles(java.util.List<? extends java.io.File> p);
+    method public final void setOutputDir(java.io.File p);
+    method public final void setRFilePackage(String p);
+    method public final void setUseAndroidX(boolean p);
+    property public final String applicationId;
+    property public final java.io.File incrementalFolder;
+    property public final java.util.List<java.io.File> navigationFiles;
+    property public final java.io.File outputDir;
+    property public final String rFilePackage;
+    property public final boolean useAndroidX;
+    field public String applicationId;
+    field public java.io.File incrementalFolder;
+    field public java.io.File outputDir;
+    field public String rFilePackage;
+  }
+
+  public final class ArgumentsGenerationTaskKt {
+    ctor public ArgumentsGenerationTaskKt();
+  }
+
+  public final class SafeArgsPlugin implements org.gradle.api.Plugin<org.gradle.api.Project> {
+    ctor public SafeArgsPlugin();
+    method public void apply(org.gradle.api.Project project);
+  }
+
+  public final class SafeArgsPluginKt {
+    ctor public SafeArgsPluginKt();
+  }
+
+}
+
