@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "495a5b1f_cdae65c8",
+        "filename": "car/core/res/layout/car_list_item_action_content.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-09-25T18:46:29Z",
+      "side": 1,
+      "message": "should this be padding_2..?",
+      "range": {
+        "startLine": 90,
+        "startChar": 53,
+        "endLine": 90,
+        "endChar": 54
+      },
+      "revId": "a846349c51dc7d5b9011dd7060b00fac2117a11c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
