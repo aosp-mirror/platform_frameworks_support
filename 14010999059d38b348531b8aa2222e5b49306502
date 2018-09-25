@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2980aab_6a42749b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-25T20:50:10Z",
+      "side": 0,
+      "message": "This is a slight change to the policy that we have documented, which is that API files will be generated if publish\u003dtrue OR an `api` directory has been manually created. I think there is still a valid use case for publish\u003dfalse to generate API files -- thoughts?",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 5
+      },
+      "revId": "14010999059d38b348531b8aa2222e5b49306502",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
