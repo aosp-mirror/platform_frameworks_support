@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "890ca71a_37b1db10",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-25T03:13:52Z",
+      "side": 1,
+      "message": "I am not sure if this is the common practice to handle InterruptedException.\nhttps://cs.corp.google.com/search/?q\u003d%22future.get()%22+file:%5E//depot/google3/java/com/google/+package:%5Epiper$\u0026type\u003dcs\nMost of above were converting it to a runtime exception. Do you have any specific reason for retrying?",
+      "range": {
+        "startLine": 749,
+        "startChar": 0,
+        "endLine": 757,
+        "endChar": 13
+      },
+      "revId": "0a0257379415463fec3f7ec488fb3c12d0d684d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
