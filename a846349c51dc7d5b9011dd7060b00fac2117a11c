@@ -22,6 +22,30 @@
       "revId": "a846349c51dc7d5b9011dd7060b00fac2117a11c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ba3baf4_19426f19",
+        "filename": "car/core/res/layout/car_list_item_action_content.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-25T18:50:14Z",
+      "side": 1,
+      "message": "It\u0027s actually meant to be padding1. So UX has dictated that the divider always be centered within the space between the text and action buttons and between the actions buttons. \n\nThe text and action buttons are separated by a spacing of padding4 (20dp). So the divider should be in the middle of this with padding1 (10dp). There\u0027s some rounding that occurs here so I didn\u0027t make it 9.5dp. 10dp seems to look fine.",
+      "parentUuid": "495a5b1f_cdae65c8",
+      "range": {
+        "startLine": 90,
+        "startChar": 53,
+        "endLine": 90,
+        "endChar": 54
+      },
+      "revId": "a846349c51dc7d5b9011dd7060b00fac2117a11c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
