@@ -1,0 +1,124 @@
+package androidx.navigation {
+
+  public class NavAction {
+    ctor public NavAction(int);
+    ctor public NavAction(int, androidx.navigation.NavOptions);
+    method public int getDestinationId();
+    method public androidx.navigation.NavOptions getNavOptions();
+    method public void setNavOptions(androidx.navigation.NavOptions);
+  }
+
+  public class NavDestination {
+    ctor public NavDestination(androidx.navigation.Navigator<? extends androidx.navigation.NavDestination>);
+    method public void addDeepLink(java.lang.String);
+    method public void addDefaultArguments(android.os.Bundle);
+    method public androidx.navigation.NavAction getAction(int);
+    method public android.os.Bundle getDefaultArguments();
+    method public int getId();
+    method public java.lang.CharSequence getLabel();
+    method public androidx.navigation.Navigator getNavigator();
+    method public androidx.navigation.NavGraph getParent();
+    method public void navigate(android.os.Bundle, androidx.navigation.NavOptions, androidx.navigation.Navigator.Extras);
+    method public void onInflate(android.content.Context, android.util.AttributeSet);
+    method protected static <C> java.lang.Class<? extends C> parseClassFromName(android.content.Context, java.lang.String, java.lang.Class<? extends C>);
+    method public void putAction(int, int);
+    method public void putAction(int, androidx.navigation.NavAction);
+    method public void removeAction(int);
+    method public void setDefaultArguments(android.os.Bundle);
+    method public void setId(int);
+    method public void setLabel(java.lang.CharSequence);
+  }
+
+  public static abstract class NavDestination.ClassType implements java.lang.annotation.Annotation {
+  }
+
+  public abstract interface NavDirections {
+    method public abstract int getActionId();
+    method public abstract android.os.Bundle getArguments();
+  }
+
+  public class NavGraph extends androidx.navigation.NavDestination implements java.lang.Iterable {
+    ctor public NavGraph(androidx.navigation.NavigatorProvider);
+    ctor public NavGraph(androidx.navigation.Navigator<? extends androidx.navigation.NavGraph>);
+    method public void addAll(androidx.navigation.NavGraph);
+    method public void addDestination(androidx.navigation.NavDestination);
+    method public void addDestinations(java.util.Collection<androidx.navigation.NavDestination>);
+    method public void addDestinations(androidx.navigation.NavDestination...);
+    method public void clear();
+    method public androidx.navigation.NavDestination findNode(int);
+    method public int getStartDestination();
+    method public java.util.Iterator<androidx.navigation.NavDestination> iterator();
+    method public void remove(androidx.navigation.NavDestination);
+    method public void setStartDestination(int);
+  }
+
+  public class NavGraphNavigator extends androidx.navigation.Navigator {
+    ctor public NavGraphNavigator(android.content.Context);
+    method public androidx.navigation.NavGraph createDestination();
+    method public void navigate(androidx.navigation.NavGraph, android.os.Bundle, androidx.navigation.NavOptions, androidx.navigation.Navigator.Extras);
+    method public boolean popBackStack();
+  }
+
+  public class NavOptions {
+    method public static void addPopAnimationsToIntent(android.content.Intent, androidx.navigation.NavOptions);
+    method public static void applyPopAnimationsToPendingTransition(android.app.Activity);
+    method public int getEnterAnim();
+    method public int getExitAnim();
+    method public int getPopEnterAnim();
+    method public int getPopExitAnim();
+    method public int getPopUpTo();
+    method public boolean isPopUpToInclusive();
+    method public deprecated boolean shouldClearTask();
+    method public deprecated boolean shouldLaunchDocument();
+    method public boolean shouldLaunchSingleTop();
+  }
+
+  public static class NavOptions.Builder {
+    ctor public NavOptions.Builder();
+    method public androidx.navigation.NavOptions build();
+    method public deprecated androidx.navigation.NavOptions.Builder setClearTask(boolean);
+    method public androidx.navigation.NavOptions.Builder setEnterAnim(int);
+    method public androidx.navigation.NavOptions.Builder setExitAnim(int);
+    method public deprecated androidx.navigation.NavOptions.Builder setLaunchDocument(boolean);
+    method public androidx.navigation.NavOptions.Builder setLaunchSingleTop(boolean);
+    method public androidx.navigation.NavOptions.Builder setPopEnterAnim(int);
+    method public androidx.navigation.NavOptions.Builder setPopExitAnim(int);
+    method public androidx.navigation.NavOptions.Builder setPopUpTo(int, boolean);
+  }
+
+  public abstract class Navigator<D extends androidx.navigation.NavDestination> {
+    ctor public Navigator();
+    method public final void addOnNavigatorNavigatedListener(androidx.navigation.Navigator.OnNavigatorNavigatedListener);
+    method public abstract D createDestination();
+    method public final void dispatchOnNavigatorNavigated(int, int);
+    method public abstract void navigate(D, android.os.Bundle, androidx.navigation.NavOptions, androidx.navigation.Navigator.Extras);
+    method public void onActive();
+    method public void onInactive();
+    method public void onRestoreState(android.os.Bundle);
+    method public android.os.Bundle onSaveState();
+    method public abstract boolean popBackStack();
+    method public final void removeOnNavigatorNavigatedListener(androidx.navigation.Navigator.OnNavigatorNavigatedListener);
+    field public static final int BACK_STACK_DESTINATION_ADDED = 1; // 0x1
+    field public static final int BACK_STACK_DESTINATION_POPPED = 2; // 0x2
+    field public static final int BACK_STACK_UNCHANGED = 0; // 0x0
+  }
+
+  public static abstract interface Navigator.Extras {
+  }
+
+  public static abstract class Navigator.Name implements java.lang.annotation.Annotation {
+  }
+
+  public static abstract interface Navigator.OnNavigatorNavigatedListener {
+    method public abstract void onNavigatorNavigated(androidx.navigation.Navigator, int, int);
+  }
+
+  public abstract interface NavigatorProvider {
+    method public abstract androidx.navigation.Navigator<? extends androidx.navigation.NavDestination> addNavigator(androidx.navigation.Navigator<? extends androidx.navigation.NavDestination>);
+    method public abstract androidx.navigation.Navigator<? extends androidx.navigation.NavDestination> addNavigator(java.lang.String, androidx.navigation.Navigator<? extends androidx.navigation.NavDestination>);
+    method public abstract <D extends androidx.navigation.NavDestination, T extends androidx.navigation.Navigator<? extends D>> T getNavigator(java.lang.Class<T>);
+    method public abstract <D extends androidx.navigation.NavDestination, T extends androidx.navigation.Navigator<? extends D>> T getNavigator(java.lang.String);
+  }
+
+}
+

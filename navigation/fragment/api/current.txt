@@ -1,0 +1,39 @@
+package androidx.navigation.fragment {
+
+  public class FragmentNavigator extends androidx.navigation.Navigator {
+    ctor public FragmentNavigator(android.content.Context, android.support.v4.app.FragmentManager, int);
+    method public androidx.navigation.fragment.FragmentNavigator.Destination createDestination();
+    method public void navigate(androidx.navigation.fragment.FragmentNavigator.Destination, android.os.Bundle, androidx.navigation.NavOptions, androidx.navigation.Navigator.Extras);
+    method public boolean popBackStack();
+  }
+
+  public static class FragmentNavigator.Destination extends androidx.navigation.NavDestination {
+    ctor public FragmentNavigator.Destination(androidx.navigation.NavigatorProvider);
+    ctor public FragmentNavigator.Destination(androidx.navigation.Navigator<? extends androidx.navigation.fragment.FragmentNavigator.Destination>);
+    method public android.support.v4.app.Fragment createFragment(android.os.Bundle);
+    method public java.lang.Class<? extends android.support.v4.app.Fragment> getFragmentClass();
+    method public androidx.navigation.fragment.FragmentNavigator.Destination setFragmentClass(java.lang.Class<? extends android.support.v4.app.Fragment>);
+  }
+
+  public static class FragmentNavigator.Extras implements androidx.navigation.Navigator.Extras {
+    method public java.util.Map<android.view.View, java.lang.String> getSharedElements();
+  }
+
+  public static class FragmentNavigator.Extras.Builder {
+    ctor public FragmentNavigator.Extras.Builder();
+    method public androidx.navigation.fragment.FragmentNavigator.Extras.Builder addSharedElement(android.view.View, java.lang.String);
+    method public androidx.navigation.fragment.FragmentNavigator.Extras.Builder addSharedElements(java.util.Map<android.view.View, java.lang.String>);
+    method public androidx.navigation.fragment.FragmentNavigator.Extras build();
+  }
+
+  public class NavHostFragment extends android.support.v4.app.Fragment implements androidx.navigation.NavHost {
+    ctor public NavHostFragment();
+    method public static androidx.navigation.fragment.NavHostFragment create(int);
+    method protected androidx.navigation.Navigator<? extends androidx.navigation.fragment.FragmentNavigator.Destination> createFragmentNavigator();
+    method public static androidx.navigation.NavController findNavController(android.support.v4.app.Fragment);
+    method public androidx.navigation.NavController getNavController();
+    method public void setGraph(int);
+  }
+
+}
+

@@ -21,7 +21,6 @@ import androidx.build.SupportLibraryExtension
 import androidx.build.androidJarFile
 import androidx.build.checkapi.getCurrentApiFile
 import androidx.build.checkapi.getRequiredCompatibilityApiFile
-import androidx.build.checkapi.hasApiFolder
 import androidx.build.checkapi.hasApiTasks
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Project
@@ -50,12 +49,6 @@ object Metalava {
 
         library.libraryVariants.all { variant ->
             if (variant.name == "release") {
-                if (!project.hasApiFolder()) {
-                    project.logger.info(
-                        "Project ${project.name} doesn't have an api folder, ignoring API tasks.")
-                    return@all
-                }
-
                 val apiTxt = project.getCurrentApiFile()
 
                 val checkApi = project.tasks.create("checkApi", CheckApiTask::class.java) { task ->
@@ -86,11 +79,6 @@ object Metalava {
         extension: SupportLibraryExtension
     ) {
         if (!hasApiTasks(project, extension)) {
-            return
-        }
-        if (!project.hasApiFolder()) {
-            project.logger.info(
-                    "Project ${project.name} doesn't have an api folder, ignoring API tasks.")
             return
         }
 

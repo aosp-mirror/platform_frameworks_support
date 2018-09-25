@@ -1,0 +1,301 @@
+// Signature format: 2.0
+package androidx.navigation.safe.args.generator {
+
+  public final class BoolType extends androidx.navigation.safe.args.generator.NavType {
+    method public boolean allowsNullable();
+    method public String bundleGetMethod();
+    method public String bundlePutMethod();
+    method public com.squareup.javapoet.TypeName typeName();
+    field public static final androidx.navigation.safe.args.generator.BoolType! INSTANCE;
+  }
+
+  public final class BooleanValue extends androidx.navigation.safe.args.generator.WriteableValue {
+    ctor public BooleanValue(String value);
+    method public androidx.navigation.safe.args.generator.BooleanValue copy(String value);
+    method public com.squareup.javapoet.CodeBlock write();
+  }
+
+  public final class ErrorMessage {
+    ctor public ErrorMessage(String path, int line, int column, String message);
+    method public String component1();
+    method public int component2();
+    method public int component3();
+    method public String component4();
+    method public androidx.navigation.safe.args.generator.ErrorMessage copy(String path, int line, int column, String message);
+    method public int getColumn();
+    method public int getLine();
+    method public String getMessage();
+    method public String getPath();
+  }
+
+  public final class FloatType extends androidx.navigation.safe.args.generator.NavType {
+    method public boolean allowsNullable();
+    method public String bundleGetMethod();
+    method public String bundlePutMethod();
+    method public com.squareup.javapoet.TypeName typeName();
+    field public static final androidx.navigation.safe.args.generator.FloatType! INSTANCE;
+  }
+
+  public final class FloatValue extends androidx.navigation.safe.args.generator.WriteableValue {
+    ctor public FloatValue(String value);
+    method public androidx.navigation.safe.args.generator.FloatValue copy(String value);
+    method public com.squareup.javapoet.CodeBlock write();
+  }
+
+  public final class GeneratorOutput {
+    ctor public GeneratorOutput(java.util.List<com.squareup.javapoet.JavaFile> files, java.util.List<androidx.navigation.safe.args.generator.ErrorMessage> errors);
+    method public java.util.List<com.squareup.javapoet.JavaFile> component1();
+    method public java.util.List<androidx.navigation.safe.args.generator.ErrorMessage> component2();
+    method public androidx.navigation.safe.args.generator.GeneratorOutput copy(java.util.List<com.squareup.javapoet.JavaFile> files, java.util.List<androidx.navigation.safe.args.generator.ErrorMessage> errors);
+    method public java.util.List<androidx.navigation.safe.args.generator.ErrorMessage> getErrors();
+    method public java.util.List<java.lang.String> getFileNames();
+    method public java.util.List<com.squareup.javapoet.JavaFile> getFiles();
+    property public final java.util.List<java.lang.String> fileNames;
+  }
+
+  public final class IntType extends androidx.navigation.safe.args.generator.NavType {
+    method public boolean allowsNullable();
+    method public String bundleGetMethod();
+    method public String bundlePutMethod();
+    method public com.squareup.javapoet.TypeName typeName();
+    field public static final androidx.navigation.safe.args.generator.IntType! INSTANCE;
+  }
+
+  public final class IntValue extends androidx.navigation.safe.args.generator.WriteableValue {
+    ctor public IntValue(String value);
+    method public androidx.navigation.safe.args.generator.IntValue copy(String value);
+    method public com.squareup.javapoet.CodeBlock write();
+  }
+
+  public final class LongType extends androidx.navigation.safe.args.generator.NavType {
+    method public boolean allowsNullable();
+    method public String bundleGetMethod();
+    method public String bundlePutMethod();
+    method public com.squareup.javapoet.TypeName typeName();
+    field public static final androidx.navigation.safe.args.generator.LongType! INSTANCE;
+  }
+
+  public final class LongValue extends androidx.navigation.safe.args.generator.WriteableValue {
+    ctor public LongValue(String value);
+    method public androidx.navigation.safe.args.generator.LongValue copy(String value);
+    method public com.squareup.javapoet.CodeBlock write();
+  }
+
+  public final class NavArgumentResolverKt {
+    ctor public NavArgumentResolverKt();
+    method public static androidx.navigation.safe.args.generator.models.Destination resolveArguments(androidx.navigation.safe.args.generator.models.Destination rootDestination);
+  }
+
+  public final class NavLogger {
+    ctor public NavLogger();
+    method public java.util.List<androidx.navigation.safe.args.generator.ErrorMessage> allMessages();
+    method public void error(String message, androidx.navigation.safe.args.generator.XmlPosition position);
+  }
+
+  public final class NavParserErrors {
+    method public String defaultNullButNotNullable(String? name);
+    method public String defaultValueParcelable(String? type);
+    method public String deprecatedTypeAttrUsed(String name);
+    method public String getUNNAMED_DESTINATION();
+    method public String invalidDefaultValue(String value, androidx.navigation.safe.args.generator.NavType type);
+    method public String invalidDefaultValueReference(String value);
+    method public String invalidId(String value);
+    method public String sameSanitizedNameActions(String sanitizedName, java.util.List<androidx.navigation.safe.args.generator.models.Action> actions);
+    method public String sameSanitizedNameArguments(String sanitizedName, java.util.List<androidx.navigation.safe.args.generator.models.Argument> args);
+    method public String typeIsNotNullable(String? typeName);
+    property public final String UNNAMED_DESTINATION;
+    field public static final androidx.navigation.safe.args.generator.NavParserErrors! INSTANCE;
+  }
+
+  public final class NavParserKt {
+    ctor public NavParserKt();
+    field public static final String VALUE_NULL = "@null";
+  }
+
+  public final class NavSafeArgsGeneratorKt {
+    ctor public NavSafeArgsGeneratorKt();
+    method public static androidx.navigation.safe.args.generator.GeneratorOutput generateSafeArgs(String rFilePackage, String applicationId, java.io.File navigationXml, java.io.File outputDir, boolean useAndroidX = false);
+  }
+
+  public abstract sealed class NavType {
+    method public abstract boolean allowsNullable();
+    method public abstract String bundleGetMethod();
+    method public abstract String bundlePutMethod();
+    method public abstract com.squareup.javapoet.TypeName typeName();
+    field public static final androidx.navigation.safe.args.generator.NavType.Companion! Companion;
+  }
+
+  public static final class NavType.Companion {
+    method public androidx.navigation.safe.args.generator.NavType from(String? name);
+  }
+
+  public final class NavWriterKt {
+    ctor public NavWriterKt();
+    method public static com.squareup.javapoet.TypeSpec generateDestinationDirectionsTypeSpec(com.squareup.javapoet.ClassName className, com.squareup.javapoet.TypeName? superclassName, androidx.navigation.safe.args.generator.models.Destination destination, boolean useAndroidX);
+    method public static com.squareup.javapoet.JavaFile generateDirectionsJavaFile(androidx.navigation.safe.args.generator.models.Destination destination, com.squareup.javapoet.ClassName? parentDirectionName, boolean useAndroidX);
+    method public static com.squareup.javapoet.TypeSpec generateDirectionsTypeSpec(androidx.navigation.safe.args.generator.models.Action action, boolean useAndroidX);
+  }
+
+  public final class NullValue extends androidx.navigation.safe.args.generator.WriteableValue {
+    method public com.squareup.javapoet.CodeBlock write();
+    field public static final androidx.navigation.safe.args.generator.NullValue! INSTANCE;
+  }
+
+  public final class ParcelableType extends androidx.navigation.safe.args.generator.NavType {
+    ctor public ParcelableType(com.squareup.javapoet.TypeName typeName);
+    method public boolean allowsNullable();
+    method public String bundleGetMethod();
+    method public String bundlePutMethod();
+    method public androidx.navigation.safe.args.generator.ParcelableType copy(com.squareup.javapoet.TypeName typeName);
+    method public com.squareup.javapoet.TypeName typeName();
+  }
+
+  public final class ReferenceType extends androidx.navigation.safe.args.generator.NavType {
+    method public boolean allowsNullable();
+    method public String bundleGetMethod();
+    method public String bundlePutMethod();
+    method public com.squareup.javapoet.TypeName typeName();
+    field public static final androidx.navigation.safe.args.generator.ReferenceType! INSTANCE;
+  }
+
+  public final class ReferenceValue extends androidx.navigation.safe.args.generator.WriteableValue {
+    ctor public ReferenceValue(androidx.navigation.safe.args.generator.models.ResReference resReference);
+    method public androidx.navigation.safe.args.generator.ReferenceValue copy(androidx.navigation.safe.args.generator.models.ResReference resReference);
+    method public com.squareup.javapoet.CodeBlock write();
+  }
+
+  public final class StringType extends androidx.navigation.safe.args.generator.NavType {
+    method public boolean allowsNullable();
+    method public String bundleGetMethod();
+    method public String bundlePutMethod();
+    method public com.squareup.javapoet.TypeName typeName();
+    field public static final androidx.navigation.safe.args.generator.StringType! INSTANCE;
+  }
+
+  public final class StringValue extends androidx.navigation.safe.args.generator.WriteableValue {
+    ctor public StringValue(String value);
+    method public androidx.navigation.safe.args.generator.StringValue copy(String value);
+    method public com.squareup.javapoet.CodeBlock write();
+  }
+
+  public abstract sealed class WriteableValue {
+    method public abstract com.squareup.javapoet.CodeBlock write();
+  }
+
+  public final class XmlPosition {
+    ctor public XmlPosition(String name, int line, int column);
+    method public String component1();
+    method public int component2();
+    method public int component3();
+    method public androidx.navigation.safe.args.generator.XmlPosition copy(String name, int line, int column);
+    method public int getColumn();
+    method public int getLine();
+    method public String getName();
+  }
+
+  public final class XmlPositionParserKt {
+    ctor public XmlPositionParserKt();
+  }
+
+}
+
+package androidx.navigation.safe.args.generator.ext {
+
+  public final class List_extKt {
+    ctor public List_extKt();
+    method public static String joinToCamelCase(java.util.List<java.lang.String>);
+    method public static String joinToCamelCaseAsVar(java.util.List<java.lang.String>);
+  }
+
+  public final class NavJavaPoet_extKt {
+    ctor public NavJavaPoet_extKt();
+    method public static com.squareup.javapoet.ClassName toClassName(com.squareup.javapoet.JavaFile);
+    field public static final String BEGIN_STMT = "$[";
+    field public static final String END_STMT = "$]";
+    field public static final String L = "$L";
+    field public static final String N = "$N";
+    field public static final String S = "$S";
+    field public static final String T = "$T";
+  }
+
+  public final class String_extKt {
+    ctor public String_extKt();
+    method public static String toCamelCase(String);
+    method public static String toCamelCaseAsVar(String);
+  }
+
+}
+
+package androidx.navigation.safe.args.generator.models {
+
+  public final class Action {
+    ctor public Action(androidx.navigation.safe.args.generator.models.ResReference id, androidx.navigation.safe.args.generator.models.ResReference? destination, java.util.List<androidx.navigation.safe.args.generator.models.Argument> args);
+    method public androidx.navigation.safe.args.generator.models.ResReference component1();
+    method public androidx.navigation.safe.args.generator.models.ResReference? component2();
+    method public java.util.List<androidx.navigation.safe.args.generator.models.Argument> component3();
+    method public androidx.navigation.safe.args.generator.models.Action copy(androidx.navigation.safe.args.generator.models.ResReference id, androidx.navigation.safe.args.generator.models.ResReference? destination, java.util.List<androidx.navigation.safe.args.generator.models.Argument> args);
+    method public java.util.List<androidx.navigation.safe.args.generator.models.Argument> getArgs();
+    method public androidx.navigation.safe.args.generator.models.ResReference? getDestination();
+    method public androidx.navigation.safe.args.generator.models.ResReference getId();
+  }
+
+  public final class Argument {
+    ctor public Argument(String name, androidx.navigation.safe.args.generator.NavType type, androidx.navigation.safe.args.generator.WriteableValue? defaultValue, boolean isNullable);
+    method public String component1();
+    method public androidx.navigation.safe.args.generator.NavType component2();
+    method public androidx.navigation.safe.args.generator.WriteableValue? component3();
+    method public boolean component4();
+    method public operator String component5();
+    method public androidx.navigation.safe.args.generator.models.Argument copy(String name, androidx.navigation.safe.args.generator.NavType type, androidx.navigation.safe.args.generator.WriteableValue? defaultValue, boolean isNullable);
+    method public androidx.navigation.safe.args.generator.WriteableValue? getDefaultValue();
+    method public String getName();
+    method public String getSanitizedName();
+    method public androidx.navigation.safe.args.generator.NavType getType();
+    method public boolean isNullable();
+    method public boolean isOptional();
+    property public final String sanitizedName;
+  }
+
+  public final class Destination {
+    ctor public Destination(androidx.navigation.safe.args.generator.models.ResReference? id, com.squareup.javapoet.ClassName? name, String type, java.util.List<androidx.navigation.safe.args.generator.models.Argument> args, java.util.List<androidx.navigation.safe.args.generator.models.Action> actions, java.util.List<androidx.navigation.safe.args.generator.models.Destination> nested);
+    method public androidx.navigation.safe.args.generator.models.ResReference? component1();
+    method public com.squareup.javapoet.ClassName? component2();
+    method public String component3();
+    method public java.util.List<androidx.navigation.safe.args.generator.models.Argument> component4();
+    method public java.util.List<androidx.navigation.safe.args.generator.models.Action> component5();
+    method public java.util.List<androidx.navigation.safe.args.generator.models.Destination> component6();
+    method public androidx.navigation.safe.args.generator.models.Destination copy(androidx.navigation.safe.args.generator.models.ResReference? id, com.squareup.javapoet.ClassName? name, String type, java.util.List<androidx.navigation.safe.args.generator.models.Argument> args, java.util.List<androidx.navigation.safe.args.generator.models.Action> actions, java.util.List<androidx.navigation.safe.args.generator.models.Destination> nested);
+    method public java.util.List<androidx.navigation.safe.args.generator.models.Action> getActions();
+    method public java.util.List<androidx.navigation.safe.args.generator.models.Argument> getArgs();
+    method public androidx.navigation.safe.args.generator.models.ResReference? getId();
+    method public com.squareup.javapoet.ClassName? getName();
+    method public java.util.List<androidx.navigation.safe.args.generator.models.Destination> getNested();
+    method public String getType();
+    field public static final androidx.navigation.safe.args.generator.models.Destination.Companion! Companion;
+  }
+
+  public static final class Destination.Companion {
+    method public com.squareup.javapoet.ClassName? createName(androidx.navigation.safe.args.generator.models.ResReference? id, String name, String applicationId);
+  }
+
+  public final class ResReference {
+    ctor public ResReference(String packageName, String resType, String name);
+    method public String component1();
+    method public String component2();
+    method public String component3();
+    method public androidx.navigation.safe.args.generator.models.ResReference copy(String packageName, String resType, String name);
+    method public String getJavaIdentifier();
+    method public String getName();
+    method public String getPackageName();
+    method public String getResType();
+    method public boolean isId();
+    property public final String javaIdentifier;
+  }
+
+  public final class ResReferenceKt {
+    ctor public ResReferenceKt();
+    method public static String accessor(androidx.navigation.safe.args.generator.models.ResReference?);
+  }
+
+}
+

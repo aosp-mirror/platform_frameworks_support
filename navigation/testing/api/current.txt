@@ -1,0 +1,19 @@
+package androidx.navigation.testing {
+
+  public class TestNavigator extends androidx.navigation.Navigator {
+    ctor public TestNavigator();
+    method public androidx.navigation.testing.TestNavigator.Destination createDestination();
+    method public void navigate(androidx.navigation.testing.TestNavigator.Destination, android.os.Bundle, androidx.navigation.NavOptions, androidx.navigation.Navigator.Extras);
+    method public boolean popBackStack();
+    field public final java.util.ArrayDeque<android.support.v4.util.Pair<androidx.navigation.testing.TestNavigator.Destination, android.os.Bundle>> mBackStack;
+  }
+
+  public static class TestNavigator.Destination extends androidx.navigation.NavDestination {
+  }
+
+  public class TestNavigatorProvider extends androidx.navigation.SimpleNavigatorProvider {
+    ctor public TestNavigatorProvider(android.content.Context);
+  }
+
+}
+
