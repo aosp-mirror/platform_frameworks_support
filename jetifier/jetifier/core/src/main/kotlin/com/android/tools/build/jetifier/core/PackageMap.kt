@@ -17,6 +17,7 @@
 package com.android.tools.build.jetifier.core
 
 import com.android.tools.build.jetifier.core.type.PackageName
+import com.google.gson.annotations.SerializedName
 
 /**
  * Package map to be used to rewrite packages. The rewrite rules allow duplicities where the
@@ -354,5 +355,31 @@ class PackageMap(private val rules: List<PackageRule>) {
         return null
     }
 
-    data class PackageRule(val from: String, val to: String)
+    /** Returns JSON data model of this class */
+    fun toJson(): List<PackageRule.JsonData> {
+        return rules.map { it.toJson() }
+    }
+
+    data class PackageRule(val from: String, val to: String) {
+
+        /** Returns JSON data model of this class */
+        fun toJson(): JsonData {
+            return JsonData(from, to)
+        }
+
+        /**
+         * JSON data model for [PackageRule].
+         */
+        data class JsonData(
+            @SerializedName("from")
+            val from: String,
+            @SerializedName("to")
+            val to: String
+        ) {
+            /** Creates instance of [PackageRule] */
+            fun toMappings(): PackageRule {
+                return PackageRule(from, to)
+            }
+        }
+    }
 }
