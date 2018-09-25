@@ -21,7 +21,6 @@ import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.WorkerThread;
-import android.support.v4.util.Pair;
 
 import androidx.work.impl.utils.futures.SettableFuture;
 
@@ -63,7 +62,7 @@ public abstract class Worker extends NonBlockingWorker {
     }
 
     // Package-private to avoid synthetic accessor.
-    SettableFuture<Pair<Result, Data>> mFuture;
+    SettableFuture<Payload> mFuture;
 
     /**
      * @deprecated Use {@link #Worker(Context, WorkerParameters)} instead
@@ -90,14 +89,14 @@ public abstract class Worker extends NonBlockingWorker {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @Override
-    public @NonNull ListenableFuture<Pair<Result, Data>> onStartWork() {
+    public final @NonNull ListenableFuture<Payload> onStartWork() {
         mFuture = SettableFuture.create();
         getBackgroundExecutor().execute(new Runnable() {
             @Override
             public void run() {
                 Result result = doWork();
                 setResult(result);
-                mFuture.set(new Pair<>(result, getOutputData()));
+                mFuture.set(new Payload(result, getOutputData()));
             }
         });
         return mFuture;
