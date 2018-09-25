@@ -29,6 +29,7 @@ import androidx.viewpager2.widget.ViewPager2.OnPageChangeListener
 import androidx.viewpager2.widget.ViewPager2.Orientation.HORIZONTAL
 import androidx.viewpager2.widget.ViewPager2.Orientation.VERTICAL
 import androidx.viewpager2.widget.ViewPager2.PageTransformer
+import androidx.viewpager2.widget.swipe.ViewAdapter
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.CoreMatchers.not
@@ -113,7 +114,8 @@ class PageTransformerTest : BaseTest() {
         pageList: List<Int>
     ) {
         // given
-        setUpTest(100, orientation).apply {
+        setUpTest(orientation).apply {
+            setAdapterSync { ViewAdapter(stringSequence(100)) }
 
             // when
             pageList.forEach { targetPage ->
@@ -150,7 +152,7 @@ class PageTransformerTest : BaseTest() {
         val latch = viewPager.addWaitForScrolledLatch(targetPage)
         swiper.swipe(currentPage, targetPage)
         latch.await(1, SECONDS)
-        assertBasicState(targetPage)
+        assertBasicState(targetPage, "$targetPage")
     }
 
     @Test

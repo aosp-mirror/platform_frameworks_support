@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright (C) 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import androidx.viewpager2.widget.RapidlySetItems.Event.OnPageSelectedEvent
 import androidx.viewpager2.widget.ViewPager2.Orientation.HORIZONTAL
 import androidx.viewpager2.widget.ViewPager2.Orientation.VERTICAL
 import androidx.viewpager2.widget.ViewPager2.ScrollState.DRAGGING
+import androidx.viewpager2.widget.swipe.ViewAdapter
 import org.hamcrest.CoreMatchers.anyOf
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.instanceOf
@@ -36,8 +37,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import java.util.Random
 
-private const val randomTesting = false // change to true to enable random tests
-private const val randomTestsPerConfig = 1 // increase to have more random tests generated
+private const val RANDOM_TESTS_PER_CONFIG = 0 // increase to have random tests generated
 
 /**
  * Tests if rapidly setting the current item to different pages is handled correctly by ViewPager2.
@@ -59,7 +59,8 @@ class RapidlySetItems(private val config: RapidlySetItemsConfig) : BaseTest() {
     fun test() {
         config.apply {
             // given
-            setUpTest(totalPages, orientation).apply {
+            setUpTest(orientation).apply {
+                setAdapterSync { ViewAdapter(stringSequence(totalPages)) }
                 viewPager.clearOnPageChangeListeners()
                 val listener = viewPager.addNewRecordingListener()
                 var currentPage = viewPager.currentItem
@@ -290,11 +291,7 @@ private fun createTestSet(orientation: Int): List<RapidlySetItemsConfig> {
         )
     )
     .plus(
-        if (randomTesting) {
-            List(randomTestsPerConfig) { createRandomTest(orientation) }
-        } else {
-            emptyList()
-        }
+        List(RANDOM_TESTS_PER_CONFIG) { createRandomTest(orientation) }
     )
 }
 
