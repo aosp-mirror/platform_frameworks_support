@@ -2303,7 +2303,7 @@ public class ViewCompat {
         if (Build.VERSION.SDK_INT >= 21) {
             WindowInsets unwrapped = (WindowInsets)  WindowInsetsCompat.unwrap(insets);
             WindowInsets result = view.onApplyWindowInsets(unwrapped);
-            if (result != unwrapped) {
+            if (!result.equals(unwrapped)) {
                 unwrapped = new WindowInsets(result);
             }
             return WindowInsetsCompat.wrap(unwrapped);
@@ -2311,7 +2311,7 @@ public class ViewCompat {
         return insets;
     }
 
-    /**
+    /**1
      * Request to apply the given window insets to this view or another view in its subtree.
      *
      * <p>This method should be called by clients wishing to apply insets corresponding to areas
@@ -2328,7 +2328,7 @@ public class ViewCompat {
         if (Build.VERSION.SDK_INT >= 21) {
             WindowInsets unwrapped = (WindowInsets) WindowInsetsCompat.unwrap(insets);
             WindowInsets result = view.dispatchApplyWindowInsets(unwrapped);
-            if (result != unwrapped) {
+            if (!result.equals(unwrapped)) {
                 unwrapped = new WindowInsets(result);
             }
             return WindowInsetsCompat.wrap(unwrapped);
