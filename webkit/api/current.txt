@@ -28,6 +28,14 @@ package androidx.webkit {
     method public abstract void setCacheMode(int);
   }
 
+  public abstract class TracingControllerCompat {
+    method public static androidx.webkit.TracingControllerCompat getInstance();
+    method public abstract boolean isTracing();
+    method public abstract void start(int, java.util.Collection<java.lang.String>, int) throws java.lang.IllegalArgumentException, java.lang.IllegalStateException;
+    method public void start() throws java.lang.IllegalArgumentException, java.lang.IllegalStateException;
+    method public abstract boolean stop(java.io.OutputStream, java.util.concurrent.Executor);
+  }
+
   public class WebMessageCompat {
     ctor public WebMessageCompat(java.lang.String);
     ctor public WebMessageCompat(java.lang.String, androidx.webkit.WebMessagePortCompat[]);
@@ -114,6 +122,7 @@ package androidx.webkit {
     field public static final java.lang.String SERVICE_WORKER_SHOULD_INTERCEPT_REQUEST = "SERVICE_WORKER_SHOULD_INTERCEPT_REQUEST";
     field public static final java.lang.String SHOULD_OVERRIDE_WITH_REDIRECTS = "SHOULD_OVERRIDE_WITH_REDIRECTS";
     field public static final java.lang.String START_SAFE_BROWSING = "START_SAFE_BROWSING";
+    field public static final java.lang.String TRACING_CONTROLLER_BASIC_USAGE = "TRACING_CONTROLLER_BASIC_USAGE";
     field public static final java.lang.String VISUAL_STATE_CALLBACK = "VISUAL_STATE_CALLBACK";
     field public static final java.lang.String WEB_MESSAGE_CALLBACK_ON_MESSAGE = "WEB_MESSAGE_CALLBACK_ON_MESSAGE";
     field public static final java.lang.String WEB_MESSAGE_PORT_CLOSE = "WEB_MESSAGE_PORT_CLOSE";
