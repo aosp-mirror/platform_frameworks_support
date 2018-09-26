@@ -40,16 +40,18 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.concurrent.futures.ResolvableFuture;
 import androidx.media.AudioAttributesCompat;
 import androidx.media.VolumeProviderCompat;
 import androidx.media2.MediaSession2.CommandButton;
 import androidx.media2.MediaSession2.ControllerInfo;
-import androidx.media2.MediaSession2.ErrorCode;
 import androidx.media2.SessionPlayer2.RepeatMode;
 import androidx.media2.SessionPlayer2.ShuffleMode;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -260,19 +262,21 @@ public class MediaController2 implements AutoCloseable {
     /**
      * Requests that the player starts or resumes playback.
      */
-    public void play() {
+    public ListenableFuture<ControllerResult> play() {
         if (isConnected()) {
-            getImpl().play();
+            return getImpl().play();
         }
+        return createDisconnectedFuture();
     }
 
     /**
      * Requests that the player pauses playback.
      */
-    public void pause() {
+    public ListenableFuture<ControllerResult> pause() {
         if (isConnected()) {
-            getImpl().pause();
+            return getImpl().pause();
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -282,30 +286,33 @@ public class MediaController2 implements AutoCloseable {
      * state to {@link SessionPlayer2#PLAYER_STATE_PAUSED}. Afterwards, {@link #play} can be
      * called to start playback.
      */
-    public void prefetch() {
+    public ListenableFuture<ControllerResult> prefetch() {
         if (isConnected()) {
-            getImpl().prefetch();
+            return getImpl().prefetch();
         }
+        return createDisconnectedFuture();
     }
 
     /**
      * Start fast forwarding. If playback is already fast forwarding this
      * may increase the rate.
      */
-    public void fastForward() {
+    public ListenableFuture<ControllerResult> fastForward() {
         if (isConnected()) {
-            getImpl().fastForward();
+            return getImpl().fastForward();
         }
+        return createDisconnectedFuture();
     }
 
     /**
      * Start rewinding. If playback is already rewinding this may increase
      * the rate.
      */
-    public void rewind() {
+    public ListenableFuture<ControllerResult> rewind() {
         if (isConnected()) {
-            getImpl().rewind();
+            return getImpl().rewind();
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -313,32 +320,35 @@ public class MediaController2 implements AutoCloseable {
      *
      * @param pos Position to move to, in milliseconds.
      */
-    public void seekTo(long pos) {
+    public ListenableFuture<ControllerResult> seekTo(long pos) {
         if (isConnected()) {
-            getImpl().seekTo(pos);
+            return getImpl().seekTo(pos);
         }
+        return createDisconnectedFuture();
     }
 
     /**
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
-    public void skipForward() {
+    public ListenableFuture<ControllerResult> skipForward() {
         // To match with KEYCODE_MEDIA_SKIP_FORWARD
         if (isConnected()) {
-            getImpl().skipForward();
+            return getImpl().skipForward();
         }
+        return createDisconnectedFuture();
     }
 
     /**
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
-    public void skipBackward() {
+    public ListenableFuture<ControllerResult> skipBackward() {
         // To match with KEYCODE_MEDIA_SKIP_BACKWARD
         if (isConnected()) {
-            getImpl().skipBackward();
+            return getImpl().skipBackward();
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -348,13 +358,15 @@ public class MediaController2 implements AutoCloseable {
      * @param extras Optional extras that can include extra information about the media item
      *               to be played.
      */
-    public void playFromMediaId(@NonNull String mediaId, @Nullable Bundle extras) {
+    public ListenableFuture<ControllerResult> playFromMediaId(@NonNull String mediaId,
+            @Nullable Bundle extras) {
         if (mediaId == null) {
             throw new IllegalArgumentException("mediaId shouldn't be null");
         }
         if (isConnected()) {
-            getImpl().playFromMediaId(mediaId, extras);
+            return getImpl().playFromMediaId(mediaId, extras);
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -363,13 +375,15 @@ public class MediaController2 implements AutoCloseable {
      * @param query The search query. Should not be an empty string.
      * @param extras Optional extras that can include extra information about the query.
      */
-    public void playFromSearch(@NonNull String query, @Nullable Bundle extras) {
+    public ListenableFuture<ControllerResult> playFromSearch(@NonNull String query,
+            @Nullable Bundle extras) {
         if (TextUtils.isEmpty(query)) {
             throw new IllegalArgumentException("query shouldn't be empty");
         }
         if (isConnected()) {
-            getImpl().playFromSearch(query, extras);
+            return getImpl().playFromSearch(query, extras);
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -379,13 +393,15 @@ public class MediaController2 implements AutoCloseable {
      * @param extras Optional extras that can include extra information about the media item
      *               to be played.
      */
-    public void playFromUri(@NonNull Uri uri, @Nullable Bundle extras) {
+    public ListenableFuture<ControllerResult> playFromUri(@NonNull Uri uri,
+            @Nullable Bundle extras) {
         if (uri == null) {
             throw new IllegalArgumentException("uri shouldn't be null");
         }
         if (isConnected()) {
-            getImpl().playFromUri(uri, extras);
+            return getImpl().playFromUri(uri, extras);
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -400,13 +416,15 @@ public class MediaController2 implements AutoCloseable {
      * @param extras Optional extras that can include extra information about the media item
      *               to be prepared.
      */
-    public void prefetchFromMediaId(@NonNull String mediaId, @Nullable Bundle extras) {
+    public ListenableFuture<ControllerResult> prefetchFromMediaId(@NonNull String mediaId,
+            @Nullable Bundle extras) {
         if (mediaId == null) {
             throw new IllegalArgumentException("mediaId shouldn't be null");
         }
         if (isConnected()) {
-            getImpl().prefetchFromMediaId(mediaId, extras);
+            return getImpl().prefetchFromMediaId(mediaId, extras);
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -421,13 +439,15 @@ public class MediaController2 implements AutoCloseable {
      * @param query The search query. Should not be an empty string.
      * @param extras Optional extras that can include extra information about the query.
      */
-    public void prefetchFromSearch(@NonNull String query, @Nullable Bundle extras) {
+    public ListenableFuture<ControllerResult> prefetchFromSearch(@NonNull String query,
+            @Nullable Bundle extras) {
         if (TextUtils.isEmpty(query)) {
             throw new IllegalArgumentException("query shouldn't be empty");
         }
         if (isConnected()) {
-            getImpl().prefetchFromSearch(query, extras);
+            return getImpl().prefetchFromSearch(query, extras);
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -442,13 +462,15 @@ public class MediaController2 implements AutoCloseable {
      * @param extras Optional extras that can include extra information about the media item
      *               to be prepared.
      */
-    public void prefetchFromUri(@NonNull Uri uri, @Nullable Bundle extras) {
+    public ListenableFuture<ControllerResult> prefetchFromUri(@NonNull Uri uri,
+            @Nullable Bundle extras) {
         if (uri == null) {
             throw new IllegalArgumentException("uri shouldn't be null");
         }
         if (isConnected()) {
-            getImpl().prefetchFromUri(uri, extras);
+            return getImpl().prefetchFromUri(uri, extras);
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -466,10 +488,11 @@ public class MediaController2 implements AutoCloseable {
      * @param flags flags from {@link AudioManager} to include with the volume request for local
      *              playback
      */
-    public void setVolumeTo(int value, @VolumeFlags int flags) {
+    public ListenableFuture<ControllerResult> setVolumeTo(int value, @VolumeFlags int flags) {
         if (isConnected()) {
-            getImpl().setVolumeTo(value, flags);
+            return getImpl().setVolumeTo(value, flags);
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -492,10 +515,12 @@ public class MediaController2 implements AutoCloseable {
      * @param flags flags from {@link AudioManager} to include with the volume request for local
      *              playback
      */
-    public void adjustVolume(@VolumeDirection int direction, @VolumeFlags int flags) {
+    public ListenableFuture<ControllerResult> adjustVolume(@VolumeDirection int direction,
+            @VolumeFlags int flags) {
         if (isConnected()) {
-            getImpl().adjustVolume(direction, flags);
+            return getImpl().adjustVolume(direction, flags);
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -555,10 +580,11 @@ public class MediaController2 implements AutoCloseable {
     /**
      * Set the playback speed.
      */
-    public void setPlaybackSpeed(float speed) {
+    public ListenableFuture<ControllerResult> setPlaybackSpeed(float speed) {
         if (isConnected()) {
-            getImpl().setPlaybackSpeed(speed);
+            return getImpl().setPlaybackSpeed(speed);
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -607,7 +633,8 @@ public class MediaController2 implements AutoCloseable {
      * @param mediaId The id of the media
      * @param rating The rating to set
      */
-    public void setRating(@NonNull String mediaId, @NonNull Rating2 rating) {
+    public ListenableFuture<ControllerResult> setRating(@NonNull String mediaId,
+            @NonNull Rating2 rating) {
         if (mediaId == null) {
             throw new IllegalArgumentException("mediaId shouldn't be null");
         }
@@ -615,19 +642,25 @@ public class MediaController2 implements AutoCloseable {
             throw new IllegalArgumentException("rating shouldn't be null");
         }
         if (isConnected()) {
-            getImpl().setRating(mediaId, rating);
+            return getImpl().setRating(mediaId, rating);
         }
+        return createDisconnectedFuture();
     }
 
     /**
      * Send custom command to the session
+     * <p>
+     * Interoperability: When connected to
+     * {@link android.support.v4.media.session.MediaSessionCompat},
+     * {@link ControllerResult#getResultCode()} will return the custom result code from the
+     * {@link ResultReceiver#onReceiveResult(int, Bundle)} instead of the standard result codes
+     * defined in the {@link ControllerResult}.
      *
      * @param command custom command
      * @param args optional argument
-     * @param cb optional result receiver
      */
-    public void sendCustomCommand(@NonNull SessionCommand2 command, @Nullable Bundle args,
-            @Nullable ResultReceiver cb) {
+    public ListenableFuture<ControllerResult> sendCustomCommand(@NonNull SessionCommand2 command,
+            @Nullable Bundle args) {
         if (command == null) {
             throw new IllegalArgumentException("command shouldn't be null");
         }
@@ -635,8 +668,9 @@ public class MediaController2 implements AutoCloseable {
             throw new IllegalArgumentException("command should be a custom command");
         }
         if (isConnected()) {
-            getImpl().sendCustomCommand(command, args, cb);
+            return getImpl().sendCustomCommand(command, args);
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -667,13 +701,15 @@ public class MediaController2 implements AutoCloseable {
      * @see #getPlaylist()
      * @see ControllerCallback#onPlaylistChanged
      */
-    public void setPlaylist(@NonNull List<MediaItem2> list, @Nullable MediaMetadata2 metadata) {
+    public ListenableFuture<ControllerResult> setPlaylist(@NonNull List<MediaItem2> list,
+            @Nullable MediaMetadata2 metadata) {
         if (list == null) {
             throw new IllegalArgumentException("list shouldn't be null");
         }
         if (isConnected()) {
-            getImpl().setPlaylist(list, metadata);
+            return getImpl().setPlaylist(list, metadata);
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -695,10 +731,12 @@ public class MediaController2 implements AutoCloseable {
      *
      * @param metadata metadata of the playlist
      */
-    public void updatePlaylistMetadata(@Nullable MediaMetadata2 metadata) {
+    public ListenableFuture<ControllerResult> updatePlaylistMetadata(
+            @Nullable MediaMetadata2 metadata) {
         if (isConnected()) {
-            getImpl().updatePlaylistMetadata(metadata);
+            return getImpl().updatePlaylistMetadata(metadata);
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -725,7 +763,7 @@ public class MediaController2 implements AutoCloseable {
      * @param index the index you want to add
      * @param item the media item you want to add
      */
-    public void addPlaylistItem(int index, @NonNull MediaItem2 item) {
+    public ListenableFuture<ControllerResult> addPlaylistItem(int index, @NonNull MediaItem2 item) {
         if (index < 0) {
             throw new IllegalArgumentException("index shouldn't be negative");
         }
@@ -733,8 +771,9 @@ public class MediaController2 implements AutoCloseable {
             throw new IllegalArgumentException("item shouldn't be null");
         }
         if (isConnected()) {
-            getImpl().addPlaylistItem(index, item);
+            return getImpl().addPlaylistItem(index, item);
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -745,13 +784,14 @@ public class MediaController2 implements AutoCloseable {
      *
      * @param item the media item you want to add
      */
-    public void removePlaylistItem(@NonNull MediaItem2 item) {
+    public ListenableFuture<ControllerResult> removePlaylistItem(@NonNull MediaItem2 item) {
         if (item == null) {
             throw new IllegalArgumentException("item shouldn't be null");
         }
         if (isConnected()) {
-            getImpl().removePlaylistItem(item);
+            return getImpl().removePlaylistItem(item);
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -761,7 +801,8 @@ public class MediaController2 implements AutoCloseable {
      * @param index the index of the item to replace
      * @param item the new item
      */
-    public void replacePlaylistItem(int index, @NonNull MediaItem2 item) {
+    public ListenableFuture<ControllerResult> replacePlaylistItem(int index,
+            @NonNull MediaItem2 item) {
         if (index < 0) {
             throw new IllegalArgumentException("index shouldn't be negative");
         }
@@ -769,8 +810,9 @@ public class MediaController2 implements AutoCloseable {
             throw new IllegalArgumentException("item shouldn't be null");
         }
         if (isConnected()) {
-            getImpl().replacePlaylistItem(index, item);
+            return getImpl().replacePlaylistItem(index, item);
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -788,10 +830,11 @@ public class MediaController2 implements AutoCloseable {
      * <p>
      * This calls {@link SessionPlayer2#skipToPreviousPlaylistItem()}.
      */
-    public void skipToPreviousPlaylistItem() {
+    public ListenableFuture<ControllerResult> skipToPreviousPlaylistItem() {
         if (isConnected()) {
-            getImpl().skipToPreviousItem();
+            return getImpl().skipToPreviousItem();
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -799,10 +842,11 @@ public class MediaController2 implements AutoCloseable {
      * <p>
      * This calls {@link SessionPlayer2#skipToNextPlaylistItem()}.
      */
-    public void skipToNextPlaylistItem() {
+    public ListenableFuture<ControllerResult> skipToNextPlaylistItem() {
         if (isConnected()) {
-            getImpl().skipToNextItem();
+            return getImpl().skipToNextItem();
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -812,13 +856,14 @@ public class MediaController2 implements AutoCloseable {
      *
      * @param item The item in the playlist you want to play
      */
-    public void skipToPlaylistItem(@NonNull MediaItem2 item) {
+    public ListenableFuture<ControllerResult> skipToPlaylistItem(@NonNull MediaItem2 item) {
         if (item == null) {
             throw new IllegalArgumentException("item shouldn't be null");
         }
         if (isConnected()) {
-            getImpl().skipToPlaylistItem(item);
+            return getImpl().skipToPlaylistItem(item);
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -844,10 +889,11 @@ public class MediaController2 implements AutoCloseable {
      * @see SessionPlayer2#REPEAT_MODE_ALL
      * @see SessionPlayer2#REPEAT_MODE_GROUP
      */
-    public void setRepeatMode(@RepeatMode int repeatMode) {
+    public ListenableFuture<ControllerResult> setRepeatMode(@RepeatMode int repeatMode) {
         if (isConnected()) {
-            getImpl().setRepeatMode(repeatMode);
+            return getImpl().setRepeatMode(repeatMode);
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -871,10 +917,11 @@ public class MediaController2 implements AutoCloseable {
      * @see SessionPlayer2#SHUFFLE_MODE_ALL
      * @see SessionPlayer2#SHUFFLE_MODE_GROUP
      */
-    public void setShuffleMode(@ShuffleMode int shuffleMode) {
+    public ListenableFuture<ControllerResult> setShuffleMode(@ShuffleMode int shuffleMode) {
         if (isConnected()) {
-            getImpl().setShuffleMode(shuffleMode);
+            return getImpl().setShuffleMode(shuffleMode);
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -882,10 +929,11 @@ public class MediaController2 implements AutoCloseable {
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
-    public void subscribeRoutesInfo() {
+    public ListenableFuture<ControllerResult> subscribeRoutesInfo() {
         if (isConnected()) {
-            getImpl().subscribeRoutesInfo();
+            return getImpl().subscribeRoutesInfo();
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -897,10 +945,11 @@ public class MediaController2 implements AutoCloseable {
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
-    public void unsubscribeRoutesInfo() {
+    public ListenableFuture<ControllerResult> unsubscribeRoutesInfo() {
         if (isConnected()) {
-            getImpl().unsubscribeRoutesInfo();
+            return getImpl().unsubscribeRoutesInfo();
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -910,13 +959,14 @@ public class MediaController2 implements AutoCloseable {
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
-    public void selectRoute(@NonNull Bundle route) {
+    public ListenableFuture<ControllerResult> selectRoute(@NonNull Bundle route) {
         if (route == null) {
             throw new IllegalArgumentException("route shouldn't be null");
         }
         if (isConnected()) {
-            getImpl().selectRoute(route);
+            return getImpl().selectRoute(route);
         }
+        return createDisconnectedFuture();
     }
 
     /**
@@ -930,6 +980,10 @@ public class MediaController2 implements AutoCloseable {
         mTimeDiff = timeDiff;
     }
 
+    private static ListenableFuture<ControllerResult> createDisconnectedFuture() {
+        return ControllerResult.createFuture(ControllerResult.RESULT_CODE_DISCONNECTED);
+    }
+
     @NonNull ControllerCallback getCallback() {
         return isConnected() ? getImpl().getCallback() : null;
     }
@@ -941,54 +995,63 @@ public class MediaController2 implements AutoCloseable {
     interface MediaController2Impl extends AutoCloseable {
         @Nullable SessionToken2 getConnectedSessionToken();
         boolean isConnected();
-        void play();
-        void pause();
-        void reset();
-        void prefetch();
-        void fastForward();
-        void rewind();
-        void seekTo(long pos);
-        void skipForward();
-        void skipBackward();
-        void playFromMediaId(@NonNull String mediaId, @Nullable Bundle extras);
-        void playFromSearch(@NonNull String query, @Nullable Bundle extras);
-        void playFromUri(@NonNull Uri uri, @Nullable Bundle extras);
-        void prefetchFromMediaId(@NonNull String mediaId, @Nullable Bundle extras);
-        void prefetchFromSearch(@NonNull String query, @Nullable Bundle extras);
-        void prefetchFromUri(@NonNull Uri uri, @Nullable Bundle extras);
-        void setVolumeTo(int value, @VolumeFlags int flags);
-        void adjustVolume(@VolumeDirection int direction, @VolumeFlags int flags);
+        ListenableFuture<ControllerResult> play();
+        ListenableFuture<ControllerResult> pause();
+        ListenableFuture<ControllerResult> prefetch();
+        ListenableFuture<ControllerResult> fastForward();
+        ListenableFuture<ControllerResult> rewind();
+        ListenableFuture<ControllerResult> seekTo(long pos);
+        ListenableFuture<ControllerResult> skipForward();
+        ListenableFuture<ControllerResult> skipBackward();
+        ListenableFuture<ControllerResult> playFromMediaId(@NonNull String mediaId,
+                @Nullable Bundle extras);
+        ListenableFuture<ControllerResult> playFromSearch(@NonNull String query,
+                @Nullable Bundle extras);
+        ListenableFuture<ControllerResult> playFromUri(@NonNull Uri uri, @Nullable Bundle extras);
+        ListenableFuture<ControllerResult> prefetchFromMediaId(@NonNull String mediaId,
+                @Nullable Bundle extras);
+        ListenableFuture<ControllerResult> prefetchFromSearch(@NonNull String query,
+                @Nullable Bundle extras);
+        ListenableFuture<ControllerResult> prefetchFromUri(@NonNull Uri uri,
+                @Nullable Bundle extras);
+        ListenableFuture<ControllerResult> setVolumeTo(int value, @VolumeFlags int flags);
+        ListenableFuture<ControllerResult> adjustVolume(@VolumeDirection int direction,
+                @VolumeFlags int flags);
         @Nullable PendingIntent getSessionActivity();
         int getPlayerState();
         long getDuration();
         long getCurrentPosition();
         float getPlaybackSpeed();
-        void setPlaybackSpeed(float speed);
+        ListenableFuture<ControllerResult> setPlaybackSpeed(float speed);
         @SessionPlayer2.BuffState int getBufferingState();
         long getBufferedPosition();
         @Nullable PlaybackInfo getPlaybackInfo();
-        void setRating(@NonNull String mediaId, @NonNull Rating2 rating);
-        void sendCustomCommand(@NonNull SessionCommand2 command, @Nullable Bundle args,
-                @Nullable ResultReceiver cb);
+        ListenableFuture<ControllerResult> setRating(@NonNull String mediaId,
+                @NonNull Rating2 rating);
+        ListenableFuture<ControllerResult> sendCustomCommand(@NonNull SessionCommand2 command,
+                @Nullable Bundle args);
         @Nullable List<MediaItem2> getPlaylist();
-        void setPlaylist(@NonNull List<MediaItem2> list, @Nullable MediaMetadata2 metadata);
-        void setMediaItem(@NonNull MediaItem2 item);
-        void updatePlaylistMetadata(@Nullable MediaMetadata2 metadata);
+        ListenableFuture<ControllerResult> setPlaylist(@NonNull List<MediaItem2> list,
+                @Nullable MediaMetadata2 metadata);
+        ListenableFuture<ControllerResult>  setMediaItem(@NonNull MediaItem2 item);
+        ListenableFuture<ControllerResult> updatePlaylistMetadata(
+                @Nullable MediaMetadata2 metadata);
         @Nullable MediaMetadata2 getPlaylistMetadata();
-        void addPlaylistItem(int index, @NonNull MediaItem2 item);
-        void removePlaylistItem(@NonNull MediaItem2 item);
-        void replacePlaylistItem(int index, @NonNull MediaItem2 item);
+        ListenableFuture<ControllerResult> addPlaylistItem(int index, @NonNull MediaItem2 item);
+        ListenableFuture<ControllerResult> removePlaylistItem(@NonNull MediaItem2 item);
+        ListenableFuture<ControllerResult> replacePlaylistItem(int index,
+                @NonNull MediaItem2 item);
         MediaItem2 getCurrentMediaItem();
-        void skipToPreviousItem();
-        void skipToNextItem();
-        void skipToPlaylistItem(@NonNull MediaItem2 item);
+        ListenableFuture<ControllerResult> skipToPreviousItem();
+        ListenableFuture<ControllerResult> skipToNextItem();
+        ListenableFuture<ControllerResult> skipToPlaylistItem(@NonNull MediaItem2 item);
         @RepeatMode int getRepeatMode();
-        void setRepeatMode(@RepeatMode int repeatMode);
+        ListenableFuture<ControllerResult> setRepeatMode(@RepeatMode int repeatMode);
         @ShuffleMode int getShuffleMode();
-        void setShuffleMode(@ShuffleMode int shuffleMode);
-        void subscribeRoutesInfo();
-        void unsubscribeRoutesInfo();
-        void selectRoute(@NonNull Bundle route);
+        ListenableFuture<ControllerResult> setShuffleMode(@ShuffleMode int shuffleMode);
+        ListenableFuture<ControllerResult> subscribeRoutesInfo();
+        ListenableFuture<ControllerResult> unsubscribeRoutesInfo();
+        ListenableFuture<ControllerResult> selectRoute(@NonNull Bundle route);
 
         // Internally used methods
         @NonNull MediaController2 getInstance();
@@ -1119,16 +1182,6 @@ public class MediaController2 implements AutoCloseable {
          * @param position the previous seeking request.
          */
         public void onSeekCompleted(@NonNull MediaController2 controller, long position) { }
-
-        /**
-         * Called when a error from
-         *
-         * @param controller the controller for this event
-         * @param errorCode error code
-         * @param extras extra information
-         */
-        public void onError(@NonNull MediaController2 controller, @ErrorCode int errorCode,
-                @Nullable Bundle extras) { }
 
         /**
          * Called when the player's currently playing item is changed
@@ -1347,6 +1400,112 @@ public class MediaController2 implements AutoCloseable {
                     bundle.getBundle(KEY_AUDIO_ATTRIBUTES));
             return createPlaybackInfo(volumeType, attrs, volumeControl, maxVolume,
                     currentVolume);
+        }
+    }
+
+    /**
+     * Result class to be used with {@link ListenableFuture} for asynchronous calls.
+     */
+    @VersionedParcelize
+    public static class ControllerResult extends RemoteResult2 {
+        // Override the Javadoc
+        /**
+         * Result code representing that the command is successfully completed.
+         * <p>
+         * Interoperability: When connected to
+         * {@link android.support.v4.media.session.MediaSessionCompat}, this can be also used to
+         * tell that the command was successfully sent, but the result is unknown.
+         */
+        public static final int RESULT_CODE_SUCCESS = 0;
+
+        /**
+         * @hide
+         */
+        @IntDef(flag = false, /*prefix = "RESULT_CODE",*/ value = {
+                RESULT_CODE_SUCCESS,
+                RESULT_CODE_UNKNOWN_ERROR,
+                RESULT_CODE_INVALID_STATE,
+                RESULT_CODE_BAD_VALUE,
+                RESULT_CODE_PERMISSION_DENIED,
+                RESULT_CODE_IO_ERROR,
+                RESULT_CODE_SKIPPED,
+                RESULT_CODE_DISCONNECTED,
+                RESULT_CODE_NOT_SUPPORTED,
+                RESULT_CODE_AUTHENTICATION_EXPIRED,
+                RESULT_CODE_PREMIUM_ACCOUNT_REQUIRED,
+                RESULT_CODE_CONCURRENT_STREAM_LIMIT,
+                RESULT_CODE_PARENTAL_CONTROL_RESTRICTED,
+                RESULT_CODE_NOT_AVAILABLE_IN_REGION,
+                RESULT_CODE_SKIP_LIMIT_REACHED,
+                RESULT_CODE_SETUP_REQUIRED})
+        @Retention(RetentionPolicy.SOURCE)
+        @RestrictTo(LIBRARY_GROUP)
+        public @interface ResultCode {}
+
+        @ParcelField(100)
+        Bundle mCustomCommandResult;
+
+        // For versioned parcelable
+        ControllerResult() {
+            // no-op
+        }
+
+        ControllerResult(@NonNull RemoteResult2 result) {
+            super(result);
+        }
+
+        ControllerResult(@ResultCode int resultCode, @Nullable MediaItem2 item) {
+            super(resultCode, item);
+        }
+
+        ControllerResult(@ResultCode int resultCode, @Nullable MediaItem2 item,
+                @Nullable Bundle customCommandResult) {
+            super(resultCode, item);
+            mCustomCommandResult = customCommandResult;
+        }
+
+        static ListenableFuture<ControllerResult> createFuture(@ResultCode int resultCode) {
+            ResolvableFuture<ControllerResult> result = ResolvableFuture.create();
+            result.set(new ControllerResult(resultCode, null));
+            return result;
+        }
+
+        /**
+         * Gets the result code.
+         *
+         * @return result code
+         * @see #RESULT_CODE_SUCCESS
+         * @see #RESULT_CODE_UNKNOWN_ERROR
+         * @see #RESULT_CODE_INVALID_STATE
+         * @see #RESULT_CODE_BAD_VALUE
+         * @see #RESULT_CODE_PERMISSION_DENIED
+         * @see #RESULT_CODE_IO_ERROR
+         * @see #RESULT_CODE_SKIPPED
+         * @see #RESULT_CODE_DISCONNECTED
+         * @see #RESULT_CODE_NOT_SUPPORTED
+         * @see #RESULT_CODE_AUTHENTICATION_EXPIRED
+         * @see #RESULT_CODE_PREMIUM_ACCOUNT_REQUIRED
+         * @see #RESULT_CODE_CONCURRENT_STREAM_LIMIT
+         * @see #RESULT_CODE_PARENTAL_CONTROL_RESTRICTED
+         * @see #RESULT_CODE_NOT_AVAILABLE_IN_REGION
+         * @see #RESULT_CODE_SKIP_LIMIT_REACHED
+         * @see #RESULT_CODE_SETUP_REQUIRED
+         */
+        @Override
+        public @ResultCode int getResultCode() {
+            return super.getResultCode();
+        }
+
+        /**
+         * Gets the result of {@link #sendCustomCommand(SessionCommand2, Bundle)}. This is only
+         * valid when it's returned by the {@link #sendCustomCommand(SessionCommand2, Bundle)} and
+         * will be {@code null} otherwise.
+         *
+         * @see #sendCustomCommand(SessionCommand2, Bundle)
+         * @return result of send custom command
+         */
+        public @Nullable Bundle getCustomCommandResult() {
+            return mCustomCommandResult;
         }
     }
 }
