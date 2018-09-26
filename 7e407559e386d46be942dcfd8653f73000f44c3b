@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c924a8a4_b912a5b0",
+        "filename": "car/core/res/layout/car_spinner_dropdown_item.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-09-26T23:51:47Z",
+      "side": 1,
+      "message": "Marquee was the used value in the original layout so I just re-used it.\nIt isn\u0027t auto-scrolling in the demo so that didn\u0027t raise a flag for me.\nChanged to \"end\".",
+      "parentUuid": "d547ca41_efe6ff51",
+      "range": {
+        "startLine": 24,
+        "startChar": 23,
+        "endLine": 24,
+        "endChar": 30
+      },
+      "revId": "7e407559e386d46be942dcfd8653f73000f44c3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39305554_1c7f4ef3",
         "filename": "car/core/res/values-v28/themes.xml",
         "patchSetId": 12
@@ -39,6 +63,24 @@
       "revId": "7e407559e386d46be942dcfd8653f73000f44c3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ee80d5b_c841e181",
+        "filename": "car/core/res/values-v28/themes.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-09-26T23:51:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39305554_1c7f4ef3",
+      "revId": "7e407559e386d46be942dcfd8653f73000f44c3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "621ed676_a1af1592",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-09-26T23:51:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff2a6ddf_7ed2b50f",
+      "range": {
+        "startLine": 549,
+        "startChar": 17,
+        "endLine": 549,
+        "endChar": 29
+      },
+      "revId": "7e407559e386d46be942dcfd8653f73000f44c3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd8cba23_fc695bf5",
         "filename": "samples/SupportCarDemos/src/main/res/layout/activity_spinner.xml",
         "patchSetId": 12
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "5729eb73_c0254f1f",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_spinner.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-09-26T23:51:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd8cba23_fc695bf5",
+      "range": {
+        "startLine": 18,
+        "startChar": 1,
+        "endLine": 18,
+        "endChar": 15
+      },
+      "revId": "7e407559e386d46be942dcfd8653f73000f44c3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60d4d989_f774b168",
         "filename": "samples/SupportCarDemos/src/main/res/layout/activity_spinner.xml",
         "patchSetId": 12
@@ -108,6 +198,30 @@
       "revId": "7e407559e386d46be942dcfd8653f73000f44c3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8f91813_660a57bb",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_spinner.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-09-26T23:51:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60d4d989_f774b168",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 37
+      },
+      "revId": "7e407559e386d46be942dcfd8653f73000f44c3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
