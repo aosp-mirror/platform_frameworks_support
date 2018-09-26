@@ -147,6 +147,10 @@ package androidx.textclassifier {
     method public androidx.textclassifier.TextLinks.Request.Builder setReferenceTime(java.lang.Long);
   }
 
+  public static abstract interface TextLinks.SpanFactory {
+    method public abstract android.text.style.ClickableSpan createSpan(androidx.textclassifier.TextLinks.TextLinkSpanData);
+  }
+
   public static final class TextLinks.TextLink {
     method public static androidx.textclassifier.TextLinks.TextLink createFromBundle(android.os.Bundle);
     method public float getConfidenceScore(java.lang.String);
@@ -160,7 +164,8 @@ package androidx.textclassifier {
   public static class TextLinks.TextLinkSpan extends android.text.style.ClickableSpan {
     ctor public TextLinks.TextLinkSpan(androidx.textclassifier.TextLinks.TextLinkSpanData);
     method public final androidx.textclassifier.TextLinks.TextLinkSpanData getTextLinkSpanData();
-    method public void onClick(android.view.View);
+    method public final void onClick(android.view.View);
+    method public void onTextClassificationResult(android.widget.TextView, androidx.textclassifier.TextClassification);
   }
 
   public static class TextLinks.TextLinkSpanData {
@@ -178,6 +183,7 @@ package androidx.textclassifier {
     method public androidx.textclassifier.TextLinksParams.Builder setDefaultLocales(androidx.core.os.LocaleListCompat);
     method public androidx.textclassifier.TextLinksParams.Builder setEntityConfig(androidx.textclassifier.TextClassifier.EntityConfig);
     method public androidx.textclassifier.TextLinksParams.Builder setReferenceTime(java.lang.Long);
+    method public androidx.textclassifier.TextLinksParams.Builder setSpanFactory(androidx.textclassifier.TextLinks.SpanFactory);
   }
 
   public final class TextSelection {
