@@ -22,6 +22,30 @@
       "revId": "0bf908e698c3254e88ac346df743265e00b6d3a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a54e39eb_a9b92ace",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-09-26T07:10:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a49e94fd_1ff12417",
+      "range": {
+        "startLine": 849,
+        "startChar": 12,
+        "endLine": 850,
+        "endChar": 40
+      },
+      "revId": "0bf908e698c3254e88ac346df743265e00b6d3a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
