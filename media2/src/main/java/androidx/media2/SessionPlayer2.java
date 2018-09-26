@@ -840,24 +840,24 @@ public abstract class SessionPlayer2 implements AutoCloseable {
     /**
      * Result class of the asynchronous APIs.
      */
-    public static final class PlayerResult {
+    public static class PlayerResult extends Result2 {
         /**
          * Result code represents that call is successfully completed.
          * @see #getResultCode()
          */
-        public static final int RESULT_CODE_SUCCESS = 0;
+        public static final int RESULT_CODE_SUCCESS = Result2.RESULT_CODE_SUCCESS;
 
         /**
          * Result code represents that call is ended with an unknown error.
          * @see #getResultCode()
          */
-        public static final int RESULT_CODE_UNKNOWN_ERROR = Integer.MIN_VALUE;
+        public static final int RESULT_CODE_UNKNOWN_ERROR = Result2.RESULT_CODE_UNKNOWN_ERROR;
 
         /**
          * Result code represents that the player is not in valid state for the operation.
          * @see #getResultCode()
          */
-        public static final int RESULT_CODE_INVALID_STATE = -1;
+        public static final int RESULT_CODE_INVALID_STATE = Result2.RESULT_CODE_INVALID_STATE;
 
         /**
          * Result code represents that the argument is illegal.
@@ -917,8 +917,8 @@ public abstract class SessionPlayer2 implements AutoCloseable {
         // Note: resultCode is intentionally not annotated for subclass to return extra error codes.
         private PlayerResult(int resultCode, @Nullable MediaItem2 item, long completionTime) {
             mResultCode = resultCode;
-            mCompletionTime = completionTime;
             mItem = item;
+            mCompletionTime = completionTime;
         }
 
         /**
@@ -935,6 +935,7 @@ public abstract class SessionPlayer2 implements AutoCloseable {
          * @see #RESULT_CODE_IO_ERROR
          * @see #RESULT_CODE_SKIPPED
          */
+        @Override
         public int getResultCode() {
             return mResultCode;
         }
@@ -945,6 +946,7 @@ public abstract class SessionPlayer2 implements AutoCloseable {
          *
          * @return completion time of the command
          */
+        @Override
         public long getCompletionTime() {
             return mCompletionTime;
         }

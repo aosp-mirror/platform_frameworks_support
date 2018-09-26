@@ -16,6 +16,9 @@
 
 package androidx.media.widget;
 
+import static androidx.media2.MediaSession2.RESULT_CODE_INVALID_OPERATION;
+import static androidx.media2.MediaSession2.RESULT_CODE_NO_ERROR;
+
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
@@ -1123,7 +1126,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
         }
 
         @Override
-        public void onCustomCommand(@NonNull MediaSession2 session,
+        public int onCustomCommand(@NonNull MediaSession2 session,
                 @NonNull MediaSession2.ControllerInfo controller,
                 @NonNull SessionCommand2 customCommand,
                 @Nullable Bundle args, @Nullable ResultReceiver cb) {
@@ -1134,7 +1137,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
             }
             if (isRemotePlayback()) {
                 // TODO: call mRoutePlayer.onCommand()
-                return;
+                return RESULT_CODE_NO_ERROR;
             }
             switch (customCommand.getCustomCommand()) {
                 case MediaControlView2.COMMAND_SHOW_SUBTITLE:
@@ -1164,10 +1167,11 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
                     }
                     break;
             }
+            return RESULT_CODE_NO_ERROR;
         }
 
         @Override
-        public boolean onCommandRequest(@NonNull MediaSession2 session,
+        public int onCommandRequest(@NonNull MediaSession2 session,
                 @NonNull MediaSession2.ControllerInfo controller,
                 @NonNull SessionCommand2 command) {
             if (session != mMediaSession) {
@@ -1180,7 +1184,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
                     mTargetState = STATE_PLAYING;
                     if (!mCurrentView.hasAvailableSurface() && !mIsMusicMediaType) {
                         Log.d(TAG, "surface is not available");
-                        return false;
+                        return RESULT_CODE_INVALID_OPERATION;
                     }
                     break;
                 case SessionCommand2.COMMAND_CODE_PLAYER_PAUSE:
@@ -1190,7 +1194,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
                     mSeekWhenPrepared = 0;
                     break;
             }
-            return true;
+            return RESULT_CODE_NO_ERROR;
         }
     }
 
