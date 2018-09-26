@@ -46,6 +46,30 @@
       "revId": "a99566c3b1f88ce694ae9688a93f37bd950d6af5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e10c4567_c14ebcea",
+        "filename": "transition/src/main/java/androidx/transition/TransitionSet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-09-26T16:46:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b1583c71_ca72ba47",
+      "range": {
+        "startLine": 232,
+        "startChar": 30,
+        "endLine": 232,
+        "endChar": 42
+      },
+      "revId": "a99566c3b1f88ce694ae9688a93f37bd950d6af5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
