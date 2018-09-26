@@ -15,6 +15,7 @@
  */
 
 import androidx.build.AndroidXPlugin
+import androidx.build.SupportAndroidLibraryPlugin
 import androidx.build.SdkHelperKt
 import androidx.build.jacoco.Jacoco
 
@@ -40,6 +41,7 @@ buildscript {
 
         // AGP only declares a compileOnly dependency on Jacoco. This forces an explicit version.
         classpath Jacoco.CORE_DEPENDENCY
+        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.18-20180615.125613-1"
     }
 }
 
@@ -49,8 +51,75 @@ init.setupRepoOutAndBuildNumber()
 
 init.configureSubProjects()
 
+//apply plugin: com.android.build.gradle.AppPlugin
 apply plugin: AndroidXPlugin
+apply from: 'buildSrc/jetify.gradle'
+//apply(plugin: "kotlin-android")
+apply(plugin: "org.jetbrains.dokka-android")
+
 
 // AndroidX needed before jetify since it accesses the createArchive task name directly.
-apply from: 'buildSrc/jetify.gradle'
 
+
+def rootProject = project
+
+def dokkaTask = rootProject.dokka
+//dokkaTask.outputFormat = "dac-as-java"
+dokkaTask.outputFormat = "dac"
+
+subprojects { subproject ->
+  //println("allprojecting " + subproject)
+  //subproject.tasks.whenTaskAdded { task ->
+  if (subproject.name != "docs-fake") {
+    subproject.tasks.withType(JavaCompile).all { subtask ->
+      //println("Found javacompile " + subtask)
+      def container = subtask.project.sourceSets.findByName("main")
+      def sources = null
+      if (container != null) {
+        try {
+          sources = container.allSources.srcDirs
+        } catch (Exception) {
+          sources = container.allSource.srcDirs
+        }
+      } else {
+        container = subtask.project.android.sourceSets.findByName("main")
+        sources = container.javaDirectories
+      }
+      if (project.name != "appcompat") {
+        if (container != null) {
+          dokkaTask.dependsOn(subtask)
+          //subproject.sourceSets["main"].allSource.srcDirs
+          println("Adding sources of " + sources)
+          dokkaTask.doFirst {
+            dokkaTask.sourceDirs += sources
+            def cp = subtask.classpath
+            println("Adding classpath of " + cp)
+            dokkaTask.classpath += cp
+          }
+        } else {
+          println("Cannot depend on " + subtask)
+        }
+      }
+      //dokkaTask.includes += sources
+      //if (subproject.tasks.findByName("compileKotlin") != null) {
+      //if (subproject.sourceSets.findByName("main") != null) {
+      //if (subtask isinstance JavaCompile) {
+      //  def sources = subproject.sourceSets["main"].allSource.srcDirs
+      //  println("Adding srcDirs of " + sources + " from " + subproject)
+      //  dokkaTask.sources += sources
+      //} else {
+      //  println("No sourceSet main found in " + subproject)
+      //}
+    }
+  }
+  /*subproject.tasks.each { task ->
+    if (task.name.contains("compileKotlin")) {
+      //println("Found compileKotlin task : " + task + " of type " + task.class)
+      dokkaTask.sources += subproject.file("src")
+      //rootProject.tasks["dokka"].classpath += subproject.sourceSets["main"].files
+      logger.error("added new files in from " + subproject)
+    } else {
+      //logger.error("not adding files for task " + task)
+    }
+  }*/
+}
