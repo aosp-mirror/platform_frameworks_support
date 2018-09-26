@@ -22,6 +22,30 @@
       "revId": "b3401f56559a29503f60e18459b749952673412e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8b30f69_406f3cd3",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-26T17:22:01Z",
+      "side": 1,
+      "message": "Renamed to translationY.",
+      "parentUuid": "35d3df02_e73b12e7",
+      "range": {
+        "startLine": 483,
+        "startChar": 51,
+        "endLine": 483,
+        "endChar": 62
+      },
+      "revId": "b3401f56559a29503f60e18459b749952673412e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
