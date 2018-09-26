@@ -2338,7 +2338,7 @@ public class MediaControlView2 extends BaseLayout {
 
             @Override
             public void onError(@NonNull MediaController2 controller,
-                    @MediaSession2.ErrorCode int errorCode, @Nullable Bundle extras) {
+                    @MediaSession2.ResultCode int errorCode, @Nullable Bundle extras) {
                 if (DEBUG) {
                     Log.d(TAG, "onError(), errorCode: " + errorCode);
                 }

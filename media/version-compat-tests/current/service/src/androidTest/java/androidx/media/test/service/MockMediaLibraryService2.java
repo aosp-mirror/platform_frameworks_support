@@ -42,6 +42,7 @@ import static androidx.media.test.lib.MediaBrowser2Constants
         .SUBSCRIBE_ID_NOTIFY_CHILDREN_CHANGED_TO_ONE;
 import static androidx.media.test.lib.MediaBrowser2Constants
         .SUBSCRIBE_ID_NOTIFY_CHILDREN_CHANGED_TO_ONE_WITH_NON_SUBSCRIBED_ID;
+import static androidx.media2.MediaSession2.RESULT_CODE_NO_ERROR;
 
 import android.app.Service;
 import android.content.Context;
@@ -245,11 +246,12 @@ public class MockMediaLibraryService2 extends MediaLibraryService2 {
         }
 
         @Override
-        public void onCustomCommand(MediaSession2 session, ControllerInfo controller,
+        public int onCustomCommand(MediaSession2 session, ControllerInfo controller,
                 SessionCommand2 customCommand, Bundle args, ResultReceiver cb) {
             if (CUSTOM_ACTION.equals(customCommand.getCustomCommand())) {
                 cb.send(0, CUSTOM_ACTION_EXTRAS);
             }
+            return RESULT_CODE_NO_ERROR;
         }
     }
 

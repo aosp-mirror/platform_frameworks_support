@@ -21,6 +21,9 @@ import android.os.Build;
 import android.os.SystemClock;
 
 import androidx.annotation.Nullable;
+import androidx.versionedparcelable.ParcelField;
+import androidx.versionedparcelable.VersionedParcelable;
+import androidx.versionedparcelable.VersionedParcelize;
 
 /**
  * Result of the asynchrnous APIs
@@ -30,10 +33,20 @@ import androidx.annotation.Nullable;
  */
 // Similar to 'status_t' in C/C++
 @TargetApi(Build.VERSION_CODES.P)
-public final class CommandResult2 {
-    private final int mResultCode;
-    private final long mCompletionTime;
-    private final MediaItem2 mItem;
+@VersionedParcelize
+public final class CommandResult2 implements VersionedParcelable {
+    @ParcelField(1)
+    int mResultCode;
+    @ParcelField(2)
+    long mCompletionTime;
+    @ParcelField(3)
+    MediaItem2 mItem;
+
+    /**
+     * Used for VersionedParcelable
+     */
+    CommandResult2() {
+    }
 
     public CommandResult2(int resultCode, MediaItem2 item) {
         this(resultCode, item, SystemClock.elapsedRealtime());

@@ -249,7 +249,7 @@ public class RemoteMediaSession2 {
         }
     }
 
-    public void notifyError(@MediaSession2.ErrorCode int errorCode, @Nullable Bundle extras) {
+    public void notifyError(@MediaSession2.ResultCode int errorCode, @Nullable Bundle extras) {
         try {
             mBinder.notifyError(mSessionId, errorCode, extras);
         } catch (RemoteException ex) {

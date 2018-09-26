@@ -337,6 +337,11 @@ class MediaLibraryService2LegacyStub extends MediaSessionService2LegacyStub {
     //   2) Why some APIs should throw exception when DEBUG is {@code true}.
     private abstract static class BaseBrowserLegacyCb extends MediaSession2.ControllerCb {
         @Override
+        void onCommandResult(int seq, CommandResult2 result) throws RemoteException {
+            // No-op. BrowserCompat doesn't understand Controller features.
+        }
+
+        @Override
         final void onCustomLayoutChanged(List<CommandButton> layout) throws RemoteException {
             // No-op. BrowserCompat doesn't understand Controller features.
         }

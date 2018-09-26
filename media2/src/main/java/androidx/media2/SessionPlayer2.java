@@ -153,44 +153,46 @@ public abstract class SessionPlayer2 implements AutoCloseable {
      * Result code represents that call is completed without an error.
      * @see CommandResult2#getResultCode()
      */
-    public static final int RESULT_CODE_NO_ERROR = 0;
+    public static final int RESULT_CODE_NO_ERROR = ResultCodes.RESULT_CODE_NO_ERROR;;
 
     /**
      * Result code represents that call is ended with an unknown error.
      * @see CommandResult2#getResultCode()
      */
-    public static final int RESULT_CODE_ERROR_UNKNOWN = Integer.MIN_VALUE;
+    public static final int RESULT_CODE_ERROR_UNKNOWN = ResultCodes.RESULT_CODE_ERROR_UNKNOWN;
 
     /**
      * Result code represents that the player is not in valid state for the operation.
      * @see CommandResult2#getResultCode()
      */
-    public static final int RESULT_CODE_INVALID_OPERATION = 1;
+    public static final int RESULT_CODE_INVALID_OPERATION =
+            ResultCodes.RESULT_CODE_INVALID_OPERATION;
 
     /**
      * Result code represents that the argument is illegal.
      * @see CommandResult2#getResultCode()
      */
-    public static final int RESULT_CODE_BAD_VALUE = 2;
+    public static final int RESULT_CODE_BAD_VALUE = ResultCodes.RESULT_CODE_BAD_VALUE;
 
     /**
      * Result code represents that the operation is not allowed.
      * @see CommandResult2#getResultCode()
      */
-    public static final int RESULT_CODE_PERMISSION_DENIED = 3;
+    public static final int RESULT_CODE_PERMISSION_DENIED =
+            ResultCodes.RESULT_CODE_PERMISSION_DENIED;
 
     /**
      * Result code represents a file or network related operation error.
      * @see CommandResult2#getResultCode()
      */
-    public static final int RESULT_CODE_ERROR_IO = 4;
+    public static final int RESULT_CODE_ERROR_IO = ResultCodes.RESULT_CODE_ERROR_IO;
 
     /**
      * Result code represents that the player skipped the call. For example, a {@link #seekTo}
      * request may be skipped if it is followed by another {@link #seekTo} request.
      * @see CommandResult2#getResultCode()
      */
-    public static final int RESULT_CODE_SKIPPED = 5;
+    public static final int RESULT_CODE_SKIPPED = ResultCodes.RESULT_CODE_SKIPPED;
 
     /**
      * @hide

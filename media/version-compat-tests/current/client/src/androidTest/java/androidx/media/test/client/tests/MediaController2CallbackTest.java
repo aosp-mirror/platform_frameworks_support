@@ -565,7 +565,7 @@ public class MediaController2CallbackTest extends MediaSession2TestBase {
     @Test
     public void testOnError() throws InterruptedException {
         prepareLooper();
-        final int errorCode = MediaSession2.ERROR_CODE_NOT_AVAILABLE_IN_REGION;
+        final int errorCode = MediaSession2.RESULT_CODE_NOT_AVAILABLE_IN_REGION;
         final Bundle extras = TestUtils.createTestBundle();
 
         final CountDownLatch latch = new CountDownLatch(1);

@@ -18,6 +18,9 @@ package androidx.media.test.service.tests;
 
 import static android.support.mediacompat.testlib.util.IntentUtil.CLIENT_PACKAGE_NAME;
 
+import static androidx.media2.MediaSession2.RESULT_CODE_INVALID_OPERATION;
+import static androidx.media2.MediaSession2.RESULT_CODE_NO_ERROR;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -170,7 +173,7 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
             }
 
             @Override
-            public void onCustomCommand(MediaSession2 session,
+            public int onCustomCommand(MediaSession2 session,
                     MediaSession2.ControllerInfo controller,
                     SessionCommand2 customCommand, Bundle args, ResultReceiver cb) {
                 assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
@@ -178,6 +181,7 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
                 assertTrue(TestUtils.equals(testArgs, args));
                 assertNull(cb);
                 latch.countDown();
+                return RESULT_CODE_NO_ERROR;
             }
         };
 
@@ -197,9 +201,10 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
         final CountDownLatch latch = new CountDownLatch(1);
         final MediaSession2.SessionCallback callback = new MediaSession2.SessionCallback() {
             @Override
-            public void onFastForward(MediaSession2 session, ControllerInfo controller) {
+            public int onFastForward(MediaSession2 session, ControllerInfo controller) {
                 assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
                 latch.countDown();
+                return RESULT_CODE_NO_ERROR;
             }
         };
         try (MediaSession2 session = new MediaSession2.Builder(mContext, mPlayer)
@@ -217,9 +222,10 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
         final CountDownLatch latch = new CountDownLatch(1);
         final MediaSession2.SessionCallback callback = new MediaSession2.SessionCallback() {
             @Override
-            public void onRewind(MediaSession2 session, ControllerInfo controller) {
+            public int onRewind(MediaSession2 session, ControllerInfo controller) {
                 assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
                 latch.countDown();
+                return RESULT_CODE_NO_ERROR;
             }
         };
         try (MediaSession2 session = new MediaSession2.Builder(mContext, mPlayer)
@@ -239,12 +245,13 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
         final CountDownLatch latch = new CountDownLatch(1);
         final MediaSession2.SessionCallback callback = new MediaSession2.SessionCallback() {
             @Override
-            public void onPlayFromSearch(MediaSession2 session, ControllerInfo controller,
+            public int onPlayFromSearch(MediaSession2 session, ControllerInfo controller,
                     String query, Bundle extras) {
                 assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
                 assertEquals(testQuery, query);
                 assertTrue(TestUtils.equals(testExtras, extras));
                 latch.countDown();
+                return RESULT_CODE_NO_ERROR;
             }
         };
         try (MediaSession2 session = new MediaSession2.Builder(mContext, mPlayer)
@@ -265,12 +272,13 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
         final CountDownLatch latch = new CountDownLatch(1);
         final MediaSession2.SessionCallback callback = new MediaSession2.SessionCallback() {
             @Override
-            public void onPlayFromUri(MediaSession2 session, ControllerInfo controller, Uri uri,
+            public int onPlayFromUri(MediaSession2 session, ControllerInfo controller, Uri uri,
                     Bundle extras) {
                 assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
                 assertEquals(testUri, uri);
                 assertTrue(TestUtils.equals(extras, extras));
                 latch.countDown();
+                return RESULT_CODE_NO_ERROR;
             }
         };
         try (MediaSession2 session = new MediaSession2.Builder(mContext, mPlayer)
@@ -292,12 +300,13 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
         final CountDownLatch latch = new CountDownLatch(1);
         final MediaSession2.SessionCallback callback = new MediaSession2.SessionCallback() {
             @Override
-            public void onPlayFromMediaId(MediaSession2 session, ControllerInfo controller,
+            public int onPlayFromMediaId(MediaSession2 session, ControllerInfo controller,
                     String mediaId, Bundle extras) {
                 assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
                 assertEquals(mediaId, mediaId);
                 assertTrue(TestUtils.equals(testExtras, extras));
                 latch.countDown();
+                return RESULT_CODE_NO_ERROR;
             }
         };
         try (MediaSession2 session = new MediaSession2.Builder(mContext, mPlayer)
@@ -318,12 +327,13 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
         final CountDownLatch latch = new CountDownLatch(1);
         final MediaSession2.SessionCallback callback = new MediaSession2.SessionCallback() {
             @Override
-            public void onPrepareFromSearch(MediaSession2 session, ControllerInfo controller,
+            public int onPrepareFromSearch(MediaSession2 session, ControllerInfo controller,
                     String query, Bundle extras) {
                 assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
                 assertEquals(testQuery, query);
                 assertTrue(TestUtils.equals(testExtras, extras));
                 latch.countDown();
+                return RESULT_CODE_NO_ERROR;
             }
         };
         try (MediaSession2 session = new MediaSession2.Builder(mContext, mPlayer)
@@ -344,12 +354,13 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
         final CountDownLatch latch = new CountDownLatch(1);
         final MediaSession2.SessionCallback callback = new MediaSession2.SessionCallback() {
             @Override
-            public void onPrepareFromUri(MediaSession2 session, ControllerInfo controller, Uri uri,
+            public int onPrepareFromUri(MediaSession2 session, ControllerInfo controller, Uri uri,
                     Bundle extras) {
                 assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
                 assertEquals(testUri, uri);
                 assertTrue(TestUtils.equals(testExtras, extras));
                 latch.countDown();
+                return RESULT_CODE_NO_ERROR;
             }
         };
         try (MediaSession2 session = new MediaSession2.Builder(mContext, mPlayer)
@@ -370,12 +381,13 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
         final CountDownLatch latch = new CountDownLatch(1);
         final MediaSession2.SessionCallback callback = new MediaSession2.SessionCallback() {
             @Override
-            public void onPrepareFromMediaId(MediaSession2 session, ControllerInfo controller,
+            public int onPrepareFromMediaId(MediaSession2 session, ControllerInfo controller,
                     String mediaId, Bundle extras) {
                 assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
                 assertEquals(testMediaId, mediaId);
                 assertTrue(TestUtils.equals(testExtras, extras));
                 latch.countDown();
+                return RESULT_CODE_NO_ERROR;
             }
         };
         try (MediaSession2 session = new MediaSession2.Builder(mContext, mPlayer)
@@ -398,12 +410,13 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
         final CountDownLatch latch = new CountDownLatch(1);
         final MediaSession2.SessionCallback callback = new MediaSession2.SessionCallback() {
             @Override
-            public void onSetRating(MediaSession2 session, ControllerInfo controller,
+            public int onSetRating(MediaSession2 session, ControllerInfo controller,
                     String mediaId, Rating2 rating) {
                 assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
                 assertEquals(testMediaId, mediaId);
                 assertEquals(testRating, rating);
                 latch.countDown();
+                return RESULT_CODE_NO_ERROR;
             }
         };
 
@@ -422,10 +435,11 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
         prepareLooper();
         final TestSessionCallback callback = new TestSessionCallback() {
             @Override
-            public void onSubscribeRoutesInfo(@NonNull MediaSession2 session,
+            public int onSubscribeRoutesInfo(@NonNull MediaSession2 session,
                     @NonNull ControllerInfo controller) {
                 assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
                 mLatch.countDown();
+                return RESULT_CODE_NO_ERROR;
             }
         };
         try (MediaSession2 session = new MediaSession2.Builder(mContext, mPlayer)
@@ -445,10 +459,11 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
         prepareLooper();
         final TestSessionCallback callback = new TestSessionCallback() {
             @Override
-            public void onUnsubscribeRoutesInfo(@NonNull MediaSession2 session,
+            public int onUnsubscribeRoutesInfo(@NonNull MediaSession2 session,
                     @NonNull ControllerInfo controller) {
                 assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
                 mLatch.countDown();
+                return RESULT_CODE_NO_ERROR;
             }
         };
         try (MediaSession2 session = new MediaSession2.Builder(mContext, mPlayer)
@@ -469,11 +484,12 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
         final Bundle testRoute = TestUtils.createTestBundle();
         final TestSessionCallback callback = new TestSessionCallback() {
             @Override
-            public void onSelectRoute(@NonNull MediaSession2 session,
+            public int onSelectRoute(@NonNull MediaSession2 session,
                     @NonNull ControllerInfo controller, @NonNull Bundle route) {
                 assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
                 assertTrue(TestUtils.equals(testRoute, route));
                 mLatch.countDown();
+                return RESULT_CODE_NO_ERROR;
             }
         };
         try (MediaSession2 session = new MediaSession2.Builder(mContext, mPlayer)
@@ -548,16 +564,16 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
         public final ArrayList<SessionCommand2> commands = new ArrayList<>();
 
         @Override
-        public boolean onCommandRequest(MediaSession2 session, ControllerInfo controllerInfo,
+        public int onCommandRequest(MediaSession2 session, ControllerInfo controllerInfo,
                 SessionCommand2 command) {
             // TODO: Get uid of client app's and compare.
             assertEquals(CLIENT_PACKAGE_NAME, controllerInfo.getPackageName());
             assertFalse(controllerInfo.isTrusted());
             commands.add(command);
             if (command.getCommandCode() == SessionCommand2.COMMAND_CODE_PLAYER_PAUSE) {
-                return false;
+                return RESULT_CODE_INVALID_OPERATION;
             }
-            return true;
+            return RESULT_CODE_NO_ERROR;
         }
     }
 }

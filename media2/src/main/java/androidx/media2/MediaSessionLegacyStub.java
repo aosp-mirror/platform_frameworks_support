@@ -18,6 +18,7 @@ package androidx.media2;
 
 import static androidx.media2.MediaMetadata2.METADATA_KEY_DISPLAY_TITLE;
 import static androidx.media2.MediaMetadata2.METADATA_KEY_TITLE;
+import static androidx.media2.MediaSession2.RESULT_CODE_NO_ERROR;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_CUSTOM;
 import static androidx.media2.SessionCommand2.COMMAND_VERSION_CURRENT;
 
@@ -517,9 +518,9 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
             command = sCommandsForOnCommandRequest.get(commandCode);
         }
         if (command != null) {
-            boolean accepted = mSessionImpl.getCallback().onCommandRequest(
+            int resultCode = mSessionImpl.getCallback().onCommandRequest(
                     mSessionImpl.getInstance(), controller, command);
-            if (!accepted) {
+            if (resultCode != RESULT_CODE_NO_ERROR) {
                 // Don't run rejected command.
                 if (DEBUG) {
                     Log.d(TAG, "Command (" + command + ") from "
@@ -551,6 +552,11 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
 
         ControllerLegacyCb(RemoteUserInfo remoteUserInfo) {
             mRemoteUserInfo = remoteUserInfo;
+        }
+
+        @Override
+        void onCommandResult(int seq, CommandResult2 result) throws RemoteException {
+            // no-op.
         }
 
         @Override
@@ -682,6 +688,11 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
 
     final class ControllerLegacyCbForAll extends ControllerCb {
         ControllerLegacyCbForAll() {
+        }
+
+        @Override
+        void onCommandResult(int seq, CommandResult2 result) throws RemoteException {
+            // no-op
         }
 
         @Override

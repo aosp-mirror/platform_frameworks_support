@@ -129,81 +129,123 @@ public class MediaSession2 implements AutoCloseable {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
-    @IntDef({ERROR_CODE_UNKNOWN_ERROR, ERROR_CODE_APP_ERROR, ERROR_CODE_NOT_SUPPORTED,
-            ERROR_CODE_AUTHENTICATION_EXPIRED, ERROR_CODE_PREMIUM_ACCOUNT_REQUIRED,
-            ERROR_CODE_CONCURRENT_STREAM_LIMIT, ERROR_CODE_PARENTAL_CONTROL_RESTRICTED,
-            ERROR_CODE_NOT_AVAILABLE_IN_REGION, ERROR_CODE_CONTENT_ALREADY_PLAYING,
-            ERROR_CODE_SKIP_LIMIT_REACHED, ERROR_CODE_ACTION_ABORTED, ERROR_CODE_END_OF_QUEUE,
-            ERROR_CODE_SETUP_REQUIRED})
+    @IntDef(flag = false, /*prefix = "RESULT_CODE",*/ value = {
+            RESULT_CODE_NO_ERROR,
+            RESULT_CODE_ERROR_UNKNOWN,
+            RESULT_CODE_INVALID_OPERATION,
+            RESULT_CODE_BAD_VALUE,
+            RESULT_CODE_PERMISSION_DENIED,
+            RESULT_CODE_ERROR_IO,
+            RESULT_CODE_SKIPPED,
+            RESULT_CODE_DISCONNECTED,
+            RESULT_CODE_NOT_SUPPORTED,
+            RESULT_CODE_AUTHENTICATION_EXPIRED,
+            RESULT_CODE_PREMIUM_ACCOUNT_REQUIRED,
+            RESULT_CODE_CONCURRENT_STREAM_LIMIT,
+            RESULT_CODE_PARENTAL_CONTROL_RESTRICTED,
+            RESULT_CODE_NOT_AVAILABLE_IN_REGION,
+            RESULT_CODE_CONTENT_ALREADY_PLAYING,
+            RESULT_CODE_SKIP_LIMIT_REACHED,
+            RESULT_CODE_SETUP_REQUIRED})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface ErrorCode {}
+    @RestrictTo(LIBRARY_GROUP)
+    public @interface ResultCode {}
 
     /**
-     * This is the default error code and indicates that none of the other error codes applies.
+     * Result code represents that call is completed without an error.
      */
-    public static final int ERROR_CODE_UNKNOWN_ERROR = 0;
+    public static final int RESULT_CODE_NO_ERROR = ResultCodes.RESULT_CODE_NO_ERROR;;
 
     /**
-     * Error code when the application state is invalid to fulfill the request.
+     * Result code represents that call is ended with an unknown error.
+     * @see CommandResult2#getResultCode()
      */
-    public static final int ERROR_CODE_APP_ERROR = 1;
+    public static final int RESULT_CODE_ERROR_UNKNOWN = ResultCodes.RESULT_CODE_ERROR_UNKNOWN;
 
     /**
-     * Error code when the request is not supported by the application.
+     * Result code represents that the session/player is not in valid state for the operation.
      */
-    public static final int ERROR_CODE_NOT_SUPPORTED = 2;
+    public static final int RESULT_CODE_INVALID_OPERATION =
+            ResultCodes.RESULT_CODE_INVALID_OPERATION;
 
     /**
-     * Error code when the request cannot be performed because authentication has expired.
+     * Result code represents that the argument is illegal.
      */
-    public static final int ERROR_CODE_AUTHENTICATION_EXPIRED = 3;
+    public static final int RESULT_CODE_BAD_VALUE = ResultCodes.RESULT_CODE_BAD_VALUE;
 
     /**
-     * Error code when a premium account is required for the request to succeed.
+     * Result code represents that the operation is not allowed.
      */
-    public static final int ERROR_CODE_PREMIUM_ACCOUNT_REQUIRED = 4;
+    public static final int RESULT_CODE_PERMISSION_DENIED =
+            ResultCodes.RESULT_CODE_PERMISSION_DENIED;
 
     /**
-     * Error code when too many concurrent streams are detected.
+     * Result code represents a file or network related operation error.
      */
-    public static final int ERROR_CODE_CONCURRENT_STREAM_LIMIT = 5;
+    public static final int RESULT_CODE_ERROR_IO = ResultCodes.RESULT_CODE_ERROR_IO;
 
     /**
-     * Error code when the content is blocked due to parental controls.
+     * Result code represents that the player skipped the call.
      */
-    public static final int ERROR_CODE_PARENTAL_CONTROL_RESTRICTED = 6;
+    public static final int RESULT_CODE_SKIPPED = ResultCodes.RESULT_CODE_SKIPPED;
 
     /**
-     * Error code when the content is blocked due to being regionally unavailable.
+     * Result code represents that the controller is disconnected from the session.
      */
-    public static final int ERROR_CODE_NOT_AVAILABLE_IN_REGION = 7;
+    public static final int RESULT_CODE_DISCONNECTED = ResultCodes.RESULT_CODE_DISCONNECTED;
 
     /**
-     * Error code when the requested content is already playing.
+     * Result code represents that the request is not supported by the application.
      */
-    public static final int ERROR_CODE_CONTENT_ALREADY_PLAYING = 8;
+    public static final int RESULT_CODE_NOT_SUPPORTED = ResultCodes.RESULT_CODE_NOT_SUPPORTED;
 
     /**
-     * Error code when the application cannot skip any more songs because skip limit is reached.
+     * Result code represents that the authentication has expired.
      */
-    public static final int ERROR_CODE_SKIP_LIMIT_REACHED = 9;
+    public static final int RESULT_CODE_AUTHENTICATION_EXPIRED =
+            ResultCodes.RESULT_CODE_AUTHENTICATION_EXPIRED;
 
     /**
-     * Error code when the action is interrupted due to some external event.
+     * Result code represents that a premium account is required.
      */
-    public static final int ERROR_CODE_ACTION_ABORTED = 10;
+    public static final int RESULT_CODE_PREMIUM_ACCOUNT_REQUIRED =
+            ResultCodes.RESULT_CODE_PREMIUM_ACCOUNT_REQUIRED;
 
     /**
-     * Error code when the playback navigation (previous, next) is not possible because the queue
-     * was exhausted.
+     * Result code represents that too many concurrent streams are detected.
      */
-    public static final int ERROR_CODE_END_OF_QUEUE = 11;
+    public static final int RESULT_CODE_CONCURRENT_STREAM_LIMIT =
+            ResultCodes.RESULT_CODE_CONCURRENT_STREAM_LIMIT;
 
     /**
-     * Error code when the session needs user's manual intervention.
+     * Result code represents that the content is blocked due to parental controls.
      */
-    public static final int ERROR_CODE_SETUP_REQUIRED = 12;
+    public static final int RESULT_CODE_PARENTAL_CONTROL_RESTRICTED =
+            ResultCodes.RESULT_CODE_PARENTAL_CONTROL_RESTRICTED;
+
+    /**
+     * Result code represents that the content is blocked due to being regionally unavailable.
+     */
+    public static final int RESULT_CODE_NOT_AVAILABLE_IN_REGION =
+            ResultCodes.RESULT_CODE_NOT_AVAILABLE_IN_REGION;
+
+    /**
+     * Result code represents that the requested content is already playing.
+     */
+    public static final int RESULT_CODE_CONTENT_ALREADY_PLAYING =
+            ResultCodes.RESULT_CODE_CONTENT_ALREADY_PLAYING;
+
+    /**
+     * Result code represents that the application cannot skip any more songs because skip limit is
+     * reached.
+     */
+    public static final int RESULT_CODE_SKIP_LIMIT_REACHED =
+            ResultCodes.RESULT_CODE_SKIP_LIMIT_REACHED;
+
+    /**
+     * Result code represents that the session needs user's manual intervention.
+     */
+    public static final int RESULT_CODE_SETUP_REQUIRED = ResultCodes.RESULT_CODE_SETUP_REQUIRED;
 
     static final String TAG = "MediaSession2";
 
@@ -378,12 +420,12 @@ public class MediaSession2 implements AutoCloseable {
     }
 
     /**
-     * Notify errors to the connected controllers
+     * Notify errors to the connected controllers.
      *
-     * @param errorCode error code
+     * @param errorCode error code among the result code
      * @param extras extras
      */
-    public void notifyError(@ErrorCode int errorCode, @Nullable Bundle extras) {
+    public void notifyError(@ResultCode int errorCode, @Nullable Bundle extras) {
         mImpl.notifyError(errorCode, extras);
     }
 
@@ -470,16 +512,18 @@ public class MediaSession2 implements AutoCloseable {
          * Called when a controller sent a command which will be sent directly to one of the
          * following:
          * <ul>
-         *  <li> {@link SessionPlayer2} </li>
-         *  <li> {@link SessionPlayer2} </li>
-         *  <li> {@link android.media.AudioManager}</li>
+         *  <li>{@link SessionPlayer2}</li>
+         *  <li>{@link android.media.AudioManager}</li>
          * </ul>
-         * Return {@code false} here to reject the request and stop sending command.
+         * <p>
+         * Return {@link #RESULT_CODE_NO_ERROR} to proceed the command. If something else is
+         * returned, command wouldn't be sent and the controller would receive the code with it.
          *
          * @param session the session for this event
          * @param controller controller information.
          * @param command a command. This method will be called for every single command.
-         * @return {@code true} if you want to accept incoming command. {@code false} otherwise.
+         * @return {@code RESULT_CODE_NO_ERROR} if you want to proceed incoming command.
+         *         Other code for ignore.
          * @see SessionCommand2#COMMAND_CODE_PLAYER_PLAY
          * @see SessionCommand2#COMMAND_CODE_PLAYER_PAUSE
          * @see SessionCommand2#COMMAND_CODE_PLAYER_SKIP_TO_NEXT_PLAYLIST_ITEM
@@ -499,9 +543,9 @@ public class MediaSession2 implements AutoCloseable {
          * @see SessionCommand2#COMMAND_CODE_VOLUME_SET_VOLUME
          * @see SessionCommand2#COMMAND_CODE_VOLUME_ADJUST_VOLUME
          */
-        public boolean onCommandRequest(@NonNull MediaSession2 session,
+        public @ResultCode int onCommandRequest(@NonNull MediaSession2 session,
                 @NonNull ControllerInfo controller, @NonNull SessionCommand2 command) {
-            return true;
+            return RESULT_CODE_NO_ERROR;
         }
 
         /**
@@ -551,8 +595,11 @@ public class MediaSession2 implements AutoCloseable {
          * @param rating new rating from the controller
          * @see SessionCommand2#COMMAND_CODE_SESSION_SET_RATING
          */
-        public void onSetRating(@NonNull MediaSession2 session, @NonNull ControllerInfo controller,
-                @NonNull String mediaId, @NonNull Rating2 rating) { }
+        public @ResultCode int onSetRating(@NonNull MediaSession2 session,
+                @NonNull ControllerInfo controller, @NonNull String mediaId,
+                @NonNull Rating2 rating) {
+            return RESULT_CODE_NO_ERROR;
+        }
 
         /**
          * Called when a controller sent a custom command through
@@ -570,9 +617,11 @@ public class MediaSession2 implements AutoCloseable {
          * @param cb optional result receiver
          * @see SessionCommand2#COMMAND_CODE_CUSTOM
          */
-        public void onCustomCommand(@NonNull MediaSession2 session,
+        public @ResultCode int onCustomCommand(@NonNull MediaSession2 session,
                 @NonNull ControllerInfo controller, @NonNull SessionCommand2 customCommand,
-                @Nullable Bundle args, @Nullable ResultReceiver cb) { }
+                @Nullable Bundle args, @Nullable ResultReceiver cb) {
+            return RESULT_CODE_NO_ERROR;
+        }
 
         /**
          * Called when a controller requested to play a specific mediaId through
@@ -584,9 +633,11 @@ public class MediaSession2 implements AutoCloseable {
          * @param extras optional extra bundle
          * @see SessionCommand2#COMMAND_CODE_SESSION_PLAY_FROM_MEDIA_ID
          */
-        public void onPlayFromMediaId(@NonNull MediaSession2 session,
+        public @ResultCode int onPlayFromMediaId(@NonNull MediaSession2 session,
                 @NonNull ControllerInfo controller, @NonNull String mediaId,
-                @Nullable Bundle extras) { }
+                @Nullable Bundle extras) {
+            return RESULT_CODE_INVALID_OPERATION;
+        }
 
         /**
          * Called when a controller requested to begin playback from a search query through
@@ -601,9 +652,11 @@ public class MediaSession2 implements AutoCloseable {
          * @param extras optional extra bundle
          * @see SessionCommand2#COMMAND_CODE_SESSION_PLAY_FROM_SEARCH
          */
-        public void onPlayFromSearch(@NonNull MediaSession2 session,
+        public @ResultCode int onPlayFromSearch(@NonNull MediaSession2 session,
                 @NonNull ControllerInfo controller, @NonNull String query,
-                @Nullable Bundle extras) { }
+                @Nullable Bundle extras) {
+            return RESULT_CODE_INVALID_OPERATION;
+        }
 
         /**
          * Called when a controller requested to play a specific media item represented by a URI
@@ -615,9 +668,11 @@ public class MediaSession2 implements AutoCloseable {
          * @param extras optional extra bundle
          * @see SessionCommand2#COMMAND_CODE_SESSION_PLAY_FROM_URI
          */
-        public void onPlayFromUri(@NonNull MediaSession2 session,
+        public @ResultCode int onPlayFromUri(@NonNull MediaSession2 session,
                 @NonNull ControllerInfo controller, @NonNull Uri uri,
-                @Nullable Bundle extras) { }
+                @Nullable Bundle extras) {
+            return RESULT_CODE_INVALID_OPERATION;
+        }
 
         /**
          * Called when a controller requested to prepare for playing a specific mediaId through
@@ -639,9 +694,11 @@ public class MediaSession2 implements AutoCloseable {
          * @param extras optional extra bundle
          * @see SessionCommand2#COMMAND_CODE_SESSION_PREPARE_FROM_MEDIA_ID
          */
-        public void onPrepareFromMediaId(@NonNull MediaSession2 session,
+        public @ResultCode int onPrepareFromMediaId(@NonNull MediaSession2 session,
                 @NonNull ControllerInfo controller, @NonNull String mediaId,
-                @Nullable Bundle extras) { }
+                @Nullable Bundle extras) {
+            return RESULT_CODE_INVALID_OPERATION;
+        }
 
         /**
          * Called when a controller requested to prepare playback from a search query through
@@ -664,9 +721,11 @@ public class MediaSession2 implements AutoCloseable {
          * @param extras optional extra bundle
          * @see SessionCommand2#COMMAND_CODE_SESSION_PREPARE_FROM_SEARCH
          */
-        public void onPrepareFromSearch(@NonNull MediaSession2 session,
+        public @ResultCode int onPrepareFromSearch(@NonNull MediaSession2 session,
                 @NonNull ControllerInfo controller, @NonNull String query,
-                @Nullable Bundle extras) { }
+                @Nullable Bundle extras) {
+            return RESULT_CODE_INVALID_OPERATION;
+        }
 
         /**
          * Called when a controller requested to prepare a specific media item represented by a URI
@@ -688,8 +747,10 @@ public class MediaSession2 implements AutoCloseable {
          * @param extras optional extra bundle
          * @see SessionCommand2#COMMAND_CODE_SESSION_PREPARE_FROM_URI
          */
-        public void onPrepareFromUri(@NonNull MediaSession2 session,
-                @NonNull ControllerInfo controller, @NonNull Uri uri, @Nullable Bundle extras) { }
+        public @ResultCode int onPrepareFromUri(@NonNull MediaSession2 session,
+                @NonNull ControllerInfo controller, @NonNull Uri uri, @Nullable Bundle extras) {
+            return RESULT_CODE_INVALID_OPERATION;
+        }
 
         /**
          * Called when a controller called {@link MediaController2#fastForward()}
@@ -698,7 +759,10 @@ public class MediaSession2 implements AutoCloseable {
          * @param controller controller information
          * @see SessionCommand2#COMMAND_CODE_SESSION_FAST_FORWARD
          */
-        public void onFastForward(@NonNull MediaSession2 session, ControllerInfo controller) { }
+        public @ResultCode int onFastForward(@NonNull MediaSession2 session,
+                @NonNull ControllerInfo controller) {
+            return RESULT_CODE_INVALID_OPERATION;
+        }
 
         /**
          * Called when a controller called {@link MediaController2#rewind()}
@@ -707,7 +771,10 @@ public class MediaSession2 implements AutoCloseable {
          * @param controller controller information
          * @see SessionCommand2#COMMAND_CODE_SESSION_REWIND
          */
-        public void onRewind(@NonNull MediaSession2 session, ControllerInfo controller) { }
+        public @ResultCode int onRewind(@NonNull MediaSession2 session,
+                @NonNull ControllerInfo controller) {
+            return RESULT_CODE_INVALID_OPERATION;
+        }
 
         /**
          * Called when a controller called {@link MediaController2#subscribeRoutesInfo()}
@@ -720,8 +787,10 @@ public class MediaSession2 implements AutoCloseable {
          * @hide
          */
         @RestrictTo(LIBRARY_GROUP)
-        public void onSubscribeRoutesInfo(@NonNull MediaSession2 session,
-                @NonNull ControllerInfo controller) { }
+        public @ResultCode int onSubscribeRoutesInfo(@NonNull MediaSession2 session,
+                @NonNull ControllerInfo controller) {
+            return RESULT_CODE_INVALID_OPERATION;
+        }
 
         /**
          * Called when a controller called {@link MediaController2#unsubscribeRoutesInfo()}
@@ -732,8 +801,10 @@ public class MediaSession2 implements AutoCloseable {
          * @hide
          */
         @RestrictTo(LIBRARY_GROUP)
-        public void onUnsubscribeRoutesInfo(@NonNull MediaSession2 session,
-                @NonNull ControllerInfo controller) { }
+        public @ResultCode int onUnsubscribeRoutesInfo(@NonNull MediaSession2 session,
+                @NonNull ControllerInfo controller) {
+            return RESULT_CODE_INVALID_OPERATION;
+        }
 
         /**
          * Called when a controller called {@link MediaController2#selectRoute(Bundle)}.
@@ -748,8 +819,10 @@ public class MediaSession2 implements AutoCloseable {
          * @hide
          */
         @RestrictTo(LIBRARY_GROUP)
-        public void onSelectRoute(@NonNull MediaSession2 session,
-                @NonNull ControllerInfo controller, @NonNull Bundle route) { }
+        public @ResultCode int onSelectRoute(@NonNull MediaSession2 session,
+                @NonNull ControllerInfo controller, @NonNull Bundle route) {
+            return RESULT_CODE_INVALID_OPERATION;
+        }
 
         /**
          * Called when the player state is changed. Used internally for setting the
@@ -1115,6 +1188,8 @@ public class MediaSession2 implements AutoCloseable {
     }
 
     abstract static class ControllerCb {
+        abstract void onCommandResult(int seq, CommandResult2 result) throws RemoteException;
+
         // Mostly matched with the methods in MediaController2.ControllerCallback
         abstract void onCustomLayoutChanged(@NonNull List<CommandButton> layout)
                 throws RemoteException;
@@ -1131,7 +1206,7 @@ public class MediaSession2 implements AutoCloseable {
                 @BuffState int bufferingState, long bufferedPositionMs) throws RemoteException;
         abstract void onSeekCompleted(long eventTimeMs, long positionMs, long position)
                 throws RemoteException;
-        abstract void onError(@ErrorCode int errorCode, @Nullable Bundle extras)
+        abstract void onError(@ResultCode int errorCode, @Nullable Bundle extras)
                 throws RemoteException;
         abstract void onCurrentMediaItemChanged(@Nullable MediaItem2 item) throws RemoteException;
         abstract void onPlaylistChanged(@NonNull List<MediaItem2> playlist,

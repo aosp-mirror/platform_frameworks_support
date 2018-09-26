@@ -20,6 +20,8 @@ import static android.media.AudioAttributes.CONTENT_TYPE_MUSIC;
 
 import static androidx.media.VolumeProviderCompat.VOLUME_CONTROL_ABSOLUTE;
 import static androidx.media.VolumeProviderCompat.VOLUME_CONTROL_FIXED;
+import static androidx.media2.MediaSession2.RESULT_CODE_INVALID_OPERATION;
+import static androidx.media2.MediaSession2.RESULT_CODE_NO_ERROR;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -593,7 +595,7 @@ public class MediaSession2Test extends MediaSession2TestBase {
     @Test
     public void testNotifyError() throws InterruptedException {
         prepareLooper();
-        final int errorCode = MediaSession2.ERROR_CODE_NOT_AVAILABLE_IN_REGION;
+        final int errorCode = MediaSession2.RESULT_CODE_NOT_AVAILABLE_IN_REGION;
         final Bundle extras = new Bundle();
         extras.putString("args", "testNotifyError");
 
@@ -661,16 +663,16 @@ public class MediaSession2Test extends MediaSession2TestBase {
         public final ArrayList<SessionCommand2> commands = new ArrayList<>();
 
         @Override
-        public boolean onCommandRequest(MediaSession2 session, ControllerInfo controllerInfo,
+        public int onCommandRequest(MediaSession2 session, ControllerInfo controllerInfo,
                 SessionCommand2 command) {
             assertEquals(mContext.getPackageName(), controllerInfo.getPackageName());
             assertEquals(Process.myUid(), controllerInfo.getUid());
             assertFalse(controllerInfo.isTrusted());
             commands.add(command);
             if (command.getCommandCode() == SessionCommand2.COMMAND_CODE_PLAYER_PAUSE) {
-                return false;
+                return RESULT_CODE_INVALID_OPERATION;
             }
-            return true;
+            return RESULT_CODE_NO_ERROR;
         }
     }
 }

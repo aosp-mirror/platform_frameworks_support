@@ -412,7 +412,7 @@ public class MediaControllerCompatCallbackTestWithMediaSession2 extends MediaSes
     @Test
     public void testNotifyError() throws Exception {
         prepareLooper();
-        final int errorCode = MediaSession2.ERROR_CODE_NOT_AVAILABLE_IN_REGION;
+        final int errorCode = MediaSession2.RESULT_CODE_NOT_AVAILABLE_IN_REGION;
         final Bundle extras = new Bundle();
         extras.putString("args", "testNotifyError");
 

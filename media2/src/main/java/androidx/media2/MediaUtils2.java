@@ -41,11 +41,14 @@ import android.support.v4.media.session.PlaybackStateCompat;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
+import androidx.concurrent.futures.SettableFuture;
 import androidx.media.AudioAttributesCompat;
 import androidx.media.MediaBrowserServiceCompat.BrowserRoot;
 import androidx.media2.MediaSession2.CommandButton;
 import androidx.versionedparcelable.ParcelImpl;
 import androidx.versionedparcelable.ParcelUtils;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -601,5 +604,19 @@ public class MediaUtils2 {
             return RatingCompat.RATING_PERCENTAGE;
         }
         return RatingCompat.RATING_NONE;
+    }
+
+    /**
+     * Creates ListenableFuture<CommandResult2> with given params.
+     *
+     * @param resultCode
+     * @param mediaItem
+     * @return
+     */
+    public static ListenableFuture<CommandResult2> createResult(int resultCode,
+            MediaItem2 mediaItem) {
+        SettableFuture<CommandResult2> result = SettableFuture.create();
+        result.set(new CommandResult2(resultCode, mediaItem));
+        return result;
     }
 }

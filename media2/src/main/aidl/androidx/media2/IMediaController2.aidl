@@ -31,6 +31,8 @@ import androidx.versionedparcelable.ParcelImpl;
  * @hide
  */
 oneway interface IMediaController2 {
+    void onCommandResult(int seq, in ParcelImpl commandResult) = 24;
+
     void onCurrentMediaItemChanged(in ParcelImpl item) = 0;
     void onPlayerStateChanged(long eventTimeMs, long positionMs, int state) = 1;
     void onPlaybackSpeedChanged(long eventTimeMs, long positionMs, float speed) = 2;
@@ -67,5 +69,5 @@ oneway interface IMediaController2 {
     void onSearchResultChanged(String query, int itemCount, in Bundle extras) = 21;
     void onGetSearchResultDone(String query, int page, int pageSize, in List<ParcelImpl> itemList,
         in Bundle extras) = 22;
-    // Next Id : 24
+    // Next Id : 25
 }

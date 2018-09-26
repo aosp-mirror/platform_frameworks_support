@@ -37,9 +37,29 @@ class MediaController2Stub extends IMediaController2.Stub {
     private static final boolean DEBUG = true; // TODO(jaewan): Change
 
     private final WeakReference<MediaController2ImplBase> mController;
+    private final CallSequenceManager mCallSequenceManager;
 
-    MediaController2Stub(MediaController2ImplBase controller) {
+    MediaController2Stub(MediaController2ImplBase controller, CallSequenceManager manager) {
         mController = new WeakReference<>(controller);
+        mCallSequenceManager = manager;
+    }
+
+    @Override
+    public void onCommandResult(int seq, ParcelImpl commandResult) {
+        final MediaController2ImplBase controller;
+        try {
+            controller = getController();
+        } catch (IllegalStateException e) {
+            Log.w(TAG, "Don't fail silently here. Highly likely a bug");
+            return;
+        }
+        CallSequenceManager.RemoteProcessFuture<CommandResult2> result =
+                mCallSequenceManager.removeRemoteProcessFuture(seq);
+        if (result != null) {
+            result.set((CommandResult2) ParcelUtils.fromParcelable(commandResult));
+        } else {
+            Log.w(TAG, "Unexpected sequence number " + seq);
+        }
     }
 
     @Override
