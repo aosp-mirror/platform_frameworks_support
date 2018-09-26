@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "b3ec6387_bb6fe216",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-26T19:40:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "402f23b9_5e2e609c",
+      "range": {
+        "startLine": 153,
+        "startChar": 18,
+        "endLine": 153,
+        "endChar": 43
+      },
+      "revId": "59eded56ae442a43c41b8d435cacd8bf57cf2c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11fb644b_4a353613",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
         "patchSetId": 1
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "4a49cbe4_4a27a923",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-26T19:40:27Z",
+      "side": 1,
+      "message": "Yeah, I think Kotlin wants the its user\u0027s mental model to be that functions are first class citizens, and it bridges the gap like other (functional languages do) between being able to reference methods (functions that can access the scope of a class?) and those that are functions (functions that can\u0027t?).\n\nI tried to fiddle around with things here and couldn\u0027t really land on anything better.  Don\u0027t need to change anything now, but, the type of \"it\" in fragmentAdapterProvider is not immediately obvious even though it is implicitly defined.  That is one area to be careful and you could opt to tell the reader what type it is.",
+      "parentUuid": "5cfb5a40_c67fd757",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 86
+      },
+      "revId": "59eded56ae442a43c41b8d435cacd8bf57cf2c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "511782b7_b41e6c4f",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
         "patchSetId": 1
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "That\u0027s actually what I wanted to convey: viewAdapterProvider is instantiating a new \u0027class\u0027 of type AdapterProvider. Functions being first class citizens here, like any other class object.",
       "parentUuid": "511782b7_b41e6c4f",
+      "range": {
+        "startLine": 85,
+        "startChar": 27,
+        "endLine": 85,
+        "endChar": 46
+      },
+      "revId": "59eded56ae442a43c41b8d435cacd8bf57cf2c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a2242d4_ea83f66d",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-26T19:40:27Z",
+      "side": 1,
+      "message": "I understand how it works, and IntelliJ/AS highlights the words to make it clear that these are \u0027things\u0027, but here in code review it looks confusing.  Just like this is funny: add(number(2), Number(2)), where \u0027Number\u0027 is a constructor, and \u0027number\u0027 is a property.\n\nMaybe viewAdapterProvider.invoke would clear it up.\n\nBut ultimately, we can consider this a nit and if you want to forge ahead, go for it.",
+      "parentUuid": "95e183a0_bb351326",
       "range": {
         "startLine": 85,
         "startChar": 27,
@@ -190,6 +262,30 @@
     },
     {
       "key": {
+        "uuid": "94801577_1a24f807",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-26T19:40:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "227c7f7b_d7056837",
+      "range": {
+        "startLine": 118,
+        "startChar": 26,
+        "endLine": 118,
+        "endChar": 63
+      },
+      "revId": "59eded56ae442a43c41b8d435cacd8bf57cf2c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72416a57_e5ff07e1",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/swipe/PageManipulator.kt",
         "patchSetId": 1
@@ -225,6 +321,30 @@
       "side": 1,
       "message": "Could rename it to PageView class despite not inheriting from View. Originally created it to avoid code duplication in FragmentAdapter / ViewAdapter / SwipeTest\n\nIt creates a Page, and given an Activity can find, modify, and read the text on the Page.\nCreate is used 2x -- once in FragmentAdapter and once in ViewAdapter.",
       "parentUuid": "72416a57_e5ff07e1",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "59eded56ae442a43c41b8d435cacd8bf57cf2c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "055b52d3_224ea437",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/swipe/PageManipulator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-26T19:40:27Z",
+      "side": 1,
+      "message": "Ah. What confused me yesterday is that this is a non-static class, so my gut told me it had state, and I didn\u0027t see how these methods were related around some kind of shared state.  This is actually a util class, and should be static (just an Object declaration) if you truly do wan\u0027t to bind these methods together into a package.  I think canonical Kotlin would suggest that it should just be a file with 4 methods in it.  Right?",
+      "parentUuid": "4970823b_e44b932a",
       "range": {
         "startLine": 26,
         "startChar": 6,
