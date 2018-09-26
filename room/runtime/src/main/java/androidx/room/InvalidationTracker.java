@@ -443,6 +443,57 @@ public class InvalidationTracker {
     }
 
     /**
+     * An invalidation Token.
+     */
+    public static class Token {
+        /**
+         * null if observer has fired, and {@link #check(Token)} can return true
+         */
+        @Nullable
+        Observer mObserver;
+        Token(String... tables) {
+            mObserver = new Observer(tables) {
+                @Override
+                public void onInvalidated(@NonNull Set<String> tables) {
+                    mObserver = null;
+                }
+            };
+        }
+    }
+
+    /**
+     * Create a Token which can be passed to check() to synchronously find if the passed tables have
+     * been invalidated.
+     *
+     * @param tables Tables to observe with the token.
+     * @return Token which can be passed to {@link #check(Token)}
+     *
+     * @see #check(Token)
+     */
+    @NonNull
+    public Token mark(String... tables) {
+        Token token = new Token(tables);
+        addWeakObserver(token.mObserver);
+        return token;
+    }
+
+    /**
+     * Check if the tables tracked by the Token have been invalidated.
+     *
+     * @param token Token to check.
+     * @return True if the Token is invalid, false otherwise.
+     *
+     * @see #mark(String...)
+     */
+    public boolean check(@NonNull Token token) {
+        if (token.mObserver == null) {
+            return true;
+        }
+        refreshVersionsSync();
+        return token.mObserver == null;
+    }
+
+    /**
      * Notifies all the registered {@link Observer}s of table changes.
      * <p>
      * This can be used for notifying invalidation that cannot be detected by this

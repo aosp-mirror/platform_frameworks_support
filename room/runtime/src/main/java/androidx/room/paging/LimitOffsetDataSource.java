@@ -29,7 +29,6 @@ import androidx.sqlite.db.SupportSQLiteQuery;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 /**
  * A simple data source implementation that uses Limit & Offset to page the query.
@@ -52,6 +51,7 @@ public abstract class LimitOffsetDataSource<T> extends PositionalDataSource<T> {
     private final RoomDatabase mDb;
     @SuppressWarnings("FieldCanBeLocal")
     private final InvalidationTracker.Observer mObserver;
+    private final InvalidationTracker.Token mToken;
     private final boolean mInTransaction;
 
     protected LimitOffsetDataSource(RoomDatabase db, SupportSQLiteQuery query,
@@ -66,13 +66,7 @@ public abstract class LimitOffsetDataSource<T> extends PositionalDataSource<T> {
         mInTransaction = inTransaction;
         mCountQuery = "SELECT COUNT(*) FROM ( " + mSourceQuery.getSql() + " )";
         mLimitOffsetQuery = "SELECT * FROM ( " + mSourceQuery.getSql() + " ) LIMIT ? OFFSET ?";
-        mObserver = new InvalidationTracker.Observer(tables) {
-            @Override
-            public void onInvalidated(@NonNull Set<String> tables) {
-                invalidate();
-            }
-        };
-        db.getInvalidationTracker().addWeakObserver(mObserver);
+        mToken = db.getInvalidationTracker().mark(tables);
     }
 
     /**
@@ -95,10 +89,17 @@ public abstract class LimitOffsetDataSource<T> extends PositionalDataSource<T> {
         }
     }
 
+
     @Override
     public boolean isInvalid() {
-        mDb.getInvalidationTracker().refreshVersionsSync();
-        return super.isInvalid();
+        if (super.isInvalid()) {
+            return true;
+        } else if (mDb.getInvalidationTracker().check(mToken)) {
+            invalidate();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @SuppressWarnings("WeakerAccess")

@@ -133,6 +133,20 @@ public class InvalidationTrackerTest {
     }
 
     @Test
+    public void testMarkCheck() throws InterruptedException {
+        InvalidationTracker.Token token = mTracker.mark("a");
+        assertThat(mTracker.check(token), is(false));
+
+        setVersions(1, 1);
+        mTracker.mPendingRefresh.set(true);
+        assertThat(mTracker.check(token), is(false));
+
+        setVersions(1, 0);
+        mTracker.mPendingRefresh.set(true);
+        assertThat(mTracker.check(token), is(true));
+    }
+
+    @Test
     public void addRemoveObserver() throws Exception {
         InvalidationTracker.Observer observer = new LatchObserver(1, "a");
         mTracker.addObserver(observer);
