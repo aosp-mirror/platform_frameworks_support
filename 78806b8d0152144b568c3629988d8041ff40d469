@@ -22,6 +22,30 @@
       "revId": "78806b8d0152144b568c3629988d8041ff40d469",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd7497be_380595fb",
+        "filename": "core/src/main/java/androidx/core/graphics/drawable/IconCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-09-26T00:23:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93c6c25e_8ad34481",
+      "range": {
+        "startLine": 373,
+        "startChar": 3,
+        "endLine": 374,
+        "endChar": 31
+      },
+      "revId": "78806b8d0152144b568c3629988d8041ff40d469",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

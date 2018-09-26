@@ -22,6 +22,30 @@
       "revId": "b0242cdbd63edea3b48d7439c9bdf42fea6a063f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33f521db_7b25791e",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-09-26T00:23:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8b7a98d_8855b0d4",
+      "range": {
+        "startLine": 406,
+        "startChar": 0,
+        "endLine": 428,
+        "endChar": 0
+      },
+      "revId": "b0242cdbd63edea3b48d7439c9bdf42fea6a063f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
