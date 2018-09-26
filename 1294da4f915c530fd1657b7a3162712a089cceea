@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d7950e84_41f36510",
+        "filename": "car/core/res/drawable/car_spinner_background.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-09-26T22:11:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb2a6601_d2b4b37c",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 29
+      },
+      "revId": "1294da4f915c530fd1657b7a3162712a089cceea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea845f75_20b8835f",
         "filename": "car/core/res/drawable/ic_arrow_drop_down.xml",
         "patchSetId": 11
@@ -45,6 +69,30 @@
       "revId": "1294da4f915c530fd1657b7a3162712a089cceea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "caeec4f8_cce233f0",
+        "filename": "car/core/res/drawable/ic_arrow_drop_down.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-09-26T22:11:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ea845f75_20b8835f",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 21,
+        "endChar": 25
+      },
+      "revId": "1294da4f915c530fd1657b7a3162712a089cceea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f12809b6_2acda83c",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-09-26T22:11:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38893d37_0abd31ee",
+      "range": {
+        "startLine": 562,
+        "startChar": 0,
+        "endLine": 564,
+        "endChar": 27
+      },
+      "revId": "1294da4f915c530fd1657b7a3162712a089cceea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "293426ff_8641e20b",
         "filename": "car/core/res/values/themes.xml",
         "patchSetId": 11
@@ -91,6 +163,30 @@
       "revId": "1294da4f915c530fd1657b7a3162712a089cceea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee66f53a_3e5ab192",
+        "filename": "car/core/res/values/themes.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-09-26T22:11:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "293426ff_8641e20b",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 79
+      },
+      "revId": "1294da4f915c530fd1657b7a3162712a089cceea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
