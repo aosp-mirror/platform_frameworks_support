@@ -16,6 +16,8 @@
 
 package androidx.media2;
 
+import static androidx.media2.MediaController2.ControllerResult.RESULT_CODE_DISCONNECTED;
+import static androidx.media2.MediaController2.ControllerResult.RESULT_CODE_PERMISSION_DENIED;
 import static androidx.media2.MediaMetadata2.METADATA_KEY_DURATION;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_ADD_PLAYLIST_ITEM;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_PAUSE;
@@ -42,6 +44,7 @@ import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PREPARE_FROM_
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PREPARE_FROM_URI;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_REWIND;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_SELECT_ROUTE;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_SET_RATING;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_SUBSCRIBE_ROUTES_INFO;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_UNSUBSCRIBE_ROUTES_INFO;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_VOLUME_ADJUST_VOLUME;
@@ -67,7 +70,9 @@ import android.util.Log;
 import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.concurrent.futures.SettableFuture;
 import androidx.media2.MediaController2.ControllerCallback;
+import androidx.media2.MediaController2.ControllerResult;
 import androidx.media2.MediaController2.MediaController2Impl;
 import androidx.media2.MediaController2.PlaybackInfo;
 import androidx.media2.MediaController2.VolumeDirection;
@@ -76,6 +81,8 @@ import androidx.media2.SessionPlayer2.RepeatMode;
 import androidx.media2.SessionPlayer2.ShuffleMode;
 import androidx.versionedparcelable.ParcelImpl;
 import androidx.versionedparcelable.ParcelUtils;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -95,7 +102,7 @@ class MediaController2ImplBase implements MediaController2Impl {
     final ControllerCallback mCallback;
     private final Executor mCallbackExecutor;
     private final IBinder.DeathRecipient mDeathRecipient;
-
+    private final CallSequenceManager mCallSequenceManager;
     final MediaController2Stub mControllerStub;
 
     @GuardedBy("mLock")
@@ -154,7 +161,8 @@ class MediaController2ImplBase implements MediaController2Impl {
             throw new IllegalArgumentException("executor shouldn't be null");
         }
         mContext = context;
-        mControllerStub = new MediaController2Stub(this);
+        mCallSequenceManager = new CallSequenceManager();
+        mControllerStub = new MediaController2Stub(this, mCallSequenceManager);
         mToken = token;
         mCallback = callback;
         mCallbackExecutor = executor;
@@ -197,13 +205,15 @@ class MediaController2ImplBase implements MediaController2Impl {
             mControllerStub.destroy();
         }
         if (iSession2 != null) {
+            int seq = mCallSequenceManager.obtainSequenceNumber();
             try {
                 iSession2.asBinder().unlinkToDeath(mDeathRecipient, 0);
-                iSession2.release(mControllerStub);
+                iSession2.release(mControllerStub, seq);
             } catch (RemoteException e) {
                 // No-op.
             }
         }
+        mCallSequenceManager.close();
         mCallbackExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -226,198 +236,195 @@ class MediaController2ImplBase implements MediaController2Impl {
         }
     }
 
-    @Override
-    public void play() {
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_PLAY);
+    @FunctionalInterface
+    private interface SessionCommand {
+        void run(IMediaSession2 iSession2, int seq) throws RemoteException;
+    }
+
+    private ListenableFuture<ControllerResult> sendCommand(int commandCode,
+            SessionCommand command) {
+        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(commandCode);
         if (iSession2 != null) {
+            final CallSequenceManager.RemoteProcessFuture<ControllerResult> result =
+                    mCallSequenceManager.createRemoteProcessFuture();
             try {
-                iSession2.play(mControllerStub);
+                command.run(iSession2, result.getSequenceNumber());
             } catch (RemoteException e) {
                 Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+                result.set(new ControllerResult(RESULT_CODE_DISCONNECTED, null));
             }
+            return result;
+        } else {
+            // Don't create Future with CallSequenceManager.
+            // Otherwise session would receive discontinued sequence number, and it would make
+            // future work item 'keeping call sequence when session execute commands' impossible.
+            final SettableFuture<ControllerResult> result = SettableFuture.create();
+            result.set(new ControllerResult(RESULT_CODE_PERMISSION_DENIED, null));
+            return result;
         }
     }
 
     @Override
-    public void pause() {
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_PAUSE);
-        if (iSession2 != null) {
-            try {
-                iSession2.pause(mControllerStub);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+    public ListenableFuture<ControllerResult> play() {
+        return sendCommand(COMMAND_CODE_PLAYER_PLAY, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.play(mControllerStub, seq);
             }
-        }
+        });
     }
 
     @Override
-    public void reset() {
-        throw new UnsupportedOperationException("This API will be removed soon.");
-    }
-
-    @Override
-    public void prepare() {
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_PREPARE);
-        if (iSession2 != null) {
-            try {
-                iSession2.prepare(mControllerStub);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+    public ListenableFuture<ControllerResult> pause() {
+        return sendCommand(COMMAND_CODE_PLAYER_PAUSE, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.pause(mControllerStub, seq);
             }
-        }
+        });
     }
 
     @Override
-    public void fastForward() {
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(
-                COMMAND_CODE_SESSION_FAST_FORWARD);
-        if (iSession2 != null) {
-            try {
-                iSession2.fastForward(mControllerStub);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+    public ListenableFuture<ControllerResult> prepare() {
+        return sendCommand(COMMAND_CODE_PLAYER_PREPARE, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.prepare(mControllerStub, seq);
             }
-        }
+        });
     }
 
     @Override
-    public void rewind() {
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_SESSION_REWIND);
-        if (iSession2 != null) {
-            try {
-                iSession2.rewind(mControllerStub);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+    public ListenableFuture<ControllerResult> fastForward() {
+        return sendCommand(COMMAND_CODE_SESSION_FAST_FORWARD, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.fastForward(mControllerStub, seq);
             }
-        }
+        });
     }
 
     @Override
-    public void seekTo(long pos) {
+    public ListenableFuture<ControllerResult> rewind() {
+        return sendCommand(COMMAND_CODE_SESSION_REWIND, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.rewind(mControllerStub, seq);
+            }
+        });
+    }
+
+    @Override
+    public ListenableFuture<ControllerResult> seekTo(final long pos) {
         if (pos < 0) {
             throw new IllegalArgumentException("position shouldn't be negative");
         }
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_SEEK_TO);
-        if (iSession2 != null) {
-            try {
-                iSession2.seekTo(mControllerStub, pos);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+        return sendCommand(COMMAND_CODE_PLAYER_SEEK_TO, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.seekTo(mControllerStub, seq, pos);
             }
-        }
+        });
     }
 
     @Override
-    public void skipForward() {
+    public ListenableFuture<ControllerResult> skipForward() {
         // To match with KEYCODE_MEDIA_SKIP_FORWARD
+        return null;
     }
 
     @Override
-    public void skipBackward() {
+    public ListenableFuture<ControllerResult> skipBackward() {
         // To match with KEYCODE_MEDIA_SKIP_BACKWARD
+        return null;
     }
 
     @Override
-    public void playFromMediaId(@NonNull String mediaId, @Nullable Bundle extras) {
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(
-                COMMAND_CODE_SESSION_PLAY_FROM_MEDIA_ID);
-        if (iSession2 != null) {
-            try {
-                iSession2.playFromMediaId(mControllerStub, mediaId, extras);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+    public ListenableFuture<ControllerResult> playFromMediaId(final @NonNull String mediaId,
+            final @Nullable Bundle extras) {
+        return sendCommand(COMMAND_CODE_SESSION_PLAY_FROM_MEDIA_ID, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.playFromMediaId(mControllerStub, seq, mediaId, extras);
             }
-        }
+        });
     }
 
     @Override
-    public void playFromSearch(@NonNull String query, @Nullable Bundle extras) {
-        final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_SESSION_PLAY_FROM_SEARCH);
-        if (iSession2 != null) {
-            try {
-                iSession2.playFromSearch(mControllerStub, query, extras);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+    public ListenableFuture<ControllerResult> playFromSearch(final @NonNull String query,
+            final @Nullable Bundle extras) {
+        return sendCommand(COMMAND_CODE_SESSION_PLAY_FROM_SEARCH, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.playFromSearch(mControllerStub, seq, query, extras);
             }
-        }
+        });
     }
 
     @Override
-    public void playFromUri(Uri uri, Bundle extras) {
-        final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_SESSION_PLAY_FROM_URI);
-        if (iSession2 != null) {
-            try {
-                iSession2.playFromUri(mControllerStub, uri, extras);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+    public ListenableFuture<ControllerResult> playFromUri(final @NonNull Uri uri,
+            final @NonNull Bundle extras) {
+        return sendCommand(COMMAND_CODE_SESSION_PLAY_FROM_URI, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.playFromUri(mControllerStub, seq, uri, extras);
             }
-        }
+        });
     }
 
     @Override
-    public void prepareFromMediaId(@NonNull String mediaId, @Nullable Bundle extras) {
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(
-                COMMAND_CODE_SESSION_PREPARE_FROM_MEDIA_ID);
-        if (iSession2 != null) {
-            try {
-                iSession2.prepareFromMediaId(mControllerStub, mediaId, extras);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+    public ListenableFuture<ControllerResult> prepareFromMediaId(final @NonNull String mediaId,
+            final @Nullable Bundle extras) {
+        return sendCommand(COMMAND_CODE_SESSION_PREPARE_FROM_MEDIA_ID, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.prepareFromMediaId(mControllerStub, seq, mediaId, extras);
             }
-        }
+        });
     }
 
     @Override
-    public void prepareFromSearch(@NonNull String query, @Nullable Bundle extras) {
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(
-                COMMAND_CODE_SESSION_PREPARE_FROM_SEARCH);
-        if (iSession2 != null) {
-            try {
-                iSession2.prepareFromSearch(mControllerStub, query, extras);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+    public ListenableFuture<ControllerResult> prepareFromSearch(final @NonNull String query,
+            final @Nullable Bundle extras) {
+        return sendCommand(COMMAND_CODE_SESSION_PREPARE_FROM_SEARCH, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.prepareFromSearch(mControllerStub, seq, query, extras);
             }
-        }
+        });
     }
 
     @Override
-    public void prepareFromUri(@NonNull Uri uri, @Nullable Bundle extras) {
-        final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_SESSION_PREPARE_FROM_URI);
-        if (iSession2 != null) {
-            try {
-                iSession2.prepareFromUri(mControllerStub, uri, extras);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+    public ListenableFuture<ControllerResult> prepareFromUri(final @NonNull Uri uri,
+            final @Nullable Bundle extras) {
+        return sendCommand(COMMAND_CODE_SESSION_PREPARE_FROM_URI, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.prepareFromUri(mControllerStub, seq, uri, extras);
             }
-        }
+        });
     }
 
     @Override
-    public void setVolumeTo(int value, @VolumeFlags int flags) {
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_VOLUME_SET_VOLUME);
-        if (iSession2 != null) {
-            try {
-                iSession2.setVolumeTo(mControllerStub, value, flags);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+    public ListenableFuture<ControllerResult> setVolumeTo(final int value,
+            final @VolumeFlags int flags) {
+        return sendCommand(COMMAND_CODE_VOLUME_SET_VOLUME, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.setVolumeTo(mControllerStub, seq, value, flags);
             }
-        }
+        });
     }
 
     @Override
-    public void adjustVolume(@VolumeDirection int direction, @VolumeFlags int flags) {
-        final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_VOLUME_ADJUST_VOLUME);
-        if (iSession2 != null) {
-            try {
-                iSession2.adjustVolume(mControllerStub, direction, flags);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+    public ListenableFuture<ControllerResult> adjustVolume(final @VolumeDirection int direction,
+            final @VolumeFlags int flags) {
+        return sendCommand(COMMAND_CODE_VOLUME_ADJUST_VOLUME, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.adjustVolume(mControllerStub, seq, direction, flags);
             }
-        }
+        });
     }
 
     @Override
@@ -475,16 +482,13 @@ class MediaController2ImplBase implements MediaController2Impl {
     }
 
     @Override
-    public void setPlaybackSpeed(float speed) {
-        final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_SET_SPEED);
-        if (iSession2 != null) {
-            try {
-                iSession2.setPlaybackSpeed(mControllerStub, speed);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+    public ListenableFuture<ControllerResult> setPlaybackSpeed(final float speed) {
+        return sendCommand(COMMAND_CODE_PLAYER_SET_SPEED, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.setPlaybackSpeed(mControllerStub, seq, speed);
             }
-        }
+        });
     }
 
     @Override
@@ -517,33 +521,27 @@ class MediaController2ImplBase implements MediaController2Impl {
     }
 
     @Override
-    public void setRating(@NonNull String mediaId, @NonNull Rating2 rating) {
-        final IMediaSession2 iSession2;
-        synchronized (mLock) {
-            iSession2 = mISession2;
-        }
-        if (iSession2 != null) {
-            try {
-                iSession2.setRating(mControllerStub, mediaId,
+    public ListenableFuture<ControllerResult> setRating(final @NonNull String mediaId,
+            final @NonNull Rating2 rating) {
+        return sendCommand(COMMAND_CODE_SESSION_SET_RATING, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.setRating(mControllerStub, seq, mediaId,
                         (ParcelImpl) ParcelUtils.toParcelable(rating));
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
             }
-        }
+        });
     }
 
     @Override
-    public void sendCustomCommand(@NonNull SessionCommand2 command, Bundle args,
-            @Nullable ResultReceiver cb) {
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(command);
-        if (iSession2 != null) {
-            try {
-                iSession2.sendCustomCommand(mControllerStub,
-                        (ParcelImpl) ParcelUtils.toParcelable(command), args, cb);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+    public ListenableFuture<ControllerResult> sendCustomCommand(
+            final @NonNull SessionCommand2 command, final @Nullable Bundle args) {
+        return sendCommand(COMMAND_CODE_PLAYER_PREPARE, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.sendCustomCommand(mControllerStub, seq,
+                        (ParcelImpl) ParcelUtils.toParcelable(command), args);
             }
-        }
+        });
     }
 
     @Override
@@ -554,46 +552,39 @@ class MediaController2ImplBase implements MediaController2Impl {
     }
 
     @Override
-    public void setPlaylist(@NonNull List<MediaItem2> list, @Nullable MediaMetadata2 metadata) {
-        final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_SET_PLAYLIST);
-        if (iSession2 != null) {
-            try {
-                iSession2.setPlaylist(mControllerStub,
+    public ListenableFuture<ControllerResult> setPlaylist(final @NonNull List<MediaItem2> list,
+            final @Nullable MediaMetadata2 metadata) {
+        return sendCommand(COMMAND_CODE_PLAYER_SET_PLAYLIST, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.setPlaylist(mControllerStub, seq,
                         MediaUtils2.convertMediaItem2ListToParcelImplList(list),
                         (metadata == null) ? null : metadata.toBundle());
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
             }
-        }
+        });
     }
 
     @Override
-    public void setMediaItem(MediaItem2 item) {
-        final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_SET_MEDIA_ITEM);
-        if (iSession2 != null) {
-            try {
-                iSession2.setMediaItem(mControllerStub,
+    public ListenableFuture<ControllerResult> setMediaItem(final MediaItem2 item) {
+        return sendCommand(COMMAND_CODE_PLAYER_SET_MEDIA_ITEM, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.setMediaItem(mControllerStub, seq,
                         (ParcelImpl) ParcelUtils.toParcelable(item));
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
             }
-        }
+        });
     }
 
     @Override
-    public void updatePlaylistMetadata(@Nullable MediaMetadata2 metadata) {
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(
-                COMMAND_CODE_PLAYER_UPDATE_LIST_METADATA);
-        if (iSession2 != null) {
-            try {
-                iSession2.updatePlaylistMetadata(mControllerStub,
+    public ListenableFuture<ControllerResult> updatePlaylistMetadata(
+            final @Nullable MediaMetadata2 metadata) {
+        return sendCommand(COMMAND_CODE_PLAYER_UPDATE_LIST_METADATA, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.updatePlaylistMetadata(mControllerStub, seq,
                         (metadata == null) ? null : metadata.toBundle());
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
             }
-        }
+        });
     }
 
     @Override
@@ -604,45 +595,38 @@ class MediaController2ImplBase implements MediaController2Impl {
     }
 
     @Override
-    public void addPlaylistItem(int index, @NonNull MediaItem2 item) {
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(
-                COMMAND_CODE_PLAYER_ADD_PLAYLIST_ITEM);
-        if (iSession2 != null) {
-            try {
-                iSession2.addPlaylistItem(mControllerStub, index,
+    public ListenableFuture<ControllerResult> addPlaylistItem(final int index,
+            final @NonNull MediaItem2 item) {
+        return sendCommand(COMMAND_CODE_PLAYER_ADD_PLAYLIST_ITEM, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.addPlaylistItem(mControllerStub, seq, index,
                         (ParcelImpl) ParcelUtils.toParcelable(item));
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
             }
-        }
+        });
     }
 
     @Override
-    public void removePlaylistItem(@NonNull MediaItem2 item) {
-        final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_REMOVE_PLAYLIST_ITEM);
-        if (iSession2 != null) {
-            try {
-                iSession2.removePlaylistItem(mControllerStub,
+    public ListenableFuture<ControllerResult> removePlaylistItem(final @NonNull MediaItem2 item) {
+        return sendCommand(COMMAND_CODE_PLAYER_REMOVE_PLAYLIST_ITEM, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.removePlaylistItem(mControllerStub, seq,
                         (ParcelImpl) ParcelUtils.toParcelable(item));
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
             }
-        }
+        });
     }
 
     @Override
-    public void replacePlaylistItem(int index, @NonNull MediaItem2 item) {
-        final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_REPLACE_PLAYLIST_ITEM);
-        if (iSession2 != null) {
-            try {
-                iSession2.replacePlaylistItem(mControllerStub, index,
+    public ListenableFuture<ControllerResult> replacePlaylistItem(final int index,
+                final @NonNull MediaItem2 item) {
+        return sendCommand(COMMAND_CODE_PLAYER_REPLACE_PLAYLIST_ITEM, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.replacePlaylistItem(mControllerStub, seq, index,
                         (ParcelImpl) ParcelUtils.toParcelable(item));
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
             }
-        }
+        });
     }
 
     @Override
@@ -653,43 +637,36 @@ class MediaController2ImplBase implements MediaController2Impl {
     }
 
     @Override
-    public void skipToPreviousItem() {
-        final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_SKIP_TO_PREVIOUS_PLAYLIST_ITEM);
-        if (iSession2 != null) {
-            try {
-                iSession2.skipToPreviousItem(mControllerStub);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
-            }
-        }
+    public ListenableFuture<ControllerResult> skipToPreviousItem() {
+        return sendCommand(COMMAND_CODE_PLAYER_SKIP_TO_PREVIOUS_PLAYLIST_ITEM,
+                new SessionCommand() {
+                    @Override
+                    public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                        iSession2.skipToPreviousItem(mControllerStub, seq);
+                    }
+                });
     }
 
     @Override
-    public void skipToNextItem() {
-        final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_SKIP_TO_NEXT_PLAYLIST_ITEM);
-        if (iSession2 != null) {
-            try {
-                iSession2.skipToNextItem(mControllerStub);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
-            }
-        }
+    public ListenableFuture<ControllerResult> skipToNextItem() {
+        return sendCommand(COMMAND_CODE_PLAYER_SKIP_TO_NEXT_PLAYLIST_ITEM,
+                new SessionCommand() {
+                    @Override
+                    public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                        iSession2.skipToNextItem(mControllerStub, seq);
+                    }
+                });
     }
 
     @Override
-    public void skipToPlaylistItem(@NonNull MediaItem2 item) {
-        final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_SKIP_TO_PLAYLIST_ITEM);
-        if (iSession2 != null) {
-            try {
-                iSession2.skipToPlaylistItem(mControllerStub,
+    public ListenableFuture<ControllerResult> skipToPlaylistItem(final @NonNull MediaItem2 item) {
+        return sendCommand(COMMAND_CODE_PLAYER_SKIP_TO_PLAYLIST_ITEM, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.skipToPlaylistItem(mControllerStub, seq,
                         (ParcelImpl) ParcelUtils.toParcelable(item));
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
             }
-        }
+        });
     }
 
     @Override
@@ -700,16 +677,13 @@ class MediaController2ImplBase implements MediaController2Impl {
     }
 
     @Override
-    public void setRepeatMode(int repeatMode) {
-        final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_SET_REPEAT_MODE);
-        if (iSession2 != null) {
-            try {
-                iSession2.setRepeatMode(mControllerStub, repeatMode);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+    public ListenableFuture<ControllerResult> setRepeatMode(final int repeatMode) {
+        return sendCommand(COMMAND_CODE_PLAYER_SET_REPEAT_MODE, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.setRepeatMode(mControllerStub, seq, repeatMode);
             }
-        }
+        });
     }
 
     @Override
@@ -720,55 +694,44 @@ class MediaController2ImplBase implements MediaController2Impl {
     }
 
     @Override
-    public void setShuffleMode(int shuffleMode) {
-        final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_SET_SHUFFLE_MODE);
-        if (iSession2 != null) {
-            try {
-                iSession2.setShuffleMode(mControllerStub, shuffleMode);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+    public ListenableFuture<ControllerResult> setShuffleMode(final int shuffleMode) {
+        return sendCommand(COMMAND_CODE_PLAYER_SET_SHUFFLE_MODE, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.setShuffleMode(mControllerStub, seq, shuffleMode);
             }
-        }
+        });
     }
 
     @Override
-    public void subscribeRoutesInfo() {
-        final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_SESSION_SUBSCRIBE_ROUTES_INFO);
-        if (iSession2 != null) {
-            try {
-                iSession2.subscribeRoutesInfo(mControllerStub);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+    public ListenableFuture<ControllerResult> subscribeRoutesInfo() {
+        return sendCommand(COMMAND_CODE_SESSION_SUBSCRIBE_ROUTES_INFO, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.subscribeRoutesInfo(mControllerStub, seq);
             }
-        }
+        });
     }
 
     @Override
-    public void unsubscribeRoutesInfo() {
-        final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_SESSION_UNSUBSCRIBE_ROUTES_INFO);
-        if (iSession2 != null) {
-            try {
-                iSession2.unsubscribeRoutesInfo(mControllerStub);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
-            }
-        }
+    public ListenableFuture<ControllerResult> unsubscribeRoutesInfo() {
+        return sendCommand(COMMAND_CODE_SESSION_UNSUBSCRIBE_ROUTES_INFO,
+                new SessionCommand() {
+                    @Override
+                    public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                        iSession2.unsubscribeRoutesInfo(mControllerStub, seq);
+                    }
+                });
     }
 
     @Override
-    public void selectRoute(@NonNull Bundle route) {
-        final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_SESSION_SELECT_ROUTE);
-        if (iSession2 != null) {
-            try {
-                iSession2.selectRoute(mControllerStub, route);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Cannot connect to the service or the session is gone", e);
+    public ListenableFuture<ControllerResult> selectRoute(final @NonNull Bundle route) {
+        return sendCommand(COMMAND_CODE_SESSION_SELECT_ROUTE, new SessionCommand() {
+            @Override
+            public void run(IMediaSession2 iSession2, int seq) throws RemoteException {
+                iSession2.selectRoute(mControllerStub, seq, route);
             }
-        }
+        });
     }
 
     @Override
@@ -828,8 +791,9 @@ class MediaController2ImplBase implements MediaController2Impl {
 
     private void connectToSession() {
         IMediaSession2 iSession2 = IMediaSession2.Stub.asInterface((IBinder) mToken.getBinder());
+        int seq = mCallSequenceManager.obtainSequenceNumber();
         try {
-            iSession2.connect(mControllerStub, mContext.getPackageName());
+            iSession2.connect(mControllerStub, seq, mContext.getPackageName());
         } catch (RemoteException e) {
             Log.w(TAG, "Failed to call connection request. Framework will retry"
                     + " automatically");
@@ -1028,18 +992,6 @@ class MediaController2ImplBase implements MediaController2Impl {
                     return;
                 }
                 mCallback.onSeekCompleted(mInstance, seekPositionMs);
-            }
-        });
-    }
-
-    void notifyError(final int errorCode, final Bundle extras) {
-        mCallbackExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                if (!mInstance.isConnected()) {
-                    return;
-                }
-                mCallback.onError(mInstance, errorCode, extras);
             }
         });
     }
