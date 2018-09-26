@@ -26,11 +26,14 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.textclassifier.widget.FloatingToolbarEspressoUtils.onFloatingToolbar;
 import static androidx.textclassifier.widget.FloatingToolbarEspressoUtils.onFloatingToolbarItem;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import android.app.PendingIntent;
 import android.content.Context;
 import android.os.Build;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -55,6 +58,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /** Unit tests for {@link TextLinkSpan}. */
 @SmallTest
@@ -135,6 +139,29 @@ public final class TextLinkSpanTest {
         performSpanClick(span, textView);
         maybeCheckMenuIsDisplayed();
         mReceiver.assertIntentNotReceived();
+    }
+
+    @Test
+    public void onClick_overrideOnTextClassificationResult() throws Exception {
+        final AtomicBoolean callbackIsInvoked = new AtomicBoolean(false);
+        final TextLinkSpan span = new TextLinkSpan(
+                new TextLinks.TextLinkSpanData(mTextLink, mTextClassifier, null)) {
+            @Override
+            public void onTextClassificationResult(
+                    TextView textView, TextClassification textClassification) {
+                callbackIsInvoked.set(true);
+                RemoteActionCompat action = textClassification.getActions().get(0);
+                try {
+                    action.getActionIntent().send();
+                } catch (PendingIntent.CanceledException e) {
+                    Log.e("TextLinkSpanTest", "onTextClassificationResult: ", e);
+                }
+            }
+        };
+        final TextView textView = createTextViewWithSpan(span);
+        performSpanClick(span, textView);
+        mReceiver.assertIntentReceived();
+        assertThat(callbackIsInvoked.get()).isTrue();
     }
 
     @Test
