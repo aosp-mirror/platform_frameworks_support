@@ -17,6 +17,7 @@
 import androidx.build.AndroidXPlugin
 import androidx.build.SdkHelperKt
 import androidx.build.jacoco.Jacoco
+import androidx.build.dokka.Dokka
 
 def currentJvmVersion = org.gradle.api.JavaVersion.current()
 if (currentJvmVersion.getMajorVersion() != "8") {
@@ -40,6 +41,8 @@ buildscript {
 
         // AGP only declares a compileOnly dependency on Jacoco. This forces an explicit version.
         classpath Jacoco.CORE_DEPENDENCY
+
+        classpath build_libs.dokka_gradle
     }
 }
 
@@ -49,6 +52,7 @@ init.setupRepoOutAndBuildNumber()
 
 init.configureSubProjects()
 
+Dokka.configureRunnerProject(project)
 apply plugin: AndroidXPlugin
 
 // AndroidX needed before jetify since it accesses the createArchive task name directly.

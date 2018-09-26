@@ -103,7 +103,8 @@ class AndroidXPlugin : Plugin<Project> {
             if (task.name.startsWith(Release.DIFF_TASK_PREFIX) ||
                     "distDocs" == task.name ||
                     "dejetifyArchive" == task.name ||
-                    CheckExternalDependencyLicensesTask.TASK_NAME == task.name) {
+                    CheckExternalDependencyLicensesTask.TASK_NAME == task.name ||
+                    "dokka" == task.name) {
                 buildOnServerTask.dependsOn(task)
             }
         }
