@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "eaacbc91_443684dc",
+        "filename": "media/api/1.0.0.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-26T18:47:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2653fab_87f00798",
+      "range": {
+        "startLine": 570,
+        "startChar": 26,
+        "endLine": 570,
+        "endChar": 51
+      },
+      "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee5a3e58_78adb29b",
         "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "684077ed_850ce55e",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-26T18:47:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee5a3e58_78adb29b",
+      "range": {
+        "startLine": 64,
+        "startChar": 26,
+        "endLine": 64,
+        "endChar": 50
+      },
+      "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d28512ad_673ccec2",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-26T18:47:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da167892_fd3d78c5",
+      "range": {
+        "startLine": 74,
+        "startChar": 12,
+        "endLine": 74,
+        "endChar": 43
+      },
+      "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3681a0c1_7b25218f",
         "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2018-09-26T17:50:05Z",
       "side": 1,
       "message": "let\u0027s define a \"FocusGainType\" annotation for those. Is support lib like the platform where the generated javadoc will contain the list of possible values?",
+      "range": {
+        "startLine": 112,
+        "startChar": 11,
+        "endLine": 112,
+        "endChar": 14
+      },
+      "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "688855f0_b8972f56",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-26T18:47:09Z",
+      "side": 1,
+      "message": "Done, but I don\u0027t know about the javadoc bit.",
+      "parentUuid": "3681a0c1_7b25218f",
       "range": {
         "startLine": 112,
         "startChar": 11,
@@ -114,6 +210,30 @@
       "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84c13ed3_9cbe260a",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-26T18:47:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "384b69b4_d17b1e3f",
+      "range": {
+        "startLine": 222,
+        "startChar": 13,
+        "endLine": 222,
+        "endChar": 20
+      },
+      "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -175,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "c446038f_08a9def9",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-26T18:47:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "642e448f_c254be66",
+      "range": {
+        "startLine": 369,
+        "startChar": 73,
+        "endLine": 369,
+        "endChar": 99
+      },
+      "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d3d1789_85c15c4e",
         "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
         "patchSetId": 5
@@ -198,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "d5dda06e_0987a12a",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-26T18:47:09Z",
+      "side": 1,
+      "message": "I removed this, because it\u0027s related to delayed focus.",
+      "parentUuid": "4d3d1789_85c15c4e",
+      "range": {
+        "startLine": 384,
+        "startChar": 71,
+        "endLine": 384,
+        "endChar": 100
+      },
+      "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f841827d_dc492d07",
         "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
         "patchSetId": 5
@@ -218,6 +386,30 @@
       "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7791525b_f7e51477",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-26T18:47:09Z",
+      "side": 1,
+      "message": "Since it\u0027s related to delayed focus, I removed it. If I should add it back, let me know. :)",
+      "parentUuid": "f841827d_dc492d07",
+      "range": {
+        "startLine": 385,
+        "startChar": 62,
+        "endLine": 386,
+        "endChar": 10
+      },
+      "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
