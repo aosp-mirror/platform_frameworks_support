@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6fb6e314_d6632ae7",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-26T18:19:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b952db7_78c394f1",
+      "range": {
+        "startLine": 269,
+        "startChar": 16,
+        "endLine": 269,
+        "endChar": 29
+      },
+      "revId": "a2ad3f66bbcc8a652f7e8903691b76056d9281a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b6b5f97_93cb8f57",
         "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "a2ad3f66bbcc8a652f7e8903691b76056d9281a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6842c75e_4761a521",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-26T18:19:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b6b5f97_93cb8f57",
+      "range": {
+        "startLine": 276,
+        "startChar": 16,
+        "endLine": 276,
+        "endChar": 29
+      },
+      "revId": "a2ad3f66bbcc8a652f7e8903691b76056d9281a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9b7bce64_07211768",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-26T18:19:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec1bf445_5b4f0cf6",
+      "range": {
+        "startLine": 286,
+        "startChar": 18,
+        "endLine": 286,
+        "endChar": 27
+      },
+      "revId": "a2ad3f66bbcc8a652f7e8903691b76056d9281a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f42b6d9e_973c82de",
         "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "a2ad3f66bbcc8a652f7e8903691b76056d9281a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26aa296c_05aa1532",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-26T18:19:00Z",
+      "side": 1,
+      "message": "Unfortunately, we need this one because of ConstraintTrackingWorker and how our packages are setup.  It remains hidden in Worker though.",
+      "parentUuid": "f42b6d9e_973c82de",
+      "range": {
+        "startLine": 295,
+        "startChar": 16,
+        "endLine": 295,
+        "endChar": 25
+      },
+      "revId": "a2ad3f66bbcc8a652f7e8903691b76056d9281a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
