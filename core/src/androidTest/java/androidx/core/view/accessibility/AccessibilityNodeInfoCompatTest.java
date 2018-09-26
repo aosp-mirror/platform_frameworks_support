@@ -16,6 +16,7 @@
 
 package androidx.core.view.accessibility;
 
+import static org.hamcrest.CoreMatchers.any;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
@@ -23,10 +24,12 @@ import static org.junit.Assert.assertThat;
 import android.os.Build;
 import android.view.accessibility.AccessibilityNodeInfo;
 
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -101,6 +104,38 @@ public class AccessibilityNodeInfoCompatTest {
                 AccessibilityNodeInfoCompat.CollectionItemInfoCompat.obtain(0, 1, 0, 1, true);
         nodeCompat.setCollectionItemInfo(collectionItemInfo);
         assertThat(nodeCompat.isHeading(), is(true));
+    }
+
+    @SdkSuppress(minSdkVersion = 19)
+    @Test
+    public void testAccessibilityActionsNotNull() {
+        try {
+            AccessibilityActionCompat actionCompat;
+            actionCompat = AccessibilityActionCompat.ACTION_SHOW_ON_SCREEN;
+            assertThat(actionCompat.getId(), any(int.class));
+            actionCompat = AccessibilityActionCompat.ACTION_SCROLL_TO_POSITION;
+            assertThat(actionCompat.getId(), any(int.class));
+            actionCompat = AccessibilityActionCompat.ACTION_SCROLL_UP;
+            assertThat(actionCompat.getId(), any(int.class));
+            actionCompat = AccessibilityActionCompat.ACTION_SCROLL_LEFT;
+            assertThat(actionCompat.getId(), any(int.class));
+            actionCompat = AccessibilityActionCompat.ACTION_SCROLL_DOWN;
+            assertThat(actionCompat.getId(), any(int.class));
+            actionCompat = AccessibilityActionCompat.ACTION_SCROLL_RIGHT;
+            assertThat(actionCompat.getId(), any(int.class));
+            actionCompat = AccessibilityActionCompat.ACTION_CONTEXT_CLICK;
+            assertThat(actionCompat.getId(), any(int.class));
+            actionCompat = AccessibilityActionCompat.ACTION_SET_PROGRESS;
+            assertThat(actionCompat.getId(), any(int.class));
+            actionCompat = AccessibilityActionCompat.ACTION_MOVE_WINDOW;
+            assertThat(actionCompat.getId(), any(int.class));
+            actionCompat = AccessibilityActionCompat.ACTION_SHOW_TOOLTIP;
+            assertThat(actionCompat.getId(), any(int.class));
+            actionCompat = AccessibilityActionCompat.ACTION_HIDE_TOOLTIP;
+            assertThat(actionCompat.getId(), any(int.class));
+        } catch (NullPointerException e) {
+            Assert.fail("Expected no NullPointerException, but got: " + e.getMessage());
+        }
     }
 
     private AccessibilityNodeInfoCompat obtainedWrappedNodeCompat() {
