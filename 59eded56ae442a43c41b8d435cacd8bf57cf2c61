@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0139dcb3_75e400ad",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-26T00:15:47Z",
+      "side": 1,
+      "message": "Should you remove too?",
+      "range": {
+        "startLine": 153,
+        "startChar": 18,
+        "endLine": 153,
+        "endChar": 43
+      },
+      "revId": "59eded56ae442a43c41b8d435cacd8bf57cf2c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11fb644b_4a353613",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-26T00:15:47Z",
+      "side": 1,
+      "message": "This stuff felt really over-engineered to me at first.  But then I think I understand why at least some of it is necessary.  Can fragmentAdapterProvider and viewAdapterProvider just be functions instead?\n\nMy discomfort here may partially be the move to a much more functional perspective.  Ultimately, if all of this is necessary (or you think is better) go ahead and leave it.",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 86
+      },
+      "revId": "59eded56ae442a43c41b8d435cacd8bf57cf2c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "511782b7_b41e6c4f",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-26T00:15:47Z",
+      "side": 1,
+      "message": "This is confusing to read because setAdapterSync sounds like a method, while viewAdapterProvider sounds like you are instantiating a new class (not calling a lambda).  Also, I see elsewhere you just do setAdapterSync { ViewAdapter(stringSequence(4) } (also commented).  I assume the difference is accidental?",
+      "range": {
+        "startLine": 85,
+        "startChar": 27,
+        "endLine": 85,
+        "endChar": 46
+      },
+      "revId": "59eded56ae442a43c41b8d435cacd8bf57cf2c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3640d83_f75819ee",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-26T00:15:47Z",
+      "side": 1,
+      "message": "Here you don\u0027t use viewAdapterProvider, why the difference from other places?",
+      "range": {
+        "startLine": 118,
+        "startChar": 26,
+        "endLine": 118,
+        "endChar": 63
+      },
+      "revId": "59eded56ae442a43c41b8d435cacd8bf57cf2c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72416a57_e5ff07e1",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/swipe/PageManipulator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-09-26T00:15:47Z",
+      "side": 1,
+      "message": "This class strikes me as a bit odd.  It inflates a layout into a container, finds a view in an activity, and sets and gets text.\n\nAlso it seems like the create method is only used in one place?",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "59eded56ae442a43c41b8d435cacd8bf57cf2c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
