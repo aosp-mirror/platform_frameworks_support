@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "4a07f9d2_c0e29547",
+        "filename": "slices/core/manager/build.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-26T19:51:53Z",
+      "side": 1,
+      "message": "Yeah, the policy is \"new\" modules start at 1.0.0-alpha01, but I don\u0027t feel this counts as new.\n\nI\u0027m also on the fence about whether this should use its own version constant. It may evolve at a slower / faster pace than the core slice module, but realistically I bet we\u0027ll be shipping them lock-step. Let\u0027s keep them locked to the same version for now, so this LGTM.",
+      "parentUuid": "4fcf2a18_c7b14a96",
+      "range": {
+        "startLine": 40,
+        "startChar": 19,
+        "endLine": 40,
+        "endChar": 40
+      },
+      "revId": "402018ed4d40307998ac660e23f24a5458115836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "420282df_88c45da6",
         "filename": "slices/core/manager/src/main/AndroidManifest.xml",
         "patchSetId": 11
