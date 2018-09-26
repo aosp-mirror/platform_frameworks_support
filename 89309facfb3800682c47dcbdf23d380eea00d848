@@ -22,6 +22,30 @@
       "revId": "89309facfb3800682c47dcbdf23d380eea00d848",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de05a3d1_2225ed4e",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-26T20:09:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8a7767ba_7f0743db",
+      "range": {
+        "startLine": 306,
+        "startChar": 15,
+        "endLine": 306,
+        "endChar": 22
+      },
+      "revId": "89309facfb3800682c47dcbdf23d380eea00d848",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
