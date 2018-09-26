@@ -519,16 +519,11 @@ public final class TextLinks {
 
     /**
      * A function to create spans from TextLinks.
-     *
-     * Hidden until we convinced we want it to be part of the public API.
-     *
-     * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
     public interface SpanFactory {
 
         /** Creates a span from a text link. */
-        TextLinkSpan createSpan(@NonNull TextLinkSpanData textLinkSpanData);
+        ClickableSpan createSpan(@NonNull TextLinkSpanData textLinkSpanData);
     }
 
     /**
@@ -581,6 +576,11 @@ public final class TextLinks {
 
     /**
      * A ClickableSpan for a TextLink.
+     * <p>
+     * When this span is clicked, textclassifier will be used to classify the text in the span and
+     * suggest possible actions. The suggested actions will be presented to users eventually.
+     * You can change the way how the suggested actions are presented to user by overriding
+     * {@link #onTextClassificationResult(TextView, TextClassification)}.
      */
     public static class TextLinkSpan extends ClickableSpan {
 
@@ -592,7 +592,7 @@ public final class TextLinks {
         }
 
         @Override
-        public void onClick(View widget) {
+        public final void onClick(View widget) {
             if (!(widget instanceof TextView)) {
                 return;
             }
@@ -622,30 +622,50 @@ public final class TextLinks {
             sWorkerExecutor.execute(new Runnable() {
                 @Override
                 public void run() {
-                    final List<RemoteActionCompat> actions =
-                            classifier.classifyText(request).getActions();
+                    final TextClassification textClassification = classifier.classifyText(request);
                     sMainThreadExecutor.execute(new Runnable() {
                         @Override
                         public void run() {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                ToolbarController.getInstance(textView).show(actions, start, end);
-                                return;
-                            }
-
-                            if (!actions.isEmpty()) {
-                                try {
-                                    actions.get(0).getActionIntent().send();
-                                } catch (PendingIntent.CanceledException e) {
-                                    Log.e(LOG_TAG, "Error handling TextLinkSpan click", e);
-                                }
-                                return;
-                            }
-
-                            Log.d(LOG_TAG, "Cannot trigger link. No actions found.");
+                            onTextClassificationResult(textView, textClassification);
                         }
                     });
                 }
             });
+        }
+
+        /**
+         * Callback when the classification of the clicked link is done.
+         * <p>
+         * By default, a floating toolbar which contains the possible actions is shown in M+,
+         * the best action is started directly otherwise. Apps can change this behaviour by
+         * overriding this function. For example, apps can start the action directly without
+         * showing a floating toolbar.
+         *
+         * @param textView the textview that this span is attached to
+         * @param textClassification the text classification result of the text in this span.
+         */
+        public void onTextClassificationResult(
+                @NonNull TextView textView, @NonNull TextClassification textClassification) {
+            final Spanned spanned = SpannableString.valueOf(textView.getText());
+            final int start = spanned.getSpanStart(this);
+            final int end = spanned.getSpanEnd(this);
+
+            List<RemoteActionCompat> actions = textClassification.getActions();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                ToolbarController.getInstance(textView).show(actions, start, end);
+                return;
+            }
+
+            if (!actions.isEmpty()) {
+                try {
+                    actions.get(0).getActionIntent().send();
+                } catch (PendingIntent.CanceledException e) {
+                    Log.e(LOG_TAG, "Error handling TextLinkSpan click", e);
+                }
+                return;
+            }
+
+            Log.d(LOG_TAG, "Cannot trigger link. No actions found.");
         }
 
         private LocaleListCompat getLocales(TextView textView) {
