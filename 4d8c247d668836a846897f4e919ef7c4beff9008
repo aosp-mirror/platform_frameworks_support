@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e53d022a_77aae6fe",
+        "filename": "car/core/res/layout/car_list_item_radio_content.xml",
+        "patchSetId": 10
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-26T03:03:55Z",
+      "side": 1,
+      "message": "Since the click on the view itself will trigger the radio button, you can remove the click interceptor.",
+      "revId": "4d8c247d668836a846897f4e919ef7c4beff9008",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebedd2bb_2709a144",
+        "filename": "car/core/src/main/java/androidx/car/widget/ListItemAdapter.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-26T03:03:55Z",
+      "side": 1,
+      "message": "Move this method below the constructors.",
+      "revId": "4d8c247d668836a846897f4e919ef7c4beff9008",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02292807_e167f4dd",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-26T03:03:55Z",
+      "side": 1,
+      "message": "I think that \"empty\" vs \"no\" is a little confusing. I know this is how we did it for TextListItem.\n\nLooking at this again, I think we should instead expose a method for specifying the starting margin before the text. \n\nIs this use-case actually common? I never see anyone using it.",
+      "revId": "4d8c247d668836a846897f4e919ef7c4beff9008",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa5f945d_efd64d56",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-26T03:03:55Z",
+      "side": 1,
+      "message": "I think you can get rid of this and only have the one that takes an Icon.",
+      "range": {
+        "startLine": 178,
+        "startChar": 66,
+        "endLine": 178,
+        "endChar": 67
+      },
+      "revId": "4d8c247d668836a846897f4e919ef7c4beff9008",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17198a68_e7fa14c7",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-26T03:03:55Z",
+      "side": 1,
+      "message": "Expose a method that takes an Icon instead.",
+      "revId": "4d8c247d668836a846897f4e919ef7c4beff9008",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dba0d620_386c1d25",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-26T03:03:55Z",
+      "side": 1,
+      "message": "Radio button?",
+      "range": {
+        "startLine": 206,
+        "startChar": 27,
+        "endLine": 206,
+        "endChar": 31
+      },
+      "revId": "4d8c247d668836a846897f4e919ef7c4beff9008",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
