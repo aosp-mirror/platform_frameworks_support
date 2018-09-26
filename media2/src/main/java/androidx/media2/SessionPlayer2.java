@@ -840,50 +840,7 @@ public abstract class SessionPlayer2 implements AutoCloseable {
     /**
      * Result class of the asynchronous APIs.
      */
-    public static final class PlayerResult {
-        /**
-         * Result code represents that call is successfully completed.
-         * @see #getResultCode()
-         */
-        public static final int RESULT_CODE_SUCCESS = 0;
-
-        /**
-         * Result code represents that call is ended with an unknown error.
-         * @see #getResultCode()
-         */
-        public static final int RESULT_CODE_UNKNOWN_ERROR = Integer.MIN_VALUE;
-
-        /**
-         * Result code represents that the player is not in valid state for the operation.
-         * @see #getResultCode()
-         */
-        public static final int RESULT_CODE_INVALID_STATE = -1;
-
-        /**
-         * Result code represents that the argument is illegal.
-         * @see #getResultCode()
-         */
-        public static final int RESULT_CODE_BAD_VALUE = -2;
-
-        /**
-         * Result code represents that the operation is not allowed.
-         * @see #getResultCode()
-         */
-        public static final int RESULT_CODE_PERMISSION_DENIED = -3;
-
-        /**
-         * Result code represents a file or network related operation error.
-         * @see #getResultCode()
-         */
-        public static final int RESULT_CODE_IO_ERROR = -4;
-
-        /**
-         * Result code represents that the player skipped the call. For example, a {@link #seekTo}
-         * request may be skipped if it is followed by another {@link #seekTo} request.
-         * @see #getResultCode()
-         */
-        public static final int RESULT_CODE_SKIPPED = 1;
-
+    public static class PlayerResult extends BaseResult2 {
         /**
          * @hide
          */
@@ -907,7 +864,7 @@ public abstract class SessionPlayer2 implements AutoCloseable {
          * Constructor that uses the current system clock as the completion time.
          *
          * @param resultCode result code. Recommends to use the standard code defined here.
-         * @param item media item when the operation is completed
+         * @param item media item when the command is completed
          */
         // Note: resultCode is intentionally not annotated for subclass to return extra error codes.
         public PlayerResult(int resultCode, @Nullable MediaItem2 item) {
@@ -917,8 +874,8 @@ public abstract class SessionPlayer2 implements AutoCloseable {
         // Note: resultCode is intentionally not annotated for subclass to return extra error codes.
         private PlayerResult(int resultCode, @Nullable MediaItem2 item, long completionTime) {
             mResultCode = resultCode;
-            mCompletionTime = completionTime;
             mItem = item;
+            mCompletionTime = completionTime;
         }
 
         /**
@@ -935,16 +892,13 @@ public abstract class SessionPlayer2 implements AutoCloseable {
          * @see #RESULT_CODE_IO_ERROR
          * @see #RESULT_CODE_SKIPPED
          */
+        @Override
         public int getResultCode() {
             return mResultCode;
         }
 
-        /**
-         * Gets the completion time of the command. Being more specific, it's the same as
-         * {@link SystemClock#elapsedRealtime()} when the command is completed.
-         *
-         * @return completion time of the command
-         */
+        // Inherits Javadoc from the superclass.
+        @Override
         public long getCompletionTime() {
             return mCompletionTime;
         }
@@ -953,9 +907,10 @@ public abstract class SessionPlayer2 implements AutoCloseable {
          * Gets the {@link MediaItem2} for which the command was executed. In other words, this is
          * the current media item when the command is completed.
          *
-         * @return media item when the command is completed. Can be {@code null} for error or
-         *         player hasn't intiialized.
+         * @return media item when the command is completed. Can be {@code null} for an error, or
+         *         the current media item is {@code null}.
          */
+        @Override
         public @Nullable MediaItem2 getMediaItem() {
             return mItem;
         }
