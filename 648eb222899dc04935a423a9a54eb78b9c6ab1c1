@@ -34,6 +34,24 @@
       "revId": "648eb222899dc04935a423a9a54eb78b9c6ab1c1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7d235a8_b210803b",
+        "filename": "slices/core/manager/build.gradle",
+        "patchSetId": 12
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1060751
+      },
+      "writtenOn": "2018-09-26T19:38:38Z",
+      "side": 1,
+      "message": "Ah, OK. I\u0027ll defer to you and Alan.",
+      "parentUuid": "8c936dbd_06929a91",
+      "revId": "648eb222899dc04935a423a9a54eb78b9c6ab1c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
