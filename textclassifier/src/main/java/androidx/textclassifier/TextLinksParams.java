@@ -35,7 +35,9 @@ import androidx.textclassifier.TextLinks.TextLinkSpan;
 public final class TextLinksParams {
 
     /**
-     * A function to create spans from TextLinks.
+     * A factory to create spans from TextLinks.
+     *
+     * @see Builder#setSpanFactory(SpanFactory)
      */
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     static final SpanFactory DEFAULT_SPAN_FACTORY = new SpanFactory() {
@@ -187,14 +189,11 @@ public final class TextLinksParams {
         }
 
         /**
-         * Sets a custom span factory for converting TextLinks to TextLinkSpans.
+         * Sets a custom span factory for converting TextLinks to {@link TextLinkSpan}.
          * Set to {@code null} to use the default span factory.
          *
          * @return this builder
-         *
-         * @hide
          */
-        @RestrictTo(RestrictTo.Scope.LIBRARY)
         public Builder setSpanFactory(@Nullable SpanFactory spanFactory) {
             mSpanFactory = spanFactory == null ? DEFAULT_SPAN_FACTORY : spanFactory;
             return this;
