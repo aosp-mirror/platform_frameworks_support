@@ -2,6 +2,121 @@
   "comments": [
     {
       "key": {
+        "uuid": "a2653fab_87f00798",
+        "filename": "media/api/1.0.0.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-09-26T17:50:05Z",
+      "side": 1,
+      "message": "as discussed, let\u0027s not \"promote\" this feature anymore, as it doesn\u0027t have users as far as we know.",
+      "range": {
+        "startLine": 570,
+        "startChar": 26,
+        "endLine": 570,
+        "endChar": 51
+      },
+      "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee5a3e58_78adb29b",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-09-26T17:50:05Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 64,
+        "startChar": 26,
+        "endLine": 64,
+        "endChar": 50
+      },
+      "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da167892_fd3d78c5",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-09-26T17:50:05Z",
+      "side": 1,
+      "message": "remove + related code",
+      "range": {
+        "startLine": 74,
+        "startChar": 12,
+        "endLine": 74,
+        "endChar": 43
+      },
+      "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3681a0c1_7b25218f",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-09-26T17:50:05Z",
+      "side": 1,
+      "message": "let\u0027s define a \"FocusGainType\" annotation for those. Is support lib like the platform where the generated javadoc will contain the list of possible values?",
+      "range": {
+        "startLine": 112,
+        "startChar": 11,
+        "endLine": 112,
+        "endChar": 14
+      },
+      "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "384b69b4_d17b1e3f",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-09-26T17:50:05Z",
+      "side": 1,
+      "message": "contrast",
+      "range": {
+        "startLine": 222,
+        "startChar": 13,
+        "endLine": 222,
+        "endChar": 20
+      },
+      "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6c0b92f1_a3a43267",
         "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
         "patchSetId": 5
@@ -13,6 +128,93 @@
       "writtenOn": "2018-09-12T22:25:38Z",
       "side": 1,
       "message": "I figured this made the most sense? If `AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE` isn\u0027t supported to just fall back to `AUDIOFOCUS_GAIN_TRANSIENT`?",
+      "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1d4b456_d9d591ff",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-09-26T17:50:05Z",
+      "side": 1,
+      "message": "yes, good choice",
+      "parentUuid": "6c0b92f1_a3a43267",
+      "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "642e448f_c254be66",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-09-26T17:50:05Z",
+      "side": 1,
+      "message": "Setting pauseOnDuck to true will only have an effect on...\n(this is to prevent confusion with a method \"not working\")",
+      "range": {
+        "startLine": 369,
+        "startChar": 73,
+        "endLine": 369,
+        "endChar": 99
+      },
+      "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d3d1789_85c15c4e",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-09-26T17:50:05Z",
+      "side": 1,
+      "message": "same as for pauseOnDuck",
+      "range": {
+        "startLine": 384,
+        "startChar": 71,
+        "endLine": 384,
+        "endChar": 100
+      },
+      "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f841827d_dc492d07",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-09-26T17:50:05Z",
+      "side": 1,
+      "message": "Let\u0027s document what happens in L and earlier, and say something like: in L and earlier, this feature is not supported: when focus cannot be granted immediately, the request focus request is denied (i.e. return value is AUDIO_FOCUS_REQUEST_FAILED), and the requester will not be granted audio focus later.",
+      "range": {
+        "startLine": 385,
+        "startChar": 62,
+        "endLine": 386,
+        "endChar": 10
+      },
       "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
