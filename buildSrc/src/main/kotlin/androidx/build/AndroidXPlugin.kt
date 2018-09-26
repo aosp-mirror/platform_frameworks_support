@@ -16,6 +16,7 @@
 
 package androidx.build
 
+import androidx.build.dokka.Dokka
 import androidx.build.SupportConfig.BUILD_TOOLS_VERSION
 import androidx.build.SupportConfig.CURRENT_SDK_VERSION
 import androidx.build.SupportConfig.DEFAULT_MIN_SDK_VERSION
@@ -126,6 +127,8 @@ class AndroidXPlugin : Plugin<Project> {
                 }
             }
         }
+
+        Dokka.configureRunnerProject(this)
 
         val createCoverageJarTask = Jacoco.createCoverageJarTask(this)
         buildOnServerTask.dependsOn(createCoverageJarTask)
