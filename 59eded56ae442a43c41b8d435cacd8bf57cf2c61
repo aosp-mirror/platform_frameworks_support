@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "402f23b9_5e2e609c",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-09-26T14:35:03Z",
+      "side": 1,
+      "message": "There is no harm in keeping it around for the duration of the test. It\u0027s destroyed at the end of the test. Saves us thinking / maintaining a few lines of code. I\u0027m sticking to that convention in tests in other places.",
+      "parentUuid": "0139dcb3_75e400ad",
+      "range": {
+        "startLine": 153,
+        "startChar": 18,
+        "endLine": 153,
+        "endChar": 43
+      },
+      "revId": "59eded56ae442a43c41b8d435cacd8bf57cf2c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "11fb644b_4a353613",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-26T00:15:47Z",
       "side": 1,
       "message": "This stuff felt really over-engineered to me at first.  But then I think I understand why at least some of it is necessary.  Can fragmentAdapterProvider and viewAdapterProvider just be functions instead?\n\nMy discomfort here may partially be the move to a much more functional perspective.  Ultimately, if all of this is necessary (or you think is better) go ahead and leave it.",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 86
+      },
+      "revId": "59eded56ae442a43c41b8d435cacd8bf57cf2c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cfb5a40_c67fd757",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-09-26T14:35:03Z",
+      "side": 1,
+      "message": "Initially the problem was simple: create and adapter for a set of items. Then came the issue of needing to have access to a FragmentManager for FragmentStateAdapter, which is only available with the Activity, which isn\u0027t created yet.\n\nCouple of points:\n\n1) I\u0027m not sure why in Kotlin referring to a function defined by val is different to referring to one defined by val. To me they are the same thing, and I don\u0027t recall such distinction in F#.\n\nNotice the :: in viewAdapterProvider22 vs viewAdapterProvider11\n\nval viewAdapterProvider1: AdapterProviderForItems \u003d { items -\u003e { ViewAdapter(items) } }\nval viewAdapterProvider11: AdapterProviderForItems \u003d viewAdapterProvider1\n\nfun viewAdapterProvider2(items : List\u003cString\u003e) : AdapterProvider \u003d { _: TestActivity -\u003e ViewAdapter(items) }\nval viewAdapterProvider22: AdapterProviderForItems \u003d ::viewAdapterProvider2\n\n2) I could create an AdapterProviderFactory class taking items and returning an AdapterProvider, but I\u0027m not sure that\u0027d be any easier to follow. That\u0027s why I went with a functional approach. Happy to discuss though.",
+      "parentUuid": "11fb644b_4a353613",
       "range": {
         "startLine": 253,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "95e183a0_bb351326",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-09-26T14:35:03Z",
+      "side": 1,
+      "message": "That\u0027s actually what I wanted to convey: viewAdapterProvider is instantiating a new \u0027class\u0027 of type AdapterProvider. Functions being first class citizens here, like any other class object.",
+      "parentUuid": "511782b7_b41e6c4f",
+      "range": {
+        "startLine": 85,
+        "startChar": 27,
+        "endLine": 85,
+        "endChar": 46
+      },
+      "revId": "59eded56ae442a43c41b8d435cacd8bf57cf2c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f3640d83_f75819ee",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "227c7f7b_d7056837",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-09-26T14:35:03Z",
+      "side": 1,
+      "message": "No reason, both work. Changed for viewAdapterProvider for consistency.",
+      "parentUuid": "f3640d83_f75819ee",
+      "range": {
+        "startLine": 118,
+        "startChar": 26,
+        "endLine": 118,
+        "endChar": 63
+      },
+      "revId": "59eded56ae442a43c41b8d435cacd8bf57cf2c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "72416a57_e5ff07e1",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/swipe/PageManipulator.kt",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2018-09-26T00:15:47Z",
       "side": 1,
       "message": "This class strikes me as a bit odd.  It inflates a layout into a container, finds a view in an activity, and sets and gets text.\n\nAlso it seems like the create method is only used in one place?",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "59eded56ae442a43c41b8d435cacd8bf57cf2c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4970823b_e44b932a",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/swipe/PageManipulator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-09-26T14:35:03Z",
+      "side": 1,
+      "message": "Could rename it to PageView class despite not inheriting from View. Originally created it to avoid code duplication in FragmentAdapter / ViewAdapter / SwipeTest\n\nIt creates a Page, and given an Activity can find, modify, and read the text on the Page.\nCreate is used 2x -- once in FragmentAdapter and once in ViewAdapter.",
+      "parentUuid": "72416a57_e5ff07e1",
       "range": {
         "startLine": 26,
         "startChar": 6,
