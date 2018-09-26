@@ -2298,6 +2298,7 @@ public class ViewCompat {
      * @param insets Insets to apply
      * @return The supplied insets with any applied insets consumed
      */
+    @SuppressWarnings("ReferenceEquality") // TODO remove after b/116755143
     public static WindowInsetsCompat onApplyWindowInsets(@NonNull View view,
             WindowInsetsCompat insets) {
         if (Build.VERSION.SDK_INT >= 21) {
@@ -2323,6 +2324,7 @@ public class ViewCompat {
      * @param insets Insets to apply
      * @return The provided insets minus the insets that were consumed
      */
+    @SuppressWarnings("ReferenceEquality") // TODO remove after b/116755143
     public static WindowInsetsCompat dispatchApplyWindowInsets(@NonNull View view,
             WindowInsetsCompat insets) {
         if (Build.VERSION.SDK_INT >= 21) {
