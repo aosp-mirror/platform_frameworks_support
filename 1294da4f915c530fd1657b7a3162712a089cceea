@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb2a6601_d2b4b37c",
+        "filename": "car/core/res/drawable/car_spinner_background.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-09-26T21:56:25Z",
+      "side": 1,
+      "message": "Can we use a dimen value instead of hardcoding this?",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 29
+      },
+      "revId": "1294da4f915c530fd1657b7a3162712a089cceea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea845f75_20b8835f",
+        "filename": "car/core/res/drawable/ic_arrow_drop_down.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-09-26T21:56:25Z",
+      "side": 1,
+      "message": "Same, let\u0027s not hardcode the value",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 21,
+        "endChar": 25
+      },
+      "revId": "1294da4f915c530fd1657b7a3162712a089cceea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38893d37_0abd31ee",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-09-26T21:56:25Z",
+      "side": 1,
+      "message": "nit: Can you align the text and arrows like the other ones?",
+      "range": {
+        "startLine": 562,
+        "startChar": 0,
+        "endLine": 564,
+        "endChar": 27
+      },
+      "revId": "1294da4f915c530fd1657b7a3162712a089cceea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "293426ff_8641e20b",
+        "filename": "car/core/res/values/themes.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-09-26T21:56:25Z",
+      "side": 1,
+      "message": "This also needs to be added to the other theme",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 79
+      },
+      "revId": "1294da4f915c530fd1657b7a3162712a089cceea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
