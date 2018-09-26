@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35d3df02_e73b12e7",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-09-26T16:35:51Z",
+      "side": 1,
+      "message": "Just a thought. newPosition sounds absolute. maybe rename to \"offset\"?",
+      "range": {
+        "startLine": 483,
+        "startChar": 51,
+        "endLine": 483,
+        "endChar": 62
+      },
+      "revId": "b3401f56559a29503f60e18459b749952673412e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
