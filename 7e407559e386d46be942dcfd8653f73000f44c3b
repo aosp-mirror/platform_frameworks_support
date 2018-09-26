@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d547ca41_efe6ff51",
+        "filename": "car/core/res/layout/car_spinner_dropdown_item.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-26T22:20:49Z",
+      "side": 1,
+      "message": "Was this a UX decision rather than using \"end\"?\n\nI feel like auto-scrolling text would be distracting in a car environment.",
+      "range": {
+        "startLine": 24,
+        "startChar": 23,
+        "endLine": 24,
+        "endChar": 30
+      },
+      "revId": "7e407559e386d46be942dcfd8653f73000f44c3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39305554_1c7f4ef3",
+        "filename": "car/core/res/values-v28/themes.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-26T22:20:49Z",
+      "side": 1,
+      "message": "Needs a comment explaining what the difference is.",
+      "revId": "7e407559e386d46be942dcfd8653f73000f44c3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff2a6ddf_7ed2b50f",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-26T22:20:49Z",
+      "side": 1,
+      "message": "Let\u0027s rename these to:\n\nWidget.Spinner.Car\nWidget.SpinnerItem.Car",
+      "range": {
+        "startLine": 549,
+        "startChar": 17,
+        "endLine": 549,
+        "endChar": 29
+      },
+      "revId": "7e407559e386d46be942dcfd8653f73000f44c3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd8cba23_fc695bf5",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_spinner.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-26T22:20:49Z",
+      "side": 1,
+      "message": "FrameLayout",
+      "range": {
+        "startLine": 18,
+        "startChar": 1,
+        "endLine": 18,
+        "endChar": 15
+      },
+      "revId": "7e407559e386d46be942dcfd8653f73000f44c3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60d4d989_f774b168",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_spinner.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-26T22:20:49Z",
+      "side": 1,
+      "message": "And you\u0027ll have to change this to layout_gravity\u003d\"center\"",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 37
+      },
+      "revId": "7e407559e386d46be942dcfd8653f73000f44c3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
