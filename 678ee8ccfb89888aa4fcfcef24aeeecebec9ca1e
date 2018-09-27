@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "da7659b3_6e38b1e9",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-09-27T20:36:36Z",
+      "side": 1,
+      "message": "You are correct. I was trying to optimize for readability and having a single `return null`. Fixed.",
+      "parentUuid": "406333a6_85458ef2",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 17
+      },
+      "revId": "678ee8ccfb89888aa4fcfcef24aeeecebec9ca1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e25af8af_89bdfcab",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
         "patchSetId": 4
@@ -68,6 +92,30 @@
       "revId": "678ee8ccfb89888aa4fcfcef24aeeecebec9ca1e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f75d6400_4f3db03f",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-09-27T20:36:36Z",
+      "side": 1,
+      "message": "Moving this to the task executors\u0027 background thread.",
+      "parentUuid": "e25af8af_89bdfcab",
+      "range": {
+        "startLine": 201,
+        "startChar": 24,
+        "endLine": 201,
+        "endChar": 29
+      },
+      "revId": "678ee8ccfb89888aa4fcfcef24aeeecebec9ca1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "ef464165_c9e5fe63",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-09-27T20:36:36Z",
+      "side": 1,
+      "message": "Returning null is safe here as the call to onWorkFinished() is guarded by mResolved. Its just a way to short-circuit the execution path.",
+      "parentUuid": "5b3b185b_660d253f",
+      "range": {
+        "startLine": 210,
+        "startChar": 35,
+        "endLine": 210,
+        "endChar": 40
+      },
+      "revId": "678ee8ccfb89888aa4fcfcef24aeeecebec9ca1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d70001f9_319f7db9",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
         "patchSetId": 4
@@ -114,6 +186,30 @@
       "revId": "678ee8ccfb89888aa4fcfcef24aeeecebec9ca1e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9719daf8_fb10f9f1",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-09-27T20:36:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d70001f9_319f7db9",
+      "range": {
+        "startLine": 217,
+        "startChar": 8,
+        "endLine": 217,
+        "endChar": 58
+      },
+      "revId": "678ee8ccfb89888aa4fcfcef24aeeecebec9ca1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "0a6cfe52_ee35f591",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-09-27T20:36:36Z",
+      "side": 1,
+      "message": "startWork will never be null. The payload could be null (the value that the ListenableFuture resolves to.)",
+      "parentUuid": "720ae2e4_f01eaa71",
+      "range": {
+        "startLine": 224,
+        "startChar": 8,
+        "endLine": 224,
+        "endChar": 17
+      },
+      "revId": "678ee8ccfb89888aa4fcfcef24aeeecebec9ca1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ccf27884_f8f449c9",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
         "patchSetId": 4
@@ -160,6 +280,30 @@
       "revId": "678ee8ccfb89888aa4fcfcef24aeeecebec9ca1e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5ea3cda_72db7e1d",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-09-27T20:36:36Z",
+      "side": 1,
+      "message": "This was something we talked about in the past, but we don\u0027t strictly need to do. I am going to move this back to the task executor\u0027s background thread.",
+      "parentUuid": "ccf27884_f8f449c9",
+      "range": {
+        "startLine": 300,
+        "startChar": 12,
+        "endLine": 300,
+        "endChar": 62
+      },
+      "revId": "678ee8ccfb89888aa4fcfcef24aeeecebec9ca1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
