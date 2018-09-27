@@ -286,6 +286,7 @@ public enum WebViewFeatureInternal {
      * Return whether this {@link WebViewFeatureInternal} is supported by the framework of the
      * current device.
      */
+    @SuppressWarnings("BanUnlistedSDKVersionComparison")
     public boolean isSupportedByFramework() {
         return Build.VERSION.SDK_INT >= mOsVersion;
     }

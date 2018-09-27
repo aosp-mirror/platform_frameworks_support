@@ -163,6 +163,10 @@ class AndroidXPlugin : Plugin<Project> {
             check(minSdkVersion >= DEFAULT_MIN_SDK_VERSION) {
                 "minSdkVersion $minSdkVersion lower than the default of $DEFAULT_MIN_SDK_VERSION"
             }
+            if (project.name != "docs-fake") {
+                project.dependencies.add("annotationProcessor",
+                        project.project(":customerrorprone"))
+            }
         }
 
         // Use a local debug keystore to avoid build server issues.
