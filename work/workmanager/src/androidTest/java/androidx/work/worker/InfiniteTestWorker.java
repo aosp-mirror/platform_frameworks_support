@@ -18,17 +18,22 @@ package androidx.work.worker;
 
 import android.support.annotation.NonNull;
 
+import androidx.work.Logger;
 import androidx.work.Worker;
 
 /**
  * Test Worker that loops until Thread is interrupted.
  */
-
 public class InfiniteTestWorker extends Worker {
+
+    private static final String TAG = "InfiniteTestWorker";
 
     @Override
     public @NonNull Result doWork() {
-        while (true) {
+        // Make this interruption aware.
+        while (!isStopped()) {
+            Logger.info(TAG, "Working.");
         }
+        return Result.SUCCESS;
     }
 }
