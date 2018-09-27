@@ -35,6 +35,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.LargeTest;
@@ -47,6 +48,7 @@ import androidx.work.State;
 import androidx.work.WorkManagerTest;
 import androidx.work.WorkRequest;
 import androidx.work.Worker;
+import androidx.work.impl.Scheduler;
 import androidx.work.impl.WorkDatabase;
 import androidx.work.impl.WorkManagerImpl;
 import androidx.work.impl.model.WorkSpecDao;
@@ -58,13 +60,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.Executors;
 
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL)
 public class SystemJobServiceTest extends WorkManagerTest {
-
-    private WorkManagerImpl mWorkManagerImpl;
     private WorkDatabase mDatabase;
     private SystemJobService mSystemJobServiceSpy;
 
@@ -95,11 +97,23 @@ public class SystemJobServiceTest extends WorkManagerTest {
         Context context = InstrumentationRegistry.getTargetContext();
         Configuration configuration = new Configuration.Builder()
                 .setExecutor(Executors.newSingleThreadExecutor())
+                .setMinimumLoggingLevel(Log.VERBOSE)
                 .build();
-        mWorkManagerImpl =
-                new WorkManagerImpl(context, configuration, new InstantWorkTaskExecutor());
-        WorkManagerImpl.setDelegate(mWorkManagerImpl);
-        mDatabase = mWorkManagerImpl.getWorkDatabase();
+
+        final Scheduler scheduler = mock(Scheduler.class);
+        WorkManagerImpl workManagerImpl = new WorkManagerImpl(
+                context,
+                configuration,
+                new InstantWorkTaskExecutor()) {
+            @NonNull
+            @Override
+            public List<Scheduler> getSchedulers() {
+                return Collections.singletonList(scheduler);
+            }
+        };
+
+        WorkManagerImpl.setDelegate(workManagerImpl);
+        mDatabase = workManagerImpl.getWorkDatabase();
         mSystemJobServiceSpy = spy(new SystemJobService());
         doNothing().when(mSystemJobServiceSpy).onExecuted(anyString(), anyBoolean());
         mSystemJobServiceSpy.onCreate();
