@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18bd8130_901ac656",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-27T18:56:37Z",
+      "side": 1,
+      "message": "Can you add another Bug: line for https://b.corp.google.com/issues/116490934 ?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 14
+      },
+      "revId": "c51e3b36cd2b99c47a77ef479d56307347f2d9a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b21cb3e7_fff2f45a",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewRendererCompatTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-27T18:56:37Z",
+      "side": 1,
+      "message": "You can convert this to @SdkSuppress (there are some other tests which use this)",
+      "range": {
+        "startLine": 132,
+        "startChar": 7,
+        "endLine": 132,
+        "endChar": 26
+      },
+      "revId": "c51e3b36cd2b99c47a77ef479d56307347f2d9a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97298a27_6dbfff84",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewRendererCompatTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-27T18:56:37Z",
+      "side": 1,
+      "message": "I assume we call .get() to block until the task is finished, but this isn\u0027t immediately obvious. I guess there\u0027s no \".wait()\", but maybe we can add a comment?",
+      "range": {
+        "startLine": 140,
+        "startChar": 41,
+        "endLine": 140,
+        "endChar": 47
+      },
+      "revId": "c51e3b36cd2b99c47a77ef479d56307347f2d9a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afa5f114_9b659963",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewRendererCompatTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-27T18:56:37Z",
+      "side": 1,
+      "message": "Hmmm this isn\u0027t strictly correct (not all O devices must be multiproc). Is there a better way to assert this? If not, maybe add a comment acknowledging this is the best we can do.",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 149,
+        "endChar": 64
+      },
+      "revId": "c51e3b36cd2b99c47a77ef479d56307347f2d9a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcb36678_1903272b",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewRendererCompatTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-27T18:56:37Z",
+      "side": 1,
+      "message": "nit: multiprocess",
+      "range": {
+        "startLine": 151,
+        "startChar": 51,
+        "endLine": 151,
+        "endChar": 57
+      },
+      "revId": "c51e3b36cd2b99c47a77ef479d56307347f2d9a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "796410f0_a743d271",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewRendererCompatTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-27T18:56:37Z",
+      "side": 1,
+      "message": "optional: you could probably turn comments into assertion messages, which means more readable exceptions",
+      "range": {
+        "startLine": 154,
+        "startChar": 8,
+        "endLine": 155,
+        "endChar": 9
+      },
+      "revId": "c51e3b36cd2b99c47a77ef479d56307347f2d9a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b48a463e_bb80ed76",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-27T18:56:37Z",
+      "side": 1,
+      "message": "not needed",
+      "range": {
+        "startLine": 488,
+        "startChar": 7,
+        "endLine": 488,
+        "endChar": 10
+      },
+      "revId": "c51e3b36cd2b99c47a77ef479d56307347f2d9a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f44ba66_bcca1038",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-27T18:56:37Z",
+      "side": 1,
+      "message": "It might be good to elaborate (above) about this. For example, what happens on non-multiprocess O devices? On \u003c O devices? I assume it\u0027s null for both, but it might be good to document explicitly.",
+      "range": {
+        "startLine": 489,
+        "startChar": 37,
+        "endLine": 489,
+        "endChar": 70
+      },
+      "revId": "c51e3b36cd2b99c47a77ef479d56307347f2d9a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a1094f0_c1454b8c",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebViewFeatureInternal.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-27T18:56:37Z",
+      "side": 1,
+      "message": "Can you comment this? Something like \"Creates a WebViewFeatureInternal which does not correspond to a currently-implemented framework API. Features constructed with this constructor can be later converted to use the other constructor if framework support is added.\"",
+      "range": {
+        "startLine": 273,
+        "startChar": 4,
+        "endLine": 273,
+        "endChar": 26
+      },
+      "revId": "c51e3b36cd2b99c47a77ef479d56307347f2d9a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9670c9e_d3495bf7",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebViewFeatureInternal.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-27T18:56:37Z",
+      "side": 1,
+      "message": "Can we make this a named constant?",
+      "range": {
+        "startLine": 274,
+        "startChar": 27,
+        "endLine": 274,
+        "endChar": 29
+      },
+      "revId": "c51e3b36cd2b99c47a77ef479d56307347f2d9a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a02339d_57af51a3",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebViewFeatureInternal.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-27T18:56:37Z",
+      "side": 1,
+      "message": "Can we explicitly compare against the magic value?",
+      "range": {
+        "startLine": 297,
+        "startChar": 26,
+        "endLine": 297,
+        "endChar": 30
+      },
+      "revId": "c51e3b36cd2b99c47a77ef479d56307347f2d9a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
