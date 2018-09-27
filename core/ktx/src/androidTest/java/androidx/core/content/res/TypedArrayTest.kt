@@ -24,6 +24,7 @@ import androidx.testutils.assertThrows
 import androidx.core.getAttributeSet
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -214,8 +215,11 @@ class TypedArrayTest {
         }
         assertTrue(result)
 
-        assertThrows<RuntimeException> {
-            array.recycle()
-        }
+        // On API 21+ interacting after a recycle throws. On pre-21 resources will be null.
+        assertNull(try {
+            array.resources
+        } catch (ignored: RuntimeException) {
+            null
+        })
     }
 }
