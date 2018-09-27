@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "ba6dddb5_b91e43c6",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-27T13:29:02Z",
+      "side": 1,
+      "message": "rm",
+      "range": {
+        "startLine": 175,
+        "startChar": 41,
+        "endLine": 175,
+        "endChar": 42
+      },
+      "revId": "c49a010549f3b0299066d0d59e5d50b9a6494fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b91b005_10f713b9",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-27T13:29:02Z",
+      "side": 1,
+      "message": "Why the \"close enough\" comparison here? Won\u0027t it always be the exact string used below?",
+      "range": {
+        "startLine": 182,
+        "startChar": 38,
+        "endLine": 183,
+        "endChar": 41
+      },
+      "revId": "c49a010549f3b0299066d0d59e5d50b9a6494fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95ecb12e_682720e1",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-27T13:29:02Z",
+      "side": 1,
+      "message": "Could you add a comment in the file explaining what the flavors and dimensions are used for?",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 9
+      },
+      "revId": "c49a010549f3b0299066d0d59e5d50b9a6494fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3ff4424_1b451e9b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-27T13:29:02Z",
+      "side": 1,
+      "message": "Could this be implemented as a DependencySubstitution rule rather than running in an afterEvaluate block? That would ensure we run the rule *only* during Configuration resolution and avoid any possible ordering issues with afterEvaluate.",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 293,
+        "endChar": 91
+      },
+      "revId": "c49a010549f3b0299066d0d59e5d50b9a6494fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "160dd8a2_1cec11e6",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 18
@@ -18,6 +110,52 @@
         "startChar": 24,
         "endLine": 299,
         "endChar": 82
+      },
+      "revId": "c49a010549f3b0299066d0d59e5d50b9a6494fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f6b6408_2e832d37",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-27T13:29:02Z",
+      "side": 1,
+      "message": "Is \"not a dependency range\" equivalent to \"is a single version\"? Could this be simplified to:\n\n    return Version(version) !\u003d null",
+      "range": {
+        "startLine": 323,
+        "startChar": 0,
+        "endLine": 325,
+        "endChar": 34
+      },
+      "revId": "c49a010549f3b0299066d0d59e5d50b9a6494fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f28cb132_443f4a94",
+        "filename": "core/build.gradle",
+        "patchSetId": 18
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-27T13:29:02Z",
+      "side": 1,
+      "message": "Change to 1.0.0 before submit",
+      "range": {
+        "startLine": 11,
+        "startChar": 40,
+        "endLine": 11,
+        "endChar": 52
       },
       "revId": "c49a010549f3b0299066d0d59e5d50b9a6494fd5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
