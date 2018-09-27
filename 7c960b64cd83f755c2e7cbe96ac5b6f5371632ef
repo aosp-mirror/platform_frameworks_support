@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5498d9ae_0f5c2ff3",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-27T08:24:09Z",
+      "side": 1,
+      "message": "This can be null",
+      "range": {
+        "startLine": 612,
+        "startChar": 43,
+        "endLine": 612,
+        "endChar": 47
+      },
+      "revId": "7c960b64cd83f755c2e7cbe96ac5b6f5371632ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2307d732_36039c9a",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 7
