@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "8890b014_cf32aa61",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-27T07:31:28Z",
+      "side": 1,
+      "message": "What is your concern here?\n\n1. Yes, setPlaylist(null) and setPlaylist(new ArrayList\u003c\u003e()) are the same.\n2. setPlaylist(...) then removePlaylistItem() multiple times could make the same situation.",
+      "parentUuid": "66f00647_7471aec2",
+      "range": {
+        "startLine": 911,
+        "startChar": 19,
+        "endLine": 911,
+        "endChar": 45
+      },
+      "revId": "7c960b64cd83f755c2e7cbe96ac5b6f5371632ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "742bbbb6_9419fc69",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 7
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "7ad4b605_7499988a",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1460,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-27T07:31:28Z",
+      "side": 1,
+      "message": "Let me handle this comment in the next CL.",
+      "parentUuid": "742bbbb6_9419fc69",
+      "range": {
+        "startLine": 1460,
+        "startChar": 35,
+        "endLine": 1460,
+        "endChar": 75
+      },
+      "revId": "7c960b64cd83f755c2e7cbe96ac5b6f5371632ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8b0ac6e_07b22e65",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 7
@@ -92,6 +140,30 @@
       "revId": "7c960b64cd83f755c2e7cbe96ac5b6f5371632ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8185fa9b_b34ca5bc",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1642,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-27T07:31:28Z",
+      "side": 1,
+      "message": "Let me handle this in the next CL in order not to block other\u0027s work.\nLeave a TODO message.",
+      "parentUuid": "c8b0ac6e_07b22e65",
+      "range": {
+        "startLine": 1642,
+        "startChar": 12,
+        "endLine": 1642,
+        "endChar": 17
+      },
+      "revId": "7c960b64cd83f755c2e7cbe96ac5b6f5371632ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
