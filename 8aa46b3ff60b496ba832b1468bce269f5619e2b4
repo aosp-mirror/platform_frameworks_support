@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a569325_55d475fb",
+        "filename": "cleanBuild.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-09-27T20:31:36Z",
+      "side": 1,
+      "message": "There\u0027s also a cache in the user home directory. Perhaps we should configure it to use out/ as well: https://docs.gradle.org/current/userguide/build_cache.html#example_configure_the_local_cache",
+      "revId": "8aa46b3ff60b496ba832b1468bce269f5619e2b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
