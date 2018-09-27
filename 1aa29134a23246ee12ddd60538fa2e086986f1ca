@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e77486a_f81fd9ac",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-27T00:26:05Z",
+      "side": 1,
+      "message": "it would be nice if there is a note saying that the callbacks from player will be called on the same thread.",
+      "range": {
+        "startLine": 96,
+        "startChar": 35,
+        "endLine": 96,
+        "endChar": 54
+      },
+      "revId": "1aa29134a23246ee12ddd60538fa2e086986f1ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
