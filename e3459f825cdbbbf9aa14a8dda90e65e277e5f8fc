@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c31f0e21_07f77d22",
+        "filename": "arch/core-runtime/src/main/java/androidx/arch/core/executor/DefaultTaskExecutor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-27T22:31:49Z",
+      "side": 1,
+      "message": "No, we don\u0027t call it multiple time, because our executors are global and as a result mHandler is initialized just once.",
+      "parentUuid": "a721b1b2_421f960e",
+      "range": {
+        "startLine": 86,
+        "startChar": 16,
+        "endLine": 88,
+        "endChar": 57
+      },
+      "revId": "e3459f825cdbbbf9aa14a8dda90e65e277e5f8fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "10daf8d1_a949a3ea",
         "filename": "buildSrc/src/main/kotlin/androidx/build/Version.kt",
         "patchSetId": 4
