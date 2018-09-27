@@ -34,6 +34,24 @@
       "revId": "c1a8365408e3541b00ccec6caff647ef347bd193",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dbf1f97_41f28f8e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-27T12:47:43Z",
+      "side": 1,
+      "message": "First of all, current logic in update check forces me to go to beta, so I\u0027m reluctant to change logic there just for this CL to be able to go alpha. \n\nIn addition, that check is technically correct:\nalpha meaning \u003d not stable api + bugs;\nbeta meaning \u003d stable api + bugs;\nIn minor version (*.*.1) we can\u0027t change API, so it is \"stable api + bugs\" \u003d beta.",
+      "parentUuid": "8a6cec80_f6c58a2a",
+      "revId": "c1a8365408e3541b00ccec6caff647ef347bd193",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
