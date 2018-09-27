@@ -34,6 +34,24 @@
       "revId": "8aa46b3ff60b496ba832b1468bce269f5619e2b4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4944459_4a78557b",
+        "filename": "cleanBuild.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-09-27T20:44:49Z",
+      "side": 1,
+      "message": "Ah, I missed that below!\n\nI don\u0027t have a strong opinion on where the cache lives. I would guess that we\u0027d probably want it to be in out/ for everyone though since they might be on a different filesystem than home which they don\u0027t want to thrash.",
+      "parentUuid": "1e9ab70e_721ed992",
+      "revId": "8aa46b3ff60b496ba832b1468bce269f5619e2b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
