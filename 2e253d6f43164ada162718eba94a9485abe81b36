@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27ae8bd4_bf848311",
+        "filename": "car/core/src/main/java/androidx/car/widget/SeekbarListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-27T20:26:44Z",
+      "side": 1,
+      "message": "I thought we were going to allow a null icon?",
+      "range": {
+        "startLine": 439,
+        "startChar": 38,
+        "endLine": 439,
+        "endChar": 45
+      },
+      "revId": "2e253d6f43164ada162718eba94a9485abe81b36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d12ef20_0fdb37c6",
+        "filename": "car/core/src/main/java/androidx/car/widget/SeekbarListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-09-27T20:26:44Z",
+      "side": 1,
+      "message": "@NonNull or @Nullable?",
+      "range": {
+        "startLine": 520,
+        "startChar": 36,
+        "endLine": 520,
+        "endChar": 44
+      },
+      "revId": "2e253d6f43164ada162718eba94a9485abe81b36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
