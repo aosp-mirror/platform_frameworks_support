@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "7415408e_b9664c72",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-27T08:14:58Z",
+      "side": 1,
+      "message": "I can OK with your approach, but could you also document the behavior in XMediaPlayer or SessionPlayer2?",
+      "parentUuid": "8890b014_cf32aa61",
+      "range": {
+        "startLine": 911,
+        "startChar": 19,
+        "endLine": 911,
+        "endChar": 45
+      },
+      "revId": "7c960b64cd83f755c2e7cbe96ac5b6f5371632ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "742bbbb6_9419fc69",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 7
