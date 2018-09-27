@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd997beb_c5b50f06",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/worker/InfiniteTestWorker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-27T20:19:53Z",
+      "side": 1,
+      "message": "Use StopAwareWorker.",
+      "range": {
+        "startLine": 34,
+        "startChar": 7,
+        "endLine": 36,
+        "endChar": 9
+      },
+      "revId": "678ee8ccfb89888aa4fcfcef24aeeecebec9ca1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "406333a6_85458ef2",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-27T20:19:53Z",
+      "side": 1,
+      "message": "You are changing the logic of what was happening before.  For example, you aren\u0027t returning here (nor are you checking mResolved), so if you get out of this loop with a null Worker, you will immediately crash on line 176.  Try to stick with the original syntax as much as possible.",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 17
+      },
+      "revId": "678ee8ccfb89888aa4fcfcef24aeeecebec9ca1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e25af8af_89bdfcab",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-27T20:19:53Z",
+      "side": 1,
+      "message": "Please change the name of this method to be more descriptive.  I don\u0027t know what input is supposed to return.",
+      "range": {
+        "startLine": 201,
+        "startChar": 24,
+        "endLine": 201,
+        "endChar": 29
+      },
+      "revId": "678ee8ccfb89888aa4fcfcef24aeeecebec9ca1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b3b185b_660d253f",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-27T20:19:53Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this return a finished future instead of null?",
+      "range": {
+        "startLine": 210,
+        "startChar": 35,
+        "endLine": 210,
+        "endChar": 40
+      },
+      "revId": "678ee8ccfb89888aa4fcfcef24aeeecebec9ca1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d70001f9_319f7db9",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-27T20:19:53Z",
+      "side": 1,
+      "message": "So if you\u0027re making this change, you need to update the contract we state at the top of NonBlockingWorker\u0027s Javadoc.  (And probably mention this in onStartWork\u0027s Javadoc too.)",
+      "range": {
+        "startLine": 217,
+        "startChar": 8,
+        "endLine": 217,
+        "endChar": 58
+      },
+      "revId": "678ee8ccfb89888aa4fcfcef24aeeecebec9ca1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "720ae2e4_f01eaa71",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-27T20:19:53Z",
+      "side": 1,
+      "message": "What if this is null, in case startWorkMapper encounters mResolved\u003d\u003dtrue?",
+      "range": {
+        "startLine": 224,
+        "startChar": 8,
+        "endLine": 224,
+        "endChar": 17
+      },
+      "revId": "678ee8ccfb89888aa4fcfcef24aeeecebec9ca1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccf27884_f8f449c9",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-27T20:19:53Z",
+      "side": 1,
+      "message": "Why are we merging this on the Executor instead of the background executor?  This is a behavior change.",
+      "range": {
+        "startLine": 300,
+        "startChar": 12,
+        "endLine": 300,
+        "endChar": 62
+      },
+      "revId": "678ee8ccfb89888aa4fcfcef24aeeecebec9ca1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
