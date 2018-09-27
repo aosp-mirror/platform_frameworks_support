@@ -170,6 +170,7 @@ public class TransitionManager {
 
         if (!sPendingTransitions.contains(sceneRoot)) {
             if (transition == null) {
+                exitPreviousScene(sceneRoot);
                 scene.enter();
             } else {
                 sPendingTransitions.add(sceneRoot);
@@ -188,6 +189,14 @@ public class TransitionManager {
 
                 sceneChangeRunTransition(sceneRoot, transitionClone);
             }
+        }
+    }
+
+    private static void exitPreviousScene(final ViewGroup sceneRoot) {
+        // Notify previous scene that it is being exited
+        final Scene previousScene = Scene.getCurrentScene(sceneRoot);
+        if (previousScene != null) {
+            previousScene.exit();
         }
     }
 
@@ -313,10 +322,7 @@ public class TransitionManager {
         }
 
         // Notify previous scene that it is being exited
-        Scene previousScene = Scene.getCurrentScene(sceneRoot);
-        if (previousScene != null) {
-            previousScene.exit();
-        }
+        exitPreviousScene(sceneRoot);
     }
 
     /**
