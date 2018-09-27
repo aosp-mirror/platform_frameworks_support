@@ -35,7 +35,6 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StyleRes;
 import androidx.car.R;
 import androidx.car.util.CarUxRestrictionsUtils;
 import androidx.car.uxrestrictions.CarUxRestrictions;
@@ -198,20 +197,6 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
         viewHolder.itemView.setEnabled(mIsEnabled);
     }
 
-    /** Sets the title text appearance from the specified style resource. */
-    @Override
-    void setTitleTextAppearance(@StyleRes int titleTextAppearance) {
-        super.setTitleTextAppearance(titleTextAppearance);
-        setTextContent();
-    }
-
-    /** Sets the body text appearance from the specified style resource. */
-    @Override
-    void setBodyTextAppearance(@StyleRes int bodyTextAppearance) {
-        super.setBodyTextAppearance(bodyTextAppearance);
-        setTextContent();
-    }
-
     @Override
     public void setEnabled(boolean enabled) {
         mIsEnabled = enabled;
@@ -342,14 +327,12 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
             mBinders.add(vh -> {
                 vh.getTitle().setVisibility(View.VISIBLE);
                 vh.getTitle().setText(mTitle);
-                vh.getTitle().setTextAppearance(getTitleTextAppearance());
             });
         }
         if (!TextUtils.isEmpty(mBody)) {
             mBinders.add(vh -> {
                 vh.getBody().setVisibility(View.VISIBLE);
                 vh.getBody().setText(mBody);
-                vh.getBody().setTextAppearance(getBodyTextAppearance());
             });
         }
     }

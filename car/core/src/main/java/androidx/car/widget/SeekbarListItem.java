@@ -304,7 +304,6 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
             if (!TextUtils.isEmpty(mText)) {
                 vh.getText().setVisibility(View.VISIBLE);
                 vh.getText().setText(mText);
-                vh.getText().setTextAppearance(getTitleTextAppearance());
             }
         });
     }
