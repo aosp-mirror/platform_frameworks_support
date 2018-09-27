@@ -215,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "368594b1_5a64d42c",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-09-27T14:46:59Z",
+      "side": 1,
+      "message": "Got it, ::methodName means it has access to its instance fields. I don\u0027t see your point on the confusion part though, and I\u0027m not sure what you\u0027d like that to look like instead.",
+      "parentUuid": "9a2242d4_ea83f66d",
+      "range": {
+        "startLine": 85,
+        "startChar": 27,
+        "endLine": 85,
+        "endChar": 46
+      },
+      "revId": "59eded56ae442a43c41b8d435cacd8bf57cf2c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f3640d83_f75819ee",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
         "patchSetId": 1
@@ -345,6 +369,30 @@
       "side": 1,
       "message": "Ah. What confused me yesterday is that this is a non-static class, so my gut told me it had state, and I didn\u0027t see how these methods were related around some kind of shared state.  This is actually a util class, and should be static (just an Object declaration) if you truly do wan\u0027t to bind these methods together into a package.  I think canonical Kotlin would suggest that it should just be a file with 4 methods in it.  Right?",
       "parentUuid": "4970823b_e44b932a",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "59eded56ae442a43c41b8d435cacd8bf57cf2c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ef984a5_c578d530",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/swipe/PageManipulator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-09-27T14:46:59Z",
+      "side": 1,
+      "message": "I think a file with 4 methods in it would make those methods global and hardly discoverable.\nI don\u0027t see anything wrong in a stateless class. At the same time, static util classes are often considered evil.\n\nConverted to a more OO approach as middle ground.",
+      "parentUuid": "055b52d3_224ea437",
       "range": {
         "startLine": 26,
         "startChar": 6,
