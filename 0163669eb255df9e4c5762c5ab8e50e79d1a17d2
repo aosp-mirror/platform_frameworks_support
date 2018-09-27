@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e816aaef_30856132",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/transform/metainf/MetaInfTransformer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-27T16:48:40Z",
+      "side": 1,
+      "message": "Two of the same entry?",
+      "revId": "0163669eb255df9e4c5762c5ab8e50e79d1a17d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6fd1b26_a7f53881",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/transform/metainf/MetaInfTransformer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-27T16:48:40Z",
+      "side": 1,
+      "message": "We don\u0027t want to instead add an entry into pomRewriteRules saying that \"androidx.car:car-cluster\" gets mapped to itself?",
+      "revId": "0163669eb255df9e4c5762c5ab8e50e79d1a17d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
