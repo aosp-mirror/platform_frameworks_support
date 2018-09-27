@@ -1,0 +1,7 @@
+Code-Review+2: Aurimas Liutikas <aurimas@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Sergey Vasilinets <sergeyv@google.com>
+Submitted-at: Thu, 27 Sep 2018 11:31:41 +0000
+Reviewed-on: https://android-review.googlesource.com/764687
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
