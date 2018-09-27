@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "7ca5efbd_afa5feb7",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-09-27T14:58:19Z",
+      "side": 1,
+      "message": "Can you generate the javadoc for the support lib to verify? It looks redundant if also automatically generated, thanks.",
+      "parentUuid": "688855f0_b8972f56",
+      "range": {
+        "startLine": 112,
+        "startChar": 11,
+        "endLine": 112,
+        "endChar": 14
+      },
+      "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "384b69b4_d17b1e3f",
         "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
         "patchSetId": 5
