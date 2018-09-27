@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10daf8d1_a949a3ea",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/Version.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-27T18:40:17Z",
+      "side": 1,
+      "message": "Fixed, so we consider patc as FinalApi always.\nHopefully, nothing else will break...",
+      "range": {
+        "startLine": 47,
+        "startChar": 32,
+        "endLine": 47,
+        "endChar": 39
+      },
+      "revId": "e3459f825cdbbbf9aa14a8dda90e65e277e5f8fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
