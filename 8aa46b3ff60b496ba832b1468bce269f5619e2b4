@@ -16,6 +16,24 @@
       "revId": "8aa46b3ff60b496ba832b1468bce269f5619e2b4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e9ab70e_721ed992",
+        "filename": "cleanBuild.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-27T20:36:06Z",
+      "side": 1,
+      "message": "Instead of caching in ~, if you set GRADLE_USER_HOME it caches there instead (see below) :)\n\nAlthough I guess it brings up the question of whether anybody wants the cache to be in ~ and therefore should just always move it, like you mention. I don\u0027t (want it to be there)",
+      "parentUuid": "8a569325_55d475fb",
+      "revId": "8aa46b3ff60b496ba832b1468bce269f5619e2b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
