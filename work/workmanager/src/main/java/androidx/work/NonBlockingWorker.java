@@ -20,11 +20,11 @@ import android.content.Context;
 import android.net.Network;
 import android.net.Uri;
 import android.support.annotation.Keep;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.RestrictTo;
-import android.support.annotation.WorkerThread;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -181,10 +181,11 @@ public abstract class NonBlockingWorker {
 
     /**
      * Override this method to start your actual background processing.
+     * This method is called on the main thread.
      *
      * @return A {@link ListenableFuture} with the {@link Payload} of the computation
      */
-    @WorkerThread
+    @MainThread
     public abstract @NonNull ListenableFuture<Payload> onStartWork();
 
     /**
