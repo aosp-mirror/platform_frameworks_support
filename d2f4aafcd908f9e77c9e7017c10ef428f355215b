@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "77715dfd_ffd89bbf",
+        "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2018-09-27T18:26:49Z",
+      "side": 1,
+      "message": "It does not duplicate the values.",
+      "parentUuid": "7ca5efbd_afa5feb7",
+      "range": {
+        "startLine": 112,
+        "startChar": 11,
+        "endLine": 112,
+        "endChar": 14
+      },
+      "revId": "d2f4aafcd908f9e77c9e7017c10ef428f355215b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "384b69b4_d17b1e3f",
         "filename": "media/src/main/java/androidx/media/AudioFocusRequestCompat.java",
         "patchSetId": 5
