@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2b35dbfe_49669f16",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-27T17:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1aaf41ee_fb1b59ad",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 48
+      },
+      "revId": "7595b6dd308a31a1b79a917d3f35498dbab62cbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0833f369_bbde0134",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 15

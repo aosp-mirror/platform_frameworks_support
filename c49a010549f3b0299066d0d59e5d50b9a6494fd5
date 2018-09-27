@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9bce81fb_67b002c8",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-27T17:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba6dddb5_b91e43c6",
+      "range": {
+        "startLine": 175,
+        "startChar": 41,
+        "endLine": 175,
+        "endChar": 42
+      },
+      "revId": "c49a010549f3b0299066d0d59e5d50b9a6494fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b91b005_10f713b9",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 18
@@ -45,6 +69,30 @@
       "revId": "c49a010549f3b0299066d0d59e5d50b9a6494fd5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "192c593d_5ba9f9b2",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-27T17:53:55Z",
+      "side": 1,
+      "message": "So right now it is maxDepVersionsRelease or maxDepVersionsDebug which would result in the same string, whoever if someone chooses to add another flavor dimension in the future with flavor abc and efg, then we would have abcMaxDepVersionRelease etc... which makes the M capitalized.",
+      "parentUuid": "6b91b005_10f713b9",
+      "range": {
+        "startLine": 182,
+        "startChar": 38,
+        "endLine": 183,
+        "endChar": 41
+      },
+      "revId": "c49a010549f3b0299066d0d59e5d50b9a6494fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "882b38d6_f86a0c1a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-27T17:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95ecb12e_682720e1",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 9
+      },
+      "revId": "c49a010549f3b0299066d0d59e5d50b9a6494fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3ff4424_1b451e9b",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 18
@@ -91,6 +163,30 @@
       "revId": "c49a010549f3b0299066d0d59e5d50b9a6494fd5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fa5832c_cce54ef0",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-27T17:53:55Z",
+      "side": 1,
+      "message": "Done, I moved it outside the afterEvaluate block and it seems to work.",
+      "parentUuid": "d3ff4424_1b451e9b",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 293,
+        "endChar": 91
+      },
+      "revId": "c49a010549f3b0299066d0d59e5d50b9a6494fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "f4417608_39365630",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-27T17:53:55Z",
+      "side": 1,
+      "message": "Having unspecified version is not always due to the project not specifying its version but due to untimely resolution of dependencies because of arbitrary afterEvaluates (or so do @alanv and I think), it could also be something else but until we figure that out, we don\u0027t want to error because all builds will fail as such.",
+      "parentUuid": "160dd8a2_1cec11e6",
+      "range": {
+        "startLine": 299,
+        "startChar": 24,
+        "endLine": 299,
+        "endChar": 82
+      },
+      "revId": "c49a010549f3b0299066d0d59e5d50b9a6494fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f6b6408_2e832d37",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 18
@@ -137,6 +257,30 @@
       "revId": "c49a010549f3b0299066d0d59e5d50b9a6494fd5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48dba0d0_251c5ba8",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-09-27T17:53:55Z",
+      "side": 1,
+      "message": "It could also be that the user did not write the version correctly but they did not also intend to have a range, at which point the method should be called isNotProperVersion. I still tried to do that but some versions are not specified in the form x.y.z but as x.y sometimes which causes unintended failures, and since we want to run the version range on all dependencies and not just androidx dependencies we can\u0027t enforce x.y.z version on external libraries.",
+      "parentUuid": "1f6b6408_2e832d37",
+      "range": {
+        "startLine": 323,
+        "startChar": 0,
+        "endLine": 325,
+        "endChar": 34
+      },
+      "revId": "c49a010549f3b0299066d0d59e5d50b9a6494fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
