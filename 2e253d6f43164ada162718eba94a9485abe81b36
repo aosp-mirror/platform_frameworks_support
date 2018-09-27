@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6a166396_0b7d14e4",
+        "filename": "car/core/src/main/java/androidx/car/widget/SeekbarListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-09-27T21:39:05Z",
+      "side": 1,
+      "message": "I think that should happen in a separate CL that adds text start margin.",
+      "parentUuid": "27ae8bd4_bf848311",
+      "range": {
+        "startLine": 439,
+        "startChar": 38,
+        "endLine": 439,
+        "endChar": 45
+      },
+      "revId": "2e253d6f43164ada162718eba94a9485abe81b36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d12ef20_0fdb37c6",
         "filename": "car/core/src/main/java/androidx/car/widget/SeekbarListItem.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "2e253d6f43164ada162718eba94a9485abe81b36",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52741adf_401619d6",
+        "filename": "car/core/src/main/java/androidx/car/widget/SeekbarListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-09-27T21:39:05Z",
+      "side": 1,
+      "message": "@NonNull till next time :)",
+      "parentUuid": "1d12ef20_0fdb37c6",
+      "range": {
+        "startLine": 520,
+        "startChar": 36,
+        "endLine": 520,
+        "endChar": 44
+      },
+      "revId": "2e253d6f43164ada162718eba94a9485abe81b36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
