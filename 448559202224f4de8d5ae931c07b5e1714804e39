@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1d74edc_b24aac34",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-27T21:05:08Z",
+      "side": 1,
+      "message": "This won\u0027t go on the next line in Javadoc.  So either use \u003cp\u003e in between (see WorkManager for examples), or just put it with the previous line.",
+      "range": {
+        "startLine": 184,
+        "startChar": 7,
+        "endLine": 184,
+        "endChar": 48
+      },
+      "revId": "448559202224f4de8d5ae931c07b5e1714804e39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
