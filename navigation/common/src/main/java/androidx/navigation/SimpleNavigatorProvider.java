@@ -19,7 +19,6 @@ package androidx.navigation;
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,11 +26,11 @@ import java.util.Map;
 /**
  * Simple implementation of a {@link NavigatorProvider} that stores instances of
  * {@link Navigator navigators} by name, using the {@link Navigator.Name} when given a class name.
- *
- * @hide
+ * <p>
+ * By default, no Navigators are added. It is strongly recommended to at least
+ * add a {@link NavGraphNavigator}.
  */
 @SuppressLint("TypeParameterUnusedInFormals")
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class SimpleNavigatorProvider implements NavigatorProvider {
     private static final HashMap<Class, String> sAnnotationNames = new HashMap<>();
 
