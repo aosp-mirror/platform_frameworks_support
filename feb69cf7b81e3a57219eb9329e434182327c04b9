@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e720b62_0b8a1109",
+        "filename": "navigation/runtime/src/androidTest/java/androidx/navigation/NavDeepLinkBuilderTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-27T18:11:06Z",
+      "side": 1,
+      "message": "is it possible to have simpler setup deepLinkBuilder",
+      "range": {
+        "startLine": 49,
+        "startChar": 32,
+        "endLine": 54,
+        "endChar": 67
+      },
+      "revId": "feb69cf7b81e3a57219eb9329e434182327c04b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
