@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3285a678_2f70d76e",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-09-28T23:29:26Z",
+      "side": 1,
+      "message": "If the idiomatic way to use this is being able to `launch` inside any VM function, then I would go for this implementation since it provides a smooth transition to a world where VM itself can be in Kotlin.\n(seems like this is the desired one based on \nhttps://github.com/Kotlin/kotlinx.coroutines/blob/master/ui/coroutines-guide-ui.md#structured-concurrency-lifecycle-and-coroutine-parent-child-hierarchy but idk if that guide is well thought or just a sample)\n\nI\u0027m not worried about being applied to any class since it is called VMCoroutineScope and it crashes fairly ealry. We can even have a lint if you really really want to prevent it faster.",
+      "parentUuid": "23d91583_b388aa95",
+      "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f0706d64_c3028f05",
         "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "2540f4f5_32f3ffb4",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-09-28T23:29:26Z",
+      "side": 1,
+      "message": "i think i\u0027d rather this be an extension properly.\n\nso if the idiomatic way is having the scope has a field, then this is good.",
+      "parentUuid": "f0706d64_c3028f05",
+      "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c563b49f_9e559dc1",
         "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2018-09-28T17:24:53Z",
       "side": 1,
       "message": "class AVM: ViewModel(), ViewModelCoroutineScope {\n    private val scope by ViewModelCoroutineScopeDelegate()\n    fun foo() \u003d scope.launch { ... }\n}\n\nNot cool:\n- Less fluent than #1 and #2\n\nCool:\n- no runtime failure\n- can be private",
+      "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03da1ea8_ee3d3580",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-09-28T23:29:26Z",
+      "side": 1,
+      "message": "this is too much code. but I think we don\u0027t need `ViewModelCoroutineScope` to implement this, do we ?\nif it can be a \"just delegate\" scope than it would be fine. \nIn a world where VM can be in kotlin, this is probably not what we want though.",
+      "parentUuid": "c563b49f_9e559dc1",
       "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
