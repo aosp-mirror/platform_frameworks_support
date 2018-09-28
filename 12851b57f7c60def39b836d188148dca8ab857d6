@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "eb8c32d2_dbe4f5f3",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-28T06:53:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6b4db1d_bfaf5772",
+      "range": {
+        "startLine": 377,
+        "startChar": 12,
+        "endLine": 377,
+        "endChar": 58
+      },
+      "revId": "12851b57f7c60def39b836d188148dca8ab857d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "383b019b_258aa23d",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "24a3227c_88e3757f",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-28T06:53:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "383b019b_258aa23d",
+      "range": {
+        "startLine": 392,
+        "startChar": 75,
+        "endLine": 392,
+        "endChar": 85
+      },
+      "revId": "12851b57f7c60def39b836d188148dca8ab857d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "abc851da_dcc84c8b",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "12851b57f7c60def39b836d188148dca8ab857d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "763f7211_44860235",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-28T06:53:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abc851da_dcc84c8b",
+      "range": {
+        "startLine": 642,
+        "startChar": 49,
+        "endLine": 642,
+        "endChar": 50
+      },
+      "revId": "12851b57f7c60def39b836d188148dca8ab857d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
