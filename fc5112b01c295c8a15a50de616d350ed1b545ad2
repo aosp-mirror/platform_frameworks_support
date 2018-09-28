@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "40ed6dd1_bc8f7ffa",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-28T08:37:22Z",
+      "side": 1,
+      "message": "It doesn\u0027t happen in this file. In here,\n#1. mMediaSession.getPlayer() can only be null when the session is closed\n#2. mMediaSession is closed only when the view is detached. At that moment, mMediaSession becomes null as well.\n\n--\u003e Combining #1 and #2, this CL doesn\u0027t trigger new NPE.\n\nAlso inviting insun for the double check\n\nNote that next CL will make getPlayer() NonNull, so would have better readability.",
+      "parentUuid": "bdec3dc2_4dc80366",
+      "range": {
+        "startLine": 175,
+        "startChar": 34,
+        "endLine": 175,
+        "endChar": 45
+      },
+      "revId": "fc5112b01c295c8a15a50de616d350ed1b545ad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf85d5db_36477ccc",
         "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "fc5112b01c295c8a15a50de616d350ed1b545ad2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca7ae34a_ed8138db",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-28T08:37:22Z",
+      "side": 1,
+      "message": "Changed the wording.",
+      "parentUuid": "cf85d5db_36477ccc",
+      "range": {
+        "startLine": 127,
+        "startChar": 16,
+        "endLine": 127,
+        "endChar": 63
+      },
+      "revId": "fc5112b01c295c8a15a50de616d350ed1b545ad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
