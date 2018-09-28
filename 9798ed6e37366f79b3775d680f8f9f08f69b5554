@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d561387c_34f3c674",
+        "filename": "lifecycle/livedata/ktx/src/main/java/androidx/lifecycle/Transformations.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-09-28T13:57:21Z",
+      "side": 1,
+      "message": "Do these all actually need invoked from the main thread? Aren\u0027t they lazy and don\u0027t actually do anything until you observe?",
+      "revId": "9798ed6e37366f79b3775d680f8f9f08f69b5554",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
