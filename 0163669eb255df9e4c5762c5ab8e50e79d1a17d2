@@ -69,6 +69,24 @@
       "revId": "0163669eb255df9e4c5762c5ab8e50e79d1a17d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ddf4d08_c3623511",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/transform/metainf/MetaInfTransformer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-09-28T17:38:18Z",
+      "side": 1,
+      "message": "Sounds good to me.\n\n(If we do end up needing that in the future, another option would be to add the ability to have jetifier/dejetifier not modify the version.)",
+      "parentUuid": "718d4806_1cdf781b",
+      "revId": "0163669eb255df9e4c5762c5ab8e50e79d1a17d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
