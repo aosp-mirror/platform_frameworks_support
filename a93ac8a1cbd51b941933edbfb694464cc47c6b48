@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23d91583_b388aa95",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-28T17:24:53Z",
+      "side": 1,
+      "message": "Usage:\nclass VM: ViewModel(), ViewModelCoroutineScope { ... }\n\nNot Cool: \n- Can be applied to any class, but will fail in runtime if it is not ViewModel\n- Exposing coroutineScope publicly on ViewModel\n\nCool: \n- Fluent",
+      "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0706d64_c3028f05",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-28T17:24:53Z",
+      "side": 1,
+      "message": "class VM: ViewModel() {\n   fun foo() \u003d coroutineScope().launch { ... }\n}\n\nNot Cool: \n- Less fluent than #1\n- Exposing coroutineScope publicly on ViewModel\n\nCool: \n- in compare to #1, no runtime failures",
+      "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c563b49f_9e559dc1",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-28T17:24:53Z",
+      "side": 1,
+      "message": "class AVM: ViewModel(), ViewModelCoroutineScope {\n    private val scope by ViewModelCoroutineScopeDelegate()\n    fun foo() \u003d scope.launch { ... }\n}\n\nNot cool:\n- Less fluent than #1 and #2\n\nCool:\n- no runtime failure\n- can be private",
+      "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
