@@ -16,6 +16,24 @@
       "revId": "f8fe12285237c151f2d5dfd788029f0e59eba1a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3774698e_31b9a74f",
+        "filename": "collection/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-09-28T19:28:18Z",
+      "side": 1,
+      "message": "Can you file a bug about that. This seems scary.",
+      "parentUuid": "0feca488_3e1e70c5",
+      "revId": "f8fe12285237c151f2d5dfd788029f0e59eba1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
