@@ -55,6 +55,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 
+import java.util.ArrayList;
+
 @RunWith(AndroidJUnit4.class)
 @MediumTest
 public class AccessibilityDelegateCompatTest extends
@@ -208,6 +210,39 @@ public class AccessibilityDelegateCompatTest extends
             //The service would end up calling the same thing ViewCompat calls
             ViewCompat.performAccessibilityAction(mView,
                     actionId, args);
+            verify(span2).onClick(mView);
+        }
+    }
+
+    @Test
+    public void testPerformSpanActionTalkBackWorkaround() {
+        if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 26) {
+            final ClickableSpan span1 = mock(ClickableSpan.class);
+            final ClickableSpan span2 = mock(ClickableSpan.class);
+            mView.setAccessibilityDelegate(new View.AccessibilityDelegate() {
+                @Override
+                public void onInitializeAccessibilityNodeInfo(View host,
+                        AccessibilityNodeInfo info) {
+                    super.onInitializeAccessibilityNodeInfo(host, info);
+                    SpannableString clickableSpannedString =
+                            new SpannableString("Spans the whole world");
+                    clickableSpannedString.setSpan(span1, 10, 13, 1);
+                    clickableSpannedString.setSpan(span2, 16, 18, 2);
+                    info.setText(clickableSpannedString);
+                }
+            });
+            ViewCompat.enableAccessibleClickableSpanSupport(mView);
+            AccessibilityNodeInfo nodeInfo = AccessibilityNodeInfo.obtain();
+            mView.onInitializeAccessibilityNodeInfo(nodeInfo);
+            ArrayList<Integer> list = nodeInfo.getExtras().getIntegerArrayList(
+                    "androidx.view.accessibility.AccessibilityNodeInfoCompat.SPANS_ID_KEY");
+
+            Bundle arguments = new Bundle();
+            arguments.putInt("ACCESSIBILITY_CLICKABLE_SPAN_ID", list.get(1));
+
+            //The service would end up calling the same thing ViewCompat calls
+            ViewCompat.performAccessibilityAction(mView,
+                    0x9F000001, arguments);
             verify(span2).onClick(mView);
         }
     }
