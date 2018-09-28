@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf91a9fc_58fa4d45",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-09-28T16:32:22Z",
+      "side": 1,
+      "message": "Add a comment here about when you would want to use this instead of getTextClassifier and also a comment on the other method linking when to use getDefaultTextClassifier().",
+      "revId": "9158284acb8faa3e58f55c569dd0cde6f59ad153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4bd6e78_06b43ca8",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-09-28T16:32:22Z",
+      "side": 1,
+      "message": "Is this relevant to the developer in any way? Both are the same class that we return right or is there a way to get to what is being wrapped?",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 56
+      },
+      "revId": "9158284acb8faa3e58f55c569dd0cde6f59ad153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79bfa52d_d7067c61",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-09-28T16:32:22Z",
+      "side": 1,
+      "message": "What will happen if you don\u0027t?",
+      "range": {
+        "startLine": 135,
+        "startChar": 6,
+        "endLine": 136,
+        "endChar": 63
+      },
+      "revId": "9158284acb8faa3e58f55c569dd0cde6f59ad153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
