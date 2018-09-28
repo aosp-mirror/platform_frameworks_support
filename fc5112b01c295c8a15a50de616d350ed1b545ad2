@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bdec3dc2_4dc80366",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-28T06:49:15Z",
+      "side": 1,
+      "message": "Isn\u0027t this a nullable method?",
+      "range": {
+        "startLine": 175,
+        "startChar": 34,
+        "endLine": 175,
+        "endChar": 45
+      },
+      "revId": "fc5112b01c295c8a15a50de616d350ed1b545ad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf85d5db_36477ccc",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-28T06:49:15Z",
+      "side": 1,
+      "message": "I have no idea what should be fixed here.",
+      "range": {
+        "startLine": 127,
+        "startChar": 16,
+        "endLine": 127,
+        "endChar": 63
+      },
+      "revId": "fc5112b01c295c8a15a50de616d350ed1b545ad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
