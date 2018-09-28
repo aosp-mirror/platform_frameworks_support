@@ -38,6 +38,7 @@ android {
 dependencies {
     implementation(project(":room:room-common"))
     implementation(project(":room:room-runtime"))
+    implementation(project(":room:room-paging"))
     implementation(project(":sqlite:sqlite"))
     implementation(project(":sqlite:sqlite-framework"))
     implementation(project(":arch:core-runtime"))
