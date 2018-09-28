@@ -124,4 +124,19 @@ public final class TextClassificationManager {
         }
         return LegacyTextClassifier.of(context);
     }
+
+    /**
+     * Returns the default text classifier provided by this library.
+     * <p>
+     * In M+ devices, it will be a wrapper of platform
+     * {@link android.view.textclassifier.TextClassifier}. Otherwise, it will be a wrapper of
+     * the legacy {@link android.text.util.Linkify} API.
+     * <p>
+     * Note that the returned text classifier should be only used within the same context that is
+     * passed to {@link TextClassificationManager#of(Context)}.
+     */
+    @NonNull
+    public TextClassifier getDefaultTextClassifier() {
+        return mDefaultTextClassifier;
+    }
 }
