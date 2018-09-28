@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "316dd923_b0d9d99b",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-28T08:46:38Z",
+      "side": 1,
+      "message": "LGTM. It would be fine.",
+      "parentUuid": "40ed6dd1_bc8f7ffa",
+      "range": {
+        "startLine": 175,
+        "startChar": 34,
+        "endLine": 175,
+        "endChar": 45
+      },
+      "revId": "fc5112b01c295c8a15a50de616d350ed1b545ad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf85d5db_36477ccc",
         "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
         "patchSetId": 6
