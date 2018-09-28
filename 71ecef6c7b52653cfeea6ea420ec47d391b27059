@@ -96,6 +96,29 @@
     },
     {
       "key": {
+        "uuid": "a4d48fc0_14c67d73",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-09-28T14:39:51Z",
+      "side": 1,
+      "message": "Jaewan, in your doc here https://docs.google.com/document/d/1Q_1IFfwDfbpr5ONOYqUOrHFz2v6r9TluOzpIqYw_apM/edit\nyou have both SessionPlayer, and SessionPlayer2.\nDid we say we would put \"2\" everywhere?\nLooking at it as a new API, \"2\" looks weird, sorry if I contradict something I\u0027ve agreed to before !!!",
+      "range": {
+        "startLine": 660,
+        "startChar": 24,
+        "endLine": 660,
+        "endChar": 38
+      },
+      "revId": "71ecef6c7b52653cfeea6ea420ec47d391b27059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e9200ab8_2dfb3d67",
         "filename": "media2/api/current.txt",
         "patchSetId": 2
