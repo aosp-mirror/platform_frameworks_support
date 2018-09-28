@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "8486eb1c_50820ee4",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-28T17:27:27Z",
+      "side": 1,
+      "message": "(Changed my mind, added the javadoc in getTextClassifier as well, thanks)",
+      "parentUuid": "f1fc37a3_28831fed",
+      "revId": "9158284acb8faa3e58f55c569dd0cde6f59ad153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4bd6e78_06b43ca8",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
         "patchSetId": 1
@@ -166,6 +184,30 @@
       "writtenOn": "2018-09-28T17:26:06Z",
       "side": 1,
       "message": "What about throwing the exception?",
+      "parentUuid": "fdca0295_500e498d",
+      "range": {
+        "startLine": 135,
+        "startChar": 6,
+        "endLine": 136,
+        "endChar": 63
+      },
+      "revId": "9158284acb8faa3e58f55c569dd0cde6f59ad153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42fac641_61a6c42d",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-28T17:27:27Z",
+      "side": 1,
+      "message": "mmm, but how do we know if they use the textclassifier outside the context that is passed to TCM.of()?",
       "parentUuid": "fdca0295_500e498d",
       "range": {
         "startLine": 135,

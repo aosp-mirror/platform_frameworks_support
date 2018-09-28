@@ -45,6 +45,30 @@
       "revId": "b42d85a0f9319d43c1ca0f9f7f6cfcde9680ba6d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6941ceb6_3f574abf",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-28T17:27:27Z",
+      "side": 1,
+      "message": "opps, done.",
+      "parentUuid": "548de76e_3aa2dce1",
+      "range": {
+        "startLine": 132,
+        "startChar": 69,
+        "endLine": 132,
+        "endChar": 70
+      },
+      "revId": "b42d85a0f9319d43c1ca0f9f7f6cfcde9680ba6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
