@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9fb8c12f_4ed11e0f",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-28T01:24:37Z",
+      "side": 1,
+      "message": "would this be propagated to other CombindedCommandResultFutures?",
+      "range": {
+        "startLine": 566,
+        "startChar": 24,
+        "endLine": 568,
+        "endChar": 25
+      },
+      "revId": "322f4ef2eece3bf188657588845ef37cb49a2abc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "969ed969_a1b6da7d",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-28T01:24:37Z",
+      "side": 1,
+      "message": "These will be called for all the registered callbacks and each of them might have different results. It would be better to get/initialize the list and metadata as final before calling notifySessionPlayerCallback().",
+      "range": {
+        "startLine": 738,
+        "startChar": 62,
+        "endLine": 738,
+        "endChar": 98
+      },
+      "revId": "322f4ef2eece3bf188657588845ef37cb49a2abc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f47e9a4d_7da239aa",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-28T01:24:37Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 781,
+        "startChar": 62,
+        "endLine": 781,
+        "endChar": 98
+      },
+      "revId": "322f4ef2eece3bf188657588845ef37cb49a2abc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddc82c6d_b71cfa1b",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-28T01:24:37Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 819,
+        "startChar": 47,
+        "endLine": 819,
+        "endChar": 83
+      },
+      "revId": "322f4ef2eece3bf188657588845ef37cb49a2abc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "715bfa95_3a50f6d8",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-28T01:24:37Z",
+      "side": 1,
+      "message": "nit: \"changing\".",
+      "range": {
+        "startLine": 835,
+        "startChar": 22,
+        "endLine": 835,
+        "endChar": 31
+      },
+      "revId": "322f4ef2eece3bf188657588845ef37cb49a2abc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3f19ac0_4d9af5c9",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-28T01:24:37Z",
+      "side": 1,
+      "message": "Is this API suggestion? then would it make sense have this TODO in SessionPlayer?",
+      "range": {
+        "startLine": 835,
+        "startChar": 35,
+        "endLine": 835,
+        "endChar": 64
+      },
+      "revId": "322f4ef2eece3bf188657588845ef37cb49a2abc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27041457_374d5724",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-28T01:24:37Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 868,
+        "startChar": 62,
+        "endLine": 868,
+        "endChar": 98
+      },
+      "revId": "322f4ef2eece3bf188657588845ef37cb49a2abc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c4d2ae9_254383e9",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1762,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-28T01:24:37Z",
+      "side": 1,
+      "message": "Would it be cleaner to have some more variables in PendingCommand class to indicate this case and remove CALL_COMPLETE_PLAYLIST_BASE?",
+      "range": {
+        "startLine": 1762,
+        "startChar": 16,
+        "endLine": 1762,
+        "endChar": 64
+      },
+      "revId": "322f4ef2eece3bf188657588845ef37cb49a2abc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e964f773_f9df4a61",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1824,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-28T01:24:37Z",
+      "side": 1,
+      "message": "maxValue?",
+      "range": {
+        "startLine": 1824,
+        "startChar": 44,
+        "endLine": 1824,
+        "endChar": 48
+      },
+      "revId": "322f4ef2eece3bf188657588845ef37cb49a2abc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eec872f0_3618a894",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1936,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-28T01:24:37Z",
+      "side": 1,
+      "message": "Already handled at L1931 and even without L1931, this will face another NPE at L1937.",
+      "range": {
+        "startLine": 1936,
+        "startChar": 16,
+        "endLine": 1936,
+        "endChar": 36
+      },
+      "revId": "322f4ef2eece3bf188657588845ef37cb49a2abc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b791392_9b3b3a79",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1978,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-28T01:24:37Z",
+      "side": 1,
+      "message": "I agree that it makes sense to land this first if this work is blocking other work, but can you make confirm that change addressing this TODO will be your next change? :)",
+      "range": {
+        "startLine": 1978,
+        "startChar": 12,
+        "endLine": 1978,
+        "endChar": 59
+      },
+      "revId": "322f4ef2eece3bf188657588845ef37cb49a2abc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72325c93_234ae287",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1981,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-28T01:24:37Z",
+      "side": 1,
+      "message": "would it be safer to peek() first and poll/removeFirst only when it\u0027s the case?",
+      "range": {
+        "startLine": 1981,
+        "startChar": 47,
+        "endLine": 1981,
+        "endChar": 59
+      },
+      "revId": "322f4ef2eece3bf188657588845ef37cb49a2abc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
