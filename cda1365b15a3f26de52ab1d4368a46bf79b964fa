@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebc02448_fd305156",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-28T22:23:43Z",
+      "side": 1,
+      "message": "IllegalArgumentException is more appropriate here.",
+      "range": {
+        "startLine": 100,
+        "startChar": 22,
+        "endLine": 100,
+        "endChar": 42
+      },
+      "revId": "cda1365b15a3f26de52ab1d4368a46bf79b964fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ef362db_026c4ab3",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-28T22:23:43Z",
+      "side": 1,
+      "message": "IllegalArgumentException is more appropriate here.",
+      "range": {
+        "startLine": 104,
+        "startChar": 22,
+        "endLine": 104,
+        "endChar": 42
+      },
+      "revId": "cda1365b15a3f26de52ab1d4368a46bf79b964fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6307f490_0dc35430",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-09-28T22:23:43Z",
+      "side": 1,
+      "message": "Any particular reason you don\u0027t use this(result, Data.EMPTY)?",
+      "range": {
+        "startLine": 324,
+        "startChar": 12,
+        "endLine": 325,
+        "endChar": 33
+      },
+      "revId": "cda1365b15a3f26de52ab1d4368a46bf79b964fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
