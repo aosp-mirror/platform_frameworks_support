@@ -19,6 +19,8 @@ package androidx.lifecycle;
 import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -117,8 +119,25 @@ public abstract class ViewModel {
     protected void onCleared() {
     }
 
+    final void clear() {
+        if (mBagOfTags != null) {
+            for (Object value: mBagOfTags.values()) {
+                if (value instanceof Closeable) {
+                    try {
+                        ((Closeable) value).close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+        onCleared();
+    }
+
     /**
      * Sets a tag associated with this viewmodel and a key.
+     * If the given {@code obj} is {@link Closeable},
+     * it will be closed once {@link #clear()} is called
      */
     @MainThread
     void setTag(String key, Object obj) {
