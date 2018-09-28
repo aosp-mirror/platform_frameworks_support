@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d96a322f_239882dc",
+        "filename": "core/src/androidTest/java/androidx/core/content/pm/ShortcutInfoCompatTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-09-28T16:59:15Z",
+      "side": 1,
+      "message": "add this line:\n@SdkSuppress(minSdkVersion \u003d 26)",
+      "revId": "5e17a4a88ab48aa112798d52310e8cf3095ed264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
