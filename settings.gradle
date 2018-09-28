@@ -5,6 +5,8 @@
 /////////////////////////////
 
 
+ext.unconventionalProjects = new HashMap<>()
+
 // Calling includeProject(name, filePath) is shorthand for:
 //
 //   include(name)
@@ -14,16 +16,14 @@
 //   the project name in the IDE
 //   the Maven artifactId
 //
-def includeProject(name, filePath) {
-    settings.include(name)
-
+def unconventionalProject(name, filePath) {
     def file
     if (filePath instanceof String) {
-        file = new File(filePath)
+        file = new File(rootDir, filePath)
     } else {
         file = filePath
     }
-    project(name).projectDir = file
+    unconventionalProjects.put(file.absolutePath, name)
 }
 
 
@@ -33,149 +33,47 @@ def includeProject(name, filePath) {
 //
 /////////////////////////////
 
-includeProject(":activity", "activity")
-includeProject(":annotation", "annotations")
-includeProject(":animation", "animation")
-includeProject(":animation:testing", "animation/testing")
-includeProject(":animation:integration-tests:testapp", "animation/integration-tests/testapp")
-includeProject(":appcompat", "appcompat")
-includeProject(":arch:core-common", "arch/core-common")
-includeProject(":arch:core-testing", "arch/core-testing")
-includeProject(":arch:core-runtime", "arch/core-runtime")
-includeProject(":asynclayoutinflater", "asynclayoutinflater")
-includeProject(":benchmark", "benchmark")
-includeProject(":biometric", "biometric")
-includeProject(":browser", "browser")
-includeProject(":car", "car/core")
-includeProject(":car-cluster", "car/cluster")
-includeProject(":car-moderator", "car/moderator")
-includeProject(":cardview", "cardview")
-includeProject(":collection", "collection")
-includeProject(":collection-ktx", "collection/ktx")
-includeProject(":concurrent:concurrent-futures", "concurrent/futures")
-includeProject(":contentpager", "content")
-includeProject(":coordinatorlayout", "coordinatorlayout")
-includeProject(":core", "core")
-includeProject(":core-ktx", "core/ktx")
-includeProject(":cursoradapter", "cursoradapter")
-includeProject(":customview", "customview")
-includeProject(":documentfile", "documentfile")
-includeProject(":drawerlayout", "drawerlayout")
-includeProject(":dynamicanimation", "dynamic-animation")
-includeProject(":emoji", "emoji/core")
-includeProject(":emoji-bundled", "emoji/bundled")
-includeProject(":emoji-appcompat", "emoji/appcompat")
-includeProject(":exifinterface", "exifinterface")
-includeProject(":fragment", "fragment")
-includeProject(":fragment-ktx", "fragment/ktx")
-includeProject(":gridlayout", "gridlayout")
-includeProject(":heifwriter", "heifwriter")
-includeProject(":interpolator", "interpolator")
-includeProject(":jetifier-core", "jetifier/jetifier/core")
-includeProject(":jetifier-processor", "jetifier/jetifier/processor")
-includeProject(":jetifier-gradle-plugin", "jetifier/jetifier/gradle-plugin")
-includeProject(":jetifier-standalone", "jetifier/jetifier/standalone")
-includeProject(":jetifier-preprocessor", "jetifier/jetifier/preprocessor")
-includeProject(":leanback", "leanback")
-includeProject(":leanback-preference", "leanback-preference")
-includeProject(":lifecycle:integration-tests:testapp", "lifecycle/integration-tests/testapp")
-includeProject(":lifecycle:lifecycle-common", "lifecycle/common")
-includeProject(":lifecycle:lifecycle-common-java8", "lifecycle/common-java8")
-includeProject(":lifecycle:lifecycle-compiler", "lifecycle/compiler")
-includeProject(":lifecycle:lifecycle-extensions", "lifecycle/extensions")
-includeProject(":lifecycle:lifecycle-livedata-core", "lifecycle/livedata-core")
-includeProject(":lifecycle:lifecycle-livedata-core-ktx", "lifecycle/livedata-core/ktx")
-includeProject(":lifecycle:lifecycle-livedata", "lifecycle/livedata")
-includeProject(":lifecycle:lifecycle-livedata-ktx", "lifecycle/livedata/ktx")
-includeProject(":lifecycle:lifecycle-process", "lifecycle/process")
-includeProject(":lifecycle:lifecycle-reactivestreams", "lifecycle/reactivestreams")
-includeProject(":lifecycle:lifecycle-reactivestreams-ktx", "lifecycle/reactivestreams/ktx")
-includeProject(":lifecycle:lifecycle-runtime", "lifecycle/runtime")
-includeProject(":lifecycle:lifecycle-savedstate-core", "lifecycle/savedstate-core")
-includeProject(":lifecycle:lifecycle-savedstate-fragment", "lifecycle/savedstate-fragment")
-includeProject(":lifecycle:lifecycle-service", "lifecycle/service")
-includeProject(":lifecycle:lifecycle-viewmodel", "lifecycle/viewmodel")
-includeProject(":lifecycle:lifecycle-viewmodel-ktx", "lifecycle/viewmodel/ktx")
-includeProject(":lifecycle:lifecycle-viewmodel-savedstate", "lifecycle/viewmodel-savedstate")
-includeProject(":lifecycle:lifecycle-viewmodel-fragment","lifecycle/viewmodel-fragment")
-includeProject(":loader", "loader")
-includeProject(":localbroadcastmanager", "localbroadcastmanager")
-includeProject(":media", "media")
-includeProject(":media2", "media2")
-includeProject(":media2-exoplayer", "media2/media2-exoplayer")
-includeProject(":media-widget", "media-widget")
-includeProject(":mediarouter", "mediarouter")
-includeProject(":navigation:navigation-benchmark", "navigation/benchmark")
-includeProject(":navigation:navigation-common", "navigation/common")
-includeProject(":navigation:navigation-common-ktx", "navigation/common/ktx")
-includeProject(":navigation:navigation-runtime", "navigation/runtime/")
-includeProject(":navigation:navigation-runtime-ktx", "navigation/runtime/ktx")
-includeProject(":navigation:navigation-testing", "navigation/testing")
-includeProject(":navigation:navigation-testing-ktx", "navigation/testing/ktx")
-includeProject(":navigation:navigation-fragment", "navigation/fragment")
-includeProject(":navigation:navigation-fragment-ktx", "navigation/fragment/ktx")
-includeProject(":navigation:navigation-ui", "navigation/ui")
-includeProject(":navigation:navigation-ui-ktx", "navigation/ui/ktx")
-includeProject(":navigation:navigation-integration-tests:testapp", "navigation/integration-tests/testapp")
-includeProject(":navigation:navigation-safe-args-generator", "navigation/safe-args-generator")
-includeProject(":navigation:navigation-safe-args-gradle-plugin", "navigation/safe-args-gradle-plugin")
-includeProject(":paging:integration-tests:testapp", "paging/integration-tests/testapp")
-includeProject(":paging:paging-common", "paging/common")
-includeProject(":paging:paging-common-ktx", "paging/common/ktx")
-includeProject(":paging:paging-runtime", "paging/runtime")
-includeProject(":paging:paging-runtime-ktx", "paging/runtime/ktx")
-includeProject(":paging:paging-rxjava2", "paging/rxjava2")
-includeProject(":paging:paging-rxjava2-ktx", "paging/rxjava2/ktx")
-includeProject(":palette", "palette")
-includeProject(":palette-ktx", "palette/ktx")
-includeProject(":percentlayout", "percent")
-includeProject(":preference", "preference")
-includeProject(":preference-ktx", "preference/ktx")
-includeProject(":print", "print")
-includeProject(":recommendation", "recommendation")
-includeProject(":recyclerview", "recyclerview/recyclerview")
-includeProject(":recyclerview:recyclerview-benchmark", "recyclerview/benchmark")
-includeProject(":recyclerview-selection", "recyclerview/selection")
-includeProject(":room:integration-tests:autovaluetestapp", "room/integration-tests/autovaluetestapp")
-includeProject(":room:integration-tests:testapp", "room/integration-tests/testapp")
-includeProject(":room:integration-tests:kotlintestapp", "room/integration-tests/kotlintestapp")
-includeProject(":room:room-common", "room/common")
-includeProject(":room:room-compiler", "room/compiler")
-includeProject(":room:room-guava", "room/guava")
-includeProject(":room:room-migration", "room/migration")
-includeProject(":room:room-runtime", "room/runtime")
-includeProject(":room:room-rxjava2", "room/rxjava2")
-includeProject(":room:room-testing", "room/testing")
-includeProject(":remotecallback-processor", "remotecallback/processor")
-includeProject(":remotecallback", "remotecallback")
-includeProject(":versionedparcelable-annotation", "versionedparcelable/annotation")
-includeProject(":versionedparcelable", "versionedparcelable")
-includeProject(":slice-core", "slices/core")
-includeProject(":slice-view", "slices/view")
-includeProject(":slice-builders", "slices/builders")
-includeProject(":slice-test", "slices/test")
-includeProject(":slice-builders-ktx", "slices/builders/ktx")
-includeProject(":slice-benchmark", "slices/benchmark")
-includeProject(":slidingpanelayout", "slidingpanelayout")
-includeProject(":sqlite:sqlite", "persistence/db")
-includeProject(":sqlite:sqlite-ktx", "persistence/db/ktx")
-includeProject(":sqlite:sqlite-framework", "persistence/db-framework")
-includeProject(":swiperefreshlayout", "swiperefreshlayout")
-includeProject(":textclassifier", "textclassifier")
-includeProject(":textclassifier:integration-tests:testapp", "textclassifier/integration-tests/testapp")
-includeProject(":transition", "transition")
-includeProject(":tvprovider", "tv-provider")
-includeProject(":vectordrawable", "graphics/drawable/static")
-includeProject(":vectordrawable-animated", "graphics/drawable/animated")
-includeProject(":viewpager", "viewpager")
-includeProject(":viewpager2", "viewpager2")
-includeProject(":wear", "wear")
-includeProject(":webkit", "webkit")
-includeProject(":work:work-runtime", "work/workmanager")
-includeProject(":work:work-runtime-ktx", "work/workmanager-ktx")
-includeProject(":work:work-firebase", "work/workmanager-firebase")
-includeProject(":work:work-testing", "work/workmanager-test")
-includeProject(":work:integration-tests:testapp", "work/integration-tests/testapp")
+unconventionalProject(":annotation", "annotations")
+unconventionalProject(":animation:testing", "animation/testing")
+unconventionalProject(":arch:core-common", "arch/core-common")
+unconventionalProject(":arch:core-testing", "arch/core-testing")
+unconventionalProject(":arch:core-runtime", "arch/core-runtime")
+unconventionalProject(":car", "car/core")
+unconventionalProject(":car-cluster", "car/cluster")
+unconventionalProject(":car-moderator", "car/moderator")
+unconventionalProject(":contentpager", "content")
+unconventionalProject(":dynamicanimation", "dynamic-animation")
+unconventionalProject(":emoji", "emoji/core")
+unconventionalProject(":emoji-bundled", "emoji/bundled")
+unconventionalProject(":emoji-appcompat", "emoji/appcompat")
+unconventionalProject(":jetifier-core", "jetifier/jetifier/core")
+unconventionalProject(":jetifier-processor", "jetifier/jetifier/processor")
+unconventionalProject(":jetifier-gradle-plugin", "jetifier/jetifier/gradle-plugin")
+unconventionalProject(":jetifier-standalone", "jetifier/jetifier/standalone")
+unconventionalProject(":jetifier-preprocessor", "jetifier/jetifier/preprocessor")
+unconventionalProject(":media2-exoplayer", "media2/media2-exoplayer")
+unconventionalProject(":recyclerview", "recyclerview/recyclerview")
+unconventionalProject(":recyclerview-selection", "recyclerview/selection")
+unconventionalProject(":navigation:navigation-integration-tests:testapp", "navigation/integration-tests/testapp")
+unconventionalProject(":remotecallback-processor", "remotecallback/processor")
+unconventionalProject(":versionedparcelable-annotation", "versionedparcelable/annotation")
+unconventionalProject(":percentlayout", "percent")
+unconventionalProject(":slice-core", "slices/core")
+unconventionalProject(":slice-view", "slices/view")
+unconventionalProject(":slice-builders", "slices/builders")
+unconventionalProject(":slice-builders-ktx", "slices/builders/ktx")
+unconventionalProject(":slice-test", "slices/test")
+unconventionalProject(":slice-benchmark", "slices/benchmark")
+unconventionalProject(":sqlite:sqlite", "persistence/db")
+unconventionalProject(":sqlite:sqlite-framework", "persistence/db-framework")
+unconventionalProject(":sqlite:sqlite-ktx", "persistence/db/ktx")
+unconventionalProject(":tvprovider", "tv-provider")
+unconventionalProject(":vectordrawable", "graphics/drawable/static")
+unconventionalProject(":vectordrawable-animated", "graphics/drawable/animated")
+unconventionalProject(":work:work-runtime", "work/workmanager")
+unconventionalProject(":work:work-runtime-ktx", "work/workmanager-ktx")
+unconventionalProject(":work:work-firebase", "work/workmanager-firebase")
+unconventionalProject(":work:work-testing", "work/workmanager-test")
 
 /////////////////////////////
 //
@@ -183,11 +81,11 @@ includeProject(":work:integration-tests:testapp", "work/integration-tests/testap
 //
 /////////////////////////////
 
-includeProject(":legacy-support-core-ui", "legacy/core-ui")
-includeProject(":legacy-support-core-utils", "legacy/core-utils")
-includeProject(":legacy-support-v4", "legacy/v4")
-includeProject(":legacy-support-v13", "legacy/v13")
-includeProject(":legacy-preference-v14", "legacy/preference-v14")
+unconventionalProject(":legacy-support-core-ui", "legacy/core-ui")
+unconventionalProject(":legacy-support-core-utils", "legacy/core-utils")
+unconventionalProject(":legacy-support-v4", "legacy/v4")
+unconventionalProject(":legacy-support-v13", "legacy/v13")
+unconventionalProject(":legacy-preference-v14", "legacy/preference-v14")
 
 /////////////////////////////
 //
@@ -197,26 +95,26 @@ includeProject(":legacy-preference-v14", "legacy/preference-v14")
 
 File samplesRoot = new File(rootDir, "samples")
 
-includeProject(":support-animation-demos", new File(samplesRoot, "SupportAnimationDemos"))
-includeProject(":support-app-navigation", new File(samplesRoot, "SupportAppNavigation"))
-includeProject(":support-biometric-demos", new File(samplesRoot, "BiometricDemos"))
-includeProject(":support-car-demos", new File(samplesRoot, "SupportCarDemos"))
-includeProject(":support-content-demos", new File(samplesRoot, "SupportContentDemos"))
-includeProject(":support-design-demos", new File(samplesRoot, "SupportDesignDemos"))
-includeProject(":support-emoji-demos", new File(samplesRoot, "SupportEmojiDemos"))
-includeProject(":support-leanback-demos", new File(samplesRoot, "SupportLeanbackDemos"))
-includeProject(":support-media-demos", new File(samplesRoot, "SupportMediaDemos"))
-includeProject(":support-percent-demos", new File(samplesRoot, "SupportPercentDemos"))
-includeProject(":support-preference-demos", new File(samplesRoot, "SupportPreferenceDemos"))
-includeProject(":support-remotecallback-demos", new File(samplesRoot, "SupportRemoteCallbackDemos"))
-includeProject(":support-slices-demos", new File(samplesRoot, "SupportSliceDemos"))
-includeProject(":support-transition-demos", new File(samplesRoot, "SupportTransitionDemos"))
-includeProject(":support-vector-drawable-demos", new File(samplesRoot, "SupportVectorDrawableDemos"))
-includeProject(":support-v4-demos", new File(samplesRoot, "Support4Demos"))
-includeProject(":support-v7-demos", new File(samplesRoot, "Support7Demos"))
-includeProject(":support-v13-demos", new File(samplesRoot, "Support13Demos"))
-includeProject(":support-wear-demos", new File(samplesRoot, "SupportWearDemos"))
-includeProject(":viewpager2-demos", new File(samplesRoot, "ViewPager2Demos"))
+unconventionalProject(":support-animation-demos", new File(samplesRoot, "SupportAnimationDemos"))
+unconventionalProject(":support-app-navigation", new File(samplesRoot, "SupportAppNavigation"))
+unconventionalProject(":support-biometric-demos", new File(samplesRoot, "BiometricDemos"))
+unconventionalProject(":support-car-demos", new File(samplesRoot, "SupportCarDemos"))
+unconventionalProject(":support-content-demos", new File(samplesRoot, "SupportContentDemos"))
+unconventionalProject(":support-design-demos", new File(samplesRoot, "SupportDesignDemos"))
+unconventionalProject(":support-emoji-demos", new File(samplesRoot, "SupportEmojiDemos"))
+unconventionalProject(":support-leanback-demos", new File(samplesRoot, "SupportLeanbackDemos"))
+unconventionalProject(":support-media-demos", new File(samplesRoot, "SupportMediaDemos"))
+unconventionalProject(":support-percent-demos", new File(samplesRoot, "SupportPercentDemos"))
+unconventionalProject(":support-preference-demos", new File(samplesRoot, "SupportPreferenceDemos"))
+unconventionalProject(":support-remotecallback-demos", new File(samplesRoot, "SupportRemoteCallbackDemos"))
+unconventionalProject(":support-slices-demos", new File(samplesRoot, "SupportSliceDemos"))
+unconventionalProject(":support-transition-demos", new File(samplesRoot, "SupportTransitionDemos"))
+unconventionalProject(":support-vector-drawable-demos", new File(samplesRoot, "SupportVectorDrawableDemos"))
+unconventionalProject(":support-v4-demos", new File(samplesRoot, "Support4Demos"))
+unconventionalProject(":support-v7-demos", new File(samplesRoot, "Support7Demos"))
+unconventionalProject(":support-v13-demos", new File(samplesRoot, "Support13Demos"))
+unconventionalProject(":support-wear-demos", new File(samplesRoot, "SupportWearDemos"))
+unconventionalProject(":viewpager2-demos", new File(samplesRoot, "ViewPager2Demos"))
 
 /////////////////////////////
 //
@@ -224,8 +122,8 @@ includeProject(":viewpager2-demos", new File(samplesRoot, "ViewPager2Demos"))
 //
 /////////////////////////////
 
-includeProject(":internal-testutils", "testutils")
-includeProject(":internal-testutils-ktx", "testutils-ktx")
+unconventionalProject(":internal-testutils", "testutils")
+unconventionalProject(":internal-testutils-ktx", "testutils-ktx")
 
 /////////////////////////////
 //
@@ -233,11 +131,11 @@ includeProject(":internal-testutils-ktx", "testutils-ktx")
 //
 /////////////////////////////
 
-includeProject(":support-media-compat-test-client", "media/version-compat-tests/current/client")
-includeProject(":support-media-compat-test-client-previous", "media/version-compat-tests/previous/client")
-includeProject(":support-media-compat-test-service", "media/version-compat-tests/current/service")
-includeProject(":support-media-compat-test-service-previous", "media/version-compat-tests/previous/service")
-includeProject(":support-media-compat-test-lib", "media/version-compat-tests/lib")
+unconventionalProject(":support-media-compat-test-client", "media/version-compat-tests/current/client")
+unconventionalProject(":support-media-compat-test-client-previous", "media/version-compat-tests/previous/client")
+unconventionalProject(":support-media-compat-test-service", "media/version-compat-tests/current/service")
+unconventionalProject(":support-media-compat-test-service-previous", "media/version-compat-tests/previous/service")
+unconventionalProject(":support-media-compat-test-lib", "media/version-compat-tests/lib")
 
 /////////////////////////////
 //
@@ -248,17 +146,70 @@ includeProject(":support-media-compat-test-lib", "media/version-compat-tests/lib
 apply(from: "include-composite-deps.gradle")
 File externalRoot = new File(rootDir, "../../external")
 
-includeProject(":noto-emoji-compat", new File(externalRoot, "noto-fonts/emoji-compat"))
-includeProject(":webview-support-interfaces", new File(externalRoot, "webview_support_interfaces"))
+unconventionalProject(":noto-emoji-compat", new File(externalRoot, "noto-fonts/emoji-compat"))
+unconventionalProject(":webview-support-interfaces", new File(externalRoot, "webview_support_interfaces"))
 
 // fake project which is used for docs generation from prebuilts
 // we need real android project to generate R.java, aidl etc files that mentioned in sources
 if (!startParameter.projectProperties.containsKey('android.injected.invoked.from.ide')) {
     // we don't need it in ide, so we don't configure it there
-    includeProject(":docs-fake", "docs-fake")
+    unconventionalProject(":docs-fake", "docs-fake")
 }
 
-// dumb test project that has a test for each size to ensure that at least one test is run
-// for each size and test runner is happy when there is nothing to test.
-includeProject(":dumb-tests", "dumb-tests")
+def commonExclusionList = ["src", "res", "res-public", "api", "build", "api_legacy", "frameworks",
+                           "buildSrc"]
 
+def projectExclusion = ["checkstyle", "safeargs-testapp", "docs-fake"]
+
+ext.exclusion = new HashSet(commonExclusionList + projectExclusion)
+
+def findAllGradle(File file) {
+    if (file.name == "build.gradle" && file.parentFile != rootDir) {
+        return [file.parentFile]
+    }
+    if (!file.isDirectory() || exclusion.contains(file.name) || file.name.startsWith(".")) {
+        return []
+    }
+    def result = []
+    for (File f in file.listFiles()) {
+        result += findAllGradle(f)
+    }
+    return result
+}
+
+def createConventionalProjects(List<File> files, Map<String, String> unconventionalProjects) {
+    def result = new HashMap()
+    def rootPath = rootDir.toPath()
+    for (File f in files) {
+        if (unconventionalProjects.containsKey(f.absolutePath)) {
+            continue
+        }
+        def relative = rootPath.relativize(f.toPath())
+        def groupName = relative.getName(0).toString()
+        if (groupName == "samples") {
+            continue;
+        }
+        if (relative.getNameCount() == 1) {
+            result.put(f.absolutePath, ":${groupName}")
+            continue
+        }
+        StringBuilder builder = new StringBuilder()
+        for (int i = 0; i < relative.getNameCount(); ++i) {
+            def part = relative.getName(i).toString()
+            boolean isKtx = relative.getName(i).toString() == "ktx"
+            boolean repeat = i == 1 && groupName != part && "integration-tests" != part && !isKtx
+            builder.append(!repeat ? (isKtx ? "-ktx" : ":$part") : ":$groupName-${part}")
+        }
+        result.put(f.absolutePath, builder.toString())
+    }
+    return result
+}
+
+
+def allProjects = createConventionalProjects(findAllGradle(rootDir), unconventionalProjects) + unconventionalProjects
+
+for (String path in allProjects.keySet()) {
+    def name = allProjects[path]
+    settings.include(name)
+    project(name).projectDir = new File(path)
+}
