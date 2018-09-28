@@ -1,0 +1,441 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da1daca7_82e0ba41",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/TracingControllerCompatTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-28T23:54:25Z",
+      "side": 1,
+      "message": "redundant",
+      "range": {
+        "startLine": 68,
+        "startChar": 9,
+        "endLine": 68,
+        "endChar": 84
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9370dbe3_39ace5fe",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/TracingControllerCompatTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-28T23:54:25Z",
+      "side": 1,
+      "message": "This is redundant since you check it in setUp()",
+      "range": {
+        "startLine": 91,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 84
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4a0a64a_2f0de4da",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/TracingControllerCompatTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-28T23:54:25Z",
+      "side": 1,
+      "message": "Can you send a CTS CL (master branch is fine) to add these comments there too?",
+      "range": {
+        "startLine": 168,
+        "startChar": 4,
+        "endLine": 168,
+        "endChar": 52
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fbe9dc4f_88b08605",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/TracingControllerCompatTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-28T23:54:25Z",
+      "side": 1,
+      "message": "Might be good to do a similar refactor in the CTS tests too :)",
+      "range": {
+        "startLine": 178,
+        "startChar": 4,
+        "endLine": 178,
+        "endChar": 45
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5077769_0450741c",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/TracingControllerCompatTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-28T23:54:25Z",
+      "side": 1,
+      "message": "Can you add the \"This should remain functionally equivalent\" comment?",
+      "range": {
+        "startLine": 235,
+        "startChar": 4,
+        "endLine": 235,
+        "endChar": 61
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73da6a47_92337ff1",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-28T23:54:25Z",
+      "side": 1,
+      "message": "Can you copy the TracingController.java class doc (adding the \"Compat\" suffix where appropriate)?",
+      "range": {
+        "startLine": 39,
+        "startChar": 11,
+        "endLine": 39,
+        "endChar": 26
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebf5eb2a_df8c9dda",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-28T23:54:25Z",
+      "side": 1,
+      "message": "I\u0027m not familiar with this lint warning, could you explain?",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 31
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6175c7cb_408dadc7",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-28T23:54:25Z",
+      "side": 1,
+      "message": "Maybe just \"PredefinedCategories\"?",
+      "range": {
+        "startLine": 56,
+        "startChar": 22,
+        "endLine": 56,
+        "endChar": 59
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10a4d7c2_21c82bef",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-28T23:54:25Z",
+      "side": 1,
+      "message": "Maybe \"RecordingMode\"?",
+      "range": {
+        "startLine": 66,
+        "startChar": 22,
+        "endLine": 66,
+        "endChar": 43
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "476add02_2759a8d6",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-28T23:54:25Z",
+      "side": 1,
+      "message": "This should either be (1) on the same line or (2) should have a \"\u003cp\u003e\" in front. If you use \"\u003cp\u003e\", don\u0027t use a \"\u003c/p\u003e\" close tag (a strange rule from http://go/android-api-guidelines).",
+      "range": {
+        "startLine": 99,
+        "startChar": 5,
+        "endLine": 99,
+        "endChar": 7
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "894ab3fa_53ea7a3d",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-28T23:54:25Z",
+      "side": 1,
+      "message": "Can you @link these? (another http://go/android-api-guidelines suggestion)",
+      "range": {
+        "startLine": 100,
+        "startChar": 25,
+        "endLine": 100,
+        "endChar": 56
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f74e148b_f4cd370c",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-28T23:54:25Z",
+      "side": 1,
+      "message": "@link",
+      "range": {
+        "startLine": 102,
+        "startChar": 32,
+        "endLine": 102,
+        "endChar": 60
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2ff3bda_bf1db2bc",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-28T23:54:25Z",
+      "side": 1,
+      "message": "Needs \"@TracingControllerPredefinedCategories\" annotation",
+      "range": {
+        "startLine": 113,
+        "startChar": 31,
+        "endLine": 113,
+        "endChar": 55
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc6084e1_d97f539b",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-28T23:54:25Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 114,
+        "startChar": 12,
+        "endLine": 114,
+        "endChar": 22
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebd50340_4ff09560",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-28T23:54:25Z",
+      "side": 1,
+      "message": "Can you add a \"\u003cp\u003e\" here about Feature checks? You can copy-paste from other APIs.",
+      "range": {
+        "startLine": 133,
+        "startChar": 5,
+        "endLine": 133,
+        "endChar": 6
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce43d213_f2740697",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-28T23:54:25Z",
+      "side": 1,
+      "message": "{@code null}\n\nThis, and similar suggestions, come from http://go/android-api-guidelines Docs section",
+      "range": {
+        "startLine": 135,
+        "startChar": 30,
+        "endLine": 135,
+        "endChar": 34
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b9757b3_d4236b2e",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-28T23:54:25Z",
+      "side": 1,
+      "message": "nit: you may omit this if you mark as @NonNull. The Android docs generate helpfully adds this so long as you don\u0027t explicitly use the word \"null\".",
+      "range": {
+        "startLine": 138,
+        "startChar": 23,
+        "endLine": 138,
+        "endChar": 53
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d736677_c5db6e5c",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-28T23:54:25Z",
+      "side": 1,
+      "message": "{@code false} and {@code true} on next line",
+      "range": {
+        "startLine": 147,
+        "startChar": 15,
+        "endLine": 147,
+        "endChar": 20
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31a25e2b_ded83d40",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-09-28T23:54:25Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 150,
+        "startChar": 70,
+        "endLine": 150,
+        "endChar": 78
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
