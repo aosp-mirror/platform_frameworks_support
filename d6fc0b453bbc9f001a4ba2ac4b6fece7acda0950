@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3183c286_93c1e57a",
+        "filename": "settings.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-09-28T17:45:24Z",
+      "side": 1,
+      "message": "Add a method-level comment here regarding the automatic inclusion of -ktx projects and the required /ktx sub-directory structure. Please also find an appropriate place in go/androidx-dev to document this behavior.",
+      "revId": "d6fc0b453bbc9f001a4ba2ac4b6fece7acda0950",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
