@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03671796_9fe59151",
+        "filename": "settings.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-28T10:56:08Z",
+      "side": 1,
+      "message": "will follow-up this CL to make workmanager to follow the pattern",
+      "revId": "ac9092f99ce3b9639deae05cbc66b408f029ca68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
