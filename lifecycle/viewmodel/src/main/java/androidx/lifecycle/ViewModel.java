@@ -19,8 +19,9 @@ package androidx.lifecycle;
 import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.Closeable;
+import java.io.IOException;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * ViewModel is a class that is responsible for preparing and managing the data for
@@ -104,8 +105,13 @@ import java.util.Map;
  * </>
  */
 public abstract class ViewModel {
+    // we have one global lock, because we don't expect a lot concurrent access to it,
+    // so we prefer ViewModel to allocate less objects.
+    private static final Object LOCK = new Object();
+
     @Nullable
-    private Map<String, Object> mBagOfTags;
+    private volatile ConcurrentHashMap<String, Object> mBagOfTags;
+    private volatile boolean mCleared = false;
 
     /**
      * This method will be called when this ViewModel is no longer used and will be destroyed.
@@ -117,15 +123,48 @@ public abstract class ViewModel {
     protected void onCleared() {
     }
 
+    final void clear() {
+        mCleared = true;
+        if (mBagOfTags != null) {
+            for (Object value: mBagOfTags.values()) {
+                // see comment for the similar call in setTagIfx`
+                closeWithRuntimeException(value);
+            }
+        }
+        onCleared();
+    }
+
     /**
      * Sets a tag associated with this viewmodel and a key.
+     * If the given {@code newValue} is {@link Closeable},
+     * it will be closed once {@link #clear()}.
+     *
+     * If a value was already set for the given key, this calls do nothing and
+     * returns currently associated value, the given {@code newValue} would be ignored
+     *
+     * If the ViewModel was already cleared then close() would be called on the returned object if
+     * it implements {@link Closeable}. The same object may receive multiple close calls, so method
+     * should be idempotent.
      */
     @MainThread
-    void setTag(String key, Object obj) {
+    <T> T setTagIfAbsent(String key, T newValue) {
         if (mBagOfTags == null) {
-            mBagOfTags = new HashMap<>();
+            synchronized (LOCK) {
+                if (mBagOfTags == null) {
+                    // allocate small number, because there is not much client.
+                    mBagOfTags = new ConcurrentHashMap<>(2);
+                }
+            }
         }
-        mBagOfTags.put(key, obj);
+        @SuppressWarnings("unchecked") T previous = (T) mBagOfTags.putIfAbsent(key, newValue);
+        T result = previous == null ? newValue : previous;
+        if (mCleared) {
+            // It is possible that we'll call close() multiple times on the same object, but
+            // Closeable interface requires close method to be idempotent:
+            // "if the stream is already closed then invoking this method has no effect." (c)
+            closeWithRuntimeException(result);
+        }
+        return result;
     }
 
     /**
@@ -134,7 +173,18 @@ public abstract class ViewModel {
     @SuppressWarnings("TypeParameterUnusedInFormals")
     @MainThread
     <T> T getTag(String key) {
+        // get() is racy anyway, so we don't take lock
         //noinspection unchecked
         return mBagOfTags != null ? (T) mBagOfTags.get(key) : null;
+    }
+
+    private static void closeWithRuntimeException(Object obj) {
+        if (obj instanceof Closeable) {
+            try {
+                ((Closeable) obj).close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
