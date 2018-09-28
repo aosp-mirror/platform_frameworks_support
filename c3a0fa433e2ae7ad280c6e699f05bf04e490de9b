@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da3bf9dc_490622c1",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 838,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-28T08:08:09Z",
+      "side": 1,
+      "message": "Q) any reason using getText rather than getString?",
+      "range": {
+        "startLine": 838,
+        "startChar": 42,
+        "endLine": 838,
+        "endChar": 49
+      },
+      "revId": "c3a0fa433e2ae7ad280c6e699f05bf04e490de9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d04392b_86c5ce7d",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-28T08:08:09Z",
+      "side": 1,
+      "message": "what about retrieving metadata from retriever when title is null or empty? \n\nif (metadata !\u003d null) {\n  title \u003d metadata.getString(...);\n}\nif ((title \u003d\u003d null || title.isEmpty()) \u0026\u0026 retriever !\u003d null) {\n    title \u003d retriever.extractMetadata(...);\n}\nif (title !\u003d null \u0026\u0026 !title.isEmpty()) {\n    mTitle \u003d title;\n}",
+      "range": {
+        "startLine": 837,
+        "startChar": 0,
+        "endLine": 847,
+        "endChar": 9
+      },
+      "revId": "c3a0fa433e2ae7ad280c6e699f05bf04e490de9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3e46596_edb6dab8",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-28T08:08:09Z",
+      "side": 1,
+      "message": "It seems like that mTitle is not used when mIsMusicMediaType is true and the local variable \"title\" is not reused now in the latter part. Let\u0027s separate the two cases.",
+      "range": {
+        "startLine": 849,
+        "startChar": 0,
+        "endLine": 855,
+        "endChar": 0
+      },
+      "revId": "c3a0fa433e2ae7ad280c6e699f05bf04e490de9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6179832a_d999d67d",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-09-28T08:08:09Z",
+      "side": 1,
+      "message": "Just my two cents: what about extracting a method for this repeating code..?\n\nString extractString(MediaMetadata2 metadata, retriever, int key, String defaultValue) {\n    String value \u003d null;\n\n    if (metadata !\u003d null) {\n        value \u003d metadata.getString(key);\n        if (value !\u003d null \u0026\u0026 !value.isEmpty()) {\n            return value;\n        }\n    }\n    if (retriever !\u003d null) {\n        switch(key) {\n            case MediaMetadata2.METADATA_KEY_TITLE:\n                value \u003d \n                   retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);\n        ...\n        }\n    }\n    return (value \u003d\u003d null) ? defaultValue : value;\n}",
+      "range": {
+        "startLine": 888,
+        "startChar": 0,
+        "endLine": 899,
+        "endChar": 0
+      },
+      "revId": "c3a0fa433e2ae7ad280c6e699f05bf04e490de9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
