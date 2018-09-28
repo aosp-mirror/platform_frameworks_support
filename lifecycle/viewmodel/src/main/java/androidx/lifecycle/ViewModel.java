@@ -19,6 +19,8 @@ package androidx.lifecycle;
 import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -115,6 +117,21 @@ public abstract class ViewModel {
      */
     @SuppressWarnings("WeakerAccess")
     protected void onCleared() {
+    }
+
+    final void clear() {
+        if (mBagOfTags != null) {
+            for (Object value: mBagOfTags.values()) {
+                if (value instanceof Closeable) {
+                    try {
+                        ((Closeable) value).close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+        onCleared();
     }
 
     /**
