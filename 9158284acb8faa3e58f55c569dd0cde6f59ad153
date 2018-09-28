@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f1fc37a3_28831fed",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-28T17:14:30Z",
+      "side": 1,
+      "message": "Done. \n\nJust added comment in getDefaultTextClassifier, but I think it should be clear enough (?) :)",
+      "parentUuid": "cf91a9fc_58fa4d45",
+      "revId": "9158284acb8faa3e58f55c569dd0cde6f59ad153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4bd6e78_06b43ca8",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "d43c705f_835aefd0",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-28T17:14:30Z",
+      "side": 1,
+      "message": "Right, it is kind of implementation details, removed.",
+      "parentUuid": "f4bd6e78_06b43ca8",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 56
+      },
+      "revId": "9158284acb8faa3e58f55c569dd0cde6f59ad153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79bfa52d_d7067c61",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
         "patchSetId": 1
@@ -62,6 +104,30 @@
       "revId": "9158284acb8faa3e58f55c569dd0cde6f59ad153",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1952b6ec_cb8a7c32",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-28T17:14:30Z",
+      "side": 1,
+      "message": "This is basically the assumption of the platform APIs, so the wrapper here just keep the assumption.\n\nRe \"what will happen\", I think memory leak will happen :)\nAs the textclassifier caches the context, so the textclassifier should just be used within the context.",
+      "parentUuid": "79bfa52d_d7067c61",
+      "range": {
+        "startLine": 135,
+        "startChar": 6,
+        "endLine": 136,
+        "endChar": 63
+      },
+      "revId": "9158284acb8faa3e58f55c569dd0cde6f59ad153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
