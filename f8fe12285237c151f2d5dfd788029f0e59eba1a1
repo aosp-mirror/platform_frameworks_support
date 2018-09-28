@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0feca488_3e1e70c5",
+        "filename": "collection/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-09-28T19:26:20Z",
+      "side": 1,
+      "message": "I\u0027m not sure why these weren\u0027t being tracked but checkApi wasn\u0027t complaining. It only started once I bumped the version number.",
+      "revId": "f8fe12285237c151f2d5dfd788029f0e59eba1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
