@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9422c659_58d67e51",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/transform/metainf/MetaInfTransformer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-28T14:28:42Z",
+      "side": 1,
+      "message": "Ops that one was supposed to be car-moderator. Fixed.",
+      "parentUuid": "e816aaef_30856132",
+      "revId": "0163669eb255df9e4c5762c5ab8e50e79d1a17d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6fd1b26_a7f53881",
         "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/transform/metainf/MetaInfTransformer.kt",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "0163669eb255df9e4c5762c5ab8e50e79d1a17d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "718d4806_1cdf781b",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/transform/metainf/MetaInfTransformer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-28T14:28:42Z",
+      "side": 1,
+      "message": "I understand what you are aiming for. That would be more consistent. But we are not de/jetifying these archives. If I add them to pom dependencies config then jetifier will start updating them in dependencies lists with the given versions. That puts more responsibility on us as we have to keep these artifacts versions up to date otherwise we start downgrading the version accidentally by jetifier (as happened with dagger). So I believe this ignore list is less work for us at this stage.",
+      "parentUuid": "e6fd1b26_a7f53881",
+      "revId": "0163669eb255df9e4c5762c5ab8e50e79d1a17d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
