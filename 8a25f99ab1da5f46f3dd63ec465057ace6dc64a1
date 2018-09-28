@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "90899cc0_cc663627",
+        "filename": "media2/src/androidTest/java/androidx/media2/XMediaPlayerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-28T06:19:05Z",
+      "side": 1,
+      "message": "Yes. Otherwise tearDown wouldn\u0027t be called.",
+      "parentUuid": "bd1000f4_6558c2f8",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 5
+      },
+      "revId": "8a25f99ab1da5f46f3dd63ec465057ace6dc64a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6dc5374_be1063f8",
         "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "89e34493_ac7d9568",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-28T06:19:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6dc5374_be1063f8",
+      "range": {
+        "startLine": 433,
+        "startChar": 0,
+        "endLine": 435,
+        "endChar": 62
+      },
+      "revId": "8a25f99ab1da5f46f3dd63ec465057ace6dc64a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e745ebe_a1cf5988",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 6
@@ -59,6 +107,30 @@
       "writtenOn": "2018-09-20T06:06:48Z",
       "side": 1,
       "message": "According to Dongwon,\n\"A command/operation should be queued and they should be executed and returned after all the previous operations are done.\"\n\nI addressed the same comment.\nSee createFutureForResultCodeInternal() in\nhttps://android-review.googlesource.com/c/platform/frameworks/support/+/749794/4..7/media2/src/main/java/androidx/media2/XMediaPlayer.java#1455",
+      "range": {
+        "startLine": 516,
+        "startChar": 12,
+        "endLine": 516,
+        "endChar": 76
+      },
+      "revId": "8a25f99ab1da5f46f3dd63ec465057ace6dc64a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "256d87f9_56ab80f5",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-28T06:19:05Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "4e745ebe_a1cf5988",
       "range": {
         "startLine": 516,
         "startChar": 12,
