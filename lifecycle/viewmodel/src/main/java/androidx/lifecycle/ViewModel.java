@@ -19,8 +19,9 @@ package androidx.lifecycle;
 import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.Closeable;
+import java.io.IOException;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * ViewModel is a class that is responsible for preparing and managing the data for
@@ -105,7 +106,7 @@ import java.util.Map;
  */
 public abstract class ViewModel {
     @Nullable
-    private Map<String, Object> mBagOfTags;
+    private ConcurrentHashMap<String, Object> mBagOfTags;
 
     /**
      * This method will be called when this ViewModel is no longer used and will be destroyed.
@@ -117,15 +118,32 @@ public abstract class ViewModel {
     protected void onCleared() {
     }
 
+    final void clear() {
+        if (mBagOfTags != null) {
+            for (Object value: mBagOfTags.values()) {
+                if (value instanceof Closeable) {
+                    try {
+                        ((Closeable) value).close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+        onCleared();
+    }
+
     /**
      * Sets a tag associated with this viewmodel and a key.
+     * If the given {@code obj} is {@link Closeable},
+     * it will be closed once {@link #clear()} is called
      */
     @MainThread
-    void setTag(String key, Object obj) {
+    <T> T setTagIfAbsent(String key, Object obj) {
         if (mBagOfTags == null) {
-            mBagOfTags = new HashMap<>();
+            mBagOfTags = new ConcurrentHashMap<>();
         }
-        mBagOfTags.put(key, obj);
+        return (T) mBagOfTags.putIfAbsent(key, obj);
     }
 
     /**
