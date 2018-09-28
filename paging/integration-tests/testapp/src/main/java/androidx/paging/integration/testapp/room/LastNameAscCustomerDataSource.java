@@ -17,24 +17,20 @@ package androidx.paging.integration.testapp.room;
 
 import androidx.annotation.NonNull;
 import androidx.paging.DataSource;
-import androidx.paging.ItemKeyedDataSource;
-import androidx.room.InvalidationTracker;
+import androidx.room.paging.RoomItemKeyedDataSource;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Sample Room keyed data source.
  */
-public class LastNameAscCustomerDataSource extends ItemKeyedDataSource<String, Customer> {
+public class LastNameAscCustomerDataSource extends RoomItemKeyedDataSource<String, Customer> {
     private final CustomerDao mCustomerDao;
-    @SuppressWarnings("FieldCanBeLocal")
-    private final InvalidationTracker.Observer mObserver;
-    private SampleDatabase mDb;
 
     static Factory<String, Customer> factory(final SampleDatabase db) {
         return new Factory<String, Customer>() {
+            @NonNull
             @Override
             public DataSource<String, Customer> create() {
                 return new LastNameAscCustomerDataSource(db);
@@ -45,22 +41,10 @@ public class LastNameAscCustomerDataSource extends ItemKeyedDataSource<String, C
     /**
      * Create a DataSource from the customer table of the given database
      */
-    private LastNameAscCustomerDataSource(SampleDatabase db) {
-        mDb = db;
+    @SuppressWarnings("WeakerAccess")
+    LastNameAscCustomerDataSource(SampleDatabase db) {
+        super(db, "customer");
         mCustomerDao = db.getCustomerDao();
-        mObserver = new InvalidationTracker.Observer("customer") {
-            @Override
-            public void onInvalidated(@NonNull Set<String> tables) {
-                invalidate();
-            }
-        };
-        db.getInvalidationTracker().addWeakObserver(mObserver);
-    }
-
-    @Override
-    public boolean isInvalid() {
-        mDb.getInvalidationTracker().refreshVersionsSync();
-        return super.isInvalid();
     }
 
     @NonNull

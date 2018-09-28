@@ -216,6 +216,25 @@ public abstract class UserDao {
     @Query("SELECT * FROM user ORDER BY mAge DESC")
     public abstract DataSource.Factory<Integer, User> loadUsersByAgeDesc();
 
+
+    // below used in RoomItemKeyedDataSource
+
+    @Query("SELECT * from user WHERE mAge > :age ORDER BY mId ASC LIMIT :limit")
+    public abstract List<User> pagedByAgeInitial(int age, int limit);
+
+    @Query("SELECT * from user WHERE mAge > :age and mId > :key ORDER BY mId ASC LIMIT :limit")
+    public abstract List<User> pagedByAgeLoadAfter(int age, int key, int limit);
+
+    @Query("SELECT COUNT(*) from user WHERE mAge > :age and mId > :key ORDER BY mId ASC")
+    public abstract int pagedByAgeCountAfter(int age, int key);
+
+    @Query("SELECT * from user WHERE mAge > :age and mId < :key ORDER BY mId DESC LIMIT :limit")
+    public abstract List<User> pagedByAgeLoadBefore(int age, int key, int limit);
+
+    @Query("SELECT COUNT(*) from user WHERE mAge > :age and mId < :key ORDER BY mId DESC")
+    public abstract int pagedByAgeCountBefore(int age, int key);
+
+
     @Query("DELETE FROM User WHERE mId IN (:ids) AND mAge == :age")
     public abstract int deleteByAgeAndIds(int age, List<Integer> ids);
 
