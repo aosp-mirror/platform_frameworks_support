@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "42784d77_8a7d2ce6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-28T10:52:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba49104e_e037e11e",
+      "range": {
+        "startLine": 7,
+        "startChar": 7,
+        "endLine": 7,
+        "endChar": 69
+      },
+      "revId": "d2db91e9b332db6c96dccd795aa5fbc386f3c525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6bbcf53d_a34bd7bf",
         "filename": "media2/src/main/java/androidx/media2/AudioFocusHandler.java",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "44a13dff_2895be8a",
+        "filename": "media2/src/main/java/androidx/media2/AudioFocusHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-28T10:52:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bbcf53d_a34bd7bf",
+      "range": {
+        "startLine": 52,
+        "startChar": 17,
+        "endLine": 52,
+        "endChar": 26
+      },
+      "revId": "d2db91e9b332db6c96dccd795aa5fbc386f3c525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8016129a_c3318b67",
         "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
         "patchSetId": 5
@@ -62,6 +110,24 @@
       "revId": "d2db91e9b332db6c96dccd795aa5fbc386f3c525",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7bca86f_5767a4fe",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-09-28T10:52:06Z",
+      "side": 1,
+      "message": "That wouldn\u0027t be in this CL because this only removes code that notifies to the MediaPlayerConnector#PlayerEventCallback.",
+      "parentUuid": "8016129a_c3318b67",
+      "revId": "d2db91e9b332db6c96dccd795aa5fbc386f3c525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
