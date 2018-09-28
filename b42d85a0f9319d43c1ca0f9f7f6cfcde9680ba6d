@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7bc3477_f2548ea6",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-09-28T17:18:52Z",
+      "side": 1,
+      "message": "request?",
+      "range": {
+        "startLine": 131,
+        "startChar": 73,
+        "endLine": 131,
+        "endChar": 80
+      },
+      "revId": "b42d85a0f9319d43c1ca0f9f7f6cfcde9680ba6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "548de76e_3aa2dce1",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-09-28T17:18:52Z",
+      "side": 1,
+      "message": "Remove space",
+      "range": {
+        "startLine": 132,
+        "startChar": 69,
+        "endLine": 132,
+        "endChar": 70
+      },
+      "revId": "b42d85a0f9319d43c1ca0f9f7f6cfcde9680ba6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

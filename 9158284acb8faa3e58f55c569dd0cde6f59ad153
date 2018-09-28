@@ -128,6 +128,30 @@
       "revId": "9158284acb8faa3e58f55c569dd0cde6f59ad153",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fdca0295_500e498d",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-09-28T17:18:52Z",
+      "side": 1,
+      "message": "Can we throw an exception?",
+      "parentUuid": "1952b6ec_cb8a7c32",
+      "range": {
+        "startLine": 135,
+        "startChar": 6,
+        "endLine": 136,
+        "endChar": 63
+      },
+      "revId": "9158284acb8faa3e58f55c569dd0cde6f59ad153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
