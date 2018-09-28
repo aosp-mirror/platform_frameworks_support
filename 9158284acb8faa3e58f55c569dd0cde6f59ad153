@@ -242,6 +242,30 @@
       "revId": "9158284acb8faa3e58f55c569dd0cde6f59ad153",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e33cb11_cc06c100",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-28T17:34:57Z",
+      "side": 1,
+      "message": "Ah, what I meant is:\n\nTextClassifier textClassifier \u003d  TCM.of(activity_A_context).getDefaultTextClassifier();\n(This textClassifier cached the activity A context)\n\nAnd this textClassifier should not be used in activity B.\n\nAnd I don\u0027t think it is feasible for us to detect that?\n\nThanks.",
+      "parentUuid": "346e8fee_7f068614",
+      "range": {
+        "startLine": 135,
+        "startChar": 6,
+        "endLine": 136,
+        "endChar": 63
+      },
+      "revId": "9158284acb8faa3e58f55c569dd0cde6f59ad153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
