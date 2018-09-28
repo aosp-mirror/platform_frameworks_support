@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "7724b6c7_5144e177",
+        "filename": "lifecycle/savedstate-core/src/main/java/androidx/lifecycle/SavedState.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-09-28T09:05:17Z",
+      "side": 1,
+      "message": "Renamed it to Callback. In function case it would be Function\u003cVoid, Bundle\u003e and Void is always ugly \u003d\\",
+      "parentUuid": "fd90fe00_c1ed4344",
+      "revId": "c8d699e85da0a4b8fb29af27ca7e1beb75951803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8e9b7e2_984367e9",
         "filename": "lifecycle/savedstate-core/src/main/java/androidx/lifecycle/SavedStateRegistry.java",
         "patchSetId": 1
