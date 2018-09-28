@@ -22,6 +22,30 @@
       "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8753cad9_33e661f0",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextLinkSpanTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-09-28T12:33:38Z",
+      "side": 1,
+      "message": "mmm, this is a test, and we always have an action here as we mocked the result :)",
+      "parentUuid": "6d35616b_09eb8820",
+      "range": {
+        "startLine": 148,
+        "startChar": 16,
+        "endLine": 148,
+        "endChar": 83
+      },
+      "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
