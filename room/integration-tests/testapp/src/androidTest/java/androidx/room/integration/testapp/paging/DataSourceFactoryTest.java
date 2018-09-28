@@ -90,6 +90,18 @@ public class DataSourceFactoryTest extends TestDatabaseTest {
                 .build());
     }
 
+    @Test
+    public void getUsersAsKeyedPagedList()
+            throws InterruptedException, ExecutionException, TimeoutException {
+        validateUsersAsPagedList(() -> new LivePagedListBuilder<>(
+                new AgeKeyedDataSource.Factory(mDatabase, 3),
+                new PagedList.Config.Builder()
+                        .setPageSize(10)
+                        .setPrefetchDistance(1)
+                        .setInitialLoadSizeHint(10).build())
+                .build());
+    }
+
     private void validateUsersAsPagedList(
             LivePagedListFactory factory)
             throws InterruptedException, ExecutionException, TimeoutException {
