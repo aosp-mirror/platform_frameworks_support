@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e582ea54_619b3b38",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1232,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-28T08:01:51Z",
+      "side": 1,
+      "message": "What about just calling onPrepared() in here to minimize the change?",
+      "revId": "6d4383ce4df45c8cd4857270951802caddfd189a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
