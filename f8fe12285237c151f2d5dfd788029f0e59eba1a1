@@ -34,6 +34,24 @@
       "revId": "f8fe12285237c151f2d5dfd788029f0e59eba1a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05c1b097_e619cabd",
+        "filename": "collection/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-09-28T20:17:28Z",
+      "side": 1,
+      "message": "Indeed. b/116865045",
+      "parentUuid": "3774698e_31b9a74f",
+      "revId": "f8fe12285237c151f2d5dfd788029f0e59eba1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
