@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "937b6ae5_b744892d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-28T17:47:51Z",
+      "side": 1,
+      "message": "might be simpler if we can merge these two bugs?",
+      "range": {
+        "startLine": 12,
+        "startChar": 5,
+        "endLine": 12,
+        "endChar": 30
+      },
+      "revId": "95728c4d5a80d825deae3b7e381d11f82e8392f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47f16e20_370815de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-28T17:47:51Z",
+      "side": 1,
+      "message": "Can you check MediaPlayer2*Tests with a pre-P device (for ExoPlayer implementation)?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 4
+      },
+      "revId": "95728c4d5a80d825deae3b7e381d11f82e8392f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c9e23ab_aa1f5ebc",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-09-28T17:47:51Z",
+      "side": 1,
+      "message": "What\u0027s the difference between onCurrentMediaItemChanged(mp, null) and onPlaybackCompleted(mp)?",
+      "range": {
+        "startLine": 883,
+        "startChar": 20,
+        "endLine": 883,
+        "endChar": 39
+      },
+      "revId": "95728c4d5a80d825deae3b7e381d11f82e8392f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
