@@ -50,7 +50,7 @@ object LibraryVersions {
     /**
      * Version code for Lifecycle ViewModel
      */
-    val LIFECYCLES_VIEWMODEL = Version("2.0.0")
+    val LIFECYCLES_VIEWMODEL = Version("2.1.0-alpha01")
 
     val LIFECYCLES_SAVEDSTATE = Version("1.0.0-alpha01")
 
