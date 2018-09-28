@@ -933,7 +933,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
         builder.putString(
                 MediaMetadata2.METADATA_KEY_MEDIA_ID, mMediaItem.getMediaId());
         mMediaItem.setMetadata(builder.build());
-        mMediaSession.getPlaylistAgent().replacePlaylistItem(0, mMediaItem);
+        mMediaPlayer.replacePlaylistItem(0, mMediaItem);
     }
 
     private int retrieveOrientation() {
@@ -1008,8 +1008,6 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
                     }
                     if (what == MediaPlayer2.MEDIA_INFO_METADATA_UPDATE) {
                         extractTracks();
-                    } else if (what == MediaPlayer2.MEDIA_INFO_PREPARED) {
-                        this.onPrepared(mp, dsd);
                     } else if (what == MediaPlayer2.MEDIA_INFO_DATA_SOURCE_END) {
                         this.onCompletion(mp, dsd);
                     }
@@ -1057,53 +1055,6 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
                     SubtitleTrack track = mSubtitleTracks.get(index);
                     if (track != null) {
                         track.onData(data);
-                    }
-                }
-
-                private void onPrepared(XMediaPlayer mp, MediaItem2 dsd) {
-                    // TODO: b/116765554
-                    if (DEBUG) {
-                        Log.d(TAG, "OnPreparedListener(): "
-                                + ", mCurrentState=" + mCurrentState
-                                + ", mTargetState=" + mTargetState);
-                    }
-                    mCurrentState = STATE_PREPARED;
-
-                    if (mMediaSession != null) {
-                        extractTracks();
-                        extractMetadata();
-                        sendMetadata();
-                    }
-
-                    if (mMediaControlView != null) {
-                        mMediaControlView.setEnabled(true);
-                    }
-                    int videoWidth = mp.getVideoWidth();
-                    int videoHeight = mp.getVideoHeight();
-
-                    // mSeekWhenPrepared may be changed after seekTo() call
-                    long seekToPosition = mSeekWhenPrepared;
-                    if (seekToPosition != 0) {
-                        mMediaSession.seekTo(seekToPosition);
-                    }
-
-                    if (videoWidth != 0 && videoHeight != 0) {
-                        if (videoWidth != mVideoWidth || videoHeight != mVideoHeight) {
-                            mVideoWidth = videoWidth;
-                            mVideoHeight = videoHeight;
-                            mInstance.requestLayout();
-                        }
-
-                        if (needToStart()) {
-                            mMediaSession.play();
-                        }
-
-                    } else {
-                        // We don't know the video size yet, but should start anyway.
-                        // The video size might be reported to us later.
-                        if (needToStart()) {
-                            mMediaSession.play();
-                        }
                     }
                 }
 
@@ -1232,6 +1183,52 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
                     mCurrentState = STATE_PLAYING;
                     break;
                 case SessionPlayer2.PLAYER_STATE_PAUSED:
+                    if (mCurrentState == STATE_PREPARING) {
+                        if (DEBUG) {
+                            Log.d(TAG, "onPlayerStateChanged(): "
+                                    + ", mCurrentState=" + mCurrentState
+                                    + ", mTargetState=" + mTargetState);
+                        }
+
+                        if (mMediaSession != null) {
+                            extractTracks();
+                            extractMetadata();
+                            sendMetadata();
+                        }
+                        if (mMediaControlView != null) {
+                            mMediaControlView.setEnabled(true);
+                        }
+
+                        // mSeekWhenPrepared may be changed after seekTo() call
+                        long seekToPosition = mSeekWhenPrepared;
+                        if (seekToPosition != 0) {
+                            mMediaSession.seekTo(seekToPosition);
+                        }
+
+                        if (player instanceof VideoView2Player) {
+                            int videoWidth = ((VideoView2Player) player).getVideoWidth();
+                            int videoHeight = ((VideoView2Player) player).getVideoHeight();
+
+                            if (videoWidth != 0 && videoHeight != 0) {
+                                if (videoWidth != mVideoWidth || videoHeight != mVideoHeight) {
+                                    mVideoWidth = videoWidth;
+                                    mVideoHeight = videoHeight;
+                                    mInstance.requestLayout();
+                                }
+
+                                if (needToStart()) {
+                                    mMediaSession.play();
+                                }
+
+                            } else {
+                                // We don't know the video size yet, but should start anyway.
+                                // The video size might be reported to us later.
+                                if (needToStart()) {
+                                    mMediaSession.play();
+                                }
+                            }
+                        }
+                    }
                     mCurrentState = STATE_PAUSED;
                     break;
                 case SessionPlayer2.PLAYER_STATE_ERROR:
