@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b496047_0c5b6b12",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-28T07:26:04Z",
+      "side": 1,
+      "message": "PLAYLIST_ITEM",
+      "range": {
+        "startLine": 609,
+        "startChar": 57,
+        "endLine": 609,
+        "endChar": 62
+      },
+      "revId": "71ecef6c7b52653cfeea6ea420ec47d391b27059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6bbe429_ee987869",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-28T07:26:04Z",
+      "side": 1,
+      "message": "PLAYLIST",
+      "range": {
+        "startLine": 611,
+        "startChar": 58,
+        "endLine": 611,
+        "endChar": 62
+      },
+      "revId": "71ecef6c7b52653cfeea6ea420ec47d391b27059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9200ab8_2dfb3d67",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-28T07:26:04Z",
+      "side": 1,
+      "message": "Should we add onPlaybackCompleted()?",
+      "revId": "71ecef6c7b52653cfeea6ea420ec47d391b27059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
