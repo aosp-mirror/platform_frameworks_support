@@ -124,4 +124,21 @@ public final class TextClassificationManager {
         }
         return LegacyTextClassifier.of(context);
     }
+
+    /**
+     * Returns the default text classifier provided by this library.
+     * <p>
+     * This is mainly for text classifier implementation to delegate the requset to the default
+     * text classifier. Otherwise, in most cases, you shuold consider 
+     * {@link #getTextClassifier()} instead.
+     * <p>
+     * Note that the returned text classifier should be only used within the same context that is
+     * passed to {@link TextClassificationManager#of(Context)}.
+     *
+     * @see #getTextClassifier()
+     */
+    @NonNull
+    public TextClassifier getDefaultTextClassifier() {
+        return mDefaultTextClassifier;
+    }
 }
