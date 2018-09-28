@@ -218,6 +218,30 @@
       "revId": "9158284acb8faa3e58f55c569dd0cde6f59ad153",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "346e8fee_7f068614",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-09-28T17:30:35Z",
+      "side": 1,
+      "message": "Well your statement here was that they should use the same context here as in TextClassificationManager#of(Context). I assume then, that TextClassificationManager retains that and thus you could check that the text classifier is used with the right context. Is that not feasible?",
+      "parentUuid": "42fac641_61a6c42d",
+      "range": {
+        "startLine": 135,
+        "startChar": 6,
+        "endLine": 136,
+        "endChar": 63
+      },
+      "revId": "9158284acb8faa3e58f55c569dd0cde6f59ad153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
