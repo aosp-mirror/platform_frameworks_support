@@ -2,6 +2,121 @@
   "comments": [
     {
       "key": {
+        "uuid": "7c9a6d89_10742b96",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/DynamicSummaryTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-28T15:33:08Z",
+      "side": 1,
+      "message": "Shall we try test case where value gets loaded from SharedPreferences / PreferenceDataStore? That might go via a bit different path internally.",
+      "range": {
+        "startLine": 44,
+        "startChar": 13,
+        "endLine": 44,
+        "endChar": 31
+      },
+      "revId": "0dfb3fcbba0d2fa90d12195396a2aa8393844130",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab8b3cb5_c3e631f9",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/DynamicSummaryTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-28T15:33:08Z",
+      "side": 1,
+      "message": "Better to just directly inline the value \"Not set\" or call NOT_SET more descriptively.",
+      "range": {
+        "startLine": 92,
+        "startChar": 21,
+        "endLine": 92,
+        "endChar": 28
+      },
+      "revId": "0dfb3fcbba0d2fa90d12195396a2aa8393844130",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39838551_58784f91",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/DynamicSummaryTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-28T15:33:08Z",
+      "side": 1,
+      "message": "No need to use constant for this. This can be local for the test.\n\nhttp://go/unit-test-practices#constants",
+      "range": {
+        "startLine": 104,
+        "startChar": 33,
+        "endLine": 104,
+        "endChar": 36
+      },
+      "revId": "0dfb3fcbba0d2fa90d12195396a2aa8393844130",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d18c09a_e3ee7781",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/DynamicSummaryTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-28T15:33:08Z",
+      "side": 1,
+      "message": "This is a bit difficult to reason about.\n\nThe reasons that this contains NEW_VALUE is because in some constant ENTRIES there is an array of values containing NEW_VALUES provided in setup method. That lead to several levels of indirection.\n\nBetter structure would be to use a factory method:\nmListPreference \u003d createPreferenceWithInitialValue\u003cListPreference\u003e(\"New value\" /* Initial value */)\nand later:\nassertEquals(\"New value\", mListPreference)\n\nYou can read more about this here:\nhttp://go/unit-test-practices#setUp",
+      "range": {
+        "startLine": 112,
+        "startChar": 8,
+        "endLine": 114,
+        "endChar": 66
+      },
+      "revId": "0dfb3fcbba0d2fa90d12195396a2aa8393844130",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16859526_e12a3de4",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/DynamicSummaryTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-28T15:33:08Z",
+      "side": 1,
+      "message": "Why do we test 3 preferences at the same time? Can\u0027t we have separate unit test for each one?",
+      "range": {
+        "startLine": 120,
+        "startChar": 8,
+        "endLine": 122,
+        "endChar": 57
+      },
+      "revId": "0dfb3fcbba0d2fa90d12195396a2aa8393844130",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cb45db33_ebe2f94f",
         "filename": "preference/src/main/java/androidx/preference/EditTextPreference.java",
         "patchSetId": 6
@@ -18,6 +133,122 @@
         "startChar": 16,
         "endLine": 142,
         "endChar": 42
+      },
+      "revId": "0dfb3fcbba0d2fa90d12195396a2aa8393844130",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9181e164_33f5ceac",
+        "filename": "preference/src/main/java/androidx/preference/EditTextPreference.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-28T15:33:08Z",
+      "side": 1,
+      "message": "After few days of thinking about this I find that this is the most intuitive version of the API. So let\u0027s keep it this way.",
+      "parentUuid": "cb45db33_ebe2f94f",
+      "range": {
+        "startLine": 142,
+        "startChar": 16,
+        "endLine": 142,
+        "endChar": 42
+      },
+      "revId": "0dfb3fcbba0d2fa90d12195396a2aa8393844130",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce88cb04_d33358ee",
+        "filename": "preference/src/main/java/androidx/preference/ListPreference.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-28T15:33:08Z",
+      "side": 1,
+      "message": "I\u0027m playing with an idea to prefix it with \"set\" instead of \"use\" to stay consistent.",
+      "range": {
+        "startLine": 190,
+        "startChar": 16,
+        "endLine": 190,
+        "endChar": 42
+      },
+      "revId": "0dfb3fcbba0d2fa90d12195396a2aa8393844130",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b54f170_e63d4387",
+        "filename": "preference/src/main/java/androidx/preference/Preference.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1074,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-28T15:33:08Z",
+      "side": 1,
+      "message": "Could be final?",
+      "range": {
+        "startLine": 1074,
+        "startChar": 16,
+        "endLine": 1074,
+        "endChar": 35
+      },
+      "revId": "0dfb3fcbba0d2fa90d12195396a2aa8393844130",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dc31af7_a7ae51f4",
+        "filename": "preference/src/main/java/androidx/preference/Preference.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1088,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-28T15:33:08Z",
+      "side": 1,
+      "message": "Could be final?",
+      "range": {
+        "startLine": 1088,
+        "startChar": 28,
+        "endLine": 1088,
+        "endChar": 47
+      },
+      "revId": "0dfb3fcbba0d2fa90d12195396a2aa8393844130",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6090ea9_3d2647e3",
+        "filename": "preference/src/main/java/androidx/preference/Preference.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2139,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-09-28T15:33:08Z",
+      "side": 1,
+      "message": "requested (triggered by the value change) ?",
+      "range": {
+        "startLine": 2139,
+        "startChar": 29,
+        "endLine": 2139,
+        "endChar": 38
       },
       "revId": "0dfb3fcbba0d2fa90d12195396a2aa8393844130",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
