@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba49104e_e037e11e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-28T06:58:13Z",
+      "side": 1,
+      "message": "I want to unhide SessionPlayer2 with this CL. What do you think?",
+      "range": {
+        "startLine": 7,
+        "startChar": 7,
+        "endLine": 7,
+        "endChar": 69
+      },
+      "revId": "d2db91e9b332db6c96dccd795aa5fbc386f3c525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bbcf53d_a34bd7bf",
+        "filename": "media2/src/main/java/androidx/media2/AudioFocusHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-28T06:58:13Z",
+      "side": 1,
+      "message": "s/Change to/Make AudioFocusHandler\n\nDidn\u0027t you do this in aosp/761280?",
+      "range": {
+        "startLine": 52,
+        "startChar": 17,
+        "endLine": 52,
+        "endChar": 26
+      },
+      "revId": "d2db91e9b332db6c96dccd795aa5fbc386f3c525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8016129a_c3318b67",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-09-28T06:58:13Z",
+      "side": 1,
+      "message": "Is is OK not to call a callback?",
+      "revId": "d2db91e9b332db6c96dccd795aa5fbc386f3c525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
