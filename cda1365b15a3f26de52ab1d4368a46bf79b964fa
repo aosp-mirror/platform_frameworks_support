@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9558dfd8_0b38ab0b",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-28T22:26:36Z",
+      "side": 1,
+      "message": "Preconditions.checkNotNull is a NPE so I\u0027m just matching that.  Fine changing it if you feel strongly about it.",
+      "parentUuid": "ebc02448_fd305156",
+      "range": {
+        "startLine": 100,
+        "startChar": 22,
+        "endLine": 100,
+        "endChar": 42
+      },
+      "revId": "cda1365b15a3f26de52ab1d4368a46bf79b964fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ef362db_026c4ab3",
         "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "4e947ce9_9796c34d",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-28T22:26:36Z",
+      "side": 1,
+      "message": "As above.",
+      "parentUuid": "5ef362db_026c4ab3",
+      "range": {
+        "startLine": 104,
+        "startChar": 22,
+        "endLine": 104,
+        "endChar": 42
+      },
+      "revId": "cda1365b15a3f26de52ab1d4368a46bf79b964fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6307f490_0dc35430",
         "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2018-09-28T22:23:43Z",
       "side": 1,
       "message": "Any particular reason you don\u0027t use this(result, Data.EMPTY)?",
+      "range": {
+        "startLine": 324,
+        "startChar": 12,
+        "endLine": 325,
+        "endChar": 33
+      },
+      "revId": "cda1365b15a3f26de52ab1d4368a46bf79b964fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a32fd420_b696e83b",
+        "filename": "work/workmanager/src/main/java/androidx/work/NonBlockingWorker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-09-28T22:26:36Z",
+      "side": 1,
+      "message": "Yeah I\u0027ll fix it.  Sorry, I didn\u0027t mean to merge this - I was sifting between too many CL\u0027s and did it accidentally.",
+      "parentUuid": "6307f490_0dc35430",
       "range": {
         "startLine": 324,
         "startChar": 12,
