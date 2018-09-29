@@ -18,6 +18,8 @@ package androidx.transition;
 
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +44,10 @@ import java.util.Map;
  */
 public class TransitionValues {
 
+    public TransitionValues(@NonNull View view) {
+        this.view = view;
+    }
+
     /**
      * The set of values tracked by transitions for this scene
      */
@@ -50,7 +56,8 @@ public class TransitionValues {
     /**
      * The View with these values
      */
-    public View view;
+    @NonNull
+    public final View view;
 
     /**
      * The Transitions that targeted this view.
