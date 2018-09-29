@@ -95,6 +95,7 @@ package androidx.collection {
     method public boolean remove(long, java.lang.Object);
     method public void removeAt(int);
     method public E replace(long, E);
+    method public boolean replace(long, E, E);
     method public void setValueAt(int, E);
     method public int size();
     method public E valueAt(int);
@@ -142,6 +143,7 @@ package androidx.collection {
     method public boolean remove(java.lang.Object, java.lang.Object);
     method public V removeAt(int);
     method public V replace(K, V);
+    method public boolean replace(K, V, V);
     method public V setValueAt(int, V);
     method public int size();
     method public V valueAt(int);
@@ -170,6 +172,7 @@ package androidx.collection {
     method public void removeAt(int);
     method public void removeAtRange(int, int);
     method public E replace(int, E);
+    method public boolean replace(int, E, E);
     method public void setValueAt(int, E);
     method public int size();
     method public E valueAt(int);
