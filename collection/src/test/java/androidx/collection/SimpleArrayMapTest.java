@@ -157,6 +157,53 @@ public class SimpleArrayMapTest {
         assertEquals("1", map.get("one"));
     }
 
+    @Test
+    public void replaceValueKeyAbsent() {
+        SimpleArrayMap<String, String> map = new SimpleArrayMap<>();
+        assertFalse(map.replace("one", "1", "2"));
+        assertFalse(map.containsKey("one"));
+    }
+
+    @Test
+    public void replaceValueMismatchDoesNotReplace() {
+        SimpleArrayMap<String, String> map = new SimpleArrayMap<>();
+        map.put("one", "1");
+        assertFalse(map.replace("one", "2", "3"));
+        assertEquals("1", map.get("one"));
+    }
+
+    @Test
+    public void replaceValueMismatchNullDoesNotReplace() {
+        SimpleArrayMap<String, String> map = new SimpleArrayMap<>();
+        map.put("one", "1");
+        assertFalse(map.replace("one", null, "2"));
+        assertEquals("1", map.get("one"));
+    }
+
+    @Test
+    public void replaceValueMatchReplaces() {
+        SimpleArrayMap<String, String> map = new SimpleArrayMap<>();
+        map.put("one", "1");
+        assertTrue(map.replace("one", "1", "2"));
+        assertEquals("2",  map.get("one"));
+    }
+
+    @Test
+    public void replaceNullValueMismatchDoesNotReplace() {
+        SimpleArrayMap<String, String> map = new SimpleArrayMap<>();
+        map.put("one", null);
+        assertFalse(map.replace("one", "1", "2"));
+        assertNull(map.get("one"));
+    }
+
+    @Test
+    public void replaceNullValueMatchRemoves() {
+        SimpleArrayMap<String, String> map = new SimpleArrayMap<>();
+        map.put("one", null);
+        assertTrue(map.replace("one", null, "1"));
+        assertEquals("1", map.get("one"));
+    }
+
     /**
      * Attempt to generate a ConcurrentModificationException in ArrayMap.
      */
