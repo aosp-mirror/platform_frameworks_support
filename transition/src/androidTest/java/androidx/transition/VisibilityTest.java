@@ -18,11 +18,17 @@ package androidx.transition;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.verify;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -89,6 +95,49 @@ public class VisibilityTest extends BaseTest {
 
         // This value confirms that onDisappear, not onAppear, was called
         assertThat((float) animator.getAnimatedValue(), is(0.25f));
+    }
+
+    @Test
+    public void testApplyingTwoVisibility() throws Throwable {
+        final View[] views = new View[2];
+        // create fake transition and listener
+        final TransitionSet set = new TransitionSet();
+        set.addTransition(new Visibility() {
+            @Override
+            public Animator onDisappear(ViewGroup sceneRoot, View view,
+                    TransitionValues startValues, TransitionValues endValues) {
+                views[0] = view;
+                return ValueAnimator.ofFloat(0, 1);
+            }
+        });
+        set.addTransition(new Visibility() {
+            @Override
+            public Animator onDisappear(ViewGroup sceneRoot, View view,
+                    TransitionValues startValues, TransitionValues endValues) {
+                views[1] = view;
+                return ValueAnimator.ofFloat(0, 1);
+            }
+        });
+        Transition.TransitionListener listener = mock(Transition.TransitionListener.class);
+        set.addListener(listener);
+
+        // remove view
+        rule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TransitionManager.beginDelayedTransition(mRoot, set);
+                mRoot.removeView(mView);
+            }
+        });
+
+        // wait for the transition to start
+        verify(listener, timeout(3000)).onTransitionStart(any(Transition.class));
+
+        // verify original view added to overlay
+        assertNotNull(mView.getParent());
+        // verify both animations using the same original view
+        assertEquals(mView, views[0]);
+        assertEquals(mView, views[1]);
     }
 
     @Test
