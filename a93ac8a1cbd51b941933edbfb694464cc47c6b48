@@ -37,6 +37,23 @@
     },
     {
       "key": {
+        "uuid": "d8f5277d_dadee2b8",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-09-29T01:19:44Z",
+      "side": 1,
+      "message": "Every single one of these options allocates on every access which seems far from ideal",
+      "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f0706d64_c3028f05",
         "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
         "patchSetId": 1
@@ -72,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7d79a6a4_adb20a40",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-09-29T01:19:44Z",
+      "side": 1,
+      "message": "Two allocations per access here!",
+      "parentUuid": "2540f4f5_32f3ffb4",
+      "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c563b49f_9e559dc1",
         "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
         "patchSetId": 1
@@ -101,6 +136,23 @@
       "side": 1,
       "message": "this is too much code. but I think we don\u0027t need `ViewModelCoroutineScope` to implement this, do we ?\nif it can be a \"just delegate\" scope than it would be fine. \nIn a world where VM can be in kotlin, this is probably not what we want though.",
       "parentUuid": "c563b49f_9e559dc1",
+      "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0c1d610_51ad1dc9",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-09-29T01:19:44Z",
+      "side": 1,
+      "message": "Remove `get()` to prevent allocating on every invocation",
       "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
