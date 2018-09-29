@@ -92,6 +92,7 @@ package androidx.collection {
     method public void putAll(androidx.collection.LongSparseArray<? extends E>);
     method public E putIfAbsent(long, E);
     method public void remove(long);
+    method public boolean remove(long, java.lang.Object);
     method public void removeAt(int);
     method public void setValueAt(int, E);
     method public int size();
@@ -137,6 +138,7 @@ package androidx.collection {
     method public void putAll(androidx.collection.SimpleArrayMap<? extends K, ? extends V>);
     method public V putIfAbsent(K, V);
     method public V remove(java.lang.Object);
+    method public boolean remove(java.lang.Object, java.lang.Object);
     method public V removeAt(int);
     method public V setValueAt(int, V);
     method public int size();
@@ -162,6 +164,7 @@ package androidx.collection {
     method public void putAll(androidx.collection.SparseArrayCompat<? extends E>);
     method public E putIfAbsent(int, E);
     method public void remove(int);
+    method public boolean remove(int, java.lang.Object);
     method public void removeAt(int);
     method public void removeAtRange(int, int);
     method public void setValueAt(int, E);
