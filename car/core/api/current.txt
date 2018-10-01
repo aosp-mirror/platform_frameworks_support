@@ -236,6 +236,8 @@ package androidx.car.widget {
 
   public class AlphaJumpOverlayView extends androidx.gridlayout.widget.GridLayout {
     ctor public AlphaJumpOverlayView(android.content.Context);
+    method public void close();
+    method public void open();
   }
 
   public class CarToolbar extends android.view.ViewGroup {
