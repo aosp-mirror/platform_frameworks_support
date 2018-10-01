@@ -239,6 +239,30 @@
     },
     {
       "key": {
+        "uuid": "329d3d57_63a808d4",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-10-01T19:56:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "368594b1_5a64d42c",
+      "range": {
+        "startLine": 85,
+        "startChar": 27,
+        "endLine": 85,
+        "endChar": 46
+      },
+      "revId": "59eded56ae442a43c41b8d435cacd8bf57cf2c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3640d83_f75819ee",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
         "patchSetId": 1
