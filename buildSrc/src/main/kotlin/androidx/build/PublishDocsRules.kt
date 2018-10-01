@@ -93,6 +93,7 @@ val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.PAGING, "2.1.0-alpha01")
     prebuilts(LibraryGroups.NAVIGATION, "1.0.0-alpha06")
     prebuilts(LibraryGroups.WORKMANAGER, "1.0.0-alpha10")
+    ignore(LibraryGroups.WORKMANAGER, "work-rxjava2")
     default(Ignore)
 }
 
