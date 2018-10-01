@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "3c7a984e_e3fe3065",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/TracingControllerCompatTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-01T18:48:37Z",
+      "side": 1,
+      "message": "Can we get another test to verify this is really a singleton? It should be sufficient to call #getInstance() twice and compare the two values are the same (assertSame() I think?).",
+      "range": {
+        "startLine": 79,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 31
+      },
+      "revId": "fbd158e17ba86c0d5cc0d2aca1a460a5a928f38b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8c68b1fd_1f73a71b",
         "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
         "patchSetId": 3
