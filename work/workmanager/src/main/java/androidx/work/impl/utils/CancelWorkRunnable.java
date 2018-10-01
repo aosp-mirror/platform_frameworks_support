@@ -32,6 +32,9 @@ import androidx.work.impl.WorkDatabase;
 import androidx.work.impl.WorkManagerImpl;
 import androidx.work.impl.model.DependencyDao;
 import androidx.work.impl.model.WorkSpecDao;
+import androidx.work.impl.utils.futures.SettableFuture;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
 import java.util.UUID;
@@ -43,6 +46,11 @@ import java.util.UUID;
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public abstract class CancelWorkRunnable implements Runnable {
+
+    /**
+     * @return A {@link ListenableFuture} that completes when the cancel operation is completed.
+     */
+    public abstract ListenableFuture<Void> getFuture();
 
     void cancel(WorkManagerImpl workManagerImpl, String workSpecId) {
         recursivelyCancelWorkAndDependents(workManagerImpl.getWorkDatabase(), workSpecId);
@@ -63,7 +71,6 @@ public abstract class CancelWorkRunnable implements Runnable {
     }
 
     private void recursivelyCancelWorkAndDependents(WorkDatabase workDatabase, String workSpecId) {
-
         WorkSpecDao workSpecDao = workDatabase.workSpecDao();
         DependencyDao dependencyDao = workDatabase.dependencyDao();
 
@@ -83,17 +90,30 @@ public abstract class CancelWorkRunnable implements Runnable {
      *
      * @param id The id to cancel
      * @param workManagerImpl The {@link WorkManagerImpl} to use
-     * @return A {@link Runnable} that cancels work for a specific id
+     * @return A {@link CancelWorkRunnable} that cancels work for a specific id
      */
-    public static Runnable forId(
+    public static CancelWorkRunnable forId(
             @NonNull final UUID id,
             @NonNull final WorkManagerImpl workManagerImpl) {
         return new CancelWorkRunnable() {
+            private final SettableFuture<Void> mFuture = SettableFuture.create();
+
             @WorkerThread
             @Override
             public void run() {
-                cancel(workManagerImpl, id.toString());
-                reschedulePendingWorkers(workManagerImpl);
+                try {
+                    cancel(workManagerImpl, id.toString());
+                    reschedulePendingWorkers(workManagerImpl);
+                } catch (Throwable exception) {
+                    mFuture.setException(exception);
+                } finally {
+                    mFuture.set(null);
+                }
+            }
+
+            @Override
+            public ListenableFuture<Void> getFuture() {
+                return mFuture;
             }
         };
     }
@@ -103,28 +123,41 @@ public abstract class CancelWorkRunnable implements Runnable {
      *
      * @param tag The tag to cancel
      * @param workManagerImpl The {@link WorkManagerImpl} to use
-     * @return A {@link Runnable} that cancels work for a specific tag
+     * @return A {@link CancelWorkRunnable} that cancels work for a specific tag
      */
-    public static Runnable forTag(
+    public static CancelWorkRunnable forTag(
             @NonNull final String tag,
             @NonNull final WorkManagerImpl workManagerImpl) {
         return new CancelWorkRunnable() {
+            private final SettableFuture<Void> mFuture = SettableFuture.create();
+
             @WorkerThread
             @Override
             public void run() {
-                WorkDatabase workDatabase = workManagerImpl.getWorkDatabase();
-                workDatabase.beginTransaction();
                 try {
-                    WorkSpecDao workSpecDao = workDatabase.workSpecDao();
-                    List<String> workSpecIds = workSpecDao.getUnfinishedWorkWithTag(tag);
-                    for (String workSpecId : workSpecIds) {
-                        cancel(workManagerImpl, workSpecId);
+                    WorkDatabase workDatabase = workManagerImpl.getWorkDatabase();
+                    workDatabase.beginTransaction();
+                    try {
+                        WorkSpecDao workSpecDao = workDatabase.workSpecDao();
+                        List<String> workSpecIds = workSpecDao.getUnfinishedWorkWithTag(tag);
+                        for (String workSpecId : workSpecIds) {
+                            cancel(workManagerImpl, workSpecId);
+                        }
+                        workDatabase.setTransactionSuccessful();
+                    } finally {
+                        workDatabase.endTransaction();
                     }
-                    workDatabase.setTransactionSuccessful();
+                    reschedulePendingWorkers(workManagerImpl);
+                } catch (Throwable throwable) {
+                    mFuture.setException(throwable);
                 } finally {
-                    workDatabase.endTransaction();
+                    mFuture.set(null);
                 }
-                reschedulePendingWorkers(workManagerImpl);
+            }
+
+            @Override
+            public ListenableFuture<Void> getFuture() {
+                return mFuture;
             }
         };
     }
@@ -135,32 +168,45 @@ public abstract class CancelWorkRunnable implements Runnable {
      * @param name The name to cancel
      * @param workManagerImpl The {@link WorkManagerImpl} to use
      * @param allowReschedule If {@code true}, reschedule pending workers at the end
-     * @return A {@link Runnable} that cancels work labelled with a specific name
+     * @return A {@link CancelWorkRunnable} that cancels work labelled with a specific name
      */
-    public static Runnable forName(
+    public static CancelWorkRunnable forName(
             @NonNull final String name,
             @NonNull final WorkManagerImpl workManagerImpl,
             final boolean allowReschedule) {
         return new CancelWorkRunnable() {
+            private final SettableFuture<Void> mFuture = SettableFuture.create();
+
             @WorkerThread
             @Override
             public void run() {
-                WorkDatabase workDatabase = workManagerImpl.getWorkDatabase();
-                workDatabase.beginTransaction();
                 try {
-                    WorkSpecDao workSpecDao = workDatabase.workSpecDao();
-                    List<String> workSpecIds = workSpecDao.getUnfinishedWorkWithName(name);
-                    for (String workSpecId : workSpecIds) {
-                        cancel(workManagerImpl, workSpecId);
+                    WorkDatabase workDatabase = workManagerImpl.getWorkDatabase();
+                    workDatabase.beginTransaction();
+                    try {
+                        WorkSpecDao workSpecDao = workDatabase.workSpecDao();
+                        List<String> workSpecIds = workSpecDao.getUnfinishedWorkWithName(name);
+                        for (String workSpecId : workSpecIds) {
+                            cancel(workManagerImpl, workSpecId);
+                        }
+                        workDatabase.setTransactionSuccessful();
+                    } finally {
+                        workDatabase.endTransaction();
                     }
-                    workDatabase.setTransactionSuccessful();
-                } finally {
-                    workDatabase.endTransaction();
-                }
 
-                if (allowReschedule) {
-                    reschedulePendingWorkers(workManagerImpl);
+                    if (allowReschedule) {
+                        reschedulePendingWorkers(workManagerImpl);
+                    }
+                } catch (Throwable throwable) {
+                    mFuture.setException(throwable);
+                } finally {
+                    mFuture.set(null);
                 }
+            }
+
+            @Override
+            public ListenableFuture<Void> getFuture() {
+                return mFuture;
             }
         };
     }
@@ -169,28 +215,42 @@ public abstract class CancelWorkRunnable implements Runnable {
      * Creates a {@link CancelWorkRunnable} that cancels all work.
      *
      * @param workManagerImpl The {@link WorkManagerImpl} to use
-     * @return A {@link Runnable} that cancels all work
+     * @return A {@link CancelWorkRunnable} that cancels all work
      */
-    public static Runnable forAll(@NonNull final WorkManagerImpl workManagerImpl) {
+    public static CancelWorkRunnable forAll(@NonNull final WorkManagerImpl workManagerImpl) {
         return new CancelWorkRunnable() {
+            private final SettableFuture<Void> mFuture = SettableFuture.create();
+
             @Override
             public void run() {
-                WorkDatabase workDatabase = workManagerImpl.getWorkDatabase();
-                workDatabase.beginTransaction();
                 try {
-                    WorkSpecDao workSpecDao = workDatabase.workSpecDao();
-                    List<String> workSpecIds = workSpecDao.getAllUnfinishedWork();
-                    for (String workSpecId : workSpecIds) {
-                        cancel(workManagerImpl, workSpecId);
+                    WorkDatabase workDatabase = workManagerImpl.getWorkDatabase();
+                    workDatabase.beginTransaction();
+                    try {
+                        WorkSpecDao workSpecDao = workDatabase.workSpecDao();
+                        List<String> workSpecIds = workSpecDao.getAllUnfinishedWork();
+                        for (String workSpecId : workSpecIds) {
+                            cancel(workManagerImpl, workSpecId);
+                        }
+                        workDatabase.setTransactionSuccessful();
+                        // Update the last cancelled time in Preferences.
+                        new Preferences(workManagerImpl.getApplicationContext())
+                                .setLastCancelAllTimeMillis(System.currentTimeMillis());
+                    } finally {
+                        workDatabase.endTransaction();
                     }
-                    workDatabase.setTransactionSuccessful();
-                    // Update the preferences
-                    new Preferences(workManagerImpl.getApplicationContext())
-                            .setLastCancelAllTimeMillis(System.currentTimeMillis());
+                    // No need to call reschedule pending workers here as we just cancelled
+                    // everything.
+                } catch (Throwable throwable) {
+                    mFuture.setException(throwable);
                 } finally {
-                    workDatabase.endTransaction();
+                    mFuture.set(null);
                 }
-                // No need to call reschedule pending workers here as we just cancelled everything.
+            }
+
+            @Override
+            public ListenableFuture<Void> getFuture() {
+                return mFuture;
             }
         };
     }
