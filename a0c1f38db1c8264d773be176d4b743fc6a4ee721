@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "3d6df5db_0c582c03",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-01T21:12:13Z",
+      "side": 1,
+      "message": "probably just have addPerson(...) similar to notifications",
+      "parentUuid": "b6d6b8b6_456db880",
+      "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b1b16a89_75d82c64",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
         "patchSetId": 12
@@ -47,6 +65,24 @@
       "writtenOn": "2018-10-01T21:06:46Z",
       "side": 1,
       "message": "a bit weird that you can\u0027t read it back; same with persons",
+      "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42b7e8c5_96696629",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-01T21:12:13Z",
+      "side": 1,
+      "message": "The API and actual usage follow the same pattern as Notification. Users are supposed to create an object and send it to the system.\nThe getters only return the information required to identify this object and everything is, the app is supposed to track itself.",
+      "parentUuid": "b1b16a89_75d82c64",
       "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
