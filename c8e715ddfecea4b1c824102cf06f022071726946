@@ -187,6 +187,30 @@
       "revId": "c8e715ddfecea4b1c824102cf06f022071726946",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aea3ed96_0cbf618c",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-01T20:27:02Z",
+      "side": 1,
+      "message": "aosp/774467",
+      "parentUuid": "d3552f04_28b7a927",
+      "range": {
+        "startLine": 103,
+        "startChar": 31,
+        "endLine": 103,
+        "endChar": 52
+      },
+      "revId": "c8e715ddfecea4b1c824102cf06f022071726946",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
