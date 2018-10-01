@@ -90,6 +90,47 @@
     },
     {
       "key": {
+        "uuid": "b7ba830e_af839e8a",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-01T22:51:58Z",
+      "side": 1,
+      "message": "ok, lets leave it as it is, but receive array instead of Set\u003cString\u003e in setCategories so these apis will aligned.",
+      "parentUuid": "679ab27c_11e1f0b8",
+      "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51e4fd00_981dff84",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-01T22:51:58Z",
+      "side": 1,
+      "message": "add to docs, what are possible categories here",
+      "range": {
+        "startLine": 421,
+        "startChar": 23,
+        "endLine": 421,
+        "endChar": 36
+      },
+      "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b1b16a89_75d82c64",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
         "patchSetId": 12
@@ -137,6 +178,24 @@
       "side": 1,
       "message": "another example is mIcon that doesn\u0027t come with a getter.",
       "parentUuid": "42b7e8c5_96696629",
+      "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e02c569_60bd8076",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-01T22:51:58Z",
+      "side": 1,
+      "message": "well, I see your point, but at the same time there is a value to read back data for developers. Is there any harm of adding them? (I don\u0027t see obvious pattern in this APIs of NOT having getters, but yeah some things miss them)",
+      "parentUuid": "2f8bec95_e9379e45",
       "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
