@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "507ac292_28df0b4e",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 838,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-01T06:03:21Z",
+      "side": 1,
+      "message": "Forgot to change this... done.",
+      "parentUuid": "da3bf9dc_490622c1",
+      "range": {
+        "startLine": 838,
+        "startChar": 42,
+        "endLine": 838,
+        "endChar": 49
+      },
+      "revId": "c3a0fa433e2ae7ad280c6e699f05bf04e490de9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d04392b_86c5ce7d",
         "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "c3a0fa433e2ae7ad280c6e699f05bf04e490de9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edf12363_0f939bef",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-01T06:03:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d04392b_86c5ce7d",
+      "range": {
+        "startLine": 837,
+        "startChar": 0,
+        "endLine": 847,
+        "endChar": 9
+      },
+      "revId": "c3a0fa433e2ae7ad280c6e699f05bf04e490de9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f0c654ae_e7f32c92",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-01T06:03:21Z",
+      "side": 1,
+      "message": "Renamed variable above to \"path\"",
+      "parentUuid": "a3e46596_edb6dab8",
+      "range": {
+        "startLine": 849,
+        "startChar": 0,
+        "endLine": 855,
+        "endChar": 0
+      },
+      "revId": "c3a0fa433e2ae7ad280c6e699f05bf04e490de9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6179832a_d999d67d",
         "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2018-09-28T08:08:09Z",
       "side": 1,
       "message": "Just my two cents: what about extracting a method for this repeating code..?\n\nString extractString(MediaMetadata2 metadata, retriever, int key, String defaultValue) {\n    String value \u003d null;\n\n    if (metadata !\u003d null) {\n        value \u003d metadata.getString(key);\n        if (value !\u003d null \u0026\u0026 !value.isEmpty()) {\n            return value;\n        }\n    }\n    if (retriever !\u003d null) {\n        switch(key) {\n            case MediaMetadata2.METADATA_KEY_TITLE:\n                value \u003d \n                   retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);\n        ...\n        }\n    }\n    return (value \u003d\u003d null) ? defaultValue : value;\n}",
+      "range": {
+        "startLine": 888,
+        "startChar": 0,
+        "endLine": 899,
+        "endChar": 0
+      },
+      "revId": "c3a0fa433e2ae7ad280c6e699f05bf04e490de9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7af757d_81a7b60d",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-01T06:03:21Z",
+      "side": 1,
+      "message": "Thanks for this detailed suggestion... done!",
+      "parentUuid": "6179832a_d999d67d",
       "range": {
         "startLine": 888,
         "startChar": 0,
