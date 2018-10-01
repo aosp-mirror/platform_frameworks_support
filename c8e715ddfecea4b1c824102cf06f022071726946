@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "adaed341_18679eeb",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-01T20:03:36Z",
+      "side": 1,
+      "message": "Done. sorry I was deferring docs until we iron out the details.",
+      "parentUuid": "9650efcd_e1841182",
+      "range": {
+        "startLine": 38,
+        "startChar": 3,
+        "endLine": 38,
+        "endChar": 21
+      },
+      "revId": "c8e715ddfecea4b1c824102cf06f022071726946",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dfbf8b52_6a4144fd",
         "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
         "patchSetId": 1
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "4b170769_39d15c9c",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-01T20:03:36Z",
+      "side": 1,
+      "message": "i need an executor and this is the only one i have right here.",
+      "parentUuid": "81ba944e_a280af08",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 76
+      },
+      "revId": "c8e715ddfecea4b1c824102cf06f022071726946",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "117f5f89_6b0986d2",
         "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
         "patchSetId": 1
@@ -82,6 +130,30 @@
       "writtenOn": "2018-10-01T19:58:44Z",
       "side": 1,
       "message": "Same.  This is the executor where all of WM\u0027s business logic happens (enqueues, cancels, etc.).  Maybe you want this but I\u0027m not sure if it matters.  Moreover, there may be a strong argument you want the errors to propagate on the main thread?",
+      "range": {
+        "startLine": 103,
+        "startChar": 31,
+        "endLine": 103,
+        "endChar": 52
+      },
+      "revId": "c8e715ddfecea4b1c824102cf06f022071726946",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58b12ddb_4d447535",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-01T20:03:36Z",
+      "side": 1,
+      "message": "wait i thought it was the executor which has the thread pools provided by the developer.\ni didn\u0027t think that it is WM\u0027s private thread.\n\nin that case, we shouldn\u0027t expose it.",
+      "parentUuid": "117f5f89_6b0986d2",
       "range": {
         "startLine": 103,
         "startChar": 31,
