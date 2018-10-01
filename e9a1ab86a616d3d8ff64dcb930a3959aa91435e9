@@ -22,6 +22,30 @@
       "revId": "e9a1ab86a616d3d8ff64dcb930a3959aa91435e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3b76cb3_9aabd6fb",
+        "filename": "car/core/src/main/java/androidx/car/widget/AlphaJumpOverlayView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-10-01T23:54:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f77ab51_ab6f9380",
+      "range": {
+        "startLine": 103,
+        "startChar": 35,
+        "endLine": 103,
+        "endChar": 53
+      },
+      "revId": "e9a1ab86a616d3d8ff64dcb930a3959aa91435e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
