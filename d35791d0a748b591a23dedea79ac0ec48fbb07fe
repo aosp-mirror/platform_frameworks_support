@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d57c4d2e_e42653c2",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-01T20:54:09Z",
+      "side": 1,
+      "message": "A {@link ListenableFuture} that completes when the enqueue operation is completed\n\nPlease change all the other Javadoc accordingly.",
+      "range": {
+        "startLine": 169,
+        "startChar": 15,
+        "endLine": 170,
+        "endChar": 25
+      },
+      "revId": "d35791d0a748b591a23dedea79ac0ec48fbb07fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
