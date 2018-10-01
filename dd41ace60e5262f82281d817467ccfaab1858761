@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aac6425_3087c362",
+        "filename": "transition/src/main/java/androidx/transition/Visibility.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-10-01T18:21:00Z",
+      "side": 0,
+      "message": "here and on line 390 we had logic creating copy of the view. I think it should be unified. to achieve this I created flag needOverlayForStartView checking for which I will later execute all this logic marked here as red. So I moved this logic to if (needOverlayForStartView) block",
+      "revId": "dd41ace60e5262f82281d817467ccfaab1858761",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

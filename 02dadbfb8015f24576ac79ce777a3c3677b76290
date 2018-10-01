@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "195e3e98_f35f19c6",
+        "filename": "transition/src/main/java/androidx/transition/Visibility.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-10-01T18:21:00Z",
+      "side": 1,
+      "message": "so this block is just moved code from old version line 351 except the new logic about reusing overlay view(lines 373-379)",
+      "revId": "02dadbfb8015f24576ac79ce777a3c3677b76290",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abf2aed2_9817cb51",
+        "filename": "transition/src/main/java/androidx/transition/Visibility.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-10-01T18:21:00Z",
+      "side": 1,
+      "message": "when we are reusing the view we should not add/remove it to overlay, just apply an additional animation for it",
+      "revId": "02dadbfb8015f24576ac79ce777a3c3677b76290",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
