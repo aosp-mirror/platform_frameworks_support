@@ -1287,6 +1287,15 @@ public class MediaSession2 implements MediaInterface2.SessionPlayer, AutoCloseab
                 @MediaPlaylistAgent.RepeatMode int repeatMode) { }
 
         /**
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public @ErrorCode int bugreport() {
+            return ERROR_CODE_APP_ERROR;
+        }
+
+
+        /**
          * Called when the player state is changed. Used internally for setting the
          * {@link MediaSessionService2} as foreground/background.
          */
