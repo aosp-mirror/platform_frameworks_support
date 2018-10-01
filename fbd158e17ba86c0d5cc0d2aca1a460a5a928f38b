@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c68b1fd_1f73a71b",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-01T18:46:06Z",
+      "side": 1,
+      "message": "no \"\u003c/p\u003e\"",
+      "range": {
+        "startLine": 55,
+        "startChar": 9,
+        "endLine": 55,
+        "endChar": 13
+      },
+      "revId": "fbd158e17ba86c0d5cc0d2aca1a460a5a928f38b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e15fbe73_e6bebc91",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-01T18:46:06Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem right. This should be a singleton, we shouldn\u0027t recreate this every time. Can you use the LAZY_HOLDER.INSTANCE pattern from ServiceWorker?",
+      "range": {
+        "startLine": 103,
+        "startChar": 19,
+        "endLine": 103,
+        "endChar": 40
+      },
+      "revId": "fbd158e17ba86c0d5cc0d2aca1a460a5a928f38b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5605f7f_1d2cb72d",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-01T18:46:06Z",
+      "side": 1,
+      "message": "Primitives can\u0027t be null, so this is redundant",
+      "range": {
+        "startLine": 109,
+        "startChar": 4,
+        "endLine": 109,
+        "endChar": 12
+      },
+      "revId": "fbd158e17ba86c0d5cc0d2aca1a460a5a928f38b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de410017_27618562",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-01T18:46:06Z",
+      "side": 1,
+      "message": "I think this syntax is wrong. It should be \"@see foo\", not \"{@see foo}\"",
+      "range": {
+        "startLine": 144,
+        "startChar": 7,
+        "endLine": 144,
+        "endChar": 65
+      },
+      "revId": "fbd158e17ba86c0d5cc0d2aca1a460a5a928f38b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a887018b_3bb7f0b2",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-01T18:46:06Z",
+      "side": 1,
+      "message": "I believe this needs to be above the @see block",
+      "range": {
+        "startLine": 146,
+        "startChar": 7,
+        "endLine": 148,
+        "endChar": 86
+      },
+      "revId": "fbd158e17ba86c0d5cc0d2aca1a460a5a928f38b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4c9de48_4fb1cf20",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-01T18:46:06Z",
+      "side": 1,
+      "message": "nit: false, not False",
+      "range": {
+        "startLine": 178,
+        "startChar": 22,
+        "endLine": 178,
+        "endChar": 27
+      },
+      "revId": "fbd158e17ba86c0d5cc0d2aca1a460a5a928f38b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

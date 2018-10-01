@@ -355,6 +355,30 @@
     },
     {
       "key": {
+        "uuid": "a2c7f0e0_d40acd2b",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-01T18:46:06Z",
+      "side": 1,
+      "message": "My understanding is that it\u0027s OK to use constants which are inlined in the SDK. In fact, we\u0027ve never had to suppress such lint warnings in other cases. Does this lint issue block submission (requiring suppression) or are you doing this because it\u0027s an in-editor warning?",
+      "parentUuid": "d6b974e0_6c0379b4",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 31
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6175c7cb_408dadc7",
         "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
         "patchSetId": 1
