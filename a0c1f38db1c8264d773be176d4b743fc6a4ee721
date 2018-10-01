@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9de1e10d_d435b6bc",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-01T21:06:46Z",
+      "side": 1,
+      "message": "you need nullability annotations for public apis;",
+      "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6d6b8b6_456db880",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-01T21:06:46Z",
+      "side": 1,
+      "message": "it is weird that you have both Set/array in api surface.",
+      "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1b16a89_75d82c64",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-01T21:06:46Z",
+      "side": 1,
+      "message": "a bit weird that you can\u0027t read it back; same with persons",
+      "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
