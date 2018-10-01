@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f927da1_b60db8b0",
+        "filename": "jetifier/jetifier/preprocessor/scripts/processDefaultConfig.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-01T17:35:53Z",
+      "side": 1,
+      "message": "It looks like the previous dest filepath was multidex.aar ; was it intentional to add a version into the name?",
+      "revId": "8064bf544c805a4a2fab3a478b58115632314076",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
