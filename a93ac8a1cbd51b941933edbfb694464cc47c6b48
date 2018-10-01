@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "0b57baed_17e4241d",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-01T09:33:32Z",
+      "side": 1,
+      "message": "Yeah, I\u0027m no sure, what idiomatic should be..it us to define..I tend to this solution as well. Jake, Adam which way in your opinion should be idiomatic? (Jake, I saw your proposal, you defined scope as private val, so we better hide scope from public and define it more explicitly?)",
+      "parentUuid": "3285a678_2f70d76e",
+      "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8f5277d_dadee2b8",
         "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
         "patchSetId": 1
