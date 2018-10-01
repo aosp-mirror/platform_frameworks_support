@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "0788c3e1_22e20bf2",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-01T23:45:11Z",
+      "side": 1,
+      "message": "Sorry I didn\u0027t see this comment.\n\nSessionPlayer2 is intended and SessionPlayer is typo.\nI added the \u00272\u0027 everywhere to keep the existing Media*2 API convention.\n\nFrom our previous discussion, we decided to ask about the \u00272\u0027 to the API council\nbut still we haven\u0027t got answer yet.\nCouncil might want to review our APIs at once, instead of answering individual question.",
+      "parentUuid": "bc46875f_070479df",
+      "range": {
+        "startLine": 660,
+        "startChar": 24,
+        "endLine": 660,
+        "endChar": 38
+      },
+      "revId": "71ecef6c7b52653cfeea6ea420ec47d391b27059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9200ab8_2dfb3d67",
         "filename": "media2/api/current.txt",
         "patchSetId": 2
