@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "9ced771d_f2dc9bea",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-01T09:41:47Z",
+      "side": 1,
+      "message": "Will be handled in another CL which introduce ListenableFuture for MC2",
+      "parentUuid": "347c1803_c4f5f52d",
+      "range": {
+        "startLine": 705,
+        "startChar": 34,
+        "endLine": 705,
+        "endChar": 55
+      },
+      "revId": "e9752a249e29b00ee27e19251551221633daf22f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56b13997_e7f77248",
         "filename": "media2/api/current.txt",
         "patchSetId": 10
@@ -94,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "e582a780_0fde5060",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-01T09:41:47Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "56b13997_e7f77248",
+      "range": {
+        "startLine": 708,
+        "startChar": 34,
+        "endLine": 708,
+        "endChar": 63
+      },
+      "revId": "e9752a249e29b00ee27e19251551221633daf22f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8cfa98a2_cfbd3aa7",
         "filename": "media2/api/current.txt",
         "patchSetId": 10
@@ -114,6 +162,30 @@
       "revId": "e9752a249e29b00ee27e19251551221633daf22f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f944e42e_3507289a",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-01T09:41:47Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "8cfa98a2_cfbd3aa7",
+      "range": {
+        "startLine": 709,
+        "startChar": 34,
+        "endLine": 709,
+        "endChar": 54
+      },
+      "revId": "e9752a249e29b00ee27e19251551221633daf22f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
