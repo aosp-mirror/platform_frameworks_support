@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc217b6c_00b57c7c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-01T18:19:56Z",
+      "side": 1,
+      "message": "(after we talked offline and you mentioned that \":sqlite:sqlite\" wasn\u0027t found because this turned into \":sqlite\")\n\nrecommend one of:\n\n  adding \"// TODO: support projects having two \u0027:\u0027 chars in the name\"\n\nor\n\n  supporting projects having two \u0027:\u0027 in the name (via the map we were thinking about)",
+      "revId": "7f455ff91015c15014dbbb153206ddbafd5caf98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
