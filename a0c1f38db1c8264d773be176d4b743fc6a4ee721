@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2fc59f40_77d162f1",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-01T21:37:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9de1e10d_d435b6bc",
+      "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6d6b8b6_456db880",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
         "patchSetId": 12
@@ -54,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "679ab27c_11e1f0b8",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-01T21:37:12Z",
+      "side": 1,
+      "message": "The idea for addPersons(Person[]) is that a given share-target can have/relate to more than one person. This api is similar to setIntent(Intent)/setIntents(Intent[]). Let me know what you think.",
+      "parentUuid": "3d6df5db_0c582c03",
+      "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b1b16a89_75d82c64",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
         "patchSetId": 12
@@ -83,6 +119,24 @@
       "side": 1,
       "message": "The API and actual usage follow the same pattern as Notification. Users are supposed to create an object and send it to the system.\nThe getters only return the information required to identify this object and everything is, the app is supposed to track itself.",
       "parentUuid": "b1b16a89_75d82c64",
+      "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f8bec95_e9379e45",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-01T21:37:12Z",
+      "side": 1,
+      "message": "another example is mIcon that doesn\u0027t come with a getter.",
+      "parentUuid": "42b7e8c5_96696629",
       "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
