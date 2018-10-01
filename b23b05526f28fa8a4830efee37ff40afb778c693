@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0b3c7a02_e3741f4d",
+        "filename": "car/core/res/drawable/car_alpha_jump_button_background.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-10-01T22:58:11Z",
+      "side": 1,
+      "message": "As of now, Day mode buttons have a light background, so the ripple should be dark.",
+      "parentUuid": "27d9ad81_ab050da9",
+      "range": {
+        "startLine": 24,
+        "startChar": 41,
+        "endLine": 24,
+        "endChar": 50
+      },
+      "revId": "b23b05526f28fa8a4830efee37ff40afb778c693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5432f119_ca29fcc3",
         "filename": "car/core/res/drawable/ic_nav_arrow_back.xml",
         "patchSetId": 1
@@ -65,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "e92825fd_2b0ce10a",
+        "filename": "car/core/res/layout/car_alpha_jump_picker_button.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-10-01T22:58:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9b041ae1_4089fcd0",
+      "revId": "b23b05526f28fa8a4830efee37ff40afb778c693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dea0da03_120955d8",
         "filename": "car/core/res/layout/car_paged_scrollbar_buttons.xml",
         "patchSetId": 1
@@ -82,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "000e90f2_4ea7e584",
+        "filename": "car/core/res/layout/car_paged_scrollbar_buttons.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-10-01T22:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dea0da03_120955d8",
+      "revId": "b23b05526f28fa8a4830efee37ff40afb778c693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94075684_18bd78dc",
         "filename": "car/core/res/layout/car_paged_scrollbar_buttons.xml",
         "patchSetId": 1
@@ -96,6 +156,24 @@
       "revId": "b23b05526f28fa8a4830efee37ff40afb778c693",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9907ed94_d3ec0f7b",
+        "filename": "car/core/res/layout/car_paged_scrollbar_buttons.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-10-01T22:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94075684_18bd78dc",
+      "revId": "b23b05526f28fa8a4830efee37ff40afb778c693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -122,6 +200,30 @@
     },
     {
       "key": {
+        "uuid": "a390e498_d4f31fa5",
+        "filename": "car/core/res/values/colors.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-10-01T22:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "288f7cca_6772fa92",
+      "range": {
+        "startLine": 156,
+        "startChar": 41,
+        "endLine": 156,
+        "endChar": 49
+      },
+      "revId": "b23b05526f28fa8a4830efee37ff40afb778c693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1412bcf2_e378d666",
         "filename": "car/core/res/values/colors.xml",
         "patchSetId": 1
@@ -145,6 +247,30 @@
     },
     {
       "key": {
+        "uuid": "c72bf54f_7dc5230a",
+        "filename": "car/core/res/values/colors.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-10-01T22:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1412bcf2_e378d666",
+      "range": {
+        "startLine": 159,
+        "startChar": 52,
+        "endLine": 159,
+        "endChar": 58
+      },
+      "revId": "b23b05526f28fa8a4830efee37ff40afb778c693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a40e52c_4d71c641",
         "filename": "car/core/res/values/integers.xml",
         "patchSetId": 1
@@ -162,6 +288,24 @@
     },
     {
       "key": {
+        "uuid": "c3f15f35_af9f277f",
+        "filename": "car/core/res/values/integers.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-10-01T22:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a40e52c_4d71c641",
+      "revId": "b23b05526f28fa8a4830efee37ff40afb778c693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c09f7af1_0ae0b259",
         "filename": "car/core/res/values/strings.xml",
         "patchSetId": 1
@@ -176,6 +320,24 @@
       "revId": "b23b05526f28fa8a4830efee37ff40afb778c693",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb2a6bb5_143652d3",
+        "filename": "car/core/res/values/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-10-01T22:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c09f7af1_0ae0b259",
+      "revId": "b23b05526f28fa8a4830efee37ff40afb778c693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
