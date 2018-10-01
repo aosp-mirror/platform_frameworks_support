@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "c44226a9_5f92d2e0",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1191,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-10-01T06:57:51Z",
+      "side": 1,
+      "message": "Let\u0027s remove this. thanks.",
+      "range": {
+        "startLine": 1187,
+        "startChar": 0,
+        "endLine": 1191,
+        "endChar": 25
+      },
+      "revId": "6d4383ce4df45c8cd4857270951802caddfd189a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61222aed_86b68953",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1230,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-10-01T06:57:51Z",
+      "side": 1,
+      "message": "Extracting onPrepared() would be better to read.",
+      "range": {
+        "startLine": 1187,
+        "startChar": 0,
+        "endLine": 1230,
+        "endChar": 25
+      },
+      "revId": "6d4383ce4df45c8cd4857270951802caddfd189a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e582ea54_619b3b38",
         "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
         "patchSetId": 1
