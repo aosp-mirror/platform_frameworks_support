@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f77ab51_ab6f9380",
+        "filename": "car/core/src/main/java/androidx/car/widget/AlphaJumpOverlayView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-10-01T23:49:44Z",
+      "side": 1,
+      "message": "probably don\u0027t need to include that in the comments and below as well",
+      "range": {
+        "startLine": 103,
+        "startChar": 35,
+        "endLine": 103,
+        "endChar": 53
+      },
+      "revId": "e9a1ab86a616d3d8ff64dcb930a3959aa91435e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

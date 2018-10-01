@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55557a6d_3c244eef",
+        "filename": "car/core/src/main/java/androidx/car/widget/AlphaJumpOverlayView.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-10-01T23:49:44Z",
+      "side": 1,
+      "message": "you can in-line the variable definition since you only use theme once",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 13
+      },
+      "revId": "50d5946233c8c14017815c8355f0fec4b3383f79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
