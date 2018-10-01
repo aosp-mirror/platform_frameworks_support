@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "fdbfc354_3370bc71",
+        "filename": "car/core/res/drawable/car_alpha_jump_button_background.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-10-01T23:47:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0b3c7a02_e3741f4d",
+      "range": {
+        "startLine": 24,
+        "startChar": 41,
+        "endLine": 24,
+        "endChar": 50
+      },
+      "revId": "b23b05526f28fa8a4830efee37ff40afb778c693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5432f119_ca29fcc3",
         "filename": "car/core/res/drawable/ic_nav_arrow_back.xml",
         "patchSetId": 1
@@ -69,6 +93,30 @@
       "revId": "b23b05526f28fa8a4830efee37ff40afb778c693",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cfdfc4c_590c7c82",
+        "filename": "car/core/res/drawable/ic_nav_arrow_back.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-10-01T23:47:56Z",
+      "side": 1,
+      "message": "Changed it back. For now the toolbar has been removed and the arrow is not being used elsewhere in the Alpha Jump so I\u0027ll leave adding a tint until it is.",
+      "parentUuid": "5432f119_ca29fcc3",
+      "range": {
+        "startLine": 25,
+        "startChar": 34,
+        "endLine": 25,
+        "endChar": 43
+      },
+      "revId": "b23b05526f28fa8a4830efee37ff40afb778c693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -364,6 +412,30 @@
     },
     {
       "key": {
+        "uuid": "dd4ebad0_189ea515",
+        "filename": "car/core/src/main/java/androidx/car/widget/AlphaJumpOverlayView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-10-01T23:47:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a0832113_c789a16a",
+      "range": {
+        "startLine": 37,
+        "startChar": 3,
+        "endLine": 38,
+        "endChar": 0
+      },
+      "revId": "b23b05526f28fa8a4830efee37ff40afb778c693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d03104e1_174c6759",
         "filename": "car/core/src/main/java/androidx/car/widget/AlphaJumpOverlayView.java",
         "patchSetId": 1
@@ -378,6 +450,24 @@
       "revId": "b23b05526f28fa8a4830efee37ff40afb778c693",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f81bb17a_7d58a1df",
+        "filename": "car/core/src/main/java/androidx/car/widget/AlphaJumpOverlayView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-10-01T23:47:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d03104e1_174c6759",
+      "revId": "b23b05526f28fa8a4830efee37ff40afb778c693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
