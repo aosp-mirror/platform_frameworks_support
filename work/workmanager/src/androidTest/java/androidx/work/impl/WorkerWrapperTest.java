@@ -193,6 +193,7 @@ public class WorkerWrapperTest extends DatabaseTest {
                         new WorkerParameters.RuntimeExtras(),
                         1,
                         mSynchronousExecutor,
+                        mWorkTaskExecutor,
                         mConfiguration.getWorkerFactory()));
 
 
@@ -646,6 +647,7 @@ public class WorkerWrapperTest extends DatabaseTest {
                         new WorkerParameters.RuntimeExtras(),
                         1,
                         mSynchronousExecutor,
+                        mWorkTaskExecutor,
                         mConfiguration.getWorkerFactory()));
 
         assertThat(worker, is(notNullValue()));
@@ -671,6 +673,7 @@ public class WorkerWrapperTest extends DatabaseTest {
                         new WorkerParameters.RuntimeExtras(),
                         1,
                         mSynchronousExecutor,
+                        mWorkTaskExecutor,
                         mConfiguration.getWorkerFactory()));
 
         assertThat(worker, is(notNullValue()));
@@ -687,6 +690,7 @@ public class WorkerWrapperTest extends DatabaseTest {
                         new WorkerParameters.RuntimeExtras(),
                         1,
                         mSynchronousExecutor,
+                        mWorkTaskExecutor,
                         mConfiguration.getWorkerFactory()));
 
         assertThat(worker, is(notNullValue()));
@@ -712,6 +716,7 @@ public class WorkerWrapperTest extends DatabaseTest {
                         new WorkerParameters.RuntimeExtras(),
                         1,
                         mSynchronousExecutor,
+                        mWorkTaskExecutor,
                         mConfiguration.getWorkerFactory()));
 
         assertThat(worker, is(notNullValue()));
@@ -737,6 +742,7 @@ public class WorkerWrapperTest extends DatabaseTest {
                         runtimeExtras,
                         1,
                         mSynchronousExecutor,
+                        mWorkTaskExecutor,
                         mConfiguration.getWorkerFactory()));
 
         assertThat(worker, is(notNullValue()));
@@ -819,6 +825,7 @@ public class WorkerWrapperTest extends DatabaseTest {
                         new WorkerParameters.RuntimeExtras(),
                         1,
                         Executors.newSingleThreadExecutor(),
+                        mWorkTaskExecutor,
                         mConfiguration.getWorkerFactory()));
 
         WorkerWrapper workerWrapper =
@@ -859,6 +866,7 @@ public class WorkerWrapperTest extends DatabaseTest {
                         new WorkerParameters.RuntimeExtras(),
                         1,
                         mSynchronousExecutor,
+                        mWorkTaskExecutor,
                         mConfiguration.getWorkerFactory()));
         assertThat(worker, is(notNullValue()));
         assertThat(worker.isStopped(), is(false));
@@ -891,6 +899,7 @@ public class WorkerWrapperTest extends DatabaseTest {
                         new WorkerParameters.RuntimeExtras(),
                         1,
                         mSynchronousExecutor,
+                        mWorkTaskExecutor,
                         mConfiguration.getWorkerFactory()));
         assertThat(worker, is(notNullValue()));
         assertThat(worker.isStopped(), is(false));
