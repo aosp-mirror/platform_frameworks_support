@@ -1157,7 +1157,7 @@ public class PagedListView extends FrameLayout {
             addView(mAlphaJumpView);
         }
 
-        mAlphaJumpView.setVisibility(View.VISIBLE);
+        mAlphaJumpView.show();
     }
 
     private final RecyclerView.OnScrollListener mRecyclerViewOnScrollListener =
