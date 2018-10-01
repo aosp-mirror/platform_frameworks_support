@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "f773cb5c_13b0160e",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-01T23:23:56Z",
+      "side": 1,
+      "message": "Was trying to be consistent with framework version of ShortcutInfo:\nhttps://developer.android.com/reference/android/content/pm/ShortcutInfo.Builder.html#setCategories(java.util.Set%3Cjava.lang.String%3E)\nWhat do you think?",
+      "parentUuid": "b7ba830e_af839e8a",
+      "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "51e4fd00_981dff84",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
         "patchSetId": 12
@@ -119,6 +137,30 @@
       "writtenOn": "2018-10-01T22:51:58Z",
       "side": 1,
       "message": "add to docs, what are possible categories here",
+      "range": {
+        "startLine": 421,
+        "startChar": 23,
+        "endLine": 421,
+        "endChar": 36
+      },
+      "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91541ad0_ec58b101",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-01T23:23:56Z",
+      "side": 1,
+      "message": "Categories can be anything (any string), based on what is defined the the App\u0027s manifest. I agree that we need to clarify more in the documentation.",
+      "parentUuid": "51e4fd00_981dff84",
       "range": {
         "startLine": 421,
         "startChar": 23,
