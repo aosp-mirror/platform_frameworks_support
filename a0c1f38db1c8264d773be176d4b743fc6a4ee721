@@ -199,6 +199,24 @@
       "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ae57f3b_b93b6d30",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-01T23:02:46Z",
+      "side": 1,
+      "message": "The getters would need to support icons, which are currently written to disk as bitmaps.\n\nIt will increase the cost of the API significantly as platform will need to read and parse the bitmap everytime and also increase the parcel size (for corresponding new APIS in Q).",
+      "parentUuid": "5e02c569_60bd8076",
+      "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
