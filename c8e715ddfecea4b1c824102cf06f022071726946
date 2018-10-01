@@ -163,6 +163,30 @@
       "revId": "c8e715ddfecea4b1c824102cf06f022071726946",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3552f04_28b7a927",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-01T20:11:02Z",
+      "side": 1,
+      "message": "Sorry, I misspoke, this is actually the Executor that can be specified by the developer.  it\u0027s not the business logic executor.\n\nAs discussed, we probably do want it to be the main thread.  You will need to plumb that through (WorkerWrapper -\u003e WorkerParameters -\u003e RxWorker).  I can do that for you; I\u0027ll send you a CL.",
+      "parentUuid": "58b12ddb_4d447535",
+      "range": {
+        "startLine": 103,
+        "startChar": 31,
+        "endLine": 103,
+        "endChar": 52
+      },
+      "revId": "c8e715ddfecea4b1c824102cf06f022071726946",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
