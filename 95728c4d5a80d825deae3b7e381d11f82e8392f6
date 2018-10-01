@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2431981f_7b537bfc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-01T04:14:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "937b6ae5_b744892d",
+      "range": {
+        "startLine": 12,
+        "startChar": 5,
+        "endLine": 12,
+        "endChar": 30
+      },
+      "revId": "95728c4d5a80d825deae3b7e381d11f82e8392f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47f16e20_370815de",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "8929ecab_0d864938",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-01T04:14:28Z",
+      "side": 1,
+      "message": "ExoPlayerMediaPlayer2Impl fails to initiate on API 26 devices, and I thought that it\u0027s known issue.\n\nWhen I set the target SDK lower than P, I could see following crash in ExoPlayerMediaPlayer2Impl constructor.\n\nsponge: https://sponge.corp.google.com/invocation?tab\u003dTargets\u0026id\u003d0d0d9244-81d7-4076-9b1f-a4f03919470c\u0026searchFor\u003d\n\nStack trace\n01-01 00:01:37.763  5048  5064 E XMediaPlayerTest: Failed to instantiate XMediaPlayer\n01-01 00:01:37.763  5048  5064 E XMediaPlayerTest: java.lang.UnsupportedOperationException\n01-01 00:01:37.763  5048  5064 E XMediaPlayerTest: \tat androidx.media2.exoplayer.ExoPlayerMediaPlayer2Impl.setDrmEventCallback(ExoPlayerMediaPlayer2Impl.java:684)\n01-01 00:01:37.763  5048  5064 E XMediaPlayerTest: \tat androidx.media2.XMediaPlayer.\u003cinit\u003e(XMediaPlayer.java:611)\n01-01 00:01:37.763  5048  5064 E XMediaPlayerTest: \tat androidx.media2.XMediaPlayerTestBase$1.run(XMediaPlayerTestBase.java:78)\n01-01 00:01:37.763  5048  5064 E XMediaPlayerTest: \tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)\n01-01 00:01:37.763  5048  5064 E XMediaPlayerTest: \tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n01-01 00:01:37.763  5048  5064 E XMediaPlayerTest: \tat android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2092)\n01-01 00:01:37.763  5048  5064 E XMediaPlayerTest: \tat android.os.Handler.handleCallback(Handler.java:789)\n01-01 00:01:37.763  5048  5064 E XMediaPlayerTest: \tat android.os.Handler.dispatchMessage(Handler.java:98)\n01-01 00:01:37.763  5048  5064 E XMediaPlayerTest: \tat android.os.Looper.loop(Looper.java:164)\n01-01 00:01:37.763  5048  5064 E XMediaPlayerTest: \tat android.app.ActivityThread.main(ActivityThread.java:6541)\n01-01 00:01:37.763  5048  5064 E XMediaPlayerTest: \tat java.lang.reflect.Method.invoke(Native Method)\n01-01 00:01:37.763  5048  5064 E XMediaPlayerTest: \tat com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:240)\n01-01 00:01:37.763  5048  5064 E XMediaPlayerTest: \tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:767)",
+      "parentUuid": "47f16e20_370815de",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 4
+      },
+      "revId": "95728c4d5a80d825deae3b7e381d11f82e8392f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c9e23ab_aa1f5ebc",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
         "patchSetId": 8
@@ -68,6 +116,30 @@
       "revId": "95728c4d5a80d825deae3b7e381d11f82e8392f6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3235bbad_7a45b3e6",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-01T04:14:28Z",
+      "side": 1,
+      "message": "onCurrentMediaItemChanged() now takes @NonNull mediaItem.\n\nHere\u0027s the reason for the change.\nWhen the playback reaches the end, prevoulsy onCurrentMediaItemChanged(mp, null) will be called while the mp.getCurrentMediaItem() will return the lastly played one. This difference didn\u0027t look good, so sungsoo and I added a new callback onPlaybackCompleted(). Feel free to comment if you have any opinion here.",
+      "parentUuid": "1c9e23ab_aa1f5ebc",
+      "range": {
+        "startLine": 883,
+        "startChar": 20,
+        "endLine": 883,
+        "endChar": 39
+      },
+      "revId": "95728c4d5a80d825deae3b7e381d11f82e8392f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
