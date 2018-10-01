@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "bc46875f_070479df",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-01T15:31:56Z",
+      "side": 1,
+      "message": "FYI for jaewan, this comment is still open and remains unresolved in the new change aosp/761458",
+      "parentUuid": "a4d48fc0_14c67d73",
+      "range": {
+        "startLine": 660,
+        "startChar": 24,
+        "endLine": 660,
+        "endChar": 38
+      },
+      "revId": "71ecef6c7b52653cfeea6ea420ec47d391b27059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e9200ab8_2dfb3d67",
         "filename": "media2/api/current.txt",
         "patchSetId": 2
