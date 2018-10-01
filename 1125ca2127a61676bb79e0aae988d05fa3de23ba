@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1653c365_12e962d5",
+        "filename": "car/core/res/layout/car_list_item_radio_content.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-01T18:09:33Z",
+      "side": 1,
+      "message": "This should be an attribute queyr.",
+      "revId": "1125ca2127a61676bb79e0aae988d05fa3de23ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "249524d3_c3f94050",
+        "filename": "car/core/res/layout/car_list_item_radio_content.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-01T18:09:33Z",
+      "side": 1,
+      "message": "I think we should have this match the other ListItems. The logic is to have the text be separated padding4 from the radio button with the divider centered in that space. \n\nI think that\u0027s equivalent to the divider being padding1 from the radio button itself.\n\nMore info in b/74562146",
+      "revId": "1125ca2127a61676bb79e0aae988d05fa3de23ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b7ee113_f442fb28",
+        "filename": "car/core/res/layout/car_list_item_radio_content.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-01T18:09:33Z",
+      "side": 1,
+      "message": "Should this also be an attribute query?",
+      "revId": "1125ca2127a61676bb79e0aae988d05fa3de23ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fc44263_73300ff8",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-01T18:09:33Z",
+      "side": 1,
+      "message": "I\u0027m removing these methods in aosp/774246. You can see the reasoning there, but we can probably get rid of this now.",
+      "revId": "1125ca2127a61676bb79e0aae988d05fa3de23ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
