@@ -22,6 +22,30 @@
       "revId": "69d310d91481590f238bab1e9b40db9e6f97758f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2641b10d_47615824",
+        "filename": "preference/res/values/attrs.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-10-01T18:18:07Z",
+      "side": 1,
+      "message": "Discussed offline - ProGuard would strip any classes we only refer to via XML here, so this cannot be safely used.",
+      "parentUuid": "de27ff6d_555b6e52",
+      "range": {
+        "startLine": 236,
+        "startChar": 20,
+        "endLine": 236,
+        "endChar": 46
+      },
+      "revId": "69d310d91481590f238bab1e9b40db9e6f97758f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
