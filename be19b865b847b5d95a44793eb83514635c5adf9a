@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e0ab24a_d12f530b",
+        "filename": "room/runtime/src/main/java/androidx/room/paging/RoomItemKeyedDataSourceImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-01T20:59:15Z",
+      "side": 1,
+      "message": "i feel like we need to make this public and maybe create room-paging ? (any maybe even move limit offset to there ?)",
+      "revId": "be19b865b847b5d95a44793eb83514635c5adf9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
