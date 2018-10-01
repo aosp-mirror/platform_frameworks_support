@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ea7be33a_7666ad84",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-01T22:50:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d29d0e3b_e10b7b8a",
+      "range": {
+        "startLine": 294,
+        "startChar": 16,
+        "endLine": 294,
+        "endChar": 17
+      },
+      "revId": "6c247ee3b4909108fc684de1f25c9c356ad9628a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8eaa7c6f_d731f63f",
         "filename": "work/workmanager/src/main/java/androidx/work/WorkManager.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "6c247ee3b4909108fc684de1f25c9c356ad9628a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4ba196c_95981110",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-01T22:50:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8eaa7c6f_d731f63f",
+      "range": {
+        "startLine": 329,
+        "startChar": 4,
+        "endLine": 329,
+        "endChar": 12
+      },
+      "revId": "6c247ee3b4909108fc684de1f25c9c356ad9628a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1b48bd3d_cdfd1ad4",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/CancelWorkRunnable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-01T22:50:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12424879_48c50097",
+      "range": {
+        "startLine": 99,
+        "startChar": 12,
+        "endLine": 99,
+        "endChar": 81
+      },
+      "revId": "6c247ee3b4909108fc684de1f25c9c356ad9628a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "acac418e_b954fc6e",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/CancelWorkRunnable.java",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "1be8d85b_25f49d3b",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/CancelWorkRunnable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-01T22:50:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acac418e_b954fc6e",
+      "range": {
+        "startLine": 104,
+        "startChar": 16,
+        "endLine": 111,
+        "endChar": 17
+      },
+      "revId": "6c247ee3b4909108fc684de1f25c9c356ad9628a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f127e3ee_ba1198cf",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/CancelWorkRunnable.java",
         "patchSetId": 2
@@ -114,6 +210,30 @@
       "revId": "6c247ee3b4909108fc684de1f25c9c356ad9628a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4f8af52_441547a9",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/CancelWorkRunnable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-01T22:50:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f127e3ee_ba1198cf",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 13
+      },
+      "revId": "6c247ee3b4909108fc684de1f25c9c356ad9628a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
