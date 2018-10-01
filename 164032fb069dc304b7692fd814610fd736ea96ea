@@ -331,6 +331,30 @@
     },
     {
       "key": {
+        "uuid": "d6b974e0_6c0379b4",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-10-01T14:45:00Z",
+      "side": 1,
+      "message": "My interpretation is that this will require developers to also suppress this lint warning in order to use the API. Can we absorb the cost here by exposing a set of constants with the same names and values as the framework constants s.t. it\u0027s possible to use them for the same purpose and not incur the warning?",
+      "parentUuid": "28d4a394_2edd1c01",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 31
+      },
+      "revId": "164032fb069dc304b7692fd814610fd736ea96ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6175c7cb_408dadc7",
         "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
         "patchSetId": 1
