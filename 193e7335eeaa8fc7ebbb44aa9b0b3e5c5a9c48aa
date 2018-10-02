@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "20bba3da_7f644c1c",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/DefaultSummaryProviderTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-10-02T17:31:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5b376fda_a0aee619",
+      "range": {
+        "startLine": 98,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 0
+      },
+      "revId": "193e7335eeaa8fc7ebbb44aa9b0b3e5c5a9c48aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e97033cf_65651e52",
         "filename": "preference/src/androidTest/java/androidx/preference/tests/DefaultSummaryProviderTest.java",
         "patchSetId": 8
