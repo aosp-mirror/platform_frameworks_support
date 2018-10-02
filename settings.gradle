@@ -201,6 +201,7 @@ includeProject(":support-biometric-demos", new File(samplesRoot, "BiometricDemos
 includeProject(":support-car-demos", new File(samplesRoot, "SupportCarDemos"))
 includeProject(":support-content-demos", new File(samplesRoot, "SupportContentDemos"))
 includeProject(":support-design-demos", new File(samplesRoot, "SupportDesignDemos"))
+includeProject(":support-directshare-demos", new File(samplesRoot, "SupportDirectShareDemos"))
 includeProject(":support-emoji-demos", new File(samplesRoot, "SupportEmojiDemos"))
 includeProject(":support-leanback-demos", new File(samplesRoot, "SupportLeanbackDemos"))
 includeProject(":support-media-demos", new File(samplesRoot, "SupportMediaDemos"))
@@ -258,4 +259,3 @@ if (!startParameter.projectProperties.containsKey('android.injected.invoked.from
 // dumb test project that has a test for each size to ensure that at least one test is run
 // for each size and test runner is happy when there is nothing to test.
 includeProject(":dumb-tests", "dumb-tests")
-
