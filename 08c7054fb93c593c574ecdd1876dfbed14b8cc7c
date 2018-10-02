@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "557126e0_aeaf000b",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextLinkSpanTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-02T17:17:26Z",
+      "side": 1,
+      "message": "I think we already have onClick_noActions() test.\nIt wouldn\u0027t matter in the overriden case if textClassification has no actions as that is implementation provided by clients of the library and not us.",
+      "parentUuid": "a898c3aa_3dc2ba74",
+      "range": {
+        "startLine": 148,
+        "startChar": 16,
+        "endLine": 148,
+        "endChar": 83
+      },
+      "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e1ae121d_a4c239df",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 8
@@ -89,6 +113,116 @@
         "startChar": 8,
         "endLine": 526,
         "endChar": 21
+      },
+      "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8c930db_7fa7b293",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-02T17:17:26Z",
+      "side": 1,
+      "message": "Also, isn\u0027t it the case from the design in this CL that we still expect users to extend a TextLinkSpan, or does this change to ClickableSpan exist mainly for clients that want to override onClick()?",
+      "parentUuid": "e1ae121d_a4c239df",
+      "range": {
+        "startLine": 526,
+        "startChar": 8,
+        "endLine": 526,
+        "endChar": 21
+      },
+      "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bc62bc1_3720cbfd",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-02T17:17:26Z",
+      "side": 1,
+      "message": "In the default implementation, the action is simply fired on pre-M devices.",
+      "range": {
+        "startLine": 581,
+        "startChar": 33,
+        "endLine": 581,
+        "endChar": 92
+      },
+      "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73187c1a_dfcfaaa4",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-02T17:17:26Z",
+      "side": 1,
+      "message": "@UiThread",
+      "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65ef1fc2_fe3ced19",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-02T17:17:26Z",
+      "side": 1,
+      "message": "Any particular reason we\u0027re creating a new object here?\nIf it is not already spanned, then surely, it doesn\u0027t have a link.\nIf we are trying to be defensive, then perhaps we should do nothing if the text turns out not to be Spanned.\nWdyt?",
+      "range": {
+        "startLine": 649,
+        "startChar": 36,
+        "endLine": 649,
+        "endChar": 79
+      },
+      "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5eb2bcfd_2b254756",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-02T17:17:26Z",
+      "side": 1,
+      "message": "I think we\u0027d want to verify these indices here too.",
+      "range": {
+        "startLine": 649,
+        "startChar": 12,
+        "endLine": 651,
+        "endChar": 53
       },
       "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
