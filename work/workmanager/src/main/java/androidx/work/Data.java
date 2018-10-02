@@ -272,6 +272,16 @@ public final class Data {
     }
 
     /**
+     * Return {@code true} if a value exists for the given {@code key}.
+     *
+     * @param key The key for the argument
+     * @return {@code true} if a value exists for the given {@code key}
+     */
+    public boolean containsKey(@NonNull String key) {
+        return mValues.containsKey(key);
+    }
+
+    /**
      * Gets all the values in this Data object.
      *
      * @return A {@link Map} of key-value pairs for this object; this Map is unmodifiable and should
