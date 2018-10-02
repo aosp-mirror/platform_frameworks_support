@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10173903_ddd1a9e6",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-02T21:23:56Z",
+      "side": 1,
+      "message": "ugh i guess we shuold name this to SQLITE from persistence .\nbut i noticed group name is also persistence for historical reasons, we can update it later.",
+      "revId": "dd7d680711bb5aa2e838f6151c3871613be9cd8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
