@@ -243,6 +243,24 @@
       "revId": "02dadbfb8015f24576ac79ce777a3c3677b76290",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22f8cc31_dd9d1d1a",
+        "filename": "transition/src/main/java/androidx/transition/Visibility.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-10-02T21:24:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "73d60b70_f35502eb",
+      "revId": "02dadbfb8015f24576ac79ce777a3c3677b76290",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
