@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f41c8634_76f0eaeb",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-02T05:52:15Z",
+      "side": 1,
+      "message": "Do we add \"2\" for inner classes?\nI can see PlayerCallback and PlayerResult2.",
+      "revId": "dd1ed6cc39e612f138e33e79183b618e9b6d803a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7225ff8b_4da6dc9d",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-02T05:52:15Z",
+      "side": 1,
+      "message": "Minor) What about having negative values for error related result codes?\n       (Since you assigned MIN_VALUE for UNKNOWN_ERROR)",
+      "range": {
+        "startLine": 850,
+        "startChar": 32,
+        "endLine": 850,
+        "endChar": 57
+      },
+      "revId": "dd1ed6cc39e612f138e33e79183b618e9b6d803a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
