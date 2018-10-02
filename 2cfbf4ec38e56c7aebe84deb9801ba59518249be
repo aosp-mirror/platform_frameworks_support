@@ -22,6 +22,30 @@
       "revId": "2cfbf4ec38e56c7aebe84deb9801ba59518249be",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b674f4c8_f47a43d3",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/PruneWorkRunnable.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-02T20:58:21Z",
+      "side": 1,
+      "message": "Got rid of the finally block. It only worked before because AbstractFuture has an done check.",
+      "parentUuid": "9d412bce_5b1fc335",
+      "range": {
+        "startLine": 58,
+        "startChar": 9,
+        "endLine": 60,
+        "endChar": 9
+      },
+      "revId": "2cfbf4ec38e56c7aebe84deb9801ba59518249be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
