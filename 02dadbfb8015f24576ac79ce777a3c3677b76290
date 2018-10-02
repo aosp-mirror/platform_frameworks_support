@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "8735d627_eaba7331",
+        "filename": "transition/src/main/java/androidx/transition/Visibility.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-10-02T04:02:41Z",
+      "side": 1,
+      "message": "Can these be created only when reusingOverlayView \u003d\u003d true?",
+      "range": {
+        "startLine": 409,
+        "startChar": 0,
+        "endLine": 410,
+        "endChar": 86
+      },
+      "revId": "02dadbfb8015f24576ac79ce777a3c3677b76290",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "abf2aed2_9817cb51",
         "filename": "transition/src/main/java/androidx/transition/Visibility.java",
         "patchSetId": 1
