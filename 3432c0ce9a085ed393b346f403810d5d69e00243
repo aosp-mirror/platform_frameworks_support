@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47cb839e_3496b3d1",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-02T16:45:33Z",
+      "side": 1,
+      "message": "Remove periods",
+      "range": {
+        "startLine": 377,
+        "startChar": 18,
+        "endLine": 377,
+        "endChar": 19
+      },
+      "revId": "3432c0ce9a085ed393b346f403810d5d69e00243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebccdd7b_7a14ed33",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-02T16:45:33Z",
+      "side": 1,
+      "message": "Indentation seems off here; please indent either after the return type or (preferably) before the args.",
+      "range": {
+        "startLine": 387,
+        "startChar": 4,
+        "endLine": 389,
+        "endChar": 0
+      },
+      "revId": "3432c0ce9a085ed393b346f403810d5d69e00243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58ea778a_dffc68ca",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-02T16:45:33Z",
+      "side": 1,
+      "message": "Same.",
+      "range": {
+        "startLine": 397,
+        "startChar": 4,
+        "endLine": 398,
+        "endChar": 85
+      },
+      "revId": "3432c0ce9a085ed393b346f403810d5d69e00243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
