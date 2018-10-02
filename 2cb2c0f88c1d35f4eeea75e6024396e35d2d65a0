@@ -16,6 +16,24 @@
       "revId": "2cb2c0f88c1d35f4eeea75e6024396e35d2d65a0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9eb45bda_f6d77633",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/UpdateApiTask.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-10-02T20:29:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1ec9a1d_ad1a1b9d",
+      "revId": "2cb2c0f88c1d35f4eeea75e6024396e35d2d65a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
