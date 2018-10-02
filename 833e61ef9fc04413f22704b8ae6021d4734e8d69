@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b833c6a_787a61ae",
+        "filename": "settings.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-02T13:30:51Z",
+      "side": 1,
+      "message": "It takes about ~20ms on my macbook, so it should be ok",
+      "range": {
+        "startLine": 220,
+        "startChar": 18,
+        "endLine": 220,
+        "endChar": 92
+      },
+      "revId": "833e61ef9fc04413f22704b8ae6021d4734e8d69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
