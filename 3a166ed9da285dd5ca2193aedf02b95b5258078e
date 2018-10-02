@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad3b8eea_84bec2b3",
+        "filename": "car/core/res/layout/car_list_item_radio_content.xml",
+        "patchSetId": 13
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-02T22:38:48Z",
+      "side": 1,
+      "message": "Actually, you don\u0027t need this barrier cause it just references one id. Just align the text\u0027s end to radio_button. The radio button should always be visible anyway.",
+      "revId": "3a166ed9da285dd5ca2193aedf02b95b5258078e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
