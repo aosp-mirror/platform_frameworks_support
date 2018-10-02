@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c4d65580_0c5afe54",
+        "filename": "car/core/res/layout/car_list_item_radio_content.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-02T18:55:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1653c365_12e962d5",
+      "revId": "1125ca2127a61676bb79e0aae988d05fa3de23ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "249524d3_c3f94050",
         "filename": "car/core/res/layout/car_list_item_radio_content.xml",
         "patchSetId": 12
@@ -33,6 +51,24 @@
       "revId": "1125ca2127a61676bb79e0aae988d05fa3de23ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6de57636_bce7dced",
+        "filename": "car/core/res/layout/car_list_item_radio_content.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-02T18:55:56Z",
+      "side": 1,
+      "message": "Thanks. Done",
+      "parentUuid": "249524d3_c3f94050",
+      "revId": "1125ca2127a61676bb79e0aae988d05fa3de23ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "4777a761_34b7a2ee",
+        "filename": "car/core/res/layout/car_list_item_radio_content.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-02T18:55:56Z",
+      "side": 1,
+      "message": "Done\n\nAlso added style - they overlap but resolve to the same attribute.",
+      "parentUuid": "9b7ee113_f442fb28",
+      "revId": "1125ca2127a61676bb79e0aae988d05fa3de23ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7fc44263_73300ff8",
         "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
         "patchSetId": 12
@@ -67,6 +121,24 @@
       "revId": "1125ca2127a61676bb79e0aae988d05fa3de23ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec800cc5_b3d4080e",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-02T18:55:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fc44263_73300ff8",
+      "revId": "1125ca2127a61676bb79e0aae988d05fa3de23ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
