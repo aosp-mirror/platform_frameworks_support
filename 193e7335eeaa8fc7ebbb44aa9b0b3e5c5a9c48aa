@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "458ecc9e_36cee8fc",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/DefaultSummaryProviderTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-10-02T14:03:45Z",
+      "side": 1,
+      "message": "This assert is already in listPreference_noValueSet_summaryDisplaysNotSet so not needed.",
+      "range": {
+        "startLine": 98,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 0
+      },
+      "revId": "193e7335eeaa8fc7ebbb44aa9b0b3e5c5a9c48aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e97033cf_65651e52",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/DefaultSummaryProviderTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-10-02T14:03:45Z",
+      "side": 1,
+      "message": "Other option is to explicitly provide the factory method with keys and values (instead of having them inside the method). This way you wouldn\u0027t need to explain it here in the comment. Up to you.",
+      "range": {
+        "startLine": 137,
+        "startChar": 8,
+        "endLine": 138,
+        "endChar": 54
+      },
+      "revId": "193e7335eeaa8fc7ebbb44aa9b0b3e5c5a9c48aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf97d977_4e6d42a0",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/DefaultSummaryProviderTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-10-02T14:03:45Z",
+      "side": 1,
+      "message": "createListPreference() might be enough as title in this context? :)",
+      "range": {
+        "startLine": 230,
+        "startChar": 27,
+        "endLine": 230,
+        "endChar": 57
+      },
+      "revId": "193e7335eeaa8fc7ebbb44aa9b0b3e5c5a9c48aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f38c8acd_ad6e65fe",
+        "filename": "preference/src/main/java/androidx/preference/EditTextPreference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-10-02T14:03:45Z",
+      "side": 1,
+      "message": "Why this wasn\u0027t needed before and is needed now? Would a comment help there to clarify?",
+      "range": {
+        "startLine": 82,
+        "startChar": 8,
+        "endLine": 82,
+        "endChar": 24
+      },
+      "revId": "193e7335eeaa8fc7ebbb44aa9b0b3e5c5a9c48aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2651278d_b333b96b",
+        "filename": "preference/src/main/java/androidx/preference/ListPreference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-10-02T14:03:45Z",
+      "side": 1,
+      "message": "Shall we update this javadoc?",
+      "range": {
+        "startLine": 164,
+        "startChar": 7,
+        "endLine": 168,
+        "endChar": 63
+      },
+      "revId": "193e7335eeaa8fc7ebbb44aa9b0b3e5c5a9c48aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "224d882c_4db36557",
+        "filename": "preference/src/main/java/androidx/preference/Preference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-10-02T14:03:45Z",
+      "side": 1,
+      "message": "Would it be worth adding a comment like: \"Delegates to a SummaryProvider if set.\"?",
+      "range": {
+        "startLine": 710,
+        "startChar": 7,
+        "endLine": 711,
+        "endChar": 6
+      },
+      "revId": "193e7335eeaa8fc7ebbb44aa9b0b3e5c5a9c48aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a73b45ce_47db0898",
+        "filename": "preference/src/main/java/androidx/preference/Preference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-10-02T14:03:45Z",
+      "side": 1,
+      "message": "Shall we throw an exception here? As this is a new API it would be fine.",
+      "range": {
+        "startLine": 728,
+        "startChar": 8,
+        "endLine": 730,
+        "endChar": 9
+      },
+      "revId": "193e7335eeaa8fc7ebbb44aa9b0b3e5c5a9c48aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "981a67e1_0d049c8b",
+        "filename": "preference/src/main/java/androidx/preference/Preference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2150,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-10-02T14:03:45Z",
+      "side": 1,
+      "message": "I think this is no longer the case?",
+      "range": {
+        "startLine": 2149,
+        "startChar": 7,
+        "endLine": 2150,
+        "endChar": 58
+      },
+      "revId": "193e7335eeaa8fc7ebbb44aa9b0b3e5c5a9c48aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
