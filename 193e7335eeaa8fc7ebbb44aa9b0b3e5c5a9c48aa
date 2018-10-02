@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5b376fda_a0aee619",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/DefaultSummaryProviderTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-10-02T14:51:21Z",
+      "side": 1,
+      "message": "I think it makes it more clear that the state is expected to change - or else this test looks very similar to the one above. Happy to remove if you think it is confusing, but I think it adds clarity.",
+      "parentUuid": "458ecc9e_36cee8fc",
+      "range": {
+        "startLine": 98,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 0
+      },
+      "revId": "193e7335eeaa8fc7ebbb44aa9b0b3e5c5a9c48aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e97033cf_65651e52",
         "filename": "preference/src/androidTest/java/androidx/preference/tests/DefaultSummaryProviderTest.java",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "193e7335eeaa8fc7ebbb44aa9b0b3e5c5a9c48aa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04b141cf_a0621422",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/DefaultSummaryProviderTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-10-02T14:51:21Z",
+      "side": 1,
+      "message": "I think that will just make it more confusing, since there are keys, values, and we set the key, but expect the value. I think there will still have to be some clarification, but this way at least the keys and values which aren\u0027t important to the test are obfuscated.",
+      "parentUuid": "e97033cf_65651e52",
+      "range": {
+        "startLine": 137,
+        "startChar": 8,
+        "endLine": 138,
+        "endChar": 54
+      },
+      "revId": "193e7335eeaa8fc7ebbb44aa9b0b3e5c5a9c48aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "365643c0_d893fa36",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/DefaultSummaryProviderTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-10-02T14:51:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf97d977_4e6d42a0",
+      "range": {
+        "startLine": 230,
+        "startChar": 27,
+        "endLine": 230,
+        "endChar": 57
+      },
+      "revId": "193e7335eeaa8fc7ebbb44aa9b0b3e5c5a9c48aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f38c8acd_ad6e65fe",
         "filename": "preference/src/main/java/androidx/preference/EditTextPreference.java",
         "patchSetId": 8
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "4a1fffdb_f628c645",
+        "filename": "preference/src/main/java/androidx/preference/EditTextPreference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-10-02T14:51:21Z",
+      "side": 1,
+      "message": "Without this then when the value is changed the Preference would never get a callback to refresh its layout, and hence update the summary. I think this behavior is expected, and the lack of this before was a bug, as for every other Preference whenever the value is changed this is called as well, to allow any dependencies / other customization to update.",
+      "parentUuid": "f38c8acd_ad6e65fe",
+      "range": {
+        "startLine": 82,
+        "startChar": 8,
+        "endLine": 82,
+        "endChar": 24
+      },
+      "revId": "193e7335eeaa8fc7ebbb44aa9b0b3e5c5a9c48aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2651278d_b333b96b",
         "filename": "preference/src/main/java/androidx/preference/ListPreference.java",
         "patchSetId": 8
@@ -105,6 +201,30 @@
       "writtenOn": "2018-10-02T14:03:45Z",
       "side": 1,
       "message": "Shall we update this javadoc?",
+      "range": {
+        "startLine": 164,
+        "startChar": 7,
+        "endLine": 168,
+        "endChar": 63
+      },
+      "revId": "193e7335eeaa8fc7ebbb44aa9b0b3e5c5a9c48aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec142c5d_dbef1b98",
+        "filename": "preference/src/main/java/androidx/preference/ListPreference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-10-02T14:51:21Z",
+      "side": 1,
+      "message": "Updated the Javadoc for Preference, and removed the one for ListPreference. I don\u0027t think this behavior is worth mentioning anymore, especially since it is confusing given SummaryProvider. WDYT?",
+      "parentUuid": "2651278d_b333b96b",
       "range": {
         "startLine": 164,
         "startChar": 7,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "11674b56_7e5c83b8",
+        "filename": "preference/src/main/java/androidx/preference/Preference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-10-02T14:51:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "224d882c_4db36557",
+      "range": {
+        "startLine": 710,
+        "startChar": 7,
+        "endLine": 711,
+        "endChar": 6
+      },
+      "revId": "193e7335eeaa8fc7ebbb44aa9b0b3e5c5a9c48aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a73b45ce_47db0898",
         "filename": "preference/src/main/java/androidx/preference/Preference.java",
         "patchSetId": 8
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "4cc373dd_8041b613",
+        "filename": "preference/src/main/java/androidx/preference/Preference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-10-02T14:51:21Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "a73b45ce_47db0898",
+      "range": {
+        "startLine": 728,
+        "startChar": 8,
+        "endLine": 730,
+        "endChar": 9
+      },
+      "revId": "193e7335eeaa8fc7ebbb44aa9b0b3e5c5a9c48aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "981a67e1_0d049c8b",
         "filename": "preference/src/main/java/androidx/preference/Preference.java",
         "patchSetId": 8
@@ -183,6 +351,30 @@
       "revId": "193e7335eeaa8fc7ebbb44aa9b0b3e5c5a9c48aa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1aef727a_1cdb765e",
+        "filename": "preference/src/main/java/androidx/preference/Preference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2150,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-10-02T14:51:21Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "981a67e1_0d049c8b",
+      "range": {
+        "startLine": 2149,
+        "startChar": 7,
+        "endLine": 2150,
+        "endChar": 58
+      },
+      "revId": "193e7335eeaa8fc7ebbb44aa9b0b3e5c5a9c48aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
