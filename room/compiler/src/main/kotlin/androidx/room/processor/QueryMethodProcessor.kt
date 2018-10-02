@@ -42,6 +42,7 @@ class QueryMethodProcessor(
     baseContext: Context,
     val containing: DeclaredType,
     val executableElement: ExecutableElement,
+    val queryInterpreter: QueryInterpreter,
     val dbVerifier: DatabaseVerifier? = null
 ) {
     val context = baseContext.fork(executableElement)
@@ -148,6 +149,21 @@ class QueryMethodProcessor(
         }
 
         val parameters = delegate.extractQueryParams()
+
+        resultBinder.adapter?.rowAdapter?.let { rowAdapter ->
+            if (rowAdapter is PojoRowAdapter) {
+                query.interpreted = queryInterpreter.interpret(query, rowAdapter.pojo)
+                if (dbVerifier != null) {
+                    query.resultInfo = dbVerifier.analyze(query.interpreted)
+                    if (query.resultInfo?.error != null) {
+                        context.logger.e(
+                            executableElement,
+                            DatabaseVerificaitonErrors.cannotVerifyQuery(query.resultInfo!!.error!!)
+                        )
+                    }
+                }
+            }
+        }
 
         return ReadQueryMethod(
             element = executableElement,
