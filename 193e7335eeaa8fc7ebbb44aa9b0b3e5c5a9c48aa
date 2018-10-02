@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "f54de9bf_f980b720",
+        "filename": "preference/src/main/java/androidx/preference/ListPreference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-10-02T17:23:22Z",
+      "side": 1,
+      "message": "Sounds good!",
+      "parentUuid": "ec142c5d_dbef1b98",
+      "range": {
+        "startLine": 164,
+        "startChar": 7,
+        "endLine": 168,
+        "endChar": 63
+      },
+      "revId": "193e7335eeaa8fc7ebbb44aa9b0b3e5c5a9c48aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "224d882c_4db36557",
         "filename": "preference/src/main/java/androidx/preference/Preference.java",
         "patchSetId": 8
