@@ -36,6 +36,8 @@ open class Pojo(
 ) {
     val typeName: TypeName by lazy { type.typeName() }
 
+    open val name = ""
+
     /**
      * All table names that are somehow accessed by this Pojo.
      * Might be via Embedded or Relation.

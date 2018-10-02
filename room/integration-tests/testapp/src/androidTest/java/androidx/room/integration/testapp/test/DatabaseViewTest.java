@@ -28,6 +28,7 @@ import static org.mockito.Mockito.verify;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.room.Dao;
@@ -142,6 +143,12 @@ public class DatabaseViewTest {
             this.departmentId = departmentId;
             this.name = name;
         }
+
+        @NonNull
+        @Override
+        public String toString() {
+            return name + " (" + id + ", " + departmentId + ")";
+        }
     }
 
     @Entity
@@ -164,6 +171,18 @@ public class DatabaseViewTest {
         public String name;
         public long departmentId;
         public String departmentName;
+    }
+
+    @DatabaseView(
+            "SELECT * FROM Team "
+                    + "INNER JOIN Department AS department_ "
+                    + "ON Team.departmentId = department_.id"
+    )
+    static class TeamDetail2 {
+        @Embedded
+        public Team team;
+        @Embedded(prefix = "department_")
+        public Department department;
     }
 
     @Dao
@@ -194,6 +213,9 @@ public class DatabaseViewTest {
 
         @Query("SELECT * FROM TeamDetail")
         LiveData<List<TeamDetail>> liveDetail();
+
+        @Query("SELECT * FROM TeamDetail2 WHERE id = :id")
+        TeamDetail2 detail2ById(long id);
     }
 
     @Dao
@@ -213,6 +235,7 @@ public class DatabaseViewTest {
             },
             views = {
                     TeamDetail.class,
+                    TeamDetail2.class,
                     EmployeeWithManager.class,
                     EmployeeDetail.class,
             },
@@ -343,5 +366,19 @@ public class DatabaseViewTest {
 
         InstrumentationRegistry.getInstrumentation().runOnMainSync(() ->
                 employee.removeObserver(observer));
+    }
+
+    @Test
+    @MediumTest
+    public void smartProjection() {
+        final CompanyDatabase db = getDatabase();
+        db.department().insert(new Department(3L, "Sales"));
+        db.team().insert(new Team(5L, 3L, "Books"));
+        final TeamDetail2 detail = db.team().detail2ById(5L);
+        assertThat(detail.team.id, is(equalTo(5L)));
+        assertThat(detail.team.name, is(equalTo("Books")));
+        assertThat(detail.team.departmentId, is(equalTo(3L)));
+        assertThat(detail.department.id, is(equalTo(3L)));
+        assertThat(detail.department.name, is(equalTo("Sales")));
     }
 }

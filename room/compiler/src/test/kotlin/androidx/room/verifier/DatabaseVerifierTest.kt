@@ -267,6 +267,7 @@ class DatabaseVerifierTest(private val useLocalizedCollation: Boolean) {
                 fields = fields.toList(),
                 embeddedFields = emptyList(),
                 query = SqlParser.parse(query),
+                selectSql = query,
                 constructor = Constructor(mock(ExecutableElement::class.java), emptyList())
         )
     }

@@ -69,10 +69,12 @@ class DatabaseViewProcessor(
                 bindingScope = FieldProcessor.BindingScope.READ_FROM_CURSOR,
                 parent = null).process()
 
+        val sql = QueryUtils.normalizeQuery(query, pojo.embeddedFields)
         return DatabaseView(
                 element = element,
                 viewName = viewName,
                 query = query,
+                selectSql = sql,
                 type = pojo.type,
                 fields = pojo.fields,
                 embeddedFields = pojo.embeddedFields,

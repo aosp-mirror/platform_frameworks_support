@@ -175,6 +175,20 @@ class DatabaseViewProcessorTest {
         }.compilesWithoutError()
     }
 
+    @Test
+    fun smartProjection() {
+        singleView("foo.bar.TeamCopy", """
+            @DatabaseView("SELECT * FROM Team AS t_")
+            public class TeamCopy {
+                @Embedded(prefix = "t_")
+                public Team team;
+            }
+        """) { view, _ ->
+            assertThat(view.selectSql).isEqualTo(
+                    "SELECT `t_`.`id` AS `t_id`, `t_`.`name` AS `t_name` FROM Team AS t_")
+        }.compilesWithoutError()
+    }
+
     private fun singleView(
         name: String,
         input: String,
