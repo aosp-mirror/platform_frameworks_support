@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34df3259_041a457e",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-02T00:08:48Z",
+      "side": 1,
+      "message": "Need to update this",
+      "revId": "6d34acf5f16c2af32b008b24f22786f08a1bdf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e0cccee_d4cf8e80",
+        "filename": "car/core/res/layout/car_paged_scrollbar_buttons.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-02T00:08:48Z",
+      "side": 1,
+      "message": "Can you change this to a Button? Might need to override some styles to get it looking right.\n\nThe reason is that since you mean this to be a Button, you should use the Button class.",
+      "range": {
+        "startLine": 33,
+        "startChar": 5,
+        "endLine": 33,
+        "endChar": 13
+      },
+      "revId": "6d34acf5f16c2af32b008b24f22786f08a1bdf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b4252e3_23e05d49",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-02T00:08:48Z",
+      "side": 1,
+      "message": "Remove this new line",
+      "revId": "6d34acf5f16c2af32b008b24f22786f08a1bdf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "841d5dac_653aa53e",
+        "filename": "car/core/src/main/java/androidx/car/widget/AlphaJumpOverlayView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-02T00:08:48Z",
+      "side": 1,
+      "message": "Not sure this is the color you should be using for the overlay view background color. This is color of the appbar. I would recommend creating your own attribute for background color.",
+      "range": {
+        "startLine": 54,
+        "startChar": 51,
+        "endLine": 54,
+        "endChar": 63
+      },
+      "revId": "6d34acf5f16c2af32b008b24f22786f08a1bdf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fef264f_c1d5fdfc",
+        "filename": "car/core/src/main/java/androidx/car/widget/AlphaJumpOverlayView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-02T00:08:48Z",
+      "side": 1,
+      "message": "I know this is how it was done before, but you should use getDimensionPixelSize() since you ultimately cast to an int anyway. \n\ngetDimensionPixelSize() will return you an int.",
+      "range": {
+        "startLine": 60,
+        "startChar": 30,
+        "endLine": 60,
+        "endChar": 42
+      },
+      "revId": "6d34acf5f16c2af32b008b24f22786f08a1bdf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5473e05_d96f9b7d",
+        "filename": "car/core/src/main/java/androidx/car/widget/AlphaJumpOverlayView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-02T00:08:48Z",
+      "side": 1,
+      "message": "Use your \"context\" variable here",
+      "range": {
+        "startLine": 74,
+        "startChar": 31,
+        "endLine": 74,
+        "endChar": 41
+      },
+      "revId": "6d34acf5f16c2af32b008b24f22786f08a1bdf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "884032f9_d23a208c",
+        "filename": "car/core/src/main/java/androidx/car/widget/AlphaJumpOverlayView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-02T00:08:48Z",
+      "side": 1,
+      "message": "More verbosity. What does it mean to \"open\"? Same for the \"close()\" method. \n\nThese are the public APIs, so think what would you would expect to see on developer.android.com.",
+      "revId": "6d34acf5f16c2af32b008b24f22786f08a1bdf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "e87df449_e2428438",
+        "filename": "car/core/res/drawable/car_alpha_jump_button_background.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-02T00:08:48Z",
+      "side": 1,
+      "message": "Use car_card_ripple_background_dark then or colorControlHighlight like you did for the other ripple",
+      "parentUuid": "fdbfc354_3370bc71",
+      "range": {
+        "startLine": 24,
+        "startChar": 41,
+        "endLine": 24,
+        "endChar": 50
+      },
+      "revId": "b23b05526f28fa8a4830efee37ff40afb778c693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5432f119_ca29fcc3",
         "filename": "car/core/res/drawable/ic_nav_arrow_back.xml",
         "patchSetId": 1
