@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f33578bd_abf8c466",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-10-02T08:14:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26004b47_0f0a17f3",
+      "range": {
+        "startLine": 850,
+        "startChar": 8,
+        "endLine": 859,
+        "endChar": 11
+      },
+      "revId": "15301f964b48cd04a6bf8ed9c6d51fa9552a7741",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a0ccaeb_21a248ae",
         "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "15301f964b48cd04a6bf8ed9c6d51fa9552a7741",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f1438f0_32a092ba",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-10-02T08:14:51Z",
+      "side": 1,
+      "message": "Done. Thanks for spotting this!",
+      "parentUuid": "8a0ccaeb_21a248ae",
+      "range": {
+        "startLine": 884,
+        "startChar": 24,
+        "endLine": 884,
+        "endChar": 50
+      },
+      "revId": "15301f964b48cd04a6bf8ed9c6d51fa9552a7741",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "373eb4fc_5c40479d",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-10-02T08:14:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94547eca_30d4a809",
+      "range": {
+        "startLine": 892,
+        "startChar": 8,
+        "endLine": 901,
+        "endChar": 11
+      },
+      "revId": "15301f964b48cd04a6bf8ed9c6d51fa9552a7741",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4827cd14_2633e31d",
         "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "15301f964b48cd04a6bf8ed9c6d51fa9552a7741",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7efda262_1c61b56b",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-10-02T08:14:51Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "4827cd14_2633e31d",
+      "range": {
+        "startLine": 179,
+        "startChar": 15,
+        "endLine": 179,
+        "endChar": 44
+      },
+      "revId": "15301f964b48cd04a6bf8ed9c6d51fa9552a7741",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
