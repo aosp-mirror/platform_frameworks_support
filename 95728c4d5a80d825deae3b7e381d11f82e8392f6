@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "209b1ac9_9d9cb898",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-02T04:29:56Z",
+      "side": 1,
+      "message": "Sorry I misread the comment. Run the test and fixed failures. Thank you.\n\nDuring the running test, I found that behavior differs with MediaPlayer2Impl and ExoPlayerMediaPlayer2Impl. Filed an issue b/117126831",
+      "parentUuid": "d5681d1d_2de347f0",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 4
+      },
+      "revId": "95728c4d5a80d825deae3b7e381d11f82e8392f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c9e23ab_aa1f5ebc",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
         "patchSetId": 8
