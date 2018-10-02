@@ -188,6 +188,30 @@
       "revId": "95728c4d5a80d825deae3b7e381d11f82e8392f6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d217f02_f0fb2f28",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-02T16:55:14Z",
+      "side": 1,
+      "message": "Agreed and if that\u0027s the case, we need to update the javadoc L867. \"{@code null}, if no more media items available.\"",
+      "parentUuid": "3235bbad_7a45b3e6",
+      "range": {
+        "startLine": 883,
+        "startChar": 20,
+        "endLine": 883,
+        "endChar": 39
+      },
+      "revId": "95728c4d5a80d825deae3b7e381d11f82e8392f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
