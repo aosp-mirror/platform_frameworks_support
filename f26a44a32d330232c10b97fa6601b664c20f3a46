@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2c38bf34_b6433de4",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-02T07:43:24Z",
+      "side": 1,
+      "message": "Added TODO. This will be addressed in the next CL where VideoView2PlayerCallback will be created.",
+      "parentUuid": "03427b80_4bf87389",
+      "range": {
+        "startLine": 806,
+        "startChar": 9,
+        "endLine": 806,
+        "endChar": 24
+      },
+      "revId": "f26a44a32d330232c10b97fa6601b664c20f3a46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a51c7a24_33507bbb",
         "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-02T00:59:44Z",
       "side": 1,
       "message": "Does VideoView2 only take UriMediaItem2?",
+      "range": {
+        "startLine": 810,
+        "startChar": 15,
+        "endLine": 810,
+        "endChar": 30
+      },
+      "revId": "f26a44a32d330232c10b97fa6601b664c20f3a46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91147baf_133c657c",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-02T07:43:24Z",
+      "side": 1,
+      "message": "Changed to retrieve metadata from FileMediaItem2 as well.",
+      "parentUuid": "a51c7a24_33507bbb",
       "range": {
         "startLine": 810,
         "startChar": 15,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a98325ad_6fbd57a6",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-02T07:43:24Z",
+      "side": 1,
+      "message": "Talked offline and removed.",
+      "parentUuid": "0b642d58_b9c2e988",
+      "range": {
+        "startLine": 847,
+        "startChar": 9,
+        "endLine": 847,
+        "endChar": 29
+      },
+      "revId": "f26a44a32d330232c10b97fa6601b664c20f3a46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3dbc2a9d_710b6636",
         "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
         "patchSetId": 6
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "1ce8b3dd_b5652af5",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-02T07:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dbc2a9d_710b6636",
+      "range": {
+        "startLine": 852,
+        "startChar": 0,
+        "endLine": 876,
+        "endChar": 9
+      },
+      "revId": "f26a44a32d330232c10b97fa6601b664c20f3a46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab1b16e_ab4fe991",
         "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
         "patchSetId": 6
@@ -105,6 +201,24 @@
       "writtenOn": "2018-10-02T00:59:44Z",
       "side": 1,
       "message": "updateMetadata?",
+      "revId": "f26a44a32d330232c10b97fa6601b664c20f3a46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c3f6075_15149566",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-02T07:43:24Z",
+      "side": 1,
+      "message": "Talked offline and decided to remove this method.",
+      "parentUuid": "9ab1b16e_ab4fe991",
       "revId": "f26a44a32d330232c10b97fa6601b664c20f3a46",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -131,6 +245,30 @@
       "revId": "f26a44a32d330232c10b97fa6601b664c20f3a46",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "333cffa5_ffc0a28a",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1054,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-02T07:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9463007c_f2b5bd29",
+      "range": {
+        "startLine": 1054,
+        "startChar": 29,
+        "endLine": 1054,
+        "endChar": 40
+      },
+      "revId": "f26a44a32d330232c10b97fa6601b664c20f3a46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
