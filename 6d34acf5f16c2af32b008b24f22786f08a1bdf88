@@ -292,6 +292,24 @@
       "revId": "6d34acf5f16c2af32b008b24f22786f08a1bdf88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a858c9ad_9a699b04",
+        "filename": "car/core/src/main/java/androidx/car/widget/AlphaJumpOverlayView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-02T17:35:14Z",
+      "side": 1,
+      "message": "The open mostly just toggles visibility; I would mention that. The reason being that it informs the user that calling this method will not magically make the overlay appear above everything. They need to ensure the z-index is correct.\n\nIn the future, we should probably rethink how this overlay works, but updating the doc will be enough for now",
+      "parentUuid": "9cc5c6e6_d6a0ad93",
+      "revId": "6d34acf5f16c2af32b008b24f22786f08a1bdf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
