@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26004b47_0f0a17f3",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-02T04:22:06Z",
+      "side": 1,
+      "message": "MediaPlayerConnector will be removed soon in favor of SessionPlayer. aosp/761458 So, this code would just cause unnecessary merge conflict. Could you remove this code?",
+      "range": {
+        "startLine": 850,
+        "startChar": 8,
+        "endLine": 859,
+        "endChar": 11
+      },
+      "revId": "15301f964b48cd04a6bf8ed9c6d51fa9552a7741",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a0ccaeb_21a248ae",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-02T04:22:06Z",
+      "side": 1,
+      "message": "on loop, MEDIA_INFO_DATA_SOURCE_REPEAT is expected to be called each time the run ends.",
+      "range": {
+        "startLine": 884,
+        "startChar": 24,
+        "endLine": 884,
+        "endChar": 50
+      },
+      "revId": "15301f964b48cd04a6bf8ed9c6d51fa9552a7741",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94547eca_30d4a809",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-02T04:22:06Z",
+      "side": 1,
+      "message": "ditto. Sorry for your inconvenience.",
+      "range": {
+        "startLine": 892,
+        "startChar": 8,
+        "endLine": 901,
+        "endChar": 11
+      },
+      "revId": "15301f964b48cd04a6bf8ed9c6d51fa9552a7741",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4827cd14_2633e31d",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-02T04:22:06Z",
+      "side": 1,
+      "message": "does this reset to 0 when it moves on to the next item?",
+      "range": {
+        "startLine": 179,
+        "startChar": 15,
+        "endLine": 179,
+        "endChar": 44
+      },
+      "revId": "15301f964b48cd04a6bf8ed9c6d51fa9552a7741",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
