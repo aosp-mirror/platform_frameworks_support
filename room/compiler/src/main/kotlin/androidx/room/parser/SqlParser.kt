@@ -35,6 +35,7 @@ class QueryVisitor(
     statement: ParseTree,
     private val forRuntimeQuery: Boolean
 ) : SQLiteBaseVisitor<Void?>() {
+    private val resultColumns = arrayListOf<SQLiteParser.Result_columnContext>()
     private val bindingExpressions = arrayListOf<TerminalNode>()
     // table name alias mappings
     private val tableNames = mutableSetOf<Table>()
@@ -74,6 +75,16 @@ class QueryVisitor(
         }
     }
 
+    override fun visitResult_column(ctx: SQLiteParser.Result_columnContext?): Void? {
+        ctx?.let { c ->
+            // Result columns (only in top-level SELECT)
+            if (c.parent is SQLiteParser.Select_coreContext) {
+                resultColumns.add(c)
+            }
+        }
+        return super.visitResult_column(ctx)
+    }
+
     override fun visitExpr(ctx: SQLiteParser.ExprContext): Void? {
         val bindParameter = ctx.BIND_PARAMETER()
         if (bindParameter != null) {
@@ -84,12 +95,14 @@ class QueryVisitor(
 
     fun createParsedQuery(): ParsedQuery {
         return ParsedQuery(
-                original = original,
-                type = queryType,
-                inputs = bindingExpressions.sortedBy { it.sourceInterval.a },
-                tables = tableNames,
-                syntaxErrors = syntaxErrors,
-                runtimeQueryPlaceholder = forRuntimeQuery)
+            original = original,
+            type = queryType,
+            resultColumns = resultColumns.toList(),
+            inputs = bindingExpressions.sortedBy { it.sourceInterval.a },
+            tables = tableNames,
+            syntaxErrors = syntaxErrors,
+            runtimeQueryPlaceholder = forRuntimeQuery
+        )
     }
 
     override fun visitCommon_table_expression(
@@ -156,8 +169,10 @@ class SqlParser {
                 val statementList = parsed.sql_stmt_list()
                 if (statementList.isEmpty()) {
                     syntaxErrors.add(ParserErrors.NOT_ONE_QUERY)
-                    return ParsedQuery(input, QueryType.UNKNOWN, emptyList(), emptySet(),
-                            listOf(ParserErrors.NOT_ONE_QUERY), false)
+                    return ParsedQuery(
+                        input, QueryType.UNKNOWN, emptyList(), emptyList(),
+                        emptySet(), listOf(ParserErrors.NOT_ONE_QUERY), false
+                    )
                 }
                 val statements = statementList.first().children
                         .filter { it is SQLiteParser.Sql_stmtContext }
@@ -171,9 +186,11 @@ class SqlParser {
                         statement = statement,
                         forRuntimeQuery = false).createParsedQuery()
             } catch (antlrError: RuntimeException) {
-                return ParsedQuery(input, QueryType.UNKNOWN, emptyList(), emptySet(),
-                        listOf("unknown error while parsing $input : ${antlrError.message}"),
-                        false)
+                return ParsedQuery(
+                    input, QueryType.UNKNOWN, emptyList(), emptyList(), emptySet(),
+                    listOf("unknown error while parsing $input : ${antlrError.message}"),
+                    false
+                )
             }
         }
 
@@ -185,12 +202,13 @@ class SqlParser {
          */
         fun rawQueryForTables(tableNames: Set<String>): ParsedQuery {
             return ParsedQuery(
-                    original = "raw query",
-                    type = QueryType.UNKNOWN,
-                    inputs = emptyList(),
-                    tables = tableNames.map { Table(name = it, alias = it) }.toSet(),
-                    syntaxErrors = emptyList(),
-                    runtimeQueryPlaceholder = true
+                original = "raw query",
+                type = QueryType.UNKNOWN,
+                resultColumns = emptyList(),
+                inputs = emptyList(),
+                tables = tableNames.map { Table(name = it, alias = it) }.toSet(),
+                syntaxErrors = emptyList(),
+                runtimeQueryPlaceholder = true
             )
         }
     }
@@ -221,11 +239,16 @@ enum class SQLTypeAffinity {
         val typeUtils = env.typeUtils
         return when (this) {
             TEXT -> listOf(env.elementUtils.getTypeElement("java.lang.String").asType())
-            INTEGER -> withBoxedTypes(env, TypeKind.INT, TypeKind.BYTE, TypeKind.CHAR,
-                    TypeKind.LONG, TypeKind.SHORT)
+            INTEGER -> withBoxedTypes(
+                env, TypeKind.INT, TypeKind.BYTE, TypeKind.CHAR,
+                TypeKind.LONG, TypeKind.SHORT
+            )
             REAL -> withBoxedTypes(env, TypeKind.DOUBLE, TypeKind.FLOAT)
-            BLOB -> listOf(typeUtils.getArrayType(
-                    typeUtils.getPrimitiveType(TypeKind.BYTE)))
+            BLOB -> listOf(
+                typeUtils.getArrayType(
+                    typeUtils.getPrimitiveType(TypeKind.BYTE)
+                )
+            )
             else -> emptyList()
         }
     }
