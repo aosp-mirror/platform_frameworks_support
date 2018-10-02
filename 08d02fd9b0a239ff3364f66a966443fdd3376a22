@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "96c7ce88_268c882d",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/TracingControllerCompatTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-02T19:57:42Z",
+      "side": 1,
+      "message": "\"Violating an assumption\" means \"skip the test,\" not \"fail the test.\" So, this translates to \"skip the test if the WebView APK in question lacks proper support for this feature, which is a reasonable scenario we should anticipate.\"\n\nAlso, \"skip\" in this context is an explicit skip. The CLI gives yellow output for skipped tests, and the sponge results show skipped tests as greyed-out.",
+      "parentUuid": "d80e6bab_523dc8e9",
+      "revId": "08d02fd9b0a239ff3364f66a966443fdd3376a22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9bcacf4c_d34c0831",
         "filename": "webkit/src/androidTest/java/androidx/webkit/TracingControllerCompatTest.java",
         "patchSetId": 4
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "38d42644_5bb58e15",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/TracingControllerCompatTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-02T19:57:42Z",
+      "side": 1,
+      "message": "So far, we\u0027ve assumed *some* WebView is always present for support lib tests. Although, the feature-check above may effectively imply the NullWebView check (but I\u0027m not sure).",
+      "parentUuid": "ce97ad96_7ada277b",
+      "revId": "08d02fd9b0a239ff3364f66a966443fdd3376a22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "370352c0_7fa00598",
         "filename": "webkit/src/androidTest/java/androidx/webkit/TracingControllerCompatTest.java",
         "patchSetId": 4
@@ -83,6 +119,29 @@
       "writtenOn": "2018-10-02T13:56:12Z",
       "side": 1,
       "message": "See comments on the TracingControllerCompat, i.e. this looks a bit different (api-wise) from the original CTS tests. Is there any particular reason for that? shouldn\u0027t we be testing the same exposed interfaces?",
+      "revId": "08d02fd9b0a239ff3364f66a966443fdd3376a22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "673a666e_7aa5ffb1",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-02T19:57:42Z",
+      "side": 1,
+      "message": "\"At present\" sounds like it\u0027s subject to change, but I think this is by design and permanent. I would just say \"returns the only.\"",
+      "range": {
+        "startLine": 89,
+        "startChar": 69,
+        "endLine": 89,
+        "endChar": 79
+      },
       "revId": "08d02fd9b0a239ff3364f66a966443fdd3376a22",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
