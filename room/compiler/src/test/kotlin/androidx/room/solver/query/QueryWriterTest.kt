@@ -20,6 +20,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.ext.RoomTypeNames.ROOM_SQL_QUERY
 import androidx.room.ext.RoomTypeNames.STRING_UTIL
+import androidx.room.processor.QueryInterpreter
 import androidx.room.processor.QueryMethodProcessor
 import androidx.room.testing.TestProcessor
 import androidx.room.writer.QueryWriter
@@ -118,7 +119,9 @@ class QueryWriterTest {
             assertThat(scope.generate().toString().trim(), `is`(
                     """
                     java.lang.StringBuilder _stringBuilder = $STRING_UTIL.newStringBuilder();
-                    _stringBuilder.append("SELECT id FROM users WHERE id IN(");
+                    _stringBuilder.append("SELECT ");
+                    _stringBuilder.append("id");
+                    _stringBuilder.append(" FROM users WHERE id IN(");
                     final int _inputSize = ids.length;
                     $STRING_UTIL.appendPlaceholders(_stringBuilder, _inputSize);
                     _stringBuilder.append(") AND age > ");
@@ -139,7 +142,9 @@ class QueryWriterTest {
 
     val collectionOut = """
                     java.lang.StringBuilder _stringBuilder = $STRING_UTIL.newStringBuilder();
-                    _stringBuilder.append("SELECT id FROM users WHERE id IN(");
+                    _stringBuilder.append("SELECT ");
+                    _stringBuilder.append("id");
+                    _stringBuilder.append(" FROM users WHERE id IN(");
                     final int _inputSize = ids.size();
                     $STRING_UTIL.appendPlaceholders(_stringBuilder, _inputSize);
                     _stringBuilder.append(") AND age > ");
@@ -213,7 +218,9 @@ class QueryWriterTest {
             writer.prepareReadAndBind("_sql", "_stmt", scope)
             assertThat(scope.generate().toString().trim(), `is`("""
                     java.lang.StringBuilder _stringBuilder = $STRING_UTIL.newStringBuilder();
-                    _stringBuilder.append("SELECT id FROM users WHERE age > ");
+                    _stringBuilder.append("SELECT ");
+                    _stringBuilder.append("id");
+                    _stringBuilder.append(" FROM users WHERE age > ");
                     _stringBuilder.append("?");
                     _stringBuilder.append(" OR bage > ");
                     _stringBuilder.append("?");
@@ -247,7 +254,9 @@ class QueryWriterTest {
             writer.prepareReadAndBind("_sql", "_stmt", scope)
             assertThat(scope.generate().toString().trim(), `is`("""
                     java.lang.StringBuilder _stringBuilder = $STRING_UTIL.newStringBuilder();
-                    _stringBuilder.append("SELECT id FROM users WHERE age IN (");
+                    _stringBuilder.append("SELECT ");
+                    _stringBuilder.append("id");
+                    _stringBuilder.append(" FROM users WHERE age IN (");
                     final int _inputSize = ages.length;
                     $STRING_UTIL.appendPlaceholders(_stringBuilder, _inputSize);
                     _stringBuilder.append(") OR bage > ");
@@ -304,6 +313,7 @@ class QueryWriterTest {
                                     containing = MoreTypes.asDeclared(owner.asType()),
                                     executableElement = MoreElements.asExecutable(methods.first()))
                             val parsedQuery = parser.process()
+                            QueryInterpreter(emptyList()).interpret(parsedQuery.query)
                             handler(QueryWriter(parsedQuery))
                             true
                         }

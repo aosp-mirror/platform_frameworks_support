@@ -35,7 +35,8 @@ class QueryVisitor(
     statement: ParseTree,
     private val forRuntimeQuery: Boolean
 ) : SQLiteBaseVisitor<Void?>() {
-    private val bindingExpressions = arrayListOf<TerminalNode>()
+    private val resultColumns = arrayListOf<SectionInfo>()
+    private val bindingExpressions = arrayListOf<SectionInfo>()
     // table name alias mappings
     private val tableNames = mutableSetOf<Table>()
     private val withClauseNames = mutableSetOf<String>()
@@ -74,22 +75,56 @@ class QueryVisitor(
         }
     }
 
+    override fun visitResult_column(ctx: SQLiteParser.Result_columnContext?): Void? {
+        ctx?.let { c ->
+            // Result columns (only in top-level SELECT)
+            if (c.parent is SQLiteParser.Select_coreContext) {
+                resultColumns.add(SectionInfo(
+                    Position(c.start.line - 1, c.start.charPositionInLine),
+                    Position(c.stop.line - 1, c.stop.charPositionInLine + c.stop.text.length),
+                    when {
+                        c.text == "*" -> Section.Projection.All
+                        c.table_name() != null -> Section.Projection.Table(
+                            c.table_name().text.trim('`'),
+                            original.substring(c.start.startIndex, c.stop.stopIndex + 1)
+                        )
+                        c.column_alias() != null -> Section.Projection.Specific(
+                            c.column_alias().text.trim('`'),
+                            original.substring(c.start.startIndex, c.stop.stopIndex + 1)
+                        )
+                        else -> Section.Projection.Specific(c.text.trim('`'), c.text)
+                    }
+                ))
+            }
+        }
+        return super.visitResult_column(ctx)
+    }
+
     override fun visitExpr(ctx: SQLiteParser.ExprContext): Void? {
         val bindParameter = ctx.BIND_PARAMETER()
         if (bindParameter != null) {
-            bindingExpressions.add(bindParameter)
+            bindingExpressions.add(SectionInfo(
+                Position(bindParameter.symbol.line - 1, bindParameter.symbol.charPositionInLine),
+                Position(
+                    bindParameter.symbol.line - 1,
+                    bindParameter.symbol.charPositionInLine + bindParameter.text.length
+                ),
+                Section.BindVar(bindParameter.text)
+            ))
         }
         return super.visitExpr(ctx)
     }
 
     fun createParsedQuery(): ParsedQuery {
         return ParsedQuery(
-                original = original,
-                type = queryType,
-                inputs = bindingExpressions.sortedBy { it.sourceInterval.a },
-                tables = tableNames,
-                syntaxErrors = syntaxErrors,
-                runtimeQueryPlaceholder = forRuntimeQuery)
+            original = original,
+            type = queryType,
+            resultColumns = resultColumns.toList(),
+            inputs = bindingExpressions.toList(),
+            tables = tableNames,
+            syntaxErrors = syntaxErrors,
+            runtimeQueryPlaceholder = forRuntimeQuery
+        )
     }
 
     override fun visitCommon_table_expression(
@@ -156,8 +191,15 @@ class SqlParser {
                 val statementList = parsed.sql_stmt_list()
                 if (statementList.isEmpty()) {
                     syntaxErrors.add(ParserErrors.NOT_ONE_QUERY)
-                    return ParsedQuery(input, QueryType.UNKNOWN, emptyList(), emptySet(),
-                            listOf(ParserErrors.NOT_ONE_QUERY), false)
+                    return ParsedQuery(
+                        original = input,
+                        type = QueryType.UNKNOWN,
+                        resultColumns = emptyList(),
+                        inputs = emptyList(),
+                        tables = emptySet(),
+                        syntaxErrors = listOf(ParserErrors.NOT_ONE_QUERY),
+                        runtimeQueryPlaceholder = false
+                    )
                 }
                 val statements = statementList.first().children
                         .filter { it is SQLiteParser.Sql_stmtContext }
@@ -171,9 +213,17 @@ class SqlParser {
                         statement = statement,
                         forRuntimeQuery = false).createParsedQuery()
             } catch (antlrError: RuntimeException) {
-                return ParsedQuery(input, QueryType.UNKNOWN, emptyList(), emptySet(),
-                        listOf("unknown error while parsing $input : ${antlrError.message}"),
-                        false)
+                return ParsedQuery(
+                    original = input,
+                    type = QueryType.UNKNOWN,
+                    resultColumns = emptyList(),
+                    inputs = emptyList(),
+                    tables = emptySet(),
+                    syntaxErrors = listOf(
+                        "unknown error while parsing $input : ${antlrError.message}"
+                    ),
+                    runtimeQueryPlaceholder = false
+                )
             }
         }
 
@@ -185,12 +235,13 @@ class SqlParser {
          */
         fun rawQueryForTables(tableNames: Set<String>): ParsedQuery {
             return ParsedQuery(
-                    original = "raw query",
-                    type = QueryType.UNKNOWN,
-                    inputs = emptyList(),
-                    tables = tableNames.map { Table(name = it, alias = it) }.toSet(),
-                    syntaxErrors = emptyList(),
-                    runtimeQueryPlaceholder = true
+                original = "raw query",
+                type = QueryType.UNKNOWN,
+                resultColumns = emptyList(),
+                inputs = emptyList(),
+                tables = tableNames.map { Table(name = it, alias = it) }.toSet(),
+                syntaxErrors = emptyList(),
+                runtimeQueryPlaceholder = true
             )
         }
     }
@@ -221,11 +272,16 @@ enum class SQLTypeAffinity {
         val typeUtils = env.typeUtils
         return when (this) {
             TEXT -> listOf(env.elementUtils.getTypeElement("java.lang.String").asType())
-            INTEGER -> withBoxedTypes(env, TypeKind.INT, TypeKind.BYTE, TypeKind.CHAR,
-                    TypeKind.LONG, TypeKind.SHORT)
+            INTEGER -> withBoxedTypes(
+                env, TypeKind.INT, TypeKind.BYTE, TypeKind.CHAR,
+                TypeKind.LONG, TypeKind.SHORT
+            )
             REAL -> withBoxedTypes(env, TypeKind.DOUBLE, TypeKind.FLOAT)
-            BLOB -> listOf(typeUtils.getArrayType(
-                    typeUtils.getPrimitiveType(TypeKind.BYTE)))
+            BLOB -> listOf(
+                typeUtils.getArrayType(
+                    typeUtils.getPrimitiveType(TypeKind.BYTE)
+                )
+            )
             else -> emptyList()
         }
     }
