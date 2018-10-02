@@ -140,7 +140,9 @@ public final class ComplexDao_Impl extends ComplexDao {
     @Override
     public List<User> loadAllByIds(final int... ids) {
         StringBuilder _stringBuilder = StringUtil.newStringBuilder();
-        _stringBuilder.append("SELECT * FROM user where uid IN (");
+        _stringBuilder.append("SELECT ");
+        _stringBuilder.append("*");
+        _stringBuilder.append(" FROM user where uid IN (");
         final int _inputSize = ids.length;
         StringUtil.appendPlaceholders(_stringBuilder, _inputSize);
         _stringBuilder.append(")");
@@ -201,7 +203,9 @@ public final class ComplexDao_Impl extends ComplexDao {
     @Override
     public int[] getAllAges(final int... ids) {
         StringBuilder _stringBuilder = StringUtil.newStringBuilder();
-        _stringBuilder.append("SELECT ageColumn FROM user where uid IN(");
+        _stringBuilder.append("SELECT ");
+        _stringBuilder.append("ageColumn");
+        _stringBuilder.append(" FROM user where uid IN(");
         final int _inputSize = ids.length;
         StringUtil.appendPlaceholders(_stringBuilder, _inputSize);
         _stringBuilder.append(")");
@@ -233,7 +237,9 @@ public final class ComplexDao_Impl extends ComplexDao {
     @Override
     public List<Integer> getAllAgesAsList(final List<Integer> ids) {
         StringBuilder _stringBuilder = StringUtil.newStringBuilder();
-        _stringBuilder.append("SELECT ageColumn FROM user where uid IN(");
+        _stringBuilder.append("SELECT ");
+        _stringBuilder.append("ageColumn");
+        _stringBuilder.append(" FROM user where uid IN(");
         final int _inputSize = ids.size();
         StringUtil.appendPlaceholders(_stringBuilder, _inputSize);
         _stringBuilder.append(")");
@@ -311,7 +317,9 @@ public final class ComplexDao_Impl extends ComplexDao {
     @Override
     public LiveData<List<User>> loadUsersByIdsLive(final int... ids) {
         StringBuilder _stringBuilder = StringUtil.newStringBuilder();
-        _stringBuilder.append("SELECT * FROM user where uid IN (");
+        _stringBuilder.append("SELECT ");
+        _stringBuilder.append("*");
+        _stringBuilder.append(" FROM user where uid IN (");
         final int _inputSize = ids.length;
         StringUtil.appendPlaceholders(_stringBuilder, _inputSize);
         _stringBuilder.append(")");
@@ -361,7 +369,9 @@ public final class ComplexDao_Impl extends ComplexDao {
     public List<Integer> getAllAgesAsList(final List<Integer> ids1, final int[] ids2,
             final int... ids3) {
         StringBuilder _stringBuilder = StringUtil.newStringBuilder();
-        _stringBuilder.append("SELECT ageColumn FROM user where uid IN(");
+        _stringBuilder.append("SELECT ");
+        _stringBuilder.append("ageColumn");
+        _stringBuilder.append(" FROM user where uid IN(");
         final int _inputSize = ids1.size();
         StringUtil.appendPlaceholders(_stringBuilder, _inputSize);
         _stringBuilder.append(") OR uid IN (");

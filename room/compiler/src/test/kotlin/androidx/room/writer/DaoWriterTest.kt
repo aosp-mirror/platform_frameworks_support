@@ -19,7 +19,10 @@ package androidx.room.writer
 import COMMON
 import androidx.room.ext.RoomTypeNames
 import androidx.room.processor.DaoProcessor
+import androidx.room.processor.QueryInterpreter
+import androidx.room.solver.query.result.PojoRowAdapter
 import androidx.room.testing.TestProcessor
+import androidx.room.vo.ReadQueryMethod
 import com.google.auto.common.MoreElements
 import com.google.auto.common.MoreTypes
 import com.google.common.truth.Truth
@@ -101,6 +104,10 @@ class DaoWriterTest {
                                     dbType = dbType,
                                     dbVerifier = createVerifierFromEntitiesAndViews(invocation))
                             val parsedDao = parser.process()
+                            val queryInterpreter = QueryInterpreter(emptyList())
+                            parsedDao.queryMethods.forEach { method ->
+                                queryInterpreter.interpret(method.query)
+                            }
                             DaoWriter(parsedDao, invocation.processingEnv)
                                     .write(invocation.processingEnv)
                             true

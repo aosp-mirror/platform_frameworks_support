@@ -46,3 +46,11 @@ fun String.stripNonJava(): String {
             .map(String::trim)
             .joinToCamelCaseAsVar()
 }
+
+fun String.stripSurroundings(surrounding: String, end: String = surrounding): String {
+    return if (startsWith(surrounding) && endsWith(end)) {
+        substring(surrounding.length, length - end.length)
+    } else {
+        this
+    }
+}
