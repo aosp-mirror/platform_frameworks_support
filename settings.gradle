@@ -217,6 +217,7 @@ includeProject(":support-v7-demos", new File(samplesRoot, "Support7Demos"))
 includeProject(":support-v13-demos", new File(samplesRoot, "Support13Demos"))
 includeProject(":support-wear-demos", new File(samplesRoot, "SupportWearDemos"))
 includeProject(":viewpager2-demos", new File(samplesRoot, "ViewPager2Demos"))
+includeProject(":webkit-demos", new File(samplesRoot, "WebkitDemos"))
 
 /////////////////////////////
 //
