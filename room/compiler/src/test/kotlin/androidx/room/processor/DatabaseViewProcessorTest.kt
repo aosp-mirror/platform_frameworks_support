@@ -175,6 +175,37 @@ class DatabaseViewProcessorTest {
         }.compilesWithoutError()
     }
 
+    @Test
+    fun smartProjection_oneEmbedded() {
+        singleView("foo.bar.TeamCopy", """
+            @DatabaseView("SELECT * FROM Team AS t_")
+            public class TeamCopy {
+                @Embedded(prefix = "t_")
+                public Team team;
+            }
+        """) { view, _ ->
+            assertThat(view.selectSql).isEqualTo(
+                    "SELECT `t_`.`id` AS `t_id`, `t_`.`name` AS `t_name` FROM Team AS t_")
+        }.compilesWithoutError()
+    }
+
+    @Test
+    fun smartProjection_twoEmbedded() {
+        singleView("foo.bar.TeamRoundRobin", """
+            @DatabaseView("SELECT * FROM Team AS a, Team AS b")
+            public class TeamRoundRobin {
+                @Embedded(prefix = "a")
+                public Team teamA;
+                @Embedded(prefix = "b")
+                public Team teamB;
+            }
+        """) { view, _ ->
+            assertThat(view.selectSql).isEqualTo(
+                    "SELECT `a`.`id` AS `aid`, `a`.`name` AS `aname`, " +
+                            "`b`.`id` AS `bid`, `b`.`name` AS `bname` FROM Team AS a, Team AS b")
+        }.compilesWithoutError()
+    }
+
     private fun singleView(
         name: String,
         input: String,

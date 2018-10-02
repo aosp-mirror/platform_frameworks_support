@@ -297,7 +297,7 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
             if (viewElement.hasAnnotation(SkipQueryVerification::class)) {
                 continue
             }
-            view.query.resultInfo = dbVerifier.analyze(view.query.original)
+            view.query.resultInfo = dbVerifier.analyze(view.selectSql)
             if (view.query.resultInfo?.error != null) {
                 context.logger.e(viewElement,
                         DatabaseVerificaitonErrors.cannotVerifyQuery(

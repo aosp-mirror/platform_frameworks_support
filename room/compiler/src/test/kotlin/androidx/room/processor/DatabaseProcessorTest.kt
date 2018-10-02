@@ -903,6 +903,7 @@ class DatabaseProcessorTest {
                                         query = ParsedQuery("", QueryType.SELECT, emptyList(),
                                                 names.map { Table(it, it) }.toSet(),
                                                 emptyList(), false),
+                                        selectSql = "",
                                         type = mock(DeclaredType::class.java),
                                         fields = emptyList(),
                                         embeddedFields = emptyList(),

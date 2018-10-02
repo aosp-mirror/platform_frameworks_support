@@ -26,6 +26,7 @@ class DatabaseView(
     element: TypeElement,
     val viewName: String,
     val query: ParsedQuery,
+    val selectSql: String,
     type: DeclaredType,
     fields: List<Field>,
     embeddedFields: List<EmbeddedField>,
@@ -49,13 +50,13 @@ class DatabaseView(
 
     override fun getIdKey(): String {
         val identityKey = SchemaIdentityKey()
-        identityKey.append(query.original)
+        identityKey.append(selectSql)
         return identityKey.hash()
     }
 
     private fun createViewQuery(viewName: String): String {
         // This query should match exactly like it is stored in sqlite_master. The query is
         // trimmed. "IF NOT EXISTS" should not be included.
-        return "CREATE VIEW `$viewName` AS ${query.original.trim()}"
+        return "CREATE VIEW `$viewName` AS ${selectSql.trim()}"
     }
 }

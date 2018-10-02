@@ -73,6 +73,7 @@ class DatabaseViewProcessor(
                 element = element,
                 viewName = viewName,
                 query = query,
+                selectSql = QueryUtils.inferProjection(query, pojo.embeddedFields),
                 type = pojo.type,
                 fields = pojo.fields,
                 embeddedFields = pojo.embeddedFields,
