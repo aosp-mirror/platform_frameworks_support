@@ -30,6 +30,7 @@ import android.os.Build;
 import android.os.CancellationSignal;
 import android.util.Pair;
 
+import androidx.core.database.sqlite.SQLiteCursorCompat;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteQuery;
@@ -155,7 +156,6 @@ class FrameworkSQLiteDatabase implements SupportSQLiteDatabase {
         return query(new SimpleSQLiteQuery(query, bindArgs));
     }
 
-
     @Override
     public Cursor query(final SupportSQLiteQuery supportQuery) {
         return mDelegate.rawQueryWithFactory(new SQLiteDatabase.CursorFactory() {
@@ -163,7 +163,10 @@ class FrameworkSQLiteDatabase implements SupportSQLiteDatabase {
             public Cursor newCursor(SQLiteDatabase db, SQLiteCursorDriver masterQuery,
                     String editTable, SQLiteQuery query) {
                 supportQuery.bindTo(new FrameworkSQLiteProgram(query));
-                return new SQLiteCursor(masterQuery, editTable, query);
+                SQLiteCursor cursor = new SQLiteCursor(masterQuery, editTable, query);
+                SQLiteCursorCompat.setFillWindowForwardOnly(cursor, true);
+                return cursor;
+
             }
         }, supportQuery.getSql(), EMPTY_STRING_ARRAY, null);
     }
@@ -177,7 +180,9 @@ class FrameworkSQLiteDatabase implements SupportSQLiteDatabase {
             public Cursor newCursor(SQLiteDatabase db, SQLiteCursorDriver masterQuery,
                     String editTable, SQLiteQuery query) {
                 supportQuery.bindTo(new FrameworkSQLiteProgram(query));
-                return new SQLiteCursor(masterQuery, editTable, query);
+                SQLiteCursor cursor = new SQLiteCursor(masterQuery, editTable, query);
+                SQLiteCursorCompat.setFillWindowForwardOnly(cursor, true);
+                return cursor;
             }
         }, supportQuery.getSql(), EMPTY_STRING_ARRAY, null, cancellationSignal);
     }

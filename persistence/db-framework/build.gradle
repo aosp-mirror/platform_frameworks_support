@@ -26,6 +26,7 @@ plugins {
 dependencies {
     api(SUPPORT_ANNOTATIONS)
     api(project(":sqlite:sqlite"))
+    api(project(":core"))
 }
 
 supportLibrary {
