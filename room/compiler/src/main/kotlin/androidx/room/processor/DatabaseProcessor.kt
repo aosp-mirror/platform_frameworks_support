@@ -22,6 +22,7 @@ import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.hasAnnotation
 import androidx.room.ext.hasAnyOf
 import androidx.room.ext.toAnnotationBox
+import androidx.room.solver.query.result.PojoRowAdapter
 import androidx.room.verifier.DatabaseVerificaitonErrors
 import androidx.room.verifier.DatabaseVerifier
 import androidx.room.vo.Dao
@@ -30,6 +31,7 @@ import androidx.room.vo.Database
 import androidx.room.vo.DatabaseView
 import androidx.room.vo.Entity
 import androidx.room.vo.FtsEntity
+import androidx.room.vo.ReadQueryMethod
 import androidx.room.vo.columnNames
 import androidx.room.vo.findFieldByColumnName
 import asTypeElement
@@ -75,6 +77,10 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
         val allMembers = context.processingEnv.elementUtils.getAllMembers(element)
 
         val views = viewsMap.values.toList()
+        val queryInterpreter = QueryInterpreter(entities + views)
+        views.forEach { view ->
+            view.query.expanded = queryInterpreter.expandProjection(view.query, view)
+        }
         val dbVerifier = if (element.hasAnnotation(SkipQueryVerification::class)) {
             null
         } else {
@@ -101,9 +107,26 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
             // TODO when we add support for non Dao return types (e.g. database), this code needs
             // to change
             val daoType = executable.returnType.asTypeElement()
-            val dao = DaoProcessor(context, daoType, declaredType, dbVerifier).process()
+            val dao = DaoProcessor(context, daoType, declaredType, dbVerifier)
+                .process()
             DaoMethod(executable, executable.simpleName.toString(), dao)
         }
+
+        daoMethods
+            .flatMap { method -> method.dao.queryMethods }
+            .filterIsInstance(ReadQueryMethod::class.java)
+            .forEach { method ->
+                val rowAdapter = method.queryResultBinder.adapter?.rowAdapter
+                when (rowAdapter) {
+                    is PojoRowAdapter -> {
+                        method.query.expanded = queryInterpreter.expandProjection(
+                            method.query,
+                            rowAdapter.pojo
+                        )
+                    }
+                }
+            }
+
         validateUniqueDaoClasses(element, daoMethods, entities)
         validateUniqueIndices(element, entities)
 
@@ -311,7 +334,8 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
      * Resolves all the underlying tables for each of the [DatabaseView]. All the tables
      * including those that are indirectly referenced are included.
      *
-     * @param views The list of all the [DatabaseView]s in this database.
+     * @param views The list of all the [DatabaseView]s in this database. The order in this list is
+     * important. A view always comes after all of the tables and views that it depends on.
      */
     fun resolveDatabaseViews(views: List<DatabaseView>): List<DatabaseView> {
         if (views.isEmpty()) {
@@ -327,8 +351,6 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
         // We will resolve nested views step by step, and store the results here.
         val resolvedViews = mutableMapOf<String, Set<String>>()
         val result = mutableListOf<DatabaseView>()
-        // The current step; this is necessary for sorting the views by their dependencies.
-        var step = 0
         do {
             for ((viewName, tables) in resolvedViews) {
                 for (view in unresolvedViews) {
@@ -354,7 +376,6 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
                         unresolvedViews.map { it.viewName }))
                 break
             }
-            step++
             // We are done if we have resolved tables for all the views.
         } while (unresolvedViews.isNotEmpty())
         return result
