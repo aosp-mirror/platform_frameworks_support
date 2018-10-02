@@ -387,7 +387,10 @@ public class ViewPager2 extends ViewGroup {
     public void setCurrentItem(int item, boolean smoothScroll) {
         float previousItem = mCurrentItem;
         if (previousItem == item) {
-            return;
+            if (mScrollEventAdapter.isIdle() || smoothScroll) {
+                return;
+            }
+            // Scroll to target already in progress, interrupt scroll
         }
         mCurrentItem = item;
 

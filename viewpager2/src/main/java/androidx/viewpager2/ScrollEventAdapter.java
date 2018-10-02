@@ -189,9 +189,12 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         mAdapterState = smooth
                 ? AdapterState.IN_PROGRESS_SMOOTH_SCROLL
                 : AdapterState.IN_PROGRESS_IMMEDIATE_SCROLL;
+        boolean hasNewTarget = mTarget != target;
         mTarget = target;
         dispatchStateChanged(ViewPager2.ScrollState.SETTLING);
-        dispatchSelected(target);
+        if (hasNewTarget) {
+            dispatchSelected(target);
+        }
     }
 
     public void setOnPageChangeListener(OnPageChangeListener listener) {
