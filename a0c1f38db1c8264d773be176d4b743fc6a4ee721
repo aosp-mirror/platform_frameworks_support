@@ -126,6 +126,24 @@
     },
     {
       "key": {
+        "uuid": "1f34aefe_2768db4f",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-02T10:24:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f773cb5c_13b0160e",
+      "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51e4fd00_981dff84",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
         "patchSetId": 12
@@ -170,6 +188,30 @@
       "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f71bccbf_44288df5",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-02T10:24:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "91541ad0_ec58b101",
+      "range": {
+        "startLine": 421,
+        "startChar": 23,
+        "endLine": 421,
+        "endChar": 36
+      },
+      "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -259,6 +301,24 @@
       "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9abd5dbe_568f6e77",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-02T10:24:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7ae57f3b_b93b6d30",
+      "revId": "a0c1f38db1c8264d773be176d4b743fc6a4ee721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

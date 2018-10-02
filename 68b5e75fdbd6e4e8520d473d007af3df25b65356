@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bad66dcf_11ac2c88",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-02T10:24:55Z",
+      "side": 1,
+      "message": "...(@NonNull Person ...)",
+      "revId": "68b5e75fdbd6e4e8520d473d007af3df25b65356",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6df6599_75ffcdb1",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-02T10:24:55Z",
+      "side": 1,
+      "message": "NonNull",
+      "revId": "68b5e75fdbd6e4e8520d473d007af3df25b65356",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec2f2393_e9544370",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-02T10:24:55Z",
+      "side": 1,
+      "message": "@NonNull",
+      "revId": "68b5e75fdbd6e4e8520d473d007af3df25b65356",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
