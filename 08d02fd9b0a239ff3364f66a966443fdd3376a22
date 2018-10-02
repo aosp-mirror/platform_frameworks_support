@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d80e6bab_523dc8e9",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/TracingControllerCompatTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-10-02T14:40:35Z",
+      "side": 1,
+      "message": "This enforces that the test only runs when the webview provider declares that it supports the feature. Otherwise it\u0027s skipped. Effectively this is a version check on the webview provider.",
+      "parentUuid": "ac027075_c0c1cfc6",
+      "revId": "08d02fd9b0a239ff3364f66a966443fdd3376a22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9bcacf4c_d34c0831",
         "filename": "webkit/src/androidTest/java/androidx/webkit/TracingControllerCompatTest.java",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2018-10-02T13:56:12Z",
       "side": 1,
       "message": "Probably a question for Nate: in the original tests we have the \"if (!NullWebViewUtils.isWebViewAvailable())\" check, is this not needed here?",
+      "revId": "08d02fd9b0a239ff3364f66a966443fdd3376a22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce97ad96_7ada277b",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/TracingControllerCompatTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-10-02T14:40:35Z",
+      "side": 1,
+      "message": "It\u0027s not needed here; NullWebViewUtils is designed to allow CTS tests to cope with platforms (like Wear) that don\u0027t provide a webview at all.",
+      "parentUuid": "9bcacf4c_d34c0831",
       "revId": "08d02fd9b0a239ff3364f66a966443fdd3376a22",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -64,6 +100,24 @@
       "writtenOn": "2018-10-02T13:56:12Z",
       "side": 1,
       "message": "Why do we expose this here? I think in android only the\nvoid start(@NonNull TracingConfig tracingConfig);\nmethod is exposed.",
+      "revId": "08d02fd9b0a239ff3364f66a966443fdd3376a22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a700888_fbb0f556",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-10-02T14:40:35Z",
+      "side": 1,
+      "message": "I\u0027d agree. I think we want a TracingConfigCompat with an analogous builder.",
+      "parentUuid": "b17b965b_f9612760",
       "revId": "08d02fd9b0a239ff3364f66a966443fdd3376a22",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
