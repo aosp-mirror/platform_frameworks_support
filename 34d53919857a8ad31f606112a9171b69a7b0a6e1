@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a349e1d_594fed73",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-02T07:31:41Z",
+      "side": 1,
+      "message": "Let me do so in another CL, because MediaController2#setMediaItem() is currently unavailable in the MC2.",
+      "parentUuid": "610b22b9_efb7be13",
+      "revId": "34d53919857a8ad31f606112a9171b69a7b0a6e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26ed42a5_72a28054",
         "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
         "patchSetId": 4
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "1db5825b_33dc78f9",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-02T07:31:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26ed42a5_72a28054",
+      "range": {
+        "startLine": 517,
+        "startChar": 30,
+        "endLine": 517,
+        "endChar": 42
+      },
+      "revId": "34d53919857a8ad31f606112a9171b69a7b0a6e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2f92493_60b3cdd7",
         "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
         "patchSetId": 4
@@ -56,6 +98,24 @@
       "revId": "34d53919857a8ad31f606112a9171b69a7b0a6e1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98568268_ad0bd137",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-02T07:31:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2f92493_60b3cdd7",
+      "revId": "34d53919857a8ad31f606112a9171b69a7b0a6e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
