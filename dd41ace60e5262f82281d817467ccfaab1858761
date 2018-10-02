@@ -39,6 +39,30 @@
       "revId": "dd41ace60e5262f82281d817467ccfaab1858761",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32844a64_cfb1fe3c",
+        "filename": "transition/src/main/java/androidx/transition/Visibility.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-10-02T21:16:13Z",
+      "side": 0,
+      "message": "there is more complex variant of it (with checks for parent\u0027s visibility change) in \"if (needOverlayForStartView)\", I was thinking it\u0027s better to use that variant",
+      "parentUuid": "baa88c4e_c58eb8f0",
+      "range": {
+        "startLine": 388,
+        "startChar": 20,
+        "endLine": 388,
+        "endChar": 44
+      },
+      "revId": "dd41ace60e5262f82281d817467ccfaab1858761",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "413f87fc_9cbb702a",
+        "filename": "transition/src/main/java/androidx/transition/Visibility.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-10-02T21:16:13Z",
+      "side": 1,
+      "message": "agree, it should not be here. actually I figured out startView can\u0027t be null. refactored code about it. I changed TransitionValues slightly to provide view as a parameter to guarantee its not null instead of previous lazy view providing pattern",
+      "parentUuid": "ddb090ec_a686648a",
+      "range": {
+        "startLine": 361,
+        "startChar": 41,
+        "endLine": 361,
+        "endChar": 61
+      },
+      "revId": "02dadbfb8015f24576ac79ce777a3c3677b76290",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "195e3e98_f35f19c6",
         "filename": "transition/src/main/java/androidx/transition/Visibility.java",
         "patchSetId": 1
@@ -105,6 +129,24 @@
     },
     {
       "key": {
+        "uuid": "9caf6879_3646c3b8",
+        "filename": "transition/src/main/java/androidx/transition/Visibility.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-10-02T21:16:13Z",
+      "side": 1,
+      "message": "don\u0027t think is a good idea because \n1) overlayView also can be assigned not inside if (needOverlayForStartView) but before. here - \"overlayView \u003d endView;\"\n2) if inner onDisappear will return null animator we would not add overlayView to overlay, so decision about saving overlayView should be made only after it",
+      "parentUuid": "74e152b8_e16c1099",
+      "revId": "02dadbfb8015f24576ac79ce777a3c3677b76290",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8735d627_eaba7331",
         "filename": "transition/src/main/java/androidx/transition/Visibility.java",
         "patchSetId": 1
@@ -125,6 +167,30 @@
       "revId": "02dadbfb8015f24576ac79ce777a3c3677b76290",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44150bd6_359253f4",
+        "filename": "transition/src/main/java/androidx/transition/Visibility.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-10-02T21:16:13Z",
+      "side": 1,
+      "message": "thanks, moved ViewGroupUtils.getOverlay call inside if",
+      "parentUuid": "8735d627_eaba7331",
+      "range": {
+        "startLine": 409,
+        "startChar": 0,
+        "endLine": 410,
+        "endChar": 86
+      },
+      "revId": "02dadbfb8015f24576ac79ce777a3c3677b76290",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -156,6 +222,24 @@
       "writtenOn": "2018-10-02T15:06:29Z",
       "side": 1,
       "message": "This is dangerous. You\u0027re removing the overlay when this animation finishes. Other animations are animating that overlay, so you could end up with an abrupt end to your transition.\n\nImagine fade \u0026 slide, where the slide takes longer than the fade. If the fade is the first transition in the list then the overlay will be removed too early.\n\nI think you may need some kind of reference count here.",
+      "revId": "02dadbfb8015f24576ac79ce777a3c3677b76290",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73d60b70_f35502eb",
+        "filename": "transition/src/main/java/androidx/transition/Visibility.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-10-02T21:16:13Z",
+      "side": 1,
+      "message": "It\u0027s tricky. I experimented with it and still think we should not care about this. My ideas:\n1) Both of this animators are disappearing animators. Which means when any of this animators will finish - view is not visible anymore(slided away of faded out). So there is no visible difference when we remove view from overlay - after first or second animator\n2) If first animator will not be fully disappearing the view and two animators has different duration we still can\u0027t make it work properly. For a test I created a transition which scales down the view 50 percents and used it as first transition, second one is Slide. When the scale animator ends it like cleans up by changing scale back to 100 percent. But Slide transition is still in progress and it looks weird(scale jumps back). I don\u0027t a see simple way how to \"connect\" two transitions so they have end listeners which are aware about each other. So I don\u0027t think this use case should be supported (don\u0027t have an idea why anyone will need it).",
+      "parentUuid": "21fe1cdc_c566f1b0",
       "revId": "02dadbfb8015f24576ac79ce777a3c3677b76290",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
