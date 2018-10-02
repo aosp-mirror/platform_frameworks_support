@@ -155,6 +155,7 @@ includeProject(":remotecallback", "remotecallback")
 includeProject(":versionedparcelable-annotation", "versionedparcelable/annotation")
 includeProject(":versionedparcelable", "versionedparcelable")
 includeProject(":sharetarget", "sharetarget")
+includeProject(":sharetarget:integration-tests:testapp", "sharetarget/integration-tests/testapp")
 includeProject(":slice-core", "slices/core")
 includeProject(":slice-view", "slices/view")
 includeProject(":slice-builders", "slices/builders")
@@ -265,4 +266,3 @@ if (!startParameter.projectProperties.containsKey('android.injected.invoked.from
 // dumb test project that has a test for each size to ensure that at least one test is run
 // for each size and test runner is happy when there is nothing to test.
 includeProject(":dumb-tests", "dumb-tests")
-
