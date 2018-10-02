@@ -16,6 +16,24 @@
       "revId": "be19b865b847b5d95a44793eb83514635c5adf9a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bee4d4e1_15e83031",
+        "filename": "room/runtime/src/main/java/androidx/room/paging/RoomItemKeyedDataSourceImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-10-02T21:34:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e0ab24a_d12f530b",
+      "revId": "be19b865b847b5d95a44793eb83514635c5adf9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
