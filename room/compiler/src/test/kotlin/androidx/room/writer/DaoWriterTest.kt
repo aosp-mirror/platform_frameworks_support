@@ -25,6 +25,7 @@ import com.google.auto.common.MoreTypes
 import com.google.common.truth.Truth
 import com.google.testing.compile.CompileTester
 import com.google.testing.compile.JavaSourcesSubjectFactory
+import createInterpreterFromEntitiesAndViews
 import createVerifierFromEntitiesAndViews
 import loadJavaCode
 import org.junit.Test
@@ -95,12 +96,17 @@ class DaoWriterTest {
                                 invocation.context.processingEnv.elementUtils
                                         .getTypeElement(RoomTypeNames.ROOM_DB.toString()).asType()
                             })
+                            val queryInterpreter = createInterpreterFromEntitiesAndViews(invocation)
                             val parser = DaoProcessor(
                                     baseContext = invocation.context,
                                     element = MoreElements.asType(dao),
                                     dbType = dbType,
+                                    queryInterpreter = queryInterpreter,
                                     dbVerifier = createVerifierFromEntitiesAndViews(invocation))
                             val parsedDao = parser.process()
+                            parsedDao.queryMethods.forEach { method ->
+                                queryInterpreter.interpret(method.query)
+                            }
                             DaoWriter(parsedDao, invocation.processingEnv)
                                     .write(invocation.processingEnv)
                             true

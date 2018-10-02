@@ -42,6 +42,7 @@ class QueryMethodProcessor(
     baseContext: Context,
     val containing: DeclaredType,
     val executableElement: ExecutableElement,
+    val queryInterpreter: QueryInterpreter,
     val dbVerifier: DatabaseVerifier? = null
 ) {
     val context = baseContext.fork(executableElement)
@@ -148,6 +149,12 @@ class QueryMethodProcessor(
         }
 
         val parameters = delegate.extractQueryParams()
+
+        resultBinder.adapter?.rowAdapter?.let { rowAdapter ->
+            if (rowAdapter is PojoRowAdapter) {
+                query.setResolved(queryInterpreter.expandProjection(query, rowAdapter.pojo))
+            }
+        }
 
         return ReadQueryMethod(
             element = executableElement,
