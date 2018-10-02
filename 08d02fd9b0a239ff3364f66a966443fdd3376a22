@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac027075_c0c1cfc6",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/TracingControllerCompatTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1059927
+      },
+      "writtenOn": "2018-10-02T13:56:12Z",
+      "side": 1,
+      "message": "Curious: when is this assumption valid/invalid? and will it fail the test if the \u0027feature\u0027 is not there?",
+      "revId": "08d02fd9b0a239ff3364f66a966443fdd3376a22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bcacf4c_d34c0831",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/TracingControllerCompatTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1059927
+      },
+      "writtenOn": "2018-10-02T13:56:12Z",
+      "side": 1,
+      "message": "Probably a question for Nate: in the original tests we have the \"if (!NullWebViewUtils.isWebViewAvailable())\" check, is this not needed here?",
+      "revId": "08d02fd9b0a239ff3364f66a966443fdd3376a22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "370352c0_7fa00598",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/TracingControllerCompatTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1059927
+      },
+      "writtenOn": "2018-10-02T13:56:12Z",
+      "side": 1,
+      "message": "See comments on the TracingControllerCompat, i.e. this looks a bit different (api-wise) from the original CTS tests. Is there any particular reason for that? shouldn\u0027t we be testing the same exposed interfaces?",
+      "revId": "08d02fd9b0a239ff3364f66a966443fdd3376a22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b17b965b_f9612760",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1059927
+      },
+      "writtenOn": "2018-10-02T13:56:12Z",
+      "side": 1,
+      "message": "Why do we expose this here? I think in android only the\nvoid start(@NonNull TracingConfig tracingConfig);\nmethod is exposed.",
+      "revId": "08d02fd9b0a239ff3364f66a966443fdd3376a22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6da2f0f_8847ea07",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1059927
+      },
+      "writtenOn": "2018-10-02T13:56:12Z",
+      "side": 1,
+      "message": "Same question here: I thought the idea was to maintain the same API surface as we expose in P?",
+      "revId": "08d02fd9b0a239ff3364f66a966443fdd3376a22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
