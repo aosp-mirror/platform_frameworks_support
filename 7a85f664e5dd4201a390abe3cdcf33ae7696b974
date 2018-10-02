@@ -22,6 +22,30 @@
       "revId": "7a85f664e5dd4201a390abe3cdcf33ae7696b974",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2041dcb7_a43e6041",
+        "filename": "car/core/src/main/java/androidx/car/widget/TextListItem.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-02T17:55:12Z",
+      "side": 1,
+      "message": "Not needed. Removed.",
+      "parentUuid": "b340e429_8871f0df",
+      "range": {
+        "startLine": 528,
+        "startChar": 20,
+        "endLine": 528,
+        "endChar": 48
+      },
+      "revId": "7a85f664e5dd4201a390abe3cdcf33ae7696b974",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
