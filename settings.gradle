@@ -57,6 +57,7 @@ includeProject(":concurrent:concurrent-futures", "concurrent/futures")
 includeProject(":contentpager", "content")
 includeProject(":coordinatorlayout", "coordinatorlayout")
 includeProject(":core", "core")
+includeProject(":core:integration-tests:testapp", "core/integration-tests/testapp")
 includeProject(":core-ktx", "core/ktx")
 includeProject(":cursoradapter", "cursoradapter")
 includeProject(":customerrorprone", "customerrorprone")
@@ -264,4 +265,3 @@ if (!startParameter.projectProperties.containsKey('android.injected.invoked.from
 // dumb test project that has a test for each size to ensure that at least one test is run
 // for each size and test runner is happy when there is nothing to test.
 includeProject(":dumb-tests", "dumb-tests")
-
