@@ -22,6 +22,8 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import androidx.test.filters.SmallTest;
+
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -41,6 +43,14 @@ public class DataTest {
     public void testSize_hasArguments() {
         Data data = new Data.Builder().putBoolean(KEY1, true).build();
         assertThat(data.size(), is(1));
+    }
+
+    @Test
+    @SmallTest
+    public void testContains() {
+        Data data = new Data.Builder().putBoolean(KEY1, true).build();
+        assertThat(data.containsKey(KEY1), is(true));
+        assertThat(data.containsKey(KEY2), is(false));
     }
 
     @Test
