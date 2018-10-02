@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "610b22b9_efb7be13",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-02T06:07:55Z",
+      "side": 1,
+      "message": "Please add MediaController2.setMediaItem(MediaItem2)",
+      "revId": "34d53919857a8ad31f606112a9171b69a7b0a6e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26ed42a5_72a28054",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-02T06:07:55Z",
+      "side": 1,
+      "message": "Do not have link for XMediaPlayer as much as possible.\nXMediaPlayer will only exist in support lib.",
+      "range": {
+        "startLine": 517,
+        "startChar": 30,
+        "endLine": 517,
+        "endChar": 42
+      },
+      "revId": "34d53919857a8ad31f606112a9171b69a7b0a6e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2f92493_60b3cdd7",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-02T06:07:55Z",
+      "side": 1,
+      "message": "Please document what should developers do and what is happening when the given item is not a valid item for this session.",
+      "revId": "34d53919857a8ad31f606112a9171b69a7b0a6e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
