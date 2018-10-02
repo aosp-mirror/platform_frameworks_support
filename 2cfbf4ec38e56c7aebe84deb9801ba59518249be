@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d412bce_5b1fc335",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/PruneWorkRunnable.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-02T20:50:51Z",
+      "side": 1,
+      "message": "This is a bit confusing.  Can you replace this part of the code with\n\nif (!mFuture.isDone()) mFuture.set(null);",
+      "range": {
+        "startLine": 58,
+        "startChar": 9,
+        "endLine": 60,
+        "endChar": 9
+      },
+      "revId": "2cfbf4ec38e56c7aebe84deb9801ba59518249be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
