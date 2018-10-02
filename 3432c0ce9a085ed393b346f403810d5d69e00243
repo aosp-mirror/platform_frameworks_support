@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "04ae35e5_12bfa714",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-02T17:12:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47cb839e_3496b3d1",
+      "range": {
+        "startLine": 377,
+        "startChar": 18,
+        "endLine": 377,
+        "endChar": 19
+      },
+      "revId": "3432c0ce9a085ed393b346f403810d5d69e00243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ebccdd7b_7a14ed33",
         "filename": "work/workmanager/src/main/java/androidx/work/WorkManager.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "fce15244_197968ff",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-02T17:12:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebccdd7b_7a14ed33",
+      "range": {
+        "startLine": 387,
+        "startChar": 4,
+        "endLine": 389,
+        "endChar": 0
+      },
+      "revId": "3432c0ce9a085ed393b346f403810d5d69e00243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58ea778a_dffc68ca",
         "filename": "work/workmanager/src/main/java/androidx/work/WorkManager.java",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "3432c0ce9a085ed393b346f403810d5d69e00243",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "809daa1e_a2655191",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-02T17:12:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58ea778a_dffc68ca",
+      "range": {
+        "startLine": 397,
+        "startChar": 4,
+        "endLine": 398,
+        "endChar": 85
+      },
+      "revId": "3432c0ce9a085ed393b346f403810d5d69e00243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
