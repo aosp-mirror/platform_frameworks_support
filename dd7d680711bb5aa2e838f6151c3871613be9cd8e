@@ -16,6 +16,24 @@
       "revId": "dd7d680711bb5aa2e838f6151c3871613be9cd8e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91deea95_f8db2c39",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-10-02T21:35:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "10173903_ddd1a9e6",
+      "revId": "dd7d680711bb5aa2e838f6151c3871613be9cd8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
