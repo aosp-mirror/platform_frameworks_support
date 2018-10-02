@@ -116,6 +116,24 @@
       "revId": "34d53919857a8ad31f606112a9171b69a7b0a6e1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3598bda_95ecb331",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-02T08:07:15Z",
+      "side": 1,
+      "message": "done?",
+      "parentUuid": "98568268_ad0bd137",
+      "revId": "34d53919857a8ad31f606112a9171b69a7b0a6e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
