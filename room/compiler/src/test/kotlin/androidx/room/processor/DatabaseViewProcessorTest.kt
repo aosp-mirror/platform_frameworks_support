@@ -72,11 +72,11 @@ class DatabaseViewProcessorTest {
     @Test
     fun basic() {
         singleView("foo.bar.MyView", """
-            @DatabaseView("SELECT * FROM Team")
+            @DatabaseView("SELECT id, name FROM Team")
             public class MyView {
             }
         """) { view, _ ->
-            assertThat(view.query.original).isEqualTo("SELECT * FROM Team")
+            assertThat(view.query.original).isEqualTo("SELECT id, name FROM Team")
             assertThat(view.query.errors).isEmpty()
             assertThat(view.query.tables).hasSize(1)
             assertThat(view.query.tables.first().name).isEqualTo("Team")
@@ -95,7 +95,7 @@ class DatabaseViewProcessorTest {
     @Test
     fun viewName() {
         singleView("foo.bar.MyView", """
-            @DatabaseView(value = "SELECT * FROM Team", viewName = "abc")
+            @DatabaseView(value = "SELECT id FROM Team", viewName = "abc")
             public class MyView {
             }
         """) { view, _ ->

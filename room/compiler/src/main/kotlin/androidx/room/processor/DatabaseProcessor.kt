@@ -75,6 +75,9 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
         val allMembers = context.processingEnv.elementUtils.getAllMembers(element)
 
         val views = viewsMap.values.toList()
+        views.forEach { view ->
+            view.query.expanded = QueryUtils.expandProjection(view.query, view, entities + views)
+        }
         val dbVerifier = if (element.hasAnnotation(SkipQueryVerification::class)) {
             null
         } else {
@@ -311,7 +314,8 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
      * Resolves all the underlying tables for each of the [DatabaseView]. All the tables
      * including those that are indirectly referenced are included.
      *
-     * @param views The list of all the [DatabaseView]s in this database.
+     * @param views The list of all the [DatabaseView]s in this database. The order in this list is
+     * important. A view always comes after all of the tables and views that it depends on.
      */
     fun resolveDatabaseViews(views: List<DatabaseView>): List<DatabaseView> {
         if (views.isEmpty()) {
@@ -327,8 +331,6 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
         // We will resolve nested views step by step, and store the results here.
         val resolvedViews = mutableMapOf<String, Set<String>>()
         val result = mutableListOf<DatabaseView>()
-        // The current step; this is necessary for sorting the views by their dependencies.
-        var step = 0
         do {
             for ((viewName, tables) in resolvedViews) {
                 for (view in unresolvedViews) {
@@ -354,7 +356,6 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
                         unresolvedViews.map { it.viewName }))
                 break
             }
-            step++
             // We are done if we have resolved tables for all the views.
         } while (unresolvedViews.isNotEmpty())
         return result
