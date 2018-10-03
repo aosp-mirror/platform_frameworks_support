@@ -16,6 +16,166 @@
       "revId": "32fe2020910681451eaab24fcb1a1ec345ac2587",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1b29f70_f3b7cea1",
+        "filename": "fragment/ktx/src/androidTest/java/androidx/fragment/app/ViewModelDelegatesTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-03T22:22:49Z",
+      "side": 1,
+      "message": "copyright",
+      "revId": "32fe2020910681451eaab24fcb1a1ec345ac2587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "664ba124_34f0fea0",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/ViewModelDelegates.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-03T22:22:49Z",
+      "side": 1,
+      "message": "MyFragmentActivity",
+      "range": {
+        "startLine": 30,
+        "startChar": 9,
+        "endLine": 30,
+        "endChar": 26
+      },
+      "revId": "32fe2020910681451eaab24fcb1a1ec345ac2587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0afdfead_e0f5a3e2",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/ViewModelDelegates.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-03T22:22:49Z",
+      "side": 1,
+      "message": "MyViewModel",
+      "range": {
+        "startLine": 31,
+        "startChar": 22,
+        "endLine": 31,
+        "endChar": 35
+      },
+      "revId": "32fe2020910681451eaab24fcb1a1ec345ac2587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "345d98a4_922dedd7",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/ViewModelDelegates.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-03T22:22:49Z",
+      "side": 1,
+      "message": "link as well.",
+      "range": {
+        "startLine": 49,
+        "startChar": 67,
+        "endLine": 49,
+        "endChar": 74
+      },
+      "revId": "32fe2020910681451eaab24fcb1a1ec345ac2587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1748d35_51213786",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/ViewModelDelegates.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-03T22:22:49Z",
+      "side": 1,
+      "message": "[ViewModel]",
+      "range": {
+        "startLine": 49,
+        "startChar": 52,
+        "endLine": 49,
+        "endChar": 61
+      },
+      "revId": "32fe2020910681451eaab24fcb1a1ec345ac2587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23796ff1_b9910ea8",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/ViewModelDelegates.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-03T22:22:49Z",
+      "side": 1,
+      "message": "rename. as well",
+      "revId": "32fe2020910681451eaab24fcb1a1ec345ac2587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42e13d31_5778632a",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/ViewModelDelegates.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-03T22:22:49Z",
+      "side": 1,
+      "message": "rename. as well",
+      "revId": "32fe2020910681451eaab24fcb1a1ec345ac2587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ad72cdd_4097c22a",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/ViewModelDelegates.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-03T22:22:49Z",
+      "side": 1,
+      "message": "what happens if it is accessed before ? can we comment or link to the original docs if already documented.",
+      "revId": "32fe2020910681451eaab24fcb1a1ec345ac2587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
