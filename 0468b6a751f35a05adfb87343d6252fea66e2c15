@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9c3dd25_6c58f8cc",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-03T08:44:14Z",
+      "side": 1,
+      "message": "actually use android.R.id.accessibilityActionShowOnScreen constant, it will get inlined by the compiler since it is a final static int. Do the same for all the other constants here.",
+      "range": {
+        "startLine": 56,
+        "startChar": 60,
+        "endLine": 56,
+        "endChar": 70
+      },
+      "revId": "0468b6a751f35a05adfb87343d6252fea66e2c15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
