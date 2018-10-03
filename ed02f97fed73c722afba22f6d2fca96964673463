@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8f9ca02_02aaa052",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/UpdateApiTask.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-03T22:23:36Z",
+      "side": 1,
+      "message": "Oops, I should\u0027ve mentioned it on the previous patchset, but\n\nif this case triggers then we want to declare api/curren.txt as an output file too\n\nso that if current.txt is outdated then this task knows to rerun (for example if the previous execution of the task gets cancelled before it gets to update api/current.txt)",
+      "revId": "ed02f97fed73c722afba22f6d2fca96964673463",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
