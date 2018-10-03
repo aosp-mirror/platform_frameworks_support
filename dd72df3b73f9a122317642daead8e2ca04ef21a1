@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b84ca194_ee7470ec",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "See patchset 6",
+      "parentUuid": "ef6baa3b_7092e2e7",
+      "range": {
+        "startLine": 229,
+        "startChar": 0,
+        "endLine": 236,
+        "endChar": 5
+      },
+      "revId": "dd72df3b73f9a122317642daead8e2ca04ef21a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d3126e7_8fdf2ea8",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "dd72df3b73f9a122317642daead8e2ca04ef21a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ee6683c_fedfe0ab",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "See patchset 6",
+      "parentUuid": "4d3126e7_8fdf2ea8",
+      "range": {
+        "startLine": 620,
+        "startChar": 4,
+        "endLine": 622,
+        "endChar": 5
+      },
+      "revId": "dd72df3b73f9a122317642daead8e2ca04ef21a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "94888d38_899021e6",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "As discussed, keep method and reuse isBetweenInIn",
+      "parentUuid": "8827b1f5_d2846ff8",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 237,
+        "endChar": 0
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45f0b122_5ff7f25e",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "aa2ce6d6_fad5f899",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "It tests the code path for smooth scrolls where the target is far away. Other suggestions are welcome",
+      "parentUuid": "45f0b122_5ff7f25e",
+      "range": {
+        "startLine": 427,
+        "startChar": 39,
+        "endLine": 427,
+        "endChar": 42
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d9a710c_659e120e",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
         "patchSetId": 6
@@ -62,6 +110,24 @@
       "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fddfdea0_18ecd614",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "Sure. After the config change, if the correct page is not yet shown, the ViewPager2 should silently set the RecyclerView to the correct page, but without firing any events.\n\nAdded documentation to explain this, and updated b/114361680 to mention this test.",
+      "parentUuid": "1d9a710c_659e120e",
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "ef108cfc_8112c120",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "Both, and fixing the test for the new requirements.\n\nBehavior change: we now jump to target +/- 3 for smooth scrolls to a target far away, instead of target +/- 2. This gives a smoother animation if the target is exactly 3 pages away.\nSimplifying: you already spotted that.\nFix: now we can set the current item during a smooth scroll, we cannot assume that the animation starts at the last target page anymore, as we might not yet be at that target page. Since the test doesn\u0027t know where the animation currently is, we need to make this check independent of the start page.",
+      "parentUuid": "d3c07f92_1cbc45ab",
+      "range": {
+        "startLine": 721,
+        "startChar": 0,
+        "endLine": 721,
+        "endChar": 76
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6b9bab0_ff6adc0a",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
         "patchSetId": 6
@@ -108,6 +198,30 @@
       "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48accf12_2fb6449d",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "Fair point, name is misleading. How about \"SetItemWhileScrollInProgressTest\"? Happy to change to ScrollInProgressSetItemTest otherwise",
+      "parentUuid": "b6b9bab0_ff6adc0a",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 21
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "404a930a_058ad4ff",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "see below",
+      "parentUuid": "6f4c0d0a_b9d4026f",
+      "range": {
+        "startLine": 91,
+        "startChar": 20,
+        "endLine": 91,
+        "endChar": 52
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f897881d_fb26f438",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
         "patchSetId": 6
@@ -154,6 +292,30 @@
       "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8dfc918_71ad751a",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "It\u0027s because testFinished is accessed from a different thread then from where the events are added",
+      "parentUuid": "f897881d_fb26f438",
+      "range": {
+        "startLine": 130,
+        "startChar": 12,
+        "endLine": 130,
+        "endChar": 24
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "25273a49_edf4f1ed",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "@Wait for last scroll: that\u0027s what this method implements\n@Needs method: it needs to be synchronized on a private member, hence the need for a property",
+      "parentUuid": "b3f114f2_3d077605",
+      "range": {
+        "startLine": 148,
+        "startChar": 16,
+        "endLine": 148,
+        "endChar": 46
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04c1fdfb_1034079d",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
         "patchSetId": 6
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "f915c9d0_184bab7a",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "Well, I could inline the code, if that\u0027s what you mean, but I think the method name makes it clear what the intention of the code is.",
+      "parentUuid": "04c1fdfb_1034079d",
+      "range": {
+        "startLine": 160,
+        "startChar": 34,
+        "endLine": 160,
+        "endChar": 68
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92581732_6f6ff5e1",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
         "patchSetId": 6
@@ -223,6 +433,30 @@
       "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71d27a92_56e1c67c",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "Changed the method name",
+      "parentUuid": "92581732_6f6ff5e1",
+      "range": {
+        "startLine": 161,
+        "startChar": 47,
+        "endLine": 161,
+        "endChar": 58
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -272,6 +506,54 @@
     },
     {
       "key": {
+        "uuid": "6bc0173f_53b529c8",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "Not sure, let\u0027s discuss -- as discussed, leaving as is",
+      "parentUuid": "336a2166_bb8f68c7",
+      "range": {
+        "startLine": 164,
+        "startChar": 34,
+        "endLine": 164,
+        "endChar": 66
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c85d2d66_ef04c5b2",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf09532e_ba1982df",
+      "range": {
+        "startLine": 164,
+        "startChar": 40,
+        "endLine": 164,
+        "endChar": 44
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6604b56_596e3aa0",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
         "patchSetId": 6
@@ -292,6 +574,30 @@
       "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "453aa564_d8cfe416",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "No, I don\u0027t have the second argument that it needs. Also, the checks done in the test loop ideally need to be executed before the UI thread gets execution time, so we can\u0027t spend any millisecond on tests that are not strictly necessary.",
+      "parentUuid": "f6604b56_596e3aa0",
+      "range": {
+        "startLine": 192,
+        "startChar": 27,
+        "endLine": 192,
+        "endChar": 47
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -341,6 +647,54 @@
     },
     {
       "key": {
+        "uuid": "af001787_cfccb1a8",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c4abba4_d69f2bd4",
+      "range": {
+        "startLine": 204,
+        "startChar": 8,
+        "endLine": 204,
+        "endChar": 23
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c2a7fff_14ee5ed6",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62b4c6d5_4334df9f",
+      "range": {
+        "startLine": 204,
+        "startChar": 25,
+        "endLine": 204,
+        "endChar": 29
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "969e150b_14f3285c",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
         "patchSetId": 6
@@ -358,6 +712,24 @@
     },
     {
       "key": {
+        "uuid": "09ca9ba8_49b245c0",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "This was done because our test systems couldn\u0027t cope with log files containing spaces, and log files were based on the output of the toString() of the data class, which contains spaces. Fortunately, the relevant bug (b/113020726) is actively being worked on, so in anticipation of it being fixed I will accept the default toString().",
+      "parentUuid": "969e150b_14f3285c",
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2ed75a7_72c082e2",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
         "patchSetId": 6
@@ -372,6 +744,24 @@
       "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ee54372_02471a35",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2ed75a7_72c082e2",
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -398,6 +788,30 @@
     },
     {
       "key": {
+        "uuid": "e82c7de2_dc3acd5d",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "I think that doesn\u0027t capture what the method does, but happy to change to recreate if you think its better",
+      "parentUuid": "588ae4e4_9f78a59c",
+      "range": {
+        "startLine": 310,
+        "startChar": 12,
+        "endLine": 310,
+        "endChar": 30
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2886577d_00001372",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
         "patchSetId": 6
@@ -418,6 +832,30 @@
       "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04abb9f4_66a92a9c",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2886577d_00001372",
+      "range": {
+        "startLine": 317,
+        "startChar": 3,
+        "endLine": 317,
+        "endChar": 24
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -444,6 +882,30 @@
     },
     {
       "key": {
+        "uuid": "c7b5ec8f_7a31b4db",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "Yes, you\u0027re right",
+      "parentUuid": "569620a9_22b61cc9",
+      "range": {
+        "startLine": 318,
+        "startChar": 8,
+        "endLine": 318,
+        "endChar": 13
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4985e73_1884e1a7",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
         "patchSetId": 6
@@ -467,6 +929,53 @@
     },
     {
       "key": {
+        "uuid": "394be51f_337cadbd",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "Must have been a left over from me playing around with Longs, in combination with copy-paste errors",
+      "parentUuid": "a4985e73_1884e1a7",
+      "range": {
+        "startLine": 324,
+        "startChar": 55,
+        "endLine": 324,
+        "endChar": 60
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2038a10_0e2b980e",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/RapidlySetItems.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "Due to changes in the toString() format, hyphens are no longer ambiguous, so there\u0027s no need to keep the seed positive anymore",
+      "range": {
+        "startLine": 328,
+        "startChar": 12,
+        "endLine": 328,
+        "endChar": 32
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff7962f4_b2aaf0c9",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
         "patchSetId": 6
@@ -478,6 +987,30 @@
       "writtenOn": "2018-09-20T17:45:17Z",
       "side": 1,
       "message": "didn\u0027t get to review that one yet",
+      "range": {
+        "startLine": 41,
+        "startChar": 13,
+        "endLine": 41,
+        "endChar": 31
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03c80796_bf228810",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "Please check",
+      "parentUuid": "ff7962f4_b2aaf0c9",
       "range": {
         "startLine": 41,
         "startChar": 13,
@@ -513,6 +1046,30 @@
     },
     {
       "key": {
+        "uuid": "5da56dfb_bfcb3003",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "Because of synthetic access. I\u0027ll check if the synthetic access violation is still considered a violation by our ruleset.",
+      "parentUuid": "42d5bd61_73b695d9",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 30
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b396c2f1_88f334a5",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
         "patchSetId": 6
@@ -533,6 +1090,30 @@
       "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24f987ed_eeac85e9",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "Because of synthetic access",
+      "parentUuid": "b396c2f1_88f334a5",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 20
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -559,6 +1140,30 @@
     },
     {
       "key": {
+        "uuid": "6396cc6b_ff13e9c2",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "The user can start using the ViewPager2 before the right page is shown, in which case our call can override whatever page the user ordered us to show. Given that the actual need for this workaround is very rare, that the workaround is potentially destructive, and that the workaround is only temporary (will be removed when b/114019007 is fixed), I feel bad about contaminating the normal code path with it.",
+      "parentUuid": "7757d256_b7c4766e",
+      "range": {
+        "startLine": 173,
+        "startChar": 8,
+        "endLine": 173,
+        "endChar": 28
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e42a337_f8532122",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
         "patchSetId": 6
@@ -579,6 +1184,30 @@
       "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9b81bf3_0787e51b",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-03T17:17:22Z",
+      "side": 1,
+      "message": "Initializing it in initialize() actually removes the need for a member variable, which is even better.\n\nAs for the modification, the variable is still only modified in this file, so it should be fine IMHO",
+      "parentUuid": "3e42a337_f8532122",
+      "range": {
+        "startLine": 453,
+        "startChar": 39,
+        "endLine": 453,
+        "endChar": 60
+      },
+      "revId": "0c779ffe65ac7027ef47e2e34fe1371c2d73fe10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
