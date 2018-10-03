@@ -22,6 +22,30 @@
       "revId": "f0cab9f58e3e5fc898795355345a00de12405374",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67db62b2_689ed57b",
+        "filename": "core/src/androidTest/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompatTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1301960
+      },
+      "writtenOn": "2018-10-03T11:30:36Z",
+      "side": 1,
+      "message": "Yes and updated. I didn\u0027t do that because the main purpose is to avoid NPE and ID was private before.",
+      "parentUuid": "f01a1c8b_6b257135",
+      "range": {
+        "startLine": 115,
+        "startChar": 45,
+        "endLine": 115,
+        "endChar": 59
+      },
+      "revId": "f0cab9f58e3e5fc898795355345a00de12405374",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
