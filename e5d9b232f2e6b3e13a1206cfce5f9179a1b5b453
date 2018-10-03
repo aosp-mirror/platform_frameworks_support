@@ -68,6 +68,30 @@
       "revId": "e5d9b232f2e6b3e13a1206cfce5f9179a1b5b453",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47adadee_e720f460",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShareTargetXmlParser.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-03T00:49:47Z",
+      "side": 1,
+      "message": "Based on our offline talk, wont have an Intent definition in the xml anymore.",
+      "parentUuid": "275b6ff1_71809be6",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 75
+      },
+      "revId": "e5d9b232f2e6b3e13a1206cfce5f9179a1b5b453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
