@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2721a0a5_1c6a1871",
+        "filename": "core/src/main/java/androidx/core/app/Person.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-03T11:00:03Z",
+      "side": 1,
+      "message": "this is copy/paste. I understand that it has difference between PersistableBundle vs Bundle, but you can use BaseBundle to extract common keys and have a private helper method that returns Builder, so you can additionally past Icon from Bundle",
+      "range": {
+        "startLine": 71,
+        "startChar": 17,
+        "endLine": 75,
+        "endChar": 66
+      },
+      "revId": "eda6e3227d446ba8ee03cf647249256360f35048",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae534988_45e41ab4",
+        "filename": "core/src/main/java/androidx/core/app/Person.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-03T11:00:03Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 152,
+        "startChar": 2,
+        "endLine": 156,
+        "endChar": 58
+      },
+      "revId": "eda6e3227d446ba8ee03cf647249256360f35048",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fc5d993_d3515dcb",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-03T11:00:03Z",
+      "side": 1,
+      "message": "Move parts that depend on the unreleased SDK to goog/androidx-platform-dev. \nAOSP depends only on public SDK and shouldn\u0027t have such constants.",
+      "revId": "eda6e3227d446ba8ee03cf647249256360f35048",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
