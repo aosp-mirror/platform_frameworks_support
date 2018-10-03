@@ -87,6 +87,9 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
             mExecutorByPlayerEventCallback;
     @GuardedBy("mLock")
     private Pair<Executor, EventCallback> mExecutorAndEventCallback;
+    @SuppressWarnings("unused")
+    @GuardedBy("mLock")
+    private Pair<Executor, DrmEventCallback> mExecutorAndDrmEventCallback;
     @GuardedBy("mLock")
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     MediaPlayerConnector mMediaPlayerConnectorImpl;
@@ -196,6 +199,23 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
     public void clearEventCallback() {
         synchronized (mLock) {
             mExecutorAndEventCallback = null;
+        }
+    }
+
+    @Override
+    public void setDrmEventCallback(@NonNull Executor executor,
+            @NonNull DrmEventCallback eventCallback) {
+        Preconditions.checkNotNull(executor);
+        Preconditions.checkNotNull(eventCallback);
+        synchronized (mLock) {
+            mExecutorAndDrmEventCallback = Pair.create(executor, eventCallback);
+        }
+    }
+
+    @Override
+    public void clearDrmEventCallback() {
+        synchronized (mLock) {
+            mExecutorAndDrmEventCallback = null;
         }
     }
 
@@ -692,17 +712,6 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
 
     @Override
     public void setOnDrmConfigHelper(OnDrmConfigHelper listener) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void setDrmEventCallback(@NonNull Executor executor,
-            @NonNull DrmEventCallback eventCallback) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void clearDrmEventCallback() {
         throw new UnsupportedOperationException();
     }
 
