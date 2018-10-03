@@ -66,7 +66,7 @@ object LibraryVersions {
     /**
      * Version code for Lifecycle libs that are required by the support library
      */
-    val LIFECYCLES_CORE = LIFECYCLES
+    val LIFECYCLES_CORE = Version("2.1.0-alpha01")
 
     /**
      * Version code for Lifecycle runtime libs that are required by the support library
