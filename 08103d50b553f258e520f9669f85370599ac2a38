@@ -46,6 +46,30 @@
       "revId": "08103d50b553f258e520f9669f85370599ac2a38",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f639658_458f585b",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-10-03T16:17:46Z",
+      "side": 1,
+      "message": "Understood, but if a developer targets an SDK before 23, will the constant be available at compile time?",
+      "parentUuid": "15f46c6a_6d0f4df1",
+      "range": {
+        "startLine": 362,
+        "startChar": 32,
+        "endLine": 362,
+        "endChar": 76
+      },
+      "revId": "08103d50b553f258e520f9669f85370599ac2a38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
