@@ -310,6 +310,24 @@
       "revId": "6d34acf5f16c2af32b008b24f22786f08a1bdf88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff4ed1e7_09924852",
+        "filename": "car/core/src/main/java/androidx/car/widget/AlphaJumpOverlayView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-10-03T23:45:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a858c9ad_9a699b04",
+      "revId": "6d34acf5f16c2af32b008b24f22786f08a1bdf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
