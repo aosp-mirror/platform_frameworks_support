@@ -31,6 +31,7 @@ import android.view.Surface;
 
 import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.collection.ArrayMap;
 import androidx.concurrent.futures.SettableFuture;
@@ -106,12 +107,12 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
     // TODO: Consider refactoring to share implementation with MediaPlayer2Impl.
 
     @Override
-    public void notifyWhenCommandLabelReached(final Object label) {
+    public void notifyWhenCommandLabelReached(@NonNull final Object label) {
         _notifyWhenCommandLabelReached(label);
     }
 
     @Override
-    public Object _notifyWhenCommandLabelReached(final Object label) {
+    public Object _notifyWhenCommandLabelReached(@NonNull final Object label) {
         return addTask(new Task(CALL_COMPLETED_NOTIFY_WHEN_COMMAND_LABEL_REACHED, false) {
             @Override
             void process() {
@@ -273,12 +274,12 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
     }
 
     @Override
-    public void setMediaItem(final MediaItem2 item) {
+    public void setMediaItem(@NonNull final MediaItem2 item) {
         _setMediaItem(item);
     }
 
     @Override
-    public Object _setMediaItem(final MediaItem2 item) {
+    public Object _setMediaItem(@NonNull final MediaItem2 item) {
         return addTask(new Task(CALL_COMPLETED_SET_DATA_SOURCE, false) {
             @Override
             void process() {
@@ -428,12 +429,12 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
     }
 
     @Override
-    public void setNextMediaItem(MediaItem2 item) {
+    public void setNextMediaItem(@NonNull MediaItem2 item) {
         _setNextMediaItem(item);
     }
 
     @Override
-    public Object _setNextMediaItem(final MediaItem2 item) {
+    public Object _setNextMediaItem(@NonNull final MediaItem2 item) {
         return addTask(new Task(CALL_COMPLETED_SET_NEXT_DATA_SOURCE, false) {
             @Override
             void process() {
@@ -443,12 +444,12 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
     }
 
     @Override
-    public void getNextMediaItems(List<MediaItem2> items) {
+    public void getNextMediaItems(@NonNull List<MediaItem2> items) {
         _setNextMediaItems(items);
     }
 
     @Override
-    public Object _setNextMediaItems(final List<MediaItem2> items) {
+    public Object _setNextMediaItems(@NonNull final List<MediaItem2> items) {
         return addTask(new Task(CALL_COMPLETED_SET_NEXT_DATA_SOURCES, false) {
             @Override
             void process() {
@@ -458,12 +459,12 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
     }
 
     @Override
-    public void setAudioAttributes(final AudioAttributesCompat attributes) {
+    public void setAudioAttributes(@NonNull final AudioAttributesCompat attributes) {
         _setAudioAttributes(attributes);
     }
 
     @Override
-    public Object _setAudioAttributes(final AudioAttributesCompat attributes) {
+    public Object _setAudioAttributes(@NonNull final AudioAttributesCompat attributes) {
         return addTask(new Task(CALL_COMPLETED_SET_AUDIO_ATTRIBUTES, false) {
             @Override
             void process() {
@@ -523,12 +524,12 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
     }
 
     @Override
-    public void setPlaybackParams(PlaybackParams2 params) {
+    public void setPlaybackParams(@NonNull PlaybackParams2 params) {
         _setPlaybackParams(params);
     }
 
     @Override
-    public Object _setPlaybackParams(final PlaybackParams2 params) {
+    public Object _setPlaybackParams(@NonNull final PlaybackParams2 params) {
         return addTask(new Task(CALL_COMPLETED_SET_PLAYBACK_PARAMS, false) {
             @Override
             void process() {
@@ -538,6 +539,7 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
     }
 
     @Override
+    @NonNull
     public PlaybackParams2 getPlaybackParams() {
         return runPlayerCallableBlocking(new Callable<PlaybackParams2>() {
             @Override
@@ -694,8 +696,8 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
     }
 
     @Override
-    public void setDrmEventCallback(Executor executor,
-            DrmEventCallback eventCallback) {
+    public void setDrmEventCallback(@NonNull Executor executor,
+            @NonNull DrmEventCallback eventCallback) {
         throw new UnsupportedOperationException();
     }
 
@@ -710,7 +712,7 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
     }
 
     @Override
-    public void prepareDrm(UUID uuid) {
+    public void prepareDrm(@NonNull UUID uuid) {
         throw new UnsupportedOperationException();
     }
 
@@ -720,28 +722,30 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
     }
 
     @Override
+    @NonNull
     public MediaDrm.KeyRequest getDrmKeyRequest(byte[] keySetId, byte[] initData, String mimeType,
             int keyType, Map<String, String> optionalParameters) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public byte[] provideDrmKeyResponse(byte[] keySetId, byte[] response) {
+    public byte[] provideDrmKeyResponse(@Nullable byte[] keySetId, @NonNull byte[] response) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void restoreDrmKeys(byte[] keySetId) {
+    public void restoreDrmKeys(@NonNull byte[] keySetId) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public String getDrmPropertyString(String propertyName) {
+    @NonNull
+    public String getDrmPropertyString(@NonNull String propertyName) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void setDrmPropertyString(String propertyName, String value) {
+    public void setDrmPropertyString(@NonNull String propertyName, @NonNull String value) {
         throw new UnsupportedOperationException();
     }
 
