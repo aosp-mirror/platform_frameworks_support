@@ -22,6 +22,30 @@
       "revId": "08103d50b553f258e520f9669f85370599ac2a38",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15f46c6a_6d0f4df1",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-03T16:14:28Z",
+      "side": 1,
+      "message": "They are public final ints so they get inlined at compile time by javac. It is not something that is accessed on runtime.",
+      "parentUuid": "b8674c5c_9c69cdc8",
+      "range": {
+        "startLine": 362,
+        "startChar": 32,
+        "endLine": 362,
+        "endChar": 76
+      },
+      "revId": "08103d50b553f258e520f9669f85370599ac2a38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
