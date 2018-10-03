@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d15413eb_c8cf5b45",
+        "filename": "fragment/ktx/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-03T15:53:20Z",
+      "side": 1,
+      "message": "aaaand it misses my methods.",
+      "revId": "32fe2020910681451eaab24fcb1a1ec345ac2587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
