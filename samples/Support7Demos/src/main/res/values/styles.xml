@@ -30,7 +30,7 @@
     </style>
 
     <style name="Theme.Custom.TextLink">
-        <item name="android:textColorLink">@color/link_color</item>
+        <!--<item name="android:textColorLink">@color/link_color</item>-->
     </style>
 
     <style name="Theme.SampleMediaRouter" parent="Theme.AppCompat">
