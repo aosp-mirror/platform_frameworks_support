@@ -16,6 +16,24 @@
       "revId": "3a166ed9da285dd5ca2193aedf02b95b5258078e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7e099ac_11a1f163",
+        "filename": "car/core/res/layout/car_list_item_radio_content.xml",
+        "patchSetId": 13
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-03T21:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad3b8eea_84bec2b3",
+      "revId": "3a166ed9da285dd5ca2193aedf02b95b5258078e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
