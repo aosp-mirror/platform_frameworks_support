@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a14e7d16_eee78f79",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-03T22:29:17Z",
+      "side": 1,
+      "message": "could you annotate each method with various threads they can be called on?\nlike @Uithread, @AnyThread, @WorkerThread",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 29
+      },
+      "revId": "f82fc57940bf6596144c3e50ad3cb64646439db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa1bcfb2_bea1097c",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-03T22:29:17Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 78,
+        "startChar": 20,
+        "endLine": 78,
+        "endChar": 28
+      },
+      "revId": "f82fc57940bf6596144c3e50ad3cb64646439db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ce0a026_0d302730",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-03T22:29:17Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 81,
+        "startChar": 20,
+        "endLine": 81,
+        "endChar": 44
+      },
+      "revId": "f82fc57940bf6596144c3e50ad3cb64646439db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2aeb0e95_5915cd99",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-03T22:29:17Z",
+      "side": 1,
+      "message": "synchronize over a lock",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 25
+      },
+      "revId": "f82fc57940bf6596144c3e50ad3cb64646439db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
