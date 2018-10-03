@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f01a1c8b_6b257135",
+        "filename": "core/src/androidTest/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompatTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-03T10:39:20Z",
+      "side": 1,
+      "message": "Do we want to check that we get a correct ID?",
+      "range": {
+        "startLine": 115,
+        "startChar": 45,
+        "endLine": 115,
+        "endChar": 59
+      },
+      "revId": "f0cab9f58e3e5fc898795355345a00de12405374",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
