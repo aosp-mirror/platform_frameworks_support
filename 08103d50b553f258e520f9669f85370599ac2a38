@@ -70,6 +70,30 @@
       "revId": "08103d50b553f258e520f9669f85370599ac2a38",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e21a3dc_79bfacff",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-03T16:22:47Z",
+      "side": 1,
+      "message": "targetSdkVersion is not the same as compileSdkVersion. You can set targetSdkVersion to whatever you want, but if you use androidx you always have to use the latest *compile*SdkVersion which is where these constants will come from.",
+      "parentUuid": "0f639658_458f585b",
+      "range": {
+        "startLine": 362,
+        "startChar": 32,
+        "endLine": 362,
+        "endChar": 76
+      },
+      "revId": "08103d50b553f258e520f9669f85370599ac2a38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
