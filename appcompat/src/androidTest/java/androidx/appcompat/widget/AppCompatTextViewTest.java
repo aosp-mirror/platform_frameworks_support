@@ -19,6 +19,7 @@ import static androidx.appcompat.testutils.TestUtilsActions.setEnabled;
 import static androidx.appcompat.testutils.TestUtilsActions.setTextAppearance;
 import static androidx.appcompat.testutils.TestUtilsMatchers.isBackground;
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
@@ -32,6 +33,7 @@ import static org.junit.Assert.fail;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
@@ -46,9 +48,12 @@ import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.GuardedBy;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.test.R;
+import androidx.appcompat.testutils.TestUtils;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.ColorUtils;
 import androidx.core.text.PrecomputedTextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.TextViewCompat;
@@ -898,4 +903,141 @@ public class AppCompatTextViewTest
     }
 
     private static class DummyTextClassifier implements TextClassifier {}
+
+    @Test
+    public void testCompoundDrawableTint() {
+        // Given an ACTV with a white drawableLeftCompat set and a #f0f drawableTint
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawable_tint);
+        final int tint = 0xffff00ff;
+        // Then the drawable should be tinted
+        final Drawable drawable = textView.getCompoundDrawables()[0];
+        TestUtils.assertAllPixelsOfColor(
+                "Tint not applied to AppCompatTextView compound drawable",
+                drawable,
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                true,
+                tint,
+                0,
+                true);
+        // Then the getter should return the tint
+        assertEquals(ColorStateList.valueOf(tint), textView.getCompoundDrawableTintListCompat());
+    }
+
+    @Test
+    public void testCompoundDrawableTintList() {
+        // Given an ACTV with a white drawableLeftCompat and a ColorStateList drawableTint set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawable_tint_list);
+        final int defaultTint = ResourcesCompat.getColor(mResources, R.color.lilac_default, null);
+        final int disabledTint = ResourcesCompat.getColor(mResources, R.color.lilac_disabled, null);
+
+        // Then the initial drawable tint is applied
+        final Drawable drawable = textView.getCompoundDrawables()[0];
+        TestUtils.assertAllPixelsOfColor(
+                "Tint not applied to AppCompatTextView compound drawable",
+                drawable,
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                true,
+                defaultTint,
+                0,
+                true);
+
+        // When the view is disabled
+        onView(withId(textView.getId())).perform(scrollTo(), setEnabled(false));
+        // Then the appropriate drawable tint is applied
+        TestUtils.assertAllPixelsOfColor(
+                "Tint not applied to AppCompatTextView compound drawable",
+                drawable,
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                true,
+                disabledTint,
+                0,
+                true);
+    }
+
+    @Test
+    public void testCompoundDrawableTintMode() {
+        // Given an ACTV with a red drawableLeft, a semi-transparent blue drawableTint
+        // & drawableTintMode of src_over
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawable_tint_mode);
+        //final int expected = 0xfe7e0081;
+        final int expected = ColorUtils.compositeColors(0x800000ff, 0xffff0000);
+        final int tolerance = 2; // allow some tolerance for the blending
+        // Then the drawable should be tinted
+        final Drawable drawable = textView.getCompoundDrawables()[0];
+        TestUtils.assertAllPixelsOfColor(
+                "Tint not applied to AppCompatTextView compound drawable",
+                drawable,
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                true,
+                expected,
+                tolerance,
+                true);
+        // Then the getter returns the mode
+        assertEquals(PorterDuff.Mode.SRC_OVER, textView.getCompoundDrawableTintModeCompat());
+    }
+
+    @Test
+    public void testSetCompoundDrawableTintList() {
+        // Given an ACTV with a compound drawable
+        final AppCompatTextView textView = new AppCompatTextView(mActivity);
+        textView.setCompoundDrawables(AppCompatResources.getDrawable(
+                mActivity, R.drawable.white_square), null, null, null);
+
+        // When a tint is set programmatically
+        final int tint = 0xffa4c639;
+        final ColorStateList tintList = ColorStateList.valueOf(tint);
+        textView.setCompoundDrawableTintListCompat(tintList);
+
+        // Then the drawable should be tinted
+        final Drawable drawable = textView.getCompoundDrawables()[0];
+        TestUtils.assertAllPixelsOfColor(
+                "Tint not applied to AppCompatTextView compound drawable",
+                drawable,
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                true,
+                tint,
+                0,
+                true);
+        // Then the getter should return the tint
+        assertEquals(tintList, textView.getCompoundDrawableTintListCompat());
+    }
+
+    @Test
+    public void testSetCompoundDrawableTintMode() {
+        // Given an ACTV with a compound drawable
+        final AppCompatTextView textView = new AppCompatTextView(mActivity);
+        textView.setCompoundDrawables(AppCompatResources.getDrawable(
+                mActivity, R.drawable.red_square), null, null, null);
+
+        // When a tint is set programmatically
+        final int tint = 0x800000ff;
+        final PorterDuff.Mode mode = PorterDuff.Mode.SRC_OVER;
+        final ColorStateList tintList = ColorStateList.valueOf(tint);
+        textView.setCompoundDrawableTintListCompat(tintList);
+        textView.setCompoundDrawableTintModeCompat(mode);
+        final int expected = ColorUtils.compositeColors(tint, 0xffff0000);
+        final int tolerance = 2; // allow some tolerance for the blending
+
+        // Then the drawable should be tinted
+        final Drawable drawable = textView.getCompoundDrawables()[0];
+        TestUtils.assertAllPixelsOfColor(
+                "Tint not applied to AppCompatTextView compound drawable",
+                drawable,
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                true,
+                expected,
+                tolerance,
+                true);
+        // Then the getter should return the tint mode
+        assertEquals(mode, textView.getCompoundDrawableTintModeCompat());
+    }
 }

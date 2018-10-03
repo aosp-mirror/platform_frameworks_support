@@ -616,12 +616,16 @@ package androidx.appcompat.widget {
     ctor public AppCompatTextView(android.content.Context!);
     ctor public AppCompatTextView(android.content.Context!, android.util.AttributeSet!);
     ctor public AppCompatTextView(android.content.Context!, android.util.AttributeSet!, int);
+    method public android.content.res.ColorStateList? getCompoundDrawableTintListCompat();
+    method public android.graphics.PorterDuff.Mode? getCompoundDrawableTintModeCompat();
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public android.content.res.ColorStateList? getSupportBackgroundTintList();
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public android.graphics.PorterDuff.Mode? getSupportBackgroundTintMode();
     method public androidx.core.text.PrecomputedTextCompat.Params getTextMetricsParamsCompat();
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setAutoSizeTextTypeUniformWithConfiguration(int, int, int, int) throws java.lang.IllegalArgumentException;
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setAutoSizeTextTypeUniformWithPresetSizes(int[], int) throws java.lang.IllegalArgumentException;
     method public void setBackgroundDrawable(android.graphics.drawable.Drawable!);
+    method public void setCompoundDrawableTintListCompat(android.content.res.ColorStateList?);
+    method public void setCompoundDrawableTintModeCompat(android.graphics.PorterDuff.Mode?);
     method public void setPrecomputedText(androidx.core.text.PrecomputedTextCompat);
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setSupportBackgroundTintList(android.content.res.ColorStateList?);
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setSupportBackgroundTintMode(android.graphics.PorterDuff.Mode?);
