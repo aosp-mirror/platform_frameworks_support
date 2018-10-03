@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f71ef61b_7e3c311d",
+        "filename": "persistence/db-framework/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-10-03T20:03:32Z",
+      "side": 1,
+      "message": "This seems to be the first androidx.core dependency Room declares, maybe we want to consider having a fixed version so that Room doesn\u0027t depend on tip of the tree version. Avoiding the situation we are going through right now with room depending on unreleased paging.",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "2378e5dbd9985e934c358b827106171da616b5ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
