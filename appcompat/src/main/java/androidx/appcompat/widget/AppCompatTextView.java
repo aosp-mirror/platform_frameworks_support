@@ -566,4 +566,59 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
                 end != 0 ? AppCompatResources.getDrawable(context, end) : null,
                 bottom != 0 ? AppCompatResources.getDrawable(context, bottom) : null);
     }
+
+    /**
+     * @return the tint applied to the compound drawables
+     * @attr ref androidx.appcompat.R.styleable#AppCompatTextView_drawableTint
+     * @see #setCompoundDrawableTintListCompat(ColorStateList)
+     */
+    @Nullable
+    public ColorStateList getCompoundDrawableTintListCompat() {
+        return mTextHelper.getCompoundDrawableTintList();
+    }
+
+    /**
+     * Applies a tint to the compound drawables. Does not modify the current tint mode, which is
+     * {@link PorterDuff.Mode#SRC_IN} by default.
+     * <p>
+     * Subsequent calls to {@link #setCompoundDrawables(Drawable, Drawable, Drawable, Drawable)} and
+     * related methods will automatically mutate the drawables and apply the specified tint and tint
+     * mode using {@link Drawable#setTintList(ColorStateList)}.
+     *
+     * @param tintList the tint to apply, may be {@code null} to clear tint
+     * @attr ref androidx.appcompat.R.styleable#AppCompatTextView_drawableTint
+     * @see #getCompoundDrawableTintList()
+     * @see Drawable#setTintList(ColorStateList)
+     */
+    public void setCompoundDrawableTintListCompat(@Nullable ColorStateList tintList) {
+        mTextHelper.setCompoundDrawableTintList(tintList);
+        mTextHelper.applyCompoundDrawablesTints();
+    }
+
+    /**
+     * Returns the blending mode used to apply the tint to the compound drawables, if specified.
+     *
+     * @return the blending mode used to apply the tint to the compound drawables
+     * @attr ref androidx.appcompat.R.styleable#AppCompatTextView_drawableTintMode
+     * @see #setCompoundDrawableTintModeCompat(PorterDuff.Mode)
+     */
+    @Nullable
+    public PorterDuff.Mode getCompoundDrawableTintModeCompat() {
+        return mTextHelper.getCompoundDrawableTintMode();
+    }
+
+    /**
+     * Specifies the blending mode used to apply the tint specified by
+     * {@link #setCompoundDrawableTintListCompat(ColorStateList)} to the compound drawables. The
+     * default mode is {@link PorterDuff.Mode#SRC_IN}.
+     *
+     * @param tintMode the blending mode used to apply the tint, may be {@code null} to clear tint
+     * @attr ref androidx.appcompat.R.styleable#AppCompatTextView_drawableTintMode
+     * @see #setCompoundDrawableTintListCompat(ColorStateList)
+     * @see Drawable#setTintMode(PorterDuff.Mode)
+     */
+    public void setCompoundDrawableTintModeCompat(@Nullable PorterDuff.Mode tintMode) {
+        mTextHelper.setCompoundDrawableTintMode(tintMode);
+        mTextHelper.applyCompoundDrawablesTints();
+    }
 }
