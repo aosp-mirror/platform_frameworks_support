@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3debabd3_9866e5d7",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-04T12:28:20Z",
+      "side": 1,
+      "message": "I\u0027m not sure if my refactoring is satisfactory enough. Could you take a look? Thanks.",
+      "parentUuid": "946e0bce_63a3d206",
+      "revId": "31a4d9c4e05a51fbbe96f42144221300f3dc55c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71ae2d27_574d2a77",
         "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
         "patchSetId": 10
@@ -39,6 +57,30 @@
       "revId": "31a4d9c4e05a51fbbe96f42144221300f3dc55c3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f05b035_185df79b",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-04T12:28:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71ae2d27_574d2a77",
+      "range": {
+        "startLine": 840,
+        "startChar": 44,
+        "endLine": 840,
+        "endChar": 93
+      },
+      "revId": "31a4d9c4e05a51fbbe96f42144221300f3dc55c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
