@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8a3c5e8_c9e45124",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionListItem.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-04T22:37:54Z",
+      "side": 1,
+      "message": "is this still necessary given the @NonNull annotation?",
+      "range": {
+        "startLine": 616,
+        "startChar": 12,
+        "endLine": 616,
+        "endChar": 48
+      },
+      "revId": "9c787e4f45b73d5245de849f8e93d79e89fa5d4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40bbe355_4aa72e07",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionListItem.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-04T22:37:54Z",
+      "side": 1,
+      "message": "Can you add a comment about the order of buttons if both are present?",
+      "range": {
+        "startLine": 635,
+        "startChar": 16,
+        "endLine": 635,
+        "endChar": 34
+      },
+      "revId": "9c787e4f45b73d5245de849f8e93d79e89fa5d4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
