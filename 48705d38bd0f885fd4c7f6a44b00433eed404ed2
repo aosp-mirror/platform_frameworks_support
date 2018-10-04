@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4332836_1b637d69",
+        "filename": "room/compiler/build.gradle",
+        "patchSetId": 22
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-04T20:52:42Z",
+      "side": 1,
+      "message": "should this be maxDepVersion?\nroom declares a dependency on sqlite support.\nthere is no case of using the compiler w/ an sqlite version that is less than what room runtime declares.",
+      "range": {
+        "startLine": 82,
+        "startChar": 32,
+        "endLine": 83,
+        "endChar": 84
+      },
+      "revId": "48705d38bd0f885fd4c7f6a44b00433eed404ed2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
