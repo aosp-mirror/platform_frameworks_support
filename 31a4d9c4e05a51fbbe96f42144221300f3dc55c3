@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71ae2d27_574d2a77",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-10-04T09:56:43Z",
+      "side": 1,
+      "message": "can\u0027t we use fd?",
+      "range": {
+        "startLine": 840,
+        "startChar": 44,
+        "endLine": 840,
+        "endChar": 93
+      },
+      "revId": "31a4d9c4e05a51fbbe96f42144221300f3dc55c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
