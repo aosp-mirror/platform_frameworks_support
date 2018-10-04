@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "946e0bce_63a3d206",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-04T11:01:06Z",
+      "side": 1,
+      "message": "What about refactoring code follows for L808~L847?\n\nMediaMetadataRetriever retriever;\nif (mMediaItem \u003d\u003d null) {\n    return null;\n} else if (mMediaItem instanceof UriMediaItem2) {\n    Uri uri \u003d ...\n    retriever \u003d ...\n} else if (mMediaItem instanceof FileMediaItem2) {\n    FileDescriptor fd \u003d ...\n    retriever \u003d ...\n}",
+      "revId": "31a4d9c4e05a51fbbe96f42144221300f3dc55c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "71ae2d27_574d2a77",
         "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
         "patchSetId": 10
