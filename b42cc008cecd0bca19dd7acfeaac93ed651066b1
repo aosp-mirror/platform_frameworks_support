@@ -22,6 +22,30 @@
       "revId": "b42cc008cecd0bca19dd7acfeaac93ed651066b1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3341573_684f0072",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1147,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-04T12:31:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50a978b3_55c9ff19",
+      "range": {
+        "startLine": 1130,
+        "startChar": 0,
+        "endLine": 1147,
+        "endChar": 25
+      },
+      "revId": "b42cc008cecd0bca19dd7acfeaac93ed651066b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
