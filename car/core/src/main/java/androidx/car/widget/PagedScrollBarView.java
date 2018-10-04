@@ -70,6 +70,7 @@ public class PagedScrollBarView extends ViewGroup {
     private final int mSeparatingMargin;
     private final int mScrollBarThumbWidth;
 
+    private boolean mShowScrollbarThumb;
     /** The amount of space that the scroll thumb is allowed to roam over. */
     private int mScrollThumbTrackHeight;
 
@@ -109,12 +110,13 @@ public class PagedScrollBarView extends ViewGroup {
         mDownButton.setOnClickListener(mDownButtonClickListener);
         mAlphaJumpButton = findViewById(R.id.alpha_jump);
         mAlphaJumpButton.setOnClickListener(mAlphaJumpButtonClickListener);
-
         mScrollThumb = findViewById(R.id.scrollbar_thumb);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PagedScrollBarView,
                 defStyleAttrs, defStyleRes);
 
+        mShowScrollbarThumb = a.getBoolean(R.styleable.PagedScrollBarView_showScrollbarThumb, true);
+        mScrollThumb.setVisibility(mShowScrollbarThumb ? View.VISIBLE : View.GONE);
         Drawable upButtonIcon = a.getDrawable(R.styleable.PagedScrollBarView_upButtonIcon);
         if (upButtonIcon != null) {
             setUpButtonIcon(upButtonIcon);
@@ -177,6 +179,25 @@ public class PagedScrollBarView extends ViewGroup {
 
     void setShowAlphaJump(boolean show) {
         mAlphaJumpButton.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    /**
+     * The GET method which return the visibility of scrollbar thumb.
+     *
+     */
+    public boolean isShowScrollbarThumb() {
+        return mShowScrollbarThumb;
+    }
+    /**
+     * The SET method which allow view parent to change the attribute.
+     *
+     * @param show if to show the scrollbar thumb.
+     */
+    public void setShowScrollbarThumb(boolean show) {
+        mShowScrollbarThumb = show;
+        mScrollThumb.setVisibility(mShowScrollbarThumb ? View.VISIBLE : View.GONE);
+        invalidate();
+        requestLayout();
     }
 
     /**
