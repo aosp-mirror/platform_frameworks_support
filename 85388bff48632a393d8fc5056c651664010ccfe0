@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58536bc4_ebeff893",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-04T01:47:22Z",
+      "side": 1,
+      "message": "what I meant was hiding these public c-tors with @hide (if there is no developer use case for these c-tors.)",
+      "range": {
+        "startLine": 913,
+        "startChar": 8,
+        "endLine": 915,
+        "endChar": 9
+      },
+      "revId": "85388bff48632a393d8fc5056c651664010ccfe0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
