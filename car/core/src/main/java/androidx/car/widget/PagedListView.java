@@ -464,6 +464,15 @@ public class PagedListView extends FrameLayout {
     }
 
     /**
+     * Set the visibility of scroll bar thumb in the scroll bar.
+     *
+     * @param show Whether to show the scrollbar thumb or not.
+     */
+    public void setShowScrollBarThumb(boolean show) {
+        mScrollBarView.setShowScrollBarThumb(show);
+    }
+
+    /**
      * Sets an offset above the first item in the {@code PagedListView}. This offset is scrollable
      * with the contents of the list.
      *
