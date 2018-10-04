@@ -105,6 +105,7 @@ public class PagedListView extends FrameLayout {
     @VisibleForTesting
     PagedScrollBarView mScrollBarView;
 
+
     /**
      * AlphaJumpOverlayView that will be null until the first time you tap the alpha jump button, at
      * which point we'll construct it and add it to the view hierarchy as a child of this frame
@@ -460,6 +461,15 @@ public class PagedListView extends FrameLayout {
     public void setScrollBarTopMargin(int topMargin) {
         MarginLayoutParams params = (MarginLayoutParams) mScrollBarView.getLayoutParams();
         params.topMargin = topMargin;
+        mScrollBarView.requestLayout();
+    }
+    /**
+     * Set the visibility of scrollbar thumb in scrollbarview
+     *
+     * @param show If to show the scrollbar thumb.
+     */
+    public void setShowScrollbarThumb(boolean show) {
+        mScrollBarView.setShowScrollbarThumb(show);
         mScrollBarView.requestLayout();
     }
 
