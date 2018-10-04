@@ -30,7 +30,6 @@ import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.os.ResultReceiver;
 import android.os.SystemClock;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.text.TextUtils;
@@ -392,6 +391,24 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void release(final IMediaController2 caller, int seq) throws RemoteException {
         mConnectedControllersManager.removeController(caller == null ? null : caller.asBinder());
+    }
+
+    @Override
+    public void onControllerResult(final IMediaController2 caller, int seq,
+            final ParcelImpl controllerResult) {
+        CallSequenceManager manager = mConnectedControllersManager.getCallSequenceManager(
+                mConnectedControllersManager.getController(caller.asBinder()));
+        if (manager == null) {
+            return;
+        }
+        CallSequenceManager.RemoteProcessFuture<SessionResult> future =
+                manager.removeRemoteProcessFuture(seq);
+        if (future != null) {
+            MediaController2.ControllerResult result = ParcelUtils.fromParcelable(controllerResult);
+            future.set(new SessionResult(result));
+        } else {
+            Log.w(TAG, "Unexpected sequence number " + seq);
+        }
     }
 
     @Override
@@ -1055,8 +1072,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
         }
 
         @Override
-        void onCustomLayoutChanged(List<CommandButton> layout) throws RemoteException {
-            mIControllerCallback.onCustomLayoutChanged(
+        void setCustomLayout(int seq, List<CommandButton> layout) throws RemoteException {
+            mIControllerCallback.setCustomLayout(seq,
                     MediaUtils2.convertCommandButtonListToParcelImplList(layout));
         }
 
@@ -1072,10 +1089,10 @@ class MediaSession2Stub extends IMediaSession2.Stub {
         }
 
         @Override
-        void onCustomCommand(SessionCommand2 command, Bundle args, ResultReceiver receiver)
+        void sendCustomCommand(int seq, SessionCommand2 command, Bundle args)
                 throws RemoteException {
-            mIControllerCallback.onCustomCommand((ParcelImpl) ParcelUtils.toParcelable(command),
-                    args, receiver);
+            mIControllerCallback.sendCustomCommand(seq,
+                    (ParcelImpl) ParcelUtils.toParcelable(command), args);
         }
 
         @Override
