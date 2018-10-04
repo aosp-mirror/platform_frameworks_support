@@ -46,6 +46,30 @@
       "revId": "85388bff48632a393d8fc5056c651664010ccfe0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7368c38_5c177296",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-04T03:01:23Z",
+      "side": 1,
+      "message": "You are right. Fair enough.",
+      "parentUuid": "14762c27_8b9c55d1",
+      "range": {
+        "startLine": 913,
+        "startChar": 8,
+        "endLine": 915,
+        "endChar": 9
+      },
+      "revId": "85388bff48632a393d8fc5056c651664010ccfe0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
