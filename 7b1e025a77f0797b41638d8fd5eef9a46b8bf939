@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da914e9c_26b48832",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/AlphaJumpActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-04T23:56:06Z",
+      "side": 1,
+      "message": "You should be able to set this in the XML with the \"navigationIcon\" attribute.",
+      "revId": "7b1e025a77f0797b41638d8fd5eef9a46b8bf939",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
