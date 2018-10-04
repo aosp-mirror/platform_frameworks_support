@@ -53,6 +53,8 @@ repositories {
     jcenter()
     mavenCentral()
     google()
+    // Kotlin EAP releases
+    maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
 }
 
 dependencies {
