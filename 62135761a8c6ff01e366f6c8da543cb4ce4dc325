@@ -22,6 +22,29 @@
       "revId": "62135761a8c6ff01e366f6c8da543cb4ce4dc325",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bb3a791_bc431c6f",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/ViewModelLazyDelegates.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-04T16:12:03Z",
+      "side": 1,
+      "message": "The Javadoc here seems to be a copy/paste of the Fragment.viewModels() - should be rewritten for activities.",
+      "range": {
+        "startLine": 72,
+        "startChar": 41,
+        "endLine": 72,
+        "endChar": 51
+      },
+      "revId": "62135761a8c6ff01e366f6c8da543cb4ce4dc325",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
