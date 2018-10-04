@@ -17,7 +17,6 @@
 package androidx.media2;
 
 import android.os.Bundle;
-import android.os.ResultReceiver;
 import android.net.Uri;
 
 import androidx.media2.IMediaController2;
@@ -31,6 +30,8 @@ import androidx.versionedparcelable.ParcelImpl;
  * @hide
  */
 oneway interface IMediaSession2 {
+    void onControllerResult(IMediaController2 caller, int seq, in ParcelImpl controllerResult) = 41;
+
     void connect(IMediaController2 caller, int seq, String callingPackage) = 0;
     void release(IMediaController2 caller, int seq) = 1;
 
@@ -86,5 +87,5 @@ oneway interface IMediaSession2 {
             in Bundle extras) = 37;
     void subscribe(IMediaController2 caller, String parentId, in Bundle extras) = 38;
     void unsubscribe(IMediaController2 caller, String parentId) = 39;
-    // Next Id : 41
+    // Next Id : 42
 }
