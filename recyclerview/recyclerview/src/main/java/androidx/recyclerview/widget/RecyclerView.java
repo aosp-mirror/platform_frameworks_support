@@ -5455,7 +5455,93 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
      * <p>
      * RecyclerView automatically creates a pool for itself if you don't provide one.
      */
-    public static class RecycledViewPool {
+    public interface RecycledViewPool {
+        /**
+         * Add a scrap ViewHolder to the pool.
+         * <p>
+         * If the pool is already full for that ViewHolder's type, it will be immediately discarded.
+         *
+         * @param scrap ViewHolder to be added to the pool.
+         */
+        void putRecycledView(ViewHolder scrap);
+
+        /**
+         * Acquire a ViewHolder of the specified type from the pool, or {@code null} if none are
+         * present.
+         *
+         * @param viewType ViewHolder type.
+         * @return ViewHolder of the specified type acquired from the pool, or {@code null} if none
+         * are present.
+         */
+        @Nullable
+        ViewHolder getRecycledView(int viewType);
+
+        /**
+         * factorInCreateTime
+         * @param viewType view type
+         * @param createTimeNs create time ns
+         */
+        void factorInCreateTime(int viewType, long createTimeNs);
+
+        /**
+         * factorInBindTime
+         * @param viewType view type
+         * @param bindTimeNs create time ns
+         */
+        void factorInBindTime(int viewType, long bindTimeNs);
+
+        /**
+         * willCreateInTime
+         * @param viewType view type
+         * @param approxCurrentNs approx Current Ns
+         * @param deadlineNs deadline Ns
+         * @return true/false
+         */
+        boolean willCreateInTime(int viewType, long approxCurrentNs, long deadlineNs);
+
+        /**
+         * willBindInTime
+         * @param viewType view type
+         * @param approxCurrentNs approx Current Ns
+         * @param deadlineNs deadline Ns
+         * @return true/false
+         */
+        boolean willBindInTime(int viewType, long approxCurrentNs, long deadlineNs);
+
+        /**
+         * attach
+         */
+        void attach();
+
+        /**
+         * detach
+         */
+        void detach();
+
+        /**
+         * Detaches the old adapter and attaches the new one.
+         * <p>
+         * RecycledViewPool will clear its cache if it has only one adapter attached and the new
+         * adapter uses a different ViewHolder than the oldAdapter.
+         *
+         * @param oldAdapter The previous adapter instance. Will be detached.
+         * @param newAdapter The new adapter instance. Will be attached.
+         * @param compatibleWithPrevious True if both oldAdapter and newAdapter are using the same
+         *                               ViewHolder and view types.
+         */
+        void onAdapterChanged(Adapter oldAdapter, Adapter newAdapter,
+                              boolean compatibleWithPrevious);
+    }
+
+    /**
+     * RecycledViewPool lets you share Views between multiple RecyclerViews.
+     * <p>
+     * If you want to recycle views across RecyclerViews, create an instance of RecycledViewPool
+     * and use {@link RecyclerView#setRecycledViewPool(RecycledViewPool)}.
+     * <p>
+     * RecyclerView automatically creates a pool for itself if you don't provide one.
+     */
+    public static class DefaultRecycledViewPool implements RecycledViewPool {
         private static final int DEFAULT_MAX_SCRAP = 5;
 
         /**
@@ -5522,6 +5608,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
          * @return ViewHolder of the specified type acquired from the pool, or {@code null} if none
          * are present.
          */
+        @Override
         @Nullable
         public ViewHolder getRecycledView(int viewType) {
             final ScrapData scrapData = mScrap.get(viewType);
@@ -5555,6 +5642,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
          *
          * @param scrap ViewHolder to be added to the pool.
          */
+        @Override
         public void putRecycledView(ViewHolder scrap) {
             final int viewType = scrap.getItemViewType();
             final ArrayList<ViewHolder> scrapHeap = getScrapDataForType(viewType).mScrapHeap;
@@ -5575,33 +5663,39 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
             return (oldAverage / 4 * 3) + (newValue / 4);
         }
 
-        void factorInCreateTime(int viewType, long createTimeNs) {
+        @Override
+        public void factorInCreateTime(int viewType, long createTimeNs) {
             ScrapData scrapData = getScrapDataForType(viewType);
             scrapData.mCreateRunningAverageNs = runningAverage(
                     scrapData.mCreateRunningAverageNs, createTimeNs);
         }
 
-        void factorInBindTime(int viewType, long bindTimeNs) {
+        @Override
+        public void factorInBindTime(int viewType, long bindTimeNs) {
             ScrapData scrapData = getScrapDataForType(viewType);
             scrapData.mBindRunningAverageNs = runningAverage(
                     scrapData.mBindRunningAverageNs, bindTimeNs);
         }
 
-        boolean willCreateInTime(int viewType, long approxCurrentNs, long deadlineNs) {
+        @Override
+        public boolean willCreateInTime(int viewType, long approxCurrentNs, long deadlineNs) {
             long expectedDurationNs = getScrapDataForType(viewType).mCreateRunningAverageNs;
             return expectedDurationNs == 0 || (approxCurrentNs + expectedDurationNs < deadlineNs);
         }
 
-        boolean willBindInTime(int viewType, long approxCurrentNs, long deadlineNs) {
+        @Override
+        public boolean willBindInTime(int viewType, long approxCurrentNs, long deadlineNs) {
             long expectedDurationNs = getScrapDataForType(viewType).mBindRunningAverageNs;
             return expectedDurationNs == 0 || (approxCurrentNs + expectedDurationNs < deadlineNs);
         }
 
-        void attach() {
+        @Override
+        public void attach() {
             mAttachCount++;
         }
 
-        void detach() {
+        @Override
+        public void detach() {
             mAttachCount--;
         }
 
@@ -5617,7 +5711,8 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
          * @param compatibleWithPrevious True if both oldAdapter and newAdapter are using the same
          *                               ViewHolder and view types.
          */
-        void onAdapterChanged(Adapter oldAdapter, Adapter newAdapter,
+        @Override
+        public void onAdapterChanged(Adapter oldAdapter, Adapter newAdapter,
                 boolean compatibleWithPrevious) {
             if (oldAdapter != null) {
                 detach();
@@ -6669,7 +6764,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
 
         RecycledViewPool getRecycledViewPool() {
             if (mRecyclerPool == null) {
-                mRecyclerPool = new RecycledViewPool();
+                mRecyclerPool = new DefaultRecycledViewPool();
             }
             return mRecyclerPool;
         }
