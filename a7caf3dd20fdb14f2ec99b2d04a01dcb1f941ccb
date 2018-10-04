@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b896a92f_0f502037",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/ActivityViewModelLazy.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-04T18:00:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e3d5ee2_735c7502",
+      "range": {
+        "startLine": 36,
+        "startChar": 3,
+        "endLine": 36,
+        "endChar": 23
+      },
+      "revId": "a7caf3dd20fdb14f2ec99b2d04a01dcb1f941ccb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "714cff13_549bae1b",
         "filename": "fragment/ktx/src/main/java/androidx/fragment/app/FragmentViewModelLazy.kt",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "a7caf3dd20fdb14f2ec99b2d04a01dcb1f941ccb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e66b5194_b49a1f6a",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/FragmentViewModelLazy.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-04T18:00:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "714cff13_549bae1b",
+      "range": {
+        "startLine": 37,
+        "startChar": 26,
+        "endLine": 37,
+        "endChar": 46
+      },
+      "revId": "a7caf3dd20fdb14f2ec99b2d04a01dcb1f941ccb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
