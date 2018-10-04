@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "db3e7e7a_8f570e9c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-10-04T21:19:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbf31a06_b040f13a",
+      "range": {
+        "startLine": 12,
+        "startChar": 12,
+        "endLine": 12,
+        "endChar": 48
+      },
+      "revId": "df47fe142cb700191228e0aa5dea19e7d9bbb0ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f43c7751_a9923438",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewRendererCompat.java",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-04T21:03:21Z",
       "side": 1,
       "message": "nit: this is supposed to be one sentence per http://go/android-api-guidelines (see Docs #4)\n\nI\u0027d recommend something like \"{@code true} if it was possible to terminate this renderer, {@code false} otherwise,\" since you\u0027ve already elaborated on the reasons above",
+      "range": {
+        "startLine": 38,
+        "startChar": 14,
+        "endLine": 40,
+        "endChar": 34
+      },
+      "revId": "df47fe142cb700191228e0aa5dea19e7d9bbb0ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c74a56a0_605a5c77",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewRendererCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-10-04T21:19:48Z",
+      "side": 1,
+      "message": "Done. Thanks for the tip!",
+      "parentUuid": "f43c7751_a9923438",
       "range": {
         "startLine": 38,
         "startChar": 14,
