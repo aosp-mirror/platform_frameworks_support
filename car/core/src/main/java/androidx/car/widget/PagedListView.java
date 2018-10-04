@@ -102,8 +102,10 @@ public class PagedListView extends FrameLayout {
     private final PagedSnapHelper mSnapHelper;
     final Handler mHandler = new Handler();
     private boolean mScrollBarEnabled;
+    private boolean mScrollThumbShow;
     @VisibleForTesting
     PagedScrollBarView mScrollBarView;
+
 
     /**
      * AlphaJumpOverlayView that will be null until the first time you tap the alpha jump button, at
@@ -316,7 +318,9 @@ public class PagedListView extends FrameLayout {
         setFocusable(false);
 
         mScrollBarEnabled = a.getBoolean(R.styleable.PagedListView_scrollBarEnabled, true);
+        mScrollThumbShow = a.getBoolean(R.styleable.PagedListView_scrollThumbShow, true);
         mScrollBarView = findViewById(R.id.paged_scroll_view);
+        mScrollBarView.setShowScrollThumb(mScrollThumbShow);
         mScrollBarView.setPaginationListener(new PagedScrollBarView.PaginationListener() {
             @Override
             public void onPaginate(int direction) {

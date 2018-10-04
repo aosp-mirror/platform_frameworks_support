@@ -179,6 +179,10 @@ public class PagedScrollBarView extends ViewGroup {
         mAlphaJumpButton.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
+    void setShowScrollThumb(boolean show) {
+        mScrollThumb.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
     /**
      * Sets the range, offset and extent of the scroll bar. The range represents the size of a
      * container for the scrollbar thumb; offset is the distance from the start of the container
