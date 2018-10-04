@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e05329e_1f3907b4",
+        "filename": "car/cluster/src/androidTest/java/androidx/car/cluster/navigation/NavigationStateTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1290474
+      },
+      "writtenOn": "2018-10-04T21:34:44Z",
+      "side": 1,
+      "message": "This should be split in two (you\u0027re going actually going to test the steps case) and you can use the same expected \u003d UnsupportedOperationException.class patter you use in StepTest.",
+      "range": {
+        "startLine": 150,
+        "startChar": 4,
+        "endLine": 150,
+        "endChar": 9
+      },
+      "revId": "6e82afcc37cdea7d807b67b1ae39ea88c08cced9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25293ab6_047c05a2",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Lane.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1290474
+      },
+      "writtenOn": "2018-10-04T21:34:44Z",
+      "side": 1,
+      "message": "Should document that the list is unmodifiable.",
+      "range": {
+        "startLine": 85,
+        "startChar": 7,
+        "endLine": 85,
+        "endChar": 72
+      },
+      "revId": "6e82afcc37cdea7d807b67b1ae39ea88c08cced9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7a9b66b_bf12e2b4",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1290474
+      },
+      "writtenOn": "2018-10-04T21:34:44Z",
+      "side": 1,
+      "message": "Document that it cannot be modified.",
+      "range": {
+        "startLine": 114,
+        "startChar": 57,
+        "endLine": 114,
+        "endChar": 63
+      },
+      "revId": "6e82afcc37cdea7d807b67b1ae39ea88c08cced9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daae6486_cb286f9d",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1290474
+      },
+      "writtenOn": "2018-10-04T21:34:44Z",
+      "side": 1,
+      "message": "Here too.",
+      "range": {
+        "startLine": 123,
+        "startChar": 27,
+        "endLine": 123,
+        "endChar": 33
+      },
+      "revId": "6e82afcc37cdea7d807b67b1ae39ea88c08cced9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5413138_df0d6686",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1290474
+      },
+      "writtenOn": "2018-10-04T21:34:44Z",
+      "side": 1,
+      "message": "Document that the list is unmodifiable.",
+      "range": {
+        "startLine": 138,
+        "startChar": 7,
+        "endLine": 139,
+        "endChar": 63
+      },
+      "revId": "6e82afcc37cdea7d807b67b1ae39ea88c08cced9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
