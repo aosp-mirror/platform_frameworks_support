@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50a978b3_55c9ff19",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1147,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-04T10:50:21Z",
+      "side": 1,
+      "message": "if (videoWidth !\u003d 0 \u0026\u0026 videoHeight !\u003d 0) {\n                            if (videoWidth !\u003d mVideoWidth || videoHeight !\u003d mVideoHeight) {\n                                mVideoWidth \u003d videoWidth;\n                                mVideoHeight \u003d videoHeight;\n                                mInstance.requestLayout();\n                            }\n                        }\n                        if (needToStart()) {\n                            mMediaSession.getPlayer().play();\n                        }",
+      "range": {
+        "startLine": 1130,
+        "startChar": 0,
+        "endLine": 1147,
+        "endChar": 25
+      },
+      "revId": "b42cc008cecd0bca19dd7acfeaac93ed651066b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
