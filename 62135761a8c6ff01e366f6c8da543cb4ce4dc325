@@ -45,6 +45,30 @@
       "revId": "62135761a8c6ff01e366f6c8da543cb4ce4dc325",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc39e7ac_bcdb07ae",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/ViewModelLazyDelegates.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-04T17:46:46Z",
+      "side": 1,
+      "message": "lol, I need to swap docs between activity and fragment ones :facepalm",
+      "parentUuid": "3bb3a791_bc431c6f",
+      "range": {
+        "startLine": 72,
+        "startChar": 41,
+        "endLine": 72,
+        "endChar": 51
+      },
+      "revId": "62135761a8c6ff01e366f6c8da543cb4ce4dc325",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
