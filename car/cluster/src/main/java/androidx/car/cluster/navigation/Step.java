@@ -27,6 +27,7 @@ import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -60,7 +61,7 @@ public final class Step implements VersionedParcelable {
     Step(@Nullable Distance distance, @Nullable Maneuver maneuver, @NonNull List<Lane> lanes) {
         mDistance = distance;
         mManeuver = maneuver;
-        mLanes = new ArrayList<>(lanes);
+        mLanes = Collections.unmodifiableList(new ArrayList<>(lanes));
     }
 
     /**

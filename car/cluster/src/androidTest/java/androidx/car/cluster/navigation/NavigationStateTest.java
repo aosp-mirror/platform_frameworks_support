@@ -17,6 +17,7 @@
 package androidx.car.cluster.navigation;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import android.os.Bundle;
 import android.os.Parcel;
@@ -140,6 +141,21 @@ public class NavigationStateTest {
         // contract is still honored.
 
         assertEquals(new ArrayList(), state.getDestinations());
+    }
+
+    /**
+     * Tests that lists returned by {@link NavigationState} are immutable.
+     */
+    @Test
+    public void immutableLists() {
+        try {
+            NavigationState state = createSampleState();
+            state.mDestinations.add(new Destination.Builder().build());
+            state.mSteps.add(new Step.Builder().build());
+            fail();
+        } catch (UnsupportedOperationException ex) {
+            // Success
+        }
     }
 
     private NavigationState createEmptyState() {
