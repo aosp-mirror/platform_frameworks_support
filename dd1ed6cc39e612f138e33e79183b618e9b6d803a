@@ -105,6 +105,30 @@
       "revId": "dd1ed6cc39e612f138e33e79183b618e9b6d803a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8906ff6e_1e089d69",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-04T00:10:13Z",
+      "side": 1,
+      "message": "Thank you for the confirmation.\n\nPicked negatives for errors and positives for info. 0 for success.",
+      "parentUuid": "79b36856_6ab0544d",
+      "range": {
+        "startLine": 850,
+        "startChar": 32,
+        "endLine": 850,
+        "endChar": 57
+      },
+      "revId": "dd1ed6cc39e612f138e33e79183b618e9b6d803a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }

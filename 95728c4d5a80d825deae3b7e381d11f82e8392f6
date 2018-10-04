@@ -212,6 +212,30 @@
       "revId": "95728c4d5a80d825deae3b7e381d11f82e8392f6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "095bd64b_f514874f",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-04T00:10:13Z",
+      "side": 1,
+      "message": "Good catch. Done.",
+      "parentUuid": "0d217f02_f0fb2f28",
+      "range": {
+        "startLine": 883,
+        "startChar": 20,
+        "endLine": 883,
+        "endChar": 39
+      },
+      "revId": "95728c4d5a80d825deae3b7e381d11f82e8392f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
