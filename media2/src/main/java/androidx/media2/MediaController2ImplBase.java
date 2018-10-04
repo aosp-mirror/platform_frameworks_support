@@ -18,6 +18,7 @@ package androidx.media2;
 
 import static androidx.media2.MediaController2.ControllerResult.RESULT_CODE_DISCONNECTED;
 import static androidx.media2.MediaController2.ControllerResult.RESULT_CODE_PERMISSION_DENIED;
+import static androidx.media2.MediaController2.ControllerResult.RESULT_CODE_UNKNOWN_ERROR;
 import static androidx.media2.MediaMetadata2.METADATA_KEY_DURATION;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_ADD_PLAYLIST_ITEM;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_PAUSE;
@@ -62,7 +63,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.os.ResultReceiver;
 import android.os.SystemClock;
 import android.support.v4.media.MediaBrowserCompat;
 import android.util.Log;
@@ -251,7 +251,7 @@ class MediaController2ImplBase implements MediaController2Impl {
                 command.run(iSession2, result.getSequenceNumber());
             } catch (RemoteException e) {
                 Log.w(TAG, "Cannot connect to the service or the session is gone", e);
-                result.set(new ControllerResult(RESULT_CODE_DISCONNECTED, null));
+                result.set(new ControllerResult(RESULT_CODE_DISCONNECTED));
             }
             return result;
         } else {
@@ -259,7 +259,7 @@ class MediaController2ImplBase implements MediaController2Impl {
             // Otherwise session would receive discontinued sequence number, and it would make
             // future work item 'keeping call sequence when session execute commands' impossible.
             final SettableFuture<ControllerResult> result = SettableFuture.create();
-            result.set(new ControllerResult(RESULT_CODE_PERMISSION_DENIED, null));
+            result.set(new ControllerResult(RESULT_CODE_PERMISSION_DENIED));
             return result;
         }
     }
@@ -1086,15 +1086,35 @@ class MediaController2ImplBase implements MediaController2Impl {
         }
     }
 
-    void onCustomCommand(final SessionCommand2 command, final Bundle args,
-            final ResultReceiver receiver) {
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    void onControllerResult(int seq, ControllerResult result) {
+        final IMediaSession2 iSession2;
+        synchronized (mLock) {
+            iSession2 = mISession2;
+        }
+        if (iSession2 == null) {
+            return;
+        }
+        if (result == null) {
+            result = new ControllerResult(RESULT_CODE_UNKNOWN_ERROR);
+        }
+        try {
+            mISession2.onControllerResult(mControllerStub, seq,
+                    (ParcelImpl) ParcelUtils.toParcelable(result));
+        } catch (RemoteException e) {
+            Log.w(TAG, "Error in sending");
+        }
+    }
+
+    void onCustomCommand(final int seq, final SessionCommand2 command, final Bundle args) {
         if (DEBUG) {
             Log.d(TAG, "onCustomCommand cmd=" + command);
         }
         mCallbackExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                mCallback.onCustomCommand(mInstance, command, args, receiver);
+                ControllerResult result = mCallback.onCustomCommand(mInstance, command, args);
+                onControllerResult(seq, result);
             }
         });
     }
@@ -1108,11 +1128,13 @@ class MediaController2ImplBase implements MediaController2Impl {
         });
     }
 
-    void onCustomLayoutChanged(final List<MediaSession2.CommandButton> layout) {
+    void onCustomLayoutChanged(final int seq, final List<MediaSession2.CommandButton> layout) {
         mCallbackExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                mCallback.onCustomLayoutChanged(mInstance, layout);
+                int resultCode = mCallback.onSetCustomLayout(mInstance, layout);
+                ControllerResult result = new ControllerResult(resultCode);
+                onControllerResult(seq, result);
             }
         });
     }

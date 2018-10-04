@@ -744,7 +744,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
             Bundle data = new Bundle();
             data.putInt(MediaControlView2.KEY_SELECTED_SUBTITLE_INDEX,
                     mSubtitleTracks.indexOfKey(trackIndex));
-            mMediaSession.sendCustomCommand(
+            mMediaSession.broadcastCustomCommand(
                     new SessionCommand2(MediaControlView2.EVENT_UPDATE_SUBTITLE_SELECTED, null),
                     data);
         }
@@ -758,7 +758,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
         mSelectedSubtitleTrackIndex = INVALID_TRACK_INDEX;
         mSubtitleAnchorView.setVisibility(View.GONE);
 
-        mMediaSession.sendCustomCommand(
+        mMediaSession.broadcastCustomCommand(
                 new SessionCommand2(MediaControlView2.EVENT_UPDATE_SUBTITLE_DESELECTED, null),
                 null);
     }
@@ -801,7 +801,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
         data.putInt(MediaControlView2.KEY_SUBTITLE_TRACK_COUNT, mSubtitleTracks.size());
         data.putStringArrayList(MediaControlView2.KEY_SUBTITLE_TRACK_LANGUAGE_LIST,
                 subtitleTracksLanguageList);
-        mMediaSession.sendCustomCommand(
+        mMediaSession.broadcastCustomCommand(
                 new SessionCommand2(MediaControlView2.EVENT_UPDATE_TRACK_STATUS, null), data);
     }
 

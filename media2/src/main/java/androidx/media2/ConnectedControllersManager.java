@@ -19,6 +19,7 @@ package androidx.media2;
 import android.util.Log;
 
 import androidx.annotation.GuardedBy;
+import androidx.annotation.Nullable;
 import androidx.collection.ArrayMap;
 import androidx.media.MediaSessionManager.RemoteUserInfo;
 import androidx.media2.MediaSession2.ControllerInfo;
@@ -37,6 +38,9 @@ class ConnectedControllersManager<T> {
     private final Object mLock = new Object();
     @GuardedBy("mLock")
     private final ArrayMap<ControllerInfo, SessionCommandGroup2> mAllowedCommandGroupMap =
+            new ArrayMap<>();
+    @GuardedBy("mLock")
+    private final ArrayMap<ControllerInfo, CallSequenceManager> mCallSequenceManagerMap =
             new ArrayMap<>();
     @GuardedBy("mLock")
     private final ArrayMap<T, ControllerInfo> mControllers = new ArrayMap<>();
@@ -59,6 +63,7 @@ class ConnectedControllersManager<T> {
         }
         synchronized (mLock) {
             mAllowedCommandGroupMap.put(controller, commands);
+            mCallSequenceManagerMap.put(controller, new CallSequenceManager());
             mControllers.put(key, controller);
             mKeys.put(controller, key);
         }
@@ -87,6 +92,7 @@ class ConnectedControllersManager<T> {
         synchronized (mLock) {
             controller = mControllers.remove(key);
             mKeys.remove(controller);
+            mCallSequenceManagerMap.remove(controller);
             mAllowedCommandGroupMap.remove(controller);
         }
         notifyDisconnected(controller);
@@ -99,6 +105,7 @@ class ConnectedControllersManager<T> {
         synchronized (mLock) {
             T key = mKeys.remove(controller);
             mControllers.remove(key);
+            mCallSequenceManagerMap.remove(controller);
             mAllowedCommandGroupMap.remove(controller);
         }
         notifyDisconnected(controller);
@@ -135,7 +142,24 @@ class ConnectedControllersManager<T> {
 
     public boolean isConnected(ControllerInfo controller) {
         synchronized (mLock) {
-            return mKeys.get(controller) != null;
+            return controller == null || mKeys.get(controller) != null;
+        }
+    }
+
+    /**
+     * Gets the call sequence manager.
+     *
+     * @param controller controller
+     * @return Call sequence manager. Can be {@code null} if the controller was null or
+     *         disconencted.
+     */
+    public @Nullable CallSequenceManager getCallSequenceManager(
+            @Nullable ControllerInfo controller) {
+        if (controller == null) {
+            return null;
+        }
+        synchronized (mLock) {
+            return isConnected(controller) ? mCallSequenceManagerMap.get(controller) : null;
         }
     }
 
