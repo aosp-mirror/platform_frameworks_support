@@ -30,6 +30,7 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.KeyguardManager;
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
@@ -37,10 +38,13 @@ import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.media.widget.test.R;
+import androidx.media2.FileMediaItem2;
 import androidx.media2.MediaController2;
 import androidx.media2.MediaItem2;
+import androidx.media2.MediaMetadata2;
 import androidx.media2.SessionPlayer2;
 import androidx.media2.UriMediaItem2;
 import androidx.test.InstrumentationRegistry;
@@ -77,6 +81,11 @@ public class MediaControlView2Test {
     private static final int HTTPS_WAIT_TIME_MS = 5000;
     private static final long FFWD_MS = 30000L;
     private static final long REW_MS = 10000L;
+    private static final long VIDEO_METADATA_DURATION_MS = 49056L;
+    private static final long MUSIC_METADATA_DURATION_MS = 4206L;
+    private static final String VIDEO_METADATA_TITLE = "BigBuckBunny";
+    private static final String MUSIC_METADATA_TITLE = "Chimey Phone";
+    private static final String MUSIC_METADATA_ARTIST = "Android";
 
     private Context mContext;
     private Executor mMainHandlerExecutor;
@@ -305,6 +314,104 @@ public class MediaControlView2Test {
         assertFalse(latch.await(HTTPS_WAIT_TIME_MS, TimeUnit.MILLISECONDS));
     }
 
+    @Test
+    public void testGetMetadata() throws Throwable {
+        // Don't run the test if the codec isn't supported.
+        if (!hasCodec(mFileSchemeUri)) {
+            Log.i(TAG, "SKIPPING testGetMetadata(): codec is not supported");
+            return;
+        }
+
+        final CountDownLatch latch = new CountDownLatch(1);
+        final MediaController2 controller =
+                createController(new MediaController2.ControllerCallback() {
+                    @Override
+                    public void onPlaylistChanged(@NonNull MediaController2 controller,
+                            @NonNull List<MediaItem2> list, @Nullable MediaMetadata2 metadata) {
+                        MediaMetadata2 itemMetadata = list.get(0).getMetadata();
+                        if (itemMetadata != null) {
+                            if (itemMetadata.containsKey(MediaMetadata2.METADATA_KEY_TITLE)) {
+                                String title = itemMetadata.getString(
+                                        MediaMetadata2.METADATA_KEY_TITLE);
+                                assertEquals(title, VIDEO_METADATA_TITLE);
+                            }
+                            if (itemMetadata.containsKey(MediaMetadata2.METADATA_KEY_DURATION)) {
+                                long duration = itemMetadata.getLong(
+                                        MediaMetadata2.METADATA_KEY_DURATION);
+                                assertEquals(duration, VIDEO_METADATA_DURATION_MS);
+                            }
+                        }
+                        latch.countDown();
+                    }
+                });
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mVideoView.setMediaItem2(mFileSchemeMediaItem);
+            }
+        });
+        assertTrue(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
+    }
+
+    @Test
+    public void testGetMetadataFromMusic() throws Throwable {
+        Uri uri = Uri.parse("android.resource://" + mContext.getPackageName() + "/"
+                + R.raw.test_music);
+        AssetFileDescriptor afd = mContext.getResources().openRawResourceFd(R.raw.test_music);
+
+        // Don't run the test if the codec isn't supported.
+        if (!hasCodec(uri) || !hasCodec(afd)) {
+            Log.i(TAG, "SKIPPING testGetMetadataFromMusic(): codec is not supported");
+            return;
+        }
+
+        final MediaItem2 uriMediaItem = createTestMediaItem2(uri);
+        final MediaItem2 fileMediaItem = new FileMediaItem2.Builder(afd.getFileDescriptor(),
+                afd.getStartOffset(), afd.getLength()).build();
+        final CountDownLatch latch = new CountDownLatch(2);
+        final MediaController2 controller =
+                createController(new MediaController2.ControllerCallback() {
+                    @Override
+                    public void onPlaylistChanged(@NonNull MediaController2 controller,
+                            @NonNull List<MediaItem2> list, @Nullable MediaMetadata2 metadata) {
+                        MediaMetadata2 itemMetadata = list.get(0).getMetadata();
+                        if (itemMetadata != null) {
+                            if (itemMetadata.containsKey(MediaMetadata2.METADATA_KEY_TITLE)) {
+                                String title = itemMetadata.getString(
+                                        MediaMetadata2.METADATA_KEY_TITLE);
+                                assertEquals(title, MUSIC_METADATA_TITLE);
+                            }
+                            if (itemMetadata.containsKey(MediaMetadata2.METADATA_KEY_ARTIST)) {
+                                String artist = itemMetadata.getString(
+                                        MediaMetadata2.METADATA_KEY_ARTIST);
+                                assertEquals(artist, MUSIC_METADATA_ARTIST);
+                            }
+                            if (itemMetadata.containsKey(MediaMetadata2.METADATA_KEY_DURATION)) {
+                                long duration = itemMetadata.getLong(
+                                        MediaMetadata2.METADATA_KEY_DURATION);
+                                assertEquals(duration, MUSIC_METADATA_DURATION_MS);
+                            }
+                        }
+                        latch.countDown();
+                    }
+
+                });
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mVideoView.setMediaItem2(uriMediaItem);
+            }
+        });
+        assertFalse(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mVideoView.setMediaItem2(fileMediaItem);
+            }
+        });
+        assertTrue(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
+    }
+
     private void setKeepScreenOn() throws Throwable {
         mActivityRule.runOnUiThread(new Runnable() {
             @Override
@@ -345,12 +452,15 @@ public class MediaControlView2Test {
     }
 
     private MediaItem2 createTestMediaItem2(Uri uri) {
-        return new UriMediaItem2.Builder(mVideoView.getContext(), uri)
-                .build();
+        return new UriMediaItem2.Builder(mVideoView.getContext(), uri).build();
     }
 
     private boolean hasCodec(Uri uri) {
         return TestUtils.hasCodecsForUri(mActivity, uri);
+    }
+
+    private boolean hasCodec(AssetFileDescriptor afd) {
+        return TestUtils.hasCodecsForFileDescriptor(afd);
     }
 
     private MediaController2 createController(MediaController2.ControllerCallback callback) {

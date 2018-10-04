@@ -87,6 +87,7 @@ public class VideoViewTest extends FragmentActivity {
         if (intent == null || (videoUri = intent.getData()) == null || !videoUri.isAbsolute()) {
             errorString = "Invalid intent";
         } else {
+
             mUseTextureView = intent.getBooleanExtra(USE_TEXTURE_VIEW_EXTRA_NAME, false);
             if (mUseTextureView) {
                 mVideoView.setViewType(VideoView2.VIEW_TYPE_TEXTUREVIEW);
