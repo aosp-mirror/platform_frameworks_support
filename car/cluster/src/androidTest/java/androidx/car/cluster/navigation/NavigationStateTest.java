@@ -17,6 +17,7 @@
 package androidx.car.cluster.navigation;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import android.os.Bundle;
 import android.os.Parcel;
@@ -133,13 +134,29 @@ public class NavigationStateTest {
         NavigationState state = createSampleState();
 
         // Setting a list item to null (even though this is not allowed by the API)
-        state.mDestinations.set(0, null);
+        state.mDestinations = new ArrayList<>();
+        state.mDestinations.add(0, null);
 
         // Ignoring the serialization step as Parcelable doesn't allow lists with null items. This
         // test is just to make sure that even if the serialization protocol is changed, the API
         // contract is still honored.
 
         assertEquals(new ArrayList(), state.getDestinations());
+    }
+
+    /**
+     * Tests that lists returned by {@link NavigationState} are immutable.
+     */
+    @Test
+    public void immutableLists() {
+        try {
+            NavigationState state = createSampleState();
+            state.mDestinations.add(new Destination.Builder().build());
+            state.mSteps.add(new Step.Builder().build());
+            fail();
+        } catch (UnsupportedOperationException ex) {
+            // Success
+        }
     }
 
     private NavigationState createEmptyState() {

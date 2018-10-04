@@ -31,6 +31,7 @@ import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -64,8 +65,8 @@ public final class NavigationState implements VersionedParcelable {
      */
     @RestrictTo(LIBRARY_GROUP)
     NavigationState(@NonNull List<Step> steps, @NonNull List<Destination> destinations) {
-        mSteps = new ArrayList<>(steps);
-        mDestinations = new ArrayList<>(destinations);
+        mSteps = Collections.unmodifiableList(new ArrayList<>(steps));
+        mDestinations = Collections.unmodifiableList(new ArrayList<>(destinations));
     }
 
     /**
