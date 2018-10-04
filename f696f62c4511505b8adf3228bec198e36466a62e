@@ -22,6 +22,144 @@
       "revId": "f696f62c4511505b8adf3228bec198e36466a62e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ddbcd40_fe1712c3",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-04T02:02:38Z",
+      "side": 1,
+      "message": "doesn\u0027t this know how to ignore publish\u003dfalse artifacts for release builds (and we would want docs for tip of tree).",
+      "range": {
+        "startLine": 84,
+        "startChar": 5,
+        "endLine": 84,
+        "endChar": 45
+      },
+      "revId": "f696f62c4511505b8adf3228bec198e36466a62e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7197fc00_237b7a88",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/paging/AgeKeyedDataSource.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-04T02:02:38Z",
+      "side": 1,
+      "message": "since we never mutate this list, should we just provide a utility method either here or PagingUtils kind of class to reverse a list as an unmodifiable list that wont copy ?",
+      "range": {
+        "startLine": 66,
+        "startChar": 11,
+        "endLine": 66,
+        "endChar": 38
+      },
+      "revId": "f696f62c4511505b8adf3228bec198e36466a62e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9519e4a_bea64545",
+        "filename": "room/paging/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-04T02:02:38Z",
+      "side": 1,
+      "message": "Paging Integration? //same for the name",
+      "range": {
+        "startLine": 40,
+        "startChar": 38,
+        "endLine": 40,
+        "endChar": 39
+      },
+      "revId": "f696f62c4511505b8adf3228bec198e36466a62e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cc79c22_83358b54",
+        "filename": "room/paging/src/main/AndroidManifest.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-04T02:02:38Z",
+      "side": 1,
+      "message": "8",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "f696f62c4511505b8adf3228bec198e36466a62e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16dda467_f6e8f277",
+        "filename": "room/paging/src/main/java/androidx/room/paging/RoomItemKeyedDataSource.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-04T02:02:38Z",
+      "side": 1,
+      "message": "we should add a note that the order constraint must be unique, otherwise, results might be unstable.",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 2
+      },
+      "revId": "f696f62c4511505b8adf3228bec198e36466a62e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1e625af_f5192be0",
+        "filename": "room/paging/src/main/java/androidx/room/paging/RoomItemKeyedDataSource.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-04T02:02:38Z",
+      "side": 1,
+      "message": "comment on why reverse",
+      "range": {
+        "startLine": 101,
+        "startChar": 15,
+        "endLine": 101,
+        "endChar": 41
+      },
+      "revId": "f696f62c4511505b8adf3228bec198e36466a62e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
