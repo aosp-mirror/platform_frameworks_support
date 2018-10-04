@@ -16,9 +16,12 @@
 
 package androidx.media2;
 
+import static androidx.media2.MediaSession2.SessionResult.RESULT_CODE_SKIPPED;
+
 import android.util.Log;
 
 import androidx.annotation.GuardedBy;
+import androidx.annotation.Nullable;
 import androidx.collection.ArrayMap;
 import androidx.media.MediaSessionManager.RemoteUserInfo;
 import androidx.media2.MediaSession2.ControllerInfo;
@@ -38,6 +41,10 @@ class ConnectedControllersManager<T> {
     private final Object mLock = new Object();
     @GuardedBy("mLock")
     private final ArrayMap<ControllerInfo, SessionCommandGroup2> mAllowedCommandGroupMap =
+            new ArrayMap<>();
+    @GuardedBy("mLock")
+    private final ArrayMap<ControllerInfo, SequencedFutureManager>
+            mControllerToSequencedFutureManager =
             new ArrayMap<>();
     @GuardedBy("mLock")
     private final ArrayMap<T, ControllerInfo> mControllers = new ArrayMap<>();
@@ -60,6 +67,8 @@ class ConnectedControllersManager<T> {
         }
         synchronized (mLock) {
             mAllowedCommandGroupMap.put(controller, commands);
+            mControllerToSequencedFutureManager.put(controller, new SequencedFutureManager(
+                    new MediaSession2.SessionResult(RESULT_CODE_SKIPPED)));
             mControllers.put(key, controller);
             mKeys.put(controller, key);
         }
@@ -85,10 +94,15 @@ class ConnectedControllersManager<T> {
             return;
         }
         final ControllerInfo controller;
+        final SequencedFutureManager manager;
         synchronized (mLock) {
             controller = mControllers.remove(key);
             mKeys.remove(controller);
             mAllowedCommandGroupMap.remove(controller);
+            manager = mControllerToSequencedFutureManager.remove(controller);
+        }
+        if (manager != null) {
+            manager.close();
         }
         notifyDisconnected(controller);
     }
@@ -97,10 +111,15 @@ class ConnectedControllersManager<T> {
         if (controller == null) {
             return;
         }
+        final SequencedFutureManager manager;
         synchronized (mLock) {
             T key = mKeys.remove(controller);
             mControllers.remove(key);
             mAllowedCommandGroupMap.remove(controller);
+            manager = mControllerToSequencedFutureManager.remove(controller);
+        }
+        if (manager != null) {
+            manager.close();
         }
         notifyDisconnected(controller);
     }
@@ -136,7 +155,25 @@ class ConnectedControllersManager<T> {
 
     public boolean isConnected(ControllerInfo controller) {
         synchronized (mLock) {
-            return mKeys.get(controller) != null;
+            return controller != null && mKeys.get(controller) != null;
+        }
+    }
+
+    /**
+     * Gets the call sequence manager.
+     *
+     * @param controller controller
+     * @return Call sequence manager. Can be {@code null} if the controller was null or
+     *         disconencted.
+     */
+    public @Nullable SequencedFutureManager getSequencedFutureManager(
+            @Nullable ControllerInfo controller) {
+        if (controller == null) {
+            return null;
+        }
+        synchronized (mLock) {
+            return isConnected(controller)
+                    ? mControllerToSequencedFutureManager.get(controller) : null;
         }
     }
 
