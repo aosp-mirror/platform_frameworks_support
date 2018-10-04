@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "640b84ef_21a726ec",
+        "filename": "fragment/ktx/src/androidTest/java/androidx/fragment/app/ViewModelDelegatesTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-04T15:53:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1b29f70_f3b7cea1",
+      "revId": "32fe2020910681451eaab24fcb1a1ec345ac2587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "664ba124_34f0fea0",
         "filename": "fragment/ktx/src/main/java/androidx/fragment/app/ViewModelDelegates.kt",
         "patchSetId": 1

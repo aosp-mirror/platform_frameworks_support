@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5dfa4338_c9b7241a",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/ViewModelLazyDelegates.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-04T15:53:35Z",
+      "side": 1,
+      "message": "I intentionally change that in contrast to Ian\u0027s original patch.\nYou have to expose either class, either one more public function. I chose to expose class because it is way harder to use by mistake, while viewModels() and viewModels(VM::class.java) are very similar. \nPlus I don\u0027t see why it is harmful to FragmentViewModelLazy because it is simply an implementation of Lazy interface, without exposing any additional info",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 44
+      },
+      "revId": "62135761a8c6ff01e366f6c8da543cb4ce4dc325",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
