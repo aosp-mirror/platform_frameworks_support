@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a70b0a9e_639b1201",
+        "filename": "car/core/res/values/attrs.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-04T21:52:44Z",
+      "side": 1,
+      "message": "rename to showScrollbarThumb\n\nI know in PagedScrollbarView it\u0027s been inconsistent with whether it\u0027s \"scroll bar\" or \"scroll\". I think it should be \"scrollbar\"",
+      "range": {
+        "startLine": 52,
+        "startChar": 20,
+        "endLine": 52,
+        "endChar": 35
+      },
+      "revId": "9652ac78f802575306b1780052a1a9d1963e4cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbd3a21b_f5a24fcf",
+        "filename": "car/core/res/values/attrs.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-04T21:52:44Z",
+      "side": 1,
+      "message": "add to \nhttps://cs.corp.google.com/android/frameworks/support/car/core/res-public/values/public_attrs.xml?sq\u003dpackage:android\u0026dr\u0026g\u003d0",
+      "range": {
+        "startLine": 52,
+        "startChar": 20,
+        "endLine": 52,
+        "endChar": 35
+      },
+      "revId": "9652ac78f802575306b1780052a1a9d1963e4cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b7083f8_893486f3",
+        "filename": "car/core/res/values/attrs.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-04T21:52:44Z",
+      "side": 1,
+      "message": "it should be an attribute of PagedScrollBarView",
+      "range": {
+        "startLine": 99,
+        "startChar": 29,
+        "endLine": 99,
+        "endChar": 47
+      },
+      "revId": "9652ac78f802575306b1780052a1a9d1963e4cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56346bec_a6129868",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-04T21:52:44Z",
+      "side": 1,
+      "message": "rename to mShowScrollbarThumb",
+      "range": {
+        "startLine": 105,
+        "startChar": 20,
+        "endLine": 105,
+        "endChar": 36
+      },
+      "revId": "9652ac78f802575306b1780052a1a9d1963e4cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08e9e767_c6a00d21",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-04T21:52:44Z",
+      "side": 1,
+      "message": "extra line",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 0
+      },
+      "revId": "9652ac78f802575306b1780052a1a9d1963e4cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
