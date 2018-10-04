@@ -22,6 +22,30 @@
       "revId": "85388bff48632a393d8fc5056c651664010ccfe0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14762c27_8b9c55d1",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-04T02:51:28Z",
+      "side": 1,
+      "message": "I think that it has developer use case.\nSubclass of SessionPlayer2 may add new methods but wants to return this.\n\nI only hide another c-tor that takes completion time\nbecause its usecase is unknown for now.\n\nHope this answered your question.",
+      "parentUuid": "58536bc4_ebeff893",
+      "range": {
+        "startLine": 913,
+        "startChar": 8,
+        "endLine": 915,
+        "endChar": 9
+      },
+      "revId": "85388bff48632a393d8fc5056c651664010ccfe0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
