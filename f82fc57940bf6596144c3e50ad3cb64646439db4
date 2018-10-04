@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "99179aa4_dfafb2af",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-04T00:45:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa1bcfb2_bea1097c",
+      "range": {
+        "startLine": 78,
+        "startChar": 20,
+        "endLine": 78,
+        "endChar": 28
+      },
+      "revId": "f82fc57940bf6596144c3e50ad3cb64646439db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ce0a026_0d302730",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 17
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "979d5385_5faa0555",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-04T00:45:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ce0a026_0d302730",
+      "range": {
+        "startLine": 81,
+        "startChar": 20,
+        "endLine": 81,
+        "endChar": 44
+      },
+      "revId": "f82fc57940bf6596144c3e50ad3cb64646439db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2aeb0e95_5915cd99",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 17
@@ -91,6 +139,30 @@
       "revId": "f82fc57940bf6596144c3e50ad3cb64646439db4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7493d9b0_bc918e99",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-04T00:45:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2aeb0e95_5915cd99",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 25
+      },
+      "revId": "f82fc57940bf6596144c3e50ad3cb64646439db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
