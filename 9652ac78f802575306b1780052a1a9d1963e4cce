@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "0e414a64_a4a3172d",
+        "filename": "car/core/res/values/attrs.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-10-05T18:39:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbd3a21b_f5a24fcf",
+      "range": {
+        "startLine": 52,
+        "startChar": 20,
+        "endLine": 52,
+        "endChar": 35
+      },
+      "revId": "9652ac78f802575306b1780052a1a9d1963e4cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "41dd9ab1_3b03d68b",
+        "filename": "car/core/res/values/attrs.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-10-05T18:39:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a70b0a9e_639b1201",
+      "range": {
+        "startLine": 52,
+        "startChar": 20,
+        "endLine": 52,
+        "endChar": 35
+      },
+      "revId": "9652ac78f802575306b1780052a1a9d1963e4cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b7083f8_893486f3",
         "filename": "car/core/res/values/attrs.xml",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "9652ac78f802575306b1780052a1a9d1963e4cce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "054a8dfe_fe483a6e",
+        "filename": "car/core/res/values/attrs.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-10-05T18:39:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b7083f8_893486f3",
+      "range": {
+        "startLine": 99,
+        "startChar": 29,
+        "endLine": 99,
+        "endChar": 47
+      },
+      "revId": "9652ac78f802575306b1780052a1a9d1963e4cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "406a1070_0795f020",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-10-05T18:39:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "56346bec_a6129868",
+      "range": {
+        "startLine": 105,
+        "startChar": 20,
+        "endLine": 105,
+        "endChar": 36
+      },
+      "revId": "9652ac78f802575306b1780052a1a9d1963e4cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08e9e767_c6a00d21",
         "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
         "patchSetId": 1
@@ -114,6 +210,30 @@
       "revId": "9652ac78f802575306b1780052a1a9d1963e4cce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eba048c0_fe7961fd",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-10-05T18:39:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08e9e767_c6a00d21",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 0
+      },
+      "revId": "9652ac78f802575306b1780052a1a9d1963e4cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
