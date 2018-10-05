@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4da15208_23b71c49",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Segment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-10-05T17:59:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42c68e77_166329bf",
+      "range": {
+        "startLine": 51,
+        "startChar": 20,
+        "endLine": 51,
+        "endChar": 28
+      },
+      "revId": "b1b56bd8bb5e05bd7164a8608ffc72261975af36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ca110d9_cf116e34",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Segment.java",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "b1b56bd8bb5e05bd7164a8608ffc72261975af36",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b30d89fb_74bcc99d",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Segment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-10-05T17:59:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ca110d9_cf116e34",
+      "revId": "b1b56bd8bb5e05bd7164a8608ffc72261975af36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -62,6 +104,30 @@
       "revId": "b1b56bd8bb5e05bd7164a8608ffc72261975af36",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffa48058_6d113e35",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Segment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-10-05T17:59:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f09d39f_257dc6ed",
+      "range": {
+        "startLine": 59,
+        "startChar": 15,
+        "endLine": 59,
+        "endChar": 20
+      },
+      "revId": "b1b56bd8bb5e05bd7164a8608ffc72261975af36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
