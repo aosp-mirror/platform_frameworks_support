@@ -445,7 +445,7 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
     @Test
     public void testPrepareFromUri() throws InterruptedException {
         prepareLooper();
-        final Uri uri = Uri.parse("prepare://from.uri");
+        final Uri uri = Uri.parse("prefetch://from.uri");
         createSessionWithAllowedActions(
                 createCommandGroupWith(COMMAND_CODE_SESSION_PREPARE_FROM_URI));
         createRemoteController2(mSession.getToken()).prepareFromUri(uri, null);

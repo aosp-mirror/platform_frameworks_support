@@ -144,7 +144,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
 
         @Override
         public String toString() {
-            return "prepare()";
+            return "prefetch()";
         }
     };
     private static final PlayerOperation sPauseOperation = new PlayerOperation() {

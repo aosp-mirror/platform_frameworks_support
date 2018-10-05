@@ -432,8 +432,8 @@ public class MediaPlayer2TestBase extends MediaTestBase {
                 playedSuccessfully = true;
                 break;
             } catch (PrepareFailedException e) {
-                // prepare() can fail because of network issues, so try again
-                LOG.warning("prepare() failed on try " + i + ", trying playback again");
+                // prefetch() can fail because of network issues, so try again
+                LOG.warning("prefetch() failed on try " + i + ", trying playback again");
             }
         }
         assertTrue("Stream did not play successfully after all attempts", playedSuccessfully);
@@ -465,9 +465,9 @@ public class MediaPlayer2TestBase extends MediaTestBase {
                 playedSuccessfully = true;
                 break;
             } catch (PrepareFailedException e) {
-                // prepare() can fail because of network issues, so try again
+                // prefetch() can fail because of network issues, so try again
                 // playLoadedVideo already has reset the player so we can try again safely.
-                LOG.warning("prepare() failed on try " + i + ", trying playback again");
+                LOG.warning("prefetch() failed on try " + i + ", trying playback again");
             }
         }
         assertTrue("Stream did not play successfully after all attempts", playedSuccessfully);

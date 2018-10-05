@@ -363,7 +363,7 @@ public class MediaPlayer2DrmTestBase {
     }
 
     private void preparePlayerAndDrm_V0_syncDrmSetup() throws Exception {
-        Log.v(TAG, "preparePlayerAndDrm_V0: calling prepare()");
+        Log.v(TAG, "preparePlayerAndDrm_V0: calling prefetch()");
         mPlayer.prepare();
         mOnPreparedCalled.waitForSignal();
         if (mCallStatus != MediaPlayer2.CALL_STATUS_NO_ERROR) {
@@ -400,7 +400,7 @@ public class MediaPlayer2DrmTestBase {
             }
         });
 
-        Log.v(TAG, "preparePlayerAndDrm_V1: calling prepare()");
+        Log.v(TAG, "preparePlayerAndDrm_V1: calling prefetch()");
         mPlayer.prepare();
 
         mOnDrmInfoCalled.waitForSignal();
@@ -437,7 +437,7 @@ public class MediaPlayer2DrmTestBase {
             }
         });
 
-        Log.v(TAG, "preparePlayerAndDrm_V2: calling prepare()");
+        Log.v(TAG, "preparePlayerAndDrm_V2: calling prefetch()");
         mPlayer.prepare();
 
         mOnPreparedCalled.waitForSignal();
@@ -519,7 +519,7 @@ public class MediaPlayer2DrmTestBase {
             }
         });
 
-        Log.v(TAG, "preparePlayerAndDrm_V3: calling prepare()");
+        Log.v(TAG, "preparePlayerAndDrm_V3: calling prefetch()");
         mPlayer.prepare();
 
         // Waiting till the player is prepared
@@ -560,7 +560,7 @@ public class MediaPlayer2DrmTestBase {
                 mPlayer.setMediaItem(
                         new UriMediaItem2.Builder(mContext, file).build());
 
-                Log.v(TAG, "playLoadedVideo: prepare()");
+                Log.v(TAG, "playLoadedVideo: prefetch()");
                 mPlayer.prepare();
                 mOnPreparedCalled.waitForSignal();
 
