@@ -22,6 +22,30 @@
       "revId": "1464ffed6832320d67cef004f556a15a26d4d5a9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b038d833_3b13ce4d",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionBar.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-10-05T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc28965f_a3fef2c0",
+      "range": {
+        "startLine": 167,
+        "startChar": 10,
+        "endLine": 167,
+        "endChar": 16
+      },
+      "revId": "1464ffed6832320d67cef004f556a15a26d4d5a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
