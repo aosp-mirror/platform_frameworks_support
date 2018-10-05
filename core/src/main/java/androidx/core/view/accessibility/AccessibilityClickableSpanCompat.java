@@ -22,7 +22,7 @@ import android.text.style.ClickableSpan;
 import android.view.View;
 
 import androidx.annotation.RestrictTo;
-import androidx.core.R;
+import androidx.core.view.AccessibilityDelegateCompat;
 
 /**
  * {@link ClickableSpan} cannot be parceled, but accessibility services need to be able to cause
@@ -65,6 +65,7 @@ public final class AccessibilityClickableSpanCompat extends ClickableSpan {
     public void onClick(View unused) {
         Bundle arguments = new Bundle();
         arguments.putInt(SPAN_ID, mOriginalClickableSpanId);
-        mNodeInfoCompat.performAction(R.id.accessibility_action_clickable_span, arguments);
+        mNodeInfoCompat.performAction(AccessibilityDelegateCompat.CLICKABLE_SPAN_ACTION_ID,
+                arguments);
     }
 }
