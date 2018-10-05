@@ -163,6 +163,24 @@
     },
     {
       "key": {
+        "uuid": "e1d5143e_0f026dfc",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-10-05T20:18:53Z",
+      "side": 1,
+      "message": "Yep. The question is whether it trades off convenience for other downstream potential for accidents.\n\nConsider a bit of code like the following\n\n    class MyActivity : CoroutineScopeActivity() {\n        // ...\n        override fun onCreate(savedInstanceState: Bundle) {\n            super.onCreate(savedInstanceState)\n            ViewModelProviders.of(this).get(MyViewModel::class.java).apply {\n                // Do some setup\n\n                launch {\n                    // I think I\u0027m launching into the ViewModel\u0027s scope!\n                }\n            }\n        }\n    }\n\nNow someone copy-pastes this, or refactors MyViewModel into one that doesn\u0027t implement CoroutineScope and you get very different behavior.",
+      "parentUuid": "ac9dd780_b626e8c0",
+      "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8f5277d_dadee2b8",
         "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
         "patchSetId": 1
