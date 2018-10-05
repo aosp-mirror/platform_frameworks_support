@@ -46,10 +46,27 @@ import java.util.Objects;
  */
 @VersionedParcelize
 public final class NavigationState implements VersionedParcelable {
+    /**
+     * Possible service states
+     */
+    public enum ServiceStatus {
+        /**
+         * Default service status, indicating that navigation state data is valid and up-to-date.
+         */
+        NORMAL,
+        /**
+         * New navigation information is being fetched, and an updated navigation state will be
+         * provided soon. Consumers can use this signal to display a progress indicator to the user.
+         */
+        REROUTING,
+    }
+
     @ParcelField(1)
     List<Step> mSteps;
     @ParcelField(2)
     List<Destination> mDestinations;
+    @ParcelField(4)
+    EnumWrapper<ServiceStatus> mServiceStatus;
 
     /**
      * Used by {@link VersionedParcelable}
@@ -64,9 +81,11 @@ public final class NavigationState implements VersionedParcelable {
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
-    NavigationState(@NonNull List<Step> steps, @NonNull List<Destination> destinations) {
+    NavigationState(@NonNull List<Step> steps, @NonNull List<Destination> destinations,
+            @NonNull EnumWrapper<ServiceStatus> serviceStatus) {
         mSteps = Collections.unmodifiableList(new ArrayList<>(steps));
         mDestinations = Collections.unmodifiableList(new ArrayList<>(destinations));
+        mServiceStatus = Preconditions.checkNotNull(serviceStatus);
     }
 
     /**
@@ -75,6 +94,7 @@ public final class NavigationState implements VersionedParcelable {
     public static final class Builder {
         List<Step> mSteps = new ArrayList<>();
         List<Destination> mDestinations = new ArrayList<>();
+        EnumWrapper<ServiceStatus> mServiceStatus = new EnumWrapper<>();
 
         /**
          * Add a navigation step. Steps should be provided in order of execution. It is up to the
@@ -101,11 +121,26 @@ public final class NavigationState implements VersionedParcelable {
         }
 
         /**
+         * Sets the service status (e.g.: normal operation, re-routing in progress, etc.)
+         *
+         * @param serviceStatus current service status
+         * @param fallbackServiceStatuses variations of the current service status, in case the
+         *                                main one is not understood for the consumer of this API.
+         * @return this object for chaining
+         */
+        @NonNull
+        public Builder setServiceStatus(@NonNull ServiceStatus serviceStatus,
+                @NonNull ServiceStatus... fallbackServiceStatuses) {
+            mServiceStatus = new EnumWrapper<>(serviceStatus, fallbackServiceStatuses);
+            return this;
+        }
+
+        /**
          * Returns a {@link NavigationState} built with the provided information.
          */
         @NonNull
         public NavigationState build() {
-            return new NavigationState(mSteps, mDestinations);
+            return new NavigationState(mSteps, mDestinations, mServiceStatus);
         }
     }
 
@@ -127,6 +162,14 @@ public final class NavigationState implements VersionedParcelable {
         return Common.nonNullOrEmpty(mDestinations);
     }
 
+    /**
+     * Returns the service status (e.g.: normal operation, re-routing in progress, etc.).
+     */
+    @NonNull
+    public ServiceStatus getServiceStatus() {
+        return EnumWrapper.getValue(mServiceStatus, ServiceStatus.NORMAL);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -137,17 +180,19 @@ public final class NavigationState implements VersionedParcelable {
         }
         NavigationState that = (NavigationState) o;
         return Objects.equals(getSteps(), that.getSteps())
-                && Objects.equals(getDestinations(), that.getDestinations());
+                && Objects.equals(getDestinations(), that.getDestinations())
+                && Objects.equals(getServiceStatus(), that.getServiceStatus());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getSteps(), getDestinations());
+        return Objects.hash(getSteps(), getDestinations(), getServiceStatus());
     }
 
     @Override
     public String toString() {
-        return String.format("{steps: %s, destinations: %s}", mSteps, mDestinations);
+        return String.format("{steps: %s, destinations: %s, serviceStatus: %s}", mSteps,
+                mDestinations, mServiceStatus);
     }
 
     /**
