@@ -17,11 +17,17 @@
 package androidx.transition;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
+import android.content.Context;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.FrameLayout;
 
+import androidx.annotation.NonNull;
 import androidx.test.filters.MediumTest;
 import androidx.transition.test.R;
 
@@ -59,6 +65,57 @@ public class ChangeBoundsTest extends BaseTransitionTest {
         final ViewHolder endHolder = new ViewHolder(rule.getActivity());
         assertThat(endHolder.green, is(atTop()));
         assertThat(endHolder.red, is(below(endHolder.green)));
+    }
+
+    @Test
+    public void testSuppressLayoutWhileAnimating() throws Throwable {
+        final TestSuppressLayout suppressLayout = new TestSuppressLayout(rule.getActivity());
+        final View testView = new View(rule.getActivity());
+        rule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mRoot.addView(suppressLayout);
+                suppressLayout.addView(testView, new FrameLayout.LayoutParams(1, 1));
+            }
+        });
+        rule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TransitionManager.beginDelayedTransition(suppressLayout, mTransition);
+                testView.setLayoutParams(new FrameLayout.LayoutParams(2, 2));
+                suppressLayout.expectNewValue(true);
+            }
+        });
+        waitForStart();
+        suppressLayout.ensureExpectedValueApplied();
+
+        suppressLayout.expectNewValue(false);
+        waitForEnd();
+        suppressLayout.ensureExpectedValueApplied();
+    }
+
+    private class TestSuppressLayout extends FrameLayout {
+
+        private Boolean mExpectedSuppressLayout;
+
+        private TestSuppressLayout(@NonNull Context context) {
+            super(context);
+        }
+
+        void expectNewValue(boolean frozen) {
+            mExpectedSuppressLayout = frozen;
+        }
+
+        void ensureExpectedValueApplied() {
+            assertNull(mExpectedSuppressLayout);
+        }
+
+        // Called via reflection
+        public void suppressLayout(boolean suppress) {
+            assertNotNull(mExpectedSuppressLayout);
+            assertEquals(mExpectedSuppressLayout, suppress);
+            mExpectedSuppressLayout = null;
+        }
     }
 
     private static TypeSafeMatcher<View> atTop() {

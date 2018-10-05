@@ -2228,6 +2228,22 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
     }
 
     /**
+     * @param suppress true to freeze layout and scroll, false to re-enable.
+     * @see #setLayoutFrozen(boolean)
+     */
+    public void suppressLayout(boolean suppress) {
+        setLayoutFrozen(suppress);
+    }
+
+    /**
+     * @return true if layout and scroll are frozen
+     * @see #isLayoutFrozen()
+     */
+    public boolean isLayoutSuppressed() {
+        return isLayoutFrozen();
+    }
+
+    /**
      * Animate a scroll by the given amount of pixels along either axis.
      *
      * @param dx Pixels to scroll horizontally
