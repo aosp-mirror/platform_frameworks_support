@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "b76a4f58_2bf3389d",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-05T17:51:16Z",
+      "side": 1,
+      "message": "yea that is concerining. Though i think the best way to avoid it is to make sure to have the same extensions for ComponentActivity and Fragment.\n\nWe can also add a lint check to avoid possible error.\n\nUsing VM scope to launch while you are in an actiivty sounds wrong, definitely. \nBut I also don\u0027t like providing a sub-optimal API to the intended use case because of possible unintended use cases. Lint can help mitigate the concerns.",
+      "parentUuid": "49e3fd0f_1e618957",
+      "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8f5277d_dadee2b8",
         "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
         "patchSetId": 1
