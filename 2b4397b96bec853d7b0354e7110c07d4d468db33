@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "b0db465d_142dfcb5",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-05T11:14:07Z",
+      "side": 1,
+      "message": "Please try to shape this class around executors/futures/callbacks instead of manual threading with notify/wait and blocking calls on the main thread. \n\nPlease take a look on:\n- SettableFuture (it will be soon renamed to ResolvableFuture) it is in concurrent:concurrent-futures\n- emoji compat apis. It is public api for asynchronous resource loading.\n\nSmaller note. Apps want to control their threads etc, so everytime we do some background work, thread should be configurable, so apps can set their threadpools.",
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "883e822f_65c04554",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 21
