@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "25d2195c_d93f3a74",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-05T23:52:57Z",
+      "side": 1,
+      "message": "Either of the following would work for me:\n\n- getShowScrollBarThumb()\n- isScrollBarThumbVisible()",
+      "parentUuid": "e2610ff8_d802e034",
+      "range": {
+        "startLine": 403,
+        "startChar": 26,
+        "endLine": 403,
+        "endChar": 46
+      },
+      "revId": "6f9e401f776c438c4e3f9fa79c8f38ab56e615b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4d972338_63ec4319",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewTest.java",
         "patchSetId": 6
