@@ -840,7 +840,7 @@ public abstract class SessionPlayer2 implements AutoCloseable {
     /**
      * Result class of the asynchronous APIs.
      */
-    public static final class PlayerResult {
+    public static class PlayerResult {
         /**
          * Result code represents that call is successfully completed.
          * @see #getResultCode()
