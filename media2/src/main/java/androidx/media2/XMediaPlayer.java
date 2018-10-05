@@ -16,7 +16,6 @@
 
 package androidx.media2;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.media2.SessionPlayer2.PlayerResult.RESULT_CODE_BAD_VALUE;
 import static androidx.media2.SessionPlayer2.PlayerResult.RESULT_CODE_INVALID_STATE;
@@ -35,7 +34,6 @@ import android.media.MediaDrmException;
 import android.media.MediaFormat;
 import android.os.Build;
 import android.os.PersistableBundle;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.Surface;
 
@@ -50,6 +48,7 @@ import androidx.concurrent.futures.AbstractFuture;
 import androidx.concurrent.futures.SettableFuture;
 import androidx.core.util.Pair;
 import androidx.media.AudioAttributesCompat;
+import androidx.media2.SessionPlayer2.PlayerResult;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -69,6 +68,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * A media player which plays {@link MediaItem2}s. The details on playback control and player states
+ * can be found in the documentation of the base class, {@link SessionPlayer2}.
+ * <p>
  * Topic covered here:
  * <ol>
  * <li><a href="#AudioFocusAndNoisyIntent">Audio focus and noisy intent</a>
@@ -126,10 +128,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * For more information about the audio focus, take a look at
  * <a href="{@docRoot}guide/topics/media-apps/audio-focus.html">Managing audio focus</a>
  * <p>
- * @hide
  */
 @TargetApi(Build.VERSION_CODES.P)
-@RestrictTo(LIBRARY)
 public class XMediaPlayer extends SessionPlayer2 {
     private static final String TAG = "XMediaPlayer";
 
@@ -2477,13 +2477,7 @@ public class XMediaPlayer extends SessionPlayer2 {
     /**
      * Result class of the asynchronous DRM APIs.
      */
-    public static class DrmResult {
-        /**
-         * Result code represents that call is successfully completed.
-         * @see #getResultCode()
-         */
-        public static final int RESULT_CODE_SUCCESS = PlayerResult.RESULT_CODE_SUCCESS;
-
+    public static class DrmResult extends PlayerResult {
         /**
          * The device required DRM provisioning but couldn't reach the provisioning server.
          */
@@ -2522,63 +2516,24 @@ public class XMediaPlayer extends SessionPlayer2 {
         @RestrictTo(LIBRARY_GROUP)
         public @interface DrmResultCode {}
 
-        private final int mResultCode;
-        private final long mCompletionTime;
-        private final MediaItem2 mItem;
-
         /**
          * Constructor that uses the current system clock as the completion time.
          *
          * @param resultCode result code. Recommends to use the standard code defined here.
          * @param item media item when the operation is completed
          */
-        public DrmResult(int resultCode, @Nullable MediaItem2 item) {
-            this(resultCode, item, SystemClock.elapsedRealtime());
-        }
-
-        private DrmResult(int resultCode, @Nullable MediaItem2 item, long completionTime) {
-            mResultCode = resultCode;
-            mCompletionTime = completionTime;
-            mItem = item;
+        public DrmResult(@DrmResultCode int resultCode, @Nullable MediaItem2 item) {
+            super(resultCode, item);
         }
 
         /**
          * Gets the result code.
-         * <p>
-         * Subclass of the {@link SessionPlayer2} may have defined customized extra code other than
-         * codes defined here. Check the documentation of the class that you're interested in.
          *
          * @return result code.
-         * @see #RESULT_CODE_SUCCESS
-         * @see #RESULT_CODE_PROVISIONING_NETWORK_ERROR
-         * @see #RESULT_CODE_PROVISIONING_SERVER_ERROR
-         * @see #RESULT_CODE_PREPARATION_ERROR
-         * @see #RESULT_CODE_UNSUPPORTED_SCHEME
-         * @see #RESULT_CODE_RESOURCE_BUSY
          */
-        public int getResultCode() {
-            return mResultCode;
-        }
-
-        /**
-         * Gets the completion time of the command. Being more specific, it's the same as
-         * {@link SystemClock#elapsedRealtime()} when the command is completed.
-         *
-         * @return completion time of the command
-         */
-        public long getCompletionTime() {
-            return mCompletionTime;
-        }
-
-        /**
-         * Gets the {@link MediaItem2} for which the command was executed. In other words, this is
-         * the current media item when the command is completed.
-         *
-         * @return media item when the command is completed. Can be {@code null} for error or
-         *         player hasn't intiialized.
-         */
-        public @Nullable MediaItem2 getMediaItem() {
-            return mItem;
+        @Override
+        public @DrmResultCode int getResultCode() {
+            return super.getResultCode();
         }
     }
 }
