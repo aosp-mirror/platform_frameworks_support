@@ -22,6 +22,30 @@
       "revId": "9bf248872c336b6f06a0f11da10e5c498b3d3ebf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaca5d20_99104cf2",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryUtils.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-10-05T06:42:45Z",
+      "side": 1,
+      "message": "Hmm, this implementation is what I thought you meant in your comments to the doc (except for the regex). The implementation you describe here is closer to what I originally had in mind. Maybe we\u0027re mostly on the same page, just expressing things differently. I\u0027ll revise the implementation with explicit flag, but it\u0027ll take a while as I\u0027m traveling next week.",
+      "parentUuid": "4684a0d7_ced0183c",
+      "range": {
+        "startLine": 54,
+        "startChar": 14,
+        "endLine": 72,
+        "endChar": 51
+      },
+      "revId": "9bf248872c336b6f06a0f11da10e5c498b3d3ebf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
