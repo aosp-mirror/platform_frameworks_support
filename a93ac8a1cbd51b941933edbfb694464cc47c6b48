@@ -181,6 +181,24 @@
     },
     {
       "key": {
+        "uuid": "29caa99b_263273db",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-05T20:25:21Z",
+      "side": 1,
+      "message": "scary :)\nalso i would be OK with it if every single VM was guaranteed to implement CoroutineScope since it is readable and well defined.\nBut option 1 here works via an extension function and there is not way to know if VM has a CS by reading the code . e.g. you can remove that interface from MyViewModel and suddenly you start launching in your MyActivity, code still compiles, you have no idea sth has changed easily.",
+      "parentUuid": "e1d5143e_0f026dfc",
+      "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8f5277d_dadee2b8",
         "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
         "patchSetId": 1
