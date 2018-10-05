@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce4746e3_87b87025",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-10-05T16:50:02Z",
+      "side": 1,
+      "message": "Add comment here explaining what\u0027s going on",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 13
+      },
+      "revId": "9ea33829a8859cecc4c68ecca7596d59e009ef03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20df75c5_67988566",
+        "filename": "core/src/androidTest/java/androidx/core/app/JobIntentServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-10-05T16:50:02Z",
+      "side": 1,
+      "message": "Is it possible for us to default-disable this check in test and app/sample code? We only need to ban it in library code.",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 43
+      },
+      "revId": "9ea33829a8859cecc4c68ecca7596d59e009ef03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d96d1a25_6e386ca7",
+        "filename": "customerrorprone/src/main/java/androidx/customerrorprone/BanKeepAnnotation.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-10-05T16:50:02Z",
+      "side": 1,
+      "message": ", please use a conditional keep rule in proguard-rules.pro.",
+      "range": {
+        "startLine": 43,
+        "startChar": 48,
+        "endLine": 43,
+        "endChar": 56
+      },
+      "revId": "9ea33829a8859cecc4c68ecca7596d59e009ef03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
