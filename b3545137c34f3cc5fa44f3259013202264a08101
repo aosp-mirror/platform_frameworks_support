@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d89cc91_291a839a",
+        "filename": "core/src/main/java/androidx/core/view/AccessibilityDelegateCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-10-05T17:42:05Z",
+      "side": 1,
+      "message": "Aurimas - since we already got this wrong once, is this the right way to do this? Ideally we\u0027d use the ID from the framework, but it\u0027s hidden and thus, I believe, not guaranteed stable from release to release.",
+      "range": {
+        "startLine": 131,
+        "startChar": 55,
+        "endLine": 131,
+        "endChar": 65
+      },
+      "revId": "b3545137c34f3cc5fa44f3259013202264a08101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
