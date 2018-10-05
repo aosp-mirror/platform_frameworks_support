@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "d19f2b74_35acb3ec",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-05T17:59:39Z",
+      "side": 1,
+      "message": "I think it is better to start with safest option (#3),  because it is the only one that creates scope object  (in contrast to all other solutions that makes viewmodel to implement CoroutineScope).",
+      "parentUuid": "b76a4f58_2bf3389d",
+      "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8f5277d_dadee2b8",
         "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
         "patchSetId": 1
