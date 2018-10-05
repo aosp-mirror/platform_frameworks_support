@@ -19,6 +19,75 @@
     },
     {
       "key": {
+        "uuid": "4e5db99e_263a44c5",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-05T19:30:10Z",
+      "side": 1,
+      "message": "Since this happens only once at the start of the process, as a safety check also delete any bitmap which are not in the loaded data (in case some delete failed the last time)",
+      "range": {
+        "startLine": 98,
+        "startChar": 24,
+        "endLine": 98,
+        "endChar": 83
+      },
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9848e7e_44a0feb6",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-05T19:30:10Z",
+      "side": 1,
+      "message": "use CountDownLatch instead",
+      "range": {
+        "startLine": 99,
+        "startChar": 22,
+        "endLine": 100,
+        "endChar": 48
+      },
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4271b753_78b6b620",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-05T19:30:10Z",
+      "side": 1,
+      "message": "Is this being called from the service or anywhere else?",
+      "range": {
+        "startLine": 180,
+        "startChar": 8,
+        "endLine": 180,
+        "endChar": 17
+      },
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "883e822f_65c04554",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 21
@@ -30,6 +99,179 @@
       "writtenOn": "2018-10-05T10:47:36Z",
       "side": 1,
       "message": "Do we block main thread here in while loop?",
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51156dd8_684f72ef",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-05T19:30:10Z",
+      "side": 1,
+      "message": "+1. There should not be any sleep.\nInstead keep a reference of the bitmap in this class, until the file is saved.",
+      "parentUuid": "883e822f_65c04554",
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfc879c0_4af475ec",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-05T19:30:10Z",
+      "side": 1,
+      "message": "use different lock object for internal data. Probably mShortcutsList",
+      "range": {
+        "startLine": 291,
+        "startChar": 22,
+        "endLine": 291,
+        "endChar": 33
+      },
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfbe7f0a_0ef66d1a",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-05T19:30:10Z",
+      "side": 1,
+      "message": "use different lock than LOCK_OBJECT",
+      "range": {
+        "startLine": 304,
+        "startChar": 22,
+        "endLine": 304,
+        "endChar": 33
+      },
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d12aab4_801d0b03",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-05T19:30:10Z",
+      "side": 1,
+      "message": "delete old bitmap?",
+      "range": {
+        "startLine": 314,
+        "startChar": 20,
+        "endLine": 314,
+        "endChar": 75
+      },
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50a09eee_cf221f72",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-05T19:30:10Z",
+      "side": 1,
+      "message": "Where is this called from?",
+      "range": {
+        "startLine": 377,
+        "startChar": 2,
+        "endLine": 388,
+        "endChar": 0
+      },
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da5c5b77_b66895e6",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-05T19:30:10Z",
+      "side": 1,
+      "message": "BitmapFactory.decodeFile ?",
+      "range": {
+        "startLine": 622,
+        "startChar": 8,
+        "endLine": 639,
+        "endChar": 9
+      },
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b838b48e_33538dae",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-05T19:30:10Z",
+      "side": 1,
+      "message": "can we use try-with-resource here?",
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "777cd7d4_5d86e61f",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-05T19:30:10Z",
+      "side": 1,
+      "message": "directly write for FileOutputStream?",
+      "range": {
+        "startLine": 650,
+        "startChar": 12,
+        "endLine": 650,
+        "endChar": 75
+      },
       "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
