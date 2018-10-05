@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4755f07d_1afcb02f",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkContinuation.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-05T20:50:16Z",
+      "side": 1,
+      "message": "You may want to change combineInternal to return the passed in continuation in case continuations.size() \u003d\u003d 1.",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 0
+      },
+      "revId": "383ea4ed58fb94f6ac52a76607542359a3ec41c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
