@@ -145,6 +145,24 @@
     },
     {
       "key": {
+        "uuid": "ac9dd780_b626e8c0",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-05T18:25:04Z",
+      "side": 1,
+      "message": "isn\u0027t that what exactly happens in the JB example ?\nalso, lint can help with these easily (calling vM.launch inside an activity, view or fragment can be caught).",
+      "parentUuid": "cd3dc8bd_7915c881",
+      "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8f5277d_dadee2b8",
         "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
         "patchSetId": 1
