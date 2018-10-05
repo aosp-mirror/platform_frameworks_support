@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a94b92f4_67c41531",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/AbstractResolvableFuture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-05T16:43:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3b41707_eeafc52c",
+      "range": {
+        "startLine": 45,
+        "startChar": 59,
+        "endLine": 45,
+        "endChar": 83
+      },
+      "revId": "c7e6c1b0fad2a803d77a78c62f011f6e71ba19a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9db14ca_f85178f1",
         "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/AbstractResolvableFuture.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "c7e6c1b0fad2a803d77a78c62f011f6e71ba19a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50f7cd61_0553873a",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/AbstractResolvableFuture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-05T16:43:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9db14ca_f85178f1",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 2
+      },
+      "revId": "c7e6c1b0fad2a803d77a78c62f011f6e71ba19a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
