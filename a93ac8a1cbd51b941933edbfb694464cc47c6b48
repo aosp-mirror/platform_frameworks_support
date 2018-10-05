@@ -127,6 +127,24 @@
     },
     {
       "key": {
+        "uuid": "cd3dc8bd_7915c881",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-05T18:20:25Z",
+      "side": 1,
+      "message": "No worries about allocations - I\u0027ll fix those. The real concern - public / private coroutinescope. (Like you can run viewmodel.launch {} in your activity and leak things)",
+      "parentUuid": "3ca41c9d_68ba494f",
+      "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8f5277d_dadee2b8",
         "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
         "patchSetId": 1
