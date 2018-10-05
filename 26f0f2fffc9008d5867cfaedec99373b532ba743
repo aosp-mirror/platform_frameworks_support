@@ -1,0 +1,209 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c4710db_c1eb5bca",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-05T21:01:35Z",
+      "side": 1,
+      "message": "nit: can you add a new line before this?",
+      "revId": "26f0f2fffc9008d5867cfaedec99373b532ba743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c79c66c_389c8438",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-05T21:01:35Z",
+      "side": 1,
+      "message": "Add a test that checks if the thumb is displayed by default.",
+      "revId": "26f0f2fffc9008d5867cfaedec99373b532ba743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16f5e43a_ed5269e5",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-05T21:01:35Z",
+      "side": 1,
+      "message": "Add a new line before this",
+      "revId": "26f0f2fffc9008d5867cfaedec99373b532ba743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b975648_d4ae9a17",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-05T21:01:35Z",
+      "side": 1,
+      "message": "the scroll bar*",
+      "range": {
+        "startLine": 466,
+        "startChar": 48,
+        "endLine": 466,
+        "endChar": 61
+      },
+      "revId": "26f0f2fffc9008d5867cfaedec99373b532ba743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a04b3018_153ed6b3",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-05T21:01:35Z",
+      "side": 1,
+      "message": "My gut feeling is that a re-layout isn\u0027t needed. At most, invalidate should take care of it. I also feel like just setting the visibility should trigger it anyway. \n\nCan you verify this? To test, don\u0027t call requestLayout()/invalidate() and just set the visibility in the PagedScrollBarView and see if it updates itself.",
+      "revId": "26f0f2fffc9008d5867cfaedec99373b532ba743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae444b69_e98a851b",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-05T21:01:35Z",
+      "side": 1,
+      "message": "Call setShowScrollBarThumb here.",
+      "revId": "26f0f2fffc9008d5867cfaedec99373b532ba743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75ec87f7_50d4d2af",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-05T21:01:35Z",
+      "side": 1,
+      "message": "Word as:\n\nReturns whether or not the scroll bar thumb is visible.",
+      "revId": "26f0f2fffc9008d5867cfaedec99373b532ba743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3985d041_628cc176",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-05T21:01:35Z",
+      "side": 1,
+      "message": "This class name always capitalizes \"Bar\", so do the same for these methods. Also rename to:\n\nisScrollBarThumbVisible()",
+      "range": {
+        "startLine": 188,
+        "startChar": 19,
+        "endLine": 188,
+        "endChar": 39
+      },
+      "revId": "26f0f2fffc9008d5867cfaedec99373b532ba743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7a3bca9_b1126b56",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-05T21:01:35Z",
+      "side": 1,
+      "message": "Word as:\n\nSets whether or not the scroll bar thumb is visible.",
+      "revId": "26f0f2fffc9008d5867cfaedec99373b532ba743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aed878e_735b2260",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-05T21:01:35Z",
+      "side": 1,
+      "message": "@param show {@code true} if the scroll bar thumb is visible.",
+      "revId": "26f0f2fffc9008d5867cfaedec99373b532ba743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5152d51_af263edd",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-05T21:01:35Z",
+      "side": 1,
+      "message": "Same comment before. I think you don\u0027t need to call these. Setting visibility should be enough. If not, try just calling invalidate().\n\nLastly, if you call requestLayout(), you don\u0027t need to call invalidate(). requestLayout() will implicitly call it.",
+      "range": {
+        "startLine": 199,
+        "startChar": 8,
+        "endLine": 200,
+        "endChar": 24
+      },
+      "revId": "26f0f2fffc9008d5867cfaedec99373b532ba743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
