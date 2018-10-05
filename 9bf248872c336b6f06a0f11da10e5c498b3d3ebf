@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4684a0d7_ced0183c",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryUtils.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-05T00:21:59Z",
+      "side": 1,
+      "message": "we should use the AST, not regex.\nalso, this seems to work based on assumption that we prefix all rather than trying to be more clever.\ne.g. no reason to prefix as long as there is a element in the response with that name.\nthis might break regular embedded queries though i\u0027m not sure.\n\nWhat i thought the algorithm would be:\n\nfind all expected field names as their column names.\ncheck the query result to find what they meant with that. (e.g. if field User.name comes as \"user_name\", check for a user_name field, if not exists, check for user aliased table that has name column etc). and then select the data for it.\n\nif we ever find a field that does not have a matching column name nor a matching guessed name, we should error out, or just not do it (depending on how we create the API).\n\nyou are doing more or less the same, except the prefix name is total guesswork instead of checking whether that prefix exists in source table names.\n\nalso does not seem like it will handle select foo.* from foo where n LIKE \u0027a%\u0027.\ngoing w/ AST will avoid these mistakes as well iterate through or selection types and try to swap each 1 by one.",
+      "range": {
+        "startLine": 54,
+        "startChar": 14,
+        "endLine": 72,
+        "endChar": 51
+      },
+      "revId": "9bf248872c336b6f06a0f11da10e5c498b3d3ebf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
