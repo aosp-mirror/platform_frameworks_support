@@ -16,6 +16,7 @@
 
 package androidx.media2;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.annotation.TargetApi;
@@ -184,7 +185,7 @@ import java.util.concurrent.Executor;
  * <th>Invalid States</th></tr>
  *
  * <tr><td>setMediaItem</td> <td>{Prepared, Paused, Playing}</td></tr>
- * <tr><td>prepare</td> <td>{Prepared, Paused, Playing}</td></tr>
+ * <tr><td>prefetch</td> <td>{Prepared, Paused, Playing}</td></tr>
  * <tr><td>play</td> <td>{Idle}</td></tr>
  * <tr><td>pause</td> <td>{Idle}</td></tr>
  * <tr><td>seekTo</td> <td>{Idle}</td></tr>
@@ -220,8 +221,11 @@ import java.util.concurrent.Executor;
  * <p>In order for callbacks to work, your app must create
  * MediaPlayer2 objects on a thread that has its own running Looper. This can be done on the main UI
  * thread, which has a Looper.</p>
+ *
+ * @hide
  */
 @TargetApi(Build.VERSION_CODES.KITKAT)
+@RestrictTo(LIBRARY)
 public abstract class MediaPlayer2 {
 
     /**
@@ -287,7 +291,7 @@ public abstract class MediaPlayer2 {
      * playback will continue from where it was paused. If playback had
      * reached end of stream and been paused, or never started before,
      * playback will start at the beginning. If the source had not been
-     * prepared, the player will prepare the source and play.
+     * prepared, the player will prefetch the source and play.
      *
      */
     // This is an asynchronous call.
@@ -303,7 +307,7 @@ public abstract class MediaPlayer2 {
      * Prepares the player for playback, asynchronously.
      *
      * After setting the datasource and the display surface, you need to
-     * call prepare().
+     * call prefetch().
      *
      */
     // This is an asynchronous call.
@@ -742,7 +746,7 @@ public abstract class MediaPlayer2 {
     /**
      * Resets the MediaPlayer2 to its uninitialized state. After calling
      * this method, you will have to initialize it again by setting the
-     * media item and calling prepare().
+     * media item and calling prefetch().
      */
     // This is a synchronous call.
     public abstract void reset();

@@ -466,7 +466,7 @@ public class MediaSession2 implements AutoCloseable {
         /**
          * Called when a {@link MediaItem2} in the playlist didn't have a {@link MediaItem2}
          * but it's needed now for preparing or playing it. Returned media item descriptor will be
-         * sent to the player directly to prepare or play the contents.
+         * sent to the player directly to prefetch or play the contents.
          * <p>
          * An exception may be thrown if the returned {@link MediaItem2} is duplicated in the
          * playlist, so items cannot be differentiated.
@@ -641,7 +641,7 @@ public class MediaSession2 implements AutoCloseable {
                 @Nullable Bundle extras) { }
 
         /**
-         * Called when a controller requested to prepare for playing a specific mediaId through
+         * Called when a controller requested to prefetch for playing a specific mediaId through
          * {@link MediaController2#prepareFromMediaId(String, Bundle)}.
          * <p>
          * During the preparation, a session should not hold audio focus in order to allow other
@@ -656,7 +656,7 @@ public class MediaSession2 implements AutoCloseable {
          *
          * @param session the session for this event
          * @param controller controller information
-         * @param mediaId media id to prepare
+         * @param mediaId media id to prefetch
          * @param extras optional extra bundle
          * @see SessionCommand2#COMMAND_CODE_SESSION_PREPARE_FROM_MEDIA_ID
          */
@@ -665,10 +665,10 @@ public class MediaSession2 implements AutoCloseable {
                 @Nullable Bundle extras) { }
 
         /**
-         * Called when a controller requested to prepare playback from a search query through
+         * Called when a controller requested to prefetch playback from a search query through
          * {@link MediaController2#prepareFromSearch(String, Bundle)}.
          * <p>
-         * An empty query indicates that the app may prepare any music. The implementation should
+         * An empty query indicates that the app may prefetch any music. The implementation should
          * attempt to make a smart choice about what to play.
          * <p>
          * The state of playback should be updated to
@@ -690,7 +690,7 @@ public class MediaSession2 implements AutoCloseable {
                 @Nullable Bundle extras) { }
 
         /**
-         * Called when a controller requested to prepare a specific media item represented by a URI
+         * Called when a controller requested to prefetch a specific media item represented by a URI
          * through {@link MediaController2#prepareFromUri(Uri, Bundle)}.
          * <p>
          * During the preparation, a session should not hold audio focus in order to allow

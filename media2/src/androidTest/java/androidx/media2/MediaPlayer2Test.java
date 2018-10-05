@@ -1136,7 +1136,7 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
         mPlayer.setDisplay(mActivity.getSurfaceHolder());
 
         mOnPrepareCalled.reset();
-        mPlayer.prepare();
+        mPlayer.prefetch();
         mOnPrepareCalled.waitForSignal();
 
         mOnSeekCompleteCalled.reset();
@@ -2636,7 +2636,7 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
 
         mPlayer.setMediaItem(new CallbackMediaItem2.Builder(dataSource).build());
 
-        // prepare() will be pending until readAllowed is signaled.
+        // prefetch() will be pending until readAllowed is signaled.
         mPlayer.prepare();
 
         mPlayer.play();
@@ -2646,11 +2646,11 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
         mPlayer.play();
         mPlayer.seekTo(1000);
 
-        // Clear the pending commands once the prepare operation starts.
+        // Clear the pending commands once the prefetch operation starts.
         readRequested.waitForSignal();
         mPlayer.clearPendingCommands();
 
-        // Make the on-going prepare operation fail and check the results.
+        // Make the on-going prefetch operation fail and check the results.
         readAllowed.signal();
         mOnErrorCalled.waitForSignal();
         assertEquals(0, mOnPrepareCalled.getNumSignal());
@@ -2977,7 +2977,7 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
 
         mPlayer.setMediaItem(new CallbackMediaItem2.Builder(dataSource).build());
 
-        // prepare() will be pending until readAllowed is signaled.
+        // prefetch() will be pending until readAllowed is signaled.
         mPlayer.prepare();
 
         mPlayer.seekTo(3000);
@@ -3080,7 +3080,7 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
 
         mPlayer.setMediaItem(new CallbackMediaItem2.Builder(dataSource).build());
 
-        // prepare() will be pending until readAllowed is signaled.
+        // prefetch() will be pending until readAllowed is signaled.
         mPlayer.prepare();
 
         Object playToken = mPlayer._play();
@@ -3093,7 +3093,7 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
         mPlayer.cancel(playToken);
         mPlayer.cancel(seekToken);
 
-        // Make the on-going prepare operation fail and check the results.
+        // Make the on-going prefetch operation fail and check the results.
         readAllowed.signal();
         mPlayer.notifyWhenCommandLabelReached(new Object());
         labelReached.waitForSignal();

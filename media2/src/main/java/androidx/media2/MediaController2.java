@@ -276,7 +276,7 @@ public class MediaController2 implements AutoCloseable {
     }
 
     /**
-     * Request that the player prepare its playback. In other words, other sessions can continue
+     * Request that the player prefetch its playback. In other words, other sessions can continue
      * to play during the preparation of this session. This method can be used to speed up the
      * start of the playback. Once the preparation is done, the session will change its playback
      * state to {@link SessionPlayer2#PLAYER_STATE_PAUSED}. Afterwards, {@link #play} can be
@@ -389,7 +389,7 @@ public class MediaController2 implements AutoCloseable {
     }
 
     /**
-     * Request that the player prepare playback for a specific media id. In other words, other
+     * Request that the player prefetch playback for a specific media id. In other words, other
      * sessions can continue to play during the preparation of this session. This method can be
      * used to speed up the start of the playback. Once the preparation is done, the session
      * will change its playback state to {@link SessionPlayer2#PLAYER_STATE_PAUSED}.
@@ -410,7 +410,7 @@ public class MediaController2 implements AutoCloseable {
     }
 
     /**
-     * Request that the player prepare playback for a specific search query.
+     * Request that the player prefetch playback for a specific search query.
      * In other words, other sessions can continue to play during the preparation of this session.
      * This method can be used to speed up the start of the playback.
      * Once the preparation is done, the session will change its playback state to
@@ -431,7 +431,7 @@ public class MediaController2 implements AutoCloseable {
     }
 
     /**
-     * Request that the player prepare playback for a specific {@link Uri}. In other words,
+     * Request that the player prefetch playback for a specific {@link Uri}. In other words,
      * other sessions can continue to play during the preparation of this session. This method
      * can be used to speed up the start of the playback. Once the preparation is done, the
      * session will change its playback state to {@link SessionPlayer2#PLAYER_STATE_PAUSED}.

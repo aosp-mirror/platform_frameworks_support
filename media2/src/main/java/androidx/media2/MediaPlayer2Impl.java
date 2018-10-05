@@ -602,7 +602,7 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
     /**
      * Resets the MediaPlayer2 to its uninitialized state. After calling
      * this method, you will have to initialize it again by setting the
-     * media item and calling prepare().
+     * media item and calling prefetch().
      */
     @Override
     public void reset() {
