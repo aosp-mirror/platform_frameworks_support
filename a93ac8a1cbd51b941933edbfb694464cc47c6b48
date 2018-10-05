@@ -109,6 +109,24 @@
     },
     {
       "key": {
+        "uuid": "3ca41c9d_68ba494f",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-05T18:15:33Z",
+      "side": 1,
+      "message": "but other options are the ones that look like the JB examples.\nI don\u0027t want to look at this problem as \"what is the cheapest\" instead \"what is the best API\"\nI don\u0027t anticipate apps launching hundreds of coroutines form a VM so allocations shouldnt be a concern unless these objects are really expensive (idk).",
+      "parentUuid": "d19f2b74_35acb3ec",
+      "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8f5277d_dadee2b8",
         "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
         "patchSetId": 1
