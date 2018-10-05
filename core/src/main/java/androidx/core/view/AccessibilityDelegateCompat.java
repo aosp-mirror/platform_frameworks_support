@@ -120,6 +120,12 @@ public class AccessibilityDelegateCompat {
         }
     }
 
+    /**
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public static final int CLICKABLE_SPAN_ACTION_ID = 0x9F000001;
+
     private static final AccessibilityDelegate DEFAULT_DELEGATE = new AccessibilityDelegate();
     private final AccessibilityDelegate mOriginalDelegate;
 
@@ -338,7 +344,7 @@ public class AccessibilityDelegateCompat {
         if (Build.VERSION.SDK_INT >= 16) {
             success = mOriginalDelegate.performAccessibilityAction(host, action, args);
         }
-        if (!success && action == R.id.accessibility_action_clickable_span) {
+        if (!success && action == CLICKABLE_SPAN_ACTION_ID) {
             success = performClickableSpanAction(
                     args.getInt(AccessibilityClickableSpanCompat.SPAN_ID, -1), host);
         }
