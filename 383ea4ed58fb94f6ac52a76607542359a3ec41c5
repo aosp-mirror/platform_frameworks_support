@@ -22,6 +22,30 @@
       "revId": "383ea4ed58fb94f6ac52a76607542359a3ec41c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cc35989_c14b6ad9",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkContinuation.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-05T20:56:42Z",
+      "side": 1,
+      "message": "I think it might be better to treat all calls to combine the same, and return a new instance of WorkContinuationImpl. We handle this case very gracefully.",
+      "parentUuid": "4755f07d_1afcb02f",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 0
+      },
+      "revId": "383ea4ed58fb94f6ac52a76607542359a3ec41c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
