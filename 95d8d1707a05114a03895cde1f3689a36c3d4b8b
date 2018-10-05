@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0ef66fe_024c6663",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-10-05T06:57:49Z",
+      "side": 1,
+      "message": "now we don\u0027t need this condition.",
+      "range": {
+        "startLine": 814,
+        "startChar": 26,
+        "endLine": 814,
+        "endChar": 85
+      },
+      "revId": "95d8d1707a05114a03895cde1f3689a36c3d4b8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f17b2725_421052a2",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-10-05T06:57:49Z",
+      "side": 1,
+      "message": "FYI, It is okay to keep this, but UriMediaItem2.getUri() returns non null values.",
+      "revId": "95d8d1707a05114a03895cde1f3689a36c3d4b8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee28a5c5_d5083a96",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-10-05T06:57:49Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 832,
+        "startChar": 36,
+        "endLine": 832,
+        "endChar": 96
+      },
+      "revId": "95d8d1707a05114a03895cde1f3689a36c3d4b8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
