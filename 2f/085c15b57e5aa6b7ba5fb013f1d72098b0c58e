@@ -1,0 +1,7 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Dean Harding <deanh@google.com>
+Submitted-by: Roberto Perez <robertoalexis@google.com>
+Submitted-at: Fri, 05 Oct 2018 17:18:50 +0000
+Reviewed-on: https://android-review.googlesource.com/778834
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
