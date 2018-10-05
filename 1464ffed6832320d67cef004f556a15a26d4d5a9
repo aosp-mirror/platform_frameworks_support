@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc28965f_a3fef2c0",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionBar.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-05T21:06:26Z",
+      "side": 1,
+      "message": "Add a space between the \"//\" and the start of the text. Here and for all the other comments.",
+      "range": {
+        "startLine": 167,
+        "startChar": 10,
+        "endLine": 167,
+        "endChar": 16
+      },
+      "revId": "1464ffed6832320d67cef004f556a15a26d4d5a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
