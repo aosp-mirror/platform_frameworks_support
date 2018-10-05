@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42c68e77_166329bf",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Segment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-10-05T00:57:24Z",
+      "side": 1,
+      "message": "NonNull",
+      "range": {
+        "startLine": 51,
+        "startChar": 20,
+        "endLine": 51,
+        "endChar": 28
+      },
+      "revId": "b1b56bd8bb5e05bd7164a8608ffc72261975af36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ca110d9_cf116e34",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Segment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-10-05T00:57:24Z",
+      "side": 1,
+      "message": "Should we give some examples, like \"Wallaby Way\", \"US-101\" (is that a thing?), \"Charleston Rd\"?",
+      "revId": "b1b56bd8bb5e05bd7164a8608ffc72261975af36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f09d39f_257dc6ed",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Segment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-10-05T00:57:24Z",
+      "side": 1,
+      "message": "Common.nonNullOrEmpty(mName)",
+      "range": {
+        "startLine": 59,
+        "startChar": 15,
+        "endLine": 59,
+        "endChar": 20
+      },
+      "revId": "b1b56bd8bb5e05bd7164a8608ffc72261975af36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
