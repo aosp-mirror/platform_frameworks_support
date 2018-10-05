@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "49e3fd0f_1e618957",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-10-05T16:33:05Z",
+      "side": 1,
+      "message": "Do you want code that grabs a ViewModel to be able to launch jobs in the scope of the ViewModel? If a ViewModel subclass implements CoroutineScope and its real type leaks out to Activity or Fragment code that will be possible, which means we\u0027ll have a new generation of bugs where people accidentally close over their Activity context in a launch lambda that won\u0027t be cancelled when the activity is destroyed. Keeping a private or protected viewModelScope property on the ViewModel itself seems like a safer approach, and leads to very clear code to read:\n\n    viewModelScope.launch {\n        // ...\n    }",
+      "parentUuid": "0b57baed_17e4241d",
+      "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8f5277d_dadee2b8",
         "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelCoroutineScope.kt",
         "patchSetId": 1
@@ -171,6 +189,23 @@
       "writtenOn": "2018-09-29T01:19:44Z",
       "side": 1,
       "message": "Remove `get()` to prevent allocating on every invocation",
+      "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d18282a4_80e6e98d",
+        "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-10-05T16:33:05Z",
+      "side": 1,
+      "message": "Should this be AutoCloseable?",
       "revId": "a93ac8a1cbd51b941933edbfb694464cc47c6b48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
