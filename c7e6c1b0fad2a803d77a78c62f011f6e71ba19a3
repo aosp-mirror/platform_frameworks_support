@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3b41707_eeafc52c",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/AbstractResolvableFuture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-05T10:34:37Z",
+      "side": 1,
+      "message": "it is not available, so we probably shouldn\u0027t advise it",
+      "range": {
+        "startLine": 45,
+        "startChar": 59,
+        "endLine": 45,
+        "endChar": 83
+      },
+      "revId": "c7e6c1b0fad2a803d77a78c62f011f6e71ba19a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9db14ca_f85178f1",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/AbstractResolvableFuture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-05T10:34:37Z",
+      "side": 1,
+      "message": "same about this",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 2
+      },
+      "revId": "c7e6c1b0fad2a803d77a78c62f011f6e71ba19a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
