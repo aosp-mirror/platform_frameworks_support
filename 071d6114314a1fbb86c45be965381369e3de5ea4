@@ -16,6 +16,24 @@
       "revId": "071d6114314a1fbb86c45be965381369e3de5ea4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1df50695_cef50064",
+        "filename": "lifecycle/reactivestreams/ktx/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-05T08:05:48Z",
+      "side": 1,
+      "message": "No, this file wasn\u0027t generated at all before, it will be here even after rebase",
+      "parentUuid": "5e1781f8_a4ebd90f",
+      "revId": "071d6114314a1fbb86c45be965381369e3de5ea4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
