@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2610ff8_d802e034",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-05T23:20:12Z",
+      "side": 1,
+      "message": "perhaps getShowScrollBarThumb() is better since isShow...() doesn\u0027t sound right. ajchen@, thoughts?",
+      "range": {
+        "startLine": 403,
+        "startChar": 26,
+        "endLine": 403,
+        "endChar": 46
+      },
+      "revId": "6f9e401f776c438c4e3f9fa79c8f38ab56e615b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d972338_63ec4319",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-05T23:20:12Z",
+      "side": 1,
+      "message": "ScrollBar for consistency\n\nadd expected result to method name \"_ThumbIsHidden\"",
+      "range": {
+        "startLine": 359,
+        "startChar": 24,
+        "endLine": 359,
+        "endChar": 33
+      },
+      "revId": "6f9e401f776c438c4e3f9fa79c8f38ab56e615b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
