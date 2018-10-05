@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7d30c86_0bccffe7",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionBar.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-10-05T17:52:35Z",
+      "side": 1,
+      "message": "Can we put this in a separate function?  The init function is super long now.",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 55
+      },
+      "revId": "ee1b3f2032a24b699c92d530a1d956266a0cc1c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
