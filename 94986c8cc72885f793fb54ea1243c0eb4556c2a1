@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3db72744_6f8d7c7d",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2233,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-06T17:24:48Z",
+      "side": 1,
+      "message": "comment on intentional accidental override here.\nwe should also check w/ art team that this is OK.",
+      "range": {
+        "startLine": 2230,
+        "startChar": 4,
+        "endLine": 2233,
+        "endChar": 7
+      },
+      "revId": "94986c8cc72885f793fb54ea1243c0eb4556c2a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
