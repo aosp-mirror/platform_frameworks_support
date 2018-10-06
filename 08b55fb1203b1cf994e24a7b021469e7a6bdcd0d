@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68cb0cee_0c0299ec",
+        "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-06T00:07:38Z",
+      "side": 1,
+      "message": "AutoCloseable is Api 19, and we\u0027re 14 and it is not exposed as API, so I guess it is ok.",
+      "revId": "08b55fb1203b1cf994e24a7b021469e7a6bdcd0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
