@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "d7090d79_b8ad5e49",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-10-06T00:17:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25d2195c_d93f3a74",
+      "range": {
+        "startLine": 403,
+        "startChar": 26,
+        "endLine": 403,
+        "endChar": 46
+      },
+      "revId": "6f9e401f776c438c4e3f9fa79c8f38ab56e615b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d972338_63ec4319",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewTest.java",
         "patchSetId": 6
@@ -69,6 +93,30 @@
       "revId": "6f9e401f776c438c4e3f9fa79c8f38ab56e615b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daed0b6f_8aa756c4",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-10-06T00:17:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d972338_63ec4319",
+      "range": {
+        "startLine": 359,
+        "startChar": 24,
+        "endLine": 359,
+        "endChar": 33
+      },
+      "revId": "6f9e401f776c438c4e3f9fa79c8f38ab56e615b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
