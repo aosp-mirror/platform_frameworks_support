@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "729671f7_c1ac5a34",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-06T00:21:34Z",
+      "side": 1,
+      "message": "Word this as one of the following:\n\n- Returns {@code true} if the scroll bar thumb is visible.\n- Returns whether or not the scroll bar thumb is visible.",
+      "range": {
+        "startLine": 184,
+        "startChar": 16,
+        "endLine": 184,
+        "endChar": 28
+      },
+      "revId": "e0579924b0a2a3d507f18d405c984c7cb28c8951",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
