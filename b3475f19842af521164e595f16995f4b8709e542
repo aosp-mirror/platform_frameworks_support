@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9292c61a_272353a0",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2214,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2018-10-06T05:07:31Z",
+      "side": 1,
+      "message": "This is the only real change from aosp/720217\n\nI also removed my custom onClick change since the original implementation works using this implicit behavior (and is already tested)",
+      "range": {
+        "startLine": 2205,
+        "startChar": 16,
+        "endLine": 2214,
+        "endChar": 18
+      },
+      "revId": "b3475f19842af521164e595f16995f4b8709e542",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
