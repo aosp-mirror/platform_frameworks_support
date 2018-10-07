@@ -22,6 +22,30 @@
       "revId": "38b291e66c9c8dbb1b96285627a7c49b3eb75ae1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e3eea2d_e8bdcf68",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-10-07T22:07:11Z",
+      "side": 1,
+      "message": "I\u0027ve been thinking about this too. One thought I had was just using navigation focus -- if no app has navigation focus (which the OEM can query / listen to) then navigation isn\u0027t running.",
+      "parentUuid": "e3ee4df1_87a46441",
+      "range": {
+        "startLine": 52,
+        "startChar": 16,
+        "endLine": 52,
+        "endChar": 29
+      },
+      "revId": "38b291e66c9c8dbb1b96285627a7c49b3eb75ae1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
