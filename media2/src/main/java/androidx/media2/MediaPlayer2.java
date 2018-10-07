@@ -228,7 +228,7 @@ public abstract class MediaPlayer2 {
      * Debug flag that forces use of {@link ExoPlayerMediaPlayer2Impl} even if the device is running
      * an Android P build.
      */
-    private static final boolean DEBUG_USE_EXOPLAYER = false;
+    private static final boolean DEBUG_USE_EXOPLAYER = true;
 
     /**
      * Create a MediaPlayer2 object.
