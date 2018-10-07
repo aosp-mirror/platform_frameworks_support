@@ -125,6 +125,7 @@ import java.util.List;
     private DefaultAudioSink mAudioSink;
     private MediaItemQueue mMediaItemQueue;
 
+    private boolean mHasAudioAttributes;
     private int mAudioSessionId;
     private int mAuxEffectId;
     private float mAuxEffectSendLevel;
@@ -225,6 +226,7 @@ import java.util.List;
     }
 
     public void setAudioAttributes(AudioAttributesCompat audioAttributes) {
+        mHasAudioAttributes = true;
         mPlayer.setAudioAttributes(ExoPlayerUtils.getAudioAttributes(audioAttributes));
         // Reset the audio session ID, as it gets cleared by setting audio attributes.
         if (mAudioSessionId != C.AUDIO_SESSION_ID_UNSET) {
@@ -233,7 +235,8 @@ import java.util.List;
     }
 
     public AudioAttributesCompat getAudioAttributes() {
-        return ExoPlayerUtils.getAudioAttributesCompat(mPlayer.getAudioAttributes());
+        return mHasAudioAttributes
+                ? ExoPlayerUtils.getAudioAttributesCompat(mPlayer.getAudioAttributes()) : null;
     }
 
     public void setAudioSessionId(int audioSessionId) {
@@ -333,7 +336,7 @@ import java.util.List;
                 new AudioSinkRenderersFactory(mContext, mAudioSink),
                 new DefaultTrackSelector(),
                 new DefaultLoadControl(),
-                    /* drmSessionManager= */ null,
+                /* drmSessionManager= */ null,
                 mLooper);
         mMediaItemQueue = new MediaItemQueue(mContext, mPlayer, mListener);
         ComponentListener listener = new ComponentListener();
@@ -342,6 +345,7 @@ import java.util.List;
         mVideoWidth = 0;
         mVideoHeight = 0;
         mPrepared = false;
+        mHasAudioAttributes = false;
         mAudioSessionId = C.AUDIO_SESSION_ID_UNSET;
         mAuxEffectId = AuxEffectInfo.NO_AUX_EFFECT_ID;
         mAuxEffectSendLevel = 0f;
