@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "7084f7d6_634fe374",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextLinkSpanTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-08T19:30:22Z",
+      "side": 1,
+      "message": "(Mark it as done then, thanks.)",
+      "parentUuid": "557126e0_aeaf000b",
+      "range": {
+        "startLine": 148,
+        "startChar": 16,
+        "endLine": 148,
+        "endChar": 83
+      },
+      "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1ae121d_a4c239df",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 8
@@ -144,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "1c59c234_56c81460",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-08T19:30:22Z",
+      "side": 1,
+      "message": "Re \"If we do this, then we need to fix what apply() does. Should it remove existing ClickableSpans or just TextLinkSpans?\"\n\nI think you are talking about APPLY_STRATEGY_REPLACE and APPLY_STRATEGY_IGNORE?\nWe always look for ClickableSpan[1], so no behavior change here, right?\n\n\"Also, isn\u0027t it the case from the design in this CL that we still expect users to extend a TextLinkSpan, or does this change to ClickableSpan exist mainly for clients that want to override onClick()\"\nI expect most developers will just extend TextLinkSpan, but I feel like there may be some apps\nstill want to override onClick, and thus the change here. \n\n[1]: http://cs/android/frameworks/support/textclassifier/src/main/java/androidx/textclassifier/TextLinksParams.java?l\u003d124\u0026rcl\u003d7d01e1851d4c3cd7138b24aaaca4cdece294804a",
+      "parentUuid": "c8c930db_7fa7b293",
+      "range": {
+        "startLine": 526,
+        "startChar": 8,
+        "endLine": 526,
+        "endChar": 21
+      },
+      "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9bc62bc1_3720cbfd",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 8
@@ -161,6 +209,47 @@
         "endLine": 581,
         "endChar": 92
       },
+      "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1decf550_37818b79",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-08T19:30:22Z",
+      "side": 1,
+      "message": "Ya, I know. But isn\u0027t simply firing the intent is also one of the presentations? :)",
+      "parentUuid": "9bc62bc1_3720cbfd",
+      "range": {
+        "startLine": 581,
+        "startChar": 33,
+        "endLine": 581,
+        "endChar": 92
+      },
+      "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f10fb86b_da54975c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-08T19:30:22Z",
+      "side": 1,
+      "message": "Note to myself: maybe I should verify that the textview spanned is not changed here.",
       "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -207,6 +296,30 @@
     },
     {
       "key": {
+        "uuid": "38518647_64834b64",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-08T19:30:22Z",
+      "side": 1,
+      "message": "This is called in onClick, and onClick already verified that the text is Spanned.\n\nBut true, maybe I should change it back to casting to make it clear a new object won\u0027t be created.",
+      "parentUuid": "65ef1fc2_fe3ced19",
+      "range": {
+        "startLine": 649,
+        "startChar": 36,
+        "endLine": 649,
+        "endChar": 79
+      },
+      "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5eb2bcfd_2b254756",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 8
@@ -218,6 +331,30 @@
       "writtenOn": "2018-10-02T17:17:26Z",
       "side": 1,
       "message": "I think we\u0027d want to verify these indices here too.",
+      "range": {
+        "startLine": 649,
+        "startChar": 12,
+        "endLine": 651,
+        "endChar": 53
+      },
+      "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c48bdf1_f110a714",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-08T19:30:22Z",
+      "side": 1,
+      "message": "mmm, but the index is already verified in the caller (onClick). The reason that I don\u0027t pass the start and end index to this function is because I want to keep this API signature simple for now.\n\nOr did you mean the text maybe already changed after the worker thread is done?",
+      "parentUuid": "5eb2bcfd_2b254756",
       "range": {
         "startLine": 649,
         "startChar": 12,
