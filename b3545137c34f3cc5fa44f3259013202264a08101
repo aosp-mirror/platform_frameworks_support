@@ -22,6 +22,30 @@
       "revId": "b3545137c34f3cc5fa44f3259013202264a08101",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36bda4ae_1fe42802",
+        "filename": "core/src/main/java/androidx/core/view/AccessibilityDelegateCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-08T17:31:21Z",
+      "side": 1,
+      "message": "Can we make it public in platform?",
+      "parentUuid": "5d89cc91_291a839a",
+      "range": {
+        "startLine": 131,
+        "startChar": 55,
+        "endLine": 131,
+        "endChar": 65
+      },
+      "revId": "b3545137c34f3cc5fa44f3259013202264a08101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
