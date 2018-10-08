@@ -18,10 +18,14 @@ package androidx.core.os
 
 import android.os.Handler
 import android.os.HandlerThread
+import android.os.Looper
 import android.os.SystemClock
+import android.os.TestLooperManager
+import androidx.test.InstrumentationRegistry
 import androidx.test.filters.SmallTest
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -33,11 +37,13 @@ import java.util.concurrent.TimeUnit.SECONDS
 @SmallTest
 class HandlerTest {
     private val handlerThread = HandlerThread("handler-test")
+    private lateinit var looper: Looper
     private lateinit var handler: Handler
 
     @Before fun before() {
         handlerThread.start()
-        handler = Handler(handlerThread.looper)
+        looper = handlerThread.looper
+        handler = Handler(looper)
     }
 
     @After fun after() {
@@ -55,14 +61,14 @@ class HandlerTest {
     }
 
     @Test fun postDelayedLambdaMillisRemoved() {
-        var called = 0
-        val runnable = handler.postDelayed(10) {
-            called++
-        }
-        handler.removeCallbacks(runnable)
+        looper.manage { manager ->
+            val runnable = handler.postDelayed(1000) {
+                throw AssertionError()
+            }
+            handler.removeCallbacks(runnable)
 
-        handler.await(20, MILLISECONDS)
-        assertEquals(0, called)
+            assertFalse(manager.hasMessages(handler))
+        }
     }
 
     @Test fun postAtTimeLambda() {
@@ -76,14 +82,14 @@ class HandlerTest {
     }
 
     @Test fun postAtTimeLambdaRemoved() {
-        var called = 0
-        val runnable = handler.postAtTime(SystemClock.uptimeMillis() + 10) {
-            called++
-        }
-        handler.removeCallbacks(runnable)
+        looper.manage { manager ->
+            val runnable = handler.postAtTime(SystemClock.uptimeMillis() + 1000) {
+                throw AssertionError()
+            }
+            handler.removeCallbacks(runnable)
 
-        handler.await(20, MILLISECONDS)
-        assertEquals(0, called)
+            assertFalse(manager.hasMessages(handler))
+        }
     }
 
     @Test fun postAtTimeLambdaWithTokenRuns() {
@@ -101,15 +107,15 @@ class HandlerTest {
         // This test uses the token to cancel the runnable as it's the only way we have to verify
         // that the Runnable was actually posted with the token.
 
-        val token = Any()
-        var called = 0
-        handler.postAtTime(SystemClock.uptimeMillis() + 10, token) {
-            called++
-        }
-        handler.removeCallbacksAndMessages(token)
+        looper.manage { manager ->
+            val token = Any()
+            handler.postAtTime(SystemClock.uptimeMillis() + 1000, token) {
+                throw AssertionError()
+            }
+            handler.removeCallbacksAndMessages(token)
 
-        handler.await(20, MILLISECONDS)
-        assertEquals(0, called)
+            assertFalse(manager.hasMessages(handler))
+        }
     }
 
     private fun Handler.await(amount: Long, unit: TimeUnit) {
@@ -120,4 +126,16 @@ class HandlerTest {
         val wait = unit.toMillis(amount) + SECONDS.toMillis(1)
         assertTrue(latch.await(wait, MILLISECONDS))
     }
+
+    private inline fun Looper.manage(block: (TestLooperManager) -> Unit) {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val looperManager = instrumentation.acquireLooperManager(this)
+        try {
+            block(looperManager)
+        } finally {
+            looperManager.release()
+        }
+    }
+
+    private fun TestLooperManager.hasMessages(handler: Handler) = hasMessages(handler, null, null)
 }
