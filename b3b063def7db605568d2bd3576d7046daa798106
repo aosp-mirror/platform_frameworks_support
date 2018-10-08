@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1cb466c4_c3c8f679",
+        "filename": "media2/src/main/java/androidx/media2/MediaTimestamp2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-08T23:05:30Z",
+      "side": 1,
+      "message": "I am expecting a separate change for dropping \u00272\u0027 once everyone in the thread agrees.",
+      "parentUuid": "7503f0c9_b9e64106",
+      "range": {
+        "startLine": 44,
+        "startChar": 19,
+        "endLine": 44,
+        "endChar": 34
+      },
+      "revId": "b3b063def7db605568d2bd3576d7046daa798106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "793a7abb_4e5f24ca",
         "filename": "media2/src/main/java/androidx/media2/PlaybackParams2.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-08T22:32:11Z",
       "side": 1,
       "message": "same comment for dropping \"2\"",
+      "range": {
+        "startLine": 63,
+        "startChar": 19,
+        "endLine": 63,
+        "endChar": 34
+      },
+      "revId": "b3b063def7db605568d2bd3576d7046daa798106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc6ac953_7962cf68",
+        "filename": "media2/src/main/java/androidx/media2/PlaybackParams2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-08T23:05:30Z",
+      "side": 1,
+      "message": "Ditto.",
+      "parentUuid": "793a7abb_4e5f24ca",
       "range": {
         "startLine": 63,
         "startChar": 19,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "51ca950a_efc1309a",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-08T23:05:30Z",
+      "side": 1,
+      "message": "Will fix.",
+      "parentUuid": "ee60452f_5fbd7340",
+      "range": {
+        "startLine": 140,
+        "startChar": 28,
+        "endLine": 140,
+        "endChar": 39
+      },
+      "revId": "b3b063def7db605568d2bd3576d7046daa798106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2048a6b3_ca96a68b",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2018-10-08T22:32:11Z",
       "side": 1,
       "message": "... but player errors that come from the content itself could be for instance here PLAYER_ERROR_MEDIA_MALFORMED. What do you think?",
+      "range": {
+        "startLine": 157,
+        "startChar": 28,
+        "endLine": 157,
+        "endChar": 49
+      },
+      "revId": "b3b063def7db605568d2bd3576d7046daa798106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3c73d5d_f0b0572c",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-08T23:05:30Z",
+      "side": 1,
+      "message": "considering that the role of the player is playing the given content, all the errors here possibly came from the content itself. I am okay with adding \"_MEDIA_\", but slightly more inclined to just going with \"PLAYER_ERROR_XXX\" as proposed above. Let me know if you think \"PLAYER_ERROR_MEDIA_\" is looking better to you. Thanks,",
+      "parentUuid": "2048a6b3_ca96a68b",
       "range": {
         "startLine": 157,
         "startChar": 28,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "b6824082_4817bad1",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-08T23:05:30Z",
+      "side": 1,
+      "message": "As stated in SessionPlayer2 javadoc, the player goes to error state when it enters irrecoverable state. In this case, the player keeps playing the video in playing state and possibly recoverable when it moves on to the next media item.",
+      "parentUuid": "9bf196ee_ec1a8926",
+      "range": {
+        "startLine": 336,
+        "startChar": 28,
+        "endLine": 336,
+        "endChar": 56
+      },
+      "revId": "b3b063def7db605568d2bd3576d7046daa798106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a2df8a44_e4f48418",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 2
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "90e5036a_54a2fd74",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-08T23:05:30Z",
+      "side": 1,
+      "message": "Same here. player stays in the playing state.",
+      "parentUuid": "a2df8a44_e4f48418",
+      "range": {
+        "startLine": 350,
+        "startChar": 28,
+        "endLine": 350,
+        "endChar": 55
+      },
+      "revId": "b3b063def7db605568d2bd3576d7046daa798106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6df36692_602d5fc8",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 2
@@ -151,6 +295,30 @@
       "writtenOn": "2018-10-08T22:32:11Z",
       "side": 1,
       "message": "We had a discussion (whiteboard + doc) for replacing prepare() with prefetch() + setPreviewEnabled(). The method is still poorly defined.",
+      "range": {
+        "startLine": 625,
+        "startChar": 42,
+        "endLine": 625,
+        "endChar": 49
+      },
+      "revId": "b3b063def7db605568d2bd3576d7046daa798106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15706d3f_af51f943",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-08T23:05:30Z",
+      "side": 1,
+      "message": "Thanks for pointing out that. Let me address this in the next patch set.",
+      "parentUuid": "6df36692_602d5fc8",
       "range": {
         "startLine": 625,
         "startChar": 42,
