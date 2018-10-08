@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "455a8e97_a61a97e6",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-08T23:36:59Z",
+      "side": 1,
+      "message": "If we are adding this to the main settings.gradle, delete development/importMaven/settings.gradle.kts and the gradlew in that directory.",
+      "revId": "83bb3074f5cd42c22b7063ba4643ec00aa09b3e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b158ed1_63b304ec",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-08T23:36:59Z",
+      "side": 1,
+      "message": "The default is never going to be useful given it is hard-coded, we should just cast it to the right type here and use !!",
+      "range": {
+        "startLine": 29,
+        "startChar": 59,
+        "endLine": 29,
+        "endChar": 78
+      },
+      "revId": "83bb3074f5cd42c22b7063ba4643ec00aa09b3e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93a2e1b2_bbd47f07",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-08T23:36:59Z",
+      "side": 1,
+      "message": "Why do we need the repositories in the buildscript block? I don\u0027t see you applying any plugins besides the build in java one?",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 1
+      },
+      "revId": "83bb3074f5cd42c22b7063ba4643ec00aa09b3e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afa298b6_5088b9e2",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-08T23:36:59Z",
+      "side": 1,
+      "message": "Can we use org.gradle.api.artifacts.result.ResolvedArtifactResult instead? If we are adding this to be part of the main build I do not want us poking into internal gradle apis.",
+      "range": {
+        "startLine": 100,
+        "startChar": 58,
+        "endLine": 100,
+        "endChar": 87
+      },
+      "revId": "83bb3074f5cd42c22b7063ba4643ec00aa09b3e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
