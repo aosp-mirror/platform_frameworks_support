@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae3e7c0f_989091b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-08T21:50:12Z",
+      "side": 1,
+      "message": "Please add a more verbose commit message explaining what exactly was broken.",
+      "revId": "e97e2295ea2f502f9ee27fd48fa6af9015e3a489",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
