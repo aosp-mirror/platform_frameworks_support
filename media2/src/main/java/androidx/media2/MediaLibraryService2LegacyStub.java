@@ -19,6 +19,8 @@ package androidx.media2;
 import static android.support.v4.media.MediaBrowserCompat.EXTRA_PAGE;
 import static android.support.v4.media.MediaBrowserCompat.EXTRA_PAGE_SIZE;
 
+import static androidx.media2.MediaLibraryService2.LibraryResult.RESULT_CODE_SUCCESS;
+
 import android.content.Context;
 import android.os.BadParcelableException;
 import android.os.Bundle;
@@ -34,7 +36,8 @@ import androidx.core.util.ObjectsCompat;
 import androidx.media.MediaBrowserServiceCompat;
 import androidx.media.MediaSessionManager.RemoteUserInfo;
 import androidx.media2.MediaController2.PlaybackInfo;
-import androidx.media2.MediaLibraryService2.LibraryRoot;
+import androidx.media2.MediaLibraryService2.LibraryParams;
+import androidx.media2.MediaLibraryService2.LibraryResult;
 import androidx.media2.MediaLibraryService2.MediaLibrarySession.MediaLibrarySessionImpl;
 import androidx.media2.MediaSession2.CommandButton;
 import androidx.media2.MediaSession2.ControllerInfo;
@@ -70,8 +73,8 @@ class MediaLibraryService2LegacyStub extends MediaSessionService2LegacyStub {
     }
 
     @Override
-    public BrowserRoot onGetRoot(String clientPackageName, int clientUid, final Bundle extras) {
-        BrowserRoot browserRoot = super.onGetRoot(clientPackageName, clientUid, extras);
+    public BrowserRoot onGetRoot(String clientPackageName, int clientUid, final Bundle rootHints) {
+        BrowserRoot browserRoot = super.onGetRoot(clientPackageName, clientUid, rootHints);
         if (browserRoot == null) {
             return null;
         }
@@ -88,10 +91,17 @@ class MediaLibraryService2LegacyStub extends MediaSessionService2LegacyStub {
             // not.
             // Because of the reason, just call onGetLibraryRoot() directly here. onGetLibraryRoot()
             // has documentation that it may be called on the main thread.
-            LibraryRoot libraryRoot = mLibrarySessionImpl.getCallback().onGetLibraryRoot(
-                    mLibrarySessionImpl.getInstance(), controller, extras);
-            if (libraryRoot != null) {
-                return new BrowserRoot(libraryRoot.getRootId(), libraryRoot.getExtras());
+            LibraryResult result = mLibrarySessionImpl.getCallback().onGetLibraryRoot(
+                    mLibrarySessionImpl.getInstance(), controller,
+                    MediaUtils2.convertToLibraryParams(rootHints));
+            if (result != null && result.getResultCode() == RESULT_CODE_SUCCESS
+                    && result.getMediaItem() != null) {
+                MediaMetadata2 metadata = result.getMediaItem().getMetadata();
+                if (metadata != null) {
+                    String id = metadata.getString(MediaMetadata2.METADATA_KEY_MEDIA_ID);
+                    Bundle extra = metadata.getExtras();
+                    return new BrowserRoot(id, extra);
+                }
             }
         } else if (DEBUG) {
             Log.d(TAG, "Command MBC.connect from " + controller + " was rejected by "
@@ -119,7 +129,7 @@ class MediaLibraryService2LegacyStub extends MediaSessionService2LegacyStub {
                     return;
                 }
                 mLibrarySessionImpl.getCallback().onSubscribe(mLibrarySessionImpl.getInstance(),
-                        controller, id, option);
+                        controller, id, MediaUtils2.convertToLibraryParams(option));
             }
         });
     }
@@ -173,10 +183,17 @@ class MediaLibraryService2LegacyStub extends MediaSessionService2LegacyStub {
                         int pageSize = options.getInt(EXTRA_PAGE_SIZE);
                         if (page > 0 && pageSize > 0) {
                             // Requesting the list of children through pagination.
-                            List<MediaItem2> children = mLibrarySessionImpl.getCallback()
+                            LibraryResult libraryResult = mLibrarySessionImpl.getCallback()
                                     .onGetChildren(mLibrarySessionImpl.getInstance(), controller,
-                                            parentId, page, pageSize, options);
-                            result.sendResult(MediaUtils2.convertToMediaItemList(children));
+                                            parentId, page, pageSize,
+                                            MediaUtils2.convertToLibraryParams(options));
+                            if (libraryResult == null
+                                    || libraryResult.getResultCode() != RESULT_CODE_SUCCESS) {
+                                result.sendResult(null);
+                            } else {
+                                result.sendResult(MediaUtils2.convertToMediaItemList(
+                                        libraryResult.getMediaItems()));
+                            }
                             return;
                         }
                         // Cannot distinguish onLoadChildren() why it's called either by
@@ -187,11 +204,17 @@ class MediaLibraryService2LegacyStub extends MediaSessionService2LegacyStub {
                     }
                 }
                 // A MediaBrowserCompat called loadChildren with no pagination option.
-                List<MediaItem2> children = mLibrarySessionImpl.getCallback()
+                LibraryResult libraryResult = mLibrarySessionImpl.getCallback()
                         .onGetChildren(mLibrarySessionImpl.getInstance(), controller, parentId,
                                 0 /* page */, Integer.MAX_VALUE /* pageSize*/,
                                 null /* extras */);
-                result.sendResult(MediaUtils2.convertToMediaItemList(children));
+                if (libraryResult == null
+                        || libraryResult.getResultCode() != RESULT_CODE_SUCCESS) {
+                    result.sendResult(null);
+                } else {
+                    result.sendResult(MediaUtils2.convertToMediaItemList(
+                            libraryResult.getMediaItems()));
+                }
             }
         });
     }
@@ -212,12 +235,12 @@ class MediaLibraryService2LegacyStub extends MediaSessionService2LegacyStub {
                     result.sendError(null);
                     return;
                 }
-                MediaItem2 item = mLibrarySessionImpl.getCallback().onGetItem(
+                LibraryResult libraryResult = mLibrarySessionImpl.getCallback().onGetItem(
                         mLibrarySessionImpl.getInstance(), controller, itemId);
-                if (item == null) {
+                if (libraryResult == null || libraryResult.getResultCode() != RESULT_CODE_SUCCESS) {
                     result.sendResult(null);
                 } else {
-                    result.sendResult(MediaUtils2.convertToMediaItem(item));
+                    result.sendResult(MediaUtils2.convertToMediaItem(libraryResult.getMediaItem()));
                 }
             }
         });
@@ -249,7 +272,7 @@ class MediaLibraryService2LegacyStub extends MediaSessionService2LegacyStub {
                 BrowserLegacyCb cb = (BrowserLegacyCb) controller.getControllerCb();
                 cb.registerSearchRequest(controller, query, extras, result);
                 mLibrarySessionImpl.getCallback().onSearch(mLibrarySessionImpl.getInstance(),
-                        controller, query, extras);
+                        controller, query, MediaUtils2.convertToLibraryParams(extras));
                 // Actual search result will be sent by notifySearchResultChanged().
             }
         });
@@ -324,12 +347,17 @@ class MediaLibraryService2LegacyStub extends MediaSessionService2LegacyStub {
     private abstract static class BaseBrowserLegacyCb extends MediaSession2.ControllerCb {
         @Override
         void onPlayerResult(int seq, PlayerResult result) throws RemoteException {
-            // No-op. BrowserCompat doesn't understand Controller features.
+            // No-op. BrowserCompat doesn't understand Session2 features.
         }
 
         @Override
         void onSessionResult(int seq, SessionResult result) throws RemoteException {
-            // No-op. BrowserCompat doesn't understand Controller features.
+            // No-op. BrowserCompat doesn't understand Session2 features.
+        }
+
+        @Override
+        void onLibraryResult(int seq, LibraryResult result) throws RemoteException {
+            // No-op. BrowserCompat doesn't understand Browser2 features.
         }
 
         @Override
@@ -417,61 +445,6 @@ class MediaLibraryService2LegacyStub extends MediaSessionService2LegacyStub {
         final void onDisconnected() throws RemoteException {
             // No-op. BrowserCompat doesn't have concept of receiving release of a session.
         }
-
-        @Override
-        final void onGetLibraryRootDone(Bundle rootHints, String rootMediaId, Bundle rootExtra)
-                throws RemoteException {
-            // Shouldn't be called. If it's called, it's bug.
-            // This method in the base class is introduced to internally send return of
-            // {@link MediaLibrarySessionCallback#onGetRoot}. However, for BrowserCompat,
-            // it should be done by returning {@link MediaLibraryService2LegacyStub#onGetRoot}
-            // instead.
-            if (DEBUG) {
-                throw new RuntimeException("Unexpected API call. onGetRoot() should return result"
-                        + " instead of calling this");
-            }
-        }
-
-        @Override
-        final void onGetChildrenDone(String parentId, int page, int pageSize,
-                List<MediaItem2> result, Bundle extras) throws RemoteException {
-            // Shouldn't be called. If it's called, it's bug.
-            // This method in the base class is introduced to internally send return of
-            // {@link MediaLibrarySessionCallback#onGetChildren}. However, for BrowserCompat,
-            // it should be done by {@link Result#sendResult} from
-            // {@link MediaLibraryService2LegacyStub#onLoadChildren} instead.
-            if (DEBUG) {
-                throw new RuntimeException("Unexpected API call. Send result.sendResult() for"
-                        + " sending onLoadChildren() result instead of this");
-            }
-        }
-
-        @Override
-        final void onGetItemDone(String mediaId, MediaItem2 result) throws RemoteException {
-            // Shouldn't be called. If it's called, it's bug.
-            // This method in the base class is introduced to internally send return of
-            // {@link MediaLibrarySessionCallback#onGetItem}. However, for BrowserCompat,
-            // it should be done by {@link Result#sendResult} from
-            // {@link MediaLibraryService2LegacyStub#onLoadItem} instead.
-            if (DEBUG) {
-                throw new RuntimeException("Unexpected API call. Use result.sendResult() for"
-                        + " sending onLoadItem() result instead of this");
-            }
-        }
-
-        @Override
-        final void onGetSearchResultDone(String query, int page, int pageSize,
-                List<MediaItem2> result, Bundle extras) throws RemoteException {
-            // Shouldn't be called. If it's called, it's bug.
-            // This method in the base class is introduced to internally send return of
-            // {@link MediaLibrarySessionCallback#onGetSearchResult}. However, for BrowserCompat,
-            // it should be done by {@link Result#sendResult} from
-            // {@link MediaLibraryService2LegacyStub#onSearch} instead.
-            if (DEBUG) {
-                throw new RuntimeException("Unexpected API call. Use result.sendResult() for"
-                        + " sending onGetSearchResult() result instead of this");
-            }
-        }
     }
 
     private class BrowserLegacyCb extends BaseBrowserLegacyCb {
@@ -486,13 +459,14 @@ class MediaLibraryService2LegacyStub extends MediaSessionService2LegacyStub {
         }
 
         @Override
-        void onChildrenChanged(String parentId, int itemCount, Bundle extras)
+        void onChildrenChanged(String parentId, int itemCount, LibraryParams params)
                 throws RemoteException {
+            Bundle extras = params != null ? params.getExtras() : null;
             notifyChildrenChanged(mRemoteUserInfo, parentId, extras);
         }
 
         @Override
-        void onSearchResultChanged(String query, int itemCount, Bundle extras)
+        void onSearchResultChanged(String query, int itemCount, LibraryParams params)
                 throws RemoteException {
             // In MediaLibrarySession/MediaBrowser2, we have two different APIs for getting size of
             // search result (and also starting search) and getting result.
@@ -540,16 +514,18 @@ class MediaLibraryService2LegacyStub extends MediaSessionService2LegacyStub {
                             page = 0;
                             pageSize = Integer.MAX_VALUE;
                         }
-                        List<MediaItem2> searchResult = mLibrarySessionImpl.getCallback()
+                        LibraryResult libraryResult  = mLibrarySessionImpl.getCallback()
                                 .onGetSearchResult(mLibrarySessionImpl.getInstance(),
                                         request.mController, request.mQuery, page, pageSize,
-                                        request.mExtras);
-                        if (searchResult == null) {
+                                        MediaUtils2.convertToLibraryParams(request.mExtras));
+                        if (libraryResult == null
+                                || libraryResult.getResultCode() != RESULT_CODE_SUCCESS) {
                             request.mResult.sendResult(null);
-                            return;
+                        } else {
+                            request.mResult.sendResult(
+                                    MediaUtils2.convertToMediaItemList(
+                                            libraryResult.getMediaItems()));
                         }
-                        request.mResult
-                                .sendResult(MediaUtils2.convertToMediaItemList(searchResult));
                     }
                 }
             });
@@ -575,18 +551,18 @@ class MediaLibraryService2LegacyStub extends MediaSessionService2LegacyStub {
         }
 
         @Override
-        void onChildrenChanged(String parentId, int itemCount, Bundle extras)
+        void onChildrenChanged(String parentId, int itemCount, LibraryParams libraryParams)
                 throws RemoteException {
             // This will trigger {@link MediaLibraryService2LegacyStub#onLoadChildren}.
-            if (extras == null) {
+            if (libraryParams == null || libraryParams.getExtras() == null) {
                 mService.notifyChildrenChanged(parentId);
             } else {
-                mService.notifyChildrenChanged(parentId, extras);
+                mService.notifyChildrenChanged(parentId, libraryParams.getExtras());
             }
         }
 
         @Override
-        void onSearchResultChanged(String query, int itemCount, Bundle extras)
+        void onSearchResultChanged(String query, int itemCount, LibraryParams params)
                 throws RemoteException {
             // Shouldn't be called. If it's called, it's bug.
             // This method in the base class is introduced to internally send return of

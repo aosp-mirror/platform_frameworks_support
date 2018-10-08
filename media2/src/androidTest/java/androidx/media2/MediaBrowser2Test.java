@@ -37,6 +37,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.media2.MediaBrowser2.BrowserCallback;
 import androidx.media2.MediaController2.ControllerCallback;
+import androidx.media2.MediaLibraryService2.LibraryParams;
 import androidx.media2.MediaLibraryService2.MediaLibrarySession;
 import androidx.media2.MediaLibraryService2.MediaLibrarySession.MediaLibrarySessionCallback;
 import androidx.media2.MediaSession2.ControllerInfo;
@@ -272,7 +273,7 @@ public class MediaBrowser2Test extends MediaController2Test {
         final BrowserCallback callback = new BrowserCallback() {
             @Override
             public void onSearchResultChanged(MediaBrowser2 browser,
-                    String queryOut, int itemCount, Bundle extrasOut) {
+                    String queryOut, int itemCount, LibraryParams extrasOut) {
                 assertEquals(query, queryOut);
                 assertTrue(TestUtils.equals(extras, extrasOut));
                 assertEquals(MockMediaLibraryService2.SEARCH_RESULT_COUNT, itemCount);
@@ -326,7 +327,7 @@ public class MediaBrowser2Test extends MediaController2Test {
         final BrowserCallback callback = new BrowserCallback() {
             @Override
             public void onSearchResultChanged(
-                    MediaBrowser2 browser, String queryOut, int itemCount, Bundle extrasOut) {
+                    MediaBrowser2 browser, String queryOut, int itemCount, LibraryParams extrasOut) {
                 assertEquals(query, queryOut);
                 assertTrue(TestUtils.equals(extras, extrasOut));
                 assertEquals(MockMediaLibraryService2.SEARCH_RESULT_COUNT, itemCount);
@@ -352,7 +353,7 @@ public class MediaBrowser2Test extends MediaController2Test {
         final BrowserCallback callback = new BrowserCallback() {
             @Override
             public void onSearchResultChanged(
-                    MediaBrowser2 browser, String queryOut, int itemCount, Bundle extrasOut) {
+                    MediaBrowser2 browser, String queryOut, int itemCount, LibraryParams extrasOut) {
                 assertEquals(query, queryOut);
                 assertTrue(TestUtils.equals(extras, extrasOut));
                 assertEquals(0, itemCount);
@@ -447,7 +448,7 @@ public class MediaBrowser2Test extends MediaController2Test {
         final BrowserCallback controllerCallbackProxy = new BrowserCallback() {
             @Override
             public void onChildrenChanged(MediaBrowser2 browser, String parentId,
-                    int itemCount, Bundle extras) {
+                    int itemCount, LibraryParams params) {
                 // Unexpected call.
                 fail();
             }
@@ -494,10 +495,10 @@ public class MediaBrowser2Test extends MediaController2Test {
         final BrowserCallback controllerCallbackProxy = new BrowserCallback() {
             @Override
             public void onChildrenChanged(MediaBrowser2 browser, String parentId,
-                    int itemCount, Bundle extras) {
+                    int itemCount, LibraryParams params) {
                 assertEquals(expectedParentId, parentId);
                 assertEquals(testChildrenCount, itemCount);
-                assertTrue(TestUtils.equals(testExtras, extras));
+                assertTrue(TestUtils.equals(testExtras, params));
                 latch.countDown();
             }
         };
@@ -545,7 +546,7 @@ public class MediaBrowser2Test extends MediaController2Test {
         final BrowserCallback controllerCallbackProxy = new BrowserCallback() {
             @Override
             public void onChildrenChanged(MediaBrowser2 browser, String parentId,
-                    int itemCount, Bundle extras) {
+                    int itemCount, LibraryParams params) {
                 // Unexpected call.
                 fail();
             }
@@ -593,10 +594,10 @@ public class MediaBrowser2Test extends MediaController2Test {
         final BrowserCallback controllerCallbackProxy = new BrowserCallback() {
             @Override
             public void onChildrenChanged(MediaBrowser2 browser, String parentId,
-                    int itemCount, Bundle extras) {
+                    int itemCount, LibraryParams params) {
                 assertEquals(expectedParentId, parentId);
                 assertEquals(testChildrenCount, itemCount);
-                assertTrue(TestUtils.equals(testExtras, extras));
+                assertTrue(TestUtils.equals(testExtras, params));
                 latch.countDown();
             }
         };

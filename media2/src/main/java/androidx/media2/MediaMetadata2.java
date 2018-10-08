@@ -575,11 +575,20 @@ public final class MediaMetadata2 implements VersionedParcelable {
     @Retention(RetentionPolicy.SOURCE)
     public @interface FloatKey {}
 
+    /**
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @StringDef({})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface BooleanKey {}
+
     static final int METADATA_TYPE_LONG = 0;
     static final int METADATA_TYPE_TEXT = 1;
     static final int METADATA_TYPE_BITMAP = 2;
     static final int METADATA_TYPE_RATING = 3;
     static final int METADATA_TYPE_FLOAT = 4;
+    static final int METADATA_TYPE_BOOLEAN = 5;
     static final ArrayMap<String, Integer> METADATA_KEYS_TYPE;
 
     static {
@@ -758,8 +767,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
     }
 
     /**
-     * Return the value associated with the given key, or 0.0f if no long exists
-     * for the given key.
+     * Returns the value associated with the given key, or {@code 0.0f} if no mapping of
+     * the desired type exists for the given key.
      *
      * @param key The key the value is stored under
      * @return a float value
@@ -769,6 +778,20 @@ public final class MediaMetadata2 implements VersionedParcelable {
             throw new IllegalArgumentException("key shouldn't be null");
         }
         return mBundle.getFloat(key);
+    }
+
+    /**
+     * Returns the value associated with the given key, or {@code false} if no mapping of
+     * the desired type exists for the given key.
+     *
+     * @param key The key the value is stored under
+     * @return a boolean value
+     */
+    public boolean getBoolean(@NonNull @BooleanKey String key) {
+        if (key == null) {
+            throw new IllegalArgumentException("key shouldn't be null");
+        }
+        return mBundle.getBoolean(key);
     }
 
     /**
@@ -1100,6 +1123,27 @@ public final class MediaMetadata2 implements VersionedParcelable {
         }
 
         /**
+         * Put a boolean value into the metadata. Custom keys may be used.
+         *
+         * @param key The key for referencing this value
+         * @param value The boolean value to store
+         * @return The Builder to allow chaining
+         */
+        public @NonNull Builder putBoolean(@NonNull @BooleanKey String key, boolean value) {
+            if (key == null) {
+                throw new IllegalArgumentException("key shouldn't be null");
+            }
+            if (METADATA_KEYS_TYPE.containsKey(key)) {
+                if (METADATA_KEYS_TYPE.get(key) != METADATA_TYPE_BOOLEAN) {
+                    throw new IllegalArgumentException("The " + key
+                            + " key cannot be used to put a boolean");
+                }
+            }
+            mBundle.putBoolean(key, value);
+            return this;
+        }
+
+        /**
          * Set a bundle of extras.
          *
          * @param extras The extras to include with this description or null.
@@ -1130,4 +1174,3 @@ public final class MediaMetadata2 implements VersionedParcelable {
         }
     }
 }
-

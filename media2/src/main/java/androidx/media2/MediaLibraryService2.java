@@ -16,19 +16,36 @@
 
 package androidx.media2;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.media2.MediaLibraryService2.LibraryResult.RESULT_CODE_NOT_SUPPORTED;
+
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.media.browse.MediaBrowser;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.SystemClock;
 
+import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.StringDef;
+import androidx.collection.ArrayMap;
 import androidx.core.content.ContextCompat;
+import androidx.media2.MediaBrowser2.BrowserResult.ResultCode;
 import androidx.media2.MediaLibraryService2.MediaLibrarySession.Builder;
 import androidx.media2.MediaLibraryService2.MediaLibrarySession.MediaLibrarySessionCallback;
+import androidx.versionedparcelable.ParcelField;
+import androidx.versionedparcelable.VersionedParcelable;
+import androidx.versionedparcelable.VersionedParcelize;
 
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -73,27 +90,23 @@ public abstract class MediaLibraryService2 extends MediaSessionService2 {
              * <p>
              * The implementation should verify that the client package has permission
              * to access browse media information before returning the root id; it
-             * should return null if the client is not allowed to access this
-             * information.
+             * should return {@code null} if the client is not allowed to access this information.
              * <p>
-             * Note: this callback may be called on the main thread, regardless of the callback
-             * executor.
+             * Interoperability: this callback may be called on the main thread, regardless of the
+             * callback executor.
              *
              * @param session the session for this event
              * @param controller information of the controller requesting access to browse media.
-             * @param rootHints An optional bundle of service-specific arguments to send
-             * to the media library service when connecting and retrieving the
-             * root id for browsing, or null if none. The contents of this
-             * bundle may affect the information returned when browsing.
-             * @return The {@link LibraryRoot} for accessing this app's content or null.
-             * @see LibraryRoot#EXTRA_RECENT
-             * @see LibraryRoot#EXTRA_OFFLINE
-             * @see LibraryRoot#EXTRA_SUGGESTED
+             * @param params An optional library params of service-specific arguments to send
+             *               to the media library service when connecting and retrieving the
+             *               root id for browsing, or {@code null} if none. The contents of this
+             *               bundle may affect the information returned when browsing.
+             * @return The library result
              * @see SessionCommand2#COMMAND_CODE_LIBRARY_GET_LIBRARY_ROOT
              */
-            public @Nullable LibraryRoot onGetLibraryRoot(@NonNull MediaLibrarySession session,
-                    @NonNull ControllerInfo controller, @Nullable Bundle rootHints) {
-                return null;
+            public @NonNull LibraryResult onGetLibraryRoot(@NonNull MediaLibrarySession session,
+                    @NonNull ControllerInfo controller, @Nullable LibraryParams params) {
+                return new LibraryResult(RESULT_CODE_NOT_SUPPORTED);
             }
 
             /**
@@ -107,9 +120,9 @@ public abstract class MediaLibraryService2 extends MediaSessionService2 {
              * @return a media item. {@code null} for no result or error.
              * @see SessionCommand2#COMMAND_CODE_LIBRARY_GET_ITEM
              */
-            public @Nullable MediaItem2 onGetItem(@NonNull MediaLibrarySession session,
+            public @NonNull LibraryResult onGetItem(@NonNull MediaLibrarySession session,
                     @NonNull ControllerInfo controller, @NonNull String mediaId) {
-                return null;
+                return new LibraryResult(RESULT_CODE_NOT_SUPPORTED);
             }
 
             /**
@@ -122,14 +135,14 @@ public abstract class MediaLibraryService2 extends MediaSessionService2 {
              * @param parentId parent id to get children
              * @param page page number. Starts from {@code 0}.
              * @param pageSize page size. Should be greater or equal to {@code 1}.
-             * @param extras extra bundle
+             * @param params library params
              * @return list of children. Can be {@code null}.
              * @see SessionCommand2#COMMAND_CODE_LIBRARY_GET_CHILDREN
              */
-            public @Nullable List<MediaItem2> onGetChildren(@NonNull MediaLibrarySession session,
+            public @NonNull LibraryResult onGetChildren(@NonNull MediaLibrarySession session,
                     @NonNull ControllerInfo controller, @NonNull String parentId, int page,
-                    int pageSize, @Nullable Bundle extras) {
-                return null;
+                    int pageSize, @Nullable LibraryParams params) {
+                return new LibraryResult(RESULT_CODE_NOT_SUPPORTED);
             }
 
             /**
@@ -137,8 +150,8 @@ public abstract class MediaLibraryService2 extends MediaSessionService2 {
              * <p>
              * It's your responsibility to keep subscriptions by your own and call
              * {@link MediaLibrarySession#notifyChildrenChanged(
-             * ControllerInfo, String, int, Bundle)}
-             * when the parent is changed.
+             * ControllerInfo, String, int, LibraryParams)} when the parent is changed until it's
+             * unsubscribed.
              * <p>
              * Interoperability: This will be called when
              * {@link android.support.v4.media.MediaBrowserCompat#subscribe} is called.
@@ -147,12 +160,14 @@ public abstract class MediaLibraryService2 extends MediaSessionService2 {
              * @param session the session for this event
              * @param controller controller
              * @param parentId parent id
-             * @param extras extra bundle
+             * @param params library params
+             * @return result code. {@link LibraryResult#RESULT_CODE_NOT_SUPPORTED} by default.
              * @see SessionCommand2#COMMAND_CODE_LIBRARY_SUBSCRIBE
              */
-            public void onSubscribe(@NonNull MediaLibrarySession session,
+            public @ResultCode int onSubscribe(@NonNull MediaLibrarySession session,
                     @NonNull ControllerInfo controller, @NonNull String parentId,
-                    @Nullable Bundle extras) {
+                    @Nullable LibraryParams params) {
+                return RESULT_CODE_NOT_SUPPORTED;
             }
 
             /**
@@ -165,50 +180,58 @@ public abstract class MediaLibraryService2 extends MediaSessionService2 {
              * @param session the session for this event
              * @param controller controller
              * @param parentId parent id
+             * @return result code. {@link LibraryResult#RESULT_CODE_NOT_SUPPORTED} by default.
              * @see SessionCommand2#COMMAND_CODE_LIBRARY_UNSUBSCRIBE
              */
-            public void onUnsubscribe(@NonNull MediaLibrarySession session,
+            public @ResultCode int onUnsubscribe(@NonNull MediaLibrarySession session,
                     @NonNull ControllerInfo controller, @NonNull String parentId) {
+                return RESULT_CODE_NOT_SUPPORTED;
             }
 
             /**
              * Called when a controller requests search.
+             * <p>
+             * Return immediately the result of the attempt to search with the query, and notify
+             * the number of search result through
+             * {@link #notifySearchResultChanged(ControllerInfo, String, int, LibraryParams)}.
+             * {@link MediaBrowser2} will ask the search result with the pagination later.
              *
              * @param session the session for this event
              * @param controller controller
              * @param query The search query sent from the media browser. It contains keywords
              *              separated by space.
-             * @param extras The bundle of service-specific arguments sent from the media browser.
+             * @param params library params
+             * @return result code. {@link LibraryResult#RESULT_CODE_NOT_SUPPORTED} by default.
              * @see SessionCommand2#COMMAND_CODE_LIBRARY_SEARCH
              */
-            public void onSearch(@NonNull MediaLibrarySession session,
+            public @ResultCode int onSearch(@NonNull MediaLibrarySession session,
                     @NonNull ControllerInfo controller, @NonNull String query,
-                    @Nullable Bundle extras) {
+                    @Nullable LibraryParams params) {
+                return RESULT_CODE_NOT_SUPPORTED;
             }
 
             /**
              * Called to get the search result. Return search result here for the browser which has
              * requested search previously.
              * <p>
-             * Return an empty list for no search result, and return {@code null} for the error.
+             * Return an empty list for no search result.
              * <p>
              * This may be called with a query that hasn't called with {@link #onSearch}, especially
              * when {@link android.support.v4.media.MediaBrowserCompat#search} is used.
              *
              * @param session the session for this event
              * @param controller controller
-             * @param query The search query which was previously sent through
-             *              {@link #onSearch(MediaLibrarySession, ControllerInfo, String, Bundle)}.
+             * @param query The search query which was previously sent through {@link #onSearch}.
              * @param page page number. Starts from {@code 0}.
              * @param pageSize page size. Should be greater or equal to {@code 1}.
-             * @param extras The bundle of service-specific arguments sent from the media browser.
-             * @return search result. {@code null} for error.
+             * @param params library params
+             * @return search result.
              * @see SessionCommand2#COMMAND_CODE_LIBRARY_GET_SEARCH_RESULT
              */
-            public @Nullable List<MediaItem2> onGetSearchResult(
+            public @NonNull LibraryResult onGetSearchResult(
                     @NonNull MediaLibrarySession session, @NonNull ControllerInfo controller,
-                    @NonNull String query, int page, int pageSize, @Nullable Bundle extras) {
-                return null;
+                    @NonNull String query, int page, int pageSize, @Nullable LibraryParams params) {
+                return new LibraryResult(RESULT_CODE_NOT_SUPPORTED);
             }
         }
 
@@ -280,45 +303,43 @@ public abstract class MediaLibraryService2 extends MediaSessionService2 {
          * <p>
          * If the controller hasn't subscribed to the parent, the API will do nothing.
          * <p>
-         * Controllers will use {@link MediaBrowser2#getChildren(String, int, int, Bundle)} to get
-         * the list of children.
+         * Controllers will use {@link MediaBrowser2#getChildren(String, int, int, LibraryParams)}
+         * to get the list of children.
          *
          * @param controller controller to notify
          * @param parentId parent id with changes in its children
          * @param itemCount number of children.
-         * @param extras extra information from session to controller
+         * @param params library params
          */
         public void notifyChildrenChanged(@NonNull ControllerInfo controller,
-                @NonNull String parentId, int itemCount, @Nullable Bundle extras) {
-            getImpl().notifyChildrenChanged(controller, parentId, itemCount, extras);
+                @NonNull String parentId, int itemCount, @Nullable LibraryParams params) {
+            getImpl().notifyChildrenChanged(controller, parentId, itemCount, params);
         }
 
         /**
          * Notify all controllers that subscribed to the parent about change in the parent's
          * children, regardless of the extra bundle supplied by
-         * {@link MediaBrowser2#subscribe(String, Bundle)}.
-         *
-         * @param parentId parent id
+         * {@link MediaBrowser2#subscribe(String, LibraryParams)}.
+         *  @param parentId parent id
          * @param itemCount number of children
-         * @param extras extra information from session to controller
+         * @param params library params
          */
         // This is for the backward compatibility.
         public void notifyChildrenChanged(@NonNull String parentId, int itemCount,
-                @Nullable Bundle extras) {
-            getImpl().notifyChildrenChanged(parentId, itemCount, extras);
+                @Nullable LibraryParams params) {
+            getImpl().notifyChildrenChanged(parentId, itemCount, params);
         }
 
         /**
          * Notify controller about change in the search result.
-         *
-         * @param controller controller to notify
+         *  @param controller controller to notify
          * @param query previously sent search query from the controller.
          * @param itemCount the number of items that have been found in the search.
-         * @param extras extra bundle
+         * @param params library params
          */
         public void notifySearchResultChanged(@NonNull ControllerInfo controller,
-                @NonNull String query, int itemCount, @Nullable Bundle extras) {
-            getImpl().notifySearchResultChanged(controller, query, itemCount, extras);
+                @NonNull String query, int itemCount, @Nullable LibraryParams params) {
+            getImpl().notifySearchResultChanged(controller, query, itemCount, params);
         }
 
         @Override
@@ -329,27 +350,28 @@ public abstract class MediaLibraryService2 extends MediaSessionService2 {
         interface MediaLibrarySessionImpl extends MediaSession2Impl {
             // LibrarySession methods
             void notifyChildrenChanged(
-                    @NonNull String parentId, int itemCount, @Nullable Bundle extras);
+                    @NonNull String parentId, int itemCount, @Nullable LibraryParams params);
             void notifyChildrenChanged(@NonNull ControllerInfo controller,
-                    @NonNull String parentId, int itemCount, @Nullable Bundle extras);
+                    @NonNull String parentId, int itemCount, @Nullable LibraryParams params);
             void notifySearchResultChanged(@NonNull ControllerInfo controller,
-                    @NonNull String query, int itemCount, @Nullable Bundle extras);
+                    @NonNull String query, int itemCount, @Nullable LibraryParams params);
 
             // LibrarySession callback implementations called on the executors
-            void onGetLibraryRootOnExecutor(@NonNull ControllerInfo controller,
-                    @Nullable Bundle extras);
-            void onGetItemOnExecutor(@NonNull ControllerInfo controller,
+            LibraryResult onGetLibraryRootOnExecutor(@NonNull ControllerInfo controller,
+                    @Nullable LibraryParams params);
+            LibraryResult onGetItemOnExecutor(@NonNull ControllerInfo controller,
                     @NonNull String mediaId);
-            void onGetChildrenOnExecutor(@NonNull ControllerInfo controller,
-                    @NonNull String parentId, int page, int pageSize, @Nullable Bundle extras);
-            void onSubscribeOnExecutor(@NonNull ControllerInfo controller,
-                    @NonNull String parentId, @Nullable Bundle extras);
-            void onUnsubscribeOnExecutor(@NonNull ControllerInfo controller,
+            LibraryResult onGetChildrenOnExecutor(@NonNull ControllerInfo controller,
+                    @NonNull String parentId, int page, int pageSize,
+                    @Nullable LibraryParams params);
+            int onSubscribeOnExecutor(@NonNull ControllerInfo controller,
+                    @NonNull String parentId, @Nullable LibraryParams params);
+            int onUnsubscribeOnExecutor(@NonNull ControllerInfo controller,
                     @NonNull String parentId);
-            void onSearchOnExecutor(@NonNull ControllerInfo controller, @NonNull String query,
-                    @Nullable Bundle extras);
-            void onGetSearchResultOnExecutor(@NonNull ControllerInfo controller,
-                    @NonNull String query, int page, int pageSize, @Nullable Bundle extras);
+            int onSearchOnExecutor(@NonNull ControllerInfo controller, @NonNull String query,
+                    @Nullable LibraryParams params);
+            LibraryResult onGetSearchResultOnExecutor(@NonNull ControllerInfo controller,
+                    @NonNull String query, int page, int pageSize, @Nullable LibraryParams params);
 
             // Internally used methods - only changing return type
             @Override
@@ -386,97 +408,265 @@ public abstract class MediaLibraryService2 extends MediaSessionService2 {
     public @NonNull abstract MediaLibrarySession onGetSession();
 
     /**
-     * Contains information that the library service needs to send to the client when
-     * {@link MediaBrowser2#getLibraryRoot(Bundle)} is called.
+     * Contains information that the library service needs to send to the client.
      */
-    public static final class LibraryRoot {
+    @VersionedParcelize
+    public static final class LibraryParams implements VersionedParcelable {
         /**
-         * The lookup key for a boolean that indicates whether the library service should return a
-         * librar root for recently played media items.
-         *
-         * <p>When creating a media browser for a given media library service, this key can be
-         * supplied as a root hint for retrieving media items that are recently played.
+         * The lookup key for a boolean that indicates whether the library service should return
+         * recently played media items.
+         * <p>
+         * When creating a media browser for a given media library service, this key can be
+         * supplied for retrieving media items that are recently played.
          * If the media library service can provide such media items, the implementation must return
-         * the key in the root hint when
-         * {@link MediaLibrarySessionCallback#onGetLibraryRoot}
-         * is called back.
-         *
-         * <p>The root hint may contain multiple keys.
-         *
-         * @see #EXTRA_OFFLINE
-         * @see #EXTRA_SUGGESTED
+         * the media item
+         * key in the metadata of the media item
+         * from the {@link MediaLibrarySessionCallback#onGetLibraryRoot}.
          */
-        public static final String EXTRA_RECENT = "android.media.extra.RECENT";
+
+        // Note: Value is the same as MediaBrowserServiceCompat.BrowserRoot#EXTRA_RECENT for
+        //       interop.
+        public static final String KEY_RECENT = "android.media.extra.RECENT";
 
         /**
-         * The lookup key for a boolean that indicates whether the library service should return a
-         * library root for offline media items.
-         *
-         * <p>When creating a media browser for a given media library service, this key can be
-         * supplied as a root hint for retrieving media items that are can be played without an
-         * internet connection.
+         * The lookup key for a boolean that indicates whether the library service should return
+         * offline media items, which can be played without an internet connection.
+         * <p>
          * If the media library service can provide such media items, the implementation must return
-         * the key in the root hint when
-         * {@link MediaLibrarySessionCallback#onGetLibraryRoot}
-         * is called back.
-         *
-         * <p>The root hint may contain multiple keys.
-         *
-         * @see #EXTRA_RECENT
-         * @see #EXTRA_SUGGESTED
+         * the result with the key.
+         * <p>
+         * The library param may contain multiple keys.
          */
-        public static final String EXTRA_OFFLINE = "android.media.extra.OFFLINE";
+        // Note: Value is the same as MediaBrowserServiceCompat.BrowserRoot#EXTRA_OFFLINE for
+        //       interop.
+        public static final String KEY_OFFLINE = "android.media.extra.OFFLINE";
 
         /**
-         * The lookup key for a boolean that indicates whether the library service should return a
-         * library root for suggested media items.
-         *
-         * <p>When creating a media browser for a given media library service, this key can be
-         * supplied as a root hint for retrieving the media items suggested by the media library
-         * service. The list of media items is considered ordered by relevance, first being the top
-         * suggestion.
+         * The lookup key for a boolean that indicates whether the library service should return
+         * suggested media items.
+         * <p>
          * If the media library service can provide such media items, the implementation must return
-         * the key in the root hint when
-         * {@link MediaLibrarySessionCallback#onGetLibraryRoot}
-         * is called back.
-         *
-         * <p>The root hint may contain multiple keys.
-         *
-         * @see #EXTRA_RECENT
-         * @see #EXTRA_OFFLINE
+         * the result with the key. The list of media items is considered ordered by relevance,
+         * first being the top suggestion.
+         * <p>
+         * The library param may contain multiple keys.
          */
-        public static final String EXTRA_SUGGESTED = "android.media.extra.SUGGESTED";
+        // Note: Value is the same as MediaBrowserServiceCompat.BrowserRoot#EXTRA_SUGGESTED for
+        //       interop.
+        public static final String KEY_SUGGESTED = "android.media.extra.SUGGESTED";
 
-        private final String mRootId;
-        private final Bundle mExtras;
-
-        //private final LibraryRootProvider mProvider;
+        static final String KEY_EXTRAS = "android.media.extra.EXTRAS";
 
         /**
-         * Constructs a library root.
-         * @param rootId The root id for browsing.
-         * @param extras Any extras about the library service.
+         * @hide
          */
-        public LibraryRoot(@NonNull String rootId, @Nullable Bundle extras) {
-            if (rootId == null) {
-                throw new IllegalArgumentException("rootId shouldn't be null");
+        @RestrictTo(LIBRARY_GROUP)
+        @StringDef({KEY_RECENT, KEY_OFFLINE, KEY_SUGGESTED})
+        @Retention(RetentionPolicy.SOURCE)
+        public @interface BooleanKey {}
+
+        static final int TYPE_BOOLEAN = 1;
+        static final int TYPE_BUNDLE = 2;
+        static final ArrayMap<String, Integer> KEY_TYPE_MAP;
+
+        static {
+            KEY_TYPE_MAP = new ArrayMap<>();
+            KEY_TYPE_MAP.put(KEY_RECENT, TYPE_BOOLEAN);
+            KEY_TYPE_MAP.put(KEY_OFFLINE, TYPE_BOOLEAN);
+            KEY_TYPE_MAP.put(KEY_SUGGESTED, TYPE_BOOLEAN);
+            KEY_TYPE_MAP.put(KEY_EXTRAS, TYPE_BUNDLE);
+        }
+
+        @ParcelField(1)
+        Bundle mBundle;
+
+        // For versioned parcelable.
+        LibraryParams() {
+            // no-op
+        }
+
+        private LibraryParams(Bundle bundle) {
+            mBundle = bundle;
+        }
+
+        /**
+         * Gets extras.
+         */
+        public @Nullable Bundle getExtras() {
+            return mBundle.getBundle(KEY_EXTRAS);
+        }
+
+        /**
+         * Returns the value associated with the given key, or {@code false} if no mapping of
+         * the desired type exists for the given key.
+         *
+         * @param key The key the value is stored under
+         * @return a boolean value
+         */
+        public boolean getBoolean(@NonNull @BooleanKey String key) {
+            if (key == null) {
+                throw new IllegalArgumentException("key shouldn't be null");
             }
-            mRootId = rootId;
-            mExtras = extras;
+            return mBundle.getBoolean(key);
         }
 
         /**
-         * Gets the root id for browsing.
+         * Builds {@link LibraryParams}.
          */
-        public String getRootId() {
-            return mRootId;
+        public static final class Builder {
+            private Bundle mBundle;
+
+            /**
+             * Constructor.
+             */
+            public Builder() {
+                mBundle = new Bundle();
+            }
+
+            Builder(@Nullable Bundle bundle) {
+                mBundle = bundle == null ? new Bundle() : new Bundle(bundle);
+            }
+
+            /**
+             * Put a boolean value into the metadata. Custom keys may be used.
+             */
+            public Builder putBoolean(@NonNull @BooleanKey String key, boolean value) {
+                if (key == null) {
+                    throw new IllegalArgumentException("key shouldn't be null");
+                }
+                if (KEY_TYPE_MAP.containsKey(key)) {
+                    if (KEY_TYPE_MAP.get(key) != TYPE_BOOLEAN) {
+                        throw new IllegalArgumentException("The " + key
+                                + " key cannot be used to put a float");
+                    }
+                }
+                mBundle.putBoolean(key, value);
+                return this;
+            }
+
+            /**
+             * Set a bundle of extras.
+             *
+             * @param extras The extras to include with this description or null.
+             * @return The Builder to allow chaining
+             */
+            public Builder setExtras(@Nullable Bundle extras) {
+                mBundle.putBundle(KEY_EXTRAS, extras);
+                return this;
+            }
+
+            /**
+             * Builds {@link LibraryParams}
+             *
+             * @return new LibraryParams
+             */
+            public LibraryParams build() {
+                return new LibraryParams(mBundle);
+            }
+        }
+    }
+
+    /**
+     * Result class to be used with {@link ListenableFuture} for asynchronous calls.
+     */
+    // Specify full class name to workaround build error 'cannot find symbol'.
+    @androidx.versionedparcelable.VersionedParcelize
+    public static class LibraryResult implements RemoteResult2,
+            androidx.versionedparcelable.VersionedParcelable {
+        /**
+         * @hide
+         */
+        @IntDef(flag = false, /*prefix = "RESULT_CODE",*/ value = {
+                RESULT_CODE_SUCCESS,
+                RESULT_CODE_UNKNOWN_ERROR,
+                RESULT_CODE_INVALID_STATE,
+                RESULT_CODE_BAD_VALUE,
+                RESULT_CODE_PERMISSION_DENIED,
+                RESULT_CODE_IO_ERROR,
+                RESULT_CODE_SKIPPED,
+                RESULT_CODE_DISCONNECTED,
+                RESULT_CODE_NOT_SUPPORTED,
+                RESULT_CODE_AUTHENTICATION_EXPIRED,
+                RESULT_CODE_PREMIUM_ACCOUNT_REQUIRED,
+                RESULT_CODE_CONCURRENT_STREAM_LIMIT,
+                RESULT_CODE_PARENTAL_CONTROL_RESTRICTED,
+                RESULT_CODE_NOT_AVAILABLE_IN_REGION,
+                RESULT_CODE_SKIP_LIMIT_REACHED,
+                RESULT_CODE_SETUP_REQUIRED})
+        @Retention(RetentionPolicy.SOURCE)
+        @RestrictTo(LIBRARY_GROUP)
+        public @interface ResultCode {}
+
+        @ParcelField(1)
+        int mResultCode;
+        @ParcelField(2)
+        long mCompletionTime;
+        @ParcelField(4)
+        MediaItem2 mItem;
+        @ParcelField(5)
+        List<MediaItem2> mItems;
+
+        // For versioned parcelable
+        LibraryResult() {
+            // no-op.
         }
 
         /**
-         * Gets any extras about the library service.
+         * Constructor only with the result code.
+         * <p>
+         * For success, consider using other constructor that you can also return the result.
+         *
+         * @param resultCode result code
          */
-        public Bundle getExtras() {
-            return mExtras;
+        public LibraryResult(@ResultCode int resultCode) {
+            this(resultCode, null, null);
+        }
+
+        public LibraryResult(@ResultCode int resultCode, @Nullable MediaItem2 item) {
+            this(resultCode, item, null);
+        }
+
+        public LibraryResult(@ResultCode int resultCode, @Nullable List<MediaItem2> items) {
+            this(resultCode, null, items);
+        }
+
+        private LibraryResult(@ResultCode int resultCode, @Nullable MediaItem2 item,
+                @Nullable List<MediaItem2> items) {
+            mResultCode = resultCode;
+            mCompletionTime = SystemClock.elapsedRealtime();
+            mItem = item;
+            mItems = items;
+        }
+
+        /**
+         * @hide
+         */
+        @RestrictTo(LIBRARY)
+        @Override
+        public int getResultCode() {
+            return mResultCode;
+        }
+
+        /**
+         * @hide
+         */
+        @RestrictTo(LIBRARY)
+        @Override
+        public long getCompletionTime() {
+            return mCompletionTime;
+        }
+
+        /**
+         * @hide
+         */
+        @RestrictTo(LIBRARY)
+        @Override
+        public MediaItem2 getMediaItem() {
+            return mItem;
+        }
+
+        List<MediaItem2> getMediaItems() {
+            return mItems;
         }
     }
 }

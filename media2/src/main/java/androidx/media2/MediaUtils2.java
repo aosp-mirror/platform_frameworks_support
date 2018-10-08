@@ -43,6 +43,7 @@ import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
 import androidx.media.AudioAttributesCompat;
 import androidx.media.MediaBrowserServiceCompat.BrowserRoot;
+import androidx.media2.MediaLibraryService2.LibraryParams;
 import androidx.media2.MediaSession2.CommandButton;
 import androidx.versionedparcelable.ParcelImpl;
 import androidx.versionedparcelable.ParcelUtils;
@@ -609,5 +610,15 @@ public class MediaUtils2 {
             return RatingCompat.RATING_PERCENTAGE;
         }
         return RatingCompat.RATING_NONE;
+    }
+
+    /**
+     * Converts the rootHints, option, and extra to the {@link LibraryParams}.
+     *
+     * @param legacyBundle
+     * @return new LibraryParams
+     */
+    public static LibraryParams convertToLibraryParams(Bundle legacyBundle) {
+        return new LibraryParams.Builder(legacyBundle).setExtras(legacyBundle).build();
     }
 }

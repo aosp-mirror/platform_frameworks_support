@@ -41,6 +41,8 @@ import androidx.annotation.Nullable;
 import androidx.media.MediaSessionManager;
 import androidx.media.MediaSessionManager.RemoteUserInfo;
 import androidx.media2.MediaController2.PlaybackInfo;
+import androidx.media2.MediaLibraryService2.LibraryParams;
+import androidx.media2.MediaLibraryService2.LibraryResult;
 import androidx.media2.MediaSession2.CommandButton;
 import androidx.media2.MediaSession2.ControllerCb;
 import androidx.media2.MediaSession2.ControllerInfo;
@@ -573,6 +575,11 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         }
 
         @Override
+        void onLibraryResult(int seq, LibraryResult result) throws RemoteException {
+            // no-op
+        }
+
+        @Override
         void setCustomLayout(int seq, List<CommandButton> layout) throws RemoteException {
             // no-op.
         }
@@ -654,37 +661,13 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         }
 
         @Override
-        void onGetLibraryRootDone(Bundle rootHints, String rootMediaId, Bundle rootExtra)
+        void onChildrenChanged(String parentId, int itemCount, LibraryParams params)
                 throws RemoteException {
             // no-op
         }
-
         @Override
-        void onChildrenChanged(String parentId, int itemCount, Bundle extras)
+        void onSearchResultChanged(String query, int itemCount, LibraryParams params)
                 throws RemoteException {
-            // no-op
-        }
-
-        @Override
-        void onGetChildrenDone(String parentId, int page, int pageSize, List<MediaItem2> result,
-                Bundle extras) throws RemoteException {
-            // no-op
-        }
-
-        @Override
-        void onGetItemDone(String mediaId, MediaItem2 result) throws RemoteException {
-            // no-op
-        }
-
-        @Override
-        void onSearchResultChanged(String query, int itemCount, Bundle extras)
-                throws RemoteException {
-            // no-op
-        }
-
-        @Override
-        void onGetSearchResultDone(String query, int page, int pageSize, List<MediaItem2> result,
-                Bundle extras) throws RemoteException {
             // no-op
         }
 
@@ -706,6 +689,11 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
 
         @Override
         void onSessionResult(int seq, SessionResult result) throws RemoteException {
+            // no-op
+        }
+
+        @Override
+        void onLibraryResult(int seq, LibraryResult result) throws RemoteException {
             // no-op
         }
 
@@ -822,37 +810,13 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         }
 
         @Override
-        void onGetLibraryRootDone(Bundle rootHints, String rootMediaId, Bundle rootExtra)
+        void onChildrenChanged(String parentId, int itemCount, LibraryParams params)
                 throws RemoteException {
             // no-op
         }
-
         @Override
-        void onChildrenChanged(String parentId, int itemCount, Bundle extras)
+        void onSearchResultChanged(String query, int itemCount, LibraryParams params)
                 throws RemoteException {
-            // no-op
-        }
-
-        @Override
-        void onGetChildrenDone(String parentId, int page, int pageSize, List<MediaItem2> result,
-                Bundle extras) throws RemoteException {
-            // no-op
-        }
-
-        @Override
-        void onGetItemDone(String mediaId, MediaItem2 result) throws RemoteException {
-            // no-op
-        }
-
-        @Override
-        void onSearchResultChanged(String query, int itemCount, Bundle extras)
-                throws RemoteException {
-            // no-op
-        }
-
-        @Override
-        void onGetSearchResultDone(String query, int page, int pageSize, List<MediaItem2> result,
-                Bundle extras) throws RemoteException {
             // no-op
         }
 

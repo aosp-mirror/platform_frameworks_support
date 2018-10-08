@@ -37,6 +37,7 @@ import androidx.media.MediaBrowserServiceCompat.BrowserRoot;
 import androidx.media.MediaBrowserServiceCompat.Result;
 import androidx.media2.MediaBrowser2.BrowserCallback;
 import androidx.media2.MediaController2.ControllerCallback;
+import androidx.media2.MediaLibraryService2.LibraryParams;
 import androidx.media2.MockMediaBrowserServiceCompat.Proxy;
 import androidx.test.filters.SmallTest;
 
@@ -408,10 +409,10 @@ public class MediaBrowser2LegacyTest extends MediaSession2TestBase {
         MediaBrowser2 browser = createBrowser(new BrowserCallback() {
             @Override
             public void onSearchResultChanged(MediaBrowser2 browser, String query, int itemCount,
-                    Bundle extras) {
+                    LibraryParams params) {
                 assertEquals(testQuery, query);
                 assertEquals(testFullSearchResult.size(), itemCount);
-                assertNull(extras);
+                assertNull(params);
 
                 // This should be called first
                 assertEquals(2, latch.getCount());
@@ -452,7 +453,7 @@ public class MediaBrowser2LegacyTest extends MediaSession2TestBase {
         MediaBrowser2 browser = createBrowser(new BrowserCallback() {
             @Override
             public void onSearchResultChanged(MediaBrowser2 browser, String query, int itemCount,
-                    Bundle extras) {
+                    LibraryParams params) {
                 assertEquals(testQuery, query);
                 assertEquals(0, itemCount);
 
@@ -514,13 +515,13 @@ public class MediaBrowser2LegacyTest extends MediaSession2TestBase {
         MediaBrowser2 browser = createBrowser(new MediaBrowser2.BrowserCallback() {
             @Override
             public void onChildrenChanged(MediaBrowser2 browser, String parentId,
-                    int itemCount, Bundle extras) {
+                    int itemCount, LibraryParams params) {
                 // Triggered by both subscribe and notifyChildrenChanged().
                 // Shouldn't be called after the unsubscribe().
                 assertNotEquals(0, latch.getCount());
                 assertEquals(testParentId, parentId);
                 assertEquals(testFullMediaItemList.size(), itemCount);
-                assertNull(extras);
+                assertNull(params);
                 latch.countDown();
             }
         });
