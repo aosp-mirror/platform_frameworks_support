@@ -33,9 +33,11 @@ dependencies {
     implementation(project(":arch:core-common"))
     api(project(":arch:core-runtime"))
     api(project(":lifecycle:lifecycle-livedata-core"))
-
+    api(GUAVA_LISTENABLE_FUTURE)
+    implementation(project(":concurrent:concurrent-futures"))
     testImplementation(project(":lifecycle:lifecycle-runtime"))
     testImplementation(project(":arch:core-testing"))
+    testImplementation(project(":concurrent:concurrent-futures"))
     testImplementation(JUNIT)
     testImplementation(MOCKITO_CORE)
 }

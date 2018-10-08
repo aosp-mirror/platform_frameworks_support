@@ -30,7 +30,10 @@ import static org.mockito.Mockito.when;
 import androidx.annotation.Nullable;
 import androidx.arch.core.executor.ArchTaskExecutor;
 import androidx.arch.core.util.Function;
+import androidx.concurrent.futures.SettableFuture;
 import androidx.lifecycle.util.InstantTaskExecutor;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -255,6 +258,71 @@ public class TransformationsTest {
         assertThat(observer.mTimesUpdated, is(2));
 
         dedupedLiveData.removeObservers(mOwner);
+    }
+
+    @Test
+    public void testFutureMap_instantReturn() {
+        MutableLiveData<String> original = new MutableLiveData<>();
+        LiveData<Integer> result = Transformations.mapFuture(original,
+                new Function<String, ListenableFuture<Integer>>() {
+                    @Override
+                    public ListenableFuture<Integer> apply(String input) {
+                        SettableFuture<Integer> settableFuture = SettableFuture.create();
+                        settableFuture.set(input.length());
+                        return settableFuture;
+                    }
+                });
+        CountingObserver<Integer> observer = new CountingObserver<>();
+        result.observe(mOwner, observer);
+        assertThat(result.getValue(), is(nullValue()));
+
+        original.setValue("foo");
+        assertThat(observer.mTimesUpdated, is(1));
+        assertThat(result.getValue(), is(3));
+
+        original.setValue("bar");
+        assertThat(observer.mTimesUpdated, is(2));
+        assertThat(result.getValue(), is(3));
+
+        original.setValue("barbar");
+        assertThat(observer.mTimesUpdated, is(3));
+        assertThat(result.getValue(), is(6));
+    }
+
+    @Test
+    public void testFutureMap_instantFail() {
+        MutableLiveData<String> original = new MutableLiveData<>();
+        final boolean[] fail = new boolean[]{true};
+        LiveData<Integer> result = Transformations.mapFuture(original,
+                new Function<String, ListenableFuture<Integer>>() {
+                    @Override
+                    public ListenableFuture<Integer> apply(String input) {
+                        SettableFuture<Integer> settableFuture = SettableFuture.create();
+                        if (fail[0]) {
+                            settableFuture.setException(new RuntimeException("cannot run"));
+                        } else {
+                            settableFuture.set(input.length());
+                        }
+
+                        return settableFuture;
+                    }
+                });
+        CountingObserver<Integer> observer = new CountingObserver<>();
+        result.observe(mOwner, observer);
+        assertThat(result.getValue(), is(nullValue()));
+
+        original.setValue("foo");
+        assertThat(observer.mTimesUpdated, is(0));
+        assertThat(result.getValue(), is(nullValue()));
+
+        original.setValue("bar");
+        assertThat(observer.mTimesUpdated, is(0));
+        assertThat(result.getValue(), is(nullValue()));
+        fail[0] = false;
+
+        original.setValue("barbar");
+        assertThat(observer.mTimesUpdated, is(1));
+        assertThat(result.getValue(), is(6));
     }
 
     private static class CountingObserver<T> implements Observer<T> {

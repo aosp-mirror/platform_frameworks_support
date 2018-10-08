@@ -50,7 +50,7 @@ class MigrationKotlinTest {
                 "foo", FrameworkSQLiteOpenHelperFactory())
         try {
             helper.createDatabase(TEST_DB, 1)
-            throw AssertionError("must have failed with missing file exception")
+            throw AssertionError("must have failed with missing file throwable")
         } catch (exception: FileNotFoundException) {
             assertThat<String>(exception.message, containsString("Cannot find"))
         }

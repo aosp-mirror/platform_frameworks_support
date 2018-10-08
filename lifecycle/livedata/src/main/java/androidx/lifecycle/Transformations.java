@@ -16,10 +16,18 @@
 
 package androidx.lifecycle;
 
+import android.util.Log;
+
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.arch.core.executor.ArchTaskExecutor;
 import androidx.arch.core.util.Function;
+
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * Transformation methods for {@link LiveData}.
@@ -189,5 +197,21 @@ public class Transformations {
             }
         });
         return outputLiveData;
+    }
+
+    @NonNull
+    public static <IN, OUT> LiveData<OUT> mapFuture(
+            @NonNull
+            LiveData<IN> source,
+            @NonNull
+            final Function<IN, ListenableFuture<OUT>> function) {
+        return new FutureMapTransformation<>(source, function).asLiveData();
+    }
+
+    @NonNull
+    public static <IN, OUT> LiveData<Result<OUT>> mapFutureToResult(
+            @NonNull LiveData<IN> source,
+            @NonNull final Function<IN, ListenableFuture<OUT>> function) {
+        return mapFuture(source, new ListenableFutureToResult<IN, OUT>(function));
     }
 }
