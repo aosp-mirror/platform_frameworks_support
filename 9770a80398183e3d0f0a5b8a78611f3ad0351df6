@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "73f20c74_5d4a69e3",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-08T23:59:07Z",
+      "side": 1,
+      "message": "i don\u0027t think i need any volatile here since calling disposable multiple times has no effect.\nEach call to this always localize the variable (even though we don\u0027t really ever set it to null).\n\nAbout Disposables.disposed(), i think it is nice to avoid the null check but it is a bit confusing to have a disposable w/o starting the work so I\u0027d rather keep this nullable.",
+      "parentUuid": "b91954c0_895513cd",
+      "revId": "9770a80398183e3d0f0a5b8a78611f3ad0351df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4eda1cd2_e8b3dc17",
         "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
         "patchSetId": 3
@@ -57,6 +75,30 @@
       "revId": "9770a80398183e3d0f0a5b8a78611f3ad0351df6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9b6355d_c02f244f",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-08T23:59:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4eda1cd2_e8b3dc17",
+      "range": {
+        "startLine": 85,
+        "startChar": 49,
+        "endLine": 85,
+        "endChar": 72
+      },
+      "revId": "9770a80398183e3d0f0a5b8a78611f3ad0351df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +137,24 @@
     },
     {
       "key": {
+        "uuid": "2a8a0443_618ecf4a",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-08T23:59:07Z",
+      "side": 1,
+      "message": "i think it probably makes sense to have a generic one for androidX to use since we keep creating such helpers for different libraries.\nfor now, i\u0027ll keep this as is.",
+      "parentUuid": "30fe6b21_70bd0f47",
+      "revId": "9770a80398183e3d0f0a5b8a78611f3ad0351df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "08263352_bf6c8fd6",
         "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
         "patchSetId": 3
@@ -124,6 +184,24 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "08263352_bf6c8fd6",
+      "revId": "9770a80398183e3d0f0a5b8a78611f3ad0351df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e696b139_5d90cbc1",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-08T23:59:07Z",
+      "side": 1,
+      "message": "updated to createWork, sumir@, wdyt ?",
+      "parentUuid": "fec80027_2a6891cb",
       "revId": "9770a80398183e3d0f0a5b8a78611f3ad0351df6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
