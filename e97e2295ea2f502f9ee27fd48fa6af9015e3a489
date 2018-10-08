@@ -52,6 +52,24 @@
       "revId": "e97e2295ea2f502f9ee27fd48fa6af9015e3a489",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0c3bb4ee_c8946b8f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-10-08T22:15:34Z",
+      "side": 1,
+      "message": "Oh-Oh. I\u0027m sorry. I agree it needed a better commit message but I also wanted to get a build going to continue the jdocs release. I should have been more patient.",
+      "parentUuid": "71d002fb_07915ee3",
+      "revId": "e97e2295ea2f502f9ee27fd48fa6af9015e3a489",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
