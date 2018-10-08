@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "179d107d_ad623435",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-08T15:23:32Z",
+      "side": 1,
+      "message": "I think you mean the opposite?",
+      "range": {
+        "startLine": 7,
+        "startChar": 5,
+        "endLine": 7,
+        "endChar": 32
+      },
+      "revId": "34f05dfd908b960cd8cdc591b7fa340078fd1609",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
