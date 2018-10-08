@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5cacc8a_efcfdff8",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaPlayer2Test.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-08T16:06:17Z",
+      "side": 1,
+      "message": "Actually, in this test, the FDs should be open until the test finishes since we keep them in mFdsToClose and close them on tearDown. Do you test failure if you run this test with out this change?",
+      "range": {
+        "startLine": 413,
+        "startChar": 26,
+        "endLine": 413,
+        "endChar": 44
+      },
+      "revId": "81a05a9dfa0e39edf098c9208210c9f59578facd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e70ae044_b04cbba2",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-08T16:06:17Z",
+      "side": 1,
+      "message": "Great to know we have dup() in java side! Do you think it makes sense to have this feature in FileMediaItem2 so that developers don\u0027t need to maintain the list of FDs passed to the player like MediaPlayer2TestBase.mFdsToClose?",
+      "range": {
+        "startLine": 537,
+        "startChar": 7,
+        "endLine": 550,
+        "endChar": 9
+      },
+      "revId": "81a05a9dfa0e39edf098c9208210c9f59578facd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40564468_2aca8109",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/FileDescriptorUtil.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-08T16:06:17Z",
+      "side": 1,
+      "message": "dup?",
+      "range": {
+        "startLine": 109,
+        "startChar": 45,
+        "endLine": 109,
+        "endChar": 49
+      },
+      "revId": "81a05a9dfa0e39edf098c9208210c9f59578facd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
