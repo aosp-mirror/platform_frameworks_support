@@ -134,6 +134,11 @@ object LibraryVersions {
     val MEDIA_WIDGET = Version("1.0.0-alpha5")
 
     /**
+     * Version code for memoryfile
+     */
+    val MEMORYFILE = Version("1.0.0-alpha01")
+
+    /**
      * Version code for Core
      */
     val CORE = Version("1.1.0-alpha01")
