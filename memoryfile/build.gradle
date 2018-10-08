@@ -22,6 +22,14 @@ plugins {
     id("SupportAndroidLibraryPlugin")
 }
 
+android {
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+}
+
 dependencies {
     api(project(":annotation"))
     androidTestImplementation(TEST_RUNNER)
