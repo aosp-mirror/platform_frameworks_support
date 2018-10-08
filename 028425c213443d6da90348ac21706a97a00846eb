@@ -22,6 +22,30 @@
       "revId": "028425c213443d6da90348ac21706a97a00846eb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bb2e4f5_d511a18d",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2018-10-08T20:57:12Z",
+      "side": 1,
+      "message": "Yes, but you need to update the class to androidx.appcompat.R",
+      "parentUuid": "d0989830_576656db",
+      "range": {
+        "startLine": 572,
+        "startChar": 7,
+        "endLine": 572,
+        "endChar": 12
+      },
+      "revId": "028425c213443d6da90348ac21706a97a00846eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
