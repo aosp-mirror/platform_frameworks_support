@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b134b74_30a59116",
+        "filename": "navigation/ui/src/main/java/androidx/navigation/ui/AppBarConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-08T10:30:12Z",
+      "side": 1,
+      "message": "Nullability annotation",
+      "revId": "2e2adc3b5688d99cc270b6225ddf8a2a2c76d9d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbaa36ee_51d83068",
+        "filename": "navigation/ui/src/main/java/androidx/navigation/ui/AppBarConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-08T10:30:12Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 114,
+        "startChar": 22,
+        "endLine": 114,
+        "endChar": 23
+      },
+      "revId": "2e2adc3b5688d99cc270b6225ddf8a2a2c76d9d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2ccd825_381c0fde",
+        "filename": "navigation/ui/src/main/java/androidx/navigation/ui/NavigationUI.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-08T10:30:12Z",
+      "side": 1,
+      "message": "drive-by note, it looks like drawerlayout should be last argument, because it is \"optional\"",
+      "range": {
+        "startLine": 106,
+        "startChar": 38,
+        "endLine": 107,
+        "endChar": 48
+      },
+      "revId": "2e2adc3b5688d99cc270b6225ddf8a2a2c76d9d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
