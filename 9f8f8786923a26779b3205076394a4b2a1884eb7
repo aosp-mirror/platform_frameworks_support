@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6fd55a8_8c3f5bf2",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-08T22:01:26Z",
+      "side": 1,
+      "message": "should",
+      "range": {
+        "startLine": 138,
+        "startChar": 54,
+        "endLine": 138,
+        "endChar": 60
+      },
+      "revId": "9f8f8786923a26779b3205076394a4b2a1884eb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
