@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "a4d8420d_3fb4bc76",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-10-08T22:26:10Z",
+      "side": 1,
+      "message": "ok.",
+      "parentUuid": "02653061_67d29a2b",
+      "revId": "ac1e710b0782b0de9855e4b91880e7749a4c8cc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e7512e1_0c629aae",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Segment.java",
         "patchSetId": 3
