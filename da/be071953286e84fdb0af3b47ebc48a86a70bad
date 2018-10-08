@@ -1,0 +1,8 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+1: Yigit Boyar <yboyar@google.com>
+Code-Review+2: Jake Wharton <jakew@google.com>
+Submitted-by: Sergey Vasilinets <sergeyv@google.com>
+Submitted-at: Mon, 08 Oct 2018 16:56:49 +0000
+Reviewed-on: https://android-review.googlesource.com/779974
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
