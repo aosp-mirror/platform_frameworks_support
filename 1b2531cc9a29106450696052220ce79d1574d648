@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3376f90b_c6ac8654",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModel.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-08T19:54:30Z",
+      "side": 1,
+      "message": "You\u0027re annoyingly right :) How about this version?",
+      "parentUuid": "75e5e5b3_adbe6fd3",
+      "revId": "1b2531cc9a29106450696052220ce79d1574d648",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "238966dc_8b42f00b",
         "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModel.kt",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "1b2531cc9a29106450696052220ce79d1574d648",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f3559fb_1532f3e9",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModel.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-08T19:54:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "238966dc_8b42f00b",
+      "revId": "1b2531cc9a29106450696052220ce79d1574d648",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
