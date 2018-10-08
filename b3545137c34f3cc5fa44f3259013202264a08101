@@ -94,6 +94,30 @@
       "revId": "b3545137c34f3cc5fa44f3259013202264a08101",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64d29460_f7a86ac2",
+        "filename": "core/src/main/java/androidx/core/view/AccessibilityDelegateCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-10-08T17:44:10Z",
+      "side": 1,
+      "message": "We may be stuck with it, but I wanted to double-check if there was some way to get a non-conflicting ID that is constant across all (future) versions of the support lib.\n\nNote that it isn\u0027t a copy of the framework constant. We don\u0027t think the framework constant is actually constant, since it isn\u0027t public and thus nobody\u0027s guaranteeing its value.",
+      "parentUuid": "f928cce6_89ba1337",
+      "range": {
+        "startLine": 131,
+        "startChar": 55,
+        "endLine": 131,
+        "endChar": 65
+      },
+      "revId": "b3545137c34f3cc5fa44f3259013202264a08101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
