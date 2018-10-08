@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "833c6c69_76bd6e2e",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/ActivityViewModelLazy.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-08T16:44:49Z",
+      "side": 1,
+      "message": "Though we can do\ninline fun \u003cT\u003e T.viewModels(...) where T : Activity,  T: ViewModelStoreOwner {\n}\n\nShould I update to that? I\u0027m not sure if there are pitfalls in such declaration",
+      "parentUuid": "b667abbd_acf14e73",
+      "revId": "6c6e49148aee38f0f82452a4424700bb8878b5b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c9aa380e_7ca4d9e9",
         "filename": "fragment/ktx/src/main/java/androidx/fragment/app/FragmentViewModelLazy.kt",
         "patchSetId": 6
