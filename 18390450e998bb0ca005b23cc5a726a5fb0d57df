@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8c06e49_48733efd",
+        "filename": "media-widget/src/main/res/layout/media_controller.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-10-08T06:13:27Z",
+      "side": 0,
+      "message": "MediaRouteButton sets its content description itself in its constructor and this is not used.",
+      "revId": "18390450e998bb0ca005b23cc5a726a5fb0d57df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
