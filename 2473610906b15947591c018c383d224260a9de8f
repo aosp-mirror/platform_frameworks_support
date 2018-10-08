@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "855d68ca_da87f6e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-10-08T21:42:40Z",
+      "side": 1,
+      "message": "Can you please explain the issue in better detail in the bug? Why do we have a case for the user not to see the thumb.",
+      "range": {
+        "startLine": 9,
+        "startChar": 3,
+        "endLine": 9,
+        "endChar": 4
+      },
+      "revId": "2473610906b15947591c018c383d224260a9de8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f937a88_1221dc82",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-10-08T21:42:40Z",
+      "side": 1,
+      "message": "also add the getter for making the API complete.",
+      "range": {
+        "startLine": 360,
+        "startChar": 4,
+        "endLine": 360,
+        "endChar": 10
+      },
+      "revId": "2473610906b15947591c018c383d224260a9de8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac5683a4_5d22a5d8",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-10-08T21:42:40Z",
+      "side": 1,
+      "message": "also mention the default value.",
+      "revId": "2473610906b15947591c018c383d224260a9de8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ca67007_b7d48312",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-10-08T21:42:40Z",
+      "side": 1,
+      "message": "also mention the default value.",
+      "revId": "2473610906b15947591c018c383d224260a9de8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
