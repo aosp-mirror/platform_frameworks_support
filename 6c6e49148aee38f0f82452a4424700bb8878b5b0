@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "b667abbd_acf14e73",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/ActivityViewModelLazy.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-08T16:35:17Z",
+      "side": 1,
+      "message": "ah, it is also need to be ViewModelStoreOwner (interface that marks components that know how to retain staff). \nSo we need type \"Activity \u0026 ViewModelStoreOwner\", currently least specific variant of is FragmentActivity and Fragment. However as Ian mentioned before, he is going into introduce ComponentActivity that won\u0027t know anything about Fragments but still will provide such things lifecycles/viewmodel and probably some future staff as savedstate",
+      "parentUuid": "563ba218_684e4c84",
+      "revId": "6c6e49148aee38f0f82452a4424700bb8878b5b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c9aa380e_7ca4d9e9",
         "filename": "fragment/ktx/src/main/java/androidx/fragment/app/FragmentViewModelLazy.kt",
         "patchSetId": 6
