@@ -19,6 +19,47 @@
     },
     {
       "key": {
+        "uuid": "b91954c0_895513cd",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-10-08T16:49:23Z",
+      "side": 1,
+      "message": "It looks like it\u0027s accessed by multiple threads too; from onStartWork on the main thread as well as the background executor specified by the cancel listener. `volatile` and starting it as `Disposables.disposed()` would do the trick here, or if you want to drop the reference to the disposable immediately on cancel you could do the AtomicReference compareAndSet -\u003e getAndSet dance from null -\u003e real value -\u003e private disposed sentinel",
+      "parentUuid": "53eab705_6f6fac72",
+      "revId": "9770a80398183e3d0f0a5b8a78611f3ad0351df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4eda1cd2_e8b3dc17",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-10-08T16:49:23Z",
+      "side": 1,
+      "message": "For cancellation you probably want to do it immediately, and dispose is always thread-safe. This should probably be a direct executor, e.g. { it.run() }",
+      "range": {
+        "startLine": 85,
+        "startChar": 49,
+        "endLine": 85,
+        "endChar": 72
+      },
+      "revId": "9770a80398183e3d0f0a5b8a78611f3ad0351df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "14b84281_8b1af61f",
         "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
         "patchSetId": 3
@@ -36,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "30fe6b21_70bd0f47",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-10-08T16:49:23Z",
+      "side": 1,
+      "message": "That gives a Future\u003cT\u003e not a ListenableFuture\u003cT\u003e.",
+      "parentUuid": "14b84281_8b1af61f",
+      "revId": "9770a80398183e3d0f0a5b8a78611f3ad0351df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "08263352_bf6c8fd6",
         "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
         "patchSetId": 3
@@ -47,6 +106,24 @@
       "writtenOn": "2018-10-08T16:22:34Z",
       "side": 1,
       "message": "I\u0027m a bit hesitant about this method name because it shouldn\u0027t actually *do* anything. A single is a lazy type so it\u0027s creating the blueprints for work but not actually doing anything. Maybe `createWork` or `getWork` or something?",
+      "revId": "9770a80398183e3d0f0a5b8a78611f3ad0351df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fec80027_2a6891cb",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-10-08T16:49:23Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "08263352_bf6c8fd6",
       "revId": "9770a80398183e3d0f0a5b8a78611f3ad0351df6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
