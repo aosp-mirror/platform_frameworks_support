@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b203e937_eae4b3a2",
+        "filename": "core/ktx/src/androidTest/java/androidx/core/os/HandlerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-08T21:32:06Z",
+      "side": 1,
+      "message": "I really, really, really, really don\u0027t like this API, but it was pointless to build my own infrastructure after forcing myself to try it out.",
+      "revId": "3f332e19ca055f67aa26ccedb57bcbc515569a9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
