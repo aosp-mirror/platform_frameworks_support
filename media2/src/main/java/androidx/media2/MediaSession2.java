@@ -45,6 +45,8 @@ import androidx.core.util.ObjectsCompat;
 import androidx.media.MediaSessionManager.RemoteUserInfo;
 import androidx.media2.MediaController2.ControllerResult;
 import androidx.media2.MediaController2.PlaybackInfo;
+import androidx.media2.MediaLibraryService2.LibraryParams;
+import androidx.media2.MediaLibraryService2.LibraryResult;
 import androidx.media2.MediaSession2.SessionResult.ResultCode;
 import androidx.media2.SessionPlayer2.BuffState;
 import androidx.media2.SessionPlayer2.PlayerResult;
@@ -1119,6 +1121,7 @@ public class MediaSession2 implements AutoCloseable {
     abstract static class ControllerCb {
         abstract void onPlayerResult(int seq, PlayerResult result) throws RemoteException;
         abstract void onSessionResult(int seq, SessionResult result) throws RemoteException;
+        abstract void onLibraryResult(int seq, LibraryResult result) throws RemoteException;
 
         // Mostly matched with the methods in MediaController2.ControllerCallback
         abstract void setCustomLayout(int seq, @NonNull List<CommandButton> layout)
@@ -1150,18 +1153,10 @@ public class MediaSession2 implements AutoCloseable {
         abstract void onDisconnected() throws RemoteException;
 
         // Mostly matched with the methods in MediaBrowser2.BrowserCallback.
-        abstract void onGetLibraryRootDone(@Nullable Bundle rootHints, @Nullable String rootMediaId,
-                @Nullable Bundle rootExtra) throws RemoteException;
         abstract void onChildrenChanged(@NonNull String parentId, int itemCount,
-                @Nullable Bundle extras) throws RemoteException;
-        abstract void onGetChildrenDone(@NonNull String parentId, int page, int pageSize,
-                @Nullable List<MediaItem2> result, @Nullable Bundle extras) throws RemoteException;
-        abstract void onGetItemDone(@NonNull String mediaId, @Nullable MediaItem2 result)
-                throws RemoteException;
+                @Nullable LibraryParams params) throws RemoteException;
         abstract void onSearchResultChanged(@NonNull String query, int itemCount,
-                @Nullable Bundle extras) throws RemoteException;
-        abstract void onGetSearchResultDone(@NonNull String query, int page, int pageSize,
-                @Nullable List<MediaItem2> result, @Nullable Bundle extras) throws RemoteException;
+                @Nullable LibraryParams params) throws RemoteException;
     }
 
     interface MediaSession2Impl extends MediaInterface2.SessionPlayer, AutoCloseable {
