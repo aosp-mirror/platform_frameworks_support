@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5ca73874_84673e1d",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/ActivityViewModelLazy.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-08T16:19:04Z",
+      "side": 1,
+      "message": "I\u0027ll fix that in follow-up patch.",
+      "parentUuid": "201fe186_d0b2ed83",
+      "revId": "6c6e49148aee38f0f82452a4424700bb8878b5b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c6285978_cbbc748e",
         "filename": "fragment/ktx/src/main/java/androidx/fragment/app/ActivityViewModelLazy.kt",
         "patchSetId": 6
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "2641e759_402380b9",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/ActivityViewModelLazy.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-08T16:19:04Z",
+      "side": 1,
+      "message": "Oh, valid question. It is here instead of viewmodel-ktx, because we use Fragment/FragmentActivity to get an application object to initialize default factory, but currently there is no common interface to get it, so I have to special case it and explicitly depend on FragmentActivity / Fragment",
+      "parentUuid": "c6285978_cbbc748e",
+      "revId": "6c6e49148aee38f0f82452a4424700bb8878b5b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c9aa380e_7ca4d9e9",
         "filename": "fragment/ktx/src/main/java/androidx/fragment/app/FragmentViewModelLazy.kt",
         "patchSetId": 6
@@ -47,6 +83,24 @@
       "writtenOn": "2018-10-08T15:53:31Z",
       "side": 1,
       "message": "Incorrect casing. Should be `viewModel`, `NyViewModel` and `viewModels()`.",
+      "revId": "6c6e49148aee38f0f82452a4424700bb8878b5b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0cc60e4_993905ea",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/FragmentViewModelLazy.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-08T16:19:04Z",
+      "side": 1,
+      "message": "I\u0027ll fix it in follow-up patch.",
+      "parentUuid": "c9aa380e_7ca4d9e9",
       "revId": "6c6e49148aee38f0f82452a4424700bb8878b5b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
