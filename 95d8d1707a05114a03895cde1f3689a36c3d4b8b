@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "22a4f49c_24ca5638",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-08T06:17:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0ef66fe_024c6663",
+      "range": {
+        "startLine": 814,
+        "startChar": 26,
+        "endLine": 814,
+        "endChar": 85
+      },
+      "revId": "95d8d1707a05114a03895cde1f3689a36c3d4b8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f17b2725_421052a2",
         "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
         "patchSetId": 11
@@ -36,6 +60,24 @@
       "writtenOn": "2018-10-05T06:57:49Z",
       "side": 1,
       "message": "FYI, It is okay to keep this, but UriMediaItem2.getUri() returns non null values.",
+      "revId": "95d8d1707a05114a03895cde1f3689a36c3d4b8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6acaa9ab_21ddd73c",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-08T06:17:57Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "f17b2725_421052a2",
       "revId": "95d8d1707a05114a03895cde1f3689a36c3d4b8b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -62,6 +104,30 @@
       "revId": "95d8d1707a05114a03895cde1f3689a36c3d4b8b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba1899a3_abeba65e",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-08T06:17:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee28a5c5_d5083a96",
+      "range": {
+        "startLine": 832,
+        "startChar": 36,
+        "endLine": 832,
+        "endChar": 96
+      },
+      "revId": "95d8d1707a05114a03895cde1f3689a36c3d4b8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
