@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a28ffffb_9a3bbd9b",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-08T06:43:24Z",
+      "side": 1,
+      "message": "Sorry for not catching this. Done.",
+      "parentUuid": "82eb2917_b072669c",
+      "range": {
+        "startLine": 817,
+        "startChar": 32,
+        "endLine": 817,
+        "endChar": 43
+      },
+      "revId": "300de6bdc5288210b214a2c91e9af236072c3c19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b07355e0_adb5c33c",
         "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
         "patchSetId": 12
@@ -45,6 +69,30 @@
       "revId": "300de6bdc5288210b214a2c91e9af236072c3c19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e322985_fa8ee293",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-08T06:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b07355e0_adb5c33c",
+      "range": {
+        "startLine": 829,
+        "startChar": 16,
+        "endLine": 829,
+        "endChar": 33
+      },
+      "revId": "300de6bdc5288210b214a2c91e9af236072c3c19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
