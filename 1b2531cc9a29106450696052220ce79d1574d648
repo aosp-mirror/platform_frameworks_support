@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "97f45b1b_fbf9a68a",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModel.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-08T19:57:04Z",
+      "side": 1,
+      "message": "Ah, damn. It is still not",
+      "parentUuid": "3376f90b_c6ac8654",
+      "revId": "1b2531cc9a29106450696052220ce79d1574d648",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "238966dc_8b42f00b",
         "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModel.kt",
         "patchSetId": 3
