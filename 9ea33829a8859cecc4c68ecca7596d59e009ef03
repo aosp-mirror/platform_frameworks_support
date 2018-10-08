@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "409d0dc0_fd2dc502",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-10-08T15:43:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce4746e3_87b87025",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 13
+      },
+      "revId": "9ea33829a8859cecc4c68ecca7596d59e009ef03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20df75c5_67988566",
         "filename": "core/src/androidTest/java/androidx/core/app/JobIntentServiceTest.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-05T16:50:02Z",
       "side": 1,
       "message": "Is it possible for us to default-disable this check in test and app/sample code? We only need to ban it in library code.",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 43
+      },
+      "revId": "9ea33829a8859cecc4c68ecca7596d59e009ef03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "974e933b_18596b83",
+        "filename": "core/src/androidTest/java/androidx/core/app/JobIntentServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-10-08T15:43:39Z",
+      "side": 1,
+      "message": "It\u0027s possible to disable it in an entire project but I can\u0027t think of a way to disable them only in test files within the same project. I went ahead and disabled them for the app/sample code but I can\u0027t disable it.",
+      "parentUuid": "20df75c5_67988566",
       "range": {
         "startLine": 71,
         "startChar": 0,
@@ -68,6 +116,30 @@
       "revId": "9ea33829a8859cecc4c68ecca7596d59e009ef03",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbf613aa_5f8a0cfb",
+        "filename": "customerrorprone/src/main/java/androidx/customerrorprone/BanKeepAnnotation.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-10-08T15:43:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d96d1a25_6e386ca7",
+      "range": {
+        "startLine": 43,
+        "startChar": 48,
+        "endLine": 43,
+        "endChar": 56
+      },
+      "revId": "9ea33829a8859cecc4c68ecca7596d59e009ef03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
