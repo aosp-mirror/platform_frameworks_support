@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54c4717b_ee448e37",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 24
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-08T17:56:40Z",
+      "side": 1,
+      "message": "Is this for transforming the string\n\n  \"media-compat-test-maxDepVersions-debug-androidTest.apk\"\n\ninto the string\n\n  \"maxDepVersions-media-compat-test.apk\"\n\n?\n\nIt seems ok to me for now to match the treehugger/atp regex, but we probably want to see about making treehugger/atp accept filenames that look more similar to the others ( cl/216213394 )",
+      "revId": "21d2665c59dd3d7386cbcd72ea60c3b9c53b3799",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78f7cfea_43bd9adf",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 24
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-08T17:56:40Z",
+      "side": 1,
+      "message": "Does this case happen? If not, I think we want to throw an error, something like \"unrecognized filename ${fileName}\"",
+      "revId": "21d2665c59dd3d7386cbcd72ea60c3b9c53b3799",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
