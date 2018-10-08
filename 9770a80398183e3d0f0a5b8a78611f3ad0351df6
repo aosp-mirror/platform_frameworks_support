@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53eab705_6f6fac72",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-08T16:22:34Z",
+      "side": 1,
+      "message": "If you want to avoid the null check you can set this to `Disposables.disposed()` by default.",
+      "revId": "9770a80398183e3d0f0a5b8a78611f3ad0351df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14b84281_8b1af61f",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-08T16:22:34Z",
+      "side": 1,
+      "message": "Can all this manual future stuff be replaced with `toFuture()`? It supports propagation of the value and exception and propagates cancelation signals.",
+      "revId": "9770a80398183e3d0f0a5b8a78611f3ad0351df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08263352_bf6c8fd6",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-08T16:22:34Z",
+      "side": 1,
+      "message": "I\u0027m a bit hesitant about this method name because it shouldn\u0027t actually *do* anything. A single is a lazy type so it\u0027s creating the blueprints for work but not actually doing anything. Maybe `createWork` or `getWork` or something?",
+      "revId": "9770a80398183e3d0f0a5b8a78611f3ad0351df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
