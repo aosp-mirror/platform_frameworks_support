@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "201fe186_d0b2ed83",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/ActivityViewModelLazy.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-08T15:53:31Z",
+      "side": 1,
+      "message": "Incorrect casing here, too",
+      "revId": "6c6e49148aee38f0f82452a4424700bb8878b5b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6285978_cbbc748e",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/ActivityViewModelLazy.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-08T15:53:31Z",
+      "side": 1,
+      "message": "Why is this inside fragment? Shouldn\u0027t this be inside viewmodel-ktx or whatever its library is called? There\u0027s no fragment usage in here. Moreover, if one doesn\u0027t use fragments you not only lack this dependency but even if you add it you cannot use this API.",
+      "revId": "6c6e49148aee38f0f82452a4424700bb8878b5b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9aa380e_7ca4d9e9",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/FragmentViewModelLazy.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-08T15:53:31Z",
+      "side": 1,
+      "message": "Incorrect casing. Should be `viewModel`, `NyViewModel` and `viewModels()`.",
+      "revId": "6c6e49148aee38f0f82452a4424700bb8878b5b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
