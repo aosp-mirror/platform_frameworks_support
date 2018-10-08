@@ -19,10 +19,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="@dimen/car_double_line_list_item_height"
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:layout_marginStart="?android:attr/listPreferredItemPaddingStart"
     android:layout_marginEnd="?android:attr/listPreferredItemPaddingEnd"
-    android:background="@drawable/car_card_ripple_background"
+    android:background="?android:attr/selectableItemBackground"
     android:focusable="true">
 
     <!-- Wrap in a FrameLayout so the full list item has a touch ripple -->
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:ellipsize="end"
-                android:textAppearance="@style/TextAppearance.Car.Body3" />
+                android:textAppearance="?attr/listItemBodyTextAppearance" />
 
             <TextView
                 android:id="@android:id/summary"
