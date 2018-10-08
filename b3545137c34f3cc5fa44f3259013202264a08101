@@ -118,6 +118,30 @@
       "revId": "b3545137c34f3cc5fa44f3259013202264a08101",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba343c43_ecf9049b",
+        "filename": "core/src/main/java/androidx/core/view/AccessibilityDelegateCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-10-08T17:47:03Z",
+      "side": 1,
+      "message": "If androidx needs to know about it, it needs to be a public framework API. Hiding the constant in the framework sdk doesn\u0027t make it any less public in reality.",
+      "parentUuid": "64d29460_f7a86ac2",
+      "range": {
+        "startLine": 131,
+        "startChar": 55,
+        "endLine": 131,
+        "endChar": 65
+      },
+      "revId": "b3545137c34f3cc5fa44f3259013202264a08101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
