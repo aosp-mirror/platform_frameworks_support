@@ -22,6 +22,30 @@
       "revId": "e3ea24947a0353769ab465b34a2a3c4a2081c120",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59b80b81_18fa64af",
+        "filename": "webkit/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-08T17:12:01Z",
+      "side": 1,
+      "message": "The plan is to add non-compat later, after we\u0027ve proven WebViewRendererCompat APIs are usable for our 1P consumer (AGSA).",
+      "parentUuid": "89c8f550_d611e8cb",
+      "range": {
+        "startLine": 130,
+        "startChar": 24,
+        "endLine": 130,
+        "endChar": 45
+      },
+      "revId": "e3ea24947a0353769ab465b34a2a3c4a2081c120",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
