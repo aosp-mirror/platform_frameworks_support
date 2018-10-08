@@ -46,6 +46,30 @@
       "revId": "9bf248872c336b6f06a0f11da10e5c498b3d3ebf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8a9ab45_410c4ea5",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryUtils.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-10-08T20:54:57Z",
+      "side": 1,
+      "message": "I agree we should use a parser to understand SQLite\u0027s AST more precisely instead of regex.\n\nroom-compiler already has a parser generated from the SQLite.g4 file using ANTLR. To traverse the tree you can use a ParseTreeWalker (example: https://paste.googleplex.com/6642858937286656). We actually already have this in the room codebase (QueryVisitor). So override more methods in it to better understand the developed written result columns, specifically you can override \u0027visitResult_column\u0027. The parse rules also contains indices pointing to where in the input stream is the term found which will help on the replacing efforts.\n\nMeanwhile I\u0027m thinking, and Yigit has mentioned this before we should develop a query re-writing mechanism with a more fluent API that Room can use since there are a few other situation where we want to re-write a query, for example Paging has a use case that wants Room to re-write the WHERE clause of a user query.",
+      "parentUuid": "eaca5d20_99104cf2",
+      "range": {
+        "startLine": 54,
+        "startChar": 14,
+        "endLine": 72,
+        "endChar": 51
+      },
+      "revId": "9bf248872c336b6f06a0f11da10e5c498b3d3ebf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
