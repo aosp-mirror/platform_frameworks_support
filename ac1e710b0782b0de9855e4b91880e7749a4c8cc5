@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "02653061_67d29a2b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-10-08T22:19:19Z",
+      "side": 1,
+      "message": "The caller might be keeping a persistent Builder object tracking the current state, and calling build() to get a snapshot of the state at each update. In that case, being able to clear the state from the builder is useful.",
+      "parentUuid": "7bf29e4a_07c0d7e2",
+      "revId": "ac1e710b0782b0de9855e4b91880e7749a4c8cc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0e7512e1_0c629aae",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Segment.java",
         "patchSetId": 3
