@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright (C) 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,23 +14,9 @@
  * limitations under the License.
  */
 
-package androidx.os;
+#include <jni.h>
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
-import androidx.annotation.RestrictTo;
-
-/**
- * @hide
- */
-@RestrictTo(LIBRARY_GROUP)
-public class MemoryFile {
-    static {
-        System.loadLibrary("memoryfile");
-    }
-
-    /**
-     * Returns {@code 1}.
-     */
-    public static native int getOne();
+extern "C" JNIEXPORT
+jint JNICALL Java_androidx_os_MemoryFile_getOne(JNIEnv* env, jobject clazz) {
+    return (jint) 1;
 }

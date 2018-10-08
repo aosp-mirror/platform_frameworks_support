@@ -16,6 +16,8 @@
 
 package androidx.os;
 
+import static org.junit.Assert.assertEquals;
+
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
@@ -32,5 +34,11 @@ public class MemoryFileTest {
     @SmallTest
     public void testConstructor() {
         MemoryFile obj = new MemoryFile();
+    }
+
+    @Test
+    @SmallTest
+    public void testNativeMethod() {
+        assertEquals(1, MemoryFile.getOne());
     }
 }
