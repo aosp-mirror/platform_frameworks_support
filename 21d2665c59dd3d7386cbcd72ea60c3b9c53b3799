@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "86133e78_4550a128",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 24
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-10-08T20:16:42Z",
+      "side": 1,
+      "message": "It is, and yeah it would be ideal, however it\u0027s not just that file in the CL that needs to be changed. That being said, I agree that making TH/atp accept our filenames is a much more attractive option. I can explore that after this if it\u0027s not taken care of by them.",
+      "parentUuid": "54c4717b_ee448e37",
+      "revId": "21d2665c59dd3d7386cbcd72ea60c3b9c53b3799",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "78f7cfea_43bd9adf",
         "filename": "buildSrc/init.gradle",
         "patchSetId": 24
@@ -30,6 +48,24 @@
       "writtenOn": "2018-10-08T17:56:40Z",
       "side": 1,
       "message": "Does this case happen? If not, I think we want to throw an error, something like \"unrecognized filename ${fileName}\"",
+      "revId": "21d2665c59dd3d7386cbcd72ea60c3b9c53b3799",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "015f5946_0d19481e",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 24
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-10-08T20:16:42Z",
+      "side": 1,
+      "message": "It should not, but if flavors are added it will, I guess it makes sense to throw an error if it does since that will alert the user that an irregularity has occurred and they need to handle that case. I\u0027ll upload that after Treehugger finishes running to see if there is anything that needs to be fixed.",
+      "parentUuid": "78f7cfea_43bd9adf",
       "revId": "21d2665c59dd3d7386cbcd72ea60c3b9c53b3799",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
