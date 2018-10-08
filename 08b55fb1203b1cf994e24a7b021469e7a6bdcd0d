@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5ec9badd_4eb79407",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModel.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-08T16:07:07Z",
+      "side": 1,
+      "message": "remove leading space",
+      "revId": "08b55fb1203b1cf994e24a7b021469e7a6bdcd0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b55d3b71_bb52698b",
         "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModel.kt",
         "patchSetId": 2
@@ -19,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "a258b6d6_2f6d691c",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModel.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-08T16:07:07Z",
+      "side": 1,
+      "message": "It will always be boxed so there\u0027s not really any value there, though. Otherwise we don\u0027t have a way to do the instanceof test on the other side.",
+      "parentUuid": "b55d3b71_bb52698b",
+      "revId": "08b55fb1203b1cf994e24a7b021469e7a6bdcd0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "68cb0cee_0c0299ec",
         "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
         "patchSetId": 2
@@ -30,6 +65,41 @@
       "writtenOn": "2018-10-06T00:07:38Z",
       "side": 1,
       "message": "AutoCloseable is Api 19, and we\u0027re 14 and it is not exposed as API, so I guess it is ok.",
+      "revId": "08b55fb1203b1cf994e24a7b021469e7a6bdcd0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63d2fd7f_537b0880",
+        "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-08T16:07:07Z",
+      "side": 1,
+      "message": "Closeable is preferred here anyway",
+      "parentUuid": "68cb0cee_0c0299ec",
+      "revId": "08b55fb1203b1cf994e24a7b021469e7a6bdcd0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0293afa3_8f6c15fa",
+        "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-08T16:07:07Z",
+      "side": 1,
+      "message": "This behavior needs documented publicly as it\u0027s potentially surprising with regard to user tag values.\n\nAlso needs tests in this module.",
       "revId": "08b55fb1203b1cf994e24a7b021469e7a6bdcd0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
