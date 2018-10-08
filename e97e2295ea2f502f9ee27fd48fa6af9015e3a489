@@ -34,6 +34,24 @@
       "revId": "e97e2295ea2f502f9ee27fd48fa6af9015e3a489",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "71d002fb_07915ee3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-08T22:07:49Z",
+      "side": 1,
+      "message": "This is not ok? You just submitted it without updating the commit message and there is no way for us to later update git history to add it.",
+      "parentUuid": "73d7ab34_b7a1c3a4",
+      "revId": "e97e2295ea2f502f9ee27fd48fa6af9015e3a489",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
