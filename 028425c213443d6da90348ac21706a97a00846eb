@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0989830_576656db",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1034928
+      },
+      "writtenOn": "2018-10-08T13:54:01Z",
+      "side": 1,
+      "message": "This comment is adapted from the platform TextView docs. Are @attr refs supported here?",
+      "range": {
+        "startLine": 572,
+        "startChar": 7,
+        "endLine": 572,
+        "endChar": 12
+      },
+      "revId": "028425c213443d6da90348ac21706a97a00846eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
