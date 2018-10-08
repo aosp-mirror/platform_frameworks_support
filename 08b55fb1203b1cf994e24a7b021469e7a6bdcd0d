@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "b55d3b71_bb52698b",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModel.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1376662
+      },
+      "writtenOn": "2018-10-08T15:54:11Z",
+      "side": 1,
+      "message": "This can be an internal class (when they\u0027re not experimental)",
+      "revId": "08b55fb1203b1cf994e24a7b021469e7a6bdcd0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "68cb0cee_0c0299ec",
         "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
         "patchSetId": 2
