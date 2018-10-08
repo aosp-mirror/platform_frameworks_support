@@ -16,6 +16,24 @@
       "revId": "68f3d96da550573ccad7bcbe5c55ac7cd8bebfec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7b28eb8_10a27882",
+        "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaControlView2Test.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-08T10:10:06Z",
+      "side": 1,
+      "message": "Talked offline and changed testGetMetadataFromMusic() to test for both uri and file descriptor cases.",
+      "parentUuid": "a9a7fccf_00e9f8d2",
+      "revId": "68f3d96da550573ccad7bcbe5c55ac7cd8bebfec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
