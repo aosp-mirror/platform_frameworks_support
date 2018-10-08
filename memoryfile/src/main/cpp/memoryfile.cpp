@@ -14,31 +14,9 @@
  * limitations under the License.
  */
 
-package androidx.os;
+#include <jni.h>
 
-import static org.junit.Assert.assertEquals;
-
-import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-/**
- * Tests {@link MemoryFile}.
- */
-@RunWith(AndroidJUnit4.class)
-public class MemoryFileTest {
-
-    @Test
-    @SmallTest
-    public void testConstructor() {
-        MemoryFile obj = new MemoryFile();
-    }
-
-    @Test
-    @SmallTest
-    public void testNativeMethod() {
-        assertEquals(1, MemoryFile.getOne());
-    }
+extern "C" JNIEXPORT
+jint JNICALL Java_androidx_os_MemoryFile_getOne(JNIEnv* env, jobject clazz) {
+    return (jint) 1;
 }

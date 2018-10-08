@@ -24,4 +24,13 @@ import androidx.annotation.RestrictTo;
  * @hide
  */
 @RestrictTo(LIBRARY_GROUP)
-public class MemoryFile { }
+public class MemoryFile {
+    static {
+        System.loadLibrary("memoryfile");
+    }
+
+    /**
+     * Returns {@code 1}.
+     */
+    public static native int getOne();
+}
