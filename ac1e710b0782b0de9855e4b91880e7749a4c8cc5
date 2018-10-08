@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7bf29e4a_07c0d7e2",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-10-08T22:11:09Z",
+      "side": 1,
+      "message": "I think for a builder it is more reasonable to make this @nonnull. If the user does not know the segment, should simply not call the api.",
+      "revId": "ac1e710b0782b0de9855e4b91880e7749a4c8cc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e7512e1_0c629aae",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Segment.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-10-08T22:11:09Z",
+      "side": 1,
+      "message": "what is a segment going to contain eventually? I am guessing it won\u0027t be limited to a name right?",
+      "range": {
+        "startLine": 33,
+        "startChar": 1,
+        "endLine": 33,
+        "endChar": 19
+      },
+      "revId": "ac1e710b0782b0de9855e4b91880e7749a4c8cc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
