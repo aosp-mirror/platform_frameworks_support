@@ -166,6 +166,30 @@
       "revId": "b3545137c34f3cc5fa44f3259013202264a08101",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c90a63df_87ab1200",
+        "filename": "core/src/main/java/androidx/core/view/AccessibilityDelegateCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-10-08T19:01:45Z",
+      "side": 1,
+      "message": "Libraries don\u0027t own any particular part of the resource ID space, and we certainly can\u0027t go reserving a random block of IDs without strong guarantees from AAPT and the platform.\n\nIf this is for use in a communication channel between processes, it needs to either be defined by the platform or defined in a space that is exclusively used by AccessibilityDelegateCompat. A namespaced key on a Bundle, for example.\n\nIf you want to build a versioning system within that namespaced key, that\u0027s fine. I\u0027d recommend using VersionedParcelable if you have structured data.",
+      "parentUuid": "f048a119_97d837e1",
+      "range": {
+        "startLine": 131,
+        "startChar": 55,
+        "endLine": 131,
+        "endChar": 65
+      },
+      "revId": "b3545137c34f3cc5fa44f3259013202264a08101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
