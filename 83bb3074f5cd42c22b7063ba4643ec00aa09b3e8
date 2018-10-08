@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3a33a7e3_90b71cf7",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-08T23:59:05Z",
+      "side": 1,
+      "message": "Removed this from settings.gradle",
+      "parentUuid": "455a8e97_a61a97e6",
+      "revId": "83bb3074f5cd42c22b7063ba4643ec00aa09b3e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b158ed1_63b304ec",
         "filename": "development/importMaven/build.gradle.kts",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "83bb3074f5cd42c22b7063ba4643ec00aa09b3e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48e923c0_a6f8d0cf",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-08T23:59:05Z",
+      "side": 1,
+      "message": "The issue that I was trying to fix is that when you open this in Studio, it complains about not being able to find the project project \"artifactName\" and thus refuses to import the project altogether (because fetchArtifacts is a default task).\n\nUsing !! also causes the same problem. I am going to revert this part and leave it the way it was.",
+      "parentUuid": "4b158ed1_63b304ec",
+      "range": {
+        "startLine": 29,
+        "startChar": 59,
+        "endLine": 29,
+        "endChar": 78
+      },
+      "revId": "83bb3074f5cd42c22b7063ba4643ec00aa09b3e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "849138fa_4a693161",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-08T23:59:05Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "93a2e1b2_bbd47f07",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 1
+      },
+      "revId": "83bb3074f5cd42c22b7063ba4643ec00aa09b3e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "afa298b6_5088b9e2",
         "filename": "development/importMaven/build.gradle.kts",
         "patchSetId": 1
@@ -85,6 +151,30 @@
       "revId": "83bb3074f5cd42c22b7063ba4643ec00aa09b3e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55d660b3_c8c0010a",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-08T23:59:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afa298b6_5088b9e2",
+      "range": {
+        "startLine": 100,
+        "startChar": 58,
+        "endLine": 100,
+        "endChar": 87
+      },
+      "revId": "83bb3074f5cd42c22b7063ba4643ec00aa09b3e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
