@@ -46,6 +46,30 @@
       "revId": "b3545137c34f3cc5fa44f3259013202264a08101",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d26fb68a_d45faca5",
+        "filename": "core/src/main/java/androidx/core/view/AccessibilityDelegateCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-10-08T17:35:47Z",
+      "side": 1,
+      "message": "It doesn\u0027t have any developer-serviceable parts. We\u0027re using it in the same way we\u0027re using it here - as an action id that means we want to click on a clickable span. It\u0027s only used internally, so I\u0027d strongly prefer not to make it public.\n\nOnce O is the minimum SDK supported by androidx, we won\u0027t need this code at all since the framework will handle it.",
+      "parentUuid": "36bda4ae_1fe42802",
+      "range": {
+        "startLine": 131,
+        "startChar": 55,
+        "endLine": 131,
+        "endChar": 65
+      },
+      "revId": "b3545137c34f3cc5fa44f3259013202264a08101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
