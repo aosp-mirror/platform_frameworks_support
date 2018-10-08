@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "616e731e_03d9fb02",
+        "filename": "lifecycle/livedata/src/main/java/androidx/lifecycle/FutureMapTransformation.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-10-08T18:20:29Z",
+      "side": 1,
+      "message": "Do you want to cancel anything with an older version?",
+      "revId": "dadada54fce6056bb00686bf0f3a0608090b0995",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
