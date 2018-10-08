@@ -20,9 +20,13 @@ import org.gradle.api.internal.artifacts.result.DefaultResolvedArtifactResult
 val prebuiltsLocation = file("../../../../prebuilts/androidx")
 val internalFolder = "internal"
 val externalFolder = "external"
-
+val defaultArtifactName = "android.arch.work:work-runtime:1.0.0-alpha09"
+val configurationName = "fetchArtifacts"
+val fetchArtifacts = configurations.create(configurationName)
+val fetchArtifactsContainer = configurations.getByName(configurationName)
 // Passed in as a project property
-val artifactName: String by project
+// Set a default here, so we can open this gradle script in an IDE without errors.
+val artifactName = project.findProperty("artifactName") ?: defaultArtifactName
 
 val internalArtifacts = listOf(
         "android.arch(.*)?".toRegex(),
@@ -56,7 +60,9 @@ repositories {
 }
 
 dependencies {
-    compile(artifactName)
+    // This is the configuration container that we use to lookup the
+    // transitive closure of all dependencies.
+    fetchArtifacts(artifactName)
 }
 
 /**
@@ -99,17 +105,20 @@ fun supportingArtifacts(artifact: ResolvedArtifact): List<DefaultResolvedArtifac
                     MavenModule::class.java,
                     MavenPomArtifact::class.java)
             .execute()
-    val pomResult = pomQueryResult.resolvedComponents.firstOrNull()
-    // DefaultResolvedArtifactResult is an internal Gradle class.
-    // However, it's being widely used anyway.
-    val pomFile = pomResult?.getArtifacts(MavenPomArtifact::class.java)
-            ?.firstOrNull()
-            as? DefaultResolvedArtifactResult
-    if (pomFile != null) {
-        supportingArtifacts.add(pomFile)
+
+    for (component in pomQueryResult.resolvedComponents) {
+        // DefaultResolvedArtifactResult is an internal Gradle class.
+        // However, it's being widely used anyway.
+        val pomArtifacts = component.getArtifacts(MavenPomArtifact::class.java)
+        for (pomArtifact in pomArtifacts) {
+            val pomFile = pomArtifact as? DefaultResolvedArtifactResult
+            if (pomFile != null) {
+                supportingArtifacts.add(pomFile)
+            }
+        }
     }
 
-    // Create a seperate query for a sources. This is because, withArtifacts seems to be an AND.
+    // Create a separate query for a sources. This is because, withArtifacts seems to be an AND.
     // So if artifacts only have a distributable without a source, we still want to copy the POM file.
     val sourcesQuery = project.dependencies.createArtifactResolutionQuery()
     val sourcesQueryResult = sourcesQuery.forComponents(artifact.id.componentIdentifier)
@@ -117,12 +126,15 @@ fun supportingArtifacts(artifact: ResolvedArtifact): List<DefaultResolvedArtifac
                     MavenModule::class.java,
                     SourcesArtifact::class.java)
             .execute()
-    val sourcesResult = sourcesQueryResult.resolvedComponents.firstOrNull()
-    val sourcesFile = sourcesResult?.getArtifacts(SourcesArtifact::class.java)
-            ?.firstOrNull()
-            as? DefaultResolvedArtifactResult
-    if (sourcesFile != null) {
-        supportingArtifacts.add(sourcesFile)
+
+    for (component in sourcesQueryResult.resolvedComponents) {
+        val sourcesArtifacts = component.getArtifacts(SourcesArtifact::class.java)
+        for (sourcesArtifact in sourcesArtifacts) {
+            val sourcesFile = sourcesArtifact as? DefaultResolvedArtifactResult
+            if (sourcesFile != null) {
+                supportingArtifacts.add(sourcesFile)
+            }
+        }
     }
     return supportingArtifacts
 }
@@ -165,13 +177,13 @@ tasks {
             // Copy the jar/aar's and their respective POM files.
             val internalLibraries =
                     filterInternalLibraries(
-                            configurations
-                                    .compile
+                        fetchArtifactsContainer
                                     .resolvedConfiguration
                                     .resolvedArtifacts)
 
             val externalLibraries =
-                    configurations.compile.resolvedConfiguration
+                    fetchArtifactsContainer
+                            .resolvedConfiguration
                             .resolvedArtifacts.filter {
                         val isInternal = internalLibraries.contains(it)
                         !isInternal
