@@ -205,6 +205,24 @@
       "revId": "9770a80398183e3d0f0a5b8a78611f3ad0351df6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac8190f1_0e197a58",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-09T03:47:58Z",
+      "side": 1,
+      "message": "This is fine; my only concern is that it drifts from both Worker and CoroutineWorker.  However, this is correct as a standalone concept, so I don\u0027t mind it.",
+      "parentUuid": "e696b139_5d90cbc1",
+      "revId": "9770a80398183e3d0f0a5b8a78611f3ad0351df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
