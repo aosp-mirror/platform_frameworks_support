@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "3c65732e_6ab05aae",
+        "filename": "samples/WebkitDemos/src/main/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2018-10-09T18:03:22Z",
+      "side": 1,
+      "message": "Can this be started directly from \"am start\" in this state? it might need to be explicitly exported for that to work when not root, iirc? (activities are exported by default only if they have an intent filter). There\u0027s probably no reason for that not to work?",
+      "revId": "1ee9808cfd793f4975be5290d6db7e0dc704eca9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a8838b05_47ae9021",
         "filename": "samples/WebkitDemos/src/main/java/com/example/androidx/webkit/MenuListView.java",
         "patchSetId": 3
