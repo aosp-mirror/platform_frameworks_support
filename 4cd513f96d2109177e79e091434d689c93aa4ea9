@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fee1aeb7_87ffc70a",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-09T03:08:45Z",
+      "side": 1,
+      "message": "Instead of this, you could just pass the ShortcutInfoContainer as obj.\n\nThat way you can avoid passing other info in Bundle. And whenever you are setting a new icon, create a new ShortcutInfoContainer, and call invalid \u003d true on the old ShortcutInfoContainer",
+      "range": {
+        "startLine": 114,
+        "startChar": 19,
+        "endLine": 117,
+        "endChar": 21
+      },
+      "revId": "4cd513f96d2109177e79e091434d689c93aa4ea9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a623854_b0cd76f4",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-09T03:08:45Z",
+      "side": 1,
+      "message": "since getIcon is not called from UiThread, this does not guarantee thread-safety.\nInstead you could define a synchronized method clearIconReference on every ShortcutInfoContainer (explained below)",
+      "range": {
+        "startLine": 124,
+        "startChar": 22,
+        "endLine": 129,
+        "endChar": 27
+      },
+      "revId": "4cd513f96d2109177e79e091434d689c93aa4ea9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0aadda50_dc3cb46d",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-09T03:08:45Z",
+      "side": 1,
+      "message": "probably synchronize it on mShortcutInfo\n\nand define a method\n void clearInMemoryIcon()  : synchronized on mShortcutInfo\nwhich is called after saving the icon on the worker thread\n\nThat way you can call getIcon from any thread()",
+      "range": {
+        "startLine": 191,
+        "startChar": 8,
+        "endLine": 191,
+        "endChar": 18
+      },
+      "revId": "4cd513f96d2109177e79e091434d689c93aa4ea9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bd5717c_2a756a86",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-09T03:08:45Z",
+      "side": 1,
+      "message": "@AnyThread",
+      "range": {
+        "startLine": 246,
+        "startChar": 5,
+        "endLine": 246,
+        "endChar": 13
+      },
+      "revId": "4cd513f96d2109177e79e091434d689c93aa4ea9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c05995c_284ce9d0",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-09T03:08:45Z",
+      "side": 1,
+      "message": "new ArrayMap\u003c\u003e(shortcuts.size())",
+      "range": {
+        "startLine": 261,
+        "startChar": 64,
+        "endLine": 261,
+        "endChar": 65
+      },
+      "revId": "4cd513f96d2109177e79e091434d689c93aa4ea9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df116b3b_a8908fb2",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-09T03:08:45Z",
+      "side": 1,
+      "message": "@AnyThread ?",
+      "range": {
+        "startLine": 370,
+        "startChar": 5,
+        "endLine": 370,
+        "endChar": 13
+      },
+      "revId": "4cd513f96d2109177e79e091434d689c93aa4ea9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fae65c4_5b931855",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-09T03:08:45Z",
+      "side": 1,
+      "message": "onGetChooserTargets is not called on UI thread. You can remove the UiThread restriction",
+      "range": {
+        "startLine": 387,
+        "startChar": 5,
+        "endLine": 387,
+        "endChar": 13
+      },
+      "revId": "4cd513f96d2109177e79e091434d689c93aa4ea9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
