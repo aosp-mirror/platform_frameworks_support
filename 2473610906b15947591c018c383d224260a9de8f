@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "5b42cc53_5c12e094",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-10-09T17:25:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f937a88_1221dc82",
+      "range": {
+        "startLine": 360,
+        "startChar": 4,
+        "endLine": 360,
+        "endChar": 10
+      },
+      "revId": "2473610906b15947591c018c383d224260a9de8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac5683a4_5d22a5d8",
         "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
         "patchSetId": 9
@@ -65,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "79a356f6_b2ef4c31",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-10-09T17:25:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac5683a4_5d22a5d8",
+      "revId": "2473610906b15947591c018c383d224260a9de8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ca67007_b7d48312",
         "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
         "patchSetId": 9
@@ -79,6 +121,24 @@
       "revId": "2473610906b15947591c018c383d224260a9de8f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ced9a21f_8d0b12fe",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-10-09T17:25:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ca67007_b7d48312",
+      "revId": "2473610906b15947591c018c383d224260a9de8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
