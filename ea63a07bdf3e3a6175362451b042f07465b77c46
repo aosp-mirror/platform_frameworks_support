@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f7679840_cff5d7d1",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/background/systemjob/SystemJobServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-09T18:25:11Z",
+      "side": 1,
+      "message": "Removed extra lines.",
+      "parentUuid": "3925e842_405029c4",
+      "range": {
+        "startLine": 111,
+        "startChar": 25,
+        "endLine": 111,
+        "endChar": 34
+      },
+      "revId": "ea63a07bdf3e3a6175362451b042f07465b77c46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86e8c70a_fdf0ae2c",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "946253fa_819c4a1f",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-09T18:25:11Z",
+      "side": 1,
+      "message": "I added more comments in WorkManagerImpl, to make this part clearer.",
+      "parentUuid": "86e8c70a_fdf0ae2c",
+      "range": {
+        "startLine": 79,
+        "startChar": 4,
+        "endLine": 79,
+        "endChar": 43
+      },
+      "revId": "ea63a07bdf3e3a6175362451b042f07465b77c46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5bd118bf_274cbeb6",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "ea63a07bdf3e3a6175362451b042f07465b77c46",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fa1325e_3aa1220f",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-09T18:25:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bd118bf_274cbeb6",
+      "range": {
+        "startLine": 94,
+        "startChar": 57,
+        "endLine": 94,
+        "endChar": 76
+      },
+      "revId": "ea63a07bdf3e3a6175362451b042f07465b77c46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -115,6 +187,30 @@
       "revId": "ea63a07bdf3e3a6175362451b042f07465b77c46",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11cd3ac2_d2f93700",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-09T18:25:11Z",
+      "side": 1,
+      "message": "I changed it so we call tryCheckForInterruptionAndResolve(), that way we resolve the outer future appropriately, and then cancel the innerFuture.",
+      "parentUuid": "e6189f86_ecaa11f8",
+      "range": {
+        "startLine": 241,
+        "startChar": 22,
+        "endLine": 244,
+        "endChar": 95
+      },
+      "revId": "ea63a07bdf3e3a6175362451b042f07465b77c46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
