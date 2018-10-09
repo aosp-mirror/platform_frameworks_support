@@ -76,6 +76,7 @@ public class WorkManagerImpl extends WorkManager {
     private Context mContext;
     private Configuration mConfiguration;
     private WorkDatabase mWorkDatabase;
+    // Use getWorkTaskExecutor() for Tests.
     private TaskExecutor mWorkTaskExecutor;
     private List<Scheduler> mSchedulers;
     private Processor mProcessor;
@@ -334,28 +335,28 @@ public class WorkManagerImpl extends WorkManager {
     @Override
     public ListenableFuture<Void> cancelWorkById(@NonNull UUID id) {
         CancelWorkRunnable runnable = CancelWorkRunnable.forId(id, this);
-        mWorkTaskExecutor.executeOnBackgroundThread(runnable);
+        getWorkTaskExecutor().executeOnBackgroundThread(runnable);
         return runnable.getFuture();
     }
 
     @Override
     public ListenableFuture<Void> cancelAllWorkByTag(@NonNull final String tag) {
         CancelWorkRunnable runnable = CancelWorkRunnable.forTag(tag, this);
-        mWorkTaskExecutor.executeOnBackgroundThread(runnable);
+        getWorkTaskExecutor().executeOnBackgroundThread(runnable);
         return runnable.getFuture();
     }
 
     @Override
     public ListenableFuture<Void> cancelUniqueWork(@NonNull String uniqueWorkName) {
         CancelWorkRunnable runnable = CancelWorkRunnable.forName(uniqueWorkName, this, true);
-        mWorkTaskExecutor.executeOnBackgroundThread(runnable);
+        getWorkTaskExecutor().executeOnBackgroundThread(runnable);
         return runnable.getFuture();
     }
 
     @Override
     public ListenableFuture<Void> cancelAllWork() {
         CancelWorkRunnable runnable = CancelWorkRunnable.forAll(this);
-        mWorkTaskExecutor.executeOnBackgroundThread(runnable);
+        getWorkTaskExecutor().executeOnBackgroundThread(runnable);
         return runnable.getFuture();
     }
 
@@ -370,7 +371,7 @@ public class WorkManagerImpl extends WorkManager {
         final SettableFuture<Long> future = SettableFuture.create();
         // Avoiding synthetic accessors.
         final Preferences preferences = mPreferences;
-        mWorkTaskExecutor.executeOnBackgroundThread(new Runnable() {
+        getWorkTaskExecutor().executeOnBackgroundThread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -386,7 +387,7 @@ public class WorkManagerImpl extends WorkManager {
     @Override
     public ListenableFuture<Void> pruneWork() {
         PruneWorkRunnable runnable = new PruneWorkRunnable(this);
-        mWorkTaskExecutor.executeOnBackgroundThread(runnable);
+        getWorkTaskExecutor().executeOnBackgroundThread(runnable);
         return runnable.getFuture();
     }
 
@@ -406,13 +407,13 @@ public class WorkManagerImpl extends WorkManager {
                         return workStatus;
                     }
                 },
-                mWorkTaskExecutor);
+                getWorkTaskExecutor());
     }
 
     @Override
     public @NonNull ListenableFuture<WorkStatus> getStatusById(@NonNull UUID id) {
         StatusRunnable<WorkStatus> runnable = StatusRunnable.forUUID(this, id);
-        mWorkTaskExecutor.getBackgroundExecutor().execute(runnable);
+        getWorkTaskExecutor().getBackgroundExecutor().execute(runnable);
         return runnable.getFuture();
     }
 
@@ -424,13 +425,13 @@ public class WorkManagerImpl extends WorkManager {
         return LiveDataUtils.dedupedMappedLiveDataFor(
                 inputLiveData,
                 WorkSpec.WORK_STATUS_MAPPER,
-                mWorkTaskExecutor);
+                getWorkTaskExecutor());
     }
 
     @Override
     public @NonNull ListenableFuture<List<WorkStatus>> getStatusesByTag(@NonNull String tag) {
         StatusRunnable<List<WorkStatus>> runnable = StatusRunnable.forTag(this, tag);
-        mWorkTaskExecutor.getBackgroundExecutor().execute(runnable);
+        getWorkTaskExecutor().getBackgroundExecutor().execute(runnable);
         return runnable.getFuture();
     }
 
@@ -443,7 +444,7 @@ public class WorkManagerImpl extends WorkManager {
         return LiveDataUtils.dedupedMappedLiveDataFor(
                 inputLiveData,
                 WorkSpec.WORK_STATUS_MAPPER,
-                mWorkTaskExecutor);
+                getWorkTaskExecutor());
     }
 
     @Override
@@ -451,7 +452,7 @@ public class WorkManagerImpl extends WorkManager {
     public ListenableFuture<List<WorkStatus>> getStatusesForUniqueWork(@NonNull String name) {
         StatusRunnable<List<WorkStatus>> runnable =
                 StatusRunnable.forUniqueWork(this, name);
-        mWorkTaskExecutor.getBackgroundExecutor().execute(runnable);
+        getWorkTaskExecutor().getBackgroundExecutor().execute(runnable);
         return runnable.getFuture();
     }
 
@@ -462,7 +463,7 @@ public class WorkManagerImpl extends WorkManager {
         return LiveDataUtils.dedupedMappedLiveDataFor(
                 inputLiveData,
                 WorkSpec.WORK_STATUS_MAPPER,
-                mWorkTaskExecutor);
+                getWorkTaskExecutor());
     }
 
     /**
@@ -481,8 +482,9 @@ public class WorkManagerImpl extends WorkManager {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public void startWork(String workSpecId, WorkerParameters.RuntimeExtras runtimeExtras) {
-        mWorkTaskExecutor.executeOnBackgroundThread(
-                new StartWorkRunnable(this, workSpecId, runtimeExtras));
+        getWorkTaskExecutor()
+                .executeOnBackgroundThread(
+                        new StartWorkRunnable(this, workSpecId, runtimeExtras));
     }
 
     /**
@@ -491,7 +493,7 @@ public class WorkManagerImpl extends WorkManager {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public void stopWork(String workSpecId) {
-        mWorkTaskExecutor.executeOnBackgroundThread(new StopWorkRunnable(this, workSpecId));
+        getWorkTaskExecutor().executeOnBackgroundThread(new StopWorkRunnable(this, workSpecId));
     }
 
     /**
