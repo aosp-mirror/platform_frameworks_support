@@ -52,7 +52,7 @@ import kotlin.collections.set
 
 private const val DOCLAVA_DEPENDENCY = "com.android:doclava:1.0.6"
 
-private const val JDIFF_DEPENDENCY = "com.android:jdiff:1.1.0"
+private const val JDIFF_DEPENDENCY = "com.android:jdiff:1.0.0"
 private const val XML_PARSER_APIS_DEPENDENCY = "xerces:xmlParserAPIs:2.6.2"
 private const val XERCES_IMPL_DEPENDENCY = "xerces:xercesImpl:2.6.2"
 
@@ -271,6 +271,7 @@ object DiffAndDocs {
         val tasks = initializeApiChecksForProject(project,
                 aggregateOldApiTxtsTask, aggregateNewApiTxtsTask)
         registerJavaProjectForDocsTask(tasks.generateApi, compileJava)
+        registerJavaProjectForDocsTask(tasks.generateLocalDiffs, compileJava)
         setupDocsTasks(project, tasks)
         anchorTask.dependsOn(tasks.checkApi)
     }
@@ -306,6 +307,7 @@ object DiffAndDocs {
                 val tasks = initializeApiChecksForProject(project, aggregateOldApiTxtsTask,
                         aggregateNewApiTxtsTask)
                 registerAndroidProjectForDocsTask(tasks.generateApi, variant)
+                registerAndroidProjectForDocsTask(tasks.generateLocalDiffs, variant)
                 setupDocsTasks(project, tasks)
                 anchorTask.dependsOn(tasks.checkApi)
             }
