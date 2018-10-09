@@ -91,6 +91,30 @@
       "revId": "ea63a07bdf3e3a6175362451b042f07465b77c46",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "907e91a4_e2b6ae51",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-09T17:56:43Z",
+      "side": 1,
+      "message": "After offline discussion, ignore my comment about RETRY here.  Leave as FAILURE.",
+      "parentUuid": "e6189f86_ecaa11f8",
+      "range": {
+        "startLine": 241,
+        "startChar": 22,
+        "endLine": 244,
+        "endChar": 95
+      },
+      "revId": "ea63a07bdf3e3a6175362451b042f07465b77c46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
