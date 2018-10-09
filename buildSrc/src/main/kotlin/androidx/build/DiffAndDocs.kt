@@ -271,6 +271,9 @@ object DiffAndDocs {
         val tasks = initializeApiChecksForProject(project,
                 aggregateOldApiTxtsTask, aggregateNewApiTxtsTask)
         registerJavaProjectForDocsTask(tasks.generateApi, compileJava)
+        registerJavaProjectForDocsTask(tasks.generateLocalDiffs, compileJava)
+        val generateApiDiffsAcrhiveTask = createGenerateLocalApiDiffsArchiveTask(project)
+        generateApiDiffsAcrhiveTask.dependsOn(tasks.generateLocalDiffs)
         setupDocsTasks(project, tasks)
         anchorTask.dependsOn(tasks.checkApi)
     }
@@ -306,6 +309,9 @@ object DiffAndDocs {
                 val tasks = initializeApiChecksForProject(project, aggregateOldApiTxtsTask,
                         aggregateNewApiTxtsTask)
                 registerAndroidProjectForDocsTask(tasks.generateApi, variant)
+                registerAndroidProjectForDocsTask(tasks.generateLocalDiffs, variant)
+                val generateApiDiffsAcrhiveTask = createGenerateLocalApiDiffsArchiveTask(project)
+                generateApiDiffsAcrhiveTask.dependsOn(tasks.generateLocalDiffs)
                 setupDocsTasks(project, tasks)
                 anchorTask.dependsOn(tasks.checkApi)
             }
@@ -519,6 +525,15 @@ private fun createGenerateDocsTask(
 
             addArtifactsAndSince()
         }
+
+private fun createGenerateLocalApiDiffsArchiveTask(
+    project: Project
+): Zip = project.tasks.createWithConfig("generateLocalApiDiffsArchive", Zip::class.java) {
+    val docsDir = project.rootProject.docsDir()
+    from(File(docsDir, "online/sdk/support_api_diff/${project.name}/${project.version}"))
+    destinationDir = File(docsDir, "online/sdk/support_api_diff/${project.name}")
+    archiveName = "${project.version}.zip"
+}
 
 private fun sdkApiFile(project: Project) = File(project.docsDir(), "release/sdk_current.txt")
 
