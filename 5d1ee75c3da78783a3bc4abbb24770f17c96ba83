@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c8441db_e5623a48",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-09T20:21:25Z",
+      "side": 1,
+      "message": "Can we do that automatically for people? This seems like a footgun.",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 91
+      },
+      "revId": "5d1ee75c3da78783a3bc4abbb24770f17c96ba83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
