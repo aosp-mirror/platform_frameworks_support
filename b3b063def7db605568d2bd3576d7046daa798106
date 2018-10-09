@@ -355,6 +355,30 @@
     },
     {
       "key": {
+        "uuid": "118602c3_8d089abf",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-09T02:01:48Z",
+      "side": 1,
+      "message": "https://docs.google.com/document/d/1f_RQ6vAN4X8EIx_rSOUwyE9mw_73urjXEzVYHMG1Q1s/edit#",
+      "parentUuid": "492d22a1_65912d6a",
+      "range": {
+        "startLine": 625,
+        "startChar": 42,
+        "endLine": 625,
+        "endChar": 49
+      },
+      "revId": "b3b063def7db605568d2bd3576d7046daa798106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "379e59a5_f0ed930d",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 2
@@ -366,6 +390,30 @@
       "writtenOn": "2018-10-09T01:57:46Z",
       "side": 1,
       "message": "Question) Doesn\u0027t DRM need other result code defined in the PlayerResult, such as BAD_IO / INVALID_STATE / ...?",
+      "range": {
+        "startLine": 2512,
+        "startChar": 16,
+        "endLine": 2512,
+        "endChar": 35
+      },
+      "revId": "b3b063def7db605568d2bd3576d7046daa798106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c39964b9_091fd62e",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2512,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-09T02:01:48Z",
+      "side": 1,
+      "message": "Currently, the only async DRM operation is prepareDrm() and it does not return those codes. This list can be extended later when we have cases.",
+      "parentUuid": "379e59a5_f0ed930d",
       "range": {
         "startLine": 2512,
         "startChar": 16,
