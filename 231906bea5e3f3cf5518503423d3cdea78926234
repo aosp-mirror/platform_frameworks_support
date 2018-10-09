@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ae5ab60_2e4c8617",
+        "filename": "car/core/src/main/java/androidx/car/widget/ListItemAdapter.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-09T22:25:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6efd08a4_5de2903a",
+      "range": {
+        "startLine": 125,
+        "startChar": 53,
+        "endLine": 125,
+        "endChar": 69
+      },
+      "revId": "231906bea5e3f3cf5518503423d3cdea78926234",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af65c3d6_0fc42eb0",
         "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
         "patchSetId": 15
@@ -45,6 +69,30 @@
       "revId": "231906bea5e3f3cf5518503423d3cdea78926234",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "443bde03_3ad9d54c",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-09T22:25:00Z",
+      "side": 1,
+      "message": "We can\u0027t fix return type to enum. Users can extend parent class and return their own value in this method.",
+      "parentUuid": "af65c3d6_0fc42eb0",
+      "range": {
+        "startLine": 109,
+        "startChar": 11,
+        "endLine": 109,
+        "endChar": 14
+      },
+      "revId": "231906bea5e3f3cf5518503423d3cdea78926234",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5b18578b_f4f872f0",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-09T22:25:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9583a78_9da7ecd1",
+      "range": {
+        "startLine": 159,
+        "startChar": 37,
+        "endLine": 159,
+        "endChar": 41
+      },
+      "revId": "231906bea5e3f3cf5518503423d3cdea78926234",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ced12d3_47b2b464",
         "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
         "patchSetId": 15
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "c938c7f7_d58ccfb0",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-09T22:25:00Z",
+      "side": 1,
+      "message": "Done\n\nAlso updated sibling classes",
+      "parentUuid": "2ced12d3_47b2b464",
+      "range": {
+        "startLine": 378,
+        "startChar": 24,
+        "endLine": 378,
+        "endChar": 62
+      },
+      "revId": "231906bea5e3f3cf5518503423d3cdea78926234",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0bfa7bb_b4909d93",
         "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
         "patchSetId": 15
@@ -114,6 +210,30 @@
       "revId": "231906bea5e3f3cf5518503423d3cdea78926234",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c1c58a8_a9de4f38",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-09T22:25:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0bfa7bb_b4909d93",
+      "range": {
+        "startLine": 390,
+        "startChar": 26,
+        "endLine": 390,
+        "endChar": 30
+      },
+      "revId": "231906bea5e3f3cf5518503423d3cdea78926234",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
