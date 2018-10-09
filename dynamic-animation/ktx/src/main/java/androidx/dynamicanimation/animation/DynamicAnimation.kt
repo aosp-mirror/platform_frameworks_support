@@ -24,7 +24,7 @@ import android.view.View
  * @param property View property to be animated.
  * @return [FlingAnimation]
  */
-inline fun <K: View> K.flingAnimationOf(property: FloatPropertyCompat<K>): FlingAnimation {
+inline fun <K : View> K.flingAnimationOf(property: FloatPropertyCompat<K>): FlingAnimation {
     return FlingAnimation(this, property)
 }
 
@@ -34,7 +34,7 @@ inline fun <K: View> K.flingAnimationOf(property: FloatPropertyCompat<K>): Fling
  * @param property View property to be animated.
  * @return [SpringAnimation]
  */
-inline fun <K: View> K.springAnimationOf(property: FloatPropertyCompat<K>): SpringAnimation {
+inline fun <K : View> K.springAnimationOf(property: FloatPropertyCompat<K>): SpringAnimation {
     return SpringAnimation(this, property)
 }
 
@@ -45,8 +45,10 @@ inline fun <K: View> K.springAnimationOf(property: FloatPropertyCompat<K>): Spri
  * @param finalPosition [SpringForce.mFinalPosition] Final position of spring.
  * @return [SpringAnimation]
  */
-inline fun <K: View> K.springAnimationOf(property: FloatPropertyCompat<K>,
-        finalPosition: Float): SpringAnimation {
+inline fun <K : View> K.springAnimationOf(
+        property: FloatPropertyCompat<K>,
+        finalPosition: Float
+): SpringAnimation {
     return SpringAnimation(this, property, finalPosition)
 }
 
@@ -57,8 +59,10 @@ inline fun <K: View> K.springAnimationOf(property: FloatPropertyCompat<K>,
  * @param func lambda with receiver on [SpringForce]
  * @return [SpringAnimation]
  */
-inline fun <K: View> K.springAnimationOf(property: FloatPropertyCompat<K>,
-        func: SpringForce.() -> Unit): SpringAnimation {
+inline fun <K : View> K.springAnimationOf(
+        property: FloatPropertyCompat<K>,
+        func: SpringForce.() -> Unit
+): SpringAnimation {
     val springAnimation = SpringAnimation(this, property)
     val springForce = SpringForce()
     springForce.func()
@@ -74,9 +78,11 @@ inline fun <K: View> K.springAnimationOf(property: FloatPropertyCompat<K>,
  * @param func lambda with receiver on [SpringForce]
  * @return [SpringAnimation]
  */
-inline fun <K: View> K.springAnimationOf(property: FloatPropertyCompat<K>, finalPosition: Float,
-        func: SpringForce.() -> Unit): SpringAnimation {
-
+inline fun <K : View> K.springAnimationOf(
+        property: FloatPropertyCompat<K>,
+        finalPosition: Float,
+        func: SpringForce.() -> Unit
+): SpringAnimation {
     val springAnimation = SpringAnimation(this, property, finalPosition)
     springAnimation.spring.func()
     return springAnimation
@@ -93,7 +99,9 @@ inline fun <K: View> K.springAnimationOf(property: FloatPropertyCompat<K>, final
  * @param func lambda with receiver on [SpringForce]
  * @return [SpringAnimation]
  */
-inline fun SpringAnimation.withSpringForceProperties(func: SpringForce.() -> Unit): SpringAnimation {
+inline fun SpringAnimation.withSpringForceProperties(
+        func: SpringForce.() -> Unit
+): SpringAnimation {
     if (spring == null) {
         spring = SpringForce()
     }
