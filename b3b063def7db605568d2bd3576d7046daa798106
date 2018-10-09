@@ -328,6 +328,53 @@
       "revId": "b3b063def7db605568d2bd3576d7046daa798106",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "492d22a1_65912d6a",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-09T01:57:46Z",
+      "side": 1,
+      "message": "Could you share the doc about prefetch() + setPreviewEnabled()? Sounds like session player change is also needed.",
+      "parentUuid": "15706d3f_af51f943",
+      "range": {
+        "startLine": 625,
+        "startChar": 42,
+        "endLine": 625,
+        "endChar": 49
+      },
+      "revId": "b3b063def7db605568d2bd3576d7046daa798106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "379e59a5_f0ed930d",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2512,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-09T01:57:46Z",
+      "side": 1,
+      "message": "Question) Doesn\u0027t DRM need other result code defined in the PlayerResult, such as BAD_IO / INVALID_STATE / ...?",
+      "range": {
+        "startLine": 2512,
+        "startChar": 16,
+        "endLine": 2512,
+        "endChar": 35
+      },
+      "revId": "b3b063def7db605568d2bd3576d7046daa798106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
