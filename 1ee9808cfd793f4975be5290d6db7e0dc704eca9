@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8838b05_47ae9021",
+        "filename": "samples/WebkitDemos/src/main/java/com/example/androidx/webkit/MenuListView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-09T02:51:37Z",
+      "side": 1,
+      "message": "It\u0027s not obvious from this CL, but it helps a bit to accept an Intent instead of a Class. In the Safe Browsing app, I reuse Activities to share code, and distinguish between cases by passing extra data (i.e., #putExtra())",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 61
+      },
+      "revId": "1ee9808cfd793f4975be5290d6db7e0dc704eca9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
