@@ -1405,7 +1405,7 @@ public class Preference implements Comparable<Preference> {
      * @param key The key of the preference to find
      * @return The preference that uses the given key
      */
-    protected Preference findPreferenceInHierarchy(String key) {
+    protected <T extends Preference> T findPreferenceInHierarchy(String key) {
         if (TextUtils.isEmpty(key) || mPreferenceManager == null) {
             return null;
         }
