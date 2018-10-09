@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9987c89_6eebae65",
+        "filename": "car/core/res/layout/preference_material_car_child.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-09T00:43:02Z",
+      "side": 1,
+      "message": "Should we create a new attribute for setting this?",
+      "revId": "f4fa89241f98111aa85650ce0bae6b33f6bde5b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
