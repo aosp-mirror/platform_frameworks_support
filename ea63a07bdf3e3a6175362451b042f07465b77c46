@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3925e842_405029c4",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/background/systemjob/SystemJobServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-09T03:35:36Z",
+      "side": 1,
+      "message": "Nit: separate lines.",
+      "range": {
+        "startLine": 111,
+        "startChar": 25,
+        "endLine": 111,
+        "endChar": 34
+      },
+      "revId": "ea63a07bdf3e3a6175362451b042f07465b77c46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86e8c70a_fdf0ae2c",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-09T03:35:36Z",
+      "side": 1,
+      "message": "I don\u0027t get it.  Why?",
+      "range": {
+        "startLine": 79,
+        "startChar": 4,
+        "endLine": 79,
+        "endChar": 43
+      },
+      "revId": "ea63a07bdf3e3a6175362451b042f07465b77c46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bd118bf_274cbeb6",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-09T03:35:36Z",
+      "side": 1,
+      "message": "mInnerFuture is fine.",
+      "range": {
+        "startLine": 94,
+        "startChar": 57,
+        "endLine": 94,
+        "endChar": 76
+      },
+      "revId": "ea63a07bdf3e3a6175362451b042f07465b77c46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6189f86_ecaa11f8",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-09T03:35:36Z",
+      "side": 1,
+      "message": "This isn\u0027t how I was thinking of handling this.  First of all, I think if you\u0027re going to do this, you can just check future.isCancelled explicitly.  But ignoring that, I think when you get the interrupt method below, you should first explicitly set future.setResult - FAILURE if cancelled \u003d\u003d true, RETRY otherwise.  Then cancel the inner future.\n\nYou still need to worry about a cancellation here, but since the only way this will be triggered now is the developer cancelling it, it becomes a RETRY for us, so however you handle cancellation in this part of the code, it needs to treat it like a RETRY, not a FAILURE.",
+      "range": {
+        "startLine": 241,
+        "startChar": 22,
+        "endLine": 244,
+        "endChar": 95
+      },
+      "revId": "ea63a07bdf3e3a6175362451b042f07465b77c46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
