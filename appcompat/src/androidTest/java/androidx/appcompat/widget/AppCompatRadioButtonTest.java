@@ -16,11 +16,14 @@
 package androidx.appcompat.widget;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimatedStateListDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.ViewGroup;
 
 import androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat;
@@ -72,5 +75,24 @@ public class AppCompatRadioButtonTest {
         // Then this drawable should be an animated-selector
         assertTrue(button instanceof AnimatedStateListDrawableCompat
                 || button instanceof AnimatedStateListDrawable);
+    }
+
+    @Test
+    public void testNullCompatButton() {
+        // Given an ACRB which specifies a null app:buttonCompat
+        final AppCompatRadioButtonSpy radio = mContainer.findViewById(
+                R.id.radiobutton_null_button_compat);
+        final Drawable button = radio.mButton;
+        boolean isAnimated;
+        if (Build.VERSION.SDK_INT >= 21) {
+            isAnimated = button instanceof AnimatedStateListDrawableCompat
+                    || button instanceof AnimatedStateListDrawable;
+        } else {
+            isAnimated = button instanceof AnimatedStateListDrawableCompat;
+        }
+
+        // Then the drawable should not be present but not animated
+        assertNotNull(button);
+        assertFalse(isAnimated);
     }
 }
