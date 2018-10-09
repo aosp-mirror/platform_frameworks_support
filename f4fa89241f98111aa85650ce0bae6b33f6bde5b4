@@ -16,6 +16,24 @@
       "revId": "f4fa89241f98111aa85650ce0bae6b33f6bde5b4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc33756b_818a2a7f",
+        "filename": "car/core/res/layout/preference_material_car_child.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-10-09T01:46:42Z",
+      "side": 1,
+      "message": "It sounded like the preference team was getting rid of this layout.  \n\nActually @lpf, can I just remove this layout completely now?  It doesn\u0027t look like it\u0027s in your folder anymore?",
+      "parentUuid": "a9987c89_6eebae65",
+      "revId": "f4fa89241f98111aa85650ce0bae6b33f6bde5b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
