@@ -34,6 +34,24 @@
       "revId": "f4fa89241f98111aa85650ce0bae6b33f6bde5b4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93ebee48_b29f4987",
+        "filename": "car/core/res/layout/preference_material_car_child.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-10-09T08:48:34Z",
+      "side": 1,
+      "message": "Yeah, you can just remove this - it\u0027s not a supported UX pattern anymore.",
+      "parentUuid": "bc33756b_818a2a7f",
+      "revId": "f4fa89241f98111aa85650ce0bae6b33f6bde5b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
