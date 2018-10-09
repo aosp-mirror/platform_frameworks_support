@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "773826e6_5435a922",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-09T00:32:43Z",
+      "side": 1,
+      "message": "Thanks for the feedback :) Removed the blocking sleep in getIcon() and replaced all notify/wait calls by using a CountDownLatch.\n\nThis class will read a list of shortcuts from disk just once in the beginning (constructor) and will keep a cached copy during the rest of its life cycle. While the initial reading is in progress, all other calls to access the list will be blocked until the read if finished. This is identical to the design used in framework for SharedPreferencedImpl.java https://cs.corp.google.com/aosp-master/frameworks/base/core/java/android/app/SharedPreferencesImpl.java?rcl\u003d8f08ba793ed921e745a574f65dd04a8bfd286647\u0026l\u003d256\n\nCurrently the only synchronous resource-loading API is getShortcutIcon, which will ONLY get used strictly by other system classes (e.g. ChooserTargetServiceCompat.java in the next CL).",
+      "parentUuid": "b0db465d_142dfcb5",
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4e5db99e_263a44c5",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 21
@@ -39,6 +57,30 @@
       "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77accc85_3d7f24e2",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-09T00:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e5db99e_263a44c5",
+      "range": {
+        "startLine": 98,
+        "startChar": 24,
+        "endLine": 98,
+        "endChar": 83
+      },
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "59f4f66c_a2757e2a",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-09T00:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9848e7e_44a0feb6",
+      "range": {
+        "startLine": 99,
+        "startChar": 22,
+        "endLine": 100,
+        "endChar": 48
+      },
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4271b753_78b6b620",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 21
@@ -76,6 +142,30 @@
       "writtenOn": "2018-10-05T19:30:10Z",
       "side": 1,
       "message": "Is this being called from the service or anywhere else?",
+      "range": {
+        "startLine": 180,
+        "startChar": 8,
+        "endLine": 180,
+        "endChar": 17
+      },
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6b412c3_502ecc14",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-09T00:32:43Z",
+      "side": 1,
+      "message": "This is called in getShortcutIcon(shortcutId), which is currently being used in ChooserTargetServiceCompat.java",
+      "parentUuid": "4271b753_78b6b620",
       "range": {
         "startLine": 180,
         "startChar": 8,
@@ -123,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "f8e925bd_5a156ade",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-09T00:32:43Z",
+      "side": 1,
+      "message": "Removed the waiting sleep by keeping a reference to the bitmap until it is saved to the disk. Worker thread will send a message to the main (UI) thread to remove the reference after bitmap is done being saved.",
+      "parentUuid": "51156dd8_684f72ef",
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cfc879c0_4af475ec",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 21
@@ -143,6 +251,30 @@
       "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "977bd80e_934c1c6c",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-09T00:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfc879c0_4af475ec",
+      "range": {
+        "startLine": 291,
+        "startChar": 22,
+        "endLine": 291,
+        "endChar": 33
+      },
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -169,6 +301,30 @@
     },
     {
       "key": {
+        "uuid": "b8e047f1_9b15bc68",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-09T00:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfbe7f0a_0ef66d1a",
+      "range": {
+        "startLine": 304,
+        "startChar": 22,
+        "endLine": 304,
+        "endChar": 33
+      },
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d12aab4_801d0b03",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 21
@@ -192,6 +348,30 @@
     },
     {
       "key": {
+        "uuid": "4e75525d_0ac16a52",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-09T00:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d12aab4_801d0b03",
+      "range": {
+        "startLine": 314,
+        "startChar": 20,
+        "endLine": 314,
+        "endChar": 75
+      },
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50a09eee_cf221f72",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 21
@@ -203,6 +383,30 @@
       "writtenOn": "2018-10-05T19:30:10Z",
       "side": 1,
       "message": "Where is this called from?",
+      "range": {
+        "startLine": 377,
+        "startChar": 2,
+        "endLine": 388,
+        "endChar": 0
+      },
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72295220_da48c234",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-09T00:32:43Z",
+      "side": 1,
+      "message": "Currently this is called from ChooserTargetServiceCompat#onGetChooserTargets(), which will be on the same thread as the Sharesheet.",
+      "parentUuid": "50a09eee_cf221f72",
       "range": {
         "startLine": 377,
         "startChar": 2,
@@ -238,6 +442,30 @@
     },
     {
       "key": {
+        "uuid": "f2c57482_4395cb12",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-09T00:32:43Z",
+      "side": 1,
+      "message": "Done, great suggestion, thanks!",
+      "parentUuid": "da5c5b77_b66895e6",
+      "range": {
+        "startLine": 622,
+        "startChar": 8,
+        "endLine": 639,
+        "endChar": 9
+      },
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b838b48e_33538dae",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 21
@@ -252,6 +480,24 @@
       "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a1b85be_200ed5fd",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-09T00:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b838b48e_33538dae",
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -275,6 +521,30 @@
       "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e766953_c7d3ca98",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-09T00:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "777cd7d4_5d86e61f",
+      "range": {
+        "startLine": 650,
+        "startChar": 12,
+        "endLine": 650,
+        "endChar": 75
+      },
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
