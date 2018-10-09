@@ -267,6 +267,6 @@ public abstract class DialogPreference extends Preference {
          * @return The {@link Preference} with the key, or {@code null}
          * @see PreferenceGroup#findPreference(CharSequence)
          */
-        Preference findPreference(CharSequence key);
+        <T extends Preference> T findPreference(CharSequence key);
     }
 }

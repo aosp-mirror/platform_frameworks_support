@@ -475,7 +475,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
     }
 
     @Override
-    public Preference findPreference(CharSequence key) {
+    public <T extends Preference> T findPreference(CharSequence key) {
         if (mPreferenceManager == null) {
             return null;
         }
