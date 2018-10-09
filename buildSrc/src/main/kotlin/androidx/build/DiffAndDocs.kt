@@ -271,6 +271,7 @@ object DiffAndDocs {
         val tasks = initializeApiChecksForProject(project,
                 aggregateOldApiTxtsTask, aggregateNewApiTxtsTask)
         registerJavaProjectForDocsTask(tasks.generateApi, compileJava)
+        registerJavaProjectForDocsTask(tasks.generateLocalDiffs, compileJava)
         setupDocsTasks(project, tasks)
         anchorTask.dependsOn(tasks.checkApi)
     }
@@ -306,6 +307,7 @@ object DiffAndDocs {
                 val tasks = initializeApiChecksForProject(project, aggregateOldApiTxtsTask,
                         aggregateNewApiTxtsTask)
                 registerAndroidProjectForDocsTask(tasks.generateApi, variant)
+                registerAndroidProjectForDocsTask(tasks.generateLocalDiffs, variant)
                 setupDocsTasks(project, tasks)
                 anchorTask.dependsOn(tasks.checkApi)
             }
