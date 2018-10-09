@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41137cc2_f9cf74e0",
+        "filename": "fragment/test/build.gradle",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-09T20:33:10Z",
+      "side": 1,
+      "message": "Can you add the following block?\n\nandroid {\n    lintOptions {\n        fatal(\"UnknownNullness\")\n    }\n}\n\nAnd ensure that your API is annotated with @NonNull or @Nullable on every parameter/return type (your current.txt shouldn\u0027t have any ! in it at the end).",
+      "revId": "50714a1b2c39ee61f9a21f41fa55d29884daebe7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
