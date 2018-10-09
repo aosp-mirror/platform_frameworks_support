@@ -46,8 +46,8 @@ inline fun <K : View> K.springAnimationOf(property: FloatPropertyCompat<K>): Spr
  * @return [SpringAnimation]
  */
 inline fun <K : View> K.springAnimationOf(
-        property: FloatPropertyCompat<K>,
-        finalPosition: Float
+    property: FloatPropertyCompat<K>,
+    finalPosition: Float
 ): SpringAnimation {
     return SpringAnimation(this, property, finalPosition)
 }
@@ -60,8 +60,8 @@ inline fun <K : View> K.springAnimationOf(
  * @return [SpringAnimation]
  */
 inline fun <K : View> K.springAnimationOf(
-        property: FloatPropertyCompat<K>,
-        func: SpringForce.() -> Unit
+    property: FloatPropertyCompat<K>,
+    func: SpringForce.() -> Unit
 ): SpringAnimation {
     val springAnimation = SpringAnimation(this, property)
     val springForce = SpringForce()
@@ -79,15 +79,14 @@ inline fun <K : View> K.springAnimationOf(
  * @return [SpringAnimation]
  */
 inline fun <K : View> K.springAnimationOf(
-        property: FloatPropertyCompat<K>,
-        finalPosition: Float,
-        func: SpringForce.() -> Unit
+    property: FloatPropertyCompat<K>,
+    finalPosition: Float,
+    func: SpringForce.() -> Unit
 ): SpringAnimation {
     val springAnimation = SpringAnimation(this, property, finalPosition)
     springAnimation.spring.func()
     return springAnimation
 }
-
 
 /**
  * Updates or applies spring force properties like [SpringForce.mDampingRatio],
@@ -100,7 +99,7 @@ inline fun <K : View> K.springAnimationOf(
  * @return [SpringAnimation]
  */
 inline fun SpringAnimation.withSpringForceProperties(
-        func: SpringForce.() -> Unit
+    func: SpringForce.() -> Unit
 ): SpringAnimation {
     if (spring == null) {
         spring = SpringForce()
