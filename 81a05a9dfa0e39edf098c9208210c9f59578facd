@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fe4c6c4e_06e6c7a8",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaPlayer2Test.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-10-09T08:19:02Z",
+      "side": 1,
+      "message": "It does fail before this change. I think the issue is that we are calling afd.close() after preparation completes (https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev/media2/src/androidTest/java/androidx/media2/MediaPlayer2TestBase.java#199), but this should be removed because we are going to close the FD in teardown instead?",
+      "parentUuid": "b5cacc8a_efcfdff8",
+      "range": {
+        "startLine": 413,
+        "startChar": 26,
+        "endLine": 413,
+        "endChar": 44
+      },
+      "revId": "81a05a9dfa0e39edf098c9208210c9f59578facd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e70ae044_b04cbba2",
         "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "2f2115a2_c383f3fd",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-10-09T08:19:02Z",
+      "side": 1,
+      "message": "I think it makes sense to do something to have the player keep a file descriptor valid. Not sure exactly where this should be though. I\u0027ll make a note to discuss this later, but please let me know if you have any suggestions for changes to make in this CL.",
+      "parentUuid": "e70ae044_b04cbba2",
+      "range": {
+        "startLine": 537,
+        "startChar": 7,
+        "endLine": 550,
+        "endChar": 9
+      },
+      "revId": "81a05a9dfa0e39edf098c9208210c9f59578facd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40564468_2aca8109",
         "filename": "media2/src/main/java/androidx/media2/exoplayer/FileDescriptorUtil.java",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "81a05a9dfa0e39edf098c9208210c9f59578facd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dc1b552_18ec3562",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/FileDescriptorUtil.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-10-09T08:19:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40564468_2aca8109",
+      "range": {
+        "startLine": 109,
+        "startChar": 45,
+        "endLine": 109,
+        "endChar": 49
+      },
+      "revId": "81a05a9dfa0e39edf098c9208210c9f59578facd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
