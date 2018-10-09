@@ -66,6 +66,7 @@ package androidx.textclassifier {
   public abstract class TextClassifier {
     ctor public TextClassifier();
     method public androidx.textclassifier.TextClassification classifyText(androidx.textclassifier.TextClassification.Request);
+    method public void close();
     method public androidx.textclassifier.TextLinks generateLinks(androidx.textclassifier.TextLinks.Request);
     method public int getMaxGenerateLinksTextLength();
     method public androidx.textclassifier.TextSelection suggestSelection(androidx.textclassifier.TextSelection.Request);

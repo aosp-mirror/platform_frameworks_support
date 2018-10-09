@@ -222,6 +222,18 @@ public abstract class TextClassifier {
     public void onSelectionEvent(@NonNull SelectionEvent event) {
     }
 
+    /**
+     * Closes this text classifier, freeing any underlying resources, if any.
+     * <p>
+     * <strong>Note:</strong> If this text classifier is set to {@link TextClassificationManager}
+     * via {@link TextClassificationManager#setTextClassifier(TextClassifier)}, you should unset
+     * the text classifier, e.g. by calling
+     * {@link TextClassificationManager#setTextClassifier(TextClassifier)} with {@code null}, before
+     * closing this.
+     */
+    public void close() {
+    }
+
     /** @hide */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     static void ensureNotOnMainThread() {

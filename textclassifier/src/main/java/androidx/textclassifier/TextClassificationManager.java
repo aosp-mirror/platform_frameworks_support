@@ -96,6 +96,10 @@ public final class TextClassificationManager {
      * <p>
      * Note that the given text classifier is only set to this instance of the
      * {@link TextClassificationManager}.
+     * <p>
+     * <strong>Note:</strong> Once the text classifier is set to {@link TextClassificationManager}
+     * here, you should not call {@link TextClassifier#close()} on this text classifier before it is
+     * unset, e.g. by calling {@link #setTextClassifier(TextClassifier)} with {@code null}.
      */
     public void setTextClassifier(@Nullable TextClassifier textClassifier) {
         synchronized (mLock) {
