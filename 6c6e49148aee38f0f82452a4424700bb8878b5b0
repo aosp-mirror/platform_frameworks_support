@@ -126,6 +126,24 @@
     },
     {
       "key": {
+        "uuid": "81acc34e_cc1e174e",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/ActivityViewModelLazy.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-10T01:12:22Z",
+      "side": 1,
+      "message": "If this works and auto-complete in Studio is happy with it, I\u0027d be fine with this being moved to viewmodel-ktx and not require any specific subclass of Activity. If the developer experience is actually worse, then I\u0027d err on just waiting for this to move to ComponentActivity (which will happen before this becomes public API).",
+      "parentUuid": "833c6c69_76bd6e2e",
+      "revId": "6c6e49148aee38f0f82452a4424700bb8878b5b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c9aa380e_7ca4d9e9",
         "filename": "fragment/ktx/src/main/java/androidx/fragment/app/FragmentViewModelLazy.kt",
         "patchSetId": 6
