@@ -237,6 +237,18 @@ public class NightModeTestCase {
                 .check(matches(withText(R.string.clicked)));
     }
 
+    @Test
+    public void testOnClickUnwrapContextWithNightMode() throws Throwable {
+        // Set night mode and wait for the new Activity
+        setLocalNightModeAndWaitForRecreate(mActivityTestRule.getActivity(),
+                AppCompatDelegate.MODE_NIGHT_YES);
+
+        // Click the button and assert that the onClick does not crash. The unwrap happens in
+        // NightModeActivity.clickUnwrapContext()
+        onView(withId(R.id.button_test_unwrap_context))
+                .perform(click());
+    }
+
     private static class FakeTwilightManager extends TwilightManager {
         private boolean mIsNight;
 

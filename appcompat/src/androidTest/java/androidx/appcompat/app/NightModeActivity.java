@@ -16,6 +16,9 @@
 
 package androidx.appcompat.app;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.res.Configuration;
 import android.view.View;
 import android.widget.Button;
@@ -65,5 +68,25 @@ public class NightModeActivity extends BaseTestActivity {
      */
     public void onButtonClicked(View view) {
         ((Button) view).setText(R.string.clicked);
+    }
+
+    public void clickUnwrapContext(View view) {
+        getActivity(view.getContext());
+    }
+
+    private static Activity getActivity(Context context) {
+        // Unwrap the context until an Activity is found.
+        while (context != null) {
+            if (context instanceof Activity) {
+                return ((Activity) context);
+            }
+            if (context instanceof ContextWrapper) {
+                context = ((ContextWrapper) context).getBaseContext();
+            } else {
+                break; // Nothing more to unwrap.
+            }
+        }
+        // Activity could not be found; given context must resolve to an Activity
+        throw new IllegalStateException();
     }
 }
