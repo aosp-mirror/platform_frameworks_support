@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "b4ed1ba0_abf7b3a9",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaPlayer2Test.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-10T03:16:28Z",
+      "side": 1,
+      "message": "That said, it doesn\u0027t mean player can assume that the given FD will be alive during the lifecycle of the player. The bug in test case is to call close() twice.",
+      "parentUuid": "3f67b8dd_d1f50907",
+      "range": {
+        "startLine": 413,
+        "startChar": 26,
+        "endLine": 413,
+        "endChar": 44
+      },
+      "revId": "81a05a9dfa0e39edf098c9208210c9f59578facd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e70ae044_b04cbba2",
         "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
         "patchSetId": 4
