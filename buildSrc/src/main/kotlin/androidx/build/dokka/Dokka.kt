@@ -18,11 +18,14 @@
 // TODO: after DiffAndDocs and Doclava are fully obsoleted and removed, rename this from Dokka to just Docs
 package androidx.build.dokka
 
+import androidx.build.getBuildId
+import androidx.build.getDistributionDirectory
 import androidx.build.java.JavaCompileInputs
 import androidx.build.SupportLibraryExtension
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginConvention
+import org.gradle.api.tasks.bundling.Zip
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.getPlugin
 import org.jetbrains.dokka.gradle.DokkaPlugin
@@ -60,6 +63,15 @@ object Dokka {
             opts.prefix = hiddenPackage
             opts.suppress = true
             docsTask.perPackageOptions.add(opts)
+        }
+
+        project.tasks.create("distDokkaDocs", Zip::class.java) { task ->
+            task.dependsOn(docsTask)
+            task.description = "Generates documentation artifact for pushing to developer.android.com"
+            task.from(docsTask.outputDirectory)
+            task.baseName = "android-support-dokka-docs"
+            task.version = getBuildId()
+            task.destinationDir = project.getDistributionDirectory()
         }
     }
 
