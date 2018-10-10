@@ -103,6 +103,7 @@ class AndroidXPlugin : Plugin<Project> {
         tasks.all { task ->
             if (task.name.startsWith(Release.DIFF_TASK_PREFIX) ||
                     "distDocs" == task.name ||
+                    Dokka.ARCHIVE_TASK_NAME == task.name ||
                     "dejetifyArchive" == task.name ||
                     CheckExternalDependencyLicensesTask.TASK_NAME == task.name) {
                 buildOnServerTask.dependsOn(task)
@@ -147,6 +148,7 @@ class AndroidXPlugin : Plugin<Project> {
         project.createClockLockTasks()
 
         AffectedModuleDetector.configure(gradle, this)
+
     }
 
     private fun Project.configureAndroidCommonOptions(extension: BaseExtension) {
