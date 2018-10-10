@@ -16,6 +16,24 @@
       "revId": "18390450e998bb0ca005b23cc5a726a5fb0d57df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab1cb866_1d4edf77",
+        "filename": "media-widget/src/main/res/layout/media_controller.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-10-10T02:58:38Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "b8c06e49_48733efd",
+      "revId": "18390450e998bb0ca005b23cc5a726a5fb0d57df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
