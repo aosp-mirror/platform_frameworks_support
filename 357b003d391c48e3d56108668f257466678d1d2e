@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7103d3d3_f1fadf4b",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/transform/bytecode/CoreRemapperImpl.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-10-10T17:05:42Z",
+      "side": 1,
+      "message": "I was considering it but then realized how many bugs I could introduce and just decided that it is not worth the hassle.",
+      "parentUuid": "d442487f_82154f3a",
+      "revId": "357b003d391c48e3d56108668f257466678d1d2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3384f60d_e4dd85d5",
         "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/transform/bytecode/CoreRemapperImpl.kt",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "357b003d391c48e3d56108668f257466678d1d2e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e574985c_179b21ef",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/transform/bytecode/CoreRemapperImpl.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-10-10T17:05:42Z",
+      "side": 1,
+      "message": "Nope as we don\u0027t have any rule that would migrate android.support",
+      "parentUuid": "3384f60d_e4dd85d5",
+      "revId": "357b003d391c48e3d56108668f257466678d1d2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
