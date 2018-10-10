@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e548f137_fc19b6ef",
+        "filename": "arch/core-testing/api/2.0.0.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-10T22:02:30Z",
+      "side": 1,
+      "message": "This is going to make it so easy to track down unannotated reference types! Woo!",
+      "revId": "a6299bd81cf898d167260e3325c5d103c830e349",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
