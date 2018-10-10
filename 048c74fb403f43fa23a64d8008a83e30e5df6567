@@ -34,6 +34,24 @@
       "revId": "048c74fb403f43fa23a64d8008a83e30e5df6567",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5105523_a092648b",
+        "filename": "fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-10-10T14:03:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "216129d9_259c8535",
+      "revId": "048c74fb403f43fa23a64d8008a83e30e5df6567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
