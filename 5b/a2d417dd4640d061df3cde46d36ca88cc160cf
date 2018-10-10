@@ -1,0 +1,7 @@
+Code-Review+2: Sergey Vasilinets <sergeyv@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Jeff Gaston <jeffrygaston@google.com>
+Submitted-at: Wed, 10 Oct 2018 16:57:16 +0000
+Reviewed-on: https://android-review.googlesource.com/782314
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
