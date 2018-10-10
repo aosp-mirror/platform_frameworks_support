@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3bdeccd9_7512c57d",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/SelectionBuilderV1Impl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1312644
+      },
+      "writtenOn": "2018-10-10T17:51:21Z",
+      "side": 1,
+      "message": "Don\u0027t you have a super that you can call to add these generic items?\n\nI believe it\u0027s fine now but it may become a burden if you have to add, for example, an \"a11y description\" to all slice types.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 9
+      },
+      "revId": "54c26c5b4430f0f668a41acdf367636df8548b8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
