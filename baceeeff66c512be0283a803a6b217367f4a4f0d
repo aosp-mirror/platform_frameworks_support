@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c83e7c49_6e916765",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-10T17:35:38Z",
+      "side": 1,
+      "message": "maintain a list of newly created ShortcutContainers in the previous loop. And only call save bitmap for those shortcuts, so that you dont end up calling save twice?",
+      "range": {
+        "startLine": 328,
+        "startChar": 9,
+        "endLine": 332,
+        "endChar": 13
+      },
+      "revId": "baceeeff66c512be0283a803a6b217367f4a4f0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
