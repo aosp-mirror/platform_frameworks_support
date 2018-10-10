@@ -16,6 +16,24 @@
       "revId": "048c74fb403f43fa23a64d8008a83e30e5df6567",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "216129d9_259c8535",
+        "filename": "fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-10T00:30:56Z",
+      "side": 1,
+      "message": "We currently use the existence of mWho as a sentinel value in a number of places, so changing that would need to be a bigger change. In this particular case, we still would need to hold onto the mTarget Fragment itself so that we can do the above FragmentManager check (which is only possible once both are attached).",
+      "parentUuid": "af24cb0c_c28d082c",
+      "revId": "048c74fb403f43fa23a64d8008a83e30e5df6567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
