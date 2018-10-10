@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ce83148_d1dab50e",
+        "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-10T16:21:33Z",
+      "side": 1,
+      "message": "I\u0027m not sure how much you care, but this method, the setter, and the clear could avoid a double volatile read by reading to a local first. For the setter you\u0027d do a read, check null, lock, read, check null, new to local, write volatile, and then the put call would have a non-null local. Doesn\u0027t do anything for the races, but just a minor performance improvement.",
+      "revId": "21e380f3c26040dd171cd49e0119bb7c3fe0816f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
