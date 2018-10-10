@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2bd7c3b5_435449ab",
+        "filename": "build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-10T22:25:36Z",
+      "side": 1,
+      "message": "I would prefer not to add anything in here. If this is a singleton task that only goes on the root project you can check `isRoot()` inside the AndroidX plugin and create it there.",
+      "revId": "ff6db67d12a14fbce2a5c0d27b00e8be21e21bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "746e3d34_84525950",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-10T22:25:36Z",
+      "side": 1,
+      "message": "Constant somewhere? Inside `Dokka`?",
+      "revId": "ff6db67d12a14fbce2a5c0d27b00e8be21e21bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69cd887d_3f9fdcfd",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-10T22:25:36Z",
+      "side": 1,
+      "message": "Because this is inside an object it\u0027s effectively static state which we should avoid. Is there any reason you can\u0027t query the task each time you want to interact with it? Or pass the task around as a reference? Without this you\u0027re creating an implicit lifecycle which is going to be extremely easy to break during refactoring.\n\nOkay I understand more now having read more. I would definitely prefer that each of the java/android functions did project.rootProject.tasks.getByName(..) instead of having the static state.",
+      "revId": "ff6db67d12a14fbce2a5c0d27b00e8be21e21bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd0adca8_aee11cf3",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-10T22:25:36Z",
+      "side": 1,
+      "message": "super nit: indent",
+      "revId": "ff6db67d12a14fbce2a5c0d27b00e8be21e21bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f373c9f_f78fd2e4",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/java/JavaCompileInputs.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-10T22:25:36Z",
+      "side": 1,
+      "message": "I don\u0027t quite see why this needs to be open and why its properties need to be lateinit instead of defined in a primary constructor. This doesn\u0027t appear to be a Gradle-managed type (like a task or plugin).",
+      "revId": "ff6db67d12a14fbce2a5c0d27b00e8be21e21bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
