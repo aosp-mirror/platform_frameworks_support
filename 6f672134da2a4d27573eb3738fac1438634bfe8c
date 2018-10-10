@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4de59c56_8d6cdfdd",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1341,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-10-10T14:02:13Z",
+      "side": 1,
+      "message": "Fragments are not from the mRetainedFragments when they have been removed from the FragmentManager. I\u0027m worried about this:\n\nval f \u003d Fragment1()\nf.retainInstance \u003d true\nfm.add(f).commit()\nfm.remove(f).commit()\n\nIn that case, fm\u0027s mRetainedFragments will still have f, even though it shouldn\u0027t.",
+      "revId": "6f672134da2a4d27573eb3738fac1438634bfe8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
