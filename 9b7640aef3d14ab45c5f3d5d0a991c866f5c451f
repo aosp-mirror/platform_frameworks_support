@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "aae8ae66_12834221",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-10T00:26:28Z",
+      "side": 1,
+      "message": "As talked offline, we wont support manifest shortcuts for share targets for now",
+      "parentUuid": "846cb9fb_5acf803b",
+      "range": {
+        "startLine": 158,
+        "startChar": 3,
+        "endLine": 158,
+        "endChar": 37
+      },
+      "revId": "9b7640aef3d14ab45c5f3d5d0a991c866f5c451f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "91aaf298_0553e37f",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 23
@@ -45,6 +69,30 @@
       "revId": "9b7640aef3d14ab45c5f3d5d0a991c866f5c451f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a077eeaa_6e8c294e",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-10T00:26:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91aaf298_0553e37f",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 183,
+        "endChar": 0
+      },
+      "revId": "9b7640aef3d14ab45c5f3d5d0a991c866f5c451f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e5f91a35_bdacfc5e",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-10T00:26:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28c9ade5_ee4a41d5",
+      "range": {
+        "startLine": 263,
+        "startChar": 3,
+        "endLine": 273,
+        "endChar": 5
+      },
+      "revId": "9b7640aef3d14ab45c5f3d5d0a991c866f5c451f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78396458_3d24a10d",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 23
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "419a3ea7_8a780283",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-10T00:26:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78396458_3d24a10d",
+      "range": {
+        "startLine": 328,
+        "startChar": 20,
+        "endLine": 328,
+        "endChar": 47
+      },
+      "revId": "9b7640aef3d14ab45c5f3d5d0a991c866f5c451f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "422912c5_8386cf0c",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 23
@@ -114,6 +210,30 @@
       "revId": "9b7640aef3d14ab45c5f3d5d0a991c866f5c451f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4377dd75_b8b2850a",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-10T00:26:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "422912c5_8386cf0c",
+      "range": {
+        "startLine": 387,
+        "startChar": 7,
+        "endLine": 392,
+        "endChar": 9
+      },
+      "revId": "9b7640aef3d14ab45c5f3d5d0a991c866f5c451f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
