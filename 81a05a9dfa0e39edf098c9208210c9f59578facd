@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3f67b8dd_d1f50907",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaPlayer2Test.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-10T03:11:41Z",
+      "side": 1,
+      "message": "Right, the L199 is a bug and should be removed. (I\u0027ll make a fix.)",
+      "parentUuid": "fe4c6c4e_06e6c7a8",
+      "range": {
+        "startLine": 413,
+        "startChar": 26,
+        "endLine": 413,
+        "endChar": 44
+      },
+      "revId": "81a05a9dfa0e39edf098c9208210c9f59578facd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e70ae044_b04cbba2",
         "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
         "patchSetId": 4
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "I think it makes sense to do something to have the player keep a file descriptor valid. Not sure exactly where this should be though. I\u0027ll make a note to discuss this later, but please let me know if you have any suggestions for changes to make in this CL.",
       "parentUuid": "e70ae044_b04cbba2",
+      "range": {
+        "startLine": 537,
+        "startChar": 7,
+        "endLine": 550,
+        "endChar": 9
+      },
+      "revId": "81a05a9dfa0e39edf098c9208210c9f59578facd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0fe4caf6_bb803e25",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-10T03:11:41Z",
+      "side": 1,
+      "message": "I thought this change might not be needed if we have dup() logic in FileMediaItem2. Let me file a bug to address that. We can remove this class later once this turns out to be not needed.",
+      "parentUuid": "2f2115a2_c383f3fd",
       "range": {
         "startLine": 537,
         "startChar": 7,
