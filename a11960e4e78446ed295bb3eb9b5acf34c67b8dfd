@@ -93,6 +93,24 @@
     },
     {
       "key": {
+        "uuid": "a71fef85_05b6f8ca",
+        "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-10T14:46:09Z",
+      "side": 1,
+      "message": "Yeah, annotation is stale (gonna remove it)",
+      "parentUuid": "f003796d_b204a952",
+      "revId": "a11960e4e78446ed295bb3eb9b5acf34c67b8dfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8b93c88a_87cd8258",
         "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
         "patchSetId": 5
@@ -104,6 +122,24 @@
       "writtenOn": "2018-10-10T14:18:00Z",
       "side": 1,
       "message": "This seems like it should be first in the method to prevent initializing the map and interacting with it when cleared. Or, better yet, throw an exception if you try to put after clear?",
+      "revId": "a11960e4e78446ed295bb3eb9b5acf34c67b8dfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32d4e480_4b79386a",
+        "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-10T14:46:09Z",
+      "side": 1,
+      "message": "Yeah, this is main part. If we want to make viewModelScope thread-safe, than developer should be able to safely access .viewModelScope or be able to check it is safe to access it (exception won\u0027t be thrown).\n\nSo if we\u0027d like to throw exception here once vm is cleared, then we throw then .viewModelScope accessed after onClear, obviously .isCleared() method or any other check won\u0027t help. Instead of throwing we can return null here and make property viewModelScope nullable, but then code become quite weird. \n\nAlternatively (and it is what happens in this version) I support calling .viewModelScope after onClear, but scope is canceled. But this has consequences that you correctly pointed out:\n- we can\u0027t clear the map in clear() (otherwise we\u0027ll return different scopes before and after clear call)",
+      "parentUuid": "8b93c88a_87cd8258",
       "revId": "a11960e4e78446ed295bb3eb9b5acf34c67b8dfd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
