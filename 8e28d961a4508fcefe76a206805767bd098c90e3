@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8eb6c322_1ee2b248",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionBar.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-10T00:15:44Z",
+      "side": 1,
+      "message": "Move this initialization to the declaration, and make mFadeIn final.",
+      "revId": "8e28d961a4508fcefe76a206805767bd098c90e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "031cce86_b3b9d2e4",
+        "filename": "car/core/src/main/java/androidx/car/widget/ActionBar.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-10T00:15:44Z",
+      "side": 1,
+      "message": "Same here",
+      "revId": "8e28d961a4508fcefe76a206805767bd098c90e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
