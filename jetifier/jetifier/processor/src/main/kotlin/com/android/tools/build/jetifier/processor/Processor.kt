@@ -83,6 +83,7 @@ class Processor private constructor(
             reversedMode: Boolean = false,
             rewritingSupportLib: Boolean = false,
             useFallbackIfTypeIsMissing: Boolean = true,
+            allowAmbiguousPackages: Boolean = false,
             dataBindingVersion: String? = null
         ): Processor {
             var newConfig = config
@@ -115,6 +116,7 @@ class Processor private constructor(
                 rewritingSupportLib = rewritingSupportLib,
                 isInReversedMode = reversedMode,
                 useFallbackIfTypeIsMissing = useFallbackIfTypeIsMissing,
+                allowAmbiguousPackages = allowAmbiguousPackages,
                 versions = versionsMap)
             val transformers = if (rewritingSupportLib) {
                 createSLTransformers(context)
