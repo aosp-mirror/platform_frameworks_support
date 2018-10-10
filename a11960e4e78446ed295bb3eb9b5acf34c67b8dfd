@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "48f7d14d_fcf973f8",
+        "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-10T15:23:34Z",
+      "side": 1,
+      "message": "It is mainThreadOnly, but set/get aren\u0027t. \n\nSee my comment for line 161, on why I don\u0027t clear the map here and don\u0027t null out the field. \n\nSo If I can\u0027t clear the map and the field, I think this implementation is ok:\nmBagOfTags can\u0027t go back to null; All preexistent values will receive close(); values added concurrently will receive their close(), because of volatile mCleared \u003d true, either here, either in set method. Do you miss anything?",
+      "parentUuid": "6bbdefe2_740165a7",
+      "revId": "a11960e4e78446ed295bb3eb9b5acf34c67b8dfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "157baecc_eb5c7230",
         "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
         "patchSetId": 5
@@ -59,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "2cb1934e_06be876d",
+        "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-10T15:23:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "157baecc_eb5c7230",
+      "revId": "a11960e4e78446ed295bb3eb9b5acf34c67b8dfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6f3f772_ec7ef5ae",
         "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
         "patchSetId": 5
@@ -73,6 +109,24 @@
       "revId": "a11960e4e78446ed295bb3eb9b5acf34c67b8dfd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99e51db1_f046f9fb",
+        "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-10T15:23:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6f3f772_ec7ef5ae",
+      "revId": "a11960e4e78446ed295bb3eb9b5acf34c67b8dfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -108,6 +162,24 @@
       "revId": "a11960e4e78446ed295bb3eb9b5acf34c67b8dfd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a187e92_165df564",
+        "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-10T15:23:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a71fef85_05b6f8ca",
+      "revId": "a11960e4e78446ed295bb3eb9b5acf34c67b8dfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
