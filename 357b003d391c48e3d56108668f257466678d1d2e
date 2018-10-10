@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "be0659d2_e30648a5",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2018-10-10T18:14:28Z",
+      "side": 1,
+      "message": "What\u0027s the difference between this and allowAmbiguousPackages?",
+      "range": {
+        "startLine": 77,
+        "startChar": 18,
+        "endLine": 77,
+        "endChar": 44
+      },
+      "revId": "357b003d391c48e3d56108668f257466678d1d2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47bde700_9f28d100",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2018-10-10T18:14:28Z",
+      "side": 1,
+      "message": "allowAmbiguousPackages",
+      "range": {
+        "startLine": 78,
+        "startChar": 11,
+        "endLine": 78,
+        "endChar": 69
+      },
+      "revId": "357b003d391c48e3d56108668f257466678d1d2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d442487f_82154f3a",
         "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/transform/bytecode/CoreRemapperImpl.kt",
         "patchSetId": 1
