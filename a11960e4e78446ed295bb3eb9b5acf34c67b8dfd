@@ -25,6 +25,91 @@
     },
     {
       "key": {
+        "uuid": "6bbdefe2_740165a7",
+        "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-10T14:18:00Z",
+      "side": 1,
+      "message": "Should this method be main thread if set/get is?\n\nIf yes, let\u0027s null out the map to free references for early GC.\n\nIf no, we should take the lock, read the map reference into a local, null out the field, and then loop on the local.",
+      "revId": "a11960e4e78446ed295bb3eb9b5acf34c67b8dfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "157baecc_eb5c7230",
+        "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-10T14:18:00Z",
+      "side": 1,
+      "message": "comment method name is wrong.",
+      "revId": "a11960e4e78446ed295bb3eb9b5acf34c67b8dfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6f3f772_ec7ef5ae",
+        "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-10T14:18:00Z",
+      "side": 1,
+      "message": "Need \u003cp\u003e here and next paragraph",
+      "revId": "a11960e4e78446ed295bb3eb9b5acf34c67b8dfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f003796d_b204a952",
+        "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-10T14:18:00Z",
+      "side": 1,
+      "message": "If this method is truly main thread-only then you don\u0027t need a lock or volatile. If not, we should remove the annotation.",
+      "revId": "a11960e4e78446ed295bb3eb9b5acf34c67b8dfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b93c88a_87cd8258",
+        "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-10T14:18:00Z",
+      "side": 1,
+      "message": "This seems like it should be first in the method to prevent initializing the map and interacting with it when cleared. Or, better yet, throw an exception if you try to put after clear?",
+      "revId": "a11960e4e78446ed295bb3eb9b5acf34c67b8dfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a363ea24_bfbb1910",
         "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
         "patchSetId": 5
