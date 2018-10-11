@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1181a3a_ef54aa76",
+        "filename": "room/runtime/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-11T20:10:44Z",
+      "side": 0,
+      "message": "this is technically a breaking API change :/\nlets double check w/ alanv@.",
+      "revId": "88720c6590449e068178eaeb0dff4f2173f56cf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
