@@ -22,6 +22,30 @@
       "revId": "272a19837012dc2dd8b2213a89673b8f3d8bfe23",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cec322d6_2b84afca",
+        "filename": "leanback/src/main/java/androidx/leanback/app/GuidedStepSupportFragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1021,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2018-10-11T19:42:27Z",
+      "side": 1,
+      "message": "It re-apply transition based on fragment\u0027s state/argment which isn\u0027t ready in constructor.",
+      "parentUuid": "cfdc9743_ce7f28ba",
+      "range": {
+        "startLine": 1021,
+        "startChar": 0,
+        "endLine": 1021,
+        "endChar": 39
+      },
+      "revId": "272a19837012dc2dd8b2213a89673b8f3d8bfe23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
