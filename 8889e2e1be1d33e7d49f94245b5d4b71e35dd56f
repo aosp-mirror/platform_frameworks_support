@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be5be22c_cc293cfc",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDeepLink.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-11T12:58:28Z",
+      "side": 1,
+      "message": "Can you please say what kind of pattern you want to achieve and for the which use case?\nso looks like you\u0027ll do: \"\\\\Qfoo.*bar\\\\E\" into \"\\\\Qfoo\\\\E.*\\\\Qbar\\\\E\" but I don\u0027t see why I\u0027d want to do that and you don\u0027t have a test with a star in the path",
+      "revId": "8889e2e1be1d33e7d49f94245b5d4b71e35dd56f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
