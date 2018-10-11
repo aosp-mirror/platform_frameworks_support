@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab9f5524_319d4249",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-11T17:25:52Z",
+      "side": 1,
+      "message": "Hmm, it occurs to me that if a library were given a version having nonzero patch number and also an alpha suffix, such as \"1.1.1-alpha01\", then this could return a filepath like \"1.1.0-alpha01.txt\" ; it seems to me that it\u0027d be good to double-check here that if version.patch is nonzero then version.extra is empty (and probably throw an exception if that\u0027s not the case) - sorry for not noticing this in the previous patchset",
+      "revId": "5e52623c2e27ce8569c11040b80da67d31540fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
