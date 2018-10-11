@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e62b2ac6_d9a0c32d",
+        "filename": "generate_api_diffs.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-11T21:32:17Z",
+      "side": 1,
+      "message": "Is there an advantage to having this as a Python script rather than adding it into the Gradle build (perhaps a new task called generateLocalDiffArchive)?\n\nIn the past I\u0027ve regretted writing Python code for anything that was expected to be used/maintained by multiple people, partially because it\u0027s harder to specify the data types of variables in Python, and partially because it\u0027s another different language for developers to have to be familiar with.\n\nTheoretically if we want the generation of diffs to be tested by Treehugger , I imagine it\u0027d be easier to test it if zipping is a task that can be invoked along with the other tasks",
+      "revId": "25c4dbb559ca4971852f2f08c56b2fc04cf56b08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
