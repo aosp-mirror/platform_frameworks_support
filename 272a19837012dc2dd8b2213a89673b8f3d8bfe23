@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cfdc9743_ce7f28ba",
+        "filename": "leanback/src/main/java/androidx/leanback/app/GuidedStepSupportFragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1021,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2018-10-11T19:39:23Z",
+      "side": 1,
+      "message": "This is called in the constructor as well as here. Double-init?",
+      "range": {
+        "startLine": 1021,
+        "startChar": 0,
+        "endLine": 1021,
+        "endChar": 39
+      },
+      "revId": "272a19837012dc2dd8b2213a89673b8f3d8bfe23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
