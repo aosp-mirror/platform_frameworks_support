@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "353bb211_38f50fec",
+        "filename": "navigation/ui/ktx/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-11T10:30:21Z",
+      "side": 1,
+      "message": "I don\u0027t think we can do anything with it, but it is interesting. Now we have the exact call as an API",
+      "range": {
+        "startLine": 16,
+        "startChar": 314,
+        "endLine": 16,
+        "endChar": 380
+      },
+      "revId": "5fd27fdcff532538fbc99f2932e318f9bd600910",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
