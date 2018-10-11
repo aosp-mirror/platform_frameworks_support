@@ -20,7 +20,7 @@ package androidx.work.impl.constraints;
  * Stores information about network state.
  */
 
-public class NetworkState {
+public final class NetworkState {
 
     private boolean mIsConnected;
     private boolean mIsValidated;

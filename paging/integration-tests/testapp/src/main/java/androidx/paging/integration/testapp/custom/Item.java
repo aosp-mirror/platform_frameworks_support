@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.DiffUtil;
 /**
  * Sample item.
  */
-class Item {
+final class Item {
     public final int id;
     public final String text;
     @SuppressWarnings("WeakerAccess")

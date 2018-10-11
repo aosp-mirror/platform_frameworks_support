@@ -52,7 +52,7 @@ import java.util.UUID;
 @Entity(
         indices = {@Index(value = {"schedule_requested_at"})}
 )
-public class WorkSpec {
+public final class WorkSpec {
     private static final String TAG = Logger.tagWithPrefix("WorkSpec");
     public static final long SCHEDULE_NOT_REQUESTED_YET = -1;
 
@@ -349,7 +349,7 @@ public class WorkSpec {
     /**
      * A POJO containing the ID, state, output, and tags of a WorkSpec.
      */
-    public static class WorkInfoPojo {
+    public static final class WorkInfoPojo {
 
         @ColumnInfo(name = "id")
         public String id;

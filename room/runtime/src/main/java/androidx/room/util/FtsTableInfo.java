@@ -34,7 +34,7 @@ import java.util.Set;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class FtsTableInfo {
+public final class FtsTableInfo {
 
     // A set of valid FTS Options
     private static final String[] FTS_OPTIONS = new String[] {

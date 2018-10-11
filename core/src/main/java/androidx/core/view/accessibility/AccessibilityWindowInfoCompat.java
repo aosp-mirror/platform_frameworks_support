@@ -21,6 +21,8 @@ import static android.os.Build.VERSION.SDK_INT;
 import android.graphics.Rect;
 import android.view.accessibility.AccessibilityWindowInfo;
 
+import androidx.core.util.ObjectsCompat;
+
 /**
  * Helper for accessing {@link android.view.accessibility.AccessibilityWindowInfo}.
  */
@@ -311,7 +313,7 @@ public class AccessibilityWindowInfoCompat {
 
     @Override
     public int hashCode() {
-        return (mInfo == null) ? 0 : mInfo.hashCode();
+        return ObjectsCompat.hashCode(mInfo);
     }
 
     @Override
@@ -319,21 +321,11 @@ public class AccessibilityWindowInfoCompat {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof AccessibilityWindowInfoCompat)) {
             return false;
         }
         AccessibilityWindowInfoCompat other = (AccessibilityWindowInfoCompat) obj;
-        if (mInfo == null) {
-            if (other.mInfo != null) {
-                return false;
-            }
-        } else if (!mInfo.equals(other.mInfo)) {
-            return false;
-        }
-        return true;
+        return ObjectsCompat.equals(mInfo, other.mInfo);
     }
 
     @Override
