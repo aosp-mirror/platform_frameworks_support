@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "30418d13_9c3f09c8",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-11T00:23:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbfcce0f_3187abdf",
+      "range": {
+        "startLine": 50,
+        "startChar": 34,
+        "endLine": 50,
+        "endChar": 50
+      },
+      "revId": "52a67badf31bf64f1c452b35f23682883b262166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f72fe52_8023aef1",
         "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
         "patchSetId": 5
@@ -94,6 +118,54 @@
     },
     {
       "key": {
+        "uuid": "c5668f8d_ed9a9052",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-11T00:23:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb0b1c6b_a4dc2bcd",
+      "range": {
+        "startLine": 115,
+        "startChar": 68,
+        "endLine": 115,
+        "endChar": 81
+      },
+      "revId": "52a67badf31bf64f1c452b35f23682883b262166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e2e727f_9d8d2946",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-11T00:23:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4764a1a8_721f324a",
+      "range": {
+        "startLine": 115,
+        "startChar": 44,
+        "endLine": 115,
+        "endChar": 53
+      },
+      "revId": "52a67badf31bf64f1c452b35f23682883b262166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce95514c_9698b598",
         "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
         "patchSetId": 5
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "2e3c5f36_a1ca085c",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-11T00:23:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce95514c_9698b598",
+      "range": {
+        "startLine": 116,
+        "startChar": 32,
+        "endLine": 116,
+        "endChar": 45
+      },
+      "revId": "52a67badf31bf64f1c452b35f23682883b262166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "076555f8_4dc3644d",
         "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
         "patchSetId": 5
@@ -137,6 +233,30 @@
       "revId": "52a67badf31bf64f1c452b35f23682883b262166",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7a55601_c6e9f816",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-11T00:23:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "076555f8_4dc3644d",
+      "range": {
+        "startLine": 118,
+        "startChar": 50,
+        "endLine": 118,
+        "endChar": 59
+      },
+      "revId": "52a67badf31bf64f1c452b35f23682883b262166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +306,54 @@
     },
     {
       "key": {
+        "uuid": "819f2375_60297619",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-11T00:23:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "552021bf_40a3c0e3",
+      "range": {
+        "startLine": 119,
+        "startChar": 31,
+        "endLine": 119,
+        "endChar": 40
+      },
+      "revId": "52a67badf31bf64f1c452b35f23682883b262166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bb326155_aed01e90",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-11T00:23:14Z",
+      "side": 1,
+      "message": "I cannot link it because DAC automatically tries to navigate to SIngle as if it is on DAC.\nI\u0027ll use {@code } instead.",
+      "parentUuid": "2103f49b_95bdacd7",
+      "range": {
+        "startLine": 119,
+        "startChar": 59,
+        "endLine": 119,
+        "endChar": 65
+      },
+      "revId": "52a67badf31bf64f1c452b35f23682883b262166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26cc6a77_65ca4c8e",
         "filename": "work/workmanager-rxjava2/src/test/java/androidx/work/RxWorkerTest.kt",
         "patchSetId": 5
@@ -197,6 +365,30 @@
       "writtenOn": "2018-10-09T03:47:58Z",
       "side": 1,
       "message": "Nit: the methods here do not match our naming style for tests, but I will fix that up later.",
+      "range": {
+        "startLine": 37,
+        "startChar": 6,
+        "endLine": 37,
+        "endChar": 18
+      },
+      "revId": "52a67badf31bf64f1c452b35f23682883b262166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "731d3678_ddc7d9a8",
+        "filename": "work/workmanager-rxjava2/src/test/java/androidx/work/RxWorkerTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-11T00:23:14Z",
+      "side": 1,
+      "message": "how should i name it ? I saw WorkerWrapperTest so I thought this was ok.\nhappy to change it to whatever you prefer.",
+      "parentUuid": "26cc6a77_65ca4c8e",
       "range": {
         "startLine": 37,
         "startChar": 6,
