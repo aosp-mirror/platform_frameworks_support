@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00483fcc_306a9969",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-11T15:23:52Z",
+      "side": 1,
+      "message": "Recommend putting a blank line between thoughts (in cases where any thought covers more than 1 line) to make it faster to read. Something like:\n\n\n  UpdateApiTask now creates an api file for each release in a minor\n  release (alphas, betas and rcs) instead of having the same\n  final api file called version-major.version-minor.0.txt.\n\n  current.txt will still be updated all the time along with each\n  of versioned txt file as per cl/776005.\n\n  The reason for this is that we would like to preserve all api\n  changes for diff purposes as it would be nice to generate diffs for\n  x.y.z-alpha01-\u003ex.y.z-alpha02 and same for betas with forced\n  releases since we are currently unable to do that because we don\u0027t\n  create separate api files.\n\n  Comparing the api surface will only compare against the last final\n  api release (beta and above) as per cl/776005.",
+      "revId": "d1fc2f931ddeb3dc3c37eafd000bdb0a21c24a27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "481b0b0d_741b97ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-11T15:23:52Z",
+      "side": 1,
+      "message": "To disambiguate where the change is hosted, I would do \u0027aosp/776005\u0027 or use the full link, https://android-review.googlesource.com/c/platform/frameworks/support/+/776005",
+      "range": {
+        "startLine": 20,
+        "startChar": 7,
+        "endLine": 20,
+        "endChar": 16
+      },
+      "revId": "d1fc2f931ddeb3dc3c37eafd000bdb0a21c24a27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e488b574_609530f3",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-11T15:23:52Z",
+      "side": 1,
+      "message": "Hmm, although this format follows the usual style expectations more correctly than the previous content, I liked the previous format better because the checks were all at the same level of indentation.\n\nWhat I would do would be to split each check into its own `if` and use `continue` to break out of each `if` if it fails.\n\nAlternatively it could be rewritten to all be at the same depth by doing something like:\n\n  if ((lastFile \u003d\u003d null || lastVersion!! \u003c version) \u0026\u0026\n    (maxVersionExclusive \u003d\u003d null || version \u003c maxVersionExclusive) \u0026\u0026\n    (!requireFinalApi || version.isFinalApi()) \u0026\u0026\n    (!requireSameMajorRevision || version.major \u003d\u003d maxVersionExclusive?.major) {\n\nAlternatively I\u0027d be supportive of leaving it unchanged or of asking someone else for their opinion",
+      "revId": "d1fc2f931ddeb3dc3c37eafd000bdb0a21c24a27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
