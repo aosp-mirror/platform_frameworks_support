@@ -22,6 +22,30 @@
       "revId": "ffb136b6f5c3262475799595604a6542bb667199",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a2e505c_8b42e1f5",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-11T22:52:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6275df53_07a6f93b",
+      "range": {
+        "startLine": 247,
+        "startChar": 27,
+        "endLine": 247,
+        "endChar": 40
+      },
+      "revId": "ffb136b6f5c3262475799595604a6542bb667199",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
