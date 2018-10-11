@@ -178,6 +178,7 @@ includeProject(":work:work-runtime-ktx", "work/workmanager-ktx")
 includeProject(":work:work-firebase", "work/workmanager-firebase")
 includeProject(":work:work-testing", "work/workmanager-test")
 includeProject(":work:integration-tests:testapp", "work/integration-tests/testapp")
+includeProject(":development:import-maven", "development/importMaven")
 
 /////////////////////////////
 //
