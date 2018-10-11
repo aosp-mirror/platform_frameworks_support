@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "942d8540_cc3e9cdf",
+        "filename": "navigation/common/src/androidTest/java/androidx/navigation/NavDeepLinkTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-11T13:54:49Z",
+      "side": 1,
+      "message": "should we test it against \".../users/parampampam/posts/2\" ? Because \".*/posts/2\" would match without that special replace call for \".*\"",
+      "range": {
+        "startLine": 167,
+        "startChar": 11,
+        "endLine": 167,
+        "endChar": 66
+      },
+      "revId": "cca2984e03b7bbffce93ea89dce0481dafb395f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62331d18_71958bba",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDeepLink.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-11T13:54:49Z",
+      "side": 1,
+      "message": "I think, you can call it once the very end",
+      "range": {
+        "startLine": 56,
+        "startChar": 19,
+        "endLine": 56,
+        "endChar": 48
+      },
+      "revId": "cca2984e03b7bbffce93ea89dce0481dafb395f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
