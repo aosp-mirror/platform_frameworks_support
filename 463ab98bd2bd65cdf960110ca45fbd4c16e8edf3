@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1219a8b9_797fc0ce",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2237,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-10-11T15:39:15Z",
+      "side": 1,
+      "message": "We will be opening suppressLayout as a public method next week, so you may want to wait a bit for this. When we do that, we will be able to call super.suppressLayout() in this method when it is available.",
+      "range": {
+        "startLine": 2237,
+        "startChar": 8,
+        "endLine": 2237,
+        "endChar": 23
+      },
+      "revId": "463ab98bd2bd65cdf960110ca45fbd4c16e8edf3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
