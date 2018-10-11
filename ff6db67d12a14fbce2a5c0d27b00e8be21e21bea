@@ -125,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "72a4cd56_a256fbfd",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-11T19:04:21Z",
+      "side": 1,
+      "message": "I don\u0027t think using the task system is worse than global static lateinit. There should never be a need for static state since we don\u0027t know the lifetime of the classloader. At the least task querying clearly encodes where the specified dependency is supposed to exist in a failure scenario rather than throwing an opaque uninitialized exception leaving you to attempt to infer the semantics of initialization.\n\nGradle guarantees the root project\u0027s initialization will always be first. It\u0027s like the application class: you don\u0027t store static things but it\u0027s always safe to reach out to the application instance to its members (ignoring crazy content providers).\n\nWe can go the lazy route if you want. It\u0027s basically the same in the end. We don\u0027t know initialization order of the child projects, sure, but we do know root will be first.",
+      "parentUuid": "5247495f_38cf2895",
+      "revId": "ff6db67d12a14fbce2a5c0d27b00e8be21e21bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd0adca8_aee11cf3",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
         "patchSetId": 3
