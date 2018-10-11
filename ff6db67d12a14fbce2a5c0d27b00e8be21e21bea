@@ -71,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "5247495f_38cf2895",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-11T15:04:42Z",
+      "side": 1,
+      "message": "I don\u0027t really have that much of an opinion among the above options; whatever Jake and Sergey agree on sounds good to me (so I guess I\u0027ll wait for Jake to respond to Sergey).",
+      "parentUuid": "e38803b4_39d42122",
+      "revId": "ff6db67d12a14fbce2a5c0d27b00e8be21e21bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd0adca8_aee11cf3",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
         "patchSetId": 3
