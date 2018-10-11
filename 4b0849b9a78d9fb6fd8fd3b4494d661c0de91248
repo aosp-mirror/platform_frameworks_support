@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "1fe57ff3_d126b402",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-10-11T15:48:33Z",
+      "side": 1,
+      "message": "+1 to Sergey\u0027s general use executors/listenablefuture/etc modern threading (previous patch set)",
+      "revId": "4b0849b9a78d9fb6fd8fd3b4494d661c0de91248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3eee782f_3bea078c",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-10-11T15:48:33Z",
+      "side": 1,
+      "message": "@GuardedBy",
+      "revId": "4b0849b9a78d9fb6fd8fd3b4494d661c0de91248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e83c21eb_d6de1f64",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 25
@@ -13,6 +47,24 @@
       "writtenOn": "2018-10-11T13:39:44Z",
       "side": 1,
       "message": "this UI thread blocked on background thread doing some work. Even if it is start time only and used only by our apis it is still bad.",
+      "revId": "4b0849b9a78d9fb6fd8fd3b4494d661c0de91248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66bb8306_b5b9b6bc",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-10-11T15:48:33Z",
+      "side": 1,
+      "message": "+1 - we should avoid blocking the UI thread if at all possible.\n\nWhy are we blocking on the UI thread? Can you give me more context for how this class is used? There aren\u0027t any class-level javadocs on any of the files in this CL.\n\nExisting BitmapDrawable decodes will do the work on the main thread. That\u0027s not great, but it works that way because our hands are tied by existing APIs. We should avoid adding more behavior like, and docs should explain why this needs to be blocking before we add more behavior like that.\n\nDo you generally get parallelism out of putting the work in a background thread?\nDoes it ever trigger work synchronously?\nWhat might change to make the await happen more often, and how do we avoid that?",
+      "parentUuid": "e83c21eb_d6de1f64",
       "revId": "4b0849b9a78d9fb6fd8fd3b4494d661c0de91248",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
