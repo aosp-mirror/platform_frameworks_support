@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a2beb5e_b695ea54",
+        "filename": "preference/src/main/java/androidx/preference/ListPreference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-10-11T15:16:13Z",
+      "side": 1,
+      "message": "If the format breaks the tags wouldn\u0027t this always return false even if we don\u0027t have anything to format but have tags in it? Maybe we should add test to verify that and prevent regressions?",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 53
+      },
+      "revId": "e4a2721f2242c7f76b7e066b7d239f7c3ac41a10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
