@@ -142,6 +142,30 @@
       "revId": "e3ea24947a0353769ab465b34a2a3c4a2081c120",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbae3aed_c998c2de",
+        "filename": "webkit/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-10-11T19:48:10Z",
+      "side": 1,
+      "message": "We already have a number of *Compat classes (see the top of this file). I don\u0027t think we can correct those, so I\u0027m left wondering whether consistency with that documentation, or within the module is more desirable?",
+      "parentUuid": "8542d6cd_f5049355",
+      "range": {
+        "startLine": 130,
+        "startChar": 24,
+        "endLine": 130,
+        "endChar": 45
+      },
+      "revId": "e3ea24947a0353769ab465b34a2a3c4a2081c120",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
