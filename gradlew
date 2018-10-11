@@ -182,4 +182,4 @@ else
 fi
 numWorkers=$(( ( ($numCores + 3) / 4 + 3) / 4 * 4))
 
-exec "$JAVACMD" "${JVM_OPTS[@]}" -classpath "$CLASSPATH" org.gradle.wrapper.GradleWrapperMain --max-workers="${numWorkers}" "$@"
+exec "$JAVACMD" "${JVM_OPTS[@]}" -classpath "$CLASSPATH" org.gradle.wrapper.GradleWrapperMain "$@"
