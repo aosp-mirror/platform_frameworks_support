@@ -29,7 +29,7 @@ import org.gradle.kotlin.dsl.withType
 
 const val ERROR_PRONE_TASK = "runErrorProne"
 
-private const val ERROR_PRONE_VERSION = "com.google.errorprone:error_prone_core:2.3.1"
+private const val ERROR_PRONE_VERSION = "com.google.errorprone:error_prone_core:2.3.2"
 private val log = Logging.getLogger("ErrorProneConfiguration")
 
 fun Project.configureErrorProneForJava() {
