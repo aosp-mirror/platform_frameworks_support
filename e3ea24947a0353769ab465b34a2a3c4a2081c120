@@ -46,6 +46,30 @@
       "revId": "e3ea24947a0353769ab465b34a2a3c4a2081c120",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15a33494_9feb5bfe",
+        "filename": "webkit/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-10-11T14:26:37Z",
+      "side": 1,
+      "message": "As Nate says, we intend that this have parity with the framework in Q, I think we\u0027ve committed, at this point, to the Compat suffix for anything that is, or could be, in the framework.",
+      "parentUuid": "59b80b81_18fa64af",
+      "range": {
+        "startLine": 130,
+        "startChar": 24,
+        "endLine": 130,
+        "endChar": 45
+      },
+      "revId": "e3ea24947a0353769ab465b34a2a3c4a2081c120",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
