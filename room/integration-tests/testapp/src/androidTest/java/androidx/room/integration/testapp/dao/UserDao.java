@@ -238,4 +238,14 @@ public abstract class UserDao {
         insert(a);
         insert(b);
     }
+
+    // b/117401230
+    @Query("SELECT * FROM user WHERE "
+            + "name LIKE '%' || 'happy' || '%' "
+            + "OR name LIKE '%' || 'life' || '%' "
+            + "OR name LIKE '%' || 'while' || '%' "
+            + "OR name LIKE '%' || 'playing' || '%' "
+            + "OR name LIKE '%' || 'video' || '%' "
+            + "OR name LIKE '%' || 'games' || '%' ")
+    public abstract List<User> getUserWithCoolNames();
 }
