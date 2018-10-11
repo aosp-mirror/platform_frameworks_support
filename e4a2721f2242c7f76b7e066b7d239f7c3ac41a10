@@ -70,6 +70,30 @@
       "revId": "e4a2721f2242c7f76b7e066b7d239f7c3ac41a10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5024c55c_3a48721d",
+        "filename": "preference/src/main/java/androidx/preference/ListPreference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-10-11T15:42:51Z",
+      "side": 1,
+      "message": "I would actually rather just remove this functionality now - failing that we could remove it after one release - it\u0027s confusing and isn\u0027t really documented. Adding this warning is just a stepping stone as to not completely break any developers who are relying on it for now.",
+      "parentUuid": "39b30f05_895d586f",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 53
+      },
+      "revId": "e4a2721f2242c7f76b7e066b7d239f7c3ac41a10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
