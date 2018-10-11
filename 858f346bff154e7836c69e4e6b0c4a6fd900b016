@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bbabd2f7_9ce14f13",
+        "filename": "media2/src/androidTest/java/androidx/media2/XMediaPlayer_AudioFocusTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-11T06:19:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f610429_1052270b",
+      "range": {
+        "startLine": 257,
+        "startChar": 14,
+        "endLine": 257,
+        "endChar": 15
+      },
+      "revId": "858f346bff154e7836c69e4e6b0c4a6fd900b016",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59aec809_08067cd7",
         "filename": "media2/src/androidTest/java/androidx/media2/XMediaPlayer_AudioFocusTest.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "858f346bff154e7836c69e4e6b0c4a6fd900b016",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4ae725e_665f7ee0",
+        "filename": "media2/src/androidTest/java/androidx/media2/XMediaPlayer_AudioFocusTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-11T06:19:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59aec809_08067cd7",
+      "range": {
+        "startLine": 272,
+        "startChar": 14,
+        "endLine": 272,
+        "endChar": 15
+      },
+      "revId": "858f346bff154e7836c69e4e6b0c4a6fd900b016",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
