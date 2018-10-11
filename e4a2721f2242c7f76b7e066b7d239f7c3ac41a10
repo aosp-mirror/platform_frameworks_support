@@ -22,6 +22,30 @@
       "revId": "e4a2721f2242c7f76b7e066b7d239f7c3ac41a10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ec6b7c4_f1329bcc",
+        "filename": "preference/src/main/java/androidx/preference/ListPreference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-10-11T15:27:56Z",
+      "side": 1,
+      "message": "Not when using contentEquals - this compares each character in the summary to the formatted string. In this case the styled summary will internally be a SpannedString, which stores both the text (plain) and then spans that wrap parts of the text. So this will only be false if the actual plaintext contents are equal.",
+      "parentUuid": "9a2beb5e_b695ea54",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 53
+      },
+      "revId": "e4a2721f2242c7f76b7e066b7d239f7c3ac41a10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
