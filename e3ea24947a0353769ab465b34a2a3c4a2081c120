@@ -70,6 +70,30 @@
       "revId": "e3ea24947a0353769ab465b34a2a3c4a2081c120",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a629346_04616176",
+        "filename": "webkit/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-11T19:32:57Z",
+      "side": 1,
+      "message": "I chatted with alanv@ and he pointed me to go/androidx-api-guidelines which states \"if it\u0027s not a static shim, it shouldn\u0027t be Compat suffixed\"",
+      "parentUuid": "15a33494_9feb5bfe",
+      "range": {
+        "startLine": 130,
+        "startChar": 24,
+        "endLine": 130,
+        "endChar": 45
+      },
+      "revId": "e3ea24947a0353769ab465b34a2a3c4a2081c120",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
