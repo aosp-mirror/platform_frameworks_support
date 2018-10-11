@@ -118,6 +118,30 @@
       "revId": "e4a2721f2242c7f76b7e066b7d239f7c3ac41a10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9095d04c_d0996e8f",
+        "filename": "preference/src/main/java/androidx/preference/ListPreference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-10-11T17:41:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c02cd3e2_b8a118a2",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 53
+      },
+      "revId": "e4a2721f2242c7f76b7e066b7d239f7c3ac41a10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
