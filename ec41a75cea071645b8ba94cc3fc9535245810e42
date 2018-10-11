@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "217ca29f_8939b34a",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-11T16:16:46Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 96,
+        "startChar": 18,
+        "endLine": 96,
+        "endChar": 28
+      },
+      "revId": "ec41a75cea071645b8ba94cc3fc9535245810e42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
