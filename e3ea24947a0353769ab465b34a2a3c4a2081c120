@@ -94,6 +94,30 @@
       "revId": "e3ea24947a0353769ab465b34a2a3c4a2081c120",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c64d50a_b9ec7a7f",
+        "filename": "webkit/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-11T19:42:37Z",
+      "side": 1,
+      "message": "Didn\u0027t know about that link, thanks for the pointer! Although, the guide also mentions Wrapper and Standalone classes; seems like this is a Standalone class?",
+      "parentUuid": "4a629346_04616176",
+      "range": {
+        "startLine": 130,
+        "startChar": 24,
+        "endLine": 130,
+        "endChar": 45
+      },
+      "revId": "e3ea24947a0353769ab465b34a2a3c4a2081c120",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
