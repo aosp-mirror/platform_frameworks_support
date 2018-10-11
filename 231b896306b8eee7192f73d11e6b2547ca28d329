@@ -22,6 +22,30 @@
       "revId": "231b896306b8eee7192f73d11e6b2547ca28d329",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acae5c9e_731c7b70",
+        "filename": "room/runtime/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-10-11T17:41:42Z",
+      "side": 1,
+      "message": "It probably should be implementation. I think users should dep on androidx.collection explicitly if they want to use the Sparse-something classes and not because Room happens to use them.",
+      "parentUuid": "20b394f6_30649c76",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 7
+      },
+      "revId": "231b896306b8eee7192f73d11e6b2547ca28d329",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
