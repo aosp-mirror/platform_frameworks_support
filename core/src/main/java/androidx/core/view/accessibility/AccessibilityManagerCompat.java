@@ -70,7 +70,7 @@ public final class AccessibilityManagerCompat {
                 new AccessibilityStateChangeListenerWrapper(listener));
     }
 
-    private static class AccessibilityStateChangeListenerWrapper
+    private static final class AccessibilityStateChangeListenerWrapper
             implements AccessibilityManager.AccessibilityStateChangeListener {
         AccessibilityStateChangeListener mListener;
 
@@ -193,7 +193,7 @@ public final class AccessibilityManagerCompat {
     }
 
     @RequiresApi(19)
-    private static class TouchExplorationStateChangeListenerWrapper
+    private static final class TouchExplorationStateChangeListenerWrapper
             implements AccessibilityManager.TouchExplorationStateChangeListener {
         final TouchExplorationStateChangeListener mListener;
 

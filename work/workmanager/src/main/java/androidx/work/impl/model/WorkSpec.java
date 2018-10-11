@@ -53,7 +53,7 @@ import java.util.UUID;
 @Entity(
         indices = {@Index(value = {"schedule_requested_at"})}
 )
-public class WorkSpec {
+public final class WorkSpec {
     private static final String TAG = "WorkSpec";
     public static final long SCHEDULE_NOT_REQUESTED_YET = -1;
 
@@ -320,7 +320,7 @@ public class WorkSpec {
     /**
      * A POJO containing the ID and state of a WorkSpec.
      */
-    public static class IdAndState {
+    public static final class IdAndState {
 
         @ColumnInfo(name = "id")
         public String id;
@@ -350,7 +350,7 @@ public class WorkSpec {
     /**
      * A POJO containing the ID, state, output, and tags of a WorkSpec.
      */
-    public static class WorkStatusPojo {
+    public static final class WorkStatusPojo {
 
         @ColumnInfo(name = "id")
         public String id;

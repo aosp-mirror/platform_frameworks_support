@@ -37,6 +37,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.core.R;
 import androidx.core.accessibilityservice.AccessibilityServiceInfoCompat;
+import androidx.core.util.ObjectsCompat;
 import androidx.core.view.ViewCompat;
 
 import java.lang.ref.WeakReference;
@@ -3608,7 +3609,7 @@ public class AccessibilityNodeInfoCompat {
 
     @Override
     public int hashCode() {
-        return (mInfo == null) ? 0 : mInfo.hashCode();
+        return ObjectsCompat.hashCode(mInfo);
     }
 
     @Override
@@ -3616,21 +3617,11 @@ public class AccessibilityNodeInfoCompat {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof AccessibilityNodeInfoCompat)) {
             return false;
         }
         AccessibilityNodeInfoCompat other = (AccessibilityNodeInfoCompat) obj;
-        if (mInfo == null) {
-            if (other.mInfo != null) {
-                return false;
-            }
-        } else if (!mInfo.equals(other.mInfo)) {
-            return false;
-        }
-        return true;
+        return ObjectsCompat.equals(mInfo, other.mInfo);
     }
 
     @Override
