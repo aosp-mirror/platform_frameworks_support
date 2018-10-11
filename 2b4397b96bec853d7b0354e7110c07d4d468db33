@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "007f099f_11e8615e",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-11T13:39:44Z",
+      "side": 1,
+      "message": "SharedPreferencesImpl shouldn\u0027t be taken as example and is a source of perf issues + preferences are memory mapped, if I correctly recall. \n\n+ Chris, who is our perf master to take a look at this, but no synchronous resource loading from the disk should be done.",
+      "parentUuid": "773826e6_5435a922",
+      "revId": "2b4397b96bec853d7b0354e7110c07d4d468db33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4e5db99e_263a44c5",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 21

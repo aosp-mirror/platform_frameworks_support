@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e83c21eb_d6de1f64",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-11T13:39:44Z",
+      "side": 1,
+      "message": "this UI thread blocked on background thread doing some work. Even if it is start time only and used only by our apis it is still bad.",
+      "revId": "4b0849b9a78d9fb6fd8fd3b4494d661c0de91248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfadeef8_b78b18af",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-11T13:39:44Z",
+      "side": 1,
+      "message": "same it is marked as any thread and it means that can be call on the UI thread.",
+      "range": {
+        "startLine": 377,
+        "startChar": 2,
+        "endLine": 378,
+        "endChar": 31
+      },
+      "revId": "4b0849b9a78d9fb6fd8fd3b4494d661c0de91248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
