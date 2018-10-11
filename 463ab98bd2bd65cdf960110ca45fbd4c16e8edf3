@@ -22,6 +22,30 @@
       "revId": "463ab98bd2bd65cdf960110ca45fbd4c16e8edf3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95d1319f_163b5c89",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2237,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-10-11T15:46:49Z",
+      "side": 1,
+      "message": "we don\u0027t actually need to call super in this case. RecyclerView has it\u0027s own more advanced mechanism for suppressing, so its better to use layoutFrozen instead. \nI was keeping in mind that method could be unhidden soon, and tested that this code will work in this case as well. I am not sure about waiting for opening this method as if I understand correctly it means it will only be released in a version of RV targeted the new version of android, which means not really soon, right?",
+      "parentUuid": "1219a8b9_797fc0ce",
+      "range": {
+        "startLine": 2237,
+        "startChar": 8,
+        "endLine": 2237,
+        "endChar": 23
+      },
+      "revId": "463ab98bd2bd65cdf960110ca45fbd4c16e8edf3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
