@@ -46,6 +46,30 @@
       "revId": "e4a2721f2242c7f76b7e066b7d239f7c3ac41a10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39b30f05_895d586f",
+        "filename": "preference/src/main/java/androidx/preference/ListPreference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-10-11T15:32:34Z",
+      "side": 1,
+      "message": "Cool, still maybe worth adding a test?",
+      "parentUuid": "6ec6b7c4_f1329bcc",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 53
+      },
+      "revId": "e4a2721f2242c7f76b7e066b7d239f7c3ac41a10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
