@@ -22,6 +22,30 @@
       "revId": "ec41a75cea071645b8ba94cc3fc9535245810e42",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6e7d6a4_87065d0f",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-11T17:35:47Z",
+      "side": 1,
+      "message": "Done\n\nAlso updated sibling classes",
+      "parentUuid": "217ca29f_8939b34a",
+      "range": {
+        "startLine": 96,
+        "startChar": 18,
+        "endLine": 96,
+        "endChar": 28
+      },
+      "revId": "ec41a75cea071645b8ba94cc3fc9535245810e42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
