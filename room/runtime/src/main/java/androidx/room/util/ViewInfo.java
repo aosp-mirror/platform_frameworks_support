@@ -31,7 +31,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class ViewInfo {
+public final class ViewInfo {
 
     /**
      * The view name

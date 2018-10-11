@@ -627,7 +627,7 @@ class AdapterHelper implements OpReorderer.Callback {
     /**
      * Queued operation to happen when child views are updated.
      */
-    static class UpdateOp {
+    static final class UpdateOp {
 
         static final int ADD = 1;
 

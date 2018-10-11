@@ -36,7 +36,7 @@ import android.support.annotation.RestrictTo;
                         onDelete = ForeignKey.CASCADE,
                         onUpdate = ForeignKey.CASCADE)})
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class SystemIdInfo {
+public final class SystemIdInfo {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "work_spec_id")

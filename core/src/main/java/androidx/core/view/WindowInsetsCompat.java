@@ -21,6 +21,7 @@ import static android.os.Build.VERSION.SDK_INT;
 import android.graphics.Rect;
 import android.view.WindowInsets;
 import androidx.annotation.Nullable;
+import androidx.core.util.ObjectsCompat;
 
 /**
  * Describes a set of insets for window content.
@@ -377,16 +378,16 @@ public class WindowInsetsCompat {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof WindowInsetsCompat)) {
             return false;
         }
         WindowInsetsCompat other = (WindowInsetsCompat) o;
-        return mInsets == null ? other.mInsets == null : mInsets.equals(other.mInsets);
+        return ObjectsCompat.equals(mInsets, other.mInsets);
     }
 
     @Override
     public int hashCode() {
-        return mInsets == null ? 0 : mInsets.hashCode();
+        return ObjectsCompat.hashCode(mInsets);
     }
 
     static WindowInsetsCompat wrap(Object insets) {

@@ -23,7 +23,7 @@ import android.text.TextUtils;
  * Holder class that encapsulates a MediaMetadata and allows the actual metadata to be modified
  * without requiring to rebuild the collections the metadata is in.
  */
-public class MutableMediaMetadata {
+public final class MutableMediaMetadata {
 
     public MediaMetadataCompat metadata;
     public final String trackId;

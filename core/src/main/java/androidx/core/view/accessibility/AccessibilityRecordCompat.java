@@ -23,6 +23,7 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityRecord;
 
 import androidx.annotation.NonNull;
+import androidx.core.util.ObjectsCompat;
 
 import java.util.List;
 
@@ -749,7 +750,7 @@ public class AccessibilityRecordCompat {
     @Deprecated
     @Override
     public int hashCode() {
-        return (mRecord == null) ? 0 : mRecord.hashCode();
+        return ObjectsCompat.hashCode(mRecord);
     }
 
     /**
@@ -761,20 +762,10 @@ public class AccessibilityRecordCompat {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof AccessibilityRecordCompat)) {
             return false;
         }
         AccessibilityRecordCompat other = (AccessibilityRecordCompat) obj;
-        if (mRecord == null) {
-            if (other.mRecord != null) {
-                return false;
-            }
-        } else if (!mRecord.equals(other.mRecord)) {
-            return false;
-        }
-        return true;
+        return ObjectsCompat.equals(mRecord, other.mRecord);
     }
 }

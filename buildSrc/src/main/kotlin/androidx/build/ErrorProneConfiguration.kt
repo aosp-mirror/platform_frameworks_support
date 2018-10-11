@@ -96,6 +96,13 @@ private fun JavaCompile.configureWithErrorProne(toolChain: ErrorProneToolChain) 
             "-Xep:StringSplitter:ERROR",
             "-Xep:ReferenceEquality:ERROR",
             "-Xep:AssertionFailureIgnored:ERROR",
+            "-Xep:EqualsBrokenForNull:ERROR",
+            "-Xep:EqualsGetClass:ERROR",
+            "-Xep:EqualsUnsafeCast:ERROR",
+            "-Xep:EqualsUsingHashCode:ERROR",
+            "-Xep:InconsistentHashCode:ERROR",
+            "-Xep:ObjectsHashCodePrimitive:ERROR",
+            "-Xep:ToStringReturnsNull:ERROR",
 
             // Nullaway
             "-XepIgnoreUnknownCheckNames", // https://github.com/uber/NullAway/issues/25

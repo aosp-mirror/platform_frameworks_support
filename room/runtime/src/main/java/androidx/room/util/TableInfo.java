@@ -50,7 +50,7 @@ import java.util.TreeMap;
 @SuppressWarnings({"WeakerAccess", "unused", "TryFinallyCanBeTryWithResources",
         "SimplifiableIfStatement"})
 // if you change this class, you must change TableInfoWriter.kt
-public class TableInfo {
+public final class TableInfo {
     /**
      * The table name.
      */
@@ -307,7 +307,7 @@ public class TableInfo {
      * Holds the information about a database column.
      */
     @SuppressWarnings("WeakerAccess")
-    public static class Column {
+    public static final class Column {
         /**
          * The column name.
          */
@@ -439,7 +439,7 @@ public class TableInfo {
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    public static class ForeignKey {
+    public static final class ForeignKey {
         @NonNull
         public final String referenceTable;
         @NonNull
@@ -535,7 +535,7 @@ public class TableInfo {
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    public static class Index {
+    public static final class Index {
         // should match the value in Index.kt
         public static final String DEFAULT_PREFIX = "index_";
         public final String name;

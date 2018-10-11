@@ -24,7 +24,7 @@ import androidx.room.PrimaryKey;
  * Product.
  */
 @Entity
-public class Product {
+public final class Product {
 
     @PrimaryKey
     private int mId;

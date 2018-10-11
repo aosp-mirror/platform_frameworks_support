@@ -25,7 +25,7 @@ import androidx.room.PrimaryKey;
  * Sample entity
  */
 @Entity
-public class Customer {
+public final class Customer {
 
     @PrimaryKey(autoGenerate = true)
     private int mId;

@@ -21,7 +21,7 @@ import android.os.Parcelable;
  * PhotoItem.
  */
 @SuppressLint("BanParcelableUsage")
-public class PhotoItem implements Parcelable {
+public final class PhotoItem implements Parcelable {
     private int mId;
     private String mTitle;
     private String mContent;
