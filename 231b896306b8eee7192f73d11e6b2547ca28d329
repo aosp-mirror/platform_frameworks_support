@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20b394f6_30649c76",
+        "filename": "room/runtime/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-11T17:26:06Z",
+      "side": 1,
+      "message": "I think it is actually implementation",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 7
+      },
+      "revId": "231b896306b8eee7192f73d11e6b2547ca28d329",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
