@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "e38803b4_39d42122",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-11T11:25:51Z",
+      "side": 1,
+      "message": "project.rootProject.tasks.getByName(...) has all the same issues as lateinit var and has even more implicit lifecycle in my opinion. \n\nWhat do you think if we have function on the project like:\nproject.rootProjectExtensions().dokka\nrootProjectExtensions would go to rootProject and take a property on it that has all additional setup that we do on the root project, this property will be initialized during root project configuration and dokka will have simply \"val docsTask\" and theoretically lifecycle will be quite easy: this property is the first that initialized in root project.",
+      "parentUuid": "69cd887d_3f9fdcfd",
+      "revId": "ff6db67d12a14fbce2a5c0d27b00e8be21e21bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd0adca8_aee11cf3",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
         "patchSetId": 3
