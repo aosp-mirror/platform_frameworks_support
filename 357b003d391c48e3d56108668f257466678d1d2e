@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "78c77a40_a67cd385",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-10-11T13:39:10Z",
+      "side": 1,
+      "message": "Good question. If this would be false then any type that is not in the types map (genereated by the pre-processor) will cause crash. So any \"unknown type\" would crash us. That is way too much as for instance our preprocessor is not even able to pre-process all we have and there can be types introduced by developers into our package. The workaround I have introduced now does not prevent using regular expression rules it just forbids using them on ambiguous packages in strings. It actually does not even make sense to have this ever set to false will re-evaluate if this flag should be removed.",
+      "parentUuid": "be0659d2_e30648a5",
+      "range": {
+        "startLine": 77,
+        "startChar": 18,
+        "endLine": 77,
+        "endChar": 44
+      },
+      "revId": "357b003d391c48e3d56108668f257466678d1d2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47bde700_9f28d100",
         "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "357b003d391c48e3d56108668f257466678d1d2e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ad136d1_50159441",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-10-11T13:39:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47bde700_9f28d100",
+      "range": {
+        "startLine": 78,
+        "startChar": 11,
+        "endLine": 78,
+        "endChar": 69
+      },
+      "revId": "357b003d391c48e3d56108668f257466678d1d2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
