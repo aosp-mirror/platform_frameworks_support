@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "56c03f30_76b6b686",
+        "filename": "build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-11T18:43:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bd7c3b5_435449ab",
+      "revId": "ff6db67d12a14fbce2a5c0d27b00e8be21e21bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "746e3d34_84525950",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "ff6db67d12a14fbce2a5c0d27b00e8be21e21bea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dec4e0f_fb6d69f9",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-11T18:43:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "746e3d34_84525950",
+      "revId": "ff6db67d12a14fbce2a5c0d27b00e8be21e21bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -106,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "8e39a389_2c895a2b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-11T18:43:29Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "cd0adca8_aee11cf3",
+      "revId": "ff6db67d12a14fbce2a5c0d27b00e8be21e21bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f373c9f_f78fd2e4",
         "filename": "buildSrc/src/main/kotlin/androidx/build/java/JavaCompileInputs.kt",
         "patchSetId": 3
@@ -120,6 +174,24 @@
       "revId": "ff6db67d12a14fbce2a5c0d27b00e8be21e21bea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c740116_192fce9f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/java/JavaCompileInputs.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-11T18:43:29Z",
+      "side": 1,
+      "message": "Thanks. Done.",
+      "parentUuid": "3f373c9f_f78fd2e4",
+      "revId": "ff6db67d12a14fbce2a5c0d27b00e8be21e21bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
