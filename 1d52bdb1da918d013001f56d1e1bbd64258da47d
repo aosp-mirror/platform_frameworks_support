@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e46fdceb_c2eba9d7",
+        "filename": "work/workmanager/src/main/java/androidx/work/Constraints.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-12T18:28:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a103442_3ab45552",
+      "range": {
+        "startLine": 85,
+        "startChar": 8,
+        "endLine": 85,
+        "endChar": 12
+      },
+      "revId": "1d52bdb1da918d013001f56d1e1bbd64258da47d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "732b95ed_afe0df43",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobInfoConverter.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c068b4ad_81d50bb5",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobInfoConverter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-12T18:28:22Z",
+      "side": 1,
+      "message": "I did this to make the IDE happy. I removed it now.",
+      "parentUuid": "732b95ed_afe0df43",
+      "range": {
+        "startLine": 106,
+        "startChar": 12,
+        "endLine": 106,
+        "endChar": 45
+      },
+      "revId": "1d52bdb1da918d013001f56d1e1bbd64258da47d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa4bc326_5510b5ce",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/model/WorkTypeConverters.java",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "1d52bdb1da918d013001f56d1e1bbd64258da47d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60a6356b_b9295831",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/model/WorkTypeConverters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-12T18:28:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa4bc326_5510b5ce",
+      "range": {
+        "startLine": 257,
+        "startChar": 74,
+        "endLine": 257,
+        "endChar": 93
+      },
+      "revId": "1d52bdb1da918d013001f56d1e1bbd64258da47d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
