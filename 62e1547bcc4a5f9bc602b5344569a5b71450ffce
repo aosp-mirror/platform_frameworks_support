@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd9ba29c_1b5db901",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-12T23:54:41Z",
+      "side": 1,
+      "message": "It would be nice here to create a `SingleObserver` which will give you both of these events as well as the `Disposable` in callbacks. Currently you are causing an extra allocation to wrap these two (non-)lambdas allocations which itself is also an AtomicReference that has to do a CAS in order to handle the Disposable so that it can synchronously return you a Disposable instance. Not to mention it turns these two classes which need loaded into one.\n\nAnd if you\u0027re going to create a `SingleObserver`, why not make it a named class that also implements the `Runnable` that\u0027s used for the future cancelation callback. And like above, it\u0027s now one less class that needs loaded.\n\nThe second part is optional. One could argue it\u0027s too much optimization. Since Rx pipelines are generally more allocation heavy, you learn to code golf this stuff into as few classes and instances as possible.",
+      "revId": "62e1547bcc4a5f9bc602b5344569a5b71450ffce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
