@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "93554a65_0da17dfd",
+        "filename": "work/workmanager-test/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-12T23:34:34Z",
+      "side": 1,
+      "message": "This is in the testing artifact (which isn\u0027t reflected in this CL and you need to update it, Rahul).  It\u0027s provided only for synchronous enqueuing, etc.\n\nI\u0027m fine providing a getInstance on it though.  And now that we have the ListenableFuture APIs, it\u0027s usefulness is marginal.",
+      "parentUuid": "05ae24ae_4f94bbe3",
+      "revId": "2e3d563838fc4d6ea7ee4e4fc2a7226f70e45f8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "03428db2_ef72a4d9",
         "filename": "work/workmanager-test/api/current.txt",
         "patchSetId": 5
@@ -98,6 +116,24 @@
       "writtenOn": "2018-10-12T23:21:00Z",
       "side": 1,
       "message": "equals/hashCode? would you ever need to compare to see if two instances were equals? Or use in a set or keys in a map?",
+      "revId": "2e3d563838fc4d6ea7ee4e4fc2a7226f70e45f8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8681aa90_9fbc5e8c",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-12T23:34:34Z",
+      "side": 1,
+      "message": "We need to compare if two instances are equal when we are updating a LiveData. :-/",
+      "parentUuid": "c5aab28f_a8d1218a",
       "revId": "2e3d563838fc4d6ea7ee4e4fc2a7226f70e45f8c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
