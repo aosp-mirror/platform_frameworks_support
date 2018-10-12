@@ -262,7 +262,7 @@ public class WorkTypeConverters {
         try {
             objectOutputStream = new ObjectOutputStream(outputStream);
             objectOutputStream.writeInt(triggers.size());
-            for (ContentUriTriggers.Trigger trigger : triggers) {
+            for (ContentUriTriggers.Trigger trigger : triggers.getTriggers()) {
                 objectOutputStream.writeUTF(trigger.getUri().toString());
                 objectOutputStream.writeBoolean(trigger.shouldTriggerForDescendants());
             }
