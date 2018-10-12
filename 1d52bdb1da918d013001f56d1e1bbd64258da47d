@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a103442_3ab45552",
+        "filename": "work/workmanager/src/main/java/androidx/work/Constraints.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-12T18:07:12Z",
+      "side": 1,
+      "message": "For all of these, can you please put a comment saying \"Needed by Room\"?",
+      "range": {
+        "startLine": 85,
+        "startChar": 8,
+        "endLine": 85,
+        "endChar": 12
+      },
+      "revId": "1d52bdb1da918d013001f56d1e1bbd64258da47d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "732b95ed_afe0df43",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobInfoConverter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-12T18:07:12Z",
+      "side": 1,
+      "message": "It won\u0027t be null; you already called hasContentUriTriggers.",
+      "range": {
+        "startLine": 106,
+        "startChar": 12,
+        "endLine": 106,
+        "endChar": 45
+      },
+      "revId": "1d52bdb1da918d013001f56d1e1bbd64258da47d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa4bc326_5510b5ce",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/model/WorkTypeConverters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-12T18:07:12Z",
+      "side": 1,
+      "message": "Can you check if this comment is still valid?  (Also, update ForegroundProcessor to Processor.)",
+      "range": {
+        "startLine": 257,
+        "startChar": 74,
+        "endLine": 257,
+        "endChar": 93
+      },
+      "revId": "1d52bdb1da918d013001f56d1e1bbd64258da47d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
