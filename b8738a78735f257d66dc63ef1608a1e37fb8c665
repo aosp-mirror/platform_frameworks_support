@@ -290,6 +290,30 @@
     },
     {
       "key": {
+        "uuid": "89527d23_b8cc8432",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-12T21:34:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a10228b_5aaafe58",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 68
+      },
+      "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72c13822_a2814a34",
         "filename": "work/workmanager/api/current.txt",
         "patchSetId": 4
