@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7c347eae_82674ad0",
+        "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaControlView2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-10-12T07:28:08Z",
+      "side": 1,
+      "message": "inside each test case.",
+      "parentUuid": "386a41d9_c5582916",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 66
+      },
+      "revId": "e3687df34dbb4c3db8f0921b3b51d905e93374ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3c980750_e37365c6",
         "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaControlView2Test.java",
         "patchSetId": 3
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "I\u0027m not very familiar with using mockito, but didn\u0027t you say there was a concern with using mockito?\n\nI don\u0027t have a strong opinion on this, so please let me know if you think that would work better.",
       "parentUuid": "29fbea56_a12af154",
+      "range": {
+        "startLine": 405,
+        "startChar": 0,
+        "endLine": 405,
+        "endChar": 70
+      },
+      "revId": "e3687df34dbb4c3db8f0921b3b51d905e93374ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50b650d5_2b8668dd",
+        "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaControlView2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-10-12T07:28:08Z",
+      "side": 1,
+      "message": "The point here is this pattern should wait until it elapses the given wait time, which is quite inefficient. (14 sec in total.)\n\nFor mockito - Yes, I did say so before, but now it seems not happen. (Maybe old mockito version had some problem on handling instance class of mocking callback parameter.)\n\nIf you can resolve this issue without mockito, it is also good.",
+      "parentUuid": "0684524a_b68cf783",
       "range": {
         "startLine": 405,
         "startChar": 0,
