@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "386a41d9_c5582916",
+        "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaControlView2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-12T05:48:39Z",
+      "side": 1,
+      "message": "Do you mean not define these as variables or define them inside each test case?",
+      "parentUuid": "40e751cf_e03c0fbf",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 66
+      },
+      "revId": "e3687df34dbb4c3db8f0921b3b51d905e93374ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3c980750_e37365c6",
         "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaControlView2Test.java",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "155a57a2_648ba5ca",
+        "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaControlView2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-12T05:48:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c980750_e37365c6",
+      "range": {
+        "startLine": 286,
+        "startChar": 32,
+        "endLine": 286,
+        "endChar": 48
+      },
+      "revId": "e3687df34dbb4c3db8f0921b3b51d905e93374ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "29fbea56_a12af154",
         "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaControlView2Test.java",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2018-10-11T08:23:56Z",
       "side": 1,
       "message": "FYI\n\nThis \u0027assertFalse(...await(...))\u0027 pattern is used in a few places. It looks inefficient since it makes testing time longer. It would be great if we can reduce the testing time. \n(Now I think mockito is better in this sense.)\n\nWhat do you think?",
+      "range": {
+        "startLine": 405,
+        "startChar": 0,
+        "endLine": 405,
+        "endChar": 70
+      },
+      "revId": "e3687df34dbb4c3db8f0921b3b51d905e93374ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0684524a_b68cf783",
+        "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaControlView2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-12T05:48:39Z",
+      "side": 1,
+      "message": "I\u0027m not very familiar with using mockito, but didn\u0027t you say there was a concern with using mockito?\n\nI don\u0027t have a strong opinion on this, so please let me know if you think that would work better.",
+      "parentUuid": "29fbea56_a12af154",
       "range": {
         "startLine": 405,
         "startChar": 0,
