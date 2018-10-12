@@ -46,6 +46,30 @@
       "revId": "630b966ec8e8b8d3970fc0bbd8fe0319af6dfccd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe5c8391_3e74ba1d",
+        "filename": "webkit/src/main/java/androidx/webkit/ServiceWorkerClientCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060227
+      },
+      "writtenOn": "2018-10-12T21:13:00Z",
+      "side": 1,
+      "message": "Ah, my apologies! I saw the doc problem and couldn\u0027t figure out what was wrong (I guess because you\u0027d already fixed it); I added a close \u003c/p\u003e and it seemed to make the problem go away.\n\nI\u0027ll revert this change, watch for a new CL.",
+      "parentUuid": "cf857c5e_e2da79c0",
+      "range": {
+        "startLine": 41,
+        "startChar": 86,
+        "endLine": 41,
+        "endChar": 90
+      },
+      "revId": "630b966ec8e8b8d3970fc0bbd8fe0319af6dfccd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
