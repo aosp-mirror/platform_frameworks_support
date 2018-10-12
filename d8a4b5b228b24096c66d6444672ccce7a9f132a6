@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0a47f97_e115878b",
+        "filename": "media/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-12T07:19:10Z",
+      "side": 1,
+      "message": "I just ran ./gradlew updateApi, but the result contains these unexpected changes.\n\nIt seems that previous API changes of media module (listed as below) were not reflected in current.txt.\nhttps://googleplex-android-review.git.corp.google.com/c/platform/frameworks/support/+/4473373/\nhttps://android-review.git.corp.google.com/c/platform/frameworks/support/+/743744\n\nI think we need to manually update the 1.0.0.txt here:\nhttps://cs.corp.google.com/aosp-androidx/media/api/?q\u003dmedia/api\u0026sq\u003dpackage:android\u0026dr",
+      "range": {
+        "startLine": 526,
+        "startChar": 0,
+        "endLine": 526,
+        "endChar": 98
+      },
+      "revId": "d8a4b5b228b24096c66d6444672ccce7a9f132a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
