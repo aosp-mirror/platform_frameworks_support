@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "1902104e_48051eb3",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-12T17:37:12Z",
+      "side": 1,
+      "message": "I\u0027ll defer to API council\u0027s feedback if they feel strongly about it.  I think \"WorkManagerConfiguration\" is really long and repetitive.  I see your point, but I think there are obvious counter-examples, even within arch: https://developer.android.com/reference/android/arch/persistence/db/SupportSQLiteOpenHelper.Configuration",
+      "parentUuid": "01c93749_2067536b",
+      "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e735eb62_64ca25b5",
         "filename": "work/workmanager/api/current.txt",
         "patchSetId": 4
