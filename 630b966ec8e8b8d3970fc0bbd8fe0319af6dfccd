@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "002539e1_40f5136b",
+        "filename": "webkit/src/main/java/androidx/webkit/ServiceWorkerClientCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-12T20:21:56Z",
+      "side": 1,
+      "message": "I believe this is a violation of http://go/android-api-guidelines:\n\n\u003e Line breaks should use an explicit \u003cp\u003e tag. Do not add a closing \u003c/p\u003e tag.\n\nAm I mistaken, or was there a reason I\u0027m not aware of for why this was necessary?",
+      "range": {
+        "startLine": 41,
+        "startChar": 86,
+        "endLine": 41,
+        "endChar": 90
+      },
+      "revId": "630b966ec8e8b8d3970fc0bbd8fe0319af6dfccd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
