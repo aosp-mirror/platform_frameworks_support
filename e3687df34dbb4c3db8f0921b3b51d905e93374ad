@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "e4ed9769_30d253e3",
+        "filename": "media-widget/src/androidTest/java/androidx/media/widget/MediaControlView2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-12T12:26:55Z",
+      "side": 1,
+      "message": "Thanks for pointing this out...\nI removed testPlayHttpSchemeVideo() because it is an unnecessary test for now. For devices \u003c P, I will check again if the test is necessary.\n\nAlso created two separate latches for the tests...\nReduced entire test (MediaControlView2Test) time from 52 seconds to just 14!",
+      "parentUuid": "50b650d5_2b8668dd",
+      "range": {
+        "startLine": 405,
+        "startChar": 0,
+        "endLine": 405,
+        "endChar": 70
+      },
+      "revId": "e3687df34dbb4c3db8f0921b3b51d905e93374ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f30dbeea_ef43e6bd",
         "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
         "patchSetId": 3
