@@ -54,7 +54,7 @@ class RectTest {
     }
 
     @Test fun unionAsAndInt() {
-        val (l, t, r, b) = Rect(0, 0, 4, 4) and Rect(-1, -1, 6, 6)
+        val (l, t, r, b) = Rect(0, 0, 4, 4) or Rect(-1, -1, 6, 6)
         assertEquals(-1, l)
         assertEquals(-1, t)
         assertEquals(6, r)
@@ -70,7 +70,7 @@ class RectTest {
     }
 
     @Test fun unionAsAndFloat() {
-        val (l, t, r, b) = RectF(0.0f, 0.0f, 4.0f, 4.0f) and RectF(-1.0f, -1.0f, 6.0f, 6.0f)
+        val (l, t, r, b) = RectF(0.0f, 0.0f, 4.0f, 4.0f) or RectF(-1.0f, -1.0f, 6.0f, 6.0f)
         assertEquals(-1.0f, l)
         assertEquals(-1.0f, t)
         assertEquals(6.0f, r)
@@ -88,7 +88,7 @@ class RectTest {
     }
 
     @Test fun intersectionAsOrInt() {
-        val (l, t, r, b) = Rect(0, 0, 4, 4) or Rect(2, 2, 6, 6)
+        val (l, t, r, b) = Rect(0, 0, 4, 4) and Rect(2, 2, 6, 6)
         assertEquals(2, l)
         assertEquals(2, t)
         assertEquals(4, r)
@@ -96,7 +96,7 @@ class RectTest {
     }
 
     @Test fun intersectionAsOrFloat() {
-        val (l, t, r, b) = RectF(0.0f, 0.0f, 4.0f, 4.0f) or RectF(2.0f, 2.0f, 6.0f, 6.0f)
+        val (l, t, r, b) = RectF(0.0f, 0.0f, 4.0f, 4.0f) and RectF(2.0f, 2.0f, 6.0f, 6.0f)
         assertEquals(2.0f, l)
         assertEquals(2.0f, t)
         assertEquals(4.0f, r)
@@ -105,13 +105,13 @@ class RectTest {
 
     @Test fun xorInt() {
         val r = Rect(0, 0, 4, 4) xor Rect(2, 2, 6, 6)
-        assertEquals(Rect(0, 0, 4, 4) and Rect(2, 2, 6, 6), r.bounds)
+        assertEquals(Rect(0, 0, 4, 4) or Rect(2, 2, 6, 6), r.bounds)
         assertFalse(r.contains(3, 3))
     }
 
     @Test fun xorFloat() {
         val r = RectF(0.0f, 0.0f, 4.0f, 4.0f) xor RectF(2.0f, 2.0f, 6.0f, 6.0f)
-        assertEquals(Rect(0, 0, 4, 4) and Rect(2, 2, 6, 6), r.bounds)
+        assertEquals(Rect(0, 0, 4, 4) or Rect(2, 2, 6, 6), r.bounds)
         assertFalse(r.contains(3, 3))
     }
 
