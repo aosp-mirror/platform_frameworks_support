@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2df124cf_518c962d",
+        "filename": "media/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-12T08:22:33Z",
+      "side": 1,
+      "message": "Both 1.0.0.txt and current.txt should have the \"implements androidx.versionedparcelable.VersionedParcelable\", since we can find it in d.android.com.\nHowever, the existing 1.0.0.txt and current.txt had an error. Uploaded that CL as a parent of this CL.",
+      "parentUuid": "2d319278_8b4b0acb",
+      "range": {
+        "startLine": 526,
+        "startChar": 0,
+        "endLine": 526,
+        "endChar": 98
+      },
+      "revId": "d8a4b5b228b24096c66d6444672ccce7a9f132a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3baee011_36b61539",
         "filename": "media/build.gradle",
         "patchSetId": 1
@@ -63,6 +87,24 @@
       "revId": "d8a4b5b228b24096c66d6444672ccce7a9f132a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e68d2acb_b84fa840",
+        "filename": "media/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-12T08:22:33Z",
+      "side": 1,
+      "message": "In order to change API, the media module should have higher version than 1.0.0.",
+      "parentUuid": "3baee011_36b61539",
+      "revId": "d8a4b5b228b24096c66d6444672ccce7a9f132a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
