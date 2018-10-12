@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "04fd4ef5_2b05c9a2",
+        "filename": "work/workmanager-test/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-12T17:32:01Z",
+      "side": 1,
+      "message": "Resolving.",
+      "parentUuid": "1c36f23c_e840ae5e",
+      "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c485ea7_1e63b97f",
         "filename": "work/workmanager/api/current.txt",
         "patchSetId": 4
@@ -274,6 +292,30 @@
     },
     {
       "key": {
+        "uuid": "e3ac68b7_eb2ae07d",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-12T17:32:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc0230b6_bebcc0d5",
+      "range": {
+        "startLine": 281,
+        "startChar": 2,
+        "endLine": 281,
+        "endChar": 53
+      },
+      "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "089ea46c_c5f766c8",
         "filename": "work/workmanager/api/current.txt",
         "patchSetId": 4
@@ -297,6 +339,30 @@
     },
     {
       "key": {
+        "uuid": "75eee99d_a16bae6d",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-12T17:32:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "089ea46c_c5f766c8",
+      "range": {
+        "startLine": 283,
+        "startChar": 4,
+        "endLine": 283,
+        "endChar": 57
+      },
+      "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b15dd598_5ca09988",
         "filename": "work/workmanager/api/current.txt",
         "patchSetId": 4
@@ -317,6 +383,30 @@
       "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71bd91b7_1eabc4d0",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-12T17:32:01Z",
+      "side": 1,
+      "message": "This wasn\u0027t meant to be exposed.  I\u0027ll hide it.",
+      "parentUuid": "b15dd598_5ca09988",
+      "range": {
+        "startLine": 289,
+        "startChar": 3,
+        "endLine": 289,
+        "endChar": 162
+      },
+      "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
