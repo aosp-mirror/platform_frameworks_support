@@ -34,6 +34,24 @@
       "revId": "f03f6f87431dcbb8df40b2f391f29907e2972591",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c09daba8_d7f2869e",
+        "filename": "core/ktx/src/main/java/androidx/core/graphics/Color.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1001146
+      },
+      "writtenOn": "2018-10-12T17:47:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1904633a_b676ebfc",
+      "revId": "f03f6f87431dcbb8df40b2f391f29907e2972591",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
