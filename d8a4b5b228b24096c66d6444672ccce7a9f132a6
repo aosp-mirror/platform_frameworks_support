@@ -105,6 +105,24 @@
       "revId": "d8a4b5b228b24096c66d6444672ccce7a9f132a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33a44e85_b41f772b",
+        "filename": "media/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-10-12T08:47:10Z",
+      "side": 1,
+      "message": "Got it. Nice finding.",
+      "parentUuid": "e68d2acb_b84fa840",
+      "revId": "d8a4b5b228b24096c66d6444672ccce7a9f132a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
