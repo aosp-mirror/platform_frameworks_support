@@ -35,6 +35,24 @@
       "revId": "8889e2e1be1d33e7d49f94245b5d4b71e35dd56f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "884e66ba_6063943b",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDeepLink.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-12T10:02:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f0a6481c_5e375657",
+      "revId": "8889e2e1be1d33e7d49f94245b5d4b71e35dd56f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
