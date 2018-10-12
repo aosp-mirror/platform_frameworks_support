@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1c36f23c_e840ae5e",
+        "filename": "work/workmanager-test/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-12T16:53:36Z",
+      "side": 1,
+      "message": "Yup, I\u0027ll do this in a separate CL and we can rebase and re-generate current.txt in this CL.",
+      "parentUuid": "9ae5c410_31c34b4b",
+      "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4c485ea7_1e63b97f",
         "filename": "work/workmanager/api/current.txt",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2018-10-12T16:28:25Z",
       "side": 1,
       "message": "Configuration is very generic, for example it will clash with android.content.res.Configuration inside of android. I would recommend to rename it to something like WorkManagerConfiguration",
+      "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "666d9881_af6f50d5",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-12T16:53:36Z",
+      "side": 1,
+      "message": "I disagree; we would get into this with nearly every class then.  This is properly scoped; I don\u0027t think anyone will be using res.Configuration and work.Configuration in the same section of code.",
+      "parentUuid": "4c485ea7_1e63b97f",
       "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
