@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09f1c34a_56c20c5d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-10-12T13:02:59Z",
+      "side": 1,
+      "message": "typo: Follow-up",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "ec927e9695699a701f1f7f8f88d6a2257f63d0e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "507befa2_60ad830d",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/SetItemWhileScrollInProgressTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-10-12T13:02:59Z",
+      "side": 1,
+      "message": "nit: numscrolls -\u003e seqLen, so it\u0027s context-free",
+      "range": {
+        "startLine": 393,
+        "startChar": 55,
+        "endLine": 393,
+        "endChar": 65
+      },
+      "revId": "ec927e9695699a701f1f7f8f88d6a2257f63d0e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f75c07ff_80708b36",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-10-12T13:02:59Z",
+      "side": 1,
+      "message": "nit: formal tone",
+      "revId": "ec927e9695699a701f1f7f8f88d6a2257f63d0e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
