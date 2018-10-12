@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "184220f4_43b5259a",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatCheckBoxTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1034928
+      },
+      "writtenOn": "2018-10-12T15:56:30Z",
+      "side": 1,
+      "message": "My bad: I introduced these Spy classes as I didn\u0027t know that this compat method existed.",
+      "range": {
+        "startLine": 73,
+        "startChar": 32,
+        "endLine": 73,
+        "endChar": 52
+      },
+      "revId": "9d6e0c92631526b7335ef4a5c94a0129df77135c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
