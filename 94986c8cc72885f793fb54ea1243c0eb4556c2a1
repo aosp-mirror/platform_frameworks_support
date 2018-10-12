@@ -22,6 +22,30 @@
       "revId": "94986c8cc72885f793fb54ea1243c0eb4556c2a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02094786_7dafb25f",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2233,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-10-12T22:17:18Z",
+      "side": 1,
+      "message": "Added a comment.\nYigit, with who exactly we can discuss it? Maybe you can help me with it as probably they are in MTV?",
+      "parentUuid": "3db72744_6f8d7c7d",
+      "range": {
+        "startLine": 2230,
+        "startChar": 4,
+        "endLine": 2233,
+        "endChar": 7
+      },
+      "revId": "94986c8cc72885f793fb54ea1243c0eb4556c2a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
