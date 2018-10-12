@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2a75f9e8_400df4f2",
+        "filename": "navigation/testing/src/main/java/androidx/navigation/testing/TestNavigator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-12T18:02:48Z",
+      "side": 1,
+      "message": "There\u0027s a SaveStateTestNavigator in NavControllerTest that extends TestNavigator",
+      "parentUuid": "7f725b5b_2052f066",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 4
+      },
+      "revId": "99269400aa717b2e9e7d66c99eff9743a5eb8b90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4688a0a7_1f40e8ed",
         "filename": "navigation/testing/src/main/java/androidx/navigation/testing/TestNavigator.kt",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "fa502bc5_bb3e81dc",
+        "filename": "navigation/testing/src/main/java/androidx/navigation/testing/TestNavigator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-12T18:02:48Z",
+      "side": 1,
+      "message": "Yep, looking to that as part of b/111278637",
+      "parentUuid": "4688a0a7_1f40e8ed",
+      "range": {
+        "startLine": 33,
+        "startChar": 31,
+        "endLine": 33,
+        "endChar": 35
+      },
+      "revId": "99269400aa717b2e9e7d66c99eff9743a5eb8b90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "68743864_841a6213",
         "filename": "navigation/testing/src/main/java/androidx/navigation/testing/TestNavigator.kt",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2018-10-12T17:54:34Z",
       "side": 1,
       "message": "btw, how does it look from java? getCurrent()?",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 36
+      },
+      "revId": "99269400aa717b2e9e7d66c99eff9743a5eb8b90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8752556a_74b6f2a3",
+        "filename": "navigation/testing/src/main/java/androidx/navigation/testing/TestNavigator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-12T18:02:48Z",
+      "side": 1,
+      "message": "Correct, it becomes getCurrent().",
+      "parentUuid": "68743864_841a6213",
       "range": {
         "startLine": 35,
         "startChar": 4,
