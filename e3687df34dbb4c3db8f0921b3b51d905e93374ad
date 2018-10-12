@@ -91,6 +91,30 @@
       "revId": "e3687df34dbb4c3db8f0921b3b51d905e93374ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91f991e0_a1df2240",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-10-12T05:30:52Z",
+      "side": 1,
+      "message": "You can ignore this.",
+      "parentUuid": "f30dbeea_ef43e6bd",
+      "range": {
+        "startLine": 826,
+        "startChar": 0,
+        "endLine": 827,
+        "endChar": 81
+      },
+      "revId": "e3687df34dbb4c3db8f0921b3b51d905e93374ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
