@@ -117,6 +117,98 @@
     },
     {
       "key": {
+        "uuid": "f562ac87_289dfd83",
+        "filename": "media2/src/main/java/androidx/media2/BaseResult2.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-12T13:01:27Z",
+      "side": 1,
+      "message": "We\u0027d better not omit \u0027that/which\u0027 here. I think it seems more natural. (Here and below)",
+      "range": {
+        "startLine": 34,
+        "startChar": 18,
+        "endLine": 34,
+        "endChar": 19
+      },
+      "revId": "0dd2b9ba57a4e3283a65624a9defeafebcd58f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0fa81b3_7a763df0",
+        "filename": "media2/src/main/java/androidx/media2/BaseResult2.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-12T13:01:27Z",
+      "side": 1,
+      "message": "any",
+      "range": {
+        "startLine": 39,
+        "startChar": 61,
+        "endLine": 39,
+        "endChar": 63
+      },
+      "revId": "0dd2b9ba57a4e3283a65624a9defeafebcd58f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1860747f_20dcb56f",
+        "filename": "media2/src/main/java/androidx/media2/BaseResult2.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-12T13:01:27Z",
+      "side": 1,
+      "message": "because the current state is not valid for this command.",
+      "range": {
+        "startLine": 44,
+        "startChar": 67,
+        "endLine": 45,
+        "endChar": 19
+      },
+      "revId": "0dd2b9ba57a4e3283a65624a9defeafebcd58f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "156d4c2a_5355d912",
+        "filename": "media2/src/main/java/androidx/media2/BaseResult2.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-12T13:01:27Z",
+      "side": 1,
+      "message": "some of the given arguments are illegal?",
+      "range": {
+        "startLine": 50,
+        "startChar": 39,
+        "endLine": 50,
+        "endChar": 47
+      },
+      "revId": "0dd2b9ba57a4e3283a65624a9defeafebcd58f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a89a22ff_b74e5e3e",
         "filename": "media2/src/main/java/androidx/media2/CallSequenceManager.java",
         "patchSetId": 13
@@ -393,6 +485,29 @@
     },
     {
       "key": {
+        "uuid": "f3f2f1ed_e3fec4c1",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1480,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-12T13:01:27Z",
+      "side": 1,
+      "message": "Could not understand this sentence.\nDoes this mean the getExtra() always returns null except sendCustomCommand(ControllerInfo) called?",
+      "range": {
+        "startLine": 1479,
+        "startChar": 27,
+        "endLine": 1480,
+        "endChar": 100
+      },
+      "revId": "0dd2b9ba57a4e3283a65624a9defeafebcd58f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be1ded84_933c7fd5",
         "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
         "patchSetId": 13
@@ -432,6 +547,52 @@
         "startChar": 28,
         "endLine": 284,
         "endChar": 47
+      },
+      "revId": "0dd2b9ba57a4e3283a65624a9defeafebcd58f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d1f741f_e33dab2b",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-12T13:01:27Z",
+      "side": 1,
+      "message": "proceed with?",
+      "range": {
+        "startLine": 401,
+        "startChar": 62,
+        "endLine": 401,
+        "endChar": 69
+      },
+      "revId": "0dd2b9ba57a4e3283a65624a9defeafebcd58f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be1689a9_e1ff62b5",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-12T13:01:27Z",
+      "side": 1,
+      "message": "codes",
+      "range": {
+        "startLine": 402,
+        "startChar": 25,
+        "endLine": 402,
+        "endChar": 29
       },
       "revId": "0dd2b9ba57a4e3283a65624a9defeafebcd58f83",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -547,6 +708,75 @@
         "startChar": 27,
         "endLine": 166,
         "endChar": 41
+      },
+      "revId": "0dd2b9ba57a4e3283a65624a9defeafebcd58f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "011a0dcc_1b01467f",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2Stub.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1019,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-12T13:01:27Z",
+      "side": 1,
+      "message": "Q) Why this is needed?",
+      "range": {
+        "startLine": 1017,
+        "startChar": 0,
+        "endLine": 1019,
+        "endChar": 5
+      },
+      "revId": "0dd2b9ba57a4e3283a65624a9defeafebcd58f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f89229bf_81b06768",
+        "filename": "media2/src/main/java/androidx/media2/RemoteResult2.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-12T13:01:27Z",
+      "side": 1,
+      "message": "10001?",
+      "range": {
+        "startLine": 43,
+        "startChar": 56,
+        "endLine": 43,
+        "endChar": 61
+      },
+      "revId": "0dd2b9ba57a4e3283a65624a9defeafebcd58f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce49d90d_027a14a8",
+        "filename": "media2/src/main/java/androidx/media2/RemoteResult2.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-12T13:01:27Z",
+      "side": 1,
+      "message": "Suggestion) The called API is not expected to return a media item.",
+      "range": {
+        "startLine": 145,
+        "startChar": 11,
+        "endLine": 145,
+        "endChar": 69
       },
       "revId": "0dd2b9ba57a4e3283a65624a9defeafebcd58f83",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
