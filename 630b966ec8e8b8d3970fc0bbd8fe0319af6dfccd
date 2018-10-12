@@ -22,6 +22,30 @@
       "revId": "630b966ec8e8b8d3970fc0bbd8fe0319af6dfccd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf857c5e_e2da79c0",
+        "filename": "webkit/src/main/java/androidx/webkit/ServiceWorkerClientCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-12T20:38:44Z",
+      "side": 1,
+      "message": "FWIW there used to be a bug with this particular Javadoc (still visible in public docs page), but I already fixed that in http://aosp/755201",
+      "parentUuid": "002539e1_40f5136b",
+      "range": {
+        "startLine": 41,
+        "startChar": 86,
+        "endLine": 41,
+        "endChar": 90
+      },
+      "revId": "630b966ec8e8b8d3970fc0bbd8fe0319af6dfccd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
