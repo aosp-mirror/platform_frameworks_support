@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35c0d88e_1a0a4ac8",
+        "filename": "core/ktx/src/androidTest/java/androidx/core/graphics/RectTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-12T17:03:52Z",
+      "side": 1,
+      "message": "\"and\" in method names",
+      "revId": "43d729a97cb593863f49eea273f68ad76e9b4491",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5ea656f_320ce213",
+        "filename": "core/ktx/src/androidTest/java/androidx/core/graphics/RectTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-12T17:03:52Z",
+      "side": 1,
+      "message": "\"or\" in method names",
+      "revId": "43d729a97cb593863f49eea273f68ad76e9b4491",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5966e722_89320544",
+        "filename": "core/ktx/src/androidTest/java/androidx/core/graphics/RegionTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-12T17:03:52Z",
+      "side": 1,
+      "message": "These both have \"and\" in the method name. Either \"or\" or maybe just \"infix\"",
+      "revId": "43d729a97cb593863f49eea273f68ad76e9b4491",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
