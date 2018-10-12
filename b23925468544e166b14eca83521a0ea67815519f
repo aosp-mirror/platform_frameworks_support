@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a31929a5_3be91a48",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-10-12T13:40:04Z",
+      "side": 1,
+      "message": "Clever!\n\nI wonder if it could cause a crash, though, if a config change happens before post gets to be executed. Most likely not though.",
+      "revId": "b23925468544e166b14eca83521a0ea67815519f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a23b2b33_873d9e41",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DragWhileSmoothScrollTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-10-12T13:40:04Z",
+      "side": 1,
+      "message": "can be a bit tight for slower devices or if the garbage collector kicks in; maybe bump to 2 seconds for everything; no real downside IMO as it\u0027s not a stress test",
+      "range": {
+        "startLine": 73,
+        "startChar": 32,
+        "endLine": 73,
+        "endChar": 35
+      },
+      "revId": "b23925468544e166b14eca83521a0ea67815519f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79fb57b6_843e29ef",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DragWhileSmoothScrollTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-10-12T13:40:04Z",
+      "side": 1,
+      "message": "could you comment a bit on when that happens and how that relates to distances 0.4f and 1.5f? we want to be sure all cases are exercised",
+      "range": {
+        "startLine": 98,
+        "startChar": 32,
+        "endLine": 98,
+        "endChar": 46
+      },
+      "revId": "b23925468544e166b14eca83521a0ea67815519f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55e287ee_6d7cd950",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DragWhileSmoothScrollTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-10-12T13:40:04Z",
+      "side": 1,
+      "message": "nit: could be a one liner\n\nprivate fun ViewPager2.addNewRecordingListener() : RecordingListener \u003d RecordingListener().also { addOnPageChangeListener(it) }",
+      "revId": "b23925468544e166b14eca83521a0ea67815519f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac3bbd38_64d4266c",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DragWhileSmoothScrollTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-10-12T13:40:04Z",
+      "side": 1,
+      "message": "qq: this stands for being 1+ pages away from reaching the target?",
+      "range": {
+        "startLine": 193,
+        "startChar": 25,
+        "endLine": 193,
+        "endChar": 28
+      },
+      "revId": "b23925468544e166b14eca83521a0ea67815519f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70006485_3b3ba345",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-10-12T13:40:04Z",
+      "side": 1,
+      "message": "this is getting super complicated; we should document at some point, while we still sort of know how it works :)",
+      "revId": "b23925468544e166b14eca83521a0ea67815519f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
