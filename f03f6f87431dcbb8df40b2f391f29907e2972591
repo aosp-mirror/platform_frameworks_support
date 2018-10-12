@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89dc9558_302e0cdc",
+        "filename": "core/ktx/src/main/java/androidx/core/graphics/Color.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-12T17:37:26Z",
+      "side": 1,
+      "message": "My primary concern here is that `to` is defined in the Kotlin stdlib for creating Pairs and it\u0027s in a package that is imported by default: http://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to.html. I suspect it only behaves nicely in the tests because you defined them in the same package as this extension. If you used it in a different package the Pair one would win.\n\nMaybe \"convertTo\"?",
+      "revId": "f03f6f87431dcbb8df40b2f391f29907e2972591",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
