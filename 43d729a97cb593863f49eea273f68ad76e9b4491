@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0f6a84e5_7ca80d20",
+        "filename": "core/ktx/src/androidTest/java/androidx/core/graphics/RectTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001146
+      },
+      "writtenOn": "2018-10-12T17:44:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35c0d88e_1a0a4ac8",
+      "revId": "43d729a97cb593863f49eea273f68ad76e9b4491",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d5ea656f_320ce213",
         "filename": "core/ktx/src/androidTest/java/androidx/core/graphics/RectTest.kt",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "6d8471b0_42e91d8e",
+        "filename": "core/ktx/src/androidTest/java/androidx/core/graphics/RectTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001146
+      },
+      "writtenOn": "2018-10-12T17:44:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5ea656f_320ce213",
+      "revId": "43d729a97cb593863f49eea273f68ad76e9b4491",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5966e722_89320544",
         "filename": "core/ktx/src/androidTest/java/androidx/core/graphics/RegionTest.kt",
         "patchSetId": 1
@@ -50,6 +86,24 @@
       "revId": "43d729a97cb593863f49eea273f68ad76e9b4491",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bd19c91_860e7d54",
+        "filename": "core/ktx/src/androidTest/java/androidx/core/graphics/RegionTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001146
+      },
+      "writtenOn": "2018-10-12T17:44:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5966e722_89320544",
+      "revId": "43d729a97cb593863f49eea273f68ad76e9b4491",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
