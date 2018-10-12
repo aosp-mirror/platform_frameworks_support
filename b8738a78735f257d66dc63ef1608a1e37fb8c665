@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "01c93749_2067536b",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-12T17:27:22Z",
+      "side": 1,
+      "message": "but people will see in their code completion both classes, just because \"res\" one is in SDK and is always there. Other instances that we have are \"AppBarConfiguration/DatabaseConfiguration\". \nBut if you feel strongly about it, you can test in on API council and see.",
+      "parentUuid": "666d9881_af6f50d5",
+      "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e735eb62_64ca25b5",
         "filename": "work/workmanager/api/current.txt",
         "patchSetId": 4
