@@ -383,6 +383,30 @@
     },
     {
       "key": {
+        "uuid": "7919fd07_92050a6a",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-12T20:19:00Z",
+      "side": 1,
+      "message": "Resolving for the purposes of this CL.",
+      "parentUuid": "c717c757_ac2f70f5",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 152
+      },
+      "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc0230b6_bebcc0d5",
         "filename": "work/workmanager/api/current.txt",
         "patchSetId": 4
