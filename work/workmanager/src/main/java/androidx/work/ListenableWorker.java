@@ -28,6 +28,7 @@ import android.support.annotation.RestrictTo;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Executor;
@@ -139,8 +140,8 @@ public abstract class ListenableWorker {
      * @see Constraints.Builder#addContentUriTrigger(android.net.Uri, boolean)
      */
     @RequiresApi(24)
-    public final @Nullable Uri[] getTriggeredContentUris() {
-        return mWorkerParams.getTriggeredContentUris();
+    public final @Nullable List<Uri> getTriggeredContentUris() {
+        return  mWorkerParams.getTriggeredContentUris();
     }
 
     /**
@@ -149,7 +150,7 @@ public abstract class ListenableWorker {
      * @return The array of content authorities that caused this Worker to execute
      */
     @RequiresApi(24)
-    public final @Nullable String[] getTriggeredContentAuthorities() {
+    public final @Nullable List<String> getTriggeredContentAuthorities() {
         return mWorkerParams.getTriggeredContentAuthorities();
     }
 

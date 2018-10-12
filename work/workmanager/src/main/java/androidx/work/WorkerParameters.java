@@ -27,6 +27,7 @@ import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Executor;
@@ -105,7 +106,7 @@ public final class WorkerParameters {
      * @see Constraints.Builder#addContentUriTrigger(android.net.Uri, boolean)
      */
     @RequiresApi(24)
-    public @Nullable Uri[] getTriggeredContentUris() {
+    public @Nullable List<Uri> getTriggeredContentUris() {
         return mRuntimeExtras.triggeredContentUris;
     }
 
@@ -115,7 +116,7 @@ public final class WorkerParameters {
      * @return The array of content authorities that caused this Worker to execute
      */
     @RequiresApi(24)
-    public @Nullable String[] getTriggeredContentAuthorities() {
+    public @Nullable List<String> getTriggeredContentAuthorities() {
         return mRuntimeExtras.triggeredContentAuthorities;
     }
 
@@ -170,8 +171,8 @@ public final class WorkerParameters {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public static class RuntimeExtras {
-        public String[] triggeredContentAuthorities;
-        public Uri[] triggeredContentUris;
+        public List<String> triggeredContentAuthorities;
+        public List<Uri> triggeredContentUris;
 
         @RequiresApi(28)
         public Network network;
