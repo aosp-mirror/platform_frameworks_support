@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05ae24ae_4f94bbe3",
+        "filename": "work/workmanager-test/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-12T23:21:00Z",
+      "side": 1,
+      "message": "final\n\ndoes this need to be exposed in public API?\n\nmaybe hide ctor and provide singleton via getInstance() if it must remain public",
+      "revId": "2e3d563838fc4d6ea7ee4e4fc2a7226f70e45f8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03428db2_ef72a4d9",
+        "filename": "work/workmanager-test/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-12T23:21:00Z",
+      "side": 1,
+      "message": "Not a huge fan of \"set\" being the verb here since it presumably causes expensive work to happen but I don\u0027t really have a recommendation. \"mark\"? \"trigger\"?",
+      "revId": "2e3d563838fc4d6ea7ee4e4fc2a7226f70e45f8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a44dce3f_f83ec62d",
+        "filename": "work/workmanager-test/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-12T23:21:00Z",
+      "side": 1,
+      "message": "Helper :( I\u0027d love to ban it\u0027s use (and Manager and Util).\n\nThis is the entry point inside tests, right? And it\u0027s only static factories. So maybe just \"WorkManagerTest\" or \"WorkManagerTestSupport\" or \"WorkManagerTester\"",
+      "revId": "2e3d563838fc4d6ea7ee4e4fc2a7226f70e45f8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f392629_bc9ff28e",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-12T23:21:00Z",
+      "side": 1,
+      "message": "nit: Id not ID\n\nhttp://google.github.io/styleguide/javaguide.html#s5.3-camel-case",
+      "revId": "2e3d563838fc4d6ea7ee4e4fc2a7226f70e45f8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbf62b92_2c970875",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-12T23:21:00Z",
+      "side": 1,
+      "message": "So much final on all these classes \u003c3",
+      "revId": "2e3d563838fc4d6ea7ee4e4fc2a7226f70e45f8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5aab28f_a8d1218a",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-12T23:21:00Z",
+      "side": 1,
+      "message": "equals/hashCode? would you ever need to compare to see if two instances were equals? Or use in a set or keys in a map?",
+      "revId": "2e3d563838fc4d6ea7ee4e4fc2a7226f70e45f8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fdc760f_fc7f920c",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-12T23:21:00Z",
+      "side": 1,
+      "message": "For arrays make sure you do a defensive clone() and wrap the map in unmodifiable or you\u0027ll allow someone to modify your otherwise immutable type in a way that could be surprising.",
+      "revId": "2e3d563838fc4d6ea7ee4e4fc2a7226f70e45f8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
