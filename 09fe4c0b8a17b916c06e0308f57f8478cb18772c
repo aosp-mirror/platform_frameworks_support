@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f14dccd7_1f338c7a",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-12T13:01:35Z",
+      "side": 1,
+      "message": "Will these buttons exist on overflow menu? If so, then we should index from 5 to 9 here.",
+      "range": {
+        "startLine": 250,
+        "startChar": 16,
+        "endLine": 251,
+        "endChar": 70
+      },
+      "revId": "09fe4c0b8a17b916c06e0308f57f8478cb18772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d6fe88a_5542a0c7",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1292,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-12T13:01:35Z",
+      "side": 1,
+      "message": "Suggestion) How about removing 2 from all result classes?",
+      "range": {
+        "startLine": 1292,
+        "startChar": 58,
+        "endLine": 1292,
+        "endChar": 59
+      },
+      "revId": "09fe4c0b8a17b916c06e0308f57f8478cb18772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "292aa2ca_f756c0b9",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1373,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-12T13:01:35Z",
+      "side": 1,
+      "message": "Could not understand this sentence.\nDoes this mean the getExtra() always returns null except sendCustomCommand(ControllerInfo)?",
+      "range": {
+        "startLine": 1371,
+        "startChar": 27,
+        "endLine": 1373,
+        "endChar": 25
+      },
+      "revId": "09fe4c0b8a17b916c06e0308f57f8478cb18772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5047bd87_05546607",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1373,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-12T13:01:35Z",
+      "side": 1,
+      "message": "period needed",
+      "range": {
+        "startLine": 1373,
+        "startChar": 24,
+        "endLine": 1373,
+        "endChar": 25
+      },
+      "revId": "09fe4c0b8a17b916c06e0308f57f8478cb18772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
