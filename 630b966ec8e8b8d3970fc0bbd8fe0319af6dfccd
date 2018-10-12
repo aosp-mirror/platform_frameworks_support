@@ -70,6 +70,30 @@
       "revId": "630b966ec8e8b8d3970fc0bbd8fe0319af6dfccd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "71b0cdaf_ee90ec8d",
+        "filename": "webkit/src/main/java/androidx/webkit/ServiceWorkerClientCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-12T21:53:54Z",
+      "side": 1,
+      "message": "Yeah, the root cause was that it used to live beneath the \"@see\" block, which doclava seems to object to. FWIW, I think the \"\u003c/p\u003e\" rule is overly-strict (and disagrees with general tech writing), but we try to conform when possible.",
+      "parentUuid": "fe5c8391_3e74ba1d",
+      "range": {
+        "startLine": 41,
+        "startChar": 86,
+        "endLine": 41,
+        "endChar": 90
+      },
+      "revId": "630b966ec8e8b8d3970fc0bbd8fe0319af6dfccd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
