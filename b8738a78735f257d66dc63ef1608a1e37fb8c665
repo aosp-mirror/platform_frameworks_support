@@ -149,6 +149,30 @@
     },
     {
       "key": {
+        "uuid": "a3e45dca_c028d180",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-12T18:29:08Z",
+      "side": 1,
+      "message": "I added the @IntRange to the getMaxSchedulerLimit() API.",
+      "parentUuid": "e735eb62_64ca25b5",
+      "range": {
+        "startLine": 28,
+        "startChar": 54,
+        "endLine": 28,
+        "endChar": 74
+      },
+      "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee0cf812_88ec76c8",
         "filename": "work/workmanager/api/current.txt",
         "patchSetId": 4
@@ -172,6 +196,30 @@
     },
     {
       "key": {
+        "uuid": "0346f4b7_fbfe3acf",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-12T18:29:08Z",
+      "side": 1,
+      "message": "Marked them @hide.",
+      "parentUuid": "ee0cf812_88ec76c8",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 57
+      },
+      "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac7523e0_ac675b2a",
         "filename": "work/workmanager/api/current.txt",
         "patchSetId": 4
@@ -192,6 +240,30 @@
       "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "091fae2b_3a0a8b55",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-12T18:29:08Z",
+      "side": 1,
+      "message": "ContentUriTriggers no longer implements Iterable.\nAlso the `getTriggers()` method is now marked with a @hide.",
+      "parentUuid": "ac7523e0_ac675b2a",
+      "range": {
+        "startLine": 62,
+        "startChar": 1,
+        "endLine": 62,
+        "endChar": 71
+      },
+      "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
