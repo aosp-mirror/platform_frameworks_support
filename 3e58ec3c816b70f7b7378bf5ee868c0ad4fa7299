@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b911f89_f5015fbe",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-10-12T00:10:19Z",
+      "side": 1,
+      "message": "PLAYER_",
+      "range": {
+        "startLine": 180,
+        "startChar": 38,
+        "endLine": 180,
+        "endChar": 44
+      },
+      "revId": "3e58ec3c816b70f7b7378bf5ee868c0ad4fa7299",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
