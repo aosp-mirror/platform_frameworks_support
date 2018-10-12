@@ -287,6 +287,30 @@
     },
     {
       "key": {
+        "uuid": "c717c757_ac2f70f5",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-12T18:20:46Z",
+      "side": 1,
+      "message": "Interesting idea; we\u0027ll have to think a little bit more about this.  Considering our libraries are Java-first, extension methods aren\u0027t really possible for some o these cases.",
+      "parentUuid": "127ee4bb_d357feb0",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 152
+      },
+      "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fc0230b6_bebcc0d5",
         "filename": "work/workmanager/api/current.txt",
         "patchSetId": 4
@@ -439,6 +463,30 @@
       "writtenOn": "2018-10-12T16:28:25Z",
       "side": 1,
       "message": "hmmm it is duplicated in ListenableWorker, don\u0027t you want to do expose them as ListenableWorker.getParams()",
+      "range": {
+        "startLine": 292,
+        "startChar": 0,
+        "endLine": 300,
+        "endChar": 3
+      },
+      "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4782e0a_9ef73e8e",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-12T18:20:46Z",
+      "side": 1,
+      "message": "Yeah, I\u0027m of two minds about this.  We can do that, but I feel like some of those methods are pretty nice.  In particular, a top-level listenableWorker.getId() is nice.  listenableWorker.getInputData() is a nice analog to worker.setOutputData(Data), for example.  I\u0027m torn on this one.",
+      "parentUuid": "c33fe6b8_24980dbe",
       "range": {
         "startLine": 292,
         "startChar": 0,
