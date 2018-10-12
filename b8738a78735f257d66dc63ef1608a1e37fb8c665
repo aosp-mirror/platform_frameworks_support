@@ -337,6 +337,30 @@
     },
     {
       "key": {
+        "uuid": "6b1eccf0_0d48174a",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-12T22:14:18Z",
+      "side": 1,
+      "message": "Deferring to API council.",
+      "parentUuid": "72c13822_a2814a34",
+      "range": {
+        "startLine": 232,
+        "startChar": 58,
+        "endLine": 232,
+        "endChar": 67
+      },
+      "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba31dccf_cdb6b0b5",
         "filename": "work/workmanager/api/current.txt",
         "patchSetId": 4
@@ -357,6 +381,30 @@
       "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c468d17_c4f0f5af",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-12T22:14:18Z",
+      "side": 1,
+      "message": "I think you are drawing the distinction between one time and periodic work. This is intentional, because PeriodicWork cannot be chained. Deferring this to API council",
+      "parentUuid": "ba31dccf_cdb6b0b5",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 215
+      },
+      "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -616,6 +664,30 @@
       "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6b303a3_60b291d9",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-12T22:14:18Z",
+      "side": 1,
+      "message": "Deferring to API council. Resolving for now.",
+      "parentUuid": "f4782e0a_9ef73e8e",
+      "range": {
+        "startLine": 292,
+        "startChar": 0,
+        "endLine": 300,
+        "endChar": 3
+      },
+      "revId": "b8738a78735f257d66dc63ef1608a1e37fb8c665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
