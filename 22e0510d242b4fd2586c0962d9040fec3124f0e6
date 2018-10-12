@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8878ff17_a588aaca",
+        "filename": "media2/src/main/aidl/androidx/media2/IMediaController2.aidl",
+        "patchSetId": 12
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-12T06:34:02Z",
+      "side": 1,
+      "message": "Why did you put this on top?",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 68
+      },
+      "revId": "22e0510d242b4fd2586c0962d9040fec3124f0e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01118dd4_2680f1c5",
+        "filename": "media2/src/main/aidl/androidx/media2/IMediaController2.aidl",
+        "patchSetId": 12
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-12T06:34:02Z",
+      "side": 1,
+      "message": "What about staring the value from 1001 for Browser specific methods?",
+      "range": {
+        "startLine": 63,
+        "startChar": 94,
+        "endLine": 63,
+        "endChar": 96
+      },
+      "revId": "22e0510d242b4fd2586c0962d9040fec3124f0e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
