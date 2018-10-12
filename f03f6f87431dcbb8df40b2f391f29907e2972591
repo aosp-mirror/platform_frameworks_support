@@ -16,6 +16,24 @@
       "revId": "f03f6f87431dcbb8df40b2f391f29907e2972591",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1904633a_b676ebfc",
+        "filename": "core/ktx/src/main/java/androidx/core/graphics/Color.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1001146
+      },
+      "writtenOn": "2018-10-12T17:46:03Z",
+      "side": 1,
+      "message": "I was wondering about that myself. convertTo makes sense, I\u0027ll change it.",
+      "parentUuid": "89dc9558_302e0cdc",
+      "revId": "f03f6f87431dcbb8df40b2f391f29907e2972591",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
