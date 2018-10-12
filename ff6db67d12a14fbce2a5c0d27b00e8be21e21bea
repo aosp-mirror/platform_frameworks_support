@@ -143,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "02a8e2e1_e23b2b48",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-12T10:29:07Z",
+      "side": 1,
+      "message": "I more or less agree on the static, so I suggested in previous comment the alternative way that was dismissed in the discussion for some reason. It uses the gradle configuration lifecycle, but as a plus you don\u0027t have to query tasks by name and later cast them to the proper type. So I\u0027ll repeat that suggestion again (I\u0027m writing this down right in gerrit, so please don\u0027t mind minor syntax errors):\n \n fun Project.rootProjectExtensions(): RootProjectExtension {\n   // yeah, we have cast + look up by name here, \n   // but it is the only cast in compare to cast on every look up of tasks by name\n   val obj \u003d rootProject.properties[EXTENSION_PROPERTY] as RootProjectExtension?\n   return obj ?: throw GradleException(\"Access prior root project initialization\")\n }\n\n data class RootProjectExtension(\n   val dokkaTask: DokkaTask,  \n   val buildOnServerTask: IdontRememberTypeTask,\n   ...\n )\n\n in AndroidXPlugin.configureRootProject() we add:\n    project.properties[EXTENSION_PROPERTY] \u003d RootProjectExtension(dokkaTask, fooTask, ...)\n\nI would say it is very similar to tasks,getByName(...) but defined set of task and their types is very explicit. But maybe I miss something",
+      "parentUuid": "72a4cd56_a256fbfd",
+      "revId": "ff6db67d12a14fbce2a5c0d27b00e8be21e21bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd0adca8_aee11cf3",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
         "patchSetId": 3
