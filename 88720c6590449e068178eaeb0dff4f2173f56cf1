@@ -34,6 +34,24 @@
       "revId": "88720c6590449e068178eaeb0dff4f2173f56cf1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6124a854_82523d9a",
+        "filename": "room/runtime/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-12T15:38:51Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "78768375_39b21bd9",
+      "revId": "88720c6590449e068178eaeb0dff4f2173f56cf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
