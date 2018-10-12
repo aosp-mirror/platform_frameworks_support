@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "196af1ce_e80bd96e",
+        "filename": "work/workmanager-test/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-12T23:38:45Z",
+      "side": 1,
+      "message": "Sorry. Here is the other CL. I had to wipe my gradle caches for some reason to pick up this change.\n\nhttps://android-review.googlesource.com/c/platform/frameworks/support/+/788395",
+      "parentUuid": "93554a65_0da17dfd",
+      "revId": "2e3d563838fc4d6ea7ee4e4fc2a7226f70e45f8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "03428db2_ef72a4d9",
         "filename": "work/workmanager-test/api/current.txt",
         "patchSetId": 5
