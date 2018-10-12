@@ -14,12 +14,29 @@
  * limitations under the License.
  */
 
-package androidx.navigation.testing
+package androidx.navigation
 
 import android.os.Bundle
 
 /**
- * Get the [TestNavigator] back stack as a [List] of [destination and argument pairs][Pair].
+ * A [Navigator] that does nothing.
  */
-val TestNavigator.backStack: List<Pair<TestNavigator.Destination, Bundle?>>
-    get() = mBackStack.map { Pair(it.first!!, it.second) }
+class NoOpNavigator : Navigator<NavDestination>() {
+
+    override fun createDestination(): NavDestination {
+        return NavDestination(this)
+    }
+
+    override fun navigate(
+        destination: NavDestination,
+        args: Bundle?,
+        navOptions: NavOptions?,
+        navigatorExtras: Extras?
+    ) {
+        throw IllegalStateException("navigate is not supported")
+    }
+
+    override fun popBackStack(): Boolean {
+        throw IllegalStateException("popBackStack is not supported")
+    }
+}

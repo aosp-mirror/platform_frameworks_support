@@ -16,8 +16,8 @@
 
 package androidx.navigation
 
+import android.os.Bundle
 import androidx.test.filters.SmallTest
-import androidx.navigation.testing.TestNavigator
 import org.junit.Assert.assertSame
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -30,7 +30,7 @@ class NavigatorProviderTest {
 
     @Test
     fun set() {
-        val navigator = TestNavigator()
+        val navigator = NoOpNavigator()
         provider[NAME] = navigator
         val foundNavigator: Navigator<NavDestination> = provider[NAME]
         assertSame("Set destination should be retrieved with get", navigator,
@@ -39,10 +39,31 @@ class NavigatorProviderTest {
 
     @Test
     fun plusAssign() {
-        val navigator = TestNavigator()
+        val navigator = NoOpNavigator()
         provider += navigator
         assertSame("Set destination should be retrieved with get", navigator,
-                provider[TestNavigator::class])
+                provider[NoOpNavigator::class])
+    }
+
+    @Navigator.Name("NoOp")
+    internal class NoOpNavigator : Navigator<NavDestination>() {
+
+        override fun createDestination(): NavDestination {
+            return NavDestination(this)
+        }
+
+        override fun navigate(
+            destination: NavDestination,
+            args: Bundle?,
+            navOptions: NavOptions?,
+            navigatorExtras: Extras?
+        ) {
+            throw IllegalStateException("navigate is not supported")
+        }
+
+        override fun popBackStack(): Boolean {
+            throw IllegalStateException("popBackStack is not supported")
+        }
     }
 }
 
