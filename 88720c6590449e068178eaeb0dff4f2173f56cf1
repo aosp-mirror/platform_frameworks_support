@@ -16,6 +16,24 @@
       "revId": "88720c6590449e068178eaeb0dff4f2173f56cf1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78768375_39b21bd9",
+        "filename": "room/runtime/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-12T10:00:12Z",
+      "side": 0,
+      "message": "We had discussion about at Wednesday in androdx:flatfoot/  Alan is ok to do that in minor releases x.X.x",
+      "parentUuid": "c1181a3a_ef54aa76",
+      "revId": "88720c6590449e068178eaeb0dff4f2173f56cf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
