@@ -1,0 +1,10 @@
+API-Review+1: Romain Guy <romainguy@android.com>
+API-Review+1: Jake Wharton <jakew@google.com>
+Autosubmit+1: Romain Guy <romainguy@android.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Jake Wharton <jakew@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Sat, 13 Oct 2018 01:10:42 +0000
+Reviewed-on: https://android-review.googlesource.com/788397
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
