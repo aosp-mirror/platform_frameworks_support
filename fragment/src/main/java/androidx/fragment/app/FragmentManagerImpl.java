@@ -142,7 +142,6 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     ArrayList<StartEnterTransitionListener> mPostponedTransactions;
 
     // Saved FragmentManagerNonConfig during saveAllState() and cleared in noteStateNotSaved()
-    FragmentManagerNonConfig mSavedNonConfig;
     final HashSet<Fragment> mRetainedFragments = new HashSet<>();
     final HashMap<String, ViewModelStore> mViewModelStores = new HashMap<>();
 
@@ -1019,7 +1018,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                             newState = Fragment.CREATED;
                         } else {
                             if (DEBUG) Log.v(TAG, "movefrom CREATED: " + f);
-                            if (mSavedNonConfig == null || !mSavedNonConfig.isRetaining(f)) {
+                            if (!mRetainedFragments.contains(f)) {
                                 f.performDestroy();
                                 ViewModelStore viewModelStore = mViewModelStores.get(f.mWho);
                                 if (viewModelStore != null) {
@@ -1044,7 +1043,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                             f.performDetach();
                             dispatchOnFragmentDetached(f, false);
                             if (!keepActive) {
-                                if (mSavedNonConfig == null || !mSavedNonConfig.isRetaining(f)) {
+                                if (!mRetainedFragments.contains(f)) {
                                     makeInactive(f);
                                 } else {
                                     f.mHost = null;
@@ -1336,14 +1335,6 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             mActive = new HashMap<>();
         }
         mActive.put(f.mWho, f);
-        if (f.mRetainInstanceChangedWhileDetached) {
-            if (f.mRetainInstance) {
-                mRetainedFragments.add(f);
-            } else {
-                mRetainedFragments.remove(f);
-            }
-            f.mRetainInstanceChangedWhileDetached = false;
-        }
         if (DEBUG) Log.v(TAG, "Added fragment to active set " + f);
     }
 
@@ -1356,7 +1347,6 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         // Don't remove yet. That happens in burpActive(). This prevents
         // concurrent modification while iterating over mActive
         mActive.put(f.mWho, null);
-        mRetainedFragments.remove(f);
 
         f.initState();
     }
@@ -1379,6 +1369,14 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             if (fragment.mHasMenu && fragment.mMenuVisible) {
                 mNeedMenuInvalidate = true;
             }
+            if (fragment.mRetainInstanceChangedWhileDetached) {
+                if (fragment.mRetainInstance) {
+                    mRetainedFragments.add(fragment);
+                } else {
+                    mRetainedFragments.remove(fragment);
+                }
+                fragment.mRetainInstanceChangedWhileDetached = false;
+            }
             if (moveToStateNow) {
                 moveToState(fragment);
             }
@@ -1389,6 +1387,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         if (DEBUG) Log.v(TAG, "remove: " + fragment + " nesting=" + fragment.mBackStackNesting);
         final boolean inactive = !fragment.isInBackStack();
         if (!fragment.mDetached || inactive) {
+            mRetainedFragments.remove(fragment);
             synchronized (mAdded) {
                 mAdded.remove(fragment);
             }
@@ -2268,14 +2267,13 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             }
         }
         if (mRetainedFragments.isEmpty() && childFragments == null && mViewModelStores.isEmpty()) {
-            mSavedNonConfig = null;
+            return null;
         } else {
-            mSavedNonConfig = new FragmentManagerNonConfig(
+            return new FragmentManagerNonConfig(
                     new ArrayList<>(mRetainedFragments),
                     childFragments,
                     mViewModelStores);
         }
-        return mSavedNonConfig;
     }
 
     void saveFragmentViewState(Fragment f) {
@@ -2575,7 +2573,6 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     }
 
     public void noteStateNotSaved() {
-        mSavedNonConfig = null;
         mStateSaved = false;
         mStopped = false;
         final int addedCount = mAdded.size();
