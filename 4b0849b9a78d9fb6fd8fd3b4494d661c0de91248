@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4c1214d1_39694b52",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-15T00:07:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fe57ff3_d126b402",
+      "revId": "4b0849b9a78d9fb6fd8fd3b4494d661c0de91248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3eee782f_3bea078c",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 25
@@ -33,6 +51,24 @@
       "revId": "4b0849b9a78d9fb6fd8fd3b4494d661c0de91248",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1a5242d_cfd43645",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-15T00:07:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3eee782f_3bea078c",
+      "revId": "4b0849b9a78d9fb6fd8fd3b4494d661c0de91248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -91,6 +127,30 @@
       "revId": "4b0849b9a78d9fb6fd8fd3b4494d661c0de91248",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa57862a_d8c84ff2",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-15T00:07:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfadeef8_b78b18af",
+      "range": {
+        "startLine": 377,
+        "startChar": 2,
+        "endLine": 378,
+        "endChar": 31
+      },
+      "revId": "4b0849b9a78d9fb6fd8fd3b4494d661c0de91248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
