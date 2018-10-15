@@ -119,6 +119,47 @@
       "revId": "b23925468544e166b14eca83521a0ea67815519f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45bb9b57_28c91637",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-10-15T21:37:02Z",
+      "side": 1,
+      "message": "+1.  I could use some comments on fields so that it\u0027s easier for me to conceptualize what things like \"mInitialPosition\" is without having to figure out out myself by reading the source.  \n\nIn fact, could you ad least add those comments so I can understand what the intent is of that state, such that I can better understand how this CL might affect other things?",
+      "parentUuid": "70006485_3b3ba345",
+      "revId": "b23925468544e166b14eca83521a0ea67815519f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2323e36_2a74fef1",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-10-15T21:37:02Z",
+      "side": 1,
+      "message": "Change to, \"Special case for when a smooth scroll was in progress\"?  Just a bit better than \"was going on\".",
+      "range": {
+        "startLine": 82,
+        "startChar": 19,
+        "endLine": 82,
+        "endChar": 65
+      },
+      "revId": "b23925468544e166b14eca83521a0ea67815519f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
