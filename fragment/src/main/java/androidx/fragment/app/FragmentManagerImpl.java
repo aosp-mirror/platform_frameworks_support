@@ -70,7 +70,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -339,7 +338,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
 
     @Override
     public void putFragment(Bundle bundle, String key, Fragment fragment) {
-        if (fragment.mWho == null) {
+        if (fragment.mFragmentManager != this) {
             throwException(new IllegalStateException("Fragment " + fragment
                     + " is not currently in the FragmentManager"));
         }
@@ -404,7 +403,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     @Override
     @Nullable
     public Fragment.SavedState saveFragmentInstanceState(@NonNull Fragment fragment) {
-        if (fragment.mWho == null) {
+        if (fragment.mFragmentManager != this) {
             throwException( new IllegalStateException("Fragment " + fragment
                     + " is not currently in the FragmentManager"));
         }
@@ -1312,17 +1311,16 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     }
 
     void makeActive(Fragment f) {
-        if (f.mWho != null) {
+        if (mActive.get(f.mWho) != null) {
             return;
         }
 
-        f.mWho = UUID.randomUUID().toString();
         mActive.put(f.mWho, f);
         if (DEBUG) Log.v(TAG, "Added fragment to active set " + f);
     }
 
     void makeInactive(Fragment f) {
-        if (f.mWho == null) {
+        if (mActive.get(f.mWho) == null) {
             return;
         }
 
@@ -2318,7 +2316,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         boolean haveFragments = false;
         for (Fragment f : mActive.values()) {
             if (f != null) {
-                if (f.mWho == null) {
+                if (f.mFragmentManager != this) {
                     throwException(new IllegalStateException(
                             "Failure saving state: active " + f
                                     + " was removed from the FragmentManager"));
@@ -2375,7 +2373,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             added = new ArrayList<>(size);
             for (Fragment f : mAdded) {
                 added.add(f.mWho);
-                if (f.mWho == null) {
+                if (f.mFragmentManager != this) {
                     throwException(new IllegalStateException(
                             "Failure saving state: active " + f
                                     + " was removed from the FragmentManager"));
