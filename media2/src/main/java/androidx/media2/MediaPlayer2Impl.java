@@ -422,13 +422,6 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
 
     private Object addTask(Task task) {
         synchronized (mTaskLock) {
-            if (task.mMediaCallType == MediaPlayer2.CALL_COMPLETED_SEEK_TO) {
-                Task previous = mPendingTasks.peekLast();
-                if (previous != null && previous.mMediaCallType == task.mMediaCallType) {
-                    // Skip the unnecessary previous seek command.
-                    previous.mSkip = true;
-                }
-            }
             mPendingTasks.add(task);
             processPendingTask_l();
         }
@@ -1247,7 +1240,6 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         final int mMediaCallType;
         final boolean mNeedToWaitForEventToComplete;
         MediaItem2 mDSD;
-        boolean mSkip;
         @GuardedBy("this")
         boolean mDone;
 
@@ -1261,9 +1253,14 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         @Override
         public void run() {
             int status = CALL_STATUS_NO_ERROR;
-            boolean skip;
-            synchronized (mTaskLock) {
-                skip = mSkip;
+            boolean skip = false;
+            if (mMediaCallType == CALL_COMPLETED_SEEK_TO) {
+                synchronized (mTaskLock) {
+                    Task next = mPendingTasks.peekFirst();
+                    if (next != null && next.mMediaCallType == CALL_COMPLETED_SEEK_TO) {
+                        skip = true;
+                    }
+                }
             }
             if (!skip) {
                 try {
