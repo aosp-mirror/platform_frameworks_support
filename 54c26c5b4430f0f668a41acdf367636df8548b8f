@@ -22,6 +22,30 @@
       "revId": "54c26c5b4430f0f668a41acdf367636df8548b8f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb6a6e0f_8a7d0f6d",
+        "filename": "slices/builders/src/main/java/androidx/slice/builders/impl/SelectionBuilderV1Impl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-10-15T19:42:59Z",
+      "side": 1,
+      "message": "I didn\u0027t see one when I looked, but I\u0027d be happy to factor one out later.",
+      "parentUuid": "3bdeccd9_7512c57d",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 9
+      },
+      "revId": "54c26c5b4430f0f668a41acdf367636df8548b8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
