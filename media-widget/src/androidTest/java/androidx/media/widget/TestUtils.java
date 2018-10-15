@@ -23,11 +23,13 @@ import android.media.MediaFormat;
 import android.net.Uri;
 import android.util.Log;
 
+import androidx.media2.Public;
+
 import java.io.IOException;
 
 // Built on top of com.android.compatibility.common.util.MediaUtils
 class TestUtils {
-    private static final String TAG = "TestUtils";
+    private static final String TAG = "TestUtils" + Public.VISIBLE;
     private static final MediaCodecList sMCL = new MediaCodecList(MediaCodecList.REGULAR_CODECS);
 
     /**

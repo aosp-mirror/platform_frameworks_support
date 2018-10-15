@@ -393,6 +393,10 @@ package androidx.media2 {
     method public androidx.media2.PlaybackParams2.Builder setSpeed(float);
   }
 
+  public class Public {
+    ctor public Public();
+  }
+
   public abstract interface Rating2 implements androidx.versionedparcelable.VersionedParcelable {
     method public abstract boolean isRated();
   }
