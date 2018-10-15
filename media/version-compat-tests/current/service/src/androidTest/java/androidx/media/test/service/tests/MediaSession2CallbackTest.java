@@ -331,7 +331,7 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
                 .setId("testOnPrepareFromSearch").build()) {
             mController2 = createRemoteController2(session.getToken());
 
-            mController2.prepareFromSearch(testQuery, testExtras);
+            mController2.prefetchFromSearch(testQuery, testExtras);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
     }
@@ -357,7 +357,7 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
                 .setId("testOnPrepareFromUri").build()) {
             mController2 = createRemoteController2(session.getToken());
 
-            mController2.prepareFromUri(testUri, testExtras);
+            mController2.prefetchFromUri(testUri, testExtras);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
     }
@@ -383,7 +383,7 @@ public class MediaSession2CallbackTest extends MediaSession2TestBase {
                 .setId("testOnPrepareFromMediaId").build()) {
             mController2 = createRemoteController2(session.getToken());
 
-            mController2.prepareFromMediaId(testMediaId, testExtras);
+            mController2.prefetchFromMediaId(testMediaId, testExtras);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
     }

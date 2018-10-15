@@ -107,7 +107,7 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
 
     @Override
     public void onPrepare() {
-        onSessionCommand(SessionCommand2.COMMAND_CODE_PLAYER_PREPARE, new SessionRunnable() {
+        onSessionCommand(SessionCommand2.COMMAND_CODE_PLAYER_PREFETCH, new SessionRunnable() {
             @Override
             public void run(ControllerInfo controller) throws RemoteException {
                 mSessionImpl.prepare();
@@ -120,7 +120,7 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         if (mediaId == null) {
             return;
         }
-        onSessionCommand(SessionCommand2.COMMAND_CODE_SESSION_PREPARE_FROM_MEDIA_ID,
+        onSessionCommand(SessionCommand2.COMMAND_CODE_SESSION_PREFETCH_FROM_MEDIA_ID,
                 new SessionRunnable() {
                     @Override
                     public void run(ControllerInfo controller) throws RemoteException {
@@ -135,7 +135,7 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         if (query == null) {
             return;
         }
-        onSessionCommand(SessionCommand2.COMMAND_CODE_SESSION_PREPARE_FROM_SEARCH,
+        onSessionCommand(SessionCommand2.COMMAND_CODE_SESSION_PREFETCH_FROM_SEARCH,
                 new SessionRunnable() {
                     @Override
                     public void run(ControllerInfo controller) throws RemoteException {
@@ -150,7 +150,7 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         if (uri == null) {
             return;
         }
-        onSessionCommand(SessionCommand2.COMMAND_CODE_SESSION_PREPARE_FROM_URI,
+        onSessionCommand(SessionCommand2.COMMAND_CODE_SESSION_PREFETCH_FROM_URI,
                 new SessionRunnable() {
                     @Override
                     public void run(ControllerInfo controller) throws RemoteException {
