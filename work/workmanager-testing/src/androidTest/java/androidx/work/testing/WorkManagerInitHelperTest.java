@@ -52,7 +52,7 @@ public class WorkManagerInitHelperTest {
 
     @Test
     public void testWorkManagerIsInitialized() {
-        WorkManagerTestInitHelper.initializeTestWorkManager(mContext);
+        WorkManagerTestSupport.initializeTestWorkManager(mContext);
         assertThat(WorkManager.getInstance(), is(notNullValue()));
     }
 }

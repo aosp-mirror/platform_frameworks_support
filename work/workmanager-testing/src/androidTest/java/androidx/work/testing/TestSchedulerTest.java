@@ -51,8 +51,8 @@ public class TestSchedulerTest {
     @Before
     public void setUp() {
         Context context = InstrumentationRegistry.getTargetContext();
-        WorkManagerTestInitHelper.initializeTestWorkManager(context);
-        mTestDriver = WorkManagerTestInitHelper.getTestDriver();
+        WorkManagerTestSupport.initializeTestWorkManager(context);
+        mTestDriver = WorkManagerTestSupport.getTestDriver();
         CountingTestWorker.COUNT.set(0);
     }
 
@@ -105,7 +105,7 @@ public class TestSchedulerTest {
         workManager.enqueue(request);
         WorkStatus requestStatus = workManager.getStatusById(request.getId()).get();
         assertThat(requestStatus.getState().isFinished(), is(false));
-        mTestDriver.setAllConstraintsMet(request.getId());
+        mTestDriver.markAllConstraintsMet(request.getId());
         requestStatus = workManager.getStatusById(request.getId()).get();
         assertThat(requestStatus.getState().isFinished(), is(true));
     }
@@ -128,7 +128,7 @@ public class TestSchedulerTest {
         OneTimeWorkRequest request = createWorkRequestWithInitialDelay();
         WorkManager workManager = WorkManager.getInstance();
         workManager.enqueue(request);
-        mTestDriver.setInitialDelayMet(request.getId());
+        mTestDriver.markInitialDelayMet(request.getId());
         WorkStatus requestStatus = workManager.getStatusById(request.getId()).get();
         assertThat(requestStatus.getState().isFinished(), is(true));
     }
@@ -150,7 +150,7 @@ public class TestSchedulerTest {
         workManager.enqueue(request);
         assertThat(CountingTestWorker.COUNT.get(), is(1));
         for (int i = 0; i < 5; ++i) {
-            mTestDriver.setPeriodDelayMet(request.getId());
+            mTestDriver.markPeriodDelayMet(request.getId());
             assertThat(CountingTestWorker.COUNT.get(), is(i + 2));
             WorkStatus requestStatus = workManager.getStatusById(request.getId()).get();
             assertThat(requestStatus.getState().isFinished(), is(false));

@@ -34,7 +34,7 @@ public interface TestDriver {
      * @param workSpecId The {@link androidx.work.WorkRequest}'s id
      * @throws IllegalArgumentException if {@code workSpecId} is not enqueued
      */
-    void setAllConstraintsMet(@NonNull UUID workSpecId);
+    void markAllConstraintsMet(@NonNull UUID workSpecId);
 
     /**
      * Tells {@link TestDriver} to pretend that the initial delay the
@@ -44,7 +44,7 @@ public interface TestDriver {
      * @param workSpecId The {@link androidx.work.OneTimeWorkRequest}'s id
      * @throws IllegalArgumentException if {@code workSpecId} is not enqueued
      */
-    void setInitialDelayMet(@NonNull UUID workSpecId);
+    void markInitialDelayMet(@NonNull UUID workSpecId);
 
     /**
      * Tells {@link TestDriver} to pretend that the period delay on the
@@ -54,5 +54,5 @@ public interface TestDriver {
      * @param workSpecId The {@link androidx.work.PeriodicWorkRequest}'s id
      * @throws IllegalArgumentException if {@code workSpecId} is not enqueued
      */
-    void setPeriodDelayMet(@NonNull UUID workSpecId);
+    void markPeriodDelayMet(@NonNull UUID workSpecId);
 }

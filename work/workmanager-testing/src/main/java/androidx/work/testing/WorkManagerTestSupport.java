@@ -30,9 +30,9 @@ import java.util.UUID;
 /**
  * Helps initialize {@link androidx.work.WorkManager} for testing.
  */
-public final class WorkManagerTestInitHelper {
+public final class WorkManagerTestSupport {
     /**
-     * Initializes a test {@link androidx.work.WorkManager} with a {@link SynchronousExecutor}.
+     * Initializes a test {@link androidx.work.WorkManager} with a synchronous executor.
      *
      * @param context The application {@link Context}
      */
@@ -64,18 +64,18 @@ public final class WorkManagerTestInitHelper {
             }
 
             @Override
-            public void setAllConstraintsMet(@NonNull UUID workSpecId) {
-                scheduler.setAllConstraintsMet(workSpecId);
+            public void markAllConstraintsMet(@NonNull UUID workSpecId) {
+                scheduler.markAllConstraintsMet(workSpecId);
             }
 
             @Override
-            public void setInitialDelayMet(@NonNull UUID workSpecId) {
-                scheduler.setInitialDelayMet(workSpecId);
+            public void markInitialDelayMet(@NonNull UUID workSpecId) {
+                scheduler.markInitialDelayMet(workSpecId);
             }
 
             @Override
-            public void setPeriodDelayMet(@NonNull UUID workSpecId) {
-                scheduler.setPeriodDelayMet(workSpecId);
+            public void markPeriodDelayMet(@NonNull UUID workSpecId) {
+                scheduler.markPeriodDelayMet(workSpecId);
             }
         };
         workManager.getProcessor().addExecutionListener(scheduler);
@@ -95,6 +95,6 @@ public final class WorkManagerTestInitHelper {
         }
     }
 
-    private WorkManagerTestInitHelper() {
+    private WorkManagerTestSupport() {
     }
 }

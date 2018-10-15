@@ -1,17 +1,12 @@
 package androidx.work.testing {
 
-  public class SynchronousExecutor implements java.util.concurrent.Executor {
-    ctor public SynchronousExecutor();
-    method public void execute(java.lang.Runnable);
-  }
-
   public abstract interface TestDriver {
-    method public abstract void setAllConstraintsMet(java.util.UUID);
-    method public abstract void setInitialDelayMet(java.util.UUID);
-    method public abstract void setPeriodDelayMet(java.util.UUID);
+    method public abstract void markAllConstraintsMet(java.util.UUID);
+    method public abstract void markInitialDelayMet(java.util.UUID);
+    method public abstract void markPeriodDelayMet(java.util.UUID);
   }
 
-  public final class WorkManagerTestInitHelper {
+  public final class WorkManagerTestSupport {
     method public static androidx.work.testing.TestDriver getTestDriver();
     method public static void initializeTestWorkManager(android.content.Context);
     method public static void initializeTestWorkManager(android.content.Context, androidx.work.Configuration);

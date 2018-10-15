@@ -85,7 +85,7 @@ class TestScheduler implements Scheduler, ExecutionListener {
      * @param workSpecId The {@link Worker}'s id
      * @throws IllegalArgumentException if {@code workSpecId} is not enqueued
      */
-    void setAllConstraintsMet(@NonNull UUID workSpecId) {
+    void markAllConstraintsMet(@NonNull UUID workSpecId) {
         synchronized (sLock) {
             InternalWorkState internalWorkState = mInternalWorkStates.get(workSpecId.toString());
             if (internalWorkState == null) {
@@ -104,7 +104,7 @@ class TestScheduler implements Scheduler, ExecutionListener {
      * @param workSpecId The {@link Worker}'s id
      * @throws IllegalArgumentException if {@code workSpecId} is not enqueued
      */
-    void setInitialDelayMet(@NonNull UUID workSpecId) {
+    void markInitialDelayMet(@NonNull UUID workSpecId) {
         synchronized (sLock) {
             InternalWorkState internalWorkState = mInternalWorkStates.get(workSpecId.toString());
             if (internalWorkState == null) {
@@ -123,7 +123,7 @@ class TestScheduler implements Scheduler, ExecutionListener {
      * @param workSpecId The {@link Worker}'s id
      * @throws IllegalArgumentException if {@code workSpecId} is not enqueued
      */
-    void setPeriodDelayMet(@NonNull UUID workSpecId) {
+    void markPeriodDelayMet(@NonNull UUID workSpecId) {
         synchronized (sLock) {
             InternalWorkState internalWorkState = mInternalWorkStates.get(workSpecId.toString());
             if (internalWorkState == null) {

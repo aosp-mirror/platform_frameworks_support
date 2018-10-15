@@ -17,13 +17,17 @@
 package androidx.work.testing;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.RestrictTo;
 
 import java.util.concurrent.Executor;
 
 /**
  * Is an implementation of a {@link java.util.concurrent.Executor} which executes {@link
  * Runnable}'s synchronously.
+ *
+ * @hide
  */
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class SynchronousExecutor implements Executor {
     @Override
     public void execute(@NonNull Runnable command) {
