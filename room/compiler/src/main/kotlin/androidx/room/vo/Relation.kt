@@ -23,18 +23,19 @@ import javax.lang.model.type.TypeMirror
  * Value object created from processing a @Relation annotation.
  */
 class Relation(
-        val entity: Entity,
+    val entity: DatabaseItem,
         // return type. e..g. String in @Relation List<String>
-        val pojoType: TypeMirror,
+    val pojoType: TypeMirror,
         // field in Pojo that holds these relations (e.g. List<Pet> pets)
-        val field: Field,
+    val field: Field,
         // the parent field referenced for matching
-        val parentField: Field,
+    val parentField: Field,
         // the field referenced for querying. does not need to be in the response but the query
         // we generate always has it in the response.
-        val entityField: Field,
+    val entityField: Field,
         // the projection for the query
-        val projection: List<String>) {
+    val projection: List<String>
+) {
 
     val pojoTypeName by lazy { pojoType.typeName() }
 
@@ -45,7 +46,7 @@ class Relation(
 
     private fun createSelect(resultFields: Set<String>): String {
         return "SELECT ${resultFields.joinToString(",") {"`$it`"}}" +
-                " FROM `${entity.tableName}`" +
+                " FROM `${entity.name}`" +
                 " WHERE `${entityField.columnName}` IN (:args)"
     }
 }

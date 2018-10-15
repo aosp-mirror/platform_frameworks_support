@@ -38,7 +38,7 @@ import javax.lang.model.element.Modifier
  */
 class RelationCollectorMethodWriter(private val collector: RelationCollector)
     : ClassWriter.SharedMethodSpec(
-        "fetchRelationship${collector.relation.entity.tableName.stripNonJava()}" +
+        "fetchRelationship${collector.relation.entity.name.stripNonJava()}" +
                 "As${collector.relation.pojoTypeName.toString().stripNonJava()}") {
     companion object {
         const val PARAM_MAP_VARIABLE = "_map"

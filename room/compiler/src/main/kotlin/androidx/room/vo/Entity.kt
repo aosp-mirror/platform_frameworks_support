@@ -35,7 +35,11 @@ open class Entity(
     val foreignKeys: List<ForeignKey>,
     constructor: Constructor?,
     val shadowTableName: String?
-) : Pojo(element, type, fields, embeddedFields, emptyList(), constructor), HasSchemaIdentity {
+) : Pojo(element, type, fields, embeddedFields, emptyList(), constructor),
+    HasSchemaIdentity,
+    DatabaseItem {
+
+    override val name = tableName
 
     open val createTableQuery by lazy {
         createTableQuery(tableName)
