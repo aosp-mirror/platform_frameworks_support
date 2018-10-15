@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a51b7012_943ad5e9",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-15T15:26:59Z",
+      "side": 1,
+      "message": "Archive",
+      "range": {
+        "startLine": 275,
+        "startChar": 28,
+        "endLine": 275,
+        "endChar": 35
+      },
+      "revId": "846e44d9c26431014b789c04aa9f276576472844",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b495c9a0_a59f951f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-15T15:26:59Z",
+      "side": 1,
+      "message": "If you pass in the generateLocalDiffs JDiffTask as an argument to createGenerateLocalApiDiffsArchiveTask then you can even reference its destinationDir directly",
+      "range": {
+        "startLine": 533,
+        "startChar": 9,
+        "endLine": 533,
+        "endChar": 88
+      },
+      "revId": "846e44d9c26431014b789c04aa9f276576472844",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
