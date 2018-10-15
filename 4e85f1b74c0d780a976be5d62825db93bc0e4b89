@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a4b6f2e_f9894e23",
+        "filename": "car/core/src/main/java/androidx/car/util/ColumnCalculator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-15T22:28:42Z",
+      "side": 1,
+      "message": "width",
+      "range": {
+        "startLine": 29,
+        "startChar": 37,
+        "endLine": 29,
+        "endChar": 41
+      },
+      "revId": "4e85f1b74c0d780a976be5d62825db93bc0e4b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
