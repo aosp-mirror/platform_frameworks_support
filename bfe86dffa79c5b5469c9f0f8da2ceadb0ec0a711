@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0cfc6d05_faaab329",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-10-15T15:51:51Z",
+      "side": 1,
+      "message": "It is not at all obvious to me what going from 6 to 3, or 3 to 10 is actually testing here, and what all of the removed code paths were testing either.  Spelling it out in a comment would probably be a good idea.",
+      "range": {
+        "startLine": 352,
+        "startChar": 28,
+        "endLine": 352,
+        "endChar": 29
+      },
+      "revId": "bfe86dffa79c5b5469c9f0f8da2ceadb0ec0a711",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
