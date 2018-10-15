@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0df6eed_ab5ebddb",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-15T18:23:31Z",
+      "side": 1,
+      "message": "Call the following constructor here.",
+      "range": {
+        "startLine": 193,
+        "startChar": 8,
+        "endLine": 193,
+        "endChar": 20
+      },
+      "revId": "2bc306ed127c86e6dbf54f9e85ed66a4cc69d651",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30b6bed5_2941e87d",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-15T18:23:31Z",
+      "side": 1,
+      "message": "Inline internalInit here.",
+      "range": {
+        "startLine": 214,
+        "startChar": 8,
+        "endLine": 214,
+        "endChar": 20
+      },
+      "revId": "2bc306ed127c86e6dbf54f9e85ed66a4cc69d651",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
