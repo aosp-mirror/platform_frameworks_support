@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "62a03076_ccb47042",
+        "filename": "media2/src/main/aidl/androidx/media2/IMediaController2.aidl",
+        "patchSetId": 12
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-15T09:01:55Z",
+      "side": 1,
+      "message": "No huge reason. Could you suggest among L59 (end of controller calls) vs L71 (end of file)?",
+      "parentUuid": "8878ff17_a588aaca",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 68
+      },
+      "revId": "22e0510d242b4fd2586c0962d9040fec3124f0e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "01118dd4_2680f1c5",
         "filename": "media2/src/main/aidl/androidx/media2/IMediaController2.aidl",
         "patchSetId": 12
@@ -45,6 +69,30 @@
       "revId": "22e0510d242b4fd2586c0962d9040fec3124f0e6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bae503a3_389aa632",
+        "filename": "media2/src/main/aidl/androidx/media2/IMediaController2.aidl",
+        "patchSetId": 12
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-15T09:01:55Z",
+      "side": 1,
+      "message": "Talked offline not to do so.\n\nIt\u0027s not worth to maintain two next Ids.",
+      "parentUuid": "01118dd4_2680f1c5",
+      "range": {
+        "startLine": 63,
+        "startChar": 94,
+        "endLine": 63,
+        "endChar": 96
+      },
+      "revId": "22e0510d242b4fd2586c0962d9040fec3124f0e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
