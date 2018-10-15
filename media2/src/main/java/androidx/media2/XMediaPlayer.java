@@ -48,7 +48,6 @@ import androidx.concurrent.futures.AbstractResolvableFuture;
 import androidx.concurrent.futures.ResolvableFuture;
 import androidx.core.util.Pair;
 import androidx.media.AudioAttributesCompat;
-import androidx.media2.SessionPlayer2.PlayerResult;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -56,8 +55,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -440,19 +441,14 @@ public class XMediaPlayer extends SessionPlayer2 {
     @RestrictTo(LIBRARY_GROUP)
     public @interface SeekMode {}
 
-    private static final int CALL_COMPLETE_PLAYLIST_BASE = -1000;
+    private static final int CALL_TYPE_NONE_PLAYER2_COMMAND = -1000;
     private static final int END_OF_PLAYLIST = -1;
     private static final int NO_MEDIA_ITEM = -2;
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
     static ArrayMap<Integer, Integer> sResultCodeMap;
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
     static ArrayMap<Integer, Integer> sErrorCodeMap;
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
     static ArrayMap<Integer, Integer> sInfoCodeMap;
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
     static ArrayMap<Integer, Integer> sSeekModeMap;
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
     static ArrayMap<Integer, Integer> sPrepareDrmStatusMap;
 
     static {
@@ -515,28 +511,73 @@ public class XMediaPlayer extends SessionPlayer2 {
                 DrmResult.RESULT_CODE_RESOURCE_BUSY);
     }
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
     MediaPlayer2 mPlayer;
-    private ExecutorService mExecutor;
+    ExecutorService mExecutor;
 
-    /* A list for tracking the commands submitted to MediaPlayer2.*/
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    final ArrayDeque<PendingCommand> mPendingCommands = new ArrayDeque<>();
-    @GuardedBy("mPendingCommands")
+    /* A list for tracking the futures that will be submitted to MediaPlayer2.*/
+    final ArrayDeque<PendingFuture> mPendingFutures = new ArrayDeque<>();
+    @GuardedBy("mPendingFutures")
     boolean mPreviewEnabled;
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
     static final class PendingCommand {
-        @SuppressWarnings("WeakerAccess") /* synthetic access */
         final @MediaPlayer2.CallCompleted int mCallType;
-        @SuppressWarnings("WeakerAccess") /* synthetic access */
         final ResolvableFuture mFuture;
 
-        @SuppressWarnings("WeakerAccess") /* synthetic access */
-        PendingCommand(int mCallType, ResolvableFuture mFuture) {
-            this.mCallType = mCallType;
-            this.mFuture = mFuture;
+        PendingCommand(int callType, ResolvableFuture future) {
+            mCallType = callType;
+            mFuture = future;
         }
+    }
+
+    abstract class PendingFuture<V> extends AbstractResolvableFuture<V> implements Runnable {
+        @MediaPlayer2.CallCompleted final int mCallType;
+        Object mToken;
+        boolean mExecuted = false;
+
+        @SuppressWarnings("WeakerAccess") /* synthetic access */
+        PendingFuture(int callType) {
+            mCallType = callType;
+        }
+
+        @Override
+        public boolean set(@Nullable V value) {
+            return super.set(value);
+        }
+
+        @Override
+        public boolean setException(Throwable throwable) {
+            return super.setException(throwable);
+        }
+
+        @Override
+        public void run() {
+            mExecuted = true;
+            Object object = onExecute();
+            if (object instanceof ListenableFuture) {
+                final ListenableFuture<V> future = (ListenableFuture<V>) object;
+                future.addListener(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (future.isDone()) {
+                            try {
+                                set(future.get());
+                            } catch (Exception e) {
+                                setException(e);
+                            }
+                        }
+                    }
+                }, mExecutor);
+
+            } else {
+                mToken = object;
+            }
+        }
+
+        public Object getToken() {
+            return mToken;
+        }
+
+        abstract Object onExecute();
     }
 
     private final Object mStateLock = new Object();
@@ -544,28 +585,27 @@ public class XMediaPlayer extends SessionPlayer2 {
     private @PlayerState int mState;
     @GuardedBy("mStateLock")
     private Map<MediaItem2, Integer> mMediaItemToBuffState = new HashMap<>();
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
     final AudioFocusHandler mAudioFocusHandler;
 
-    private final Object mPlaylistLock = new Object();
+    final Object mPlaylistLock = new Object();
     @GuardedBy("mPlaylistLock")
-    private ArrayList<MediaItem2> mPlaylist = new ArrayList<>();
+    ArrayList<MediaItem2> mPlaylist = new ArrayList<>();
     @GuardedBy("mPlaylistLock")
-    private ArrayList<MediaItem2> mShuffledList = new ArrayList<>();
+    ArrayList<MediaItem2> mShuffledList = new ArrayList<>();
     @GuardedBy("mPlaylistLock")
-    private MediaMetadata2 mPlaylistMetadata;
+    MediaMetadata2 mPlaylistMetadata;
     @GuardedBy("mPlaylistLock")
-    private int mRepeatMode;
+    int mRepeatMode;
     @GuardedBy("mPlaylistLock")
-    private int mShuffleMode;
+    int mShuffleMode;
     @GuardedBy("mPlaylistLock")
-    private int mCurrentShuffleIdx;
+    int mCurrentShuffleIdx;
     @GuardedBy("mPlaylistLock")
-    private MediaItem2 mCurPlaylistItem;
+    MediaItem2 mCurPlaylistItem;
     @GuardedBy("mPlaylistLock")
-    private MediaItem2 mNextPlaylistItem;
+    MediaItem2 mNextPlaylistItem;
     @GuardedBy("mPlaylistLock")
-    private boolean mSetMediaItemCalled;
+    boolean mSetMediaItemCalled;
 
     public XMediaPlayer(Context context) {
         mState = PLAYER_STATE_IDLE;
@@ -577,51 +617,85 @@ public class XMediaPlayer extends SessionPlayer2 {
         mAudioFocusHandler = new AudioFocusHandler(context, this);
     }
 
-    @GuardedBy("mPendingCommands")
-    private void addPendingCommandLocked(
-            int callType, final ResolvableFuture future, final Object token) {
-        final PendingCommand pendingCommand = new PendingCommand(callType, future);
-        mPendingCommands.add(pendingCommand);
-        future.addListener(new Runnable() {
-            @Override
-            public void run() {
-                // Propagate the cancellation to the MediaPlayer2 implementation.
-                if (future.isCancelled()) {
-                    synchronized (mPendingCommands) {
-                        if (mPlayer.cancel(token)) {
-                            mPendingCommands.remove(pendingCommand);
+    private void addPendingFuture(final PendingFuture future) {
+        synchronized (mPendingFutures) {
+            future.addListener(new Runnable() {
+                @Override
+                public void run() {
+                    // Propagate the cancellation to the MediaPlayer2 implementation.
+                    if (future.isCancelled()) {
+                        synchronized (mPendingFutures) {
+                            if (!future.mExecuted || mPlayer.cancel(future.mToken)) {
+                                mPendingFutures.remove(future);
+                            }
                         }
                     }
                 }
+            }, mExecutor);
+
+            mPendingFutures.add(future);
+            executePendingFuturesIfNeeded();
+        }
+    }
+
+    void addPendingFutureFront(PendingFuture<PlayerResult> future) {
+        ArrayList<PendingFuture<PlayerResult>> futures = new ArrayList<>();
+        futures.add(future);
+        addPendingFuturesFront(futures);
+    }
+
+    void addPendingFuturesFront(final List<PendingFuture<PlayerResult>> futures) {
+        synchronized (mPendingFutures) {
+            for (int i = futures.size() - 1; i >= 0; --i) {
+                final PendingFuture future = futures.get(i);
+                future.addListener(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Propagate the cancellation to the MediaPlayer2 implementation.
+                        if (future.isCancelled()) {
+                            synchronized (mPendingFutures) {
+                                if (!future.mExecuted || mPlayer.cancel(future.mToken)) {
+                                    mPendingFutures.remove(future);
+                                }
+                            }
+                        }
+                    }
+                }, mExecutor);
+                mPendingFutures.addFirst(future);
             }
-        }, mExecutor);
+            executePendingFuturesIfNeeded();
+        }
     }
 
     @Override
     public ListenableFuture<PlayerResult> play() {
-        // TODO: Make commands be executed sequentially
-        if (mAudioFocusHandler.onPlayRequested()) {
-            final ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
-            synchronized (mPendingCommands) {
-                Object token = mPlayer.play();
-                addPendingCommandLocked(MediaPlayer2.CALL_COMPLETED_PLAY, future, token);
-            }
-            return future;
-        } else {
-            return createFutureForResultCodeInternal(RESULT_CODE_UNKNOWN_ERROR);
-        }
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(CALL_TYPE_NONE_PLAYER2_COMMAND) {
+                    @Override
+                    Object onExecute() {
+                        List<PendingFuture<PlayerResult>> futures = new ArrayList<>();
+                        if (mAudioFocusHandler.onPlayRequested()) {
+                            if (mPlayer.getAudioAttributes() == null) {
+                                futures.add(setPlayerVolumeInternal(0f));
+                            }
+                            futures.add(playInternal());
+                            addPendingFuturesFront(futures);
+                            return CombindedCommandResultFuture.create(mExecutor, futures);
+                        }
+                        set(new PlayerResult(RESULT_CODE_UNKNOWN_ERROR,
+                                mPlayer.getCurrentMediaItem()));
+                        return null;
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     @Override
     public ListenableFuture<PlayerResult> pause() {
-        ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
-        // TODO: Make commands be executed sequentially
-        mAudioFocusHandler.onPauseRequested();
-        synchronized (mPendingCommands) {
-            Object token = mPlayer.pause();
-            addPendingCommandLocked(MediaPlayer2.CALL_COMPLETED_PAUSE, future, token);
-        }
-        return future;
+        PendingFuture<PlayerResult> pendingFuture = pauseInternal();
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     /**
@@ -632,24 +706,30 @@ public class XMediaPlayer extends SessionPlayer2 {
      */
     @Override
     public ListenableFuture<PlayerResult> prefetch() {
-        ListenableFuture ret;
-        synchronized (mPendingCommands) {
-            ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
-            Object token = mPlayer.prepare();
-            addPendingCommandLocked(MediaPlayer2.CALL_COMPLETED_PREPARE, future, token);
-            if (mPreviewEnabled) {
-                ResolvableFuture<PlayerResult> future2 = ResolvableFuture.create();
-                Object token2 = mPlayer.pause();
-                addPendingCommandLocked(MediaPlayer2.CALL_COMPLETED_PAUSE, future2, token2);
-                ret = CombindedCommandResultFuture.create(mExecutor, future, future2);
-            } else {
-                ret = future;
-            }
-        }
-        // TODO: Changing buffering state is not correct. Think about changing MP2 event APIs for
-        // the initial buffering for prefetch case.
-        setBufferingState(mPlayer.getCurrentMediaItem(), BUFFERING_STATE_BUFFERING_AND_STARVED);
-        return ret;
+        final PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(CALL_TYPE_NONE_PLAYER2_COMMAND) {
+                    @Override
+                    Object onExecute() {
+                        List<PendingFuture<PlayerResult>> futures = new ArrayList<>();
+                        futures.add(prepareInternal());
+
+                        boolean previewEnabled;
+                        synchronized (mPendingFutures) {
+                            previewEnabled = mPreviewEnabled;
+                        }
+                        if (previewEnabled) {
+                            futures.add(pauseInternal());
+                        }
+                        addPendingFuturesFront(futures);
+                        // TODO: Changing buffering state is not correct. Think about changing MP2
+                        // event APIs for the initial buffering for prefetch case.
+                        setBufferingState(mPlayer.getCurrentMediaItem(),
+                                BUFFERING_STATE_BUFFERING_AND_STARVED);
+                        return CombindedCommandResultFuture.create(mExecutor, futures);
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     /**
@@ -662,45 +742,62 @@ public class XMediaPlayer extends SessionPlayer2 {
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
      * {@link PlayerResult} will be delivered when the command completes.
      */
-    public ListenableFuture<PlayerResult> setPreviewEnabled(boolean enabled) {
-        synchronized (mPendingCommands) {
-            mPreviewEnabled = enabled;
-        }
-        return createFutureForResultCodeInternal(RESULT_CODE_SUCCESS);
+    public ListenableFuture<PlayerResult> setPreviewEnabled(final boolean enabled) {
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(CALL_TYPE_NONE_PLAYER2_COMMAND) {
+                    @Override
+                    Object onExecute() {
+                        synchronized (mPendingFutures) {
+                            mPreviewEnabled = enabled;
+                            set(new PlayerResult(RESULT_CODE_SUCCESS,
+                                    mPlayer.getCurrentMediaItem()));
+                            return null;
+                        }
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     @Override
-    public ListenableFuture<PlayerResult> seekTo(long position) {
-        ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
-        synchronized (mPendingCommands) {
-            Object token = mPlayer.seekTo(position);
-            addPendingCommandLocked(MediaPlayer2.CALL_COMPLETED_SEEK_TO, future, token);
-        }
-        return future;
+    public ListenableFuture<PlayerResult> seekTo(final long position) {
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(MediaPlayer2.CALL_COMPLETED_SEEK_TO) {
+                    @Override
+                    Object onExecute() {
+                        return mPlayer.seekTo(position);
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     @Override
-    public ListenableFuture<PlayerResult> setPlaybackSpeed(float playbackSpeed) {
-        ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
-        synchronized (mPendingCommands) {
-            Object token = mPlayer.setPlaybackParams(new PlaybackParams2.Builder(
-                    mPlayer.getPlaybackParams().getPlaybackParams())
-                    .setSpeed(playbackSpeed).build());
-            addPendingCommandLocked(
-                    MediaPlayer2.CALL_COMPLETED_SET_PLAYBACK_PARAMS, future, token);
-        }
-        return future;
+    public ListenableFuture<PlayerResult> setPlaybackSpeed(final float playbackSpeed) {
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(MediaPlayer2.CALL_COMPLETED_SET_PLAYBACK_PARAMS) {
+                    @Override
+                    Object onExecute() {
+                        return mPlayer.setPlaybackParams(new PlaybackParams2.Builder(
+                                mPlayer.getPlaybackParams().getPlaybackParams())
+                                .setSpeed(playbackSpeed).build());
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     @Override
-    public ListenableFuture<PlayerResult> setAudioAttributes(AudioAttributesCompat attr) {
-        ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
-        synchronized (mPendingCommands) {
-            Object token = mPlayer.setAudioAttributes(attr);
-            addPendingCommandLocked(
-                    MediaPlayer2.CALL_COMPLETED_SET_AUDIO_ATTRIBUTES, future, token);
-        }
-        return future;
+    public ListenableFuture<PlayerResult> setAudioAttributes(final AudioAttributesCompat attr) {
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(MediaPlayer2.CALL_COMPLETED_SET_AUDIO_ATTRIBUTES) {
+                    @Override
+                    Object onExecute() {
+                        return mPlayer.setAudioAttributes(attr);
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     @Override
@@ -765,18 +862,30 @@ public class XMediaPlayer extends SessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<PlayerResult> setMediaItem(@NonNull MediaItem2 item) {
+    public ListenableFuture<PlayerResult> setMediaItem(@NonNull final MediaItem2 item) {
         if (item == null) {
             throw new IllegalArgumentException("item shouldn't be null");
         }
-        synchronized (mPlaylistLock) {
-            mPlaylist.clear();
-            mShuffledList.clear();
-            mCurPlaylistItem = item;
-            mNextPlaylistItem = null;
-            mCurrentShuffleIdx = END_OF_PLAYLIST;
-        }
-        return setPlayerMediaItemsInternal(item, null);
+
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(CALL_TYPE_NONE_PLAYER2_COMMAND) {
+                    @Override
+                    Object onExecute() {
+                        synchronized (mPlaylistLock) {
+                            mPlaylist.clear();
+                            mShuffledList.clear();
+                            mCurPlaylistItem = item;
+                            mNextPlaylistItem = null;
+                            mCurrentShuffleIdx = END_OF_PLAYLIST;
+                        }
+                        final PendingFuture<PlayerResult> future =
+                                setPlayerMediaItemsInternal(item, null);
+                        addPendingFutureFront(future);
+                        return future;
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     @Override
@@ -785,34 +894,49 @@ public class XMediaPlayer extends SessionPlayer2 {
         if (playlist == null || playlist.isEmpty()) {
             throw new IllegalArgumentException("playlist shouldn't be null or empty");
         }
-        MediaItem2 curItem;
-        MediaItem2 nextItem;
-        synchronized (mPlaylistLock) {
-            mPlaylistMetadata = metadata;
-            mPlaylist.clear();
-            mShuffledList.clear();
-            mPlaylist.addAll(playlist);
-            applyShuffleModeLocked();
-            mCurrentShuffleIdx = 0;
-            updateAndGetCurrentNextItemIfNeededLocked();
-            curItem = mCurPlaylistItem;
-            nextItem = mNextPlaylistItem;
-        }
-        notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
-            @Override
-            public void callCallback(
-                    SessionPlayer2.PlayerCallback callback) {
-                callback.onPlaylistChanged(XMediaPlayer.this, playlist, metadata);
-            }
-        });
-        if (curItem != null) {
-            return setPlayerMediaItemsInternal(curItem, nextItem);
-        }
-        return createFutureForResultCodeInternal(RESULT_CODE_SUCCESS);
+
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(CALL_TYPE_NONE_PLAYER2_COMMAND) {
+                    @Override
+                    Object onExecute() {
+                        MediaItem2 curItem;
+                        MediaItem2 nextItem;
+                        synchronized (mPlaylistLock) {
+                            mPlaylistMetadata = metadata;
+                            mPlaylist.clear();
+                            mShuffledList.clear();
+                            mPlaylist.addAll(playlist);
+                            applyShuffleModeLocked();
+                            mCurrentShuffleIdx = 0;
+                            updateAndGetCurrentNextItemIfNeededLocked();
+                            curItem = mCurPlaylistItem;
+                            nextItem = mNextPlaylistItem;
+                        }
+                        notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+                            @Override
+                            public void callCallback(
+                                    SessionPlayer2.PlayerCallback callback) {
+                                callback.onPlaylistChanged(XMediaPlayer.this, playlist, metadata);
+                            }
+                        });
+                        if (curItem == null) {
+                            set(new PlayerResult(RESULT_CODE_SUCCESS,
+                                    mPlayer.getCurrentMediaItem()));
+                            return null;
+                        }
+
+                        final PendingFuture<PlayerResult> future =
+                                setPlayerMediaItemsInternal(curItem, nextItem);
+                        addPendingFutureFront(future);
+                        return future;
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     @Override
-    public ListenableFuture<PlayerResult> addPlaylistItem(int index, MediaItem2 item) {
+    public ListenableFuture<PlayerResult> addPlaylistItem(final int index, final MediaItem2 item) {
         if (item == null) {
             throw new IllegalArgumentException("item shouldn't be null");
         }
@@ -824,85 +948,122 @@ public class XMediaPlayer extends SessionPlayer2 {
                 throw new IllegalStateException("The item is already in the playlist: " + item);
             }
         }
-        Pair<MediaItem2, MediaItem2> updatedCurNextItem;
-        synchronized (mPlaylistLock) {
-            index = clamp(index, mPlaylist.size());
-            int addedShuffleIdx = index;
-            mPlaylist.add(index, item);
-            if (mShuffleMode == SessionPlayer2.SHUFFLE_MODE_NONE) {
-                mShuffledList.add(index, item);
-            } else {
-                // Add the item in random position of mShuffledList.
-                addedShuffleIdx = (int) (Math.random() * (mShuffledList.size() + 1));
-                mShuffledList.add(addedShuffleIdx, item);
-            }
-            if (addedShuffleIdx <= mCurrentShuffleIdx) {
-                mCurrentShuffleIdx++;
-            }
-            updatedCurNextItem = updateAndGetCurrentNextItemIfNeededLocked();
-        }
-        final List<MediaItem2> playlist = getPlaylist();
-        final MediaMetadata2 metadata = getPlaylistMetadata();
-        notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
-            @Override
-            public void callCallback(
-                    SessionPlayer2.PlayerCallback callback) {
-                callback.onPlaylistChanged(XMediaPlayer.this, playlist, metadata);
-            }
-        });
 
-        if (updatedCurNextItem.second == null) {
-            return createFutureForResultCodeInternal(RESULT_CODE_SUCCESS);
-        }
-        return setNextMediaItemInternal(updatedCurNextItem.second);
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(CALL_TYPE_NONE_PLAYER2_COMMAND) {
+                    @Override
+                    Object onExecute() {
+                        Pair<MediaItem2, MediaItem2> updatedCurNextItem;
+                        synchronized (mPlaylistLock) {
+                            int clampedIndex = clamp(index, mPlaylist.size());
+                            int addedShuffleIdx = clampedIndex;
+                            mPlaylist.add(clampedIndex, item);
+                            if (mShuffleMode == SessionPlayer2.SHUFFLE_MODE_NONE) {
+                                mShuffledList.add(clampedIndex, item);
+                            } else {
+                                // Add the item in random position of mShuffledList.
+                                addedShuffleIdx = (int) (Math.random()
+                                        * (mShuffledList.size() + 1));
+                                mShuffledList.add(addedShuffleIdx, item);
+                            }
+                            if (addedShuffleIdx <= mCurrentShuffleIdx) {
+                                mCurrentShuffleIdx++;
+                            }
+                            updatedCurNextItem = updateAndGetCurrentNextItemIfNeededLocked();
+                        }
+                        final List<MediaItem2> playlist = getPlaylist();
+                        final MediaMetadata2 metadata = getPlaylistMetadata();
+                        notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+                            @Override
+                            public void callCallback(
+                                    SessionPlayer2.PlayerCallback callback) {
+                                callback.onPlaylistChanged(XMediaPlayer.this, playlist, metadata);
+                            }
+                        });
+
+                        if (updatedCurNextItem.second == null) {
+                            set(new PlayerResult(RESULT_CODE_SUCCESS,
+                                    mPlayer.getCurrentMediaItem()));
+                            return null;
+                        }
+                        final PendingFuture<PlayerResult> future =
+                                setNextMediaItemInternal(updatedCurNextItem.second);
+                        addPendingFutureFront(future);
+                        return future;
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     @Override
-    public ListenableFuture<PlayerResult> removePlaylistItem(MediaItem2 item) {
+    public ListenableFuture<PlayerResult> removePlaylistItem(final MediaItem2 item) {
         if (item == null) {
             throw new IllegalArgumentException("item shouldn't be null");
         }
-        int removedItemShuffleIdx;
-        MediaItem2 curItem;
-        MediaItem2 nextItem;
-        Pair<MediaItem2, MediaItem2> updatedCurNextItem = null;
-        synchronized (mPlaylistLock) {
-            removedItemShuffleIdx = mShuffledList.indexOf(item);
-            if (removedItemShuffleIdx >= 0) {
-                mPlaylist.remove(item);
-                mShuffledList.remove(removedItemShuffleIdx);
-                if (removedItemShuffleIdx < mCurrentShuffleIdx) {
-                    mCurrentShuffleIdx--;
-                }
-                updatedCurNextItem = updateAndGetCurrentNextItemIfNeededLocked();
-            }
-            curItem = mCurPlaylistItem;
-            nextItem = mNextPlaylistItem;
-        }
-        if (removedItemShuffleIdx >= 0) {
-            final List<MediaItem2> playlist = getPlaylist();
-            final MediaMetadata2 metadata = getPlaylistMetadata();
-            notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
-                @Override
-                public void callCallback(
-                        SessionPlayer2.PlayerCallback callback) {
-                    callback.onPlaylistChanged(XMediaPlayer.this, playlist, metadata);
-                }
-            });
-        }
 
-        if (updatedCurNextItem != null) {
-            if (updatedCurNextItem.first != null) {
-                return setPlayerMediaItemsInternal(curItem, nextItem);
-            } else if (updatedCurNextItem.second != null) {
-                return setNextMediaItemInternal(nextItem);
-            }
-        }
-        return createFutureForResultCodeInternal(RESULT_CODE_SUCCESS);
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(CALL_TYPE_NONE_PLAYER2_COMMAND) {
+                    @Override
+                    Object onExecute() {
+                        int removedItemShuffleIdx;
+                        MediaItem2 curItem;
+                        MediaItem2 nextItem;
+                        Pair<MediaItem2, MediaItem2> updatedCurNextItem = null;
+                        synchronized (mPlaylistLock) {
+                            removedItemShuffleIdx = mShuffledList.indexOf(item);
+                            if (removedItemShuffleIdx >= 0) {
+                                mPlaylist.remove(item);
+                                mShuffledList.remove(removedItemShuffleIdx);
+                                if (removedItemShuffleIdx < mCurrentShuffleIdx) {
+                                    mCurrentShuffleIdx--;
+                                }
+                                updatedCurNextItem = updateAndGetCurrentNextItemIfNeededLocked();
+                            }
+                            curItem = mCurPlaylistItem;
+                            nextItem = mNextPlaylistItem;
+                        }
+                        if (removedItemShuffleIdx >= 0) {
+                            final List<MediaItem2> playlist = getPlaylist();
+                            final MediaMetadata2 metadata = getPlaylistMetadata();
+                            notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+                                @Override
+                                public void callCallback(
+                                        SessionPlayer2.PlayerCallback callback) {
+                                    callback.onPlaylistChanged(XMediaPlayer.this, playlist,
+                                            metadata);
+                                }
+                            });
+                        }
+
+                        final PendingFuture<PlayerResult> future;
+                        if (updatedCurNextItem != null) {
+                            if (updatedCurNextItem.first != null) {
+                                future = setPlayerMediaItemsInternal(curItem, nextItem);
+                            } else if (updatedCurNextItem.second != null) {
+                                future = setNextMediaItemInternal(nextItem);
+                            } else {
+                                future = null;
+                            }
+                        } else {
+                            future = null;
+                        }
+                        if (future == null) {
+                            set(new PlayerResult(RESULT_CODE_SUCCESS,
+                                    mPlayer.getCurrentMediaItem()));
+                            return null;
+                        }
+                        addPendingFutureFront(future);
+                        return future;
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     @Override
-    public ListenableFuture<PlayerResult> replacePlaylistItem(int index, MediaItem2 item) {
+    public ListenableFuture<PlayerResult> replacePlaylistItem(final int index,
+            final MediaItem2 item) {
         if (item == null) {
             throw new IllegalArgumentException("item shouldn't be null");
         }
@@ -915,164 +1076,256 @@ public class XMediaPlayer extends SessionPlayer2 {
                 throw new IllegalStateException("The item is already in the playlist: " + item);
             }
         }
-        MediaItem2 curItem;
-        MediaItem2 nextItem;
-        Pair<MediaItem2, MediaItem2> updatedCurNextItem = null;
-        synchronized (mPlaylistLock) {
-            if (index >= mPlaylist.size()) {
-                return createFutureForResultCodeInternal(RESULT_CODE_BAD_VALUE);
-            }
-            int shuffleIdx = mShuffledList.indexOf(mPlaylist.get(index));
-            mShuffledList.set(shuffleIdx, item);
-            mPlaylist.set(index, item);
-            updatedCurNextItem = updateAndGetCurrentNextItemIfNeededLocked();
-            curItem = mCurPlaylistItem;
-            nextItem = mNextPlaylistItem;
-        }
-        // TODO: Should we notify current media item changed if it is replaced?
-        final List<MediaItem2> playlist = getPlaylist();
-        final MediaMetadata2 metadata = getPlaylistMetadata();
-        notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
-            @Override
-            public void callCallback(
-                    SessionPlayer2.PlayerCallback callback) {
-                callback.onPlaylistChanged(XMediaPlayer.this, playlist, metadata);
-            }
-        });
 
-        if (updatedCurNextItem != null) {
-            if (updatedCurNextItem.first != null) {
-                return setPlayerMediaItemsInternal(curItem, nextItem);
-            } else if (updatedCurNextItem.second != null) {
-                return setNextMediaItemInternal(nextItem);
-            }
-        }
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(CALL_TYPE_NONE_PLAYER2_COMMAND) {
+                    @Override
+                    Object onExecute() {
+                        MediaItem2 curItem;
+                        MediaItem2 nextItem;
+                        Pair<MediaItem2, MediaItem2> updatedCurNextItem = null;
+                        synchronized (mPlaylistLock) {
+                            if (index >= mPlaylist.size()) {
+                                set(new PlayerResult(RESULT_CODE_BAD_VALUE,
+                                        mPlayer.getCurrentMediaItem()));
+                                return null;
+                            }
+                            int shuffleIdx = mShuffledList.indexOf(mPlaylist.get(index));
+                            mShuffledList.set(shuffleIdx, item);
+                            mPlaylist.set(index, item);
+                            updatedCurNextItem = updateAndGetCurrentNextItemIfNeededLocked();
+                            curItem = mCurPlaylistItem;
+                            nextItem = mNextPlaylistItem;
+                        }
+                        // TODO: Should we notify current media item changed if it is replaced?
+                        final List<MediaItem2> playlist = getPlaylist();
+                        final MediaMetadata2 metadata = getPlaylistMetadata();
+                        notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+                            @Override
+                            public void callCallback(
+                                    SessionPlayer2.PlayerCallback callback) {
+                                callback.onPlaylistChanged(XMediaPlayer.this, playlist, metadata);
+                            }
+                        });
 
-        return createFutureForResultCodeInternal(RESULT_CODE_SUCCESS);
+                        final PendingFuture<PlayerResult> future;
+                        if (updatedCurNextItem != null) {
+                            if (updatedCurNextItem.first != null) {
+                                future = setPlayerMediaItemsInternal(curItem, nextItem);
+                            } else if (updatedCurNextItem.second != null) {
+                                future = setNextMediaItemInternal(nextItem);
+                            } else {
+                                future = null;
+                            }
+                        } else {
+                            future = null;
+                        }
+                        if (future == null) {
+                            set(new PlayerResult(RESULT_CODE_SUCCESS,
+                                    mPlayer.getCurrentMediaItem()));
+                            return null;
+                        }
+                        addPendingFutureFront(future);
+                        return future;
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     @Override
     public ListenableFuture<PlayerResult> skipToPreviousPlaylistItem() {
-        MediaItem2 curItem;
-        MediaItem2 nextItem;
-        synchronized (mPlaylistLock) {
-            int prevShuffleIdx = mCurrentShuffleIdx - 1;
-            if (prevShuffleIdx < 0) {
-                if (mRepeatMode == REPEAT_MODE_ALL || mRepeatMode == REPEAT_MODE_GROUP) {
-                    prevShuffleIdx = mShuffledList.size() - 1;
-                } else {
-                    return createFutureForResultCodeInternal(RESULT_CODE_INVALID_STATE);
-                }
-            }
-            mCurrentShuffleIdx = prevShuffleIdx;
-            updateAndGetCurrentNextItemIfNeededLocked();
-            curItem = mCurPlaylistItem;
-            nextItem = mNextPlaylistItem;
-        }
-        return setPlayerMediaItemsInternal(curItem, nextItem);
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(CALL_TYPE_NONE_PLAYER2_COMMAND) {
+                    @Override
+                    Object onExecute() {
+                        MediaItem2 curItem;
+                        MediaItem2 nextItem;
+                        synchronized (mPlaylistLock) {
+                            int prevShuffleIdx = mCurrentShuffleIdx - 1;
+                            if (prevShuffleIdx < 0) {
+                                if (mRepeatMode == REPEAT_MODE_ALL
+                                        || mRepeatMode == REPEAT_MODE_GROUP) {
+                                    prevShuffleIdx = mShuffledList.size() - 1;
+                                } else {
+                                    set(new PlayerResult(RESULT_CODE_INVALID_STATE,
+                                            mPlayer.getCurrentMediaItem()));
+                                    return null;
+                                }
+                            }
+                            mCurrentShuffleIdx = prevShuffleIdx;
+                            updateAndGetCurrentNextItemIfNeededLocked();
+                            curItem = mCurPlaylistItem;
+                            nextItem = mNextPlaylistItem;
+                        }
+                        final PendingFuture<PlayerResult> future =
+                                setPlayerMediaItemsInternal(curItem, nextItem);
+                        addPendingFutureFront(future);
+                        return future;
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     @Override
     public ListenableFuture<PlayerResult> skipToNextPlaylistItem() {
-        MediaItem2 curItem;
-        MediaItem2 nextItem;
-        synchronized (mPlaylistLock) {
-            int nextShuffleIdx = mCurrentShuffleIdx + 1;
-            if (nextShuffleIdx >= mShuffledList.size()) {
-                if (mRepeatMode == REPEAT_MODE_ALL || mRepeatMode == REPEAT_MODE_GROUP) {
-                    nextShuffleIdx = 0;
-                } else {
-                    return createFutureForResultCodeInternal(RESULT_CODE_INVALID_STATE);
-                }
-            }
-            mCurrentShuffleIdx = nextShuffleIdx;
-            updateAndGetCurrentNextItemIfNeededLocked();
-            curItem = mCurPlaylistItem;
-            nextItem = mNextPlaylistItem;
-        }
-        return curItem != null ? setPlayerMediaItemsInternal(curItem, nextItem)
-                : skipToNextInternal();
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(CALL_TYPE_NONE_PLAYER2_COMMAND) {
+                    @Override
+                    Object onExecute() {
+                        MediaItem2 curItem;
+                        MediaItem2 nextItem;
+                        synchronized (mPlaylistLock) {
+                            int nextShuffleIdx = mCurrentShuffleIdx + 1;
+                            if (nextShuffleIdx >= mShuffledList.size()) {
+                                if (mRepeatMode == REPEAT_MODE_ALL
+                                        || mRepeatMode == REPEAT_MODE_GROUP) {
+                                    nextShuffleIdx = 0;
+                                } else {
+                                    set(new PlayerResult(RESULT_CODE_INVALID_STATE,
+                                            mPlayer.getCurrentMediaItem()));
+                                    return null;
+                                }
+                            }
+                            mCurrentShuffleIdx = nextShuffleIdx;
+                            updateAndGetCurrentNextItemIfNeededLocked();
+                            curItem = mCurPlaylistItem;
+                            nextItem = mNextPlaylistItem;
+                        }
+
+                        final PendingFuture<PlayerResult> future = curItem != null
+                                ? setPlayerMediaItemsInternal(curItem, nextItem)
+                                : skipToNextInternal();
+                        addPendingFutureFront(future);
+                        return future;
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     @Override
-    public ListenableFuture<PlayerResult> skipToPlaylistItem(MediaItem2 item) {
-        MediaItem2 curItem;
-        MediaItem2 nextItem;
-        synchronized (mPlaylistLock) {
-            int newShuffleIdx = mShuffledList.indexOf(item);
-            if (newShuffleIdx < 0) {
-                return createFutureForResultCodeInternal(RESULT_CODE_BAD_VALUE);
-            }
-            mCurrentShuffleIdx = newShuffleIdx;
-            updateAndGetCurrentNextItemIfNeededLocked();
-            curItem = mCurPlaylistItem;
-            nextItem = mNextPlaylistItem;
-        }
-        return setPlayerMediaItemsInternal(curItem, nextItem);
+    public ListenableFuture<PlayerResult> skipToPlaylistItem(final MediaItem2 item) {
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(CALL_TYPE_NONE_PLAYER2_COMMAND) {
+                    @Override
+                    Object onExecute() {
+                        MediaItem2 curItem;
+                        MediaItem2 nextItem;
+                        synchronized (mPlaylistLock) {
+                            int newShuffleIdx = mShuffledList.indexOf(item);
+                            if (newShuffleIdx < 0) {
+                                set(new PlayerResult(RESULT_CODE_BAD_VALUE,
+                                        mPlayer.getCurrentMediaItem()));
+                                return null;
+                            }
+                            mCurrentShuffleIdx = newShuffleIdx;
+                            updateAndGetCurrentNextItemIfNeededLocked();
+                            curItem = mCurPlaylistItem;
+                            nextItem = mNextPlaylistItem;
+                        }
+                        final PendingFuture<PlayerResult> future =
+                                setPlayerMediaItemsInternal(curItem, nextItem);
+                        addPendingFutureFront(future);
+                        return future;
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     @Override
     public ListenableFuture<PlayerResult> updatePlaylistMetadata(final MediaMetadata2 metadata) {
-        synchronized (mPlaylistLock) {
-            mPlaylistMetadata = metadata;
-        }
-        notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
-            @Override
-            public void callCallback(
-                    SessionPlayer2.PlayerCallback callback) {
-                callback.onPlaylistMetadataChanged(XMediaPlayer.this, metadata);
-            }
-        });
-
-        return createFutureForResultCodeInternal(RESULT_CODE_SUCCESS);
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(CALL_TYPE_NONE_PLAYER2_COMMAND) {
+                    @Override
+                    Object onExecute() {
+                        synchronized (mPlaylistLock) {
+                            mPlaylistMetadata = metadata;
+                        }
+                        notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+                            @Override
+                            public void callCallback(SessionPlayer2.PlayerCallback callback) {
+                                callback.onPlaylistMetadataChanged(XMediaPlayer.this, metadata);
+                            }
+                        });
+                        set(new PlayerResult(RESULT_CODE_SUCCESS, mPlayer.getCurrentMediaItem()));
+                        return null;
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     @Override
     public ListenableFuture<PlayerResult> setRepeatMode(final int repeatMode) {
-        if (repeatMode < SessionPlayer2.REPEAT_MODE_NONE
-                || repeatMode > SessionPlayer2.REPEAT_MODE_GROUP) {
-            return createFutureForResultCodeInternal(RESULT_CODE_BAD_VALUE);
-        }
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(CALL_TYPE_NONE_PLAYER2_COMMAND) {
+                    @Override
+                    Object onExecute() {
+                        if (repeatMode < SessionPlayer2.REPEAT_MODE_NONE
+                                || repeatMode > SessionPlayer2.REPEAT_MODE_GROUP) {
+                            set(new PlayerResult(RESULT_CODE_BAD_VALUE,
+                                    mPlayer.getCurrentMediaItem()));
+                            return null;
+                        }
 
-        boolean changed;
-        synchronized (mPlaylistLock) {
-            changed = mRepeatMode != repeatMode;
-            mRepeatMode = repeatMode;
-        }
-        if (changed) {
-            notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
-                @Override
-                public void callCallback(
-                        SessionPlayer2.PlayerCallback callback) {
-                    callback.onRepeatModeChanged(XMediaPlayer.this, repeatMode);
-                }
-            });
-        }
-        return createFutureForResultCodeInternal(RESULT_CODE_SUCCESS);
+                        boolean changed;
+                        synchronized (mPlaylistLock) {
+                            changed = mRepeatMode != repeatMode;
+                            mRepeatMode = repeatMode;
+                        }
+                        if (changed) {
+                            notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+                                @Override
+                                public void callCallback(
+                                        SessionPlayer2.PlayerCallback callback) {
+                                    callback.onRepeatModeChanged(XMediaPlayer.this, repeatMode);
+                                }
+                            });
+                        }
+                        set(new PlayerResult(RESULT_CODE_SUCCESS, mPlayer.getCurrentMediaItem()));
+                        return null;
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     @Override
     public ListenableFuture<PlayerResult> setShuffleMode(final int shuffleMode) {
-        if (shuffleMode < SessionPlayer2.SHUFFLE_MODE_NONE
-                || shuffleMode > SessionPlayer2.SHUFFLE_MODE_GROUP) {
-            return createFutureForResultCodeInternal(RESULT_CODE_BAD_VALUE);
-        }
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(CALL_TYPE_NONE_PLAYER2_COMMAND) {
+                    @Override
+                    Object onExecute() {
+                        if (shuffleMode < SessionPlayer2.SHUFFLE_MODE_NONE
+                                || shuffleMode > SessionPlayer2.SHUFFLE_MODE_GROUP) {
+                            set(new PlayerResult(RESULT_CODE_BAD_VALUE,
+                                    mPlayer.getCurrentMediaItem()));
+                            return null;
+                        }
 
-        boolean changed;
-        synchronized (mPlaylistLock) {
-            changed = mShuffleMode != shuffleMode;
-            mShuffleMode = shuffleMode;
-        }
-        if (changed) {
-            notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
-                @Override
-                public void callCallback(
-                        SessionPlayer2.PlayerCallback callback) {
-                    callback.onShuffleModeChanged(XMediaPlayer.this, shuffleMode);
-                }
-            });
-        }
-        return createFutureForResultCodeInternal(RESULT_CODE_SUCCESS);
+                        boolean changed;
+                        synchronized (mPlaylistLock) {
+                            changed = mShuffleMode != shuffleMode;
+                            mShuffleMode = shuffleMode;
+                        }
+                        if (changed) {
+                            notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+                                @Override
+                                public void callCallback(
+                                        SessionPlayer2.PlayerCallback callback) {
+                                    callback.onShuffleModeChanged(XMediaPlayer.this, shuffleMode);
+                                }
+                            });
+                        }
+                        set(new PlayerResult(RESULT_CODE_SUCCESS, mPlayer.getCurrentMediaItem()));
+                        return null;
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     @Override
@@ -1130,13 +1383,14 @@ public class XMediaPlayer extends SessionPlayer2 {
      * media item and calling {@link #prefetch()}.
      */
     public void reset() {
-        mPlayer.reset();
-        synchronized (mPendingCommands) {
+        synchronized (mPendingFutures) {
             // Cancel the pending futures.
-            for (PendingCommand c : mPendingCommands) {
-                c.mFuture.cancel(true);
+            for (PendingFuture f : mPendingFutures) {
+                if (f.mExecuted && !f.isDone() && !f.isCancelled()) {
+                    f.cancel(true);
+                }
             }
-            mPendingCommands.clear();
+            mPendingFutures.clear();
             mPreviewEnabled = false;
         }
         synchronized (mStateLock) {
@@ -1151,6 +1405,7 @@ public class XMediaPlayer extends SessionPlayer2 {
             mCurrentShuffleIdx = END_OF_PLAYLIST;
             mSetMediaItemCalled = false;
         }
+        mPlayer.reset();
     }
 
     /**
@@ -1172,13 +1427,16 @@ public class XMediaPlayer extends SessionPlayer2 {
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
      * {@link PlayerResult} will be delivered when the command completes.
      */
-    public ListenableFuture<PlayerResult> setSurface(Surface surface) {
-        ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
-        synchronized (mPendingCommands) {
-            Object token = mPlayer.setSurface(surface);
-            addPendingCommandLocked(MediaPlayer2.CALL_COMPLETED_SET_SURFACE, future, token);
-        }
-        return future;
+    public ListenableFuture<PlayerResult> setSurface(final Surface surface) {
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(MediaPlayer2.CALL_COMPLETED_SET_SURFACE) {
+                    @Override
+                    Object onExecute() {
+                        return mPlayer.setSurface(surface);
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     /**
@@ -1193,14 +1451,10 @@ public class XMediaPlayer extends SessionPlayer2 {
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
      * {@link PlayerResult} will be delivered when the command completes.
      */
-    public ListenableFuture<PlayerResult> setPlayerVolume(float volume) {
-        ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
-        synchronized (mPendingCommands) {
-            Object token = mPlayer.setPlayerVolume(volume);
-            addPendingCommandLocked(
-                    MediaPlayer2.CALL_COMPLETED_SET_PLAYER_VOLUME, future, token);
-        }
-        return future;
+    public ListenableFuture<PlayerResult> setPlayerVolume(final float volume) {
+        PendingFuture<PlayerResult> pendingFuture = setPlayerVolumeInternal(volume);
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     /**
@@ -1265,14 +1519,16 @@ public class XMediaPlayer extends SessionPlayer2 {
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
      * {@link PlayerResult} will be delivered when the command completes.
      */
-    public ListenableFuture<PlayerResult> setPlaybackParams(@NonNull PlaybackParams2 params) {
-        ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
-        synchronized (mPendingCommands) {
-            Object token = mPlayer.setPlaybackParams(params);
-            addPendingCommandLocked(
-                    MediaPlayer2.CALL_COMPLETED_SET_PLAYBACK_PARAMS, future, token);
-        }
-        return future;
+    public ListenableFuture<PlayerResult> setPlaybackParams(@NonNull final PlaybackParams2 params) {
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(MediaPlayer2.CALL_COMPLETED_SET_PLAYBACK_PARAMS) {
+                    @Override
+                    Object onExecute() {
+                        return mPlayer.setPlaybackParams(params);
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     /**
@@ -1302,14 +1558,17 @@ public class XMediaPlayer extends SessionPlayer2 {
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
      * {@link PlayerResult} will be delivered when the command completes.
      */
-    public ListenableFuture<PlayerResult> seekTo(long msec, @SeekMode int mode) {
-        ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
-        int mp2SeekMode = sSeekModeMap.getOrDefault(mode, SEEK_NEXT_SYNC);
-        synchronized (mPendingCommands) {
-            Object token = mPlayer.seekTo(msec, mp2SeekMode);
-            addPendingCommandLocked(MediaPlayer2.CALL_COMPLETED_SEEK_TO, future, token);
-        }
-        return future;
+    public ListenableFuture<PlayerResult> seekTo(final long msec, @SeekMode int mode) {
+        final int mp2SeekMode = sSeekModeMap.getOrDefault(mode, SEEK_NEXT_SYNC);
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(MediaPlayer2.CALL_COMPLETED_SEEK_TO) {
+                    @Override
+                    Object onExecute() {
+                        return mPlayer.seekTo(msec, mp2SeekMode);
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     /**
@@ -1352,14 +1611,16 @@ public class XMediaPlayer extends SessionPlayer2 {
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
      * {@link PlayerResult} will be delivered when the command completes.
      */
-    public ListenableFuture<PlayerResult> setAudioSessionId(int sessionId) {
-        ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
-        synchronized (mPendingCommands) {
-            Object token = mPlayer.setAudioSessionId(sessionId);
-            addPendingCommandLocked(
-                    MediaPlayer2.CALL_COMPLETED_SET_AUDIO_SESSION_ID, future, token);
-        }
-        return future;
+    public ListenableFuture<PlayerResult> setAudioSessionId(final int sessionId) {
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(MediaPlayer2.CALL_COMPLETED_SET_AUDIO_SESSION_ID) {
+                    @Override
+                    Object onExecute() {
+                        return mPlayer.setAudioSessionId(sessionId);
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     /**
@@ -1388,16 +1649,17 @@ public class XMediaPlayer extends SessionPlayer2 {
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
      * {@link PlayerResult} will be delivered when the command completes.
      */
-    public ListenableFuture<PlayerResult> attachAuxEffect(int effectId) {
-        ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
-        synchronized (mPendingCommands) {
-            Object token = mPlayer.attachAuxEffect(effectId);
-            addPendingCommandLocked(
-                    MediaPlayer2.CALL_COMPLETED_ATTACH_AUX_EFFECT, future, token);
-        }
-        return future;
+    public ListenableFuture<PlayerResult> attachAuxEffect(final int effectId) {
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(MediaPlayer2.CALL_COMPLETED_ATTACH_AUX_EFFECT) {
+                    @Override
+                    Object onExecute() {
+                        return mPlayer.attachAuxEffect(effectId);
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
-
 
     /**
      * Sets the send level of the player to the attached auxiliary effect.
@@ -1413,14 +1675,16 @@ public class XMediaPlayer extends SessionPlayer2 {
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
      * {@link PlayerResult} will be delivered when the command completes.
      */
-    public ListenableFuture<PlayerResult> setAuxEffectSendLevel(float level) {
-        ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
-        synchronized (mPendingCommands) {
-            Object token = mPlayer.setAuxEffectSendLevel(level);
-            addPendingCommandLocked(
-                    MediaPlayer2.CALL_COMPLETED_SET_AUX_EFFECT_SEND_LEVEL, future, token);
-        }
-        return future;
+    public ListenableFuture<PlayerResult> setAuxEffectSendLevel(final float level) {
+        PendingFuture<PlayerResult> pendingFuture = new PendingFuture<PlayerResult>(
+                MediaPlayer2.CALL_COMPLETED_SET_AUX_EFFECT_SEND_LEVEL) {
+                    @Override
+                    Object onExecute() {
+                        return mPlayer.setAuxEffectSendLevel(level);
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     /**
@@ -1486,13 +1750,16 @@ public class XMediaPlayer extends SessionPlayer2 {
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
      * {@link PlayerResult} will be delivered when the command completes.
      */
-    public ListenableFuture<PlayerResult> selectTrack(int index) {
-        ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
-        synchronized (mPendingCommands) {
-            Object token = mPlayer.selectTrack(index);
-            addPendingCommandLocked(MediaPlayer2.CALL_COMPLETED_SELECT_TRACK, future, token);
-        }
-        return future;
+    public ListenableFuture<PlayerResult> selectTrack(final int index) {
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(MediaPlayer2.CALL_COMPLETED_SELECT_TRACK) {
+                    @Override
+                    Object onExecute() {
+                        return mPlayer.selectTrack(index);
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     /**
@@ -1509,13 +1776,16 @@ public class XMediaPlayer extends SessionPlayer2 {
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
      * {@link PlayerResult} will be delivered when the command completes.
      */
-    public ListenableFuture<PlayerResult> deselectTrack(int index) {
-        ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
-        synchronized (mPendingCommands) {
-            Object token = mPlayer.deselectTrack(index);
-            addPendingCommandLocked(MediaPlayer2.CALL_COMPLETED_DESELECT_TRACK, future, token);
-        }
-        return future;
+    public ListenableFuture<PlayerResult> deselectTrack(final int index) {
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(MediaPlayer2.CALL_COMPLETED_DESELECT_TRACK) {
+                    @Override
+                    Object onExecute() {
+                        return mPlayer.deselectTrack(index);
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     /**
@@ -1552,13 +1822,16 @@ public class XMediaPlayer extends SessionPlayer2 {
      * {@link DrmResult} will be delivered when the command completes.
      */
     // This is an asynchronous call.
-    public ResolvableFuture<DrmResult> prepareDrm(@NonNull UUID uuid) {
-        ResolvableFuture<DrmResult> future = ResolvableFuture.create();
-        synchronized (mPendingCommands) {
-            Object token = mPlayer.prepareDrm(uuid);
-            addPendingCommandLocked(MediaPlayer2.CALL_COMPLETED_PREPARE_DRM, future, token);
-        }
-        return future;
+    public ListenableFuture<DrmResult> prepareDrm(@NonNull final UUID uuid) {
+        PendingFuture<DrmResult> pendingFuture =
+                new PendingFuture<DrmResult>(MediaPlayer2.CALL_COMPLETED_PREPARE_DRM) {
+                    @Override
+                    Object onExecute() {
+                        return mPlayer.prepareDrm(uuid);
+                    }
+                };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
     }
 
     /**
@@ -1727,7 +2000,6 @@ public class XMediaPlayer extends SessionPlayer2 {
                 });
     }
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
     void setState(@PlayerState final int state) {
         boolean needToNotify = false;
         synchronized (mStateLock) {
@@ -1746,7 +2018,6 @@ public class XMediaPlayer extends SessionPlayer2 {
         }
     }
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
     void setBufferingState(final MediaItem2 item, @BuffState final int state) {
         Integer previousState;
         synchronized (mStateLock) {
@@ -1762,7 +2033,6 @@ public class XMediaPlayer extends SessionPlayer2 {
         }
     }
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
     void notifySessionPlayerCallback(final SessionPlayerCallbackNotifier notifier) {
         Map<SessionPlayer2.PlayerCallback, Executor> map = getCallbacks();
         for (final SessionPlayer2.PlayerCallback callback : map.keySet()) {
@@ -1775,7 +2045,6 @@ public class XMediaPlayer extends SessionPlayer2 {
         }
     }
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
     void notifyXMediaPlayerCallback(final XMediaPlayerCallbackNotifier notifier) {
         Map<SessionPlayer2.PlayerCallback, Executor> map = getCallbacks();
         for (final SessionPlayer2.PlayerCallback callback : map.keySet()) {
@@ -1798,68 +2067,103 @@ public class XMediaPlayer extends SessionPlayer2 {
         void callCallback(PlayerCallback callback);
     }
 
-    private ListenableFuture<PlayerResult> setPlayerMediaItemsInternal(
-            @NonNull MediaItem2 curItem, @Nullable MediaItem2 nextItem) {
-        boolean setMediaItemCalled;
-        synchronized (mPlaylistLock) {
-            setMediaItemCalled = mSetMediaItemCalled;
-        }
-        ListenableFuture<PlayerResult> future = !setMediaItemCalled
-                ? setMediaItemInternal(curItem)
-                : CombindedCommandResultFuture.create(mExecutor,
-                        setNextMediaItemInternal(curItem), skipToNextInternal());
-
-        return nextItem == null ? future : CombindedCommandResultFuture.create(
-                mExecutor, future, setNextMediaItemInternal(nextItem));
+    PendingFuture<PlayerResult> setPlayerMediaItemsInternal(
+            @NonNull final MediaItem2 curItem, @Nullable final MediaItem2 nextItem) {
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(CALL_TYPE_NONE_PLAYER2_COMMAND) {
+                    @Override
+                    Object onExecute() {
+                        boolean setMediaItemCalled;
+                        synchronized (mPlaylistLock) {
+                            setMediaItemCalled = mSetMediaItemCalled;
+                        }
+                        List<PendingFuture<PlayerResult>> futures = new ArrayList<>();
+                        if (setMediaItemCalled) {
+                            futures.add(setNextMediaItemInternal(curItem));
+                            futures.add(skipToNextInternal());
+                        } else {
+                            futures.add(setMediaItemInternal(curItem));
+                        }
+                        if (nextItem != null) {
+                            futures.add(setNextMediaItemInternal(nextItem));
+                        }
+                        addPendingFuturesFront(futures);
+                        return CombindedCommandResultFuture.create(mExecutor, futures);
+                    }
+                };
+        return pendingFuture;
     }
 
-    private ListenableFuture<PlayerResult> setMediaItemInternal(MediaItem2 item) {
-        ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
-        synchronized (mPendingCommands) {
-            Object token = mPlayer.setMediaItem(item);
-            addPendingCommandLocked(MediaPlayer2.CALL_COMPLETED_SET_DATA_SOURCE, future, token);
-        }
-        synchronized (mPlaylistLock) {
-            mSetMediaItemCalled = true;
-        }
-        return future;
-    }
-
-    private ListenableFuture<PlayerResult> setNextMediaItemInternal(MediaItem2 item) {
-        ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
-        synchronized (mPendingCommands) {
-            Object token = mPlayer.setNextMediaItem(item);
-            addPendingCommandLocked(
-                    MediaPlayer2.CALL_COMPLETED_SET_NEXT_DATA_SOURCE, future, token);
-        }
-        return future;
-    }
-
-    private ListenableFuture<PlayerResult> skipToNextInternal() {
-        ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
-        synchronized (mPendingCommands) {
-            Object token = mPlayer.skipToNext();
-            addPendingCommandLocked(
-                    MediaPlayer2.CALL_COMPLETED_SKIP_TO_NEXT, future, token);
-        }
-        return future;
-    }
-
-    private ListenableFuture<PlayerResult> createFutureForResultCodeInternal(int resultCode) {
-        ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
-        synchronized (mPendingCommands) {
-            if (mPendingCommands.size() > 0) {
-                // TODO: Find a better way to set the call type.
-                addPendingCommandLocked(CALL_COMPLETE_PLAYLIST_BASE - resultCode, future, null);
-            } else {
-                future.set(new PlayerResult(resultCode, mPlayer.getCurrentMediaItem()));
+    PendingFuture<PlayerResult> setPlayerVolumeInternal(final float volume) {
+        return new PendingFuture<PlayerResult>(MediaPlayer2.CALL_COMPLETED_SET_PLAYER_VOLUME) {
+            @Override
+            Object onExecute() {
+                return mPlayer.setPlayerVolume(volume);
             }
-        }
-        return future;
+        };
+    }
+
+    PendingFuture<PlayerResult> setMediaItemInternal(final MediaItem2 item) {
+        PendingFuture<PlayerResult> pendingFuture =
+                new PendingFuture<PlayerResult>(MediaPlayer2.CALL_COMPLETED_SET_DATA_SOURCE) {
+                    @Override
+                    Object onExecute() {
+                        synchronized (mPlaylistLock) {
+                            mSetMediaItemCalled = true;
+                        }
+                        return mPlayer.setMediaItem(item);
+                    }
+                };
+        return pendingFuture;
+    }
+
+    PendingFuture<PlayerResult> setNextMediaItemInternal(final MediaItem2 item) {
+        return new PendingFuture<PlayerResult>(MediaPlayer2.CALL_COMPLETED_SET_NEXT_DATA_SOURCE) {
+            @Override
+            Object onExecute() {
+                return mPlayer.setNextMediaItem(item);
+            }
+        };
+    }
+
+    PendingFuture<PlayerResult> playInternal() {
+        return new PendingFuture<PlayerResult>(MediaPlayer2.CALL_COMPLETED_PLAY) {
+            @Override
+            Object onExecute() {
+                return mPlayer.play();
+            }
+        };
+    }
+
+    PendingFuture<PlayerResult> pauseInternal() {
+        return new PendingFuture<PlayerResult>(MediaPlayer2.CALL_COMPLETED_PAUSE) {
+            @Override
+            Object onExecute() {
+                return mPlayer.pause();
+            }
+        };
+    }
+
+    PendingFuture<PlayerResult> prepareInternal() {
+        return new PendingFuture<PlayerResult>(MediaPlayer2.CALL_COMPLETED_PREPARE) {
+            @Override
+            Object onExecute() {
+                return mPlayer.prepare();
+            }
+        };
+    }
+
+    PendingFuture<PlayerResult> skipToNextInternal() {
+        return new PendingFuture<PlayerResult>(MediaPlayer2.CALL_COMPLETED_SKIP_TO_NEXT) {
+            @Override
+            Object onExecute() {
+                return mPlayer.skipToNext();
+            }
+        };
     }
 
     @SuppressWarnings("GuardedBy")
-    private void applyShuffleModeLocked() {
+    void applyShuffleModeLocked() {
         mShuffledList.clear();
         mShuffledList.addAll(mPlaylist);
         if (mShuffleMode == SessionPlayer2.SHUFFLE_MODE_ALL
@@ -1877,7 +2181,7 @@ public class XMediaPlayer extends SessionPlayer2 {
      * current and next item or both are changed to null.
      */
     @SuppressWarnings("GuardedBy")
-    private Pair<MediaItem2, MediaItem2> updateAndGetCurrentNextItemIfNeededLocked() {
+    Pair<MediaItem2, MediaItem2> updateAndGetCurrentNextItemIfNeededLocked() {
         MediaItem2 changedCurItem = null;
         MediaItem2 changedNextItem = null;
         if (mCurrentShuffleIdx < 0) {
@@ -1911,18 +2215,17 @@ public class XMediaPlayer extends SessionPlayer2 {
     }
 
     // Clamps value to [0, maxValue]
-    private static int clamp(int value, int maxValue) {
+    static int clamp(int value, int maxValue) {
         if (value < 0) {
             return 0;
         }
         return (value > maxValue) ? maxValue : value;
     }
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
     void handleCallComplete(MediaPlayer2 mp, final MediaItem2 item, int what, int status) {
-        PendingCommand expected;
-        synchronized (mPendingCommands) {
-            expected = mPendingCommands.pollFirst();
+        PendingFuture expected;
+        synchronized (mPendingFutures) {
+            expected = mPendingFutures.pollFirst();
         }
         if (expected == null) {
             Log.i(TAG, "No matching call type for " + what + ". Possibly because of reset().");
@@ -1986,30 +2289,51 @@ public class XMediaPlayer extends SessionPlayer2 {
         }
         if (what != MediaPlayer2.CALL_COMPLETED_PREPARE_DRM) {
             Integer resultCode = sResultCodeMap.getOrDefault(status, RESULT_CODE_UNKNOWN_ERROR);
-            expected.mFuture.set(new PlayerResult(resultCode, item));
+            expected.set(new PlayerResult(resultCode, item));
         } else {
             Integer resultCode = sPrepareDrmStatusMap.getOrDefault(
                     status, DrmResult.RESULT_CODE_PREPARATION_ERROR);
-            expected.mFuture.set(new DrmResult(resultCode, item));
+            expected.set(new DrmResult(resultCode, item));
         }
 
-        PendingCommand command;
-        // TODO: Make commands be executed sequentially
-        while (true) {
-            synchronized (mPendingCommands) {
-                command = mPendingCommands.peekFirst();
+        // Execute remaining pending futures
+        executePendingFuturesIfNeeded();
+    }
+
+    void executePendingFuturesIfNeeded() {
+        synchronized (mPendingFutures) {
+            PendingFuture future;
+            while ((future = mPendingFutures.peekFirst()) != null) {
+                if (future.mCallType == CALL_TYPE_NONE_PLAYER2_COMMAND) {
+                    // For CALL_TYPE_NONE_PLAYER2_COMMAND, mPendingFutures.removeFirst() should
+                    // be called before future.run() since some pending futures call
+                    // addPendingFuturesFront() in onExecute(). ex) setPlayerMediaItemsInternal()
+                    mPendingFutures.removeFirst();
+                }
+                if (!future.mExecuted) {
+                    future.run();
+                }
+                if (future.mCallType != CALL_TYPE_NONE_PLAYER2_COMMAND) {
+                    break;
+                }
             }
-            if (command == null || command.mCallType > CALL_COMPLETE_PLAYLIST_BASE) {
-                break;
-            }
-            command.mFuture.set(new PlayerResult(
-                    CALL_COMPLETE_PLAYLIST_BASE - command.mCallType, item));
-            synchronized (mPendingCommands) {
-                mPendingCommands.removeFirst();
+
+            Iterator<PendingFuture> it = mPendingFutures.iterator();
+            boolean stopOnNonePlayer2Command = false;
+            while (it.hasNext()) {
+                future = it.next();
+                if (future.mCallType != CALL_TYPE_NONE_PLAYER2_COMMAND) {
+                    stopOnNonePlayer2Command = true;
+                } else if (stopOnNonePlayer2Command) {
+                    break;
+                }
+                if (!future.mExecuted) {
+                    future.run();
+                }
             }
         }
     }
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
+
     class Mp2DrmCallback extends MediaPlayer2.DrmEventCallback {
         @Override
         public void onDrmInfo(
@@ -2029,7 +2353,6 @@ public class XMediaPlayer extends SessionPlayer2 {
         }
     }
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
     class Mp2Callback extends MediaPlayer2.EventCallback {
         @Override
         public void onVideoSizeChanged(
@@ -2476,51 +2799,84 @@ public class XMediaPlayer extends SessionPlayer2 {
     }
 
     static final class CombindedCommandResultFuture extends AbstractResolvableFuture<PlayerResult> {
-        final ListenableFuture<PlayerResult>[] mFutures;
+        final List<? extends ListenableFuture<PlayerResult>> mFutures;
+        boolean mCancelFuturesCalled = false;
         AtomicInteger mSuccessCount = new AtomicInteger(0);
 
         public static CombindedCommandResultFuture create(Executor executor,
                 ListenableFuture<PlayerResult>... futures) {
-            return new CombindedCommandResultFuture(executor, futures);
+            return create(executor, Arrays.asList(futures));
+        }
+
+        public static CombindedCommandResultFuture create(Executor executor,
+                List<? extends ListenableFuture<PlayerResult>> futures) {
+            final CombindedCommandResultFuture future =
+                    new CombindedCommandResultFuture(executor, futures);
+            future.addListener(new Runnable() {
+                @Override
+                public void run() {
+                    if (future.isCancelled()) {
+                        future.cancelFutures();
+                    }
+                }
+            }, executor);
+            return future;
         }
 
         private CombindedCommandResultFuture(Executor executor,
-                ListenableFuture<PlayerResult>[] futures) {
+                List<? extends ListenableFuture<PlayerResult>> futures) {
             mFutures = futures;
-            for (int i = 0; i < mFutures.length; ++i) {
-                final int cur = i;
-                mFutures[i].addListener(new Runnable() {
+            for (int i = 0; i < mFutures.size(); ++i) {
+                final ListenableFuture<PlayerResult> future = mFutures.get(i);
+                future.addListener(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            PlayerResult result = mFutures[cur].get();
-                            int resultCode = result.getResultCode();
-                            if (resultCode != RESULT_CODE_SUCCESS
-                                    && resultCode != RESULT_CODE_SKIPPED) {
-                                for (int j = 0; j < mFutures.length; ++j) {
-                                    if (!mFutures[j].isCancelled() && !mFutures[j].isDone()
-                                            && cur != j) {
-                                        mFutures[j].cancel(true);
-                                    }
-                                }
-                                set(result);
+                            if (future.isCancelled()) {
+                                cancelFutures();
                             } else {
-                                int cnt = mSuccessCount.incrementAndGet();
-                                if (cnt == mFutures.length) {
+                                PlayerResult result = future.get();
+                                int resultCode = result.getResultCode();
+                                if (resultCode != RESULT_CODE_SUCCESS
+                                        && resultCode != RESULT_CODE_SKIPPED) {
+                                    cancelFutures();
                                     set(result);
+                                } else {
+                                    int cnt = mSuccessCount.incrementAndGet();
+                                    if (cnt == mFutures.size()) {
+                                        set(result);
+                                    }
                                 }
                             }
                         } catch (Exception e) {
-                            for (int j = 0; j < mFutures.length; ++j) {
-                                if (!mFutures[j].isCancelled() && !mFutures[j].isDone()
-                                        && cur != j) {
-                                    mFutures[j].cancel(true);
-                                }
-                            }
+                            cancelFutures();
                             setException(e);
                         }
                     }
                 }, executor);
+            }
+        }
+
+        @Override
+        public boolean set(@Nullable PlayerResult value) {
+            return super.set(value);
+        }
+
+        @Override
+        public boolean setException(Throwable throwable) {
+            return super.setException(throwable);
+        }
+
+        void cancelFutures() {
+            synchronized (mFutures) {
+                if (!mCancelFuturesCalled) {
+                    mCancelFuturesCalled = true;
+                    for (ListenableFuture future : mFutures) {
+                        if (!future.isCancelled() && !future.isDone()) {
+                            future.cancel(true);
+                        }
+                    }
+                }
             }
         }
     }

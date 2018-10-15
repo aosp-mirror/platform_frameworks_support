@@ -157,9 +157,6 @@ public class AudioFocusHandler {
                     result = requestAudioFocusLocked();
                 }
             }
-            if (attrs == null) {
-                mPlayer.setPlayerVolume(0);
-            }
             return result;
         }
 
