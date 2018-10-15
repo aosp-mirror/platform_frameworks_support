@@ -45,7 +45,9 @@ public class SelectionBuilderV1Impl extends SelectionBuilderImpl {
     }
 
     @Override
-    public void apply(SelectionBuilder selectionBuilder, Slice.Builder sliceBuilder) {
+    public void apply(Slice.Builder sliceBuilder) {
+        final SelectionBuilder selectionBuilder = getSelectionBuilder();
+
         sliceBuilder.addHints(HINT_SELECTION);
 
         selectionBuilder.getPrimaryAction().setPrimaryAction(sliceBuilder);
