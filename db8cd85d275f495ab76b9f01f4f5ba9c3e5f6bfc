@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f36a21cc_18022a5b",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-15T08:57:57Z",
+      "side": 1,
+      "message": "Please update doc properly.",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 32
+      },
+      "revId": "db8cd85d275f495ab76b9f01f4f5ba9c3e5f6bfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
