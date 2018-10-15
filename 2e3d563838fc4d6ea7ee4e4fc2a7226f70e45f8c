@@ -172,6 +172,24 @@
       "revId": "2e3d563838fc4d6ea7ee4e4fc2a7226f70e45f8c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "caf518f2_eb568445",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-15T20:13:52Z",
+      "side": 1,
+      "message": "We don\u0027t do this (well, in some cases we do it to convert object arrays to primitive arrays), but since this is not our source of truth (that\u0027s the database), it won\u0027t affect WorkManager.  Do you still want us to go through the defensive clone/unmodifiable map exercise?",
+      "parentUuid": "8fdc760f_fc7f920c",
+      "revId": "2e3d563838fc4d6ea7ee4e4fc2a7226f70e45f8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
