@@ -65,6 +65,23 @@
     },
     {
       "key": {
+        "uuid": "452bb3fb_092dcc26",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-10-15T20:21:11Z",
+      "side": 1,
+      "message": "This seems to be the main purpose of this class, and it seems it\u0027s only accessible on a workerthread now - how will this be used?",
+      "revId": "f4ad32d67814ea3ce0a1f54f9eb8a1d0caf99d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "944f6e0e_dfaa3d40",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 26
