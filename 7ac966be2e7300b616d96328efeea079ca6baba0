@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c90f70f1_9860870f",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseItemProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-15T16:36:01Z",
+      "side": 1,
+      "message": "seems like this class is only intended for here so maybe mark it as private?",
+      "range": {
+        "startLine": 37,
+        "startChar": 6,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "7ac966be2e7300b616d96328efeea079ca6baba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afd5b78a_55683276",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseItemProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-15T16:36:01Z",
+      "side": 1,
+      "message": "this seems a bit hacky but I\u0027m guessing there is a case where we need these errors?",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 32
+      },
+      "revId": "7ac966be2e7300b616d96328efeea079ca6baba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51ae5d41_483a8c16",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/DatabaseItem.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-15T16:36:01Z",
+      "side": 1,
+      "message": "maybe call DatabaseTable or TableOrView ?\nItem is not clear that this is referring a table or something that behaves like a table.",
+      "revId": "7ac966be2e7300b616d96328efeea079ca6baba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e91b6e97_168a8d47",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/DatabaseItem.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-15T16:36:01Z",
+      "side": 1,
+      "message": "maybe call this tableName for clarity?",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 12
+      },
+      "revId": "7ac966be2e7300b616d96328efeea079ca6baba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
