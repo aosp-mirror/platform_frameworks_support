@@ -157,9 +157,6 @@ public class AudioFocusHandler {
                     result = requestAudioFocusLocked();
                 }
             }
-            if (attrs == null) {
-                mPlayer.setPlayerVolume(0);
-            }
             return result;
         }
 
@@ -217,10 +214,6 @@ public class AudioFocusHandler {
                         }
                     }
                 }
-            }
-            if (attrs == null) {
-                // If attributes becomes null (i.e. no sound)
-                mPlayer.setPlayerVolume(0);
             }
             if (pauseNeeded) {
                 mPlayer.pause();
