@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "c14f703f_ca0219a8",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-15T21:33:15Z",
+      "side": 1,
+      "message": "Don\u0027t do the indentation.  Stay consistent with the rest of WorkManager.",
+      "range": {
+        "startLine": 148,
+        "startChar": 21,
+        "endLine": 148,
+        "endChar": 31
+      },
+      "revId": "2bc306ed127c86e6dbf54f9e85ed66a4cc69d651",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b0df6eed_ab5ebddb",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
         "patchSetId": 2
@@ -37,6 +60,30 @@
       "side": 1,
       "message": "The call to getSchedulers() assumes that the context is set. I thought this would read better than having getSchedulers() take a Context as a parameter. The Processor also needs a reference to the WorkDatabase which we have to create, and if we do that in the first line, we can no longer do constructor delegation.",
       "parentUuid": "b0df6eed_ab5ebddb",
+      "range": {
+        "startLine": 193,
+        "startChar": 8,
+        "endLine": 193,
+        "endChar": 20
+      },
+      "revId": "2bc306ed127c86e6dbf54f9e85ed66a4cc69d651",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b0f022b_b74b6a2e",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-15T21:33:15Z",
+      "side": 1,
+      "message": "getSchedulers should take in a context param.  This is a very common pattern, so I don\u0027t mind putting that in there.\n\nI think what you really need here is another constructor - one that only takes in a database (and creates a Processor using that database and delegates to the next constructor).  As it stands, you are setting member variables in different constructors and there\u0027s a lot of room for ambiguity or mistakes.  For example, in this constructor, you\u0027re setting mWorkDatabase, but you\u0027re also passing it and setting it again in internalInit.",
+      "parentUuid": "542d71ce_c20d4e2b",
       "range": {
         "startLine": 193,
         "startChar": 8,
