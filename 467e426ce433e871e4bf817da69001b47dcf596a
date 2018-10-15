@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5202674_358f4505",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-10-15T15:10:45Z",
+      "side": 1,
+      "message": "nit: drop the the, it\u0027s cleaner",
+      "range": {
+        "startLine": 11,
+        "startChar": 37,
+        "endLine": 11,
+        "endChar": 40
+      },
+      "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fa1d4f0_033c4989",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-10-15T15:10:45Z",
+      "side": 1,
+      "message": "nit: instantly jumps -\u003e will instantly jump",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 21
+      },
+      "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16006d45_fa78a715",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-10-15T15:10:45Z",
+      "side": 1,
+      "message": "nit: broken formatting",
+      "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4db741a3_139342a1",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-10-15T15:10:45Z",
+      "side": 1,
+      "message": "I don\u0027t think that name reflects what the method does. Also the signature is not intuitive. I\u0027d inline it (it\u0027s only used once, right?).",
+      "range": {
+        "startLine": 760,
+        "startChar": 34,
+        "endLine": 760,
+        "endChar": 64
+      },
+      "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a334c43_f939d822",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-10-15T15:10:45Z",
+      "side": 1,
+      "message": "This line confuses me every time. Maybe introduce previousItem later, or rename to something that holds \u0027true\u0027 at the state when it\u0027s introduced.",
+      "range": {
+        "startLine": 388,
+        "startChar": 8,
+        "endLine": 388,
+        "endChar": 42
+      },
+      "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a5d6202_3cde8eee",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-10-15T15:10:45Z",
+      "side": 1,
+      "message": "This deserves a comment, not sure how it works anymore.",
+      "range": {
+        "startLine": 390,
+        "startChar": 45,
+        "endLine": 390,
+        "endChar": 60
+      },
+      "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
