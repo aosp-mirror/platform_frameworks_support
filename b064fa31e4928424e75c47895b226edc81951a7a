@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "44307e31_84725bba",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-10-15T20:25:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce18708f_49962173",
+      "revId": "b064fa31e4928424e75c47895b226edc81951a7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46797543_47636ad4",
         "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9f19f3d2_430fda93",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-10-15T20:25:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46797543_47636ad4",
+      "revId": "b064fa31e4928424e75c47895b226edc81951a7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "446fa482_580de5e3",
         "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
         "patchSetId": 4
@@ -50,6 +86,24 @@
       "revId": "b064fa31e4928424e75c47895b226edc81951a7a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4fb550e_747c185a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-10-15T20:25:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "446fa482_580de5e3",
+      "revId": "b064fa31e4928424e75c47895b226edc81951a7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
