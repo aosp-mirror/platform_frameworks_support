@@ -128,6 +128,30 @@
     },
     {
       "key": {
+        "uuid": "8d467fd0_74ad438f",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-10-15T21:17:44Z",
+      "side": 1,
+      "message": "+1 to moving this just before mCurrentItem \u003d item.",
+      "parentUuid": "8a334c43_f939d822",
+      "range": {
+        "startLine": 388,
+        "startChar": 8,
+        "endLine": 388,
+        "endChar": 42
+      },
+      "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a5d6202_3cde8eee",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
         "patchSetId": 1
@@ -144,6 +168,52 @@
         "startChar": 45,
         "endLine": 390,
         "endChar": 60
+      },
+      "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77c74ca6_2fd9b0f9",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-10-15T21:17:44Z",
+      "side": 1,
+      "message": "Maybe collapse to one if statement?",
+      "range": {
+        "startLine": 389,
+        "startChar": 8,
+        "endLine": 390,
+        "endChar": 63
+      },
+      "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a41697f1_a40942f7",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-10-15T21:17:44Z",
+      "side": 1,
+      "message": "I think in the given programmatic flow, things are a bit confusing around the source of truth for the currently selected item.  For example, this call is actually redundant even though it seems completely reasonable.  When \"mScrollEventAdapter.notifyProgrammaticScroll(item, smoothScroll);\" is called below, if the current selected item has changed, mCurrentItem will be updated via the \"currentItemUpdater\" field.\n\n1. I would suggest considering eliminating this confusion by making ScrollEventAdapter the source of truth for what item is currently selected.  I know that changes the meaning of ScrolEventAdapter, but I\u0027d argue that the class javadoc for ScrollEventAdapter is already a muddied by other calls that query ScrollEventAdapter for information about it\u0027s internal state.  Thoughts?  Can not be in this CL if you\u0027d prefer, but I\u0027d follow up quickly to keep things clean if you guys think its a good idea.\n\nMaybe ScrollEventAdapter\u0027s description, and even name, should up updated to better represent the fact that it does more than just translate scroll events? (Not in this CL of course).",
+      "range": {
+        "startLine": 395,
+        "startChar": 8,
+        "endLine": 395,
+        "endChar": 28
       },
       "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
