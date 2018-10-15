@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "542d71ce_c20d4e2b",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-15T20:30:37Z",
+      "side": 1,
+      "message": "The call to getSchedulers() assumes that the context is set. I thought this would read better than having getSchedulers() take a Context as a parameter. The Processor also needs a reference to the WorkDatabase which we have to create, and if we do that in the first line, we can no longer do constructor delegation.",
+      "parentUuid": "b0df6eed_ab5ebddb",
+      "range": {
+        "startLine": 193,
+        "startChar": 8,
+        "endLine": 193,
+        "endChar": 20
+      },
+      "revId": "2bc306ed127c86e6dbf54f9e85ed66a4cc69d651",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "30b6bed5_2941e87d",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
         "patchSetId": 2
