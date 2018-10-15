@@ -82,6 +82,24 @@
     },
     {
       "key": {
+        "uuid": "f36948aa_015d0e66",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-15T20:27:10Z",
+      "side": 1,
+      "message": "This is a wrapper around the ShortcutManager getShortcuts api\nhttps://developer.android.com/reference/android/content/pm/ShortcutManager.html#getDynamicShortcuts()\n\nThe platform API also makes disk lookups and is not supposed to be called on the ui thread, (although not mentioned in the java doc).",
+      "parentUuid": "452bb3fb_092dcc26",
+      "revId": "f4ad32d67814ea3ce0a1f54f9eb8a1d0caf99d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "944f6e0e_dfaa3d40",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 26
