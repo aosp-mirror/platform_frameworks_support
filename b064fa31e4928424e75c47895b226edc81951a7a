@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "82c33b7d_78bd882d",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-15T20:39:53Z",
+      "side": 1,
+      "message": "I\u0027m envisioning something like\n\n  archiveName \u003d \"${project.name}_${previousVersion}_${project.version}.zip\"\n\nto make it extra easy to see what it\u0027s a diff between.\n\nProbably not super important though (either now or ever), given that you can look inside the .zip to figure it out too",
+      "parentUuid": "9f19f3d2_430fda93",
+      "revId": "b064fa31e4928424e75c47895b226edc81951a7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "446fa482_580de5e3",
         "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
         "patchSetId": 4
