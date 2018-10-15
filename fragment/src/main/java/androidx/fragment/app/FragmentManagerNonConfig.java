@@ -31,7 +31,7 @@ import java.util.Map;
  *
  * <p>Apps should treat objects of this type as opaque, returned by
  * and passed to the state save and restore process for fragments in
- * {@link FragmentController#retainNonConfig()} and
+ * {@link FragmentController#retainNestedNonConfig()} and
  * {@link FragmentController#restoreAllState(Parcelable, FragmentManagerNonConfig)}.</p>
  */
 public class FragmentManagerNonConfig {
