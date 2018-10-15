@@ -16,10 +16,12 @@
 
 package androidx.viewpager2.widget
 
+import android.content.Intent
 import android.os.Build
 import android.view.View
 import android.view.View.OVER_SCROLL_NEVER
 import androidx.recyclerview.widget.RecyclerView
+import androidx.test.InstrumentationRegistry
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.CoordinatesProvider
 import androidx.test.espresso.action.GeneralLocation
@@ -33,6 +35,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.rule.ActivityTestRule
 import androidx.testutils.FragmentActivityUtils
+import androidx.viewpager2.LocaleTestUtils
 import androidx.viewpager2.test.R
 import androidx.viewpager2.widget.ViewPager2.Orientation.HORIZONTAL
 import androidx.viewpager2.widget.ViewPager2.ScrollState.IDLE
@@ -46,13 +49,31 @@ import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.greaterThanOrEqualTo
 import org.hamcrest.Matchers.lessThan
 import org.hamcrest.Matchers.lessThanOrEqualTo
+import org.junit.After
 import org.junit.Assert.assertThat
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
 open class BaseTest {
+    val localeUtil: LocaleTestUtils by lazy {
+        LocaleTestUtils(InstrumentationRegistry.getTargetContext())
+    }
+
+    @After
+    fun tearDown() {
+        localeUtil.resetLocale()
+    }
+
     fun setUpTest(@ViewPager2.Orientation orientation: Int): Context {
-        val activityTestRule = ActivityTestRule<TestActivity>(TestActivity::class.java)
+        val activityTestRule = object : ActivityTestRule<TestActivity>(TestActivity::class.java) {
+            override fun getActivityIntent(): Intent {
+                val intent = Intent()
+                if (localeUtil.isLocaleChangedAndLock()) {
+                    intent.putExtra(TestActivity.EXTRA_LANGUAGE, localeUtil.getLocale().toString())
+                }
+                return intent
+            }
+        }
         activityTestRule.launchActivity(null)
 
         val viewPager: ViewPager2 = activityTestRule.activity.findViewById(R.id.view_pager)

@@ -26,6 +26,7 @@ import androidx.test.filters.LargeTest
 import androidx.test.runner.AndroidJUnit4
 import androidx.testutils.PollingCheck
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.LocaleTestUtils
 import androidx.viewpager2.widget.PageChangeListenerTest.Event.OnPageScrollStateChangedEvent
 import androidx.viewpager2.widget.PageChangeListenerTest.Event.OnPageScrolledEvent
 import androidx.viewpager2.widget.PageChangeListenerTest.Event.OnPageSelectedEvent
@@ -614,6 +615,36 @@ class PageChangeListenerTest : BaseTest() {
 
         // then
         // no crash
+    }
+
+    fun test_scrollingWithRtl(@Orientation orientation: Int) {
+        // given
+        localeUtil.setLocale(LocaleTestUtils.RTL_LANGUAGE)
+
+        setUpTest(orientation).apply {
+            setAdapterSync(viewAdapterProvider(stringSequence(20)))
+
+            // when
+            listOf(true, false).forEach { smoothScroll ->
+                listOf(2, 1, 2, 0).forEach { targetPage ->
+                    viewPager.setCurrentItemSync(targetPage, smoothScroll, 2, SECONDS)
+
+                    // then
+                    assertThat(targetPage, equalTo(viewPager.currentItem))
+                    assertThat(targetPage, equalTo(viewPager.currentCompletelyVisibleItem))
+                }
+            }
+        }
+    }
+
+    @Test
+    fun test_scrollingWithRtl_horizontal() {
+        test_scrollingWithRtl(HORIZONTAL)
+    }
+
+    @Test
+    fun test_scrollingWithRtl_vertical() {
+        test_scrollingWithRtl(VERTICAL)
     }
 
     private fun ViewPager2.addNewRecordingListener(): RecordingListener {

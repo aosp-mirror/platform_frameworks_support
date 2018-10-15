@@ -17,6 +17,7 @@
 package androidx.viewpager2;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.core.view.ViewCompat.LAYOUT_DIRECTION_RTL;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
@@ -31,6 +32,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeListener;
 
 import java.lang.annotation.Retention;
+import java.util.Locale;
 
 /**
  * Translates {@link RecyclerView.OnScrollListener} events to {@link OnPageChangeListener} events.
@@ -149,17 +151,21 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         boolean isHorizontal = mLayoutManager.getOrientation() == ViewPager2.Orientation.HORIZONTAL;
         int start, sizePx;
         if (isHorizontal) {
-            start = firstVisibleView.getLeft();
             sizePx = firstVisibleView.getWidth();
+            if (!isLayoutRTL()) {
+                start = firstVisibleView.getLeft();
+            } else {
+                start = sizePx - firstVisibleView.getRight();
+            }
         } else {
-            start = firstVisibleView.getTop();
             sizePx = firstVisibleView.getHeight();
+            start = firstVisibleView.getTop();
         }
 
         values.mOffsetPx = -start;
         if (values.mOffsetPx < 0) {
-            throw new IllegalStateException(String.format("Page can only be offset by a positive "
-                    + "amount, not by %d", values.mOffsetPx));
+            throw new IllegalStateException(String.format(Locale.US, "Page can only be offset by a "
+                    + "positive amount, not by %d", values.mOffsetPx));
         }
         values.mOffset = sizePx == 0 ? 0 : (float) values.mOffsetPx / sizePx;
         return values;
@@ -175,6 +181,10 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         mTarget = target;
         dispatchStateChanged(ViewPager2.ScrollState.SETTLING);
         dispatchSelected(target);
+    }
+
+    private boolean isLayoutRTL() {
+        return mLayoutManager.getLayoutDirection() == LAYOUT_DIRECTION_RTL;
     }
 
     public void setOnPageChangeListener(OnPageChangeListener listener) {
