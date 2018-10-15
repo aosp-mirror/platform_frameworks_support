@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ece5f24_f40ddd65",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-15T05:48:51Z",
+      "side": 1,
+      "message": "could you add documentation that ids are used by MediaBrowser?",
+      "range": {
+        "startLine": 344,
+        "startChar": 0,
+        "endLine": 344,
+        "endChar": 45
+      },
+      "revId": "6bbe87d29ea19fc2766ca84b245511bafda6a61e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
