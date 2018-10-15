@@ -80,13 +80,7 @@ package androidx.media2 {
     method public boolean isConnected();
     method public void pause();
     method public void play();
-    method public void playFromMediaId(java.lang.String, android.os.Bundle);
-    method public void playFromSearch(java.lang.String, android.os.Bundle);
-    method public void playFromUri(android.net.Uri, android.os.Bundle);
     method public void prepare();
-    method public void prepareFromMediaId(java.lang.String, android.os.Bundle);
-    method public void prepareFromSearch(java.lang.String, android.os.Bundle);
-    method public void prepareFromUri(android.net.Uri, android.os.Bundle);
     method public void removePlaylistItem(androidx.media2.MediaItem2);
     method public void replacePlaylistItem(int, androidx.media2.MediaItem2);
     method public void rewind();

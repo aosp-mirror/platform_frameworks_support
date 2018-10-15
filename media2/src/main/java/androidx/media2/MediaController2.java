@@ -347,7 +347,9 @@ public class MediaController2 implements AutoCloseable {
      * @param mediaId The id of the requested media.
      * @param extras Optional extras that can include extra information about the media item
      *               to be played.
+     * @hide
      */
+    @RestrictTo(LIBRARY_GROUP)
     public void playFromMediaId(@NonNull String mediaId, @Nullable Bundle extras) {
         if (mediaId == null) {
             throw new IllegalArgumentException("mediaId shouldn't be null");
@@ -362,7 +364,9 @@ public class MediaController2 implements AutoCloseable {
      *
      * @param query The search query. Should not be an empty string.
      * @param extras Optional extras that can include extra information about the query.
+     * @hide
      */
+    @RestrictTo(LIBRARY_GROUP)
     public void playFromSearch(@NonNull String query, @Nullable Bundle extras) {
         if (TextUtils.isEmpty(query)) {
             throw new IllegalArgumentException("query shouldn't be empty");
@@ -378,7 +382,9 @@ public class MediaController2 implements AutoCloseable {
      * @param uri The URI of the requested media.
      * @param extras Optional extras that can include extra information about the media item
      *               to be played.
+     * @hide
      */
+    @RestrictTo(LIBRARY_GROUP)
     public void playFromUri(@NonNull Uri uri, @Nullable Bundle extras) {
         if (uri == null) {
             throw new IllegalArgumentException("uri shouldn't be null");
@@ -399,7 +405,9 @@ public class MediaController2 implements AutoCloseable {
      * @param mediaId The id of the requested media.
      * @param extras Optional extras that can include extra information about the media item
      *               to be prepared.
+     * @hide
      */
+    @RestrictTo(LIBRARY_GROUP)
     public void prepareFromMediaId(@NonNull String mediaId, @Nullable Bundle extras) {
         if (mediaId == null) {
             throw new IllegalArgumentException("mediaId shouldn't be null");
@@ -420,7 +428,9 @@ public class MediaController2 implements AutoCloseable {
      *
      * @param query The search query. Should not be an empty string.
      * @param extras Optional extras that can include extra information about the query.
+     * @hide
      */
+    @RestrictTo(LIBRARY_GROUP)
     public void prepareFromSearch(@NonNull String query, @Nullable Bundle extras) {
         if (TextUtils.isEmpty(query)) {
             throw new IllegalArgumentException("query shouldn't be empty");
@@ -441,7 +451,9 @@ public class MediaController2 implements AutoCloseable {
      * @param uri The URI of the requested media.
      * @param extras Optional extras that can include extra information about the media item
      *               to be prepared.
+     * @hide
      */
+    @RestrictTo(LIBRARY_GROUP)
     public void prepareFromUri(@NonNull Uri uri, @Nullable Bundle extras) {
         if (uri == null) {
             throw new IllegalArgumentException("uri shouldn't be null");
