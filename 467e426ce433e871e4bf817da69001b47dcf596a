@@ -65,6 +65,23 @@
     },
     {
       "key": {
+        "uuid": "ea217c64_2cee3f2e",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-10-15T15:14:59Z",
+      "side": 1,
+      "message": "also, please add a sample log, like in the other tests",
+      "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4db741a3_139342a1",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
         "patchSetId": 1
