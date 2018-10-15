@@ -230,6 +230,16 @@ public abstract class RoomDatabase {
     // all SQLite database methods.
 
     /**
+     * Convenience method to query the database without arguments.
+     *
+     * @param query The sql query
+     * @return A Cursor obtained by running the given query in the Room database.
+     */
+    public Cursor query(String query) {
+        return mOpenHelper.getWritableDatabase().query(new SimpleSQLiteQuery(query));
+    }
+
+    /**
      * Convenience method to query the database with arguments.
      *
      * @param query The sql query
