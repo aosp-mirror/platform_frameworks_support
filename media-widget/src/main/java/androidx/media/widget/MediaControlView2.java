@@ -2361,6 +2361,11 @@ public class MediaControlView2 extends BaseLayout {
             @Override
             public void onConnected(@NonNull MediaController2 controller,
                     @NonNull SessionCommandGroup2 allowedCommands) {
+                MediaItem2 mediaItem = controller.getCurrentMediaItem();
+                mMediaMetadata2 = (mediaItem != null) ? mediaItem.getMetadata() : null;
+                updateDuration();
+                updateTitle();
+                updateAudioMetadata();
                 updateAllowedCommands(allowedCommands);
             }
 
@@ -2377,6 +2382,7 @@ public class MediaControlView2 extends BaseLayout {
                 if (DEBUG) {
                     Log.d(TAG, "onPlaylistChanged(): list: " + list);
                 }
+                // TODO: move this code inside onCurrentMediaItemChanged().
                 // Note that currently MediaControlView2 assumes single media item to play.
                 MediaItem2 mediaItem = list.isEmpty() ? null : list.get(0);
                 mMediaMetadata2 = (mediaItem != null) ? mediaItem.getMetadata() : null;
