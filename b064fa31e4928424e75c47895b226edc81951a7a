@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5849cfa6_9e86c83f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-15T21:21:49Z",
+      "side": 1,
+      "message": "Looks like someone wrapped the method signature line but didn\u0027t re-indent the rest of the code. This new version is correct since it\u0027s +4 inside the lambda which is already +8 from the method because of a continuation indent.",
+      "parentUuid": "44307e31_84725bba",
+      "revId": "b064fa31e4928424e75c47895b226edc81951a7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46797543_47636ad4",
         "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
         "patchSetId": 4

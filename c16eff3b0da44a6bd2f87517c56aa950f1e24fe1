@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e0dea24_498a0861",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-15T21:21:49Z",
+      "side": 1,
+      "message": "nit: AndroidX Library",
+      "revId": "c16eff3b0da44a6bd2f87517c56aa950f1e24fe1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
