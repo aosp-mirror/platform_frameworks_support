@@ -156,7 +156,7 @@ public class MediaController2ProviderService extends Service {
         @Override
         public void prepare(String controllerId) throws RemoteException {
             MediaController2 controller2 = mMediaController2Map.get(controllerId);
-            controller2.prepare();
+            controller2.prefetch();
         }
 
         @Override
@@ -300,21 +300,21 @@ public class MediaController2ProviderService extends Service {
         public void prepareFromMediaId(String controllerId, String mediaId, Bundle extras)
                 throws RemoteException {
             MediaController2 controller2 = mMediaController2Map.get(controllerId);
-            controller2.prepareFromMediaId(mediaId, extras);
+            controller2.prefetchFromMediaId(mediaId, extras);
         }
 
         @Override
         public void prepareFromSearch(String controllerId, String query, Bundle extras)
                 throws RemoteException {
             MediaController2 controller2 = mMediaController2Map.get(controllerId);
-            controller2.prepareFromSearch(query, extras);
+            controller2.prefetchFromSearch(query, extras);
         }
 
         @Override
         public void prepareFromUri(String controllerId, Uri uri, Bundle extras)
                 throws RemoteException {
             MediaController2 controller2 = mMediaController2Map.get(controllerId);
-            controller2.prepareFromUri(uri, extras);
+            controller2.prefetchFromUri(uri, extras);
         }
 
         @Override

@@ -299,7 +299,7 @@ public class RemoteMediaController2 {
         try {
             mBinder.prepareFromMediaId(mControllerId, mediaId, extras);
         } catch (RemoteException ex) {
-            Log.e(TAG, "Failed to call prepareFromMediaId()");
+            Log.e(TAG, "Failed to call prefetchFromMediaId()");
         }
     }
 
@@ -307,7 +307,7 @@ public class RemoteMediaController2 {
         try {
             mBinder.prepareFromSearch(mControllerId, query, extras);
         } catch (RemoteException ex) {
-            Log.e(TAG, "Failed to call prepareFromSearch()");
+            Log.e(TAG, "Failed to call prefetchFromSearch()");
         }
     }
 
@@ -315,7 +315,7 @@ public class RemoteMediaController2 {
         try {
             mBinder.prepareFromUri(mControllerId, uri, extras);
         } catch (RemoteException ex) {
-            Log.e(TAG, "Failed to call prepareFromUri()");
+            Log.e(TAG, "Failed to call prefetchFromUri()");
         }
     }
 
