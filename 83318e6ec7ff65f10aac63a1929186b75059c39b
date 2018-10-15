@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80f5203f_ce93e488",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1391,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-10-15T14:42:28Z",
+      "side": 1,
+      "message": "Won\u0027t this remove the fragment from the mRetaintedFragmenets, even if it is in the back stack?",
+      "range": {
+        "startLine": 1391,
+        "startChar": 0,
+        "endLine": 1391,
+        "endChar": 48
+      },
+      "revId": "83318e6ec7ff65f10aac63a1929186b75059c39b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
