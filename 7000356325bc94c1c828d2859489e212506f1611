@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5f83b61_53924127",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2524,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-10-15T23:39:43Z",
+      "side": 1,
+      "message": "Maybe just use an\n else {\n    mNonConfig \u003d new FragmentManagerViewModel(false);\n }",
+      "range": {
+        "startLine": 2523,
+        "startChar": 9,
+        "endLine": 2524,
+        "endChar": 0
+      },
+      "revId": "7000356325bc94c1c828d2859489e212506f1611",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
