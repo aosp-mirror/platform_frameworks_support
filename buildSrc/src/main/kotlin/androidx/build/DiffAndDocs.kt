@@ -189,13 +189,13 @@ object DiffAndDocs {
 
         val folder = artifact.file.parentFile
         val tree = root.zipTree(File(folder, "${artifact.file.nameWithoutExtension}-sources.jar"))
-                    .matching {
-                        it.exclude("**/*.MF")
-                        it.exclude("**/*.aidl")
-                        it.exclude("**/*.html")
-                        it.exclude("**/*.kt")
-                        it.exclude("**/META-INF/**")
-                    }
+                .matching {
+                    it.exclude("**/*.MF")
+                    it.exclude("**/*.aidl")
+                    it.exclude("**/*.html")
+                    it.exclude("**/*.kt")
+                    it.exclude("**/META-INF/**")
+                }
         root.configurations.remove(configuration)
         return tree
     }
@@ -228,22 +228,22 @@ object DiffAndDocs {
 
     private fun registerPrebuilts(extension: SupportLibraryExtension) =
             docsProject?.afterEvaluate { docs ->
-        val depHandler = docs.dependencies
-        val root = docs.rootProject
-        rules.forEach { rule ->
-            val resolvedRule = rule.resolve(extension)
-            val strategy = resolvedRule?.strategy
-            if (strategy is Prebuilts) {
-                val dependency = strategy.dependency(extension)
-                depHandler.add("${rule.name}Implementation", dependency)
-                strategy.stubs?.forEach { path ->
-                    depHandler.add("${rule.name}CompileOnly", root.files(path))
+                val depHandler = docs.dependencies
+                val root = docs.rootProject
+                rules.forEach { rule ->
+                    val resolvedRule = rule.resolve(extension)
+                    val strategy = resolvedRule?.strategy
+                    if (strategy is Prebuilts) {
+                        val dependency = strategy.dependency(extension)
+                        depHandler.add("${rule.name}Implementation", dependency)
+                        strategy.stubs?.forEach { path ->
+                            depHandler.add("${rule.name}CompileOnly", root.files(path))
+                        }
+                        docsTasks[rule.name]!!.source(prebuiltSources(root, dependency,
+                                rule.name, resolvedRule))
+                    }
                 }
-                docsTasks[rule.name]!!.source(prebuiltSources(root, dependency,
-                        rule.name, resolvedRule))
             }
-        }
-    }
 
     private fun tipOfTreeTasks(extension: SupportLibraryExtension, setup: (DoclavaTask) -> Unit) {
         rules.filter { rule -> rule.resolve(extension)?.strategy == TipOfTree }
@@ -274,6 +274,10 @@ object DiffAndDocs {
         registerJavaProjectForDocsTask(tasks.generateApi, compileJava)
         setupApiVersioningInDocsTasks(extension, tasks)
         addCheckApiTasksToGraph(tasks)
+        registerJavaProjectForDocsTask(tasks.generateLocalDiffs, compileJava)
+        val generateApiDiffsAcrhiveTask = createGenerateLocalApiDiffsArchiveTask(project,
+                tasks.generateLocalDiffs)
+        generateApiDiffsAcrhiveTask.dependsOn(tasks.generateLocalDiffs)
     }
 
     /**
@@ -309,6 +313,10 @@ object DiffAndDocs {
                 registerAndroidProjectForDocsTask(tasks.generateApi, variant)
                 setupApiVersioningInDocsTasks(extension, tasks)
                 addCheckApiTasksToGraph(tasks)
+                registerAndroidProjectForDocsTask(tasks.generateLocalDiffs, variant)
+                val generateApiDiffsAcrhiveTask = createGenerateLocalApiDiffsArchiveTask(project,
+                        tasks.generateLocalDiffs)
+                generateApiDiffsAcrhiveTask.dependsOn(tasks.generateLocalDiffs)
             }
         }
     }
@@ -372,7 +380,8 @@ private fun registerAndroidProjectForDocsTask(task: Javadoc, releaseVariant: Bas
     @Suppress("DEPRECATION")
     task.dependsOn(releaseVariant.javaCompile)
     task.include { fileTreeElement ->
-        fileTreeElement.name != "R.java" || fileTreeElement.path.endsWith(releaseVariant.rFile()) }
+        fileTreeElement.name != "R.java" || fileTreeElement.path.endsWith(releaseVariant.rFile())
+    }
     @Suppress("DEPRECATION")
     task.source(releaseVariant.javaCompile.source)
     @Suppress("DEPRECATION")
@@ -535,6 +544,16 @@ private fun createGenerateDocsTask(
 
             addArtifactsAndSince()
         }
+
+private fun createGenerateLocalApiDiffsArchiveTask(
+    project: Project,
+    diffTask: JDiffTask
+): Zip = project.tasks.createWithConfig("generateLocalApiDiffsArchive", Zip::class.java) {
+    val docsDir = project.rootProject.docsDir()
+    from(diffTask.destinationDir)
+    destinationDir = File(docsDir, "online/sdk/support_api_diff/${project.name}")
+    archiveName = "${project.version}.zip"
+}
 
 private fun sdkApiFile(project: Project) = File(project.docsDir(), "release/sdk_current.txt")
 
