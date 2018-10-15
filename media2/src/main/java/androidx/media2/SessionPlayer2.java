@@ -299,7 +299,8 @@ public abstract class SessionPlayer2 implements AutoCloseable {
     public abstract @NonNull ListenableFuture<PlayerResult> pause();
 
     /**
-     * Prefetches the media items for playback.
+     * Prefetches the media items for playback. During this time, the player may allocate resources
+     * required to play, such as audio and video decoders.
      * <p>
      * This may be the asynchronous call depending on the implementation. Wait with returned
      * {@link ListenableFuture} or callback for the completion.

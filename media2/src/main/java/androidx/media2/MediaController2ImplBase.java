@@ -20,7 +20,7 @@ import static androidx.media2.MediaMetadata2.METADATA_KEY_DURATION;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_ADD_PLAYLIST_ITEM;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_PAUSE;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_PLAY;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_PREPARE;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_PREFETCH;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_REMOVE_PLAYLIST_ITEM;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_REPLACE_PLAYLIST_ITEM;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_SEEK_TO;
@@ -37,9 +37,9 @@ import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_FAST_FORWARD;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_MEDIA_ID;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_SEARCH;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_URI;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PREPARE_FROM_MEDIA_ID;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PREPARE_FROM_SEARCH;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PREPARE_FROM_URI;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PREFETCH_FROM_MEDIA_ID;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PREFETCH_FROM_SEARCH;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PREFETCH_FROM_URI;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_REWIND;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_SELECT_ROUTE;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_SUBSCRIBE_ROUTES_INFO;
@@ -256,8 +256,8 @@ class MediaController2ImplBase implements MediaController2Impl {
     }
 
     @Override
-    public void prepare() {
-        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_PREPARE);
+    public void prefetch() {
+        final IMediaSession2 iSession2 = getSessionInterfaceIfAble(COMMAND_CODE_PLAYER_PREFETCH);
         if (iSession2 != null) {
             try {
                 iSession2.prepare(mControllerStub);
@@ -357,9 +357,9 @@ class MediaController2ImplBase implements MediaController2Impl {
     }
 
     @Override
-    public void prepareFromMediaId(@NonNull String mediaId, @Nullable Bundle extras) {
+    public void prefetchFromMediaId(@NonNull String mediaId, @Nullable Bundle extras) {
         final IMediaSession2 iSession2 = getSessionInterfaceIfAble(
-                COMMAND_CODE_SESSION_PREPARE_FROM_MEDIA_ID);
+                COMMAND_CODE_SESSION_PREFETCH_FROM_MEDIA_ID);
         if (iSession2 != null) {
             try {
                 iSession2.prepareFromMediaId(mControllerStub, mediaId, extras);
@@ -370,9 +370,9 @@ class MediaController2ImplBase implements MediaController2Impl {
     }
 
     @Override
-    public void prepareFromSearch(@NonNull String query, @Nullable Bundle extras) {
+    public void prefetchFromSearch(@NonNull String query, @Nullable Bundle extras) {
         final IMediaSession2 iSession2 = getSessionInterfaceIfAble(
-                COMMAND_CODE_SESSION_PREPARE_FROM_SEARCH);
+                COMMAND_CODE_SESSION_PREFETCH_FROM_SEARCH);
         if (iSession2 != null) {
             try {
                 iSession2.prepareFromSearch(mControllerStub, query, extras);
@@ -383,9 +383,9 @@ class MediaController2ImplBase implements MediaController2Impl {
     }
 
     @Override
-    public void prepareFromUri(@NonNull Uri uri, @Nullable Bundle extras) {
+    public void prefetchFromUri(@NonNull Uri uri, @Nullable Bundle extras) {
         final IMediaSession2 iSession2 =
-                getSessionInterfaceIfAble(COMMAND_CODE_SESSION_PREPARE_FROM_URI);
+                getSessionInterfaceIfAble(COMMAND_CODE_SESSION_PREFETCH_FROM_URI);
         if (iSession2 != null) {
             try {
                 iSession2.prepareFromUri(mControllerStub, uri, extras);

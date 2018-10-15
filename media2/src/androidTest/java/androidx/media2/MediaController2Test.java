@@ -184,7 +184,7 @@ public class MediaController2Test extends MediaSession2TestBase {
     @Test
     public void testPrepare() {
         prepareLooper();
-        mController.prepare();
+        mController.prefetch();
         try {
             assertTrue(mPlayer.mCountDownLatch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
         } catch (InterruptedException e) {
@@ -1093,7 +1093,7 @@ public class MediaController2Test extends MediaSession2TestBase {
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testPrepareFromSearch").build()) {
             MediaController2 controller = createController(session.getToken());
-            controller.prepareFromSearch(request, bundle);
+            controller.prefetchFromSearch(request, bundle);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
     }
@@ -1119,7 +1119,7 @@ public class MediaController2Test extends MediaSession2TestBase {
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testPrepareFromUri").build()) {
             MediaController2 controller = createController(session.getToken());
-            controller.prepareFromUri(request, bundle);
+            controller.prefetchFromUri(request, bundle);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
     }
@@ -1145,7 +1145,7 @@ public class MediaController2Test extends MediaSession2TestBase {
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testPrepareFromMediaId").build()) {
             MediaController2 controller = createController(session.getToken());
-            controller.prepareFromMediaId(request, bundle);
+            controller.prefetchFromMediaId(request, bundle);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
     }
