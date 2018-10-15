@@ -151,7 +151,7 @@ public class FragmentController {
      * Restores the saved state for all Fragments. The given Fragment list are Fragment
      * instances retained across configuration changes.
      *
-     * @see #retainNonConfig()
+     * @see #retainNestedNonConfig()
      *
      * @deprecated use {@link #restoreAllState(Parcelable, FragmentManagerNonConfig)}
      */
@@ -166,7 +166,12 @@ public class FragmentController {
      * Restores the saved state for all Fragments. The given FragmentManagerNonConfig are Fragment
      * instances retained across configuration changes, including nested fragments
      *
-     * @see #retainNestedNonConfig()
+     * @param state the saved state containing the Parcelable returned by {@link #saveAllState()}
+     * @param nonConfig The non config state. This is ignored if your {@link FragmentHostCallback}
+     *                  implements {@link androidx.lifecycle.ViewModelStoreOwner} as in that case
+     *                  the non config state will automatically be restored. Use
+     *                  <code>restoreAllState(state, (FragmentManagerNonConfig) null)</code>.
+     * @see #saveAllState()
      */
     public void restoreAllState(@Nullable Parcelable state,
             @Nullable FragmentManagerNonConfig nonConfig) {
@@ -177,8 +182,9 @@ public class FragmentController {
      * Returns a list of Fragments that have opted to retain their instance across
      * configuration changes.
      *
-     * @deprecated use {@link #retainNestedNonConfig()} to also track retained
-     *             nested child fragments
+     * @deprecated Have your {@link FragmentHostCallback} implement
+     * {@link androidx.lifecycle.ViewModelStoreOwner} to automatically retain the Fragment's
+     * non configuration state.
      */
     @Deprecated
     @Nullable
@@ -192,7 +198,12 @@ public class FragmentController {
     /**
      * Returns a nested tree of Fragments that have opted to retain their instance across
      * configuration changes.
+     *
+     * @deprecated Have your {@link FragmentHostCallback} implement
+     * {@link androidx.lifecycle.ViewModelStoreOwner} to automatically retain the Fragment's
+     * non configuration state.
      */
+    @Deprecated
     @Nullable
     public FragmentManagerNonConfig retainNestedNonConfig() {
         return mHost.mFragmentManager.retainNonConfig();
