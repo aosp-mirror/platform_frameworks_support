@@ -211,6 +211,24 @@ public class SessionPlayerTest extends MediaSession2TestBase {
     }
 
     @Test
+    public void testSetPlaylistByControllerWithLongPlaylist() throws InterruptedException {
+        final int listSize = 10000;
+        // Make client app to generate a long list, and call setPlaylist() with it.
+        mController2.setPlaylistWithSize(listSize, null /* metadata */);
+        assertTrue(mPlayer.mCountDownLatch.await(TIMEOUT_MS * 10, TimeUnit.MILLISECONDS));
+
+        assertTrue(mPlayer.mSetPlaylistCalled);
+        assertNull(mPlayer.mMetadata);
+
+        assertNotNull(mPlayer.mPlaylist);
+        assertEquals(listSize, mPlayer.mPlaylist.size());
+        for (int i = 0; i < listSize; i++) {
+            // Each item's media ID will be same as its index.
+            assertEquals(Integer.toString(i), mPlayer.mPlaylist.get(i).getMediaId());
+        }
+    }
+
+    @Test
     public void testUpdatePlaylistMetadataBySession() {
         prepareLooper();
         final MediaMetadata2 testMetadata = MediaTestUtils.createMetadata();
