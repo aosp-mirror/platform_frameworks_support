@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ad850b15_dae44d6c",
+        "filename": "room/benchmark/src/androidTest/java/androidx/room/benchmark/InvalidationTrackerBenchmark.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-10-16T18:13:49Z",
+      "side": 1,
+      "message": "Gotcha - Done",
+      "parentUuid": "d9ec77f0_8832c1d8",
+      "range": {
+        "startLine": 61,
+        "startChar": 7,
+        "endLine": 62,
+        "endChar": 92
+      },
+      "revId": "5bdc44ae44807998307fad20b84e096bd79658fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2d3af31_0b06395f",
         "filename": "room/benchmark/src/androidTest/java/androidx/room/benchmark/InvalidationTrackerBenchmark.kt",
         "patchSetId": 2
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "c0048066_c0d33772",
+        "filename": "room/benchmark/src/androidTest/java/androidx/room/benchmark/InvalidationTrackerBenchmark.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-10-16T18:13:49Z",
+      "side": 1,
+      "message": "Added Chris\u0027s suggestion.\n\nAs for the inserts I do think we want them part of the benchmark, testing two large transactions.",
+      "parentUuid": "19ba8479_3dbc10d4",
+      "range": {
+        "startLine": 67,
+        "startChar": 39,
+        "endLine": 67,
+        "endChar": 56
+      },
+      "revId": "5bdc44ae44807998307fad20b84e096bd79658fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70a8090d_d4911880",
         "filename": "room/runtime/api/current.txt",
         "patchSetId": 2
@@ -92,6 +140,30 @@
       "revId": "5bdc44ae44807998307fad20b84e096bd79658fe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a11fc94_121cfa65",
+        "filename": "room/runtime/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-10-16T18:13:49Z",
+      "side": 1,
+      "message": "Ah, I\u0027ll use the version that takes a SupportSQLiteQuery then.",
+      "parentUuid": "70a8090d_d4911880",
+      "range": {
+        "startLine": 54,
+        "startChar": 3,
+        "endLine": 54,
+        "endChar": 66
+      },
+      "revId": "5bdc44ae44807998307fad20b84e096bd79658fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -118,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "574f2f45_9bd173d2",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-10-16T18:13:49Z",
+      "side": 1,
+      "message": "BitSet API makes it more readable, update to use it.",
+      "parentUuid": "54be6d36_77f5b0bc",
+      "range": {
+        "startLine": 153,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 61
+      },
+      "revId": "5bdc44ae44807998307fad20b84e096bd79658fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07208729_28e45619",
         "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
         "patchSetId": 2
@@ -138,6 +234,30 @@
       "revId": "5bdc44ae44807998307fad20b84e096bd79658fe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5be68a99_a831d2ad",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-10-16T18:13:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07208729_28e45619",
+      "range": {
+        "startLine": 232,
+        "startChar": 20,
+        "endLine": 232,
+        "endChar": 97
+      },
+      "revId": "5bdc44ae44807998307fad20b84e096bd79658fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
