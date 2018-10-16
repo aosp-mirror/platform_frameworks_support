@@ -26,6 +26,7 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.versionedparcelable.NonParcelField;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
@@ -103,6 +104,9 @@ public class MediaItem2 implements VersionedParcelable {
     long mEndPositionMs = POSITION_UNKNOWN;
     @ParcelField(7)
     long mDurationMs = SessionPlayer2.UNKNOWN_TIME;
+
+    @NonParcelField
+    Callback mCallback;
 
     /**
      * Used for VersionedParcelable
@@ -268,6 +272,9 @@ public class MediaItem2 implements VersionedParcelable {
         if (metadata != null) {
             mDurationMs = metadata.getLong(MediaMetadata2.METADATA_KEY_DURATION);
         }
+        if (mCallback != null) {
+            mCallback.onMetadataChanged(this);
+        }
     }
 
     /**
@@ -322,6 +329,12 @@ public class MediaItem2 implements VersionedParcelable {
 
     UUID getUuid() {
         return mParcelUuid.getUuid();
+    }
+
+    void setCallback(Callback callback) {
+        if (mCallback == null) {
+            mCallback = callback;
+        }
     }
 
     /**
@@ -443,5 +456,9 @@ public class MediaItem2 implements VersionedParcelable {
         public Builder(@Flags int flags) {
             super(flags);
         }
+    }
+
+    abstract static class Callback {
+        abstract void onMetadataChanged(MediaItem2 item);
     }
 }

@@ -1168,6 +1168,9 @@ class MediaSession2ImplBase implements MediaSession2Impl {
             if (session == null || session.getPlayer() != player || player == null) {
                 return;
             }
+            if (item != null) {
+                item.setCallback(new MediaItemCallback(session));
+            }
             // Note: No sanity check whether the item is in the playlist.
             updateDurationIfNeeded(player, item);
             session.notifyToAllControllers(new NotifyRunnable() {
@@ -1232,6 +1235,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         @Override
         public void onPlaylistChanged(final SessionPlayer2 player, final List<MediaItem2> list,
                 final MediaMetadata2 metadata) {
+            // TODO: Add code for changing metadata of media item in a playlist
             notifyToAllControllers(player, new NotifyRunnable() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
@@ -1368,6 +1372,44 @@ class MediaSession2ImplBase implements MediaSession2Impl {
                     }
                 });
             }
+        }
+    }
+
+    static class MediaItemCallback extends MediaItem2.Callback {
+        private final WeakReference<MediaSession2ImplBase> mSession;
+
+        MediaItemCallback(MediaSession2ImplBase session) {
+            mSession = new WeakReference<>(session);
+        }
+
+        @Override
+        void onMetadataChanged(final MediaItem2 item) {
+            final MediaSession2ImplBase session = getSession();
+            if (session == null || item == null) {
+                return;
+            }
+
+            final MediaItem2 currentItem = session.getCurrentMediaItem();
+            if (currentItem != null) {
+                if (item.equals(currentItem)) {
+                    session.notifyToAllControllers(new NotifyRunnable() {
+                        @Override
+                        public void run(ControllerCb callback) throws RemoteException {
+                            callback.onCurrentMediaItemChanged(item);
+                        }
+                    });
+                    return;
+                }
+            }
+            // TODO: Add code for changing metadata of media item in a playlist
+        }
+
+        private MediaSession2ImplBase getSession() {
+            final MediaSession2ImplBase session = mSession.get();
+            if (session == null && DEBUG) {
+                Log.d(TAG, "Session is closed", new IllegalStateException());
+            }
+            return session;
         }
     }
 }
