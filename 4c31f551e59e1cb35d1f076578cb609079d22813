@@ -34,6 +34,29 @@
       "revId": "4c31f551e59e1cb35d1f076578cb609079d22813",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99927645_e6ac124d",
+        "filename": "room/benchmark/src/androidTest/java/androidx/room/benchmark/InvalidationTrackerBenchmark.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-16T19:56:10Z",
+      "side": 1,
+      "message": "so you want to test a large transaction an another query that will cause a large data change.\nmaybe it is better to separate these cases.",
+      "range": {
+        "startLine": 75,
+        "startChar": 12,
+        "endLine": 83,
+        "endChar": 65
+      },
+      "revId": "4c31f551e59e1cb35d1f076578cb609079d22813",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
