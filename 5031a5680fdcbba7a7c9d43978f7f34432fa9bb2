@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "936361c3_056e7b2a",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-16T19:59:48Z",
+      "side": 1,
+      "message": "I actually think set is fine for all of these, pending API council feedback.",
+      "range": {
+        "startLine": 88,
+        "startChar": 9,
+        "endLine": 88,
+        "endChar": 30
+      },
+      "revId": "5031a5680fdcbba7a7c9d43978f7f34432fa9bb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9da24bc4_b619c303",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/WorkManagerTestSupport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-16T19:59:48Z",
+      "side": 1,
+      "message": "Not a huge fan of this name.  I wonder if WorkManagerTesting is a better name.  Let\u0027s wait for API Council feedback.",
+      "range": {
+        "startLine": 33,
+        "startChar": 19,
+        "endLine": 33,
+        "endChar": 41
+      },
+      "revId": "5031a5680fdcbba7a7c9d43978f7f34432fa9bb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
