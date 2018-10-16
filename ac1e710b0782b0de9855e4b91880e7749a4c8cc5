@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "8af77b35_a7720a05",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-10-16T00:08:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a4d8420d_3fb4bc76",
+      "revId": "ac1e710b0782b0de9855e4b91880e7749a4c8cc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e7512e1_0c629aae",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Segment.java",
         "patchSetId": 3
@@ -75,6 +93,30 @@
       "revId": "ac1e710b0782b0de9855e4b91880e7749a4c8cc5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f776ab23_3e798ac1",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Segment.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-10-16T00:08:35Z",
+      "side": 1,
+      "message": "We expect this to potentially include:\n- segment type (\"road\", \"street\", etc.)\n- maximum speed\nWe don\u0027t have those requirements yet. One option could be to go for a simple String attribute in the container entities, but that would make the API very inflexible (in order to modify this in the future we would need to go over a deprecation cycle). By having an entity for this we leave the door open for more attributes in the future.",
+      "parentUuid": "0e7512e1_0c629aae",
+      "range": {
+        "startLine": 33,
+        "startChar": 1,
+        "endLine": 33,
+        "endChar": 19
+      },
+      "revId": "ac1e710b0782b0de9855e4b91880e7749a4c8cc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
