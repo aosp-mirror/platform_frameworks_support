@@ -25,6 +25,7 @@ import android.os.Parcelable;
 import android.os.RemoteException;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.versionedparcelable.ParcelImpl;
 
@@ -44,12 +45,11 @@ public class ParcelImplListSlice implements Parcelable {
     private static final String TAG = "ParcelImplListSlice";
     private static final boolean DEBUG = false;
 
-    // TODO: get this number from somewhere else.
-    private static final int MAX_IPC_SIZE = 4 * 1024;
+    public static final int MAX_IPC_SIZE = 64 * 1024; // IBinder.MAX_IPC_SIZE
 
     final List<ParcelImpl> mList;
 
-    public ParcelImplListSlice(List<ParcelImpl> list) {
+    public ParcelImplListSlice(@NonNull List<ParcelImpl> list) {
         mList = list;
     }
 
@@ -109,7 +109,7 @@ public class ParcelImplListSlice implements Parcelable {
         }
     }
 
-    public List<ParcelImpl> getList() {
+    public @NonNull List<ParcelImpl> getList() {
         return mList;
     }
 
