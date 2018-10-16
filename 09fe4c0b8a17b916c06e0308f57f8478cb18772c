@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1088fe8b_899cd8af",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-16T04:38:41Z",
+      "side": 1,
+      "message": "main row will have 6 buttons (5 from the custom layout + 1 overflow)",
+      "parentUuid": "f14dccd7_1f338c7a",
+      "range": {
+        "startLine": 250,
+        "startChar": 16,
+        "endLine": 251,
+        "endChar": 70
+      },
+      "revId": "09fe4c0b8a17b916c06e0308f57f8478cb18772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d6fe88a_5542a0c7",
         "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "09fe4c0b8a17b916c06e0308f57f8478cb18772c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6213933_e1ff6e52",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1292,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-16T04:38:41Z",
+      "side": 1,
+      "message": "Let me keeping it as-is.\n1) It\u0027s not visible\n2) We have separate issue for dropping 2.",
+      "parentUuid": "7d6fe88a_5542a0c7",
+      "range": {
+        "startLine": 1292,
+        "startChar": 58,
+        "endLine": 1292,
+        "endChar": 59
+      },
+      "revId": "09fe4c0b8a17b916c06e0308f57f8478cb18772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -91,6 +139,54 @@
       "revId": "09fe4c0b8a17b916c06e0308f57f8478cb18772c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "339e848c_59eeaa56",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1373,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-16T04:38:41Z",
+      "side": 1,
+      "message": "Changed.",
+      "parentUuid": "5047bd87_05546607",
+      "range": {
+        "startLine": 1373,
+        "startChar": 24,
+        "endLine": 1373,
+        "endChar": 25
+      },
+      "revId": "09fe4c0b8a17b916c06e0308f57f8478cb18772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb65119d_c5224712",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1373,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-16T04:38:41Z",
+      "side": 1,
+      "message": "Changed.",
+      "parentUuid": "292aa2ca_f756c0b9",
+      "range": {
+        "startLine": 1371,
+        "startChar": 27,
+        "endLine": 1373,
+        "endChar": 25
+      },
+      "revId": "09fe4c0b8a17b916c06e0308f57f8478cb18772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
