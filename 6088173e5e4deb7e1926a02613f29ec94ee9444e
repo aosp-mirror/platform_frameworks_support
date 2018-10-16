@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "217ae57e_756cbf1f",
+        "filename": "dynamic-animation/ktx/src/main/java/androidx/dynamicanimation/animation/DynamicAnimation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-16T16:50:31Z",
+      "side": 1,
+      "message": "If we use `Float.NaN` as a default argument value for `finalPosition` and an empty lambda (`{}`) as the default `func` the implementation we should be able to have a single implementation of this extension rather than 4 overloads.\n\nThen the implementation would vary it\u0027s behavior based on whether the argument \u003d\u003d Float.NaN and would always call the lambda on the spring force.",
+      "revId": "6088173e5e4deb7e1926a02613f29ec94ee9444e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
