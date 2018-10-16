@@ -96,6 +96,8 @@ public class MediaRouteButton extends View {
             new SparseArray<>(2);
     RemoteIndicatorLoader mRemoteIndicatorLoader;
     private Drawable mRemoteIndicator;
+    // resource id to be lazily loaded, 0 if it is loaded or don't need to be loaded.
+    private int mRemoteIndicatorResId;
     private boolean mRemoteActive;
     private boolean mIsConnecting;
 
@@ -135,18 +137,21 @@ public class MediaRouteButton extends View {
                 R.styleable.MediaRouteButton_android_minWidth, 0);
         mMinHeight = a.getDimensionPixelSize(
                 R.styleable.MediaRouteButton_android_minHeight, 0);
-        int remoteIndicatorResId = a.getResourceId(
+
+        setRemoteIndicatorDrawable(a.getDrawable(
+                R.styleable.MediaRouteButton_externalRouteEnabledDrawableStatic));
+
+        mRemoteIndicatorResId = a.getResourceId(
                 R.styleable.MediaRouteButton_externalRouteEnabledDrawable, 0);
         a.recycle();
 
-        if (remoteIndicatorResId != 0) {
+        if (mRemoteIndicatorResId != 0) {
             Drawable.ConstantState remoteIndicatorState =
-                    sRemoteIndicatorCache.get(remoteIndicatorResId);
+                    sRemoteIndicatorCache.get(mRemoteIndicatorResId);
             if (remoteIndicatorState != null) {
                 setRemoteIndicatorDrawable(remoteIndicatorState.newDrawable());
             } else {
-                mRemoteIndicatorLoader = new RemoteIndicatorLoader(remoteIndicatorResId);
-                mRemoteIndicatorLoader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
             }
         }
 
@@ -302,7 +307,16 @@ public class MediaRouteButton extends View {
         if (!handled) {
             playSoundEffect(SoundEffectConstants.CLICK);
         }
+
         return showDialog() || handled;
+    }
+
+    private void lazyLoadRemoteIndicator() {
+        if (mRemoteIndicatorResId > 0) {
+            mRemoteIndicatorLoader = new RemoteIndicatorLoader(mRemoteIndicatorResId);
+            mRemoteIndicatorResId = 0;
+            mRemoteIndicatorLoader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
     }
 
     @Override
@@ -336,6 +350,8 @@ public class MediaRouteButton extends View {
      * Sets a drawable to use as the remote route indicator.
      */
     public void setRemoteIndicatorDrawable(Drawable d) {
+        // we don't need lazy-load remote indicator drawables from now on
+        mRemoteIndicatorResId = 0;
         if (mRemoteIndicatorLoader != null) {
             mRemoteIndicatorLoader.cancel(false);
         }
@@ -503,6 +519,8 @@ public class MediaRouteButton extends View {
         if (needsRefresh) {
             updateContentDescription();
             refreshDrawableState();
+
+            lazyLoadRemoteIndicator();
         }
         if (mAttachedToWindow) {
             setEnabled(mRouter.isRouteAvailable(mSelector,
