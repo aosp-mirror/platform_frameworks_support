@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "72384bec_769f2be6",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingConfigCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-10-16T22:49:29Z",
+      "side": 1,
+      "message": "It seems like these are almost standalone classes according to the definition @ go/androidx-api-guidelines\n\nThe only reason that I can see why they don\u0027t fit that exactly is that calling code would need to use the P SDK TracingConfig constants. I think we could re-expose the constants here, and that would make this class usable on its own without importing the platform class.\n\nThoughts?",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 32
+      },
+      "revId": "0f061a57d8856d371b6bfdc36718cf0c8a931bbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a3c1e077_9a8531b1",
         "filename": "webkit/src/main/java/androidx/webkit/TracingConfigCompat.java",
         "patchSetId": 5
