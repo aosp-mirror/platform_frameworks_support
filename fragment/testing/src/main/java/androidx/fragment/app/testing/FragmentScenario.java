@@ -25,6 +25,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.core.util.Preconditions;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentFactory;
@@ -41,11 +42,14 @@ import androidx.test.core.app.ActivityScenario;
  * deprecated fragment class such as {@link android.support.v4.app.Fragment} or {@link
  * android.app.Fragment}, please update your code to {@link androidx.fragment.app.Fragment}.
  *
+ * @param <F> The Fragment class being tested
+ *
  * @see ActivityScenario a scenario API for Activity
  */
 public final class FragmentScenario<F extends Fragment> {
 
     private static final String FRAGMENT_TAG = "FragmentScenario_Fragment_Tag";
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
     final Class<F> mFragmentClass;
     private final ActivityScenario<EmptyFragmentActivity> mActivityScenario;
 
@@ -56,7 +60,7 @@ public final class FragmentScenario<F extends Fragment> {
      * @hide
      */
     @RestrictTo(LIBRARY)
-    public static class EmptyFragmentActivity extends FragmentActivity {};
+    public static class EmptyFragmentActivity extends FragmentActivity {}
 
     private FragmentScenario(
             @NonNull Class<F> fragmentClass,
@@ -125,8 +129,8 @@ public final class FragmentScenario<F extends Fragment> {
 
     /**
      * Launches a Fragment in the Activity's root view container {@code android.R.id.content}, with
-     * given arguments hosted by a {@link EmptyFragmentActivity} using given {@link FragmentFactory}
-     * and waits for it to become resumed state.
+     * given arguments hosted by a {@link EmptyFragmentActivity} using given
+     * {@link FragmentFactory} and waits for it to become resumed state.
      *
      * <p>This method cannot be called from the main thread.
      *
@@ -173,7 +177,7 @@ public final class FragmentScenario<F extends Fragment> {
                         }
                         Fragment fragment = activity.getSupportFragmentManager()
                                 .getFragmentFactory().instantiate(
-                                        fragmentClass.getClassLoader(),
+                                        Preconditions.checkNotNull(fragmentClass.getClassLoader()),
                                         fragmentClass.getName(),
                                         fragmentArgs);
                         fragment.setArguments(fragmentArgs);
@@ -190,9 +194,9 @@ public final class FragmentScenario<F extends Fragment> {
      * Moves Fragment state to a new state.
      *
      * <p>If a new state and current state are the same, it does nothing. It accepts {@link
-     * State.CREATED}, {@link State.STARTED}, {@link State.RESUMED}, and {@link State.DESTROYED}.
+     * State#CREATED}, {@link State#STARTED}, {@link State#RESUMED}, and {@link State#DESTROYED}.
      *
-     * <p>{@link State.DESTROYED} is the terminal state. You cannot move the state to other state
+     * <p>{@link State#DESTROYED} is the terminal state. You cannot move the state to other state
      * after the Fragment reaches that state.
      *
      * <p>This method cannot be called from the main thread.
@@ -268,8 +272,8 @@ public final class FragmentScenario<F extends Fragment> {
     /**
      * Runs a given {@code action} on the current Activity's main thread.
      *
-     * <p>Note that you should never keep Fragment reference passed into your {@code action} because
-     * it can be recreated at anytime during state transitions.
+     * <p>Note that you should never keep Fragment reference passed into your {@code action}
+     * because it can be recreated at anytime during state transitions.
      *
      * <p>Throwing an exception from {@code action} makes the host Activity to crash. You can
      * inspect the exception in logcat outputs.
@@ -287,7 +291,7 @@ public final class FragmentScenario<F extends Fragment> {
                         checkNotNull(fragment,
                                 "The fragment has been removed from FragmentManager already.");
                         checkState(mFragmentClass.isInstance(fragment));
-                        action.perform(mFragmentClass.cast(fragment));
+                        action.perform(Preconditions.checkNotNull(mFragmentClass.cast(fragment)));
                     }
                 });
         return this;
