@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34897004_f067104e",
+        "filename": "room/benchmark/src/androidTest/java/androidx/room/benchmark/InvalidationTrackerBenchmark.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-10-16T18:17:46Z",
+      "side": 1,
+      "message": "val users \u003d List(sampleSize) { User(it, \"name$it\") }",
+      "revId": "029dedf07df30cfa4ca3846ccedf82fda730ca2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b5ae80b_f219ae4b",
+        "filename": "room/benchmark/src/androidTest/java/androidx/room/benchmark/InvalidationTrackerBenchmark.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-10-16T18:17:46Z",
+      "side": 1,
+      "message": "is there a ktx extension for this? might be worth filing a bug",
+      "revId": "029dedf07df30cfa4ca3846ccedf82fda730ca2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
