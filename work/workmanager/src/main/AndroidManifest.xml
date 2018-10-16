@@ -100,7 +100,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".impl.background.systemalarm.ConstraintProxyUpdateReceiver"
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
             android:enabled="@bool/enable_system_alarm_service_default"
             android:exported="false"
             android:directBootAware="false"
