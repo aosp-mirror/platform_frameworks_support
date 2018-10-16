@@ -190,6 +190,24 @@
       "revId": "2e3d563838fc4d6ea7ee4e4fc2a7226f70e45f8c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c24721cd_087146c8",
+        "filename": "work/workmanager/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-16T15:08:29Z",
+      "side": 1,
+      "message": "As long as mutating the returned array has no ill effects I don\u0027t think it\u0027s required.",
+      "parentUuid": "caf518f2_eb568445",
+      "revId": "2e3d563838fc4d6ea7ee4e4fc2a7226f70e45f8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
