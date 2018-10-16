@@ -35,6 +35,7 @@ import androidx.media2.MediaSession2;
 import androidx.media2.MediaSession2.SessionCallback;
 import androidx.media2.SessionCommandGroup2;
 import androidx.media2.SessionPlayer2;
+import androidx.test.filters.FlakyTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
@@ -218,6 +219,7 @@ public class MediaSession2Test extends MediaSession2TestBase {
      * Test potential deadlock for calls between controller and session.
      */
     @Test
+    @FlakyTest(bugId = 117818390)
     public void testDeadlock() throws InterruptedException {
         prepareLooper();
         sHandler.postAndSync(new Runnable() {
