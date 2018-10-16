@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a03050d_3e2c7132",
+        "filename": "media2/src/main/java/androidx/media2/BaseParceledListSlice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-16T02:57:57Z",
+      "side": 1,
+      "message": "Please add \"// IBinder.MAX_IPC_SIZE \u003d 64 * 1024\"",
+      "range": {
+        "startLine": 48,
+        "startChar": 44,
+        "endLine": 48,
+        "endChar": 54
+      },
+      "revId": "1f467e899ca28e3ca67253915daea06f42ee64a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
