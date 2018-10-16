@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "19ba8479_3dbc10d4",
+        "filename": "room/benchmark/src/androidTest/java/androidx/room/benchmark/InvalidationTrackerBenchmark.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-10-16T16:12:49Z",
+      "side": 1,
+      "message": "you can do:\n\nbenchmarkRule.state.pauseTiming()\nval users \u003d List(10) { User(it, \"name$it\") }\nbenchmarkRule.state.startTiming()\n\nfor (user in users) db.getUserDao().insert(user)\n\nTODO(ccraik): add ktx function benchmarkRule.state.whilePaused { ... }",
+      "parentUuid": "e2d3af31_0b06395f",
+      "range": {
+        "startLine": 67,
+        "startChar": 39,
+        "endLine": 67,
+        "endChar": 56
+      },
+      "revId": "5bdc44ae44807998307fad20b84e096bd79658fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70a8090d_d4911880",
         "filename": "room/runtime/api/current.txt",
         "patchSetId": 2
