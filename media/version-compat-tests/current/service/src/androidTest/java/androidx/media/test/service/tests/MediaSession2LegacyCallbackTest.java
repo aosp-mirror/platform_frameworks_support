@@ -63,6 +63,7 @@ import androidx.media2.SessionCommandGroup2;
 import androidx.media2.SessionPlayer2;
 import androidx.test.filters.FlakyTest;
 import androidx.test.filters.LargeTest;
+import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
@@ -291,6 +292,7 @@ public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
     }
 
     @Test
+    @SdkSuppress(minSdkVersion = 21)
     public void testSkipToQueueItem() throws InterruptedException {
         prepareLooper();
         final int playlistSize = 10;
