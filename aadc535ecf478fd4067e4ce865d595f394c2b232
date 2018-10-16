@@ -22,6 +22,30 @@
       "revId": "aadc535ecf478fd4067e4ce865d595f394c2b232",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad2a117a_dd939aa6",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2Stub.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-16T08:09:03Z",
+      "side": 1,
+      "message": "Thanks for the info. \ngetList() just returns the list. Creating the list is done in ParcelImplListSlice constructor.",
+      "parentUuid": "efd3c30c_33ca198a",
+      "range": {
+        "startLine": 662,
+        "startChar": 49,
+        "endLine": 662,
+        "endChar": 66
+      },
+      "revId": "aadc535ecf478fd4067e4ce865d595f394c2b232",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
