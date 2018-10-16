@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "5e63eac2_68c3d713",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingConfigCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-16T22:59:39Z",
+      "side": 1,
+      "message": "I think either way is OK (currently, I would consider this a Wrapper class, which is allowed by discouraged per guidelines). Probably a good time to loop an API reviewer into the discussion? +aurimas@",
+      "parentUuid": "72384bec_769f2be6",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 32
+      },
+      "revId": "0f061a57d8856d371b6bfdc36718cf0c8a931bbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3c1e077_9a8531b1",
         "filename": "webkit/src/main/java/androidx/webkit/TracingConfigCompat.java",
         "patchSetId": 5
