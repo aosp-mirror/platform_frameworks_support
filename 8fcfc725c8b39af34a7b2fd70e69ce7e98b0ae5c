@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "988d68b0_2dd03ea3",
+        "filename": "media2/src/main/java/androidx/media2/ParcelImplListSlice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-16T05:14:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e3360f9_835e6488",
+      "revId": "8fcfc725c8b39af34a7b2fd70e69ce7e98b0ae5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "854ec54b_ee753615",
         "filename": "media2/src/main/java/androidx/media2/ParcelImplListSlice.java",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "8fcfc725c8b39af34a7b2fd70e69ce7e98b0ae5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e1ecbb0_82c9a6b3",
+        "filename": "media2/src/main/java/androidx/media2/ParcelImplListSlice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-16T05:14:54Z",
+      "side": 1,
+      "message": "Instead, removed this method.",
+      "parentUuid": "854ec54b_ee753615",
+      "revId": "8fcfc725c8b39af34a7b2fd70e69ce7e98b0ae5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
