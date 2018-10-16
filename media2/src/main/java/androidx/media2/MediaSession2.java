@@ -471,7 +471,6 @@ public class MediaSession2 implements AutoCloseable {
          * following:
          * <ul>
          *  <li> {@link SessionPlayer2} </li>
-         *  <li> {@link SessionPlayer2} </li>
          *  <li> {@link android.media.AudioManager}</li>
          * </ul>
          * Return {@code false} here to reject the request and stop sending command.
