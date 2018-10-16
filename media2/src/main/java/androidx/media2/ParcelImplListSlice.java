@@ -44,8 +44,7 @@ public class ParcelImplListSlice implements Parcelable {
     private static final String TAG = "ParcelImplListSlice";
     private static final boolean DEBUG = false;
 
-    // TODO: get this number from somewhere else.
-    private static final int MAX_IPC_SIZE = 4 * 1024;
+    public static final int MAX_IPC_SIZE = 64 * 1024; // IBinder.MAX_IPC_SIZE
 
     final List<ParcelImpl> mList;
 

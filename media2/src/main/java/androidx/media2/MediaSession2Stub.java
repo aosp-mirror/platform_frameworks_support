@@ -1130,7 +1130,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
             if (mConnectedControllersManager.isAllowedCommand(controller,
                     SessionCommand2.COMMAND_CODE_PLAYER_GET_PLAYLIST)) {
                 mIControllerCallback.onPlaylistChanged(
-                        MediaUtils2.convertMediaItem2ListToParcelImplList(playlist),
+                        new ParcelImplListSlice(
+                                MediaUtils2.convertMediaItem2ListToParcelImplList(playlist)),
                         metadata == null ? null : metadata.toBundle());
             } else if (mConnectedControllersManager.isAllowedCommand(controller,
                     SessionCommand2.COMMAND_CODE_PLAYER_GET_PLAYLIST_METADATA)) {
