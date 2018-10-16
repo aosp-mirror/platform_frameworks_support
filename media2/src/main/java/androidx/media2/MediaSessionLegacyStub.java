@@ -19,18 +19,22 @@ package androidx.media2;
 import static androidx.media2.MediaMetadata2.METADATA_KEY_DISPLAY_TITLE;
 import static androidx.media2.MediaMetadata2.METADATA_KEY_TITLE;
 import static androidx.media2.MediaSession2.SessionResult.RESULT_CODE_SUCCESS;
+import static androidx.media2.ParcelImplListSlice.MAX_IPC_SIZE;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_CUSTOM;
 import static androidx.media2.SessionCommand2.COMMAND_VERSION_CURRENT;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.os.Process;
 import android.os.RemoteException;
 import android.os.ResultReceiver;
 import android.support.v4.media.MediaDescriptionCompat;
 import android.support.v4.media.RatingCompat;
 import android.support.v4.media.session.MediaSessionCompat;
+import android.support.v4.media.session.MediaSessionCompat.QueueItem;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -49,6 +53,7 @@ import androidx.media2.MediaSession2.SessionResult;
 import androidx.media2.SessionCommand2.CommandCode;
 import androidx.media2.SessionPlayer2.PlayerResult;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -772,7 +777,39 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         @Override
         void onPlaylistChanged(List<MediaItem2> playlist, MediaMetadata2 metadata)
                 throws RemoteException {
-            mSessionImpl.getSessionCompat().setQueue(MediaUtils2.convertToQueueItemList(playlist));
+            if (Build.VERSION.SDK_INT < 21) {
+                // Below API 21, we need to cut the list so that it doesn't exceed the binder
+                // transaction limit.
+                List<QueueItem> queueItemList = new ArrayList<>();
+                Parcel parcel = Parcel.obtain();
+                for (int i = 0; i < playlist.size(); i++) {
+                    QueueItem queueItem = MediaUtils2.convertToQueueItem(playlist.get(i));
+                    if (queueItem == null) {
+                        continue;
+                    }
+                    // Calculate the size.
+                    parcel.writeParcelable(queueItem, 0);
+                    if (parcel.dataSize() < MAX_IPC_SIZE) {
+                        queueItemList.add(queueItem);
+                    } else {
+                        // For list of MediaItem2s which only have 8-character media ID,
+                        // and with 64KB transaction limit, we can send about 320 QueueItems to
+                        // MediaControllerCompat.
+                        if (DEBUG) {
+                            Log.d(TAG, "Sending " + queueItemList.size() + " items out of "
+                                    + playlist.size());
+                        }
+                        break;
+                    }
+                }
+                parcel.recycle();
+                mSessionImpl.getSessionCompat().setQueue(queueItemList);
+            } else {
+                // Framework MediaSession#setQueue() uses ParceledListSlice,
+                // which means we can safely send long lists.
+                mSessionImpl.getSessionCompat().setQueue(
+                        MediaUtils2.convertToQueueItemList(playlist));
+            }
             onPlaylistMetadataChanged(metadata);
         }
 
