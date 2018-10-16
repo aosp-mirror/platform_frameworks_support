@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2631e514_cc00c237",
+        "filename": "room/benchmark/src/androidTest/java/androidx/room/benchmark/InvalidationTrackerBenchmark.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-10-16T19:33:35Z",
+      "side": 1,
+      "message": "You probably don\u0027t want this in the benchmark - use state.pauseTiming / state.startTiming",
+      "revId": "4c31f551e59e1cb35d1f076578cb609079d22813",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
