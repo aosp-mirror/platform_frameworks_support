@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba6c2fbe_036cf1a5",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-16T00:00:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c14f703f_ca0219a8",
+      "range": {
+        "startLine": 148,
+        "startChar": 21,
+        "endLine": 148,
+        "endChar": 31
+      },
+      "revId": "2bc306ed127c86e6dbf54f9e85ed66a4cc69d651",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0df6eed_ab5ebddb",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
         "patchSetId": 2
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "06147510_2a960180",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-16T00:00:34Z",
+      "side": 1,
+      "message": "Discussed offline. The problem is we would end up with multiple other constructors. I removed multiple assignments of fields, and moved all of that logic to internalInit.",
+      "parentUuid": "0b0f022b_b74b6a2e",
+      "range": {
+        "startLine": 193,
+        "startChar": 8,
+        "endLine": 193,
+        "endChar": 20
+      },
+      "revId": "2bc306ed127c86e6dbf54f9e85ed66a4cc69d651",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30b6bed5_2941e87d",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
         "patchSetId": 2
@@ -116,6 +164,30 @@
       "revId": "2bc306ed127c86e6dbf54f9e85ed66a4cc69d651",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12f975eb_258a9387",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-16T00:00:34Z",
+      "side": 1,
+      "message": "As noted above. Delegating to internalInit.",
+      "parentUuid": "30b6bed5_2941e87d",
+      "range": {
+        "startLine": 214,
+        "startChar": 8,
+        "endLine": 214,
+        "endChar": 20
+      },
+      "revId": "2bc306ed127c86e6dbf54f9e85ed66a4cc69d651",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
