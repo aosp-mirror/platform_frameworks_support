@@ -219,6 +219,30 @@
     },
     {
       "key": {
+        "uuid": "ec962ed9_8339da8b",
+        "filename": "media2/src/main/java/androidx/media2/ConnectedControllersManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-16T08:53:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6a98541_c71277f1",
+      "range": {
+        "startLine": 166,
+        "startChar": 15,
+        "endLine": 166,
+        "endChar": 28
+      },
+      "revId": "da39f4a6ed000b1ede3f1ee70fd20cf4e5ae68ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca6dea61_453be986",
         "filename": "media2/src/main/java/androidx/media2/ConnectedControllersManager.java",
         "patchSetId": 6
