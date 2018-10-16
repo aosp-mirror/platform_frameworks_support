@@ -22,6 +22,30 @@
       "revId": "0d157dd10b30d708c600cb5643c7042142512798",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be72d857_b1002fa9",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-10-16T07:18:28Z",
+      "side": 1,
+      "message": "updated to load animation earlier.\n\nI tried to avoid instantiate multiple loaders when multiple MediaRouteButtons present,\n(e.g. checking if remoteIndicatorStaticResId is on the cache or not)\nbut it is hard to handle the situation that setRemoteIndicatorDrawable is called by the user.",
+      "parentUuid": "d45f4089_178fa8db",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 9
+      },
+      "revId": "0d157dd10b30d708c600cb5643c7042142512798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
