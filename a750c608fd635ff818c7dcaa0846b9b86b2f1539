@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72eae488_e9579702",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-16T04:38:15Z",
+      "side": 1,
+      "message": "What about keeping this in sRemoteIndicatorCache?",
+      "range": {
+        "startLine": 141,
+        "startChar": 35,
+        "endLine": 142,
+        "endChar": 80
+      },
+      "revId": "a750c608fd635ff818c7dcaa0846b9b86b2f1539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45df07ae_e6eee2a7",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-16T04:38:15Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 20
+      },
+      "revId": "a750c608fd635ff818c7dcaa0846b9b86b2f1539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f204f34_61b95716",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-16T04:38:15Z",
+      "side": 1,
+      "message": "I think you already set this in L317. Is this still needed?",
+      "range": {
+        "startLine": 353,
+        "startChar": 0,
+        "endLine": 354,
+        "endChar": 34
+      },
+      "revId": "a750c608fd635ff818c7dcaa0846b9b86b2f1539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
