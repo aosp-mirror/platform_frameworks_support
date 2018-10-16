@@ -22,6 +22,30 @@
       "revId": "46edef30c536b34869cc17fed7c8370f80a9f87f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4e5d7bd_9c7d3182",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-16T04:14:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5a694516_cc53df03",
+      "range": {
+        "startLine": 102,
+        "startChar": 101,
+        "endLine": 102,
+        "endChar": 197
+      },
+      "revId": "46edef30c536b34869cc17fed7c8370f80a9f87f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
