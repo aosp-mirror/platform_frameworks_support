@@ -216,7 +216,7 @@ public class SessionPlayerTest extends MediaSession2TestBase {
     public void testSetPlaylistByControllerWithLongPlaylist() throws InterruptedException {
         final int listSize = 5000;
         // Make client app to generate a long list, and call setPlaylist() with it.
-        mController2.setPlaylistWithSize(listSize, null /* metadata */);
+        mController2.setLongPlaylist(listSize, null /* metadata */);
         assertTrue(mPlayer.mCountDownLatch.await(10, TimeUnit.SECONDS));
 
         assertTrue(mPlayer.mSetPlaylistCalled);

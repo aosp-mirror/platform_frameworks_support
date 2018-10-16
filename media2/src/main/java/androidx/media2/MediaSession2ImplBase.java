@@ -138,7 +138,10 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         mSessionLegacyStub = new MediaSessionLegacyStub(this);
 
         mSessionCompat.setSessionActivity(sessionActivity);
-        mSessionCompat.setFlags(MediaSessionCompat.FLAG_HANDLES_QUEUE_COMMANDS);
+        if (Build.VERSION.SDK_INT >= 21) {
+            // Below API 21, playlist is not exposed to MediaControllerCompat.
+            mSessionCompat.setFlags(MediaSessionCompat.FLAG_HANDLES_QUEUE_COMMANDS);
+        }
 
         updatePlayer(player);
         // Do followings at the last moment. Otherwise commands through framework would be sent to
