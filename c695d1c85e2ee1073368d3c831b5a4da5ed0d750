@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "549236b3_51672a5d",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-10-16T07:58:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44ccaedd_2fdb8a6a",
+      "revId": "c695d1c85e2ee1073368d3c831b5a4da5ed0d750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6ad1594_8cbc6bce",
         "filename": "mediarouter/src/main/res/drawable/mr_button_dark_static.xml",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "c695d1c85e2ee1073368d3c831b5a4da5ed0d750",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "047325ac_ea3e7aed",
+        "filename": "mediarouter/src/main/res/drawable/mr_button_dark_static.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-10-16T07:58:46Z",
+      "side": 1,
+      "message": "ag/2410621 solved b/62353766.\nIf b/62353766 happened, the current build should show the same result.",
+      "parentUuid": "f6ad1594_8cbc6bce",
+      "revId": "c695d1c85e2ee1073368d3c831b5a4da5ed0d750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
