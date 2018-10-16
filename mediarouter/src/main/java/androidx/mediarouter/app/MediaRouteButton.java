@@ -96,8 +96,17 @@ public class MediaRouteButton extends View {
             new SparseArray<>(2);
     RemoteIndicatorLoader mRemoteIndicatorLoader;
     private Drawable mRemoteIndicator;
-    private boolean mRemoteActive;
-    private boolean mIsConnecting;
+    // The resource id to be lazily loaded, 0 if it doesn't need to be loaded.
+    private int mRemoteIndicatorResIdToLoad;
+
+    private static final int CONNECTION_STATE_DISCONNECTED =
+            MediaRouter.RouteGroup.CONNECTION_STATE_DISCONNECTED;
+    private static final int CONNECTION_STATE_CONNECTING =
+            MediaRouter.RouteGroup.CONNECTION_STATE_CONNECTING;
+    private static final int CONNECTION_STATE_CONNECTED =
+            MediaRouter.RouteGroup.CONNECTION_STATE_CONNECTED;
+
+    private int mConnectionState;
 
     private ColorStateList mButtonTint;
     private int mMinWidth;
@@ -135,17 +144,27 @@ public class MediaRouteButton extends View {
                 R.styleable.MediaRouteButton_android_minWidth, 0);
         mMinHeight = a.getDimensionPixelSize(
                 R.styleable.MediaRouteButton_android_minHeight, 0);
-        int remoteIndicatorResId = a.getResourceId(
+
+        int remoteIndicatorStaticResId = a.getResourceId(
+                R.styleable.MediaRouteButton_externalRouteEnabledDrawableStatic, 0);
+        mRemoteIndicatorResIdToLoad = a.getResourceId(
                 R.styleable.MediaRouteButton_externalRouteEnabledDrawable, 0);
         a.recycle();
 
-        if (remoteIndicatorResId != 0) {
+        if (mRemoteIndicatorResIdToLoad != 0) {
             Drawable.ConstantState remoteIndicatorState =
-                    sRemoteIndicatorCache.get(remoteIndicatorResId);
+                    sRemoteIndicatorCache.get(mRemoteIndicatorResIdToLoad);
             if (remoteIndicatorState != null) {
                 setRemoteIndicatorDrawable(remoteIndicatorState.newDrawable());
+            }
+        }
+        if (mRemoteIndicator == null && remoteIndicatorStaticResId != 0) {
+            Drawable.ConstantState remoteIndicatorStaticState =
+                    sRemoteIndicatorCache.get(remoteIndicatorStaticResId);
+            if (remoteIndicatorStaticState != null) {
+                setRemoteIndicatorDrawableInternal(remoteIndicatorStaticState.newDrawable());
             } else {
-                mRemoteIndicatorLoader = new RemoteIndicatorLoader(remoteIndicatorResId);
+                mRemoteIndicatorLoader = new RemoteIndicatorLoader(remoteIndicatorStaticResId);
                 mRemoteIndicatorLoader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
         }
@@ -302,7 +321,19 @@ public class MediaRouteButton extends View {
         if (!handled) {
             playSoundEffect(SoundEffectConstants.CLICK);
         }
+        loadRemoteIndicatorIfNeeded();
         return showDialog() || handled;
+    }
+
+    private void loadRemoteIndicatorIfNeeded() {
+        if (mRemoteIndicatorResIdToLoad > 0) {
+            if (mRemoteIndicatorLoader != null) {
+                mRemoteIndicatorLoader.cancel(false);
+            }
+            mRemoteIndicatorLoader = new RemoteIndicatorLoader(mRemoteIndicatorResIdToLoad);
+            mRemoteIndicatorResIdToLoad = 0;
+            mRemoteIndicatorLoader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
     }
 
     @Override
@@ -313,10 +344,15 @@ public class MediaRouteButton extends View {
         // are implementation details here. Checkable is used to express the connecting
         // drawable state and it's mutually exclusive with check for the purposes
         // of state selection here.
-        if (mIsConnecting) {
-            mergeDrawableStates(drawableState, CHECKABLE_STATE_SET);
-        } else if (mRemoteActive) {
-            mergeDrawableStates(drawableState, CHECKED_STATE_SET);
+        switch (mConnectionState) {
+            case CONNECTION_STATE_DISCONNECTED:
+                break;
+            case CONNECTION_STATE_CONNECTING:
+                mergeDrawableStates(drawableState, CHECKABLE_STATE_SET);
+                break;
+            case CONNECTION_STATE_CONNECTED:
+                mergeDrawableStates(drawableState, CHECKED_STATE_SET);
+                break;
         }
         return drawableState;
     }
@@ -336,6 +372,12 @@ public class MediaRouteButton extends View {
      * Sets a drawable to use as the remote route indicator.
      */
     public void setRemoteIndicatorDrawable(Drawable d) {
+        // to prevent overwriting user-set drawables
+        mRemoteIndicatorResIdToLoad = 0;
+        setRemoteIndicatorDrawableInternal(d);
+    }
+
+    private void setRemoteIndicatorDrawableInternal(Drawable d) {
         if (mRemoteIndicatorLoader != null) {
             mRemoteIndicatorLoader.cancel(false);
         }
@@ -359,11 +401,11 @@ public class MediaRouteButton extends View {
         if (mAttachedToWindow && mRemoteIndicator != null
                 && mRemoteIndicator.getCurrent() instanceof AnimationDrawable) {
             AnimationDrawable curDrawable = (AnimationDrawable) mRemoteIndicator.getCurrent();
-            if (mIsConnecting) {
+            if (mConnectionState == CONNECTION_STATE_CONNECTING) {
                 if (!curDrawable.isRunning()) {
                     curDrawable.start();
                 }
-            } else if (mRemoteActive) {
+            } else if (mConnectionState == CONNECTION_STATE_CONNECTED) {
                 if (curDrawable.isRunning()) {
                     curDrawable.stop();
                 }
@@ -488,15 +530,13 @@ public class MediaRouteButton extends View {
     void refreshRoute() {
         final MediaRouter.RouteInfo route = mRouter.getSelectedRoute();
         final boolean isRemote = !route.isDefaultOrBluetooth() && route.matchesSelector(mSelector);
-        final boolean isConnecting = isRemote
-                && route.getConnectionState() == MediaRouter.RouteInfo.CONNECTION_STATE_CONNECTING;
+        final int connectionState = (isRemote ? route.getConnectionState()
+                : CONNECTION_STATE_DISCONNECTED);
+
         boolean needsRefresh = false;
-        if (mRemoteActive != isRemote) {
-            mRemoteActive = isRemote;
-            needsRefresh = true;
-        }
-        if (mIsConnecting != isConnecting) {
-            mIsConnecting = isConnecting;
+
+        if (mConnectionState != connectionState) {
+            mConnectionState = connectionState;
             needsRefresh = true;
         }
 
@@ -504,6 +544,10 @@ public class MediaRouteButton extends View {
             updateContentDescription();
             refreshDrawableState();
         }
+        if (connectionState == CONNECTION_STATE_CONNECTING) {
+            loadRemoteIndicatorIfNeeded();
+        }
+
         if (mAttachedToWindow) {
             setEnabled(mRouter.isRouteAvailable(mSelector,
                     MediaRouter.AVAILABILITY_FLAG_IGNORE_DEFAULT_ROUTE));
@@ -512,10 +556,11 @@ public class MediaRouteButton extends View {
                 && mRemoteIndicator.getCurrent() instanceof AnimationDrawable) {
             AnimationDrawable curDrawable = (AnimationDrawable) mRemoteIndicator.getCurrent();
             if (mAttachedToWindow) {
-                if ((needsRefresh || isConnecting) && !curDrawable.isRunning()) {
+                if ((needsRefresh || connectionState == CONNECTION_STATE_CONNECTING)
+                        && !curDrawable.isRunning()) {
                     curDrawable.start();
                 }
-            } else if (isRemote && !isConnecting) {
+            } else if (connectionState == CONNECTION_STATE_CONNECTED) {
                 // When the route is already connected before the view is attached, show the last
                 // frame of the connected animation immediately.
                 if (curDrawable.isRunning()) {
@@ -528,13 +573,19 @@ public class MediaRouteButton extends View {
 
     private void updateContentDescription() {
         int resId;
-        if (mIsConnecting) {
-            resId = R.string.mr_cast_button_connecting;
-        } else if (mRemoteActive) {
-            resId = R.string.mr_cast_button_connected;
-        } else {
-            resId = R.string.mr_cast_button_disconnected;
+        switch (mConnectionState) {
+            default:
+            case CONNECTION_STATE_DISCONNECTED:
+                resId = R.string.mr_cast_button_disconnected;
+                break;
+            case CONNECTION_STATE_CONNECTING:
+                resId = R.string.mr_cast_button_connecting;
+                break;
+            case CONNECTION_STATE_CONNECTED:
+                resId = R.string.mr_cast_button_connected;
+                break;
         }
+
         setContentDescription(getContext().getString(resId));
     }
 
@@ -598,7 +649,7 @@ public class MediaRouteButton extends View {
         @Override
         protected void onPostExecute(Drawable remoteIndicator) {
             cacheAndReset(remoteIndicator);
-            setRemoteIndicatorDrawable(remoteIndicator);
+            setRemoteIndicatorDrawableInternal(remoteIndicator);
         }
 
         @Override
