@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e3360f9_835e6488",
+        "filename": "media2/src/main/java/androidx/media2/ParcelImplListSlice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-16T04:57:28Z",
+      "side": 1,
+      "message": "document that this effectively changes calls to the synchronous call, and losing oneway property.\n\noptionally) add TODO for this.",
+      "revId": "8fcfc725c8b39af34a7b2fd70e69ce7e98b0ae5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "854ec54b_ee753615",
+        "filename": "media2/src/main/java/androidx/media2/ParcelImplListSlice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-16T04:57:28Z",
+      "side": 1,
+      "message": "we\u0027d better to provide good value instead.",
+      "revId": "8fcfc725c8b39af34a7b2fd70e69ce7e98b0ae5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
