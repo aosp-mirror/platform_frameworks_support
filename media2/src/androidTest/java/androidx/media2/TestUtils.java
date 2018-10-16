@@ -131,6 +131,17 @@ public final class TestUtils {
     }
 
     /**
+     * Create a media item with the metadata for testing purpose.
+     *
+     * @return the newly created media item
+     * @see #createMetadata()
+     */
+    public static MediaItem2 createMediaItemWithoutMetadata() {
+        return new FileMediaItem2.Builder(new FileDescriptor())
+                .build();
+    }
+
+    /**
      * Create a media metadata for testing purpose.
      * <p>
      * Caller's method name will be used for the media id.
@@ -141,6 +152,14 @@ public final class TestUtils {
         String mediaId = Thread.currentThread().getStackTrace()[3].getMethodName();
         return new MediaMetadata2.Builder()
                 .putString(MediaMetadata2.METADATA_KEY_MEDIA_ID, mediaId).build();
+    }
+
+
+    public static MediaMetadata2 createMetadataWithDuration() {
+        String mediaId = Thread.currentThread().getStackTrace()[3].getMethodName();
+        long duration = 1000L;
+        return new MediaMetadata2.Builder()
+                .putLong(MediaMetadata2.METADATA_KEY_DURATION, duration).build();
     }
 
     /**

@@ -38,6 +38,7 @@ import android.os.HandlerThread;
 import android.os.Process;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.media.AudioAttributesCompat;
 import androidx.media.VolumeProviderCompat;
 import androidx.media2.MediaController2.ControllerCallback;
@@ -1495,6 +1496,40 @@ public class MediaController2Test extends MediaSession2TestBase {
         MediaController2 controller = createController(mSession.getToken(), true, callback);
         controller.setTimeDiff(timeDiff);
         mPlayer.notifyPlayerStateChanged(pausedState);
+        assertTrue(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
+    }
+
+    @Test
+    // TODO: Add test for changing metadata in a playlist
+    public void testSetMetadataForCurrentMediaItem() throws InterruptedException {
+        final CountDownLatch latch = new CountDownLatch(2);
+        final long duration = 1000L;
+        final MediaItem2 item = TestUtils.createMediaItemWithoutMetadata();
+        final ControllerCallback callback = new ControllerCallback() {
+            @Override
+            public void onCurrentMediaItemChanged(@NonNull MediaController2 controller,
+                    @Nullable MediaItem2 item) {
+                MediaMetadata2 metadata = item.getMetadata();
+                if (metadata != null) {
+                    switch ((int) latch.getCount()) {
+                        case 2:
+                            assertFalse(metadata.containsKey(
+                                    MediaMetadata2.METADATA_KEY_DURATION));
+                            item.setMetadata(TestUtils.createMetadataWithDuration());
+                            break;
+                        case 1:
+                            assertTrue(metadata.containsKey(
+                                    MediaMetadata2.METADATA_KEY_DURATION));
+                            assertEquals(duration,
+                                    metadata.getLong(MediaMetadata2.METADATA_KEY_DURATION));
+                    }
+                }
+                latch.countDown();
+            }
+        };
+        MediaController2 controller = createController(mSession.getToken(), true, callback);
+        mPlayer.setMediaItem(item);
+        mPlayer.notifyCurrentMediaItemChanged(item);
         assertTrue(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
     }
 
