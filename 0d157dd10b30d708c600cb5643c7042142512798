@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d45f4089_178fa8db",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-16T05:57:11Z",
+      "side": 1,
+      "message": "It would be better to load earlier than later.\nWhat about followings and changing related codes accordingly?\n\nint remoteIndicatorResId \u003d a.getResourceId(\n        R.styleable.MediaRouteButton_externalRouteEnabledDrawable, 0);\na.recycle();\n\nif (remoteIndicatorResId !\u003d 0) {\n    Drawable.ConstantState remoteIndicatorState \u003d\n            sRemoteIndicatorCache.get(remoteIndicatorResId);\n    if (remoteIndicatorState !\u003d null) {\n        setRemoteIndicatorDrawable(remoteIndicatorState.newDrawable());\n    } else if (sRemoteIndicatorLoader !\u003d null) {\n        int remoteIndicatorStaticResId \u003d a.getResourceId(\n                R.styleable.MediaRouteButton_externalRouteEnabledDrawableStatic, 0);\n        Drawable d \u003d context.getResources().getDrawable(remoteIndicatorStaticResId);\n        sRemoteIndicatorCache.put(remoteIndicatorStaticResId, d.getConstantState());\n        setRemoteIndicatorDrawable(d);\n\n        sRemoteIndicatorLoader \u003d new RemoteIndicatorLoader(remoteIndicatorResId);\n        sRemoteIndicatorLoader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);\n    } else {\n        remoteIndicatorState \u003d sRemoteIndicatorCache.get(remoteIndicatorStaticResId);\n        setRemoteIndicatorDrawable(remoteIndicatorState.newDrawable());\n    }\n}",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 9
+      },
+      "revId": "0d157dd10b30d708c600cb5643c7042142512798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
