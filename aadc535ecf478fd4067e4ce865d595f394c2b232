@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "efd3c30c_33ca198a",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2Stub.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-16T08:06:04Z",
+      "side": 1,
+      "message": "It\u0027s running inside of the session executor, given by the developer. Please don\u0027t use expensive operation here.",
+      "range": {
+        "startLine": 662,
+        "startChar": 49,
+        "endLine": 662,
+        "endChar": 66
+      },
+      "revId": "aadc535ecf478fd4067e4ce865d595f394c2b232",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
