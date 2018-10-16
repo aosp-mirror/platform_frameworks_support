@@ -32,6 +32,7 @@ import androidx.media.AudioAttributesCompat;
 import androidx.media.VolumeProviderCompat;
 import androidx.media.test.client.MediaTestUtils;
 import androidx.media.test.client.RemoteMediaSession2;
+import androidx.media.test.lib.TestUtils;
 import androidx.media2.FileMediaItem2;
 import androidx.media2.MediaItem2;
 import androidx.media2.MediaMetadata2;
@@ -139,7 +140,8 @@ public class MediaControllerCompatCallbackTestWithMediaSession2 extends MediaSes
         final MediaControllerCallback controllerCallback = new MediaControllerCallback();
         // TODO: Make each callback method use their own CountDownLatch.
         if (Build.VERSION.SDK_INT < 21) {
-            controllerCallback.reset(7);
+            // Below API 21, no queue related callback methods will be called.
+            controllerCallback.reset(5);
         } else {
             // On API 21+, MediaControllerCompat.Callback.onAudioInfoChanged() is called
             // only when the playback type is changed. Since this test method does not change
@@ -163,6 +165,11 @@ public class MediaControllerCompatCallbackTestWithMediaSession2 extends MediaSes
         assertEquals(testSpeed, controllerCallback.mPlaybackState.getPlaybackSpeed(), 0.0f);
 
         assertTrue(controllerCallback.mOnMetadataChangedCalled);
+
+        if (Build.VERSION.SDK_INT < 21) {
+            // Below API 21, we don't expose queue to legacy controllers.
+            return;
+        }
         assertTrue(controllerCallback.mOnQueueChangedCalled);
         assertTrue(controllerCallback.mOnQueueTitleChangedCalled);
         List<QueueItem> queue = mControllerCompat.getQueue();
@@ -438,6 +445,7 @@ public class MediaControllerCompatCallbackTestWithMediaSession2 extends MediaSes
     }
 
     @Test
+    @SdkSuppress(minSdkVersion = 21)
     public void testPlaylistAndPlaylistMetadataChange() throws Exception {
         prepareLooper();
         final List<MediaItem2> playlist = MediaTestUtils.createPlaylist(5);
@@ -467,6 +475,38 @@ public class MediaControllerCompatCallbackTestWithMediaSession2 extends MediaSes
     }
 
     @Test
+    @SdkSuppress(minSdkVersion = 21)
+    public void testPlaylistAndPlaylistMetadataChange_longList() throws Exception {
+        prepareLooper();
+        final String playlistTitle = "playlistTitle";
+        MediaMetadata2 playlistMetadata = new MediaMetadata2.Builder()
+                .putText(MediaMetadata2.METADATA_KEY_DISPLAY_TITLE, playlistTitle).build();
+
+        final MediaControllerCallback controllerCallback = new MediaControllerCallback();
+        controllerCallback.reset(2);
+        mControllerCompat.registerCallback(controllerCallback, sHandler);
+
+        final int listSize = 5000;
+        mSession.getMockPlayer().createAndSetDummyPlaylist(listSize);
+        mSession.getMockPlayer().setPlaylistMetadata(playlistMetadata);
+        mSession.getMockPlayer().notifyPlaylistChanged();
+
+        assertTrue(controllerCallback.await(TimeUnit.SECONDS.toMillis(3)));
+        assertTrue(controllerCallback.mOnQueueChangedCalled);
+        assertTrue(controllerCallback.mOnQueueTitleChangedCalled);
+
+        List<QueueItem> queue = mControllerCompat.getQueue();
+        assertNotNull(queue);
+        assertEquals(listSize, queue.size());
+        for (int i = 0; i < queue.size(); i++) {
+            assertEquals(TestUtils.getMediaIdInDummyList(i),
+                    queue.get(i).getDescription().getMediaId());
+        }
+        assertEquals(playlistTitle, controllerCallback.mTitle);
+    }
+
+    @Test
+    @SdkSuppress(minSdkVersion = 21)
     public void testPlaylistMetadataChange() throws Exception {
         prepareLooper();
         final String playlistTitle = "playlistTitle";

@@ -91,6 +91,13 @@ public class TestUtils {
     }
 
     /**
+     * When testing with any dummy lists, get the expected media ID of index {@param index}.
+     */
+    public static String getMediaIdInDummyList(int index) {
+        return Integer.toString(index);
+    }
+
+    /**
      * Handler that always waits until the Runnable finishes.
      */
     public static class SyncHandler extends Handler {

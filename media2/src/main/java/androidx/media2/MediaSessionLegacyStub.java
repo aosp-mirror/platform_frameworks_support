@@ -24,6 +24,7 @@ import static androidx.media2.SessionCommand2.COMMAND_VERSION_CURRENT;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Process;
 import android.os.RemoteException;
@@ -286,6 +287,10 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
 
     @Override
     public void onSkipToQueueItem(final long id) {
+        if (Build.VERSION.SDK_INT < 21) {
+            // Below API 21, queue related calls are ignored.
+            return;
+        }
         onSessionCommand(SessionCommand2.COMMAND_CODE_PLAYER_SKIP_TO_PLAYLIST_ITEM,
                 new SessionRunnable() {
                     @Override
@@ -391,6 +396,10 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         if (description == null) {
             return;
         }
+        if (Build.VERSION.SDK_INT < 21) {
+            // Below API 21, queue related calls are ignored.
+            return;
+        }
         onSessionCommand(SessionCommand2.COMMAND_CODE_PLAYER_ADD_PLAYLIST_ITEM,
                 new SessionRunnable() {
                     @Override
@@ -407,6 +416,10 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         if (description == null) {
             return;
         }
+        if (Build.VERSION.SDK_INT < 21) {
+            // Below API 21, queue related calls are ignored.
+            return;
+        }
         onSessionCommand(SessionCommand2.COMMAND_CODE_PLAYER_ADD_PLAYLIST_ITEM,
                 new SessionRunnable() {
                     @Override
@@ -420,6 +433,10 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
     @Override
     public void onRemoveQueueItem(final MediaDescriptionCompat description) {
         if (description == null) {
+            return;
+        }
+        if (Build.VERSION.SDK_INT < 21) {
+            // Below API 21, queue related calls are ignored.
             return;
         }
         onSessionCommand(SessionCommand2.COMMAND_CODE_PLAYER_REMOVE_PLAYLIST_ITEM,
@@ -772,12 +789,22 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         @Override
         void onPlaylistChanged(List<MediaItem2> playlist, MediaMetadata2 metadata)
                 throws RemoteException {
+            if (Build.VERSION.SDK_INT < 21) {
+                // Below lollipop, we don't expose playlist to legacy controllers.
+                return;
+            }
+            // Framework MediaSession#setQueue() uses ParceledListSlice,
+            // which means we can safely send long lists.
             mSessionImpl.getSessionCompat().setQueue(MediaUtils2.convertToQueueItemList(playlist));
             onPlaylistMetadataChanged(metadata);
         }
 
         @Override
         void onPlaylistMetadataChanged(MediaMetadata2 metadata) throws RemoteException {
+            if (Build.VERSION.SDK_INT < 21) {
+                // Below lollipop, we don't expose playlist to legacy controllers.
+                return;
+            }
             // Since there is no 'queue metadata', only set title of the queue.
             CharSequence oldTitle = mSessionImpl.getSessionCompat().getController().getQueueTitle();
             CharSequence newTitle = null;
