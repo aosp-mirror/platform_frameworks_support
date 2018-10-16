@@ -26,12 +26,15 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.versionedparcelable.NonParcelField;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -103,6 +106,11 @@ public class MediaItem2 implements VersionedParcelable {
     long mEndPositionMs = POSITION_UNKNOWN;
     @ParcelField(7)
     long mDurationMs = SessionPlayer2.UNKNOWN_TIME;
+
+    @NonParcelField
+    private final Set<Callback> mCallbacks = new HashSet<>();
+    @NonParcelField
+    private final Object mLock = new Object();
 
     /**
      * Used for VersionedParcelable
@@ -255,8 +263,9 @@ public class MediaItem2 implements VersionedParcelable {
     }
 
     /**
-     * Sets a metadata. If the metadata is not {@code null}, its id should be matched with this
-     * instance's media id.
+     * Sets a metadata and calls {@link Callback#onMetadataChanged(MediaItem2)} to all connected
+     * sessions. If the metadata is not {@code null}, its id should be matched with this instance's
+     * media id.
      *
      * @param metadata metadata to update
      */
@@ -267,6 +276,9 @@ public class MediaItem2 implements VersionedParcelable {
         mMetadata = metadata;
         if (metadata != null) {
             mDurationMs = metadata.getLong(MediaMetadata2.METADATA_KEY_DURATION);
+        }
+        for (Callback callback : mCallbacks) {
+            callback.onMetadataChanged(this);
         }
     }
 
@@ -322,6 +334,18 @@ public class MediaItem2 implements VersionedParcelable {
 
     UUID getUuid() {
         return mParcelUuid.getUuid();
+    }
+
+    void registerCallback(Callback callback) {
+        synchronized (mLock) {
+            mCallbacks.add(callback);
+        }
+    }
+
+    void unregisterCallback(Callback callback) {
+        synchronized (mLock) {
+            mCallbacks.remove(callback);
+        }
     }
 
     /**
@@ -443,5 +467,9 @@ public class MediaItem2 implements VersionedParcelable {
         public Builder(@Flags int flags) {
             super(flags);
         }
+    }
+
+    abstract static class Callback {
+        abstract void onMetadataChanged(MediaItem2 item);
     }
 }
