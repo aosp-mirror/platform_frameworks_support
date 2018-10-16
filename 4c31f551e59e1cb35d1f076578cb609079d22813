@@ -16,6 +16,24 @@
       "revId": "4c31f551e59e1cb35d1f076578cb609079d22813",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a149d17_b748c726",
+        "filename": "room/benchmark/src/androidTest/java/androidx/room/benchmark/InvalidationTrackerBenchmark.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-10-16T19:52:57Z",
+      "side": 1,
+      "message": "I do want to perform this delete, since its a large transaction and one of the cases we want to test \u0026 benchmark.",
+      "parentUuid": "2631e514_cc00c237",
+      "revId": "4c31f551e59e1cb35d1f076578cb609079d22813",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
