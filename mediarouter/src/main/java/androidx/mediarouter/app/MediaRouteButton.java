@@ -135,6 +135,9 @@ public class MediaRouteButton extends View {
                 R.styleable.MediaRouteButton_android_minWidth, 0);
         mMinHeight = a.getDimensionPixelSize(
                 R.styleable.MediaRouteButton_android_minHeight, 0);
+
+        int remoteIndicatorStaticResId = a.getResourceId(
+                R.styleable.MediaRouteButton_externalRouteEnabledDrawableStatic, 0);
         int remoteIndicatorResId = a.getResourceId(
                 R.styleable.MediaRouteButton_externalRouteEnabledDrawable, 0);
         a.recycle();
@@ -145,6 +148,18 @@ public class MediaRouteButton extends View {
             if (remoteIndicatorState != null) {
                 setRemoteIndicatorDrawable(remoteIndicatorState.newDrawable());
             } else {
+                if (remoteIndicatorStaticResId != 0) {
+                    Drawable.ConstantState remoteIndicatorStaticState =
+                            sRemoteIndicatorCache.get(remoteIndicatorStaticResId);
+                    if (remoteIndicatorStaticState != null) {
+                        setRemoteIndicatorDrawable(remoteIndicatorStaticState.newDrawable());
+                    } else {
+                        Drawable d = context.getResources().getDrawable(remoteIndicatorStaticResId);
+                        sRemoteIndicatorCache.put(remoteIndicatorStaticResId, d.getConstantState());
+                        setRemoteIndicatorDrawable(d);
+
+                    }
+                }
                 mRemoteIndicatorLoader = new RemoteIndicatorLoader(remoteIndicatorResId);
                 mRemoteIndicatorLoader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
