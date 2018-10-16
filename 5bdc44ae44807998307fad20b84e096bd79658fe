@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9ec77f0_8832c1d8",
+        "filename": "room/benchmark/src/androidTest/java/androidx/room/benchmark/InvalidationTrackerBenchmark.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-16T15:55:59Z",
+      "side": 1,
+      "message": "it is a single so it will stop observing after it is done.\nalso, test should just call invlaidateTracker#observe to avoid any additional overhead.",
+      "range": {
+        "startLine": 61,
+        "startChar": 7,
+        "endLine": 62,
+        "endChar": 92
+      },
+      "revId": "5bdc44ae44807998307fad20b84e096bd79658fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2d3af31_0b06395f",
+        "filename": "room/benchmark/src/androidTest/java/androidx/room/benchmark/InvalidationTrackerBenchmark.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-16T15:55:59Z",
+      "side": 1,
+      "message": "the cost of these inserts will be a lot more than that delete query.\nThat seems to defeat the goal of this test (largeTransaction)\n\nyou should make all those inserts in 1 transaction.\nalso create User objects ones ahead of time to avoid their cost.",
+      "range": {
+        "startLine": 67,
+        "startChar": 39,
+        "endLine": 67,
+        "endChar": 56
+      },
+      "revId": "5bdc44ae44807998307fad20b84e096bd79658fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70a8090d_d4911880",
+        "filename": "room/runtime/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-16T15:55:59Z",
+      "side": 1,
+      "message": "it was actually an intentional api choice to incetivize developer to always think about arguments (to avoid argument concatenation).",
+      "range": {
+        "startLine": 54,
+        "startChar": 3,
+        "endLine": 54,
+        "endChar": 66
+      },
+      "revId": "5bdc44ae44807998307fad20b84e096bd79658fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54be6d36_77f5b0bc",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-16T15:55:59Z",
+      "side": 1,
+      "message": "boolean[] is fine though you could consider BitSet as well.",
+      "range": {
+        "startLine": 153,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 61
+      },
+      "revId": "5bdc44ae44807998307fad20b84e096bd79658fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07208729_28e45619",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-16T15:55:59Z",
+      "side": 1,
+      "message": "lets add INVALIDATED_COLUMN_NAME\u003d 0 to this query.",
+      "range": {
+        "startLine": 232,
+        "startChar": 20,
+        "endLine": 232,
+        "endChar": 97
+      },
+      "revId": "5bdc44ae44807998307fad20b84e096bd79658fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
