@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7b2b4f9b_41517778",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-10-16T05:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72eae488_e9579702",
+      "range": {
+        "startLine": 141,
+        "startChar": 35,
+        "endLine": 142,
+        "endChar": 80
+      },
+      "revId": "a750c608fd635ff818c7dcaa0846b9b86b2f1539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45df07ae_e6eee2a7",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "db3859eb_4cf96e19",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-10-16T05:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45df07ae_e6eee2a7",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 20
+      },
+      "revId": "a750c608fd635ff818c7dcaa0846b9b86b2f1539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f204f34_61b95716",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "a750c608fd635ff818c7dcaa0846b9b86b2f1539",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "223dc172_0140e2ed",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-10-16T05:42:31Z",
+      "side": 1,
+      "message": "It is necessary when the user set their own drawables.",
+      "parentUuid": "6f204f34_61b95716",
+      "range": {
+        "startLine": 353,
+        "startChar": 0,
+        "endLine": 354,
+        "endChar": 34
+      },
+      "revId": "a750c608fd635ff818c7dcaa0846b9b86b2f1539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
