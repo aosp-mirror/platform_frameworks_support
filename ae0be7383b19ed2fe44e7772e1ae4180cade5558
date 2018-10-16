@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9daed19_ee192496",
+        "filename": "media2/src/main/aidl/androidx/media2/IMediaController2.aidl",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-16T08:31:12Z",
+      "side": 1,
+      "message": "onSetCustomLayout",
+      "range": {
+        "startLine": 55,
+        "startChar": 9,
+        "endLine": 55,
+        "endChar": 24
+      },
+      "revId": "ae0be7383b19ed2fe44e7772e1ae4180cade5558",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6f69512_a5bb7fc3",
+        "filename": "media2/src/main/aidl/androidx/media2/IMediaController2.aidl",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-16T08:31:12Z",
+      "side": 1,
+      "message": "onCustumCommand",
+      "range": {
+        "startLine": 56,
+        "startChar": 9,
+        "endLine": 56,
+        "endChar": 13
+      },
+      "revId": "ae0be7383b19ed2fe44e7772e1ae4180cade5558",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
