@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3949509_30a1cdb7",
+        "filename": "media2/src/main/java/androidx/media2/ParcelImplListSlice.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-16T11:17:35Z",
+      "side": 1,
+      "message": "Changed this value to 4K.",
+      "range": {
+        "startLine": 48,
+        "startChar": 44,
+        "endLine": 48,
+        "endChar": 52
+      },
+      "revId": "fbf0b7a01bf59ac9dec459aaa04a11c5ae0aeaee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
