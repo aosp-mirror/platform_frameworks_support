@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f5a5ad01_f97d9b54",
+        "filename": "lifecycle/common-java8/src/main/java/androidx/lifecycle/DefaultLifecycleObserver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-17T17:41:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "542ccc34_32fbf000",
+      "range": {
+        "startLine": 26,
+        "startChar": 14,
+        "endLine": 26,
+        "endChar": 29
+      },
+      "revId": "dafa10a3164ab4474dee9528899e0d7ead2b1784",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9af0ca3_e54e66f9",
         "filename": "lifecycle/common-java8/src/main/java/androidx/lifecycle/DefaultLifecycleObserver.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "f9cd8c33_8fe44cc1",
+        "filename": "lifecycle/common-java8/src/main/java/androidx/lifecycle/DefaultLifecycleObserver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-17T17:41:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9af0ca3_e54e66f9",
+      "range": {
+        "startLine": 30,
+        "startChar": 14,
+        "endLine": 30,
+        "endChar": 29
+      },
+      "revId": "dafa10a3164ab4474dee9528899e0d7ead2b1784",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbc12044_b02f6f0f",
         "filename": "lifecycle/common-java8/src/main/java/androidx/lifecycle/DefaultLifecycleObserver.java",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "dafa10a3164ab4474dee9528899e0d7ead2b1784",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87366c51_285325a6",
+        "filename": "lifecycle/common-java8/src/main/java/androidx/lifecycle/DefaultLifecycleObserver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-17T17:41:32Z",
+      "side": 1,
+      "message": "Added tests that annotated methods are ignored. // I silently ignore them, because I want to DefaultLifecycleObserver and LifecycleEventObserver as fast-paths without any additional checks and checks for generics aren\u0027t free.",
+      "parentUuid": "bbc12044_b02f6f0f",
+      "range": {
+        "startLine": 32,
+        "startChar": 1,
+        "endLine": 32,
+        "endChar": 2
+      },
+      "revId": "dafa10a3164ab4474dee9528899e0d7ead2b1784",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
