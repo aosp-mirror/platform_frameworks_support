@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b9b3e0e_b50dd0c1",
+        "filename": "media2/src/main/aidl/androidx/media2/IMediaSession2.aidl",
+        "patchSetId": 8
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-17T04:47:32Z",
+      "side": 1,
+      "message": "onControllerResult since the session will get controller result instead of sending controller result.",
+      "revId": "df580da3f763dcf192bc0030e692e4cf2ff1bd9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
