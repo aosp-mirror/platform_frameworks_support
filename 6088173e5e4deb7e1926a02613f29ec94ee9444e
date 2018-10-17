@@ -34,6 +34,24 @@
       "revId": "6088173e5e4deb7e1926a02613f29ec94ee9444e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15a6988e_92c8a9fc",
+        "filename": "dynamic-animation/ktx/src/main/java/androidx/dynamicanimation/animation/DynamicAnimation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2018-10-17T20:15:30Z",
+      "side": 1,
+      "message": "I would recommend leaving out the lamda function from the SpringAnimation instantiation API. And let people use the method below to customize SpringForce.",
+      "parentUuid": "a5c44a2b_09b3bd90",
+      "revId": "6088173e5e4deb7e1926a02613f29ec94ee9444e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
