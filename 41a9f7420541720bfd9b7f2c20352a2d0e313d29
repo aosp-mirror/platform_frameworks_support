@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9af28a93_19adfb98",
+        "filename": "media2/src/main/aidl/androidx/media2/IMediaSession2.aidl",
+        "patchSetId": 9
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-17T05:10:52Z",
+      "side": 1,
+      "message": "maybe sendControllerResult?",
+      "range": {
+        "startLine": 77,
+        "startChar": 9,
+        "endLine": 77,
+        "endChar": 15
+      },
+      "revId": "41a9f7420541720bfd9b7f2c20352a2d0e313d29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
