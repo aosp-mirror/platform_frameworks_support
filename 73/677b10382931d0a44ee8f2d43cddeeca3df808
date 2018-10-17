@@ -1,0 +1,9 @@
+Presubmit-Ready+1: Treehugger Robot <treehugger-gerrit@google.com>
+API-Review+1: Alan Viverette <alanv@google.com>
+Autosubmit+1: Alan Viverette <alanv@google.com>
+Code-Review+2: Jeff Gaston <jeffrygaston@google.com>
+Submitted-by: Oussama Ben Abdelbaki <obenabde@google.com>
+Submitted-at: Wed, 17 Oct 2018 17:58:07 +0000
+Reviewed-on: https://android-review.googlesource.com/786836
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
