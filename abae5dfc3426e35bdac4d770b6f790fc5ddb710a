@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "91ff184b_4e4fb52e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-17T17:17:32Z",
+      "side": 1,
+      "message": "Can you mention somewhere about how the order of the fallbackServiceStatuses will be processed?",
+      "revId": "abae5dfc3426e35bdac4d770b6f790fc5ddb710a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
