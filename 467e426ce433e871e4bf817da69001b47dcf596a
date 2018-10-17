@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "4d2f9e9f_4acb3f14",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-17T17:32:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5202674_358f4505",
+      "range": {
+        "startLine": 11,
+        "startChar": 37,
+        "endLine": 11,
+        "endChar": 40
+      },
+      "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76a283bc_018a970a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-17T17:32:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fa1d4f0_033c4989",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 21
+      },
+      "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16006d45_fa78a715",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
         "patchSetId": 1
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "0f6579a8_19261473",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-17T17:32:51Z",
+      "side": 1,
+      "message": "That\u0027s not a nit, that\u0027s just wrong :)",
+      "parentUuid": "16006d45_fa78a715",
+      "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea217c64_2cee3f2e",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
         "patchSetId": 1
@@ -79,6 +145,24 @@
       "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6cb31c9_b374ea1a",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-17T17:32:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea217c64_2cee3f2e",
+      "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -102,6 +186,30 @@
       "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5623faf_14859336",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-17T17:32:51Z",
+      "side": 1,
+      "message": "Yes, it\u0027s only used once.\nDone",
+      "parentUuid": "4db741a3_139342a1",
+      "range": {
+        "startLine": 760,
+        "startChar": 34,
+        "endLine": 760,
+        "endChar": 64
+      },
+      "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -152,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "1b85d8d8_2935da54",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-17T17:32:51Z",
+      "side": 1,
+      "message": "Done (although moved mCurrentItem \u003d item to here rather than the other way around)",
+      "parentUuid": "8d467fd0_74ad438f",
+      "range": {
+        "startLine": 388,
+        "startChar": 8,
+        "endLine": 388,
+        "endChar": 42
+      },
+      "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a5d6202_3cde8eee",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
         "patchSetId": 1
@@ -198,6 +330,54 @@
     },
     {
       "key": {
+        "uuid": "414f1532_1279f996",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-17T17:32:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77c74ca6_2fd9b0f9",
+      "range": {
+        "startLine": 389,
+        "startChar": 8,
+        "endLine": 390,
+        "endChar": 63
+      },
+      "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80997952_8a4b53d1",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-17T17:32:51Z",
+      "side": 1,
+      "message": "Ack. I believe this was the result of simplifying a more verbose expression. Will get the verbose one back (which is easier to follow) and add the comments",
+      "parentUuid": "2a5d6202_3cde8eee",
+      "range": {
+        "startLine": 390,
+        "startChar": 45,
+        "endLine": 390,
+        "endChar": 60
+      },
+      "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a41697f1_a40942f7",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
         "patchSetId": 1
@@ -218,6 +398,30 @@
       "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fccda180_3f3e9be2",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-17T17:32:51Z",
+      "side": 1,
+      "message": "Yes, this has crossed my mind while implementing the features up till here, so I think it is a totally valid point.\n\nI decided to keep mCurrentItem in ViewPager2, because it feels like its their responsibility to keep track of the current item and because it is part of the view state. However, I\u0027m not completely convinced of either this or the proposed solution, so I think I might write a PoC where ScrollEventAdapter becomes the owner of mCurrentItem. I filed an issue for it: b/117877033.\n\nIn the mean time, I changed the class javadoc of ScrollEventAdapter to reflect its coupling with ViewPager2 and update the description of its responsibilities.\n\nMarking this as resolved, but happy to keep discussing this point on chat/VC/email/etc.",
+      "parentUuid": "a41697f1_a40942f7",
+      "range": {
+        "startLine": 395,
+        "startChar": 8,
+        "endLine": 395,
+        "endChar": 28
+      },
+      "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
