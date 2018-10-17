@@ -46,6 +46,30 @@
       "revId": "bfe86dffa79c5b5469c9f0f8da2ceadb0ec0a711",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5b8812f_972625c4",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-10-17T20:17:53Z",
+      "side": 1,
+      "message": "Redundancy is not a big deal, as long as it doesn\u0027t confuse to the point that we think our coverage is better than it actually is.  My concern there is that someone says, \"but look, I wrote 20 extensive tests, my coverage must be good\" and distinguishing between the purpose of the tests is difficult and they turn out to be 90% redundant.  But, a little redundancy here or there is no big deal.\n\nAlso, thanks for the description for the reasoning of what was going on in the test... it would be great if any reader could come to that conclusion easily by themselves by reading the code.  Nothing to change here... just suggestions for the future. :)",
+      "parentUuid": "47320ba0_6d9ec982",
+      "range": {
+        "startLine": 352,
+        "startChar": 28,
+        "endLine": 352,
+        "endChar": 29
+      },
+      "revId": "bfe86dffa79c5b5469c9f0f8da2ceadb0ec0a711",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
