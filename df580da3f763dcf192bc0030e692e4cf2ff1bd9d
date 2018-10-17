@@ -16,6 +16,24 @@
       "revId": "df580da3f763dcf192bc0030e692e4cf2ff1bd9d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a5e9a50_521b9bcf",
+        "filename": "media2/src/main/aidl/androidx/media2/IMediaSession2.aidl",
+        "patchSetId": 8
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-17T05:02:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b9b3e0e_b50dd0c1",
+      "revId": "df580da3f763dcf192bc0030e692e4cf2ff1bd9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
