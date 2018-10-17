@@ -266,6 +266,24 @@
     },
     {
       "key": {
+        "uuid": "218e72d5_504ffd28",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-10-17T20:40:10Z",
+      "side": 1,
+      "message": "Thanks, comments really helped!",
+      "parentUuid": "4bdfd151_ba559ef1",
+      "revId": "b23925468544e166b14eca83521a0ea67815519f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2323e36_2a74fef1",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
         "patchSetId": 2
