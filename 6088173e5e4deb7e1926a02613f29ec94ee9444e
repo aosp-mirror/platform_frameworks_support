@@ -16,6 +16,24 @@
       "revId": "6088173e5e4deb7e1926a02613f29ec94ee9444e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5c44a2b_09b3bd90",
+        "filename": "dynamic-animation/ktx/src/main/java/androidx/dynamicanimation/animation/DynamicAnimation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1375271
+      },
+      "writtenOn": "2018-10-17T05:54:00Z",
+      "side": 1,
+      "message": "Make sense. Only thing I would like to add here is in case where \u0027finalPosition\u0027 and lambda both are default values user\u0027s intention would be to only create SpringAnimation without SpringForce. If we call lambda always we have to attach SpringForce in this case. So my suggestion would be, let the first extension handle this case and rest all can be handled by your suggestion.",
+      "parentUuid": "217ae57e_756cbf1f",
+      "revId": "6088173e5e4deb7e1926a02613f29ec94ee9444e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
