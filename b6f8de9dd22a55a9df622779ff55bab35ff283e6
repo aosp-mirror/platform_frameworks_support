@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e9a3360_77f34368",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingConfigCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-17T15:41:30Z",
+      "side": 1,
+      "message": "This should be called TracingConfig, given this is not a shim for the platform TracingConfig and they will not be used together.\n\nDetails here: go/androidx-api-guidelines",
+      "range": {
+        "startLine": 38,
+        "startChar": 13,
+        "endLine": 38,
+        "endChar": 32
+      },
+      "revId": "b6f8de9dd22a55a9df622779ff55bab35ff283e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83884c1e_cb59d65d",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingConfigCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-17T15:41:30Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 125,
+        "startChar": 15,
+        "endLine": 125,
+        "endChar": 34
+      },
+      "revId": "b6f8de9dd22a55a9df622779ff55bab35ff283e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c901f95_33fa6cf5",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingConfigCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-17T15:41:30Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 144,
+        "startChar": 15,
+        "endLine": 144,
+        "endChar": 22
+      },
+      "revId": "b6f8de9dd22a55a9df622779ff55bab35ff283e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04529862_6cb330ab",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingConfigCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-17T15:41:30Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 163,
+        "startChar": 15,
+        "endLine": 163,
+        "endChar": 22
+      },
+      "revId": "b6f8de9dd22a55a9df622779ff55bab35ff283e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c09a518_cd4cda23",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingConfigCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-17T15:41:30Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 176,
+        "startChar": 15,
+        "endLine": 176,
+        "endChar": 22
+      },
+      "revId": "b6f8de9dd22a55a9df622779ff55bab35ff283e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdda9de9_b749e536",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingConfigCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-17T15:41:30Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 176,
+        "startChar": 37,
+        "endLine": 176,
+        "endChar": 47
+      },
+      "revId": "b6f8de9dd22a55a9df622779ff55bab35ff283e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b92fdce7_d5ae03ef",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingConfigCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-17T15:41:30Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 191,
+        "startChar": 15,
+        "endLine": 191,
+        "endChar": 22
+      },
+      "revId": "b6f8de9dd22a55a9df622779ff55bab35ff283e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97c04218_1154ab62",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingControllerCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-17T15:41:30Z",
+      "side": 1,
+      "message": "This should be called TracingController, given this is not a shim for the platform TracingController and they will not be used together.\n\nDetails here: go/androidx-api-guidelines",
+      "range": {
+        "startLine": 51,
+        "startChar": 22,
+        "endLine": 51,
+        "endChar": 45
+      },
+      "revId": "b6f8de9dd22a55a9df622779ff55bab35ff283e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f696be0_e3fbda79",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewFeature.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-17T15:41:30Z",
+      "side": 1,
+      "message": "Why is it called basic usage? Are you intending to add more features to tracing controller? As far as I can tell it already matches all the platform methods.",
+      "range": {
+        "startLine": 241,
+        "startChar": 31,
+        "endLine": 241,
+        "endChar": 61
+      },
+      "revId": "b6f8de9dd22a55a9df622779ff55bab35ff283e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
