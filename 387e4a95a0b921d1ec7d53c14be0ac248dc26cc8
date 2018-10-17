@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8bc0c34b_e5c95702",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-17T23:09:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b539e127_93753a7a",
+      "range": {
+        "startLine": 98,
+        "startChar": 41,
+        "endLine": 98,
+        "endChar": 55
+      },
+      "revId": "387e4a95a0b921d1ec7d53c14be0ac248dc26cc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc6f15b7_68b200ec",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 32
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "19f0335b_c7e17ce3",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-17T23:09:54Z",
+      "side": 1,
+      "message": "Added volatile.\n\nRe \"getShorcuts method will still await for something and something is completely undefined\", how I think about that: if getShortcuts() is called at time t1, it will block, and then return all the shortcuts submitted before time t1. So if a separate thread calls addShortcuts() at time t2 (t2 \u003e t1), while getShortcuts() is still blocked, getShortcuts() will ignore the new values and return results that are/were valid up to time t1. I assume it is the expected behavior from the app developer\u0027s perspective as well. What do you think?\n\nRe async operation by returning the future: I understand that returning Futures for async calls and giving more control to the app is the preferred solution. But, this class is used by ShortcutManagerCompat to provide compatibility APIs for ShortcutManager, which has blocking methods such as getDynamicShortcuts() (it is not documented correctly. I will make sure to update the doc in framework to reflect that it is blocking). That\u0027s why we decided to keep the same pattern in the Compat version as well.",
+      "parentUuid": "cc6f15b7_68b200ec",
+      "revId": "387e4a95a0b921d1ec7d53c14be0ac248dc26cc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e1b538dd_8bb002cb",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 32
@@ -53,6 +95,24 @@
       "writtenOn": "2018-10-17T12:08:00Z",
       "side": 1,
       "message": "Does it actually need to be global singleton? It seems a bit weird, that once I decided to share  something in an app, this object will sit in memory forever (+ 2 threads!) Can we define proper scope for it?",
+      "revId": "387e4a95a0b921d1ec7d53c14be0ac248dc26cc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2198bc08_2b6729ba",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-17T23:09:54Z",
+      "side": 1,
+      "message": "Tried to list the pros and cons for using singleton:\n\nPros:\n- Will load the list from disk only once, when the singleton is being created (Note that icons are never caches anyway, so calling getShortcutIcon will need reading from disk every time. But that method is not visible to Apps and will be used by another system service in BG thread).\n- If accessed from different threads, it is much easier to guarantee Disk IO (file access) thread safety.\n\nCons:\n- The list will stay in memory and keeps 2 threads alive forever, even if the app is not using it anymore (But, it will get used by the system calls via ChooserTargetServiceCompat, every time ShareSheet queries apps for potential share targets)\n\nPlease let me know what you think?",
+      "parentUuid": "e1b538dd_8bb002cb",
       "revId": "387e4a95a0b921d1ec7d53c14be0ac248dc26cc8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "92b9abf3_7f803315",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-17T23:09:54Z",
+      "side": 1,
+      "message": "Great suggestion! also made sINSTANCE volatile.",
+      "parentUuid": "39f837cf_25c88a24",
+      "range": {
+        "startLine": 115,
+        "startChar": 22,
+        "endLine": 115,
+        "endChar": 39
+      },
+      "revId": "387e4a95a0b921d1ec7d53c14be0ac248dc26cc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f551201c_c70b9d69",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 32
@@ -102,6 +186,30 @@
       "revId": "387e4a95a0b921d1ec7d53c14be0ac248dc26cc8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14bd5eca_4ad80eb3",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-17T23:09:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f551201c_c70b9d69",
+      "range": {
+        "startLine": 222,
+        "startChar": 19,
+        "endLine": 222,
+        "endChar": 26
+      },
+      "revId": "387e4a95a0b921d1ec7d53c14be0ac248dc26cc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -128,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "9c45333f_06f02f27",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-17T23:09:54Z",
+      "side": 1,
+      "message": "Done. here and another place with the same code pattern.",
+      "parentUuid": "c4d4ba22_1ce8c1dd",
+      "range": {
+        "startLine": 239,
+        "startChar": 24,
+        "endLine": 240,
+        "endChar": 91
+      },
+      "revId": "387e4a95a0b921d1ec7d53c14be0ac248dc26cc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3d9c5cc_2c47147d",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 32
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "0bb42d42_46f94a9f",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-17T23:09:54Z",
+      "side": 1,
+      "message": "Correct. This is just an optimization to make sure mDiskIoService will not do an unnecessary bitmap save, in case the save task for this bitmap is still waiting in mDiskIoService.",
+      "parentUuid": "a3d9c5cc_2c47147d",
+      "range": {
+        "startLine": 243,
+        "startChar": 42,
+        "endLine": 243,
+        "endChar": 59
+      },
+      "revId": "387e4a95a0b921d1ec7d53c14be0ac248dc26cc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d83150cd_cabc576a",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 32
@@ -171,6 +327,30 @@
       "revId": "387e4a95a0b921d1ec7d53c14be0ac248dc26cc8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "055de7bf_1e25b134",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-17T23:09:54Z",
+      "side": 1,
+      "message": "Done. Since both mLastCacheUpdateFuture and mLastDiskIoFuture are now package private, I simply removed it from the library and added the wait() to the test. Thanks for the catch.",
+      "parentUuid": "d83150cd_cabc576a",
+      "range": {
+        "startLine": 350,
+        "startChar": 37,
+        "endLine": 350,
+        "endChar": 41
+      },
+      "revId": "387e4a95a0b921d1ec7d53c14be0ac248dc26cc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
