@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ea582491_1b0a0491",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseItemProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-10-17T03:27:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c90f70f1_9860870f",
+      "range": {
+        "startLine": 37,
+        "startChar": 6,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "7ac966be2e7300b616d96328efeea079ca6baba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "afd5b78a_55683276",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseItemProcessor.kt",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "226e48eb_6577e8f8",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseItemProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-10-17T03:27:40Z",
+      "side": 1,
+      "message": "Yes, there are several error checks in PojoProcessor, such as field names and recursive references, and it is nice to show those errors at the same time as the error above.",
+      "parentUuid": "afd5b78a_55683276",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 32
+      },
+      "revId": "7ac966be2e7300b616d96328efeea079ca6baba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89fc2e83_8967ac76",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseItemProcessor.kt",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "7ac966be2e7300b616d96328efeea079ca6baba0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b335c61_d6080073",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseItemProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-10-17T03:27:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89fc2e83_8967ac76",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 63,
+        "endChar": 5
+      },
+      "revId": "7ac966be2e7300b616d96328efeea079ca6baba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -106,6 +178,24 @@
     },
     {
       "key": {
+        "uuid": "7dae9aac_64a40fbc",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/DatabaseItem.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-10-17T03:27:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8fc9250_6195a09f",
+      "revId": "7ac966be2e7300b616d96328efeea079ca6baba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e91b6e97_168a8d47",
         "filename": "room/compiler/src/main/kotlin/androidx/room/vo/DatabaseItem.kt",
         "patchSetId": 1
@@ -126,6 +216,30 @@
       "revId": "7ac966be2e7300b616d96328efeea079ca6baba0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63439b0f_c7c9bdb3",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/DatabaseItem.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-10-17T03:27:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e91b6e97_168a8d47",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 12
+      },
+      "revId": "7ac966be2e7300b616d96328efeea079ca6baba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
