@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ff3a3ef2_da4c491a",
+        "filename": "activity/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-17T21:54:21Z",
+      "side": 1,
+      "message": "Since onRetainNonConfigurationInstance() is final in ComponentActivity now, this method cannot stay in FragmentActivity and must be moved. The deprecation is technically a separate thing that just happens to also have happened in this same CL.",
+      "parentUuid": "68697ee6_b75c33c2",
+      "range": {
+        "startLine": 5,
+        "startChar": 18,
+        "endLine": 5,
+        "endChar": 28
+      },
+      "revId": "e4f7f5b5adb110b14f301f002d7a6843a0ec0340",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2352b4b9_3b01bec2",
         "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
         "patchSetId": 2
