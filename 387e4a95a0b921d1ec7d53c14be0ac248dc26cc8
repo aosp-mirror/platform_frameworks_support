@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b539e127_93753a7a",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-17T12:08:00Z",
+      "side": 1,
+      "message": "mShorcutsMap?",
+      "range": {
+        "startLine": 98,
+        "startChar": 41,
+        "endLine": 98,
+        "endChar": 55
+      },
+      "revId": "387e4a95a0b921d1ec7d53c14be0ac248dc26cc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc6f15b7_68b200ec",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-17T12:08:00Z",
+      "side": 1,
+      "message": "those should be volatile, because you read / write them from multiple threads, so you\u0027d like to have \"happens-before\" relation between them. BUT, overall it is a quite strange pattern you have here. What if someone submitting tasks during you call waitForTasksToComplete()?  So you\u0027ll await till some tasks executed and new will be ignored. Yeah, obviously, you cannot wait till all tasks completed, so methods like getShortcuts are racy by their nature and we can \u0027t do anything about it. But it is weird that caller of getShorcutsMethod will still await for something and something is completely undefined\n\nMore natural pattern would be: make a call that results in some async operation (for example addShortcuts()), that call returns you a future, also your getShorcutsMethod returns a copy without awaiting of any tasks. So in this case caller can say: \"ok, I called for addShortcuts and I want to try to wait until *this operation* is applied and then call getShortcuts() to see state of the world after this operation.",
+      "revId": "387e4a95a0b921d1ec7d53c14be0ac248dc26cc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1b538dd_8bb002cb",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-17T12:08:00Z",
+      "side": 1,
+      "message": "Does it actually need to be global singleton? It seems a bit weird, that once I decided to share  something in an app, this object will sit in memory forever (+ 2 threads!) Can we define proper scope for it?",
+      "revId": "387e4a95a0b921d1ec7d53c14be0ac248dc26cc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39f837cf_25c88a24",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-17T12:08:00Z",
+      "side": 1,
+      "message": "double checked locking may be better here, so you don\u0027t have to take a lock every time you access it",
+      "range": {
+        "startLine": 115,
+        "startChar": 22,
+        "endLine": 115,
+        "endChar": 39
+      },
+      "revId": "387e4a95a0b921d1ec7d53c14be0ac248dc26cc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f551201c_c70b9d69",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-17T12:08:00Z",
+      "side": 1,
+      "message": "call  context.getApplicationContext(), so even if a caller made a mistake, we won\u0027t leak activity",
+      "range": {
+        "startLine": 222,
+        "startChar": 19,
+        "endLine": 222,
+        "endChar": 26
+      },
+      "revId": "387e4a95a0b921d1ec7d53c14be0ac248dc26cc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4d4ba22_1ce8c1dd",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-17T12:08:00Z",
+      "side": 1,
+      "message": "make mShortcutsList.get(item.getId()) and then make a null check to avoid double hashing",
+      "range": {
+        "startLine": 239,
+        "startChar": 24,
+        "endLine": 240,
+        "endChar": 91
+      },
+      "revId": "387e4a95a0b921d1ec7d53c14be0ac248dc26cc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3d9c5cc_2c47147d",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-17T12:08:00Z",
+      "side": 1,
+      "message": "won\u0027t be the whole object garbage collected? why do we need a special call like this?",
+      "range": {
+        "startLine": 243,
+        "startChar": 42,
+        "endLine": 243,
+        "endChar": 59
+      },
+      "revId": "387e4a95a0b921d1ec7d53c14be0ac248dc26cc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d83150cd_cabc576a",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-17T12:08:00Z",
+      "side": 1,
+      "message": "this is the only place where you call it with \"true\". So for testing you should have package private constructor that receives executors, than because tests control this executors you can call: executor.shutdown() ; executor.await() // I don\u0027t remember exact name for calls. \nSo you will clean up this from library side and move it to testing.",
+      "range": {
+        "startLine": 350,
+        "startChar": 37,
+        "endLine": 350,
+        "endChar": 41
+      },
+      "revId": "387e4a95a0b921d1ec7d53c14be0ac248dc26cc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
