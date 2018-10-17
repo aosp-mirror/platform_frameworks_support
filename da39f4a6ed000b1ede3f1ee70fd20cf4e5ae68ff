@@ -101,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "0b51d3b3_16f930f1",
+        "filename": "media2/src/main/aidl/androidx/media2/IMediaSession2.aidl",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-17T06:59:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "43c9a3a4_29d8cdc5",
+      "revId": "da39f4a6ed000b1ede3f1ee70fd20cf4e5ae68ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2329dba4_03a1158e",
         "filename": "media2/src/main/java/androidx/media2/ConnectedControllersManager.java",
         "patchSetId": 6
