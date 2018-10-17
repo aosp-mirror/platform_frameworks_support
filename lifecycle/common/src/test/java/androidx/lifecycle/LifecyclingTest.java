@@ -17,6 +17,7 @@
 package androidx.lifecycle;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import androidx.lifecycle.observers.DerivedSequence1;
@@ -37,19 +38,19 @@ public class LifecyclingTest {
 
     @Test
     public void testDerivedWithNewLfMethodsNoGeneratedAdapter() {
-        GenericLifecycleObserver callback = Lifecycling.getCallback(new DerivedWithNewMethods());
+        LifecycleEventObserver callback = Lifecycling.getCallback(new DerivedWithNewMethods());
         assertThat(callback, instanceOf(ReflectiveGenericLifecycleObserver.class));
     }
 
     @Test
     public void testDerivedWithNoNewLfMethodsNoGeneratedAdapter() {
-        GenericLifecycleObserver callback = Lifecycling.getCallback(new DerivedWithNoNewMethods());
+        LifecycleEventObserver callback = Lifecycling.getCallback(new DerivedWithNoNewMethods());
         assertThat(callback, instanceOf(SingleGeneratedAdapterObserver.class));
     }
 
     @Test
     public void testDerivedWithOverridenMethodsNoGeneratedAdapter() {
-        GenericLifecycleObserver callback = Lifecycling.getCallback(
+        LifecycleEventObserver callback = Lifecycling.getCallback(
                 new DerivedWithOverridenMethodsWithLfAnnotation());
         // that is not effective but...
         assertThat(callback, instanceOf(ReflectiveGenericLifecycleObserver.class));
@@ -57,27 +58,39 @@ public class LifecyclingTest {
 
     @Test
     public void testInterfaceImpl1NoGeneratedAdapter() {
-        GenericLifecycleObserver callback = Lifecycling.getCallback(new InterfaceImpl1());
+        LifecycleEventObserver callback = Lifecycling.getCallback(new InterfaceImpl1());
         assertThat(callback, instanceOf(SingleGeneratedAdapterObserver.class));
     }
 
     @Test
     public void testInterfaceImpl2NoGeneratedAdapter() {
-        GenericLifecycleObserver callback = Lifecycling.getCallback(new InterfaceImpl2());
+        LifecycleEventObserver callback = Lifecycling.getCallback(new InterfaceImpl2());
         assertThat(callback, instanceOf(CompositeGeneratedAdaptersObserver.class));
     }
 
     @Test
     public void testInterfaceImpl3NoGeneratedAdapter() {
-        GenericLifecycleObserver callback = Lifecycling.getCallback(new InterfaceImpl3());
+        LifecycleEventObserver callback = Lifecycling.getCallback(new InterfaceImpl3());
         assertThat(callback, instanceOf(CompositeGeneratedAdaptersObserver.class));
     }
 
     @Test
     public void testDerivedSequence() {
-        GenericLifecycleObserver callback2 = Lifecycling.getCallback(new DerivedSequence2());
+        LifecycleEventObserver callback2 = Lifecycling.getCallback(new DerivedSequence2());
         assertThat(callback2, instanceOf(ReflectiveGenericLifecycleObserver.class));
-        GenericLifecycleObserver callback1 = Lifecycling.getCallback(new DerivedSequence1());
+        LifecycleEventObserver callback1 = Lifecycling.getCallback(new DerivedSequence1());
         assertThat(callback1, instanceOf(SingleGeneratedAdapterObserver.class));
+    }
+
+    // MUST BE HERE TILL Lifecycle 3.0.0 release for back-compatibility with other modules
+    @Test
+    public void testDeprecatedGenericLifecycleObserver() {
+        GenericLifecycleObserver genericLifecycleObserver = new GenericLifecycleObserver() {
+            @Override
+            public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
+            }
+        };
+        LifecycleEventObserver observer = Lifecycling.getCallback(genericLifecycleObserver);
+        assertThat(observer, is(observer));
     }
 }
