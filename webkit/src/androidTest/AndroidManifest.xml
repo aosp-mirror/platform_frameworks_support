@@ -20,4 +20,5 @@
          ServiceWorkerWebSettingsCompatTest#testBlockNetworkLoads -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-sdk android:targetSdkVersion="${target-sdk-version}"/>
+    <application android:usesCleartextTraffic="true" />
 </manifest>

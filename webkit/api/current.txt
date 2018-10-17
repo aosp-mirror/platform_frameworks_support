@@ -1,6 +1,43 @@
 // Signature format: 2.0
 package androidx.webkit {
 
+  public class ProxyController {
+    method @RequiresFeature(name=androidx.webkit.WebViewFeature.PROXY_OVERRIDE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public void clearProxyOverride(Runnable?);
+    method @RequiresFeature(name=androidx.webkit.WebViewFeature.PROXY_OVERRIDE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public void clearProxyOverride(java.util.concurrent.Executor, Runnable?);
+    method public static androidx.webkit.ProxyController! getInstance();
+    method @RequiresFeature(name=androidx.webkit.WebViewFeature.PROXY_OVERRIDE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public void setProxyOverride(androidx.webkit.ProxyController.ProxyRules, Runnable?);
+    method @RequiresFeature(name=androidx.webkit.WebViewFeature.PROXY_OVERRIDE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public void setProxyOverride(androidx.webkit.ProxyController.ProxyRules, java.util.concurrent.Executor, Runnable?);
+    field public static final String DIRECT = "direct://";
+    field public static final String FTP = "ftp";
+    field public static final String HTTP = "http";
+    field public static final String HTTPS = "https";
+    field public static final String WS = "ws";
+    field public static final String WSS = "wss";
+  }
+
+  public static class ProxyController.ProxyRules {
+    method public String[]! bypassRules();
+    method public String[][]! proxyRules();
+  }
+
+  public abstract static class ProxyController.ProxyRules.ProxyRulesBuilder {
+    ctor public ProxyController.ProxyRules.ProxyRulesBuilder();
+    method public androidx.webkit.ProxyController.ProxyRules.ProxyRulesBuilder! addBypassRule(String);
+    method public androidx.webkit.ProxyController.ProxyRules! build();
+  }
+
+  public static class ProxyController.ProxyRules.ProxyRulesGlobalBuilder extends androidx.webkit.ProxyController.ProxyRules.ProxyRulesBuilder {
+    ctor public ProxyController.ProxyRules.ProxyRulesGlobalBuilder();
+  }
+
+  public static class ProxyController.ProxyRules.ProxyRulesPerSchemeBuilder extends androidx.webkit.ProxyController.ProxyRules.ProxyRulesBuilder {
+    ctor public ProxyController.ProxyRules.ProxyRulesPerSchemeBuilder();
+    method public androidx.webkit.ProxyController.ProxyRules.ProxyRulesPerSchemeBuilder! addProxyRule(String, @androidx.webkit.ProxyController.ProxyScheme String);
+  }
+
+  @StringDef({androidx.webkit.ProxyController.HTTP, androidx.webkit.ProxyController.HTTPS, androidx.webkit.ProxyController.FTP, androidx.webkit.ProxyController.WS, androidx.webkit.ProxyController.WSS}) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public static @interface ProxyController.ProxyScheme {
+  }
+
   public abstract class SafeBrowsingResponseCompat {
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.SAFE_BROWSING_RESPONSE_BACK_TO_SAFETY, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public abstract void backToSafety(boolean);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.SAFE_BROWSING_RESPONSE_PROCEED, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public abstract void proceed(boolean);
@@ -132,6 +169,7 @@ package androidx.webkit {
     field public static final String GET_WEB_VIEW_RENDERER = "GET_WEB_VIEW_RENDERER";
     field public static final String OFF_SCREEN_PRERASTER = "OFF_SCREEN_PRERASTER";
     field public static final String POST_WEB_MESSAGE = "POST_WEB_MESSAGE";
+    field public static final String PROXY_OVERRIDE = "PROXY_OVERRIDE:2";
     field public static final String RECEIVE_HTTP_ERROR = "RECEIVE_HTTP_ERROR";
     field public static final String RECEIVE_WEB_RESOURCE_ERROR = "RECEIVE_WEB_RESOURCE_ERROR";
     field public static final String SAFE_BROWSING_ENABLE = "SAFE_BROWSING_ENABLE";
