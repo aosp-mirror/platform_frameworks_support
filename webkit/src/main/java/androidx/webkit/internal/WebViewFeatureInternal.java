@@ -265,7 +265,15 @@ public enum WebViewFeatureInternal {
     GET_WEB_CHROME_CLIENT(WebViewFeature.GET_WEB_CHROME_CLIENT, Build.VERSION_CODES.O),
 
     GET_WEB_VIEW_RENDERER(WebViewFeature.GET_WEB_VIEW_RENDERER),
-    WEB_VIEW_RENDERER_TERMINATE(WebViewFeature.WEB_VIEW_RENDERER_TERMINATE);
+    WEB_VIEW_RENDERER_TERMINATE(WebViewFeature.WEB_VIEW_RENDERER_TERMINATE),
+
+    /*
+     * This feature covers
+     * {@link WebViewCompat#setProxyOverride(String, int, String[], Runnable)},
+     * {@link WebViewCompat#setProxyOverride(String, int, Runnable)}, and
+     * {@link WebViewCompat#clearProxyOverride(Runnable)}.
+     */
+    PROXY_OVERRIDE(WebViewFeature.PROXY_OVERRIDE);
 
     private static final int NOT_SUPPORTED_BY_FRAMEWORK = -1;
 

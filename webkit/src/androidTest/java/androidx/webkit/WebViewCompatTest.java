@@ -54,6 +54,8 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.mockwebserver.MockWebServer;
+
 @MediumTest
 @RunWith(AndroidJUnit4.class)
 public class WebViewCompatTest {
@@ -344,5 +346,162 @@ public class WebViewCompatTest {
                     WebViewCompat.getCurrentWebViewPackage(
                             InstrumentationRegistry.getTargetContext()));
         }
+    }
+
+    @Test
+    public void testMockWebServerNotNull() throws Exception {
+        MockWebServer mockServer = new MockWebServer();
+        assertNotNull(mockServer);
+    }
+
+    /**
+     * This test should have an equivalent in android.webkit.cts.WebViewTest
+     * when this function is available in the framework.
+     */
+    @Test
+    public void testProxyOverrideNullString() throws Exception {
+        AssumptionUtils.checkFeature(WebViewFeature.PROXY_OVERRIDE);
+        try {
+            WebViewCompat.setProxyOverride(null, 200, null);
+        } catch (NullPointerException e) {
+            return;
+        }
+        fail("SetProxyOverride should not accept a null host string");
+    }
+
+    /**
+     * This test should have an equivalent in android.webkit.cts.WebViewTest
+     * when this function is available in the framework.
+     */
+    @Test
+    public void testProxyOverrideNullStringExclusion() throws Exception {
+        AssumptionUtils.checkFeature(WebViewFeature.PROXY_OVERRIDE);
+        try {
+            String[] exclusionList = {"excludedurl.com", null};
+            WebViewCompat.setProxyOverride("myproxy.com", 200, exclusionList, null);
+        } catch (NullPointerException e) {
+            return;
+        }
+        fail("SetProxyOverride should not accept a null string in the excluded list");
+    }
+
+    /**
+     * This test should have an equivalent in android.webkit.cts.WebViewTest
+     * when this function is available in the framework.
+     */
+    @Test
+    public void testProxyOverrideRuns() throws Exception {
+        AssumptionUtils.checkFeature(WebViewFeature.PROXY_OVERRIDE);
+        WebViewCompat.setProxyOverride("myproxy.com", 200, null);
+        WebViewCompat.clearProxyOverride(null);
+        WebViewCompat.setProxyOverride("myproxy.com", 200, null, null);
+        WebViewCompat.clearProxyOverride(null);
+        WebViewCompat.setProxyOverride("myproxy.com", 200, null, new Runnable() {
+            @Override
+            public void run() {
+            }
+        });
+        WebViewCompat.clearProxyOverride(new Runnable() {
+            @Override
+            public void run() {
+            }
+        });
+        WebViewCompat.setProxyOverride("myproxy.com", 200, new Runnable() {
+            @Override
+            public void run() {
+            }
+        });
+        WebViewCompat.clearProxyOverride(new Runnable() {
+            @Override
+            public void run() {
+            }
+        });
+    }
+
+    /**
+     * This test should have an equivalent in android.webkit.cts.WebViewTest
+     * when this function is available in the framework.
+     */
+    @Test
+    public void testProxyOverrideCallback() throws Exception {
+        AssumptionUtils.checkFeature(WebViewFeature.PROXY_OVERRIDE);
+        final CountDownLatch callbackLatch1 = new CountDownLatch(1);
+        WebViewCompat.clearProxyOverride(new Runnable() {
+            @Override
+            public void run() {
+                callbackLatch1.countDown();
+            }
+        });
+        assertTrue(callbackLatch1.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        final CountDownLatch callbackLatch2 = new CountDownLatch(1);
+        WebViewCompat.setProxyOverride("myproxy.com", 200, null, new Runnable() {
+            @Override
+            public void run() {
+                callbackLatch2.countDown();
+            }
+        });
+        assertTrue(callbackLatch2.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        final CountDownLatch callbackLatch3 = new CountDownLatch(1);
+        WebViewCompat.clearProxyOverride(new Runnable() {
+            @Override
+            public void run() {
+                callbackLatch3.countDown();
+            }
+        });
+        assertTrue(callbackLatch3.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+    }
+
+    /**
+     * This test should have an equivalent in android.webkit.cts.WebViewTest
+     * when this function is available in the framework.
+     */
+    @Test
+    public void testProxyOverride() throws Exception {
+        AssumptionUtils.checkFeature(WebViewFeature.PROXY_OVERRIDE);
+
+        long startTime = System.currentTimeMillis();
+
+        // Server 1 will be the default server
+        MockWebServer server1 = new MockWebServer();
+        assertNotNull(server1);
+        server1.start();
+        final String server1url = server1.url("/").toString();
+
+        // Server 2 will be the overriden proxy server
+        MockWebServer server2 = new MockWebServer();
+        assertNotNull(server2);
+        server2.start();
+
+        final WebView webView = WebViewOnUiThread.createWebView();
+        WebViewCompat.clearProxyOverride(null);
+        loadUrlOnMain(webView, server1url);
+        assertNotNull(server1.takeRequest(2500, TimeUnit.MILLISECONDS));
+        int server1RequestCount = server1.getRequestCount();
+
+        // set proxy override
+        WebViewCompat.setProxyOverride(server2.getHostName(), server2.getPort(), null);
+        // regular url
+        loadUrlOnMain(webView, server1url);
+        assertNotNull(server2.takeRequest(2500, TimeUnit.MILLISECONDS));
+        int server2RequestCount = server2.getRequestCount();
+        assertEquals(server1RequestCount, server1.getRequestCount());
+
+        // clear proxy override
+        WebViewCompat.clearProxyOverride(null);
+        loadUrlOnMain(webView, server1url);
+        assertNotNull(server1.takeRequest(2500, TimeUnit.MILLISECONDS));
+        assertEquals(server2RequestCount, server2.getRequestCount());
+
+        server1.shutdown();
+        server2.shutdown();
+    }
+
+    private void loadUrlOnMain(final WebView webView, final String url) {
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                webView.loadUrl(url);
+            }
+        });
     }
 }
