@@ -64,7 +64,7 @@ public abstract class AsyncTaskLoader<D> extends Loader<D> {
     /**
      * An {@link Executor} that can be used to execute tasks in parallel.
      */
-    private static final Executor THREAD_POOL_EXECUTOR =
+    static final Executor THREAD_POOL_EXECUTOR =
             new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE,
                     TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(10),
                     new CountingThreadFactory());

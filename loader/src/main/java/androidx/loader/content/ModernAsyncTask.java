@@ -43,6 +43,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 abstract class ModernAsyncTask<Result> {
     private static final String LOG_TAG = "AsyncTask";
 
+    @SuppressWarnings("unused") // Espresso reflects into this field. Fix Espresso before removing.
+    private static final Executor THREAD_POOL_EXECUTOR = AsyncTaskLoader.THREAD_POOL_EXECUTOR;
+
     private static Handler sHandler;
 
     private final FutureTask<Result> mFuture;
