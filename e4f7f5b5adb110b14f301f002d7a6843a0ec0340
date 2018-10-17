@@ -22,6 +22,30 @@
       "revId": "e4f7f5b5adb110b14f301f002d7a6843a0ec0340",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6c6621e_fffb2943",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-17T13:47:58Z",
+      "side": 1,
+      "message": "Through discussions with adamp@, we wanted to make a firm decision on exactly when this will run as the final LifecycleObserver going out. onDestroy() does not offer the same guarantee since developers can call it at any point in their onDestroy() method.",
+      "parentUuid": "2352b4b9_3b01bec2",
+      "range": {
+        "startLine": 54,
+        "startChar": 35,
+        "endLine": 63,
+        "endChar": 9
+      },
+      "revId": "e4f7f5b5adb110b14f301f002d7a6843a0ec0340",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
