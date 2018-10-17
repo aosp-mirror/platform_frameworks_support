@@ -194,7 +194,7 @@ class AndroidXPlugin : Plugin<Project> {
             val compilesAgainstJava8 = extension.compileOptions.sourceCompatibility > VERSION_1_7 ||
                     extension.compileOptions.targetCompatibility > VERSION_1_7
             val minSdkLessThan24 = extension.defaultConfig.minSdkVersion.apiLevel < 24
-            if (compilesAgainstJava8 && minSdkLessThan24) {
+            if (compilesAgainstJava8 && minSdkLessThan24 && !isTesting()) {
                 throw IllegalArgumentException(
                         "Libraries can only support Java 8 if minSdkVersion is 24 or higher")
             }
@@ -233,4 +233,9 @@ class AndroidXPlugin : Plugin<Project> {
 fun Project.isBenchmark(): Boolean {
     // benchmark convention is to end name with "-benchmark"
     return name.endsWith("-benchmark")
+}
+
+fun Project.isTesting(): Boolean {
+    // testing convention is to end name with "-testing"
+    return name.endsWith("-testing")
 }
