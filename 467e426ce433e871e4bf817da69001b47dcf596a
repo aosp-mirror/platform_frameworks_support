@@ -422,6 +422,30 @@
       "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95328b82_a96bce43",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-10-17T21:02:55Z",
+      "side": 1,
+      "message": "I still think its a good idea to make this change.  Whether or not it is ViewPager2\u0027s responsibility feels a bit arbitrary in that all of ScrollEventAdapter is also ViewPager2\u0027s responsibility... but ScrollEventAdapter is just an internal helper that manages some of the complexity for ViewPager2.  And it seems to me that 1 source of truth is pretty much just better than there being 2.\n\nBut, no need to make the change in this CL... and ultimately, it is up to you guys.  If you are strongly against it, no big deal.",
+      "parentUuid": "fccda180_3f3e9be2",
+      "range": {
+        "startLine": 395,
+        "startChar": 8,
+        "endLine": 395,
+        "endChar": 28
+      },
+      "revId": "467e426ce433e871e4bf817da69001b47dcf596a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
