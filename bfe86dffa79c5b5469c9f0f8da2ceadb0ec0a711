@@ -22,6 +22,30 @@
       "revId": "bfe86dffa79c5b5469c9f0f8da2ceadb0ec0a711",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47320ba0_6d9ec982",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-17T17:32:58Z",
+      "side": 1,
+      "message": "There are basically 4 different actions: going forward by \u003c 4 pages, going forward by ≥ 4 pages, going backward by \u003c 4 pages and going forward by ≥ 4 pages. I like to keep some redundancy though, as bugs tend to hide in unexpected combinations. The cropped sequence was just describing an diverging cone (if i would be on the x axis and targetPage on the y axis) and art is not a justification for tests. Kept 3 for redundancy.",
+      "parentUuid": "0cfc6d05_faaab329",
+      "range": {
+        "startLine": 352,
+        "startChar": 28,
+        "endLine": 352,
+        "endChar": 29
+      },
+      "revId": "bfe86dffa79c5b5469c9f0f8da2ceadb0ec0a711",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
