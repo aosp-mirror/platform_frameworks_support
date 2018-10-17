@@ -69,6 +69,24 @@
       "revId": "c695d1c85e2ee1073368d3c831b5a4da5ed0d750",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e32f5ed5_4ec82f0d",
+        "filename": "mediarouter/src/main/res/drawable/mr_button_dark_static.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-10-17T05:06:10Z",
+      "side": 1,
+      "message": "static drawables for connected state are added",
+      "parentUuid": "047325ac_ea3e7aed",
+      "revId": "c695d1c85e2ee1073368d3c831b5a4da5ed0d750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
