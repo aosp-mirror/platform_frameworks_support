@@ -279,7 +279,15 @@ public enum WebViewFeatureInternal {
      * {@link TracingController#stop(OutputStream, Executor)}.
      */
     TRACING_CONTROLLER_BASIC_USAGE(WebViewFeature.TRACING_CONTROLLER_BASIC_USAGE,
-                                   Build.VERSION_CODES.P);
+                                   Build.VERSION_CODES.P),
+
+    /*
+     * This feature covers
+     * {@link WebViewCompat#setProxyOverride(String, int, String[], Runnable)},
+     * {@link WebViewCompat#setProxyOverride(String, int, Runnable)}, and
+     * {@link WebViewCompat#clearProxyOverride(Runnable)}.
+     */
+    PROXY_OVERRIDE(WebViewFeature.PROXY_OVERRIDE);
 
     private static final int NOT_SUPPORTED_BY_FRAMEWORK = -1;
     private final String mFeatureValue;
