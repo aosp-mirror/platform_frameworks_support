@@ -44,6 +44,7 @@ const val KOTLIN_COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:
 const val MOCKITO_CORE = "org.mockito:mockito-core:2.19.0"
 const val MULTIDEX = "androidx.multidex:multidex:2.0.0"
 const val NULLAWAY = "com.uber.nullaway:nullaway:0.3.7"
+const val OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:3.11.0"
 const val PLAY_SERVICES = "com.google.android.gms:play-services-base:11.6.0@aar"
 const val REACTIVE_STREAMS = "org.reactivestreams:reactive-streams:1.0.0"
 const val RX_JAVA = "io.reactivex.rxjava2:rxjava:2.0.6"

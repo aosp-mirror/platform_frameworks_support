@@ -548,4 +548,71 @@ public class WebViewCompat {
             }
         }
     }
+
+    /**
+     * Sets a new proxy associated with all WebViews.
+     * Proxy change is not immediate and calls to loadUrl() that are
+     * expected to go through the proxy need to wait for the callback.
+     *
+     * @param host Host name
+     * @param port Any valid port number
+     * @param callback Optional callback called when the proxy setting change
+     *                 has been applied
+     */
+    @RequiresFeature(name = WebViewFeature.PROXY_OVERRIDE,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static void setProxyOverride(@NonNull String host, int port,
+            @Nullable Runnable callback) {
+        setProxyOverrideInternal(host, port, null, callback);
+    }
+
+    /**
+     * Sets a new proxy associated with all WebViews. This proxy will not be used
+     * to load URLs with domains in the exclusionList.
+     * Proxy change is not immediate and calls to loadUrl() that are
+     * expected to go through the proxy need to wait for the callback.
+     *
+     * @param host Host name
+     * @param port Any valid port number
+     * @param exclusionList domains that should not use this proxy
+     * @param callback Optional callback called when the proxy setting change
+     *                 has been applied
+     */
+    @RequiresFeature(name = WebViewFeature.PROXY_OVERRIDE,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static void setProxyOverride(@NonNull String host, int port,
+            @NonNull String[] exclusionList, @Nullable Runnable callback) {
+        setProxyOverrideInternal(host, port, exclusionList, callback);
+    }
+
+    private static void setProxyOverrideInternal(@NonNull String host, int port,
+            String[] exclusionList, @Nullable Runnable callback) {
+        WebViewFeatureInternal webviewFeature =
+                WebViewFeatureInternal.getFeature(WebViewFeature.PROXY_OVERRIDE);
+        if (webviewFeature.isSupportedByWebView()) {
+            getFactory().getStatics().setProxyOverride(host, port, exclusionList, callback);
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
+    /**
+     * Clear the proxy settings.
+     * Proxy change is not immediate and calls to loadUrl() that are
+     * expected to go through the default proxy need to wait for the callback.
+     *
+     * @param callback Optional callback called when the proxy setting change
+     *                 has been applied
+     */
+    @RequiresFeature(name = WebViewFeature.PROXY_OVERRIDE,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static void clearProxyOverride(@Nullable Runnable callback) {
+        WebViewFeatureInternal webviewFeature =
+                WebViewFeatureInternal.getFeature(WebViewFeature.PROXY_OVERRIDE);
+        if (webviewFeature.isSupportedByWebView()) {
+            getFactory().getStatics().clearProxyOverride(callback);
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
 }
