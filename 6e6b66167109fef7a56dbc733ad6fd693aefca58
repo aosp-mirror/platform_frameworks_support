@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1efe7f2e_d514b652",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/TableOrViewProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-10-17T20:10:07Z",
+      "side": 1,
+      "message": "NonEntityOrViewProcessor",
+      "range": {
+        "startLine": 37,
+        "startChar": 14,
+        "endLine": 37,
+        "endChar": 37
+      },
+      "revId": "6e6b66167109fef7a56dbc733ad6fd693aefca58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa926602_4f832346",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/TableOrViewProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-10-17T20:10:07Z",
+      "side": 1,
+      "message": "EntityOrViewProcessor",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 25
+      },
+      "revId": "6e6b66167109fef7a56dbc733ad6fd693aefca58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b69d592_7fc6e804",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/TableOrView.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-10-17T20:10:07Z",
+      "side": 1,
+      "message": "EntityOrView",
+      "range": {
+        "startLine": 24,
+        "startChar": 10,
+        "endLine": 24,
+        "endChar": 21
+      },
+      "revId": "6e6b66167109fef7a56dbc733ad6fd693aefca58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
