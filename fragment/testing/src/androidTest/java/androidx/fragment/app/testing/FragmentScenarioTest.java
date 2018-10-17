@@ -20,13 +20,14 @@ import static com.google.common.truth.Truth.assertThat;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle.State;
 import androidx.test.filters.LargeTest;
 import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import kotlin.Unit;
 
 /**
  * Tests for FragmentScenario's implementation.
@@ -39,17 +40,14 @@ public final class FragmentScenarioTest {
     public void launchFragment() {
         FragmentScenario<StateRecordingFragment> scenario =
                 FragmentScenario.launch(StateRecordingFragment.class);
-        scenario.onFragment(
-                new FragmentScenario.FragmentAction<StateRecordingFragment>() {
-                    @Override
-                    public void perform(@NonNull StateRecordingFragment fragment) {
-                        assertThat(fragment.getState()).isEqualTo(State.RESUMED);
-                        // FragmentScenario#launch doesn't attach view to the hierarchy.
-                        // To test graphical Fragment, use FragmentScenario#launchInContainer.
-                        assertThat(fragment.getView().isAttachedToWindow()).isFalse();
-                        assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
-                    }
-                });
+        scenario.onFragment(fragment -> {
+            assertThat(fragment.getState()).isEqualTo(State.RESUMED);
+            // FragmentScenario#launch doesn't attach view to the hierarchy.
+            // To test graphical Fragment, use FragmentScenario#launchInContainer.
+            assertThat(fragment.getView().isAttachedToWindow()).isFalse();
+            assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
+            return Unit.INSTANCE;
+        });
     }
 
     @Test
@@ -60,18 +58,15 @@ public final class FragmentScenarioTest {
 
         FragmentScenario<StateRecordingFragment> scenario =
                 FragmentScenario.launch(StateRecordingFragment.class, args);
-        scenario.onFragment(
-                new FragmentScenario.FragmentAction<StateRecordingFragment>() {
-                    @Override
-                    public void perform(@NonNull StateRecordingFragment fragment) {
-                        assertThat(fragment.getArguments().getString("my_arg_is")).isEqualTo(
-                                "androidx");
-                        // FragmentScenario#launch doesn't attach view to the hierarchy.
-                        // To test graphical Fragment, use FragmentScenario#launchInContainer.
-                        assertThat(fragment.getView().isAttachedToWindow()).isFalse();
-                        assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
-                    }
-                });
+        scenario.onFragment(fragment -> {
+            assertThat(fragment.getArguments().getString("my_arg_is")).isEqualTo(
+                    "androidx");
+            // FragmentScenario#launch doesn't attach view to the hierarchy.
+            // To test graphical Fragment, use FragmentScenario#launchInContainer.
+            assertThat(fragment.getView().isAttachedToWindow()).isFalse();
+            assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
+            return Unit.INSTANCE;
+        });
     }
 
     @Test
@@ -79,15 +74,12 @@ public final class FragmentScenarioTest {
     public void launchFragmentInContainer() {
         FragmentScenario<StateRecordingFragment> scenario =
                 FragmentScenario.launchInContainer(StateRecordingFragment.class);
-        scenario.onFragment(
-                new FragmentScenario.FragmentAction<StateRecordingFragment>() {
-                    @Override
-                    public void perform(@NonNull StateRecordingFragment fragment) {
-                        assertThat(fragment.getState()).isEqualTo(State.RESUMED);
-                        assertThat(fragment.getView().isAttachedToWindow()).isTrue();
-                        assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
-                    }
-                });
+        scenario.onFragment(fragment -> {
+            assertThat(fragment.getState()).isEqualTo(State.RESUMED);
+            assertThat(fragment.getView().isAttachedToWindow()).isTrue();
+            assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
+            return Unit.INSTANCE;
+        });
     }
 
     @Test
@@ -98,16 +90,13 @@ public final class FragmentScenarioTest {
 
         FragmentScenario<StateRecordingFragment> scenario =
                 FragmentScenario.launchInContainer(StateRecordingFragment.class, args);
-        scenario.onFragment(
-                new FragmentScenario.FragmentAction<StateRecordingFragment>() {
-                    @Override
-                    public void perform(@NonNull StateRecordingFragment fragment) {
-                        assertThat(fragment.getArguments().getString("my_arg_is")).isEqualTo(
-                                "androidx");
-                        assertThat(fragment.getView().isAttachedToWindow()).isTrue();
-                        assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
-                    }
-                });
+        scenario.onFragment(fragment -> {
+            assertThat(fragment.getArguments().getString("my_arg_is")).isEqualTo(
+                    "androidx");
+            assertThat(fragment.getView().isAttachedToWindow()).isTrue();
+            assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
+            return Unit.INSTANCE;
+        });
     }
 
     @Test
@@ -116,14 +105,11 @@ public final class FragmentScenarioTest {
         FragmentScenario<StateRecordingFragment> scenario =
                 FragmentScenario.launch(StateRecordingFragment.class);
         scenario.moveToState(State.CREATED);
-        scenario.onFragment(
-                new FragmentScenario.FragmentAction<StateRecordingFragment>() {
-                    @Override
-                    public void perform(@NonNull StateRecordingFragment fragment) {
-                        assertThat(fragment.getState()).isEqualTo(State.CREATED);
-                        assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
-                    }
-                });
+        scenario.onFragment(fragment -> {
+            assertThat(fragment.getState()).isEqualTo(State.CREATED);
+            assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
+            return Unit.INSTANCE;
+        });
     }
 
     @Test
@@ -132,14 +118,11 @@ public final class FragmentScenarioTest {
         FragmentScenario<StateRecordingFragment> scenario =
                 FragmentScenario.launch(StateRecordingFragment.class);
         scenario.moveToState(State.STARTED);
-        scenario.onFragment(
-                new FragmentScenario.FragmentAction<StateRecordingFragment>() {
-                    @Override
-                    public void perform(@NonNull StateRecordingFragment fragment) {
-                        assertThat(fragment.getState()).isEqualTo(State.STARTED);
-                        assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
-                    }
-                });
+        scenario.onFragment(fragment -> {
+            assertThat(fragment.getState()).isEqualTo(State.STARTED);
+            assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
+            return Unit.INSTANCE;
+        });
     }
 
     @Test
@@ -148,14 +131,11 @@ public final class FragmentScenarioTest {
         FragmentScenario<StateRecordingFragment> scenario =
                 FragmentScenario.launch(StateRecordingFragment.class);
         scenario.moveToState(State.RESUMED);
-        scenario.onFragment(
-                new FragmentScenario.FragmentAction<StateRecordingFragment>() {
-                    @Override
-                    public void perform(@NonNull StateRecordingFragment fragment) {
-                        assertThat(fragment.getState()).isEqualTo(State.RESUMED);
-                        assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
-                    }
-                });
+        scenario.onFragment(fragment -> {
+            assertThat(fragment.getState()).isEqualTo(State.RESUMED);
+            assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
+            return Unit.INSTANCE;
+        });
     }
 
     @Test
@@ -173,14 +153,11 @@ public final class FragmentScenarioTest {
                 FragmentScenario.launch(StateRecordingFragment.class);
         scenario.moveToState(State.CREATED);
         scenario.moveToState(State.CREATED);
-        scenario.onFragment(
-                new FragmentScenario.FragmentAction<StateRecordingFragment>() {
-                    @Override
-                    public void perform(@NonNull StateRecordingFragment fragment) {
-                        assertThat(fragment.getState()).isEqualTo(State.CREATED);
-                        assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
-                    }
-                });
+        scenario.onFragment(fragment -> {
+            assertThat(fragment.getState()).isEqualTo(State.CREATED);
+            assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
+            return Unit.INSTANCE;
+        });
     }
 
     @Test
@@ -190,14 +167,11 @@ public final class FragmentScenarioTest {
                 FragmentScenario.launch(StateRecordingFragment.class);
         scenario.moveToState(State.CREATED);
         scenario.moveToState(State.STARTED);
-        scenario.onFragment(
-                new FragmentScenario.FragmentAction<StateRecordingFragment>() {
-                    @Override
-                    public void perform(@NonNull StateRecordingFragment fragment) {
-                        assertThat(fragment.getState()).isEqualTo(State.STARTED);
-                        assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
-                    }
-                });
+        scenario.onFragment(fragment -> {
+            assertThat(fragment.getState()).isEqualTo(State.STARTED);
+            assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
+            return Unit.INSTANCE;
+        });
     }
 
     @Test
@@ -207,14 +181,11 @@ public final class FragmentScenarioTest {
                 FragmentScenario.launch(StateRecordingFragment.class);
         scenario.moveToState(State.CREATED);
         scenario.moveToState(State.RESUMED);
-        scenario.onFragment(
-                new FragmentScenario.FragmentAction<StateRecordingFragment>() {
-                    @Override
-                    public void perform(@NonNull StateRecordingFragment fragment) {
-                        assertThat(fragment.getState()).isEqualTo(State.RESUMED);
-                        assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
-                    }
-                });
+        scenario.onFragment(fragment -> {
+            assertThat(fragment.getState()).isEqualTo(State.RESUMED);
+            assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
+            return Unit.INSTANCE;
+        });
     }
 
     @Test
@@ -233,14 +204,11 @@ public final class FragmentScenarioTest {
                 FragmentScenario.launch(StateRecordingFragment.class);
         scenario.moveToState(State.STARTED);
         scenario.moveToState(State.CREATED);
-        scenario.onFragment(
-                new FragmentScenario.FragmentAction<StateRecordingFragment>() {
-                    @Override
-                    public void perform(@NonNull StateRecordingFragment fragment) {
-                        assertThat(fragment.getState()).isEqualTo(State.CREATED);
-                        assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
-                    }
-                });
+        scenario.onFragment(fragment -> {
+            assertThat(fragment.getState()).isEqualTo(State.CREATED);
+            assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
+            return Unit.INSTANCE;
+        });
     }
 
     @Test
@@ -250,14 +218,11 @@ public final class FragmentScenarioTest {
                 FragmentScenario.launch(StateRecordingFragment.class);
         scenario.moveToState(State.STARTED);
         scenario.moveToState(State.STARTED);
-        scenario.onFragment(
-                new FragmentScenario.FragmentAction<StateRecordingFragment>() {
-                    @Override
-                    public void perform(@NonNull StateRecordingFragment fragment) {
-                        assertThat(fragment.getState()).isEqualTo(State.STARTED);
-                        assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
-                    }
-                });
+        scenario.onFragment(fragment -> {
+            assertThat(fragment.getState()).isEqualTo(State.STARTED);
+            assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
+            return Unit.INSTANCE;
+        });
     }
 
     @Test
@@ -267,14 +232,11 @@ public final class FragmentScenarioTest {
                 FragmentScenario.launch(StateRecordingFragment.class);
         scenario.moveToState(State.STARTED);
         scenario.moveToState(State.RESUMED);
-        scenario.onFragment(
-                new FragmentScenario.FragmentAction<StateRecordingFragment>() {
-                    @Override
-                    public void perform(@NonNull StateRecordingFragment fragment) {
-                        assertThat(fragment.getState()).isEqualTo(State.RESUMED);
-                        assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
-                    }
-                });
+        scenario.onFragment(fragment -> {
+            assertThat(fragment.getState()).isEqualTo(State.RESUMED);
+            assertThat(fragment.getNumberOfRecreations()).isEqualTo(0);
+            return Unit.INSTANCE;
+        });
     }
 
     @Test
@@ -302,14 +264,11 @@ public final class FragmentScenarioTest {
                 FragmentScenario.launch(StateRecordingFragment.class);
         scenario.moveToState(State.CREATED);
         scenario.recreate();
-        scenario.onFragment(
-                new FragmentScenario.FragmentAction<StateRecordingFragment>() {
-                    @Override
-                    public void perform(@NonNull StateRecordingFragment fragment) {
-                        assertThat(fragment.getState()).isEqualTo(State.CREATED);
-                        assertThat(fragment.getNumberOfRecreations()).isEqualTo(1);
-                    }
-                });
+        scenario.onFragment(fragment -> {
+            assertThat(fragment.getState()).isEqualTo(State.CREATED);
+            assertThat(fragment.getNumberOfRecreations()).isEqualTo(1);
+            return Unit.INSTANCE;
+        });
     }
 
     @Test
@@ -319,14 +278,11 @@ public final class FragmentScenarioTest {
                 FragmentScenario.launch(StateRecordingFragment.class);
         scenario.moveToState(State.STARTED);
         scenario.recreate();
-        scenario.onFragment(
-                new FragmentScenario.FragmentAction<StateRecordingFragment>() {
-                    @Override
-                    public void perform(@NonNull StateRecordingFragment fragment) {
-                        assertThat(fragment.getState()).isEqualTo(State.STARTED);
-                        assertThat(fragment.getNumberOfRecreations()).isEqualTo(1);
-                    }
-                });
+        scenario.onFragment(fragment -> {
+            assertThat(fragment.getState()).isEqualTo(State.STARTED);
+            assertThat(fragment.getNumberOfRecreations()).isEqualTo(1);
+            return Unit.INSTANCE;
+        });
     }
 
     @Test
@@ -335,13 +291,10 @@ public final class FragmentScenarioTest {
         FragmentScenario<StateRecordingFragment> scenario =
                 FragmentScenario.launch(StateRecordingFragment.class);
         scenario.recreate();
-        scenario.onFragment(
-                new FragmentScenario.FragmentAction<StateRecordingFragment>() {
-                    @Override
-                    public void perform(@NonNull StateRecordingFragment fragment) {
-                        assertThat(fragment.getState()).isEqualTo(State.RESUMED);
-                        assertThat(fragment.getNumberOfRecreations()).isEqualTo(1);
-                    }
-                });
+        scenario.onFragment(fragment -> {
+            assertThat(fragment.getState()).isEqualTo(State.RESUMED);
+            assertThat(fragment.getNumberOfRecreations()).isEqualTo(1);
+            return Unit.INSTANCE;
+        });
     }
 }

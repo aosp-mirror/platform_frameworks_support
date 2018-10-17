@@ -24,15 +24,20 @@ plugins {
 }
 
 android {
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
     lintOptions {
         fatal("UnknownNullness")
     }
 }
 
 dependencies {
-    api(project(":fragment"))
+    api(project(":fragment-ktx"))
     api(TEST_CORE)
-    androidTestImplementation(KOTLIN_STDLIB)
+    api(KOTLIN_STDLIB)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
     androidTestImplementation(TRUTH)
