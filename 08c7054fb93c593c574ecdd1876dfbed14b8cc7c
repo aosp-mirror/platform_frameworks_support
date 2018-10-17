@@ -192,6 +192,30 @@
     },
     {
       "key": {
+        "uuid": "5c9a0ea3_85bbe896",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-17T11:55:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1c59c234_56c81460",
+      "range": {
+        "startLine": 526,
+        "startChar": 8,
+        "endLine": 526,
+        "endChar": 21
+      },
+      "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9bc62bc1_3720cbfd",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 8
@@ -236,6 +260,30 @@
       "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14e04f78_ba3866a8",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-17T11:55:08Z",
+      "side": 1,
+      "message": "Lol. Okay.",
+      "parentUuid": "1decf550_37818b79",
+      "range": {
+        "startLine": 581,
+        "startChar": 33,
+        "endLine": 581,
+        "endChar": 92
+      },
+      "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -320,6 +368,30 @@
     },
     {
       "key": {
+        "uuid": "64c2b299_b5f94a00",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-17T11:55:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "38518647_64834b64",
+      "range": {
+        "startLine": 649,
+        "startChar": 36,
+        "endLine": 649,
+        "endChar": 79
+      },
+      "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5eb2bcfd_2b254756",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 8
@@ -364,6 +436,30 @@
       "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b251320_0d834164",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-17T11:55:08Z",
+      "side": 1,
+      "message": "Yeah. My thinking was related to the fact that the 2 calls are happening on different threads.\nWe can keep things simple if it works. :)",
+      "parentUuid": "8c48bdf1_f110a714",
+      "range": {
+        "startLine": 649,
+        "startChar": 12,
+        "endLine": 651,
+        "endChar": 53
+      },
+      "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
