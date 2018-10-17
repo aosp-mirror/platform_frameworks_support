@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "05625765_12363db8",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-10-17T14:08:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a838e98d_33d6027f",
+      "range": {
+        "startLine": 236,
+        "startChar": 29,
+        "endLine": 236,
+        "endChar": 45
+      },
+      "revId": "ed4651062b82195c84115ea6324274772218eb03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11f37a9a_56c836a8",
         "filename": "buildSrc/src/main/kotlin/androidx/build/VerifyDependencyVersionsTask.kt",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "eac0d153_261997e3",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/VerifyDependencyVersionsTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-10-17T14:08:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11f37a9a_56c836a8",
+      "range": {
+        "startLine": 47,
+        "startChar": 46,
+        "endLine": 47,
+        "endChar": 52
+      },
+      "revId": "ed4651062b82195c84115ea6324274772218eb03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca2af871_54526dcd",
         "filename": "buildSrc/src/main/kotlin/androidx/build/VerifyDependencyVersionsTask.kt",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2018-10-16T20:19:59Z",
       "side": 1,
       "message": "It\u0027d be slightly more robust against changes if instead we had a function that classified each \u003cextra\u003e into a level\n\n\"alpha\" -\u003e 1\n\"beta\" -\u003e 2\n\"rc\" -\u003e 3\n\"\" -\u003e 4\n\nand then we compare that the dependency level is \u003e\u003d the project level\n\npartially so that if we introduce a new type then this would fail rather than assume alphabetical ordering\n\nand partially so that it\u0027s easier to notice what the purpose is\n\nbut in practice this probably won\u0027t come up so in practice it\u0027s probably fine",
+      "range": {
+        "startLine": 54,
+        "startChar": 12,
+        "endLine": 55,
+        "endChar": 94
+      },
+      "revId": "ed4651062b82195c84115ea6324274772218eb03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc1610af_5e9c29ca",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/VerifyDependencyVersionsTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-10-17T14:08:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca2af871_54526dcd",
       "range": {
         "startLine": 54,
         "startChar": 12,
