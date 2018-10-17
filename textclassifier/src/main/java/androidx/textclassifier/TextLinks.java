@@ -19,7 +19,6 @@ package androidx.textclassifier;
 import static androidx.textclassifier.ConvertUtils.toPlatformEntityConfig;
 import static androidx.textclassifier.ConvertUtils.unwrapLocalListCompat;
 
-import android.app.PendingIntent;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -42,12 +41,10 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.UiThread;
 import androidx.annotation.VisibleForTesting;
-import androidx.core.app.RemoteActionCompat;
 import androidx.core.os.LocaleListCompat;
 import androidx.core.util.Preconditions;
 import androidx.textclassifier.TextClassifier.EntityConfig;
 import androidx.textclassifier.TextClassifier.EntityType;
-import androidx.textclassifier.widget.ToolbarController;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -518,20 +515,6 @@ public final class TextLinks {
     }
 
     /**
-     * A function to create spans from TextLinks.
-     *
-     * Hidden until we convinced we want it to be part of the public API.
-     *
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
-    public interface SpanFactory {
-
-        /** Creates a span from a text link. */
-        TextLinkSpan createSpan(@NonNull TextLinkSpanData textLinkSpanData);
-    }
-
-    /**
      * Contains necessary data for {@link TextLinkSpan}.
      */
     public static class TextLinkSpanData {
@@ -584,11 +567,25 @@ public final class TextLinks {
      */
     public static class TextLinkSpan extends ClickableSpan {
 
-        @NonNull
-        private final TextLinkSpanData mTextLinkSpanData;
+        @NonNull private final TextLinkSpanData mTextLinkSpanData;
+        @NonNull private final TextLinkSpanFactory.OnTextClassificationResult
+                mOnTextClassificationResult;
 
         public TextLinkSpan(@NonNull TextLinkSpanData textLinkSpanData) {
             mTextLinkSpanData = Preconditions.checkNotNull(textLinkSpanData);
+            mOnTextClassificationResult = TextLinkSpanFactory.OnTextClassificationResult.DEFAULT;
+        }
+
+        /**
+         * Internal use only.
+         * @hide
+         */
+        @RestrictTo(RestrictTo.Scope.LIBRARY)
+        TextLinkSpan(
+                @NonNull TextLinkSpanData textLinkSpanData,
+                @NonNull TextLinkSpanFactory.OnTextClassificationResult onClassificationResult) {
+            mTextLinkSpanData = Preconditions.checkNotNull(textLinkSpanData);
+            mOnTextClassificationResult = Preconditions.checkNotNull(onClassificationResult);
         }
 
         @Override
@@ -622,26 +619,12 @@ public final class TextLinks {
             sWorkerExecutor.execute(new Runnable() {
                 @Override
                 public void run() {
-                    final List<RemoteActionCompat> actions =
-                            classifier.classifyText(request).getActions();
+                    final TextClassification textClassification = classifier.classifyText(request);
                     sMainThreadExecutor.execute(new Runnable() {
                         @Override
                         public void run() {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                ToolbarController.getInstance(textView).show(actions, start, end);
-                                return;
-                            }
-
-                            if (!actions.isEmpty()) {
-                                try {
-                                    actions.get(0).getActionIntent().send();
-                                } catch (PendingIntent.CanceledException e) {
-                                    Log.e(LOG_TAG, "Error handling TextLinkSpan click", e);
-                                }
-                                return;
-                            }
-
-                            Log.d(LOG_TAG, "Cannot trigger link. No actions found.");
+                            mOnTextClassificationResult.onTriggerActions(
+                                    textClassification, textView, start, end);
                         }
                     });
                 }

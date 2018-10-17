@@ -108,6 +108,15 @@ package androidx.textclassifier {
     method public androidx.textclassifier.TextClassifier.EntityConfig.Builder setIncludedEntityTypes(java.util.Collection<java.lang.String>);
   }
 
+  public final class TextLinkSpanFactory {
+    method public static androidx.core.util.Function<androidx.textclassifier.TextLinks.TextLinkSpanData, androidx.textclassifier.TextLinks.TextLinkSpan> of(androidx.textclassifier.TextLinkSpanFactory.OnTextClassificationResult);
+  }
+
+  public static abstract interface TextLinkSpanFactory.OnTextClassificationResult {
+    method public abstract void onTriggerActions(androidx.textclassifier.TextClassification, android.widget.TextView, int, int);
+    field public static final androidx.textclassifier.TextLinkSpanFactory.OnTextClassificationResult DEFAULT;
+  }
+
   public final class TextLinks {
     method public int apply(android.widget.TextView, androidx.textclassifier.TextLinksParams);
     method public int apply(android.content.Context, android.text.Spannable, androidx.textclassifier.TextLinksParams);
@@ -178,6 +187,7 @@ package androidx.textclassifier {
     method public androidx.textclassifier.TextLinksParams.Builder setDefaultLocales(androidx.core.os.LocaleListCompat);
     method public androidx.textclassifier.TextLinksParams.Builder setEntityConfig(androidx.textclassifier.TextClassifier.EntityConfig);
     method public androidx.textclassifier.TextLinksParams.Builder setReferenceTime(java.lang.Long);
+    method public androidx.textclassifier.TextLinksParams.Builder setSpanFactory(androidx.core.util.Function<androidx.textclassifier.TextLinks.TextLinkSpanData, androidx.textclassifier.TextLinks.TextLinkSpan>);
   }
 
   public final class TextSelection {

@@ -24,8 +24,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.core.os.LocaleListCompat;
+import androidx.core.util.Function;
 import androidx.core.util.Preconditions;
-import androidx.textclassifier.TextLinks.SpanFactory;
 import androidx.textclassifier.TextLinks.TextLink;
 import androidx.textclassifier.TextLinks.TextLinkSpan;
 
@@ -36,17 +36,6 @@ import androidx.textclassifier.TextLinks.TextLinkSpan;
 public final class TextLinksParams {
 
     /**
-     * A function to create spans from TextLinks.
-     */
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    static final SpanFactory DEFAULT_SPAN_FACTORY = new SpanFactory() {
-        @Override
-        public TextLinkSpan createSpan(@NonNull TextLinks.TextLinkSpanData textLinkSpan) {
-            return new TextLinkSpan(textLinkSpan);
-        }
-    };
-
-    /**
      * Default configuration of applying a TextLinks to a spannable or a TextView.
      *
      * @see TextLinks#apply(Context, Spannable, TextLinksParams)
@@ -55,14 +44,14 @@ public final class TextLinksParams {
 
     @TextLinks.ApplyStrategy
     private final int mApplyStrategy;
-    private final SpanFactory mSpanFactory;
+    private final Function<TextLinks.TextLinkSpanData, TextLinkSpan> mSpanFactory;
     @Nullable private final TextClassifier.EntityConfig mEntityConfig;
     @Nullable private final LocaleListCompat mDefaultLocales;
     @Nullable private final Long mReferenceTime;
 
     TextLinksParams(
             @TextLinks.ApplyStrategy int applyStrategy,
-            SpanFactory spanFactory,
+            Function<TextLinks.TextLinkSpanData, TextLinks.TextLinkSpan> spanFactory,
             @Nullable TextClassifier.EntityConfig entityConfig,
             @Nullable LocaleListCompat defaultLocales,
             @Nullable Long referenceTime) {
@@ -118,7 +107,7 @@ public final class TextLinksParams {
         for (TextLink link : textLinks.getLinks()) {
             TextLinks.TextLinkSpanData textLinkSpanData =
                     new TextLinks.TextLinkSpanData(link, textClassifier, mReferenceTime);
-            final TextLinkSpan span = mSpanFactory.createSpan(textLinkSpanData);
+            final TextLinkSpan span = mSpanFactory.apply(textLinkSpanData);
             if (span != null) {
                 final ClickableSpan[] existingSpans = text.getSpans(
                         link.getStart(), link.getEnd(), ClickableSpan.class);
@@ -171,7 +160,7 @@ public final class TextLinksParams {
 
         @TextLinks.ApplyStrategy
         private int mApplyStrategy = TextLinks.APPLY_STRATEGY_IGNORE;
-        private SpanFactory mSpanFactory = DEFAULT_SPAN_FACTORY;
+        @Nullable private Function<TextLinks.TextLinkSpanData, TextLinkSpan> mSpanFactory;
         @Nullable private TextClassifier.EntityConfig mEntityConfig;
         @Nullable private LocaleListCompat mDefaultLocales;
         @Nullable private Long mReferenceTime;
@@ -192,12 +181,11 @@ public final class TextLinksParams {
          * Set to {@code null} to use the default span factory.
          *
          * @return this builder
-         *
-         * @hide
          */
-        @RestrictTo(RestrictTo.Scope.LIBRARY)
-        public Builder setSpanFactory(@Nullable SpanFactory spanFactory) {
-            mSpanFactory = spanFactory == null ? DEFAULT_SPAN_FACTORY : spanFactory;
+        public Builder setSpanFactory(
+                @Nullable
+                Function<TextLinks.TextLinkSpanData, TextLinks.TextLinkSpan> spanFactory) {
+            mSpanFactory = spanFactory;
             return this;
         }
 
@@ -248,6 +236,9 @@ public final class TextLinksParams {
          * Builds and returns a TextLinksParams object.
          */
         public TextLinksParams build() {
+            mSpanFactory = mSpanFactory == null
+                    ? TextLinkSpanFactory.of(TextLinkSpanFactory.OnTextClassificationResult.DEFAULT)
+                    : mSpanFactory;
             return new TextLinksParams(
                     mApplyStrategy, mSpanFactory, mEntityConfig, mDefaultLocales, mReferenceTime);
         }

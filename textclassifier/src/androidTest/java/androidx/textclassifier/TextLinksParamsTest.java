@@ -28,6 +28,7 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.collection.ArrayMap;
+import androidx.core.util.Function;
 import androidx.test.filters.SmallTest;
 
 import org.junit.Before;
@@ -66,9 +67,10 @@ public class TextLinksParamsTest {
         }
     }
 
-    private static class CustomSpanFactory implements TextLinks.SpanFactory {
+    private static class CustomSpanFactory
+            implements Function<TextLinks.TextLinkSpanData, TextLinks.TextLinkSpan> {
         @Override
-        public TextLinks.TextLinkSpan createSpan(TextLinks.TextLinkSpanData textLinkSpanData) {
+        public TextLinks.TextLinkSpan apply(TextLinks.TextLinkSpanData textLinkSpanData) {
             return new CustomTextLinkSpan(textLinkSpanData);
         }
     }
