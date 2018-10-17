@@ -51,6 +51,8 @@ class SupportAndroidLibraryPlugin : Plugin<Project> {
                 DiffAndDocs.registerAndroidProject(project, library, supportLibraryExtension)
             }
 
+            Metalava.registerAndroidProjectApiStubs(project, library, supportLibraryExtension)
+
             if (supportLibraryExtension.compilationTarget != CompilationTarget.DEVICE) {
                 throw IllegalStateException(
                         "Android libraries must use a compilation target of DEVICE")

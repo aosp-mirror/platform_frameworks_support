@@ -25,15 +25,106 @@ import androidx.build.checkapi.hasApiFolder
 import androidx.build.checkapi.hasApiTasks
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Project
+import org.gradle.api.Task
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.plugins.JavaPluginConvention
+import org.gradle.api.tasks.bundling.Zip
+import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.kotlin.dsl.getPlugin
 
 object Metalava {
-    private fun Project.createMetalavaConfiguration(): Configuration {
-        return configurations.create("metalava") {
-            val dependency = dependencies.create("com.android:metalava:1.1.2-SNAPSHOT:shadow@jar")
-            it.dependencies.add(dependency)
+    private fun Project.getOrCreateMetalavaConfiguration(): Configuration {
+        return configurations.findByName("metalava")
+            ?: configurations.create("metalava") {
+                val dependency =
+                    dependencies.create("com.android:metalava:1.1.2-SNAPSHOT:shadow@jar")
+                it.dependencies.add(dependency)
+            }
+    }
+
+    fun registerAndroidProjectApiStubs(
+        project: Project,
+        library: LibraryExtension,
+        extension: SupportLibraryExtension
+    ) {
+        if (!hasApiTasks(project, extension)) {
+            return
+        }
+
+        val metalavaConfiguration = project.getOrCreateMetalavaConfiguration()
+
+        library.libraryVariants.all { variant ->
+            if (variant.name == "release") {
+                val doesNotHaveKotlin: (Task) -> Boolean = {
+                    project.files(variant.sourceSets.flatMap { it.javaDirectories })
+                        .asFileTree
+                        .files
+                        .filter { it.extension == "kt" }
+                        .isEmpty()
+                }
+
+                val workingDir = project.buildDir.resolve("intermediates/stubs/${variant.name}/")
+
+                val apiStubsSourceDir = workingDir.resolve("source/")
+                val generateApiStubs = project.tasks.create(
+                    "generate${variant.name.capitalize()}ApiStubs",
+                    ApiStubsTask::class.java
+                ).apply {
+                    configuration = metalavaConfiguration
+                    bootClasspath = library.bootClasspath
+                    setVariant(variant)
+                    apiStubsDir = apiStubsSourceDir
+
+                    dependsOn(metalavaConfiguration)
+                    onlyIf(doesNotHaveKotlin)
+                }
+
+                val apiStubsClasses = workingDir.resolve("classes/")
+                val compileApiStubs = project.tasks.create(
+                    "compile${variant.name.capitalize()}ApiStubs",
+                    JavaCompile::class.java
+                ).apply {
+                    @Suppress("DEPRECATION")
+                    val compileTask = variant.javaCompile
+
+                    val generatedFiles = compileTask.source.asFileTree.files
+                        .filter {"build/generated" in it.path }
+                    source = project.files(generatedFiles, apiStubsSourceDir).asFileTree
+
+                    classpath = compileTask.classpath
+                    destinationDir = apiStubsClasses
+                    options.compilerArgs = compileTask.options.compilerArgs.toMutableList()
+                    options.bootstrapClasspath = compileTask.options.bootstrapClasspath
+                    sourceCompatibility = compileTask.sourceCompatibility
+                    targetCompatibility = compileTask.targetCompatibility
+
+                    dependsOn(compileTask.dependsOn, generateApiStubs)
+                    onlyIf(doesNotHaveKotlin)
+                }
+
+                val apiStubsJar = workingDir.resolve("api.jar")
+                val packageApiStubs = project.tasks.create(
+                    "package${variant.name.capitalize()}ApiStubs",
+                    Zip::class.java
+                ).apply {
+                    inputs.dir(apiStubsClasses)
+                    outputs.file(apiStubsJar)
+
+                    from(apiStubsClasses)
+                    destinationDir = apiStubsJar.parentFile
+                    archiveName = apiStubsJar.name
+
+                    dependsOn(compileApiStubs)
+                    onlyIf(doesNotHaveKotlin)
+                }
+
+                variant.packageLibrary.apply {
+                    inputs.file(apiStubsJar)
+                    // TODO roll this out!
+                    //from(apiStubsJar)
+                    dependsOn(packageApiStubs)
+                }
+            }
         }
     }
 
@@ -46,7 +137,7 @@ object Metalava {
             return
         }
 
-        val metalavaConfiguration = project.createMetalavaConfiguration()
+        val metalavaConfiguration = project.getOrCreateMetalavaConfiguration()
 
         library.libraryVariants.all { variant ->
             if (variant.name == "release") {
@@ -94,7 +185,7 @@ object Metalava {
             return
         }
 
-        val metalavaConfiguration = project.createMetalavaConfiguration()
+        val metalavaConfiguration = project.getOrCreateMetalavaConfiguration()
 
         val javaPluginConvention = project.convention.getPlugin<JavaPluginConvention>()
         val mainSourceSet = javaPluginConvention.sourceSets.getByName("main")
