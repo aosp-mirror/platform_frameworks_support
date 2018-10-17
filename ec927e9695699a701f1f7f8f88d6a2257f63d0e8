@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3e202f94_90ff0a9c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-17T17:32:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09f1c34a_56c20c5d",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "ec927e9695699a701f1f7f8f88d6a2257f63d0e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "507befa2_60ad830d",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/SetItemWhileScrollInProgressTest.kt",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "16f8d240_2568e6f2",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/SetItemWhileScrollInProgressTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-17T17:32:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "507befa2_60ad830d",
+      "range": {
+        "startLine": 393,
+        "startChar": 55,
+        "endLine": 393,
+        "endChar": 65
+      },
+      "revId": "ec927e9695699a701f1f7f8f88d6a2257f63d0e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f75c07ff_80708b36",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
         "patchSetId": 3
@@ -62,6 +110,24 @@
       "revId": "ec927e9695699a701f1f7f8f88d6a2257f63d0e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "518b8fed_4fb466a3",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-17T17:32:32Z",
+      "side": 1,
+      "message": "Done. Improved the text as well, to better convey my message",
+      "parentUuid": "f75c07ff_80708b36",
+      "revId": "ec927e9695699a701f1f7f8f88d6a2257f63d0e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
