@@ -46,7 +46,7 @@ class SupportAndroidLibraryPlugin : Plugin<Project> {
             project.injectCompilationForBenchmarks(library, supportLibraryExtension)
 
             if (supportLibraryExtension.useMetalava) {
-                Metalava.registerAndroidProject(project, library, supportLibraryExtension)
+                Metalava.registerAndroidProjectApiChecks(project, library, supportLibraryExtension)
             } else {
                 DiffAndDocs.registerAndroidProject(project, library, supportLibraryExtension)
             }

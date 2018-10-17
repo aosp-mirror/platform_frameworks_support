@@ -38,7 +38,7 @@ class SupportJavaLibraryPlugin : Plugin<Project> {
         project.apply(mapOf("plugin" to "java"))
         project.afterEvaluate {
             if (supportLibraryExtension.useMetalava) {
-                Metalava.registerJavaProject(project, supportLibraryExtension)
+                Metalava.registerJavaProjectApiChecks(project, supportLibraryExtension)
             } else {
                 DiffAndDocs.registerJavaProject(project, supportLibraryExtension)
             }

@@ -37,7 +37,7 @@ object Metalava {
         }
     }
 
-    fun registerAndroidProject(
+    fun registerAndroidProjectApiChecks(
         project: Project,
         library: LibraryExtension,
         extension: SupportLibraryExtension
@@ -81,7 +81,7 @@ object Metalava {
         }
     }
 
-    fun registerJavaProject(
+    fun registerJavaProjectApiChecks(
         project: Project,
         extension: SupportLibraryExtension
     ) {

@@ -34,7 +34,7 @@ class SupportKotlinLibraryPlugin : Plugin<Project> {
         project.configureNonAndroidProjectForLint(supportLibraryExtension)
 
         project.afterEvaluate {
-            Metalava.registerJavaProject(project, supportLibraryExtension)
+            Metalava.registerJavaProjectApiChecks(project, supportLibraryExtension)
         }
     }
 }
