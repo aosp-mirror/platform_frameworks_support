@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0e7a0649_27d5ada9",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-17T17:32:43Z",
+      "side": 1,
+      "message": "I think all references are already bound to final references: \"removeOnPageChangeListener\" is called on the receiver (ViewPager2), and \"this\" can never change. If a config change were to happen before the post is executed, I think the listener will be removed from the \"old\" ViewPager2, which is fine.",
+      "parentUuid": "a31929a5_3be91a48",
+      "revId": "b23925468544e166b14eca83521a0ea67815519f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a23b2b33_873d9e41",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DragWhileSmoothScrollTest.kt",
         "patchSetId": 2
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "e8312f38_66515e81",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DragWhileSmoothScrollTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-17T17:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a23b2b33_873d9e41",
+      "range": {
+        "startLine": 73,
+        "startChar": 32,
+        "endLine": 73,
+        "endChar": 35
+      },
+      "revId": "b23925468544e166b14eca83521a0ea67815519f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79fb57b6_843e29ef",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DragWhileSmoothScrollTest.kt",
         "patchSetId": 2
@@ -53,6 +95,30 @@
       "writtenOn": "2018-10-12T13:40:04Z",
       "side": 1,
       "message": "could you comment a bit on when that happens and how that relates to distances 0.4f and 1.5f? we want to be sure all cases are exercised",
+      "range": {
+        "startLine": 98,
+        "startChar": 32,
+        "endLine": 98,
+        "endChar": 46
+      },
+      "revId": "b23925468544e166b14eca83521a0ea67815519f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a720def_d5d61b2c",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DragWhileSmoothScrollTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-17T17:32:43Z",
+      "side": 1,
+      "message": "When Espresso performs a fling, it swipes the VP2 a little bit, not sure by how much. If you do this \"close to\" the target page, in the direction of the target page, you will end up on the target page. If you do this \"very close to\" the target page, you overshoot the target page. If you do this \"far from\" the target page, you stop before the target page.\n\nBy putting 1.1f between the two options and having one of them \"close to\" the target page, it makes sure that one of the options lands on the target page, and the other either overshoots or undershoots. (Either .4 lands and 1.5 undershoots, or .4 overshoots and 1.5 lands)\n\nAlso, one of the tests goes from the first page to the last page, so that one cannot possibly overshoot",
+      "parentUuid": "79fb57b6_843e29ef",
       "range": {
         "startLine": 98,
         "startChar": 32,
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "d6ad7342_5fcd6bd7",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DragWhileSmoothScrollTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-17T17:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55e287ee_6d7cd950",
+      "revId": "b23925468544e166b14eca83521a0ea67815519f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac3bbd38_64d4266c",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DragWhileSmoothScrollTest.kt",
         "patchSetId": 2
@@ -102,6 +186,30 @@
       "revId": "b23925468544e166b14eca83521a0ea67815519f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9dcdf5f_637d9f77",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DragWhileSmoothScrollTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-17T17:32:43Z",
+      "side": 1,
+      "message": "Correct",
+      "parentUuid": "ac3bbd38_64d4266c",
+      "range": {
+        "startLine": 193,
+        "startChar": 25,
+        "endLine": 193,
+        "endChar": 28
+      },
+      "revId": "b23925468544e166b14eca83521a0ea67815519f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +248,24 @@
     },
     {
       "key": {
+        "uuid": "4bdfd151_ba559ef1",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-17T17:32:43Z",
+      "side": 1,
+      "message": "To be honest, it was already super complicated before. So I\u0027m totally on the same page to add more comments.",
+      "parentUuid": "70006485_3b3ba345",
+      "revId": "b23925468544e166b14eca83521a0ea67815519f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2323e36_2a74fef1",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
         "patchSetId": 2
@@ -160,6 +286,30 @@
       "revId": "b23925468544e166b14eca83521a0ea67815519f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c9908a0_15650399",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-17T17:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2323e36_2a74fef1",
+      "range": {
+        "startLine": 82,
+        "startChar": 19,
+        "endLine": 82,
+        "endChar": 65
+      },
+      "revId": "b23925468544e166b14eca83521a0ea67815519f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
