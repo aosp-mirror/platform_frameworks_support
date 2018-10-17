@@ -54,6 +54,8 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.mockwebserver.MockWebServer;
+
 @MediumTest
 @RunWith(AndroidJUnit4.class)
 public class WebViewCompatTest {
@@ -343,6 +345,128 @@ public class WebViewCompatTest {
             assertNotNull(
                     WebViewCompat.getCurrentWebViewPackage(
                             InstrumentationRegistry.getTargetContext()));
+        }
+    }
+
+    /**
+     * This test should have an equivalent in android.webkit.cts.WebViewTest
+     * when this function is available in the framework.
+     */
+    @Test
+    public void testProxyOverrideRuns() throws Exception {
+        AssumptionUtils.checkFeature(WebViewFeature.PROXY_OVERRIDE);
+        WebViewCompat.setProxyOverride("myproxy.com", 200, null);
+        WebViewCompat.clearProxyOverride(null);
+        WebViewCompat.setProxyOverride("myproxy.com", 200, null, null);
+        WebViewCompat.clearProxyOverride(null);
+        WebViewCompat.setProxyOverride("myproxy.com", 200, null, new Runnable() {
+            @Override
+            public void run() {
+            }
+        });
+        WebViewCompat.clearProxyOverride(new Runnable() {
+            @Override
+            public void run() {
+            }
+        });
+        WebViewCompat.setProxyOverride("myproxy.com", 200, new Runnable() {
+            @Override
+            public void run() {
+            }
+        });
+        WebViewCompat.clearProxyOverride(new Runnable() {
+            @Override
+            public void run() {
+            }
+        });
+    }
+
+    /**
+     * This test should have an equivalent in android.webkit.cts.WebViewTest
+     * when this function is available in the framework.
+     */
+    @Test
+    public void testProxyOverrideCallback() throws Exception {
+        AssumptionUtils.checkFeature(WebViewFeature.PROXY_OVERRIDE);
+        final CountDownLatch callbackLatch1 = new CountDownLatch(1);
+        WebViewCompat.clearProxyOverride(new Runnable() {
+            @Override
+            public void run() {
+                callbackLatch1.countDown();
+            }
+        });
+        assertTrue(callbackLatch1.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        final CountDownLatch callbackLatch2 = new CountDownLatch(1);
+        WebViewCompat.setProxyOverride("myproxy.com", 200, null, new Runnable() {
+            @Override
+            public void run() {
+                callbackLatch2.countDown();
+            }
+        });
+        assertTrue(callbackLatch2.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        final CountDownLatch callbackLatch3 = new CountDownLatch(1);
+        WebViewCompat.clearProxyOverride(new Runnable() {
+            @Override
+            public void run() {
+                callbackLatch3.countDown();
+            }
+        });
+        assertTrue(callbackLatch3.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        final CountDownLatch callbackLatch4 = new CountDownLatch(1);
+        WebViewCompat.clearProxyOverride(new Runnable() {
+            @Override
+            public void run() {
+                callbackLatch4.countDown();
+            }
+        });
+        assertTrue(callbackLatch4.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+    }
+
+    /**
+     * This test should have an equivalent in android.webkit.cts.WebViewTest
+     * when this function is available in the framework.
+     */
+    @Test
+    public void testProxyOverride() throws Exception {
+        AssumptionUtils.checkFeature(WebViewFeature.PROXY_OVERRIDE);
+
+        // Server 1 will be the default server
+        MockWebServer server1 = null;
+        // Server 2 will be the overriden proxy server
+        MockWebServer server2 = null;
+
+        try {
+            server1 = new MockWebServer();
+            server2 = new MockWebServer();
+            server1.start();
+            server2.start();
+            final String server1url = server1.url("/").toString();
+
+            // Clear proxy override and load server 1 url
+            WebViewCompat.clearProxyOverride(null);
+            mWebViewOnUiThread.loadUrl(server1url);
+            assertNotNull(server1.takeRequest(2500, TimeUnit.MILLISECONDS));
+            int server1RequestCount = server1.getRequestCount();
+
+            // Set proxy override and load server 1 url
+            WebViewCompat.setProxyOverride(server2.getHostName(), server2.getPort(), null);
+            mWebViewOnUiThread.loadUrl(server1url);
+            assertNotNull(server2.takeRequest(2500, TimeUnit.MILLISECONDS));
+            int server2RequestCount = server2.getRequestCount();
+            assertEquals(server1RequestCount, server1.getRequestCount());
+
+            // Clear proxy override and load server 1 url
+            WebViewCompat.clearProxyOverride(null);
+            mWebViewOnUiThread.loadUrl(server1url);
+            assertNotNull(server1.takeRequest(2500, TimeUnit.MILLISECONDS));
+            assertEquals(server2RequestCount, server2.getRequestCount());
+        } finally {
+            if (server1 != null) {
+                server1.shutdown();
+            }
+            if (server2 != null) {
+                server2.shutdown();
+            }
         }
     }
 }

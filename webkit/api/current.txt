@@ -74,6 +74,7 @@ package androidx.webkit {
   }
 
   public class WebViewCompat {
+    method public static void clearProxyOverride(java.lang.Runnable);
     method public static androidx.webkit.WebMessagePortCompat[] createWebMessageChannel(android.webkit.WebView);
     method public static android.content.pm.PackageInfo getCurrentWebViewPackage(android.content.Context);
     method public static android.net.Uri getSafeBrowsingPrivacyPolicyUrl();
@@ -82,6 +83,8 @@ package androidx.webkit {
     method public static androidx.webkit.WebViewRenderer getWebViewRenderer(android.webkit.WebView);
     method public static void postVisualStateCallback(android.webkit.WebView, long, androidx.webkit.WebViewCompat.VisualStateCallback);
     method public static void postWebMessage(android.webkit.WebView, androidx.webkit.WebMessageCompat, android.net.Uri);
+    method public static void setProxyOverride(java.lang.String, int, java.lang.Runnable);
+    method public static void setProxyOverride(java.lang.String, int, java.lang.String[], java.lang.Runnable);
     method public static void setSafeBrowsingWhitelist(java.util.List<java.lang.String>, android.webkit.ValueCallback<java.lang.Boolean>);
     method public static void startSafeBrowsing(android.content.Context, android.webkit.ValueCallback<java.lang.Boolean>);
   }
@@ -99,6 +102,7 @@ package androidx.webkit {
     field public static final java.lang.String GET_WEB_VIEW_RENDERER = "GET_WEB_VIEW_RENDERER";
     field public static final java.lang.String OFF_SCREEN_PRERASTER = "OFF_SCREEN_PRERASTER";
     field public static final java.lang.String POST_WEB_MESSAGE = "POST_WEB_MESSAGE";
+    field public static final java.lang.String PROXY_OVERRIDE = "PROXY_OVERRIDE:2";
     field public static final java.lang.String RECEIVE_HTTP_ERROR = "RECEIVE_HTTP_ERROR";
     field public static final java.lang.String RECEIVE_WEB_RESOURCE_ERROR = "RECEIVE_WEB_RESOURCE_ERROR";
     field public static final java.lang.String SAFE_BROWSING_ENABLE = "SAFE_BROWSING_ENABLE";

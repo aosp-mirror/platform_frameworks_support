@@ -548,4 +548,65 @@ public class WebViewCompat {
             }
         }
     }
+
+    /**
+     * Sets a new proxy associated with all WebViews.
+     *
+     * @param host Host name
+     * @param port Any valid port number
+     * @param callback Optional callback called when the proxy setting change
+     *                 has been applied
+     */
+    @RequiresFeature(name = WebViewFeature.PROXY_OVERRIDE,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static void setProxyOverride(@NonNull String host, int port,
+            @Nullable Runnable callback) {
+        WebViewFeatureInternal webviewFeature =
+                WebViewFeatureInternal.getFeature(WebViewFeature.PROXY_OVERRIDE);
+        if (webviewFeature.isSupportedByWebView()) {
+            getFactory().getStatics().setProxyOverride(host, port, null, callback);
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
+    /**
+     * Sets a new proxy associated with all WebViews. This proxy will not be used
+     * to load URLs in exclusionList.
+     *
+     * @param host Host name
+     * @param port Any valid port number
+     * @param exclusionList URLs that should not use this proxy
+     * @param callback Optional callback called when the proxy setting change
+     *                 has been applied
+     */
+    @RequiresFeature(name = WebViewFeature.PROXY_OVERRIDE,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static void setProxyOverride(@NonNull String host, int port,
+            @NonNull String[] exclusionList, @Nullable Runnable callback) {
+        WebViewFeatureInternal webviewFeature =
+                WebViewFeatureInternal.getFeature(WebViewFeature.PROXY_OVERRIDE);
+        if (webviewFeature.isSupportedByWebView()) {
+            getFactory().getStatics().setProxyOverride(host, port, exclusionList, callback);
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
+    /**
+     * Clear the proxy settings.
+     *
+     * @param callback Optional callback called when the operation is complete
+     */
+    @RequiresFeature(name = WebViewFeature.PROXY_OVERRIDE,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static void clearProxyOverride(@Nullable Runnable callback) {
+        WebViewFeatureInternal webviewFeature =
+                WebViewFeatureInternal.getFeature(WebViewFeature.PROXY_OVERRIDE);
+        if (webviewFeature.isSupportedByWebView()) {
+            getFactory().getStatics().clearProxyOverride(callback);
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
 }
