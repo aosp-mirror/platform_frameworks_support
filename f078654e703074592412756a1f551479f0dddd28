@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47946f27_6e9850ec",
+        "filename": "loader/src/main/java/androidx/loader/content/AsyncTaskLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-17T18:20:24Z",
+      "side": 1,
+      "message": "Er, can we replace this with AsyncTask.THREAD_POOL_EXECUTOR now that we\u0027re API 14+? Can do in a follow up.",
+      "revId": "f078654e703074592412756a1f551479f0dddd28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
