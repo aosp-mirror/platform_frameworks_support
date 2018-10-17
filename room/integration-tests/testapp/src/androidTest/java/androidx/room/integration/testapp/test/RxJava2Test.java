@@ -18,15 +18,21 @@ package androidx.room.integration.testapp.test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 
+import android.app.Instrumentation;
 import android.content.Context;
 import android.os.Build;
+import android.os.StrictMode;
+import android.os.strictmode.Violation;
 
 import androidx.arch.core.executor.ArchTaskExecutor;
 import androidx.arch.core.executor.TaskExecutor;
 import androidx.room.EmptyResultSetException;
 import androidx.room.Room;
 import androidx.room.integration.testapp.FtsTestDatabase;
+import androidx.room.integration.testapp.TestDatabase;
 import androidx.room.integration.testapp.dao.MailDao;
 import androidx.room.integration.testapp.vo.Mail;
 import androidx.room.integration.testapp.vo.Pet;
@@ -41,7 +47,6 @@ import androidx.test.runner.AndroidJUnit4;
 import com.google.common.collect.Lists;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,6 +54,8 @@ import org.junit.runner.RunWith;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
@@ -64,10 +71,12 @@ import io.reactivex.subscribers.TestSubscriber;
 @RunWith(AndroidJUnit4.class)
 public class RxJava2Test extends TestDatabaseTest {
 
+    private Instrumentation mInstrumentation;
     private TestScheduler mTestScheduler;
 
     @Before
     public void setupSchedulers() {
+        mInstrumentation = InstrumentationRegistry.getInstrumentation();
         mTestScheduler = new TestScheduler();
         mTestScheduler.start();
         ArchTaskExecutor.getInstance().setDelegate(new TaskExecutor() {
@@ -78,7 +87,7 @@ public class RxJava2Test extends TestDatabaseTest {
 
             @Override
             public void postToMainThread(Runnable runnable) {
-                Assert.fail("no main thread in this test");
+                fail("no main thread in this test");
             }
 
             @Override
@@ -609,5 +618,46 @@ public class RxJava2Test extends TestDatabaseTest {
                 return mailList.equals(Lists.newArrayList(mail0, mail1));
             }
         });
+    }
+
+    @Test
+    @SdkSuppress(minSdkVersion = 28) // To use penaltyListener()
+    public void testSubscribe_mainThread() throws InterruptedException {
+        AtomicBoolean violated = new AtomicBoolean();
+        ArchTaskExecutor.getInstance().setDelegate(null); // Clear delegate so use real IO Executor.
+
+        // Real DB, since we want to test Disk IO
+        TestDatabase db = Room.databaseBuilder(InstrumentationRegistry.getTargetContext(),
+                TestDatabase.class, "test_subscribe_database").build();
+        db.getOpenHelper().getWritableDatabase(); // Open DB to init InvalidationTracker
+
+        mInstrumentation.runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                        .detectDiskReads()
+                        .detectDiskWrites()
+                        .penaltyListener(
+                                new Executor() {
+                                    @Override
+                                    public void execute(Runnable command) {
+                                        command.run();
+                                    }
+                                }, new StrictMode.OnThreadViolationListener() {
+                                    @Override
+                                    public void onThreadViolation(Violation v) {
+                                        violated.set(true);
+                                    }
+                                })
+                        .build());
+
+                db.getUserDao().flowableUserById(0).subscribe().dispose();
+                db.getUserDao().observableUserById(0).subscribe().dispose();
+            }
+        });
+        // Since a real IO Executor is being used we need to wait a bit before checking if a
+        // violation occurred, otherwise the test thread might check too early.
+        Thread.sleep(1000);
+        assertFalse("Detected Disk IO on MainThread", violated.get());
     }
 }
