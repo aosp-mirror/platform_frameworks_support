@@ -86,6 +86,7 @@ public class WebViewFeature {
             GET_WEB_CHROME_CLIENT,
             GET_WEB_VIEW_RENDERER,
             WEB_VIEW_RENDERER_TERMINATE,
+            PROXY_OVERRIDE,
     })
     @Retention(RetentionPolicy.SOURCE)
     @Target({ElementType.PARAMETER, ElementType.METHOD})
@@ -361,6 +362,18 @@ public class WebViewFeature {
      * This feature covers {@link WebViewRenderer#terminate()}
      */
     public static final String WEB_VIEW_RENDERER_TERMINATE = Features.WEB_VIEW_RENDERER_TERMINATE;
+
+    /**
+     * This feature covers
+     * {@link ProxyController#setProxyOverride(ProxyConfig, Executor, Runnable)},
+     * {@link ProxyController#setProxyOverride(ProxyConfig, Runnable)},
+     * {@link ProxyController#clearProxyOverride(Executor, Runnable)}, and
+     * {@link ProxyController#clearProxyOverride(Runnable)}.
+     * TODO(laisminchillo): unhide this when we're ready to expose this
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public static final String PROXY_OVERRIDE = Features.PROXY_OVERRIDE;
 
     /**
      * Return whether a feature is supported at run-time. On devices running Android version {@link

@@ -26,6 +26,8 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import androidx.webkit.ProxyConfig;
+import androidx.webkit.ProxyController;
 import androidx.webkit.SafeBrowsingResponseCompat;
 import androidx.webkit.ServiceWorkerClientCompat;
 import androidx.webkit.TracingConfig;
@@ -282,7 +284,16 @@ public enum WebViewFeatureInternal {
      * {@link TracingController#stop(OutputStream, Executor)}.
      */
     TRACING_CONTROLLER_BASIC_USAGE(WebViewFeature.TRACING_CONTROLLER_BASIC_USAGE,
-                                   Build.VERSION_CODES.P);
+                                   Build.VERSION_CODES.P),
+
+    /**
+     * This feature covers
+     * {@link ProxyController#setProxyOverride(ProxyConfig, Executor, Runnable)},
+     * {@link ProxyController#setProxyOverride(ProxyConfig, Runnable)},
+     * {@link ProxyController#clearProxyOverride(Executor, Runnable)}, and
+     * {@link ProxyController#clearProxyOverride(Runnable)}.
+     */
+    PROXY_OVERRIDE(WebViewFeature.PROXY_OVERRIDE);
 
     private static final int NOT_SUPPORTED_BY_FRAMEWORK = -1;
     private final String mFeatureValue;
