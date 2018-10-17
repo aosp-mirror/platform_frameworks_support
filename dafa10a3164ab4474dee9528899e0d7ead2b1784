@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "25b464b2_adc37d3f",
+        "filename": "lifecycle/common-java8/src/main/java/androidx/lifecycle/DefaultLifecycleObserver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-17T19:52:29Z",
+      "side": 1,
+      "message": "forgot this one ?",
+      "parentUuid": "f9cd8c33_8fe44cc1",
+      "range": {
+        "startLine": 30,
+        "startChar": 14,
+        "endLine": 30,
+        "endChar": 29
+      },
+      "revId": "dafa10a3164ab4474dee9528899e0d7ead2b1784",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bbc12044_b02f6f0f",
         "filename": "lifecycle/common-java8/src/main/java/androidx/lifecycle/DefaultLifecycleObserver.java",
         "patchSetId": 2
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "Added tests that annotated methods are ignored. // I silently ignore them, because I want to DefaultLifecycleObserver and LifecycleEventObserver as fast-paths without any additional checks and checks for generics aren\u0027t free.",
       "parentUuid": "bbc12044_b02f6f0f",
+      "range": {
+        "startLine": 32,
+        "startChar": 1,
+        "endLine": 32,
+        "endChar": 2
+      },
+      "revId": "dafa10a3164ab4474dee9528899e0d7ead2b1784",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c0a8e5d4_62d903d1",
+        "filename": "lifecycle/common-java8/src/main/java/androidx/lifecycle/DefaultLifecycleObserver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-17T19:52:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "87366c51_285325a6",
       "range": {
         "startLine": 32,
         "startChar": 1,
