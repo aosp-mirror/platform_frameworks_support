@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "542ccc34_32fbf000",
+        "filename": "lifecycle/common-java8/src/main/java/androidx/lifecycle/DefaultLifecycleObserver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-17T16:28:32Z",
+      "side": 1,
+      "message": "implements both",
+      "range": {
+        "startLine": 26,
+        "startChar": 14,
+        "endLine": 26,
+        "endChar": 29
+      },
+      "revId": "dafa10a3164ab4474dee9528899e0d7ead2b1784",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9af0ca3_e54e66f9",
+        "filename": "lifecycle/common-java8/src/main/java/androidx/lifecycle/DefaultLifecycleObserver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-17T16:28:32Z",
+      "side": 1,
+      "message": "implements both",
+      "range": {
+        "startLine": 30,
+        "startChar": 14,
+        "endLine": 30,
+        "endChar": 29
+      },
+      "revId": "dafa10a3164ab4474dee9528899e0d7ead2b1784",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbc12044_b02f6f0f",
+        "filename": "lifecycle/common-java8/src/main/java/androidx/lifecycle/DefaultLifecycleObserver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-17T16:28:32Z",
+      "side": 1,
+      "message": "do we have a test for this behavior? it would be nice to have so that it does not break in the future.\n\nreplying myself:\nseems like this is the test:\nttps://android-review.googlesource.com/c/platform/frameworks/support/+/792329/2/lifecycle/common/src/test/java/androidx/lifecycle/FullLifecycleObserverTest.java",
+      "range": {
+        "startLine": 32,
+        "startChar": 1,
+        "endLine": 32,
+        "endChar": 2
+      },
+      "revId": "dafa10a3164ab4474dee9528899e0d7ead2b1784",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
