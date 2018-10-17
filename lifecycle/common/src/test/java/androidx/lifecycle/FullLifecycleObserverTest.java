@@ -53,7 +53,7 @@ public class FullLifecycleObserverTest {
     @Test
     public void eachEvent() {
         FullLifecycleObserver obj = mock(FullLifecycleObserver.class);
-        FullLifecycleObserverAdapter observer = new FullLifecycleObserverAdapter(obj);
+        FullLifecycleObserverAdapter observer = new FullLifecycleObserverAdapter(obj, null);
         when(mLifecycle.getCurrentState()).thenReturn(CREATED);
 
         observer.onStateChanged(mOwner, ON_CREATE);
@@ -84,6 +84,87 @@ public class FullLifecycleObserverTest {
         when(mLifecycle.getCurrentState()).thenReturn(INITIALIZED);
         observer.onStateChanged(mOwner, ON_DESTROY);
         inOrder.verify(obj).onDestroy(mOwner);
+        reset(obj);
+    }
+
+    @Test
+    public void fullLifecycleObserverAndLifecycleEventObserver() {
+        class AllObservers implements FullLifecycleObserver, LifecycleEventObserver {
+
+            @Override
+            public void onCreate(LifecycleOwner owner) {
+
+            }
+
+            @Override
+            public void onStart(LifecycleOwner owner) {
+
+            }
+
+            @Override
+            public void onResume(LifecycleOwner owner) {
+
+            }
+
+            @Override
+            public void onPause(LifecycleOwner owner) {
+
+            }
+
+            @Override
+            public void onStop(LifecycleOwner owner) {
+
+            }
+
+            @Override
+            public void onDestroy(LifecycleOwner owner) {
+
+            }
+
+            @Override
+            public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
+
+            }
+        }
+
+        AllObservers obj = mock(AllObservers.class);
+        FullLifecycleObserverAdapter observer = new FullLifecycleObserverAdapter(obj, obj);
+        when(mLifecycle.getCurrentState()).thenReturn(CREATED);
+
+        observer.onStateChanged(mOwner, ON_CREATE);
+        InOrder inOrder = Mockito.inOrder(obj);
+        inOrder.verify(obj).onCreate(mOwner);
+        inOrder.verify(obj).onStateChanged(mOwner, ON_CREATE);
+        reset(obj);
+
+        when(mLifecycle.getCurrentState()).thenReturn(STARTED);
+        observer.onStateChanged(mOwner, ON_START);
+        inOrder.verify(obj).onStart(mOwner);
+        inOrder.verify(obj).onStateChanged(mOwner, ON_START);
+        reset(obj);
+
+        when(mLifecycle.getCurrentState()).thenReturn(RESUMED);
+        observer.onStateChanged(mOwner, ON_RESUME);
+        inOrder.verify(obj).onResume(mOwner);
+        inOrder.verify(obj).onStateChanged(mOwner, ON_RESUME);
+        reset(obj);
+
+        when(mLifecycle.getCurrentState()).thenReturn(STARTED);
+        observer.onStateChanged(mOwner, ON_PAUSE);
+        inOrder.verify(obj).onPause(mOwner);
+        inOrder.verify(obj).onStateChanged(mOwner, ON_PAUSE);
+        reset(obj);
+
+        when(mLifecycle.getCurrentState()).thenReturn(CREATED);
+        observer.onStateChanged(mOwner, ON_STOP);
+        inOrder.verify(obj).onStop(mOwner);
+        inOrder.verify(obj).onStateChanged(mOwner, ON_STOP);
+        reset(obj);
+
+        when(mLifecycle.getCurrentState()).thenReturn(INITIALIZED);
+        observer.onStateChanged(mOwner, ON_DESTROY);
+        inOrder.verify(obj).onDestroy(mOwner);
+        inOrder.verify(obj).onStateChanged(mOwner, ON_DESTROY);
         reset(obj);
     }
 }
