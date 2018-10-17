@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "348756f3_5749016d",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingConfigCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-17T22:06:09Z",
+      "side": 1,
+      "message": "SGTM. Even better if we can define androidx...TracingConfig.CATEGORIES_ALL \u003d android(not-x)...TracingConfig.CATEGORIES_ALL to ensure we code in the correct value.",
+      "parentUuid": "7dde09ab_61f2b2b7",
+      "range": {
+        "startLine": 38,
+        "startChar": 13,
+        "endLine": 38,
+        "endChar": 32
+      },
+      "revId": "b6f8de9dd22a55a9df622779ff55bab35ff283e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "83884c1e_cb59d65d",
         "filename": "webkit/src/main/java/androidx/webkit/TracingConfigCompat.java",
         "patchSetId": 6
@@ -413,6 +437,30 @@
       "side": 1,
       "message": "The name was chosen in consideration if new features will appear in future versions.",
       "parentUuid": "0f696be0_e3fbda79",
+      "range": {
+        "startLine": 241,
+        "startChar": 31,
+        "endLine": 241,
+        "endChar": 61
+      },
+      "revId": "b6f8de9dd22a55a9df622779ff55bab35ff283e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b85b682_d1709eaa",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewFeature.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-17T22:06:09Z",
+      "side": 1,
+      "message": "Right. We have no immediate plans to add future APIs, but wanted to choose the name with that possibility in mind.",
+      "parentUuid": "aa40618a_c4945dc6",
       "range": {
         "startLine": 241,
         "startChar": 31,
