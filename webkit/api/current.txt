@@ -132,6 +132,7 @@ package androidx.webkit {
     field public static final String GET_WEB_VIEW_RENDERER = "GET_WEB_VIEW_RENDERER";
     field public static final String OFF_SCREEN_PRERASTER = "OFF_SCREEN_PRERASTER";
     field public static final String POST_WEB_MESSAGE = "POST_WEB_MESSAGE";
+    field public static final String PROXY_OVERRIDE = "PROXY_OVERRIDE:2";
     field public static final String RECEIVE_HTTP_ERROR = "RECEIVE_HTTP_ERROR";
     field public static final String RECEIVE_WEB_RESOURCE_ERROR = "RECEIVE_WEB_RESOURCE_ERROR";
     field public static final String SAFE_BROWSING_ENABLE = "SAFE_BROWSING_ENABLE";
@@ -159,6 +160,24 @@ package androidx.webkit {
     field public static final String WEB_RESOURCE_ERROR_GET_DESCRIPTION = "WEB_RESOURCE_ERROR_GET_DESCRIPTION";
     field public static final String WEB_RESOURCE_REQUEST_IS_REDIRECT = "WEB_RESOURCE_REQUEST_IS_REDIRECT";
     field public static final String WEB_VIEW_RENDERER_TERMINATE = "WEB_VIEW_RENDERER_TERMINATE";
+  }
+
+  public class WebViewProxyCompat {
+    ctor public WebViewProxyCompat();
+    method @RequiresFeature(name=androidx.webkit.WebViewFeature.PROXY_OVERRIDE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void clearProxyOverride(Runnable?, java.util.concurrent.Executor?);
+    method @RequiresFeature(name=androidx.webkit.WebViewFeature.PROXY_OVERRIDE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void setProxyOverride(androidx.webkit.WebViewProxyCompat.ProxyRules, Runnable?, java.util.concurrent.Executor?);
+    field public static final String HTTP = "http";
+    field public static final String HTTPS = "https";
+  }
+
+  public static class WebViewProxyCompat.ProxyRules {
+    ctor public WebViewProxyCompat.ProxyRules();
+    method public androidx.webkit.WebViewProxyCompat.ProxyRules! addExclusionRule(String);
+    method public androidx.webkit.WebViewProxyCompat.ProxyRules! addRule(String);
+    method public androidx.webkit.WebViewProxyCompat.ProxyRules! addRule(@androidx.webkit.WebViewProxyCompat.ProxyScheme String, String);
+  }
+
+  @StringDef({androidx.webkit.WebViewProxyCompat.HTTP, androidx.webkit.WebViewProxyCompat.HTTPS}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public static @interface WebViewProxyCompat.ProxyScheme {
   }
 
   public abstract class WebViewRenderer {
