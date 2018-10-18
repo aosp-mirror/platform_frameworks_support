@@ -119,6 +119,14 @@ public abstract class PagedListAdapter<T, VH extends RecyclerView.ViewHolder>
             PagedListAdapter.this.onCurrentListChanged(previousList, currentList);
         }
     };
+    private final PagedList.LoadingState.Listener mLoadingStateListener =
+            new PagedList.LoadingState.Listener() {
+                @Override
+                public void onLoadingStateChanged(@NonNull PagedList.LoadingType type,
+                        @NonNull PagedList.LoadingState state) {
+                    PagedListAdapter.this.onLoadingStateChanged(type, state);
+                }
+            };
 
     /**
      * Creates a PagedListAdapter with default threading and
@@ -133,11 +141,13 @@ public abstract class PagedListAdapter<T, VH extends RecyclerView.ViewHolder>
     protected PagedListAdapter(@NonNull DiffUtil.ItemCallback<T> diffCallback) {
         mDiffer = new AsyncPagedListDiffer<>(this, diffCallback);
         mDiffer.addPagedListListener(mListener);
+        mDiffer.addLoadingStateListener(mLoadingStateListener);
     }
 
     protected PagedListAdapter(@NonNull AsyncDifferConfig<T> config) {
         mDiffer = new AsyncPagedListDiffer<>(new AdapterListUpdateCallback(this), config);
         mDiffer.addPagedListListener(mListener);
+        mDiffer.addLoadingStateListener(mLoadingStateListener);
     }
 
     /**
@@ -240,5 +250,41 @@ public abstract class PagedListAdapter<T, VH extends RecyclerView.ViewHolder>
      */
     public void onCurrentListChanged(
             @Nullable PagedList<T> previousList, @Nullable PagedList<T> currentList) {
+    }
+
+
+    /**
+     * Called when the LoadingState for a particular type of load (Start, End, Refresh) has
+     * changed.
+     * <p>
+     * Refresh events can be used to drive a {@code SwipeRefreshLayout}, or Start/End events
+     * can be used to drive loading spinner items in the Adapter.
+     *
+     * @param type Type of load - Start, End, or Refresh.
+     * @param state State of load - IDLE, LOADING, or a LoadingState representing an error.
+     */
+    public void onLoadingStateChanged(@NonNull PagedList.LoadingType type,
+            @NonNull PagedList.LoadingState state) {
+    }
+
+    /**
+     * Add a LoadingState.Listener to observe the loading state of the current PagedList.
+     *
+     * @param listener Listener to receive updates.
+     *
+     * @see #removeLoadingStateListener(PagedList.LoadingState.Listener)
+     */
+    public void addLoadingStateListener(PagedList.LoadingState.Listener listener) {
+        mDiffer.addLoadingStateListener(listener);
+    }
+
+    /**
+     * Remove a previously registered LoadingState.Listener.
+     *
+     * @param listener Previously registered listener.
+     * @see #addLoadingStateListener(PagedList.LoadingState.Listener)
+     */
+    public void removeLoadingStateListener(PagedList.LoadingState.Listener listener) {
+        mDiffer.removeLoadingStateListListener(listener);
     }
 }
