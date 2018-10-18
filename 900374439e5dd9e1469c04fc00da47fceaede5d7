@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b1b0912_e0a4b69c",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/MediaController2ProviderService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-18T08:39:38Z",
+      "side": 1,
+      "message": "Is it a correct name even the case of size \u003d 1?",
+      "range": {
+        "startLine": 185,
+        "startChar": 20,
+        "endLine": 185,
+        "endChar": 35
+      },
+      "revId": "900374439e5dd9e1469c04fc00da47fceaede5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fda46925_696b94ad",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/RemoteMediaSession2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-18T08:39:38Z",
+      "side": 1,
+      "message": "What is the definition of \"LongPlaylist\"?",
+      "range": {
+        "startLine": 388,
+        "startChar": 20,
+        "endLine": 388,
+        "endChar": 35
+      },
+      "revId": "900374439e5dd9e1469c04fc00da47fceaede5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03740d2a_2d196c3a",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/tests/MediaControllerCompatCallbackTestWithMediaSession2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-18T08:39:38Z",
+      "side": 1,
+      "message": "We may need to discuss more about the behavior under API 21.",
+      "range": {
+        "startLine": 143,
+        "startChar": 15,
+        "endLine": 143,
+        "endChar": 78
+      },
+      "revId": "900374439e5dd9e1469c04fc00da47fceaede5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bfcd884_04ac1446",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-18T08:39:38Z",
+      "side": 1,
+      "message": "Need to discuss more.",
+      "range": {
+        "startLine": 142,
+        "startChar": 12,
+        "endLine": 142,
+        "endChar": 78
+      },
+      "revId": "900374439e5dd9e1469c04fc00da47fceaede5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
