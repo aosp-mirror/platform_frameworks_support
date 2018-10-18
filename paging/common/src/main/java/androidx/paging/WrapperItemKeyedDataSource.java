@@ -81,6 +81,11 @@ class WrapperItemKeyedDataSource<K, A, B> extends ItemKeyedDataSource<K, B> {
             public void onResult(@NonNull List<A> data) {
                 callback.onResult(convertWithStashedKeys(data));
             }
+
+            @Override
+            public void onError(@NonNull Error error) {
+                callback.onError(error);
+            }
         });
     }
 
@@ -92,6 +97,11 @@ class WrapperItemKeyedDataSource<K, A, B> extends ItemKeyedDataSource<K, B> {
             public void onResult(@NonNull List<A> data) {
                 callback.onResult(convertWithStashedKeys(data));
             }
+
+            @Override
+            public void onError(@NonNull Error error) {
+                callback.onError(error);
+            }
         });
     }
 
@@ -102,6 +112,11 @@ class WrapperItemKeyedDataSource<K, A, B> extends ItemKeyedDataSource<K, B> {
             @Override
             public void onResult(@NonNull List<A> data) {
                 callback.onResult(convertWithStashedKeys(data));
+            }
+
+            @Override
+            public void onError(@NonNull Error error) {
+                callback.onError(error);
             }
         });
     }
