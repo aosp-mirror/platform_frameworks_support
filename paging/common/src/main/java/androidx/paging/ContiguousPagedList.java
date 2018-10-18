@@ -33,12 +33,17 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
     final ContiguousDataSource<K, V> mDataSource;
 
     @Retention(SOURCE)
-    @IntDef({READY_TO_FETCH, FETCHING, DONE_FETCHING})
+    @IntDef({READY_TO_FETCH, FETCHING, ERROR, DONE_FETCHING})
     @interface FetchState {}
 
     private static final int READY_TO_FETCH = 0;
     private static final int FETCHING = 1;
-    private static final int DONE_FETCHING = 2;
+    private static final int ERROR = 2;
+    private static final int DONE_FETCHING = 3;
+
+    @FetchState
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    int mInitialLoadState = READY_TO_FETCH;
 
     @FetchState
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -80,6 +85,8 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
             if (resultType == PageResult.INIT) {
                 mStorage.init(pageResult.leadingNulls, page, pageResult.trailingNulls,
                         pageResult.positionOffset, ContiguousPagedList.this);
+                // TODO: signal that this list is ready to be dispatched to observer
+
                 if (mLastLoad == LAST_LOAD_UNSPECIFIED) {
                     // Because the ContiguousPagedList wasn't initialized with a last load position,
                     // initialize it to the middle of the initial load
@@ -100,6 +107,7 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
                         // don't append this data, drop it
                         mAppendItemsRequested = 0;
                         mAppendWorkerState = READY_TO_FETCH;
+                        onCurrentStateChanged(LoadType.End, LoadState.IDLE);
                     } else {
                         mStorage.appendPage(page, ContiguousPagedList.this);
                     }
@@ -108,6 +116,7 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
                         // don't append this data, drop it
                         mPrependItemsRequested = 0;
                         mPrependWorkerState = READY_TO_FETCH;
+                        onCurrentStateChanged(LoadType.Start, LoadState.IDLE);
                     } else {
                         mStorage.prependPage(page, ContiguousPagedList.this);
                     }
@@ -116,6 +125,9 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
                 }
 
                 if (mShouldTrim) {
+                    // Try and trim, but only if the side being trimmed isn't actually fetching.
+                    // For simplicity (both of impl here, and contract w/ DataSource) we don't want
+                    // simultaneous fetches in same direction.
                     if (trimFromFront) {
                         if (mPrependWorkerState != FETCHING) {
                             if (mStorage.trimFromFront(
@@ -125,6 +137,7 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
                                     ContiguousPagedList.this)) {
                                 // trimmed from front, ensure we can fetch in that dir
                                 mPrependWorkerState = READY_TO_FETCH;
+                                onCurrentStateChanged(LoadType.Start, LoadState.IDLE);
                             }
                         }
                     } else {
@@ -135,6 +148,7 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
                                     mRequiredRemainder,
                                     ContiguousPagedList.this)) {
                                 mAppendWorkerState = READY_TO_FETCH;
+                                onCurrentStateChanged(LoadType.End, LoadState.IDLE);
                             }
                         }
                     }
@@ -152,7 +166,38 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
                 deferBoundaryCallbacks(deferEmpty, deferBegin, deferEnd);
             }
         }
+
+        @Override
+        public void onPageError(@PageResult.ResultType int resultType,
+                @NonNull Throwable throwable, boolean retryable) {
+            LoadState errorState = LoadState.fromError(throwable, retryable);
+            if (resultType == PageResult.PREPEND) {
+                mPrependWorkerState = ERROR;
+                onCurrentStateChanged(LoadType.Start, errorState);
+            } else if (resultType == PageResult.APPEND) {
+                mAppendWorkerState = ERROR;
+                onCurrentStateChanged(LoadType.End, errorState);
+            } else if (resultType == PageResult.INIT) {
+                mInitialLoadState = ERROR;
+                // TODO: pass signal through to *previous* list
+            } else {
+                throw new IllegalStateException("TODO");
+            }
+        }
     };
+
+    @Override
+    public void retry() {
+        super.retry();
+        if (mAppendWorkerState == ERROR) {
+            mAppendWorkerState = READY_TO_FETCH;
+            scheduleAppend();
+        }
+        if (mPrependWorkerState == ERROR) {
+            mPrependWorkerState = READY_TO_FETCH;
+            schedulePrepend();
+        }
+    }
 
     static final int LAST_LOAD_UNSPECIFIED = -1;
 
@@ -162,7 +207,7 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
             @NonNull Executor backgroundThreadExecutor,
             @Nullable BoundaryCallback<V> boundaryCallback,
             @NonNull Config config,
-            final @Nullable K key,
+            @Nullable K key,
             int lastLoad) {
         super(new PagedStorage<V>(), mainThreadExecutor, backgroundThreadExecutor,
                 boundaryCallback, config);
@@ -267,6 +312,7 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
             return;
         }
         mPrependWorkerState = FETCHING;
+        onCurrentStateChanged(LoadType.Start, LoadState.LOADING);
 
         final int position = mStorage.getLeadingNullCount() + mStorage.getPositionOffset();
 
@@ -294,6 +340,7 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
             return;
         }
         mAppendWorkerState = FETCHING;
+        onCurrentStateChanged(LoadType.End, LoadState.LOADING);
 
         final int position = mStorage.getLeadingNullCount()
                 + mStorage.getStorageCount() - 1 + mStorage.getPositionOffset();
@@ -351,6 +398,8 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
         if (mPrependItemsRequested > 0) {
             // not done prepending, keep going
             schedulePrepend();
+        } else {
+            onCurrentStateChanged(LoadType.Start, LoadState.IDLE);
         }
 
         // finally dispatch callbacks, after prepend may have already been scheduled
@@ -364,6 +413,7 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
     @Override
     public void onEmptyPrepend() {
         mPrependWorkerState = DONE_FETCHING;
+        onCurrentStateChanged(LoadType.Start, LoadState.IDLE);
     }
 
     @MainThread
@@ -375,6 +425,8 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
         if (mAppendItemsRequested > 0) {
             // not done appending, keep going
             scheduleAppend();
+        } else {
+            onCurrentStateChanged(LoadType.End, LoadState.IDLE);
         }
 
         // finally dispatch callbacks, after append may have already been scheduled
@@ -386,6 +438,7 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
     @Override
     public void onEmptyAppend() {
         mAppendWorkerState = DONE_FETCHING;
+        onCurrentStateChanged(LoadType.End, LoadState.IDLE);
     }
 
     @MainThread
