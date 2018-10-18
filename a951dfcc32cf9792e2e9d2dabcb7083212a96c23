@@ -120,6 +120,30 @@
       "revId": "a951dfcc32cf9792e2e9d2dabcb7083212a96c23",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "20ac764a_c096b6d9",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-10-18T17:47:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c3d140be_7e3f3272",
+      "range": {
+        "startLine": 101,
+        "startChar": 17,
+        "endLine": 101,
+        "endChar": 32
+      },
+      "revId": "a951dfcc32cf9792e2e9d2dabcb7083212a96c23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
