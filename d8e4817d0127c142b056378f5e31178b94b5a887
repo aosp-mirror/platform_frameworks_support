@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ea1ae29_4b0dd62a",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-18T21:59:49Z",
+      "side": 1,
+      "message": "Here and below (at least the next two methods), add a \u003cp\u003e on this line.",
+      "range": {
+        "startLine": 266,
+        "startChar": 5,
+        "endLine": 266,
+        "endChar": 6
+      },
+      "revId": "d8e4817d0127c142b056378f5e31178b94b5a887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1d6c61b_a69af51e",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-18T21:59:49Z",
+      "side": 1,
+      "message": "Here and for the other methods: add \"; see below for more information\"",
+      "range": {
+        "startLine": 270,
+        "startChar": 33,
+        "endLine": 270,
+        "endChar": 62
+      },
+      "revId": "d8e4817d0127c142b056378f5e31178b94b5a887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2028014e_f6308fd9",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-18T21:59:49Z",
+      "side": 1,
+      "message": "the.  Same below.",
+      "range": {
+        "startLine": 273,
+        "startChar": 94,
+        "endLine": 273,
+        "endChar": 96
+      },
+      "revId": "d8e4817d0127c142b056378f5e31178b94b5a887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
