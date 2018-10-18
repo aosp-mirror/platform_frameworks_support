@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9190d3d_dde29a0d",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-18T04:43:01Z",
+      "side": 1,
+      "message": "Let\u0027s load the image in the background.",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 54
+      },
+      "revId": "2a63f37c13ee6766ce1a29c5a340a5905b65cc61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
