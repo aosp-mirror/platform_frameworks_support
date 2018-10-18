@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "085e5e7f_f4518f39",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-10-18T18:53:55Z",
+      "side": 1,
+      "message": "We try to include the bug #\u0027s in CL description.\n\nIf you do \"Fixes: \u003cbug number\u003e\" it\u0027ll automatically close the issue once the CL is merged and note the CL on the bug. Fixes is probably appropriate for this case.\n\nIf you do \"Bug: \u003cbug number\u003e it\u0027ll update the bug and note the CL once its merged, but it won\u0027t close the bug.",
+      "revId": "008a081f9646a1961c20152a7e7146b0a43cb0b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7a641a3e_220e9f4e",
         "filename": "slices/view/src/main/java/androidx/slice/widget/SliceViewUtil.java",
         "patchSetId": 1
@@ -13,6 +30,24 @@
       "writtenOn": "2018-10-18T18:25:29Z",
       "side": 1,
       "message": "This is a random drive-by cleanup; I assume this was refactored from getColorAccent and never renamed.",
+      "revId": "008a081f9646a1961c20152a7e7146b0a43cb0b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2a3db14_88d3adfa",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceViewUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-10-18T18:53:55Z",
+      "side": 1,
+      "message": "Thanks :)",
+      "parentUuid": "7a641a3e_220e9f4e",
       "revId": "008a081f9646a1961c20152a7e7146b0a43cb0b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
