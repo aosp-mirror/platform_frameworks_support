@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01ae41c6_c571a89a",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-18T18:57:19Z",
+      "side": 0,
+      "message": "If annotation is not needed anymore, please make the variables private.",
+      "range": {
+        "startLine": 447,
+        "startChar": 4,
+        "endLine": 455,
+        "endChar": 60
+      },
+      "revId": "500b93603e2e74db015ac067ffa33fac4784f24b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

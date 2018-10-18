@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "364ede6a_2b2f33b5",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-18T18:57:19Z",
+      "side": 1,
+      "message": "as mentioned earlier, this might cause an issue if the underlying player starts using conflicting values. Please use separate variable in PendingCommand denoting this case. Or, making the type \u0027Integer\u0027 and using null for this purpose.",
+      "range": {
+        "startLine": 444,
+        "startChar": 29,
+        "endLine": 444,
+        "endChar": 59
+      },
+      "revId": "c9ed78fa429581dbe1a772bf16d3b1b83f80dc96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c916e93_afd0f77d",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-18T18:57:19Z",
+      "side": 1,
+      "message": "not used?",
+      "range": {
+        "startLine": 576,
+        "startChar": 7,
+        "endLine": 578,
+        "endChar": 9
+      },
+      "revId": "c9ed78fa429581dbe1a772bf16d3b1b83f80dc96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfeca277_98a4c7e5",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-18T18:57:19Z",
+      "side": 1,
+      "message": "It feels that this class is being used for two different purpose. 1. for return value for the operations and 2. Runnable to keep the operations for MP2. I think having separate classes looks more clear.",
+      "range": {
+        "startLine": 580,
+        "startChar": 8,
+        "endLine": 580,
+        "endChar": 24
+      },
+      "revId": "c9ed78fa429581dbe1a772bf16d3b1b83f80dc96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41ef8a9c_cc595656",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-18T18:57:19Z",
+      "side": 1,
+      "message": "I also see the canceling chain in CombindedCommandResultFuture. Do you need both?",
+      "range": {
+        "startLine": 649,
+        "startChar": 12,
+        "endLine": 649,
+        "endChar": 59
+      },
+      "revId": "c9ed78fa429581dbe1a772bf16d3b1b83f80dc96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ea5dc1d_b9314731",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-18T18:57:19Z",
+      "side": 1,
+      "message": "why do we need to add in \"front\"?",
+      "range": {
+        "startLine": 682,
+        "startChar": 45,
+        "endLine": 682,
+        "endChar": 51
+      },
+      "revId": "c9ed78fa429581dbe1a772bf16d3b1b83f80dc96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
