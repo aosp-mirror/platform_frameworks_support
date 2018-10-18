@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a641a3e_220e9f4e",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceViewUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-10-18T18:25:29Z",
+      "side": 1,
+      "message": "This is a random drive-by cleanup; I assume this was refactored from getColorAccent and never renamed.",
+      "revId": "008a081f9646a1961c20152a7e7146b0a43cb0b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
