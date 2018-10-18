@@ -79,6 +79,12 @@ class TiledPagedList<T> extends PagedList<T>
                 deferBoundaryCallbacks(deferEmpty, deferBegin, deferEnd);
             }
         }
+
+
+        @Override
+        public void onPageError(int type, @NonNull DataSource.Error error) {
+            throw new IllegalStateException("Tiled error handling not yet implemented");
+        }
     };
 
     @WorkerThread
