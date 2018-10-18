@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8be3c11f_900c6f49",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-18T07:27:29Z",
+      "side": 1,
+      "message": "You can remove this.",
+      "range": {
+        "startLine": 348,
+        "startChar": 0,
+        "endLine": 349,
+        "endChar": 22
+      },
+      "revId": "954442590f88301e9835f20224146a3613264161",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc206945_44a1a395",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-18T07:27:29Z",
+      "side": 1,
+      "message": "What about followings?\n            case CONNECTION_STATE_CONNECTING:\n                resId \u003d R.string.mr_cast_button_connecting;\n                break;\n            case CONNECTION_STATE_CONNECTED:\n                resId \u003d R.string.mr_cast_button_connected;\n                break;\n            default:\n                resId \u003d R.string.mr_cast_button_disconnected;\n                break;",
+      "range": {
+        "startLine": 577,
+        "startChar": 0,
+        "endLine": 586,
+        "endChar": 22
+      },
+      "revId": "954442590f88301e9835f20224146a3613264161",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
