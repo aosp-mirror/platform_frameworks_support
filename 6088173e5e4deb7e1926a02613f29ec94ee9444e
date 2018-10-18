@@ -52,6 +52,24 @@
       "revId": "6088173e5e4deb7e1926a02613f29ec94ee9444e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4451662f_26fa32c7",
+        "filename": "dynamic-animation/ktx/src/main/java/androidx/dynamicanimation/animation/DynamicAnimation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1375271
+      },
+      "writtenOn": "2018-10-18T05:39:18Z",
+      "side": 1,
+      "message": "Okay, I will update my PR then.",
+      "parentUuid": "15a6988e_92c8a9fc",
+      "revId": "6088173e5e4deb7e1926a02613f29ec94ee9444e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
