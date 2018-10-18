@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f7fc05b_f62ef896",
+        "filename": "navigation/common/src/test/java/androidx/navigation/NavDestinationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-18T10:55:01Z",
+      "side": 1,
+      "message": "presubmit failed because clazz.name is a String, but String::class.java is Class",
+      "range": {
+        "startLine": 49,
+        "startChar": 7,
+        "endLine": 49,
+        "endChar": 60
+      },
+      "revId": "dac661de9cee2b748948b029f54499925a410f6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
