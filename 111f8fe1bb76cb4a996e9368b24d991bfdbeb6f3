@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebceb27e_1fce0534",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-18T01:45:22Z",
+      "side": 1,
+      "message": "What about mRemoteIndicatorResIdToLoad?",
+      "range": {
+        "startLine": 100,
+        "startChar": 16,
+        "endLine": 100,
+        "endChar": 37
+      },
+      "revId": "111f8fe1bb76cb4a996e9368b24d991bfdbeb6f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a285972_46eba3ab",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-18T01:45:22Z",
+      "side": 1,
+      "message": "What about having \"int mConnectionStatus\" instead?",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 34
+      },
+      "revId": "111f8fe1bb76cb4a996e9368b24d991bfdbeb6f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76881ae8_cbc380dc",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-18T01:45:22Z",
+      "side": 1,
+      "message": "what about loadRemoteIndicatorIfNeeded?",
+      "range": {
+        "startLine": 324,
+        "startChar": 17,
+        "endLine": 324,
+        "endChar": 40
+      },
+      "revId": "111f8fe1bb76cb4a996e9368b24d991bfdbeb6f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "234136f4_67515424",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-18T01:45:22Z",
+      "side": 1,
+      "message": "You can check isConnected only.",
+      "range": {
+        "startLine": 547,
+        "startChar": 23,
+        "endLine": 547,
+        "endChar": 51
+      },
+      "revId": "111f8fe1bb76cb4a996e9368b24d991bfdbeb6f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
