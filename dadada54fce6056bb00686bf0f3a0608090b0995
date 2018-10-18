@@ -16,6 +16,24 @@
       "revId": "dadada54fce6056bb00686bf0f3a0608090b0995",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99a6a1b1_517b7d90",
+        "filename": "lifecycle/livedata/src/main/java/androidx/lifecycle/FutureMapTransformation.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-18T16:35:16Z",
+      "side": 1,
+      "message": "we do it at the end of this function.",
+      "parentUuid": "616e731e_03d9fb02",
+      "revId": "dadada54fce6056bb00686bf0f3a0608090b0995",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
