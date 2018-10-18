@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e7ab089_ee67668d",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-18T16:35:44Z",
+      "side": 1,
+      "message": "So concurrency is very unstructured. For example mShortcutsMap is confined to one thread and but you still need a lock to access this map, it is a signal that something is wrong. Another sign that I already told you is that weird waitForBla method. So let\u0027s start structuring it. \nRequirements:\n1. addShortcuts should be possible from any thread without blocking it (btw is it a requirement? or we can it could be a blocking call, so it should just marked as @WorkerThread?, if it is possible then we don\u0027t need mCacheUpdateService) \n2. getShortcuts should be linear to all previous operations (at an addition happened and after that (happen before edge) getShortcut happens, added shortcuts should be visible)\n\nThen let\u0027s restructure your code in classes:\n class ShortcutInfoThreadingProxy // find better name {\n      // threadpoolexecutor kills its thread after timeout. it should have only 1 thread\n      // strictly so tasks are strictly ordered. \n      final ExecutorService mCacheUpdateService \u003d new ThreadPoolExecutor(...)\n      // see below what it is. \n      final ThreadConfinedShortcutInfoCompatSaver mSaver \u003d  \n      void addShortcuts(...) {\n          mCacheUpdateService.submit(...)\n      }\n   \n      List\u003cShortcutInfo\u003e getShortcuts {\n          // we use a fact that tasks are strictly executed one after another \n          return mCacheUpdateService.submit(new GetShortcutsCallable()).get()\n      }      \n } \n\n // so this class operates with the map of shortcurs, but assumes, that all its methods \n // are called on the one thread\n class ThreadConfinedShortcutInfoCompatSaver {\n    final ExecutorService ioExecutor \u003d ...\n    final mShortcutsMap \u003d ...\n    void addShortcuts(newShortcuts) {\n        // no locks\n        mShortcutsMap.addAll(newShortcuts)\n    }\n }",
+      "range": {
+        "startLine": 95,
+        "startChar": 41,
+        "endLine": 95,
+        "endChar": 54
+      },
+      "revId": "fb659417e9cecae0fa718a4463d2e342234a0fcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6af5e203_e7ea4153",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-18T16:35:44Z",
+      "side": 1,
+      "message": "properly cancel operation, instead of mutating object",
+      "range": {
+        "startLine": 240,
+        "startChar": 41,
+        "endLine": 240,
+        "endChar": 58
+      },
+      "revId": "fb659417e9cecae0fa718a4463d2e342234a0fcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

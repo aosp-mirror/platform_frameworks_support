@@ -119,6 +119,24 @@
     },
     {
       "key": {
+        "uuid": "df804dd9_c3dbda9c",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-18T16:35:44Z",
+      "side": 1,
+      "message": "Ok, let it be singleton, however we\u0027ll kill threads, see my comments on the new patchset",
+      "parentUuid": "2198bc08_2b6729ba",
+      "revId": "387e4a95a0b921d1ec7d53c14be0ac248dc26cc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39f837cf_25c88a24",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 32
