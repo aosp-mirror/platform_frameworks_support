@@ -70,6 +70,24 @@
       "revId": "6088173e5e4deb7e1926a02613f29ec94ee9444e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab0fb3cf_34d26dd4",
+        "filename": "dynamic-animation/ktx/src/main/java/androidx/dynamicanimation/animation/DynamicAnimation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1375271
+      },
+      "writtenOn": "2018-10-18T06:45:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4451662f_26fa32c7",
+      "revId": "6088173e5e4deb7e1926a02613f29ec94ee9444e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
