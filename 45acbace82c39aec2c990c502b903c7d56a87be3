@@ -71,6 +71,30 @@
       "revId": "45acbace82c39aec2c990c502b903c7d56a87be3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a5784e3_2322e0cc",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-10-18T17:50:55Z",
+      "side": 1,
+      "message": "Nice!  Very easy to comprehend!",
+      "parentUuid": "479b4f12_f8d38f93",
+      "range": {
+        "startLine": 391,
+        "startChar": 12,
+        "endLine": 391,
+        "endChar": 93
+      },
+      "revId": "45acbace82c39aec2c990c502b903c7d56a87be3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
