@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "bdac887e_8d8c437a",
+        "filename": "lifecycle/common-java8/src/main/java/androidx/lifecycle/DefaultLifecycleObserver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-18T10:44:42Z",
+      "side": 1,
+      "message": "rephrased",
+      "parentUuid": "25b464b2_adc37d3f",
+      "range": {
+        "startLine": 30,
+        "startChar": 14,
+        "endLine": 30,
+        "endChar": 29
+      },
+      "revId": "dafa10a3164ab4474dee9528899e0d7ead2b1784",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbc12044_b02f6f0f",
         "filename": "lifecycle/common-java8/src/main/java/androidx/lifecycle/DefaultLifecycleObserver.java",
         "patchSetId": 2
