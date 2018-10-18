@@ -205,6 +205,20 @@ public abstract class PageKeyedDataSource<Key, Value> extends ContiguousDataSour
          */
         public abstract void onResult(@NonNull List<Value> data, @Nullable Key previousPageKey,
                 @Nullable Key nextPageKey);
+
+        /**
+         * Called to report an error from a DataSource.
+         * <p>
+         * Call this method to report an error from
+         * {@link #loadInitial(LoadInitialParams, LoadInitialCallback)}.
+         *
+         * @param error The error that occurred during loading.
+         */
+        public void onError(@NonNull Error error) {
+            // TODO: remove default implementation in 3.0
+            throw new IllegalStateException(
+                    "You must implement onError if implementing your own load callback");
+        }
     }
 
     /**
@@ -244,6 +258,21 @@ public abstract class PageKeyedDataSource<Key, Value> extends ContiguousDataSour
          *                        no more pages to load in the current load direction.
          */
         public abstract void onResult(@NonNull List<Value> data, @Nullable Key adjacentPageKey);
+
+        /**
+         * Called to report an error from a DataSource.
+         * <p>
+         * Call this method to report an error from your PageKeyedDataSource's
+         * {@link #loadBefore(LoadParams, LoadCallback)} and
+         * {@link #loadAfter(LoadParams, LoadCallback)} methods.
+         *
+         * @param error The error that occurred during loading.
+         */
+        public void onError(@NonNull Error error) {
+            // TODO: remove default implementation in 3.0
+            throw new IllegalStateException(
+                    "You must implement onError if implementing your own load callback");
+        }
     }
 
     static class LoadInitialCallbackImpl<Key, Value> extends LoadInitialCallback<Key, Value> {
@@ -285,6 +314,11 @@ public abstract class PageKeyedDataSource<Key, Value> extends ContiguousDataSour
                 mCallbackHelper.dispatchResultToReceiver(new PageResult<>(data, 0, 0, 0));
             }
         }
+
+        @Override
+        public void onError(@NonNull Error error) {
+            mCallbackHelper.dispatchErrorToReceiver(error);
+        }
     }
 
     static class LoadCallbackImpl<Key, Value> extends LoadCallback<Key, Value> {
@@ -308,6 +342,11 @@ public abstract class PageKeyedDataSource<Key, Value> extends ContiguousDataSour
                 }
                 mCallbackHelper.dispatchResultToReceiver(new PageResult<>(data, 0, 0, 0));
             }
+        }
+
+        @Override
+        public void onError(@NonNull Error error) {
+            mCallbackHelper.dispatchErrorToReceiver(error);
         }
     }
 
