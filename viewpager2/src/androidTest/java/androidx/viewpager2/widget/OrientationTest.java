@@ -17,8 +17,8 @@
 package androidx.viewpager2.widget;
 
 import static androidx.core.util.Preconditions.checkNotNull;
-import static androidx.viewpager2.widget.ViewPager2.Orientation.HORIZONTAL;
-import static androidx.viewpager2.widget.ViewPager2.Orientation.VERTICAL;
+import static androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL;
+import static androidx.viewpager2.widget.ViewPager2.ORIENTATION_VERTICAL;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
@@ -43,34 +43,34 @@ public class OrientationTest {
     @Test
     public void test_orientation_noAttrs() {
         ViewPager2 viewPager = new ViewPager2(InstrumentationRegistry.getContext());
-        assertThat(viewPager.getOrientation(), equalTo(HORIZONTAL));
+        assertThat(viewPager.getOrientation(), equalTo(ORIENTATION_HORIZONTAL));
     }
 
     @Test
     public void test_orientation_nullAttrs() {
         ViewPager2 viewPager = new ViewPager2(InstrumentationRegistry.getContext(), null);
-        assertThat(viewPager.getOrientation(), equalTo(HORIZONTAL));
+        assertThat(viewPager.getOrientation(), equalTo(ORIENTATION_HORIZONTAL));
     }
 
     @Test
     public void test_orientation_default() {
-        assertOrientationCorrect(R.layout.orientation_default, HORIZONTAL);
+        assertOrientationCorrect(R.layout.orientation_default, ORIENTATION_HORIZONTAL);
     }
 
     @Test
     public void test_orientation_horizontal() {
-        assertOrientationCorrect(R.layout.orientation_horizontal, HORIZONTAL);
+        assertOrientationCorrect(R.layout.orientation_horizontal, ORIENTATION_HORIZONTAL);
     }
 
     @Test
     public void test_orientation_vertical() {
-        assertOrientationCorrect(R.layout.orientation_vertical, VERTICAL);
+        assertOrientationCorrect(R.layout.orientation_vertical, ORIENTATION_VERTICAL);
     }
 
     @Test
     public void test_valuesInSync() {
-        assertThat(ViewPager2.Orientation.HORIZONTAL, allOf(is(0), is(RecyclerView.HORIZONTAL)));
-        assertThat(ViewPager2.Orientation.VERTICAL, allOf(is(1), is(RecyclerView.VERTICAL)));
+        assertThat(ORIENTATION_HORIZONTAL, allOf(is(0), is(RecyclerView.HORIZONTAL)));
+        assertThat(ORIENTATION_VERTICAL, allOf(is(1), is(RecyclerView.VERTICAL)));
     }
 
     private void assertOrientationCorrect(int layoutId, int expectedOrientation) {

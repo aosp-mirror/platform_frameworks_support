@@ -39,6 +39,17 @@ import java.lang.annotation.Retention;
  */
 @RestrictTo(LIBRARY)
 public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
+    @Retention(SOURCE)
+    @IntDef({STATE_IDLE, STATE_IN_PROGRESS_MANUAL_DRAG, STATE_IN_PROGRESS_SMOOTH_SCROLL,
+            STATE_IN_PROGRESS_IMMEDIATE_SCROLL})
+    private @interface AdapterState {
+    }
+
+    private static final int STATE_IDLE = 0;
+    private static final int STATE_IN_PROGRESS_MANUAL_DRAG = 1;
+    private static final int STATE_IN_PROGRESS_SMOOTH_SCROLL = 2;
+    private static final int STATE_IN_PROGRESS_IMMEDIATE_SCROLL = 3;
+
     private static final int NO_TARGET = -1;
 
     private OnPageChangeListener mListener;
@@ -60,8 +71,8 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
     }
 
     private void resetState() {
-        mAdapterState = AdapterState.IDLE;
-        mScrollState = ViewPager2.ScrollState.IDLE;
+        mAdapterState = STATE_IDLE;
+        mScrollState = ViewPager2.SCROLL_STATE_IDLE;
         mScrollValues.reset();
         mInitialPosition = NO_TARGET;
         mTarget = NO_TARGET;
@@ -69,44 +80,44 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         mScrollHappened = false;
     }
 
-    /**
-     * This method only deals with some cases of {@link AdapterState} transitions. The rest of
+    /*
+     * This method only deals with some cases of state transitions. The rest of
      * the state transition implementation is in the {@link #onScrolled} method.
      */
     @Override
     public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-        if (mAdapterState == AdapterState.IDLE && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-            mAdapterState = AdapterState.IN_PROGRESS_MANUAL_DRAG;
-            dispatchStateChanged(ViewPager2.ScrollState.DRAGGING);
+        if (mAdapterState == STATE_IDLE && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+            mAdapterState = STATE_IN_PROGRESS_MANUAL_DRAG;
+            dispatchStateChanged(ViewPager2.SCROLL_STATE_DRAGGING);
             mInitialPosition = getPosition();
             return;
         }
 
-        if (mAdapterState == AdapterState.IN_PROGRESS_MANUAL_DRAG
+        if (mAdapterState == STATE_IN_PROGRESS_MANUAL_DRAG
                 && newState == RecyclerView.SCROLL_STATE_SETTLING) {
             if (!mScrollHappened) {
                 // Special case of dragging before first (or beyond last) page
                 dispatchScrolled(getPosition(), 0f, 0);
             } else {
-                dispatchStateChanged(ViewPager2.ScrollState.SETTLING);
+                dispatchStateChanged(ViewPager2.SCROLL_STATE_SETTLING);
                 mDispatchSelected = true;
             }
             return;
         }
 
-        if (mAdapterState == AdapterState.IN_PROGRESS_MANUAL_DRAG
+        if (mAdapterState == STATE_IN_PROGRESS_MANUAL_DRAG
                 && newState == RecyclerView.SCROLL_STATE_IDLE) {
             if (!mScrollHappened) {
                 // Special case of dragging before first (or beyond last) page
-                dispatchStateChanged(ViewPager2.ScrollState.IDLE);
+                dispatchStateChanged(ViewPager2.SCROLL_STATE_IDLE);
                 resetState();
             }
             return;
         }
     }
 
-    /**
-     * This method only deals with some cases of {@link AdapterState} transitions. The rest of
+    /*
+     * This method only deals with some cases of state transitions. The rest of
      * the state transition implementation is in the {@link #onScrollStateChanged} method.
      */
     @Override
@@ -125,7 +136,7 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         dispatchScrolled(values.mPosition, values.mOffset, values.mOffsetPx);
 
         if ((values.mPosition == mTarget || mTarget == NO_TARGET) && values.mOffsetPx == 0) {
-            dispatchStateChanged(ViewPager2.ScrollState.IDLE);
+            dispatchStateChanged(ViewPager2.SCROLL_STATE_IDLE);
             resetState();
         }
     }
@@ -146,7 +157,7 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
             return values.reset();
         }
 
-        boolean isHorizontal = mLayoutManager.getOrientation() == ViewPager2.Orientation.HORIZONTAL;
+        boolean isHorizontal = mLayoutManager.getOrientation() == ViewPager2.ORIENTATION_HORIZONTAL;
         int start, sizePx;
         if (isHorizontal) {
             start = firstVisibleView.getLeft();
@@ -170,10 +181,10 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
      */
     public void notifyProgrammaticScroll(int target, boolean smooth) {
         mAdapterState = smooth
-                ? AdapterState.IN_PROGRESS_SMOOTH_SCROLL
-                : AdapterState.IN_PROGRESS_IMMEDIATE_SCROLL;
+                ? STATE_IN_PROGRESS_SMOOTH_SCROLL
+                : STATE_IN_PROGRESS_IMMEDIATE_SCROLL;
         mTarget = target;
-        dispatchStateChanged(ViewPager2.ScrollState.SETTLING);
+        dispatchStateChanged(ViewPager2.SCROLL_STATE_SETTLING);
         dispatchSelected(target);
     }
 
@@ -185,7 +196,7 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
      * @return true if there is no known scroll in progress
      */
     public boolean isIdle() {
-        return mAdapterState == AdapterState.IDLE;
+        return mAdapterState == STATE_IDLE;
     }
 
     /**
@@ -208,8 +219,8 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         // but only when there was no smooth scroll in progress.
         // By putting a suppress statement in here (rather than next to dispatch calls) we are
         // simplifying the code of the class and enforcing the contract in one place.
-        if (mAdapterState == AdapterState.IN_PROGRESS_IMMEDIATE_SCROLL
-                && mScrollState == ViewPager2.ScrollState.IDLE) {
+        if (mAdapterState == STATE_IN_PROGRESS_IMMEDIATE_SCROLL
+                && mScrollState == ViewPager2.SCROLL_STATE_IDLE) {
             return;
         }
         if (mScrollState == state) {
@@ -236,16 +247,6 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
 
     private int getPosition() {
         return mLayoutManager.findFirstVisibleItemPosition();
-    }
-
-    @Retention(SOURCE)
-    @IntDef({AdapterState.IDLE, AdapterState.IN_PROGRESS_MANUAL_DRAG,
-            AdapterState.IN_PROGRESS_SMOOTH_SCROLL, AdapterState.IN_PROGRESS_IMMEDIATE_SCROLL})
-    private @interface AdapterState {
-        int IDLE = 0;
-        int IN_PROGRESS_MANUAL_DRAG = 1;
-        int IN_PROGRESS_SMOOTH_SCROLL = 2;
-        int IN_PROGRESS_IMMEDIATE_SCROLL = 3;
     }
 
     static class ScrollEventValues {

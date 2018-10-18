@@ -22,9 +22,9 @@ import androidx.testutils.PollingCheck
 import androidx.viewpager2.widget.RapidlySetItems.Event.OnPageScrollStateChangedEvent
 import androidx.viewpager2.widget.RapidlySetItems.Event.OnPageScrolledEvent
 import androidx.viewpager2.widget.RapidlySetItems.Event.OnPageSelectedEvent
-import androidx.viewpager2.widget.ViewPager2.Orientation.HORIZONTAL
-import androidx.viewpager2.widget.ViewPager2.Orientation.VERTICAL
-import androidx.viewpager2.widget.ViewPager2.ScrollState.DRAGGING
+import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
+import androidx.viewpager2.widget.ViewPager2.ORIENTATION_VERTICAL
+import androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_DRAGGING
 import org.hamcrest.CoreMatchers.anyOf
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.instanceOf
@@ -120,7 +120,7 @@ class RapidlySetItems(private val config: RapidlySetItemsConfig) : BaseTest() {
                 as? OnPageScrollStateChangedEvent
         val lastScroll get() = events.findLast { it is OnPageScrolledEvent } as? OnPageScrolledEvent
         val lastSelect get() = events.findLast { it is OnPageSelectedEvent } as? OnPageSelectedEvent
-        val draggingIx get() = events.indexOf(OnPageScrollStateChangedEvent(DRAGGING))
+        val draggingIx get() = events.indexOf(OnPageScrollStateChangedEvent(SCROLL_STATE_DRAGGING))
 
         override fun onPageScrolled(
             position: Int,
@@ -205,7 +205,7 @@ data class RapidlySetItemsConfig(
 ) {
     override fun toString(): String {
         return "$title-" +
-                (if (orientation == HORIZONTAL) "hor-" else "ver-") +
+                (if (orientation == ORIENTATION_HORIZONTAL) "hor-" else "ver-") +
                 "pages_$totalPages-" +
                 "seq_${pageSequence.joinToString("_")}-" +
                 "not_smooth_${noSmoothScrolls.joinToString("_")}"
@@ -217,7 +217,10 @@ data class RapidlySetItemsConfig(
 // region Test Suite creation
 
 private fun createTestSet(): List<RapidlySetItemsConfig> {
-    return listOf(HORIZONTAL, VERTICAL).flatMap { orientation -> createTestSet(orientation) }
+    return listOf(
+        ORIENTATION_HORIZONTAL,
+        ORIENTATION_VERTICAL
+    ).flatMap { orientation -> createTestSet(orientation) }
 //        .plus(listOf(
 //            recreateRandomTest(VERTICAL, 6303260983100342208L, "example_test")
 //        ))
