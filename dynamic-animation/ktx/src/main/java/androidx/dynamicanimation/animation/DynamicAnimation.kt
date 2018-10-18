@@ -30,16 +30,8 @@ inline fun <K : View> K.flingAnimationOf(property: FloatPropertyCompat<K>): Flin
 
 /**
  * Creates [SpringAnimation] for view.
- *
- * @param property View property to be animated.
- * @return [SpringAnimation]
- */
-inline fun <K : View> K.springAnimationOf(property: FloatPropertyCompat<K>): SpringAnimation {
-    return SpringAnimation(this, property)
-}
-
-/**
- * Creates [SpringAnimation] for view.
+ * If finalPosition is not [Float.NaN] then create [SpringAnimation] with
+ * [SpringForce.mFinalPosition].
  *
  * @param property View property to be animated.
  * @param finalPosition [SpringForce.mFinalPosition] Final position of spring.
@@ -47,45 +39,13 @@ inline fun <K : View> K.springAnimationOf(property: FloatPropertyCompat<K>): Spr
  */
 inline fun <K : View> K.springAnimationOf(
     property: FloatPropertyCompat<K>,
-    finalPosition: Float
+    finalPosition: Float = Float.NaN
 ): SpringAnimation {
-    return SpringAnimation(this, property, finalPosition)
-}
-
-/**
- * Creates [SpringAnimation] for view along with [SpringForce]
- *
- * @param property View property to be animated.
- * @param func lambda with receiver on [SpringForce]
- * @return [SpringAnimation]
- */
-inline fun <K : View> K.springAnimationOf(
-    property: FloatPropertyCompat<K>,
-    func: SpringForce.() -> Unit
-): SpringAnimation {
-    val springAnimation = SpringAnimation(this, property)
-    val springForce = SpringForce()
-    springForce.func()
-    springAnimation.spring = springForce
-    return springAnimation
-}
-
-/**
- * Creates [SpringAnimation] for view along with [SpringForce]
- *
- * @param property View property to be animated.
- * @param finalPosition [SpringForce.mFinalPosition] Final position of spring.
- * @param func lambda with receiver on [SpringForce]
- * @return [SpringAnimation]
- */
-inline fun <K : View> K.springAnimationOf(
-    property: FloatPropertyCompat<K>,
-    finalPosition: Float,
-    func: SpringForce.() -> Unit
-): SpringAnimation {
-    val springAnimation = SpringAnimation(this, property, finalPosition)
-    springAnimation.spring.func()
-    return springAnimation
+    return if (finalPosition.isNaN()) {
+        SpringAnimation(this, property)
+    } else {
+        SpringAnimation(this, property, finalPosition)
+    }
 }
 
 /**
