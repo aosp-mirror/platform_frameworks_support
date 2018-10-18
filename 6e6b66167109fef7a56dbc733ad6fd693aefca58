@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8ea1e461_c32f8157",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/TableOrViewProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-10-18T00:14:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1efe7f2e_d514b652",
+      "range": {
+        "startLine": 37,
+        "startChar": 14,
+        "endLine": 37,
+        "endChar": 37
+      },
+      "revId": "6e6b66167109fef7a56dbc733ad6fd693aefca58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa926602_4f832346",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/TableOrViewProcessor.kt",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "06a6fc26_0361c543",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/TableOrViewProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-10-18T00:14:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa926602_4f832346",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 25
+      },
+      "revId": "6e6b66167109fef7a56dbc733ad6fd693aefca58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b69d592_7fc6e804",
         "filename": "room/compiler/src/main/kotlin/androidx/room/vo/TableOrView.kt",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "6e6b66167109fef7a56dbc733ad6fd693aefca58",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccd82236_5dcff80c",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/TableOrView.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-10-18T00:14:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b69d592_7fc6e804",
+      "range": {
+        "startLine": 24,
+        "startChar": 10,
+        "endLine": 24,
+        "endChar": 21
+      },
+      "revId": "6e6b66167109fef7a56dbc733ad6fd693aefca58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
