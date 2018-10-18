@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ee5fec77_a754a22f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-10-18T20:29:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "085e5e7f_f4518f39",
+      "revId": "008a081f9646a1961c20152a7e7146b0a43cb0b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a641a3e_220e9f4e",
         "filename": "slices/view/src/main/java/androidx/slice/widget/SliceViewUtil.java",
         "patchSetId": 1
