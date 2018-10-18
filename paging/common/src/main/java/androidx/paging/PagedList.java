@@ -113,6 +113,212 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public abstract class PagedList<T> extends AbstractList<T> {
 
+    /**
+     * Type of load a PagedList can perform.
+     * <p>
+     * You can use a {@link LoadState.Listener LoadState.Listener} to observe {@link LoadState} of
+     * any {@link LoadType}. For UI purposes (swipe refresh, loading spinner, retry button), this
+     * is typically done by registering a Listener with the {@code PagedListAdapter} or
+     * {@code AsyncPagedListDiffer}.
+     *
+     * @see LoadState
+     */
+    public enum LoadType {
+        /**
+         * PagedList content being reloaded, may contain content updates.
+         */
+        Refresh,
+
+        /**
+         * Load at the start of the PagedList.
+         */
+        Start,
+
+        /**
+         * Load at the end of the PagedList.
+         */
+        End
+    }
+
+    /**
+     * State of a PagedList load - associated with a {@code LoadType}
+     * <p>
+     * You can use a {@link LoadState.Listener LoadState.Listener} to observe {@link LoadState} of
+     * any {@link LoadType}. For UI purposes (swipe refresh, loading spinner, retry button), this
+     * is typically done by registering a Listener with the {@code PagedListAdapter} or
+     * {@code AsyncPagedListDiffer}.
+     */
+    public static class LoadState {
+        @Nullable
+        private final String mLabel;
+
+        @Nullable
+        private final DataSource.Error mError;
+
+        boolean mRetryable;
+
+        private LoadState(@NonNull String label) {
+            mLabel = label;
+            mError = null;
+        }
+
+        private LoadState(@NonNull DataSource.Error error) {
+            mLabel = null;
+            mError = error;
+        }
+
+        /**
+         * If not {@link #IDLE} or {@link #LOADING}, will return the Error encountered during
+         * loading.
+         *
+         * @return The error encountered during loading, or null if no error observed.
+         *
+         * @see #retry()
+         */
+        @Nullable
+        public DataSource.Error getError() {
+            return mError;
+        }
+
+        /**
+         * Indicates the PagedList is not currently loading, and no error currently observed.
+         */
+        public static LoadState IDLE = new LoadState("Idle");
+
+        /**
+         * Loading is in progress.
+         */
+        public static LoadState LOADING = new LoadState("Loading");
+
+        /**
+         * PagedList is done loading, no more to load.
+         */
+        static LoadState DONE = new LoadState("Done");
+
+        /**
+         * An error occurred, which may be retry-able.
+         *
+         * @see #getError()
+         * @see #retry()
+         */
+        @SuppressWarnings("ConstantConditions")
+        public static LoadState fromError(@NonNull DataSource.Error error) {
+            if (error == null) {
+                throw new IllegalArgumentException("Error throwable required, null passed");
+            }
+            return new LoadState(error);
+        }
+
+        /**
+         * Listener for changes to loading state - whether the refresh, prepend, or append is idle,
+         * loading, or has an error.
+         * <p>
+         * Can be used to observe the {@link LoadState} of any {@link LoadType} (Refresh/Start/End).
+         * For UI purposes (swipe refresh, loading spinner, retry button), this is typically done by
+         * registering a Listener with the {@code PagedListAdapter} or {@code AsyncPagedListDiffer}.
+         *
+         * @see LoadType
+         * @see LoadState
+         */
+        public interface Listener {
+            /**
+             * Called when the LoadState has changed - whether the refresh, prepend, or append is
+             * idle, loading, or has an error.
+             * <p>
+             * Refresh events can be used to drive a {@code SwipeRefreshLayout}, or Start/End events
+             * can be used to drive loading spinner items in your {@code RecyclerView}.
+             *
+             * @param type Type of load - Start, End, or Refresh.
+             * @param state State of load - IDLE, LOADING, or a LoadState representing an error.
+             *
+             * @see #retry()
+             */
+            void onLoadStateChanged(@NonNull LoadType type, @NonNull LoadState state);
+        }
+
+        @SuppressWarnings("ConstantConditions")
+        @Override
+        public String toString() {
+            return mLabel != null ? mLabel : mError.toString();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof PagedList.LoadState)) {
+                return false;
+            }
+            if (this == o) {
+                return true;
+            }
+            LoadState other = (LoadState) o;
+
+            // only remaining way to be equal is with equal errors
+            return mError != null
+                    && other.mError != null
+                    && mError.equals(other.mError);
+        }
+    }
+
+    abstract static class LoadStateManager {
+        private LoadState mRefresh = LoadState.IDLE;
+        private LoadState mStart = LoadState.IDLE;
+        private LoadState mEnd = LoadState.IDLE;
+
+        public LoadState getRefresh() {
+            return mRefresh;
+        }
+
+        public LoadState getStart() {
+            return mStart;
+        }
+
+        public LoadState getEnd() {
+            return mEnd;
+        }
+
+        void setState(@NonNull LoadType type, @NonNull LoadState state) {
+            // deduplicate signals
+            switch (type) {
+                case Refresh:
+                    if (mRefresh.equals(state)) return;
+                    mRefresh = state;
+                    break;
+                case Start:
+                    if (mStart.equals(state)) return;
+                    mStart = state;
+                    break;
+                case End:
+                    if (mEnd.equals(state)) return;
+                    mEnd = state;
+                    break;
+            }
+            if (state == LoadState.DONE) {
+                // Dispatch IDLE to listeners, so that impl detail doesn't leak
+                state = LoadState.IDLE;
+            }
+            onStateChanged(type, state);
+        }
+
+        protected abstract void onStateChanged(@NonNull LoadType type,
+                @NonNull LoadState state);
+    }
+
+    /**
+     * Retry any retryable errors associated with this PagedList.
+     * <p>
+     * If for example a network DataSource append timed out, calling this method will retry the
+     * failed append load. Note that your DataSource will need to pass {@code true} to
+     * {@code onError()} to signify the error as retryable.
+     * <p>
+     * You can observe loading state via {@link #addWeakLoadStateListener(LoadState.Listener)},
+     * though generally this is done through the {@link PagedListAdapter} or
+     * {@link AsyncPagedListDiffer}.
+     *
+     * @see #addWeakLoadStateListener(LoadState.Listener)
+     * @see #removeWeakLoadStateListener(LoadState.Listener)
+     */
+    public void retry() {}
+
     // Notes on threading:
     //
     // PagedList and its subclasses are passed and accessed on multiple threads, but are always
@@ -163,6 +369,31 @@ public abstract class PagedList<T> extends AbstractList<T> {
     private final AtomicBoolean mDetached = new AtomicBoolean(false);
 
     private final ArrayList<WeakReference<Callback>> mCallbacks = new ArrayList<>();
+
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    final ArrayList<WeakReference<LoadState.Listener>> mListeners = new ArrayList<>();
+
+    final LoadStateManager mLoadStateManager = new LoadStateManager() {
+        @Override
+        protected void onStateChanged(@NonNull final LoadType type,
+                @NonNull final LoadState state) {
+            // new state, dispatch to listeners
+            // Post, since UI will want to react immediately
+            mMainThreadExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = mListeners.size() - 1; i >= 0; i--) {
+                        final LoadState.Listener currentListener = mListeners.get(i).get();
+                        if (currentListener == null) {
+                            mListeners.remove(i);
+                        } else {
+                            currentListener.onLoadStateChanged(type, state);
+                        }
+                    }
+                }
+            });
+        }
+    };
 
     PagedList(@NonNull PagedStorage<T> storage,
             @NonNull Executor mainThreadExecutor,
@@ -678,6 +909,46 @@ public abstract class PagedList<T> extends AbstractList<T> {
      */
     public int getPositionOffset() {
         return mStorage.getPositionOffset();
+    }
+
+
+    /**
+     * Add a LoadState.Listener to observe the loading state of the PagedList.
+     *
+     * @param listener Listener to receive updates.
+     *
+     * @see #removeWeakLoadStateListener(LoadState.Listener)
+     */
+    public void addWeakLoadStateListener(@NonNull LoadState.Listener listener) {
+        // first, clean up any empty weak refs
+        for (int i = mListeners.size() - 1; i >= 0; i--) {
+            final LoadState.Listener currentListener = mListeners.get(i).get();
+            if (currentListener == null) {
+                mListeners.remove(i);
+            }
+        }
+
+        // then add the new one
+        mListeners.add(new WeakReference<>(listener));
+        listener.onLoadStateChanged(LoadType.Refresh, mLoadStateManager.getRefresh());
+        listener.onLoadStateChanged(LoadType.Start, mLoadStateManager.getStart());
+        listener.onLoadStateChanged(LoadType.End, mLoadStateManager.getEnd());
+    }
+
+    /**
+     * Remove a previously registered LoadState.Listener.
+     *
+     * @param listener Previously registered listener.
+     * @see #addWeakLoadStateListener(LoadState.Listener)
+     */
+    public void removeWeakLoadStateListener(@NonNull LoadState.Listener listener) {
+        for (int i = mListeners.size() - 1; i >= 0; i--) {
+            final LoadState.Listener currentListener = mListeners.get(i).get();
+            if (currentListener == null || currentListener == listener) {
+                // found Listener, or empty weak ref
+                mListeners.remove(i);
+            }
+        }
     }
 
     /**

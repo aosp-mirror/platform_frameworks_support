@@ -153,6 +153,30 @@ public class AsyncPagedListDiffer<T> {
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     int mMaxScheduledGeneration;
 
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    final PagedList.LoadStateManager mLoadStateManager = new PagedList.LoadStateManager() {
+        @Override
+        protected void onStateChanged(@NonNull PagedList.LoadType type,
+                @NonNull PagedList.LoadState state) {
+            // Don't need to post - PagedList will already have done that
+            for (PagedList.LoadState.Listener listener : mLoadStateListeners) {
+                listener.onLoadStateChanged(type, state);
+            }
+        }
+    };
+    @SuppressWarnings("WeakerAccess") // synthetic access
+    PagedList.LoadState.Listener mLoadStateListener = new PagedList.LoadState.Listener() {
+        @Override
+        public void onLoadStateChanged(@NonNull PagedList.LoadType type,
+                @NonNull PagedList.LoadState state) {
+            mLoadStateManager.onStateChanged(type, state);
+        }
+    };
+
+    @SuppressWarnings("WeakerAccess") // synthetic access
+    final List<PagedList.LoadState.Listener> mLoadStateListeners =
+            new CopyOnWriteArrayList<>();
+
     /**
      * Convenience for {@code AsyncPagedListDiffer(new AdapterListUpdateCallback(adapter),
      * new AsyncDifferConfig.Builder<T>(diffCallback).build();}
@@ -293,6 +317,7 @@ public class AsyncPagedListDiffer<T> {
             int removedCount = getItemCount();
             if (mPagedList != null) {
                 mPagedList.removeWeakCallback(mPagedListCallback);
+                mPagedList.removeWeakLoadStateListener(mLoadStateListener);
                 mPagedList = null;
             } else if (mSnapshot != null) {
                 mSnapshot = null;
@@ -306,6 +331,7 @@ public class AsyncPagedListDiffer<T> {
         if (mPagedList == null && mSnapshot == null) {
             // fast simple first insert
             mPagedList = pagedList;
+            mPagedList.addWeakLoadStateListener(mLoadStateListener);
             pagedList.addWeakCallback(null, mPagedListCallback);
 
             // dispatch update callback after updating mPagedList/mSnapshot
@@ -319,6 +345,8 @@ public class AsyncPagedListDiffer<T> {
             // first update scheduled on this list, so capture mPages as a snapshot, removing
             // callbacks so we don't have resolve updates against a moving target
             mPagedList.removeWeakCallback(mPagedListCallback);
+            mPagedList.removeWeakLoadStateListener(mLoadStateListener);
+
             mSnapshot = (PagedList<T>) mPagedList.snapshot();
             mPagedList = null;
         }
@@ -364,6 +392,7 @@ public class AsyncPagedListDiffer<T> {
 
         PagedList<T> previousSnapshot = mSnapshot;
         mPagedList = newList;
+        mPagedList.addWeakLoadStateListener(mLoadStateListener);
         mSnapshot = null;
 
         // dispatch update callback after updating mPagedList/mSnapshot
@@ -425,6 +454,41 @@ public class AsyncPagedListDiffer<T> {
      */
     public void removePagedListListener(@NonNull PagedListListener<T> listener) {
         mListeners.remove(listener);
+    }
+
+    /**
+     * Add a LoadState.Listener to observe the loading state of the current PagedList.
+     *
+     * As new PagedLists are submitted and displayed, the listener will be notified to reflect
+     * current Refresh, Start, and End states.
+     *
+     * @param listener Listener to receive updates.
+     *
+     * @see #removeLoadStateListListener(PagedList.LoadState.Listener)
+     */
+    public void addLoadStateListener(@NonNull PagedList.LoadState.Listener listener) {
+        if (mPagedList != null) {
+            mPagedList.addWeakLoadStateListener(listener);
+        } else {
+            listener.onLoadStateChanged(PagedList.LoadType.Refresh, mLoadStateManager.getRefresh());
+            listener.onLoadStateChanged(PagedList.LoadType.Start, mLoadStateManager.getStart());
+            listener.onLoadStateChanged(PagedList.LoadType.End, mLoadStateManager.getEnd());
+        }
+        mLoadStateListeners.add(listener);
+    }
+
+    /**
+     * Remove a previously registered PagedListListener.
+     *
+     * @param listener Previously registered listener.
+     * @see #getCurrentList()
+     * @see #addPagedListListener(PagedListListener)
+     */
+    public void removeLoadStateListListener(@NonNull PagedList.LoadState.Listener listener) {
+        mLoadStateListeners.remove(listener);
+        if (mPagedList != null) {
+            mPagedList.removeWeakLoadStateListener(listener);
+        }
     }
 
     /**

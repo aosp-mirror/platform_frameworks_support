@@ -173,6 +173,20 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
          *                 pass {@code N}.
          */
         public abstract void onResult(@NonNull List<T> data, int position);
+
+        /**
+         * Called to report an error from a DataSource.
+         * <p>
+         * Call this method to report a loading error from
+         * {@link #loadInitial(LoadInitialParams, LoadInitialCallback)}.
+         *
+         * @param error The error that occurred during loading.
+         */
+        public void onError(@NonNull Error error) {
+            // TODO: remove default implementation in 3.0
+            throw new IllegalStateException(
+                    "You must implement onError if implementing your own load callback");
+        }
     }
 
     /**
@@ -195,6 +209,20 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
          *             unless at end of list.
          */
         public abstract void onResult(@NonNull List<T> data);
+
+        /**
+         * Called to report an error from a DataSource.
+         * <p>
+         * Call this method to report a loading error from
+         * {@link #loadRange(LoadRangeParams, LoadRangeCallback)}.
+         *
+         * @param error The error that occurred during loading.
+         */
+        public void onError(@NonNull Error error) {
+            // TODO: remove default implementation in 3.0
+            throw new IllegalStateException(
+                    "You must implement onError if implementing your own load callback");
+        }
     }
 
     static class LoadInitialCallbackImpl<T> extends LoadInitialCallback<T> {
@@ -253,6 +281,11 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
                 mCallbackHelper.dispatchResultToReceiver(new PageResult<>(data, position));
             }
         }
+
+        @Override
+        public void onError(@NonNull Error error) {
+            mCallbackHelper.dispatchErrorToReceiver(error);
+        }
     }
 
     static class LoadRangeCallbackImpl<T> extends LoadRangeCallback<T> {
@@ -272,6 +305,11 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
                 mCallbackHelper.dispatchResultToReceiver(new PageResult<>(
                         data, 0, 0, mPositionOffset));
             }
+        }
+
+        @Override
+        public void onError(@NonNull Error error) {
+            mCallbackHelper.dispatchErrorToReceiver(error);
         }
     }
 
