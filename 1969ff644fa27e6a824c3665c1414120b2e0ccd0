@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3baae5b0_484067af",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewCompatTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-10-19T15:15:14Z",
+      "side": 1,
+      "message": "mockServer can never be null.",
+      "range": {
+        "startLine": 354,
+        "startChar": 8,
+        "endLine": 354,
+        "endChar": 33
+      },
+      "revId": "1969ff644fa27e6a824c3665c1414120b2e0ccd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3522d5b_6d13608a",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewCompatTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-10-19T15:15:14Z",
+      "side": 1,
+      "message": "If we want to add this test, then we definitely do need to cherrypick the CL that throws the associated NPE. I\u0027d be in favour of removing the test(s), rather than cherrypicking the CL. Nate, WDYT?",
+      "range": {
+        "startLine": 362,
+        "startChar": 16,
+        "endLine": 362,
+        "endChar": 43
+      },
+      "revId": "1969ff644fa27e6a824c3665c1414120b2e0ccd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f687ead_d6ff05cc",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewCompatTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-10-19T15:15:14Z",
+      "side": 1,
+      "message": "doesn\u0027t this violate the @NonNull annotation on exclusionList?",
+      "range": {
+        "startLine": 397,
+        "startChar": 22,
+        "endLine": 397,
+        "endChar": 38
+      },
+      "revId": "1969ff644fa27e6a824c3665c1414120b2e0ccd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f7b483f_d651cb2a",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewCompatTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-10-19T15:15:14Z",
+      "side": 1,
+      "message": "You should probably test that calling clearProxyOverride twice results in a callback each time (just to ensure that we correctly call the callback even if the operation is a no-op)",
+      "range": {
+        "startLine": 445,
+        "startChar": 22,
+        "endLine": 445,
+        "endChar": 40
+      },
+      "revId": "1969ff644fa27e6a824c3665c1414120b2e0ccd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bea127a7_26bc7e3e",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewCompatTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-10-19T15:15:14Z",
+      "side": 1,
+      "message": "you can use WebViewOnUiThread directly, and avoid needing to implement loadUrlOnMain below.",
+      "range": {
+        "startLine": 475,
+        "startChar": 32,
+        "endLine": 475,
+        "endChar": 49
+      },
+      "revId": "1969ff644fa27e6a824c3665c1414120b2e0ccd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91670fe7_563c3924",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-10-19T15:15:14Z",
+      "side": 1,
+      "message": "s/operation is complete/proxy setting change has been applied/",
+      "range": {
+        "startLine": 557,
+        "startChar": 57,
+        "endLine": 557,
+        "endChar": 78
+      },
+      "revId": "1969ff644fa27e6a824c3665c1414120b2e0ccd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f79f2905_c105315b",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-10-19T15:15:14Z",
+      "side": 1,
+      "message": "I would suggest a private implementation that accepts a nullable exclusionList, and have both these new public methods call that with appropriate parameters.",
+      "range": {
+        "startLine": 564,
+        "startChar": 8,
+        "endLine": 564,
+        "endChar": 30
+      },
+      "revId": "1969ff644fa27e6a824c3665c1414120b2e0ccd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
