@@ -46,6 +46,30 @@
       "revId": "e353af8bcc095d6ef2c36854058128af8d7ee92a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adda09e2_a694e887",
+        "filename": "transition/src/main/java/androidx/transition/FragmentTransitionSupport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-10-19T14:41:57Z",
+      "side": 1,
+      "message": "but yeah, we should do the same in FragmentTransitionCompat21. thanks for an idea",
+      "parentUuid": "f1fb1109_be115eba",
+      "range": {
+        "startLine": 219,
+        "startChar": 42,
+        "endLine": 219,
+        "endChar": 67
+      },
+      "revId": "e353af8bcc095d6ef2c36854058128af8d7ee92a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
