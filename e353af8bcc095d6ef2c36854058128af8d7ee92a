@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbbd1d1b_e5b947ac",
+        "filename": "transition/src/main/java/androidx/transition/FragmentTransitionSupport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-10-19T14:17:31Z",
+      "side": 1,
+      "message": "Did you check the target API here? I don\u0027t remember when this was added to public API.",
+      "range": {
+        "startLine": 219,
+        "startChar": 42,
+        "endLine": 219,
+        "endChar": 67
+      },
+      "revId": "e353af8bcc095d6ef2c36854058128af8d7ee92a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
