@@ -22,6 +22,23 @@
       "revId": "500b93603e2e74db015ac067ffa33fac4784f24b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffafb6a5_41331cb3",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1855,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-10-19T01:20:45Z",
+      "side": 0,
+      "message": "Are PlayerResult set properly?\nIt seems that internal functions such as playInternal(), pauseInternal(), prefareInternal() ... don\u0027t set PlayerResult",
+      "revId": "500b93603e2e74db015ac067ffa33fac4784f24b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
