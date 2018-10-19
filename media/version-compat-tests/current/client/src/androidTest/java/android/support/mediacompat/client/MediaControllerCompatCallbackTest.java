@@ -712,6 +712,45 @@ public class MediaControllerCompatCallbackTest {
         }
     }
 
+    @Test
+    @SmallTest
+    public void testRegisterCallbackTwice() throws InterruptedException {
+        MediaControllerMultipleCallback callback = new MediaControllerMultipleCallback();
+        mController.registerCallback(callback, mHandler);
+        mController.registerCallback(callback, mHandler); // it must be ignored
+
+        callMediaSessionMethod(SET_EXTRAS, new Bundle(), getContext());
+        Thread.sleep(TIME_OUT_MS);
+        assertEquals(1, callback.mExtrasChangedCount);
+    }
+
+    @Test
+    @SmallTest
+    public void testUnregisterCallbackTwice() throws InterruptedException {
+        MediaControllerMultipleCallback callback = new MediaControllerMultipleCallback();
+        mController.registerCallback(callback, mHandler);
+        mController.unregisterCallback(callback);
+        mController.unregisterCallback(callback); // it must be ignored
+
+        callMediaSessionMethod(SET_EXTRAS, new Bundle(), getContext());
+        Thread.sleep(TIME_OUT_MS);
+        assertEquals(0, callback.mExtrasChangedCount);
+    }
+
+    @Test
+    @SmallTest
+    public void testUnregisterUnknownCallback() throws InterruptedException {
+        MediaControllerMultipleCallback callback1 = new MediaControllerMultipleCallback();
+        MediaControllerMultipleCallback callback2 = new MediaControllerMultipleCallback();
+        mController.registerCallback(callback1, mHandler);
+        mController.unregisterCallback(callback2); // it must be ignored
+
+        callMediaSessionMethod(SET_EXTRAS, new Bundle(), getContext());
+        Thread.sleep(TIME_OUT_MS);
+        assertEquals(1, callback1.mExtrasChangedCount);
+        assertEquals(0, callback2.mExtrasChangedCount);
+    }
+
     private void assertQueueEquals(List<QueueItem> expected, List<QueueItem> observed) {
         if (expected == null || observed == null) {
             assertTrue(expected == observed);
@@ -873,6 +912,15 @@ public class MediaControllerCompatCallbackTest {
                 mShuffleMode = shuffleMode;
                 mWaitLock.notify();
             }
+        }
+    }
+
+    private class MediaControllerMultipleCallback extends MediaControllerCompat.Callback {
+        private volatile int mExtrasChangedCount = 0;
+
+        @Override
+        public void onExtrasChanged(Bundle extras) {
+            mExtrasChangedCount++;
         }
     }
 
