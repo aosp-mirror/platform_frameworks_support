@@ -22,6 +22,30 @@
       "revId": "7c71d42959287935307ec710b569d07ca5a0a8ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84274d97_67fdc47c",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-10-19T15:41:14Z",
+      "side": 1,
+      "message": "My take is to use them if they improve readability. In this CL I used them where possible, except in OrientationTest where they would be confusing.",
+      "parentUuid": "8ace054d_e13ba22e",
+      "range": {
+        "startLine": 75,
+        "startChar": 23,
+        "endLine": 75,
+        "endChar": 51
+      },
+      "revId": "7c71d42959287935307ec710b569d07ca5a0a8ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
