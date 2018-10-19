@@ -16,16 +16,22 @@
 
 package androidx.recyclerview.widget;
 
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+
+import static androidx.recyclerview.widget.RecyclerView.HORIZONTAL;
+import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.LargeTest;
 
 import org.junit.Test;
@@ -64,10 +70,8 @@ public class PagerSnapHelperTest extends BaseLinearLayoutManagerTest {
     public void snapOnScrollSameView() throws Throwable {
         final Config config = (Config) mConfig.clone();
         setupByConfig(config, true,
-                new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT),
-                new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT));
+                new RecyclerView.LayoutParams(MATCH_PARENT, MATCH_PARENT),
+                new RecyclerView.LayoutParams(MATCH_PARENT, MATCH_PARENT));
         setupSnapHelper();
 
         // Record the current center view.
@@ -90,10 +94,8 @@ public class PagerSnapHelperTest extends BaseLinearLayoutManagerTest {
     public void snapOnScrollNextView() throws Throwable {
         final Config config = (Config) mConfig.clone();
         setupByConfig(config, true,
-                new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT),
-                new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT));
+                new RecyclerView.LayoutParams(MATCH_PARENT, MATCH_PARENT),
+                new RecyclerView.LayoutParams(MATCH_PARENT, MATCH_PARENT));
         setupSnapHelper();
 
         // Record the current center view.
@@ -120,10 +122,8 @@ public class PagerSnapHelperTest extends BaseLinearLayoutManagerTest {
     public void snapOnFlingSameView() throws Throwable {
         final Config config = (Config) mConfig.clone();
         setupByConfig(config, true,
-                new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT),
-                new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT));
+                new RecyclerView.LayoutParams(MATCH_PARENT, MATCH_PARENT),
+                new RecyclerView.LayoutParams(MATCH_PARENT, MATCH_PARENT));
         setupSnapHelper();
 
         // Record the current center view.
@@ -157,10 +157,8 @@ public class PagerSnapHelperTest extends BaseLinearLayoutManagerTest {
     public void snapOnFlingNextView() throws Throwable {
         final Config config = (Config) mConfig.clone();
         setupByConfig(config, true,
-                new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT),
-                new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT));
+                new RecyclerView.LayoutParams(MATCH_PARENT, MATCH_PARENT),
+                new RecyclerView.LayoutParams(MATCH_PARENT, MATCH_PARENT));
         setupSnapHelper();
         runSnapOnMaxFlingNextView((int) (0.2 * mRecyclerView.getMaxFlingVelocity()));
     }
@@ -169,12 +167,26 @@ public class PagerSnapHelperTest extends BaseLinearLayoutManagerTest {
     public void snapOnMaxFlingNextView() throws Throwable {
         final Config config = (Config) mConfig.clone();
         setupByConfig(config, true,
-                new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT),
-                new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT));
+                new RecyclerView.LayoutParams(MATCH_PARENT, MATCH_PARENT),
+                new RecyclerView.LayoutParams(MATCH_PARENT, MATCH_PARENT));
         setupSnapHelper();
         runSnapOnMaxFlingNextView(mRecyclerView.getMaxFlingVelocity());
+    }
+
+    @Test
+    public void snapToNonMatchParentChildren() throws Throwable {
+        final Config config = (Config) mConfig.clone();
+        final DisplayMetrics dm = InstrumentationRegistry.getTargetContext().getResources()
+                .getDisplayMetrics();
+        final int orientation = config.mOrientation;
+        setupByConfig(config, true,
+                new RecyclerView.LayoutParams(
+                        orientation == HORIZONTAL ? (int) (dm.widthPixels * .6) : MATCH_PARENT,
+                        orientation == VERTICAL ? (int) (dm.heightPixels * .6) : MATCH_PARENT
+                ),
+                new RecyclerView.LayoutParams(MATCH_PARENT, MATCH_PARENT));
+        setupSnapHelper();
+        runSnapOnMaxFlingNextView((int) (0.2 * mRecyclerView.getMaxFlingVelocity()));
     }
 
     private void runSnapOnMaxFlingNextView(int velocity) throws Throwable {
@@ -213,7 +225,7 @@ public class PagerSnapHelperTest extends BaseLinearLayoutManagerTest {
         snapHelper.attachToRecyclerView(mRecyclerView);
 
         mLayoutManager.expectLayouts(1);
-        scrollToPosition(mConfig.mItemCount / 2);
+        scrollToPositionWithOffset(mConfig.mItemCount / 2, getScrollOffset());
         mLayoutManager.waitForLayout(2);
 
         View view = findCenterView(mLayoutManager);
@@ -227,6 +239,26 @@ public class PagerSnapHelperTest extends BaseLinearLayoutManagerTest {
         mLayoutManager.expectIdleState(2);
         smoothScrollBy(scrollDist);
         mLayoutManager.waitForSnap(10);
+    }
+
+    private int getScrollOffset() {
+        RecyclerView.LayoutParams params = mTestAdapter.mLayoutParams;
+        if (params == null) {
+            return 0;
+        }
+        if (mConfig.mOrientation == HORIZONTAL && params.width == MATCH_PARENT
+                || mConfig.mOrientation == VERTICAL && params.height == MATCH_PARENT) {
+            return 0;
+        }
+        // In reverse layouts, the rounding error of x/2 ends up on the other side of the center
+        // Instead of fixing all asserts, just move the rounding error to the same side as without
+        // reverse layout.
+        int reverseAdjustment = mConfig.mReverseLayout ? 1 : 0;
+        if (mConfig.mOrientation == HORIZONTAL) {
+            return (mRecyclerView.getWidth() - params.width + reverseAdjustment) / 2;
+        } else {
+            return (mRecyclerView.getHeight() - params.height + reverseAdjustment) / 2;
+        }
     }
 
     @Nullable
