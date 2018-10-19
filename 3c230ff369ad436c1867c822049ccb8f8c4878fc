@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b27b08f0_8771a555",
+        "filename": "studiow",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-19T22:56:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97a9543c_8da8bb2c",
+      "revId": "3c230ff369ad436c1867c822049ccb8f8c4878fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cd22881_7d7a3233",
         "filename": "studiow",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "3c230ff369ad436c1867c822049ccb8f8c4878fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2daa2b1_5b9866f1",
+        "filename": "studiow",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-19T22:56:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cd22881_7d7a3233",
+      "revId": "3c230ff369ad436c1867c822049ccb8f8c4878fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "4fd49dc7_b665bbc4",
+        "filename": "studiow",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-19T22:56:51Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "1d03fd60_c63ed568",
+      "revId": "3c230ff369ad436c1867c822049ccb8f8c4878fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "770a4eac_003b7931",
         "filename": "studiow",
         "patchSetId": 2
@@ -64,6 +118,24 @@
       "writtenOn": "2018-10-19T21:37:43Z",
       "side": 1,
       "message": "This binary doesn\u0027t exist for macs. The zip contains a .app.",
+      "revId": "3c230ff369ad436c1867c822049ccb8f8c4878fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5116efc8_f5b30902",
+        "filename": "studiow",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-19T22:56:51Z",
+      "side": 1,
+      "message": "That\u0027s interesting.\n\nIf anyone has any suggestions about how to run a .app file from the terminal that would be really helpful.\n\nIf not, then I\u0027ll keep looking.",
+      "parentUuid": "770a4eac_003b7931",
       "revId": "3c230ff369ad436c1867c822049ccb8f8c4878fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
