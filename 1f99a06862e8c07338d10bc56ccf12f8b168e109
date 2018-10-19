@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5427b8b4_a787d40d",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-19T22:03:47Z",
+      "side": 1,
+      "message": "I wanted to support calling addOnBackPressedHandler on any thread (so needed synchronized) and removing yourself in onBackPressed() (so needed CopyOnWrite).",
+      "parentUuid": "b51b9720_8eef0ee5",
+      "range": {
+        "startLine": 114,
+        "startChar": 8,
+        "endLine": 114,
+        "endChar": 20
+      },
+      "revId": "1f99a06862e8c07338d10bc56ccf12f8b168e109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59e62fa0_ebe4a415",
         "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
         "patchSetId": 1
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "81f4bdc3_59eb136a",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-19T22:03:47Z",
+      "side": 1,
+      "message": "I suspect that most of the use case is removing yourself (which is supported) vs removing some other handler. Do you think Javadoc on the method is enough or should we also support the later case?",
+      "parentUuid": "59e62fa0_ebe4a415",
+      "revId": "1f99a06862e8c07338d10bc56ccf12f8b168e109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2b01131b_f9f3a3c4",
         "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
         "patchSetId": 1
@@ -53,6 +95,24 @@
       "writtenOn": "2018-10-19T21:17:03Z",
       "side": 1,
       "message": "if you depend on lifecycle 2.1.0, depend on LifecycleEventObserver instead",
+      "revId": "1f99a06862e8c07338d10bc56ccf12f8b168e109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c433c38_cb870cc0",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-19T22:03:47Z",
+      "side": 1,
+      "message": "The plan for androidx.activity 1.0.0-alpha01 is to depend on Lifecycle 2.0. Will this code as written have a problem if developers are using 2.1?",
+      "parentUuid": "2b01131b_f9f3a3c4",
       "revId": "1f99a06862e8c07338d10bc56ccf12f8b168e109",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
