@@ -1,0 +1,8 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+1: Shep Shapard <shepshapard@google.com>
+Code-Review+2: Jakub Gielzak <jgielzak@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Fri, 19 Oct 2018 13:59:14 +0000
+Reviewed-on: https://android-review.googlesource.com/786086
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
