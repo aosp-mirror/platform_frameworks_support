@@ -20,6 +20,7 @@
 
     <application>
         <activity android:name="androidx.activity.LifecycleComponentActivity"/>
+        <activity android:name="androidx.activity.OnBackPressedComponentActivity"/>
     </application>
 
 </manifest>
