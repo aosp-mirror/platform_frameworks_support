@@ -279,6 +279,24 @@
       "revId": "293d8a2e933914dfb153ec1c2c502ca266455dd4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3113d66_0bcbd473",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-19T19:14:56Z",
+      "side": 1,
+      "message": "CallbackExecutor is @hide, so it can\u0027t be used in support library. Aurimas, should we add CallbackExecutor to AndroidX? Or, can you provide other guidance?",
+      "parentUuid": "528eb4f8_43ae3c84",
+      "revId": "293d8a2e933914dfb153ec1c2c502ca266455dd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

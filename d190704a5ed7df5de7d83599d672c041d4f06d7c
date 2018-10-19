@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e5d994f_d1002aed",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingConfig.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-19T19:14:56Z",
+      "side": 1,
+      "message": "Can we define these with android.webkit.TracingConfig? Unfortunately, you won\u0027t be able to import the class, so you\u0027ll need to use the fully qualified name.\n\nIf not, that\u0027s fine, but I\u0027m curious what the restrictions are.",
+      "range": {
+        "startLine": 82,
+        "startChar": 28,
+        "endLine": 82,
+        "endChar": 52
+      },
+      "revId": "d190704a5ed7df5de7d83599d672c041d4f06d7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
