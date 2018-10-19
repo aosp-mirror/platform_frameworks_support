@@ -139,6 +139,24 @@
       "revId": "3c230ff369ad436c1867c822049ccb8f8c4878fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0680917c_0587a5a3",
+        "filename": "studiow",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2018-10-19T23:00:59Z",
+      "side": 1,
+      "message": "$ open /Applications/Android\\ Studio.app\n\n(I\u0027m on OSX anymore so I can\u0027t look up the path to open but it\u0027s probably /bin or /usr/bin",
+      "parentUuid": "5116efc8_f5b30902",
+      "revId": "3c230ff369ad436c1867c822049ccb8f8c4878fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
