@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4af49dfa_177d8cbf",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-19T08:32:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "364ede6a_2b2f33b5",
+      "range": {
+        "startLine": 444,
+        "startChar": 29,
+        "endLine": 444,
+        "endChar": 59
+      },
+      "revId": "c9ed78fa429581dbe1a772bf16d3b1b83f80dc96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c916e93_afd0f77d",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "c9ed78fa429581dbe1a772bf16d3b1b83f80dc96",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0e0afec_03737266",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-19T08:32:22Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "1c916e93_afd0f77d",
+      "range": {
+        "startLine": 576,
+        "startChar": 7,
+        "endLine": 578,
+        "endChar": 9
+      },
+      "revId": "c9ed78fa429581dbe1a772bf16d3b1b83f80dc96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7fec884a_459ac589",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-19T08:32:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfeca277_98a4c7e5",
+      "range": {
+        "startLine": 580,
+        "startChar": 8,
+        "endLine": 580,
+        "endChar": 24
+      },
+      "revId": "c9ed78fa429581dbe1a772bf16d3b1b83f80dc96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41ef8a9c_cc595656",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "43b428f1_c283b95b",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-19T08:32:22Z",
+      "side": 1,
+      "message": "Yes.\nThis is for removing the future from mPendingFutures while the other is for canceling related futures.",
+      "parentUuid": "41ef8a9c_cc595656",
+      "range": {
+        "startLine": 649,
+        "startChar": 12,
+        "endLine": 649,
+        "endChar": 59
+      },
+      "revId": "c9ed78fa429581dbe1a772bf16d3b1b83f80dc96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ea5dc1d_b9314731",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 1
@@ -114,6 +210,30 @@
       "revId": "c9ed78fa429581dbe1a772bf16d3b1b83f80dc96",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff7865ee_c1b783bd",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-19T08:32:22Z",
+      "side": 1,
+      "message": "In order to keep the command sequence.\nLet\u0027s assume that play() and pause() are called sequentially.\nmPendingFutures will have two futures: \n1) CALL_TYPE_NONE_PLAYER2_COMMAND, and 2) MediaPlayer2.CALL_COMPLETED_PAUSE\n\nWhen first future is running, we need to send one or two command into the inner player, volume change and play. If we add the commend at the end, pause will be executed first.",
+      "parentUuid": "4ea5dc1d_b9314731",
+      "range": {
+        "startLine": 682,
+        "startChar": 45,
+        "endLine": 682,
+        "endChar": 51
+      },
+      "revId": "c9ed78fa429581dbe1a772bf16d3b1b83f80dc96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

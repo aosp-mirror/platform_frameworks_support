@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3915407c_b612731e",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-19T08:32:22Z",
+      "side": 0,
+      "message": "AFAIK, that\u0027s opposite.\nIf you want to make it private, you should use the annotation.",
+      "parentUuid": "01ae41c6_c571a89a",
+      "range": {
+        "startLine": 447,
+        "startChar": 4,
+        "endLine": 455,
+        "endChar": 60
+      },
+      "revId": "500b93603e2e74db015ac067ffa33fac4784f24b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ffafb6a5_41331cb3",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "500b93603e2e74db015ac067ffa33fac4784f24b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a457164a_e9b4765e",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1855,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-19T08:32:22Z",
+      "side": 0,
+      "message": "It will be set at the end of handleCallComplete() method.",
+      "parentUuid": "ffafb6a5_41331cb3",
+      "revId": "500b93603e2e74db015ac067ffa33fac4784f24b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
