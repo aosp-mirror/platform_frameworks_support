@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34d0a704_b209bc70",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-19T13:32:56Z",
+      "side": 1,
+      "message": "super small nit double space",
+      "range": {
+        "startLine": 281,
+        "startChar": 10,
+        "endLine": 281,
+        "endChar": 12
+      },
+      "revId": "5d0aa4ac4b9a948e7a81b8451e53a93906d15ffb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
