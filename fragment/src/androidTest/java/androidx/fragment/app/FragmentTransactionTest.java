@@ -268,7 +268,7 @@ public class FragmentTransactionTest {
     }
 
     /**
-     * Test to ensure that when onBackPressed() is received that there is no crash.
+     * Test to ensure that when handleOnBackPressed() is received that there is no crash.
      */
     @Test
     @UiThreadTest

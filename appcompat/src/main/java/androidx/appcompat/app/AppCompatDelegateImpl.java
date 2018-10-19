@@ -1217,7 +1217,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 onKeyDownPanel(Window.FEATURE_OPTIONS_PANEL, event);
                 // We need to return true here and not let it bubble up to the Window.
                 // For empty menus, PhoneWindow's KEYCODE_BACK handling will steals all events,
-                // not allowing the Activity to call onBackPressed().
+                // not allowing the Activity to call handleOnBackPressed().
                 return true;
             case KeyEvent.KEYCODE_BACK:
                 // Certain devices allow opening the options menu via a long press of the back

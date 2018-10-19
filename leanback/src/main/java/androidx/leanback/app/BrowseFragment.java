@@ -1740,7 +1740,7 @@ public class BrowseFragment extends BaseFragment {
      * works when the headers state is {@link #HEADERS_ENABLED} or
      * {@link #HEADERS_HIDDEN}.
      * <p>
-     * NOTE: If an Activity has its own onBackPressed() handling, you must
+     * NOTE: If an Activity has its own handleOnBackPressed() handling, you must
      * disable this feature. You may use {@link #startHeadersTransition(boolean)}
      * and {@link BrowseTransitionListener} in your own back stack handling.
      */
