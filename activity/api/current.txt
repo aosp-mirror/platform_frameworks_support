@@ -2,11 +2,17 @@ package androidx.activity {
 
   public class ComponentActivity extends androidx.core.app.ComponentActivity implements androidx.lifecycle.LifecycleOwner androidx.lifecycle.ViewModelStoreOwner {
     ctor public ComponentActivity();
+    method public void addOnBackPressedHandler(androidx.lifecycle.LifecycleOwner, androidx.activity.OnBackPressedHandler);
     method public deprecated java.lang.Object getLastCustomNonConfigurationInstance();
     method public androidx.lifecycle.Lifecycle getLifecycle();
     method public androidx.lifecycle.ViewModelStore getViewModelStore();
     method public deprecated java.lang.Object onRetainCustomNonConfigurationInstance();
     method public final java.lang.Object onRetainNonConfigurationInstance();
+    method public void removeOnBackPressedHandler(androidx.activity.OnBackPressedHandler);
+  }
+
+  public abstract interface OnBackPressedHandler {
+    method public abstract boolean onBackPressed();
   }
 
 }
