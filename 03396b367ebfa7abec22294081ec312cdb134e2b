@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "b898b030_414efde1",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-19T16:37:31Z",
+      "side": 1,
+      "message": "do we want to hardcode these?\notherwise, in a minor release of Room, we might pull in a major release change from androidx_core ?",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 63
+      },
+      "revId": "03396b367ebfa7abec22294081ec312cdb134e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ead0277c_44f33bb0",
         "filename": "room/runtime/build.gradle",
         "patchSetId": 1
@@ -22,6 +45,30 @@
       "revId": "03396b367ebfa7abec22294081ec312cdb134e2b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c5fba43_6bd38531",
+        "filename": "room/runtime/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-19T16:37:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ead0277c_44f33bb0",
+      "range": {
+        "startLine": 38,
+        "startChar": 19,
+        "endLine": 38,
+        "endChar": 32
+      },
+      "revId": "03396b367ebfa7abec22294081ec312cdb134e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
