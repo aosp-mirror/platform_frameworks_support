@@ -75,10 +75,15 @@ const val SUPPORT_FRAGMENTS = "androidx.fragment:fragment:$SUPPORT_VERSION"
 const val SUPPORT_RECYCLERVIEW = "androidx.recyclerview:recyclerview:$SUPPORT_VERSION"
 
 const val ANDROIDX_COLLECTION = "androidx.collection:collection:$SUPPORT_VERSION"
+const val ANDROIDX_CORE = "androidx.core:core:$SUPPORT_VERSION"
+const val ANDROIDX_ARCH_CORE_RUNTIME = "androidx.arch.core:core-runtime:2.0.0"
+const val ANDROIDX_ARCH_CORE_TESTING = "androidx.arch.core:core-testing:2.0.0"
 
 // Arch libraries
 const val ARCH_LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime:2.0.0@aar"
 const val ARCH_LIFECYCLE_LIVEDATA_CORE =
+        "androidx.lifecycle:lifecycle-livedata-core:2.0.0@aar"
+const val ARCH_LIFECYCLE_LIVEDATA =
         "androidx.lifecycle:lifecycle-livedata-core:2.0.0@aar"
 const val ARCH_LIFECYCLE_VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel:2.0.0@aar"
 const val ARCH_LIFECYCLE_EXTENSIONS = "androidx.lifecycle:lifecycle-extensions:2.0.0@aar"
