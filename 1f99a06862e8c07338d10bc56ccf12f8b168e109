@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "da486785_f7329fab",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-10-19T22:28:33Z",
+      "side": 1,
+      "message": "Need to add something about when another handler is added after, it will be called prior to this handler. If a handler returns true, all other handlers will be skipped along with the default onBackPressed() behavior.",
+      "revId": "1f99a06862e8c07338d10bc56ccf12f8b168e109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dba0c17f_4aea3ba4",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-10-19T22:28:33Z",
+      "side": 1,
+      "message": "You don\u0027t have any info on what happens if the same handler is added multiple times. I suspect that you want to move it to the new position rather than leave it at the previous position?",
+      "revId": "1f99a06862e8c07338d10bc56ccf12f8b168e109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b51b9720_8eef0ee5",
         "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
         "patchSetId": 1
