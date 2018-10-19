@@ -73,6 +73,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.RemoteException;
 import android.support.mediacompat.testlib.util.PollingCheck;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.MediaDescriptionCompat;
@@ -93,7 +94,9 @@ import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
@@ -127,6 +130,9 @@ public class MediaControllerCompatCallbackTest {
     private MediaSessionCompat.Token mSessionToken;
     private MediaControllerCompat mController;
     private MediaControllerCallback mMediaControllerCallback = new MediaControllerCallback();
+
+    @Rule
+    public final ExpectedException mThrown = ExpectedException.none();
 
     @Before
     public void setUp() throws Exception {
@@ -710,6 +716,43 @@ public class MediaControllerCompatCallbackTest {
             PlaybackStateCompat stateOut = extrasOut.getParcelable("state");
             assertEquals(state.getBufferedPosition(), stateOut.getBufferedPosition());
         }
+    }
+
+    @Test
+    @SmallTest
+    public void testRegisterCallbackTwice() throws RemoteException {
+        MediaControllerCompat controller = new MediaControllerCompat(getTargetContext(),
+                mSessionToken);
+        controller.registerCallback(mMediaControllerCallback, mHandler);
+
+        mThrown.expect(IllegalArgumentException.class);
+        mThrown.expectMessage("the callback has already been registered");
+        controller.registerCallback(mMediaControllerCallback, mHandler);
+    }
+
+    @Test
+    @SmallTest
+    public void testUnregisterCallbackTwice() throws RemoteException {
+        MediaControllerCompat controller = new MediaControllerCompat(getTargetContext(),
+                mSessionToken);
+        controller.registerCallback(mMediaControllerCallback, mHandler);
+        controller.unregisterCallback(mMediaControllerCallback);
+
+        mThrown.expect(IllegalArgumentException.class);
+        mThrown.expectMessage("the callback has never been registered");
+        controller.unregisterCallback(mMediaControllerCallback);
+    }
+
+    @Test
+    @SmallTest
+    public void testUnregisterUnknownCallback() throws RemoteException {
+        MediaControllerCompat controller = new MediaControllerCompat(getTargetContext(),
+                mSessionToken);
+        controller.registerCallback(mMediaControllerCallback, mHandler);
+
+        mThrown.expect(IllegalArgumentException.class);
+        mThrown.expectMessage("the callback has never been registered");
+        controller.unregisterCallback(new MediaControllerCallback());
     }
 
     private void assertQueueEquals(List<QueueItem> expected, List<QueueItem> observed) {
