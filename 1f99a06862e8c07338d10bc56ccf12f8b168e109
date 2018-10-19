@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b51b9720_8eef0ee5",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-19T21:17:03Z",
+      "side": 1,
+      "message": "do you really want to support multithreading here? synchronized + copy on write looks like overkill",
+      "range": {
+        "startLine": 114,
+        "startChar": 8,
+        "endLine": 114,
+        "endChar": 20
+      },
+      "revId": "1f99a06862e8c07338d10bc56ccf12f8b168e109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59e62fa0_ebe4a415",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-19T21:17:03Z",
+      "side": 1,
+      "message": "do we care about handlers removing each other or during dispatching onBack? (so we don\u0027t dispatch to removed listeners?)",
+      "revId": "1f99a06862e8c07338d10bc56ccf12f8b168e109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b01131b_f9f3a3c4",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-19T21:17:03Z",
+      "side": 1,
+      "message": "if you depend on lifecycle 2.1.0, depend on LifecycleEventObserver instead",
+      "revId": "1f99a06862e8c07338d10bc56ccf12f8b168e109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
