@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ead0277c_44f33bb0",
+        "filename": "room/runtime/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-19T15:38:25Z",
+      "side": 1,
+      "message": "because ActivityManagerCompat.isLowRamDevice call",
+      "range": {
+        "startLine": 38,
+        "startChar": 19,
+        "endLine": 38,
+        "endChar": 32
+      },
+      "revId": "03396b367ebfa7abec22294081ec312cdb134e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
