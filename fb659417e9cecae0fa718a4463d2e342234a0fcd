@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b9eabc95_18d6b16d",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-19T02:33:41Z",
+      "side": 1,
+      "message": "Thanks for the suggestions. Applied following changes to address the points you mentioned:\n- Moved ALL the read/write operations on mShortcutsMap to mCacheUpdateService, and removed all the locks to access the map (Since the service is single threaded).\n- Added comments to annotate methods that are strictly being called from mCacheUpdateService\n- Removed the \"waitForBla\" method all-together, since it is not needed anymore and all the read tasks (getter APIs) are done via mCacheUpdateService\n- Used ThreadPoolExecutors to make sure the threads are terminated when idle\n- Now passing the two ExecutorServices through a package private constructor (For testing) to be able to wait for task completion before reset when testing.",
+      "parentUuid": "9e7ab089_ee67668d",
+      "range": {
+        "startLine": 95,
+        "startChar": 41,
+        "endLine": 95,
+        "endChar": 54
+      },
+      "revId": "fb659417e9cecae0fa718a4463d2e342234a0fcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6af5e203_e7ea4153",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 34
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-18T16:35:44Z",
       "side": 1,
       "message": "properly cancel operation, instead of mutating object",
+      "range": {
+        "startLine": 240,
+        "startChar": 41,
+        "endLine": 240,
+        "endChar": 58
+      },
+      "revId": "fb659417e9cecae0fa718a4463d2e342234a0fcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3e3540f_8192cdfe",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-19T02:33:41Z",
+      "side": 1,
+      "message": "In order to cancel the operation I will need to keep a list of all the queued tasks. If you think this line is problematic I can remove it since it is just an optimization (and not necessary).",
+      "parentUuid": "6af5e203_e7ea4153",
       "range": {
         "startLine": 240,
         "startChar": 41,
