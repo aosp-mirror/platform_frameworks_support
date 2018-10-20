@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32bbf793_7f6c7dca",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/RxJava2Test.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-20T00:24:59Z",
+      "side": 1,
+      "message": "it is great that it worked w/ StrictMode but i think this test has isolation. Also it relies on Thread.sleep which will flake eventually. The toggling of StrictMode is tricky because it will affect other tests.\n\nWhy don\u0027t we just override the TestDatabase#getInvalidationTracker and assert add/remove observer is not called on the main thread ?",
+      "range": {
+        "startLine": 622,
+        "startChar": 0,
+        "endLine": 661,
+        "endChar": 70
+      },
+      "revId": "082971c135eaa78d9dff0c4dbfbf253aa744493d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
