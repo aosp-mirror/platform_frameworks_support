@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a3501a4_d74cd2d9",
+        "filename": "paging/common/api/current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-20T00:05:49Z",
+      "side": 1,
+      "message": "should this be Weak as well like the other ?\nthat would be nice in an activity, bad in a VM. :/",
+      "range": {
+        "startLine": 92,
+        "startChar": 23,
+        "endLine": 92,
+        "endChar": 43
+      },
+      "revId": "d862b95eafc0e900c5bedac9bfc65d351e4bb8ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f997a14e_4dc65b97",
+        "filename": "paging/common/src/main/java/androidx/paging/ContiguousPagedList.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-20T00:05:49Z",
+      "side": 1,
+      "message": "rm extra line above?",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 0
+      },
+      "revId": "d862b95eafc0e900c5bedac9bfc65d351e4bb8ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec85167d_51c94b08",
+        "filename": "paging/common/src/main/java/androidx/paging/ContiguousPagedList.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-20T00:05:49Z",
+      "side": 1,
+      "message": "looks like there are too many `onCurrentStateChanged` calls in this class in multiple places behind if statements.\n\nfeels like a nightmare to maintain, can we isolate them such that the code has some clear understanding of idle - running - stopped",
+      "revId": "d862b95eafc0e900c5bedac9bfc65d351e4bb8ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcbc3059_693d81e9",
+        "filename": "paging/common/src/main/java/androidx/paging/PagedList.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-20T00:05:49Z",
+      "side": 1,
+      "message": "is already nullable so why throw instead of returning null ?",
+      "range": {
+        "startLine": 185,
+        "startChar": 12,
+        "endLine": 187,
+        "endChar": 13
+      },
+      "revId": "d862b95eafc0e900c5bedac9bfc65d351e4bb8ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "510b9117_77d2516e",
+        "filename": "paging/common/src/main/java/androidx/paging/PagedList.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-20T00:05:49Z",
+      "side": 1,
+      "message": "yea this is a bit more tricky so maybe exception here is OK.",
+      "range": {
+        "startLine": 201,
+        "startChar": 12,
+        "endLine": 203,
+        "endChar": 13
+      },
+      "revId": "d862b95eafc0e900c5bedac9bfc65d351e4bb8ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0591145a_0b88b1f7",
+        "filename": "paging/common/src/main/java/androidx/paging/PagedList.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-20T00:05:49Z",
+      "side": 1,
+      "message": "someone wrote kotlin in java :)\n\u003d\u003d -\u003e .equals",
+      "range": {
+        "startLine": 285,
+        "startChar": 16,
+        "endLine": 294,
+        "endChar": 29
+      },
+      "revId": "d862b95eafc0e900c5bedac9bfc65d351e4bb8ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60e2960f_7b4c4688",
+        "filename": "paging/runtime/src/main/java/androidx/paging/AsyncPagedListDiffer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-20T00:05:49Z",
+      "side": 1,
+      "message": "we have a similar implementation before.\nshould this be a distintUntilChange sub class that can islate the de-dupping and just dispatch to its observers when sth has changed ?",
+      "range": {
+        "startLine": 164,
+        "startChar": 3,
+        "endLine": 182,
+        "endChar": 13
+      },
+      "revId": "d862b95eafc0e900c5bedac9bfc65d351e4bb8ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
