@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f5a9e60_cc3012c4",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-20T00:17:34Z",
+      "side": 1,
+      "message": "Seems to be updated since we don\u0027t submit futures to MP2.",
+      "range": {
+        "startLine": 515,
+        "startChar": 31,
+        "endLine": 515,
+        "endChar": 77
+      },
+      "revId": "179d19b40599cbb5797f56e2ab736867786f797f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0d770c2_477b60fe",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-20T00:17:34Z",
+      "side": 1,
+      "message": "do we need this code?",
+      "range": {
+        "startLine": 527,
+        "startChar": 8,
+        "endLine": 535,
+        "endChar": 9
+      },
+      "revId": "179d19b40599cbb5797f56e2ab736867786f797f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7ebc6ca_0954db15",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-20T00:17:34Z",
+      "side": 1,
+      "message": "PendingMp2Future?",
+      "range": {
+        "startLine": 544,
+        "startChar": 26,
+        "endLine": 544,
+        "endChar": 46
+      },
+      "revId": "179d19b40599cbb5797f56e2ab736867786f797f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7640801_864270be",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-20T00:17:34Z",
+      "side": 1,
+      "message": "I feel this is not something we want here. Let\u0027s have a quick chat on this.",
+      "range": {
+        "startLine": 701,
+        "startChar": 20,
+        "endLine": 701,
+        "endChar": 52
+      },
+      "revId": "179d19b40599cbb5797f56e2ab736867786f797f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ddcc1ab_569c3074",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2315,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-20T00:17:34Z",
+      "side": 1,
+      "message": "This means we will run the XMediaPlayer operations on caller\u0027s thread? We need to double check if there is any blocking call in the implementation.",
+      "range": {
+        "startLine": 2315,
+        "startChar": 20,
+        "endLine": 2315,
+        "endChar": 33
+      },
+      "revId": "179d19b40599cbb5797f56e2ab736867786f797f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b579819_48ae3c1b",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2326,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-20T00:17:34Z",
+      "side": 1,
+      "message": "where do we remove the future already executed from the list?",
+      "range": {
+        "startLine": 2326,
+        "startChar": 20,
+        "endLine": 2326,
+        "endChar": 33
+      },
+      "revId": "179d19b40599cbb5797f56e2ab736867786f797f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
