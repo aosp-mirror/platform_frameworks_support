@@ -187,6 +187,30 @@
       "revId": "900374439e5dd9e1469c04fc00da47fceaede5d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e822c4f_a9015e04",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-21T11:25:34Z",
+      "side": 1,
+      "message": "Changed to expose only part of the queue from beginning.",
+      "parentUuid": "ff5fee1b_820cd9ae",
+      "range": {
+        "startLine": 142,
+        "startChar": 12,
+        "endLine": 142,
+        "endChar": 78
+      },
+      "revId": "900374439e5dd9e1469c04fc00da47fceaede5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
