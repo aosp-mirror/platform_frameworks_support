@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9710e25_8766a5dc",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaPlayer2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2041,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-10-21T22:44:21Z",
+      "side": 1,
+      "message": "I\u0027ve changed this because seeking to the sync position before 3000 leads to a seek to zero and the player position may already be zero. Seeking to the next sync point ensures there\u0027s an actual media time discontinuity even if the player position is still 0 (assuming this test code doesn\u0027t take 4 seconds to run!).",
+      "revId": "317d1c6f63c6bd6652355af6e42e889879546c5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
