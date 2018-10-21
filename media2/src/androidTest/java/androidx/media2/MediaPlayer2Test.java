@@ -1998,7 +1998,7 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
 
     @Test
     @LargeTest
-    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.P)
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
     public void testMediaTimeDiscontinuity() throws Exception {
         if (!checkLoadResource(
                 R.raw.bbb_s1_320x240_mp4_h264_mp2_800kbps_30fps_aac_lc_5ch_240kbps_44100hz)) {
@@ -2017,6 +2017,8 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
             @Override
             public void onMediaTimeDiscontinuity(
                     MediaPlayer2 mp, MediaItem2 item, MediaTimestamp2 timestamp) {
+                Log.w("DEBUG", "onMediaTimeDiscontinuity: "
+                        + timestamp.getAnchorMediaTimeUs() + " " + timestamp.getMediaClockRate());
                 timestamps.add(timestamp);
                 mOnMediaTimeDiscontinuityCalled.signal();
             }
@@ -2038,10 +2040,13 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
         // Timestamp needs to be reported when seeking is done.
         mOnSeekCompleteCalled.reset();
         mOnMediaTimeDiscontinuityCalled.reset();
+        Log.w("DEBUG", "Before seek");
         mPlayer.seekTo(3000);
         mOnSeekCompleteCalled.waitForSignal();
         do {
+            Log.w("DEBUG", "check for signal");
             assertTrue(mOnMediaTimeDiscontinuityCalled.waitForSignal(1000));
+            Log.w("DEBUG", "after check for signal");
         } while (Math.abs(timestamps.getLast().getMediaClockRate() - 1.0f) > 0.01f);
 
         // Timestamp needs to be updated when playback rate changes.

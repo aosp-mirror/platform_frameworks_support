@@ -121,6 +121,9 @@ import java.util.List;
         /** Called when playback of the specified item loops back to its start. */
         void onLoop(MediaItem2 mediaItem2);
 
+        /** Called when a change in the progression of media time is detected. */
+        void onMediaTimeDiscontinuity(MediaItem2 mediaItem2, MediaTimestamp2 mediaTimestamp2);
+
         /** Called when playback of the item list has ended. */
         void onPlaybackEnded(MediaItem2 mediaItem2);
 
@@ -194,7 +197,9 @@ import java.util.List;
         if (mediaItem2 != null) {
             position -= mediaItem2.getStartPosition();
         }
+        Log.w("DEBUG", "Calling seekTo");
         mPlayer.seekTo(position);
+        Log.w("DEBUG", "After calling seekTo");
     }
 
     public long getCurrentPosition() {
@@ -295,6 +300,7 @@ import java.util.List;
         // TODO(b/80232248): Decide how to handle fallback modes, which ExoPlayer doesn't support.
         mPlaybackParams2 = playbackParams2;
         mPlayer.setPlaybackParameters(ExoPlayerUtils.getPlaybackParameters(mPlaybackParams2));
+        mListener.onMediaTimeDiscontinuity(getCurrentMediaItem(), getTimestamp());
     }
 
     public PlaybackParams2 getPlaybackParams() {
@@ -357,12 +363,13 @@ import java.util.List;
     public MediaTimestamp2 getTimestamp() {
         boolean isPlaying =
                 mPlayer.getPlaybackState() == Player.STATE_READY && mPlayer.getPlayWhenReady();
-        float speed = isPlaying ? mPlayer.getPlaybackParameters().speed : 0f;
+        float speed = isPlaying ? mPlaybackParams2.getSpeed() : 0f;
         return new MediaTimestamp2(C.msToUs(getCurrentPosition()), System.nanoTime(), speed);
     }
 
     public void reset() {
         if (mPlayer != null) {
+            mListener.onMediaTimeDiscontinuity(getCurrentMediaItem(), getTimestamp());
             mPlayer.release();
             mMediaItemQueue.clear();
         }
@@ -421,6 +428,10 @@ import java.util.List;
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     void handlePlayerStateChanged(boolean playWhenReady, int state) {
+        Log.w("DEBUG", "handle player state change to " + state + " "
+                + getTimestamp().getAnchorMediaTimeUs() + " " + getTimestamp().getMediaClockRate());
+        mListener.onMediaTimeDiscontinuity(getCurrentMediaItem(), getTimestamp());
+
         if (state == Player.STATE_READY && playWhenReady) {
             maybeUpdateTimerForPlaying();
         } else {
