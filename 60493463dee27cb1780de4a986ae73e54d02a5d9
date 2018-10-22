@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b9ecd2d3_b271730f",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-22T07:50:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7225e46e_680a2eb9",
+      "range": {
+        "startLine": 120,
+        "startChar": 25,
+        "endLine": 120,
+        "endChar": 32
+      },
+      "revId": "60493463dee27cb1780de4a986ae73e54d02a5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03f3a1e2_84893864",
         "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-22T07:20:28Z",
       "side": 1,
       "message": "revise comment as well",
+      "range": {
+        "startLine": 121,
+        "startChar": 45,
+        "endLine": 121,
+        "endChar": 72
+      },
+      "revId": "60493463dee27cb1780de4a986ae73e54d02a5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6333a116_8b50a931",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-22T07:50:34Z",
+      "side": 1,
+      "message": "Couldn\u0027t understand this comment.",
+      "parentUuid": "03f3a1e2_84893864",
       "range": {
         "startLine": 121,
         "startChar": 45,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2fbb5351_cb9f4122",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-22T07:50:34Z",
+      "side": 1,
+      "message": "Done in previous CL. (getList() is non-null)",
+      "parentUuid": "f9bad23b_ef22b785",
+      "range": {
+        "startLine": 126,
+        "startChar": 37,
+        "endLine": 126,
+        "endChar": 47
+      },
+      "revId": "60493463dee27cb1780de4a986ae73e54d02a5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2d46c88_20a09733",
         "filename": "media2/src/main/java/androidx/media2/ParcelImplListSlice.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "60493463dee27cb1780de4a986ae73e54d02a5d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4beea30e_ba8aca81",
+        "filename": "media2/src/main/java/androidx/media2/ParcelImplListSlice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-22T07:50:34Z",
+      "side": 1,
+      "message": "Then we can send null instead of ParcelImplListSlice.\nThe main idea is that we don\u0027t need to send ParcelImplListSlice when playlist is null. Instead, we can just send null.",
+      "parentUuid": "a2d46c88_20a09733",
+      "range": {
+        "startLine": 52,
+        "startChar": 32,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "60493463dee27cb1780de4a986ae73e54d02a5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
