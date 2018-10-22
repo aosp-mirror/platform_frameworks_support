@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fffee7f_63096b90",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T06:26:08Z",
+      "side": 1,
+      "message": "This isn\u0027t added in this CL, but by aosp/793357",
+      "range": {
+        "startLine": 583,
+        "startChar": 0,
+        "endLine": 583,
+        "endChar": 118
+      },
+      "revId": "0f6d96e5cba8a0c742f0208c9bc25bd54c22273d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
