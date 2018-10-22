@@ -46,6 +46,30 @@
       "revId": "082971c135eaa78d9dff0c4dbfbf253aa744493d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9e8bdd5_fb95895e",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/RxJava2Test.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-22T17:04:23Z",
+      "side": 1,
+      "message": "i think spy is fine.\nthe new one is much better, thanks!",
+      "parentUuid": "90173262_fed9aa87",
+      "range": {
+        "startLine": 622,
+        "startChar": 0,
+        "endLine": 661,
+        "endChar": 70
+      },
+      "revId": "082971c135eaa78d9dff0c4dbfbf253aa744493d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
