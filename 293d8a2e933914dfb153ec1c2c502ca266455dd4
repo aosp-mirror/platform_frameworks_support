@@ -315,6 +315,24 @@
       "revId": "293d8a2e933914dfb153ec1c2c502ca266455dd4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f557101_3ff80525",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-22T20:38:37Z",
+      "side": 1,
+      "message": "Adding a new annotation to AndroidX makes sense. Please add tnorbye@ to the review of that.",
+      "parentUuid": "e63c1686_08549437",
+      "revId": "293d8a2e933914dfb153ec1c2c502ca266455dd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
