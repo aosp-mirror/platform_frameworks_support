@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "137f197b_2ad11aa1",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/PagerSnapHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-10-22T21:23:40Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be \"visiblePosition + 1\".  This expression can probably be simplified.  Maybe we also need a test case that exercises this.",
+      "range": {
+        "startLine": 137,
+        "startChar": 60,
+        "endLine": 137,
+        "endChar": 75
+      },
+      "revId": "a36fb831a9727bd3abb680aed3d00605c04c5d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
