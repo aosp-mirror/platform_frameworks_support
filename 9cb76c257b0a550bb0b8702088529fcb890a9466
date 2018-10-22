@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "832b36ea_d505a556",
+        "filename": "media-widget/src/main/java/androidx/media/widget/RoutePlayer2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T08:54:23Z",
+      "side": 1,
+      "message": "You can move this inside of the if-statement, and change the type \"RemoteSessionPlayer2.Callback\"\nThen you don\u0027t need to cast the type of \u0027callback\u0027 in L100.",
+      "range": {
+        "startLine": 94,
+        "startChar": 20,
+        "endLine": 94,
+        "endChar": 78
+      },
+      "revId": "9cb76c257b0a550bb0b8702088529fcb890a9466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30eec3dd_57e70488",
+        "filename": "media-widget/src/main/java/androidx/media/widget/RoutePlayer2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T08:54:23Z",
+      "side": 1,
+      "message": "\"pair.second.execute(\"",
+      "range": {
+        "startLine": 96,
+        "startChar": 24,
+        "endLine": 97,
+        "endChar": 41
+      },
+      "revId": "9cb76c257b0a550bb0b8702088529fcb890a9466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37537a3f_a5986c24",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaPlayer2Test.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T08:54:23Z",
+      "side": 1,
+      "message": "why?",
+      "range": {
+        "startLine": 469,
+        "startChar": 0,
+        "endLine": 469,
+        "endChar": 3
+      },
+      "revId": "9cb76c257b0a550bb0b8702088529fcb890a9466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b352759_48edf7ce",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T08:54:23Z",
+      "side": 1,
+      "message": "Not the same behavior with previous one.",
+      "range": {
+        "startLine": 677,
+        "startChar": 27,
+        "endLine": 677,
+        "endChar": 35
+      },
+      "revId": "9cb76c257b0a550bb0b8702088529fcb890a9466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
