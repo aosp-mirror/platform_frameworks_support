@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03db74a8_a2e180e4",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2Stub.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T07:51:34Z",
+      "side": 1,
+      "message": "Does it make sense that changing convertMediaItem2ListToParcelImplList to convertMediaItem2ListToParcelImplListSlice?",
+      "range": {
+        "startLine": 321,
+        "startChar": 48,
+        "endLine": 321,
+        "endChar": 85
+      },
+      "revId": "daaa9f188b1a1e6c0aab7a889487774a295fa34b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
