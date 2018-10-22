@@ -1,28 +1,34 @@
 package androidx.lifecycle {
 
-  public final class BundlableSavedStateRegistry implements androidx.lifecycle.SavedStateRegistry {
-    ctor public BundlableSavedStateRegistry();
-    method public android.os.Bundle consumeRestoredStateForKey(java.lang.String);
-    method public boolean isRestored();
-    method public void performRestore(android.os.Bundle);
-    method public void performSave(android.os.Bundle);
-    method public void registerSavedStateProvider(java.lang.String, androidx.lifecycle.SavedStateRegistry.SavedStateProvider);
-    method public void unregisterSavedStateProvider(java.lang.String);
+  public abstract class AbstractSavedStateRegistry<S> implements androidx.lifecycle.SavedStateRegistry {
+    ctor public AbstractSavedStateRegistry();
+    method public final S consumeRestoredStateForKey(java.lang.String);
+    method public final boolean isRestored();
+    method protected final void performRestore(java.util.Map<java.lang.String, S>);
+    method protected final java.util.Map<java.lang.String, S> performSave();
+    method public final void registerSavedStateProvider(java.lang.String, androidx.lifecycle.SavedStateRegistry.SavedStateProvider<S>);
+    method public final void unregisterSavedStateProvider(java.lang.String);
   }
 
-  public abstract interface SavedStateRegistry {
-    method public abstract android.os.Bundle consumeRestoredStateForKey(java.lang.String);
+  public final class BundlableSavedStateRegistry extends androidx.lifecycle.AbstractSavedStateRegistry {
+    ctor public BundlableSavedStateRegistry();
+    method public void performRestore(android.os.Bundle);
+    method public void performSave(android.os.Bundle);
+  }
+
+  public abstract interface BundleSavedStateRegistryOwner {
+    method public abstract androidx.lifecycle.SavedStateRegistry<android.os.Bundle> getBundleSavedStateRegistry();
+  }
+
+  public abstract interface SavedStateRegistry<S> {
+    method public abstract S consumeRestoredStateForKey(java.lang.String);
     method public abstract boolean isRestored();
-    method public abstract void registerSavedStateProvider(java.lang.String, androidx.lifecycle.SavedStateRegistry.SavedStateProvider);
+    method public abstract void registerSavedStateProvider(java.lang.String, androidx.lifecycle.SavedStateRegistry.SavedStateProvider<S>);
     method public abstract void unregisterSavedStateProvider(java.lang.String);
   }
 
-  public static abstract interface SavedStateRegistry.SavedStateProvider {
-    method public abstract android.os.Bundle saveState();
-  }
-
-  public abstract interface SavedStateRegistryOwner {
-    method public abstract androidx.lifecycle.SavedStateRegistry getSavedState();
+  public static abstract interface SavedStateRegistry.SavedStateProvider<S> {
+    method public abstract S saveState();
   }
 
 }
