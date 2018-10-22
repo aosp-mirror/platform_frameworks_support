@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7225e46e_680a2eb9",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T07:20:28Z",
+      "side": 1,
+      "message": "Isn\u0027t it part of the aosp/792356?",
+      "range": {
+        "startLine": 120,
+        "startChar": 25,
+        "endLine": 120,
+        "endChar": 32
+      },
+      "revId": "60493463dee27cb1780de4a986ae73e54d02a5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03f3a1e2_84893864",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T07:20:28Z",
+      "side": 1,
+      "message": "revise comment as well",
+      "range": {
+        "startLine": 121,
+        "startChar": 45,
+        "endLine": 121,
+        "endChar": 72
+      },
+      "revId": "60493463dee27cb1780de4a986ae73e54d02a5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9bad23b_ef22b785",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T07:20:28Z",
+      "side": 1,
+      "message": "handle NPE",
+      "range": {
+        "startLine": 126,
+        "startChar": 37,
+        "endLine": 126,
+        "endChar": 47
+      },
+      "revId": "60493463dee27cb1780de4a986ae73e54d02a5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2d46c88_20a09733",
+        "filename": "media2/src/main/java/androidx/media2/ParcelImplListSlice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T07:20:28Z",
+      "side": 1,
+      "message": "why? SessionPlayer2#setMediaItem() can reset playlist to null.",
+      "range": {
+        "startLine": 52,
+        "startChar": 32,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "60493463dee27cb1780de4a986ae73e54d02a5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
