@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f090f282_62e8d4d8",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/tests/MediaBrowserCompatTestWithMediaSessionService2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T02:31:11Z",
+      "side": 1,
+      "message": "What\u0027s the difference between WAIT_TIME_MS and TIMEOUT_MS?\nI don\u0027t think they are reasonably defined.",
+      "range": {
+        "startLine": 92,
+        "startChar": 58,
+        "endLine": 92,
+        "endChar": 70
+      },
+      "revId": "6b675ef45a844378787de12e2cb751589a6c1f45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
