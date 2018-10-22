@@ -47,6 +47,30 @@
       "revId": "5c4a103653e84b3ed4ee7f9819f8ea6cf0e89ca0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a8d3577_a6d4c232",
+        "filename": "room/rxjava2/src/test/java/androidx/room/RxRoomTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-22T21:24:25Z",
+      "side": 1,
+      "message": "mistakes were made :)",
+      "parentUuid": "dbe7abf7_388c4ad3",
+      "range": {
+        "startLine": 266,
+        "startChar": 29,
+        "endLine": 266,
+        "endChar": 30
+      },
+      "revId": "5c4a103653e84b3ed4ee7f9819f8ea6cf0e89ca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
