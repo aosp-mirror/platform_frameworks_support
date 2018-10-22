@@ -16,16 +16,13 @@
 
 package androidx.lifecycle;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.arch.core.internal.SafeIterableMap;
-import androidx.lifecycle.SavedStateRegistry.SavedStateProvider;
 
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -37,75 +34,29 @@ import java.util.Map;
  * To collect saved state supplied by {@link SavedStateProvider}
  * an owner should call {@link #performSave(Bundle)}
  */
-@SuppressLint("RestrictedApi")
-public final class BundlableSavedStateRegistry implements SavedStateRegistry {
+public final class BundlableSavedStateRegistry extends AbstractSavedStateRegistry<Bundle> {
     private static final String SAVED_COMPONENTS_KEY =
             "androidx.lifecycle.BundlableSavedStateRegistry.key";
-    private SafeIterableMap<String, SavedStateProvider> mComponents = new SafeIterableMap<>();
-    private Bundle mSavedState;
-    private boolean mRestored;
-
-    @MainThread
-    @Nullable
-    @Override
-    public Bundle consumeRestoredStateForKey(@NonNull String key) {
-        if (!mRestored) {
-            throw new IllegalStateException("You can consumeRestoredStateForKey "
-                    + "only after super.onCreate of corresponding component");
-        }
-        Bundle state = null;
-        if (mSavedState != null)  {
-            state = mSavedState.getBundle(key);
-            mSavedState.remove(key);
-            if (mSavedState.isEmpty()) {
-                mSavedState = null;
-            }
-        }
-        return state;
-    }
-
-    @MainThread
-    @Override
-    public void registerSavedStateProvider(@NonNull String key,
-            @NonNull SavedStateProvider provider) {
-        SavedStateProvider previous = mComponents.putIfAbsent(key, provider);
-        if (previous != null) {
-            throw new IllegalArgumentException("SavedStateProvider with the given key is"
-                    + " already registered");
-        }
-    }
-
-    /**
-     * Unregisters a component previously registered by the given {@code key}
-     *
-     * @param key a key with which a component was previously registered.
-     */
-    @MainThread
-    @Override
-    public void unregisterSavedStateProvider(@NonNull String key) {
-        mComponents.remove(key);
-    }
-
-    /**
-     * Returns if state was restored after creation and can be safely consumed
-     * with {@link #consumeRestoredStateForKey(String)}
-     * @return true if state was restored.
-     */
-    @MainThread
-    @Override
-    public boolean isRestored() {
-        return mRestored;
-    }
 
     /**
      * An interface for an owner of this @{code {@link SavedStateRegistry} to restore saved state.
+     *
      * @param savedState restored state
      */
     @SuppressWarnings("WeakerAccess")
     @MainThread
     public void performRestore(@Nullable Bundle savedState) {
-        mSavedState = savedState != null ? savedState.getBundle(SAVED_COMPONENTS_KEY) : null;
-        mRestored = true;
+        Bundle componentsState = savedState != null ? savedState.getBundle(SAVED_COMPONENTS_KEY)
+                : null;
+        if (componentsState == null || componentsState.isEmpty()) {
+            restoreSavedState(null);
+            return;
+        }
+        Map<String, Bundle> initialState = new HashMap<>();
+        for (String key : componentsState.keySet()) {
+            initialState.put(key, componentsState.getBundle(key));
+        }
+        restoreSavedState(initialState);
     }
 
     /**
@@ -117,12 +68,11 @@ public final class BundlableSavedStateRegistry implements SavedStateRegistry {
      */
     @MainThread
     public void performSave(@NonNull Bundle outBundle) {
-        Bundle res = mSavedState == null ? new Bundle() : new Bundle(mSavedState);
-        for (Iterator<Map.Entry<String, SavedStateProvider>> it =
-                mComponents.iteratorWithAdditions(); it.hasNext(); ) {
-            Map.Entry<String, SavedStateProvider> entry = it.next();
-            res.putBundle(entry.getKey(), entry.getValue().saveState());
+        Map<String, Bundle> bundleMap = saveState();
+        Bundle components = new Bundle();
+        for (Map.Entry<String, Bundle> entry : bundleMap.entrySet()) {
+            components.putBundle(entry.getKey(), entry.getValue());
         }
-        outBundle.putBundle(SAVED_COMPONENTS_KEY, res);
+        outBundle.putBundle(SAVED_COMPONENTS_KEY, components);
     }
 }

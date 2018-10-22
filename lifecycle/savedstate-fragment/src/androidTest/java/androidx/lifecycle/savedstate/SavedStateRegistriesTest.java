@@ -156,7 +156,7 @@ public class SavedStateRegistriesTest {
         recreateActivity(activity, mActivityRule);
     }
 
-    private static class DefaultProvider implements SavedStateRegistry.SavedStateProvider {
+    private static class DefaultProvider implements SavedStateRegistry.SavedStateProvider<Bundle> {
         @NonNull
         @Override
         public Bundle saveState() {
