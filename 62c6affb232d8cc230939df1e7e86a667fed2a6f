@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbb7abd5_5c794e55",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T08:54:43Z",
+      "side": 1,
+      "message": "Q) Does XMediaPlayer throws an Exception during the execution?\nI thought that we agreed not to throw an exception but using result code.",
+      "range": {
+        "startLine": 581,
+        "startChar": 32,
+        "endLine": 581,
+        "endChar": 44
+      },
+      "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aef94cca_dc686b98",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T08:54:43Z",
+      "side": 1,
+      "message": "Q) Is isDone()\u003d\u003dfalse when isCancelled()\u003d\u003dtrue?\nI thought that done includes canceled, because cancel() calls setException(CancellationException) inside.",
+      "range": {
+        "startLine": 583,
+        "startChar": 35,
+        "endLine": 583,
+        "endChar": 55
+      },
+      "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b520510a_ff25cdcf",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T08:54:43Z",
+      "side": 1,
+      "message": "nit) You may change this to \u0027private PendingFuture addPendingFuture(final PendingFuture future)\u0027 to save tens of lines.",
+      "range": {
+        "startLine": 665,
+        "startChar": 17,
+        "endLine": 665,
+        "endChar": 33
+      },
+      "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36d836d2_ea3f790d",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2063,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T08:54:43Z",
+      "side": 1,
+      "message": "why don\u0027t you return immediately as other methdos are doing, here and other places.",
+      "range": {
+        "startLine": 2063,
+        "startChar": 0,
+        "endLine": 2063,
+        "endChar": 94
+      },
+      "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "634cd906_66017b38",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2098,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T08:54:43Z",
+      "side": 1,
+      "message": "why don\u0027t you return immediately as other methods are doing?",
+      "range": {
+        "startLine": 2098,
+        "startChar": 0,
+        "endLine": 2098,
+        "endChar": 51
+      },
+      "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce9dc2d5_043beeb0",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2305,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T08:54:43Z",
+      "side": 1,
+      "message": "if (!(future instanceof PendingXPlayerFuture)) for readability + matching with below comment.",
+      "range": {
+        "startLine": 2305,
+        "startChar": 20,
+        "endLine": 2305,
+        "endChar": 54
+      },
+      "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6d6396b_9b4f6bbd",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2320,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T08:54:43Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 2320,
+        "startChar": 20,
+        "endLine": 2320,
+        "endChar": 58
+      },
+      "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
