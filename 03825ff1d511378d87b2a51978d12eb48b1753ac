@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3e480208_c546798f",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-22T07:50:19Z",
+      "side": 1,
+      "message": "1) Changes are moved from next CL to this CL.\n2) done.",
+      "parentUuid": "9e633d33_15df4568",
+      "range": {
+        "startLine": 120,
+        "startChar": 30,
+        "endLine": 121,
+        "endChar": 0
+      },
+      "revId": "03825ff1d511378d87b2a51978d12eb48b1753ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "552c6852_87f70812",
         "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "03825ff1d511378d87b2a51978d12eb48b1753ac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7023be66_485a028b",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-22T07:50:19Z",
+      "side": 1,
+      "message": "Now getList() is not @NonNull.",
+      "parentUuid": "552c6852_87f70812",
+      "range": {
+        "startLine": 126,
+        "startChar": 37,
+        "endLine": 126,
+        "endChar": 47
+      },
+      "revId": "03825ff1d511378d87b2a51978d12eb48b1753ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c453cf36_63ca814b",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionLegacyStub.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-22T07:50:19Z",
+      "side": 1,
+      "message": "Done. Nice catch.",
+      "parentUuid": "d3a9cf20_a9c8c22d",
+      "range": {
+        "startLine": 792,
+        "startChar": 42,
+        "endLine": 792,
+        "endChar": 44
+      },
+      "revId": "03825ff1d511378d87b2a51978d12eb48b1753ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4097fddb_8f58d6de",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionLegacyStub.java",
         "patchSetId": 5
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "840992cd_00d1935b",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionLegacyStub.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-22T07:50:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4097fddb_8f58d6de",
+      "range": {
+        "startLine": 798,
+        "startChar": 28,
+        "endLine": 798,
+        "endChar": 29
+      },
+      "revId": "03825ff1d511378d87b2a51978d12eb48b1753ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c239098_fff14680",
         "filename": "media2/src/main/java/androidx/media2/ParcelImplListSlice.java",
         "patchSetId": 5
@@ -114,6 +210,30 @@
       "revId": "03825ff1d511378d87b2a51978d12eb48b1753ac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af63bd54_16934894",
+        "filename": "media2/src/main/java/androidx/media2/ParcelImplListSlice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-22T07:50:19Z",
+      "side": 1,
+      "message": "I think it won\u0027t make much difference. What do you think?",
+      "parentUuid": "7c239098_fff14680",
+      "range": {
+        "startLine": 47,
+        "startChar": 57,
+        "endLine": 47,
+        "endChar": 77
+      },
+      "revId": "03825ff1d511378d87b2a51978d12eb48b1753ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
