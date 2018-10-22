@@ -74,7 +74,7 @@ public class MediaBrowserCompatTestWithMediaSessionService2 extends MediaSession
 
     void connectAndWait() throws InterruptedException {
         mBrowserCompat.connect();
-        assertTrue(mConnectionCallback.mConnectedLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        assertTrue(mConnectionCallback.mConnectedLatch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
     }
 
     @Test
@@ -89,7 +89,7 @@ public class MediaBrowserCompatTestWithMediaSessionService2 extends MediaSession
     public void testConnect_rejected() throws InterruptedException {
         prepareLooper();
         // TODO: Connect the browser to the session service whose onConnect() returns null.
-        assertTrue(mConnectionCallback.mFailedLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        assertTrue(mConnectionCallback.mFailedLatch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
         assertNotEquals(0, mConnectionCallback.mConnectedLatch.getCount());
     }
 
