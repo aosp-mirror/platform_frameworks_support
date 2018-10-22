@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf32cc98_f4d02ae0",
+        "filename": "graphics/drawable/animated/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-22T21:42:49Z",
+      "side": 1,
+      "message": "This can actually be marked as implementation as we dont expose these as part of the API",
+      "range": {
+        "startLine": 11,
+        "startChar": 4,
+        "endLine": 11,
+        "endChar": 7
+      },
+      "revId": "cea88b2f98d25a87850a1855989db79ee7bafc55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
