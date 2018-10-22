@@ -70,6 +70,30 @@
       "revId": "082971c135eaa78d9dff0c4dbfbf253aa744493d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0eef606d_ee9e4549",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/RxJava2Test.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-10-22T20:07:22Z",
+      "side": 1,
+      "message": "Cool - Also updated RxRoom tests which started to fail with this change. Specifically the JUnitExecutorTask rule wasn\u0027t quite waiting for the io runnables.",
+      "parentUuid": "f9e8bdd5_fb95895e",
+      "range": {
+        "startLine": 622,
+        "startChar": 0,
+        "endLine": 661,
+        "endChar": 70
+      },
+      "revId": "082971c135eaa78d9dff0c4dbfbf253aa744493d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
