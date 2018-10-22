@@ -22,6 +22,30 @@
       "revId": "082971c135eaa78d9dff0c4dbfbf253aa744493d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90173262_fed9aa87",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/RxJava2Test.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-10-22T08:04:09Z",
+      "side": 1,
+      "message": "Yeah - this test was a mistake. I tackled this differently and took your suggestion of overriding getInvalidationTracker. I removed this test and instead crated a new test file with a small DB and similar calls on the main thread but instead of checking for a StrictMode violation and using sleep() it uses Mockito to check calling thread of addObserver and removeObserver, it also has latches to correctly wait for the expected calls, thus removing the flakyness of using sleep(). However, I do use a Mockito spy (partial mock) so not sure how you feel about that.",
+      "parentUuid": "32bbf793_7f6c7dca",
+      "range": {
+        "startLine": 622,
+        "startChar": 0,
+        "endLine": 661,
+        "endChar": 70
+      },
+      "revId": "082971c135eaa78d9dff0c4dbfbf253aa744493d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
