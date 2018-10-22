@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "81d24584_8b17151f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T02:46:19Z",
+      "side": 1,
+      "message": "It took 400ms between Context#bindService() and Service#onBind() is called when the process is dead. We don\u0027t have a room to improve it.",
+      "parentUuid": "4b8c938a_6c2ae221",
+      "range": {
+        "startLine": 9,
+        "startChar": 36,
+        "endLine": 9,
+        "endChar": 54
+      },
+      "revId": "6b675ef45a844378787de12e2cb751589a6c1f45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f090f282_62e8d4d8",
         "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/tests/MediaBrowserCompatTestWithMediaSessionService2.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "6b675ef45a844378787de12e2cb751589a6c1f45",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9391ca32_d55b20c4",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/tests/MediaBrowserCompatTestWithMediaSessionService2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T02:46:19Z",
+      "side": 1,
+      "message": "WAIT_TIME_MS is 1000ms and its for expected success.\nTIMEOUT_MS is 500ms and its for expected failure.",
+      "parentUuid": "f090f282_62e8d4d8",
+      "range": {
+        "startLine": 92,
+        "startChar": 58,
+        "endLine": 92,
+        "endChar": 70
+      },
+      "revId": "6b675ef45a844378787de12e2cb751589a6c1f45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
