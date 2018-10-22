@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "eaba8c6c_bd72dd89",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T09:12:59Z",
+      "side": 1,
+      "message": "\u0027Ignoring null listSlice from\u0027",
+      "parentUuid": "ac4b6a0d_41d61020",
+      "range": {
+        "startLine": 120,
+        "startChar": 30,
+        "endLine": 121,
+        "endChar": 0
+      },
+      "revId": "03825ff1d511378d87b2a51978d12eb48b1753ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "552c6852_87f70812",
         "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
         "patchSetId": 5
@@ -117,6 +141,30 @@
       "revId": "03825ff1d511378d87b2a51978d12eb48b1753ac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bb410b72_a269415d",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T09:12:59Z",
+      "side": 1,
+      "message": "It can be null if the counter-party is malicious app that mimics binder.\nHandle NPE here, or return non-null list from the list slice.",
+      "parentUuid": "7023be66_485a028b",
+      "range": {
+        "startLine": 126,
+        "startChar": 37,
+        "endLine": 126,
+        "endChar": 47
+      },
+      "revId": "03825ff1d511378d87b2a51978d12eb48b1753ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
@@ -249,6 +297,30 @@
       "side": 1,
       "message": "I think it won\u0027t make much difference. What do you think?",
       "parentUuid": "7c239098_fff14680",
+      "range": {
+        "startLine": 47,
+        "startChar": 57,
+        "endLine": 47,
+        "endChar": 77
+      },
+      "revId": "03825ff1d511378d87b2a51978d12eb48b1753ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a56cd1b1_7ddb66c2",
+        "filename": "media2/src/main/java/androidx/media2/ParcelImplListSlice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T09:12:59Z",
+      "side": 1,
+      "message": "May be OK, given that BaseParceledListSlice is doing the similar.\n\nJust FYI, don\u0027t mark \u0027resolve\u0027 if you have additional question(s).",
+      "parentUuid": "af63bd54_16934894",
       "range": {
         "startLine": 47,
         "startChar": 57,
