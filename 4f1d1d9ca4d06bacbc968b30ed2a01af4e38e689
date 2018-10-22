@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "332e3874_67ea7943",
+        "filename": "recyclerview/recyclerview/proguard-rules.pro",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-10-22T11:07:12Z",
+      "side": 1,
+      "message": "hidden methods are not part of sdk, so when proguard will be executed with compile version less then Q this methods will not be detected as methods overriding something and will be removed as unused.\nthanks, updated to keepclassmembers",
+      "parentUuid": "a4d37c8e_3d289c8e",
+      "revId": "4f1d1d9ca4d06bacbc968b30ed2a01af4e38e689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97fcba0b_1dc268c3",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
         "patchSetId": 6
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "4060d723_7886132a",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2231,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-10-22T11:07:12Z",
+      "side": 1,
+      "message": "Added the comment from ViewGroup as a part of this comment. Added a note to use setLayoutFrozen instead.",
+      "parentUuid": "97fcba0b_1dc268c3",
+      "range": {
+        "startLine": 2231,
+        "startChar": 6,
+        "endLine": 2231,
+        "endChar": 58
+      },
+      "revId": "4f1d1d9ca4d06bacbc968b30ed2a01af4e38e689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "caca9719_c532b138",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
         "patchSetId": 6
@@ -53,6 +95,30 @@
       "writtenOn": "2018-10-22T10:40:52Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 2241,
+        "startChar": 7,
+        "endLine": 2241,
+        "endChar": 20
+      },
+      "revId": "4f1d1d9ca4d06bacbc968b30ed2a01af4e38e689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5dec290_b73548e4",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2241,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-10-22T11:07:12Z",
+      "side": 1,
+      "message": "same as for the first method",
+      "parentUuid": "caca9719_c532b138",
       "range": {
         "startLine": 2241,
         "startChar": 7,
