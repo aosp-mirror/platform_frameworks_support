@@ -157,6 +157,24 @@
       "revId": "3c230ff369ad436c1867c822049ccb8f8c4878fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "869c9ebe_b69df171",
+        "filename": "studiow",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-10-22T15:11:40Z",
+      "side": 1,
+      "message": "$ which open\n/usr/bin/open",
+      "parentUuid": "0680917c_0587a5a3",
+      "revId": "3c230ff369ad436c1867c822049ccb8f8c4878fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
