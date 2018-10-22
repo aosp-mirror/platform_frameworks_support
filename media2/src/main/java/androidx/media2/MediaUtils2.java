@@ -473,6 +473,20 @@ public class MediaUtils2 {
     }
 
     /**
+     * Convert a list of {@link MediaItem2} to a list of {@link ParcelImplListSlice}.
+     *
+     * TODO: Remove below convertMediaItem2ListToParcelImplList() when all media list-related calls
+     * use ParcelImplListSlice.
+     */
+    public static ParcelImplListSlice convertMediaItem2ListToParcelImplListSlice(
+            List<MediaItem2> playlist) {
+        if (playlist == null) {
+            return null;
+        }
+        return new ParcelImplListSlice(convertMediaItem2ListToParcelImplList(playlist));
+    }
+
+    /**
      * Convert a list of {@link MediaItem2} to a list of {@link ParcelImpl}.
      */
     public static List<ParcelImpl> convertMediaItem2ListToParcelImplList(
