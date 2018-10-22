@@ -86,13 +86,6 @@ public class MediaBrowserCompatTestWithMediaLibraryService2 extends
         prepareLooper();
         // The MockMediaLibraryService gives MediaBrowser2Constants.ROOT_ID as root ID, and
         // MediaBrowser2Constants.ROOT_EXTRAS as extras.
-        sHandler.postAndSync(new Runnable() {
-            @Override
-            public void run() {
-                mBrowserCompat = new MediaBrowserCompat(mContext, getServiceComponent(),
-                        mConnectionCallback, null /* rootHint */);
-            }
-        });
         connectAndWait();
         assertEquals(ROOT_ID, mBrowserCompat.getRoot());
 
