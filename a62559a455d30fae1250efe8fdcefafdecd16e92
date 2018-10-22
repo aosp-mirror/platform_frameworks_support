@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "872178f3_480c289c",
+        "filename": "graphics/drawable/animated/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-22T21:07:28Z",
+      "side": 1,
+      "message": "Please bump the version.",
+      "range": {
+        "startLine": 36,
+        "startChar": 35,
+        "endLine": 36,
+        "endChar": 50
+      },
+      "revId": "a62559a455d30fae1250efe8fdcefafdecd16e92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
