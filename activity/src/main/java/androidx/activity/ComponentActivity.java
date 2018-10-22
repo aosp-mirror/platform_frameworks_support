@@ -16,6 +16,7 @@
 
 package androidx.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.CallSuper;
@@ -70,6 +71,7 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
         ReportFragment.injectIfNeededIn(this);
     }
 
+    @SuppressLint("RestrictedApi")
     @CallSuper
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
