@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c7dd895f_3f805ed4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-22T12:20:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da28b93f_e8a2968e",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 46
+      },
+      "revId": "44eb51a2299158645ac07b79c883eb560ed19cd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7fb8ea7_6356bc10",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionLegacyStub.java",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "44eb51a2299158645ac07b79c883eb560ed19cd2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e025673_141f10da",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionLegacyStub.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-22T12:20:06Z",
+      "side": 1,
+      "message": "Talked offline. Let\u0027s not change the Session/ControllerCompat classes\u0027 behavior.",
+      "parentUuid": "e7fb8ea7_6356bc10",
+      "range": {
+        "startLine": 780,
+        "startChar": 12,
+        "endLine": 780,
+        "endChar": 45
+      },
+      "revId": "44eb51a2299158645ac07b79c883eb560ed19cd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0bd3b008_f4a24916",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionLegacyStub.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-22T12:20:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0422eb4b_5474ae14",
+      "range": {
+        "startLine": 781,
+        "startChar": 19,
+        "endLine": 781,
+        "endChar": 31
+      },
+      "revId": "44eb51a2299158645ac07b79c883eb560ed19cd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9064fa0a_7acf40dd",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionLegacyStub.java",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "44eb51a2299158645ac07b79c883eb560ed19cd2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d0295c1_aea933a5",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionLegacyStub.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-22T12:20:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9064fa0a_7acf40dd",
+      "range": {
+        "startLine": 799,
+        "startChar": 32,
+        "endLine": 799,
+        "endChar": 33
+      },
+      "revId": "44eb51a2299158645ac07b79c883eb560ed19cd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

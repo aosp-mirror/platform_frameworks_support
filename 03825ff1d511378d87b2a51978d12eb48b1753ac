@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "374c5fca_5cac7ec8",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-22T12:20:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eaba8c6c_bd72dd89",
+      "range": {
+        "startLine": 120,
+        "startChar": 30,
+        "endLine": 121,
+        "endChar": 0
+      },
+      "revId": "03825ff1d511378d87b2a51978d12eb48b1753ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "552c6852_87f70812",
         "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
         "patchSetId": 5
@@ -165,6 +189,30 @@
       "revId": "03825ff1d511378d87b2a51978d12eb48b1753ac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8640bbc_f6de8334",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-22T12:20:06Z",
+      "side": 1,
+      "message": "Done. Added the null check.",
+      "parentUuid": "bb410b72_a269415d",
+      "range": {
+        "startLine": 126,
+        "startChar": 37,
+        "endLine": 126,
+        "endChar": 47
+      },
+      "revId": "03825ff1d511378d87b2a51978d12eb48b1753ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -321,6 +369,30 @@
       "side": 1,
       "message": "May be OK, given that BaseParceledListSlice is doing the similar.\n\nJust FYI, don\u0027t mark \u0027resolve\u0027 if you have additional question(s).",
       "parentUuid": "af63bd54_16934894",
+      "range": {
+        "startLine": 47,
+        "startChar": 57,
+        "endLine": 47,
+        "endChar": 77
+      },
+      "revId": "03825ff1d511378d87b2a51978d12eb48b1753ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "882e8891_52c16f75",
+        "filename": "media2/src/main/java/androidx/media2/ParcelImplListSlice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-22T12:20:06Z",
+      "side": 1,
+      "message": "Thanks for the info :)",
+      "parentUuid": "a56cd1b1_7ddb66c2",
       "range": {
         "startLine": 47,
         "startChar": 57,
