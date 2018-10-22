@@ -304,6 +304,42 @@
     },
     {
       "key": {
+        "uuid": "b0560b86_97387375",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-22T16:02:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f10fb86b_da54975c",
+      "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a233bfad_7a304d40",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-22T16:02:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f10fb86b_da54975c",
+      "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "73187c1a_dfcfaaa4",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 8
@@ -318,6 +354,24 @@
       "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f697cff_3bde6ad9",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-22T16:02:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73187c1a_dfcfaaa4",
+      "revId": "08c7054fb93c593c574ecdd1876dfbed14b8cc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
