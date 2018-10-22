@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a35316c_80b57328",
+        "filename": "room/benchmark/src/androidTest/java/androidx/room/benchmark/InvalidationTrackerBenchmark.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-22T21:22:43Z",
+      "side": 1,
+      "message": "this is hard to read. can you call the method with named parameter\n`(pauseTime \u003d mode \u003d\u003d DELETE)`",
+      "range": {
+        "startLine": 74,
+        "startChar": 11,
+        "endLine": 74,
+        "endChar": 52
+      },
+      "revId": "fb1bab64e22f102f082a2ab26032236c57d3778d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbdc7352_e6f97157",
+        "filename": "room/benchmark/src/androidTest/java/androidx/room/benchmark/InvalidationTrackerBenchmark.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-22T21:22:43Z",
+      "side": 1,
+      "message": "you can write arrayOf(...).forEach { mode -\u003e\n\nsame for below",
+      "range": {
+        "startLine": 108,
+        "startChar": 29,
+        "endLine": 112,
+        "endChar": 17
+      },
+      "revId": "fb1bab64e22f102f082a2ab26032236c57d3778d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
