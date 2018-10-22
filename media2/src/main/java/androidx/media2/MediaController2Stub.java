@@ -233,7 +233,7 @@ class MediaController2Stub extends IMediaController2.Stub {
     public void onConnected(IMediaSession2 sessionBinder, ParcelImpl commandGroup, int playerState,
             ParcelImpl currentItem, long positionEventTimeMs, long positionMs, float playbackSpeed,
             long bufferedPositionMs, ParcelImpl playbackInfo, int shuffleMode, int repeatMode,
-            List<ParcelImpl> playlistParcel, PendingIntent sessionActivity) {
+            ParcelImplListSlice listSlice, PendingIntent sessionActivity) {
         final MediaController2ImplBase controller = mController.get();
         if (controller == null) {
             if (DEBUG) {
@@ -242,10 +242,11 @@ class MediaController2Stub extends IMediaController2.Stub {
             return;
         }
         List<MediaItem2> itemList = null;
-        if (playlistParcel != null) {
+        if (listSlice != null) {
+            List<ParcelImpl> parcelList = listSlice.getList();
             itemList = new ArrayList<>();
-            for (int i = 0; i < playlistParcel.size(); i++) {
-                MediaItem2 item = ParcelUtils.fromParcelable(playlistParcel.get(i));
+            for (int i = 0; i < parcelList.size(); i++) {
+                MediaItem2 item = ParcelUtils.fromParcelable(parcelList.get(i));
                 if (item != null) {
                     itemList.add(item);
                 }

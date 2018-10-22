@@ -119,7 +119,7 @@ public class ParcelImplListSlice implements Parcelable {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        final int itemCount = mList.size();
+        final int itemCount = mList == null ? 0 : mList.size();
         dest.writeInt(itemCount);
         if (DEBUG) {
             Log.d(TAG, "Writing " + itemCount + " items");
