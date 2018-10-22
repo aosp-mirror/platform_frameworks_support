@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e633d33_15df4568",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T07:25:33Z",
+      "side": 1,
+      "message": "1. next CL reverted this change.\n2. change log message",
+      "range": {
+        "startLine": 120,
+        "startChar": 30,
+        "endLine": 121,
+        "endChar": 0
+      },
+      "revId": "03825ff1d511378d87b2a51978d12eb48b1753ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "552c6852_87f70812",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T07:25:33Z",
+      "side": 1,
+      "message": "can be null. handle NPE",
+      "range": {
+        "startLine": 126,
+        "startChar": 37,
+        "endLine": 126,
+        "endChar": 47
+      },
+      "revId": "03825ff1d511378d87b2a51978d12eb48b1753ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3a9cf20_a9c8c22d",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionLegacyStub.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T07:25:33Z",
+      "side": 1,
+      "message": "\u003c ?",
+      "range": {
+        "startLine": 792,
+        "startChar": 42,
+        "endLine": 792,
+        "endChar": 44
+      },
+      "revId": "03825ff1d511378d87b2a51978d12eb48b1753ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4097fddb_8f58d6de",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionLegacyStub.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T07:25:33Z",
+      "side": 1,
+      "message": "Better to leave debug log only when DEBUG is true.\nOr pick other log level.",
+      "range": {
+        "startLine": 798,
+        "startChar": 28,
+        "endLine": 798,
+        "endChar": 29
+      },
+      "revId": "03825ff1d511378d87b2a51978d12eb48b1753ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c239098_fff14680",
+        "filename": "media2/src/main/java/androidx/media2/ParcelImplListSlice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T07:25:33Z",
+      "side": 1,
+      "message": "Q) shouldn\u0027t we have less than that? We\u0027ll send the data above this limit.",
+      "range": {
+        "startLine": 47,
+        "startChar": 57,
+        "endLine": 47,
+        "endChar": 77
+      },
+      "revId": "03825ff1d511378d87b2a51978d12eb48b1753ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
