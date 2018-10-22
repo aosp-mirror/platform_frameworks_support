@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "b4440e19_52fd32ff",
+        "filename": "media2/src/main/java/androidx/media2/MediaBrowser2ImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T10:59:10Z",
+      "side": 1,
+      "message": "What about dispatch(Remote)SessionTask, dispatch(Remote)ControllerTask, etc?",
+      "range": {
+        "startLine": 65,
+        "startChar": 15,
+        "endLine": 65,
+        "endChar": 26
+      },
+      "revId": "078b2e5fc4f84886aeb91e863a9825b4465dbab8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70201c52_8aa18ea0",
         "filename": "media2/src/main/java/androidx/media2/MediaBrowser2ImplBase.java",
         "patchSetId": 6
