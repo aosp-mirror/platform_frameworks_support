@@ -22,6 +22,30 @@
       "revId": "daaa9f188b1a1e6c0aab7a889487774a295fa34b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e19ad205_a16318a3",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2Stub.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-22T08:01:18Z",
+      "side": 1,
+      "message": "Nice catch. Done.\n\nconvertMediaItem2ListToParcelImplList() will be completely removed when browser list-related calls are also moved to ParcelImplListSlice.",
+      "parentUuid": "03db74a8_a2e180e4",
+      "range": {
+        "startLine": 321,
+        "startChar": 48,
+        "endLine": 321,
+        "endChar": 85
+      },
+      "revId": "daaa9f188b1a1e6c0aab7a889487774a295fa34b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
