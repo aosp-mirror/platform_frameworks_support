@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a27bd05b_55967e85",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-22T16:59:28Z",
+      "side": 1,
+      "message": "Done. The note around the default onBackPressed() behavior is already covered in the ComponentActivity#onBackPressed() Javadoc.",
+      "parentUuid": "da486785_f7329fab",
+      "revId": "1f99a06862e8c07338d10bc56ccf12f8b168e109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dba0c17f_4aea3ba4",
         "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-10-19T22:28:33Z",
       "side": 1,
       "message": "You don\u0027t have any info on what happens if the same handler is added multiple times. I suspect that you want to move it to the new position rather than leave it at the previous position?",
+      "revId": "1f99a06862e8c07338d10bc56ccf12f8b168e109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a8c0229_bfc00961",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-22T16:59:28Z",
+      "side": 1,
+      "message": "It was just going to do what the method says it does - add a Handler. Do you think it should have some Set like behavior?",
+      "parentUuid": "dba0c17f_4aea3ba4",
       "revId": "1f99a06862e8c07338d10bc56ccf12f8b168e109",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -107,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "f6b23c6c_cb918c2d",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-22T16:59:28Z",
+      "side": 1,
+      "message": "Removed the locks.\n\nYes, I had looked at SafeIterableMap, but it wasn\u0027t public. Are there plans for making a public copy of it in androidx.collections?",
+      "parentUuid": "65604008_e5e30274",
+      "range": {
+        "startLine": 114,
+        "startChar": 8,
+        "endLine": 114,
+        "endChar": 20
+      },
+      "revId": "1f99a06862e8c07338d10bc56ccf12f8b168e109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59e62fa0_ebe4a415",
         "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
         "patchSetId": 1
@@ -139,6 +199,24 @@
       "revId": "1f99a06862e8c07338d10bc56ccf12f8b168e109",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "742b6d68_bf893c94",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-22T16:59:28Z",
+      "side": 1,
+      "message": "Added a comment clarifying the behavior.",
+      "parentUuid": "81f4bdc3_59eb136a",
+      "revId": "1f99a06862e8c07338d10bc56ccf12f8b168e109",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
