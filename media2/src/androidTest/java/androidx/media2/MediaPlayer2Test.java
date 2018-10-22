@@ -466,89 +466,89 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
         }
     }
 
-    @Test
-    @LargeTest
-    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.P)
-    public void testPlayMidi() throws Exception {
-        final int resid = R.raw.midi8sec;
-        final int midiDuration = 8000;
-        final int tolerance = 70;
-        final int seekDuration = 1000;
-
-        MediaPlayer2 mp = createMediaPlayer2(mContext, resid);
-        AssetFileDescriptor afd = null;
-
-        final Monitor onPrepareCalled = new Monitor();
-        final Monitor onSeekToCalled = new Monitor();
-        final Monitor onLoopCurrentCalled = new Monitor();
-        MediaPlayer2.EventCallback ecb =
-                new MediaPlayer2.EventCallback() {
-                    @Override
-                    public void onInfo(MediaPlayer2 mp, MediaItem2 item, int what, int extra) {
-                        if (what == MediaPlayer2.MEDIA_INFO_PREPARED) {
-                            onPrepareCalled.signal();
-                        }
-                    }
-
-                    @Override
-                    public void onCallCompleted(MediaPlayer2 mp, MediaItem2 item,
-                            int what, int status) {
-                        if (what == MediaPlayer2.CALL_COMPLETED_LOOP_CURRENT) {
-                            onLoopCurrentCalled.signal();
-                        } else if (what == MediaPlayer2.CALL_COMPLETED_SEEK_TO) {
-                            onSeekToCalled.signal();
-                        }
-                    }
-                };
-        mp.setEventCallback(mExecutor, ecb);
-
-        try {
-            AudioAttributesCompat attributes = new AudioAttributesCompat.Builder()
-                    .setLegacyStreamType(AudioManager.STREAM_MUSIC)
-                    .build();
-            mp.setAudioAttributes(attributes);
-
-            mp.play();
-
-            /* FIXME: what's API for checking loop state?
-            assertFalse(mp.isLooping());
-            */
-            onLoopCurrentCalled.reset();
-            mp.loopCurrent(true);
-            onLoopCurrentCalled.waitForSignal();
-            /* FIXME: what's API for checking loop state?
-            assertTrue(mp.isLooping());
-            */
-
-            assertEquals(midiDuration, mp.getDuration(), tolerance);
-            long pos = mp.getCurrentPosition();
-            assertTrue(pos >= 0);
-            assertTrue(pos < midiDuration - seekDuration);
-
-            onSeekToCalled.reset();
-            mp.seekTo(pos + seekDuration, MediaPlayer2.SEEK_PREVIOUS_SYNC);
-            onSeekToCalled.waitForSignal();
-            assertEquals(pos + seekDuration, mp.getCurrentPosition(), tolerance);
-
-            // test stop and restart
-            mp.reset();
-            afd = mResources.openRawResourceFd(resid);
-            mp.setMediaItem(new FileMediaItem2.Builder(
-                    afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength()).build());
-
-            mp.setEventCallback(mExecutor, ecb);
-            onPrepareCalled.reset();
-            mp.prepare();
-            onPrepareCalled.waitForSignal();
-
-            mp.play();
-
-            Thread.sleep(SLEEP_TIME);
-        } finally {
-            mp.close();
-            afd.close();
-        }
-    }
+//    @Test
+//    @LargeTest
+//    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.P)
+//    public void testPlayMidi() throws Exception {
+//        final int resid = R.raw.midi8sec;
+//        final int midiDuration = 8000;
+//        final int tolerance = 70;
+//        final int seekDuration = 1000;
+//
+//        MediaPlayer2 mp = createMediaPlayer2(mContext, resid);
+//        AssetFileDescriptor afd = null;
+//
+//        final Monitor onPrepareCalled = new Monitor();
+//        final Monitor onSeekToCalled = new Monitor();
+//        final Monitor onLoopCurrentCalled = new Monitor();
+//        MediaPlayer2.EventCallback ecb =
+//                new MediaPlayer2.EventCallback() {
+//                    @Override
+//                    public void onInfo(MediaPlayer2 mp, MediaItem2 item, int what, int extra) {
+//                        if (what == MediaPlayer2.MEDIA_INFO_PREPARED) {
+//                            onPrepareCalled.signal();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCallCompleted(MediaPlayer2 mp, MediaItem2 item,
+//                            int what, int status) {
+//                        if (what == MediaPlayer2.CALL_COMPLETED_LOOP_CURRENT) {
+//                            onLoopCurrentCalled.signal();
+//                        } else if (what == MediaPlayer2.CALL_COMPLETED_SEEK_TO) {
+//                            onSeekToCalled.signal();
+//                        }
+//                    }
+//                };
+//        mp.setEventCallback(mExecutor, ecb);
+//
+//        try {
+//            AudioAttributesCompat attributes = new AudioAttributesCompat.Builder()
+//                    .setLegacyStreamType(AudioManager.STREAM_MUSIC)
+//                    .build();
+//            mp.setAudioAttributes(attributes);
+//
+//            mp.play();
+//
+//            /* FIXME: what's API for checking loop state?
+//            assertFalse(mp.isLooping());
+//            */
+//            onLoopCurrentCalled.reset();
+//            mp.loopCurrent(true);
+//            onLoopCurrentCalled.waitForSignal();
+//            /* FIXME: what's API for checking loop state?
+//            assertTrue(mp.isLooping());
+//            */
+//
+//            assertEquals(midiDuration, mp.getDuration(), tolerance);
+//            long pos = mp.getCurrentPosition();
+//            assertTrue(pos >= 0);
+//            assertTrue(pos < midiDuration - seekDuration);
+//
+//            onSeekToCalled.reset();
+//            mp.seekTo(pos + seekDuration, MediaPlayer2.SEEK_PREVIOUS_SYNC);
+//            onSeekToCalled.waitForSignal();
+//            assertEquals(pos + seekDuration, mp.getCurrentPosition(), tolerance);
+//
+//            // test stop and restart
+//            mp.reset();
+//            afd = mResources.openRawResourceFd(resid);
+//            mp.setMediaItem(new FileMediaItem2.Builder(
+//                    afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength()).build());
+//
+//            mp.setEventCallback(mExecutor, ecb);
+//            onPrepareCalled.reset();
+//            mp.prepare();
+//            onPrepareCalled.waitForSignal();
+//
+//            mp.play();
+//
+//            Thread.sleep(SLEEP_TIME);
+//        } finally {
+//            mp.close();
+//            afd.close();
+//        }
+//    }
 
     static class OutputListener {
         int mSession;
@@ -799,33 +799,33 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
         Thread.sleep(SLEEP_TIME);
     }
 
-    @Test
-    @LargeTest
-    @Ignore("Fails to connect to camera service")
-    public void testRecordedVideoPlayback0() throws Exception {
-        testRecordedVideoPlaybackWithAngle(0);
-    }
-
-    @Test
-    @LargeTest
-    @Ignore("Fails to connect to camera service")
-    public void testRecordedVideoPlayback90() throws Exception {
-        testRecordedVideoPlaybackWithAngle(90);
-    }
-
-    @Test
-    @LargeTest
-    @Ignore("Fails to connect to camera service")
-    public void testRecordedVideoPlayback180() throws Exception {
-        testRecordedVideoPlaybackWithAngle(180);
-    }
-
-    @Test
-    @LargeTest
-    @Ignore("Fails to connect to camera service")
-    public void testRecordedVideoPlayback270() throws Exception {
-        testRecordedVideoPlaybackWithAngle(270);
-    }
+//    @Test
+//    @LargeTest
+//    @Ignore("Fails to connect to camera service")
+//    public void testRecordedVideoPlayback0() throws Exception {
+//        testRecordedVideoPlaybackWithAngle(0);
+//    }
+//
+//    @Test
+//    @LargeTest
+//    @Ignore("Fails to connect to camera service")
+//    public void testRecordedVideoPlayback90() throws Exception {
+//        testRecordedVideoPlaybackWithAngle(90);
+//    }
+//
+//    @Test
+//    @LargeTest
+//    @Ignore("Fails to connect to camera service")
+//    public void testRecordedVideoPlayback180() throws Exception {
+//        testRecordedVideoPlaybackWithAngle(180);
+//    }
+//
+//    @Test
+//    @LargeTest
+//    @Ignore("Fails to connect to camera service")
+//    public void testRecordedVideoPlayback270() throws Exception {
+//        testRecordedVideoPlaybackWithAngle(270);
+//    }
 
     private boolean hasCamera() {
         return mActivity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
