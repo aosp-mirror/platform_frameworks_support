@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dd2dc85e_9d0f4182",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T01:07:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f5a9e60_cc3012c4",
+      "range": {
+        "startLine": 515,
+        "startChar": 31,
+        "endLine": 515,
+        "endChar": 77
+      },
+      "revId": "179d19b40599cbb5797f56e2ab736867786f797f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0d770c2_477b60fe",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "179d19b40599cbb5797f56e2ab736867786f797f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7eaead28_891909a4",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T01:07:59Z",
+      "side": 1,
+      "message": "Yes. They are protected methods in the super class.",
+      "parentUuid": "f0d770c2_477b60fe",
+      "range": {
+        "startLine": 527,
+        "startChar": 8,
+        "endLine": 535,
+        "endChar": 9
+      },
+      "revId": "179d19b40599cbb5797f56e2ab736867786f797f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "cc7f31ac_50b41711",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T01:07:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7ebc6ca_0954db15",
+      "range": {
+        "startLine": 544,
+        "startChar": 26,
+        "endLine": 544,
+        "endChar": 46
+      },
+      "revId": "179d19b40599cbb5797f56e2ab736867786f797f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7640801_864270be",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "179d19b40599cbb5797f56e2ab736867786f797f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "246abd46_bc298c14",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T01:07:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f7640801_864270be",
+      "range": {
+        "startLine": 701,
+        "startChar": 20,
+        "endLine": 701,
+        "endChar": 52
+      },
+      "revId": "179d19b40599cbb5797f56e2ab736867786f797f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "44e3f9dc_1b388cde",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2315,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T01:07:59Z",
+      "side": 1,
+      "message": "Checked.\n1. No blocking calls.\n2. Mostly it is running on the mExecutor thread.\n3. It will run on caller\u0027s thread when there are no running MP2 commands.\n\nLet me know if you want to change this ran on different thread all the time for the safety of future modification.",
+      "parentUuid": "9ddcc1ab_569c3074",
+      "range": {
+        "startLine": 2315,
+        "startChar": 20,
+        "endLine": 2315,
+        "endChar": 33
+      },
+      "revId": "179d19b40599cbb5797f56e2ab736867786f797f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b579819_48ae3c1b",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 3
@@ -137,6 +257,30 @@
       "revId": "179d19b40599cbb5797f56e2ab736867786f797f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cff7e7a_770aecf8",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2326,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T01:07:59Z",
+      "side": 1,
+      "message": "in handleCallComplete method (L2222), if it is a PendingMP2Future,\nin this method (L2313), otherwise.",
+      "parentUuid": "1b579819_48ae3c1b",
+      "range": {
+        "startLine": 2326,
+        "startChar": 20,
+        "endLine": 2326,
+        "endChar": 33
+      },
+      "revId": "179d19b40599cbb5797f56e2ab736867786f797f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
