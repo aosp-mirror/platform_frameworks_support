@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f95b0ef0_a30e43d9",
+        "filename": "media-widget/src/main/java/androidx/media/widget/RoutePlayer2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-22T11:08:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "832b36ea_d505a556",
+      "range": {
+        "startLine": 94,
+        "startChar": 20,
+        "endLine": 94,
+        "endChar": 78
+      },
+      "revId": "9cb76c257b0a550bb0b8702088529fcb890a9466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30eec3dd_57e70488",
         "filename": "media-widget/src/main/java/androidx/media/widget/RoutePlayer2.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "9cb76c257b0a550bb0b8702088529fcb890a9466",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66fa8f2b_8f36916c",
+        "filename": "media-widget/src/main/java/androidx/media/widget/RoutePlayer2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-22T11:08:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30eec3dd_57e70488",
+      "range": {
+        "startLine": 96,
+        "startChar": 24,
+        "endLine": 97,
+        "endChar": 41
+      },
+      "revId": "9cb76c257b0a550bb0b8702088529fcb890a9466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4c2c30d6_cd1121a7",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaPlayer2Test.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-22T11:08:31Z",
+      "side": 1,
+      "message": "This was a mistake. Removed.",
+      "parentUuid": "37537a3f_a5986c24",
+      "range": {
+        "startLine": 469,
+        "startChar": 0,
+        "endLine": 469,
+        "endChar": 3
+      },
+      "revId": "9cb76c257b0a550bb0b8702088529fcb890a9466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3b352759_48edf7ce",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2018-10-22T08:54:23Z",
       "side": 1,
       "message": "Not the same behavior with previous one.",
+      "range": {
+        "startLine": 677,
+        "startChar": 27,
+        "endLine": 677,
+        "endChar": 35
+      },
+      "revId": "9cb76c257b0a550bb0b8702088529fcb890a9466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bde4986_101eb49e",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-22T11:08:31Z",
+      "side": 1,
+      "message": "Thanks for pointing this out...fixed.",
+      "parentUuid": "3b352759_48edf7ce",
       "range": {
         "startLine": 677,
         "startChar": 27,
