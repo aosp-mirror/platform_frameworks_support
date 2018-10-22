@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c76f8501_4ad97308",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/TracingControllerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-22T22:01:46Z",
+      "side": 1,
+      "message": "I don\u0027t think this is correct. Docs [1] say \"should only be called on the UI thread,\" not that this automatically posts on the UI thread.\n\nCan you replace this with InstrumentationRegistry.getInstrumentation().runOnMainSync (ex. [2])?\n\n[1] http://cs/android/frameworks/base/core/java/android/annotation/UiThread.java?l\u003d30\u0026rcl\u003d23bab6c7668ced8d94089e664975ac6888a3e220\n[2] http://cs/android/frameworks/support/webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java?l\u003d310\u0026rcl\u003d3d68de4fbf64aa1df1c694e6ca180f6a5297291a",
+      "revId": "626ad0f0bb5ab3078ef7aeb8e7fd218d624ad5e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d31e518_02430f1a",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingConfig.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-22T22:01:46Z",
+      "side": 1,
+      "message": "Why do we need \"\u003ccode\u003e\" here? Does \u003cpre\u003e not escape special javadoc characters?",
+      "range": {
+        "startLine": 172,
+        "startChar": 9,
+        "endLine": 172,
+        "endChar": 14
+      },
+      "revId": "626ad0f0bb5ab3078ef7aeb8e7fd218d624ad5e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
