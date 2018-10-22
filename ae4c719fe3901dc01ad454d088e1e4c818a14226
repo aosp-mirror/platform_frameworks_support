@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "52c94d92_b849bfaa",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-22T22:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fc35b66_36a5bc08",
+      "range": {
+        "startLine": 202,
+        "startChar": 32,
+        "endLine": 202,
+        "endChar": 42
+      },
+      "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5de0a99f_3343bf41",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 35
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b4c32273_2f42cef0",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-22T22:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5de0a99f_3343bf41",
+      "range": {
+        "startLine": 329,
+        "startChar": 69,
+        "endLine": 336,
+        "endChar": 82
+      },
+      "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4dbdd478_d00e35f8",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 35
@@ -62,6 +110,24 @@
       "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afe38218_d7337208",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-22T22:00:37Z",
+      "side": 1,
+      "message": "Fixed by throwing the exception",
+      "parentUuid": "4dbdd478_d00e35f8",
+      "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "babab40d_49cea1b4",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-22T22:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4eb09498_e755bad6",
+      "range": {
+        "startLine": 403,
+        "startChar": 4,
+        "endLine": 403,
+        "endChar": 16
+      },
+      "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef2f042d_a3f53984",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 35
@@ -108,6 +198,30 @@
       "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a24fa99c_dac6e0f7",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-22T22:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef2f042d_a3f53984",
+      "range": {
+        "startLine": 405,
+        "startChar": 12,
+        "endLine": 405,
+        "endChar": 30
+      },
+      "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "affa8c81_22fb231d",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-22T22:00:37Z",
+      "side": 1,
+      "message": "Great catch! Also double checked usages of .values() in other places.",
+      "parentUuid": "5a48726f_529e039c",
+      "range": {
+        "startLine": 409,
+        "startChar": 71,
+        "endLine": 409,
+        "endChar": 77
+      },
+      "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab8509bb_3ff1cd08",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 35
@@ -145,6 +283,30 @@
       "writtenOn": "2018-10-22T11:52:19Z",
       "side": 1,
       "message": "we shouldn\u0027t drop exceptions on the floor, dev should be able to retry operation or smth. Because currently, bitmaps are just missing for shortcuts you added  and you don\u0027t have any way to know or recover that.",
+      "range": {
+        "startLine": 712,
+        "startChar": 10,
+        "endLine": 714,
+        "endChar": 13
+      },
+      "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "514349e3_f90ca0f8",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-22T22:00:37Z",
+      "side": 1,
+      "message": "I agree. But, note that this is run in the background thread (a Runnable in mDiskIoService) and we will need a callback mechanism to pass the exception to the developer. Current APIs in ShortcutManager, which we are trying to cover in the support lib, also drop the exception and just do a wtf log. see https://cs.corp.google.com/android/frameworks/base/services/core/java/com/android/server/pm/ShortcutBitmapSaver.java?rcl\u003d2aa44d9a716d59feead3fd2187fc4490752656d2\u0026l\u003d181",
+      "parentUuid": "ab8509bb_3ff1cd08",
       "range": {
         "startLine": 712,
         "startChar": 10,
