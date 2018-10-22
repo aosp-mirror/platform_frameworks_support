@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "da28b93f_e8a2968e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-22T09:04:14Z",
+      "side": 1,
+      "message": "could you also write test under the media2, to see whether the list slice works for the local binder which changes calls into the synchronous call?",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 46
+      },
+      "revId": "44eb51a2299158645ac07b79c883eb560ed19cd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7fb8ea7_6356bc10",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionLegacyStub.java",
         "patchSetId": 6
