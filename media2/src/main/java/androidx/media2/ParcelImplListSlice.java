@@ -25,6 +25,7 @@ import android.os.Parcelable;
 import android.os.RemoteException;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.versionedparcelable.ParcelImpl;
 
@@ -48,7 +49,7 @@ public class ParcelImplListSlice implements Parcelable {
 
     final List<ParcelImpl> mList;
 
-    public ParcelImplListSlice(List<ParcelImpl> list) {
+    public ParcelImplListSlice(@NonNull List<ParcelImpl> list) {
         mList = list;
     }
 
@@ -108,7 +109,7 @@ public class ParcelImplListSlice implements Parcelable {
         }
     }
 
-    public List<ParcelImpl> getList() {
+    public @NonNull List<ParcelImpl> getList() {
         return mList;
     }
 
