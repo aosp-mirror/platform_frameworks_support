@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "877015eb_6a218eb7",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingConfig.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-22T16:36:21Z",
+      "side": 1,
+      "message": "You should be able to just set it to android.webkit.TracingConfig.CATEGORIES_NONE. javac inlines all the public static final contants so it will be available for everyone. That way we don\u0027t have to worry about accidentally setting/changing the constants here. Please do it for all the constants.",
+      "range": {
+        "startLine": 50,
+        "startChar": 46,
+        "endLine": 50,
+        "endChar": 47
+      },
+      "revId": "d190704a5ed7df5de7d83599d672c041d4f06d7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3e5d994f_d1002aed",
         "filename": "webkit/src/main/java/androidx/webkit/TracingConfig.java",
         "patchSetId": 9
@@ -13,6 +36,30 @@
       "writtenOn": "2018-10-19T19:14:56Z",
       "side": 1,
       "message": "Can we define these with android.webkit.TracingConfig? Unfortunately, you won\u0027t be able to import the class, so you\u0027ll need to use the fully qualified name.\n\nIf not, that\u0027s fine, but I\u0027m curious what the restrictions are.",
+      "range": {
+        "startLine": 82,
+        "startChar": 28,
+        "endLine": 82,
+        "endChar": 52
+      },
+      "revId": "d190704a5ed7df5de7d83599d672c041d4f06d7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab616072_b436d04d",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingConfig.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-22T16:36:21Z",
+      "side": 1,
+      "message": "Agree, we should use the constants from the platform class.",
+      "parentUuid": "3e5d994f_d1002aed",
       "range": {
         "startLine": 82,
         "startChar": 28,
