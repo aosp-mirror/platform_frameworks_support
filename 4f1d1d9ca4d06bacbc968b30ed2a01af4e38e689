@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4d37c8e_3d289c8e",
+        "filename": "recyclerview/recyclerview/proguard-rules.pro",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-22T10:40:52Z",
+      "side": 1,
+      "message": "do we need it because proguard works with stub android.jar?\n\nat least it should be keepclassmembers",
+      "revId": "4f1d1d9ca4d06bacbc968b30ed2a01af4e38e689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97fcba0b_1dc268c3",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2231,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-22T10:40:52Z",
+      "side": 1,
+      "message": "we need better documentation for public apis. Copy it from ViewGroup methods? \nAdd a guidance, what devs should prefer this method or freeze?",
+      "range": {
+        "startLine": 2231,
+        "startChar": 6,
+        "endLine": 2231,
+        "endChar": 58
+      },
+      "revId": "4f1d1d9ca4d06bacbc968b30ed2a01af4e38e689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "caca9719_c532b138",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2241,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-22T10:40:52Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 2241,
+        "startChar": 7,
+        "endLine": 2241,
+        "endChar": 20
+      },
+      "revId": "4f1d1d9ca4d06bacbc968b30ed2a01af4e38e689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
