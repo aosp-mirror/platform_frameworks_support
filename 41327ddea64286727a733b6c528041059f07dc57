@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38d66053_8ad337da",
+        "filename": "lifecycle/savedstate-core/src/main/java/androidx/lifecycle/BundleSavedStateRegistryOwner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-22T14:21:33Z",
+      "side": 1,
+      "message": "it is a bit painful, I can add generics to it, but then a class can\u0027t implement multiple of those, because type erasure.",
+      "range": {
+        "startLine": 27,
+        "startChar": 17,
+        "endLine": 27,
+        "endChar": 46
+      },
+      "revId": "41327ddea64286727a733b6c528041059f07dc57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
