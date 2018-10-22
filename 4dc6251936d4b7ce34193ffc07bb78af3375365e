@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "297ecd05_d2a8ac08",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2018-10-22T18:50:37Z",
+      "side": 1,
+      "message": "Probably would be good to explicitly call out here and in the others that the proxy change is not immediate, and that if the caller is going to loadUrl() and expect it to go through the proxy they need to wait for the callback.",
+      "revId": "4dc6251936d4b7ce34193ffc07bb78af3375365e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
