@@ -45,6 +45,54 @@
       "revId": "d844db461ec6788f8a3d3b6d3fd482ade86ebcbd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2eb601d6_11fabb88",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-10-22T08:32:40Z",
+      "side": 1,
+      "message": "I removed the exception in order to follow MediaController\u0027s behavior. MediaController in Frameworks doesn\u0027t throw exception. It just ignores the duplicated calls for registering the same callback and unregistering a callback which is not registered.",
+      "parentUuid": "769518bb_4c9225b5",
+      "range": {
+        "startLine": 9,
+        "startChar": 35,
+        "endLine": 9,
+        "endChar": 54
+      },
+      "revId": "d844db461ec6788f8a3d3b6d3fd482ade86ebcbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d517b24_67739bd2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-10-22T08:32:40Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "95905733_16b9c9d3",
+      "range": {
+        "startLine": 9,
+        "startChar": 8,
+        "endLine": 9,
+        "endChar": 12
+      },
+      "revId": "d844db461ec6788f8a3d3b6d3fd482ade86ebcbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
