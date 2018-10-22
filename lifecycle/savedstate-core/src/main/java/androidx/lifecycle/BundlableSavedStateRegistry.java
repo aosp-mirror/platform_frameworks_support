@@ -38,10 +38,11 @@ import java.util.Map;
  * an owner should call {@link #performSave(Bundle)}
  */
 @SuppressLint("RestrictedApi")
-public final class BundlableSavedStateRegistry implements SavedStateRegistry {
+public final class BundlableSavedStateRegistry implements SavedStateRegistry<Bundle> {
     private static final String SAVED_COMPONENTS_KEY =
             "androidx.lifecycle.BundlableSavedStateRegistry.key";
-    private SafeIterableMap<String, SavedStateProvider> mComponents = new SafeIterableMap<>();
+    private SafeIterableMap<String, SavedStateProvider<Bundle>> mComponents =
+            new SafeIterableMap<>();
     private Bundle mSavedState;
     private boolean mRestored;
 
@@ -54,7 +55,7 @@ public final class BundlableSavedStateRegistry implements SavedStateRegistry {
                     + "only after super.onCreate of corresponding component");
         }
         Bundle state = null;
-        if (mSavedState != null)  {
+        if (mSavedState != null) {
             state = mSavedState.getBundle(key);
             mSavedState.remove(key);
             if (mSavedState.isEmpty()) {
@@ -67,8 +68,8 @@ public final class BundlableSavedStateRegistry implements SavedStateRegistry {
     @MainThread
     @Override
     public void registerSavedStateProvider(@NonNull String key,
-            @NonNull SavedStateProvider provider) {
-        SavedStateProvider previous = mComponents.putIfAbsent(key, provider);
+            @NonNull SavedStateProvider<Bundle> provider) {
+        SavedStateProvider<Bundle> previous = mComponents.putIfAbsent(key, provider);
         if (previous != null) {
             throw new IllegalArgumentException("SavedStateProvider with the given key is"
                     + " already registered");
@@ -89,6 +90,7 @@ public final class BundlableSavedStateRegistry implements SavedStateRegistry {
     /**
      * Returns if state was restored after creation and can be safely consumed
      * with {@link #consumeRestoredStateForKey(String)}
+     *
      * @return true if state was restored.
      */
     @MainThread
@@ -99,6 +101,7 @@ public final class BundlableSavedStateRegistry implements SavedStateRegistry {
 
     /**
      * An interface for an owner of this @{code {@link SavedStateRegistry} to restore saved state.
+     *
      * @param savedState restored state
      */
     @SuppressWarnings("WeakerAccess")
@@ -118,9 +121,9 @@ public final class BundlableSavedStateRegistry implements SavedStateRegistry {
     @MainThread
     public void performSave(@NonNull Bundle outBundle) {
         Bundle res = mSavedState == null ? new Bundle() : new Bundle(mSavedState);
-        for (Iterator<Map.Entry<String, SavedStateProvider>> it =
+        for (Iterator<Map.Entry<String, SavedStateProvider<Bundle>>> it =
                 mComponents.iteratorWithAdditions(); it.hasNext(); ) {
-            Map.Entry<String, SavedStateProvider> entry = it.next();
+            Map.Entry<String, SavedStateProvider<Bundle>> entry = it.next();
             res.putBundle(entry.getKey(), entry.getValue().saveState());
         }
         outBundle.putBundle(SAVED_COMPONENTS_KEY, res);
