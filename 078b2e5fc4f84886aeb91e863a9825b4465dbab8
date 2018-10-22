@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d38bc1aa_730fa251",
+        "filename": "media2/src/main/aidl/androidx/media2/IMediaSession2.aidl",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T07:33:26Z",
+      "side": 1,
+      "message": "Q) Did you agreed to changed this onCustomCommand before?",
+      "range": {
+        "startLine": 46,
+        "startChar": 9,
+        "endLine": 46,
+        "endChar": 26
+      },
+      "revId": "078b2e5fc4f84886aeb91e863a9825b4465dbab8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70201c52_8aa18ea0",
+        "filename": "media2/src/main/java/androidx/media2/MediaBrowser2ImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T07:33:26Z",
+      "side": 1,
+      "message": "The same private method is in the super class, so I was confused which method is called when.\nCould you rename them to sendBrowserCommand and sendSessionCommand?",
+      "revId": "078b2e5fc4f84886aeb91e863a9825b4465dbab8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
