@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2350ea1d_1899fe2c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T09:10:29Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be ignored, instead it should be overwritten.",
+      "range": {
+        "startLine": 10,
+        "startChar": 3,
+        "endLine": 10,
+        "endChar": 54
+      },
+      "revId": "919ac5877995974d6f97316618cef1e61622b774",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "699d9905_392bbc46",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T09:10:29Z",
+      "side": 1,
+      "message": "TMI, you can remove this.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 0
+      },
+      "revId": "919ac5877995974d6f97316618cef1e61622b774",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21587ffb_d7ecdb6a",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T09:10:29Z",
+      "side": 1,
+      "message": "Should it be Map?",
+      "range": {
+        "startLine": 238,
+        "startChar": 18,
+        "endLine": 238,
+        "endChar": 35
+      },
+      "revId": "919ac5877995974d6f97316618cef1e61622b774",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94604856_798ef4b1",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T09:10:29Z",
+      "side": 1,
+      "message": "But the handle can be different.",
+      "range": {
+        "startLine": 606,
+        "startChar": 24,
+        "endLine": 606,
+        "endChar": 64
+      },
+      "revId": "919ac5877995974d6f97316618cef1e61622b774",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dc632dc_1114ad4e",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/android/support/mediacompat/client/MediaControllerCompatCallbackTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T09:10:29Z",
+      "side": 1,
+      "message": "Could you add a test for calling registerCallback two times with the same callback but different handlers?",
+      "range": {
+        "startLine": 720,
+        "startChar": 47,
+        "endLine": 720,
+        "endChar": 55
+      },
+      "revId": "919ac5877995974d6f97316618cef1e61622b774",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e557400_56e82ee6",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/android/support/mediacompat/client/MediaControllerCompatCallbackTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-22T09:10:29Z",
+      "side": 1,
+      "message": "Please use CountDownLatch instead just waiting.\n(For reference, https://cs.corp.google.com/android/frameworks/support/media2/src/androidTest/java/androidx/media2/MediaSession2Test.java?q\u003dmediasession2test\u0026sq\u003dpackage:%5Eandroid$\u0026dr\u003dCSs\u0026l\u003d71)",
+      "range": {
+        "startLine": 723,
+        "startChar": 8,
+        "endLine": 723,
+        "endChar": 34
+      },
+      "revId": "919ac5877995974d6f97316618cef1e61622b774",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
