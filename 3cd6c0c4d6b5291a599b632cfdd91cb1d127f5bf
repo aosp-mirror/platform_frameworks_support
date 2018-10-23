@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "997f2522_e9633271",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/PagerSnapHelperTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-10-23T21:31:49Z",
+      "side": 1,
+      "message": "Having the RV be some undefined size needlessly complicates things.  I think we are much better off setting this to a fixed size, like say 500 by 500 pixels, and then the children size can be set accordingly so that they are larger, smaller, or the same size, and the thing we are trying to test will be much more stably tested.\n\nMake sense?  Thoughts?",
+      "range": {
+        "startLine": 84,
+        "startChar": 46,
+        "endLine": 84,
+        "endChar": 58
+      },
+      "revId": "3cd6c0c4d6b5291a599b632cfdd91cb1d127f5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fca4ba4a_fa91484c",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/PagerSnapHelperTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-10-23T21:31:49Z",
+      "side": 1,
+      "message": "Hmm, I think it would be much better to simply not define the RecyclerView\u0027s dimensions as MATCH_PARENT.  I have dealt with some testing bugs in the past because of the device being tested on having an unexpected screen size.  Because the screen size of the device is not actually relevant to the things under test (what is relevant is the size of the children in relation to the size of the RV), I think we should simply control the size of the RV.\n\nSee my other comment.",
+      "range": {
+        "startLine": 190,
+        "startChar": 11,
+        "endLine": 190,
+        "endChar": 43
+      },
+      "revId": "3cd6c0c4d6b5291a599b632cfdd91cb1d127f5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
