@@ -31,7 +31,6 @@ import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -87,8 +86,8 @@ public final class NavigationState implements VersionedParcelable {
             @NonNull List<Destination> destinations,
             @Nullable Segment currentSegment,
             @NonNull EnumWrapper<ServiceStatus> serviceStatus) {
-        mSteps = Collections.unmodifiableList(new ArrayList<>(steps));
-        mDestinations = Collections.unmodifiableList(new ArrayList<>(destinations));
+        mSteps = new ArrayList<>(steps);
+        mDestinations = new ArrayList<>(destinations);
         mCurrentSegment = currentSegment;
         mServiceStatus = Preconditions.checkNotNull(serviceStatus);
     }
@@ -168,7 +167,7 @@ public final class NavigationState implements VersionedParcelable {
      */
     @NonNull
     public List<Step> getSteps() {
-        return Common.nonNullOrEmpty(mSteps);
+        return Common.immutableOrEmpty(mSteps);
     }
 
     /**
@@ -177,7 +176,7 @@ public final class NavigationState implements VersionedParcelable {
      */
     @NonNull
     public List<Destination> getDestinations() {
-        return Common.nonNullOrEmpty(mDestinations);
+        return Common.immutableOrEmpty(mDestinations);
     }
 
     /**
