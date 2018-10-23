@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "08379f0b_98a73fa6",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-23T03:03:35Z",
+      "side": 1,
+      "message": "I agree on having two different list proposal you mentioned offline. How about the followings?\n\nfinal ArrayDeque\u003cPendingFuture\u003e mPendingFutures \u003d new ArrayDeque\u003c\u003e();\nfinal ArrayDeque\u003cPendingCommand\u003e mPendingCommands \u003d new ArrayDeque\u003c\u003e();\n\n|mPendingFutures| only keeps the futures returned to the client.\n|mPendingCommands| only keeps the MP2 commands submitted to MP2 instance.\n\nIn XMediaPlayer, it executes the first item from mPendingFutures and does not remove the first item from the list. when the onExecute of the first item is executed, it may submit several MP2 operations and add some pending items in the mPendingCommands.\nIn onCallComplete callback, if there is no more item in mPendingCommands, pop the first item in mPendingFutures. When something wrong happens, e.g. error or MP2 command error, forward the error to the client and cancel and clear mPendingCommands.",
+      "range": {
+        "startLine": 515,
+        "startChar": 4,
+        "endLine": 516,
+        "endChar": 73
+      },
+      "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fbb7abd5_5c794e55",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 4
@@ -64,6 +87,29 @@
         "startChar": 17,
         "endLine": 665,
         "endChar": 33
+      },
+      "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51a60301_d3a9cb24",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-23T03:03:35Z",
+      "side": 1,
+      "message": "cancelation is not needed here. registering runnable for cancellation is needed only for the future returned to the client.",
+      "range": {
+        "startLine": 683,
+        "startChar": 51,
+        "endLine": 683,
+        "endChar": 68
       },
       "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
