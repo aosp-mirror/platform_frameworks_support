@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1bad81f0_ae1b4780",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-23T04:38:49Z",
+      "side": 1,
+      "message": "You can\u0027t remove pair in for-each statement.",
+      "range": {
+        "startLine": 700,
+        "startChar": 20,
+        "endLine": 700,
+        "endChar": 43
+      },
+      "revId": "df8a50d4e88f5096f8731bccdd63e12a7bbb0ce8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
