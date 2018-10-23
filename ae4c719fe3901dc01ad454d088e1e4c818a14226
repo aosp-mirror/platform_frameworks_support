@@ -340,6 +340,30 @@
       "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0d4ad24_23786d35",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-23T15:15:19Z",
+      "side": 1,
+      "message": "I am not sure how that would be possible here. This code is only for lower SDK version, so even if we provide any callback, it will not be available on newer android versions.",
+      "parentUuid": "ccd51e33_df9ef8cf",
+      "range": {
+        "startLine": 712,
+        "startChar": 10,
+        "endLine": 714,
+        "endChar": 13
+      },
+      "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
