@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70f8bdf2_999abdce",
+        "filename": "fragment/testing/api/1.1.0-alpha01.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-23T17:34:53Z",
+      "side": 1,
+      "message": "This class is expected as all methods, even the inline top level methods, are hosted within a class at some level.\n\nb/117565118 tracks reified functions missing from the API generation.",
+      "revId": "8bc01cc1910b1efcab13403f49d3596a0f6224a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
