@@ -16,15 +16,26 @@
 
 package androidx.mediarouter.app;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
@@ -33,6 +44,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -86,11 +98,14 @@ public class MediaRouteButton extends View {
 
     private final MediaRouter mRouter;
     private final MediaRouterCallback mCallback;
+    private final AvailabilityReceiver mAvailabilityReceiver;
 
     private MediaRouteSelector mSelector = MediaRouteSelector.EMPTY;
     private MediaRouteDialogFactory mDialogFactory = MediaRouteDialogFactory.getDefault();
 
     private boolean mAttachedToWindow;
+
+    private int mVisibility = VISIBLE;
 
     static final SparseArray<Drawable.ConstantState> sRemoteIndicatorCache =
             new SparseArray<>(2);
@@ -171,6 +186,7 @@ public class MediaRouteButton extends View {
 
         updateContentDescription();
         setClickable(true);
+        mAvailabilityReceiver = new AvailabilityReceiver(context);
     }
 
     /**
@@ -385,11 +401,8 @@ public class MediaRouteButton extends View {
 
     @Override
     public void setVisibility(int visibility) {
-        super.setVisibility(visibility);
-
-        if (mRemoteIndicator != null) {
-            mRemoteIndicator.setVisible(getVisibility() == VISIBLE, false);
-        }
+        mVisibility = visibility;
+        refreshVisibility();
     }
 
     @Override
@@ -401,6 +414,8 @@ public class MediaRouteButton extends View {
             mRouter.addCallback(mSelector, mCallback);
         }
         refreshRoute();
+
+        mAvailabilityReceiver.registerReceiver();
     }
 
     @Override
@@ -409,6 +424,8 @@ public class MediaRouteButton extends View {
         if (!mSelector.isEmpty()) {
             mRouter.removeCallback(mCallback);
         }
+
+        mAvailabilityReceiver.unregisterReceiver();
 
         super.onDetachedFromWindow();
     }
@@ -522,6 +539,14 @@ public class MediaRouteButton extends View {
                 }
                 curDrawable.selectDrawable(curDrawable.getNumberOfFrames() - 1);
             }
+        }
+    }
+
+    void refreshVisibility() {
+        super.setVisibility((mAvailabilityReceiver.isRouteAvailable() || mVisibility != VISIBLE)
+                ? mVisibility : INVISIBLE);
+        if (mRemoteIndicator != null) {
+            mRemoteIndicator.setVisible(getVisibility() == VISIBLE, false);
         }
     }
 
@@ -659,6 +684,99 @@ public class MediaRouteButton extends View {
                 sRemoteIndicatorCache.put(mResId, remoteIndicator.getConstantState());
             }
             mRemoteIndicatorLoader = null;
+        }
+    }
+
+    private final class AvailabilityReceiver extends BroadcastReceiver {
+        private Context mContext;
+        private int mWifiState = WifiManager.WIFI_STATE_DISABLED;
+        private int mBluetoothState = BluetoothAdapter.STATE_ON;
+        private boolean mIsRouteAvailable = true;
+
+        AvailabilityReceiver(Context context) {
+            mContext = context;
+        }
+
+        @SuppressLint("MissingPermission")
+        public void registerReceiver() {
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+            intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+            intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+            mContext.registerReceiver(this, intentFilter);
+
+            // If we have no permission, we can't use it
+            if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.BLUETOOTH)
+                    == PackageManager.PERMISSION_GRANTED) {
+                BluetoothAdapter adapter;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    adapter = ((BluetoothManager) mContext.getSystemService(
+                            Context.BLUETOOTH_SERVICE)).getAdapter();
+                } else {
+                    adapter = BluetoothAdapter.getDefaultAdapter();
+                }
+                if (adapter != null) {
+                    mBluetoothState = adapter.getState();
+                } else {
+                    mBluetoothState = BluetoothAdapter.STATE_OFF;
+                }
+            } else {
+                mBluetoothState = BluetoothAdapter.STATE_OFF;
+            }
+
+            refreshAvailability();
+        }
+
+        public void unregisterReceiver() {
+            mContext.unregisterReceiver(this);
+        }
+
+        public boolean isRouteAvailable() {
+            return mIsRouteAvailable;
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            if (Intent.ACTION_AIRPLANE_MODE_CHANGED.equals(action)) {
+                refreshAvailability();
+            } else if (WifiManager.WIFI_STATE_CHANGED_ACTION.equals(action)) {
+                mWifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE,
+                        WifiManager.WIFI_STATE_UNKNOWN);
+                refreshAvailability();
+            } else if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)) {
+                mBluetoothState = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE,
+                        BluetoothAdapter.STATE_OFF);
+                refreshAvailability();
+            }
+        }
+
+        private boolean isAirplaneModeOn() {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                return Settings.System.getInt(mContext.getContentResolver(),
+                        Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+            } else {
+                return Settings.Global.getInt(mContext.getContentResolver(),
+                        Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
+            }
+        }
+
+        private boolean isWifiEnabled() {
+            return mWifiState != WifiManager.WIFI_STATE_DISABLED
+                    && mWifiState != WifiManager.WIFI_STATE_DISABLING;
+        }
+
+        private boolean isBluetoothEnabled() {
+            return mBluetoothState != BluetoothAdapter.STATE_OFF
+                    && mBluetoothState != BluetoothAdapter.STATE_TURNING_OFF;
+        }
+
+        private void refreshAvailability() {
+            boolean available = !isAirplaneModeOn() || isWifiEnabled() || isBluetoothEnabled();
+            if (mIsRouteAvailable != available) {
+                mIsRouteAvailable = available;
+                refreshVisibility();
+            }
         }
     }
 }
