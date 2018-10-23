@@ -22,6 +22,30 @@
       "revId": "51e1dd09bc38dccbc2362bcc665e96bf543545c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74423575_3f4564d8",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-23T19:40:57Z",
+      "side": 1,
+      "message": "Yes, that\u0027s what I meant. I fixed the comment to make it more clear.",
+      "parentUuid": "82dfcad4_d4bf9af2",
+      "range": {
+        "startLine": 484,
+        "startChar": 15,
+        "endLine": 485,
+        "endChar": 31
+      },
+      "revId": "51e1dd09bc38dccbc2362bcc665e96bf543545c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
