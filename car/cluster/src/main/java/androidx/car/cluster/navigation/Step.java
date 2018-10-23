@@ -44,6 +44,10 @@ public final class Step implements VersionedParcelable {
     Maneuver mManeuver;
     @ParcelField(3)
     List<Lane> mLanes;
+    @ParcelField(4)
+    List<Image> mImageCues;
+    @ParcelField(5)
+    List<String> mTextCues;
 
     /**
      * Used by {@link VersionedParcelable}
@@ -58,10 +62,13 @@ public final class Step implements VersionedParcelable {
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
-    Step(@Nullable Distance distance, @Nullable Maneuver maneuver, @NonNull List<Lane> lanes) {
+    Step(@Nullable Distance distance, @Nullable Maneuver maneuver, @NonNull List<Lane> lanes,
+            @NonNull List<Image> imageCues, @NonNull List<String> textCues) {
         mDistance = distance;
         mManeuver = maneuver;
         mLanes = Collections.unmodifiableList(new ArrayList<>(lanes));
+        mImageCues = Collections.unmodifiableList(new ArrayList<>(imageCues));
+        mTextCues = Collections.unmodifiableList(new ArrayList<>(textCues));
     }
 
     /**
@@ -71,6 +78,8 @@ public final class Step implements VersionedParcelable {
         Distance mDistance;
         Maneuver mManeuver;
         List<Lane> mLanes = new ArrayList<>();
+        List<Image> mImageCues = new ArrayList<>();
+        List<String> mTextCues = new ArrayList<>();
 
         /**
          * Sets the distance from the current position to the point where this navigation step
@@ -108,11 +117,44 @@ public final class Step implements VersionedParcelable {
         }
 
         /**
+         * Adds an image cue to this step. An image cue is a graphical representation of a sign
+         * or marker the driver should look for in order to perform this step. Examples of image
+         * cues are: highway badges, road exits, road signs.
+         * <p>
+         * Image cues should be added from most relevant to least relevant. These images should be
+         * optimized to be displayed one next to the other on a single row. This means that they can
+         * have variable aspect ratio, but consumers will most likely present them with equal
+         * height.
+         *
+         * @return this object for chaining
+         */
+        @NonNull
+        public Builder addImageCue(@NonNull Image imageCue) {
+            mImageCues.add(Preconditions.checkNotNull(imageCue));
+            return this;
+        }
+
+        /**
+         * Adds a text cue to this step. A text cue is a textual representation of a sign or marker
+         * the driver should look for in order to perform this step. Examples of text cues are:
+         * "North ramp", "Take exit 2B", "Towards Main St.".
+         * <p>
+         * Text cues should be added from most relevant to least relevant.
+         *
+         * @return this object for chaining
+         */
+        @NonNull
+        public Builder addTextCue(@NonNull String textCue) {
+            mTextCues.add(Preconditions.checkNotNull(textCue));
+            return this;
+        }
+
+        /**
          * Returns a {@link Step} built with the provided information.
          */
         @NonNull
         public Step build() {
-            return new Step(mDistance, mManeuver, mLanes);
+            return new Step(mDistance, mManeuver, mLanes, mImageCues, mTextCues);
         }
     }
 
@@ -143,6 +185,30 @@ public final class Step implements VersionedParcelable {
         return Common.nonNullOrEmpty(mLanes);
     }
 
+    /**
+     * Returns a list of images containing graphical representations of signs or markers the driver
+     * should look for in order to perform this step. Examples of image cues are: highway badges,
+     * road exits, road signs.
+     * <p>
+     * Image cues are listed from most relevant to least relevant.
+     */
+    @NonNull
+    public List<Image> getImageCues() {
+        return Common.nonNullOrEmpty(mImageCues);
+    }
+
+    /**
+     * Returns a list of textual representations of signs or markers the driver should look for in
+     * order to perform this step. Examples of image cues are: "North ramp", "Take exit 2B",
+     * "Towards Main St.".
+     * <p>
+     * Text cues are listed from most relevant to least relevant.
+     */
+    @NonNull
+    public List<String> getTextCues() {
+        return Common.nonNullOrEmpty(mTextCues);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -154,17 +220,20 @@ public final class Step implements VersionedParcelable {
         Step step = (Step) o;
         return Objects.equals(getManeuver(), step.getManeuver())
                 && Objects.equals(getDistance(), step.getDistance())
-                && Objects.equals(getLanes(), step.getLanes());
+                && Objects.equals(getLanes(), step.getLanes())
+                && Objects.equals(getImageCues(), step.getImageCues())
+                && Objects.equals(getTextCues(), step.getTextCues());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getManeuver(), getDistance(), getLanes());
+        return Objects.hash(getManeuver(), getDistance(), getLanes(), getImageCues(),
+                getTextCues());
     }
 
     @Override
     public String toString() {
-        return String.format("{maneuver: %s, distance: %s, lanes: %s}", mManeuver, mDistance,
-                mLanes);
+        return String.format("{maneuver: %s, distance: %s, lanes: %s, imageCues: %s, textCues: %s}",
+                mManeuver, mDistance, mLanes, mImageCues, mTextCues);
     }
 }
