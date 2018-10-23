@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9071112_e3bf33d2",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-23T00:21:06Z",
+      "side": 1,
+      "message": "sorry this should\u0027ve been brought up in the initial review\n\ni think the javadoc doesn\u0027t have to talk about implementation (toggling visibility). instead it could simply say \"Enables scroll bar thumb...\". similar for other methods.\n\nup to you.",
+      "range": {
+        "startLine": 467,
+        "startChar": 15,
+        "endLine": 467,
+        "endChar": 25
+      },
+      "revId": "ddd30d3d80f5817b024fed99fc870aa1648a9c0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
