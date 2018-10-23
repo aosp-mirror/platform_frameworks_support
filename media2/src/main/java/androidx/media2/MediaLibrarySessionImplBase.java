@@ -102,9 +102,9 @@ class MediaLibrarySessionImplBase extends MediaSession2ImplBase implements Media
             throw new IllegalArgumentException("itemCount shouldn't be negative");
         }
 
-        notifyToAllControllers(new NotifyRunnable() {
+        dispatchRemoteControllerTask(new RemoteControllerTask() {
             @Override
-            public void run(ControllerCb callback) throws RemoteException {
+            public void run(ControllerCb callback, int seq) throws RemoteException {
                 if (isSubscribed(callback, parentId)) {
                     callback.onChildrenChanged(parentId, itemCount, extras);
                 }
@@ -124,9 +124,9 @@ class MediaLibrarySessionImplBase extends MediaSession2ImplBase implements Media
         if (itemCount < 0) {
             throw new IllegalArgumentException("itemCount shouldn't be negative");
         }
-        notifyToController(controller, new NotifyRunnable() {
+        dispatchRemoteControllerTask(controller, new RemoteControllerTask() {
             @Override
-            public void run(ControllerCb callback) throws RemoteException {
+            public void run(ControllerCb callback, int seq) throws RemoteException {
                 if (!isSubscribed(callback, parentId)) {
                     if (DEBUG) {
                         Log.d(TAG, "Skipping notifyChildrenChanged() to " + controller
@@ -149,9 +149,9 @@ class MediaLibrarySessionImplBase extends MediaSession2ImplBase implements Media
         if (TextUtils.isEmpty(query)) {
             throw new IllegalArgumentException("query shouldn't be empty");
         }
-        notifyToController(controller, new NotifyRunnable() {
+        dispatchRemoteControllerTask(controller, new RemoteControllerTask() {
             @Override
-            public void run(ControllerCb callback) throws RemoteException {
+            public void run(ControllerCb callback, int seq) throws RemoteException {
                 callback.onSearchResultChanged(query, itemCount, extras);
             }
         });
@@ -167,9 +167,9 @@ class MediaLibrarySessionImplBase extends MediaSession2ImplBase implements Media
     public void onGetLibraryRootOnExecutor(ControllerInfo controller, final Bundle rootHints) {
         final LibraryRoot root = getCallback().onGetLibraryRoot(
                 getInstance(), controller, rootHints);
-        notifyToController(controller, new NotifyRunnable() {
+        dispatchRemoteControllerTask(controller, new RemoteControllerTask() {
             @Override
-            public void run(ControllerCb callback) throws RemoteException {
+            public void run(ControllerCb callback, int seq) throws RemoteException {
                 callback.onGetLibraryRootDone(rootHints,
                         root == null ? null : root.getRootId(),
                         root == null ? null : root.getExtras());
@@ -186,9 +186,9 @@ class MediaLibrarySessionImplBase extends MediaSession2ImplBase implements Media
     @Override
     public void onGetItemOnExecutor(ControllerInfo controller, final String mediaId) {
         final MediaItem2 result = getCallback().onGetItem(getInstance(), controller, mediaId);
-        notifyToController(controller, new NotifyRunnable() {
+        dispatchRemoteControllerTask(controller, new RemoteControllerTask() {
             @Override
-            public void run(ControllerCb callback) throws RemoteException {
+            public void run(ControllerCb callback, int seq) throws RemoteException {
                 callback.onGetItemDone(mediaId, result);
             }
         });
@@ -204,9 +204,9 @@ class MediaLibrarySessionImplBase extends MediaSession2ImplBase implements Media
                     + "more than pageSize. result.size()=" + result.size() + " pageSize="
                     + pageSize);
         }
-        notifyToController(controller, new NotifyRunnable() {
+        dispatchRemoteControllerTask(controller, new RemoteControllerTask() {
             @Override
-            public void run(ControllerCb callback) throws RemoteException {
+            public void run(ControllerCb callback, int seq) throws RemoteException {
                 callback.onGetChildrenDone(parentId, page, pageSize, result, extras);
             }
         });
@@ -250,20 +250,20 @@ class MediaLibrarySessionImplBase extends MediaSession2ImplBase implements Media
                     + "items more than pageSize. result.size()=" + result.size() + " pageSize="
                     + pageSize);
         }
-        notifyToController(controller, new NotifyRunnable() {
+        dispatchRemoteControllerTask(controller, new RemoteControllerTask() {
             @Override
-            public void run(ControllerCb callback) throws RemoteException {
+            public void run(ControllerCb callback, int seq) throws RemoteException {
                 callback.onGetSearchResultDone(query, page, pageSize, result, extras);
             }
         });
     }
 
     @Override
-    void notifyToAllControllers(NotifyRunnable runnable) {
-        super.notifyToAllControllers(runnable);
+    void dispatchRemoteControllerTask(RemoteControllerTask task) {
+        super.dispatchRemoteControllerTask(task);
         MediaLibraryService2LegacyStub legacyStub = getLegacyBrowserService();
         if (legacyStub != null) {
-            notifyToController(legacyStub.getControllersForAll(), runnable);
+            dispatchRemoteControllerTask(legacyStub.getControllersForAll(), task);
         }
     }
 
