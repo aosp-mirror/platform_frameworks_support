@@ -47,6 +47,30 @@
       "revId": "a36fb831a9727bd3abb680aed3d00605c04c5d79",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b2a40d1_d2a56ea5",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/PagerSnapHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-23T15:58:23Z",
+      "side": 1,
+      "message": "Decided to just run all original PagerSnapHelper tests for children that are smaller, equal and larger than the RecyclerView. Turns out PagerSnapHelper is coping pretty well, but the tests needed some fixing.",
+      "parentUuid": "205bf604_f85689aa",
+      "range": {
+        "startLine": 137,
+        "startChar": 60,
+        "endLine": 137,
+        "endChar": 75
+      },
+      "revId": "a36fb831a9727bd3abb680aed3d00605c04c5d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
