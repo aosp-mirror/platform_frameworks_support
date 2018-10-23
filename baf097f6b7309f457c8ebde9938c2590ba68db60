@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "859def56_eb778504",
+        "filename": "slices/core/src/main/java/androidx/slice/core/SliceHints.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-10-23T19:15:18Z",
+      "side": 1,
+      "message": "Hmm, I could do that instead. Would you change the API to have addOption(key-to-return-to-app, label-to-display-to-user, is-selected)? instead of addOption(key, label) and setSelectedOption(key)?",
+      "parentUuid": "464b8eed_93f67155",
+      "range": {
+        "startLine": 76,
+        "startChar": 31,
+        "endLine": 76,
+        "endChar": 68
+      },
+      "revId": "baf097f6b7309f457c8ebde9938c2590ba68db60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f3656d7_7dcf53fe",
         "filename": "slices/core/src/main/java/androidx/slice/core/SliceHints.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "baf097f6b7309f457c8ebde9938c2590ba68db60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d06f90e_7f4b33fa",
+        "filename": "slices/core/src/main/java/androidx/slice/core/SliceHints.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-10-23T19:15:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f3656d7_7dcf53fe",
+      "range": {
+        "startLine": 89,
+        "startChar": 31,
+        "endLine": 89,
+        "endChar": 38
+      },
+      "revId": "baf097f6b7309f457c8ebde9938c2590ba68db60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
