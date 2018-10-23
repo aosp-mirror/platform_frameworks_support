@@ -388,6 +388,30 @@
       "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "912ba751_da6bb416",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-23T17:30:13Z",
+      "side": 1,
+      "message": "The data needs to be in platform, there is no way around that.\nWe can look into updating the platform API, but I think that will not be in feasible for Q, given all the other dependencies and changes around it.",
+      "parentUuid": "f0a8c85e_07aa60e0",
+      "range": {
+        "startLine": 712,
+        "startChar": 10,
+        "endLine": 714,
+        "endChar": 13
+      },
+      "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
