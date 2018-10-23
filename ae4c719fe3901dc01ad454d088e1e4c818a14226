@@ -364,6 +364,30 @@
       "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0a8c85e_07aa60e0",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-23T15:29:12Z",
+      "side": 1,
+      "message": "Should we improve system api? Or does it need to live in system server (can we deprecate it there and only provide androidx version)?",
+      "parentUuid": "a0d4ad24_23786d35",
+      "range": {
+        "startLine": 712,
+        "startChar": 10,
+        "endLine": 714,
+        "endChar": 13
+      },
+      "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
