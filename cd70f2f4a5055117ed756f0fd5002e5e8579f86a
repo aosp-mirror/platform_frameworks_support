@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "898d0e71_4316ebdb",
+        "filename": "textclassifier/api/1.0.0-alpha01.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-23T18:00:07Z",
+      "side": 1,
+      "message": "mmm, but I feel like having a API class is better?\n\n1. We can have some javadocs around it\n2. Easier for us to extend the factory class in the future",
+      "parentUuid": "0a4fb98f_901d773e",
+      "range": {
+        "startLine": 150,
+        "startChar": 2,
+        "endLine": 152,
+        "endChar": 3
+      },
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22dba9f7_0e0d2cf5",
         "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextLinkSpanTest.java",
         "patchSetId": 10
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "58ff778e_eb642193",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextLinkSpanTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-23T18:00:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22dba9f7_0e0d2cf5",
+      "range": {
+        "startLine": 148,
+        "startChar": 16,
+        "endLine": 153,
+        "endChar": 17
+      },
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9cbf0c5_57b44144",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 10
@@ -68,6 +116,30 @@
       "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e53b3d3_22631a6b",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-23T18:00:07Z",
+      "side": 1,
+      "message": "Let\u0027s discuss it in the comment in api.txt",
+      "parentUuid": "a9cbf0c5_57b44144",
+      "range": {
+        "startLine": 487,
+        "startChar": 4,
+        "endLine": 487,
+        "endChar": 32
+      },
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "aafeb75d_75e3e19a",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-23T18:00:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24968fbd_ee4b3dc4",
+      "range": {
+        "startLine": 594,
+        "startChar": 48,
+        "endLine": 594,
+        "endChar": 93
+      },
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2cb70ccf_185ca58a",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 10
@@ -131,6 +227,24 @@
       "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "238824f0_4ebd4fc5",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-23T18:00:07Z",
+      "side": 1,
+      "message": "Let\u0027s use the one comment box below to discuss about this.",
+      "parentUuid": "2cb70ccf_185ca58a",
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "b2ed8f25_715fe5df",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-23T18:00:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3e180c6_e7666e53",
+      "range": {
+        "startLine": 605,
+        "startChar": 17,
+        "endLine": 605,
+        "endChar": 18
+      },
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66366b8a_d7c53f84",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 10
@@ -177,6 +315,30 @@
       "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c325a79c_7c457e96",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-23T18:00:07Z",
+      "side": 1,
+      "message": "Good point. I removed the implementation detail from the javadocs.",
+      "parentUuid": "66366b8a_d7c53f84",
+      "range": {
+        "startLine": 607,
+        "startChar": 22,
+        "endLine": 608,
+        "endChar": 56
+      },
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -203,6 +365,30 @@
     },
     {
       "key": {
+        "uuid": "3279cd0c_9aa17be1",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-23T18:00:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bd91de6_7ee84588",
+      "range": {
+        "startLine": 609,
+        "startChar": 37,
+        "endLine": 610,
+        "endChar": 37
+      },
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76f994f4_1f199a23",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 10
@@ -223,6 +409,30 @@
       "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f72478f3_ffb6ef71",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-23T18:00:07Z",
+      "side": 1,
+      "message": "As per the javadoc, the start and end are just the start and end of this span, which is an existing concept of span.\n\nGiven that it is not something new introduce in this subclass, I am slightly preferred not to pass these to onTextClassificationResult.\n\n(Discussed offline, let\u0027s keep it as is.)",
+      "parentUuid": "76f994f4_1f199a23",
+      "range": {
+        "startLine": 613,
+        "startChar": 37,
+        "endLine": 613,
+        "endChar": 92
+      },
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -269,6 +479,30 @@
       "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45db0b53_756c386f",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-23T18:00:07Z",
+      "side": 1,
+      "message": "ditto.",
+      "parentUuid": "d1385eec_50b493cc",
+      "range": {
+        "startLine": 618,
+        "startChar": 12,
+        "endLine": 620,
+        "endChar": 53
+      },
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
