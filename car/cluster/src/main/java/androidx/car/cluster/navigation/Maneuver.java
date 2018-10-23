@@ -21,6 +21,7 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import android.annotation.SuppressLint;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelable;
@@ -286,6 +287,8 @@ public final class Maneuver implements VersionedParcelable {
     EnumWrapper<Type> mType;
     @ParcelField(2)
     int mRoundaboutExitNumber;
+    @ParcelField(3)
+    Image mIcon;
 
     /**
      * Used by {@link VersionedParcelable}
@@ -300,17 +303,19 @@ public final class Maneuver implements VersionedParcelable {
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
-    Maneuver(@NonNull EnumWrapper<Type> type, int roundaboutExitNumber) {
+    Maneuver(@NonNull EnumWrapper<Type> type, int roundaboutExitNumber, @Nullable Image icon) {
         mType = type;
         mRoundaboutExitNumber = roundaboutExitNumber;
+        mIcon = icon;
     }
 
     /**
      * Builder for creating a {@link Maneuver}
      */
     public static final class Builder {
-        EnumWrapper<Type> mType;
-        int mRoundaboutExitNumber;
+        private EnumWrapper<Type> mType;
+        private int mRoundaboutExitNumber;
+        private Image mIcon;
 
 
         /**
@@ -346,11 +351,21 @@ public final class Maneuver implements VersionedParcelable {
         }
 
         /**
+         * Sets an image presenting this maneuver. The provided image must be optimized to be
+         * presented in a square canvas (aspect ratio of 1:1).
+         */
+        @NonNull
+        public Builder setIcon(@Nullable Image icon) {
+            mIcon = icon;
+            return this;
+        }
+
+        /**
          * Returns a {@link Maneuver} built with the provided information.
          */
         @NonNull
         public Maneuver build() {
-            return new Maneuver(mType, mRoundaboutExitNumber);
+            return new Maneuver(mType, mRoundaboutExitNumber, mIcon);
         }
     }
 
@@ -375,6 +390,15 @@ public final class Maneuver implements VersionedParcelable {
         return mRoundaboutExitNumber;
     }
 
+    /**
+     * Returns an image representing this maneuver, or null if image representation is not
+     * available. This image is optimized to be displayed in a square canvas (aspect ratio of 1:1).
+     */
+    @Nullable
+    public Image getIcon() {
+        return mIcon;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -385,18 +409,20 @@ public final class Maneuver implements VersionedParcelable {
         }
         Maneuver maneuver = (Maneuver) o;
         return getRoundaboutExitNumber() == maneuver.getRoundaboutExitNumber()
-                && Objects.equals(getType(), maneuver.getType());
+                && Objects.equals(getType(), maneuver.getType())
+                && Objects.equals(getIcon(), maneuver.getIcon());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getType(), getRoundaboutExitNumber());
+        return Objects.hash(getType(), getRoundaboutExitNumber(), getIcon());
     }
 
     // DefaultLocale suppressed as this method is only offered for debugging purposes.
     @SuppressLint("DefaultLocale")
     @Override
     public String toString() {
-        return String.format("{type: %s, roundaboutExitNumer: %d}", mType, mRoundaboutExitNumber);
+        return String.format("{type: %s, roundaboutExitNumer: %d, icon: %s}", mType,
+                mRoundaboutExitNumber, mIcon);
     }
 }
