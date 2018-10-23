@@ -316,6 +316,30 @@
       "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccd51e33_df9ef8cf",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-23T13:13:02Z",
+      "side": 1,
+      "message": "Yeah, you need some callback mechanism (ListenableFuture maybe?). Yeah, the framework implementation does this, but we don\u0027t blindly backport things, we tried to fix things along the way and provide better development experience.",
+      "parentUuid": "514349e3_f90ca0f8",
+      "range": {
+        "startLine": 712,
+        "startChar": 10,
+        "endLine": 714,
+        "endChar": 13
+      },
+      "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
