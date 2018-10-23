@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "464b8eed_93f67155",
+        "filename": "slices/core/src/main/java/androidx/slice/core/SliceHints.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-10-23T17:52:30Z",
+      "side": 1,
+      "message": "we do have HINT_SELECTED currently -- might make sense to use that instead?",
+      "range": {
+        "startLine": 76,
+        "startChar": 31,
+        "endLine": 76,
+        "endChar": 68
+      },
+      "revId": "baf097f6b7309f457c8ebde9938c2590ba68db60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f3656d7_7dcf53fe",
+        "filename": "slices/core/src/main/java/androidx/slice/core/SliceHints.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-10-23T17:52:30Z",
+      "side": 1,
+      "message": "for subtypes maybe include a line in java doc something like, \"Expected to be on an item of format {@link SliceItem#FORMAT_INT}.\"",
+      "range": {
+        "startLine": 89,
+        "startChar": 31,
+        "endLine": 89,
+        "endChar": 38
+      },
+      "revId": "baf097f6b7309f457c8ebde9938c2590ba68db60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
