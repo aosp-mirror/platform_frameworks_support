@@ -17,13 +17,17 @@
 package androidx.mediarouter.app;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -39,6 +43,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.mediarouter.R;
 import androidx.mediarouter.media.MediaRouteSelector;
 import androidx.mediarouter.media.MediaRouter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The media route button allows the user to select routes and to control the
@@ -86,11 +93,14 @@ public class MediaRouteButton extends View {
 
     private final MediaRouter mRouter;
     private final MediaRouterCallback mCallback;
+    private static AvailabilityReceiver sAvailabilityReceiver;
 
     private MediaRouteSelector mSelector = MediaRouteSelector.EMPTY;
     private MediaRouteDialogFactory mDialogFactory = MediaRouteDialogFactory.getDefault();
 
     private boolean mAttachedToWindow;
+
+    private int mVisibility = VISIBLE;
 
     static final SparseArray<Drawable.ConstantState> sRemoteIndicatorCache =
             new SparseArray<>(2);
@@ -136,6 +146,10 @@ public class MediaRouteButton extends View {
 
         mRouter = MediaRouter.getInstance(context);
         mCallback = new MediaRouterCallback();
+
+        if (sAvailabilityReceiver == null) {
+            sAvailabilityReceiver = new AvailabilityReceiver(context.getApplicationContext());
+        }
 
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.MediaRouteButton, defStyleAttr, 0);
@@ -385,11 +399,8 @@ public class MediaRouteButton extends View {
 
     @Override
     public void setVisibility(int visibility) {
-        super.setVisibility(visibility);
-
-        if (mRemoteIndicator != null) {
-            mRemoteIndicator.setVisible(getVisibility() == VISIBLE, false);
-        }
+        mVisibility = visibility;
+        refreshVisibility();
     }
 
     @Override
@@ -401,6 +412,8 @@ public class MediaRouteButton extends View {
             mRouter.addCallback(mSelector, mCallback);
         }
         refreshRoute();
+
+        sAvailabilityReceiver.registerReceiver(this);
     }
 
     @Override
@@ -409,6 +422,8 @@ public class MediaRouteButton extends View {
         if (!mSelector.isEmpty()) {
             mRouter.removeCallback(mCallback);
         }
+
+        sAvailabilityReceiver.unregisterReceiver(this);
 
         super.onDetachedFromWindow();
     }
@@ -522,6 +537,14 @@ public class MediaRouteButton extends View {
                 }
                 curDrawable.selectDrawable(curDrawable.getNumberOfFrames() - 1);
             }
+        }
+    }
+
+    void refreshVisibility() {
+        super.setVisibility((sAvailabilityReceiver.isConnected() || mVisibility != VISIBLE)
+                ? mVisibility : INVISIBLE);
+        if (mRemoteIndicator != null) {
+            mRemoteIndicator.setVisible(getVisibility() == VISIBLE, false);
         }
     }
 
@@ -673,6 +696,54 @@ public class MediaRouteButton extends View {
                 sRemoteIndicatorCache.put(mResId, remoteIndicator.getConstantState());
             }
             mRemoteIndicatorLoader = null;
+        }
+    }
+
+    private static final class AvailabilityReceiver extends BroadcastReceiver {
+        private final Context mContext;
+        // If we have no information, assume that the device is connected
+        private boolean mIsConnected = true;
+        private List<MediaRouteButton> mButtons;
+
+        AvailabilityReceiver(Context context) {
+            mContext = context;
+            mButtons = new ArrayList<MediaRouteButton>();
+        }
+
+        public void registerReceiver(MediaRouteButton button) {
+            if (mButtons.size() == 0) {
+                IntentFilter intentFilter = new IntentFilter();
+                intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+                mContext.registerReceiver(this, intentFilter);
+            }
+            mButtons.add(button);
+        }
+
+        public void unregisterReceiver(MediaRouteButton button) {
+            mButtons.remove(button);
+
+            if (mButtons.size() == 0) {
+                mContext.unregisterReceiver(this);
+            }
+        }
+
+        public boolean isConnected() {
+            return mIsConnected;
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action)) {
+                boolean isConnected = !intent.getBooleanExtra(
+                        ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
+                if (mIsConnected != isConnected) {
+                    mIsConnected = isConnected;
+                    for (MediaRouteButton button: mButtons) {
+                        button.refreshVisibility();
+                    }
+                }
+            }
         }
     }
 }
