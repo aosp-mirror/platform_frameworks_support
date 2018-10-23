@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d269c42b_e5f175f7",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-23T08:07:59Z",
+      "side": 1,
+      "message": "I found a counterexample that two lists aren\u0027t helpful.\n\nIf we call seekTo() multiple times, we should add all of them into the mPendingCommands not step by step in order to make the MP2 cancel some of them.\n\nThat means, sometimes we should execute multiple pending futures without waiting the results, and sometime we should wait to execute a pending future until other executed pending futures returns the results.\n\nSo, using two lists doesn\u0027t look helpful. What do you think?",
+      "parentUuid": "08379f0b_98a73fa6",
+      "range": {
+        "startLine": 515,
+        "startChar": 4,
+        "endLine": 516,
+        "endChar": 73
+      },
+      "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fbb7abd5_5c794e55",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "875cb604_31aad073",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-23T08:07:59Z",
+      "side": 1,
+      "message": "we should throw IllegalArgumentException at the time the method is called.",
+      "parentUuid": "fbb7abd5_5c794e55",
+      "range": {
+        "startLine": 581,
+        "startChar": 32,
+        "endLine": 581,
+        "endChar": 44
+      },
+      "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2d4125fd_ebb157f7",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-23T08:07:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aef94cca_dc686b98",
+      "range": {
+        "startLine": 583,
+        "startChar": 35,
+        "endLine": 583,
+        "endChar": 55
+      },
+      "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b520510a_ff25cdcf",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f90a8f49_59142164",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-23T08:07:59Z",
+      "side": 1,
+      "message": "If there a add(...) method which returns something, what is the expected return value for it?\nIs it the item which was added? or a boolean which denotes success or failure? or just void?\n\nI think having more than tens of lines is better than ambiguity.\nWhat do you think?",
+      "parentUuid": "b520510a_ff25cdcf",
+      "range": {
+        "startLine": 665,
+        "startChar": 17,
+        "endLine": 665,
+        "endChar": 33
+      },
+      "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "f2c6e5c1_408f608d",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-23T08:07:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51a60301_d3a9cb24",
+      "range": {
+        "startLine": 683,
+        "startChar": 51,
+        "endLine": 683,
+        "endChar": 68
+      },
+      "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36d836d2_ea3f790d",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 4
@@ -137,6 +257,30 @@
       "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f96e62f8_3dfbb248",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2063,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-23T08:07:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36d836d2_ea3f790d",
+      "range": {
+        "startLine": 2063,
+        "startChar": 0,
+        "endLine": 2063,
+        "endChar": 94
+      },
+      "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "2aaef5a5_89fb37dd",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2098,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-23T08:07:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "634cd906_66017b38",
+      "range": {
+        "startLine": 2098,
+        "startChar": 0,
+        "endLine": 2098,
+        "endChar": 51
+      },
+      "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce9dc2d5_043beeb0",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 4
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "a9a65222_bb477b57",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2305,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-23T08:07:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce9dc2d5_043beeb0",
+      "range": {
+        "startLine": 2305,
+        "startChar": 20,
+        "endLine": 2305,
+        "endChar": 54
+      },
+      "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6d6396b_9b4f6bbd",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 4
@@ -206,6 +398,30 @@
       "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15dcd7f5_4ef681ed",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2320,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-23T08:07:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6d6396b_9b4f6bbd",
+      "range": {
+        "startLine": 2320,
+        "startChar": 20,
+        "endLine": 2320,
+        "endChar": 58
+      },
+      "revId": "62c6affb232d8cc230939df1e7e86a667fed2a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

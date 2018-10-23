@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9d86b060_4b154fc2",
+        "filename": "media2/src/main/java/androidx/media2/AudioFocusHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-23T08:07:59Z",
+      "side": 0,
+      "message": "To make the MP2 commands executed sequentially.\nonPlayRequested() is called by XMediaPlayer.",
+      "parentUuid": "1d3d4254_695b214a",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 0
+      },
+      "revId": "580cd5c1b6b701d3aa328bc0ccd2f7e034b95c49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09fb7f22_4f653657",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 4
@@ -39,6 +63,24 @@
       "revId": "580cd5c1b6b701d3aa328bc0ccd2f7e034b95c49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8c1afbf_6bdcb064",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-23T08:07:59Z",
+      "side": 0,
+      "message": "If it is a private variable and has access from inner classes, @SupressWarnings are required.\nRemoving this annotation for package private variables do not make any link warnings or errors.\n\nAnyway, it looks that it should be private variable.",
+      "parentUuid": "09fb7f22_4f653657",
+      "revId": "580cd5c1b6b701d3aa328bc0ccd2f7e034b95c49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
