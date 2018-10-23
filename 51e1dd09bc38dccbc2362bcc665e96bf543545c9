@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82dfcad4_d4bf9af2",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-23T19:32:23Z",
+      "side": 1,
+      "message": "This statement is (probably) always true - I think you mean to say \"The time may have been changed such that the next potential start time is still in the past.\"",
+      "range": {
+        "startLine": 484,
+        "startChar": 15,
+        "endLine": 485,
+        "endChar": 31
+      },
+      "revId": "51e1dd09bc38dccbc2362bcc665e96bf543545c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
