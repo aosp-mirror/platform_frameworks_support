@@ -17,13 +17,17 @@
 package androidx.mediarouter.app;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -86,11 +90,14 @@ public class MediaRouteButton extends View {
 
     private final MediaRouter mRouter;
     private final MediaRouterCallback mCallback;
+    private final AvailabilityReceiver mAvailabilityReceiver;
 
     private MediaRouteSelector mSelector = MediaRouteSelector.EMPTY;
     private MediaRouteDialogFactory mDialogFactory = MediaRouteDialogFactory.getDefault();
 
     private boolean mAttachedToWindow;
+
+    private int mVisibility = VISIBLE;
 
     static final SparseArray<Drawable.ConstantState> sRemoteIndicatorCache =
             new SparseArray<>(2);
@@ -171,6 +178,7 @@ public class MediaRouteButton extends View {
 
         updateContentDescription();
         setClickable(true);
+        mAvailabilityReceiver = new AvailabilityReceiver(context);
     }
 
     /**
@@ -385,11 +393,8 @@ public class MediaRouteButton extends View {
 
     @Override
     public void setVisibility(int visibility) {
-        super.setVisibility(visibility);
-
-        if (mRemoteIndicator != null) {
-            mRemoteIndicator.setVisible(getVisibility() == VISIBLE, false);
-        }
+        mVisibility = visibility;
+        refreshVisibility();
     }
 
     @Override
@@ -401,6 +406,8 @@ public class MediaRouteButton extends View {
             mRouter.addCallback(mSelector, mCallback);
         }
         refreshRoute();
+
+        mAvailabilityReceiver.registerReceiver();
     }
 
     @Override
@@ -409,6 +416,8 @@ public class MediaRouteButton extends View {
         if (!mSelector.isEmpty()) {
             mRouter.removeCallback(mCallback);
         }
+
+        mAvailabilityReceiver.unregisterReceiver();
 
         super.onDetachedFromWindow();
     }
@@ -522,6 +531,14 @@ public class MediaRouteButton extends View {
                 }
                 curDrawable.selectDrawable(curDrawable.getNumberOfFrames() - 1);
             }
+        }
+    }
+
+    void refreshVisibility() {
+        super.setVisibility((mAvailabilityReceiver.isConnected() || mVisibility != VISIBLE)
+                ? mVisibility : INVISIBLE);
+        if (mRemoteIndicator != null) {
+            mRemoteIndicator.setVisible(getVisibility() == VISIBLE, false);
         }
     }
 
@@ -659,6 +676,43 @@ public class MediaRouteButton extends View {
                 sRemoteIndicatorCache.put(mResId, remoteIndicator.getConstantState());
             }
             mRemoteIndicatorLoader = null;
+        }
+    }
+
+    private final class AvailabilityReceiver extends BroadcastReceiver {
+        private Context mContext;
+        // If we have no information, assume the device is connected
+        private boolean mIsConnected = true;
+
+        AvailabilityReceiver(Context context) {
+            mContext = context;
+        }
+
+        public void registerReceiver() {
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+            mContext.registerReceiver(this, intentFilter);
+        }
+
+        public void unregisterReceiver() {
+            mContext.unregisterReceiver(this);
+        }
+
+        public boolean isConnected() {
+            return mIsConnected;
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action)) {
+                boolean isConnected = !intent.getBooleanExtra(
+                        ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
+                if (mIsConnected != isConnected) {
+                    mIsConnected = isConnected;
+                    refreshVisibility();
+                }
+            }
         }
     }
 }
