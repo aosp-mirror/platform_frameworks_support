@@ -44,6 +44,8 @@ public final class Step implements VersionedParcelable {
     Maneuver mManeuver;
     @ParcelField(3)
     List<Lane> mLanes;
+    @ParcelField(4)
+    RichText mCue;
 
     /**
      * Used by {@link VersionedParcelable}
@@ -58,10 +60,12 @@ public final class Step implements VersionedParcelable {
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
-    Step(@Nullable Distance distance, @Nullable Maneuver maneuver, @NonNull List<Lane> lanes) {
+    Step(@Nullable Distance distance, @Nullable Maneuver maneuver, @NonNull List<Lane> lanes,
+            @Nullable RichText cue) {
         mDistance = distance;
         mManeuver = maneuver;
         mLanes = Collections.unmodifiableList(new ArrayList<>(lanes));
+        mCue = cue;
     }
 
     /**
@@ -71,6 +75,7 @@ public final class Step implements VersionedParcelable {
         Distance mDistance;
         Maneuver mManeuver;
         List<Lane> mLanes = new ArrayList<>();
+        RichText mCue;
 
         /**
          * Sets the distance from the current position to the point where this navigation step
@@ -108,11 +113,26 @@ public final class Step implements VersionedParcelable {
         }
 
         /**
+         * Sets auxiliary instructions on how complete this navigation step, described as a
+         * {@link RichText} object containing text (e.g.: "towards") and images (e.g.: road badge of
+         * a highway). Most important elements of this description should be located at the
+         * beginning of the sequence, allowing consumers to truncate this sequence if rendering
+         * space is not enough.
+         *
+         * @return this object for chaining
+         */
+        @NonNull
+        public Builder setCue(@Nullable RichText cue) {
+            mCue = cue;
+            return this;
+        }
+
+        /**
          * Returns a {@link Step} built with the provided information.
          */
         @NonNull
         public Step build() {
-            return new Step(mDistance, mManeuver, mLanes);
+            return new Step(mDistance, mManeuver, mLanes, mCue);
         }
     }
 
@@ -143,6 +163,18 @@ public final class Step implements VersionedParcelable {
         return Common.nonNullOrEmpty(mLanes);
     }
 
+    /**
+     * Returns auxiliary instructions on how complete this navigation step, described as a
+     * {@link RichText} object containing text (e.g.: "towards") and images (e.g.: road badge of
+     * a highway). Most important elements of this description will be located at the
+     * beginning of the sequence, allowing consumers to truncate this sequence if rendering
+     * space is not enough.
+     */
+    @Nullable
+    public RichText getCue() {
+        return mCue;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -154,17 +186,18 @@ public final class Step implements VersionedParcelable {
         Step step = (Step) o;
         return Objects.equals(getManeuver(), step.getManeuver())
                 && Objects.equals(getDistance(), step.getDistance())
-                && Objects.equals(getLanes(), step.getLanes());
+                && Objects.equals(getLanes(), step.getLanes())
+                && Objects.equals(getCue(), step.getCue());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getManeuver(), getDistance(), getLanes());
+        return Objects.hash(getManeuver(), getDistance(), getLanes(), getCue());
     }
 
     @Override
     public String toString() {
-        return String.format("{maneuver: %s, distance: %s, lanes: %s}", mManeuver, mDistance,
-                mLanes);
+        return String.format("{maneuver: %s, distance: %s, lanes: %s, cue: %s}", mManeuver,
+                mDistance, mLanes, mCue);
     }
 }
