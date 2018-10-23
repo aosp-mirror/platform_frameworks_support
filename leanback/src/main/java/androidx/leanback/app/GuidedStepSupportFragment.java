@@ -266,7 +266,9 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
     private int entranceTransitionType = SLIDE_FROM_SIDE;
 
     public GuidedStepSupportFragment() {
-        onProvideFragmentTransitions();
+        if (IS_FRAMEWORK_FRAGMENT) {
+            onProvideFragmentTransitions();
+        }
     }
 
     /**
