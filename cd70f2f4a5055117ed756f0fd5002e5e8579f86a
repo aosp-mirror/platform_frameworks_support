@@ -1,0 +1,274 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a4fb98f_901d773e",
+        "filename": "textclassifier/api/1.0.0-alpha01.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-23T14:00:37Z",
+      "side": 1,
+      "message": "nit: Function\u003cTextLinkSpanData, TextLinkSpan\u003e?",
+      "range": {
+        "startLine": 150,
+        "startChar": 2,
+        "endLine": 152,
+        "endChar": 3
+      },
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22dba9f7_0e0d2cf5",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextLinkSpanTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-23T14:00:37Z",
+      "side": 1,
+      "message": "This test will pass regardless in M-.\nHow about test with something else, e.g.\n\nRunnable action \u003d mock(Runnable.class)\naction.run();\n\n....\n\nverify(action).run();",
+      "range": {
+        "startLine": 148,
+        "startChar": 16,
+        "endLine": 153,
+        "endChar": 17
+      },
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9cbf0c5_57b44144",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-23T14:00:37Z",
+      "side": 1,
+      "message": "nit: Consider Function\u003cTextLinkSpanData, TextLinkSpan\u003e instead.",
+      "range": {
+        "startLine": 487,
+        "startChar": 4,
+        "endLine": 487,
+        "endChar": 32
+      },
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8805fd8_f2e8684e",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-23T14:00:37Z",
+      "side": 1,
+      "message": "nit: FYI. This is public API. Once we make this final, then it is going to be final going forward. Happy with you decision? :)\nAs a reminder, we think we can remedy this, if necessary, by creating a superclass for TextLinkSpan.",
+      "range": {
+        "startLine": 559,
+        "startChar": 15,
+        "endLine": 559,
+        "endChar": 20
+      },
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24968fbd_ee4b3dc4",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-23T14:00:37Z",
+      "side": 1,
+      "message": "Text has changed from the classified text. Ignoring.",
+      "range": {
+        "startLine": 594,
+        "startChar": 48,
+        "endLine": 594,
+        "endChar": 93
+      },
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cb70ccf_185ca58a",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-23T14:00:37Z",
+      "side": 1,
+      "message": "nit: Why not pass the start and end indices here too?\nThis way we are explicit to the subclasses about the indices we actually used to classify the text instead of them having to know we did it via getSpanStart(), getSpanEnd().",
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3e180c6_e7666e53",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-23T14:00:37Z",
+      "side": 1,
+      "message": "d",
+      "range": {
+        "startLine": 605,
+        "startChar": 17,
+        "endLine": 605,
+        "endChar": 18
+      },
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66366b8a_d7c53f84",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-23T14:00:37Z",
+      "side": 1,
+      "message": "What if we change this code?\nBy calling this out in the javadoc, you\u0027re essentially making the behaviour public API. If apps depend on this behaviour, then they won\u0027t know when we change it.",
+      "range": {
+        "startLine": 607,
+        "startChar": 22,
+        "endLine": 608,
+        "endChar": 56
+      },
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bd91de6_7ee84588",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-23T14:00:37Z",
+      "side": 1,
+      "message": "See above comment.",
+      "range": {
+        "startLine": 609,
+        "startChar": 37,
+        "endLine": 610,
+        "endChar": 37
+      },
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76f994f4_1f199a23",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-23T14:00:37Z",
+      "side": 1,
+      "message": "As per my comments regarding passing start and end to onTCnResult(), this comment makes it clear what start and end are. However, consider whether you\u0027d rather give the indices to subclasses so there is no ambiguity or you\u0027re okay with this.",
+      "range": {
+        "startLine": 613,
+        "startChar": 37,
+        "endLine": 613,
+        "endChar": 92
+      },
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cbc207b_27a0778d",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-23T14:00:37Z",
+      "side": 1,
+      "message": "nit: I wonder if this is all we\u0027d ever need to pass to the subclass. E.g. If we were short sighted, we might have missed passing the textView to the subclass and in the future, needed it and our hands would have been tied. I think this is okay for now to avoid overthinking it, but perhaps we can think about it later to figure out if we\u0027re happy with this or there is a more timeless solution.",
+      "range": {
+        "startLine": 617,
+        "startChar": 16,
+        "endLine": 617,
+        "endChar": 90
+      },
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d1385eec_50b493cc",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-23T14:00:37Z",
+      "side": 1,
+      "message": "nit: As per my related comment above, let\u0027s probably avoid the need to duplicate this code to avoid inconsistencies in the future.",
+      "range": {
+        "startLine": 618,
+        "startChar": 12,
+        "endLine": 620,
+        "endChar": 53
+      },
+      "revId": "cd70f2f4a5055117ed756f0fd5002e5e8579f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
