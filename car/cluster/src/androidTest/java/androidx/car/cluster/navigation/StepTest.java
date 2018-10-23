@@ -16,11 +16,18 @@
 
 package androidx.car.cluster.navigation;
 
+import static androidx.car.cluster.navigation.utils.Assert.assertImmutable;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.ArrayList;
 
 /**
  * Tests for {@link Step} serialization
@@ -29,11 +36,84 @@ import org.junit.runner.RunWith;
 @SmallTest
 public class StepTest {
     /**
-     * Tests that lists returned by {@link Step} are immutable.
+     * Test a few equality conditions
+     */
+    @Test
+    public void equality() {
+        Step expected = createSampleStep();
+
+        assertEquals(expected, createSampleStep());
+        assertNotEquals(expected, new Step.Builder()
+                .setDistance(new Distance(10, "10", Distance.Unit.METERS))
+                .setManeuver(new Maneuver.Builder().setType(Maneuver.Type.DEPART).build())
+                .addLane(LaneTest.createSampleLane())
+                .addLane(LaneTest.createSampleLane())
+                .build());
+        assertNotEquals(expected, new Step.Builder()
+                .setCue(RichTextTest.createSampleRichText())
+                .setManeuver(new Maneuver.Builder().setType(Maneuver.Type.DEPART).build())
+                .addLane(LaneTest.createSampleLane())
+                .addLane(LaneTest.createSampleLane())
+                .build());
+        assertNotEquals(expected, new Step.Builder()
+                .setCue(RichTextTest.createSampleRichText())
+                .setDistance(new Distance(10, "10", Distance.Unit.METERS))
+                .addLane(LaneTest.createSampleLane())
+                .addLane(LaneTest.createSampleLane())
+                .build());
+        assertNotEquals(expected, new Step.Builder()
+                .setCue(RichTextTest.createSampleRichText())
+                .setDistance(new Distance(10, "10", Distance.Unit.METERS))
+                .setManeuver(new Maneuver.Builder().setType(Maneuver.Type.DEPART).build())
+                .addLane(LaneTest.createSampleLane())
+                .build());
+        assertNotEquals(expected, new Step.Builder()
+                .setCue(RichTextTest.createSampleRichText())
+                .setDistance(new Distance(10, "10", Distance.Unit.METERS))
+                .setManeuver(new Maneuver.Builder().setType(Maneuver.Type.DEPART).build())
+                .addLane(LaneTest.createSampleLane())
+                .addLane(LaneTest.createSampleLane())
+                .addLane(LaneTest.createSampleLane())
+                .build());
+
+        assertEquals(expected.hashCode(), createSampleStep().hashCode());
+    }
+
+    /**
+     * Lists returned by {@link Step} are immutable.
      */
     @Test(expected = UnsupportedOperationException.class)
-    public void immutableLists() {
-        Step step = new Step.Builder().build();
-        step.getLanes().add(new Lane.Builder().build());
+    public void immutability() {
+        assertImmutable(new Step.Builder().build().getLanes());
+    }
+
+    /**
+     * Builder doesn't accept null lanes
+     */
+    @Test(expected = NullPointerException.class)
+    public void builder_lanesCantBeNull() {
+        new Step.Builder().addLane(null);
+    }
+
+    /**
+     * Tests that even if we receive a null list of {@link Lane}s, we return an empty list to the
+     * consumers.
+     */
+    @Test
+    public void nullability() {
+        assertEquals(new ArrayList<>(), new Step().getLanes());
+    }
+
+    /**
+     * Returns a sample {@link Step} for testing
+     */
+    public static Step createSampleStep() {
+        return new Step.Builder()
+                .setCue(RichTextTest.createSampleRichText())
+                .setDistance(new Distance(10, "10", Distance.Unit.METERS))
+                .setManeuver(new Maneuver.Builder().setType(Maneuver.Type.DEPART).build())
+                .addLane(LaneTest.createSampleLane())
+                .addLane(LaneTest.createSampleLane())
+                .build();
     }
 }

@@ -34,6 +34,8 @@ import java.util.Objects;
 public class Segment implements VersionedParcelable {
     @ParcelField(1)
     String mName;
+    @ParcelField(2)
+    Image mBadge;
 
     /**
      * Used by {@link VersionedParcelable}

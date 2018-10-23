@@ -16,6 +16,8 @@
 
 package androidx.car.cluster.navigation;
 
+import static androidx.car.cluster.navigation.utils.Assert.assertImmutable;
+
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
@@ -32,8 +34,23 @@ public class LaneTest {
      * Tests that lists returned by {@link Lane} are immutable.
      */
     @Test(expected = UnsupportedOperationException.class)
-    public void immutableLists() {
-        Lane lane = new Lane.Builder().build();
-        lane.getDirections().add(new LaneDirection.Builder().build());
+    public void immutability() {
+        assertImmutable(new Lane.Builder().build().getDirections());
+    }
+
+    /**
+     * Returns a sample {@link Lane} for testing.
+     */
+    public static Lane createSampleLane() {
+        return new Lane.Builder()
+                .addDirection(new LaneDirection.Builder()
+                        .setShape(LaneDirection.Shape.NORMAL_LEFT)
+                        .setHighlighted(true)
+                        .build())
+                .addDirection(new LaneDirection.Builder()
+                        .setShape(LaneDirection.Shape.STRAIGHT)
+                        .setHighlighted(true)
+                        .build())
+                .build();
     }
 }
