@@ -22,6 +22,30 @@
       "revId": "ddd30d3d80f5817b024fed99fc870aa1648a9c0e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "543b5016_fa7bdce5",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-10-23T00:46:10Z",
+      "side": 1,
+      "message": "I think more clarity is needed in comment. Visibility just clarify that enable means the thumb is visible not other meaning like clickable. Other similar methods I see just said \"set the [attribute] of the [View]..\". So I prefer to keep this.",
+      "parentUuid": "a9071112_e3bf33d2",
+      "range": {
+        "startLine": 467,
+        "startChar": 15,
+        "endLine": 467,
+        "endChar": 25
+      },
+      "revId": "ddd30d3d80f5817b024fed99fc870aa1648a9c0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
