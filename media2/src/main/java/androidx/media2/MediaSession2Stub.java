@@ -140,22 +140,22 @@ class MediaSession2Stub extends IMediaSession2.Stub {
         }
     }
 
-    private void onSessionCommand(@NonNull IMediaController2 caller, int seq,
+    private <T> void onSessionTask(@NonNull IMediaController2 caller, int seq,
             final @CommandCode int commandCode,
-            final @NonNull Command command) {
-        onSessionCommandInternal(caller, seq, null, commandCode, command);
+            final @NonNull SessionTask<T> task) {
+        onSessionTaskInternal(caller, seq, null, commandCode, task);
     }
 
-    private void onSessionCommand(@NonNull IMediaController2 caller, int seq,
+    private <T> void onSessionTask(@NonNull IMediaController2 caller, int seq,
             @NonNull final SessionCommand2 sessionCommand,
-            @NonNull final Command command) {
-        onSessionCommandInternal(caller, seq, sessionCommand, COMMAND_CODE_CUSTOM, command);
+            @NonNull final SessionTask<T> task) {
+        onSessionTaskInternal(caller, seq, sessionCommand, COMMAND_CODE_CUSTOM, task);
     }
 
-    private void onSessionCommandInternal(@NonNull IMediaController2 caller, final int seq,
+    private <T> void onSessionTaskInternal(@NonNull IMediaController2 caller, final int seq,
             final @Nullable SessionCommand2 sessionCommand,
             final @CommandCode int commandCode,
-            final @NonNull Command command) {
+            final @NonNull SessionTask<T> task) {
         final ControllerInfo controller = mConnectedControllersManager.getController(
                 caller == null ? null : caller.asBinder());
         if (mSessionImpl.isClosed() || controller == null) {
@@ -171,12 +171,20 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                 if (sessionCommand != null) {
                     if (!mConnectedControllersManager.isAllowedCommand(
                             controller, sessionCommand)) {
+                        if (DEBUG) {
+                            Log.d(TAG, "Command (" + sessionCommand + ") from "
+                                    + controller + " isn't allowed.");
+                        }
                         return;
                     }
                     commandForOnCommandRequest = sCommandsForOnCommandRequest.get(
                             sessionCommand.getCommandCode());
                 } else {
                     if (!mConnectedControllersManager.isAllowedCommand(controller, commandCode)) {
+                        if (DEBUG) {
+                            Log.d(TAG, "Command (" + commandCode + ") from "
+                                    + controller + " isn't allowed.");
+                        }
                         return;
                     }
                     commandForOnCommandRequest = sCommandsForOnCommandRequest.get(
@@ -189,7 +197,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                         if (resultCode != RESULT_CODE_SUCCESS) {
                             // Don't run rejected command.
                             if (DEBUG) {
-                                Log.d(TAG, "Command (" + command + ") from "
+                                Log.d(TAG, "Command (" + commandForOnCommandRequest + ") from "
                                         + controller + " was rejected by " + mSessionImpl
                                         + ", code=" + resultCode);
                             }
@@ -197,23 +205,21 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                             return;
                         }
                     }
-                    if (command instanceof PlayerCommand) {
-                        final ListenableFuture<PlayerResult> result =
-                                ((PlayerCommand) command).run(controller);
-                        if (result == null) {
-                            if (THROW_EXCEPTION_FOR_NULL_RESULT) {
-                                throw new RuntimeException("SessionPlayer has returned null,"
-                                        + " commandCode=" + commandCode);
-                            } else {
-                                sendSessionResult(controller, seq, RESULT_CODE_UNKNOWN_ERROR);
-                            }
-                        } else {
-                            result.addListener(new Runnable() {
+                    final T result = task.run(controller);
+                    if (result instanceof Integer) {
+                        // Returns from the SessionCallback
+                        sendSessionResult(controller, seq, (Integer) result);
+                    } else if (result instanceof SessionResult) {
+                        sendSessionResult(controller, seq, (SessionResult) result);
+                    } else if (result instanceof ListenableFuture || result == null) {
+                        if (result instanceof ListenableFuture) {
+                            final ListenableFuture<PlayerResult> future = (ListenableFuture) result;
+                            future.addListener(new Runnable() {
                                 @Override
                                 public void run() {
                                     try {
-                                        sendPlayerResult(controller, seq, result.get(
-                                                0, TimeUnit.MILLISECONDS));
+                                        sendPlayerResult(controller, seq,
+                                                future.get(0, TimeUnit.MILLISECONDS));
                                     } catch (Exception e) {
                                         Log.w(TAG, "Cannot obtain PlayerResult after the"
                                                 + " command is finished", e);
@@ -222,12 +228,19 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                                     }
                                 }
                             }, DIRECT_EXECUTOR);
+                        } else {
+                            if (THROW_EXCEPTION_FOR_NULL_RESULT) {
+                                throw new RuntimeException("SessionPlayer has returned null,"
+                                        + " commandCode=" + commandCode);
+                            } else {
+                                sendPlayerResult(controller, seq,
+                                        new PlayerResult(
+                                                PlayerResult.RESULT_CODE_UNKNOWN_ERROR, null));
+                            }
                         }
-                    } else if (command instanceof CallbackCommand) {
-                        int resultCode = ((CallbackCommand) command).run(controller);
-                        sendSessionResult(controller, seq, resultCode);
-                    } else {
-                        ((CustomCommand) command).run(controller);
+                    } else if (!(result instanceof Boolean) && DEBUG) {
+                        // TODO: Replace boolean result with BrowserResult
+                        throw new RuntimeException("Unknown return type. Fix bug");
                     }
                 } catch (RemoteException e) {
                     // Currently it's TransactionTooLargeException or DeadSystemException.
@@ -241,14 +254,13 @@ class MediaSession2Stub extends IMediaSession2.Stub {
         });
     }
 
-    private void onBrowserCommand(@NonNull IMediaController2 caller,
+    private void onLibrarySessionTask(@NonNull IMediaController2 caller,
             @CommandCode final int commandCode,
-            final @NonNull Command command) {
+            final @NonNull SessionTask task) {
         if (!(mSessionImpl instanceof MediaLibrarySessionImpl)) {
             throw new RuntimeException("MediaSession2 cannot handle MediaLibrarySession command");
         }
-
-        onSessionCommandInternal(caller, -1, null, commandCode, command);
+        onSessionTaskInternal(caller, -1, null, commandCode, task);
     }
 
     void connect(final IMediaController2 caller, final String callingPackage, final int pid,
@@ -402,10 +414,10 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void setVolumeTo(final IMediaController2 caller, int seq, final int value,
             final int flags) throws RuntimeException {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_VOLUME_SET_VOLUME,
-                new CallbackCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_VOLUME_SET_VOLUME,
+                new SessionTask<Integer>() {
                     @Override
-                    public int run(ControllerInfo controller) {
+                    public Integer run(ControllerInfo controller) {
                         MediaSessionCompat sessionCompat = mSessionImpl.getSessionCompat();
                         if (sessionCompat != null) {
                             sessionCompat.getController().setVolumeTo(value, flags);
@@ -419,10 +431,10 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void adjustVolume(IMediaController2 caller, int seq, final int direction,
             final int flags) throws RuntimeException {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_VOLUME_ADJUST_VOLUME,
-                new CallbackCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_VOLUME_ADJUST_VOLUME,
+                new SessionTask<Integer>() {
                     @Override
-                    public int run(ControllerInfo controller) {
+                    public Integer run(ControllerInfo controller) {
                         MediaSessionCompat sessionCompat = mSessionImpl.getSessionCompat();
                         if (sessionCompat != null) {
                             sessionCompat.getController().adjustVolume(direction, flags);
@@ -435,8 +447,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void play(IMediaController2 caller, int seq) throws RuntimeException {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_PLAY,
-                new PlayerCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_PLAY,
+                new SessionTask<ListenableFuture<PlayerResult>>() {
                     @Override
                     public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
                         return mSessionImpl.play();
@@ -446,8 +458,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void pause(IMediaController2 caller, int seq) throws RuntimeException {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_PAUSE,
-                new PlayerCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_PAUSE,
+                new SessionTask<ListenableFuture<PlayerResult>>() {
                     @Override
                     public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
                         return mSessionImpl.pause();
@@ -457,8 +469,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void prefetch(IMediaController2 caller, int seq) throws RuntimeException {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_PREFETCH,
-                new PlayerCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_PREFETCH,
+                new SessionTask<ListenableFuture<PlayerResult>>() {
                     @Override
                     public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
                         return mSessionImpl.prefetch();
@@ -468,10 +480,10 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void fastForward(IMediaController2 caller, int seq) {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_FAST_FORWARD,
-                new CallbackCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_FAST_FORWARD,
+                new SessionTask<Integer>() {
                     @Override
-                    public int run(ControllerInfo controller) {
+                    public Integer run(ControllerInfo controller) {
                         return mSessionImpl.getCallback().onFastForward(
                                 mSessionImpl.getInstance(), controller);
                     }
@@ -480,10 +492,10 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void rewind(IMediaController2 caller, int seq) {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_REWIND,
-                new CallbackCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_REWIND,
+                new SessionTask<Integer>() {
                     @Override
-                    public int run(ControllerInfo controller) {
+                    public Integer run(ControllerInfo controller) {
                         return mSessionImpl.getCallback().onRewind(
                                 mSessionImpl.getInstance(), controller);
                     }
@@ -492,8 +504,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void seekTo(IMediaController2 caller, int seq, final long pos) throws RuntimeException {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SEEK_TO,
-                new PlayerCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SEEK_TO,
+                new SessionTask<ListenableFuture<PlayerResult>>() {
                     @Override
                     public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
                         return mSessionImpl.seekTo(pos);
@@ -505,9 +517,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     public void onCustomCommand(final IMediaController2 caller, final int seq,
             final ParcelImpl command, final Bundle args) {
         final SessionCommand2 sessionCommand = ParcelUtils.fromParcelable(command);
-        onSessionCommand(caller, seq, sessionCommand, new CustomCommand() {
+        onSessionTask(caller, seq, sessionCommand, new SessionTask<SessionResult>() {
             @Override
-            public void run(final ControllerInfo controller) {
+            public SessionResult run(final ControllerInfo controller) {
                 SessionResult result = mSessionImpl.getCallback().onCustomCommand(
                         mSessionImpl.getInstance(), controller, sessionCommand, args);
                 if (result == null) {
@@ -518,7 +530,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                         result = new SessionResult(RESULT_CODE_UNKNOWN_ERROR);
                     }
                 }
-                sendSessionResult(controller, seq, result);
+                return result;
             }
         });
     }
@@ -526,10 +538,10 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void prefetchFromUri(final IMediaController2 caller, int seq, final Uri uri,
             final Bundle extras) {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_PREFETCH_FROM_URI,
-                new CallbackCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_PREFETCH_FROM_URI,
+                new SessionTask<Integer>() {
                     @Override
-                    public int run(ControllerInfo controller) {
+                    public Integer run(ControllerInfo controller) {
                         if (uri == null) {
                             Log.w(TAG, "prefetchFromUri(): Ignoring null uri from " + controller);
                             return RESULT_CODE_BAD_VALUE;
@@ -543,10 +555,10 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void prefetchFromSearch(final IMediaController2 caller, int seq, final String query,
             final Bundle extras) {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_PREFETCH_FROM_SEARCH,
-                new CallbackCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_PREFETCH_FROM_SEARCH,
+                new SessionTask<Integer>() {
                     @Override
-                    public int run(ControllerInfo controller) {
+                    public Integer run(ControllerInfo controller) {
                         if (TextUtils.isEmpty(query)) {
                             Log.w(TAG, "prefetchFromSearch(): Ignoring empty query from "
                                     + controller);
@@ -561,10 +573,10 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void prefetchFromMediaId(final IMediaController2 caller, int seq, final String mediaId,
             final Bundle extras) {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_PREFETCH_FROM_MEDIA_ID,
-                new CallbackCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_PREFETCH_FROM_MEDIA_ID,
+                new SessionTask<Integer>() {
                     @Override
-                    public int run(ControllerInfo controller) {
+                    public Integer run(ControllerInfo controller) {
                         if (mediaId == null) {
                             Log.w(TAG, "prefetchFromMediaId(): Ignoring null mediaId from "
                                     + controller);
@@ -579,10 +591,10 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void playFromUri(final IMediaController2 caller, int seq, final Uri uri,
             final Bundle extras) {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_URI,
-                new CallbackCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_URI,
+                new SessionTask<Integer>() {
                     @Override
-                    public int run(ControllerInfo controller) {
+                    public Integer run(ControllerInfo controller) {
                         if (uri == null) {
                             Log.w(TAG, "playFromUri(): Ignoring null uri from " + controller);
                             return RESULT_CODE_BAD_VALUE;
@@ -596,10 +608,10 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void playFromSearch(final IMediaController2 caller, int seq, final String query,
             final Bundle extras) {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_SEARCH,
-                new CallbackCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_SEARCH,
+                new SessionTask<Integer>() {
                     @Override
-                    public int run(ControllerInfo controller) {
+                    public Integer run(ControllerInfo controller) {
                         if (TextUtils.isEmpty(query)) {
                             Log.w(TAG, "playFromSearch(): Ignoring empty query from " + controller);
                             return RESULT_CODE_BAD_VALUE;
@@ -613,10 +625,10 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void playFromMediaId(final IMediaController2 caller, int seq, final String mediaId,
             final Bundle extras) {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_MEDIA_ID,
-                new CallbackCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_MEDIA_ID,
+                new SessionTask<Integer>() {
                     @Override
-                    public int run(ControllerInfo controller) {
+                    public Integer run(ControllerInfo controller) {
                         if (mediaId == null) {
                             Log.w(TAG,
                                     "playFromMediaId(): Ignoring null mediaId from " + controller);
@@ -632,10 +644,10 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     public void setRating(final IMediaController2 caller, int seq, final String mediaId,
             final ParcelImpl rating) {
         final Rating2 rating2 = ParcelUtils.fromParcelable(rating);
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_SET_RATING,
-                new CallbackCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_SET_RATING,
+                new SessionTask<Integer>() {
                     @Override
-                    public int run(ControllerInfo controller) {
+                    public Integer run(ControllerInfo controller) {
                         if (mediaId == null) {
                             Log.w(TAG, "setRating(): Ignoring null mediaId from " + controller);
                             return RESULT_CODE_BAD_VALUE;
@@ -653,8 +665,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void setPlaybackSpeed(final IMediaController2 caller, int seq, final float speed) {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SET_SPEED,
-                new PlayerCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SET_SPEED,
+                new SessionTask<ListenableFuture<PlayerResult>>() {
                     @Override
                     public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
                         return mSessionImpl.setPlaybackSpeed(speed);
@@ -665,8 +677,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void setPlaylist(final IMediaController2 caller, int seq,
             final ParcelImplListSlice listSlice, final Bundle metadata) {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SET_PLAYLIST,
-                new PlayerCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SET_PLAYLIST,
+                new SessionTask<ListenableFuture<PlayerResult>>() {
                     @Override
                     public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
                         if (listSlice == null || listSlice.getList() == null) {
@@ -689,8 +701,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void setMediaItem(final IMediaController2 caller, int seq, final ParcelImpl mediaItem) {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SET_MEDIA_ITEM,
-                new PlayerCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SET_MEDIA_ITEM,
+                new SessionTask<ListenableFuture<PlayerResult>>() {
                     @Override
                     public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
                         if (mediaItem == null) {
@@ -709,8 +721,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void updatePlaylistMetadata(final IMediaController2 caller, int seq,
             final Bundle metadata) {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_UPDATE_LIST_METADATA,
-                new PlayerCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_UPDATE_LIST_METADATA,
+                new SessionTask<ListenableFuture<PlayerResult>>() {
                     @Override
                     public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
                         return mSessionImpl.updatePlaylistMetadata(
@@ -722,8 +734,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void addPlaylistItem(IMediaController2 caller, int seq, final int index,
             final ParcelImpl mediaItem) {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_ADD_PLAYLIST_ITEM,
-                new PlayerCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_ADD_PLAYLIST_ITEM,
+                new SessionTask<ListenableFuture<PlayerResult>>() {
                     @Override
                     public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
                         if (mediaItem == null) {
@@ -741,8 +753,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void removePlaylistItem(IMediaController2 caller, int seq, final ParcelImpl mediaItem) {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_REMOVE_PLAYLIST_ITEM,
-                new PlayerCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_REMOVE_PLAYLIST_ITEM,
+                new SessionTask<ListenableFuture<PlayerResult>>() {
                     @Override
                     public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
                         MediaItem2 item = ParcelUtils.fromParcelable(mediaItem);
@@ -755,8 +767,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void replacePlaylistItem(IMediaController2 caller, int seq, final int index,
             final ParcelImpl mediaItem) {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_REPLACE_PLAYLIST_ITEM,
-                new PlayerCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_REPLACE_PLAYLIST_ITEM,
+                new SessionTask<ListenableFuture<PlayerResult>>() {
                     @Override
                     public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
                         if (mediaItem == null) {
@@ -775,8 +787,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void skipToPlaylistItem(IMediaController2 caller, int seq, final ParcelImpl mediaItem) {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SKIP_TO_PLAYLIST_ITEM,
-                new PlayerCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SKIP_TO_PLAYLIST_ITEM,
+                new SessionTask<ListenableFuture<PlayerResult>>() {
                     @Override
                     public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
                         if (mediaItem == null) {
@@ -793,9 +805,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void skipToPreviousItem(IMediaController2 caller, int seq) {
-        onSessionCommand(caller, seq,
+        onSessionTask(caller, seq,
                 SessionCommand2.COMMAND_CODE_PLAYER_SKIP_TO_PREVIOUS_PLAYLIST_ITEM,
-                new PlayerCommand() {
+                new SessionTask<ListenableFuture<PlayerResult>>() {
                     @Override
                     public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
                         return mSessionImpl.skipToPreviousItem();
@@ -805,9 +817,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void skipToNextItem(IMediaController2 caller, int seq) {
-        onSessionCommand(caller, seq,
+        onSessionTask(caller, seq,
                 SessionCommand2.COMMAND_CODE_PLAYER_SKIP_TO_NEXT_PLAYLIST_ITEM,
-                new PlayerCommand() {
+                new SessionTask<ListenableFuture<PlayerResult>>() {
                     @Override
                     public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
                         return mSessionImpl.skipToNextItem();
@@ -817,8 +829,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void setRepeatMode(IMediaController2 caller, int seq, final int repeatMode) {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SET_REPEAT_MODE,
-                new PlayerCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SET_REPEAT_MODE,
+                new SessionTask<ListenableFuture<PlayerResult>>() {
                     @Override
                     public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
                         return mSessionImpl.setRepeatMode(repeatMode);
@@ -828,8 +840,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void setShuffleMode(IMediaController2 caller, int seq, final int shuffleMode) {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SET_SHUFFLE_MODE,
-                new PlayerCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SET_SHUFFLE_MODE,
+                new SessionTask<ListenableFuture<PlayerResult>>() {
                     @Override
                     public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
                         return mSessionImpl.setShuffleMode(shuffleMode);
@@ -839,10 +851,10 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void subscribeRoutesInfo(IMediaController2 caller, int seq) {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_SUBSCRIBE_ROUTES_INFO,
-                new CallbackCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_SUBSCRIBE_ROUTES_INFO,
+                new SessionTask<Integer>() {
                     @Override
-                    public int run(ControllerInfo controller) {
+                    public Integer run(ControllerInfo controller) {
                         return mSessionImpl.getCallback().onSubscribeRoutesInfo(
                                 mSessionImpl.getInstance(), controller);
                     }
@@ -851,10 +863,10 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void unsubscribeRoutesInfo(IMediaController2 caller, int seq) {
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_UNSUBSCRIBE_ROUTES_INFO,
-                new CallbackCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_UNSUBSCRIBE_ROUTES_INFO,
+                new SessionTask<Integer>() {
                     @Override
-                    public int run(ControllerInfo controller) {
+                    public Integer run(ControllerInfo controller) {
                         return  mSessionImpl.getCallback().onUnsubscribeRoutesInfo(
                                 mSessionImpl.getInstance(), controller);
                     }
@@ -866,10 +878,10 @@ class MediaSession2Stub extends IMediaSession2.Stub {
         if (MediaUtils2.isUnparcelableBundle(route)) {
             throw new RuntimeException("Unexpected route bundle: " + route);
         }
-        onSessionCommand(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_UNSUBSCRIBE_ROUTES_INFO,
-                new CallbackCommand() {
+        onSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_UNSUBSCRIBE_ROUTES_INFO,
+                new SessionTask<Integer>() {
                     @Override
-                    public int run(ControllerInfo controller) {
+                    public Integer run(ControllerInfo controller) {
                         return mSessionImpl.getCallback().onSelectRoute(mSessionImpl.getInstance(),
                                 controller, route);
                     }
@@ -891,11 +903,12 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void getLibraryRoot(final IMediaController2 caller, final Bundle rootHints)
             throws RuntimeException {
-        onBrowserCommand(caller, SessionCommand2.COMMAND_CODE_LIBRARY_GET_LIBRARY_ROOT,
-                new CustomCommand() {
+        onLibrarySessionTask(caller, SessionCommand2.COMMAND_CODE_LIBRARY_GET_LIBRARY_ROOT,
+                new SessionTask<Boolean>() {
                     @Override
-                    public void run(ControllerInfo controller) {
+                    public Boolean run(ControllerInfo controller) {
                         getLibrarySession().onGetLibraryRootOnExecutor(controller, rootHints);
+                        return true;
                     }
                 });
     }
@@ -903,15 +916,16 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void getItem(final IMediaController2 caller, final String mediaId)
             throws RuntimeException {
-        onBrowserCommand(caller, SessionCommand2.COMMAND_CODE_LIBRARY_GET_ITEM,
-                new CustomCommand() {
+        onLibrarySessionTask(caller, SessionCommand2.COMMAND_CODE_LIBRARY_GET_ITEM,
+                new SessionTask<Boolean>() {
                     @Override
-                    public void run(ControllerInfo controller) {
+                    public Boolean run(ControllerInfo controller) {
                         if (mediaId == null) {
                             Log.w(TAG, "getItem(): Ignoring null mediaId from " + controller);
-                            return;
+                            return false;
                         }
                         getLibrarySession().onGetItemOnExecutor(controller, mediaId);
+                        return true;
                     }
                 });
     }
@@ -919,40 +933,42 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void getChildren(final IMediaController2 caller, final String parentId,
             final int page, final int pageSize, final Bundle extras) throws RuntimeException {
-        onBrowserCommand(caller, SessionCommand2.COMMAND_CODE_LIBRARY_GET_CHILDREN,
-                new CustomCommand() {
+        onLibrarySessionTask(caller, SessionCommand2.COMMAND_CODE_LIBRARY_GET_CHILDREN,
+                new SessionTask<Boolean>() {
                     @Override
-                    public void run(ControllerInfo controller) {
+                    public Boolean run(ControllerInfo controller) {
                         if (parentId == null) {
                             Log.w(TAG, "getChildren(): Ignoring null parentId from " + controller);
-                            return;
+                            return false;
                         }
                         if (page < 0) {
                             Log.w(TAG, "getChildren(): Ignoring negative page from " + controller);
-                            return;
+                            return false;
                         }
                         if (pageSize < 1) {
                             Log.w(TAG, "getChildren(): Ignoring pageSize less than 1 from "
                                     + controller);
-                            return;
+                            return false;
                         }
                         getLibrarySession().onGetChildrenOnExecutor(controller, parentId, page,
                                 pageSize, extras);
+                        return true;
                     }
                 });
     }
 
     @Override
     public void search(IMediaController2 caller, final String query, final Bundle extras) {
-        onBrowserCommand(caller, SessionCommand2.COMMAND_CODE_LIBRARY_SEARCH,
-                new CustomCommand() {
+        onLibrarySessionTask(caller, SessionCommand2.COMMAND_CODE_LIBRARY_SEARCH,
+                new SessionTask<Boolean>() {
                     @Override
-                    public void run(ControllerInfo controller) {
+                    public Boolean run(ControllerInfo controller) {
                         if (TextUtils.isEmpty(query)) {
                             Log.w(TAG, "search(): Ignoring empty query from " + controller);
-                            return;
+                            return false;
                         }
                         getLibrarySession().onSearchOnExecutor(controller, query, extras);
+                        return true;
                     }
                 });
     }
@@ -960,27 +976,28 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void getSearchResult(final IMediaController2 caller, final String query,
             final int page, final int pageSize, final Bundle extras) {
-        onBrowserCommand(caller, SessionCommand2.COMMAND_CODE_LIBRARY_GET_SEARCH_RESULT,
-                new CustomCommand() {
+        onLibrarySessionTask(caller, SessionCommand2.COMMAND_CODE_LIBRARY_GET_SEARCH_RESULT,
+                new SessionTask<Boolean>() {
                     @Override
-                    public void run(ControllerInfo controller) {
+                    public Boolean run(ControllerInfo controller) {
                         if (TextUtils.isEmpty(query)) {
                             Log.w(TAG, "getSearchResult(): Ignoring empty query from "
                                     + controller);
-                            return;
+                            return false;
                         }
                         if (page < 0) {
                             Log.w(TAG, "getSearchResult(): Ignoring negative page from "
                                     + controller);
-                            return;
+                            return false;
                         }
                         if (pageSize < 1) {
                             Log.w(TAG, "getSearchResult(): Ignoring pageSize less than 1 from "
                                     + controller);
-                            return;
+                            return false;
                         }
                         getLibrarySession().onGetSearchResultOnExecutor(controller,
                                 query, page, pageSize, extras);
+                        return true;
                     }
                 });
     }
@@ -988,30 +1005,32 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void subscribe(final IMediaController2 caller, final String parentId,
             final Bundle option) {
-        onBrowserCommand(caller, SessionCommand2.COMMAND_CODE_LIBRARY_SUBSCRIBE,
-                new CustomCommand() {
+        onLibrarySessionTask(caller, SessionCommand2.COMMAND_CODE_LIBRARY_SUBSCRIBE,
+                new SessionTask<Boolean>() {
                     @Override
-                    public void run(ControllerInfo controller) {
+                    public Boolean run(ControllerInfo controller) {
                         if (parentId == null) {
                             Log.w(TAG, "subscribe(): Ignoring null parentId from " + controller);
-                            return;
+                            return false;
                         }
                         getLibrarySession().onSubscribeOnExecutor(controller, parentId, option);
+                        return true;
                     }
                 });
     }
 
     @Override
     public void unsubscribe(final IMediaController2 caller, final String parentId) {
-        onBrowserCommand(caller, SessionCommand2.COMMAND_CODE_LIBRARY_UNSUBSCRIBE,
-                new CustomCommand() {
+        onLibrarySessionTask(caller, SessionCommand2.COMMAND_CODE_LIBRARY_UNSUBSCRIBE,
+                new SessionTask<Boolean>() {
                     @Override
-                    public void run(ControllerInfo controller) {
+                    public Boolean run(ControllerInfo controller) {
                         if (parentId == null) {
                             Log.w(TAG, "unsubscribe(): Ignoring null parentId from " + controller);
-                            return;
+                            return false;
                         }
                         getLibrarySession().onUnsubscribeOnExecutor(controller, parentId);
+                        return true;
                     }
                 });
     }
@@ -1019,25 +1038,11 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     /**
      * Common interface for code snippets to handle all incoming commands from the controller.
      *
-     * @see #onSessionCommand
+     * @see #onSessionTask
      */
-    private interface Command {
-        // Empty interface
-    }
-
     @FunctionalInterface
-    private interface PlayerCommand extends Command {
-        ListenableFuture<PlayerResult> run(ControllerInfo controller) throws RemoteException;
-    }
-
-    @FunctionalInterface
-    private interface CallbackCommand extends Command {
-        @SessionResult.ResultCode int run(ControllerInfo controller) throws RemoteException;
-    }
-
-    @FunctionalInterface
-    private interface CustomCommand extends Command {
-        void run(ControllerInfo controller) throws RemoteException;
+    private interface SessionTask<T> {
+        T run(ControllerInfo controller) throws RemoteException;
     }
 
     final class Controller2Cb extends ControllerCb {

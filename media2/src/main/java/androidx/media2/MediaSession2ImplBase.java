@@ -287,7 +287,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
             mPlayer.unregisterPlayerCallback(mPlayerCallback);
             mSessionCompat.release();
             mCallback.onSessionClosed(mInstance);
-            notifyToAllControllers(new NotifyRunnable() {
+            dispatchRemoteControllerNotifyTask(new RemoteControllerNotifyTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
                     callback.onDisconnected();
@@ -352,7 +352,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         if (layout == null) {
             throw new IllegalArgumentException("layout shouldn't be null");
         }
-        return sendCommand(controller, new ControllerCommand() {
+        return dispatchRemoteControllerTask(controller, new RemoteControllerTask() {
             @Override
             public void run(int seq, ControllerCb controller) throws RemoteException {
                 controller.setCustomLayout(seq, layout);
@@ -373,7 +373,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         if (mSession2Stub.getConnectedControllersManager().isConnected(controller)) {
             mSession2Stub.getConnectedControllersManager()
                     .updateAllowedCommands(controller, commands);
-            notifyToController(controller, new NotifyRunnable() {
+            dispatchRemoteControllerNotifyTask(controller, new RemoteControllerNotifyTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
                     callback.onAllowedCommandsChanged(commands);
@@ -391,7 +391,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         if (command == null) {
             throw new IllegalArgumentException("command shouldn't be null");
         }
-        broadcastCommand(new ControllerCommand() {
+        dispatchRemoteControllerTask(new RemoteControllerTask() {
             @Override
             public void run(int seq, ControllerCb controller) throws RemoteException {
                 controller.sendCustomCommand(seq, command, args);
@@ -409,7 +409,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         if (command == null) {
             throw new IllegalArgumentException("command shouldn't be null");
         }
-        return sendCommand(controller, new ControllerCommand() {
+        return dispatchRemoteControllerTask(controller, new RemoteControllerTask() {
             @Override
             public void run(int seq, ControllerCb controller) throws RemoteException {
                 controller.sendCustomCommand(seq, command, args);
@@ -419,7 +419,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @Override
     public ListenableFuture<PlayerResult> play() {
-        return executeCommand(new PlayerCommand<ListenableFuture<PlayerResult>>() {
+        return dispatchPlayerTask(new PlayerTask<ListenableFuture<PlayerResult>>() {
             @Override
             public ListenableFuture<PlayerResult> run(SessionPlayer2 player) throws Exception {
                 if (player.getPlayerState() != PLAYER_STATE_IDLE) {
@@ -428,7 +428,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
                 final ListenableFuture<PlayerResult> prepareFuture = player.prefetch();
                 final ListenableFuture<PlayerResult> playFuture = player.play();
                 if (prepareFuture == null || playFuture == null) {
-                    // Let executeCommand() handle such cases.
+                    // Let dispatchPlayerTask() handle such cases.
                     return null;
                 }
                 return XMediaPlayer.CombindedCommandResultFuture.create(DIRECT_EXECUTOR,
@@ -439,7 +439,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @Override
     public ListenableFuture<PlayerResult> pause() {
-        return executeCommand(new PlayerCommand<ListenableFuture<PlayerResult>>() {
+        return dispatchPlayerTask(new PlayerTask<ListenableFuture<PlayerResult>>() {
             @Override
             public ListenableFuture<PlayerResult> run(SessionPlayer2 player) throws Exception {
                 return player.pause();
@@ -449,7 +449,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @Override
     public ListenableFuture<PlayerResult> prefetch() {
-        return executeCommand(new PlayerCommand<ListenableFuture<PlayerResult>>() {
+        return dispatchPlayerTask(new PlayerTask<ListenableFuture<PlayerResult>>() {
             @Override
             public ListenableFuture<PlayerResult> run(SessionPlayer2 player) throws Exception {
                 return player.prefetch();
@@ -459,7 +459,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @Override
     public ListenableFuture<PlayerResult> seekTo(final long pos) {
-        return executeCommand(new PlayerCommand<ListenableFuture<PlayerResult>>() {
+        return dispatchPlayerTask(new PlayerTask<ListenableFuture<PlayerResult>>() {
             @Override
             public ListenableFuture<PlayerResult> run(SessionPlayer2 player) throws Exception {
                 return player.seekTo(pos);
@@ -482,7 +482,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
     @Override
     public void notifyRoutesInfoChanged(@NonNull ControllerInfo controller,
             @Nullable final List<Bundle> routes) {
-        notifyToController(controller, new NotifyRunnable() {
+        dispatchRemoteControllerNotifyTask(controller, new RemoteControllerNotifyTask() {
             @Override
             public void run(ControllerCb callback) throws RemoteException {
                 callback.onRoutesInfoChanged(routes);
@@ -491,7 +491,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
     }
 
     @Override public @SessionPlayer2.PlayerState int getPlayerState() {
-        return executeCommand(new PlayerCommand<Integer>() {
+        return executeCommand(new PlayerTask<Integer>() {
             @Override
             public Integer run(SessionPlayer2 player) throws Exception {
                 return player.getPlayerState();
@@ -501,7 +501,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @Override
     public long getCurrentPosition() {
-        return executeCommand(new PlayerCommand<Long>() {
+        return executeCommand(new PlayerTask<Long>() {
             @Override
             public Long run(SessionPlayer2 player) throws Exception {
                 if (isInPlaybackState(player)) {
@@ -514,7 +514,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @Override
     public long getDuration() {
-        return executeCommand(new PlayerCommand<Long>() {
+        return executeCommand(new PlayerTask<Long>() {
             @Override
             public Long run(SessionPlayer2 player) throws Exception {
                 if (isInPlaybackState(player)) {
@@ -527,7 +527,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @Override
     public long getBufferedPosition() {
-        return executeCommand(new PlayerCommand<Long>() {
+        return executeCommand(new PlayerTask<Long>() {
             @Override
             public Long run(SessionPlayer2 player) throws Exception {
                 if (isInPlaybackState(player)) {
@@ -540,7 +540,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @Override
     public @SessionPlayer2.BuffState int getBufferingState() {
-        return executeCommand(new PlayerCommand<Integer>() {
+        return executeCommand(new PlayerTask<Integer>() {
             @Override
             public Integer run(SessionPlayer2 player) throws Exception {
                 return player.getBufferingState();
@@ -550,7 +550,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @Override
     public float getPlaybackSpeed() {
-        return executeCommand(new PlayerCommand<Float>() {
+        return executeCommand(new PlayerTask<Float>() {
             @Override
             public Float run(SessionPlayer2 player) throws Exception {
                 if (isInPlaybackState(player)) {
@@ -563,7 +563,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @Override
     public ListenableFuture<PlayerResult> setPlaybackSpeed(final float speed) {
-        return executeCommand(new PlayerCommand<ListenableFuture<PlayerResult>>() {
+        return dispatchPlayerTask(new PlayerTask<ListenableFuture<PlayerResult>>() {
             @Override
             public ListenableFuture<PlayerResult> run(SessionPlayer2 player) throws Exception {
                 return player.setPlaybackSpeed(speed);
@@ -573,7 +573,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @Override
     public List<MediaItem2> getPlaylist() {
-        return executeCommand(new PlayerCommand<List<MediaItem2>>() {
+        return executeCommand(new PlayerTask<List<MediaItem2>>() {
             @Override
             public List<MediaItem2> run(SessionPlayer2 player) throws Exception {
                 return player.getPlaylist();
@@ -584,7 +584,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
     @Override
     public ListenableFuture<PlayerResult> setPlaylist(final @NonNull List<MediaItem2> list,
             final @Nullable MediaMetadata2 metadata) {
-        return executeCommand(new PlayerCommand<ListenableFuture<PlayerResult>>() {
+        return dispatchPlayerTask(new PlayerTask<ListenableFuture<PlayerResult>>() {
             @Override
             public ListenableFuture<PlayerResult> run(SessionPlayer2 player) throws Exception {
                 if (list == null) {
@@ -597,7 +597,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @Override
     public ListenableFuture<PlayerResult> setMediaItem(final @NonNull MediaItem2 item) {
-        return executeCommand(new PlayerCommand<ListenableFuture<PlayerResult>>() {
+        return dispatchPlayerTask(new PlayerTask<ListenableFuture<PlayerResult>>() {
             @Override
             public ListenableFuture<PlayerResult> run(SessionPlayer2 player) throws Exception {
                 if (item == null) {
@@ -610,7 +610,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @Override
     public ListenableFuture<PlayerResult> skipToPlaylistItem(final @NonNull MediaItem2 item) {
-        return executeCommand(new PlayerCommand<ListenableFuture<PlayerResult>>() {
+        return dispatchPlayerTask(new PlayerTask<ListenableFuture<PlayerResult>>() {
             @Override
             public ListenableFuture<PlayerResult> run(SessionPlayer2 player) throws Exception {
                 if (item == null) {
@@ -623,7 +623,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @Override
     public ListenableFuture<PlayerResult> skipToPreviousItem() {
-        return executeCommand(new PlayerCommand<ListenableFuture<PlayerResult>>() {
+        return dispatchPlayerTask(new PlayerTask<ListenableFuture<PlayerResult>>() {
             @Override
             public ListenableFuture<PlayerResult> run(SessionPlayer2 player) throws Exception {
                 return player.skipToPreviousPlaylistItem();
@@ -633,7 +633,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @Override
     public ListenableFuture<PlayerResult> skipToNextItem() {
-        return executeCommand(new PlayerCommand<ListenableFuture<PlayerResult>>() {
+        return dispatchPlayerTask(new PlayerTask<ListenableFuture<PlayerResult>>() {
             @Override
             public ListenableFuture<PlayerResult> run(SessionPlayer2 player) throws Exception {
                 return player.skipToNextPlaylistItem();
@@ -643,7 +643,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @Override
     public MediaMetadata2 getPlaylistMetadata() {
-        return executeCommand(new PlayerCommand<MediaMetadata2>() {
+        return executeCommand(new PlayerTask<MediaMetadata2>() {
             @Override
             public MediaMetadata2 run(SessionPlayer2 player) throws Exception {
                 return player.getPlaylistMetadata();
@@ -654,7 +654,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
     @Override
     public ListenableFuture<PlayerResult> addPlaylistItem(final int index,
             final @NonNull MediaItem2 item) {
-        return executeCommand(new PlayerCommand<ListenableFuture<PlayerResult>>() {
+        return dispatchPlayerTask(new PlayerTask<ListenableFuture<PlayerResult>>() {
             @Override
             public ListenableFuture<PlayerResult> run(SessionPlayer2 player) throws Exception {
                 if (index < 0) {
@@ -670,7 +670,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @Override
     public ListenableFuture<PlayerResult> removePlaylistItem(final @NonNull MediaItem2 item) {
-        return executeCommand(new PlayerCommand<ListenableFuture<PlayerResult>>() {
+        return dispatchPlayerTask(new PlayerTask<ListenableFuture<PlayerResult>>() {
             @Override
             public ListenableFuture<PlayerResult> run(SessionPlayer2 player) throws Exception {
                 if (item == null) {
@@ -684,7 +684,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
     @Override
     public ListenableFuture<PlayerResult> replacePlaylistItem(final int index,
             final @NonNull MediaItem2 item) {
-        return executeCommand(new PlayerCommand<ListenableFuture<PlayerResult>>() {
+        return dispatchPlayerTask(new PlayerTask<ListenableFuture<PlayerResult>>() {
             @Override
             public ListenableFuture<PlayerResult> run(SessionPlayer2 player) throws Exception {
                 if (index < 0) {
@@ -701,7 +701,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @Override
     public MediaItem2 getCurrentMediaItem() {
-        return executeCommand(new PlayerCommand<MediaItem2>() {
+        return executeCommand(new PlayerTask<MediaItem2>() {
             @Override
             public MediaItem2 run(SessionPlayer2 player) throws Exception {
                 return player.getCurrentMediaItem();
@@ -712,7 +712,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
     @Override
     public ListenableFuture<PlayerResult> updatePlaylistMetadata(
             final @Nullable MediaMetadata2 metadata) {
-        return executeCommand(new PlayerCommand<ListenableFuture<PlayerResult>>() {
+        return dispatchPlayerTask(new PlayerTask<ListenableFuture<PlayerResult>>() {
             @Override
             public ListenableFuture<PlayerResult> run(SessionPlayer2 player) throws Exception {
                 return player.updatePlaylistMetadata(metadata);
@@ -722,7 +722,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @Override
     public @SessionPlayer2.RepeatMode int getRepeatMode() {
-        return executeCommand(new PlayerCommand<Integer>() {
+        return executeCommand(new PlayerTask<Integer>() {
             @Override
             public Integer run(SessionPlayer2 player) throws Exception {
                 return player.getRepeatMode();
@@ -733,7 +733,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
     @Override
     public ListenableFuture<PlayerResult> setRepeatMode(
             final @SessionPlayer2.RepeatMode int repeatMode) {
-        return executeCommand(new PlayerCommand<ListenableFuture<PlayerResult>>() {
+        return dispatchPlayerTask(new PlayerTask<ListenableFuture<PlayerResult>>() {
             @Override
             public ListenableFuture<PlayerResult> run(SessionPlayer2 player) throws Exception {
                 return player.setRepeatMode(repeatMode);
@@ -743,7 +743,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @Override
     public @SessionPlayer2.ShuffleMode int getShuffleMode() {
-        return executeCommand(new PlayerCommand<Integer>() {
+        return executeCommand(new PlayerTask<Integer>() {
             @Override
             public Integer run(SessionPlayer2 player) throws Exception {
                 return player.getShuffleMode();
@@ -754,7 +754,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
     @Override
     public ListenableFuture<PlayerResult> setShuffleMode(
             final @SessionPlayer2.ShuffleMode int shuffleMode) {
-        return executeCommand(new PlayerCommand<ListenableFuture<PlayerResult>>() {
+        return dispatchPlayerTask(new PlayerTask<ListenableFuture<PlayerResult>>() {
             @Override
             public ListenableFuture<PlayerResult> run(SessionPlayer2 player) throws Exception {
                 return player.setShuffleMode(shuffleMode);
@@ -897,14 +897,14 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         return player != null ? player.getPlaylist() : null;
     }
 
-    private ListenableFuture<PlayerResult> executeCommand(
-            @NonNull PlayerCommand<ListenableFuture<PlayerResult>> command) {
+    private ListenableFuture<PlayerResult> dispatchPlayerTask(
+            @NonNull PlayerTask<ListenableFuture<PlayerResult>> command) {
         ResolvableFuture<PlayerResult> result = ResolvableFuture.create();
         result.set(new PlayerResult(RESULT_CODE_INVALID_STATE, null));
         return executeCommand(command, result);
     }
 
-    private <T> T executeCommand(@NonNull PlayerCommand<T> command, T defaultResult) {
+    private <T> T executeCommand(@NonNull PlayerTask<T> command, T defaultResult) {
         final SessionPlayer2 player;
         synchronized (mLock) {
             player = mPlayer;
@@ -931,7 +931,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         List<MediaItem2> oldPlaylist = oldPlayer.getPlaylist();
         final List<MediaItem2> newPlaylist = getPlaylistOrNull();
         if (!ObjectsCompat.equals(oldPlaylist, newPlaylist)) {
-            notifyToAllControllers(new NotifyRunnable() {
+            dispatchRemoteControllerNotifyTask(new RemoteControllerNotifyTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
                     callback.onPlaylistChanged(
@@ -942,7 +942,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
             MediaMetadata2 oldMetadata = oldPlayer.getPlaylistMetadata();
             final MediaMetadata2 newMetadata = getPlaylistMetadata();
             if (!ObjectsCompat.equals(oldMetadata, newMetadata)) {
-                notifyToAllControllers(new NotifyRunnable() {
+                dispatchRemoteControllerNotifyTask(new RemoteControllerNotifyTask() {
                     @Override
                     public void run(ControllerCb callback) throws RemoteException {
                         callback.onPlaylistMetadataChanged(newMetadata);
@@ -953,7 +953,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         MediaItem2 oldCurrentItem = oldPlayer.getCurrentMediaItem();
         final MediaItem2 newCurrentItem = getCurrentMediaItemOrNull();
         if (!ObjectsCompat.equals(oldCurrentItem, newCurrentItem)) {
-            notifyToAllControllers(new NotifyRunnable() {
+            dispatchRemoteControllerNotifyTask(new RemoteControllerNotifyTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
                     callback.onCurrentMediaItemChanged(newCurrentItem);
@@ -962,7 +962,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         }
         final @SessionPlayer2.RepeatMode int repeatMode = getRepeatMode();
         if (oldPlayer.getRepeatMode() != repeatMode) {
-            notifyToAllControllers(new NotifyRunnable() {
+            dispatchRemoteControllerNotifyTask(new RemoteControllerNotifyTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
                     callback.onRepeatModeChanged(repeatMode);
@@ -971,7 +971,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         }
         final @SessionPlayer2.ShuffleMode int shuffleMode = getShuffleMode();
         if (oldPlayer.getShuffleMode() != shuffleMode) {
-            notifyToAllControllers(new NotifyRunnable() {
+            dispatchRemoteControllerNotifyTask(new RemoteControllerNotifyTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
                     callback.onShuffleModeChanged(shuffleMode);
@@ -984,7 +984,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         final long currentTimeMs = SystemClock.elapsedRealtime();
         final long positionMs = getCurrentPosition();
         final int playerState = getPlayerState();
-        notifyToAllControllers(new NotifyRunnable() {
+        dispatchRemoteControllerNotifyTask(new RemoteControllerNotifyTask() {
             @Override
             public void run(ControllerCb callback) throws RemoteException {
                 callback.onPlayerStateChanged(currentTimeMs, positionMs, playerState);
@@ -994,7 +994,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         if (item != null) {
             final int bufferingState = getBufferingState();
             final long bufferedPositionMs = getBufferedPosition();
-            notifyToAllControllers(new NotifyRunnable() {
+            dispatchRemoteControllerNotifyTask(new RemoteControllerNotifyTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
                     callback.onBufferingStateChanged(item, bufferingState, bufferedPositionMs);
@@ -1003,7 +1003,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         }
         final float speed = getPlaybackSpeed();
         if (speed != oldPlayer.getPlaybackSpeed()) {
-            notifyToAllControllers(new NotifyRunnable() {
+            dispatchRemoteControllerNotifyTask(new RemoteControllerNotifyTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
                     callback.onPlaybackSpeedChanged(currentTimeMs, positionMs, speed);
@@ -1015,7 +1015,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     void notifyPlaybackInfoChangedNotLocked(final PlaybackInfo info) {
-        notifyToAllControllers(new NotifyRunnable() {
+        dispatchRemoteControllerNotifyTask(new RemoteControllerNotifyTask() {
             @Override
             public void run(ControllerCb callback) throws RemoteException {
                 callback.onPlaybackInfoChanged(info);
@@ -1023,8 +1023,8 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         });
     }
 
-    void notifyToController(@NonNull final ControllerInfo controller,
-            @NonNull NotifyRunnable runnable) {
+    void dispatchRemoteControllerNotifyTask(@NonNull final ControllerInfo controller,
+            @NonNull RemoteControllerNotifyTask runnable) {
         if (!isConnected(controller)) {
             // Do not send command to an unconnected controller.
             return;
@@ -1043,18 +1043,18 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         }
     }
 
-    void notifyToAllControllers(@NonNull NotifyRunnable runnable) {
+    void dispatchRemoteControllerNotifyTask(@NonNull RemoteControllerNotifyTask runnable) {
         List<ControllerInfo> controllers =
                 mSession2Stub.getConnectedControllersManager().getConnectedControllers();
         for (int i = 0; i < controllers.size(); i++) {
-            notifyToController(controllers.get(i), runnable);
+            dispatchRemoteControllerNotifyTask(controllers.get(i), runnable);
         }
         ControllerInfo controller = mSessionLegacyStub.getControllersForAll();
-        notifyToController(controller, runnable);
+        dispatchRemoteControllerNotifyTask(controller, runnable);
     }
 
-    private ListenableFuture<SessionResult> sendCommand(@NonNull ControllerInfo controller,
-            @NonNull ControllerCommand command) {
+    private ListenableFuture<SessionResult> dispatchRemoteControllerTask(
+            @NonNull ControllerInfo controller, @NonNull RemoteControllerTask command) {
         if (!isConnected(controller)) {
             return SessionResult.createFutureWithResult(RESULT_CODE_DISCONNECTED);
         }
@@ -1091,7 +1091,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         }
     }
 
-    private void broadcastCommand(@NonNull ControllerCommand command) {
+    private void dispatchRemoteControllerTask(@NonNull RemoteControllerTask command) {
         List<ControllerInfo> controllers =
                 mSession2Stub.getConnectedControllersManager().getConnectedControllers();
         controllers.add(mSessionLegacyStub.getControllersForAll());
@@ -1141,18 +1141,18 @@ class MediaSession2ImplBase implements MediaSession2Impl {
     // Inner classes
     ///////////////////////////////////////////////////
     @FunctionalInterface
-    interface PlayerCommand<T> {
+    interface PlayerTask<T> {
         T run(@NonNull SessionPlayer2 player) throws Exception;
     }
 
     @FunctionalInterface
-    interface NotifyRunnable {
-        void run(ControllerCb callback) throws RemoteException;
+    interface RemoteControllerTask {
+        void run(int seq, ControllerCb controller) throws RemoteException;
     }
 
     @FunctionalInterface
-    interface ControllerCommand {
-        void run(int seq, ControllerCb controller) throws RemoteException;
+    interface RemoteControllerNotifyTask {
+        void run(ControllerCb callback) throws RemoteException;
     }
 
     private static class SessionPlayerCallback extends SessionPlayer2.PlayerCallback {
@@ -1170,7 +1170,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
             }
             // Note: No sanity check whether the item is in the playlist.
             updateDurationIfNeeded(player, item);
-            session.notifyToAllControllers(new NotifyRunnable() {
+            session.dispatchRemoteControllerNotifyTask(new RemoteControllerNotifyTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
                     callback.onCurrentMediaItemChanged(item);
@@ -1186,7 +1186,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
             }
             session.getCallback().onPlayerStateChanged(session.getInstance(), state);
             updateDurationIfNeeded(player, player.getCurrentMediaItem());
-            session.notifyToAllControllers(new NotifyRunnable() {
+            session.dispatchRemoteControllerNotifyTask(new RemoteControllerNotifyTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
                     callback.onPlayerStateChanged(SystemClock.elapsedRealtime(),
@@ -1199,7 +1199,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         public void onBufferingStateChanged(final SessionPlayer2 player,
                 final MediaItem2 item, final int state) {
             updateDurationIfNeeded(player, item);
-            notifyToAllControllers(player, new NotifyRunnable() {
+            notifyToAllControllers(player, new RemoteControllerNotifyTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
                     callback.onBufferingStateChanged(item, state, player.getBufferedPosition());
@@ -1209,7 +1209,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
         @Override
         public void onPlaybackSpeedChanged(final SessionPlayer2 player, final float speed) {
-            notifyToAllControllers(player, new NotifyRunnable() {
+            notifyToAllControllers(player, new RemoteControllerNotifyTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
                     callback.onPlaybackSpeedChanged(SystemClock.elapsedRealtime(),
@@ -1220,7 +1220,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
         @Override
         public void onSeekCompleted(final SessionPlayer2 player, final long position) {
-            notifyToAllControllers(player, new NotifyRunnable() {
+            notifyToAllControllers(player, new RemoteControllerNotifyTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
                     callback.onSeekCompleted(SystemClock.elapsedRealtime(),
@@ -1232,7 +1232,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         @Override
         public void onPlaylistChanged(final SessionPlayer2 player, final List<MediaItem2> list,
                 final MediaMetadata2 metadata) {
-            notifyToAllControllers(player, new NotifyRunnable() {
+            notifyToAllControllers(player, new RemoteControllerNotifyTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
                     callback.onPlaylistChanged(list, metadata);
@@ -1243,7 +1243,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         @Override
         public void onPlaylistMetadataChanged(final SessionPlayer2 player,
                 final MediaMetadata2 metadata) {
-            notifyToAllControllers(player, new NotifyRunnable() {
+            notifyToAllControllers(player, new RemoteControllerNotifyTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
                     callback.onPlaylistMetadataChanged(metadata);
@@ -1253,7 +1253,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
         @Override
         public void onRepeatModeChanged(final SessionPlayer2 player, final int repeatMode) {
-            notifyToAllControllers(player, new NotifyRunnable() {
+            notifyToAllControllers(player, new RemoteControllerNotifyTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
                     callback.onRepeatModeChanged(repeatMode);
@@ -1263,7 +1263,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
         @Override
         public void onShuffleModeChanged(final SessionPlayer2 player, final int shuffleMode) {
-            notifyToAllControllers(player, new NotifyRunnable() {
+            notifyToAllControllers(player, new RemoteControllerNotifyTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
                     callback.onShuffleModeChanged(shuffleMode);
@@ -1273,7 +1273,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
 
         @Override
         public void onPlaybackCompleted(SessionPlayer2 player) {
-            notifyToAllControllers(player, new NotifyRunnable() {
+            notifyToAllControllers(player, new RemoteControllerNotifyTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
                     callback.onPlaybackCompleted();
@@ -1308,12 +1308,12 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         }
 
         private void notifyToAllControllers(@NonNull SessionPlayer2 player,
-                @NonNull NotifyRunnable runnable) {
+                @NonNull RemoteControllerNotifyTask runnable) {
             final MediaSession2ImplBase session = getSession();
             if (session == null || session.getPlayer() != player || player == null) {
                 return;
             }
-            session.notifyToAllControllers(runnable);
+            session.dispatchRemoteControllerNotifyTask(runnable);
         }
 
         private void updateDurationIfNeeded(@NonNull final SessionPlayer2 player,
@@ -1360,7 +1360,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
             }
             if (metadata != null) {
                 item.setMetadata(metadata);
-                notifyToAllControllers(player, new NotifyRunnable() {
+                notifyToAllControllers(player, new RemoteControllerNotifyTask() {
                     @Override
                     public void run(ControllerCb callback) throws RemoteException {
                         callback.onPlaylistChanged(
