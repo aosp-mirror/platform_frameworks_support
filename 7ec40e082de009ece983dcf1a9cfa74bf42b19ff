@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a2369b1b_5127a04a",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-24T01:28:10Z",
+      "side": 1,
+      "message": "Yes, but I added this in case of malicious app sends bad ParcelImplListSlice by using reflection.",
+      "parentUuid": "bc522b6e_fe694f93",
+      "range": {
+        "startLine": 126,
+        "startChar": 12,
+        "endLine": 126,
+        "endChar": 22
+      },
+      "revId": "7ec40e082de009ece983dcf1a9cfa74bf42b19ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6823890_a1234bab",
         "filename": "media2/src/main/java/androidx/media2/ParcelImplListSlice.java",
         "patchSetId": 10
@@ -45,6 +69,30 @@
       "revId": "7ec40e082de009ece983dcf1a9cfa74bf42b19ff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38f57e48_8772cf75",
+        "filename": "media2/src/main/java/androidx/media2/ParcelImplListSlice.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-24T01:28:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6823890_a1234bab",
+      "range": {
+        "startLine": 52,
+        "startChar": 57,
+        "endLine": 52,
+        "endChar": 61
+      },
+      "revId": "7ec40e082de009ece983dcf1a9cfa74bf42b19ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
