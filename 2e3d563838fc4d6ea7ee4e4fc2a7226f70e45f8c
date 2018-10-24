@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "7ef10305_7aaf0843",
+        "filename": "work/workmanager-test/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-24T17:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03428db2_ef72a4d9",
+      "revId": "2e3d563838fc4d6ea7ee4e4fc2a7226f70e45f8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a44dce3f_f83ec62d",
         "filename": "work/workmanager-test/api/current.txt",
         "patchSetId": 5
@@ -86,6 +104,24 @@
       "revId": "2e3d563838fc4d6ea7ee4e4fc2a7226f70e45f8c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c35de249_32932304",
+        "filename": "work/workmanager-test/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-24T17:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a44dce3f_f83ec62d",
+      "revId": "2e3d563838fc4d6ea7ee4e4fc2a7226f70e45f8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
