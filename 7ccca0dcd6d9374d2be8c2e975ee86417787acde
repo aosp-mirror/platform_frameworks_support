@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c581bab_119a60cd",
+        "filename": "work/workmanager-sync/src/main/java/androidx/work/WorkManagerSync.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-24T22:14:41Z",
+      "side": 1,
+      "message": "mWorkManagerImpl",
+      "range": {
+        "startLine": 37,
+        "startChar": 34,
+        "endLine": 37,
+        "endChar": 46
+      },
+      "revId": "7ccca0dcd6d9374d2be8c2e975ee86417787acde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5edcde4d_f60ee0c3",
+        "filename": "work/workmanager-sync/src/main/java/androidx/work/WorkManagerSync.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-24T22:14:41Z",
+      "side": 1,
+      "message": "sInstance",
+      "range": {
+        "startLine": 39,
+        "startChar": 35,
+        "endLine": 39,
+        "endChar": 51
+      },
+      "revId": "7ccca0dcd6d9374d2be8c2e975ee86417787acde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "479a36d2_c500ad31",
+        "filename": "work/workmanager-sync/src/main/java/androidx/work/WorkManagerSync.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-24T22:14:41Z",
+      "side": 1,
+      "message": "I\u0027d prefer to check sDefaultInstance first.",
+      "range": {
+        "startLine": 63,
+        "startChar": 10,
+        "endLine": 70,
+        "endChar": 9
+      },
+      "revId": "7ccca0dcd6d9374d2be8c2e975ee86417787acde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3c89e4c_203acc30",
+        "filename": "work/workmanager-sync/src/main/java/androidx/work/WorkManagerSync.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-24T22:14:41Z",
+      "side": 1,
+      "message": "WorkRequest}s\n\nSame below everywhere.",
+      "range": {
+        "startLine": 76,
+        "startChar": 58,
+        "endLine": 76,
+        "endChar": 59
+      },
+      "revId": "7ccca0dcd6d9374d2be8c2e975ee86417787acde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24dfc0b8_bc33ffc6",
+        "filename": "work/workmanager-sync/src/main/java/androidx/work/WorkManagerSync.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-24T22:14:41Z",
+      "side": 1,
+      "message": "Thrown when.  Same for all exceptions below.",
+      "range": {
+        "startLine": 77,
+        "startChar": 36,
+        "endLine": 77,
+        "endChar": 40
+      },
+      "revId": "7ccca0dcd6d9374d2be8c2e975ee86417787acde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
