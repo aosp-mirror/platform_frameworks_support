@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73ed1bfc_dd5e0dfb",
+        "filename": "paging/common/src/main/java/androidx/paging/DataSource.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-24T11:55:37Z",
+      "side": 1,
+      "message": "should if final? + lets add nullability annotations. If throwable is nonnull, is better extend java.lang.Error? \n\n+ those public fields, do you really want just fields? I would go with a bit more conventional methods just to have some room in the future.",
+      "range": {
+        "startLine": 436,
+        "startChar": 18,
+        "endLine": 436,
+        "endChar": 23
+      },
+      "revId": "69da715f298f84133644fdec80133cfd8bcb3689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5195bb9e_fcf3d915",
+        "filename": "paging/common/src/main/java/androidx/paging/PagedList.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-24T11:55:37Z",
+      "side": 1,
+      "message": "these are constants, should they be CAPSLOCK?",
+      "range": {
+        "startLine": 130,
+        "startChar": 8,
+        "endLine": 130,
+        "endChar": 15
+      },
+      "revId": "69da715f298f84133644fdec80133cfd8bcb3689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a591f3f5_c7e913bd",
+        "filename": "paging/common/src/main/java/androidx/paging/PagedList.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-24T11:55:37Z",
+      "side": 1,
+      "message": "final class?",
+      "revId": "69da715f298f84133644fdec80133cfd8bcb3689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf52f159_703fcdfa",
+        "filename": "paging/common/src/main/java/androidx/paging/PagedList.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-24T11:55:37Z",
+      "side": 1,
+      "message": "is it intentionally non-final? it is bit scary, because later you have \"constant\" IDLE / LOADING / DONE, but that field can change in them",
+      "revId": "69da715f298f84133644fdec80133cfd8bcb3689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05045120_b2313675",
+        "filename": "paging/common/src/main/java/androidx/paging/PagedList.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-24T11:55:37Z",
+      "side": 1,
+      "message": "Should it throw UnsupportedOperation by default?",
+      "revId": "69da715f298f84133644fdec80133cfd8bcb3689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0acec1d2_68e52305",
+        "filename": "paging/common/src/main/java/androidx/paging/PagedList.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-24T11:55:37Z",
+      "side": 1,
+      "message": "should be @MainThread ? Or do we need to guard mListeners?",
+      "revId": "69da715f298f84133644fdec80133cfd8bcb3689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
