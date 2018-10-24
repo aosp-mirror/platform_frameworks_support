@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "bef74d79_69fc32c8",
+        "filename": "slices/core/src/main/java/androidx/slice/core/SliceHints.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-10-24T01:05:19Z",
+      "side": 1,
+      "message": "Oh I see, hmm... I like that you can set the selected independently rather than having to add the option and indicate it. Could addOption(key,label) and setSelectedOption(key) still work? I suppose you\u0027d have to match the key to item and attach the hint to it?",
+      "parentUuid": "859def56_eb778504",
+      "range": {
+        "startLine": 76,
+        "startChar": 31,
+        "endLine": 76,
+        "endChar": 68
+      },
+      "revId": "baf097f6b7309f457c8ebde9938c2590ba68db60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f3656d7_7dcf53fe",
         "filename": "slices/core/src/main/java/androidx/slice/core/SliceHints.java",
         "patchSetId": 5
