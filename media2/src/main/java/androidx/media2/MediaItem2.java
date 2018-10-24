@@ -265,9 +265,11 @@ public class MediaItem2 implements VersionedParcelable {
     }
 
     /**
-     * Sets a metadata and calls {@link OnMetadataChangedListener#onMetadataChanged(MediaItem2)} to
-     * all connected sessions. If the metadata is not {@code null}, its id should be matched with
-     * this instance's media id.
+     * Sets a metadata and calls
+     * {@link OnMetadataChangedListener#onCurrentItemMetadataChanged(MediaItem2)} and
+     * {@link OnMetadataChangedListener#onPlaylistItemMetadataChanged(MediaItem2)} to all connected
+     * sessions. If the metadata is not {@code null}, its id should be matched with this instance's
+     * media id.
      *
      * @param metadata metadata to update
      */
@@ -289,7 +291,8 @@ public class MediaItem2 implements VersionedParcelable {
             pair.second.execute(new Runnable() {
                 @Override
                 public void run() {
-                    listener.onMetadataChanged(MediaItem2.this);
+                    listener.onCurrentItemMetadataChanged(MediaItem2.this);
+                    listener.onPlaylistItemMetadataChanged(MediaItem2.this);
                 }
             });
         }
@@ -493,6 +496,7 @@ public class MediaItem2 implements VersionedParcelable {
     }
 
     interface OnMetadataChangedListener {
-        void onMetadataChanged(MediaItem2 item);
+        void onCurrentItemMetadataChanged(MediaItem2 item);
+        void onPlaylistItemMetadataChanged(MediaItem2 item);
     }
 }
