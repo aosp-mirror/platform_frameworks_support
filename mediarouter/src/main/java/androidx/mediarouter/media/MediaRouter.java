@@ -18,7 +18,9 @@ package androidx.mediarouter.media;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.Application;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -2132,6 +2134,7 @@ public final class MediaRouter {
                 }
             }
         };
+        private ForegroundChecker mForegroundChecker;
 
         GlobalMediaRouter(Context applicationContext) {
             mApplicationContext = applicationContext;
@@ -2144,6 +2147,10 @@ public final class MediaRouter {
             // the framework media router.  This one is special and receives
             // synchronization messages from the media router.
             mSystemProvider = SystemMediaRouteProvider.obtain(applicationContext, this);
+
+            mForegroundChecker = new ForegroundChecker();
+            Application app = (Application) mApplicationContext;
+            app.registerActivityLifecycleCallbacks(mForegroundChecker);
         }
 
         public void start() {
@@ -2341,32 +2348,40 @@ public final class MediaRouter {
             // Combine all of the callback selectors and active scan flags.
             boolean discover = false;
             boolean activeScan = false;
-            MediaRouteSelector.Builder builder = new MediaRouteSelector.Builder();
-            for (int i = mRouters.size(); --i >= 0; ) {
-                MediaRouter router = mRouters.get(i).get();
-                if (router == null) {
-                    mRouters.remove(i);
-                } else {
-                    final int count = router.mCallbackRecords.size();
-                    for (int j = 0; j < count; j++) {
-                        CallbackRecord callback = router.mCallbackRecords.get(j);
-                        builder.addSelector(callback.mSelector);
-                        if ((callback.mFlags & CALLBACK_FLAG_PERFORM_ACTIVE_SCAN) != 0) {
-                            activeScan = true;
-                            discover = true; // perform active scan implies request discovery
-                        }
-                        if ((callback.mFlags & CALLBACK_FLAG_REQUEST_DISCOVERY) != 0) {
-                            if (!mLowRam) {
+
+            MediaRouteSelector selector = MediaRouteSelector.EMPTY;
+            // When the app is in background, remove discovery ruequest
+            if (mForegroundChecker.isForeground()) {
+                MediaRouteSelector.Builder builder = new MediaRouteSelector.Builder();
+
+                for (int i = mRouters.size(); --i >= 0; ) {
+                    MediaRouter router = mRouters.get(i).get();
+                    if (router == null) {
+                        mRouters.remove(i);
+                    } else {
+                        final int count = router.mCallbackRecords.size();
+                        for (int j = 0; j < count; j++) {
+                            CallbackRecord callback = router.mCallbackRecords.get(j);
+                            builder.addSelector(callback.mSelector);
+                            if ((callback.mFlags & CALLBACK_FLAG_PERFORM_ACTIVE_SCAN) != 0) {
+                                activeScan = true;
+                                discover = true; // perform active scan implies request discovery
+                            }
+                            if ((callback.mFlags & CALLBACK_FLAG_REQUEST_DISCOVERY) != 0) {
+                                if (!mLowRam) {
+                                    discover = true;
+                                }
+                            }
+                            if ((callback.mFlags & CALLBACK_FLAG_FORCE_DISCOVERY) != 0) {
                                 discover = true;
                             }
                         }
-                        if ((callback.mFlags & CALLBACK_FLAG_FORCE_DISCOVERY) != 0) {
-                            discover = true;
-                        }
                     }
                 }
+                if (discover) {
+                    selector = builder.build();
+                }
             }
-            MediaRouteSelector selector = discover ? builder.build() : MediaRouteSelector.EMPTY;
 
             // Create a new discovery request.
             if (mDiscoveryRequest != null
@@ -3236,6 +3251,67 @@ public final class MediaRouter {
                     }
                 }
             }
+        }
+
+        private static final class ForegroundChecker
+                implements Application.ActivityLifecycleCallbacks {
+            public static final long DELAY_MILLIS = 1000;
+            private final Handler mHandler = new Handler();
+            private boolean mIsForeground = false;
+            private boolean mIsPaused = true;
+            private Runnable mChecker;
+
+            public boolean isForeground() {
+                return mIsForeground;
+            }
+
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) { }
+
+            @Override
+            public void onActivityStarted(Activity activity) { }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+                mIsPaused = false;
+                boolean wasBackground = !mIsForeground;
+                mIsForeground = true;
+
+                if (mChecker != null) {
+                    mHandler.removeCallbacks(mChecker);
+                }
+                if (wasBackground) {
+                    sGlobal.updateDiscoveryRequest();
+                }
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+                mIsPaused = true;
+
+                if (mChecker != null) {
+                    mHandler.removeCallbacks(mChecker);
+                }
+                mChecker = new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mIsForeground && mIsPaused) {
+                            mIsForeground = false;
+                            sGlobal.updateDiscoveryRequest();
+                        }
+                    }
+                };
+                mHandler.postDelayed(mChecker, DELAY_MILLIS);
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) { }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) { }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) { }
         }
     }
 }
