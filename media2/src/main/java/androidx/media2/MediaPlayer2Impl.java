@@ -1782,6 +1782,11 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         }
 
         synchronized void seekTo(long msec, int mode) {
+            MediaItem2 current = getFirst().getDSD();
+            if (current.getStartPosition() > msec || current.getEndPosition() < msec) {
+                throw new IllegalArgumentException(
+                        "Requested seek position is out of range : " + msec);
+            }
             getCurrentPlayer().seekTo(msec, mode);
         }
 

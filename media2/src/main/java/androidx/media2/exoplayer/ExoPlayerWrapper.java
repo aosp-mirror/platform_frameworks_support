@@ -202,6 +202,11 @@ import java.util.List;
         mPlayer.setSeekParameters(ExoPlayerUtils.getSeekParameters(mode));
         MediaItem2 mediaItem2 = mMediaItemQueue.getCurrentMediaItem();
         if (mediaItem2 != null) {
+            if (mediaItem2.getStartPosition() > position
+                    || mediaItem2.getEndPosition() < position) {
+                throw new IllegalArgumentException(
+                        "Requested seek position is out of range : " + position);
+            }
             position -= mediaItem2.getStartPosition();
         }
         mPlayer.seekTo(position);
