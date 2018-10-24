@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fd8e11aa_d22fcdab",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/PagerSnapHelperTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-24T09:41:59Z",
+      "side": 1,
+      "message": "Yes, good point. Will change",
+      "parentUuid": "997f2522_e9633271",
+      "range": {
+        "startLine": 84,
+        "startChar": 46,
+        "endLine": 84,
+        "endChar": 58
+      },
+      "revId": "3cd6c0c4d6b5291a599b632cfdd91cb1d127f5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fca4ba4a_fa91484c",
         "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/PagerSnapHelperTest.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "3cd6c0c4d6b5291a599b632cfdd91cb1d127f5bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "636e1014_588175fb",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/PagerSnapHelperTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-10-24T09:41:59Z",
+      "side": 1,
+      "message": "Good point, it should be independent of the screen size.",
+      "parentUuid": "fca4ba4a_fa91484c",
+      "range": {
+        "startLine": 190,
+        "startChar": 11,
+        "endLine": 190,
+        "endChar": 43
+      },
+      "revId": "3cd6c0c4d6b5291a599b632cfdd91cb1d127f5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
