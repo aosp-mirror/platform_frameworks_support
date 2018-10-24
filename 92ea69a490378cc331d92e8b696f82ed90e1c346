@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cbce1dd6_ccfadbf2",
+        "filename": "work/workmanager-sync/src/main/java/androidx/work/WorkManagerSync.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-24T17:24:45Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 7
+      },
+      "revId": "92ea69a490378cc331d92e8b696f82ed90e1c346",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
