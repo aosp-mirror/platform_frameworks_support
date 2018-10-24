@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4853a24_9ae3cb2c",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaController2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1552,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-24T08:51:30Z",
+      "side": 1,
+      "message": "Could you do this outside of the controller callback?\nTechnically change in metadata by the controller shouldn\u0027t effect metadata in the session.",
+      "range": {
+        "startLine": 1551,
+        "startChar": 28,
+        "endLine": 1552,
+        "endChar": 70
+      },
+      "revId": "d4cee6192a265a3e6fd9b42df32389d899431239",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7288b2e3_49dec969",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-24T08:51:30Z",
+      "side": 1,
+      "message": "document about the behavior.",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 6
+      },
+      "revId": "d4cee6192a265a3e6fd9b42df32389d899431239",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2507a6b0_3b610752",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-24T08:51:30Z",
+      "side": 1,
+      "message": "What if there\u0027s multiple sessions? add/remove OR register/unregister?",
+      "revId": "d4cee6192a265a3e6fd9b42df32389d899431239",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8250dea_0925b205",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-24T08:51:30Z",
+      "side": 1,
+      "message": "when do you reset?",
+      "range": {
+        "startLine": 1173,
+        "startChar": 33,
+        "endLine": 1173,
+        "endChar": 65
+      },
+      "revId": "d4cee6192a265a3e6fd9b42df32389d899431239",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
