@@ -18,7 +18,9 @@ package androidx.mediarouter.media;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.Application;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -2132,7 +2134,7 @@ public final class MediaRouter {
                 }
             }
         };
-
+        private ForegroundChecker mForegroundChecker;
         GlobalMediaRouter(Context applicationContext) {
             mApplicationContext = applicationContext;
             mDisplayManager = DisplayManagerCompat.getInstance(applicationContext);
@@ -2144,6 +2146,10 @@ public final class MediaRouter {
             // the framework media router.  This one is special and receives
             // synchronization messages from the media router.
             mSystemProvider = SystemMediaRouteProvider.obtain(applicationContext, this);
+
+            mForegroundChecker = new ForegroundChecker();
+            Application app = (Application) mApplicationContext;
+            app.registerActivityLifecycleCallbacks(mForegroundChecker);
         }
 
         public void start() {
@@ -2366,7 +2372,10 @@ public final class MediaRouter {
                     }
                 }
             }
-            MediaRouteSelector selector = discover ? builder.build() : MediaRouteSelector.EMPTY;
+            // When the app is in background, remove discovery ruequest
+            MediaRouteSelector selector = discover && mForegroundChecker.isForeground()
+                    ? builder.build() : MediaRouteSelector.EMPTY;
+            activeScan = activeScan && mForegroundChecker.isForeground();
 
             // Create a new discovery request.
             if (mDiscoveryRequest != null
@@ -3236,6 +3245,70 @@ public final class MediaRouter {
                     }
                 }
             }
+        }
+
+        private static final class ForegroundChecker
+                implements Application.ActivityLifecycleCallbacks {
+            public static final long DELAY_MILLIS = 1000;
+            private final Handler mHandler = new Handler();
+            private boolean mIsForeground = false;
+            private boolean mIsPaused = true;
+            private Runnable mCheck;
+
+            public boolean isForeground() {
+                return mIsForeground;
+            }
+
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) { }
+
+            @Override
+            public void onActivityStarted(Activity activity) { }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+                mIsPaused = false;
+                boolean wasBackground = !mIsForeground;
+                mIsForeground = true;
+
+                if (mCheck != null) {
+                    mHandler.removeCallbacks(mCheck);
+                }
+
+                if (wasBackground) {
+                    sGlobal.updateDiscoveryRequest();
+                }
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+                mIsPaused = true;
+
+                if (mCheck != null) {
+                    mHandler.removeCallbacks(mCheck);
+                }
+
+                mCheck = new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mIsForeground && mIsPaused) {
+                            mIsForeground = false;
+                            sGlobal.updateDiscoveryRequest();
+                        }
+                    }
+                };
+
+                mHandler.postDelayed(mCheck, DELAY_MILLIS);
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) { }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) { }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) { }
         }
     }
 }
