@@ -22,6 +22,30 @@
       "revId": "c9b1f347992d7f0d3e4873c2062a41c1395f386c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bedf6a23_9df6696b",
+        "filename": "lifecycle/savedstate-core/src/main/java/androidx/lifecycle/SavedStateRegistryOwner.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-24T18:29:01Z",
+      "side": 1,
+      "message": "See next CL, one more change happens there to this interface and I rename this method as well. Wdyt?",
+      "parentUuid": "8f9fc279_e905c0c8",
+      "range": {
+        "startLine": 32,
+        "startChar": 23,
+        "endLine": 32,
+        "endChar": 36
+      },
+      "revId": "c9b1f347992d7f0d3e4873c2062a41c1395f386c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
