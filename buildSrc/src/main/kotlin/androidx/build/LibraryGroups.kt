@@ -46,6 +46,7 @@ object LibraryGroups {
     const val GRIDLAYOUT = "androidx.gridlayout"
     const val HEIFWRITER = "androidx.heifwriter"
     const val INTERPOLATOR = "androidx.interpolator"
+    const val INTERNAL_TESTUTILS = "androidx.internal-testutils"
     const val LEANBACK = "androidx.leanback"
     const val LEGACY = "androidx.legacy"
     const val LOADER = "androidx.loader"
