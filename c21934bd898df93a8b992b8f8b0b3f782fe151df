@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "4f569cfb_30c0df1a",
+        "filename": "media2/src/androidTest/java/androidx/media2/TestUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-24T12:29:28Z",
+      "side": 1,
+      "message": "Oh, I thought two arguments are same type. Then how about renaming this to assertMediaIdEquals?\n\n  public static void assertMediaIdEquals(MediaItem a, MediaItem2 b) {\n      if (a \u003d\u003d null || b \u003d\u003d null) {\n          assertTrue(a \u003d\u003d null \u0026\u0026 b \u003d\u003d null);\n      }\n      assertEquals(a.getMediaId(), b.getMediaId());\n  }",
+      "parentUuid": "bcfbfa99_b995a520",
+      "range": {
+        "startLine": 218,
+        "startChar": 12,
+        "endLine": 218,
+        "endChar": 47
+      },
+      "revId": "c21934bd898df93a8b992b8f8b0b3f782fe151df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf2cc415_b62ec832",
         "filename": "media2/src/androidTest/java/androidx/media2/TestUtils.java",
         "patchSetId": 11
