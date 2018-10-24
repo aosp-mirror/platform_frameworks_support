@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc522b6e_fe694f93",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-24T00:36:31Z",
+      "side": 1,
+      "message": "You don\u0027t need to check. listSlice.getList() will not return null.",
+      "range": {
+        "startLine": 126,
+        "startChar": 12,
+        "endLine": 126,
+        "endChar": 22
+      },
+      "revId": "7ec40e082de009ece983dcf1a9cfa74bf42b19ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6823890_a1234bab",
+        "filename": "media2/src/main/java/androidx/media2/ParcelImplListSlice.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-24T00:36:31Z",
+      "side": 1,
+      "message": "check nullity and throw exception if null.",
+      "range": {
+        "startLine": 52,
+        "startChar": 57,
+        "endLine": 52,
+        "endChar": 61
+      },
+      "revId": "7ec40e082de009ece983dcf1a9cfa74bf42b19ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
