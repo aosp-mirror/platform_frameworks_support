@@ -1159,11 +1159,13 @@ class MediaSession2ImplBase implements MediaSession2Impl {
     private static class SessionPlayerCallback extends SessionPlayer2.PlayerCallback {
         private final WeakReference<MediaSession2ImplBase> mSession;
         private MediaItem2 mMediaItem;
+        private List<MediaItem2> mList;
         private final MediaItemCallback mMediaItemCallback;
 
         SessionPlayerCallback(MediaSession2ImplBase session) {
             mSession = new WeakReference<>(session);
             mMediaItemCallback = new MediaItemCallback(session);
+            mList = new ArrayList<>();
         }
 
         @Override
@@ -1246,7 +1248,24 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         @Override
         public void onPlaylistChanged(final SessionPlayer2 player, final List<MediaItem2> list,
                 final MediaMetadata2 metadata) {
-            // TODO: Add code for changing metadata of media item in a playlist
+            final MediaSession2ImplBase session = getSession();
+            if (session == null || session.getPlayer() != player || player == null) {
+                return;
+            }
+            synchronized (session.mLock) {
+                if (mList != null) {
+                    for (int i = 0; i < mList.size(); i++) {
+                        mList.get(i).unregisterCallback(mMediaItemCallback);
+                    }
+                }
+                if (list != null) {
+                    for (int i = 0; i < list.size(); i++) {
+                        list.get(i).registerCallback(mMediaItemCallback);
+                    }
+                }
+                mList = list;
+            }
+
             dispatchRemoteControllerTask(player, new RemoteControllerCallbackTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
@@ -1410,7 +1429,23 @@ class MediaSession2ImplBase implements MediaSession2Impl {
                 });
                 return;
             }
-            // TODO: Add code for changing metadata of media item in a playlist
+
+            final List<MediaItem2> list = session.getPlaylist();
+            if (list == null) {
+                return;
+            }
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).equals(item)) {
+                    session.dispatchRemoteControllerCallbackTask(
+                            new RemoteControllerCallbackTask() {
+                                @Override
+                                public void run(ControllerCb callback) throws RemoteException {
+                                    callback.onPlaylistChanged(list, session.getPlaylistMetadata());
+                                }
+                            });
+                    return;
+                }
+            }
         }
 
         private MediaSession2ImplBase getSession() {
