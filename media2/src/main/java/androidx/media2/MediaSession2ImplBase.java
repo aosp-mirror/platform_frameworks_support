@@ -1236,7 +1236,15 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         @Override
         public void onPlaylistChanged(final SessionPlayer2 player, final List<MediaItem2> list,
                 final MediaMetadata2 metadata) {
-            // TODO: Add code for changing metadata of media item in a playlist
+            final MediaSession2ImplBase session = getSession();
+            if (session == null || session.getPlayer() != player || player == null) {
+                return;
+            }
+            if (list != null) {
+                for (MediaItem2 item : list) {
+                    item.setCallback(new MediaItemCallback(session));
+                }
+            }
             dispatchRemoteControllerTask(player, new RemoteControllerCallbackTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
@@ -1400,7 +1408,23 @@ class MediaSession2ImplBase implements MediaSession2Impl {
                 });
                 return;
             }
-            // TODO: Add code for changing metadata of media item in a playlist
+
+            final List<MediaItem2> list = session.getPlaylist();
+            if (list == null) {
+                return;
+            }
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).equals(item)) {
+                    session.dispatchRemoteControllerCallbackTask(
+                            new RemoteControllerCallbackTask() {
+                                @Override
+                                public void run(ControllerCb callback) throws RemoteException {
+                                    callback.onPlaylistChanged(list, session.getPlaylistMetadata());
+                                }
+                            });
+                    return;
+                }
+            }
         }
 
         private MediaSession2ImplBase getSession() {
