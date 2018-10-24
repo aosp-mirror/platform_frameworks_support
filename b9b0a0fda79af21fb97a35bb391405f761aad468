@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "991f1c38_2ad098fc",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/MediaTestUtils.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-24T13:03:21Z",
+      "side": 1,
+      "message": "Will this be also changed to 3?",
+      "range": {
+        "startLine": 152,
+        "startChar": 63,
+        "endLine": 152,
+        "endChar": 64
+      },
+      "revId": "b9b0a0fda79af21fb97a35bb391405f761aad468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bda261e_d7b7d957",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/MediaTestUtils.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-24T13:03:21Z",
+      "side": 1,
+      "message": "This also needs isSuggested()/isRecent() .. comparison.\nHow about creating LibraryParams#equals()?",
+      "range": {
+        "startLine": 163,
+        "startChar": 12,
+        "endLine": 163,
+        "endChar": 71
+      },
+      "revId": "b9b0a0fda79af21fb97a35bb391405f761aad468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ae7ea0a_d8f9ec84",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/MediaTestUtils.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-24T13:03:21Z",
+      "side": 1,
+      "message": "Q) should this also be 3?",
+      "range": {
+        "startLine": 177,
+        "startChar": 63,
+        "endLine": 177,
+        "endChar": 64
+      },
+      "revId": "b9b0a0fda79af21fb97a35bb391405f761aad468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac8c1544_c5971c90",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/MediaTestUtils.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-24T13:03:21Z",
+      "side": 1,
+      "message": "Let\u0027s create LibraryParams#equals()",
+      "range": {
+        "startLine": 188,
+        "startChar": 12,
+        "endLine": 188,
+        "endChar": 71
+      },
+      "revId": "b9b0a0fda79af21fb97a35bb391405f761aad468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "62b2ad7b_fbf10cec",
         "filename": "media2/src/main/java/androidx/media2/SequencedFutureManager.java",
         "patchSetId": 15
