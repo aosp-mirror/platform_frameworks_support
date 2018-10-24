@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb05e89d_2545bcc5",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceLiveData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1060562
+      },
+      "writtenOn": "2018-10-24T14:04:13Z",
+      "side": 1,
+      "message": "are",
+      "range": {
+        "startLine": 163,
+        "startChar": 37,
+        "endLine": 163,
+        "endChar": 49
+      },
+      "revId": "2e3d57a774d1ffb1f4613338536a84bca7035bfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d46e9424_73246908",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceLiveData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1060562
+      },
+      "writtenOn": "2018-10-24T14:04:13Z",
+      "side": 1,
+      "message": "regardless of the state?",
+      "range": {
+        "startLine": 165,
+        "startChar": 53,
+        "endLine": 165,
+        "endChar": 54
+      },
+      "revId": "2e3d57a774d1ffb1f4613338536a84bca7035bfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4b43232_8ef95e70",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceLiveData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1060562
+      },
+      "writtenOn": "2018-10-24T14:04:13Z",
+      "side": 1,
+      "message": "will be read?",
+      "range": {
+        "startLine": 165,
+        "startChar": 21,
+        "endLine": 165,
+        "endChar": 22
+      },
+      "revId": "2e3d57a774d1ffb1f4613338536a84bca7035bfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb5d717d_a73831df",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceLiveData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1060562
+      },
+      "writtenOn": "2018-10-24T14:04:13Z",
+      "side": 1,
+      "message": "when finished?",
+      "range": {
+        "startLine": 166,
+        "startChar": 30,
+        "endLine": 166,
+        "endChar": 31
+      },
+      "revId": "2e3d57a774d1ffb1f4613338536a84bca7035bfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbeda2b0_307964ad",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceLiveData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1060562
+      },
+      "writtenOn": "2018-10-24T14:04:13Z",
+      "side": 1,
+      "message": "shouldn\u0027t there be a way to go...Unalive? goDead.",
+      "revId": "2e3d57a774d1ffb1f4613338536a84bca7035bfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
