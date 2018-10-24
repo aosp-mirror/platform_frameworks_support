@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef63d1c5_fdfca859",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-24T04:14:34Z",
+      "side": 1,
+      "message": "Why do we need this ignore rule?",
+      "range": {
+        "startLine": 95,
+        "startChar": 4,
+        "endLine": 95,
+        "endChar": 10
+      },
+      "revId": "59c8e41d4071980b93e9487c363ad8cb2bed0e0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfbda9ee_da332902",
+        "filename": "work/workmanager-sync/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-24T04:14:34Z",
+      "side": 1,
+      "message": "true?",
+      "range": {
+        "startLine": 40,
+        "startChar": 14,
+        "endLine": 40,
+        "endChar": 19
+      },
+      "revId": "59c8e41d4071980b93e9487c363ad8cb2bed0e0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac491e97_37f2f65d",
+        "filename": "work/workmanager-sync/src/main/AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-24T04:14:34Z",
+      "side": 1,
+      "message": "Should this just be androidx.work to match the singleton we have for WorkManager?",
+      "range": {
+        "startLine": 18,
+        "startChar": 33,
+        "endLine": 18,
+        "endChar": 37
+      },
+      "revId": "59c8e41d4071980b93e9487c363ad8cb2bed0e0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "226e0dc8_e5813c6c",
+        "filename": "work/workmanager-sync/src/main/java/androidx/work/sync/WorkManagerSync.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-24T04:14:34Z",
+      "side": 1,
+      "message": "Same.",
+      "range": {
+        "startLine": 17,
+        "startChar": 22,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "59c8e41d4071980b93e9487c363ad8cb2bed0e0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
