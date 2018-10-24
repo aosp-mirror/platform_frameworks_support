@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97386406_8c70f16c",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-10-24T17:53:28Z",
+      "side": 1,
+      "message": "Optional suggestion: Using Preconditions.checkArgument might be shorter.",
+      "range": {
+        "startLine": 205,
+        "startChar": 12,
+        "endLine": 209,
+        "endChar": 13
+      },
+      "revId": "0f328981847ff218969c694b8c726f954eb2dbf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
