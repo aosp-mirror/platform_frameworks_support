@@ -412,6 +412,30 @@
       "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70a90a1e_d3ec75f2",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-24T13:37:51Z",
+      "side": 1,
+      "message": "Ok, either way,I would suggest that underlying layer should provide callback, even if our higher api currently ignores it, because general directions in API guidelines is provide better error-reporting in all cases especially asynchronous one. So let\u0027s design this layer properly, so we don\u0027t have to refactor and heavily rewrite it later.",
+      "parentUuid": "912ba751_da6bb416",
+      "range": {
+        "startLine": 712,
+        "startChar": 10,
+        "endLine": 714,
+        "endChar": 13
+      },
+      "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
