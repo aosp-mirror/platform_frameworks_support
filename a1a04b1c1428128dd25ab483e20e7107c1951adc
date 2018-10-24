@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14b08295_b01dbd02",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-24T00:56:26Z",
+      "side": 1,
+      "message": "seq is not always used. Let\u0027s have a talk",
+      "range": {
+        "startLine": 1116,
+        "startChar": 46,
+        "endLine": 1116,
+        "endChar": 49
+      },
+      "revId": "a1a04b1c1428128dd25ab483e20e7107c1951adc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
