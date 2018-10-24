@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62b2ad7b_fbf10cec",
+        "filename": "media2/src/main/java/androidx/media2/SequencedFutureManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-24T12:09:02Z",
+      "side": 1,
+      "message": "Q) How about use equals()?",
+      "range": {
+        "startLine": 90,
+        "startChar": 66,
+        "endLine": 90,
+        "endChar": 70
+      },
+      "revId": "b9b0a0fda79af21fb97a35bb391405f761aad468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92e4117c_77ecf3b4",
+        "filename": "media2/src/main/java/androidx/media2/SequencedFutureManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-24T12:09:02Z",
+      "side": 1,
+      "message": "Q) Can be this null?",
+      "range": {
+        "startLine": 134,
+        "startChar": 29,
+        "endLine": 134,
+        "endChar": 34
+      },
+      "revId": "b9b0a0fda79af21fb97a35bb391405f761aad468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9ef4a09_b1b3c3e8",
+        "filename": "media2/src/main/java/androidx/media2/SequencedFutureManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-24T12:09:02Z",
+      "side": 1,
+      "message": "Let\u0027s add @NonNull",
+      "range": {
+        "startLine": 142,
+        "startChar": 14,
+        "endLine": 142,
+        "endChar": 15
+      },
+      "revId": "b9b0a0fda79af21fb97a35bb391405f761aad468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

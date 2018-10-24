@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22dbcb0c_67c8d3cf",
+        "filename": "media2/src/main/java/androidx/media2/MediaLibrarySessionImplBase.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-24T12:09:02Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be needed.",
+      "range": {
+        "startLine": 179,
+        "startChar": 12,
+        "endLine": 179,
+        "endChar": 34
+      },
+      "revId": "17c0323aa6ab7e2c570cc6873d9d1e2fba44dc2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d046c277_1a4a2dbf",
+        "filename": "media2/src/main/java/androidx/media2/MediaLibrarySessionImplBase.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-24T12:09:02Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 200,
+        "startChar": 12,
+        "endLine": 200,
+        "endChar": 34
+      },
+      "revId": "17c0323aa6ab7e2c570cc6873d9d1e2fba44dc2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a05f559_23dfd286",
+        "filename": "media2/src/main/java/androidx/media2/MediaLibrarySessionImplBase.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-24T12:09:02Z",
+      "side": 1,
+      "message": "Let\u0027s add more info or remove these.",
+      "range": {
+        "startLine": 213,
+        "startChar": 4,
+        "endLine": 214,
+        "endChar": 20
+      },
+      "revId": "17c0323aa6ab7e2c570cc6873d9d1e2fba44dc2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd922fec_889c5dee",
+        "filename": "media2/src/main/java/androidx/media2/MediaLibrarySessionImplBase.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-24T12:09:02Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 225,
+        "startChar": 6,
+        "endLine": 227,
+        "endChar": 21
+      },
+      "revId": "17c0323aa6ab7e2c570cc6873d9d1e2fba44dc2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cb4008b_b6a7f1dc",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-24T12:09:02Z",
+      "side": 1,
+      "message": "Q) What does \u0027closed\u0027 mean? And why is this needed?",
+      "range": {
+        "startLine": 85,
+        "startChar": 39,
+        "endLine": 85,
+        "endChar": 57
+      },
+      "revId": "17c0323aa6ab7e2c570cc6873d9d1e2fba44dc2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72c62854_c48fafe0",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2Stub.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-24T12:09:02Z",
+      "side": 1,
+      "message": "minor) It seems this method is too long. It would be nice if there is a way for splitting this method into several pieces. (if possible)",
+      "range": {
+        "startLine": 183,
+        "startChar": 12,
+        "endLine": 183,
+        "endChar": 31
+      },
+      "revId": "17c0323aa6ab7e2c570cc6873d9d1e2fba44dc2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cbdcb6c_86397c87",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2Stub.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-24T12:09:02Z",
+      "side": 1,
+      "message": "It may be nice if we can have a static variable of this",
+      "range": {
+        "startLine": 997,
+        "startChar": 39,
+        "endLine": 997,
+        "endChar": 89
+      },
+      "revId": "17c0323aa6ab7e2c570cc6873d9d1e2fba44dc2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
