@@ -190,7 +190,9 @@ public class MediaItem2 implements VersionedParcelable {
     }
 
     /**
-     * Sets a metadata. If the metadata is not {@code null}, its id should be matched with this
+     * Sets a metadata and calls
+     * {@link OnMetadataChangedListener#onMetadataChanged(MediaItem2)} (MediaItem2)} and to all
+     * connected sessions. If the metadata is not {@code null}, its id should be matched with this
      * instance's media id.
      *
      * @param metadata metadata to update
