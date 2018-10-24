@@ -436,6 +436,30 @@
       "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "471d0730_193c69fe",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-24T23:50:47Z",
+      "side": 1,
+      "message": "Thanks.\nI understand the idea behind designing for the future architectural changes. But in this case, it is strictly a wrapper over an existing platform API, so I don\u0027t see how we will change the API in future either.\n\nThe current architecture is a copy of platform implementation, and adding a listener would require a some redesigning the API behavior as well. Ex how to handle the case when xml save is successful but bitmap save fails, as they happen on different threads and are independent of each other, without making everything synchronous.\n\nIs this re architecture required for this cl or any compat API going in support lib?",
+      "parentUuid": "70a90a1e_d3ec75f2",
+      "range": {
+        "startLine": 712,
+        "startChar": 10,
+        "endLine": 714,
+        "endChar": 13
+      },
+      "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
