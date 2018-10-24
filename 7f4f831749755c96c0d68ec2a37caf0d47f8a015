@@ -1,0 +1,372 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e41c15e_993cc12d",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-10-24T03:41:42Z",
+      "side": 1,
+      "message": "dimensions",
+      "range": {
+        "startLine": 38,
+        "startChar": 51,
+        "endLine": 38,
+        "endChar": 60
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f665404_d7381f0e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-10-24T03:41:42Z",
+      "side": 1,
+      "message": "update to be must specify width+height",
+      "range": {
+        "startLine": 39,
+        "startChar": 45,
+        "endLine": 39,
+        "endChar": 80
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a44c7fde_c87b5d60",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-10-24T03:41:42Z",
+      "side": 1,
+      "message": "unclear pronoun - spell out: producers",
+      "range": {
+        "startLine": 41,
+        "startChar": 3,
+        "endLine": 41,
+        "endChar": 7
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d564a459_a0746b17",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-10-24T03:41:42Z",
+      "side": 1,
+      "message": "s/it/the image/",
+      "range": {
+        "startLine": 41,
+        "startChar": 35,
+        "endLine": 41,
+        "endChar": 37
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3feef51c_27dda981",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-10-24T03:41:42Z",
+      "side": 1,
+      "message": "consumers",
+      "range": {
+        "startLine": 42,
+        "startChar": 74,
+        "endLine": 42,
+        "endChar": 78
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16fee633_2b1817ee",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-10-24T03:41:42Z",
+      "side": 1,
+      "message": "\u0027fit\u0027 is ambiguous, small things fit inside big things, maybe say image size must be exactly the default dimensions?",
+      "range": {
+        "startLine": 44,
+        "startChar": 42,
+        "endLine": 44,
+        "endChar": 53
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a82ccd73_a1da3f46",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-10-24T03:41:42Z",
+      "side": 1,
+      "message": "There\u0027s no mention elsewhere what bounding box means, do you mean default dimensions?",
+      "range": {
+        "startLine": 44,
+        "startChar": 61,
+        "endLine": 44,
+        "endChar": 73
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "021a8fc1_b2ba6354",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-10-24T03:41:42Z",
+      "side": 1,
+      "message": "I\u0027m not sure, but putting it out there: Would it be worth being more prescriptive here to make our consumers lives easier?",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 52
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe336fc6_e8f7012f",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-10-24T03:41:42Z",
+      "side": 1,
+      "message": "relevant info? is this the same as \u0027information\u0027? not sure what relevant means",
+      "range": {
+        "startLine": 48,
+        "startChar": 3,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ff7dd2d_55f258b4",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-10-24T03:41:42Z",
+      "side": 1,
+      "message": "can\u0027t use the image reference, have to use the image URI, no? image URI might !\u003d image reference",
+      "range": {
+        "startLine": 52,
+        "startChar": 25,
+        "endLine": 52,
+        "endChar": 61
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6f22f44_42640dc1",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-10-24T03:41:42Z",
+      "side": 1,
+      "message": "Needs units (px? dp? probably px?) throughout and in comments",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 21
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e558609_6bc78c48",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-10-24T03:41:42Z",
+      "side": 1,
+      "message": "nit, feel free to ignore: I\u0027m not sure \u0027Default\u0027 is quite the right word if we\u0027re mandating that consumers always have to pass a width+height, e.g. if you pass no width+height there is no \u0027default\u0027 size that you\u0027ll get back, you\u0027ll just get an error.\n\nMaybe \u0027natural\u0027?",
+      "range": {
+        "startLine": 66,
+        "startChar": 9,
+        "endLine": 66,
+        "endChar": 16
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45897c92_47c909f0",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-10-24T03:41:42Z",
+      "side": 1,
+      "message": "add space before",
+      "range": {
+        "startLine": 100,
+        "startChar": 17,
+        "endLine": 100,
+        "endChar": 25
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba915a29_743af500",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-10-24T03:41:42Z",
+      "side": 1,
+      "message": "How about non-null and return Uri.EMPTY. Thoughts?\n\nhttps://developer.android.com/reference/android/net/Uri.html#EMPTY\n\nEither way, null or not, you\u0027ll need to update the @return to explain in which cases we return null or Uri.EMPTY",
+      "range": {
+        "startLine": 175,
+        "startChar": 12,
+        "endLine": 175,
+        "endChar": 23
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5884ef7a_6cd188d6",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-10-24T03:41:42Z",
+      "side": 1,
+      "message": "I don\u0027t think we should do this should we, I think we discussed that we want to make specifying a width+height mandatory, so I don\u0027t want OEMs relying on a default width+height which Maps will change one day to break the OEM",
+      "range": {
+        "startLine": 177,
+        "startChar": 64,
+        "endLine": 183,
+        "endChar": 9
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed4fd0ad_0a89db5c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Segment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-10-24T03:41:42Z",
+      "side": 1,
+      "message": "Let\u0027s revert this and tackle separately? My priority is the next turn card and step cues, I\u0027m not sure we can use this yet.",
+      "range": {
+        "startLine": 36,
+        "startChar": 17,
+        "endLine": 38,
+        "endChar": 17
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
