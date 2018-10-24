@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "78708818_a7907587",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-24T02:26:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b00e6793_274354d1",
+      "range": {
+        "startLine": 1046,
+        "startChar": 9,
+        "endLine": 1046,
+        "endChar": 73
+      },
+      "revId": "a1a04b1c1428128dd25ab483e20e7107c1951adc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d98d58ab_541bd8d4",
         "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e787ec54_9d3173e2",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1055,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-24T02:26:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d98d58ab_541bd8d4",
+      "range": {
+        "startLine": 1055,
+        "startChar": 44,
+        "endLine": 1055,
+        "endChar": 82
+      },
+      "revId": "a1a04b1c1428128dd25ab483e20e7107c1951adc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14b08295_b01dbd02",
         "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "a1a04b1c1428128dd25ab483e20e7107c1951adc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a02507f0_1c1a07c5",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-24T02:26:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "14b08295_b01dbd02",
+      "range": {
+        "startLine": 1116,
+        "startChar": 46,
+        "endLine": 1116,
+        "endChar": 49
+      },
+      "revId": "a1a04b1c1428128dd25ab483e20e7107c1951adc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
