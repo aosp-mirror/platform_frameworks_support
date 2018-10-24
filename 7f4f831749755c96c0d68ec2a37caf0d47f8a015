@@ -347,6 +347,52 @@
     },
     {
       "key": {
+        "uuid": "7ab78a4d_26d4bd1f",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-10-24T03:47:09Z",
+      "side": 1,
+      "message": "Thanks, this is the first image i want to get in the API, keen for this :-)",
+      "range": {
+        "startLine": 291,
+        "startChar": 16,
+        "endLine": 292,
+        "endChar": 0
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cb7cbc9_7fdcbad2",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-10-24T03:47:09Z",
+      "side": 1,
+      "message": "Add docs for what does null mean",
+      "range": {
+        "startLine": 353,
+        "startChar": 11,
+        "endLine": 356,
+        "endChar": 56
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ed4fd0ad_0a89db5c",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Segment.java",
         "patchSetId": 2
@@ -363,6 +409,29 @@
         "startChar": 17,
         "endLine": 38,
         "endChar": 17
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9ec9102_818d6d86",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-10-24T03:47:09Z",
+      "side": 1,
+      "message": "I agree with Harry\u0027s email separately that proposes a single list of interspersed text and images",
+      "range": {
+        "startLine": 46,
+        "startChar": 22,
+        "endLine": 50,
+        "endChar": 27
       },
       "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
