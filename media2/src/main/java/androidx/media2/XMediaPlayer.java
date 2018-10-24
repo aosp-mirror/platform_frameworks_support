@@ -48,7 +48,6 @@ import androidx.concurrent.futures.AbstractResolvableFuture;
 import androidx.concurrent.futures.ResolvableFuture;
 import androidx.core.util.Pair;
 import androidx.media.AudioAttributesCompat;
-import androidx.media2.SessionPlayer2.PlayerResult;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -215,7 +214,9 @@ public class XMediaPlayer extends SessionPlayer2 {
     /**
      * The player just rendered the very first audio sample.
      * @see PlayerCallback#onInfo
+     * @hide
      */
+    @RestrictTo(LIBRARY_GROUP)
     public static final int MEDIA_INFO_AUDIO_RENDERING_START = 4;
 
     /**
@@ -246,7 +247,7 @@ public class XMediaPlayer extends SessionPlayer2 {
 
     /**
      * The player just finished prefetching a media item for playback.
-     * @see #prefetch()
+     * @see #prepare()
      * @see PlayerCallback#onInfo
      */
     public static final int MEDIA_INFO_PREFETCHED = 100;
@@ -631,7 +632,7 @@ public class XMediaPlayer extends SessionPlayer2 {
      * {@link PlayerResult} will be delivered when the command completes.
      */
     @Override
-    public ListenableFuture<PlayerResult> prefetch() {
+    public ListenableFuture<PlayerResult> prepare() {
         ListenableFuture ret;
         synchronized (mPendingCommands) {
             ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
@@ -647,26 +648,9 @@ public class XMediaPlayer extends SessionPlayer2 {
             }
         }
         // TODO: Changing buffering state is not correct. Think about changing MP2 event APIs for
-        // the initial buffering for prefetch case.
+        // the initial buffering for prepare case.
         setBufferingState(mPlayer.getCurrentMediaItem(), BUFFERING_STATE_BUFFERING_AND_STARVED);
         return ret;
-    }
-
-    /**
-     * Enables or disables the preview when prefetching has been completed.
-     * <p>
-     * If enabled, the player shows the preview of the video, e.g. the first frame of the video,
-     * when prefetching has been completed. By default, preview is disabled.
-     *
-     * @param enabled whether preview is enabled or not.
-     * @return a {@link ListenableFuture} which represents the pending completion of the command.
-     * {@link PlayerResult} will be delivered when the command completes.
-     */
-    public ListenableFuture<PlayerResult> setPreviewEnabled(boolean enabled) {
-        synchronized (mPendingCommands) {
-            mPreviewEnabled = enabled;
-        }
-        return createFutureForResultCodeInternal(RESULT_CODE_SUCCESS);
     }
 
     @Override
@@ -1127,7 +1111,7 @@ public class XMediaPlayer extends SessionPlayer2 {
     /**
      * Resets {@link XMediaPlayer} to its uninitialized state. After calling
      * this method, you will have to initialize it again by setting the
-     * media item and calling {@link #prefetch()}.
+     * media item and calling {@link #prepare()}.
      */
     public void reset() {
         mPlayer.reset();
