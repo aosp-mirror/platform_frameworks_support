@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76e4f965_292d891a",
+        "filename": "paging/common/src/main/java/androidx/paging/PagedList.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-24T16:41:44Z",
+      "side": 1,
+      "message": "@NonNull",
+      "revId": "43bbaaf3bbcb75a04eb03b741d6e59360bbcb6a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd7ae80b_961ef934",
+        "filename": "paging/common/src/main/java/androidx/paging/PagedList.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-24T16:41:44Z",
+      "side": 1,
+      "message": "you have to override hashCode() now",
+      "revId": "43bbaaf3bbcb75a04eb03b741d6e59360bbcb6a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7ed214e_5d94c66e",
+        "filename": "paging/common/src/main/java/androidx/paging/PagedList.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-24T16:41:44Z",
+      "side": 1,
+      "message": "yeah, last time I did WeakHashMap\u003cFoo, Boolean\u003e not to deal with it",
+      "range": {
+        "startLine": 945,
+        "startChar": 12,
+        "endLine": 945,
+        "endChar": 73
+      },
+      "revId": "43bbaaf3bbcb75a04eb03b741d6e59360bbcb6a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
