@@ -55,8 +55,7 @@ public class SimpleNavigatorProvider implements NavigatorProvider {
 
     @NonNull
     @Override
-    public <D extends NavDestination, T extends Navigator<? extends D>> T getNavigator(
-            @NonNull Class<T> navigatorClass) {
+    public <T extends Navigator<?>> T getNavigator(@NonNull Class<T> navigatorClass) {
         String name = getNameForNavigator(navigatorClass);
         return getNavigator(name);
     }
@@ -64,8 +63,7 @@ public class SimpleNavigatorProvider implements NavigatorProvider {
     @SuppressWarnings("unchecked")
     @NonNull
     @Override
-    public <D extends NavDestination, T extends Navigator<? extends D>> T getNavigator(
-            @NonNull String name) {
+    public <T extends Navigator<?>> T getNavigator(@NonNull String name) {
         if (!validateName(name)) {
             throw new IllegalArgumentException("navigator name cannot be an empty string");
         }
@@ -101,7 +99,7 @@ public class SimpleNavigatorProvider implements NavigatorProvider {
         return mNavigators;
     }
 
-    private boolean validateName(String name) {
+    private static boolean validateName(String name) {
         return name != null && !name.isEmpty();
     }
 }
