@@ -34,7 +34,7 @@ import java.util.concurrent.Executor;
 public class Futures {
     private Futures() {}
 
-    private static <V> void addCallback(@NonNull final ListenableFuture<V> future,
+    public static <V> void addCallback(@NonNull final ListenableFuture<V> future,
             @NonNull final FutureCallback<? super V> callback, @NonNull Executor executor) {
         future.addListener(new Runnable() {
             @Override
