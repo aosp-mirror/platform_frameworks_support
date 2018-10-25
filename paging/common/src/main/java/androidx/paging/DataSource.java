@@ -17,13 +17,15 @@
 package androidx.paging;
 
 import androidx.annotation.AnyThread;
-import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import androidx.arch.core.util.Function;
 
+import com.google.common.util.concurrent.ListenableFuture;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executor;
@@ -206,10 +208,6 @@ public abstract class DataSource<Key, Value> {
         return dest;
     }
 
-    // Since we currently rely on implementation details of two implementations,
-    // prevent external subclassing, except through exposed subclasses
-    DataSource() {
-    }
 
     /**
      * Applies the given function to each value emitted by the DataSource.
@@ -227,8 +225,10 @@ public abstract class DataSource<Key, Value> {
      * @see DataSource.Factory#mapByPage(Function)
      */
     @NonNull
-    public abstract <ToValue> DataSource<Key, ToValue> mapByPage(
-            @NonNull Function<List<Value>, List<ToValue>> function);
+    public <ToValue> DataSource<Key, ToValue> mapByPage(
+            @NonNull Function<List<Value>, List<ToValue>> function) {
+        return new WrapperDataSource<>(this, function);
+    }
 
     /**
      * Applies the given function to each value emitted by the DataSource.
@@ -246,111 +246,21 @@ public abstract class DataSource<Key, Value> {
      * @see DataSource.Factory#mapByPage(Function)
      */
     @NonNull
-    public abstract <ToValue> DataSource<Key, ToValue> map(
-            @NonNull Function<Value, ToValue> function);
+    public <ToValue> DataSource<Key, ToValue> map(
+            @NonNull Function<Value, ToValue> function) {
+        return mapByPage(createListFunction(function));
+    }
 
     /**
      * Returns true if the data source guaranteed to produce a contiguous set of items,
      * never producing gaps.
      */
-    abstract boolean isContiguous();
+    boolean isContiguous() {
+        return true;
+    }
 
-    static class LoadCallbackHelper<T> {
-        static void validateInitialLoadParams(@NonNull List<?> data, int position, int totalCount) {
-            if (position < 0) {
-                throw new IllegalArgumentException("Position must be non-negative");
-            }
-            if (data.size() + position > totalCount) {
-                throw new IllegalArgumentException(
-                        "List size + position too large, last item in list beyond totalCount.");
-            }
-            if (data.size() == 0 && totalCount > 0) {
-                throw new IllegalArgumentException(
-                        "Initial result cannot be empty if items are present in data set.");
-            }
-        }
-
-        @PageResult.ResultType
-        final int mResultType;
-        private final DataSource mDataSource;
-        final PageResult.Receiver<T> mReceiver;
-
-        // mSignalLock protects mPostExecutor, and mHasSignalled
-        private final Object mSignalLock = new Object();
-        private Executor mPostExecutor = null;
-
-        @GuardedBy("mSignalLock")
-        private boolean mHasSignalled = false;
-
-        LoadCallbackHelper(@NonNull DataSource dataSource, @PageResult.ResultType int resultType,
-                @Nullable Executor mainThreadExecutor, @NonNull PageResult.Receiver<T> receiver) {
-            mDataSource = dataSource;
-            mResultType = resultType;
-            mPostExecutor = mainThreadExecutor;
-            mReceiver = receiver;
-        }
-
-        void setPostExecutor(Executor postExecutor) {
-            synchronized (mSignalLock) {
-                mPostExecutor = postExecutor;
-            }
-        }
-
-        /**
-         * Call before verifying args, or dispatching actul results
-         *
-         * @return true if DataSource was invalid, and invalid result dispatched
-         */
-        @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-        boolean dispatchInvalidResultIfInvalid() {
-            if (mDataSource.isInvalid()) {
-                dispatchResultToReceiver(PageResult.<T>getInvalidResult());
-                return true;
-            }
-            return false;
-        }
-
-        void dispatchResultToReceiver(@NonNull PageResult<T> result) {
-            dispatchToReceiver(result, null, false);
-        }
-
-        void dispatchErrorToReceiver(@NonNull Throwable error, boolean retryable) {
-            dispatchToReceiver(null, error, retryable);
-        }
-
-        private void dispatchToReceiver(final @Nullable PageResult<T> result,
-                final @Nullable Throwable error, final boolean retryable) {
-            Executor executor;
-            synchronized (mSignalLock) {
-                if (mHasSignalled) {
-                    throw new IllegalStateException(
-                            "callback.onResult/onError already called, cannot call again.");
-                }
-                mHasSignalled = true;
-                executor = mPostExecutor;
-            }
-
-            if (executor != null) {
-                executor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        dispatchOnCurrentThread(result, error, retryable);
-                    }
-                });
-            } else {
-                dispatchOnCurrentThread(result, error, retryable);
-            }
-        }
-
-        @SuppressWarnings("ConstantConditions")
-        void dispatchOnCurrentThread(@Nullable PageResult<T> result,
-                @Nullable Throwable error, boolean retryable) {
-            if (result != null) {
-                mReceiver.onPageResult(mResultType, result);
-            } else {
-                mReceiver.onPageError(mResultType, error, retryable);
-            }
-        }
+    boolean supportsPageDropping() {
+        return true;
     }
 
     /**
@@ -389,8 +299,10 @@ public abstract class DataSource<Key, Value> {
      *                              {@link #invalidate()} is called on.
      */
     @AnyThread
-    @SuppressWarnings("WeakerAccess")
     public void addInvalidatedCallback(@NonNull InvalidatedCallback onInvalidatedCallback) {
+        if (onInvalidatedCallback == null) {
+            throw new NullPointerException();
+        }
         mOnInvalidatedCallbacks.add(onInvalidatedCallback);
     }
 
@@ -400,7 +312,6 @@ public abstract class DataSource<Key, Value> {
      * @param onInvalidatedCallback The previously added callback.
      */
     @AnyThread
-    @SuppressWarnings("WeakerAccess")
     public void removeInvalidatedCallback(@NonNull InvalidatedCallback onInvalidatedCallback) {
         mOnInvalidatedCallbacks.remove(onInvalidatedCallback);
     }
@@ -427,5 +338,148 @@ public abstract class DataSource<Key, Value> {
     @WorkerThread
     public boolean isInvalid() {
         return mInvalid.get();
+    }
+
+    enum LoadType {
+        INITIAL,
+        START,
+        END
+    }
+
+    static class Params<K> {
+        @NonNull
+        final LoadType type;
+        /* can be NULL for init, otherwise non-null */
+        @Nullable
+        final K key;
+        final int initialLoadSize;
+        final boolean placeholdersEnabled;
+        final int pageSize;
+
+        Params(@NonNull LoadType type, @Nullable K key, int initialLoadSize,
+                boolean placeholdersEnabled, int pageSize) {
+            this.type = type;
+            this.key = key;
+            this.initialLoadSize = initialLoadSize;
+            this.placeholdersEnabled = placeholdersEnabled;
+            this.pageSize = pageSize;
+        }
+    }
+
+    // NOTE: keeping all data in base class for now, to enable public members
+    // TODO: reconsider, only providing accessors to minimize subclass complexity
+    static class BaseResult<Value> {
+        final List<Value> data;
+        final Object prevKey;
+        final Object nextKey;
+        final int leadingNulls;
+        final int trailingNulls;
+        final int offset;
+
+        protected BaseResult(List<Value> data, Object prevKey, Object nextKey, int leadingNulls,
+                int trailingNulls, int offset) {
+            this.data = data;
+            this.prevKey = prevKey;
+            this.nextKey = nextKey;
+            this.leadingNulls = leadingNulls;
+            this.trailingNulls = trailingNulls;
+            this.offset = offset;
+            validate();
+        }
+
+        public BaseResult() {
+            this(Collections.<Value>emptyList(), null, null, 0, 0, 0);
+        }
+
+        public <ToValue> BaseResult(@NonNull BaseResult<ToValue> result,
+                @NonNull Function<List<ToValue>, List<Value>> function) {
+            data = convert(function, result.data);
+            prevKey = result.prevKey;
+            nextKey = result.nextKey;
+            leadingNulls = result.leadingNulls;
+            trailingNulls = result.trailingNulls;
+            offset = result.offset;
+        }
+
+        void validate() {
+            if (leadingNulls < 0 || offset < 0) {
+                throw new IllegalArgumentException("Position must be non-negative");
+            }
+            if (data.isEmpty() && (leadingNulls != 0 || trailingNulls != 0)) {
+                throw new IllegalArgumentException("Initial result cannot be empty if items are present in data set.");
+            }
+            if (trailingNulls < 0) {
+                throw new IllegalArgumentException(
+                        "List size + position too large, last item in list beyond totalCount.");
+            }
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof BaseResult)) {
+                return false;
+            }
+            BaseResult other = (BaseResult) o;
+            return data.equals(other.data)
+                    && PagedList.equalsHelper(prevKey, other.prevKey)
+                    && PagedList.equalsHelper(nextKey, other.nextKey)
+                    && leadingNulls == other.leadingNulls
+                    && trailingNulls == other.trailingNulls
+                    && offset == other.offset;
+        }
+    }
+
+    enum KeyType {
+        POSITIONAL,
+        PAGE_KEYED,
+        ITEM_KEYED,
+    }
+
+    @NonNull
+    final KeyType mType;
+
+    // Since we currently rely on implementation details of two implementations,
+    // prevent external subclassing, except through exposed subclasses
+    DataSource(@NonNull KeyType type) {
+        mType = type;
+    }
+
+    abstract ListenableFuture<? extends BaseResult<Value>> load(@NonNull Params<Key> params);
+
+    @Nullable
+    abstract Key getKey(@NonNull Value item);
+
+    @Nullable
+    final Key getKey(int lastLoad, @Nullable Value item) {
+        if (item == null) {
+            return null;
+        }
+        if (mType == KeyType.POSITIONAL) {
+            //noinspection unchecked
+            return (Key)((Integer) lastLoad);
+        }
+        return getKey(item);
+    }
+
+    public boolean isRetryableError(@NonNull Throwable error) {
+        return false;
+    }
+
+    void initExecutor(@NonNull Executor executor) {
+        mExecutor = executor;
+    }
+
+    /**
+     * In reality, this is null until loadInitial is called
+     */
+    @Nullable
+    private Executor mExecutor;
+
+    @NonNull
+    public Executor getExecutor() {
+        if (mExecutor == null) {
+            throw new IllegalStateException("too soon! you have awakened me too soon, Executor!");
+        }
+        return mExecutor;
     }
 }

@@ -18,13 +18,15 @@ package androidx.paging;
 
 import android.annotation.SuppressLint;
 
-import androidx.annotation.AnyThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.arch.core.executor.ArchTaskExecutor;
-import androidx.lifecycle.ComputableLiveData;
 import androidx.lifecycle.LiveData;
+import androidx.paging.futures.DirectExecutor;
 
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.util.Collections;
 import java.util.concurrent.Executor;
 
 /**
@@ -154,26 +156,45 @@ public final class LivePagedListBuilder<Key, Value> {
     @NonNull
     @SuppressLint("RestrictedApi")
     public LiveData<PagedList<Value>> build() {
-        return create(mInitialLoadKey, mConfig, mBoundaryCallback, mDataSourceFactory,
+        return createNew(mInitialLoadKey, mConfig, mBoundaryCallback, mDataSourceFactory,
                 ArchTaskExecutor.getMainThreadExecutor(), mFetchExecutor);
     }
 
-    @AnyThread
-    @NonNull
-    @SuppressLint("RestrictedApi")
-    private static <Key, Value> LiveData<PagedList<Value>> create(
+
+    private static class InitialPagedList<K, V> extends ContiguousPagedList<K, V> {
+        @Nullable K mInitialKey;
+
+        InitialPagedList(@NonNull DataSource<K, V> dataSource,
+                @NonNull Config config,
+                @Nullable K initialKey) {
+            super(dataSource,
+                    DirectExecutor.INSTANCE,
+                    DirectExecutor.INSTANCE,
+                    null,
+                    config,
+                    new DataSource.BaseResult<V>(Collections.<V>emptyList(), null, null, 0, 0, 0) {},
+                    /* no previous load, so pass 0 */ 0);
+            mInitialKey = initialKey;
+        }
+
+        @Nullable
+        @Override
+        public Object getLastKey() {
+            return mInitialKey;
+        }
+    }
+
+
+    private static <Key, Value> LiveData<PagedList<Value>> createNew(
             @Nullable final Key initialLoadKey,
             @NonNull final PagedList.Config config,
             @Nullable final PagedList.BoundaryCallback boundaryCallback,
             @NonNull final DataSource.Factory<Key, Value> dataSourceFactory,
             @NonNull final Executor notifyExecutor,
             @NonNull final Executor fetchExecutor) {
-        return new ComputableLiveData<PagedList<Value>>(fetchExecutor) {
-            @Nullable
-            private PagedList<Value> mList;
-            @Nullable
-            private DataSource<Key, Value> mDataSource;
-
+        InitialPagedList<Key, Value> initialList = new InitialPagedList<>(
+                (DataSource<Key, Value>) dataSourceFactory.create(), config, initialLoadKey);
+        return new ListenableFutureToLiveData<PagedList<Value>>(notifyExecutor, initialList) {
             private final DataSource.InvalidatedCallback mCallback =
                     new DataSource.InvalidatedCallback() {
                         @Override
@@ -182,30 +203,47 @@ public final class LivePagedListBuilder<Key, Value> {
                         }
                     };
 
-            @SuppressWarnings("unchecked") // for casting getLastKey to Key
-            @Override
-            protected PagedList<Value> compute() {
-                @Nullable Key initializeKey = initialLoadKey;
-                if (mList != null) {
-                    initializeKey = (Key) mList.getLastKey();
+            private final PagedList.RefreshRetryCallback mRefreshRetryCallback
+                    = new PagedList.RefreshRetryCallback() {
+                @Override
+                public void onRetry() {
+                    invalidate();
                 }
+            };
 
-                do {
-                    if (mDataSource != null) {
-                        mDataSource.removeInvalidatedCallback(mCallback);
-                    }
+            @Override
+            ListenableFuture<PagedList<Value>> getListenableFuture() {
+                DataSource<Key, Value> dataSource = dataSourceFactory.create();
+                getCurrentData().getDataSource().removeInvalidatedCallback(mCallback);
+                dataSource.addInvalidatedCallback(mCallback);
 
-                    mDataSource = dataSourceFactory.create();
-                    mDataSource.addInvalidatedCallback(mCallback);
+                getCurrentData().setInitialLoadState(PagedList.LoadState.LOADING, null);
+                //noinspection unchecked
+                return PagedList.createAsync(
+                        dataSource,
+                        notifyExecutor,
+                        fetchExecutor,
+                        boundaryCallback,
+                        config,
+                        (Key) getCurrentData().getLastKey());
+            }
 
-                    mList = new PagedList.Builder<>(mDataSource, config)
-                            .setNotifyExecutor(notifyExecutor)
-                            .setFetchExecutor(fetchExecutor)
-                            .setBoundaryCallback(boundaryCallback)
-                            .setInitialKey(initializeKey)
-                            .build();
-                } while (mList.isDetached());
-                return mList;
+            @Override
+            public void onError(@NonNull Throwable throwable) {
+                // TODO: wire up retry signal
+                PagedList.LoadState loadState =
+                        ((DataSource) getCurrentData().getDataSource())
+                                .isRetryableError(throwable)
+                                ? PagedList.LoadState.RETRYABLE_ERROR
+                                : PagedList.LoadState.ERROR;
+                getCurrentData().setInitialLoadState(loadState, throwable);
+            }
+
+            @Override
+            public void onItemUpdate(@NonNull PagedList<Value> previous,
+                    @NonNull PagedList<Value> next) {
+                previous.mRefreshRetryCallback = null;
+                next.mRefreshRetryCallback = mRefreshRetryCallback;
             }
         }.getLiveData();
     }

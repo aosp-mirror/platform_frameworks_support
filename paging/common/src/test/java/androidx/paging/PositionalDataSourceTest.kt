@@ -16,6 +16,7 @@
 
 package androidx.paging
 
+import androidx.paging.futures.DirectExecutor
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
@@ -85,35 +86,6 @@ class PositionalDataSourceTest {
                 totalCount = 100))
     }
 
-    @Test
-    fun fullLoadWrappedAsContiguous() {
-        // verify that prepend / append work correctly with a PositionalDataSource, made contiguous
-        val config = PagedList.Config.Builder()
-                .setPageSize(10)
-                .setInitialLoadSizeHint(10)
-                .setEnablePlaceholders(true)
-                .build()
-        val dataSource: PositionalDataSource<Int> = ListDataSource((0..99).toList())
-        val testExecutor = TestExecutor()
-        val pagedList = ContiguousPagedList(dataSource.wrapAsContiguousWithoutPlaceholders(),
-                testExecutor, testExecutor, null, config, 15,
-                ContiguousPagedList.LAST_LOAD_UNSPECIFIED)
-
-        assertEquals((10..19).toList(), pagedList)
-
-        // prepend + append work correctly
-        pagedList.loadAround(5)
-        testExecutor.executeAll()
-        assertEquals((0..29).toList(), pagedList)
-
-        // and load the rest of the data to be sure further appends work
-        for (i in (2..9)) {
-            pagedList.loadAround(i * 10 - 5)
-            testExecutor.executeAll()
-            assertEquals((0..i * 10 + 9).toList(), pagedList)
-        }
-    }
-
     private fun performLoadInitial(
         enablePlaceholders: Boolean = true,
         invalidateDataSource: Boolean = false,
@@ -140,13 +112,10 @@ class PositionalDataSourceTest {
                 .setPageSize(10)
                 .setEnablePlaceholders(enablePlaceholders)
                 .build()
-        if (enablePlaceholders) {
-            TiledPagedList(dataSource, FailExecutor(), FailExecutor(), null, config, 0)
-        } else {
-            ContiguousPagedList(dataSource.wrapAsContiguousWithoutPlaceholders(),
-                    FailExecutor(), FailExecutor(), null, config, null,
-                    ContiguousPagedList.LAST_LOAD_UNSPECIFIED)
-        }
+
+        dataSource.initExecutor(DirectExecutor.INSTANCE)
+        dataSource.loadInitial(PositionalDataSource.LoadInitialParams(
+            0, config.initialLoadSizeHint, config.pageSize, config.enablePlaceholders)).get()
     }
 
     @Test
@@ -210,6 +179,7 @@ class PositionalDataSourceTest {
         it.onResult(emptyList(), 1)
     }
 
+    /*
     @Test
     fun initialLoadCallbackInvalidTwoArg() = performLoadInitial(invalidateDataSource = true) {
         // LoadInitialCallback doesn't throw on invalid args if DataSource is invalid
@@ -221,6 +191,7 @@ class PositionalDataSourceTest {
         // LoadInitialCallback doesn't throw on invalid args if DataSource is invalid
         it.onResult(emptyList(), 0, 1)
     }
+    */
 
     private abstract class WrapperDataSource<in A, B>(private val source: PositionalDataSource<A>)
             : PositionalDataSource<B>() {
@@ -253,10 +224,6 @@ class PositionalDataSourceTest {
                 override fun onError(error: Throwable) {
                     callback.onError(error)
                 }
-
-                override fun onRetryableError(error: Throwable) {
-                    callback.onRetryableError(error)
-                }
             })
         }
 
@@ -268,10 +235,6 @@ class PositionalDataSourceTest {
 
                 override fun onError(error: Throwable) {
                     callback.onError(error)
-                }
-
-                override fun onRetryableError(error: Throwable) {
-                    callback.onRetryableError(error)
                 }
             })
         }
@@ -402,24 +365,6 @@ class PositionalDataSourceTest {
     fun testInvalidateFromWrapper() {
         val orig = ListDataSource(listOf(0, 1, 2))
         val wrapper = orig.map { it.toString() }
-
-        wrapper.invalidate()
-        assertTrue(orig.isInvalid)
-    }
-
-    @Test
-    fun testInvalidateToWrapper_contiguous() {
-        val orig = ListDataSource(listOf(0, 1, 2))
-        val wrapper = orig.wrapAsContiguousWithoutPlaceholders()
-
-        orig.invalidate()
-        assertTrue(wrapper.isInvalid)
-    }
-
-    @Test
-    fun testInvalidateFromWrapper_contiguous() {
-        val orig = ListDataSource(listOf(0, 1, 2))
-        val wrapper = orig.wrapAsContiguousWithoutPlaceholders()
 
         wrapper.invalidate()
         assertTrue(orig.isInvalid)

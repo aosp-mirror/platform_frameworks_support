@@ -27,6 +27,7 @@ plugins {
 dependencies {
     compile(project(":paging:paging-common"))
     compile(KOTLIN_STDLIB)
+    compile(KOTLIN_COROUTINES)
 
     testImplementation(JUNIT)
     testImplementation(TEST_EXT_JUNIT)
