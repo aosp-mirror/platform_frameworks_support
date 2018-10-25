@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1ea062_86240464",
+        "filename": "media2/src/main/java/androidx/media2/MediaUtils2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-25T00:25:18Z",
+      "side": 1,
+      "message": "metadata is optional field for building MediaItem2. Should we return null here?\n(I know there\u0027s nothing useful in the MediaItem2 after that)",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 32
+      },
+      "revId": "b6f0bf4dd6d7940e2507e28aace336697fafa7e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
