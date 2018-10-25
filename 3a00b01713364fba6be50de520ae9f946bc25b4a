@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b2826d3_e8108709",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-10-25T19:01:16Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 13,
+        "startChar": 52,
+        "endLine": 13,
+        "endChar": 65
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "502f2c59_14be0b8b",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextLinkSpanTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-10-25T19:01:16Z",
+      "side": 1,
+      "message": "I did not see any tests for AbstractTextLinkSpan, or span factory here. I do not know if they are somewhere else.",
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee55d729_9b3de221",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextLinkSpanTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-10-25T19:01:16Z",
+      "side": 1,
+      "message": "why shall this be canceled? instead of the log does it make more sense to keep the error, and put into an assert saying that the error message/exception should be null ?",
+      "range": {
+        "startLine": 157,
+        "startChar": 18,
+        "endLine": 157,
+        "endChar": 81
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0083fc5_3a3957f5",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextLinkSpanTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-10-25T19:01:16Z",
+      "side": 1,
+      "message": "does this require any wait?",
+      "range": {
+        "startLine": 163,
+        "startChar": 8,
+        "endLine": 164,
+        "endChar": 53
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "047b4698_ec6e010b",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-10-25T19:01:16Z",
+      "side": 1,
+      "message": "is the library currently in production? Is it possible to rename AbstractTLS to TextLinkSpan, and this one to DefaultTLS, TLSImpl etc?",
+      "range": {
+        "startLine": 571,
+        "startChar": 24,
+        "endLine": 571,
+        "endChar": 36
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef9208f4_c616cd0d",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-10-25T19:01:16Z",
+      "side": 1,
+      "message": "what is the goal of final here? if I cannot extend from this class, the class should be final, \notherwise I think it should have a @CallSuper annotation and we should let the dev to override onClick (that is the whole point of ClickableSpan)",
+      "range": {
+        "startLine": 578,
+        "startChar": 15,
+        "endLine": 578,
+        "endChar": 20
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "837ca097_48c616dd",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-10-25T19:01:16Z",
+      "side": 1,
+      "message": "context, activity, widget leak. you should not do this. \nyou can not keep strong reference  to the view. (there are two runnables, one calling the other, who knows when they are going to run)\n\nI understand it was the case before, but it is wrong.",
+      "range": {
+        "startLine": 612,
+        "startChar": 32,
+        "endLine": 612,
+        "endChar": 40
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9901bafc_a831460e",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-10-25T19:01:16Z",
+      "side": 1,
+      "message": "what is the reason for same check instead of equal?\n\nMoreover, would you agree that we should document this behavior in JavaDoc? (not calling onTextClassificationResult)",
+      "range": {
+        "startLine": 612,
+        "startChar": 45,
+        "endLine": 612,
+        "endChar": 61
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11d560a0_f4db7f3d",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-10-25T19:01:16Z",
+      "side": 1,
+      "message": "Do you really need this? Is this an error?",
+      "range": {
+        "startLine": 657,
+        "startChar": 12,
+        "endLine": 657,
+        "endChar": 69
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
