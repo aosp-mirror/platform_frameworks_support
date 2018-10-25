@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6170e0b7_9ecee14c",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 39
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-25T20:51:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d7a94e0_cd587ae1",
+      "range": {
+        "startLine": 270,
+        "startChar": 16,
+        "endLine": 270,
+        "endChar": 83
+      },
+      "revId": "2ecb5347d748daed698f96bedcfe131a8b424e56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c68b7c4_e7df2604",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
         "patchSetId": 39
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-25T18:41:14Z",
       "side": 1,
       "message": "probably use transformAsync\nhttps://google.github.io/guava/releases/19.0/api/docs/com/google/common/util/concurrent/Futures.html#transformAsync(com.google.common.util.concurrent.ListenableFuture,%20com.google.common.util.concurrent.AsyncFunction)",
+      "range": {
+        "startLine": 302,
+        "startChar": 7,
+        "endLine": 321,
+        "endChar": 11
+      },
+      "revId": "2ecb5347d748daed698f96bedcfe131a8b424e56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4f65776_7582b092",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 39
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-25T20:51:58Z",
+      "side": 1,
+      "message": "Done. here and other places with similar patter. Used Futures#transform instead.",
+      "parentUuid": "7c68b7c4_e7df2604",
       "range": {
         "startLine": 302,
         "startChar": 7,
@@ -68,6 +116,30 @@
       "revId": "2ecb5347d748daed698f96bedcfe131a8b424e56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1538bae_820c7e0b",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 39
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-25T20:51:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01cd25b7_d7ee4200",
+      "range": {
+        "startLine": 364,
+        "startChar": 5,
+        "endLine": 376,
+        "endChar": 11
+      },
+      "revId": "2ecb5347d748daed698f96bedcfe131a8b424e56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
