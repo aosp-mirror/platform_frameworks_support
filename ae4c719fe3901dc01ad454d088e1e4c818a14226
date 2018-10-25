@@ -460,6 +460,30 @@
       "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d748ce4c_299de2d2",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-10-25T18:20:27Z",
+      "side": 1,
+      "message": "Restructured the code to return ListenableFuture for APIs with async operations. Had to decouple  nested Futures. PTAL Thanks",
+      "parentUuid": "471d0730_193c69fe",
+      "range": {
+        "startLine": 712,
+        "startChar": 10,
+        "endLine": 714,
+        "endChar": 13
+      },
+      "revId": "ae4c719fe3901dc01ad454d088e1e4c818a14226",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
