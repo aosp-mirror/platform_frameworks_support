@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f58e2052_5904fa32",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1248808
+      },
+      "writtenOn": "2018-10-25T02:18:35Z",
+      "side": 1,
+      "message": "Would it be better to pass application context here ?",
+      "range": {
+        "startLine": 181,
+        "startChar": 57,
+        "endLine": 181,
+        "endChar": 64
+      },
+      "revId": "df0214007907126bca823c5b78973944ab3a1cd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4e16f92_6150f423",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 1248808
+      },
+      "writtenOn": "2018-10-25T02:18:35Z",
+      "side": 1,
+      "message": "Could this be a static class ?",
+      "range": {
+        "startLine": 682,
+        "startChar": 4,
+        "endLine": 682,
+        "endChar": 72
+      },
+      "revId": "df0214007907126bca823c5b78973944ab3a1cd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed4e3778_ad295b85",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1248808
+      },
+      "writtenOn": "2018-10-25T02:18:35Z",
+      "side": 1,
+      "message": "Could this field have final modifier ?",
+      "range": {
+        "startLine": 683,
+        "startChar": 8,
+        "endLine": 683,
+        "endChar": 33
+      },
+      "revId": "df0214007907126bca823c5b78973944ab3a1cd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
