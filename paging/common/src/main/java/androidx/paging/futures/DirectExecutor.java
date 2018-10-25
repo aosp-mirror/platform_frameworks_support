@@ -14,28 +14,21 @@
  * limitations under the License.
  */
 
-package androidx.paging;
+package androidx.paging.futures;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import java.util.concurrent.Executor;
 
-abstract class ContiguousDataSource<Key, Value> extends DataSource<Key, Value> {
+/**
+ * @hide
+ */
+public class DirectExecutor implements Executor {
+    public static DirectExecutor INSTANCE = new DirectExecutor();
+
+    private DirectExecutor() {}
     @Override
-    boolean isContiguous() {
-        return true;
-    }
-
-    /**
-     * Get the key from either the position, or item, or null if position/item invalid.
-     * <p>
-     * Position may not match passed item's position - if trying to query the key from a position
-     * that isn't yet loaded, a fallback item (last loaded item accessed) will be passed.
-     */
-    abstract Key getKey(int position, Value item);
-
-    boolean supportsPageDropping() {
-        return true;
+    public void execute(@NonNull Runnable runnable) {
+        runnable.run();
     }
 }

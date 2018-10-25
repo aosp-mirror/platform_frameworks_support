@@ -43,7 +43,9 @@ public class PagedListItemViewModel extends ViewModel {
     };
 
     private LiveData<PagedList<Item>> mLivePagedList =
-            new LivePagedListBuilder<>(mFactory, 20).build();
+            new LivePagedListBuilder<>(mFactory,
+                    new PagedList.Config.Builder().setPageSize(10).setEnablePlaceholders(false).build())
+                    .build();
 
     void invalidateList() {
         synchronized (mDataSourceLock) {

@@ -408,6 +408,7 @@ public abstract class PageKeyedDataSource<Key, Value> extends ContiguousDataSour
         return false;
     }
 
+    /*
     @Override
     final void dispatchLoadInitial(@Nullable Key key, int initialLoadSize, int pageSize,
             boolean enablePlaceholders, @NonNull Executor mainThreadExecutor,
@@ -448,6 +449,7 @@ public abstract class PageKeyedDataSource<Key, Value> extends ContiguousDataSour
             receiver.onPageResult(PageResult.PREPEND, PageResult.<Value>getEmptyResult());
         }
     }
+    */
 
     /**
      * Load initial data.

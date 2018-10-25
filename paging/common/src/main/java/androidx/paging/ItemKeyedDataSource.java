@@ -19,6 +19,9 @@ package androidx.paging;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.arch.core.util.Function;
+import androidx.concurrent.futures.ResolvableFuture;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -40,7 +43,7 @@ import java.util.concurrent.Executor;
  * @param <Key> Type of data used to query Value types out of the DataSource.
  * @param <Value> Type of items being loaded by the DataSource.
  */
-public abstract class ItemKeyedDataSource<Key, Value> extends ContiguousDataSource<Key, Value> {
+public abstract class ItemKeyedDataSource<Key, Value> extends ListenableItemKeyedSource<Key, Value> {
 
     /**
      * Holder object for inputs to {@link #loadInitial(LoadInitialParams, LoadInitialCallback)}.
@@ -297,6 +300,81 @@ public abstract class ItemKeyedDataSource<Key, Value> extends ContiguousDataSour
     }
 
     @Override
+    ListenableFuture<InitialResult<Value>> loadInitial(final @NonNull LoadInitialParams<Key> params) {
+        final ResolvableFuture<InitialResult<Value>> future = ResolvableFuture.create();
+        getExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                LoadInitialCallback<Value> callback = new LoadInitialCallback<Value>() {
+                    @Override
+                    public void onResult(@NonNull List<Value> data, int position, int totalCount) {
+                        future.set(new InitialResult<>(data, position, totalCount));
+                    }
+
+                    @Override
+                    public void onResult(@NonNull List<Value> data) {
+                        future.set(new InitialResult<>(data));
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable error) {
+                        future.setException(error);
+                    }
+                };
+                loadInitial(params, callback);
+            }
+        });
+        return future;
+    }
+
+    @Override
+    ListenableFuture<Result<Value>> loadBefore(final @NonNull LoadParams<Key> params) {
+        final ResolvableFuture<Result<Value>> future = ResolvableFuture.create();
+        getExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                LoadCallback<Value> callback = new LoadCallback<Value>() {
+                    @Override
+                    public void onResult(@NonNull List<Value> data) {
+                        future.set(new Result<>(data));
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable error) {
+                        future.setException(error);
+                    }
+                };
+                loadBefore(params, callback);
+            }
+        });
+        return future;
+    }
+
+    @Override
+    ListenableFuture<Result<Value>> loadAfter(final @NonNull LoadParams<Key> params) {
+        final ResolvableFuture<Result<Value>> future = ResolvableFuture.create();
+        getExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                LoadCallback<Value> callback = new LoadCallback<Value>() {
+                    @Override
+                    public void onResult(@NonNull List<Value> data) {
+                        future.set(new Result<>(data));
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable error) {
+                        future.setException(error);
+                    }
+                };
+                loadAfter(params, callback);
+            }
+        });
+        return future;
+    }
+
+    /*
+    @Override
     final void dispatchLoadInitial(@Nullable Key key, int initialLoadSize, int pageSize,
             boolean enablePlaceholders, @NonNull Executor mainThreadExecutor,
             @NonNull PageResult.Receiver<Value> receiver) {
@@ -325,6 +403,7 @@ public abstract class ItemKeyedDataSource<Key, Value> extends ContiguousDataSour
         loadBefore(new LoadParams<>(getKey(currentBeginItem), pageSize),
                 new LoadCallbackImpl<>(this, PageResult.PREPEND, mainThreadExecutor, receiver));
     }
+    */
 
     /**
      * Load initial data.
@@ -414,7 +493,8 @@ public abstract class ItemKeyedDataSource<Key, Value> extends ContiguousDataSour
     @Override
     public final <ToValue> ItemKeyedDataSource<Key, ToValue> mapByPage(
             @NonNull Function<List<Value>, List<ToValue>> function) {
-        return new WrapperItemKeyedDataSource<>(this, function);
+        throw new IllegalArgumentException("TODO");
+        //return new WrapperItemKeyedDataSource<>(this, function);
     }
 
     @NonNull
@@ -422,5 +502,17 @@ public abstract class ItemKeyedDataSource<Key, Value> extends ContiguousDataSour
     public final <ToValue> ItemKeyedDataSource<Key, ToValue> map(
             @NonNull Function<Value, ToValue> function) {
         return mapByPage(createListFunction(function));
+    }
+
+    /**
+     *
+     */
+    public static abstract class StorageManager<Key, Value> {
+        public abstract void replaceData(@NonNull List<Value> data);
+
+        public abstract void storeData(@NonNull Key nextKey, @NonNull List<Value> data);
+
+        @Nullable
+        public abstract Key restoreKey();
     }
 }

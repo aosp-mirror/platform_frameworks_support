@@ -391,6 +391,9 @@ public abstract class DataSource<Key, Value> {
     @AnyThread
     @SuppressWarnings("WeakerAccess")
     public void addInvalidatedCallback(@NonNull InvalidatedCallback onInvalidatedCallback) {
+        if (onInvalidatedCallback == null) {
+            throw new NullPointerException();
+        }
         mOnInvalidatedCallbacks.add(onInvalidatedCallback);
     }
 

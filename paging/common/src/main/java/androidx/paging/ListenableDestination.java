@@ -19,23 +19,25 @@ package androidx.paging;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.util.concurrent.Executor;
+import com.google.common.util.concurrent.ListenableFuture;
 
-abstract class ContiguousDataSource<Key, Value> extends DataSource<Key, Value> {
-    @Override
-    boolean isContiguous() {
-        return true;
+import java.util.List;
+
+public abstract class ListenableDestination<K, V> {
+    static class KeyPair<K> {
+        @Nullable
+        final K previousKey;
+        @Nullable
+        final K nextKey;
+
+        KeyPair(@Nullable K previousKey, @Nullable K nextKey) {
+            this.previousKey = previousKey;
+            this.nextKey = nextKey;
+        }
     }
 
-    /**
-     * Get the key from either the position, or item, or null if position/item invalid.
-     * <p>
-     * Position may not match passed item's position - if trying to query the key from a position
-     * that isn't yet loaded, a fallback item (last loaded item accessed) will be passed.
-     */
-    abstract Key getKey(int position, Value item);
+    abstract ListenableFuture<Void> store(@NonNull ListenableSource.LoadType type,
+            @Nullable K previousKey, @NonNull List<V> data, @Nullable K nextKey);
 
-    boolean supportsPageDropping() {
-        return true;
-    }
+    abstract ListenableFuture<KeyPair<K>> restoreKeys();
 }

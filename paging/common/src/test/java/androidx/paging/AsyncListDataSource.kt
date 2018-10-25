@@ -16,11 +16,25 @@
 
 package androidx.paging
 
+import androidx.concurrent.futures.ResolvableFuture
+import com.google.common.util.concurrent.ListenableFuture
+
 class AsyncListDataSource<T>(list: List<T>)
-    : PositionalDataSource<T>() {
+    : ListenablePositionalSource<T>() {
+    override fun loadInitial(params: PositionalDataSource.LoadInitialParams): ListenableFuture<InitialResult<T>> {
+        val future: ResolvableFuture<InitialResult<T>> = ResolvableFuture.create()
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun loadRange(params: PositionalDataSource.LoadRangeParams): ListenableFuture<RangeResult<T>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+
     private val workItems: MutableList<() -> Unit> = ArrayList()
     private val listDataSource = ListDataSource(list)
 
+    /*
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<T>) {
         workItems.add {
             listDataSource.loadInitial(params, callback)
@@ -32,6 +46,7 @@ class AsyncListDataSource<T>(list: List<T>)
             listDataSource.loadRange(params, callback)
         }
     }
+    */
 
     fun flush() {
         workItems.map { it() }

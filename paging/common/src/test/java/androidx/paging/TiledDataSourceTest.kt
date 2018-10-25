@@ -35,7 +35,8 @@ class TiledDataSourceTest {
         @Suppress("UNCHECKED_CAST")
         val receiver = mock(PageResult.Receiver::class.java) as PageResult.Receiver<String>
 
-        this.dispatchLoadInitial(true, startPosition, count, pageSize, FailExecutor(), receiver)
+        TODO()
+        //this.dispatchLoadInitial(true, startPosition, count, pageSize, FailExecutor(), receiver)
 
         @Suppress("UNCHECKED_CAST")
         val argument = ArgumentCaptor.forClass(PageResult::class.java)

@@ -20,6 +20,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import androidx.arch.core.util.Function;
+import androidx.concurrent.futures.ResolvableFuture;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.Collections;
 import java.util.List;
@@ -50,7 +53,7 @@ import java.util.concurrent.Executor;
  *
  * @param <T> Type of items being loaded by the PositionalDataSource.
  */
-public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
+public abstract class PositionalDataSource<T> extends ListenablePositionalSource<T> {
 
     /**
      * Holder object for inputs to {@link #loadInitial(LoadInitialParams, LoadInitialCallback)}.
@@ -351,9 +354,63 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
         }
     }
 
+    @Override
+    ListenableFuture<InitialResult<T>> loadInitial(final @NonNull LoadInitialParams params) {
+        final ResolvableFuture<InitialResult<T>> future = ResolvableFuture.create();
+        getExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                LoadInitialCallback<T> callback = new LoadInitialCallback<T>() {
+                    @Override
+                    public void onResult(@NonNull List<T> data, int position, int totalCount) {
+                        future.set(new InitialResult<T>(data, position, totalCount));
+                    }
+
+                    @Override
+                    public void onResult(@NonNull List<T> data, int position) {
+                        future.set(new InitialResult<T>(data, position));
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable error) {
+                        future.setException(error);
+                    }
+                };
+                loadInitial(params, callback);
+            }
+        });
+        return future;
+    }
+
+    @Override
+    ListenableFuture<RangeResult<T>> loadRange(final @NonNull LoadRangeParams params) {
+        final ResolvableFuture<RangeResult<T>> future = ResolvableFuture.create();
+        getExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                LoadRangeCallback<T> callback = new LoadRangeCallback<T>() {
+                    @Override
+                    public void onResult(@NonNull List<T> data) {
+                        future.set(new RangeResult<>(data));
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable error) {
+                        future.setException(error);
+                    }
+                };
+                loadRange(params, callback);
+            }
+        });
+        return future;
+    }
+
+    /*
     final void dispatchLoadInitial(boolean acceptCount,
             int requestedStartPosition, int requestedLoadSize, int pageSize,
             @NonNull Executor mainThreadExecutor, @NonNull PageResult.Receiver<T> receiver) {
+        if (true) throw new IllegalStateException();
         LoadInitialCallbackImpl<T> callback =
                 new LoadInitialCallbackImpl<>(this, acceptCount, pageSize, receiver);
 
@@ -370,6 +427,8 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
     final void dispatchLoadRange(@PageResult.ResultType int resultType, int startPosition,
             int count, @NonNull Executor mainThreadExecutor,
             @NonNull PageResult.Receiver<T> receiver) {
+
+        if (true) throw new IllegalStateException();
         LoadRangeCallback<T> callback = new LoadRangeCallbackImpl<>(
                 this, resultType, startPosition, mainThreadExecutor, receiver);
         if (count == 0) {
@@ -378,6 +437,7 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
             loadRange(new LoadRangeParams(startPosition, count), callback);
         }
     }
+    */
 
     /**
      * Load initial list data.
@@ -419,7 +479,8 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
 
     @NonNull
     ContiguousDataSource<Integer, T> wrapAsContiguousWithoutPlaceholders() {
-        return new ContiguousWithoutPlaceholdersWrapper<>(this);
+        throw new IllegalStateException("TODO");
+        //return new ContiguousWithoutPlaceholdersWrapper<>(this);
     }
 
     /**
@@ -532,6 +593,8 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
         return Math.min(totalCount - initialLoadPosition, params.requestedLoadSize);
     }
 
+    /*
+
     @SuppressWarnings("deprecation")
     static class ContiguousWithoutPlaceholdersWrapper<Value>
             extends ContiguousDataSource<Integer, Value> {
@@ -627,6 +690,8 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
 
     }
 
+
+    */
     @NonNull
     @Override
     public final <V> PositionalDataSource<V> mapByPage(
