@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "93cd4d5d_dcd33c64",
+        "filename": "media2/src/androidTest/java/androidx/media2/XMediaPlayerDrmTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-25T22:36:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0cb28289_89aabbaf",
+      "range": {
+        "startLine": 460,
+        "startChar": 17,
+        "endLine": 460,
+        "endChar": 36
+      },
+      "revId": "1ccabfb31fef2be8c95931958ee31a22397370e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d820e1e_965d0ac2",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-25T14:38:42Z",
       "side": 1,
       "message": "Was this meant to be called \"Combined...\" ?",
+      "range": {
+        "startLine": 626,
+        "startChar": 22,
+        "endLine": 626,
+        "endChar": 50
+      },
+      "revId": "1ccabfb31fef2be8c95931958ee31a22397370e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48773dc4_fe734e96",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-10-25T22:36:02Z",
+      "side": 1,
+      "message": "You are right. This class will be removed/refactored with sungsoo\u0027s change. aosp/793397.",
+      "parentUuid": "9d820e1e_965d0ac2",
       "range": {
         "startLine": 626,
         "startChar": 22,
