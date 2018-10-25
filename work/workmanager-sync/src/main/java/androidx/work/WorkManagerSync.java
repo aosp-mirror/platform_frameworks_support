@@ -20,7 +20,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
 
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,13 +34,13 @@ import java.util.concurrent.TimeUnit;
  */
 public final class WorkManagerSync {
 
-    private final WorkManagerImpl mWorkManagerImpl;
+    private final WorkManagerEngine mEngine;
 
     private static WorkManagerSync sInstance = null;
     private static final Object sLock = new Object();
 
-    private WorkManagerSync(@NonNull WorkManagerImpl workManagerImpl) {
-        this.mWorkManagerImpl = workManagerImpl;
+    private WorkManagerSync(@NonNull WorkManagerEngine engine) {
+        this.mEngine = engine;
     }
 
     /**
@@ -56,7 +56,7 @@ public final class WorkManagerSync {
     public static @NonNull WorkManagerSync getInstance() {
         synchronized (sLock) {
             if (sInstance == null) {
-                WorkManagerImpl workManager = WorkManagerImpl.getInstance();
+                WorkManagerEngine workManager = WorkManagerEngine.getInstance();
                 if (workManager == null) {
                     throw new IllegalStateException(
                             "WorkManager is not initialized properly. The most "
@@ -82,7 +82,7 @@ public final class WorkManagerSync {
     @WorkerThread
     public void enqueue(@NonNull WorkRequest... workRequests)
             throws InterruptedException, ExecutionException {
-        mWorkManagerImpl.enqueueInternal(Arrays.asList(workRequests)).get();
+        mEngine.enqueue(Arrays.asList(workRequests)).get();
     }
 
     /**
@@ -97,7 +97,7 @@ public final class WorkManagerSync {
     @WorkerThread
     public void enqueue(@NonNull List<? extends WorkRequest> requests)
             throws InterruptedException, ExecutionException {
-        mWorkManagerImpl.enqueueInternal(requests).get();
+        mEngine.enqueue(requests).get();
     }
 
     /**
@@ -130,8 +130,7 @@ public final class WorkManagerSync {
             @NonNull ExistingWorkPolicy existingWorkPolicy,
             @NonNull OneTimeWorkRequest...work)
             throws InterruptedException, ExecutionException {
-        mWorkManagerImpl.enqueueUniqueWorkInternal(
-                uniqueWorkName, existingWorkPolicy, Arrays.asList(work)).get();
+        mEngine.enqueueUniqueWork(uniqueWorkName, existingWorkPolicy, Arrays.asList(work)).get();
     }
 
     /**
@@ -164,7 +163,7 @@ public final class WorkManagerSync {
             @NonNull ExistingWorkPolicy existingWorkPolicy,
             @NonNull List<OneTimeWorkRequest> work)
             throws InterruptedException, ExecutionException {
-        mWorkManagerImpl.enqueueUniqueWorkInternal(uniqueWorkName, existingWorkPolicy, work).get();
+        mEngine.enqueueUniqueWork(uniqueWorkName, existingWorkPolicy, work).get();
     }
 
     /**
@@ -196,8 +195,8 @@ public final class WorkManagerSync {
             @NonNull ExistingPeriodicWorkPolicy existingPeriodicWorkPolicy,
             @NonNull PeriodicWorkRequest periodicWork)
             throws InterruptedException, ExecutionException {
-        mWorkManagerImpl.enqueueUniquePeriodicWorkInternal(
-                uniqueWorkName, existingPeriodicWorkPolicy, periodicWork).get();
+        mEngine.enqueueUniquePeriodicWork(uniqueWorkName, existingPeriodicWorkPolicy, periodicWork)
+                .get();
     }
 
     /**
@@ -212,7 +211,7 @@ public final class WorkManagerSync {
     @WorkerThread
     public void cancelWorkById(@NonNull UUID id)
             throws InterruptedException, ExecutionException {
-        mWorkManagerImpl.cancelWorkByIdInternal(id).get();
+        mEngine.cancelWorkById(id).get();
     }
 
     /**
@@ -227,7 +226,7 @@ public final class WorkManagerSync {
     @WorkerThread
     public void cancelAllWorkByTag(@NonNull String tag)
             throws InterruptedException, ExecutionException {
-        mWorkManagerImpl.cancelAllWorkByTagInternal(tag).get();
+        mEngine.cancelAllWorkByTag(tag).get();
     }
 
     /**
@@ -242,7 +241,7 @@ public final class WorkManagerSync {
     @WorkerThread
     public void cancelUniqueWork(@NonNull String uniqueWorkName)
             throws InterruptedException, ExecutionException {
-        mWorkManagerImpl.cancelUniqueWorkInternal(uniqueWorkName).get();
+        mEngine.cancelUniqueWork(uniqueWorkName).get();
     }
 
     /**
@@ -255,7 +254,7 @@ public final class WorkManagerSync {
      */
     @WorkerThread
     public void cancelAllWork() throws InterruptedException, ExecutionException {
-        mWorkManagerImpl.cancelAllWorkInternal().get();
+        mEngine.cancelAllWork().get();
     }
 
     /**
@@ -275,6 +274,6 @@ public final class WorkManagerSync {
      */
     @WorkerThread
     public void pruneWork() throws InterruptedException, ExecutionException {
-        mWorkManagerImpl.pruneWorkInternal().get();
+        mEngine.pruneWork().get();
     }
 }

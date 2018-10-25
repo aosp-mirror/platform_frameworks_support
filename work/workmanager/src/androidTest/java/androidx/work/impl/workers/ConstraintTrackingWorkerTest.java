@@ -42,7 +42,7 @@ import androidx.work.State;
 import androidx.work.WorkerFactory;
 import androidx.work.WorkerParameters;
 import androidx.work.impl.Scheduler;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.WorkerWrapper;
 import androidx.work.impl.constraints.trackers.BatteryChargingTracker;
 import androidx.work.impl.constraints.trackers.BatteryNotLowTracker;
@@ -81,7 +81,7 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest {
     private OneTimeWorkRequest mWork;
     private WorkerWrapper mWorkerWrapper;
     private ConstraintTrackingWorker mWorker;
-    private WorkManagerImpl mWorkManagerImpl;
+    private WorkManagerEngine mEngine;
     private Configuration mConfiguration;
     private TaskExecutor mWorkTaskExecutor;
     private Scheduler mScheduler;
@@ -100,10 +100,10 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest {
                 .build();
         mWorkTaskExecutor = new InstantWorkTaskExecutor();
 
-        mWorkManagerImpl = mock(WorkManagerImpl.class);
+        mEngine = mock(WorkManagerEngine.class);
         mScheduler = mock(Scheduler.class);
-        when(mWorkManagerImpl.getWorkDatabase()).thenReturn(mDatabase);
-        when(mWorkManagerImpl.getConfiguration()).thenReturn(mConfiguration);
+        when(mEngine.getWorkDatabase()).thenReturn(mDatabase);
+        when(mEngine.getConfiguration()).thenReturn(mConfiguration);
 
         mBatteryChargingTracker = spy(new BatteryChargingTracker(mContext));
         mBatteryNotLowTracker = spy(new BatteryNotLowTracker(mContext));

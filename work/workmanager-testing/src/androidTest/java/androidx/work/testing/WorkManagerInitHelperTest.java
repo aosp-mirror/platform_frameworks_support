@@ -26,7 +26,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 import androidx.work.WorkManager;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 
 import org.junit.After;
 import org.junit.Before;
@@ -47,7 +47,7 @@ public class WorkManagerInitHelperTest {
     @After
     public void tearDown() {
         // Clear delegates after every single test.
-        WorkManagerImpl.setDelegate(null);
+        WorkManagerEngine.setDelegate(null);
     }
 
     @Test

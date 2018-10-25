@@ -47,7 +47,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.State;
 import androidx.work.impl.Processor;
 import androidx.work.impl.Scheduler;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.constraints.trackers.BatteryChargingTracker;
 import androidx.work.impl.constraints.trackers.BatteryNotLowTracker;
 import androidx.work.impl.constraints.trackers.NetworkStateTracker;
@@ -92,7 +92,7 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
 
     private Context mContext;
     private Scheduler mScheduler;
-    private WorkManagerImpl mWorkManager;
+    private WorkManagerEngine mWorkManager;
     private Configuration mConfiguration;
     private Processor mProcessor;
     private Processor mSpyProcessor;
@@ -111,7 +111,7 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
     public void setUp() {
         mContext = InstrumentationRegistry.getTargetContext().getApplicationContext();
         mScheduler = mock(Scheduler.class);
-        mWorkManager = mock(WorkManagerImpl.class);
+        mWorkManager = mock(WorkManagerEngine.class);
         mLatch = new CountDownLatch(1);
         mCompletedListener = new SystemAlarmDispatcher.CommandsCompletedListener() {
             @Override
@@ -580,7 +580,7 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
 
         CommandInterceptingSystemDispatcher(@NonNull Context context,
                 @Nullable Processor processor,
-                @Nullable WorkManagerImpl workManager) {
+                @Nullable WorkManagerEngine workManager) {
             super(context, processor, workManager);
             mCommands = new ArrayList<>();
             mActionCount = new HashMap<>();

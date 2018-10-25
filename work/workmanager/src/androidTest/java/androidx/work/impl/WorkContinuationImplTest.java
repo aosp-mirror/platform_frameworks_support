@@ -74,7 +74,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
 
     private Configuration mConfiguration;
     private WorkDatabase mDatabase;
-    private WorkManagerImpl mWorkManagerImpl;
+    private WorkManagerEngine mEngine;
     private Scheduler mScheduler;
 
     @Before
@@ -105,20 +105,20 @@ public class WorkContinuationImplTest extends WorkManagerTest {
                 .setExecutor(new SynchronousExecutor())
                 .build();
 
-        mWorkManagerImpl =
-                spy(new WorkManagerImpl(context, mConfiguration, new InstantWorkTaskExecutor()));
-        when(mWorkManagerImpl.getSchedulers()).thenReturn(Collections.singletonList(mScheduler));
-        WorkManagerImpl.setDelegate(mWorkManagerImpl);
-        mDatabase = mWorkManagerImpl.getWorkDatabase();
+        mEngine =
+                spy(new WorkManagerEngine(context, mConfiguration, new InstantWorkTaskExecutor()));
+        when(mEngine.getSchedulers()).thenReturn(Collections.singletonList(mScheduler));
+        WorkManagerEngine.setDelegate(mEngine);
+        mDatabase = mEngine.getWorkDatabase();
     }
 
     @After
     public void tearDown() throws ExecutionException, InterruptedException {
         List<String> ids = mDatabase.workSpecDao().getAllWorkSpecIds();
         for (String id : ids) {
-            mWorkManagerImpl.cancelWorkByIdInternal(UUID.fromString(id)).get();
+            mEngine.cancelWorkById(UUID.fromString(id)).get();
         }
-        WorkManagerImpl.setDelegate(null);
+        WorkManagerEngine.setDelegate(null);
         ArchTaskExecutor.getInstance().setDelegate(null);
     }
 
@@ -126,7 +126,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
     public void testContinuation_noParent() {
         OneTimeWorkRequest testWork = createTestWorker();
         WorkContinuationImpl continuation =
-                new WorkContinuationImpl(mWorkManagerImpl, Collections.singletonList(testWork));
+                new WorkContinuationImpl(mEngine, Collections.singletonList(testWork));
 
         assertThat(continuation.getParents(), is(nullValue()));
         assertThat(continuation.getIds().size(), is(1));
@@ -139,7 +139,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
         OneTimeWorkRequest testWork = createTestWorker();
         OneTimeWorkRequest dependentWork = createTestWorker();
         WorkContinuationImpl continuation =
-                new WorkContinuationImpl(mWorkManagerImpl, Collections.singletonList(testWork));
+                new WorkContinuationImpl(mEngine, Collections.singletonList(testWork));
         WorkContinuationImpl dependent = (WorkContinuationImpl) (continuation.then(
                 dependentWork));
 
@@ -154,7 +154,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
 
     @Test
     public void testContinuation_enqueue() throws ExecutionException, InterruptedException {
-        WorkContinuationImpl continuation = new WorkContinuationImpl(mWorkManagerImpl,
+        WorkContinuationImpl continuation = new WorkContinuationImpl(mEngine,
                 createTestWorkerList());
         assertThat(continuation.isEnqueued(), is(false));
         continuation.enqueue().get();
@@ -165,7 +165,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
     @Test
     public void testContinuation_chainEnqueue() throws ExecutionException, InterruptedException {
         WorkContinuationImpl continuation =
-                new WorkContinuationImpl(mWorkManagerImpl, createTestWorkerList());
+                new WorkContinuationImpl(mEngine, createTestWorkerList());
         WorkContinuationImpl chain = (WorkContinuationImpl) (
                 continuation.then(createTestWorker()).then(createTestWorker(), createTestWorker()));
         chain.enqueue().get();
@@ -178,7 +178,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
             throws ExecutionException, InterruptedException {
 
         WorkContinuationImpl continuation =
-                new WorkContinuationImpl(mWorkManagerImpl, createTestWorkerList());
+                new WorkContinuationImpl(mEngine, createTestWorkerList());
         WorkContinuationImpl chain = (WorkContinuationImpl) (
                 continuation.then(createTestWorker()).then(createTestWorker(), createTestWorker()));
         chain.enqueue().get();
@@ -192,9 +192,9 @@ public class WorkContinuationImplTest extends WorkManagerTest {
 
     @Test
     public void testContinuation_join() {
-        WorkContinuationImpl first = new WorkContinuationImpl(mWorkManagerImpl,
+        WorkContinuationImpl first = new WorkContinuationImpl(mEngine,
                 createTestWorkerList());
-        WorkContinuationImpl second = new WorkContinuationImpl(mWorkManagerImpl,
+        WorkContinuationImpl second = new WorkContinuationImpl(mEngine,
                 createTestWorkerList());
 
         WorkContinuationImpl dependent = (WorkContinuationImpl) WorkContinuation.combine(first,
@@ -204,9 +204,9 @@ public class WorkContinuationImplTest extends WorkManagerTest {
     }
 
     public void testContinuation_withWorkJoin() {
-        WorkContinuationImpl first = new WorkContinuationImpl(mWorkManagerImpl,
+        WorkContinuationImpl first = new WorkContinuationImpl(mEngine,
                 createTestWorkerList());
-        WorkContinuationImpl second = new WorkContinuationImpl(mWorkManagerImpl,
+        WorkContinuationImpl second = new WorkContinuationImpl(mEngine,
                 createTestWorkerList());
 
         OneTimeWorkRequest work = createTestWorker();
@@ -221,14 +221,14 @@ public class WorkContinuationImplTest extends WorkManagerTest {
 
     @Test
     public void testContinuation_joinAndEnqueue() throws ExecutionException, InterruptedException {
-        WorkContinuationImpl first = new WorkContinuationImpl(mWorkManagerImpl,
+        WorkContinuationImpl first = new WorkContinuationImpl(mEngine,
                 createTestWorkerList());
-        WorkContinuationImpl second = new WorkContinuationImpl(mWorkManagerImpl,
+        WorkContinuationImpl second = new WorkContinuationImpl(mEngine,
                 createTestWorkerList());
 
-        WorkContinuationImpl third = new WorkContinuationImpl(mWorkManagerImpl,
+        WorkContinuationImpl third = new WorkContinuationImpl(mEngine,
                 createTestWorkerList());
-        WorkContinuationImpl fourth = new WorkContinuationImpl(mWorkManagerImpl,
+        WorkContinuationImpl fourth = new WorkContinuationImpl(mEngine,
                 createTestWorkerList());
 
         WorkContinuationImpl firstDependent = (WorkContinuationImpl) WorkContinuation.combine(
@@ -246,11 +246,11 @@ public class WorkContinuationImplTest extends WorkManagerTest {
     public void testContinuation_joinAndEnqueueWithOverlaps()
             throws ExecutionException, InterruptedException {
 
-        WorkContinuationImpl first = new WorkContinuationImpl(mWorkManagerImpl,
+        WorkContinuationImpl first = new WorkContinuationImpl(mEngine,
                 createTestWorkerList());
-        WorkContinuationImpl second = new WorkContinuationImpl(mWorkManagerImpl,
+        WorkContinuationImpl second = new WorkContinuationImpl(mEngine,
                 createTestWorkerList());
-        WorkContinuationImpl third = new WorkContinuationImpl(mWorkManagerImpl,
+        WorkContinuationImpl third = new WorkContinuationImpl(mEngine,
                 createTestWorkerList());
         WorkContinuationImpl firstDependent = (WorkContinuationImpl) WorkContinuation.combine(
                 first, second);
@@ -291,9 +291,9 @@ public class WorkContinuationImplTest extends WorkManagerTest {
                 new Data.Builder().putInt(intTag, 1).putString(stringTag, "hello").build());
 
         WorkContinuationImpl firstContinuation =
-                new WorkContinuationImpl(mWorkManagerImpl, Collections.singletonList(firstWork));
+                new WorkContinuationImpl(mEngine, Collections.singletonList(firstWork));
         WorkContinuationImpl secondContinuation =
-                new WorkContinuationImpl(mWorkManagerImpl, Collections.singletonList(secondWork));
+                new WorkContinuationImpl(mEngine, Collections.singletonList(secondWork));
         WorkContinuationImpl dependentContinuation =
                 (WorkContinuationImpl) WorkContinuation.combine(
                         firstContinuation, secondContinuation);
@@ -346,10 +346,10 @@ public class WorkContinuationImplTest extends WorkManagerTest {
         OneTimeWorkRequest cWork = createTestWorker(); // C
 
         WorkContinuation continuationA = new WorkContinuationImpl(
-                mWorkManagerImpl, Collections.singletonList(aWork));
+                mEngine, Collections.singletonList(aWork));
 
         WorkContinuation continuationB = new WorkContinuationImpl(
-                mWorkManagerImpl, Collections.singletonList(bWork));
+                mEngine, Collections.singletonList(bWork));
 
         // B -> C
         WorkContinuation continuationBC = continuationB.then(cWork);
@@ -367,7 +367,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
     public void testContinuation_hasCycles2() {
         OneTimeWorkRequest aWork = createTestWorker(); // A
         WorkContinuation continuationA = new WorkContinuationImpl(
-                mWorkManagerImpl, Collections.singletonList(aWork));
+                mEngine, Collections.singletonList(aWork));
 
         // A -> A
         WorkContinuationImpl withCycles = (WorkContinuationImpl) continuationA.then(aWork);
@@ -379,7 +379,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
     public void testContinuation_hasCycles3() {
         OneTimeWorkRequest aWork = createTestWorker(); // A
         WorkContinuation continuationA = new WorkContinuationImpl(
-                mWorkManagerImpl, Collections.singletonList(aWork));
+                mEngine, Collections.singletonList(aWork));
 
         // A -> A
         WorkContinuation first = continuationA.then(aWork);
@@ -400,7 +400,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
         OneTimeWorkRequest cWork = createTestWorker(); // C
 
         WorkContinuation continuationA = new WorkContinuationImpl(
-                mWorkManagerImpl, Collections.singletonList(aWork));
+                mEngine, Collections.singletonList(aWork));
 
         // A   A
         //   B
@@ -425,10 +425,10 @@ public class WorkContinuationImplTest extends WorkManagerTest {
         OneTimeWorkRequest cWork = createTestWorker(); // C
 
         WorkContinuation continuationAB = new WorkContinuationImpl(
-                mWorkManagerImpl, Arrays.asList(aWork, bWork));
+                mEngine, Arrays.asList(aWork, bWork));
 
         WorkContinuation continuationBC = new WorkContinuationImpl(
-                mWorkManagerImpl, Arrays.asList(bWork, cWork));
+                mEngine, Arrays.asList(bWork, cWork));
 
         WorkContinuationImpl joined =
                 (WorkContinuationImpl) WorkContinuation.combine(continuationAB, continuationBC);
@@ -444,7 +444,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
         OneTimeWorkRequest cWork = createTestWorker(); // C
 
         WorkContinuation continuationA = new WorkContinuationImpl(
-                mWorkManagerImpl, Collections.singletonList(aWork));
+                mEngine, Collections.singletonList(aWork));
 
         // A -> B
         WorkContinuation continuationB = continuationA.then(bWork);
@@ -452,7 +452,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
         WorkContinuation continuationC = continuationA.then(cWork);
 
         WorkContinuation continuationA2 = new WorkContinuationImpl(
-                mWorkManagerImpl, Collections.singletonList(aWork));
+                mEngine, Collections.singletonList(aWork));
         // A -> B
         WorkContinuation continuationB2 = continuationA2.then(bWork);
         // A -> C
@@ -475,13 +475,13 @@ public class WorkContinuationImplTest extends WorkManagerTest {
         OneTimeWorkRequest cWork = createTestWorker(); // C
 
         WorkContinuation continuationA = new WorkContinuationImpl(
-                mWorkManagerImpl, Collections.singletonList(aWork));
+                mEngine, Collections.singletonList(aWork));
 
         WorkContinuation continuationB = new WorkContinuationImpl(
-                mWorkManagerImpl, Collections.singletonList(bWork));
+                mEngine, Collections.singletonList(bWork));
 
         WorkContinuation continuationC = new WorkContinuationImpl(
-                mWorkManagerImpl, Collections.singletonList(cWork));
+                mEngine, Collections.singletonList(cWork));
 
         WorkContinuation first = WorkContinuation.combine(continuationA, continuationB);
         WorkContinuation second = WorkContinuation.combine(continuationA, continuationC);
@@ -499,8 +499,10 @@ public class WorkContinuationImplTest extends WorkManagerTest {
         OneTimeWorkRequest cWork = createTestWorker(); // C
         OneTimeWorkRequest dWork = createTestWorker(); // D
 
-        WorkContinuation firstChain = mWorkManagerImpl.beginWith(aWork).then(bWork);
-        WorkContinuation secondChain = mWorkManagerImpl.beginWith(cWork);
+        WorkContinuation firstChain = mEngine
+                .beginWith(Collections.singletonList(aWork))
+                .then(bWork);
+        WorkContinuation secondChain = mEngine.beginWith(Collections.singletonList(cWork));
         WorkContinuation combined = WorkContinuation.combine(dWork, firstChain, secondChain);
 
         combined.enqueue().get();
@@ -525,13 +527,13 @@ public class WorkContinuationImplTest extends WorkManagerTest {
     }
 
     private static void verifyScheduled(Scheduler scheduler, WorkContinuationImpl continuation) {
-        Configuration configuration = continuation.getWorkManagerImpl().getConfiguration();
+        Configuration configuration = continuation.getEngine().getConfiguration();
         ArgumentCaptor<WorkSpec> captor = ArgumentCaptor.forClass(WorkSpec.class);
         verify(scheduler, times(1)).schedule(captor.capture());
         List<WorkSpec> workSpecs = captor.getAllValues();
         assertThat(workSpecs, notNullValue());
 
-        WorkDatabase workDatabase = continuation.getWorkManagerImpl().getWorkDatabase();
+        WorkDatabase workDatabase = continuation.getEngine().getWorkDatabase();
         List<WorkSpec> eligibleWorkSpecs =
                 workDatabase
                         .workSpecDao()

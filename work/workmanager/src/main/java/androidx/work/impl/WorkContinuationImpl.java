@@ -51,7 +51,7 @@ public class WorkContinuationImpl extends WorkContinuation {
 
     private static final String TAG = "WorkContinuationImpl";
 
-    private final WorkManagerImpl mWorkManagerImpl;
+    private final WorkManagerEngine mEngine;
     private final String mName;
     private final ExistingWorkPolicy mExistingWorkPolicy;
     private final List<? extends WorkRequest> mWork;
@@ -63,8 +63,8 @@ public class WorkContinuationImpl extends WorkContinuation {
     private ListenableFuture<Void> mFuture;
 
     @NonNull
-    public WorkManagerImpl getWorkManagerImpl() {
-        return mWorkManagerImpl;
+    public WorkManagerEngine getEngine() {
+        return mEngine;
     }
 
     @Nullable
@@ -106,10 +106,10 @@ public class WorkContinuationImpl extends WorkContinuation {
     }
 
     WorkContinuationImpl(
-            @NonNull WorkManagerImpl workManagerImpl,
+            @NonNull WorkManagerEngine engine,
             @NonNull List<? extends WorkRequest> work) {
         this(
-                workManagerImpl,
+                engine,
                 null,
                 ExistingWorkPolicy.KEEP,
                 work,
@@ -117,19 +117,19 @@ public class WorkContinuationImpl extends WorkContinuation {
     }
 
     WorkContinuationImpl(
-            @NonNull WorkManagerImpl workManagerImpl,
+            @NonNull WorkManagerEngine engine,
             String name,
             ExistingWorkPolicy existingWorkPolicy,
             @NonNull List<? extends WorkRequest> work) {
-        this(workManagerImpl, name, existingWorkPolicy, work, null);
+        this(engine, name, existingWorkPolicy, work, null);
     }
 
-    WorkContinuationImpl(@NonNull WorkManagerImpl workManagerImpl,
+    WorkContinuationImpl(@NonNull WorkManagerEngine engine,
             String name,
             ExistingWorkPolicy existingWorkPolicy,
             @NonNull List<? extends WorkRequest> work,
             @Nullable List<WorkContinuationImpl> parents) {
-        mWorkManagerImpl = workManagerImpl;
+        mEngine = engine;
         mName = name;
         mExistingWorkPolicy = existingWorkPolicy;
         mWork = work;
@@ -152,7 +152,7 @@ public class WorkContinuationImpl extends WorkContinuation {
     public @NonNull WorkContinuation then(List<OneTimeWorkRequest> work) {
         // TODO (rahulrav@) We need to decide if we want to allow chaining of continuations after
         // an initial call to enqueue()
-        return new WorkContinuationImpl(mWorkManagerImpl,
+        return new WorkContinuationImpl(mEngine,
                 mName,
                 ExistingWorkPolicy.KEEP,
                 work,
@@ -161,16 +161,16 @@ public class WorkContinuationImpl extends WorkContinuation {
 
     @Override
     public @NonNull LiveData<List<WorkStatus>> getStatusesLiveData() {
-        return mWorkManagerImpl.getStatusesById(mAllIds);
+        return mEngine.getStatusesById(mAllIds);
     }
 
     @NonNull
     @Override
     public ListenableFuture<List<WorkStatus>> getStatuses() {
         StatusRunnable<List<WorkStatus>> runnable =
-                StatusRunnable.forStringIds(mWorkManagerImpl, mAllIds);
+                StatusRunnable.forStringIds(mEngine, mAllIds);
 
-        mWorkManagerImpl.getWorkTaskExecutor().executeOnBackgroundThread(runnable);
+        mEngine.getWorkTaskExecutor().executeOnBackgroundThread(runnable);
         return runnable.getFuture();
     }
 
@@ -181,7 +181,7 @@ public class WorkContinuationImpl extends WorkContinuation {
             // The runnable walks the hierarchy of the continuations
             // and marks them enqueued using the markEnqueued() method, parent first.
             EnqueueRunnable runnable = new EnqueueRunnable(this);
-            mWorkManagerImpl.getWorkTaskExecutor().executeOnBackgroundThread(runnable);
+            mEngine.getWorkTaskExecutor().executeOnBackgroundThread(runnable);
             mFuture = runnable.getFuture();
         } else {
             Logger.warning(TAG,
@@ -206,7 +206,7 @@ public class WorkContinuationImpl extends WorkContinuation {
             parents.add((WorkContinuationImpl) continuation);
         }
 
-        return new WorkContinuationImpl(mWorkManagerImpl,
+        return new WorkContinuationImpl(mEngine,
                 null,
                 ExistingWorkPolicy.KEEP,
                 Collections.singletonList(work),

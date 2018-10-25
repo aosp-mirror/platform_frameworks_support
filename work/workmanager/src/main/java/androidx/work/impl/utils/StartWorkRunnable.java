@@ -19,7 +19,7 @@ package androidx.work.impl.utils;
 import android.support.annotation.RestrictTo;
 
 import androidx.work.WorkerParameters;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 
 /**
  * A {@link Runnable} that can start work on the
@@ -29,21 +29,21 @@ import androidx.work.impl.WorkManagerImpl;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class StartWorkRunnable implements Runnable {
 
-    private WorkManagerImpl mWorkManagerImpl;
+    private WorkManagerEngine mEngine;
     private String mWorkSpecId;
     private WorkerParameters.RuntimeExtras mRuntimeExtras;
 
     public StartWorkRunnable(
-            WorkManagerImpl workManagerImpl,
+            WorkManagerEngine engine,
             String workSpecId,
             WorkerParameters.RuntimeExtras runtimeExtras) {
-        mWorkManagerImpl = workManagerImpl;
+        mEngine = engine;
         mWorkSpecId = workSpecId;
         mRuntimeExtras = runtimeExtras;
     }
 
     @Override
     public void run() {
-        mWorkManagerImpl.getProcessor().startWork(mWorkSpecId, mRuntimeExtras);
+        mEngine.getProcessor().startWork(mWorkSpecId, mRuntimeExtras);
     }
 }

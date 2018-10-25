@@ -31,7 +31,7 @@ import android.text.TextUtils;
 import androidx.work.Logger;
 import androidx.work.impl.ExecutionListener;
 import androidx.work.impl.Processor;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.utils.WakeLocks;
 
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public class SystemAlarmDispatcher implements ExecutionListener {
     final Context mContext;
     private final WorkTimer mWorkTimer;
     private final Processor mProcessor;
-    private final WorkManagerImpl mWorkManager;
+    private final WorkManagerEngine mWorkManager;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final CommandHandler mCommandHandler;
     private final Handler mMainHandler;
@@ -74,12 +74,12 @@ public class SystemAlarmDispatcher implements ExecutionListener {
     SystemAlarmDispatcher(
             @NonNull Context context,
             @Nullable Processor processor,
-            @Nullable WorkManagerImpl workManager) {
+            @Nullable WorkManagerEngine workManager) {
 
         mContext = context.getApplicationContext();
         mCommandHandler = new CommandHandler(mContext);
         mWorkTimer = new WorkTimer();
-        mWorkManager = workManager != null ? workManager : WorkManagerImpl.getInstance();
+        mWorkManager = workManager != null ? workManager : WorkManagerEngine.getInstance();
         mProcessor = processor != null ? processor : mWorkManager.getProcessor();
         mProcessor.addExecutionListener(this);
         // a list of pending intents which need to be processed
@@ -166,7 +166,7 @@ public class SystemAlarmDispatcher implements ExecutionListener {
         return mWorkTimer;
     }
 
-    WorkManagerImpl getWorkManager() {
+    WorkManagerEngine getWorkManager() {
         return mWorkManager;
     }
 

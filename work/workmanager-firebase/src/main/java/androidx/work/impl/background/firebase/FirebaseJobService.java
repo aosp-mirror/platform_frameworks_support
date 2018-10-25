@@ -22,7 +22,7 @@ import android.text.TextUtils;
 
 import androidx.work.Logger;
 import androidx.work.impl.ExecutionListener;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
@@ -38,20 +38,20 @@ import java.util.Map;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class FirebaseJobService extends JobService implements ExecutionListener {
     private static final String TAG = "FirebaseJobService";
-    private WorkManagerImpl mWorkManagerImpl;
+    private WorkManagerEngine mEngine;
     private final Map<String, JobParameters> mJobParameters = new HashMap<>();
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mWorkManagerImpl = WorkManagerImpl.getInstance();
-        mWorkManagerImpl.getProcessor().addExecutionListener(this);
+        mEngine = WorkManagerEngine.getInstance();
+        mEngine.getProcessor().addExecutionListener(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mWorkManagerImpl.getProcessor().removeExecutionListener(this);
+        mEngine.getProcessor().removeExecutionListener(this);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class FirebaseJobService extends JobService implements ExecutionListener 
         synchronized (mJobParameters) {
             mJobParameters.put(workSpecId, params);
         }
-        mWorkManagerImpl.startWork(workSpecId);
+        mEngine.startWork(workSpecId);
         return true;
     }
 
@@ -83,8 +83,8 @@ public class FirebaseJobService extends JobService implements ExecutionListener 
         synchronized (mJobParameters) {
             mJobParameters.remove(workSpecId);
         }
-        mWorkManagerImpl.stopWork(workSpecId);
-        return !mWorkManagerImpl.getProcessor().isCancelled(workSpecId);
+        mEngine.stopWork(workSpecId);
+        return !mEngine.getProcessor().isCancelled(workSpecId);
     }
 
     @Override

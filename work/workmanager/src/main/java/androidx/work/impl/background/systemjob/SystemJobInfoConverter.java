@@ -33,7 +33,7 @@ import androidx.work.Constraints;
 import androidx.work.ContentUriTriggers;
 import androidx.work.Logger;
 import androidx.work.NetworkType;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.model.WorkSpec;
 
 /**
@@ -42,7 +42,7 @@ import androidx.work.impl.model.WorkSpec;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-@RequiresApi(api = WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL)
+@RequiresApi(api = WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL)
 class SystemJobInfoConverter {
     private static final String TAG = "SystemJobInfoConverter";
 

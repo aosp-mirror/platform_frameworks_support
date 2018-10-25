@@ -551,7 +551,7 @@ public class WorkerWrapperTest extends DatabaseTest {
         assertThat(periodicWorkSpecAfterFirstRun.runAttemptCount, is(0));
         assertThat(periodicWorkSpecAfterFirstRun.state, is(ENQUEUED));
         // SystemAlarmScheduler needs to reschedule the same worker.
-        if (Build.VERSION.SDK_INT <= WorkManagerImpl.MAX_PRE_JOB_SCHEDULER_API_LEVEL) {
+        if (Build.VERSION.SDK_INT <= WorkManagerEngine.MAX_PRE_JOB_SCHEDULER_API_LEVEL) {
             ArgumentCaptor<WorkSpec> captor = ArgumentCaptor.forClass(WorkSpec.class);
             verify(mMockScheduler, atLeast(1))
                     .schedule(captor.capture());

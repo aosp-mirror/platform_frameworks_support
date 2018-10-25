@@ -65,7 +65,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(AndroidJUnit4.class)
-public class WorkManagerImplLargeExecutorTest {
+public class WorkManagerEngineLargeExecutorTest {
 
     private static final int NUM_WORKERS = 200;
 
@@ -79,7 +79,7 @@ public class WorkManagerImplLargeExecutorTest {
     private static final int TEST_SCHEDULER_LIMIT = 50;
 
 
-    private WorkManagerImpl mWorkManagerImplSpy;
+    private WorkManagerEngine mEngineSPy;
     private TestLifecycleOwner mLifecycleOwner;
 
     @Before
@@ -109,27 +109,30 @@ public class WorkManagerImplLargeExecutorTest {
                 .setExecutor(executor)
                 .setMaxSchedulerLimit(TEST_SCHEDULER_LIMIT)
                 .build();
-        mWorkManagerImplSpy = spy(
-                new WorkManagerImpl(context, configuration, new InstantWorkTaskExecutor(), true));
+        mEngineSPy = spy(new WorkManagerEngine(
+                context,
+                configuration,
+                new InstantWorkTaskExecutor(),
+                true));
 
-        TrackingScheduler trackingScheduler = new TrackingScheduler(context, mWorkManagerImplSpy);
+        TrackingScheduler trackingScheduler = new TrackingScheduler(context, mEngineSPy);
         Processor processor = new Processor(context,
                 configuration,
-                mWorkManagerImplSpy.getWorkTaskExecutor(),
-                mWorkManagerImplSpy.getWorkDatabase(),
+                mEngineSPy.getWorkTaskExecutor(),
+                mEngineSPy.getWorkDatabase(),
                 Collections.singletonList((Scheduler) trackingScheduler));
 
-        when(mWorkManagerImplSpy.getSchedulers()).thenReturn(
+        when(mEngineSPy.getSchedulers()).thenReturn(
                 Collections.singletonList((Scheduler) trackingScheduler));
-        when(mWorkManagerImplSpy.getProcessor()).thenReturn(processor);
+        when(mEngineSPy.getProcessor()).thenReturn(processor);
 
         mLifecycleOwner = new TestLifecycleOwner();
-        WorkManagerImpl.setDelegate(mWorkManagerImplSpy);
+        WorkManagerEngine.setDelegate(mEngineSPy);
     }
 
     @After
     public void tearDown() {
-        WorkManagerImpl.setDelegate(null);
+        WorkManagerEngine.setDelegate(null);
         ArchTaskExecutor.getInstance().setDelegate(null);
     }
 
@@ -148,7 +151,7 @@ public class WorkManagerImplLargeExecutorTest {
 
 
         final CountDownLatch latch = new CountDownLatch(NUM_WORKERS);
-        WorkContinuation continuation = mWorkManagerImplSpy.beginWith(workRequests);
+        WorkContinuation continuation = mEngineSPy.beginWith(workRequests);
 
         continuation.getStatusesLiveData()
                 .observe(mLifecycleOwner, new Observer<List<WorkStatus>>() {
@@ -183,8 +186,8 @@ public class WorkManagerImplLargeExecutorTest {
 
         private Set<String> mScheduledWorkSpecIds;
 
-        TrackingScheduler(Context context, WorkManagerImpl workManagerImpl) {
-            super(context, workManagerImpl);
+        TrackingScheduler(Context context, WorkManagerEngine engine) {
+            super(context, engine);
             mScheduledWorkSpecIds = new HashSet<>();
         }
 
