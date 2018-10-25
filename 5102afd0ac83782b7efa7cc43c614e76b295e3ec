@@ -22,6 +22,30 @@
       "revId": "5102afd0ac83782b7efa7cc43c614e76b295e3ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3804c8fe_f8de1c4f",
+        "filename": "work/workmanager/api/1.0.0-alpha10.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-25T20:44:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c827a2d4_4870f2b8",
+      "range": {
+        "startLine": 215,
+        "startChar": 18,
+        "endLine": 215,
+        "endChar": 22
+      },
+      "revId": "5102afd0ac83782b7efa7cc43c614e76b295e3ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
