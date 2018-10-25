@@ -69,6 +69,10 @@ class SnapshotPagedList<T> extends PagedList<T> {
     }
 
     @Override
+    void dispatchCurrentLoadState(LoadStateListener listener) {
+    }
+
+    @Override
     void loadAroundInternal(int index) {
     }
 }

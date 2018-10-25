@@ -23,6 +23,7 @@ package androidx.paging.futures {
   }
 
   @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class Futures {
+    method public static <V> void addCallback(com.google.common.util.concurrent.ListenableFuture<V>, androidx.paging.futures.FutureCallback<? super V>, java.util.concurrent.Executor);
     method public static <I, O> com.google.common.util.concurrent.ListenableFuture<O> transform(com.google.common.util.concurrent.ListenableFuture<I>, androidx.arch.core.util.Function<? super I,? extends O>, java.util.concurrent.Executor);
   }
 
