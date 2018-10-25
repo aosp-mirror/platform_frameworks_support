@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c9ed58b3_cd7567d5",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-10-25T05:31:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f58e2052_5904fa32",
+      "range": {
+        "startLine": 181,
+        "startChar": 57,
+        "endLine": 181,
+        "endChar": 64
+      },
+      "revId": "df0214007907126bca823c5b78973944ab3a1cd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4e16f92_6150f423",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b09eba44_ea3c68a4",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-10-25T05:31:14Z",
+      "side": 1,
+      "message": "static is a better choice not to create multiple receivers.",
+      "parentUuid": "f4e16f92_6150f423",
+      "range": {
+        "startLine": 682,
+        "startChar": 4,
+        "endLine": 682,
+        "endChar": 72
+      },
+      "revId": "df0214007907126bca823c5b78973944ab3a1cd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed4e3778_ad295b85",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "df0214007907126bca823c5b78973944ab3a1cd4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8afb228_3ea8f7c4",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-10-25T05:31:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed4e3778_ad295b85",
+      "range": {
+        "startLine": 683,
+        "startChar": 8,
+        "endLine": 683,
+        "endChar": 33
+      },
+      "revId": "df0214007907126bca823c5b78973944ab3a1cd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
