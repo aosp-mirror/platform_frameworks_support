@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0cb28289_89aabbaf",
+        "filename": "media2/src/androidTest/java/androidx/media2/XMediaPlayerDrmTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-10-25T14:36:53Z",
+      "side": 1,
+      "message": "Well at least that one doesn\u0027t need to be renamed ;-)",
+      "range": {
+        "startLine": 460,
+        "startChar": 17,
+        "endLine": 460,
+        "endChar": 36
+      },
+      "revId": "1ccabfb31fef2be8c95931958ee31a22397370e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
