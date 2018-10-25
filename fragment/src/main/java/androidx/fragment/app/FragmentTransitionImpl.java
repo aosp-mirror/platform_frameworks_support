@@ -23,7 +23,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.RestrictTo;
-import androidx.core.view.OneShotPreDrawListener;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewGroupCompat;
 
